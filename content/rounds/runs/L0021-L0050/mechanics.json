@@ -35,7 +35,8 @@
    "recipe": "bridge+hidden",
    "bridgeSide": "up",
    "strip": "gap",
-   "bridgeKind": "better"
+   "bridgeKind": "better",
+   "by": "hand"
   },
   {
    "level": 24,
@@ -103,7 +104,8 @@
    "bridgeSide": "two",
    "strip": "gap",
    "bridgeKind": "single",
-   "hidden": 2
+   "hidden": 2,
+   "by": "hand"
   },
   {
    "level": 31,
@@ -133,7 +135,8 @@
    "recipe": "bridge+hidden",
    "bridgeSide": "left",
    "strip": "gap",
-   "bridgeKind": "better"
+   "bridgeKind": "better",
+   "by": "hand"
   },
   {
    "level": 34,
@@ -155,7 +158,8 @@
    "recipe": "bridge+links+hidden",
    "bridgeSide": "right",
    "strip": "gap",
-   "bridgeKind": "better"
+   "bridgeKind": "better",
+   "by": "hand"
   },
   {
    "level": 36,
@@ -228,7 +232,8 @@
    "recipe": "bridge+hidden",
    "bridgeSide": "right",
    "strip": "gap",
-   "bridgeKind": "better"
+   "bridgeKind": "better",
+   "by": "hand"
   },
   {
    "level": 44,
@@ -251,7 +256,8 @@
    "bridgeSide": "two",
    "strip": "gap",
    "bridgeKind": "single",
-   "hidden": 2
+   "hidden": 2,
+   "by": "hand"
   },
   {
    "level": 46,
@@ -298,7 +304,8 @@
    "recipe": "bridge+links+hidden",
    "bridgeSide": "up",
    "strip": "gap",
-   "bridgeKind": "better"
+   "bridgeKind": "better",
+   "by": "hand"
   }
  ],
  "supersedes": "product/plans/wave-L21-L50-mechanics-plan-2026-10-28.md",
@@ -310,5 +317,10 @@
   "Доисторический мир",
   "Дома и архитектура",
   "Фигуры, знаки и эмблемы"
- ]
+ ],
+ "builders": {
+  "decided": "2026-10-30",
+  "by": "owner",
+  "note": "Normal and Hard without a bridge: the generator (rounds.mjs run, the bots check every rule); Super Hard and every bridge level: by hand (levels.mjs adopt), the bridge pictures one whole picture with a contour from its own meaning (17 §8, §13). L30 and L45 locked."
+ }
 }

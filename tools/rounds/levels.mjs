@@ -323,6 +323,8 @@ function place(from,to){const placed={};for(const f of fs.existsSync(LEVELS)?fs.
  for(let n=from;n<=to;n++){if(placed[n])continue;const slot=slotOf(n),prev=[placed[n-1],placed[n-2]].filter(Boolean);
   // an approved mechanics plan (17 §13 step 1, amendment of 2026-10-28) fixes the position's recipe and bridge side
   const plan=planOf(n,plans);
+  // a position the plan gives to hand building (17 §13 «Кто строит уровни», 2026-10-30: by 'hand') is left to adopt
+  if(plan&&plan.by==='hand'){console.log(lid(n),plan.cls,'— вручную по плану (levels.mjs adopt), генератор не ставит');continue;}
   const window=Object.values(placed).filter(L=>L.level>n-20&&L.level<n+20);
   // Normal after the introductions: a mechanic in two of three (17 §7); a third may go without when the last two had one
   const lastRegular=Object.values(placed).filter(L=>L.level<n&&L.cls==='Normal'&&!L.intro&&slotOf(L.level).allowed.length).sort((a,b)=>b.level-a.level).slice(0,2);
