@@ -1,12 +1,15 @@
 // A playable page of one Colony Flow round with winning tap patterns to follow (the owner, 2026-10-30: «сделай мне этот
 // раунд в html … дай мне 10 паттернов … чтоб я смог смотреть и следовать им»). The round is the CF model of
 // tools/level-stats (its tray of columns and rows as the storyboard has it) on the v8E pilot page (the engine the CF engine
-// grew from; with only links between different columns and hidden capsules the two rules agree), its colours turned back to
-// the CF ones. The patterns come from cf-patterns.mjs (<key>-patterns.txt.gz): the recorded win first, then evenly spread
-// ones; each is checked in the CF engine with the player waiting for the board to settle between taps. A panel follows the
+// grew from) with Colony Flow's link rule put in (a linked capsule may also leave when its partner lies right under it in the
+// same column, "4-4"; the rule tools/level-stats/engines.mjs gives the CF engine), its colours turned back to the CF ones.
+// The patterns: the recorded win first, then evenly spread ones from cf-patterns.mjs (<key>-patterns.txt.gz) when the round
+// has its full list, else wins found by random play (bots); each is checked in the CF engine with the player waiting for
+// the board to settle between taps. A panel follows the
 // page's tray (window.bloomlingsPilot.snapshot().visual.heads): the next tap of the chosen pattern, the taps done, a tap off
 // the pattern.
-// node tools/rounds/analysis/cf-round-page.mjs <CF-key> [--count 10] [--colours G:R,P:D,B:C,A:Y] [--title "…"] [--out <file>]
+// node tools/rounds/analysis/cf-round-page.mjs <CF-key> [--count 10] [--colours G:R,P:D,B:C,A:Y] [--title "…"]
+//   [--total "…": the line on how many winning patterns the round has, when it has no full list] [--out <file>]
 const ROOT=new URL('../../../',import.meta.url).pathname;
 const fs=await import('node:fs'),path=await import('node:path'),zlib=await import('node:zlib'),{execSync}=await import('node:child_process');
 const {allRecords,V8E_COMMIT}=await import(ROOT+'tools/level-stats/levels.mjs');const {engine}=await import(ROOT+'tools/level-stats/engines.mjs');
@@ -26,7 +29,16 @@ function recorded(){const files=[ROOT+'product/audits/colony-flow-rounds/levels.
   const r=lv&&(lv.rounds||lv.attempts||[]).find(r=>r.outcome==='won');if(!r)continue;let s=R.create(level,rec.capacity||5);const out=[];
   for(const t of r.taps){const c=+String(t.column).replace(/\D/g,'')-1,p=level.tray[c][s.heads[c]],g=s.meta.groups[p];out.push(lab(s,g[0]));s=I.step(s,{type:'tap',pod:g[0]}).state;}
   return out.join(' ');}return null;}
-const all=zlib.gunzipSync(fs.readFileSync(path.join(DIR,key+'-patterns.txt.gz'))).toString().trim().split('\n');
+// the full list when cf-patterns.mjs could make it, else wins of random play (uniform over the taps on offer, waiting
+// between taps), distinct and sorted so an even spread starts differently
+const listFile=path.join(DIR,key+'-patterns.txt.gz'),full=fs.existsSync(listFile);
+let all,randomShare=null;
+if(full)all=zlib.gunzipSync(fs.readFileSync(listFile)).toString().trim().split('\n');
+else{let seed=4242+rec.level*7919;const rnd=()=>{seed^=seed<<13;seed>>>=0;seed^=seed>>17;seed^=seed<<5;seed>>>=0;return seed/4294967296;};
+ const wins=new Set();let games=0;while(wins.size<COUNT*40&&games<COUNT*4000){games++;let s=R.create(level,rec.capacity||5);const seq=[];
+  while(s.status==='Playing'){const mv=R.legal(s).filter(m=>m.type==='tap');if(!mv.length)break;const m=mv[Math.floor(rnd()*mv.length)];seq.push(lab(s,m.pod));s=I.step(s,m).state;}
+  if(s.status==='Won')wins.add(seq.join(' '));}
+ all=[...wins].sort();randomShare=Math.round(wins.size/games*100);}
 const rp=recorded(),picks=[];if(rp)picks.push({pattern:rp,note:'как в видео'});
 // spread over the whole list (sorted by the first taps), so the picks start differently
 const want=COUNT-picks.length;for(let i=0;i<want;i++){const p=all[Math.floor((i+0.5)*all.length/want)];if(!picks.some(x=>x.pattern===p))picks.push({pattern:p,note:null});}
@@ -35,8 +47,11 @@ for(let i=0;picks.length<COUNT&&i<all.length;i+=Math.max(1,Math.floor(all.length
 // each pattern replayed: it must win with the player waiting between taps
 function play(pattern){let s=R.create(level,rec.capacity||5);for(const tok of pattern.split(' ')){const c=+tok.split('-')[0]-1,p=level.tray[c][s.heads[c]];if(p==null)return 'no pod';const g=s.meta.groups[p];if(lab(s,g[0])!==tok)return 'not on top';const r=I.step(s,{type:'tap',pod:g[0]});if(!r.accepted)return r.reason;s=r.state;}return s.status;}
 for(const x of picks){x.check=play(x.pattern);if(x.check!=='Won')throw Error(`pattern does not win (${x.check}): ${x.pattern}`);}
-// the v8E page with this level only, and the panel
-const page0=execSync(`git show ${V8E_COMMIT}:product/previews/gameplay-pilot-v8e/index.html`,{cwd:ROOT,maxBuffer:1<<28}).toString();
+// the v8E page with this level only, Colony Flow's link rule, and the panel
+let page0=execSync(`git show ${V8E_COMMIT}:product/previews/gameplay-pilot-v8e/index.html`,{cwd:ROOT,maxBuffer:1<<28}).toString();
+{const old="if(group.some(p=>!heads.includes(p)))return 'partner-not-exposed';",
+  rule="if(group.some(p=>!heads.includes(p)&&!state.level.tray.some((stack,c)=>{const at=stack.indexOf(p);return at>=state.heads[c]&&stack.slice(state.heads[c],at).every(q=>group.includes(q));})))return 'partner-not-exposed';";
+ if(page0.split(old).length!==2)throw Error('link rule moved in the v8E page');page0=page0.replace(old,rule);}
 const data=JSON.parse(/<script id="pilotData" type="application\/json">([\s\S]*?)<\/script>/.exec(page0)[1]);
 data.levels=[{...level,id:1,title,difficulty:rec.difficulty}];
 let html=page0.replace(/(<script id="pilotData" type="application\/json">)[\s\S]*?(<\/script>)/,(m,a,b)=>a+JSON.stringify(data).replace(/</g,'\\u003c')+b);
@@ -71,7 +86,7 @@ const panel=`
 <div class="more"><div id="cfpList" class="list"></div>
 <small>По мере тапов в каждом паттерне, который начинается ровно с твоих тапов, пройденные шаги зелёные, следующий — жёлтый; паттерны, от которых ты отошёл, бледнеют. Подходящие паттерны всегда сверху списка. Нажми паттерн, чтобы вести его в строке сверху.</small>
 <small>Цифра — колонка слева направо (номера исходные, даже когда колонка опустела). «2-3» — связка: нажми любую из двух капсул. Перед следующим тапом дождись, пока поле успокоится (муравьи вернулись) — так паттерн выигрывает всегда. Начать заново — кнопка игры «Заново».</small>
-<small>Всего выигрышных паттернов у раунда: ${all.length.toLocaleString('ru-RU')} (при спокойной игре выигрывает любой порядок). Здесь ${picks.length}.</small></div></div>
+<small>${full?`Всего выигрышных паттернов у раунда: ${all.length.toLocaleString('ru-RU')} (при спокойной игре выигрывает любой порядок). Здесь ${picks.length}.`:`${arg('--total','')} Выигрывает не любой порядок: случайные тапы выигрывают около ${randomShare} %. Здесь ${picks.length} проверенных побед.`}</small></div></div>
 <script>
 (function(){const P=${JSON.stringify(picks.map(x=>({p:x.pattern.split(' '),note:x.note})))},COLS=${level.tray.length};
 let sel=0,last='';const $=id=>document.getElementById(id);

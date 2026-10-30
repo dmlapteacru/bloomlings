@@ -158,7 +158,7 @@
     if(!Number.isInteger(pod)||pod<0||pod>=state.level.pods.length)return 'unknown-pod';
     const heads=topPods(state),group=state.meta.groups[pod];
     if(!heads.includes(pod))return 'not-exposed';
-    if(group.some(p=>!heads.includes(p)))return 'partner-not-exposed';
+    if(group.some(p=>!heads.includes(p)&&!state.level.tray.some((stack,c)=>{const at=stack.indexOf(p);return at>=state.heads[c]&&stack.slice(state.heads[c],at).every(q=>group.includes(q));})))return 'partner-not-exposed';
     if(state.slots.filter(p=>p<0).length<group.length)return group.length>1?'pair-needs-two-slots':'no-slot';
     return null;
   }
