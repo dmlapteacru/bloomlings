@@ -3,7 +3,7 @@
  "cls": "Normal",
  "intro": null,
  "picture": "P0166",
- "candidate": "P0166-Nlinks+hidden-27",
+ "candidate": "P0166-Nlinks+hidden-21",
  "recipe": "links+hidden",
  "N": 900,
  "W": 900,
@@ -13,12 +13,12 @@
  "linked": 6,
  "hidden": 2,
  "random": {
-  "runs": 100,
-  "wins": 67,
-  "share": 0.67,
+  "runs": 400,
+  "wins": 226,
+  "share": 0.565,
   "wilson95": [
-   0.573,
-   0.754
+   0.516,
+   0.613
   ],
   "cls": "Normal",
   "borderline": false,
@@ -29,27 +29,11 @@
   "route": [
    {
     "type": "tap",
-    "pod": 8
+    "pod": 21
    },
    {
     "type": "tap",
-    "pod": 24
-   },
-   {
-    "type": "tap",
-    "pod": 6
-   },
-   {
-    "type": "tap",
-    "pod": 22
-   },
-   {
-    "type": "tap",
-    "pod": 1
-   },
-   {
-    "type": "tap",
-    "pod": 13
+    "pod": 12
    },
    {
     "type": "tap",
@@ -57,11 +41,15 @@
    },
    {
     "type": "tap",
-    "pod": 15
+    "pod": 20
    },
    {
     "type": "tap",
-    "pod": 3
+    "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 11
    },
    {
     "type": "tap",
@@ -73,19 +61,7 @@
    },
    {
     "type": "tap",
-    "pod": 21
-   },
-   {
-    "type": "tap",
-    "pod": 17
-   },
-   {
-    "type": "tap",
-    "pod": 10
-   },
-   {
-    "type": "tap",
-    "pod": 20
+    "pod": 7
    },
    {
     "type": "tap",
@@ -93,7 +69,27 @@
    },
    {
     "type": "tap",
+    "pod": 13
+   },
+   {
+    "type": "tap",
+    "pod": 15
+   },
+   {
+    "type": "tap",
     "pod": 0
+   },
+   {
+    "type": "tap",
+    "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 17
    },
    {
     "type": "tap",
@@ -101,7 +97,15 @@
    },
    {
     "type": "tap",
-    "pod": 12
+    "pod": 22
+   },
+   {
+    "type": "tap",
+    "pod": 14
+   },
+   {
+    "type": "tap",
+    "pod": 10
    },
    {
     "type": "tap",
@@ -109,19 +113,15 @@
    },
    {
     "type": "tap",
-    "pod": 19
-   },
-   {
-    "type": "tap",
-    "pod": 11
+    "pod": 3
    }
   ],
-  "forks": 5,
+  "forks": 2,
   "singleSafe": 0,
   "unknown": 0,
   "fast": {
    "status": "won",
-   "seconds": 175.7
+   "seconds": 168.1
   }
  },
  "fairness": {
@@ -134,96 +134,96 @@
  "strategies": {
   "left-to-right|left": true,
   "left-to-right|right": true,
-  "right-to-left|left": true,
-  "right-to-left|right": true,
+  "right-to-left|left": false,
+  "right-to-left|right": false,
   "top-down|left": true,
   "top-down|right": true,
   "bottom-up|left": true,
   "bottom-up|right": true,
-  "diagonal|left": false,
-  "diagonal|right": false,
+  "diagonal|left": true,
+  "diagonal|right": true,
   "small-first|left": false,
   "small-first|right": false,
-  "most-now|left": true,
-  "most-now|right": true,
-  "fast-release|left": true,
-  "fast-release|right": true
+  "most-now|left": false,
+  "most-now|right": false,
+  "fast-release|left": false,
+  "fast-release|right": false
  },
  "rhythm": {
   "segments": [
    {
     "from": 0,
     "to": 20,
-    "meanFree": 2.06,
-    "minFree": 1,
-    "fullShare": 0,
-    "maxWaiting": 3
+    "meanFree": 0.94,
+    "minFree": 0,
+    "fullShare": 0.4,
+    "maxWaiting": 4
    },
    {
     "from": 20,
     "to": 40,
-    "meanFree": 1.59,
-    "minFree": 1,
-    "fullShare": 0,
-    "maxWaiting": 3
-   },
-   {
-    "from": 40,
-    "to": 60,
-    "meanFree": 2.22,
-    "minFree": 1,
-    "fullShare": 0,
-    "maxWaiting": 3
-   },
-   {
-    "from": 60,
-    "to": 80,
-    "meanFree": 2.17,
+    "meanFree": 1.46,
     "minFree": 1,
     "fullShare": 0,
     "maxWaiting": 2
    },
    {
+    "from": 40,
+    "to": 60,
+    "meanFree": 3.6,
+    "minFree": 1,
+    "fullShare": 0,
+    "maxWaiting": 1
+   },
+   {
+    "from": 60,
+    "to": 80,
+    "meanFree": 2.53,
+    "minFree": 2,
+    "fullShare": 0,
+    "maxWaiting": 1
+   },
+   {
     "from": 80,
     "to": 100,
-    "meanFree": 1.6,
+    "meanFree": 3.27,
     "minFree": 1,
     "fullShare": 0,
     "maxWaiting": 2
    }
   ],
   "launchesAfter80": 3,
-  "lastLaunchAtW": 93,
-  "seconds": 519.4
+  "lastLaunchAtW": 94,
+  "seconds": 456.4
  },
  "dosePos": 0.7,
  "checks": {
-  "forced": 0.29,
+  "forced": 0.26,
   "opening": null,
   "hold": true,
-  "greedyLoses": false,
+  "greedyLoses": true,
   "hiddenMatters": {
    "ok": true,
    "pods": [
     {
-     "pod": 18,
-     "revealAt": 6,
-     "gap": 0,
-     "newColour": true
-    },
-    {
-     "pod": 21,
-     "revealAt": 11,
+     "pod": 1,
+     "revealAt": 4,
      "gap": 0,
      "newColour": false
+    },
+    {
+     "pod": 11,
+     "revealAt": 5,
+     "gap": 0,
+     "newColour": true
     }
    ]
   },
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 1.74,
-   "tight": 0.95
+   "stuck": 1.65,
+   "tight": 0.92
   }
  },
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -280,7 +280,8 @@
    },
    {
     "color": "O",
-    "count": 22
+    "count": 22,
+    "mystery": "depth"
    },
    {
     "color": "O",
@@ -300,12 +301,15 @@
    },
    {
     "color": "A",
-    "count": 52,
-    "group": "C"
+    "count": 52
    },
    {
     "color": "A",
-    "count": 52,
+    "count": 52
+   },
+   {
+    "color": "Y",
+    "count": 11,
     "group": "C"
    },
    {
@@ -313,17 +317,13 @@
     "count": 11
    },
    {
-    "color": "Y",
-    "count": 11,
-    "group": "B"
-   },
-   {
     "color": "E",
     "count": 53
    },
    {
     "color": "E",
-    "count": 53
+    "count": 53,
+    "mystery": "depth"
    },
    {
     "color": "E",
@@ -336,7 +336,7 @@
    {
     "color": "C",
     "count": 34,
-    "group": "B"
+    "group": "A"
    },
    {
     "color": "C",
@@ -352,12 +352,12 @@
    },
    {
     "color": "N",
-    "count": 26,
-    "mystery": "depth"
+    "count": 26
    },
    {
     "color": "R",
-    "count": 42
+    "count": 42,
+    "group": "C"
    },
    {
     "color": "R",
@@ -366,7 +366,11 @@
    {
     "color": "R",
     "count": 41,
-    "mystery": "depth"
+    "group": "B"
+   },
+   {
+    "color": "K",
+    "count": 30
    },
    {
     "color": "K",
@@ -375,47 +379,43 @@
    },
    {
     "color": "K",
-    "count": 30,
-    "group": "A"
-   },
-   {
-    "color": "K",
-    "count": 29
+    "count": 29,
+    "group": "B"
    }
   ],
   "tray": [
    [
-    8,
-    7,
-    23,
-    9,
-    2,
-    21
+    21,
+    12,
+    18,
+    20,
+    1,
+    11
    ],
    [
     24,
-    6,
-    22,
-    14,
-    17,
-    10
+    9,
+    2,
+    7,
+    5,
+    13
    ],
    [
-    1,
-    13,
-    18,
     15,
-    3,
-    20,
-    5
+    19,
+    6,
+    17,
+    23,
+    10,
+    4
    ],
    [
     0,
+    8,
     16,
-    12,
-    4,
-    19,
-    11
+    22,
+    14,
+    3
    ]
   ],
   "recipe": "links+hidden",

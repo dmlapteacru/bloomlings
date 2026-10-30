@@ -15,6 +15,8 @@ const QUALITY=readJSON(path.join(path.dirname(LEVELS),'quality.json'),{pressure:
 const E=await engine(),{R}=E,FIX={1:[[26,26,26,25,25],[16,16,16],[5]],2:[[40,40,40],[33,32,32],[10,9],[4]],3:[[26,25,25],[24,23,23],[35,34],[26,25],[13],[2]]};
 const rows=[],levels={};
 for(let n=from;n<=to;n++){const L=readJSON(path.join(LEVELS,lid(n)+'.json'))||(preview&&readJSON(path.join(preview,lid(n)+'.json')));levels[n]=L||null;}
+// the level before the range too: the first Normal after a Hard / Super Hard is no regular Normal (§5), also at the range's start
+const before=from>1?readJSON(path.join(LEVELS,lid(from-1)+'.json'))||null:null,prevOf=n=>n-1>=from?levels[n-1]:before;
 const typesOf=L=>(L.recipe||'none')==='none'?[]:L.recipe.split('+');
 for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
  if(!L){rows.push({n,missing:true});continue;}
@@ -114,7 +116,7 @@ for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
 // sequence rules (§11, motif rule of the owner): lead mechanic and recipe at most 2 in a row, motifs once in 10, 10–11 colours
 const seq=[],lead=L=>typesOf(L)[0]||null;
 // §5 Normal median 50–60 % over the regular Normals (not L1–3, not introductions, not the first Normal after a Hard / Super Hard)
-{const reg=[];for(let n=Math.max(4,from);n<=to;n++){const L=levels[n],p=levels[n-1];if(L&&L.cls==='Normal'&&!L.intro&&!(p&&p.cls!=='Normal'))reg.push(L);}
+{const reg=[];for(let n=Math.max(4,from);n<=to;n++){const L=levels[n],p=prevOf(n);if(L&&L.cls==='Normal'&&!L.intro&&!(p&&p.cls!=='Normal'))reg.push(L);}
  if(reg.length>=3){const v=reg.map(L=>L.random.share).sort((a,b)=>a-b),med=v[Math.floor((v.length-1)/2)];if(med<.5||med>.6)seq.push(`медиана обычных Normal ${Math.round(med*100)} % вне 50–60 % (§5)`);
   for(let i=0;i<reg.length;i++){const win=reg.filter(L=>L.level>reg[i].level-10&&L.level<=reg[i].level&&L.random.share>=.95);if(win.length>1){seq.push(`Normal на 95–100 % больше одного на десять: ${win.map(L=>'L'+L.level).join(', ')} (§5)`);break;}}}
  // §5 (second amendment): "most work now" loses about one in three regular Normals on L4–24, one in two from L25

@@ -3,7 +3,7 @@
  "cls": "Normal",
  "intro": null,
  "picture": "P0098",
- "candidate": "P0098-Nlinks+hidden-w3-14",
+ "candidate": "P0098-Nlinks+hidden-38",
  "recipe": "links+hidden",
  "N": 972,
  "W": 972,
@@ -13,12 +13,12 @@
  "linked": 4,
  "hidden": 2,
  "random": {
-  "runs": 100,
-  "wins": 76,
-  "share": 0.76,
+  "runs": 400,
+  "wins": 235,
+  "share": 0.588,
   "wilson95": [
-   0.668,
-   0.833
+   0.539,
+   0.635
   ],
   "cls": "Normal",
   "borderline": false,
@@ -29,59 +29,7 @@
   "route": [
    {
     "type": "tap",
-    "pod": 12
-   },
-   {
-    "type": "tap",
-    "pod": 18
-   },
-   {
-    "type": "tap",
-    "pod": 17
-   },
-   {
-    "type": "tap",
-    "pod": 2
-   },
-   {
-    "type": "tap",
-    "pod": 11
-   },
-   {
-    "type": "tap",
-    "pod": 21
-   },
-   {
-    "type": "tap",
-    "pod": 23
-   },
-   {
-    "type": "tap",
-    "pod": 20
-   },
-   {
-    "type": "tap",
-    "pod": 8
-   },
-   {
-    "type": "tap",
     "pod": 15
-   },
-   {
-    "type": "tap",
-    "pod": 0
-   },
-   {
-    "type": "tap",
-    "pod": 24
-   },
-   {
-    "type": "tap",
-    "pod": 3
-   },
-   {
-    "type": "tap",
-    "pod": 5
    },
    {
     "type": "tap",
@@ -89,11 +37,23 @@
    },
    {
     "type": "tap",
-    "pod": 10
+    "pod": 7
    },
    {
     "type": "tap",
-    "pod": 13
+    "pod": 0
+   },
+   {
+    "type": "tap",
+    "pod": 18
+   },
+   {
+    "type": "tap",
+    "pod": 24
+   },
+   {
+    "type": "tap",
+    "pod": 8
    },
    {
     "type": "tap",
@@ -101,7 +61,11 @@
    },
    {
     "type": "tap",
-    "pod": 4
+    "pod": 21
+   },
+   {
+    "type": "tap",
+    "pod": 16
    },
    {
     "type": "tap",
@@ -109,15 +73,51 @@
    },
    {
     "type": "tap",
+    "pod": 19
+   },
+   {
+    "type": "tap",
+    "pod": 3
+   },
+   {
+    "type": "tap",
+    "pod": 2
+   },
+   {
+    "type": "tap",
+    "pod": 13
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   },
+   {
+    "type": "tap",
     "pod": 22
    },
    {
     "type": "tap",
-    "pod": 7
+    "pod": 20
    },
    {
     "type": "tap",
-    "pod": 19
+    "pod": 12
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 17
+   },
+   {
+    "type": "tap",
+    "pod": 11
+   },
+   {
+    "type": "tap",
+    "pod": 23
    }
   ],
   "forks": 0,
@@ -125,7 +125,7 @@
   "unknown": 0,
   "fast": {
    "status": "won",
-   "seconds": 127.8
+   "seconds": 139.9
   }
  },
  "fairness": {
@@ -138,16 +138,16 @@
  "strategies": {
   "left-to-right|left": true,
   "left-to-right|right": true,
-  "right-to-left|left": true,
-  "right-to-left|right": true,
+  "right-to-left|left": false,
+  "right-to-left|right": false,
   "top-down|left": true,
   "top-down|right": true,
   "bottom-up|left": true,
   "bottom-up|right": true,
-  "diagonal|left": false,
-  "diagonal|right": false,
-  "small-first|left": false,
-  "small-first|right": false,
+  "diagonal|left": true,
+  "diagonal|right": true,
+  "small-first|left": true,
+  "small-first|right": true,
   "most-now|left": false,
   "most-now|right": false,
   "fast-release|left": false,
@@ -158,23 +158,23 @@
    {
     "from": 0,
     "to": 20,
-    "meanFree": 2.93,
+    "meanFree": 3.37,
+    "minFree": 2,
+    "fullShare": 0,
+    "maxWaiting": 2
+   },
+   {
+    "from": 20,
+    "to": 40,
+    "meanFree": 2.21,
     "minFree": 1,
     "fullShare": 0,
     "maxWaiting": 3
    },
    {
-    "from": 20,
-    "to": 40,
-    "meanFree": 2.02,
-    "minFree": 1,
-    "fullShare": 0,
-    "maxWaiting": 2
-   },
-   {
     "from": 40,
     "to": 60,
-    "meanFree": 2.52,
+    "meanFree": 2.25,
     "minFree": 1,
     "fullShare": 0,
     "maxWaiting": 2
@@ -182,42 +182,42 @@
    {
     "from": 60,
     "to": 80,
-    "meanFree": 3.36,
-    "minFree": 2,
+    "meanFree": 3.96,
+    "minFree": 3,
     "fullShare": 0,
-    "maxWaiting": 1
+    "maxWaiting": 0
    },
    {
     "from": 80,
     "to": 100,
-    "meanFree": 4.34,
-    "minFree": 3,
+    "meanFree": 4.39,
+    "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
    }
   ],
-  "launchesAfter80": 4,
-  "lastLaunchAtW": 98,
-  "seconds": 373.5
+  "launchesAfter80": 5,
+  "lastLaunchAtW": 97,
+  "seconds": 378.7
  },
  "dosePos": 0.4,
  "checks": {
-  "forced": 0.29,
+  "forced": 0.24,
   "opening": null,
   "hold": true,
   "greedyLoses": true,
   "hiddenMatters": {
-   "ok": false,
+   "ok": true,
    "pods": [
     {
-     "pod": 14,
-     "revealAt": 17,
+     "pod": 18,
+     "revealAt": 4,
      "gap": 0,
      "newColour": true
     },
     {
-     "pod": 22,
-     "revealAt": 20,
+     "pod": 19,
+     "revealAt": 11,
      "gap": 0,
      "newColour": true
     }
@@ -226,8 +226,8 @@
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 1.59,
-   "tight": 0.9
+   "stuck": 1.35,
+   "tight": 0.92
   }
  },
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -277,13 +277,12 @@
   "pods": [
    {
     "color": "N",
-    "count": 55,
-    "group": "B"
+    "count": 55
    },
    {
     "color": "N",
     "count": 55,
-    "group": "B"
+    "group": "A"
    },
    {
     "color": "N",
@@ -291,16 +290,17 @@
    },
    {
     "color": "N",
-    "count": 54
-   },
-   {
-    "color": "N",
-    "count": 54
+    "count": 54,
+    "group": "B"
    },
    {
     "color": "N",
     "count": 54,
-    "group": "A"
+    "group": "B"
+   },
+   {
+    "color": "N",
+    "count": 54
    },
    {
     "color": "N",
@@ -320,7 +320,8 @@
    },
    {
     "color": "A",
-    "count": 42
+    "count": 42,
+    "group": "A"
    },
    {
     "color": "A",
@@ -336,8 +337,7 @@
    },
    {
     "color": "Y",
-    "count": 39,
-    "mystery": "depth"
+    "count": 39
    },
    {
     "color": "Y",
@@ -345,8 +345,7 @@
    },
    {
     "color": "C",
-    "count": 15,
-    "group": "A"
+    "count": 15
    },
    {
     "color": "C",
@@ -354,11 +353,13 @@
    },
    {
     "color": "R",
-    "count": 19
+    "count": 19,
+    "mystery": "depth"
    },
    {
     "color": "R",
-    "count": 18
+    "count": 18,
+    "mystery": "depth"
    },
    {
     "color": "O",
@@ -370,8 +371,7 @@
    },
    {
     "color": "M",
-    "count": 32,
-    "mystery": "depth"
+    "count": 32
    },
    {
     "color": "M",
@@ -384,35 +384,35 @@
   ],
   "tray": [
    [
-    12,
-    18,
-    17,
-    2,
-    11,
-    0,
-    24,
-    16,
-    9
-   ],
-   [
-    21,
-    23,
-    20,
-    8,
     15,
+    9,
+    7,
+    0,
+    18,
+    24,
     1,
-    3,
-    5
+    22,
+    20
    ],
    [
-    10,
-    13,
+    8,
     14,
+    21,
     4,
+    2,
+    13,
+    10,
+    12
+   ],
+   [
+    16,
     6,
-    22,
-    7,
-    19
+    19,
+    3,
+    5,
+    17,
+    11,
+    23
    ]
   ],
   "recipe": "links+hidden",
