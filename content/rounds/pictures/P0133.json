@@ -1,0 +1,89 @@
+{
+ "id": "P0133",
+ "seq": 133,
+ "version": 1,
+ "title": "Кит — мост",
+ "theme": "bridge-splits",
+ "family": "Морские и пресноводные обитатели",
+ "subject": "голубой кит с фонтаном",
+ "source": "оригинальный",
+ "forLevel": 43,
+ "w": 33,
+ "h": 28,
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSS#SSSSSSSSS",
+  "SSCCCCSSSSCCCCSSSSSSSSS#SSSSSSSSS",
+  "SCCCCCCSSCCCCCCSSSSSSSS#SSSSSSSSS",
+  "SCCSSCCCCCCSSCCSSSSSSSSbSSSSSSSSS",
+  "SCCSSSCCCCSSSCCSSSSSSNN#NSSSSSNNN",
+  "SSSSSSCCCCSSSSSSSSSSSSN#NNSSSNNNN",
+  "SSSSSSSCCSSSSSSSSSSSSSS#NNNNNNNNS",
+  "SSSSSSSCCSSSSSSSSSSSSSS#SNNNNNNSS",
+  "SSSSSSSCCSSSSSSSSSSSSSS#SSNNNNSSS",
+  "SSSSSSNNNNNNNNSSSSSSSSS#SSNNNNSSS",
+  "SSSSNNNNNNNNNNNNNSSSSSS#SNNNNSSSS",
+  "BBBNNNNNNNNNNNNNNNNNBBB#BNNNNBBBB",
+  "BBNNNNNNNNNNNNNNNNNNNNB#NNNNNBBBB",
+  "BNNNNCDNNNNNNNNNNNNNNNN#NNNNBBBBB",
+  "SNNNNDDNNNNNNNNNNNNNNNN#NNNNSSSBB",
+  "BNNNNNNNKKKNNNNNNNNNNNNbNNNBBBBBB",
+  "BNNNNNNNNNNNNNNNNNNNNNN#NNBBBBBBB",
+  "BNCCCCCCCCCCNNNNNNNNNNN#NBBBBBBBB",
+  "BCCCCCCCCNNNCCCNNNNNNNN#BBBBBBBBB",
+  "BBCCCCCCCCNNCCCCCNNNNNS#SBBBBBBSS",
+  "BBBCCCCCCCCCCCCCCCNNNBB#BBBBBBBBB",
+  "BBBBBCCCCCCCCCCCCCBBBBB#BBBBBBBBB",
+  "BBBBBBBBCCCCCCCBBBBBBBB#BBBBBBBBB",
+  "BBBBBBBBBBBBBBBBBBBBBBB#BBBBBBBBB",
+  "BBBBBBSSSBBBBBBSSSBBBBB#BSSSBBBBB",
+  "BBBBBBBBBBBBBBBBBBBBBBB#BBBBBBBBB",
+  "BBBBBBBBBBBBBBBBBBBBBBB#BBBBBBBBB",
+  "BBBBBBBBBBBBBBBBBBBBBBB#BBBBBBBBB"
+ ],
+ "scene": {
+  "from": "P0011",
+  "mode": "split",
+  "side": "right",
+  "at": 23,
+  "sites": [
+   [
+    23,
+    3
+   ],
+   [
+    23,
+    15
+   ]
+  ],
+  "share": 0.281,
+  "kind": "better",
+  "cls": "Normal",
+  "recipe": "bridge+hidden",
+  "win": [
+   23,
+   3
+  ],
+  "lose": [
+   23,
+   15
+  ],
+  "queue": {
+   "gate": 4,
+   "delay": 3
+  }
+ },
+ "N": 896,
+ "colours": 6,
+ "volumes": {
+  "S": 261,
+  "C": 118,
+  "N": 234,
+  "B": 277,
+  "D": 3,
+  "K": 3
+ },
+ "status": "draft",
+ "batch": "split-L0043",
+ "createdAt": "2026-10-30",
+ "history": []
+}

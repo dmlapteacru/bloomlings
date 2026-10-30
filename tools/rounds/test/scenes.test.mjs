@@ -80,13 +80,21 @@ test('placement by the plan\'s bridgeKind: single wants exactly one winning brid
  const sc=BS.scene(P,{...UP,side:'left'}),b=L.boardOf(sc),o=LV.sceneOpts({scene:{win:sc.win}},b,24,3,0);
  assert.equal(o.intended,BS.choiceOf(sc,b,sc.win));assert.equal(o.gate,7);assert.deepEqual(LV.sceneOpts({},b,24,3,0),{});});
 
-test('the wave plan lists the bridge scenes to make for the new-strip positions, with the command',()=>{
+test('the wave plan lists the bridge scenes (strip new) and the split pictures (strip gap) to make, with the commands',()=>{
  const dir=fs.mkdtempSync(path.join(os.tmpdir(),'rounds-scenes-'));fs.cpSync(path.join(ROOT,'content/rounds'),dir,{recursive:true,filter:s=>!s.includes(`${path.sep}approved${path.sep}`)&&!s.includes(`${path.sep}bank${path.sep}`)});
  const r=spawnSync(process.execPath,[path.join(TOOLS,'rounds.mjs'),'plan','21','50'],{cwd:ROOT,env:{...process.env,ROUNDS_DIR:dir},encoding:'utf8',maxBuffer:1<<26});assert.equal(r.status,0,r.stderr);
- const plan=readJSON(path.join(dir,'runs/L0021-L0050/plan.json')),mech=readJSON(path.join(dir,'runs/L0021-L0050/mechanics.json')).levels.filter(l=>l.bridgeSide&&l.strip==='new');
+ const plan=readJSON(path.join(dir,'runs/L0021-L0050/plan.json')),levels=readJSON(path.join(dir,'runs/L0021-L0050/mechanics.json')).levels,placed=new Set(plan.positions.filter(p=>p.placed).map(p=>p.level));
+ const mech=levels.filter(l=>l.bridgeSide&&l.strip==='new'&&!placed.has(l.level)),gap=levels.filter(l=>l.bridgeSide&&l.strip==='gap'&&!placed.has(l.level));
  assert.deepEqual(plan.order.scenes.map(s=>s.level),mech.map(l=>l.level));
  for(const s of plan.order.scenes){const m=mech.find(l=>l.level===s.level);assert.equal(s.side,m.bridgeSide);assert.equal(s.kind,m.bridgeKind);assert.match(s.command,new RegExp(`--side ${m.bridgeSide} --kind ${m.bridgeKind}`));}
- assert.match(fs.readFileSync(path.join(dir,'runs/L0021-L0050/plan.md'),'utf8'),/Сцены моста/);});
+ // the owner's plan of 2026-10-29: every bridge position is a gap (one whole picture split by a neutral strip)
+ assert.ok(gap.length>=1,'the wave plan has gap positions');assert.deepEqual(plan.order.splits.map(s=>s.level),gap.map(l=>l.level));
+ for(const s of plan.order.splits){const m=gap.find(l=>l.level===s.level);assert.equal(s.side,m.bridgeSide);assert.equal(s.kind,m.bridgeKind);assert.equal(s.recipe,m.recipe);
+  assert.match(s.command,new RegExp(`make --mode split --from \\S+ --side ${m.bridgeSide} --kind ${m.bridgeKind} --cls "${m.cls}" --recipe ${m.recipe.replace(/\+/g,'\\+')} --level ${m.level} `));
+  // each suggested source is a free pool picture without a strip that splits to that side
+  for(const id of s.sources){const p=L.picture(id);assert.ok(!/[#b]/.test(p.rows.join(''))&&BS.splittable(p,s.side),`L${s.level}: ${id} splits ${s.side}`);}}
+ const md=fs.readFileSync(path.join(dir,'runs/L0021-L0050/plan.md'),'utf8');assert.match(md,/Разделённые картинки/);
+ for(const s of plan.order.splits)assert.ok(md.includes(s.command),`plan.md carries the command of L${s.level}`);});
 
 test('search: the up proof scene passes the builder with exactly one winning bridge (slow, ROUNDS_SLOW=1)',{skip:!process.env.ROUNDS_SLOW},async()=>{
  const r=await BS.search(P,{side:'up',kind:'single',cls:'Normal',recipes:['bridge'],level:26,scenes:1,candidates:8,seed:7,opts:UP});

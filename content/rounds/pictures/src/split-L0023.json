@@ -1,0 +1,592 @@
+{
+ "format": "bloomlings-split-search-1",
+ "params": {
+  "from": [
+   "P0074"
+  ],
+  "side": "up",
+  "kind": "better",
+  "cls": "Normal",
+  "recipes": [
+   "bridge+hidden"
+  ],
+  "level": 23,
+  "seed": 1,
+  "candidates": 8,
+  "per": 3,
+  "share": [
+   0.25,
+   0.45
+  ],
+  "gapTolerance": 0,
+  "zone": [
+   0.5,
+   0.75
+  ]
+ },
+ "created": "2026-10-29T23:42:54.165Z",
+ "runs": [
+  {
+   "started": "2026-10-29T23:42:54.166Z",
+   "minutes": 30
+  }
+ ],
+ "tried": [
+  {
+   "from": "P0074",
+   "key": "up:10:2,14",
+   "at": 10,
+   "sites": [
+    2,
+    14
+   ],
+   "share": 0.333,
+   "score": 0.235,
+   "candidates": 6,
+   "reasons": {
+    "не тот класс по быстрой оценке q≈1": 4,
+    "вне зоны 50–75 % (q≈0.9)": 1
+   },
+   "found": true,
+   "seconds": 59
+  }
+ ],
+ "found": {
+  "from": "P0074",
+  "key": "up:10:2,14",
+  "split": {
+   "key": "up:10:2,14",
+   "side": "up",
+   "at": 10,
+   "sites": [
+    2,
+    14
+   ],
+   "share": 0.333,
+   "score": 0.235
+  },
+  "trim": {
+   "left": 0,
+   "top": 0
+  },
+  "size": "30×31",
+  "N": 900,
+  "colours": 6,
+  "hiddenColours": 3,
+  "visible": 3,
+  "gap": {
+   "worst": 22.088405049471824,
+   "code": "S",
+   "low": 0,
+   "cells": 60
+  },
+  "recipe": "bridge+hidden",
+  "columns": 4,
+  "attempt": 5,
+  "dosePos": 0.6,
+  "queue": {
+   "gate": 2,
+   "delay": 2,
+   "intended": 1,
+   "blend": 0.801
+  },
+  "win": [
+   2,
+   10
+  ],
+  "lose": [
+   14,
+   10
+  ],
+  "random": {
+   "share": 0.58,
+   "runs": 400,
+   "wilson95": [
+    0.531,
+    0.627
+   ],
+   "cls": "Normal",
+   "borderline": false
+  },
+  "bridge": {
+   "each": [
+    {
+     "label": "Мостик вверх слева",
+     "win": true,
+     "share": 0.6
+    },
+    {
+     "label": "Мостик вверх в центре",
+     "win": true,
+     "share": 0.48
+    }
+   ],
+   "gap": 0.12,
+   "better": 0
+  },
+  "bridgeKind": "better",
+  "bridgeLoss": null,
+  "forced": 0.07,
+  "opening": null,
+  "greedyLoses": false,
+  "pods": 24,
+  "linked": 0,
+  "hidden": 2,
+  "seconds": 59,
+  "level": {
+   "id": 1,
+   "title": "Фонтан в парке — мост",
+   "subject": "P0074",
+   "w": 34,
+   "h": 35,
+   "rowsBottomFirst": [
+    "#################.################",
+    "#................................#",
+    "#.GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG.#",
+    "#.GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG.#",
+    "#.GGGAAAAAAAAAAAAAAAAAAAAAAAAGGG.#",
+    "#.GGACCCCACCCCACCCCACCCCACCCCAGG.#",
+    "#.GGACCCCACCCCACCCCACCCCACCCCAGG.#",
+    "#.GGACCCCACCCCACCCCACCCCACCCCAGG.#",
+    "#.GGACCCCACCCCCCCCCCCCCCACCCCAGG.#",
+    "#.GMMCCCCCCCCCCCCCCCCCCCCCCCCMMG.#",
+    "#.MMCCBBBBBBBBBBBBBBBBBBBBBBCCMM.#",
+    "#.MMCCBBBBBBBBBCCAABBBBBBBBBCCMM.#",
+    "#.MMMMBBCCCCCCCCCAACCCCCCCBBMMMM.#",
+    "#.MMMMMBMGGGGCCCCAACCGGGGMBMMMMM.#",
+    "#.MMMMMBBGGGGGGCCAAGGGGGGBBMMMMM.#",
+    "#.MMMMMMBGGGGGGCCAAGGGGGGBMMMMMM.#",
+    "#.MMMMMGBGGGGGGCCAAGGGGGGBGMMMMM.#",
+    "#.MMMMMSSSSSSSAAAAAASSSSSSSMMMMM.#",
+    "#.SSSSSSSSSACCCCCCCCAAASSSSSSSSS.#",
+    "#.SSSSSSSSCCCCCCCCCCCCAASSSSSSSS.#",
+    "#.SSSSSSSSCBBBBBBBBBBBBASSSSSSSS.#",
+    "#.SSSSSSSSSSSSSSBBSSSSSSSSSSSSSS.#",
+    "##################################",
+    "#.SSSSSSSBSSSSSSBBSSSSSSBSSSSSSS.#",
+    "#.SSSSSSSBBSSSSBBBBSSSSBBSSSSSSS.#",
+    "#.SSSSSSSSBSSSSBBBBSSSSBSSSSSSSS.#",
+    "#.SSSSSSSSBBSSBBBBBBSSBBSSSSSSSS.#",
+    "#.SSSSSSSSSBBBBSBBSBBBBSSSSSSSSS.#",
+    "#.SSSSSSSSSSSSSSBBSSSSSSSSSSSSSS.#",
+    "#.SSSSSSSSSSSSSSBBSSSSSSSSSSSSSS.#",
+    "#.SSSSSSSSSSSSSSBBSSSSSSSSSSSSSS.#",
+    "#.SSSSSSSSSSSSSSBBSSSSSSSSSSSSSS.#",
+    "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+    "#................................#",
+    "##################################"
+   ],
+   "entries": [
+    17
+   ],
+   "capacity": 5,
+   "pods": [
+    {
+     "color": "S",
+     "count": 44
+    },
+    {
+     "color": "S",
+     "count": 44
+    },
+    {
+     "color": "S",
+     "count": 43
+    },
+    {
+     "color": "S",
+     "count": 43,
+     "mystery": "depth"
+    },
+    {
+     "color": "S",
+     "count": 43
+    },
+    {
+     "color": "S",
+     "count": 43
+    },
+    {
+     "color": "S",
+     "count": 43
+    },
+    {
+     "color": "S",
+     "count": 43
+    },
+    {
+     "color": "B",
+     "count": 38
+    },
+    {
+     "color": "B",
+     "count": 38
+    },
+    {
+     "color": "B",
+     "count": 38
+    },
+    {
+     "color": "C",
+     "count": 42
+    },
+    {
+     "color": "C",
+     "count": 41,
+     "mystery": "depth"
+    },
+    {
+     "color": "C",
+     "count": 41
+    },
+    {
+     "color": "C",
+     "count": 41
+    },
+    {
+     "color": "A",
+     "count": 24
+    },
+    {
+     "color": "A",
+     "count": 24
+    },
+    {
+     "color": "A",
+     "count": 23
+    },
+    {
+     "color": "M",
+     "count": 25
+    },
+    {
+     "color": "M",
+     "count": 25
+    },
+    {
+     "color": "M",
+     "count": 24
+    },
+    {
+     "color": "G",
+     "count": 44
+    },
+    {
+     "color": "G",
+     "count": 43
+    },
+    {
+     "color": "G",
+     "count": 43
+    }
+   ],
+   "tray": [
+    [
+     22,
+     14,
+     1,
+     16,
+     20,
+     4
+    ],
+    [
+     23,
+     13,
+     3,
+     12,
+     18,
+     0
+    ],
+    [
+     11,
+     17,
+     9,
+     8,
+     15,
+     19
+    ],
+    [
+     21,
+     10,
+     5,
+     2,
+     7,
+     6
+    ]
+   ],
+   "recipe": "bridge+hidden",
+   "hero": {
+    "id": "sprig-bridge",
+    "choices": [
+     {
+      "cell": 752,
+      "anchor": 718,
+      "label": "Мостик вверх слева",
+      "dir": "up"
+     },
+     {
+      "cell": 764,
+      "anchor": 730,
+      "label": "Мостик вверх в центре",
+      "dir": "up"
+     }
+    ]
+   },
+   "strip": "gap"
+  },
+  "eval": {
+   "random": {
+    "runs": 400,
+    "wins": 232,
+    "share": 0.58,
+    "wilson95": [
+     0.531,
+     0.627
+    ],
+    "cls": "Normal",
+    "borderline": false,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 22
+     },
+     {
+      "type": "tap",
+      "pod": 14
+     },
+     {
+      "type": "tap",
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 16
+     },
+     {
+      "type": "tap",
+      "pod": 20
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 23
+     },
+     {
+      "type": "tap",
+      "pod": 13
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 18
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 11
+     },
+     {
+      "type": "tap",
+      "pod": 17
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
+      "pod": 15
+     },
+     {
+      "type": "tap",
+      "pod": 19
+     },
+     {
+      "type": "tap",
+      "pod": 21
+     },
+     {
+      "type": "tap",
+      "pod": 10
+     },
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "bridge",
+      "choice": 0
+     },
+     {
+      "type": "tap",
+      "pod": 2
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     }
+    ],
+    "forks": 0,
+    "singleSafe": 0,
+    "unknown": 0,
+    "fast": {
+     "status": "lost",
+     "seconds": 272.6
+    }
+   },
+   "fairness": {
+    "checked": 1,
+    "unfair": 0,
+    "unknown": 0,
+    "fair": true,
+    "note": "перестановки материала и числа между скрытыми подами с тем же балансом"
+   },
+   "strategies": {
+    "left-to-right|left": true,
+    "left-to-right|right": true,
+    "right-to-left|left": true,
+    "right-to-left|right": true,
+    "top-down|left": false,
+    "top-down|right": false,
+    "bottom-up|left": false,
+    "bottom-up|right": false,
+    "diagonal|left": false,
+    "diagonal|right": false,
+    "small-first|left": false,
+    "small-first|right": false,
+    "most-now|left": true,
+    "most-now|right": true,
+    "fast-release|left": true,
+    "fast-release|right": true
+   },
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 3.75,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 1
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 3.95,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 1
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 1.89,
+      "minFree": 1,
+      "fullShare": 0,
+      "maxWaiting": 3
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 0.92,
+      "minFree": 0,
+      "fullShare": 0.42,
+      "maxWaiting": 5
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 4.21,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 0
+     }
+    ],
+    "launchesAfter80": 3,
+    "lastLaunchAtW": 95,
+    "seconds": 519.9
+   },
+   "bridge": {
+    "each": [
+     {
+      "label": "Мостик вверх слева",
+      "win": true,
+      "share": 0.6
+     },
+     {
+      "label": "Мостик вверх в центре",
+      "win": true,
+      "share": 0.48
+     }
+    ],
+    "gap": 0.12,
+    "better": 0
+   },
+   "checks": {
+    "forced": 0.07,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": false,
+    "hiddenMatters": {
+     "ok": true,
+     "pods": [
+      {
+       "pod": 3,
+       "revealAt": 8,
+       "gap": 0,
+       "newColour": true
+      },
+      {
+       "pod": 12,
+       "revealAt": 9,
+       "gap": 0,
+       "newColour": false
+      }
+     ]
+    },
+    "bridgeKind": "better",
+    "bridgeSingle": {
+     "each": [
+      true,
+      true
+     ],
+     "offered": [
+      39,
+      0
+     ],
+     "ok": false
+    },
+    "pressure": {
+     "stuck": 0.64,
+     "tight": 0.7
+    }
+   }
+  }
+ },
+ "updated": "2026-10-29T23:43:52.741Z"
+}

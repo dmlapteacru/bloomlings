@@ -73,7 +73,21 @@ order asks for, not a free batch.
     below (`content/rounds/pictures/src/variants-0114.mjs`). Draw a new subject only when no such picture fits.
   - A level that only needs a straight wall over an existing picture (the plan's `strip: overlay`) needs no new
     picture: the level skill lays the wall (`lib.mjs wallOverlay`).
-  - **Bridge scenes** (the main path for `strip: new` since 2026-10-28; the owner: "взять картинку поменьше и вокруг неё
+  - **Split pictures** (the main path since 2026-10-29, the plan's `strip: gap`; 17 §8 «Одна цельная картинка», the owner:
+    «сделать одну большую картинку и просто в рандомных местах разделить её и поставить мосты … полоской нейтральной в
+    цвет фона»). `tools/rounds/bridge-scene.mjs make --mode split --from P#### --side up|left|right|two --kind
+    single|better --cls … --recipe … --level n --out content/rounds/pictures/src/split-L####.mjs` (the wave plan prints
+    the command with suggested sources) takes one whole free pool picture and inserts a strip line (a row for `up`, a
+    column for `left`/`right`, an L for `two` whose corner block moves one cell out): no picture cell is lost, the far
+    part holds 25–45 % of the cells, two sites with colour anchors on the near bank, the strip to the ring, and no colour
+    cell beside it nearly the board's colour (Жемчуг C is refused there). It searches split positions × site pairs ×
+    queues until `levels.mjs evaluate` passes with the planned kind and class (Normal also in 50–75 % and with the
+    holding pod). Resumable in chunks (`--minutes 35`; rerun the same command). The module is a normal draft:
+    `title: "<picture> — мост"`, the source's family and tags, `scene: {from, mode: 'split', side, at, sites, kind, win,
+    lose, …}`; render, check, sheet (the gap shows in the board's colour), the owner's decision. An explicit, recorded
+    exception (`--share a,b`, `--gap-tolerance f`) is reported to the owner. The level marks the strip
+    `definition.strip = 'gap'`; renderers draw it as the board's surface, not water or stone.
+  - **Bridge scenes** (superseded on 2026-10-29 by split pictures; the main path for `strip: new` from 2026-10-28; the owner: "взять картинку поменьше и вокруг неё
     строить мосты и стены, и там добавлять уже кубики, которые нам нужны"): `tools/rounds/bridge-scene.mjs make`
     (the wave plan prints the command per position) composes the picture from a smaller approved pool picture and
     searches it until exactly one bridge wins (or, for `better`, both win and one is clearly better). Its module is a

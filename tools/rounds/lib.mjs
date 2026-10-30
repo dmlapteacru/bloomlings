@@ -111,7 +111,10 @@ export function boardOf(pic,overlay=null){const p=overlaid(pic,overlay),pw=p.row
  const stone=[];if(overlay){const ws=[...(overlay.walls||[]),...(overlay.sites||[])],add=(bx,by)=>{const i=idx(bx,by);if(!stone.includes(i))stone.push(i);};
   for(const [x,y] of ws){add(x+2,y+2);if(x===0)add(1,y+2);if(x===pw-1)add(w-2,y+2);if(y===0)add(x+2,1);if(y===ph-1)add(x+2,h-2);}stone.sort((a,b)=>a-b);}
  return {w,h,rowsBottomFirst,entries:[mid],hero:choices.length?{id:'sprig-bridge',choices:choices.map(({cell,anchor,label,dir})=>({cell,anchor,label,dir}))}:undefined,
-  ...(overlay?{overlay:{walls:overlay.walls.map(c=>[c[0],c[1]]),sites:overlay.sites.map(c=>[c[0],c[1]])},stone}:{})};}
+  ...(overlay?{overlay:{walls:overlay.walls.map(c=>[c[0],c[1]]),sites:overlay.sites.map(c=>[c[0],c[1]])},stone}:{}),
+  // a split picture (bridge-scene.mjs make --mode split, 17 §8 «Одна цельная картинка», 2026-10-29): its strip is a gap in
+  // the board's surface colour, not water or stone (the level carries definition.strip = 'gap' for renderers)
+  ...(p.scene&&p.scene.mode==='split'?{strip:'gap'}:{})};}
 // the crossing side of a level's bridge group (the wave plan's bridgeSide): the common direction of its choices, or 'two'
 // when they cross in different directions or stand on different strips (8-connected '#' cells inside the picture area)
 export function bridgeSide(level){if(!level||!level.hero)return null;const {w,h}=level,cs=level.hero.choices,dirs=cs.map(c=>bridgeDir(c,w));
@@ -174,7 +177,8 @@ export function wallOverlay(pic,side,seed=1){const rows=pic.rows,pw=rows[0].leng
 
 // ---- the owner-approved mechanics breakdown of a wave (17 §13 step 1, amendment of 2026-10-28) ----
 // content/rounds/runs/<wave>/mechanics.json: per level recipe (lead first), lead, add, bridgeSide (up|left|right|two) and
-// strip (new: a picture with its own strip; overlay: a wall over an approved picture). Only an approved plan counts.
+// strip (new: a picture with its own strip; overlay: a wall over an approved picture; gap: one whole picture split by a
+// neutral strip in the board's colour, bridge-scene.mjs make --mode split). Only an approved plan counts.
 export function mechanicsPlans(){const dir=path.join(ROUNDS,'runs');if(!fs.existsSync(dir))return [];
  return fs.readdirSync(dir).sort().map(d=>readJSON(path.join(dir,d,'mechanics.json'))).filter(p=>p&&p.approved&&Array.isArray(p.wave)&&Array.isArray(p.levels));}
 // picture repeats (the owner, 2026-10-29): a theme family, and a motif, at most once in a wave and not in the 20 levels
@@ -182,7 +186,9 @@ export function mechanicsPlans(){const dir=path.join(ROUNDS,'runs');if(!fs.exist
 export function repeatWindow(n,plans=mechanicsPlans()){for(const p of plans)if(n>=p.wave[0]&&n<=p.wave[1])return [p.wave[0]-20,p.wave[1]];return [n-20,n+20];}
 export function planOf(n,plans=mechanicsPlans()){for(const p of plans)if(n>=p.wave[0]&&n<=p.wave[1])return p.levels.find(l=>l.level===n)||null;return null;}
 // a candidate fits a planned position: the same recipe and, for a bridge, the planned crossing side
-export const fitsPlan=(c,plan)=>!plan||((c.recipe||'none')===plan.recipe&&(!plan.bridgeSide||sideMatches(c.bridgeSide??bridgeSide(c.level||c.definition),plan.bridgeSide)));
+// (a gap position, 17 §8 «Одна цельная картинка» of 2026-10-29: only a level on a split picture, definition.strip 'gap')
+export const fitsPlan=(c,plan)=>!plan||((c.recipe||'none')===plan.recipe&&(!plan.bridgeSide||sideMatches(c.bridgeSide??bridgeSide(c.level||c.definition),plan.bridgeSide))
+ &&(plan.strip!=='gap'||(c.level||c.definition||{}).strip==='gap'));
 
 // ---- PNG writer (RGB) and a 3×5 digit font for labels ----
 const crcT=new Uint32Array(256).map((_,n)=>{let c=n;for(let k=0;k<8;k++)c=c&1?0xedb88320^(c>>>1):c>>>1;return c>>>0;});

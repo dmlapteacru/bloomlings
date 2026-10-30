@@ -103,11 +103,13 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null,opt
  const sigma=opts.sigma??{Normal:.06,Hard:.16,'Super Hard':.26}[cls];
  for(const p of pods){const z=Math.sqrt(-2*Math.log(r()+1e-9))*Math.cos(2*Math.PI*r());p.order=p.key-lean*Math.max(0,(p.keyO??p.key)-p.key)+sigma*z;}
  // Normal blends a little towards the reverse access order too, so its random test lands in 50–75 % (§5, median 50–60 %)
- if(cls==='Normal'&&!intro&&!lean){const t0=r(),t=opts.t??t0;for(const p of pods)p.order=(1-t)*p.order+t*(1-p.key);}
+ // (a bridge level leans to its intended bridge instead; a split search, bridge-scene.mjs, may still steer it with opts.t)
+ if(cls==='Normal'&&!intro&&(!lean||opts.t!=null)){const t0=r(),t=opts.t??t0;for(const p of pods)p.order=(1-t)*p.order+t*(1-p.key);}
  // harder classes (§6.1): the queue is blended between the access order and its reverse by t, drawn per candidate, so
  // outer colours move deeper and inner ones come earlier and wait in places; a careless tap jams the places. The
  // measured class decides where a candidate may go (§5), the saved solution proves it stays winnable.
- if(cls!=='Normal'){const t=cls==='Hard'?.25+.65*r():.45+.55*r();for(const p of pods)p.order=(1-t)*p.order+t*(1-p.key);}
+ // (opts.tStrong: a split search, bridge-scene.mjs, steers this blend by the shares it measures)
+ if(cls!=='Normal'){const t=opts.tStrong??(cls==='Hard'?.25+.65*r():.45+.55*r());for(const p of pods)p.order=(1-t)*p.order+t*(1-p.key);}
  const ord=pods.map((p,i)=>i).sort((a,b)=>pods[a].order-pods[b].order),tray=Array.from({length:cols},()=>[]);
  for(let i=0;i<ord.length;i+=cols){const row=ord.slice(i,i+cols),cs=[...Array(cols).keys()].sort(()=>r()-.5).sort((a,b)=>tray[a].length-tray[b].length);row.forEach((p,j)=>tray[cs[j]].push(p));}
  // a bridge scene (bridge-scene.mjs; opts.gate = a row of the tray, the owner, 2026-10-28: "подшаманить с лотами в
@@ -124,6 +126,12 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null,opt
    const wc=g[o.anchor];if(opts.delay&&CODES.includes(wc)&&wc!==gc)for(const i of pods.map((p,i)=>i).filter(i=>pods[i].color===wc)){const c=tray.findIndex(st=>st.includes(i)),k=tray[c].indexOf(i);if(k>=opts.delay)continue;
     const to=[];tray.forEach((st,c2)=>st.forEach((q,k2)=>{if(k2>=opts.delay&&k2<opts.gate&&pods[q].color!==gc&&pods[q].color!==wc)to.push([c2,k2]);}));if(!to.length)break;
     const [c2,k2]=to[Math.floor(r()*to.length)];[tray[c][k],tray[c2][k2]]=[tray[c2][k2],tray[c][k]];}}}
+ // opts.expose (a split search for a single deciding bridge, bridge-scene.mjs): a pod of the other bridge's approach colour
+ // stands in the second row, so random games also clear that approach first in part of the games (17 §8: both sites
+ // reachable at the choice; measure.mjs bridgeSingle)
+ if(opts.expose&&intended!==null&&board.hero.choices.length===2){const o=board.hero.choices[1-intended],wc=g[o.anchor],gc=g[2*o.cell-o.anchor];
+  if(CODES.includes(wc)&&wc!==gc&&!tray.some(st=>st.slice(0,2).some(p=>pods[p].color===wc))){const i=pods.map((p,i)=>i).filter(i=>pods[i].color===wc).sort((a,b)=>pods[a].key-pods[b].key)[0];
+   const cs=[...Array(cols).keys()].filter(c=>tray[c].length>=2);if(i!==undefined&&cs.length){const c=tray.findIndex(st=>st.includes(i)),k=tray[c].indexOf(i),c2=cs[Math.floor(r()*cs.length)];[tray[c2][1],tray[c][k]]=[tray[c][k],tray[c2][1]];}}}
  // §6: at the start at least one visible launch has reachable work; else the shallowest pod swaps with a column's top
  const frontier=new Set();for(let i=0;i<g.length;i++)if(CODES.includes(g[i])&&d[i]===0)frontier.add(g[i]);
  if(!tray.some(st=>st.length&&frontier.has(pods[st[0]].color))){const best=ord.filter(i=>frontier.has(pods[i].color)).sort((a,b)=>pods[a].key-pods[b].key)[0];
@@ -150,7 +158,7 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null,opt
  // a strip cuts a part off: without a bridge its cells cannot be reached
  if(board.hero&&!types.includes('bridge'))return {error:'на поле полоса с местами моста — нужен рецепт с мостом'};
  // a level on the generator's wall keeps the wall (picture coordinates), so its board is rebuilt from the approved picture
- const level={id:1,title:pic.title,subject:pic.id,w:board.w,h:board.h,rowsBottomFirst:board.rowsBottomFirst,entries:board.entries,capacity:5,pods:pods.map(({key,keyO,order,...p})=>p),tray,recipe,...(types.includes('bridge')?{hero:board.hero}:{}),...(board.overlay?{overlay:board.overlay}:{})};
+ const level={id:1,title:pic.title,subject:pic.id,w:board.w,h:board.h,rowsBottomFirst:board.rowsBottomFirst,entries:board.entries,capacity:5,pods:pods.map(({key,keyO,order,...p})=>p),tray,recipe,...(types.includes('bridge')?{hero:board.hero}:{}),...(board.overlay?{overlay:board.overlay}:{}),...(board.strip?{strip:board.strip}:{})};
  return {level};}
 
 // ---- the checks of one candidate level (17 §5–§9, §13 layer B), shared by build and the bridge scene search ----
@@ -206,8 +214,11 @@ export async function evaluate(level,{m,cls,intro=false,fixed=null,kind=null,tic
 
 // a bridge scene (bridge-scene.mjs, a picture whose record carries scene.win): the queue leans to the winning site and
 // the gate of the other strip stands deep (candidate opts), one of the last three rows of the tray by attempt
+// (a split picture, bridge-scene.mjs make --mode split: its scene.win is the bridge its search leaned to; planned
+// 'better', both bridges must win, so the gate stands only in every other attempt and not as deep)
 export function sceneOpts(pic,board,P,cols,k){if(!pic.scene||!board.hero||!Array.isArray(pic.scene.win))return {};const rows=Math.ceil(P/cols),i=siteChoice(board,pic.scene.win);
- return {gate:Math.max(3,rows-1-k%3),...(i>=0?{intended:i}:{})};}
+ const gate=pic.scene.mode==='split'&&pic.scene.kind==='better'?(k%2?0:Math.max(2,rows-4)):Math.max(3,rows-1-k%3);
+ return {...(gate?{gate}:{}),...(i>=0?{intended:i}:{})};}
 
 // ---- build: candidates for each picture, recipe and class, measured and banked ----
 const SIDES=['up','left','right','two'];

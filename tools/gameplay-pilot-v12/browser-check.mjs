@@ -1,11 +1,13 @@
 // Plays every level of the built pilot v12 in Chromium with its saved solution (content/rounds/levels/L####.json, or
 // the --preview folder for draft levels): opens it from the level menu, taps each action through the page's own buttons
 // and lets the work settle before the next one (the solution's patient model), then expects the win dialog.
-// node tools/gameplay-pilot-v12/browser-check.mjs [--preview <folder>] [--from N] [--to M]
+// node tools/gameplay-pilot-v12/browser-check.mjs [--preview <folder>] [--from N] [--to M] [--dir <built pilot>] [--shot <png>]
 import {createRequire} from 'node:module';import http from 'node:http';import fs from 'node:fs';import path from 'node:path';
 import {LEVELS,readJSON,lid,arg,root} from '../rounds/lib.mjs';
-const html=fs.readFileSync(path.join(root,'product/previews/gameplay-pilot-v12/index.html')),preview=arg('--preview'),from=+arg('--from',1),to=+arg('--to',1e9);
-const data=JSON.parse(fs.readFileSync(path.join(root,'product/previews/gameplay-pilot-v12/levels.json'),'utf8'));
+// --dir: a pilot built elsewhere (build.mjs --out), default product/previews/gameplay-pilot-v12; --shot: the final screenshot
+const DIR=arg('--dir')?path.resolve(arg('--dir')):path.join(root,'product/previews/gameplay-pilot-v12');
+const html=fs.readFileSync(path.join(DIR,'index.html')),preview=arg('--preview'),from=+arg('--from',1),to=+arg('--to',1e9);
+const data=JSON.parse(fs.readFileSync(path.join(DIR,'levels.json'),'utf8'));
 const server=http.createServer((q,s)=>{s.setHeader('Content-Type','text/html;charset=utf-8');s.end(html);});await new Promise(r=>server.listen(0,'127.0.0.1',r));
 // Playwright: the repository's copy for the heroes if installed, else the machine's
 const req=createRequire(import.meta.url);let pw;try{pw=req('../heroanim/node_modules/playwright-core');}catch{pw=req('playwright');}const {chromium}=pw;
@@ -27,6 +29,6 @@ try{browser=await chromium.launch({args:['--no-sandbox','--disable-dev-shm-usage
   console.log(`L${L.id} ${L.difficulty.padEnd(10)} ${won?'победа':'НЕТ: '+s.status} · ${s.commands} команд · ${Math.round(s.modelTimeMs/1000)} с модели`);
   if(await isOpen('endDialog'))await page.keyboard.press('Escape');}
  if(errors.length){console.log('ошибки страницы:',errors);failed++;}
- await page.screenshot({path:'/tmp/bloomlings-pilot-v12-check.png'});
+ await page.screenshot({path:arg('--shot','/tmp/bloomlings-pilot-v12-check.png')});
 }finally{if(browser)await browser.close();server.close();}
 console.log(failed?`НЕ ПРОЙДЕНО: ${failed}`:'PASS: все уровни выиграны сохранённым решением в браузере, ошибок страницы нет');process.exit(failed?1:0);
