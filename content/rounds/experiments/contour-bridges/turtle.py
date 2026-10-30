@@ -42,6 +42,6 @@ rows=[list(r) for r in rows]
 (ax1,ay1),(ax2,ay2)=anchors
 for y in range(H):
     for x in range(W):
-        if rows[y][x]=='B' and x>=ax1 and abs(y-ay1)<=1+(x-ax1)*.5 and y<=15: rows[y][x]='K'
-        if rows[y][x]=='B' and x>=ax2 and abs(y-ay2)<=1+(x-ax2)*.5 and y>=16: rows[y][x]='A'
+        if rows[y][x]=='B' and x>=ax1 and abs(y-ay1)<=1+(x-ax1)*.3 and y<=15: rows[y][x]='K'
+        if rows[y][x]=='B' and x>=ax2 and abs(y-ay2)<=1.4+(x-ax2)*.6 and y>=16: rows[y][x]='A'
 json.dump({'rows':[''.join(r) for r in rows]},sys.stdout)

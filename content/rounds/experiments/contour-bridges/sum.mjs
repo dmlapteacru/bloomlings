@@ -1,0 +1,4 @@
+import fs from 'node:fs';
+for(const f of process.argv.slice(2)){const L=JSON.parse(fs.readFileSync(f));const c=L.checks;
+ console.log(f.split('/').slice(-2).join('/'),L.cls,'P',L.P,'cols',L.columns,'linked',L.linked,'hidden',L.hidden,'rand',Math.round(L.random.share*100)+'%/'+L.random.runs,'W95',L.random.wilson95.map(x=>Math.round(x*100)).join('-'),'all',L.randomAll?Math.round(L.randomAll.share*100):'-',
+ 'each',JSON.stringify(L.bridge.each.map(x=>[x.win,Math.round(x.share*100)])),'gap',Math.round(L.bridge.gap*100),'kind',c.bridgeKind,'forced',Math.round(c.forced*100),'press',c.pressure&&c.pressure.stuck,'route',L.solution.route.length,'forks',L.solution.forks,'sec',L.rhythm.seconds,'strat',Object.values(L.strategies).filter(Boolean).length+'/'+Object.keys(L.strategies).length,'offered',JSON.stringify(c.bridgeSingle&&c.bridgeSingle.offered));}
