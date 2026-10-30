@@ -59,7 +59,7 @@
 import {deltaE,deltaEHex} from './colour-distance.mjs';
 import fs from 'node:fs';import path from 'node:path';import {pathToFileURL} from 'node:url';
 import {siteChoice,CODES,PALETTE,measure,fitsStage,stageOf,boardOf,bridgeSide,BridgeAnchorError,picture,manifest,usage,arg,flag,columnsFor,root,DIR_RU,planOf,lid} from './lib.mjs';
-import {fitness} from './fitness.mjs';
+import {fitness} from './fitness.mjs';import {quickShare} from './measure.mjs';
 const saved=process.argv.slice(2);process.argv.splice(2,process.argv.length,'noop');const LV=await import('./levels.mjs');process.argv.splice(2,1,...saved);
 
 export const SIDES=['up','left','right','two'];
@@ -323,7 +323,7 @@ export const gapOk=(gc,tolerance=0)=>gc.worst>=GAP_CONTRAST||(tolerance>0&&gc.lo
 function siteCells(sp){const rows=sp.rows,W=rows[0].length,H=rows.length,at=(x,y)=>x<0||y<0||x>=W||y>=H?null:rows[y][x],out=[];
  for(const [x,y] of sp.strip){if(x===0||y===0||x===W-1||y===H-1)continue;if(sp.side==='two'&&x===sp.at[0]&&y===sp.at[1])continue;
   const [dx,dy]=sp.arm(x,y),near=at(x+dx,y+dy),far=at(x-dx,y-dy);if(!CODES.includes(near)||far===null||far==='#'||far==='b')continue;
-  const leg=sp.side==='two'?(dy?0:1):0;out.push({x,y,leg,s:sp.side==='up'||(sp.side==='two'&&leg===0)?x:y,near,far,fx:x-dx,fy:y-dy});}
+  const leg=sp.side==='two'?(dy?0:1):0;out.push({x,y,leg,s:sp.side==='up'||(sp.side==='two'&&leg===0)?x:y,near,far,fx:x-dx,fy:y-dy,arm:[dx,dy]});}
  return out;}
 // colour depth of the far part from its own edge (the ring beyond the strip belongs to it), up to 3: a site landing deep in
 // the subject opens its own front, one landing on open background reaches the ring at once and both bridges play alike
@@ -332,12 +332,17 @@ function farDepth(sp){const rows=sp.rows,W=rows[0].length,H=rows.length,d=new Fl
  while(dq.length){const [x,y]=dq.shift();for(const [dx,dy] of D4){const u=x+dx,v=y+dy;if(!ok(u,v))continue;const c=CODES.includes(rows[v][u])?1:0,nd=d[y*W+x]+c;if(nd<d[v*W+u]){d[v*W+u]=nd;c?dq.push([u,v]):dq.unshift([u,v]);}}}
  return (x,y)=>Math.min(3,d[y*W+x]);}
 
+// colour depth of the near bank from the Garden Entry (0-1 search on the board, colour cells cost 1, the strip a wall)
+function nearDepth(sp){const b=boardOf({rows:sp.rows.map(r=>r.replace(/b/g,'#'))}),{w,h}=b,g=b.rowsBottomFirst.join(''),d=new Float64Array(w*h).fill(Infinity),dq=[];
+ for(const e of b.entries){d[e]=0;dq.push(e);}
+ while(dq.length){const c=dq.shift(),x=c%w,y=Math.floor(c/w);for(const [dx,dy] of D4){const u=x+dx,v=y+dy;if(u<0||v<0||u>=w||v>=h)continue;const n=v*w+u;if(g[n]==='#')continue;const cost=CODES.includes(g[n])?1:0,nv=d[c]+cost;if(nv<d[n]){d[n]=nv;cost?dq.push(n):dq.unshift(n);}}}
+ return (x,y)=>{const v=d[(h-3-y)*w+x+2];return Number.isFinite(v)?v:99;};}
 // every split of a source for a side, best first: positions with 25–45 % beyond the strip, the gap contrast kept and the
 // entry (bottom middle of the board) on the near side; per position the `per` best site pairs, then round robin over the
 // positions by rank, so the search moves through different places early. A pair is better with anchors of different
 // materials, far cells of different materials deep in the subject, a share near 35 %, the sites apart and a strip that
 // runs through the subject rather than through empty space. Deterministic by seed (it breaks near ties).
-export function splitsFor(src,side,{per=3,seed=1,limit=Infinity,share:range=GAP_SHARE,tolerance=0,first=false}={}){const r=rngOf(seed*7919+side.length*31+1),rows=src.rows,pw=rows[0].length,ph=rows.length,N=measure(src).N;
+export function splitsFor(src,side,{per=3,seed=1,limit=Infinity,share:range=GAP_SHARE,tolerance=0,first=false,kind=null}={}){const r=rngOf(seed*7919+side.length*31+1),rows=src.rows,pw=rows[0].length,ph=rows.length,N=measure(src).N;
  const colour=c=>CODES.includes(c),cum=Array.from({length:ph+1},()=>new Int32Array(pw+1));
  for(let y=0;y<ph;y++)for(let x=0;x<pw;x++)cum[y+1][x+1]=cum[y][x+1]+cum[y+1][x]-cum[y][x]+(colour(rows[y][x])?1:0);
  const box=(x0,y0,x1,y1)=>x1<x0||y1<y0?0:cum[y1+1][x1+1]-cum[y0][x1+1]-cum[y1+1][x0]+cum[y0][x0];// colour cells in a source box
@@ -351,14 +356,17 @@ export function splitsFor(src,side,{per=3,seed=1,limit=Infinity,share:range=GAP_
  const byPos=[];
  for(const p of pos){if(first&&byPos.length)break;const share=p.far/N;if(share<range[0]||share>range[1])continue;let sp;try{sp=splitOf(src,{side,at:p.at,corner:p.corner});}catch{continue;}
   const gc=gapContrast(sp);if(!gapOk(gc,tolerance))continue;
-  const cells=siteCells(sp);if(!cells.length)continue;const dep=farDepth(sp),len=sp.strip.length;
+  const cells=siteCells(sp);if(!cells.length)continue;const dep=farDepth(sp),len=sp.strip.length,nd=nearDepth(sp);
   // the strip through the subject: the share of strip cells without a colour neighbour
   const bare=sp.strip.filter(([x,y])=>!D4.some(([dx,dy])=>colour(sp.rows[y+dy]?.[x+dx]))).length/len;
   // each cell alone: a colour far cell deep in the subject; the best 14 per leg take part in the pairs
   const one=c=>(colour(c.far)?.4*(3-dep(c.fx,c.fy)):1.6),legs=[0,1].map(l=>cells.filter(c=>c.leg===l).sort((a,b)=>one(a)-one(b)).slice(0,14));
   const pairs=[];if(side==='two'){for(const a of legs[0])for(const b of legs[1])pairs.push([a,b]);}else{const l=legs[0];for(let i=0;i<l.length;i++)for(let j=i+1;j<l.length;j++)pairs.push(l[i].s<l[j].s?[l[i],l[j]]:[l[j],l[i]]);}
   const scored=[];for(const [a,b] of pairs){const sep=Math.abs(a.x-b.x)+Math.abs(a.y-b.y);if(sep<3)continue;
-   const score=(a.near===b.near?1:0)+(a.far===b.far?.5:0)+one(a)+one(b)+2*Math.abs(share-.35)+2*Math.max(0,len/2-sep)/len+1.5*bare+(gc.cells?2*gc.low/gc.cells:0)+.15*r();
+   // both approaches about as deep from the entry, so either bridge can be the first one offered (17 §8: both sites
+   // reachable at the choice in part of the random games; bridgeSingle); a single choice prefers one anchor material
+   const da=nd(a.x+a.arm[0],a.y+a.arm[1]),db=nd(b.x+b.arm[0],b.y+b.arm[1]),depthGap=Math.min(4,Math.abs(da-db));
+   const score=(a.near===b.near?(kind==='single'?-.5:1):0)+(a.far===b.far?.5:0)+one(a)+one(b)+2*Math.abs(share-.35)+2*Math.max(0,len/2-sep)/len*(kind==='single'?.5:1)+1.5*bare+(gc.cells?2*gc.low/gc.cells:0)+.3*depthGap+.15*r();
    scored.push({score,sites:[a.s,b.s]});}
   scored.sort((a,b)=>a.score-b.score);
   // the `per` best pairs of this position, each moving a site at least 3 cells from the ones already taken
@@ -401,13 +409,16 @@ const siteOf=(b,c)=>[c.cell%b.w-2,b.h-3-Math.floor(c.cell/b.w)];
 // choice (evaluate). done: keys of splits already tried (a resumed search skips them); onSplit(record) after each split.
 // Returns {split, sp, level, recipe, cols, eval, N, colours, win, lose, tried} or {fail, tried}
 // zone: the random test's share the search accepts (default: Normal its preferred 50–75 % of §5, Hard and Super Hard their
-// class); a Normal also needs the holding pod (§6, checks.hold: placement wants it in a regular Normal) and steers the
-// queue's blend towards the reverse access order (candidate opts.t) by the shares measured so far, aiming at 62 %, as
-// levels.mjs build steers its Normals
+// class); a Normal also needs the holding pod (§6, checks.hold: placement wants it in a regular Normal). The queue's blend
+// towards the reverse access order is steered by the shares measured so far (candidate opts.t for a Normal, aiming at
+// 62 %, as levels.mjs build steers its Normals; opts.tStrong for Hard and Super Hard, aiming at 33 % and 12 %)
 export const ZONES={Normal:[.5,.75],Hard:[.2,.5],'Super Hard':[.05,.2]};
 export async function searchSplit(src,{side,kind,cls='Normal',recipes=['bridge'],level=26,candidates=8,seed=1,deadline=Infinity,log=()=>{},done=new Set(),onSplit=()=>{},per=3,splits=null,title=null,share=GAP_SHARE,tolerance=0,zone=ZONES[cls],needHold=cls==='Normal',worseMin=0}){
- const t0=Date.now(),strong=cls!=='Normal',r=rngOf(seed*2654435761+side.length*97+level*13),list=splits||splitsFor(src,side,{per,seed,share,tolerance});let nS=0,nC=0;const reasons={};
- const steer=cls==='Normal'?{t:.3,aim:.62,n:0}:null;
+ const t0=Date.now(),strong=cls!=='Normal',r=rngOf(seed*2654435761+side.length*97+level*13),list=splits||splitsFor(src,side,{per,seed,share,tolerance,kind});let nS=0,nC=0;const reasons={};
+ const steer={Normal:{t:.3,aim:.62,n:0},Hard:{t:.6,aim:.33,n:0},'Super Hard':{t:.75,aim:.12,n:0}}[cls]||null;
+ // the steering step, shrinking with the attempts: the miss scaled to its side of the aim (too hard moves the blend as far
+ // as too easy, though the aim of a Super Hard sits near 0)
+ const step=(st,q)=>.3/Math.sqrt(st.n)*(q<st.aim?(q-st.aim)/st.aim:(q-st.aim)/(1-st.aim));
  for(const [n,s] of list.entries()){if(Date.now()>=deadline)break;if(done.has(s.key))continue;nS++;
   const rec={key:s.key,at:s.at,...(s.corner?{corner:s.corner}:{}),sites:s.sites,share:s.share,score:s.score,candidates:0,reasons:{}},ts=Date.now(),no=k=>{rec.reasons[k]=(rec.reasons[k]||0)+1;reasons[k]=(reasons[k]||0)+1;};
   const fin=x=>{rec.seconds=Math.round((Date.now()-ts)/1000);onSplit(rec);return x;};
@@ -418,15 +429,20 @@ export async function searchSplit(src,{side,kind,cls='Normal',recipes=['bridge']
   const scPic={id:src.id,title:title||src.title,rows:sp.rows,locked:null};
   for(const recipe of recipes)for(let k=0;k<candidates&&Date.now()<deadline;k++){nC++;rec.candidates++;
    const cs=columnsFor(m.N),cols=cs[k%cs.length],pos=LV.DOSE_CYCLE[k%LV.DOSE_CYCLE.length],rows=Math.ceil(base.pods.length/cols),intended=k%2;
-   const gate=kind==='better'?(r()<.5?0:Math.max(2,rows-4)):Math.max(3,rows-1-Math.floor(r()*3)),delay=Math.floor(r()*4);
-   const cseed=seed*1000003+n*7919+k*131,blend=steer?Math.min(.9,Math.max(0,steer.t+(rngOf(cseed^0x5bd1e995)()-.5)*.12)):null;
-   const c=LV.candidate(scPic,board,base.pods,cols,recipe,cls,cseed,false,pos,{gate,intended,delay,...(blend!==null?{t:blend}:{})});if(c.error){no(c.error);continue;}
+   // delay pushes the other site's approach deep; a single choice keeps it low (bridgeSingle wants either site offered first
+   // in part of the random games)
+   const gate=kind==='better'?(r()<.5?0:Math.max(2,rows-4)):Math.max(3,rows-1-Math.floor(r()*3)),dr=r(),delay=kind==='single'?(dr<.75?0:1):Math.floor(dr*4);
+   const cseed=seed*1000003+n*7919+k*131,hi=cls==='Normal'?.9:1,blend=steer?Math.min(hi,Math.max(0,steer.t+(rngOf(cseed^0x5bd1e995)()-.5)*.12)):null;
+   const c=LV.candidate(scPic,board,base.pods,cols,recipe,cls,cseed,false,pos,{gate,intended,delay,...(blend!==null?(cls==='Normal'?{t:blend}:{tStrong:blend}):{})});if(c.error){no(c.error);continue;}
    // ROUNDS_TRACE=1: each check's time on stderr (a slow solver branch shows which candidate and stage)
    let quick=null,verdicts=null,tl=Date.now();const trace=process.env.ROUNDS_TRACE?l=>{const t=Date.now();console.error(`  ${src.id} ${s.key} #${k} +${((t-tl)/1000).toFixed(1)} s ${l}`);tl=t;}:()=>{};
+   // a Super Hard with no win in the 40 quick games (the same games evaluate plays first) is almost surely below 5 %: it
+   // goes no further, before the per-bridge solver (minutes on a 48×48 board)
+   if(cls==='Super Hard'){const q0=await quickShare(c.level,40);if(q0===0){if(steer){steer.n++;steer.t=Math.min(hi,Math.max(0,steer.t+step(steer,0)));}no('ниже 5 % по быстрой оценке (0 из 40)');trace('0 из 40');continue;}}
    const e=await LV.evaluate(c.level,{m,cls,kind,tick:l=>{const q=/^быстрая оценка ([\d.]+)/.exec(l);if(q)quick=+q[1];const v=/^мосты (\[.*\])/.exec(l);if(v)verdicts=v[1];trace(l);}});trace(e.reason||'прошёл');
    // the solver's verdict per bridge goes with a bridge reason (both win, or neither: a different fix)
    if(e.reason&&/^мост: (решает не ровно|выигрывают не оба)/.test(e.reason)&&verdicts)e.reason+=' '+verdicts;
-   if(steer){const q=e.random?e.random.share:quick;if(q!==null){steer.n++;steer.t=Math.min(.9,Math.max(0,steer.t+.45/Math.sqrt(steer.n)*(q-steer.aim)));}}
+   if(steer){const q=e.random?e.random.share:quick;if(q!==null){steer.n++;steer.t=Math.min(hi,Math.max(0,steer.t+step(steer,q)));}}
    if(!e.reason&&e.random.cls!==cls)e.reason=`класс по случайному тесту ${e.random.cls}`;
    if(!e.reason&&(e.random.share<zone[0]||e.random.share>zone[1]))e.reason=`вне зоны ${zone.map(x=>Math.round(x*100)).join('–')} % (q≈${Math.round(e.random.share*10)/10})`;
    if(!e.reason&&needHold&&!e.checks.hold)e.reason='нет удерживающего пода (§6)';

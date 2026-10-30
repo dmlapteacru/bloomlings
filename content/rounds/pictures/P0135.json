@@ -1,0 +1,109 @@
+{
+ "id": "P0135",
+ "seq": 135,
+ "version": 1,
+ "title": "Динозаврик из яйца — мост",
+ "theme": "bridge-splits",
+ "family": "Доисторический мир",
+ "subject": "динозаврик вылупляется из яйца",
+ "source": "оригинальный",
+ "forLevel": 50,
+ "w": 36,
+ "h": 41,
+ "rows": [
+  "....................................",
+  "....................................",
+  "...........CCCCCCCC.................",
+  ".........COOOCCOOOCC................",
+  "........CCOOOCCCOCCC................",
+  "........CCCCCCCCCGCCC...............",
+  ".........CCGCCGCCGCCCGG.............",
+  ".........CGGCGGGGGGGGGGG............",
+  "........MGGGGGGGGGGGGGGG............",
+  ".....MMMGGGGGGGGGGGGGCDGGGG.........",
+  "......MMGGGGGGGGGGGGGDDGGGGGG.......",
+  "........GGGGGGGGGGGGGDDGGGGGGG......",
+  "........GGGGGGGGGGGGGGGGGGGGDG......",
+  "........MGGGGGGGGGGGGGGGGGGGGG......",
+  "......MMMGGGGGGGGGGGGGGGGGGGGG......",
+  "....MMMMMMGGGGGGGGGGGGGGGGGGGG......",
+  ".......MMMM.GGGGGGGGGDGGGGDGG.......",
+  "..........MMGGGGGGGLLLDDDD..........",
+  "............GGGGGGLLLLLL............",
+  "..........MMGGGGGLLLLLLL............",
+  "........MMMMGGGGGLLLLLLL............",
+  ".......MMMMMGGGGGLLLLLLL.YY.........",
+  "##########b##########b##############",
+  ".......GGGGMGGGGGLLLLLLLGGGG........",
+  "......GGGGGYGGCCGLLLCCLLGGGG........",
+  "......CGGGCYGCCCCLLCCCCLGGGCCY......",
+  "......CCCCCCCCCCCCCCCCCCCCCCCY......",
+  ".....CCCCCCCCCCCCCCCCCCCCCCCCCY.....",
+  ".....CCCCOOCCCCCCCCCCCCCOOOOCCY.....",
+  ".....CCCOOOOCCCCCCCCCCCCOOOOCCY.....",
+  ".....CCCOOOOCCCCCCCCCCCCOOOOCCY.....",
+  ".....CCCCOOCCCCCCCCCCCCCCCCCCYY.....",
+  ".....CCCCCCCCCCCCOOOCCCCCCCCCYY.....",
+  ".....CCCCCCCCCCCOOOOOCCCCCCCYYY.....",
+  "......CCCCCCCCCCOOOOOCCCCCCCYY......",
+  "......CCCCCCCCCCOOOOOCCCCCCYYY......",
+  ".......CCCCCOOCCCOOOCCCOOOYYY.......",
+  "........CCCOOOOCCCCCCCCOOOYY........",
+  ".........CCOOOOCCCCCCCYOOOY.........",
+  "............OOCCCCYYYYYYY...........",
+  "..............YYYYYYYY.............."
+ ],
+ "scene": {
+  "from": "P0028",
+  "mode": "split",
+  "side": "up",
+  "at": 22,
+  "sites": [
+   [
+    10,
+    22
+   ],
+   [
+    21,
+    22
+   ]
+  ],
+  "share": 0.464,
+  "kind": "better",
+  "cls": "Hard",
+  "recipe": "bridge+links+hidden",
+  "win": [
+   21,
+   22
+  ],
+  "lose": [
+   10,
+   22
+  ],
+  "queue": {
+   "gate": 0,
+   "delay": 1
+  },
+  "rules": {
+   "share": [
+    0.25,
+    0.5
+   ]
+  }
+ },
+ "N": 750,
+ "colours": 7,
+ "volumes": {
+  "C": 291,
+  "O": 76,
+  "G": 248,
+  "M": 34,
+  "D": 12,
+  "L": 45,
+  "Y": 44
+ },
+ "status": "draft",
+ "batch": "split-L0050",
+ "createdAt": "2026-10-30",
+ "history": []
+}

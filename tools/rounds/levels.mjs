@@ -108,7 +108,8 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null,opt
  // harder classes (§6.1): the queue is blended between the access order and its reverse by t, drawn per candidate, so
  // outer colours move deeper and inner ones come earlier and wait in places; a careless tap jams the places. The
  // measured class decides where a candidate may go (§5), the saved solution proves it stays winnable.
- if(cls!=='Normal'){const t=cls==='Hard'?.25+.65*r():.45+.55*r();for(const p of pods)p.order=(1-t)*p.order+t*(1-p.key);}
+ // (opts.tStrong: a split search, bridge-scene.mjs, steers this blend by the shares it measures)
+ if(cls!=='Normal'){const t=opts.tStrong??(cls==='Hard'?.25+.65*r():.45+.55*r());for(const p of pods)p.order=(1-t)*p.order+t*(1-p.key);}
  const ord=pods.map((p,i)=>i).sort((a,b)=>pods[a].order-pods[b].order),tray=Array.from({length:cols},()=>[]);
  for(let i=0;i<ord.length;i+=cols){const row=ord.slice(i,i+cols),cs=[...Array(cols).keys()].sort(()=>r()-.5).sort((a,b)=>tray[a].length-tray[b].length);row.forEach((p,j)=>tray[cs[j]].push(p));}
  // a bridge scene (bridge-scene.mjs; opts.gate = a row of the tray, the owner, 2026-10-28: "подшаманить с лотами в

@@ -1,0 +1,92 @@
+{
+ "id": "P0131",
+ "seq": 131,
+ "version": 1,
+ "title": "Фонтан в парке — мост",
+ "theme": "bridge-splits",
+ "family": "Городские пространства",
+ "subject": "круглый каменный фонтан со струями воды, газон и два куста вокруг",
+ "source": "оригинальный",
+ "forLevel": 23,
+ "w": 30,
+ "h": 31,
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSBBSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSBBSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSBBSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSBBSSSSSSSSSSSSSS",
+  "SSSSSSSSSBBBBSBBSBBBBSSSSSSSSS",
+  "SSSSSSSSBBSSBBBBBBSSBBSSSSSSSS",
+  "SSSSSSSSBSSSSBBBBSSSSBSSSSSSSS",
+  "SSSSSSSBBSSSSBBBBSSSSBBSSSSSSS",
+  "SSSSSSSBSSSSSSBBSSSSSSBSSSSSSS",
+  "##b###########b###############",
+  "SSSSSSSSSSSSSSBBSSSSSSSSSSSSSS",
+  "SSSSSSSSCBBBBBBBBBBBBASSSSSSSS",
+  "SSSSSSSSCCCCCCCCCCCCAASSSSSSSS",
+  "SSSSSSSSSACCCCCCCCAAASSSSSSSSS",
+  "MMMMMSSSSSSSAAAAAASSSSSSSMMMMM",
+  "MMMMMGBGGGGGGCCAAGGGGGGBGMMMMM",
+  "MMMMMMBGGGGGGCCAAGGGGGGBMMMMMM",
+  "MMMMMBBGGGGGGCCAAGGGGGGBBMMMMM",
+  "MMMMMBMGGGGCCCCAACCGGGGMBMMMMM",
+  "MMMMBBCCCCCCCCCAACCCCCCCBBMMMM",
+  "MMCCBBBBBBBBBCCAABBBBBBBBBCCMM",
+  "MMCCBBBBBBBBBBBBBBBBBBBBBBCCMM",
+  "GMMCCCCCCCCCCCCCCCCCCCCCCCCMMG",
+  "GGACCCCACCCCCCCCCCCCCCACCCCAGG",
+  "GGACCCCACCCCACCCCACCCCACCCCAGG",
+  "GGACCCCACCCCACCCCACCCCACCCCAGG",
+  "GGACCCCACCCCACCCCACCCCACCCCAGG",
+  "GGGAAAAAAAAAAAAAAAAAAAAAAAAGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+ ],
+ "scene": {
+  "from": "P0074",
+  "mode": "split",
+  "side": "up",
+  "at": 10,
+  "sites": [
+   [
+    2,
+    10
+   ],
+   [
+    14,
+    10
+   ]
+  ],
+  "share": 0.333,
+  "kind": "better",
+  "cls": "Normal",
+  "recipe": "bridge+hidden",
+  "win": [
+   2,
+   10
+  ],
+  "lose": [
+   14,
+   10
+  ],
+  "queue": {
+   "gate": 2,
+   "delay": 2
+  }
+ },
+ "N": 900,
+ "colours": 6,
+ "volumes": {
+  "S": 346,
+  "B": 114,
+  "C": 165,
+  "A": 71,
+  "M": 74,
+  "G": 130
+ },
+ "status": "draft",
+ "batch": "split-L0023",
+ "createdAt": "2026-10-30",
+ "history": []
+}
