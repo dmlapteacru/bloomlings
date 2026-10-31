@@ -394,7 +394,7 @@ const perry=svg(32,36,`<rect width="32" height="36" fill="${C.V}"/><rect y="31" 
  ${fill(C.E,`<rect x="10.2" y="6" width="11.6" height="2"/>`)}`);
 
 // 13 King: a small dark creature in a white bone skull mask with curved horns, inside an orange round
-const king=svg(24,24,`${fill(C.O,`<circle cx="12" cy="12" r="10.6"/>`)}${pix(24,24,[{mirror:true,rows:[
+const king=svg(24,24,`${fill(C.O,`<circle cx="12" cy="12" r="11.2"/>`)}${pix(24,24,[{mirror:true,y:1,rows:[
  '............',
  '............',
  '............',
@@ -493,20 +493,18 @@ const appa=svg(40,30,`<rect width="40" height="30" fill="${C.B}"/>
  'CDDCCCAAACCCDDC',
  'CDDCCCCACCCCDDC',
  'CCCCCCCCCCCCCCC',
- 'CCCDDDDDDDDDCCC',
- 'CCCDDDDDDDDDCCC',
- '.CCCDDDDDDDCCC.',
- '.CCCCCCCCCCCCC.',
+ 'CCCCDDDDDDDCCCC',
+ 'CCCCDDDDDDDCCCC',
+ '.CCCCDDDDDCCCC.',
+ '.CCCDCCCCCDCCC.',
  '..CCDDDDDDDCC..',
  '...CCCCCCCCC...',
  '.....CCCCC.....']},
- {x:0,y:1,rows:[
- '..AA..........AA..',
- '..AA..........AA..',
- '...AA........AA...',
- '...AA........AA...',
- '....AA......AA....',
- '....AA......AA....']}])}`);
+ {x:0,y:3,rows:[
+ '.AA............AA.',
+ '.AAA..........AAA.',
+ '..AAAA......AAAA..',
+ '...AAA......AAA...']}])}`);
 
 // 17 GIR in his dog suit: a green hood with darker floppy ears, round cyan eyes in dark rims, the grin and the tongue,
 // the zipper down the front; a dark blue night
@@ -639,7 +637,7 @@ export default {theme:T, pictures:[
  {title:'Мистер Мисикс',family:'Волшебные существа',subject:'Мистер Мисикс: высокий голубой человечек с поднятыми тонкими руками и широко раскрытыми глазами',direction:'Театр эмоций',...ref('Рик и Морти','Mr. Meeseeks'),forLevel:61,cells:864,colours:6,svg:meeseeks},
  {title:'Пухля',family:'Домашние животные',subject:'розовый поросёнок Пухля с закрученным хвостиком',...ref('Гравити Фолз','Waddles'),forLevel:61,cells:342,colours:4,svg:waddles},
  {title:'Перри-утконос',family:'Профессии и увлечения',subject:'утконос Перри, агент П: бирюзовое тело, коричневая шляпа, оранжевые клюв и хвост',direction:'Обмен ролями',...ref('Финес и Ферб','Perry the Platypus (Agent P)'),forLevel:61,cells:1152,colours:7,svg:perry},
- {title:'Кинг',family:'Волшебные существа',subject:'Кинг: маленькое тёмное существо в белой костяной маске-черепе с рогами',...ref('The Owl House','King'),forLevel:61,cells:359,colours:3,svg:king},
+ {title:'Кинг',family:'Волшебные существа',subject:'Кинг: маленькое тёмное существо в белой костяной маске-черепе с рогами',...ref('The Owl House','King'),forLevel:61,cells:392,colours:3,svg:king},
  {title:'Патрик Стар',family:'Морские и пресноводные обитатели',subject:'розовая морская звезда Патрик в зелёных шортах с фиолетовыми цветами на песке под небом',...ref('Губка Боб Квадратные Штаны','Patrick Star'),forLevel:61,cells:900,colours:7,svg:patrick},
  {title:'Аанг',family:'Герои приключений',subject:'Аанг: лысая голова с голубой стрелой-татуировкой, оранжево-жёлтые одежды, посох',...ref('Аватар: Легенда об Аанге','Aang'),forLevel:61,cells:1216,colours:8,svg:aang},
  {title:'Аппа',family:'Волшебные существа',subject:'огромный белый летающий бизон Аппа с коричневой стрелой на голове, шестью лапами и седлом',direction:'Невесомый мир',...ref('Аватар: Легенда об Аанге','Appa'),forLevel:61,cells:1200,colours:7,svg:appa},

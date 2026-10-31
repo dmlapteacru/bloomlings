@@ -53,10 +53,10 @@ export default {theme:'Мемные и абсурдные герои', pictures:
    <polygon points="7.5,12.5 3.5,19.5 5.3,20.4 7.5,15.2" fill="${C.E}"/>
    <polygon points="19.4,18 21.2,18.3 25.2,4.6 23.8,2 21.4,2.6" fill="${C.C}"/>
    <polygon points="18.5,12.5 21.8,15.6 20.6,17.4 18.5,15.2" fill="${C.E}"/>
-   <rect x="7" y="3" width="12" height="20.5" rx="2" fill="${C.A}"/>
-   <ellipse cx="13" cy="3.6" rx="6" ry="1.9" fill="${C.C}"/><ellipse cx="13" cy="3.6" rx="3" ry="1" fill="${C.A}"/>
-   <circle cx="10.4" cy="9.2" r="2.1" fill="${C.C}"/><circle cx="15.6" cy="9.2" r="2.1" fill="${C.C}"/>
-   <circle cx="10.7" cy="9.5" r="1" fill="${C.D}"/><circle cx="15.9" cy="9.5" r="1" fill="${C.D}"/>
+   <rect x="7" y="2.4" width="12" height="21.1" rx="4" fill="${C.A}"/>
+   <path d="M17,4 Q19,5 19,7 L19,21.5 Q19,23.5 17,23.5 Z" fill="${C.E}"/>
+   <circle cx="10.3" cy="9.2" r="2.4" fill="${C.C}"/><circle cx="15.7" cy="9.2" r="2.4" fill="${C.C}"/>
+   <rect x="10" y="9" width="2" height="2" fill="${C.D}"/><rect x="15" y="9" width="2" height="2" fill="${C.D}"/>
    <rect x="9.5" y="15" width="7" height="1.6" fill="${C.E}"/>
   </svg>`},
  // 4 — mid: a monkey made of a tree trunk with big feet and a small hat
@@ -93,8 +93,8 @@ export default {theme:'Мемные и абсурдные герои', pictures:
    <polygon points="11,11 12.4,8.4 13.8,11" fill="${C.M}"/><polygon points="15,11 16.4,8.4 17.8,11" fill="${C.M}"/><polygon points="19,11 20.4,8.4 21.8,11" fill="${C.M}"/>
    <polygon points="24,9 31,9.4 38.6,11.4 39,14 25,14.6" fill="${C.G}"/>
    <circle cx="37.6" cy="11.2" r="1.5" fill="${C.G}"/>
-   <polygon points="25,16 37.8,15.4 36.6,18.4 28,20.2 25,19.6" fill="${C.G}"/>
-   <polygon points="25.4,14.2 38.4,13.6 38,16 25.4,16.4" fill="${C.R}"/>
+   <polygon points="25,17 37.8,16.4 36.6,19.4 28,21 25,20.4" fill="${C.G}"/>
+   <polygon points="25.4,14.2 38.4,13.6 38,17.2 25.4,17.6" fill="${C.R}"/>
    <polygon points="26,14.2 38.4,13.6 38.2,14.4 37.2,15.6 36.2,14.5 35,15.8 34,14.6 32.8,15.9 31.8,14.7 30.6,16 29.6,14.8 28.4,16 27.4,14.9 26.4,16" fill="${C.C}"/>
    <circle cx="28" cy="8" r="3.2" fill="${C.G}"/><circle cx="28.2" cy="7.8" r="2.1" fill="${C.Y}"/><rect x="27.7" y="6" width="1.2" height="3.6" fill="${C.D}"/>
    <polygon points="13,17.5 21,17.5 18,28.4 11,28.4" fill="${C.M}"/>
@@ -157,7 +157,7 @@ export default {theme:'Мемные и абсурдные герои', pictures:
    <rect x="7" y="10.4" width="14" height="11.6" rx="1" fill="${C.C}"/>
    <rect x="7" y="14.4" width="14" height="1" fill="${C.D}"/>
    <rect x="18" y="11.4" width="1.4" height="2.2" fill="${C.D}"/><rect x="18" y="16.4" width="1.4" height="3.8" fill="${C.D}"/>
-   <rect x="9.4" y="17" width="2.2" height="2.2" fill="${C.R}"/>
+   <rect x="9.2" y="16.8" width="3" height="3" fill="${C.R}"/>
   </svg>`},
  // 9 — mid: a frog head on a tyre with human legs
  {title:'Бонека Амбалабу', family:BR, direction:'Предметные гибриды', subject:'голова лягушки на шине с человеческими ногами',
@@ -202,8 +202,8 @@ export default {theme:'Мемные и абсурдные герои', pictures:
    <rect x="0.6" y="6.4" width="4.4" height="6.6" rx="1.6" fill="${C.D}"/><rect x="17" y="6.4" width="4.4" height="6.6" rx="1.6" fill="${C.D}"/>
    <ellipse cx="8.4" cy="8.8" rx="1.8" ry="2.4" fill="${C.C}"/><ellipse cx="13.6" cy="8.8" rx="1.8" ry="2.4" fill="${C.C}"/>
    <ellipse cx="8.7" cy="9.4" rx="1.1" ry="1.5" fill="${C.D}"/><ellipse cx="13.9" cy="9.4" rx="1.1" ry="1.5" fill="${C.D}"/>
-   <path d="M7.6,12.4 L14.4,12.4 Q13.6,15.8 11,15.8 Q8.4,15.8 7.6,12.4 Z" fill="${C.D}"/>
-   <ellipse cx="11" cy="14.8" rx="2" ry="0.9" fill="${C.R}"/>
+   <path d="M7.4,12.2 L14.6,12.2 Q13.8,16.2 11,16.2 Q8.2,16.2 7.4,12.2 Z" fill="${C.D}"/>
+   <ellipse cx="11" cy="14.9" rx="2.6" ry="1.3" fill="${C.R}"/>
   </svg>`},
  // 12 — mid, strong: Doge
  {title:'Доге', family:ANI, direction:'Театр эмоций', subject:'сиба-ину с косым взглядом',
