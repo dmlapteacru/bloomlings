@@ -25,6 +25,9 @@ namespace Bloomlings.Playtest.Preview
         /// <summary>Only every Nth frame is written (<c>BLOOMLINGS_FRAME_EVERY</c>, default 1), for stills over a long play.</summary>
         private static readonly int Every = Math.Max(1, int.TryParse(Environment.GetEnvironmentVariable("BLOOMLINGS_FRAME_EVERY"), out int n) ? n : 1);
 
+        /// <summary>No frame before this one is written (<c>BLOOMLINGS_FRAME_FROM</c>, default 0).</summary>
+        private static readonly int From = Math.Max(0, int.TryParse(Environment.GetEnvironmentVariable("BLOOMLINGS_FRAME_FROM"), out int f) ? f : 0);
+
         public static int Write(string root, int level, float seconds, string outDir, string? styleId)
         {
             string folder = Path.Combine(root, "content/game/rounds/published");
@@ -96,7 +99,7 @@ namespace Bloomlings.Playtest.Preview
                     }
 
                     Frame(1f / Fps);
-                    if (f % Every == 0)
+                    if (f % Every == 0 && f >= From)
                     {
                         File.WriteAllBytes(Path.Combine(outDir, "frame-" + f.ToString("0000", CultureInfo.InvariantCulture) + ".png"), painter.Png());
                     }

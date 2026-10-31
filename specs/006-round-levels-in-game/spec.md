@@ -358,7 +358,8 @@ owner sees the same behaviour as in the playtest app.
   - A bridge MUST be a wooden footbridge with rails, about 2.7 cells long and 1.5 cells wide, drawn over the cubes.
   - Each bridge site MUST carry, in the level data, whether it is shown from the start (`shown`, absent = shown). A
     shown site MUST be drawn faintly over the cubes until its approach opens; a site not shown MUST stay unseen until
-    then. A buildable site MUST be drawn whole, breathing, in a glow ring, and take the tap; a built bridge is drawn
+    then. A buildable site MUST be drawn whole with its glow outline gently pulsing (swelling and brightening, the owner's
+    "the outline could pulse a little" of the same day), and take the tap; a built bridge is drawn
     whole. The rules never read `shown`.
 
 **Transfer path**

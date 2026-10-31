@@ -210,7 +210,7 @@ namespace Bloomlings.Client.Gameplay.Board
             foreach (RoundBridgeSite site in layout.Bridges)
             {
                 Image plank = UiFactory.CreateImage("Bridge", _decor, null, Color.white);
-                Image glow = UiKit.RoundRing("BridgeGlow", _decor, UiTheme.Of(C.GardenGlow), b => Mathf.Min(b.Width, b.Height) * 0.25f, b => Mathf.Max(1.5f, Mathf.Min(b.Width, b.Height) * 0.1f));
+                Image glow = UiKit.RoundRing("BridgeGlow", _decor, UiTheme.Of(C.GardenGlow), b => Mathf.Min(b.Width, b.Height) * 0.3f, b => Mathf.Max(2f, (_layout?.Cell ?? 0f) * RoundBoardLayout.BridgeRingStroke));
                 Image touchImage = UiFactory.CreateImage("BridgeTouch", _decor, null, Color.clear, raycast: true);
                 Button touch = touchImage.gameObject.AddComponent<Button>();
                 touch.transition = Selectable.Transition.None;
@@ -390,7 +390,7 @@ namespace Bloomlings.Client.Gameplay.Board
         private void SyncBridges(RoundLevelCore core, IReadOnlyList<int> buildable, float uiNow)
         {
             RoundAnimator a = core.Animator;
-            float glow = GardenLook.Glow(uiNow);
+            float pulse = RoundBoardLayout.BridgePulse(uiNow);
             bool live = core.HudLive && core.Intro == null && core.Guide == null && !core.Targeting.HasValue;
             foreach ((Image plank, Image ring, Button touch, RoundBridgeSite site) in _sites)
             {
@@ -401,13 +401,17 @@ namespace Bloomlings.Client.Gameplay.Board
                 bool shown = !built && !open && a.Bridge < 0 && site.Shown;
                 plank.enabled = built || open || shown;
                 plank.color = new Color(1f, 1f, 1f, shown ? RoundBoardLayout.ShownBridgeAlpha : 1f);
-                float breath = open ? 1f + (RoundBoardLayout.BridgeBreath * glow) : 1f;
+                float breath = open ? 1f + (RoundBoardLayout.BridgeBreath * pulse) : 1f;
                 plank.transform.localScale = new Vector3(breath, breath, 1f);
                 ring.gameObject.SetActive(open);
                 if (open)
                 {
+                    // The outline swells and brightens with the pulse (the owner, 2026-10-31), scaled from its resting box.
+                    Box rest = _layout!.BridgeOutline(site, 0f);
+                    Box now = _layout.BridgeOutline(site, pulse);
+                    ring.transform.localScale = new Vector3(now.Width / Mathf.Max(1f, rest.Width), now.Height / Mathf.Max(1f, rest.Height), 1f);
                     Color c = UiTheme.Of(C.GardenGlow);
-                    ring.color = new Color(c.r, c.g, c.b, 0.55f + (0.45f * glow));
+                    ring.color = new Color(c.r, c.g, c.b, RoundBoardLayout.BridgeRingAlpha(pulse));
                 }
 
                 touch.gameObject.SetActive(open && live);
@@ -564,9 +568,9 @@ namespace Bloomlings.Client.Gameplay.Board
                 plank.sprite = RoundSprites.Bridge(seed, UiRaster.Quantize(box.Width), UiRaster.Quantize(box.Height));
                 plank.type = Image.Type.Simple;
                 Box bounds = site.PlankBounds;
-                Box glowBox = bounds.Inset(-layout.Cell * RoundBoardLayout.BridgeRingShare);
-                PlaceInGrid(ring.rectTransform, glowBox);
-                PlaceInGrid((RectTransform)touch.transform, Box.FromCenter(bounds.CenterX, bounds.CenterY, Mathf.Max(glowBox.Width, min), Mathf.Max(glowBox.Height, min)));
+                PlaceInGrid(ring.rectTransform, layout.BridgeOutline(site, 0f));
+                Box reach = layout.BridgeOutline(site, 1f);
+                PlaceInGrid((RectTransform)touch.transform, Box.FromCenter(bounds.CenterX, bounds.CenterY, Mathf.Max(reach.Width, min), Mathf.Max(reach.Height, min)));
             }
         }
 

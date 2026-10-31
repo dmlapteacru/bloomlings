@@ -160,6 +160,23 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
+        public void ABuildableBridgesOutline_PulsesOutAndBrighter_AndBack()
+        {
+            // The owner, 2026-10-31: "the bridge's outline could pulse a little once it can be tapped".
+            RoundBoardLayout layout = RoundBoardLayout.Fit(new Box(0f, 0f, 800f, 900f), BoardOf(BridgePicture));
+            RoundBridgeSite site = layout.Bridges[0];
+            float half = RoundBoardLayout.BridgePulseSeconds / 2f;
+            Assert.That(RoundBoardLayout.BridgePulse(0f), Is.EqualTo(0f).Within(1e-4), "at rest");
+            Assert.That(RoundBoardLayout.BridgePulse(half), Is.EqualTo(1f).Within(1e-4), "the peak");
+            Assert.That(RoundBoardLayout.BridgePulse(RoundBoardLayout.BridgePulseSeconds), Is.EqualTo(0f).Within(1e-4), "and back");
+            Box rest = layout.BridgeOutline(site, 0f);
+            Box peak = layout.BridgeOutline(site, 1f);
+            Assert.That(rest.Width, Is.GreaterThan(site.PlankBounds.Width), "round the bridge");
+            Assert.That(peak.Width - rest.Width, Is.EqualTo(2f * layout.Cell * RoundBoardLayout.BridgeRingGrow).Within(1e-3), "it swells out");
+            Assert.That(RoundBoardLayout.BridgeRingAlpha(1f) - RoundBoardLayout.BridgeRingAlpha(0f), Is.GreaterThanOrEqualTo(0.4f), "a visible pulse, not a flicker");
+        }
+
+        [Test]
         public void ABridgeSite_CarriesWhetherTheLevelShowsItFromTheStart()
         {
             // 17 §8 as amended on 2026-10-31: presentation only, the level's own data.

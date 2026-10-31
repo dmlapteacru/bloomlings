@@ -300,11 +300,43 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public const float ShownBridgeAlpha = 0.72f;
 
-        /// <summary>How much a buildable bridge breathes (its scale grows by this at the glow's peak).</summary>
-        public const float BridgeBreath = 0.08f;
+        /// <summary>How much a buildable bridge breathes (its scale grows by this at the pulse's peak, <see cref="BridgePulse"/>).</summary>
+        public const float BridgeBreath = 0.04f;
 
-        /// <summary>How far a buildable bridge's glow ring stands round it, in cells.</summary>
-        public const float BridgeRingShare = 0.14f;
+        /// <summary>How far a buildable bridge's outline stands round it at rest, in cells (<see cref="BridgeOutline"/>).</summary>
+        public const float BridgeRingShare = 0.1f;
+
+        /// <summary>How far the outline swells further out at the pulse's peak, in cells.</summary>
+        public const float BridgeRingGrow = 0.14f;
+
+        /// <summary>The outline's alpha at rest and at the pulse's peak.</summary>
+        public const float BridgeRingAlphaLow = 0.45f;
+
+        public const float BridgeRingAlphaHigh = 1f;
+
+        /// <summary>The outline's stroke, in cells.</summary>
+        public const float BridgeRingStroke = 0.13f;
+
+        /// <summary>One pulse of a buildable bridge's outline, in seconds.</summary>
+        public const float BridgePulseSeconds = 1.1f;
+
+        /// <summary>
+        /// A buildable bridge's pulse at <paramref name="seconds"/> (the owner, 2026-10-31: "the bridge's outline could pulse a
+        /// little, so it shows better once it can be tapped"): 0 at rest to 1 at its peak, a smooth wave every
+        /// <see cref="BridgePulseSeconds"/>.
+        /// </summary>
+        public static float BridgePulse(float seconds)
+        {
+            double phase = 2.0 * Math.PI * seconds / BridgePulseSeconds;
+            return 0.5f - (0.5f * (float)Math.Cos(phase));
+        }
+
+        /// <summary>A buildable bridge's outline at <paramref name="pulse"/> (<see cref="BridgePulse"/>): its bounds swelling outward.</summary>
+        public Box BridgeOutline(RoundBridgeSite site, float pulse) =>
+            site.PlankBounds.Inset(-Cell * (BridgeRingShare + (BridgeRingGrow * pulse)));
+
+        /// <summary>The outline's alpha at <paramref name="pulse"/>.</summary>
+        public static float BridgeRingAlpha(float pulse) => BridgeRingAlphaLow + ((BridgeRingAlphaHigh - BridgeRingAlphaLow) * pulse);
 
         /// <summary>A stone bank's width along the water, in cells (<see cref="Banks"/>).</summary>
         public const float BankShare = 0.18f;

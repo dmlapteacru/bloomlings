@@ -346,14 +346,14 @@ namespace Bloomlings.Playtest.Design
                 else if (a.Bridge < 0 && buildable.Contains(site.Index))
                 {
                     p.Mark(RoundBoardLayout.BridgeSlot);
-                    float glow = GardenLook.Glow(p.Now);
-                    Box ring = site.PlankBounds.Inset(-board.Cell * RoundBoardLayout.BridgeRingShare);
-                    p.StrokeRound(ring, Math.Min(ring.Width, ring.Height) * 0.3f, Math.Max(2f, board.Cell * 0.14f), C.GardenGlow.WithAlpha(0.55f + (0.45f * glow)));
-                    Kit.BridgePlank(p, site, 1f + (RoundBoardLayout.BridgeBreath * glow));
+                    float pulse = RoundBoardLayout.BridgePulse(p.Now);
+                    Box ring = board.BridgeOutline(site, pulse);
+                    p.StrokeRound(ring, Math.Min(ring.Width, ring.Height) * 0.3f, Math.Max(2f, board.Cell * RoundBoardLayout.BridgeRingStroke), C.GardenGlow.WithAlpha(RoundBoardLayout.BridgeRingAlpha(pulse)));
+                    Kit.BridgePlank(p, site, 1f + (RoundBoardLayout.BridgeBreath * pulse));
                     int choice = site.Index;
                     if (s.HudAlpha >= 1f)
                     {
-                        p.Hit(Kit.Touch(p, ring), () => s.BuildBridge(choice));
+                        p.Hit(Kit.Touch(p, board.BridgeOutline(site, 1f)), () => s.BuildBridge(choice));
                     }
                 }
                 else if (a.Bridge < 0 && site.Shown)
