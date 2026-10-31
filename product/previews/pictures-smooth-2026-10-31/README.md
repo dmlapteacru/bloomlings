@@ -11,3 +11,7 @@ The owner, on the first character drafts: «все картинки выгляд
 
 `before-after.png`: four characters, the first boxy drafts above, the smooth redraw below; `sample-cell-grid.svg.mjs`:
 the cell-grid draft of two of them.
+
+**The owner's answer** (same day): «Со смайликом стало лучше. Но остальные стали хуже сильно … Видимо когда ты мне даешь
+картинки, там еще нет сетки … включай сетку». The smooth redraw is rejected except the round Колобок; drawings stay as
+the first drafts, the converter smooths only a picture with `smooth: true`, and contact sheets now draw the cell grid.

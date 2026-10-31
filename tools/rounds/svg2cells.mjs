@@ -4,8 +4,8 @@
 //   colours?: 8, svg: `<svg viewBox="0 0 W H">…</svg>`}]} with fills from tools/rounds/svg-palette.mjs (C.G, C.P, …);
 //   transparent areas are empty cells. The converter renders each SVG once in Chromium at high resolution, maps every
 //   pixel to the nearest palette colour (ΔE), then picks the grid whose coloured cell count is closest to `cells`
-//   (each cell takes the colour covering most of it), smooths one-cell spikes and notches off every edge (a picture's
-//   `smooth: false` keeps the raw grid), folds patches of 1–2 cells into their neighbour and, over
+//   (each cell takes the colour covering most of it), with `smooth: true` smooths one-cell spikes and notches off every
+//   edge, folds patches of 1–2 cells into their neighbour and, over
 //   `colours`, the smallest colour into its closest neighbour. Output: a picture module for pictures.mjs / screen.mjs.
 // node tools/rounds/svg2cells.mjs <drafts.mjs> --out <batch.mjs> [--sheet <png> [--level N]]
 import fs from 'node:fs';import path from 'node:path';import {pathToFileURL} from 'node:url';import {createRequire} from 'node:module';import {execFileSync} from 'node:child_process';
@@ -41,7 +41,7 @@ function smooth(g){const H=g.length,W=g[0].length,nb=[[1,0],[-1,0],[0,1],[0,-1]]
   g=next;if(!changed)break;}
  return g;}
 // patches of 1–2 cells fold into the colour around them; over `max` colours the smallest folds into its closest neighbour
-function clean(rows,max,smoothing=true){let g=rows.map(r=>[...r]);const H=g.length,W=g[0].length,nb=[[1,0],[-1,0],[0,1],[0,-1]];
+function clean(rows,max,smoothing=false){let g=rows.map(r=>[...r]);const H=g.length,W=g[0].length,nb=[[1,0],[-1,0],[0,1],[0,-1]];
  if(smoothing)g=smooth(g);
  for(let pass=0;pass<3;pass++){const seen=new Uint8Array(W*H);for(let y=0;y<H;y++)for(let x=0;x<W;x++){const c=g[y][x];if(c==='.'||seen[y*W+x])continue;const comp=[[x,y]],q=[[x,y]];seen[y*W+x]=1;
    while(q.length){const [u,v]=q.pop();for(const [dx,dy] of nb){const a=u+dx,b=v+dy;if(a<0||b<0||a>=W||b>=H||seen[b*W+a]||g[b][a]!==c)continue;seen[b*W+a]=1;q.push([a,b]);comp.push([a,b]);}}
@@ -55,7 +55,7 @@ function clean(rows,max,smoothing=true){let g=rows.map(r=>[...r]);const H=g.leng
 
 export async function convert(pics){const ras=await rasterize(pics.map(p=>p.svg)),out=[];
  for(const [k,p] of pics.entries()){const {W,H}=ras[k],idx=toIndex(ras[k]),target=p.cells||900,aspect=W/H;let best=null;
-  for(let gw=8;gw<=44;gw++){const gh=Math.max(4,Math.round(gw/aspect));if(gh>44)break;const rows=clean(grid(idx,W,H,gw,gh),p.colours||10,p.smooth!==false),n=countN(rows);if(!best||Math.abs(n-target)<Math.abs(best.n-target))best={rows,n,gw,gh};}
+  for(let gw=8;gw<=44;gw++){const gh=Math.max(4,Math.round(gw/aspect));if(gh>44)break;const rows=clean(grid(idx,W,H,gw,gh),p.colours||10,p.smooth===true),n=countN(rows);if(!best||Math.abs(n-target)<Math.abs(best.n-target))best={rows,n,gw,gh};}
   const {svg,cells,colours,...meta}=p;out.push({...meta,rows:best.rows});console.log(`#${k+1} «${p.title}»: сетка ${best.rows[0].length}×${best.rows.length}, ${best.n} клеток (цель ${target}), цветов ${new Set(best.rows.join('').replace(/\./g,'')).size}`);}
  return out;}
 

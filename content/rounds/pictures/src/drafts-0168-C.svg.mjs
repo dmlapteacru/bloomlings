@@ -15,14 +15,21 @@ const bands=(a,b,t,cols)=>{const n=cols.length,at=(p,q,s)=>[p[0]+(q[0]-p[0])*s,p
 const F='Фольклор и легенды',H='Герои приключений',S='оригинальный';
 
 export default {theme:'Сказочные герои', pictures:[
- // 1 — compact: the round golden bun with a happy face on a stump
+ // 1 — the round golden bun with a happy face on a stump (smooth redraw, 35×35)
  {title:'Колобок на пеньке', family:F, direction:'Кулинарная фантастика', subject:'Колобок, круглый золотистый хлебец с улыбкой, на пеньке', source:S, forLevel:61,
-  cells:380, colours:6, svg:svg(20,19,
-   rect(0,0,20,19,'S'), rect(0,15,20,4,'G'),
-   poly('4,12 16,12 16,16 17.5,17 2.5,17 4,16','E'), ell(10,12.3,6,1.6,'A'),
-   circ(10,7,6,'Y'),
-   rect(7,5,2,2,'D'), rect(11,5,2,2,'D'),
-   rect(7,9,6,1,'D'), rect(6,8,2,1,'D'), rect(12,8,2,1,'D'), rect(8,10,4,1,'D'))},
+  // the smooth version the owner preferred (2026-10-31: «Со смайликом стало лучше»): curves on a 35×35 cell grid
+  cells:1225, colours:8, smooth:true, svg:`<svg viewBox="0 0 35 35" xmlns="http://www.w3.org/2000/svg">
+  <rect width="35" height="35" fill="${C.S}"/>
+  <ellipse cx="17.5" cy="37" rx="28" ry="9" fill="${C.G}"/>
+  <path d="M8 26 Q7.5 32 6 34 L29 34 Q27.5 32 27 26 Z" fill="${C.E}"/>
+  <ellipse cx="17.5" cy="26" rx="9.5" ry="2.6" fill="${C.A}"/>
+  <ellipse cx="17.5" cy="26" rx="6" ry="1.4" fill="${C.C}"/>
+  <circle cx="17.5" cy="15.5" r="10" fill="${C.O}"/>
+  <circle cx="16.4" cy="14.4" r="9" fill="${C.Y}"/>
+  <rect x="12" y="10" width="3" height="4" fill="${C.D}"/><rect x="19" y="10" width="3" height="4" fill="${C.D}"/>
+  <rect x="9" y="15" width="3" height="2" fill="${C.K}"/><rect x="22" y="15" width="3" height="2" fill="${C.K}"/>
+  <path d="M12 16 L22 16 L22 17 Q21 20 17 20 Q13 20 12 17 Z" fill="${C.R}"/>
+ </svg>`},
 
  // 2 — large, strong: the cat-hero of Perrault standing in tall boots, plumed hat, sword raised
  {title:'Кот в сапогах', family:H, direction:'Обмен ролями', subject:'усатый герой Перро в ботфортах, шляпе с пером и со шпагой', source:S, forLevel:61,

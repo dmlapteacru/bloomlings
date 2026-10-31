@@ -6,7 +6,7 @@
 // node tools/rounds/pictures.mjs render <batch.mjs> [--start N] write a batch module's pictures as drafts from N (default: next)
 // node tools/rounds/pictures.mjs replace <id> <batch.mjs> [--index k]   redraw one picture in place (version + 1, draft)
 // node tools/rounds/pictures.mjs check [ids…|--status draft]   rules check of each picture (§2), with its intended level
-// node tools/rounds/pictures.mjs sheet [ids…|--status draft] --out <png> [--columns 5]   numbered contact sheet
+// node tools/rounds/pictures.mjs sheet [ids…|--status draft] --out <png> [--columns 5] [--no-grid]   numbered contact sheet, cells with their grid
 // node tools/rounds/pictures.mjs approve <ids…> | reject <ids…> [--note "…"]   record the owner's decision
 // node tools/rounds/pictures.mjs list [--status approved|draft|rejected]
 // node tools/rounds/pictures.mjs publish   rebuild content/rounds/approved/ (approve, reject, replace and levels.mjs place
@@ -69,14 +69,19 @@ export function check(p){const issues=[],warn=[];const s=stageOf(p.forLevel),m=m
 // a strip's colour on the sheets: water for a stream, the board's surface (board.surface) for a split picture's gap
 // (bridge-scene.mjs make --mode split, 17 §8 «Одна цельная картинка», 2026-10-29)
 const stripRgb=p=>p.scene&&p.scene.mode==='split'?[220,211,196]:[150,190,205];
-function sheet(pics,out,cols){const cs=Math.max(5,Math.floor(320/Math.max(...pics.map(p=>Math.max(p.w,p.h)))));
+// the contact sheet shows the cell grid (the owner, 2026-10-31: «Когда будешь давать мне картинки на просмотр то включай
+// сетку»): every coloured cell a square with a one-pixel gap in the board's light surface, as the cubes stand in a level
+// (--no-grid draws solid areas)
+function sheet(pics,out,cols){const grid=!flag('--no-grid'),cs=Math.max(grid?8:5,Math.floor(360/Math.max(...pics.map(p=>Math.max(p.w,p.h)))));
  const tw=Math.max(...pics.map(p=>p.w))*cs+16,lab=34,th=Math.max(...pics.map(p=>p.h))*cs+lab+16,C=Math.min(cols,pics.length),R=Math.ceil(pics.length/C),Wt=C*tw,Ht=R*th,px=Buffer.alloc(Wt*Ht*3,255);
  const put=(x,y,[r,g,b])=>{if(x<0||y<0||x>=Wt||y>=Ht)return;const i=(y*Wt+x)*3;px[i]=r;px[i+1]=g;px[i+2]=b;};
  const rect=(x0,y0,w,h,c)=>{for(let y=y0;y<y0+h;y++)for(let x=x0;x<x0+w;x++)put(x,y,c);};
  const text=(s,x,y,k,c)=>{for(const ch of s){const f=FONT[ch]||FONT[' '];for(let j=0;j<5;j++)for(let i=0;i<3;i++)if(f[j*3+i]==='1')rect(x+i*k,y+j*k,k,k,c);x+=4*k;}};
  pics.forEach((p,n)=>{const ox=(n%C)*tw+8,oy=Math.floor(n/C)*th+8,ink=p.inUse?[150,150,150]:p.status==='approved'?[30,130,60]:p.status==='rejected'?[190,40,40]:[30,30,30];
   const name=String(p.label||p.seq);text(name,ox,oy,4,ink);text(p.inUse?`#${+p.inUse.slice(1)}`:`${p.N}/${p.colours}`,ox+4*4*(name.length+1),oy+8,2,[90,90,90]);
-  p.rows.forEach((r,y)=>{for(let x=0;x<r.length;x++){const c=r[x],col=c==='.'?[248,247,243]:c==='#'?stripRgb(p):c==='b'?[160,110,60]:rgbOf(PALETTE[c].color);rect(ox+x*cs,oy+lab+y*cs,cs,cs,col);}});
+  p.rows.forEach((r,y)=>{for(let x=0;x<r.length;x++){const c=r[x],col=c==='.'?[248,247,243]:c==='#'?stripRgb(p):c==='b'?[160,110,60]:rgbOf(PALETTE[c].color);
+   if(!grid||c==='.'){rect(ox+x*cs,oy+lab+y*cs,cs,cs,col);continue;}
+   rect(ox+x*cs,oy+lab+y*cs,cs,cs,[232,228,220]);rect(ox+x*cs,oy+lab+y*cs,cs-1,cs-1,col);}});
   rect(ox-1,oy+lab-1,p.w*cs+2,1,[200,200,200]);rect(ox-1,oy+lab+p.h*cs,p.w*cs+2,1,[200,200,200]);});
  fs.mkdirSync(path.dirname(path.resolve(out)),{recursive:true});fs.writeFileSync(out,png(Wt,Ht,px));
  const md=out.replace(/\.png$/,'.md');fs.writeFileSync(md,`# Картинки на утверждение\n\nНомер на листе — порядковый номер картинки; рядом клетки/цвета. Ответь номерами: какие утвердить, какие переделать (и что поменять).\n\n| № | Название | Тема | Размер | Клеток | Цветов | Объёмы | Для уровня | Статус |\n|---:|---|---|---|---:|---:|---|---:|---|\n`+pics.map(p=>`| ${p.label||p.seq} | ${p.title} | ${p.theme||'—'} | ${p.w}×${p.h} | ${p.N} | ${p.colours} | ${Object.entries(p.volumes||{}).sort((a,b)=>b[1]-a[1]).map(([c,v])=>`${c} ${v}`).join(' · ')} | ${p.forLevel} | ${p.status||'—'} |`).join('\n')+'\n');

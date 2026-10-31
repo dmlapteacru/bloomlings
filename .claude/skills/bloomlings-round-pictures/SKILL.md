@@ -199,6 +199,8 @@ order asks for, not a free batch.
    - `node tools/rounds/pictures.mjs sheet --status draft --out content/rounds/pictures/sheets/batch-0475.png`
      writes the PNG and a `.md` table next to it.
    - Open the PNG. Redraw anything that does not read as its title at this scale before showing it.
+   - The sheet draws every cell with its grid, as the cubes stand in a level (the owner, 2026-10-31: «Когда будешь давать
+     мне картинки на просмотр то включай сетку»); always show the owner gridded sheets, never solid areas.
 5. **Show the owner.**
    - Send the sheet PNG with `SendUserFile`, plus its `.md` table.
    - Ask for the decision by number: which to approve, which to redo, and what to change.
