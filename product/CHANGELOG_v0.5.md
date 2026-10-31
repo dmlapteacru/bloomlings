@@ -13,7 +13,7 @@
   a guideline.
 - Tools: `tools/rounds/measure.mjs` `calmTest`, `calmFails`, `trapLinks`; `levels.mjs` evaluate refuses a Hard or Super
   Hard that fails them, `place` holds a regular Normal to 50 % calm (measuring banked candidates when needed), `checks`
-  adds both; `audit.mjs` makes them mandatory with a «Спокойно» column. Wave L21–L50: L25, L27, L29, L42, L48 rebuilt.
+  adds the trap links (the calm test with `--calm`); `audit.mjs` makes them mandatory with a «Спокойно» column. Wave L21–L50: L25, L27, L29, L42, L48 rebuilt.
 
 ## Owner decisions · 2026-10-30 — the difficulty is the pods'; Super Hard and bridge levels by hand
 

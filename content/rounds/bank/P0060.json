@@ -508,6 +508,23 @@
     "pressure": {
      "stuck": 2.51,
      "tight": 0.96
+    },
+    "calm": {
+     "runs": 400,
+     "wins": 97,
+     "share": 0.243,
+     "wilson95": [
+      0.203,
+      0.287
+     ],
+     "borderline": true,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 2,
+     "traps": 1,
+     "top": 1
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -1028,6 +1045,23 @@
     "pressure": {
      "stuck": 2.07,
      "tight": 0.95
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 81,
+     "share": 0.405,
+     "wilson95": [
+      0.339,
+      0.474
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 2,
+     "traps": 0,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -1496,6 +1530,23 @@
     "pressure": {
      "stuck": 1.68,
      "tight": 0.92
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 161,
+     "share": 0.805,
+     "wilson95": [
+      0.745,
+      0.854
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -1966,6 +2017,23 @@
     "pressure": {
      "stuck": 1.77,
      "tight": 0.94
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 78,
+     "share": 0.39,
+     "wilson95": [
+      0.325,
+      0.459
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -2434,6 +2502,23 @@
     "pressure": {
      "stuck": 1.59,
      "tight": 0.91
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 117,
+     "share": 0.585,
+     "wilson95": [
+      0.516,
+      0.651
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -2904,6 +2989,23 @@
     "pressure": {
      "stuck": 1.45,
      "tight": 0.9
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 130,
+     "share": 0.65,
+     "wilson95": [
+      0.582,
+      0.713
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -3368,6 +3470,23 @@
     "pressure": {
      "stuck": 1.52,
      "tight": 0.93
+    },
+    "calm": {
+     "runs": 400,
+     "wins": 115,
+     "share": 0.288,
+     "wilson95": [
+      0.245,
+      0.334
+     ],
+     "borderline": true,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 3,
+     "traps": 1,
+     "top": 1
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -3832,6 +3951,23 @@
     "pressure": {
      "stuck": 1.03,
      "tight": 0.91
+    },
+    "calm": {
+     "runs": 400,
+     "wins": 204,
+     "share": 0.51,
+     "wilson95": [
+      0.461,
+      0.559
+     ],
+     "borderline": true,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 3,
+     "traps": 2,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -4294,6 +4430,23 @@
     "pressure": {
      "stuck": 1.09,
      "tight": 0.91
+    },
+    "calm": {
+     "runs": 400,
+     "wins": 221,
+     "share": 0.553,
+     "wilson95": [
+      0.504,
+      0.6
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 3,
+     "traps": 2,
+     "top": 1
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -4754,6 +4907,23 @@
     "pressure": {
      "stuck": 0.97,
      "tight": 0.92
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 189,
+     "share": 0.945,
+     "wilson95": [
+      0.904,
+      0.969
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 4,
+     "traps": 1,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -5250,6 +5420,23 @@
     "pressure": {
      "stuck": 1.5,
      "tight": 0.92
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 143,
+     "share": 0.715,
+     "wilson95": [
+      0.649,
+      0.773
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -5748,6 +5935,23 @@
     "pressure": {
      "stuck": 1.15,
      "tight": 0.9
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 135,
+     "share": 0.675,
+     "wilson95": [
+      0.607,
+      0.736
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -6251,6 +6455,23 @@
     "pressure": {
      "stuck": 1.28,
      "tight": 0.89
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 128,
+     "share": 0.64,
+     "wilson95": [
+      0.571,
+      0.703
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -6747,6 +6968,23 @@
     "pressure": {
      "stuck": 1.66,
      "tight": 0.91
+    },
+    "calm": {
+     "runs": 400,
+     "wins": 206,
+     "share": 0.515,
+     "wilson95": [
+      0.466,
+      0.564
+     ],
+     "borderline": true,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)"
@@ -7229,6 +7467,23 @@
     "pressure": {
      "stuck": 1.06,
      "tight": 0.91
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 65,
+     "share": 0.325,
+     "wilson95": [
+      0.264,
+      0.393
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 3,
+     "traps": 1,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -9717,6 +9972,23 @@
     "pressure": {
      "stuck": 1.16,
      "tight": 0.92
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 156,
+     "share": 0.78,
+     "wilson95": [
+      0.718,
+      0.832
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 3,
+     "traps": 0,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -14198,6 +14470,23 @@
     "pressure": {
      "stuck": 1.3,
      "tight": 0.9
+    },
+    "calm": {
+     "runs": 400,
+     "wins": 121,
+     "share": 0.303,
+     "wilson95": [
+      0.26,
+      0.349
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -14669,6 +14958,23 @@
     "pressure": {
      "stuck": 1.36,
      "tight": 0.91
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 146,
+     "share": 0.73,
+     "wilson95": [
+      0.665,
+      0.787
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -15138,6 +15444,23 @@
     "pressure": {
      "stuck": 1.78,
      "tight": 0.9
+    },
+    "calm": {
+     "runs": 400,
+     "wins": 180,
+     "share": 0.45,
+     "wilson95": [
+      0.402,
+      0.499
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -15609,6 +15932,23 @@
     "pressure": {
      "stuck": 1.9,
      "tight": 0.94
+    },
+    "calm": {
+     "runs": 400,
+     "wins": 95,
+     "share": 0.238,
+     "wilson95": [
+      0.198,
+      0.282
+     ],
+     "borderline": true,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",

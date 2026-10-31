@@ -20,7 +20,8 @@
 //      picture must be approved, its class the calendar's and its recipe and bridge side the mechanics plan's
 // node tools/rounds/levels.mjs bank                        the bank: candidates by picture and measured class
 // node tools/rounds/levels.mjs card <level>                the level card (§14)
-// node tools/rounds/levels.mjs checks [--shard i/n] [--levels]  add missing checks (17 §5–§9, §13 layer B) to banked candidates and placed levels
+// node tools/rounds/levels.mjs checks [--shard i/n] [--levels] [--calm]  add missing checks (17 §5–§9, §13 layer B) to banked candidates and placed
+//      levels (the §5 calm test only with --calm: place measures the candidates it weighs)
 import fs from 'node:fs';import path from 'node:path';
 import {repeatWindow,siteChoice,ROUNDS,PICTURES,LEVELS,BANK,CODES,manifest,saveManifest,picture,readJSON,writeJSON,lid,pid,arg,flag,measure,stageOf,fitsStage,sizeBin,budget,columnsFor,classOf,slotOf,INTRO,MECH_RU,SUPPORTED,boardOf,usage,motifsOf,overlaid,bridgeSide,wallOverlay,planOf,fitsPlan,mechanicsPlans} from './lib.mjs';import {execFileSync} from 'node:child_process';
 import {fitness} from './fitness.mjs';
@@ -450,8 +451,9 @@ else if(cmd==='checks'){
    const bl=bridgeKind==='single'?await bridgeLoss(lv,bs.each.indexOf(false)):null;
    c.checks={forced:await forcedShare(lv),opening,hold:await holdPod(lv),greedyLoses:!st['most-now|left']&&!st['most-now|right'],hiddenMatters:hm,bridgeKind,bridgeSingle:bs,...(bl?{bridgeLoss:bl}:{})};n++;}
   if(!c.checks.pressure){c.checks.pressure=await pressure(lv,QUALITY.pressure.games);n++;}
-  // §5 calm test and §8 trap links (2026-10-31), with the class's best bridge
-  if(!c.checks.calm){c.checks.calm=await calmTest(lv,c.random&&c.random.bridge!=null?{bridge:c.random.bridge}:{});n++;}
+  // §8 trap links (2026-10-31); the §5 calm test only with --calm (a few seconds a candidate: the placer measures the
+  // candidates it weighs and keeps the result, so a whole bank need not be measured)
+  if(flag('--calm')&&!c.checks.calm){c.checks.calm=await calmTest(lv,c.random&&c.random.bridge!=null?{bridge:c.random.bridge}:{});n++;}
   if(!c.checks.traps){const t=trapLinks(lv);c.checks.traps={links:t.length,traps:t.filter(x=>x.trap).length,top:t.filter(x=>x.trap&&x.row<=2).length};n++;}return n;};
  const files=(fs.existsSync(BANK)?fs.readdirSync(BANK):[]).sort().filter((f,i)=>i%sn===si);
  for(const f of files){const bf=path.join(BANK,f),b=readJSON(bf);let changed=0;for(const c of b.candidates)changed+=await fill(c);if(changed)writeJSON(bf,b);console.log(b.picture,'проверок добавлено',changed);}
