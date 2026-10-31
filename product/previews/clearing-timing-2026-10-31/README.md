@@ -36,3 +36,10 @@ Videos (top: now, bottom: proposal), rendered by `playtest/preview -- --clear-vi
 - `L1-final-v4flat-acorn.mp4`: L1 at ×1 as it is now.
 - The other option the owner asked for: flat 2D walkers drawn after the meta screens' heroes, to be tinted in the cube's
   colour: `mock-heroes-concept.png` (sketches; source `mock-heroes-concept.html`, SVG). Not in the game until approved.
+
+## The same day: «желудя надо чуть шире сделать … бревно можно совсем убрать»
+
+- The acorn (tools/artgen `Characters2D`): the nut 62 wide instead of 44, the cap 76 instead of 60, rounder:
+  `acorn-wider.png` (before / after, in Twig's four materials).
+- The log is gone: Wood's character is the acorn's (`CharacterArt.CharacterIcon`), its pictures removed from the set (53
+  pictures), the Store's Pushers preview shows the acorn. The log's symbol on legacy tiles stays.

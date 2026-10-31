@@ -119,7 +119,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>
         /// How much larger than <see cref="ClearLook.WalkerSize"/> a round level's walker is, on its way and at its cube alike
         /// (the owner, 2026-10-31: the heroes were small; "V4 без роста": 1.17 cubes, between the review's 0.93 and 1.4, with
-        /// no growth at the cube; Colony Flow's ants are about 2–2.5 cubes long and 1 wide).
+        /// no growth at the cube; the reference game's ants are about 2–2.5 cubes long and 1 wide).
         /// </summary>
         public const float LiveWalkScale = 1.575f;
 

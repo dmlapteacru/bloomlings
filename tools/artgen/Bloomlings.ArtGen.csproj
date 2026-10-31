@@ -31,6 +31,8 @@
     <Compile Include="../../client/Assets/Bloomlings/UI/Design/ShapeLibrary.cs" Link="Kit/%(Filename)%(Extension)" />
     <Compile Include="../../client/Assets/Bloomlings/UI/Design/ShapeRaster.cs" Link="Kit/%(Filename)%(Extension)" />
     <Compile Include="../../client/Assets/Bloomlings/UI/Design/VolumeRaster.cs" Link="Kit/%(Filename)%(Extension)" />
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/RoundScreenLook.cs" Link="Kit/%(Filename)%(Extension)" />
+    <Compile Include="../../client/Assets/Bloomlings/UI/Design/RoundLook.cs" Link="Kit/%(Filename)%(Extension)" />
     <Compile Include="../../client/Assets/Bloomlings/UI/Design/FrameRaster.cs" Link="Kit/%(Filename)%(Extension)" />
     <Compile Include="../../client/Assets/Bloomlings/UI/Design/NavRaster.cs" Link="Kit/%(Filename)%(Extension)" />
     <Compile Include="../../client/Assets/Bloomlings/UI/Design/ProfileFrames.cs" Link="Kit/%(Filename)%(Extension)" />

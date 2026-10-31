@@ -73,12 +73,14 @@ namespace Bloomlings.Content.Tests
             var paths = new HashSet<string>(entries.Select(e => e.Path), StringComparer.Ordinal);
             Assert.That(paths.Count, Is.EqualTo(entries.Count), "each file listed once");
 
-            // The 48 2D characters are always generated; the 9 generated 3D pictures are there, each the tool's or the owner's.
-            Assert.That(entries.Count(e => e.Path.StartsWith("2d/", StringComparison.Ordinal) && !e.Owner), Is.EqualTo(48));
+            // The 44 2D characters are always generated (11 × 4: Wood shows the acorn since the owner removed the log on
+            // 2026-10-31); the 9 generated 3D pictures are there, each the tool's or the owner's.
+            Assert.That(entries.Count(e => e.Path.StartsWith("2d/", StringComparison.Ordinal) && !e.Owner), Is.EqualTo(44));
+            Assert.That(paths.Where(p => p.StartsWith("2d/log-", StringComparison.Ordinal)), Is.Empty, "no log");
             Assert.That(entries.Where(e => e.Owner).Select(e => e.Path).Where(p => !p.StartsWith("3d/", StringComparison.Ordinal)), Is.Empty, "owner pictures are 3D heroes in 3d/");
             Assert.That(Set3D.Where(p => !paths.Contains(p)), Is.Empty);
             Assert.That(entries.Where(e => e.Path.StartsWith("3d/", StringComparison.Ordinal) && !e.Owner).Select(e => e.Path).Where(p => !Set3D.Contains(p)), Is.Empty, "the tool generates only the set");
-            Assert.That(entries.Count(e => !e.Owner || Set3D.Contains(e.Path)), Is.EqualTo(57));
+            Assert.That(entries.Count(e => !e.Owner || Set3D.Contains(e.Path)), Is.EqualTo(53));
             Assert.That(entries.All(e => e.Slot.StartsWith("char.v.", StringComparison.Ordinal) || e.Slot.StartsWith("char.hero3d.", StringComparison.Ordinal)), Is.True);
         }
 

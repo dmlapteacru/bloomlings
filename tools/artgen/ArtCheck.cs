@@ -261,7 +261,8 @@ namespace Bloomlings.ArtGen
         /// <summary>The shape difference of every launch pair: the share of the joined silhouette only one covers.</summary>
         public static IEnumerable<(string A, string B, double Difference)> ShapeDifferences(string folder)
         {
-            VariantInfo[] launch = VariantCatalog.Default.All.Where(v => v.Status == VariantStatus.Launch).ToArray();
+            // one character each: Wood shows the acorn's since the owner removed the log (2026-10-31)
+            VariantInfo[] launch = VariantCatalog.Default.All.Where(v => v.Status == VariantStatus.Launch && CharacterArt.CharacterIcon(v.IconId) == v.IconId).ToArray();
             var masks = launch.ToDictionary(v => v.IconId, v => Png.Mask(File.ReadAllBytes(Path.Combine(folder, CharacterArt.Picture2D(v.IconId, CharacterMood.Happy) + ".png")), MaskSize));
             for (int a = 0; a < launch.Length; a++)
             {

@@ -85,13 +85,19 @@ namespace Bloomlings.Client.UI.Design
             _ => family.ToString().ToLowerInvariant(),
         };
 
-        /// <summary>A variant's 2D character picture: <c>2d/leaf-happy</c>.</summary>
-        public static string Picture2D(string iconId, CharacterMood mood) => "2d/" + iconId + "-" + MoodName(mood);
+        /// <summary>A variant's 2D character picture: <c>2d/leaf-happy</c> (Wood's is the acorn's, <see cref="CharacterIcon"/>).</summary>
+        public static string Picture2D(string iconId, CharacterMood mood) => "2d/" + CharacterIcon(iconId) + "-" + MoodName(mood);
+
+        /// <summary>
+        /// The character a variant's icon is drawn as: its own, except Wood's log, which the owner removed on 2026-10-31
+        /// (the acorn stands for the Twig family; the log's symbol on tiles stays).
+        /// </summary>
+        public static string CharacterIcon(string iconId) => iconId == "log" ? "acorn" : iconId;
 
         /// <summary>A family's 3D hero: <c>3d/bloom</c>, or <c>3d/bloom-blank</c> without eyes and mouth.</summary>
         public static string Hero(Family family, bool blank = false) => "3d/" + FamilyName(family) + (blank ? "-blank" : string.Empty);
 
-        public static string Slot2D(string iconId) => "char.v." + iconId;
+        public static string Slot2D(string iconId) => "char.v." + CharacterIcon(iconId);
 
         public static string HeroSlot(Family family) => "char.hero3d." + FamilyName(family);
 
@@ -155,7 +161,7 @@ namespace Bloomlings.Client.UI.Design
             return "char.hero3d." + (blank > 0 ? name.Substring(0, blank) : name);
         }
 
-        /// <summary>Every picture of the set (57): 12 icons × 4 moods, 4 heroes × 2, and the group.</summary>
+        /// <summary>Every picture of the set (53): 11 characters × 4 moods (Wood shows the acorn), 4 heroes × 2, and the group.</summary>
         public static IReadOnlyList<string> AllPictures(IEnumerable<VariantInfo> variants)
         {
             var names = new List<string>();
@@ -163,7 +169,11 @@ namespace Bloomlings.Client.UI.Design
             {
                 foreach (CharacterMood mood in Moods)
                 {
-                    names.Add(Picture2D(variant.IconId, mood));
+                    string name = Picture2D(variant.IconId, mood);
+                    if (!names.Contains(name))
+                    {
+                        names.Add(name);
+                    }
                 }
             }
 
@@ -234,8 +244,7 @@ namespace Bloomlings.Client.UI.Design
             "bud" => (50f, 66f),
             "drop" => (52f, 66f),
             "dew" => (50f, 60f),
-            "log" => (50f, 60f),
-            "acorn" => (50f, 72f),
+            "acorn" => (50f, 70f),
             "vine" => (50f, 64f),
             "berry" => (50f, 62f),
             "mist" => (50f, 63f),

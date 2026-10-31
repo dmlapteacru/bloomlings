@@ -124,36 +124,17 @@ namespace Bloomlings.ArtGen
                     break;
                 }
 
-                case "log":
-                {
-                    Rgba top = k.Base.Mix(Palette.WoodTop, 0.6f);
-                    RoundRect(c, 12, 48, 12, 16, 6, k.Base.Darken(0.05f), k.Line, 3f);
-                    RoundRect(c, 76, 48, 12, 16, 6, k.Base.Darken(0.05f), k.Line, 3f);
-                    Body(c, k, Path("M22,30 L22,82 C22,90 36,94 50,94 C64,94 78,90 78,82 L78,30 Z"));
-                    foreach (float x in new[] { 31f, 69f })
-                    {
-                        Stroke(c, Path($"M{x},40 C{x - 2},56 {x + 2},70 {x},86"), k.Base.Darken(0.3f).WithAlpha(0.45f), 2.2f);
-                    }
-
-                    OvalOutlined(c, 50, 30, 28, 10, 0, top, k.Line, Outline);
-                    OvalStroke(c, 50, 30, 18, 6, top.Darken(0.25f), 1.8f);
-                    OvalStroke(c, 50, 30, 8, 2.8f, top.Darken(0.25f), 1.8f);
-                    Rgba sprout = k.Tone(Palette.Sprout);
-                    Stroke(c, Path("M64,26 Q66,16 70,12"), sprout.Darken(0.4f), 2.4f);
-                    OvalOutlined(c, 75, 11, 7, 4, -25, sprout, sprout.Darken(0.45f), 2f);
-                    break;
-                }
-
                 case "acorn":
                 {
                     Rgba cap = k.Tone(k.Raw.Mix(Palette.CapBrown, 0.55f));
-                    Body(c, k, Path("M28,50 C28,76 38,93 50,93 C62,93 72,76 72,50 Z"));
-                    Shine(c, 38, 64, 4.5f, 9, -15);
-                    Stroke(c, Path("M50,24 C52,16 55,11 58,8"), cap.Darken(0.3f), 4f);
-                    using SKPath capPath = Path("M20,52 C20,32 34,22 50,22 C66,22 80,32 80,52 C66,58 34,58 20,52 Z");
+                    // Wider and rounder since the owner's note of 2026-10-31 ("narrow and drawn out"): the nut 62 wide, the cap 76.
+                    Body(c, k, Path("M19,50 C19,80 34,94 50,94 C66,94 81,80 81,50 Z"));
+                    Shine(c, 31, 64, 5, 10, -15);
+                    Stroke(c, Path("M50,26 C52,17 56,12 60,9"), cap.Darken(0.3f), 4.4f);
+                    using SKPath capPath = Path("M12,53 C12,33 29,24 50,24 C71,24 88,33 88,53 C70,60 30,60 12,53 Z");
                     Fill(c, capPath, cap, cap.Darken(0.4f), Outline);
-                    Hatch(c, Path("M22,50 C22,33 35,25 50,25 C65,25 78,33 78,50 C64,55 36,55 22,50 Z"), cap.Darken(0.3f).WithAlpha(0.55f));
-                    Shine(c, 38, 32, 6, 3.5f, -10, 0.35f);
+                    Hatch(c, Path("M14,51 C14,35 30,27 50,27 C70,27 86,35 86,51 C68,57 32,57 14,51 Z"), cap.Darken(0.3f).WithAlpha(0.55f));
+                    Shine(c, 34, 34, 7.5f, 3.8f, -10, 0.35f);
                     break;
                 }
 

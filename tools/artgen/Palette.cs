@@ -27,7 +27,6 @@ namespace Bloomlings.ArtGen
         {
             "moss" => color.Lighten(0.22f),
             "bud" => color.Lighten(0.2f),
-            "log" => color.Mix(WoodBark, 0.55f),
             "acorn" => color.Lighten(0.06f),
             "berry" => color.Lighten(0.15f),
             "vine" => color.Darken(0.04f),

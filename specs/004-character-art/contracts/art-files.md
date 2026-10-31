@@ -67,4 +67,4 @@ The preview tool counts a missing picture as a check failure.
   licence file is `tools/artgen/OWNERSHIP.md`.
 - `OriginalityTests` accepts any file under a recorded folder that the folder's `manifest.json` lists.
 - `Bloomlings.Content.Tests` gets `CharacterArt_ManifestMatchesFiles`: the manifest lists exactly the files present,
-  the sha256 values match, and the expected 57 names are all there.
+  the sha256 values match, and the expected 53 names are all there (57 before the owner removed the log, 2026-10-31: Wood shows the acorn).

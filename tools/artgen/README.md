@@ -11,9 +11,9 @@ Run from the repository root (needs the .NET 10 SDK):
 
 | Command | Does |
 |---|---|
-| `dotnet run --project tools/artgen -- build` | Renders every picture (57 files) and writes `manifest.json`. The 3D set takes about 10 minutes on 4 cores. It never overwrites an owner picture (below), nor a file changed since the last build (it prints `SKIP`; `--force` overwrites those). |
+| `dotnet run --project tools/artgen -- build` | Renders every picture (53 files) and writes `manifest.json`. The 3D set takes about 10 minutes on 4 cores. It never overwrites an owner picture (below), nor a file changed since the last build (it prints `SKIP`; `--force` overwrites those). |
 | `dotnet run --project tools/artgen -- adopt <picture> [--record <file>]` | Records one of the owner's pictures (below) in `manifest.json`. |
-| `dotnet run --project tools/artgen -- build --only 2d` | Only the 48 2D pictures (about a second). `--only 3d` renders the 9 3D pictures; `--only 3d/group` (any picture name) renders that one picture. |
+| `dotnet run --project tools/artgen -- build --only 2d` | Only the 44 2D pictures (about a second). `--only 3d` renders the 9 3D pictures; `--only 3d/group` (any picture name) renders that one picture. |
 | `dotnet run --project tools/artgen -- check` | Compares every committed picture with a fresh render (at most 2 per channel, at most 0.1% of pixels; every fourth row of the 3D pictures), checks the 2% transparent margins, the shape difference of the launch characters at 48 px, the hero face places of the kit, and the manifest. Owner pictures are checked as adopted instead (below). Exits non-zero on a problem. About 3 minutes. |
 | `dotnet run --project tools/artgen -- sheet` | Writes the review sheet to `tools/artgen/out/sheet.png` (gitignored): every character in every mood, the launch characters at play size with their shape differences, the heroes and the group. |
 | `dotnet run --project tools/artgen -- faces` | Prints where each hero's face lands in its solo picture (`CharacterArt.FaceCenterHero`). |
@@ -22,7 +22,7 @@ Run from the repository root (needs the .NET 10 SDK):
 
 | Path | Content |
 |---|---|
-| `2d/{icon}-{mood}.png` | 12 icons × happy, asleep, worried, blank; 256 × 256 |
+| `2d/{icon}-{mood}.png` | 11 characters × happy, asleep, worried, blank; 256 × 256 (Wood shows the acorn: the owner removed the log on 2026-10-31, `CharacterArt.CharacterIcon`) |
 | `3d/{family}.png`, `3d/{family}-blank.png` | the four heroes, with a face and without (for worn expressions); 512 × 576 |
 | `3d/group.png` | the four heroes side by side with their soft contact shadows, no base of their own (the hosts stand them on their stone pedestal); 1200 × 720 |
 | `manifest.json` | every file with its size, SHA-256 and asset slot; an owner picture also has `"source": "owner"` and its `"record"` |

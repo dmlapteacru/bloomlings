@@ -82,7 +82,10 @@ namespace Bloomlings.Client.Tests
         public void EveryVariantMoodAndFamily_HasOnePictureName()
         {
             IReadOnlyList<string> all = CharacterArt.AllPictures(VariantCatalog.Default.All);
-            Assert.That(all.Count, Is.EqualTo((VariantCatalog.Default.Count * 4) + (4 * 2) + 1));
+            // Wood shows the acorn's character since the owner removed the log (2026-10-31)
+            Assert.That(all.Count, Is.EqualTo(((VariantCatalog.Default.Count - 1) * 4) + (4 * 2) + 1));
+            Assert.That(all.Any(n => n.StartsWith("2d/log-", System.StringComparison.Ordinal)), Is.False, "no log");
+            Assert.That(CharacterArt.Picture2D(VariantCatalog.Default.Get(VariantId.Wood).IconId, CharacterMood.Happy), Is.EqualTo("2d/acorn-happy"));
             Assert.That(all.Distinct().Count(), Is.EqualTo(all.Count));
             Assert.That(all, Does.Contain("2d/leaf-happy"));
             Assert.That(all, Does.Contain("2d/bud-asleep"));

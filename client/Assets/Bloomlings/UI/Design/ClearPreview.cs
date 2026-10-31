@@ -196,7 +196,7 @@ namespace Bloomlings.Client.UI.Design
             ClearStyle.Munchers => VariantId.Leaf,
             ClearStyle.Fireflies => VariantId.VioletBud,
             ClearStyle.Bubbles => VariantId.Dew,
-            ClearStyle.Pushers => VariantId.Wood,
+            ClearStyle.Pushers => VariantId.Acorn,
             ClearStyle.Fireworks => VariantId.Water,
             _ => VariantId.Acorn,
         };
