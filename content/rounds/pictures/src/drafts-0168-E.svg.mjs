@@ -139,7 +139,7 @@ export default {theme:'Мемные и абсурдные герои', pictures:
   </svg>`},
  // 8 — mid: a camel whose body is a fridge, in the desert
  {title:'Фриго Камело', family:BR, direction:'Предметные гибриды', subject:'верблюд с туловищем-холодильником в пустыне',
-  source:M, reference:'Italian brainrot — Frigo Camelo', forLevel:61, cells:896, colours:8,
+  source:M, reference:'Italian brainrot — Frigo Camelo', forLevel:61, cells:900, colours:8,
   svg:`<svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
    <rect width="30" height="30" fill="${C.S}"/><rect y="24" width="30" height="6" fill="${C.Y}"/>
    <path d="M8,12 Q5.6,14 6,18.4" stroke="${C.A}" stroke-width="1.3" fill="none"/>
@@ -280,12 +280,12 @@ export default {theme:'Мемные и абсурдные герои', pictures:
    <rect x="16.6" y="19" width="3.6" height="5.8" rx="1" fill="${C.D}"/><rect x="26.4" y="18" width="3.2" height="6" rx="1" fill="${C.D}"/>
    <circle cx="14.4" cy="4.6" r="1.4" fill="${C.D}"/>
    <ellipse cx="11.6" cy="10.6" rx="6.4" ry="5.6" fill="${C.D}"/>
-   <path d="M12,6.4 L4.4,5 Q1.2,4.6 1,7.4 L1.2,10.8 Q1.4,12.4 3.6,12.4 L13,12.8 Z" fill="${C.D}"/>
-   <circle cx="3.2" cy="5.4" r="1.5" fill="${C.D}"/>
-   <path d="M13,15.4 L3.8,16.8 Q1.6,17.2 1.6,19.2 Q1.8,21 4,21 L14,20.4 Z" fill="${C.D}"/>
-   <polygon points="13.4,12.4 1.6,12.2 1.8,17 13.4,15.6" fill="${C.P}"/>
-   <polygon points="1.4,12 4,12.2 3,14.6 1.4,14.2" fill="${C.C}"/><polygon points="1.8,17.2 4.2,16.8 3.2,14.8 1.8,15.2" fill="${C.C}"/>
-   <ellipse cx="8.4" cy="15.6" rx="3.4" ry="1.3" fill="${C.K}"/>
+   <path d="M12,6 L4.4,4.2 Q1.2,3.8 1,6.6 L1.2,10 Q1.4,11.6 3.6,11.6 L13,12.2 Z" fill="${C.D}"/>
+   <circle cx="3.2" cy="4.6" r="1.5" fill="${C.D}"/>
+   <path d="M13,15.8 L3.8,17.4 Q1.6,17.8 1.6,19.8 Q1.8,21.6 4,21.6 L14,20.8 Z" fill="${C.D}"/>
+   <polygon points="13.4,12 1.6,11.4 1.8,17.6 13.4,15.9" fill="${C.P}"/>
+   <polygon points="1.4,11.2 4,11.4 3,13.8 1.4,13.4" fill="${C.C}"/><polygon points="1.8,17.8 4.2,17.4 3.2,15.4 1.8,15.8" fill="${C.C}"/>
+   <ellipse cx="8.4" cy="16" rx="3.6" ry="1.4" fill="${C.K}"/>
    <circle cx="11" cy="7.6" r="1.9" fill="${C.C}"/><rect x="9.2" y="7.8" width="1.8" height="1.8" fill="${C.D}"/>
    <ellipse cx="11.6" cy="18.6" rx="2" ry="1.1" fill="${C.K}"/>
    <rect x="19" y="8.6" width="5" height="1.5" fill="${C.S}"/><rect x="25.6" y="11" width="3" height="1.4" fill="${C.S}"/>
