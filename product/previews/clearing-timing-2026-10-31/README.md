@@ -18,3 +18,10 @@ Videos (top: now, bottom: proposal), rendered by `playtest/preview -- --clear-vi
 - `L1-compare-half-speed.mp4`: the same at half speed;
 - `L22-compare-x1.mp4`: L22 (36 × 34, cubes 26 px) at ×1;
 - `L1-act-frames.png`: the proposal on L1, every second frame (15 fps).
+
+## Second pass, the same day: «Сделай подольше, герои всё ещё мелкие»
+
+- `LiveLinger` 0.35 → 0.6 s: the act at the cube is shown 0.7 s (the rules' 0.1 s plus the linger), about the 0.73 s
+  Munchers was drawn for; the walk home keeps its pace, 0.6 s later.
+- The walker is `LiveWalkScale` = 1.25× larger on its way and `ActPop` = 2× at its cube (was 1× and 1.5×).
+- `L1-compare2-x1.mp4`, `L22-compare2-x1.mp4` (top: now, bottom: second proposal); `L1-act-frames-2.png`.

@@ -160,7 +160,7 @@ namespace Bloomlings.Client.UI.Design
 
             list.Slot = SlotOf(style);
             list.Material = walk.Material;
-            _pop = walk.IsLive && spot.Leg == Leg.Act ? ActPopAt(spot.U) : 1f;
+            _pop = !walk.IsLive ? 1f : spot.Leg == Leg.Act ? ActPopAt(spot.U) : ClearStyles.LiveWalkScale;
             _liveAct = walk.IsLive;
             if (walk.IsLive && spot.Leg == Leg.Back && style != ClearStyle.Munchers && style != ClearStyle.Pushers)
             {
@@ -201,8 +201,9 @@ namespace Bloomlings.Client.UI.Design
             list.Layer = FxLayer.Board;
         }
 
-        // A round walker's size at its cube (ClearStyles.ActPop): it pops up over the act's first sixth with a little
-        // overshoot, stands, and shrinks back over its last sixth. Body multiplies every size by it while a walker is drawn.
+        // A round walker's size (ClearStyles.LiveWalkScale on the way, ClearStyles.ActPop at its cube): it pops up over the
+        // act's first sixth with a little overshoot, stands, and shrinks back over its last sixth. Body multiplies every size
+        // by it while a walker is drawn.
         [ThreadStatic]
         private static float _pop;
 
@@ -215,7 +216,7 @@ namespace Bloomlings.Client.UI.Design
             float up = Clamp01(u / 0.16f);
             float down = Clamp01((1f - u) / 0.16f);
             float k = Math.Min(Back(up), Smooth(down));
-            return 1f + ((ClearStyles.ActPop - 1f) * k);
+            return ClearStyles.LiveWalkScale + ((ClearStyles.ActPop - ClearStyles.LiveWalkScale) * k);
         }
 
         /// <summary>
