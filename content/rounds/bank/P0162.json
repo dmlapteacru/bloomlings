@@ -414,6 +414,23 @@
     "pressure": {
      "stuck": 0.66,
      "tight": 0.89
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 128,
+     "share": 0.64,
+     "wilson95": [
+      0.571,
+      0.703
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 3,
+     "traps": 3,
+     "top": 1
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -833,6 +850,23 @@
     "pressure": {
      "stuck": 1.45,
      "tight": 0.91
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 159,
+     "share": 0.795,
+     "wilson95": [
+      0.734,
+      0.845
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 3,
+     "traps": 2,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -1252,6 +1286,23 @@
     "pressure": {
      "stuck": 0.82,
      "tight": 0.87
+    },
+    "calm": {
+     "runs": 400,
+     "wins": 77,
+     "share": 0.193,
+     "wilson95": [
+      0.157,
+      0.234
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 3,
+     "traps": 2,
+     "top": 1
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -1671,6 +1722,23 @@
     "pressure": {
      "stuck": 0.94,
      "tight": 0.88
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 194,
+     "share": 0.97,
+     "wilson95": [
+      0.936,
+      0.986
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 2,
+     "traps": 1,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -2090,6 +2158,23 @@
     "pressure": {
      "stuck": 1.12,
      "tight": 0.9
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 145,
+     "share": 0.725,
+     "wilson95": [
+      0.659,
+      0.782
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 3,
+     "traps": 2,
+     "top": 1
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -2509,6 +2594,23 @@
     "pressure": {
      "stuck": 1.51,
      "tight": 0.89
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 160,
+     "share": 0.8,
+     "wilson95": [
+      0.739,
+      0.85
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 3,
+     "traps": 1,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -2516,7 +2618,7 @@
    "attempt": 47
   },
   {
-   "id": "P0162-Nlinks+hidden-7",
+   "id": "P0162-Nlinks+hidden-20",
    "picture": "P0162",
    "requested": "Normal",
    "cls": "Normal",
@@ -2582,8 +2684,11 @@
      },
      {
       "color": "S",
-      "count": 50,
-      "group": "A"
+      "count": 50
+     },
+     {
+      "color": "S",
+      "count": 50
      },
      {
       "color": "S",
@@ -2592,15 +2697,12 @@
      {
       "color": "S",
       "count": 50,
-      "group": "C"
+      "group": "B"
      },
      {
       "color": "S",
-      "count": 50
-     },
-     {
-      "color": "S",
-      "count": 50
+      "count": 50,
+      "mystery": "depth"
      },
      {
       "color": "S",
@@ -2624,8 +2726,7 @@
      },
      {
       "color": "L",
-      "count": 51,
-      "group": "B"
+      "count": 51
      },
      {
       "color": "L",
@@ -2633,8 +2734,7 @@
      },
      {
       "color": "L",
-      "count": 50,
-      "mystery": "depth"
+      "count": 50
      },
      {
       "color": "R",
@@ -2647,7 +2747,8 @@
      },
      {
       "color": "Y",
-      "count": 16
+      "count": 16,
+      "mystery": "depth"
      },
      {
       "color": "E",
@@ -2659,12 +2760,12 @@
      },
      {
       "color": "G",
-      "count": 57
+      "count": 57,
+      "group": "A"
      },
      {
       "color": "G",
-      "count": 56,
-      "group": "C"
+      "count": 56
      },
      {
       "color": "G",
@@ -2672,42 +2773,39 @@
      },
      {
       "color": "A",
-      "count": 12,
-      "mystery": "depth"
+      "count": 12
      }
     ],
     "tray": [
      [
-      0,
-      13,
-      14,
-      15,
-      8,
-      1
-     ],
-     [
-      9,
-      23,
-      17,
-      12,
-      11,
-      2
-     ],
-     [
-      18,
-      6,
-      22,
-      4,
       20,
-      5
+      5,
+      19,
+      17,
+      22,
+      9,
+      10,
+      16
      ],
      [
-      19,
+      1,
+      15,
+      23,
+      13,
+      12,
       7,
-      10,
+      3,
+      14
+     ],
+     [
+      4,
+      2,
+      0,
       21,
-      16,
-      3
+      11,
+      8,
+      6,
+      18
      ]
     ],
     "recipe": "links+hidden"
@@ -2716,16 +2814,16 @@
    "W": 960,
    "colours": 9,
    "P": 24,
-   "columns": 4,
-   "linked": 6,
+   "columns": 3,
+   "linked": 4,
    "hidden": 2,
    "random": {
-    "runs": 100,
-    "wins": 66,
-    "share": 0.66,
+    "runs": 400,
+    "wins": 231,
+    "share": 0.578,
     "wilson95": [
-     0.563,
-     0.745
+     0.529,
+     0.625
     ],
     "cls": "Normal",
     "borderline": false,
@@ -2736,75 +2834,7 @@
     "route": [
      {
       "type": "tap",
-      "pod": 0
-     },
-     {
-      "type": "tap",
-      "pod": 13
-     },
-     {
-      "type": "tap",
-      "pod": 14
-     },
-     {
-      "type": "tap",
-      "pod": 9
-     },
-     {
-      "type": "tap",
-      "pod": 18
-     },
-     {
-      "type": "tap",
-      "pod": 6
-     },
-     {
-      "type": "tap",
-      "pod": 23
-     },
-     {
-      "type": "tap",
-      "pod": 22
-     },
-     {
-      "type": "tap",
-      "pod": 17
-     },
-     {
-      "type": "tap",
-      "pod": 19
-     },
-     {
-      "type": "tap",
-      "pod": 12
-     },
-     {
-      "type": "tap",
-      "pod": 8
-     },
-     {
-      "type": "tap",
-      "pod": 11
-     },
-     {
-      "type": "tap",
       "pod": 1
-     },
-     {
-      "type": "tap",
-      "pod": 7
-     },
-     {
-      "type": "tap",
-      "pod": 10
-     },
-     {
-      "type": "tap",
-      "pod": 4
-     },
-     {
-      "type": "tap",
-      "pod": 20
      },
      {
       "type": "tap",
@@ -2812,19 +2842,91 @@
      },
      {
       "type": "tap",
+      "pod": 19
+     },
+     {
+      "type": "tap",
+      "pod": 17
+     },
+     {
+      "type": "tap",
+      "pod": 22
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 23
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 2
+     },
+     {
+      "type": "tap",
+      "pod": 10
+     },
+     {
+      "type": "tap",
       "pod": 16
      },
      {
       "type": "tap",
+      "pod": 13
+     },
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
       "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 14
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 21
+     },
+     {
+      "type": "tap",
+      "pod": 11
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     },
+     {
+      "type": "tap",
+      "pod": 18
      }
     ],
-    "forks": 4,
-    "singleSafe": 3,
+    "forks": 3,
+    "singleSafe": 2,
     "unknown": 0,
     "fast": {
      "status": "won",
-     "seconds": 154.5
+     "seconds": 130
     }
    },
    "fairness": {
@@ -2835,89 +2937,89 @@
     "note": "перестановки материала и числа между скрытыми подами с тем же балансом"
    },
    "strategies": {
-    "left-to-right|left": false,
-    "left-to-right|right": false,
+    "left-to-right|left": true,
+    "left-to-right|right": true,
     "right-to-left|left": true,
     "right-to-left|right": true,
     "top-down|left": false,
     "top-down|right": false,
-    "bottom-up|left": true,
-    "bottom-up|right": true,
+    "bottom-up|left": false,
+    "bottom-up|right": false,
     "diagonal|left": false,
     "diagonal|right": false,
-    "small-first|left": false,
-    "small-first|right": false,
-    "most-now|left": false,
-    "most-now|right": false,
-    "fast-release|left": false,
-    "fast-release|right": false
+    "small-first|left": true,
+    "small-first|right": true,
+    "most-now|left": true,
+    "most-now|right": true,
+    "fast-release|left": true,
+    "fast-release|right": true
    },
    "rhythm": {
     "segments": [
      {
       "from": 0,
       "to": 20,
-      "meanFree": 1.12,
-      "minFree": 0,
-      "fullShare": 0.61,
-      "maxWaiting": 4
+      "meanFree": 2.92,
+      "minFree": 1,
+      "fullShare": 0,
+      "maxWaiting": 2
      },
      {
       "from": 20,
       "to": 40,
-      "meanFree": 1.6,
+      "meanFree": 0.56,
       "minFree": 0,
-      "fullShare": 0.28,
-      "maxWaiting": 4
+      "fullShare": 0.48,
+      "maxWaiting": 3
      },
      {
       "from": 40,
       "to": 60,
-      "meanFree": 3.89,
-      "minFree": 3,
-      "fullShare": 0,
-      "maxWaiting": 0
+      "meanFree": 1.67,
+      "minFree": 0,
+      "fullShare": 0.12,
+      "maxWaiting": 3
      },
      {
       "from": 60,
       "to": 80,
-      "meanFree": 4.06,
-      "minFree": 3,
+      "meanFree": 4.32,
+      "minFree": 4,
       "fullShare": 0,
       "maxWaiting": 0
      },
      {
       "from": 80,
       "to": 100,
-      "meanFree": 4.39,
-      "minFree": 3,
+      "meanFree": 4.43,
+      "minFree": 4,
       "fullShare": 0,
       "maxWaiting": 0
      }
     ],
-    "launchesAfter80": 4,
-    "lastLaunchAtW": 95,
-    "seconds": 315.9
+    "launchesAfter80": 5,
+    "lastLaunchAtW": 97,
+    "seconds": 377.8
    },
-   "dosePos": 0.8,
+   "dosePos": 0.4,
    "checks": {
-    "forced": 0.19,
+    "forced": 0.15,
     "opening": null,
     "hold": true,
-    "greedyLoses": true,
+    "greedyLoses": false,
     "hiddenMatters": {
      "ok": true,
      "pods": [
       {
-       "pod": 14,
-       "revealAt": 2,
+       "pod": 17,
+       "revealAt": 3,
        "gap": 0,
        "newColour": true
       },
       {
-       "pod": 23,
-       "revealAt": 4,
-       "gap": 2,
+       "pod": 6,
+       "revealAt": 20,
+       "gap": 0,
        "newColour": true
       }
      ]
@@ -2925,8 +3027,25 @@
     "bridgeKind": null,
     "bridgeSingle": null,
     "pressure": {
-     "stuck": 1.22,
-     "tight": 0.86
+     "stuck": 1.44,
+     "tight": 0.92
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 86,
+     "share": 0.43,
+     "wilson95": [
+      0.363,
+      0.499
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 2,
+     "traps": 1,
+     "top": 1
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)"
@@ -2978,6 +3097,6 @@
   }
  ],
  "placed": [
-  "P0162-Nlinks+hidden-20"
+  "P0162-Nlinks+hidden-7"
  ]
 }

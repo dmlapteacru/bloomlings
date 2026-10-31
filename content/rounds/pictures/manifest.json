@@ -336,7 +336,7 @@
    "status": "approved",
    "batch": "batch-0011",
    "note": null,
-   "usedBy": "L0029"
+   "usedBy": "L0048"
   },
   {
    "id": "P0020",
@@ -526,7 +526,7 @@
    "status": "approved",
    "batch": "batch-0011",
    "note": null,
-   "usedBy": "L0025"
+   "usedBy": "L0029"
   },
   {
    "id": "P0031",
@@ -2885,7 +2885,7 @@
    "status": "approved",
    "batch": "batch-0164-strong",
    "note": null,
-   "usedBy": "L0048"
+   "usedBy": "L0025"
   },
   {
    "id": "P0167",
