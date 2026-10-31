@@ -103,6 +103,11 @@
         },
         "borderline": {
           "type": "boolean"
+        },
+        "bridge": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "A bridge level's class test (rules 17 §5 as amended on 2026-10-30): the bot may build only this bridge choice; every other bridge action is left out of its moves. Absent: every bridge may be built."
         }
       }
     },

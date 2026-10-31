@@ -18,7 +18,8 @@ node tools/rounds/export.mjs <from> <to> --out content/game/rounds/export/L####-
 - `audit.mjs from to` has no НЕТ, except a level whose `exception` names the failing rule;
 - every picture is `approved` and not a franchise reference;
 - `content/rounds/runs/<wave>/confirmed.json` exists (the owner's sample confirmation, written by `rounds.mjs
-  confirm`).
+  confirm`: `--sample <results.json>` after the owner played the sample, or `--owner-word "<words>"` when the owner
+  asked to move the wave into the game before playing it; then the phone check is the first play).
 
 **Writes**:
 - `levels/L####.json` (`round-level.v1`);
@@ -83,4 +84,5 @@ pictures, SHA-256 of each pack) and the packs read by the playtest and the clien
 
 `content/game/rounds/transfers.jsonl`, one entry per wave (data model). The skill appends and updates it:
 `exported → validated → published (apk) → confirmed`. `rounds.mjs confirm <from> <to> --sample <results.json>` records
-the owner's confirmation of the sample played in the game.
+the owner's confirmation of the sample played in the game (`--owner-word "<words>"`: the owner's instruction to transfer
+before playing the sample, recorded as said, with no sample).

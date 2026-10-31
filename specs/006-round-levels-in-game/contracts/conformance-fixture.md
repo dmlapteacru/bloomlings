@@ -17,7 +17,7 @@ One JSON file per round level: `content/game/rounds/conformance/L####.json`. It 
     "outcome": "Won", "endUs": 84500000, "finalSignature": "sha256:…"
   },
   "random": {
-    "policy": "17§5 extended", "seedBase": 1, "runs": 100,
+    "policy": "17§5 extended", "seedBase": 1, "runs": 100, "bridge": 1,
     "games": [{"seed": 7920, "outcome": "Won", "endUs": 61250000, "finalSignature": "sha256:…"}],
     "wins": 45
   },
@@ -65,6 +65,10 @@ The signature is hashed with SHA-256.
   window, then the outcome and `endUs`.
 - **Random games**: the policy of research R5 with the recorded seed. Compare outcome, `endUs`, final signature.
   `wins` must equal the count of won games, and the proof's share.
+  - A bridge level's class test plays its best bridge only (rules 17 §5 as amended on 2026-10-30): `random.bridge`
+    (optional, equal to the proof's `randomTest.bridge`) is the only bridge choice the bot may build. Every other bridge
+    action is left out of the moves before the choice (reference `measure.mjs randomTest`'s `keep`, C#
+    `RoundRandomPolicy.KeepBridge`). Absent: every bridge may be built.
 - **Owner attempts**:
   - advance to each `atUs` and commit; a refused command is recorded as refused, as in the pilot;
   - stop where the attempt ended (won, jammed, or left at `endUs`);

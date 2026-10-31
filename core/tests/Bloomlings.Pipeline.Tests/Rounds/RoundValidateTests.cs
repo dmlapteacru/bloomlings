@@ -226,6 +226,25 @@ namespace Bloomlings.Pipeline.Tests.Rounds
         }
 
         [Test]
+        public void ARandomTestBridge_MustBeABridgeOfTheLevel_AndTheFixturesToo()
+        {
+            // the test content's levels have no bridge: a proof that names one is wrong, and its fixture must name the same
+            using var content = new RoundTestContent();
+            content.Edit("proofs/L0001.json", j => j["randomTest"]!["bridge"] = 0);
+            content.Edit("conformance/L0002.json", j => j["random"]!["bridge"] = 1);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(Errors(content.Validate(), "proof"), Is.EqualTo(new[] { "error L0001 proof: random test: bridge 0 is not a bridge choice of the level (0 choices)" }));
+                Assert.That(Errors(content.Validate(), "fixture"), Is.EqualTo(new[]
+                {
+                    "error L0001 fixture: random games with bridge any, the proof's 0",
+                    "error L0002 fixture: random games with bridge 1, the proof's any",
+                }));
+            });
+        }
+
+        [Test]
         public void AClassThatIsNotTheRandomTests_NeedsAnExceptionForThatRule()
         {
             using var content = new RoundTestContent();

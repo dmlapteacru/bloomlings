@@ -64,8 +64,14 @@ namespace Bloomlings.Content.Rounds
         /// <summary>The only policy a proof may name.</summary>
         public const string PolicyName = "17§5 extended: uniform over legal actions + wait before a state event";
 
-        public RoundRandomTest(long seedBase, int runs, int wins, decimal share, decimal wilsonLow, decimal wilsonHigh, RoundClass classOfShare, bool? borderline = null)
+        public RoundRandomTest(long seedBase, int runs, int wins, decimal share, decimal wilsonLow, decimal wilsonHigh, RoundClass classOfShare, bool? borderline = null,
+            int? bridge = null)
         {
+            if (bridge < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(bridge));
+            }
+
             SeedBase = seedBase;
             Runs = runs;
             Wins = wins;
@@ -74,6 +80,7 @@ namespace Bloomlings.Content.Rounds
             WilsonHigh = wilsonHigh;
             ClassOfShare = classOfShare;
             Borderline = borderline;
+            Bridge = bridge;
         }
 
         public string Policy => PolicyName;
@@ -94,6 +101,12 @@ namespace Bloomlings.Content.Rounds
         public RoundClass ClassOfShare { get; }
 
         public bool? Borderline { get; }
+
+        /// <summary>
+        /// A bridge level's class test (rules 17 §5 as amended on 2026-10-30): the only bridge choice the bot may build,
+        /// every other bridge action left out of its moves; null when every bridge may be built.
+        /// </summary>
+        public int? Bridge { get; }
     }
 
     /// <summary>The audit result of a level (rules 17 §13 layer A, with the layer B notes).</summary>

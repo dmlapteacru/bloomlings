@@ -171,18 +171,36 @@ namespace Bloomlings.Core.Rounds
         }
 
         /// <summary>
-        /// Plays a random test (reference <c>randomTest</c>): <paramref name="first"/> games, widened to
-        /// <paramref name="max"/> in total when the Wilson interval crosses a class border.
+        /// The reference's narrowing for a bridge level's class test (<c>measure.mjs randomTest</c>'s <c>keep</c>, rules 17
+        /// §5 as amended on 2026-10-30): only bridge choice <paramref name="bridge"/> may be built, every pod action stays;
+        /// null for no narrowing.
         /// </summary>
-        public static RoundRandomRun Test(RoundLevel level, long seedBase = 1, int first = 100, int max = 400, RoundProfile? profile = null)
+        public static Func<RoundAction, bool>? KeepBridge(int? bridge)
+        {
+            if (bridge == null)
+            {
+                return null;
+            }
+
+            int only = bridge.Value;
+            return a => a.Type != RoundActionType.Bridge || a.Choice == only;
+        }
+
+        /// <summary>
+        /// Plays a random test (reference <c>randomTest</c>): <paramref name="first"/> games, widened to
+        /// <paramref name="max"/> in total when the Wilson interval crosses a class border. <paramref name="bridge"/>, for a
+        /// bridge level, is the only bridge the bot may build (<see cref="KeepBridge"/>).
+        /// </summary>
+        public static RoundRandomRun Test(RoundLevel level, long seedBase = 1, int first = 100, int max = 400, RoundProfile? profile = null, int? bridge = null)
         {
             var games = new List<RoundRandomGame>(max);
             int wins = 0;
+            Func<RoundAction, bool>? keep = KeepBridge(bridge);
             void PlayMore(int count)
             {
                 for (int i = 0; i < count; i++)
                 {
-                    RoundRandomGame g = Play(level, SeedOf(seedBase, games.Count), null, profile);
+                    RoundRandomGame g = Play(level, SeedOf(seedBase, games.Count), keep, profile);
                     if (g.Won)
                     {
                         wins++;

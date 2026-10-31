@@ -111,7 +111,7 @@ namespace Bloomlings.Pipeline.Rounds
                     return;
                 }
 
-                RoundRandomGame played = RoundRandomPolicy.Play(level, seed, profile: Profile);
+                RoundRandomGame played = RoundRandomPolicy.Play(level, seed, RoundRandomPolicy.KeepBridge(fixture.RandomBridge), Profile);
                 if (played.Won)
                 {
                     wins++;

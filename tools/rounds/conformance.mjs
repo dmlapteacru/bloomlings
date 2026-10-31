@@ -96,22 +96,24 @@ export async function solutionFixture(def,route){const X=await recorder(def),{t}
 // ---- one game of the §5 extended random policy (measure.mjs randomGame, research R5), step for step ----
 // loop: settle the moment (process every step due at now); Won → stop; moves = R.legal (for each column in order its
 // top pod if tappable, given as its group's first member, each group once; then every buildable bridge by choice
-// index); canWait = some pending step is not arrive/return; no move: wait if anything is pending, else stop;
+// index; with `bridge` set, only that bridge's choice); canWait = some pending step is not arrive/return; no move: wait if anything is pending, else stop;
 // k = floor(r × (moves + canWait)); k = moves.length means wait: repeat { e = first pending step; advance to e.at
 // (that whole moment); stop if e is not arrive/return }, then settle the moment.
-export async function randomGameFixture(def,seed){const X=await recorder(def),{R,t}=X,r=rng(seed);let guard=0;
+export async function randomGameFixture(def,seed,bridge=null){const X=await recorder(def),{R,t}=X,r=rng(seed);let guard=0;
  const settleNow=()=>{while(t.pending&&t.steps[0].at<=t.now+1e-7)X.advance(0);};
  const waitEvent=()=>{while(t.pending){const e=t.steps[0];X.advance(Math.max(0,e.at-t.now));if(isStateStep(e))break;}settleNow();};
  while(guard++<200000){settleNow();if(t.state.status==='Won')break;
-  const moves=R.legal(t.state).filter(a=>!t.check(a)),canWait=t.steps.some(isStateStep);
+  const moves=R.legal(t.state).filter(a=>!t.check(a)&&(bridge===null||a.type!=='bridge'||a.choice===bridge)),canWait=t.steps.some(isStateStep);
   if(!moves.length){if(t.pending){waitEvent();continue;}break;}
   const k=Math.floor(r()*(moves.length+(canWait?1:0)));
   if(k===moves.length){waitEvent();continue;}
   X.commit(moves[k]);X.cut();}
  X.cut();return {seed,outcome:t.state.status,endUs:us(t.now),finalSignature:hashText(X.signature()),nearTies:t.nearTies};}
 
-export async function randomFixture(def,{seedBase,runs}){const games=[],nearTies=[];let wins=0;
- for(let n=0;n<runs;n++){const g=await randomGameFixture(def,gameSeed(seedBase,n));if(g.outcome==='Won')wins++;nearTies.push(...g.nearTies);delete g.nearTies;games.push(g);}
+// bridge: a bridge level's class test lets the bot build only that bridge (17 §5 as amended on 2026-10-30; measure.mjs
+// randomTest's keep): every other bridge action is left out of the moves before the choice
+export async function randomFixture(def,{seedBase,runs,bridge=null}){const games=[],nearTies=[];let wins=0;
+ for(let n=0;n<runs;n++){const g=await randomGameFixture(def,gameSeed(seedBase,n),bridge);if(g.outcome==='Won')wins++;nearTies.push(...g.nearTies);delete g.nearTies;games.push(g);}
  return {games,wins,nearTies};}
 
 // ---- an owner attempt: commands at atUs = round(modelTimeMs × 1000), fed back as atUs / 1000 ----
@@ -127,7 +129,7 @@ export async function ownerFixture(def,commands){const X=await recorder(def),{t}
 
 // ---- for debugging a port: the reference's own logs and signature strings ----
 // node tools/rounds/conformance.mjs solution <export>/levels/L####.json [--window k]   (route from ../proofs/L####.json)
-// node tools/rounds/conformance.mjs random <export>/levels/L####.json <seed>
+// node tools/rounds/conformance.mjs random <export>/levels/L####.json <seed>   (a bridge level: the proof's randomTest.bridge)
 export async function solutionTrace(def,route){const X=await recorder(def),{t}=X,out=[];
  for(const a of route){X.settle();if(out.length)out.at(-1).lines.push(...X.cut());const r=X.commit(a.type==='bridge'?{type:'bridge',choice:a.choice}:{type:'tap',pod:a.pod});
   if(!r.accepted)throw Error(`refused ${JSON.stringify(a)}: ${r.reason}`);out.push({command:a,lines:X.cut(),signature:X.signature()});}
@@ -138,5 +140,6 @@ if(process.argv[1]&&import.meta.url===(await import('node:url')).pathToFileURL(p
   const tr=await solutionTrace(def,proof.solution.commands);
   tr.windows.forEach((w,i)=>{if(k!=null&&k!==i+1)return;console.log(`# window ${i+1}: ${JSON.stringify(w.command)}  events ${hashLines(w.lines)}`);for(const l of w.lines)console.log(l);console.log(`# signature ${hashText(w.signature)}\n${w.signature}`);});
   if(k==null)console.log(`# final ${hashText(tr.final)}\n${tr.final}`);}
- else if(mode==='random'){const g=await randomGameFixture(def,+x);delete g.nearTies;console.log(JSON.stringify(g));}
+ else if(mode==='random'){const proofFile=path.join(path.dirname(file),'..','proofs',path.basename(file)),proof=fs.existsSync(proofFile)?JSON.parse(fs.readFileSync(proofFile,'utf8')):null;
+  const g=await randomGameFixture(def,+x,proof?.randomTest?.bridge??null);delete g.nearTies;console.log(JSON.stringify(g));}
  else console.log('node tools/rounds/conformance.mjs solution <levels/L####.json> [--window k] | random <levels/L####.json> <seed>');}

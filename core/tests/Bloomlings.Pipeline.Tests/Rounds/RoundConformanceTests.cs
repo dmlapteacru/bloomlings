@@ -69,6 +69,34 @@ namespace Bloomlings.Pipeline.Tests.Rounds
         }
 
         [Test]
+        public void ABridgeLevelsRandomGames_BuildOnlyItsTestBridge_AndDifferWithoutTheRestriction()
+        {
+            // rules 17 §5 as amended on 2026-10-30: a bridge level's class test plays its best bridge only
+            int[] restricted = Levels().Where(n => Set(n).Proof.RandomTest.Bridge.HasValue).ToArray();
+            Assume.That(restricted, Is.Not.Empty, "no transferred level restricts its random test to one bridge");
+            bool anyDiffers = false;
+            foreach (int number in restricted)
+            {
+                (RoundLevel level, RoundProof proof, RoundConformanceFixture fixture) = Set(number);
+                int only = proof.RandomTest.Bridge!.Value;
+                Assert.That(fixture.RandomBridge, Is.EqualTo(only), $"L{number:0000}: the fixture names the proof's bridge");
+                for (int n = 0; n < fixture.Games.Count; n++)
+                {
+                    uint seed = RoundRandomPolicy.SeedOf(fixture.RandomSeedBase, n);
+                    RoundRandomGame kept = RoundRandomPolicy.Play(level, seed, RoundRandomPolicy.KeepBridge(only));
+                    Assert.That(kept.Timeline.State.Bridge, Is.EqualTo(-1).Or.EqualTo(only), $"L{number:0000} game {n}: only bridge {only} may be built");
+                    if (!anyDiffers)
+                    {
+                        RoundRandomGame free = RoundRandomPolicy.Play(level, seed);
+                        anyDiffers = free.EndUs != kept.EndUs || RoundEvents.SignatureHash(free.Timeline) != RoundEvents.SignatureHash(kept.Timeline);
+                    }
+                }
+            }
+
+            Assert.That(anyDiffers, Is.True, "leaving the restriction out changes some random game");
+        }
+
+        [Test]
         public void AChangedReleaseLag_FailsAndNamesTheLevelAndTheWindow()
         {
             var broken = new RoundReplayConformance(new RoundProfile(releaseLag: 299_000));

@@ -335,6 +335,39 @@ namespace Bloomlings.Content.Tests.Rounds
             Assert.Throws<ContentFormatException>(() => RoundJson.ReadLevel(json));
         }
 
+        [Test]
+        public void Proof_ABridgeLevelsRandomTestNamesItsBridge_AndRoundTrips()
+        {
+            JObject proof = JObject.Parse(ProofSample);
+            proof["randomTest"]!["bridge"] = 1;
+            string json = proof.ToString();
+
+            RoundProof read = RoundJson.ReadProof(json);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(ContractSchemas.IsValidRoundProof(json), Is.True);
+                Assert.That(read.RandomTest.Bridge, Is.EqualTo(1));
+                Assert.That(RoundJson.ReadProof(RoundJson.WriteProof(read)).RandomTest.Bridge, Is.EqualTo(1));
+                Assert.That(RoundJson.ReadProof(ProofSample).RandomTest.Bridge, Is.Null, "absent: every bridge may be built");
+            });
+        }
+
+        [TestCase(-1)]
+        [TestCase("left")]
+        public void Proof_ABadRandomTestBridge_IsRejectedByBoth(object value)
+        {
+            JObject proof = JObject.Parse(ProofSample);
+            proof["randomTest"]!["bridge"] = JToken.FromObject(value);
+            string json = proof.ToString();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(ContractSchemas.IsValidRoundProof(json), Is.False, "schema");
+                Assert.Throws<ContentFormatException>(() => RoundJson.ReadProof(json), "reader");
+            });
+        }
+
         [TestCase("format")]
         [TestCase("number")]
         [TestCase("definitionVersion")]

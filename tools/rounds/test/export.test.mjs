@@ -112,6 +112,25 @@ test('random policy: xorshift32 and seeds of research R5, the same games as meas
  const E=await engine();for(const n of [5,10]){const L=level(n),def=X.levelV1(L,C.fingerprints()),lv=C.engineLevel(def);
   for(let i=0;i<12;i++){const seed=C.gameSeed(1,i),g=await C.randomGameFixture(def,seed);assert.equal(g.outcome==='Won',randomGame(E,lv,seed),`L${n} seed ${seed}`);}}});
 
+test('a bridge level\'s random games build only its test bridge, the same games as measure.mjs with keep',async()=>{
+ // L30 of wave L21–L50: the class test plays its deciding bridge only (17 §5 as amended on 2026-10-30)
+ const L=level(30);assert.ok(Number.isInteger(L.random.bridge));const def=X.levelV1(L,C.fingerprints()),lv=C.engineLevel(def),E=await engine(),only=L.random.bridge;
+ const keep=a=>a.type!=='bridge'||a.choice===only;let differs=false;
+ for(let i=0;i<8;i++){const seed=C.gameSeed(L.random.seedBase,i),g=await C.randomGameFixture(def,seed,only);assert.equal(g.outcome==='Won',randomGame(E,lv,seed,keep),`seed ${seed}`);
+  const free=await C.randomGameFixture(def,seed);if(free.finalSignature!==g.finalSignature)differs=true;}
+ assert.ok(differs,'without the restriction some game changes');
+ // the proof and the fixture carry it; the fixture shape takes it
+ const sh={format:'round-conformance.v1',number:30,definitionVersion:1,engine:C.fingerprints(),solution:{windows:[{command:{type:'tap',pod:0,atUs:0},events:'sha256:'+'0'.repeat(64),signature:'sha256:'+'0'.repeat(64)}],outcome:'Won',endUs:1,finalSignature:'sha256:'+'0'.repeat(64)},
+  random:{policy:X.FIXTURE_POLICY,seedBase:1,runs:100,bridge:only,games:Array.from({length:100},(_,i)=>({seed:i,outcome:'Won',endUs:1,finalSignature:'sha256:'+'0'.repeat(64)})),wins:100},owner:[]};
+ assert.deepEqual(X.fixtureShape(sh),[]);sh.random.bridge=-1;assert.deepEqual(X.fixtureShape(sh),['random']);});
+
+test('confirm on the owner\'s word records the words and no sample',()=>{const dir=sandbox();
+ const c=node(dir,[path.join(TOOLS,'rounds.mjs'),'confirm','1','2','--owner-word','Интегрируй 1-2 в игру.','--date','2026-10-31']);assert.equal(c.status,0,c.stderr);
+ const conf=readJSON(path.join(dir,'runs','L0001-L0002','confirmed.json'));
+ assert.deepEqual(conf.wave,[1,2]);assert.deepEqual(conf.sample,[]);assert.equal(conf.results,null);assert.equal(conf.ownerWord,'Интегрируй 1-2 в игру.');assert.equal(conf.confirmedBy,'owner');assert.equal(conf.date,'2026-10-31');
+ const both=node(dir,[path.join(TOOLS,'rounds.mjs'),'confirm','1','2','--owner-word','x','--sample',now(dir)]);assert.equal(both.status,1);assert.match(both.stderr,/not both/);
+ const none=node(dir,[path.join(TOOLS,'rounds.mjs'),'confirm','1','2']);assert.equal(none.status,1);assert.match(none.stderr,/--owner-word/);});
+
 test('owner attempts replay at whole microseconds without drift',async()=>{const res=readJSON(path.join(ROOT,RESULTS)),a=res.attempts.find(x=>x.level===5&&x.outcome==='jammed');
  const f=await C.ownerFixture(X.levelV1(level(5),C.fingerprints()),a.commands);assert.equal(f.outcome,'jammed');assert.deepEqual(f.drift,[]);assert.deepEqual(f.nearTies,[]);
  assert.ok(f.commands.every(c=>Number.isInteger(c.atUs)&&!c.refused));assert.equal(f.commands[1].atUs,Math.round(a.commands[1].modelTimeMs*1000));});

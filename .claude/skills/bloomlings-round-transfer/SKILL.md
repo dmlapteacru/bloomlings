@@ -26,6 +26,10 @@ script: your part is to run it in order, read the reports, and talk to the owner
 1. **Owner's confirmation** of the sample (what they played and said):
    `node tools/rounds/rounds.mjs confirm <from> <to> --sample product/playtests/<pilot>/results.json`
    writes `content/rounds/runs/L####-L####/confirmed.json`. Never write it without the owner's word.
+   - When the owner tells you to move the wave into the game before playing its sample (L21–L50, 2026-10-31:
+     «Интегрируй 21-50 в игру»), record their words as said:
+     `node tools/rounds/rounds.mjs confirm <from> <to> --owner-word "<their words>"` (no sample; the phone check is then
+     the first play, say so in the APK message). Never paraphrase or invent the words.
 2. **Export** (about 4 minutes for 20 levels; more for 50, run it in the background):
    `node tools/rounds/export.mjs <from> <to> --out content/game/rounds/export/L####-L#### --owner-results
    product/playtests/<pilot>/results.json` (repeat `--owner-results` for every results file of the wave).
@@ -33,7 +37,11 @@ script: your part is to run it in order, read the reports, and talk to the owner
      not approved or is a franchise reference, or the confirmation is missing. Fix the cause in the wave, never in
      the export.
    - An owner exception (like L18's bridge, 2026-10-27) must be in `OWNER_EXCEPTIONS` of `export.mjs` with the rule
-     it waives, the reason, `decidedBy: "owner"` and the date. Add one only when the owner decided it.
+     it waives, the reason, `decidedBy: "owner"` and the date, or (from wave L21–L50) as the object in the level file's
+     `exception` field (L30's calm rule, 2026-10-31); its rule must be one of `RULE_PATTERNS`. Add one only when the
+     owner decided it.
+   - A bridge level's class test plays its best bridge only (17 §5, 2026-10-30): the proof's `randomTest.bridge` and
+     the fixture's `random.bridge` carry it, and the replay builds no other bridge.
    - The report line per level shows the commands, the random wins against the level's record and the owner
      attempts; every one must match. A changed owner outcome is a fixture error: report it to the owner.
    - Then `node tools/rounds/transfer-log.mjs exported content/game/rounds/export/L####-L####`.

@@ -95,8 +95,14 @@ namespace Bloomlings.Content.Rounds
             IReadOnlyList<RoundFixtureGame> games,
             int randomWins,
             IReadOnlyList<RoundFixtureAttempt> owner,
-            JObject document)
+            JObject document,
+            int? randomBridge = null)
         {
+            if (randomBridge < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(randomBridge));
+            }
+
             Number = number;
             DefinitionVersion = definitionVersion;
             Engine = engine;
@@ -107,6 +113,7 @@ namespace Bloomlings.Content.Rounds
             RandomPolicy = randomPolicy;
             RandomSeedBase = randomSeedBase;
             RandomRuns = randomRuns;
+            RandomBridge = randomBridge;
             Games = games;
             RandomWins = randomWins;
             Owner = owner;
@@ -132,6 +139,12 @@ namespace Bloomlings.Content.Rounds
         public long RandomSeedBase { get; }
 
         public int RandomRuns { get; }
+
+        /// <summary>
+        /// A bridge level's random games (rules 17 §5 as amended on 2026-10-30): the only bridge choice the bot may build;
+        /// null when every bridge may be built. It equals the proof's <c>randomTest.bridge</c>.
+        /// </summary>
+        public int? RandomBridge { get; }
 
         public IReadOnlyList<RoundFixtureGame> Games { get; }
 

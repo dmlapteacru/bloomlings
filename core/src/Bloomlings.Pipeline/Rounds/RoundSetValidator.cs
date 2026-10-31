@@ -294,6 +294,12 @@ namespace Bloomlings.Pipeline.Rounds
                 yield return new RoundIssue(where, "proof", $"random test: borderline is {random.Borderline.Value.ToString().ToLowerInvariant()}, the interval says {crosses.ToString().ToLowerInvariant()}");
             }
 
+            // a bridge level's class test plays one bridge (17 §5 as amended on 2026-10-30): it must be one of the level's
+            if (random.Bridge.HasValue && (level.Bridge == null || random.Bridge.Value >= level.Bridge.Count))
+            {
+                yield return new RoundIssue(where, "proof", $"random test: bridge {random.Bridge.Value} is not a bridge choice of the level ({level.Bridge?.Count ?? 0} choices)");
+            }
+
             RoundClass? measured = ClassOfShare(share);
             if (measured == null)
             {
@@ -358,6 +364,11 @@ namespace Bloomlings.Pipeline.Rounds
             if (fixture.RandomSeedBase != random.SeedBase || fixture.RandomRuns != random.Runs)
             {
                 yield return new RoundIssue(where, "fixture", $"random games of seed base {fixture.RandomSeedBase} × {fixture.RandomRuns}, the proof's {random.SeedBase} × {random.Runs}");
+            }
+
+            if (fixture.RandomBridge != random.Bridge)
+            {
+                yield return new RoundIssue(where, "fixture", $"random games with bridge {fixture.RandomBridge?.ToString() ?? "any"}, the proof's {random.Bridge?.ToString() ?? "any"}");
             }
 
             if (fixture.Games.Count != random.Runs)

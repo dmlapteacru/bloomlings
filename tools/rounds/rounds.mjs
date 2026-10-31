@@ -23,6 +23,9 @@
 // node tools/rounds/rounds.mjs confirm <from> <to> --sample <results.json> [--date YYYY-MM-DD]
 //      the owner's confirmation of the wave's sample, played in the pilot on the current engine (spec 006 FR-050):
 //      → content/rounds/runs/L####-L####/confirmed.json, the entry check of tools/rounds/export.mjs
+// node tools/rounds/rounds.mjs confirm <from> <to> --owner-word "<the owner's words>" [--date YYYY-MM-DD]
+//      the owner told us to move the wave into the game before playing its sample: the words are recorded as they were
+//      said, with no sample (sample [], results null); the phone check after publishing is then the first play
 import fs from 'node:fs';import path from 'node:path';import os from 'node:os';import {spawn,execFileSync} from 'node:child_process';
 import {root,ROUNDS,LEVELS,BANK,readJSON,writeJSON,lid,arg,flag,manifest,picture,measure,stageOf,fitsStage,sizeBin,slotOf,classOf,INTRO,MECH_RU,SUPPORTED,usage,motifsOf,boardOf,overlaid,bridgeSide,wallOverlay,mechanicsPlans,planOf} from './lib.mjs';
 import {fitness} from './fitness.mjs';
@@ -249,9 +252,16 @@ function review(file){const res=readJSON(file),preview=arg('--preview'),date=(re
 
 // ---- confirm ----
 // the sample is every level of the wave the results file has attempts on; the results must be played on this engine
-function confirm(a,b,file,date=new Date().toISOString().slice(0,10)){const fail=m=>{console.error(`confirm ${a}–${b} refused: ${m}`);return 1;};
- if(!(Number.isInteger(a)&&Number.isInteger(b)&&a>=1&&b>=a))return fail('usage: rounds.mjs confirm <from> <to> --sample <results.json>');
- if(!file)return fail('--sample <results.json> is required');
+function confirm(a,b,file,date=new Date().toISOString().slice(0,10),word=null){const fail=m=>{console.error(`confirm ${a}–${b} refused: ${m}`);return 1;};
+ if(!(Number.isInteger(a)&&Number.isInteger(b)&&a>=1&&b>=a))return fail('usage: rounds.mjs confirm <from> <to> --sample <results.json> | --owner-word "<words>"');
+ if(file&&word)return fail('give --sample or --owner-word, not both');
+ if(word!==null){if(!word.trim())return fail('--owner-word needs the owner\'s words');
+  const placed=placedLevels(),open=[];for(let n=a;n<=b;n++)if(!placed[n])open.push(n);if(open.length)return fail(`levels not placed: ${open.map(lid).join(', ')}`);
+  const out={format:'round-confirmation.v1',wave:[a,b],sample:[],results:null,pilot:null,resultsExportedAt:null,attempts:0,won:[],engine:fingerprints(),confirmedBy:'owner',date,
+   ownerWord:word.trim(),note:'the owner asked to move the wave into the game before playing its sample; the phone check after publishing is the first play'};
+  const dest=path.join(waveDir(a,b),'confirmed.json');writeJSON(dest,out);
+  console.log(`→ ${path.relative(root,dest)}: L${a}–L${b} on the owner's word «${out.ownerWord}» (no sample played)`);return 0;}
+ if(!file)return fail('--sample <results.json> or --owner-word "<words>" is required');
  const f=path.resolve(root,file),res=readJSON(f);if(!res||!Array.isArray(res.attempts))return fail(`no pilot results in ${file}`);
  const sample=[...new Set(res.attempts.map(x=>x.level).filter(n=>n>=a&&n<=b))].sort((x,y)=>x-y);if(!sample.length)return fail(`${file} has no attempt on L${a}–L${b}`);
  const placed=placedLevels(),open=sample.filter(n=>!placed[n]);if(open.length)return fail(`sample levels not placed: ${open.map(lid).join(', ')}`);
@@ -264,7 +274,7 @@ function confirm(a,b,file,date=new Date().toISOString().slice(0,10)){const fail=
  console.log(`→ ${path.relative(root,dest)}: L${a}–L${b}, sample ${sample.map(n=>'L'+n).join(', ')} (${attempts.length} attempts, ${out.won.length} levels won)`);return 0;}
 
 if(cmd==='plan'){plan(+process.argv[3],+process.argv[4]);}
-else if(cmd==='confirm'){process.exitCode=confirm(+process.argv[3],+process.argv[4],arg('--sample'),arg('--date')||undefined);}
+else if(cmd==='confirm'){process.exitCode=confirm(+process.argv[3],+process.argv[4],arg('--sample'),arg('--date')||undefined,arg('--owner-word'));}
 else if(cmd==='run'){process.exitCode=await runWave(+process.argv[3],+process.argv[4]);}
 else if(cmd==='review'){process.exitCode=review(process.argv[3]);}
 else console.log(fs.readFileSync(new URL(import.meta.url),'utf8').split('\n').filter(l=>l.startsWith('//')).join('\n'));
