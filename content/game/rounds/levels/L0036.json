@@ -1,0 +1,120 @@
+{
+ "format": "round-level.v1",
+ "number": 36,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0079",
+  "version": 1
+ },
+ "board": {
+  "w": 23,
+  "h": 28,
+  "rowsBottomFirst": [
+   "###########.###########",
+   "#.....................#",
+   "#......YOOOOOOOO......#",
+   "#.....YYYOOOOOOOO.....#",
+   "#...YYYYYOOOOOOOOOO...#",
+   "#...YYYOONNCNNOOOOO...#",
+   "#..YYYONNNNNNNNNOOOO..#",
+   "#.YYYONCCNNNNNNNNOOOO.#",
+   "#.YYYONCCCNNNNNNNOOOO.#",
+   "#.YYONNNCCCNNNNNNNOOO.#",
+   "#.YYONNNNCCYNNNNNNOOO.#",
+   "#.YYOCNNNNYYYNNNNCOOO.#",
+   "#.YYONNNNNNYRRNNNNOOO.#",
+   "#.YYONNNNNNNRRRNNNOOO.#",
+   "#.YYYONNNNNNNRRRNOYYO.#",
+   "#.YYYONNNNNNNNRRNOYYY.#",
+   "#..YYYONNNNNNNNNOYYY..#",
+   "#...YYYOONNCNNOOYYY...#",
+   "#...YYYYYOOOOOYYYYY...#",
+   "#.....YYYYYYYYYYY.....#",
+   "#......YYYYYYYYY......#",
+   "#........OOOOO........#",
+   "#........O...O........#",
+   "#........O...O........#",
+   "#........OOOOO........#",
+   "#.........OOO.........#",
+   "#.....................#",
+   "#######################"
+  ],
+  "entries": [
+   11
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "O",
+   "count": 34
+  },
+  {
+   "code": "O",
+   "count": 34
+  },
+  {
+   "code": "O",
+   "count": 33
+  },
+  {
+   "code": "Y",
+   "count": 30
+  },
+  {
+   "code": "Y",
+   "count": 30
+  },
+  {
+   "code": "Y",
+   "count": 29
+  },
+  {
+   "code": "N",
+   "count": 36
+  },
+  {
+   "code": "N",
+   "count": 36
+  },
+  {
+   "code": "N",
+   "count": 36
+  },
+  {
+   "code": "C",
+   "count": 14
+  },
+  {
+   "code": "R",
+   "count": 10
+  }
+ ],
+ "tray": [
+  [
+   9,
+   7,
+   2
+  ],
+  [
+   3,
+   6,
+   1,
+   0
+  ],
+  [
+   10,
+   5,
+   4,
+   8
+  ]
+ ],
+ "mechanics": [],
+ "engine": {
+  "rules": "ec33026e742e6efee1626ebea071d5582ff1cdc9bb8ca889ce35ee0935626598",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

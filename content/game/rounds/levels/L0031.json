@@ -1,0 +1,163 @@
+{
+ "format": "round-level.v1",
+ "number": 31,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0008",
+  "version": 5
+ },
+ "board": {
+  "w": 29,
+  "h": 28,
+  "rowsBottomFirst": [
+   "##############.##############",
+   "#...........................#",
+   "#...EEEEEEEEEEEEEEEEEEEEE...#",
+   "#..AYYAAAAAAAAAAAAAAAAAYY...#",
+   "#..EYYEEEEEEEEEEEEEEEEEYY...#",
+   "#..AYYAAAAAAAAAAAAAAAAAYYA..#",
+   "#..AYYAAAAAAYYYYYAAAAAAYYA..#",
+   "#..AYYAAAAAAYYYYYAAAAAAYYA..#",
+   "#..AYYAAAAAAYYDYYAAAAAAYYA..#",
+   "#..EYYEEEEEEYYDYYEEEEEEYYE..#",
+   "#..AYYAAAAAAYYDYYAAAAAAYYA..#",
+   "#.AAYYAAAAAAYYYYYAAAAAAYYAD.#",
+   "#.AAYYAAAAAAAAAAAAAAAAAYYAD.#",
+   "#.YYYYYYYYYYYYYYYYYYYYYYYYY.#",
+   "#.YYYYYYYYYYYYYYYYYYYYYYYYY.#",
+   "#.DDOOOODYYYRRRROODDYYYYDDD.#",
+   "#.DDYYYYDYYRRRRRRYYDYYYYDDD.#",
+   "#.DDYYYYYYYRCCRRRYYDYYYYDDD.#",
+   "#.AAYYYAAYYYRCRRYYAAAYYAYAA.#",
+   "#.AAYAAAAAYYARRAAAAAAAAAYA..#",
+   "#..AYAAAAAAAAAAAAAAAAAAAYA..#",
+   "#..AYAAAAAAAAAAAAAAAAAAAYA..#",
+   "#..AYAAAAAAAAAAAAAAAAAAAYA..#",
+   "#...YAAAAAAAAAAAAAAAAAAAY...#",
+   "#....YYYYYYYYYYYYYYYYYY.....#",
+   "#.....AAAAAAAAAAAAAAAA......#",
+   "#...........................#",
+   "#############################"
+  ],
+  "entries": [
+   14
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "A",
+   "count": 43,
+   "group": "B"
+  },
+  {
+   "code": "A",
+   "count": 43
+  },
+  {
+   "code": "A",
+   "count": 42
+  },
+  {
+   "code": "A",
+   "count": 42
+  },
+  {
+   "code": "A",
+   "count": 42
+  },
+  {
+   "code": "A",
+   "count": 42
+  },
+  {
+   "code": "Y",
+   "count": 38
+  },
+  {
+   "code": "Y",
+   "count": 38
+  },
+  {
+   "code": "Y",
+   "count": 38
+  },
+  {
+   "code": "Y",
+   "count": 38,
+   "mystery": "depth"
+  },
+  {
+   "code": "Y",
+   "count": 38,
+   "group": "A"
+  },
+  {
+   "code": "R",
+   "count": 19,
+   "group": "A"
+  },
+  {
+   "code": "C",
+   "count": 3
+  },
+  {
+   "code": "D",
+   "count": 13
+  },
+  {
+   "code": "D",
+   "count": 13
+  },
+  {
+   "code": "O",
+   "count": 6
+  },
+  {
+   "code": "E",
+   "count": 27,
+   "group": "B"
+  },
+  {
+   "code": "E",
+   "count": 26
+  }
+ ],
+ "tray": [
+  [
+   12,
+   15,
+   14,
+   8,
+   7,
+   16
+  ],
+  [
+   11,
+   9,
+   4,
+   17,
+   1,
+   0
+  ],
+  [
+   10,
+   5,
+   3,
+   2,
+   6,
+   13
+  ]
+ ],
+ "mechanics": [
+  "hidden",
+  "links"
+ ],
+ "engine": {
+  "rules": "ec33026e742e6efee1626ebea071d5582ff1cdc9bb8ca889ce35ee0935626598",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

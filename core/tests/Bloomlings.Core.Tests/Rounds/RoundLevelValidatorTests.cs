@@ -190,5 +190,15 @@ namespace Bloomlings.Core.Tests.Rounds
             Assert.That(RoundLevelValidator.Validate(Make(number: 14, exception: structural)), Is.EqualTo(new[] { RoundLevelValidator.UnknownException }));
             Assert.That(RoundLevelValidator.IsExcepted(RoundTestLevels.Content(18), RoundLevelValidator.BridgeDecides), Is.True, "L18 keeps both winning bridges");
         }
+
+        [Test]
+        public void TheCalmRule_IsExceptable_AndL30KeepsTheOwnersException()
+        {
+            var calm = new RoundException(RoundLevelValidator.CalmTest, "kept as it is", "owner", "2026-10-31");
+            Assert.That(RoundLevelValidator.Validate(Make(number: 14, exception: calm)), Is.Empty);
+            RoundLevel l30 = RoundTestLevels.Content(30);
+            Assert.That(RoundLevelValidator.IsExcepted(l30, RoundLevelValidator.CalmTest), Is.True, "L30: Super Hard calm above 25 %, kept by the owner");
+            Assert.That(RoundLevelValidator.Validate(l30), Is.Empty);
+        }
     }
 }

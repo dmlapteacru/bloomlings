@@ -3,7 +3,7 @@ namespace Bloomlings.Client.UI.Design
     /// <summary>
     /// The round level screen's sizes and its pods' queue (spec 006 FR-049, FR-064; contracts/presentation.md; the owner's
     /// level screen of 2026-10-28: "a bigger board and a bigger picture; the pods without their extra box, volumetric like
-    /// cubes, in exactly 3 rows one after another, no indicator of how many more; as in Colony Flow"). Every size is the
+    /// cubes, in exactly 3 rows one after another, no indicator of how many more; as in the reference game"). Every size is the
     /// owner's value from the board constructor (<c>tools/board-constructor</c>, its "copy the values" block of 2026-10-28),
     /// one named constant each under the constructor's key, so new values plug in without touching the layout
     /// (<c>ScreenLayout.RoundGameplay</c>).
@@ -71,9 +71,9 @@ namespace Bloomlings.Client.UI.Design
         public const float BoardCubeFill = 0.98f;
 
         /// <summary>
-        /// The board's oblique cubes (the owner's "like Colony Flow, somehow at an angle", 2026-10-28; flat 2D, no vanishing
+        /// The board's oblique cubes (the owner's "like the reference game, somehow at an angle", 2026-10-28; flat 2D, no vanishing
         /// point, constitution VII): a row's pitch as a share of the column pitch, so each cube's top is wider than tall
-        /// (Colony Flow's 30 px rows on 34 px columns).
+        /// (the reference game's 30 px rows on 34 px columns).
         /// </summary>
         public const float BoardRowShare = 0.88f;
 
@@ -89,7 +89,7 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// A cube's side face at the board's outermost column, as a share of the cube's width (constitution 1.2.0 VII, the
-        /// owner's "with side faces" of 2026-10-28; Colony Flow's 0.10 at 34 px cells): a cube left of the centre shows its
+        /// owner's "with side faces" of 2026-10-28; the reference game's 0.10 at 34 px cells): a cube left of the centre shows its
         /// left side, right of it its right side, linear in the distance from the centre and 0 there, and only where the
         /// neighbouring cell on that side is empty. Pods and places alike, by their place across the screen.
         /// </summary>
@@ -104,7 +104,7 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public const float CubeGloss = 0.32f;
 
-        /// <summary>A cube's corner radius, as a share of its width (Colony Flow's soft corners).</summary>
+        /// <summary>A cube's corner radius, as a share of its width (the reference game's soft corners).</summary>
         public const float CubeCornerShare = 0.12f;
 
         /// <summary>
@@ -122,7 +122,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The white outline round a top-row pod (the one that takes the tap), as a share of its width.</summary>
         public const float PodRingShare = 0.05f;
 
-        /// <summary>How opaque a waiting pod's number is (Colony Flow's half-clear numbers under the top row).</summary>
+        /// <summary>How opaque a waiting pod's number is (the reference game's half-clear numbers under the top row).</summary>
         public const float WaitingCountAlpha = 0.6f;
 
         /// <summary>
@@ -173,7 +173,7 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// How far a waiting pod's colour (rows 2 and 3) is lightened toward white (constructor <c>inactiveLighten</c>): the
-        /// owner's choice of 2026-10-28 (0.12, as Colony Flow barely lightens; the waiting cue is the half-clear number and the
+        /// owner's choice of 2026-10-28 (0.12, as the reference game barely lightens; the waiting cue is the half-clear number and the
         /// flatter base), within <see cref="ReadableInactiveLighten"/>.
         /// </summary>
         public const float InactiveLighten = 0.12f;

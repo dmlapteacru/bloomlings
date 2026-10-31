@@ -1,0 +1,237 @@
+{
+ "format": "round-level.v1",
+ "number": 35,
+ "definitionVersion": 1,
+ "class": "Hard",
+ "picture": {
+  "id": "P0157",
+  "version": 2
+ },
+ "board": {
+  "w": 36,
+  "h": 34,
+  "rowsBottomFirst": [
+   "##################.#################",
+   "#..................................#",
+   "#.GGGGGAAAAAAAGGGGGGGGGGGGGGGGGGGG.#",
+   "#.GGGGGGAAAAAAGGGGGGGGGGGGGGGGGGGG.#",
+   "#.GGGGGGGAAAAAGGGGGGGGGGGGGGGGGGGG.#",
+   "#.GGGGGGGAAAAAGGGGGGGGGGGGGGGGGGGG.#",
+   "#.GGGGGGGGAAAAGGGGGGGGGGGGGGGGGGGG.#",
+   "#.GGGGGG####################GGGGGG.#",
+   "#.GGGGG#EEECCEEEEEEEEEEEEEEE#GGGGG.#",
+   "#.GGGGG#EEGGCEEGGEEEGGEEEGGE#GGGGG.#",
+   "#.GGGGG#DCYYCDCPPCDCRRCDCYYC#GGGGG.#",
+   "#.GGGGG#DYYYYDPPPPDRRRRDYYYY#GGGGG.#",
+   "#.GGGGG#DYYYYDPPPPDRRRRDYYYY#GGGGG.#",
+   "#.GGGGG#DYCCYDPCCPDRCCRDYCCY#GGGGG.#",
+   "#.GGGGG#DDDDDDDDDDDDDDDDDDDD#GGGGG.#",
+   "#.SSSSS#DDGGDDDGGDDDGGDDDGGD#SSSSS.#",
+   "#.SSSSS#DCGGCDCGGCDCGGCDCGGC#SSSSS.#",
+   "#.SSSSS#DCRRCDCYYCDCPPCDCRRC#SSSSS.#",
+   "#.SSSSS#DRRRRDYYYYDPPPPDRRRR#SSSSS.#",
+   "#.SSSSS#DRRRRDYYYYDPPPPDRRRR#SSSSS.#",
+   "#.SSSSS#DRCCRDYCCYDPCCPDRCCR#SSSSS.#",
+   "#.SSSSS#DDDDDDDDDDDDDDDDDDDD#SSSSS.#",
+   "#.SSSSS#DDDDDDDDDDDDDDDDDDDD#SSSSS.#",
+   "#.SSSSS#DCCCCDCCCCDCCCCDCCCC#SSSSS.#",
+   "#.SSSSSS##CCCDCCCCDCCCCDCC##SSSSSS.#",
+   "#.SSSSSSSS#CCDCCCCDCCCCDC#SSSSSSSS.#",
+   "#.SSSSSSSSS##DCCCCDCCCC##SSSSSSSSS.#",
+   "#.SSSSSSSSSSS#CCCCDCCC#SSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSS##CCDC##SSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSS####SSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#..................................#",
+   "####################################"
+  ],
+  "entries": [
+   18
+  ],
+  "hero": {
+   "id": "sprig-bridge",
+   "choices": [
+    {
+     "cell": 264,
+     "anchor": 228,
+     "label": "Мостик вверх слева"
+    },
+    {
+     "cell": 276,
+     "anchor": 240,
+     "label": "Мостик вверх справа"
+    }
+   ]
+  }
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "G",
+   "count": 40
+  },
+  {
+   "code": "G",
+   "count": 40,
+   "group": "A"
+  },
+  {
+   "code": "G",
+   "count": 40,
+   "group": "A"
+  },
+  {
+   "code": "G",
+   "count": 40
+  },
+  {
+   "code": "G",
+   "count": 40
+  },
+  {
+   "code": "G",
+   "count": 39,
+   "group": "B"
+  },
+  {
+   "code": "S",
+   "count": 46,
+   "group": "B"
+  },
+  {
+   "code": "A",
+   "count": 14
+  },
+  {
+   "code": "A",
+   "count": 13
+  },
+  {
+   "code": "C",
+   "count": 51
+  },
+  {
+   "code": "C",
+   "count": 50,
+   "group": "C"
+  },
+  {
+   "code": "D",
+   "count": 41,
+   "group": "C"
+  },
+  {
+   "code": "D",
+   "count": 40,
+   "group": "D"
+  },
+  {
+   "code": "S",
+   "count": 45,
+   "group": "D"
+  },
+  {
+   "code": "R",
+   "count": 18
+  },
+  {
+   "code": "D",
+   "count": 41
+  },
+  {
+   "code": "P",
+   "count": 12,
+   "mystery": "depth"
+  },
+  {
+   "code": "R",
+   "count": 18
+  },
+  {
+   "code": "E",
+   "count": 15
+  },
+  {
+   "code": "E",
+   "count": 14
+  },
+  {
+   "code": "Y",
+   "count": 18
+  },
+  {
+   "code": "Y",
+   "count": 18
+  },
+  {
+   "code": "P",
+   "count": 12
+  },
+  {
+   "code": "S",
+   "count": 46
+  },
+  {
+   "code": "S",
+   "count": 45,
+   "mystery": "depth"
+  },
+  {
+   "code": "S",
+   "count": 46
+  },
+  {
+   "code": "S",
+   "count": 46
+  }
+ ],
+ "tray": [
+  [
+   0,
+   4,
+   8,
+   12,
+   16,
+   20,
+   24
+  ],
+  [
+   1,
+   5,
+   9,
+   13,
+   17,
+   21,
+   25
+  ],
+  [
+   2,
+   6,
+   10,
+   14,
+   18,
+   22,
+   26
+  ],
+  [
+   3,
+   7,
+   11,
+   15,
+   19,
+   23
+  ]
+ ],
+ "mechanics": [
+  "hidden",
+  "links",
+  "bridge"
+ ],
+ "engine": {
+  "rules": "ec33026e742e6efee1626ebea071d5582ff1cdc9bb8ca889ce35ee0935626598",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

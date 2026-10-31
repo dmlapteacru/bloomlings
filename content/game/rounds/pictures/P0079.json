@@ -1,0 +1,43 @@
+{
+ "format": "round-picture.v1",
+ "id": "P0079",
+ "version": 1,
+ "title": "Компас",
+ "family": "Багаж и навигация",
+ "subject": "круглый латунный компас с красно-белой стрелкой и петлёй крышки",
+ "source": "оригинальный",
+ "w": 19,
+ "h": 24,
+ "rows": [
+  "........OOO........",
+  ".......OOOOO.......",
+  ".......O...O.......",
+  ".......O...O.......",
+  ".......OOOOO.......",
+  ".....YYYYYYYYY.....",
+  "....YYYYYYYYYYY....",
+  "..YYYYYOOOOOYYYYY..",
+  "..YYYOONNCNNOOYYY..",
+  ".YYYONNNNNNNNNOYYY.",
+  "YYYONNNNNNNNRRNOYYY",
+  "YYYONNNNNNNRRRNOYYO",
+  "YYONNNNNNNRRRNNNOOO",
+  "YYONNNNNNYRRNNNNOOO",
+  "YYOCNNNNYYYNNNNCOOO",
+  "YYONNNNCCYNNNNNNOOO",
+  "YYONNNCCCNNNNNNNOOO",
+  "YYYONCCCNNNNNNNOOOO",
+  "YYYONCCNNNNNNNNOOOO",
+  ".YYYONNNNNNNNNOOOO.",
+  "..YYYOONNCNNOOOOO..",
+  "..YYYYYOOOOOOOOOO..",
+  "....YYYOOOOOOOO....",
+  ".....YOOOOOOOO....."
+ ],
+ "approval": {
+  "status": "approved",
+  "by": "owner",
+  "decidedAt": "2026-10-26"
+ },
+ "rights": "own"
+}

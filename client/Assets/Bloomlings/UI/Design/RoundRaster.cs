@@ -189,7 +189,7 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>
-        /// A round board's cube (spec 006 FR-064, the owner's "like Colony Flow, somehow at an angle" of 2026-10-28): one flat
+        /// A round board's cube (spec 006 FR-064, the owner's "like the reference game, somehow at an angle" of 2026-10-28): one flat
         /// 2D picture <paramref name="width"/> (a column) × <paramref name="height"/> (a row's pitch and the front face below
         /// it, <see cref="RoundBoardLayout.CubeBox"/>) of the oblique cube (<see cref="ObliqueCube"/>) in the material's
         /// <paramref name="color"/>: its top <see cref="RoundScreenLook.BoardRowShare"/> of the width tall, its front
@@ -286,7 +286,7 @@ namespace Bloomlings.Client.UI.Design
         public static string BoardCubeKey(char code, bool symbol) => "tile.round/oblique/" + code + (symbol ? "/symbol" : string.Empty);
 
         /// <summary>
-        /// A round level's pod (<c>pod.cube</c>, spec 006 FR-064, the owner's pods of 2026-10-28, as Colony Flow's): no frame or
+        /// A round level's pod (<c>pod.cube</c>, spec 006 FR-064, the owner's pods of 2026-10-28, as the reference game's): no frame or
         /// box round it, the board's oblique cube in a square of side <paramref name="size"/> in the material's
         /// <paramref name="color"/>, with a thicker base: a top-row pod (<see cref="RoundPodLook.Top"/>, the one that takes the
         /// tap) in a white outline (<see cref="RoundScreenLook.PodRingShare"/>) with a base of
@@ -366,7 +366,7 @@ namespace Bloomlings.Client.UI.Design
             RoundLook.PodCubeSlot + "/" + (hidden ? "hidden" : code.ToString()) + "/" + look + (symbol && !hidden ? "/symbol" : string.Empty) + (grey ? "/grey" : string.Empty);
 
         /// <summary>
-        /// A round level's board surface (<c>board.surface</c>, the owner's board of 2026-10-28, "like Colony Flow"): one
+        /// A round level's board surface (<c>board.surface</c>, the owner's board of 2026-10-28, "like the reference game"): one
         /// solid neutral panel filling <paramref name="width"/> × <paramref name="height"/> inside the stone frame, never a
         /// grid of cells. Flat <c>board.surface</c>, set a little into the frame: a soft <c>board.surface_shade</c> along its
         /// top (4.5% of its shorter side) and left edge (2.5%), the light coming from the upper left, and a faint lighter lip

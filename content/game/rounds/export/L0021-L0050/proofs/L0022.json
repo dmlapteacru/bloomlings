@@ -1,0 +1,177 @@
+{
+ "format": "round-proof.v1",
+ "number": 22,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 16550000
+   },
+   {
+    "type": "tap",
+    "pod": 24,
+    "atUs": 16550000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 28475000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 28475000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 28475000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 34925000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 45900000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 102425000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 113675000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 145875000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 157375000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 173450000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 190400000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 216575000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 226225000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 244650000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 267950000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 285350000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 299975000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 317975000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 334825000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 353525000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 376300000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 385925000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 403100000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 400,
+  "wins": 220,
+  "share": 0.55,
+  "wilson95": [
+   0.501,
+   0.598
+  ],
+  "classOfShare": "Normal",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.08,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": false,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.67,
+   "tight": 0.92
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0021-L0050.md",
+  "notes": [
+   "спокойная игра 51 % на границе по Wilson — решение человека (§5)",
+   "опасных развилок 3 (ориентир 0–2, §5)",
+   "последний запуск при 95 % W (ориентир 80–92 %, §10)"
+  ]
+ },
+ "engine": {
+  "rules": "ec33026e742e6efee1626ebea071d5582ff1cdc9bb8ca889ce35ee0935626598",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

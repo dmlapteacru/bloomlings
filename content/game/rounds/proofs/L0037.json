@@ -1,0 +1,177 @@
+{
+ "format": "round-proof.v1",
+ "number": 37,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 24250000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 41575000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 50225000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 69700000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 92125000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 119025000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 137200000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 150825000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 169875000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 190375000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 208050000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 222550000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 251750000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 269625000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 307750000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 333925000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 343725000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 363400000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 383600000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 407600000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 417650000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 429975000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 100,
+  "wins": 68,
+  "share": 0.68,
+  "wilson95": [
+   0.583,
+   0.763
+  ],
+  "classOfShare": "Normal",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.27,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": false,
+  "hiddenMatters": {
+   "ok": true,
+   "pods": [
+    {
+     "pod": 5,
+     "revealAt": 10,
+     "gap": 0,
+     "newColour": true
+    },
+    {
+     "pod": 21,
+     "revealAt": 20,
+     "gap": 0,
+     "newColour": true
+    }
+   ]
+  },
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 0.7,
+   "tight": 0.86
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0021-L0050.md",
+  "notes": [
+   "слой Б: стоят без работы 0.7 < 0.9 (§13, quality.json)",
+   "последний запуск при 97 % W (ориентир 80–92 %, §10)"
+  ]
+ },
+ "engine": {
+  "rules": "ec33026e742e6efee1626ebea071d5582ff1cdc9bb8ca889ce35ee0935626598",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

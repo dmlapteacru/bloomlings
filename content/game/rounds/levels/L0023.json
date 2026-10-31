@@ -1,0 +1,228 @@
+{
+ "format": "round-level.v1",
+ "number": 23,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0155",
+  "version": 2
+ },
+ "board": {
+  "w": 36,
+  "h": 34,
+  "rowsBottomFirst": [
+   "##################.#################",
+   "#..................................#",
+   "#.GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG.#",
+   "#.AARRRRGGGGGGGGGGGGGGGGGGGGRRRRGG.#",
+   "#.AAAARRRGGGGGG##############RRRRG.#",
+   "#.GAAAARGGGGGG#CCCCCCCCCCCCCC#RRGG.#",
+   "#.GGAAAAAGGGGG#CCACCACCACCACC#GGGG.#",
+   "#.GGGGAAAAGGG#CCCCCCCCCCCCCCCC#GGG.#",
+   "#.GGGGGGAAAAA#BBBBBYYBBBBBBYYB#GGG.#",
+   "#.GGGGGGGAAAA#BBYYBBBBBBYYBBBB#GGG.#",
+   "#.GGGGGGGGGAA#BBBBBBBBBBBBBBBB#GGG.#",
+   "#.GGGGGGGGGGGG#####GCCCCG#####GGGG.#",
+   "#.GGGGGEEGGGGGGGGGG#CCCC#GGGGGGGGG.#",
+   "#.SSSSSEESSSSSSSSSS#CCCC#SSSSSSSSS.#",
+   "#.SSSSSEESSSSSSSSSS#CCCC#SSSSSSSSS.#",
+   "#.SSSSSEESSSSSSSSSS#CCCC#SSSSSSSSS.#",
+   "#.SSSSSEESSSSSSSSSS#CCCC#SSSSSSSSS.#",
+   "#.SSSSSMMMMMSSSSSSS#CCCC#SSSSSSSSS.#",
+   "#.SSSMMMMMMMMMSSSS#SCCCCS#SSSSSSSS.#",
+   "#.SSMMMMMMMMMMMM##CCCCCCCC#SSSSSSS.#",
+   "#.SMMMMMMMMMMMMM#CCCCCCCCCC#SSSSSS.#",
+   "#.SMMMMMMMMMMMM#BBBBBBBBBBBB#SSSSS.#",
+   "#.SMMMMMMMMMMMMM####SSSS####SSSSSS.#",
+   "#.SMMMMMMMMMMMMMSSSS#SS#SSSSSSSSSS.#",
+   "#.SSMMMMMMMMMMMMSSSS#SS#SSSSSSSSSS.#",
+   "#.SSMMMMMMMMMMMMSSSS#SS#SSSSSSSSSS.#",
+   "#.SSSSMMMMMMMMSSSSSS#SS#SSSSSSSSSS.#",
+   "#.SSSSSSMMMSSSSSSSS#SYYS#SSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSS####SSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#..................................#",
+   "####################################"
+  ],
+  "entries": [
+   18
+  ],
+  "hero": {
+   "id": "sprig-bridge",
+   "choices": [
+    {
+     "cell": 736,
+     "anchor": 735,
+     "label": "Мостик вправо в центре"
+    },
+    {
+     "cell": 337,
+     "anchor": 336,
+     "label": "Мостик вправо снизу"
+    }
+   ]
+  }
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "A",
+   "count": 17
+  },
+  {
+   "code": "A",
+   "count": 17
+  },
+  {
+   "code": "M",
+   "count": 38
+  },
+  {
+   "code": "M",
+   "count": 37
+  },
+  {
+   "code": "M",
+   "count": 37
+  },
+  {
+   "code": "B",
+   "count": 26
+  },
+  {
+   "code": "B",
+   "count": 26
+  },
+  {
+   "code": "Y",
+   "count": 10
+  },
+  {
+   "code": "S",
+   "count": 39
+  },
+  {
+   "code": "S",
+   "count": 39
+  },
+  {
+   "code": "S",
+   "count": 39
+  },
+  {
+   "code": "G",
+   "count": 33
+  },
+  {
+   "code": "S",
+   "count": 39
+  },
+  {
+   "code": "C",
+   "count": 45
+  },
+  {
+   "code": "S",
+   "count": 39,
+   "mystery": "depth"
+  },
+  {
+   "code": "C",
+   "count": 45
+  },
+  {
+   "code": "S",
+   "count": 39
+  },
+  {
+   "code": "R",
+   "count": 18
+  },
+  {
+   "code": "S",
+   "count": 39
+  },
+  {
+   "code": "G",
+   "count": 32,
+   "mystery": "depth"
+  },
+  {
+   "code": "S",
+   "count": 39
+  },
+  {
+   "code": "G",
+   "count": 33
+  },
+  {
+   "code": "G",
+   "count": 33
+  },
+  {
+   "code": "S",
+   "count": 39
+  },
+  {
+   "code": "S",
+   "count": 40
+  },
+  {
+   "code": "G",
+   "count": 33
+  },
+  {
+   "code": "E",
+   "count": 10
+  }
+ ],
+ "tray": [
+  [
+   0,
+   4,
+   8,
+   12,
+   16,
+   20,
+   24
+  ],
+  [
+   1,
+   5,
+   9,
+   13,
+   17,
+   21,
+   25
+  ],
+  [
+   2,
+   6,
+   10,
+   14,
+   18,
+   22,
+   26
+  ],
+  [
+   3,
+   7,
+   11,
+   15,
+   19,
+   23
+  ]
+ ],
+ "mechanics": [
+  "hidden",
+  "bridge"
+ ],
+ "engine": {
+  "rules": "ec33026e742e6efee1626ebea071d5582ff1cdc9bb8ca889ce35ee0935626598",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

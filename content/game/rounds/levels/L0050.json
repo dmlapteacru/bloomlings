@@ -1,0 +1,285 @@
+{
+ "format": "round-level.v1",
+ "number": 50,
+ "definitionVersion": 1,
+ "class": "Hard",
+ "picture": {
+  "id": "P0159",
+  "version": 2
+ },
+ "board": {
+  "w": 34,
+  "h": 40,
+  "rowsBottomFirst": [
+   "#################.################",
+   "#................................#",
+   "#.CCCCCMCCCCCCEEEEEECCCCCCEEEECC.#",
+   "#.CCCMMCCCCCCCEEEEEECCCCCEECCECC.#",
+   "#.MMMMCCCCCCCCEEEEEECCCCCEEEEECC.#",
+   "#.MMMCCCCCCCCCEEEEEECCCCCECCEECC.#",
+   "#.CMMMCCCCCCCCEEEEEECCCCCEEEECCC.#",
+   "#.CCMMMCCCCCCCEEEEEECCCCECCCECCC.#",
+   "#.CCMMMCCCCCCCCEEEECCCCCEEEEECCC.#",
+   "#.CCMMMCCCCCCCCCEECCCCCCECCECCCC.#",
+   "#.CCCMMMCCCCCCC####CCCCEEEEECCCC.#",
+   "#.CCCCMMMMMM###VDDB###CECCCECCCC.#",
+   "#.CCCCMMM###VVVVDDBBBB###CCCCCCC.#",
+   "#.CCCCMMM#BDVVVVDDBBBBDV#CCCCCCC.#",
+   "#.CCCCMM#BBDDVVVDDBBBDDVV#CCCCCC.#",
+   "#.CCCCC#BBBBDVVDDDDBBDVVVV#CCCCC.#",
+   "#.CCCC#BBBBBBDDRRRRDDVVVVVV#CCCC.#",
+   "#.CCCC#DDBBDDRDRRRRDRDDVVDD#CCCC.#",
+   "#.CCC#VVDDBDRRRDRRDRRRDVDDBB#CCC.#",
+   "#.CCC#VVVVDRRRRDRRDRRRRDBBBB#CCC.#",
+   "#.CCC#VVVVDDRRRDYYDRRRDDBBBB#CCC.#",
+   "#.CC#VVVVDRRDDDYYYYDDDRRDBBBB#CC.#",
+   "#.CC#DDDDDRRRRYYYYYYRRRRDDDDD#CC.#",
+   "#.CC#DDDDDRRRRYYYYYYRRRRDDDDD#CC.#",
+   "#.CC#BBBBDRRDDDYYYYDDDRRDVVVV#CC.#",
+   "#.CCC#BBBBDDRRRDYYDRRRDDVVVV#CCC.#",
+   "#.CCC#BBBBDRRRRDRRDRRRRDVVVV#CCC.#",
+   "#.CCC#BBDDVDRRRDRRDRRRDBDDVV#CCC.#",
+   "#.CCCC#DDVVDDRDRRRRDRDDBBDD#CCCC.#",
+   "#.CCCC#VVVVVVDDRRRRDDBBBBBB#CCCC.#",
+   "#.CCCCC#VVVVDBBDDDDVVDBBBB#CCCCC.#",
+   "#.CCCCCC#VVDDBBBDDVVVDDBB#CCCCCC.#",
+   "#.SCCCCCC#VDBBBBDDVVVVDB#CCCCCCS.#",
+   "#.SSCCCCCC##BBBBDDVVVV##CCCCCCSS.#",
+   "#.SSSSCCCCCC###BDDV###CCCCCCSSSS.#",
+   "#.SSSSSCCCCCCCC####CCCCCCCCSSSSS.#",
+   "#.SSSSSSCCCCCCCCCCCCCCCCCCSSSSSS.#",
+   "#.SSSSSSSSCCCCCCCCCCCCCCSSSSSSSS.#",
+   "#................................#",
+   "##################################"
+  ],
+  "entries": [
+   17
+  ],
+  "hero": {
+   "id": "sprig-bridge",
+   "choices": [
+    {
+     "cell": 418,
+     "anchor": 384,
+     "label": "Мостик вверх слева"
+    },
+    {
+     "cell": 431,
+     "anchor": 397,
+     "label": "Мостик вверх справа"
+    }
+   ]
+  }
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "M",
+   "count": 20,
+   "group": "A"
+  },
+  {
+   "code": "M",
+   "count": 19,
+   "group": "A"
+  },
+  {
+   "code": "C",
+   "count": 34,
+   "group": "B"
+  },
+  {
+   "code": "E",
+   "count": 39,
+   "group": "B"
+  },
+  {
+   "code": "E",
+   "count": 38
+  },
+  {
+   "code": "B",
+   "count": 30,
+   "group": "C"
+  },
+  {
+   "code": "B",
+   "count": 29,
+   "group": "C"
+  },
+  {
+   "code": "B",
+   "count": 29
+  },
+  {
+   "code": "D",
+   "count": 28
+  },
+  {
+   "code": "D",
+   "count": 28
+  },
+  {
+   "code": "R",
+   "count": 23
+  },
+  {
+   "code": "D",
+   "count": 28,
+   "mystery": "depth"
+  },
+  {
+   "code": "D",
+   "count": 28,
+   "group": "D"
+  },
+  {
+   "code": "D",
+   "count": 28,
+   "group": "D"
+  },
+  {
+   "code": "V",
+   "count": 29
+  },
+  {
+   "code": "R",
+   "count": 23
+  },
+  {
+   "code": "R",
+   "count": 23
+  },
+  {
+   "code": "R",
+   "count": 23
+  },
+  {
+   "code": "V",
+   "count": 29
+  },
+  {
+   "code": "V",
+   "count": 30
+  },
+  {
+   "code": "Y",
+   "count": 12
+  },
+  {
+   "code": "C",
+   "count": 34
+  },
+  {
+   "code": "Y",
+   "count": 12,
+   "mystery": "depth"
+  },
+  {
+   "code": "C",
+   "count": 35
+  },
+  {
+   "code": "C",
+   "count": 34
+  },
+  {
+   "code": "S",
+   "count": 26
+  },
+  {
+   "code": "C",
+   "count": 34,
+   "group": "E"
+  },
+  {
+   "code": "C",
+   "count": 34,
+   "group": "E"
+  },
+  {
+   "code": "C",
+   "count": 34
+  },
+  {
+   "code": "S",
+   "count": 26
+  },
+  {
+   "code": "C",
+   "count": 34
+  },
+  {
+   "code": "C",
+   "count": 34
+  },
+  {
+   "code": "C",
+   "count": 34
+  },
+  {
+   "code": "C",
+   "count": 35
+  },
+  {
+   "code": "C",
+   "count": 34
+  }
+ ],
+ "tray": [
+  [
+   0,
+   4,
+   8,
+   12,
+   16,
+   20,
+   24,
+   28,
+   32
+  ],
+  [
+   1,
+   5,
+   9,
+   13,
+   17,
+   21,
+   25,
+   29,
+   33
+  ],
+  [
+   2,
+   6,
+   10,
+   14,
+   18,
+   22,
+   26,
+   30,
+   34
+  ],
+  [
+   3,
+   7,
+   11,
+   15,
+   19,
+   23,
+   27,
+   31
+  ]
+ ],
+ "mechanics": [
+  "hidden",
+  "links",
+  "bridge"
+ ],
+ "engine": {
+  "rules": "ec33026e742e6efee1626ebea071d5582ff1cdc9bb8ca889ce35ee0935626598",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

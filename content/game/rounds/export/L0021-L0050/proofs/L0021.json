@@ -1,0 +1,140 @@
+{
+ "format": "round-proof.v1",
+ "number": 21,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 56825000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 84450000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 103700000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 114875000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 122925000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 149475000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 161850000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 179425000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 191400000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 204325000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 218925000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 235450000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 250300000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 100,
+  "wins": 79,
+  "share": 0.79,
+  "wilson95": [
+   0.7,
+   0.858
+  ],
+  "classOfShare": "Normal",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.27,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": false,
+  "hiddenMatters": {
+   "ok": false,
+   "pods": [
+    {
+     "pod": 5,
+     "revealAt": 15,
+     "gap": 0,
+     "newColour": true
+    }
+   ]
+  },
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 0.63,
+   "tight": 0.87
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0021-L0050.md",
+  "notes": [
+   "последний запуск при 94 % W (ориентир 80–92 %, §10)"
+  ]
+ },
+ "engine": {
+  "rules": "ec33026e742e6efee1626ebea071d5582ff1cdc9bb8ca889ce35ee0935626598",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

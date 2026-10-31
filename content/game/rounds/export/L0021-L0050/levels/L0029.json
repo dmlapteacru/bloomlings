@@ -1,0 +1,248 @@
+{
+ "format": "round-level.v1",
+ "number": 29,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0030",
+  "version": 1
+ },
+ "board": {
+  "w": 48,
+  "h": 48,
+  "rowsBottomFirst": [
+   "########################.#######################",
+   "#..............................................#",
+   "#.....................GGMM.....................#",
+   "#.....................GGMM.....................#",
+   "#....................MGGMM.....................#",
+   "#...............GGGGMMGGMM.....................#",
+   "#.............GGGGMMG.GGMMM....................#",
+   "#............GGGGMMG..GGMMMMG..................#",
+   "#..........GGGGMMGGG..GGMMGGMMG................#",
+   "#.........GGGGMMGGG...GGMM.GGMMGG..............#",
+   "#........GGGMMGGGG....GGMM..GGGMMGG............#",
+   "#.......GGGMMGGGG.....GGMM..GGGGGMMGG..........#",
+   "#......GGGMGGGG.......GGMM...GGGGGMMGG.........#",
+   "#.....GGMMGGGG........GGMM....GGGGGGMMG........#",
+   "#....GGGGGGG.......RRRRRRRRRR...GGGGGMMG.......#",
+   "#..............RRRRRRRRRRRRRRRRRR.GGGGGMM......#",
+   "#............RPPPPPPPPPPPPPPPPRRRRR.GGGGGG.....#",
+   "#..........RPPPPPPPPPPPPPPPPPPPPRRRRR..........#",
+   "#.........PPPPPPPPPPPPPPPPPPPPPPPPRRRR.........#",
+   "#........PPPPPPPPPPPPPPPPPPPPPPPPPPPRRR........#",
+   "#.......PPPPPPPPPPPPPPPPPPPPPPPPPPPPPRRR.......#",
+   "#.......PPPPPPPPPPPPPPPPPPPPPPPPPPPPPRRR.......#",
+   "#.......PPPPPPPPPPPPAAAKKKKKPPPPPPPPPPRR.......#",
+   "#.......PPPPPPPPPPCCAAACCCCCCCPPPPPPPPRR.......#",
+   "#.......PPPPPPPPPPCCAAACCCCCCCPPPPPPPPPR.......#",
+   "#......PPPPPPPPPPPCCAACCCCCCCCPPPPPPPPPRR......#",
+   "#......PPPPPPPPPPPCCAAACCCAAACPPPPPPPPPRR......#",
+   "#......PPPPPPPPPPPCCAAACCASSSAPPPPPPPPPRR......#",
+   "#......PPPPPPPPPPPCCAAACCASSSAPPPPPPPPPPR......#",
+   "#.....PPPPPPPPPPPPCCAAACCASSSAPPPPPPPPPPRR.....#",
+   "#.....PPPPPPPPPPPPCCCCCCCCAAACPPPPPPPPPPRR.....#",
+   "#.....PPPPPPPPPPPPCCCCCCCCCCCCPPPPPPPPPPRR.....#",
+   "#.....PPPPPPPPPPRRRRRRRRRRRRRRRRPPPPPPPPRR.....#",
+   "#.....PPPPPPPPPPPRRRRRRRRRRRRRRPPPPPPPPPRR.....#",
+   "#.....PPPPPPPPPPKKRRRRRRRRRRRRKKPPPPPPPPRR.....#",
+   "#.....PPPPPPPPPP.KKRRRRRRRRRRKK.PPPPPPPPRR.....#",
+   "#.....PPPPPPPPP..KKKRRRRRRRRKKK..PPPPPPPRR.....#",
+   "#......PPPPPPP...KKKKRRRRRRKKKK...PPPPPPR......#",
+   "#......PPPPPPP....KKKKRRRRKKKK....PPPPPPR......#",
+   "#......PPPPPP......KKKKRRKKKK......PPPPRR......#",
+   "#......PPPPP........KKKKKKKK........PPPRR......#",
+   "#......PPPP..........KKKKKK..........PPRR......#",
+   "#......PPP...........KKKKKK...........PRR......#",
+   "#......PP.............KKKK.............RR......#",
+   "#......................KK......................#",
+   "#..............................................#",
+   "#..............................................#",
+   "################################################"
+  ],
+  "entries": [
+   24
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "K",
+   "count": 23
+  },
+  {
+   "code": "K",
+   "count": 23,
+   "group": "B"
+  },
+  {
+   "code": "K",
+   "count": 23,
+   "group": "C"
+  },
+  {
+   "code": "P",
+   "count": 46
+  },
+  {
+   "code": "P",
+   "count": 46
+  },
+  {
+   "code": "P",
+   "count": 45
+  },
+  {
+   "code": "P",
+   "count": 45
+  },
+  {
+   "code": "P",
+   "count": 45
+  },
+  {
+   "code": "P",
+   "count": 45,
+   "mystery": "depth"
+  },
+  {
+   "code": "P",
+   "count": 45
+  },
+  {
+   "code": "P",
+   "count": 45,
+   "group": "C"
+  },
+  {
+   "code": "P",
+   "count": 45,
+   "group": "A"
+  },
+  {
+   "code": "P",
+   "count": 45
+  },
+  {
+   "code": "P",
+   "count": 45,
+   "mystery": "depth"
+  },
+  {
+   "code": "R",
+   "count": 42
+  },
+  {
+   "code": "R",
+   "count": 41
+  },
+  {
+   "code": "R",
+   "count": 41
+  },
+  {
+   "code": "R",
+   "count": 41,
+   "group": "A"
+  },
+  {
+   "code": "C",
+   "count": 23
+  },
+  {
+   "code": "C",
+   "count": 22
+  },
+  {
+   "code": "C",
+   "count": 22
+  },
+  {
+   "code": "A",
+   "count": 18
+  },
+  {
+   "code": "A",
+   "count": 17
+  },
+  {
+   "code": "S",
+   "count": 9
+  },
+  {
+   "code": "G",
+   "count": 46
+  },
+  {
+   "code": "G",
+   "count": 46,
+   "group": "B"
+  },
+  {
+   "code": "G",
+   "count": 45
+  },
+  {
+   "code": "M",
+   "count": 21
+  },
+  {
+   "code": "M",
+   "count": 20
+  },
+  {
+   "code": "M",
+   "count": 20
+  }
+ ],
+ "tray": [
+  [
+   29,
+   6,
+   17,
+   3,
+   9,
+   23,
+   13,
+   4
+  ],
+  [
+   24,
+   10,
+   11,
+   26,
+   14,
+   20,
+   15
+  ],
+  [
+   25,
+   2,
+   5,
+   28,
+   16,
+   7,
+   19
+  ],
+  [
+   1,
+   18,
+   27,
+   8,
+   0,
+   22,
+   21,
+   12
+  ]
+ ],
+ "mechanics": [
+  "hidden",
+  "links"
+ ],
+ "engine": {
+  "rules": "ec33026e742e6efee1626ebea071d5582ff1cdc9bb8ca889ce35ee0935626598",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

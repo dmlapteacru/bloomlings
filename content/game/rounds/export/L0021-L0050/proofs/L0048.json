@@ -1,0 +1,158 @@
+{
+ "format": "round-proof.v1",
+ "number": 48,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 7300000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 16350000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 16350000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 50275000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 61700000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 73675000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 94800000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 111725000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 129300000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 143375000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 166700000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 205075000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 221325000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 100,
+  "wins": 72,
+  "share": 0.72,
+  "wilson95": [
+   0.625,
+   0.799
+  ],
+  "classOfShare": "Normal",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.32,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": true,
+  "hiddenMatters": {
+   "ok": false,
+   "pods": [
+    {
+     "pod": 2,
+     "revealAt": 7,
+     "gap": 4,
+     "newColour": true
+    }
+   ]
+  },
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 0.55,
+   "tight": 0.77
+  },
+  "calm": {
+   "runs": 200,
+   "wins": 125,
+   "share": 0.625,
+   "wilson95": [
+    0.556,
+    0.689
+   ],
+   "borderline": false,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 2,
+   "traps": 0,
+   "top": 0
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0021-L0050.md",
+  "notes": [
+   "слой Б: стоят без работы 0.55 < 0.9 (§13, quality.json)",
+   "опасных развилок 3 (ориентир 0–2, §5)"
+  ]
+ },
+ "engine": {
+  "rules": "ec33026e742e6efee1626ebea071d5582ff1cdc9bb8ca889ce35ee0935626598",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

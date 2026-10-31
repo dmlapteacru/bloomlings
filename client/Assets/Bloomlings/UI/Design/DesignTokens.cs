@@ -270,7 +270,7 @@ namespace Bloomlings.Client.UI.Design
             /// <summary>The stream's ripples and its foam along the banks.</summary>
             public static readonly Rgba WaterFoam = Rgba.FromHex("#E8F9FC");
 
-            // ---- Round levels: the board's solid neutral surface (the owner's board of 2026-10-28, "like Colony Flow") ----
+            // ---- Round levels: the board's solid neutral surface (the owner's board of 2026-10-28, "like the reference game") ----
 
             /// <summary>The round board's neutral surface inside the stone frame: a calm warm stone grey the cubes stand out on.</summary>
             public static readonly Rgba BoardSurface = Rgba.FromHex("#DCD3C4");

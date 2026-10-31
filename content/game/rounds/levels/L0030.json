@@ -1,0 +1,296 @@
+{
+ "format": "round-level.v1",
+ "number": 30,
+ "definitionVersion": 1,
+ "class": "Super Hard",
+ "picture": {
+  "id": "P0153",
+  "version": 6
+ },
+ "board": {
+  "w": 34,
+  "h": 36,
+  "rowsBottomFirst": [
+   "#################.################",
+   "#................................#",
+   "#.GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG.#",
+   "#.GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG.#",
+   "#.BBDDBBBBBBBB##########GGGGGBBB.#",
+   "#.BBDDBBBBB###LLLLLLLLLL####BBBB.#",
+   "#.BBDDBBBB#LLLLLLLLLLLLLLLLL#BBB.#",
+   "#.BBDDBBB#LLLLLLLLLLLLLLLLLLL#BB.#",
+   "#.BBDDBB#LLLLLLLLLLLLLLLLLLLLL#B.#",
+   "#.BBDDBB#LLMMMLLLLLLLLLLLLLLLL#B.#",
+   "#.BBDDBBB#LMMMMLLLLLLLLLLLLLL#BB.#",
+   "#.BBDDBB#MMMMMMLLLLLLLLLLLLL#BBB.#",
+   "#.BBDDBB#MMMMMRRRRRRRDRRRRR#BBBB.#",
+   "#.BBDDPB#MMMMMRRRRRRRDRRRRR#BBBB.#",
+   "#.BPPPPP#MMMMMRRRRRRRDRRRRR#BBBB.#",
+   "#.PPPPPP#MMMMMRRRRRRRDRRRRR#SSSS.#",
+   "#.PPPPPP#MMMMMRRRRRRRRRRRRR#SSSS.#",
+   "#.PPPPPP#MMMMMRRRYRYRRRYRYR#SSSS.#",
+   "#.SPPPPP#MMMMMRRRRRRRRRRRRR#SSSS.#",
+   "#.SPPPPP#MMMMDDDDDDDDDDDDDDD#SSS.#",
+   "#.PPPPPP#MMMMMMMRRRRRRRRR###SSSS.#",
+   "#.PPPPPSS#MMMMMMRRRRRRRRR#SSSSSS.#",
+   "#.PPPPPSS#MMMMM#RRRRRRRRR#SSSSSS.#",
+   "#.SPPPSSS#MMMM##RRYRRYRRY##SSSSS.#",
+   "#.SSSSSSSS####DDDDDDDDDDDDD#SSSS.#",
+   "#.SSSSSSSSSSSS####RRRRR####SSSSS.#",
+   "#.SSSSSSSSSSSSSSS#RRRRR#SSSSSSSS.#",
+   "#.SSSSSSSSSSSSSS##RYRRY##SSSSSSS.#",
+   "#.SSSSSSSSSSSSS#DDDDDDDDD#SSSSSS.#",
+   "#.SSSSSSSSSSSSSS####Y####SSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSS#Y#SSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSS#Y#SSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSS#SSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#................................#",
+   "##################################"
+  ],
+  "entries": [
+   17
+  ],
+  "hero": {
+   "id": "sprig-bridge",
+   "choices": [
+    {
+     "cell": 518,
+     "anchor": 517,
+     "label": "Мостик вправо в центре"
+    },
+    {
+     "cell": 196,
+     "anchor": 162,
+     "label": "Мостик вверх справа"
+    }
+   ]
+  }
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "P",
+   "count": 27
+  },
+  {
+   "code": "P",
+   "count": 26,
+   "group": "A"
+  },
+  {
+   "code": "G",
+   "count": 33,
+   "group": "A"
+  },
+  {
+   "code": "G",
+   "count": 32
+  },
+  {
+   "code": "D",
+   "count": 15
+  },
+  {
+   "code": "D",
+   "count": 15,
+   "group": "B"
+  },
+  {
+   "code": "Y",
+   "count": 12,
+   "group": "B"
+  },
+  {
+   "code": "R",
+   "count": 21
+  },
+  {
+   "code": "R",
+   "count": 22
+  },
+  {
+   "code": "L",
+   "count": 19,
+   "group": "C"
+  },
+  {
+   "code": "L",
+   "count": 19,
+   "group": "C"
+  },
+  {
+   "code": "L",
+   "count": 19,
+   "mystery": "depth"
+  },
+  {
+   "code": "L",
+   "count": 19,
+   "group": "D"
+  },
+  {
+   "code": "L",
+   "count": 19,
+   "group": "D"
+  },
+  {
+   "code": "L",
+   "count": 18
+  },
+  {
+   "code": "D",
+   "count": 15
+  },
+  {
+   "code": "D",
+   "count": 16,
+   "group": "F"
+  },
+  {
+   "code": "R",
+   "count": 22,
+   "group": "F"
+  },
+  {
+   "code": "R",
+   "count": 22
+  },
+  {
+   "code": "R",
+   "count": 21
+  },
+  {
+   "code": "R",
+   "count": 21
+  },
+  {
+   "code": "M",
+   "count": 15,
+   "group": "E"
+  },
+  {
+   "code": "M",
+   "count": 15,
+   "group": "E"
+  },
+  {
+   "code": "M",
+   "count": 15
+  },
+  {
+   "code": "M",
+   "count": 15
+  },
+  {
+   "code": "M",
+   "count": 14
+  },
+  {
+   "code": "S",
+   "count": 34
+  },
+  {
+   "code": "S",
+   "count": 35,
+   "mystery": "depth"
+  },
+  {
+   "code": "S",
+   "count": 35
+  },
+  {
+   "code": "S",
+   "count": 35,
+   "group": "G"
+  },
+  {
+   "code": "S",
+   "count": 34,
+   "group": "G"
+  },
+  {
+   "code": "S",
+   "count": 34
+  },
+  {
+   "code": "B",
+   "count": 42
+  },
+  {
+   "code": "B",
+   "count": 42
+  },
+  {
+   "code": "S",
+   "count": 35
+  },
+  {
+   "code": "S",
+   "count": 34
+  }
+ ],
+ "tray": [
+  [
+   0,
+   4,
+   8,
+   12,
+   16,
+   20,
+   24,
+   28,
+   32
+  ],
+  [
+   1,
+   5,
+   9,
+   13,
+   17,
+   21,
+   25,
+   29,
+   33
+  ],
+  [
+   2,
+   6,
+   10,
+   14,
+   18,
+   22,
+   26,
+   30,
+   34
+  ],
+  [
+   3,
+   7,
+   11,
+   15,
+   19,
+   23,
+   27,
+   31,
+   35
+  ]
+ ],
+ "mechanics": [
+  "hidden",
+  "links",
+  "bridge"
+ ],
+ "exception": {
+  "rule": "calm test (17 §5, amendment of 2026-10-31)",
+  "reason": "Super Hard calm 30-32 % with its deciding bridge (threshold 25 %); the owner kept the level as it is",
+  "decidedBy": "owner",
+  "decidedAt": "2026-10-31"
+ },
+ "engine": {
+  "rules": "ec33026e742e6efee1626ebea071d5582ff1cdc9bb8ca889ce35ee0935626598",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

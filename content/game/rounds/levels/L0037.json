@@ -1,0 +1,206 @@
+{
+ "format": "round-level.v1",
+ "number": 37,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0061",
+  "version": 1
+ },
+ "board": {
+  "w": 37,
+  "h": 40,
+  "rowsBottomFirst": [
+   "##################.##################",
+   "#...................................#",
+   "#.....DDDD..............DDDD........#",
+   "#....DCCCCDDDDDDDDDDDDDDCCCCD.......#",
+   "#....DCCCCCCCCCCCCCCCCCCCCCCD.......#",
+   "#....DCCCCCCCCCCCCCCCCCCCCCCD.......#",
+   "#....DCCCCDDDDDDDDDDDDDDCCCCD.......#",
+   "#...OODDDDCCCCAAAAAACCCCDDDDAA......#",
+   "#..OOOOOOACCCCAAAAAACCCCAOOOOAA.....#",
+   "#..OOOOOOOAOOOAAAAAAOOOAOOOOOAA.....#",
+   "#...OOOOOOAOOOAAAAAAOOOAOOOOAA......#",
+   "#...OOOOOOAOOOAAAAAAOOOAOOOOAA......#",
+   "#...OOOOOOAOOOCCCCCCOOOAOOOOAA......#",
+   "#...OOOOOOAOOOCCCCCCOOOAOOOOAA......#",
+   "#....OOOOOAOOOCCCCCCOOOAOOOAAO......#",
+   "#....OOOOOAOOOCCCCCCOOOAOOOAAOO.....#",
+   "#.....OOOOAOOOCCCCCCOOOAOOAAOOOO....#",
+   "#.....OOOOOOOOCCCCCCOOOOOOAA.OOOO...#",
+   "#.....OOOOOOOOCCCCCCOOOOOOAA..OOO...#",
+   "#......OOOOOOOCCCCCCOOOOOOO....OOO..#",
+   "#.......OOOOOOCCCCCCOOOOOO.....OOO..#",
+   "#........RRRRRRRRRRRRRRRR.......CC..#",
+   "#........RRRRRRRRRRRRRRRR.......CCC.#",
+   "#........OOOCCCPPPPCCCOOO.......CCC.#",
+   "#...EE...OOCCDDDPPDDDCCOO...EE......#",
+   "#..EEEE.OOOCCCCCDDCCCCCOOO.EEEE.....#",
+   "#..EEEEOOOOCCCCCDDCCCCCOOOOEEEE.....#",
+   "#..EEEEOOOOOCCCDDDDCCCOOOOOEEEE.....#",
+   "#.EEEEEOOOOOOCCCCCCCCOOOOOOEEEEE....#",
+   "#.EEEEEOOOOOOOOOOOOOOOOOOOOEEEEE....#",
+   "#.EEEEEOOOODDOOOOOOOODDOOOOEEEEE....#",
+   "#.EEEEEOOOOCDOOOOOOOOCDOOOOEEEEE....#",
+   "#.EEEEEOOOOOOOOOOOOOOOOOOOOEEEEE....#",
+   "#.EEEEEEOOOOOOOOOOOOOOOOOOEEEEEE....#",
+   "#.EEEEEEOOOOOOOOOOOOOOOOOOEEEEEE....#",
+   "#..EEEEEOOOOOOOOOOOOOOOOOOEEEEE.....#",
+   "#...EEEE.OOOOOOOOOOOOOOOO.EEEE......#",
+   "#.........OOOOOOOOOOOOOO............#",
+   "#...................................#",
+   "#####################################"
+  ],
+  "entries": [
+   18
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "O",
+   "count": 52
+  },
+  {
+   "code": "O",
+   "count": 52
+  },
+  {
+   "code": "O",
+   "count": 51
+  },
+  {
+   "code": "O",
+   "count": 51,
+   "group": "A"
+  },
+  {
+   "code": "O",
+   "count": 51
+  },
+  {
+   "code": "O",
+   "count": 51,
+   "mystery": "depth"
+  },
+  {
+   "code": "O",
+   "count": 51
+  },
+  {
+   "code": "O",
+   "count": 51
+  },
+  {
+   "code": "E",
+   "count": 40
+  },
+  {
+   "code": "E",
+   "count": 40
+  },
+  {
+   "code": "E",
+   "count": 40,
+   "group": "A"
+  },
+  {
+   "code": "C",
+   "count": 46
+  },
+  {
+   "code": "C",
+   "count": 46
+  },
+  {
+   "code": "C",
+   "count": 46
+  },
+  {
+   "code": "C",
+   "count": 46
+  },
+  {
+   "code": "D",
+   "count": 24
+  },
+  {
+   "code": "D",
+   "count": 24
+  },
+  {
+   "code": "D",
+   "count": 24,
+   "group": "B"
+  },
+  {
+   "code": "P",
+   "count": 6,
+   "group": "B"
+  },
+  {
+   "code": "R",
+   "count": 16
+  },
+  {
+   "code": "R",
+   "count": 16
+  },
+  {
+   "code": "A",
+   "count": 24,
+   "mystery": "depth"
+  },
+  {
+   "code": "A",
+   "count": 24
+  },
+  {
+   "code": "A",
+   "count": 24
+  }
+ ],
+ "tray": [
+  [
+   23,
+   17,
+   22,
+   4,
+   16,
+   9,
+   11,
+   8
+  ],
+  [
+   7,
+   18,
+   20,
+   5,
+   10,
+   19,
+   1,
+   0
+  ],
+  [
+   14,
+   13,
+   6,
+   12,
+   3,
+   2,
+   21,
+   15
+  ]
+ ],
+ "mechanics": [
+  "hidden",
+  "links"
+ ],
+ "engine": {
+  "rules": "ec33026e742e6efee1626ebea071d5582ff1cdc9bb8ca889ce35ee0935626598",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

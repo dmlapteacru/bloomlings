@@ -1,0 +1,271 @@
+{
+ "format": "round-level.v1",
+ "number": 43,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0158",
+  "version": 2
+ },
+ "board": {
+  "w": 38,
+  "h": 32,
+  "rowsBottomFirst": [
+   "###################.##################",
+   "#....................................#",
+   "#.AAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBBB.#",
+   "#.AAAAABBBBBBBBBBBBBBBBBBBBBBBBBBBBB.#",
+   "#.AAAABBBBBBBBBBBBBBBBBBBBBBBBBBBBBB.#",
+   "#.AAAABBBBBBBBBBBBBBBBBBBBBBBBBBBBBB.#",
+   "#.LLLLLBBBBBBBBBBBBBBBBBBBBBBBBBBBBB.#",
+   "#.LLLLLBBBBBBB######B##B##BBBBBBBBBB.#",
+   "#.LLLLLBBBBBB#GGGGGG#GG#GG#BBBBBBBBB.#",
+   "#.LLLLLBBBBBB#GGGGGGBGGBGG#BBBBBBBBB.#",
+   "#.LLL#####BBB#GGGGGGBGGBGG#BBBBBBBBB.#",
+   "#.LLL#CCCC###BGGGGCCCCGBGG#BBBBBBBBB.#",
+   "#.AAA##CGCCCCCGCCCCCCCCCCG#SSBBBBSSS.#",
+   "#.AAAAA##GGCCCCCCCCCCCCCCC#SSSSSSSSS.#",
+   "#.AAAAASS##GGGGGGGGGGGGGGGG#SSSSSSSS.#",
+   "#.EEEEEEEEE#GGGGGGGGGGGGGGG#SSSSSSSS.#",
+   "#.EEEEEEEEEE#GGGGGGGGGGGGGG#SSSSSSSS.#",
+   "#.EEEEEEEEEE##GGGGGGGGGGGG#SSSSSSSSS.#",
+   "#.EEEEEEEEEESS#GGGGGGGGGGG#SSSSSSSSS.#",
+   "#.AAASSSSSDDDDD##########GG#SSSSSSSS.#",
+   "#.AAASSSSSSDDDDDDDDDDDDSS#GG#SSSSSSS.#",
+   "#.SSSSSSSSSSDDDDDDDODDSSS#GG#SSSSSSS.#",
+   "#.SSSSSSSSSSDDDDDDOODDSSSS#GG#SSSSSS.#",
+   "#.SSSSSSSSSSSDDDDDODDSSSSSS#GG#SSSSS.#",
+   "#.SSSSSSSSSSSSDDDODDSSSSSSS#GGS#SSSS.#",
+   "#.SSSSSSSSSSSSSOOOOSSSSSSSS#GGGD#SSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSS#GGGGG#SS.#",
+   "#.SSSSSSSSSSSSCCCCSSSSSSSSSS#GG##SSS.#",
+   "#.SSSSSSSSSSSSSCCCCCSSSSSSSSS##SSSSS.#",
+   "#.SSSSSSSSSSSSSSSCCCSSSSSSSSSSSSSSSS.#",
+   "#....................................#",
+   "######################################"
+  ],
+  "entries": [
+   19
+  ],
+  "hero": {
+   "id": "sprig-bridge",
+   "choices": [
+    {
+     "cell": 620,
+     "anchor": 619,
+     "label": "Мостик вправо сверху"
+    },
+    {
+     "cell": 423,
+     "anchor": 422,
+     "label": "Мостик вправо снизу"
+    }
+   ]
+  }
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "G",
+   "count": 22
+  },
+  {
+   "code": "C",
+   "count": 10
+  },
+  {
+   "code": "G",
+   "count": 22
+  },
+  {
+   "code": "E",
+   "count": 20
+  },
+  {
+   "code": "E",
+   "count": 19
+  },
+  {
+   "code": "L",
+   "count": 13,
+   "mystery": "depth"
+  },
+  {
+   "code": "L",
+   "count": 13
+  },
+  {
+   "code": "G",
+   "count": 22
+  },
+  {
+   "code": "G",
+   "count": 22
+  },
+  {
+   "code": "G",
+   "count": 22
+  },
+  {
+   "code": "G",
+   "count": 22
+  },
+  {
+   "code": "C",
+   "count": 10
+  },
+  {
+   "code": "C",
+   "count": 10
+  },
+  {
+   "code": "C",
+   "count": 10
+  },
+  {
+   "code": "C",
+   "count": 11,
+   "mystery": "depth"
+  },
+  {
+   "code": "S",
+   "count": 35
+  },
+  {
+   "code": "S",
+   "count": 34
+  },
+  {
+   "code": "S",
+   "count": 35
+  },
+  {
+   "code": "S",
+   "count": 34
+  },
+  {
+   "code": "S",
+   "count": 34
+  },
+  {
+   "code": "D",
+   "count": 23
+  },
+  {
+   "code": "A",
+   "count": 18
+  },
+  {
+   "code": "B",
+   "count": 32
+  },
+  {
+   "code": "B",
+   "count": 33
+  },
+  {
+   "code": "B",
+   "count": 33
+  },
+  {
+   "code": "S",
+   "count": 34
+  },
+  {
+   "code": "S",
+   "count": 34
+  },
+  {
+   "code": "B",
+   "count": 32
+  },
+  {
+   "code": "A",
+   "count": 19
+  },
+  {
+   "code": "D",
+   "count": 24
+  },
+  {
+   "code": "S",
+   "count": 34
+  },
+  {
+   "code": "S",
+   "count": 34
+  },
+  {
+   "code": "B",
+   "count": 32
+  },
+  {
+   "code": "B",
+   "count": 32
+  },
+  {
+   "code": "B",
+   "count": 33
+  },
+  {
+   "code": "O",
+   "count": 9
+  }
+ ],
+ "tray": [
+  [
+   0,
+   4,
+   8,
+   12,
+   16,
+   20,
+   24,
+   28,
+   32
+  ],
+  [
+   1,
+   5,
+   9,
+   13,
+   17,
+   21,
+   25,
+   29,
+   33
+  ],
+  [
+   2,
+   6,
+   10,
+   14,
+   18,
+   22,
+   26,
+   30,
+   34
+  ],
+  [
+   3,
+   7,
+   11,
+   15,
+   19,
+   23,
+   27,
+   31,
+   35
+  ]
+ ],
+ "mechanics": [
+  "hidden",
+  "bridge"
+ ],
+ "engine": {
+  "rules": "ec33026e742e6efee1626ebea071d5582ff1cdc9bb8ca889ce35ee0935626598",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

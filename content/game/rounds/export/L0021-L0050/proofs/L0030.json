@@ -1,0 +1,258 @@
+{
+ "format": "round-proof.v1",
+ "number": 30,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 18125000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 54000000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 54000000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 74275000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 91525000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 102625000
+   },
+   {
+    "type": "bridge",
+    "choice": 1,
+    "atUs": 102625000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 140300000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 155350000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 209625000
+   },
+   {
+    "type": "tap",
+    "pod": 24,
+    "atUs": 220600000
+   },
+   {
+    "type": "tap",
+    "pod": 28,
+    "atUs": 237850000
+   },
+   {
+    "type": "tap",
+    "pod": 32,
+    "atUs": 253275000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 267300000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 278400000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 308475000
+   },
+   {
+    "type": "tap",
+    "pod": 25,
+    "atUs": 322625000
+   },
+   {
+    "type": "tap",
+    "pod": 26,
+    "atUs": 334025000
+   },
+   {
+    "type": "tap",
+    "pod": 29,
+    "atUs": 349575000
+   },
+   {
+    "type": "tap",
+    "pod": 33,
+    "atUs": 368600000
+   },
+   {
+    "type": "tap",
+    "pod": 34,
+    "atUs": 388375000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 404725000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 416825000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 435175000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 464650000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 500650000
+   },
+   {
+    "type": "tap",
+    "pod": 27,
+    "atUs": 516150000
+   },
+   {
+    "type": "tap",
+    "pod": 31,
+    "atUs": 533325000
+   },
+   {
+    "type": "tap",
+    "pod": 35,
+    "atUs": 551650000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 575625000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 400,
+  "wins": 28,
+  "share": 0.07,
+  "wilson95": [
+   0.049,
+   0.099
+  ],
+  "classOfShare": "Super Hard",
+  "borderline": true,
+  "bridge": 1
+ },
+ "checks": {
+  "forced": 0.21,
+  "opening": {
+   "first": {
+    "openings": 3,
+    "wins": 0
+   },
+   "three": {
+    "openings": 26,
+    "wins": 3,
+    "share": 0.12
+   },
+   "ok": true,
+   "strategies": [
+    "most-now",
+    "fast-release"
+   ]
+  },
+  "hold": true,
+  "greedyLoses": true,
+  "hiddenMatters": {
+   "ok": false,
+   "pods": [
+    {
+     "pod": 11,
+     "revealAt": 22,
+     "gap": 0,
+     "newColour": true
+    },
+    {
+     "pod": 27,
+     "revealAt": 26,
+     "gap": 0,
+     "newColour": true
+    }
+   ]
+  },
+  "bridgeKind": "single",
+  "bridgeSingle": {
+   "each": [
+    false,
+    true
+   ],
+   "offered": [
+    17,
+    24
+   ],
+   "policy": "random",
+   "ok": true
+  },
+  "bridgeLoss": {
+   "choice": 0,
+   "games": 120,
+   "built": 26,
+   "chosen": 0,
+   "forced": 26,
+   "won": 0,
+   "medianLaunchesAfter": 3,
+   "instant": 0,
+   "ok": true
+  },
+  "pressure": {
+   "stuck": 2,
+   "tight": 0.98
+  }
+ },
+ "audit": {
+  "result": "OK with exception",
+  "report": "content/rounds/audit-L0021-L0050.md",
+  "notes": [
+   "exception (calm test (17 §5, amendment of 2026-10-31)): исключение владельца от 2026-10-31: спокойная игра: Super Hard выигрывается в 32 % (не больше 25 %, §5)",
+   "место дозы не записано (уровень собран до поправки)",
+   "класс на границе по Wilson 5 %–10 % — нужно решение владельца (§5)",
+   "последний запуск при 96 % W (ориентир 80–92 %, §10)",
+   "время быстрых нажатий 228 с (ориентир 70–160 с, §12)"
+  ]
+ },
+ "engine": {
+  "rules": "ec33026e742e6efee1626ebea071d5582ff1cdc9bb8ca889ce35ee0935626598",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

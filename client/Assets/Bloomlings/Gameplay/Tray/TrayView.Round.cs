@@ -12,7 +12,7 @@ namespace Bloomlings.Client.Gameplay.Tray
 {
     /// <summary>
     /// The tray's columns on a round level (spec 006 FR-064, contracts/presentation.md; the playtest's
-    /// <c>RoundPainter.Columns</c>; the owner's pods of 2026-10-28, as in Colony Flow): a column per stack showing its first
+    /// <c>RoundPainter.Columns</c>; the owner's pods of 2026-10-28, as in the reference game): a column per stack showing its first
     /// three pods as soft cubes one after another, never under each other, the top pod the only one that takes the tap and
     /// nothing for the rest (no "+N"); a pod's cube in its material's colour with its count, the waiting ones only a little
     /// lighter, a hidden pod's "?" cube until it reveals and its glow then (FR-045); the link tubes on linked cubes' front

@@ -1,0 +1,199 @@
+{
+ "format": "round-proof.v1",
+ "number": 26,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 14450000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 14450000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 34850000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 34850000
+   },
+   {
+    "type": "tap",
+    "pod": 24,
+    "atUs": 49750000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 49750000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 65425000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 81800000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 81800000
+   },
+   {
+    "type": "tap",
+    "pod": 25,
+    "atUs": 260300000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 309325000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 326400000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 381925000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 428000000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 561925000
+   },
+   {
+    "type": "tap",
+    "pod": 26,
+    "atUs": 580050000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 593475000
+   },
+   {
+    "type": "tap",
+    "pod": 28,
+    "atUs": 608800000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 620500000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 638975000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 656200000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 678400000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 693275000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 712075000
+   },
+   {
+    "type": "tap",
+    "pod": 29,
+    "atUs": 732800000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 745550000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 100,
+  "wins": 85,
+  "share": 0.85,
+  "wilson95": [
+   0.767,
+   0.907
+  ],
+  "classOfShare": "Normal",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.34,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": true,
+  "hiddenMatters": {
+   "ok": false,
+   "pods": [
+    {
+     "pod": 24,
+     "revealAt": 5,
+     "gap": 0,
+     "newColour": false
+    },
+    {
+     "pod": 10,
+     "revealAt": 8,
+     "gap": 4,
+     "newColour": true
+    }
+   ]
+  },
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 0.75,
+   "tight": 0.96
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0021-L0050.md",
+  "notes": [
+   "опасных развилок 4 (ориентир 0–2, §5)",
+   "после 80 % W запусков 5 (ориентир 1–4, §10)",
+   "последний запуск при 98 % W (ориентир 80–92 %, §10)",
+   "время быстрых нажатий 41.2 с (ориентир 100–210 с, §12)"
+  ]
+ },
+ "engine": {
+  "rules": "ec33026e742e6efee1626ebea071d5582ff1cdc9bb8ca889ce35ee0935626598",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

@@ -1,0 +1,113 @@
+{
+ "format": "round-proof.v1",
+ "number": 47,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 88375000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 104325000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 117525000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 139275000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 145475000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 162500000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 180575000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 199700000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 213675000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 228100000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 266300000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 274150000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 290500000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 100,
+  "wins": 61,
+  "share": 0.61,
+  "wilson95": [
+   0.512,
+   0.7
+  ],
+  "classOfShare": "Normal",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.11,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": false,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 2.24,
+   "tight": 0.87
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0021-L0050.md",
+  "notes": []
+ },
+ "engine": {
+  "rules": "ec33026e742e6efee1626ebea071d5582ff1cdc9bb8ca889ce35ee0935626598",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

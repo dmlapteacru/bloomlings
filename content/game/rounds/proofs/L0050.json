@@ -1,0 +1,250 @@
+{
+ "format": "round-proof.v1",
+ "number": 50,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 51825000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 62750000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 62750000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 100625000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 100625000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 100625000
+   },
+   {
+    "type": "bridge",
+    "choice": 0,
+    "atUs": 100625000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 197025000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 212250000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 252325000
+   },
+   {
+    "type": "tap",
+    "pod": 24,
+    "atUs": 280700000
+   },
+   {
+    "type": "tap",
+    "pod": 28,
+    "atUs": 291325000
+   },
+   {
+    "type": "tap",
+    "pod": 32,
+    "atUs": 302300000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 313800000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 351050000
+   },
+   {
+    "type": "tap",
+    "pod": 25,
+    "atUs": 363425000
+   },
+   {
+    "type": "tap",
+    "pod": 29,
+    "atUs": 379950000
+   },
+   {
+    "type": "tap",
+    "pod": 33,
+    "atUs": 400200000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 413350000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 426325000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 441400000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 452950000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 475100000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 533550000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 548250000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 570250000
+   },
+   {
+    "type": "tap",
+    "pod": 26,
+    "atUs": 585325000
+   },
+   {
+    "type": "tap",
+    "pod": 30,
+    "atUs": 604350000
+   },
+   {
+    "type": "tap",
+    "pod": 34,
+    "atUs": 622250000
+   },
+   {
+    "type": "tap",
+    "pod": 31,
+    "atUs": 641550000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 664725000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 100,
+  "wins": 30,
+  "share": 0.3,
+  "wilson95": [
+   0.219,
+   0.396
+  ],
+  "classOfShare": "Hard",
+  "borderline": false,
+  "bridge": 1
+ },
+ "checks": {
+  "forced": 0.25,
+  "opening": {
+   "first": {
+    "openings": 2,
+    "wins": 0
+   },
+   "three": {
+    "openings": 8,
+    "wins": 1,
+    "share": 0.13
+   },
+   "ok": true,
+   "strategies": [
+    "most-now"
+   ]
+  },
+  "hold": true,
+  "greedyLoses": true,
+  "hiddenMatters": {
+   "ok": false,
+   "pods": [
+    {
+     "pod": 22,
+     "revealAt": 20,
+     "gap": 0,
+     "newColour": true
+    },
+    {
+     "pod": 11,
+     "revealAt": 22,
+     "gap": 0,
+     "newColour": true
+    }
+   ]
+  },
+  "bridgeKind": "better",
+  "bridgeSingle": {
+   "each": [
+    true,
+    true
+   ],
+   "offered": [
+    28,
+    32
+   ],
+   "policy": "random",
+   "ok": false
+  },
+  "pressure": {
+   "stuck": 1.46,
+   "tight": 0.97
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0021-L0050.md",
+  "notes": [
+   "слой Б: стоят без работы 1.46 < 1.5 (§13, quality.json)",
+   "место дозы не записано (уровень собран до поправки)",
+   "опасных развилок 8 (ориентир 2–5, §5)",
+   "последний запуск при 97 % W (ориентир 80–92 %, §10)"
+  ]
+ },
+ "engine": {
+  "rules": "ec33026e742e6efee1626ebea071d5582ff1cdc9bb8ca889ce35ee0935626598",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

@@ -40,6 +40,12 @@ namespace Bloomlings.Core.Tests.Rounds
             {
                 exception = new RoundException(RoundLevelValidator.BridgeDecides, e.GetString()!, "owner", "2026-10-27");
             }
+            else if (root.TryGetProperty("exception", out e) && e.ValueKind == JsonValueKind.Object)
+            {
+                // from wave L21–L50 the level file keeps the owner's decision itself (L30's calm rule, 2026-10-31)
+                exception = new RoundException(e.GetProperty("rule").GetString()!, e.GetProperty("reason").GetString()!, e.GetProperty("decidedBy").GetString()!,
+                    e.GetProperty("decidedAt").GetString()!);
+            }
 
             return FromDefinition(number, root.GetProperty("definition"), cls, intro, exception);
         }

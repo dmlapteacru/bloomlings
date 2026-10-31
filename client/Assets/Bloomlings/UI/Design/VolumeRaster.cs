@@ -29,7 +29,7 @@ namespace Bloomlings.Client.UI.Design
         public const float CubeSide = RoundScreenLook.CubeDepthShare;
 
         /// <summary>
-        /// The cube of the owner's look of 2026-10-28 ("like Colony Flow"; spec 006 FR-064) at (<paramref name="x"/>,
+        /// The cube of the owner's look of 2026-10-28 ("like the reference game"; spec 006 FR-064) at (<paramref name="x"/>,
         /// <paramref name="y"/>) of a picture <paramref name="w"/> × <paramref name="h"/>, flat 2D seen from the front at a
         /// tilt (an oblique drawing, no vanishing point): a top face (corners <see cref="RoundScreenLook.CubeCornerShare"/> of
         /// the width) of nearly flat colour a little lighter than <paramref name="col"/>, a thin light rim along its top and
@@ -71,7 +71,7 @@ namespace Bloomlings.Client.UI.Design
                 c.Mix(col.Lighten(0.3f), 0.45f * Clamp01(1f - ((x - m) / edge)));
                 c.Mix(deep.Darken(0.22f), 0.55f * Clamp01(1f - ((w - m - x) / edge)));
 
-                // A soft light spot at the top's lower right (Colony Flow's gloss, the owner's "softer" of 2026-10-28): a small
+                // A soft light spot at the top's lower right (the reference game's gloss, the owner's "softer" of 2026-10-28): a small
                 // blurred glow of low alpha fading out, never a sharp dot.
                 float spot = Length(x - (w - m - (w * 0.22f)), y - (topBottom - bevel - (w * 0.1f))) / Math.Max(1f, w * 0.085f);
                 c.Mix(Rgba.White, gloss * (float)Math.Exp(-spot * spot));

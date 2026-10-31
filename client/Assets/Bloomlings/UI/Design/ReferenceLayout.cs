@@ -251,7 +251,7 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>
-        /// A round level's pod (spec 006 FR-064, the owner's pods of 2026-10-28, as Colony Flow's): no frame or box round it,
+        /// A round level's pod (spec 006 FR-064, the owner's pods of 2026-10-28, as the reference game's): no frame or box round it,
         /// the pod is one cube picture filling the square in its <paramref name="place"/> (<see cref="Frame"/>,
         /// <see cref="Inner"/>, <see cref="Tile"/> and <see cref="Icon"/> are that square; <c>UiRaster.PodCube</c>), its
         /// number big in the middle of the cube's top face (<see cref="RoundScreenLook.CountShare"/> of its side; the top

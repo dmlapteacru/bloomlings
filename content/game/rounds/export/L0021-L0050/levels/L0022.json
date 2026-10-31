@@ -1,0 +1,196 @@
+{
+ "format": "round-level.v1",
+ "number": 22,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0015",
+  "version": 1
+ },
+ "board": {
+  "w": 36,
+  "h": 34,
+  "rowsBottomFirst": [
+   "##################.#################",
+   "#..................................#",
+   "#.........DDDYYYYYYYYYYDDD.........#",
+   "#........DYYYYYYYYYYYYYYYYD........#",
+   "#......DDYYYYYYYYYYYYYYYGGYDD......#",
+   "#.....DDYYYYYYYYYYYYYYYYGGYGDD.....#",
+   "#....DDBBBBDDDBDDDBBBBBBGGBGGDD....#",
+   "#....DBBBBBCCCBCCCBBBBBBGGBGGBD....#",
+   "#...DBBBBBBCCCBCCCBBBBBBGGBGGBBD...#",
+   "#..DBBBBDDBCCCCCCCBBBBBBGGBGGBBBD..#",
+   "#..DBBBBCCBCCCCCCCBBBBBBGGBGGBBBD..#",
+   "#.DDBBBBCCCCOOCCCCCBBBBBGGBBBBBBDD.#",
+   "#.DBBBBBBCCCCCCCCCCCBBBBGGBBBBBBBD.#",
+   "#.DBBBBBBBBCCCCCCCBCCBBBGGBBBBBBBD.#",
+   "#.DBBBBBBBCCNNNNNCCBCCBBGGBBBBBBBD.#",
+   "#.DBBBBBBBCNNNNNNNCBCCBBGGBBBBBBBD.#",
+   "#.DBBBBBBBCNSNNNNNCBCCBBBBBBBBBBBD.#",
+   "#.DBBBBBBBCNSSNNNNCBDDBBBBBBBBBBBD.#",
+   "#.DBBBBBBBCCNNNNNCCBBBBBBBBBBBBBBD.#",
+   "#.DBBBBBBBBCCCCCCCOOOOOOOOBBBBOBBD.#",
+   "#.DBBBBBBBBBCCCCCOOOOOOOOOOBBOOBBD.#",
+   "#.DBBBBBBBBBBBBBOOOOOOOOOOOOOOOBBD.#",
+   "#.DDBBBBBBBBBBBBOOOOOOOOOOOOOOOBDD.#",
+   "#..DBBBBBBBBBBBBOOODOOOOOOOOOOOBD..#",
+   "#..DBBBBBBBBBBBBBOOOOOOOOOOBBOOBD..#",
+   "#...DBBBBBBBBBBBBBOOOOOOOOBBBBOD...#",
+   "#....DSSSSSSSSSSSSSSYYYYYSSSSSD....#",
+   "#....DDSSSSSSSSSSSSSSYYYSSSSSDD....#",
+   "#.....DDSSSSSSSSSSSSSSYSSSSSDD.....#",
+   "#......DDSSSSSSSSSSSSSSSSSSDD......#",
+   "#.......DDDDDDDDDDDDDDDDDDDD.......#",
+   "#.......DDDDDDDDDDDDDDDDDDDD.......#",
+   "#..................................#",
+   "####################################"
+  ],
+  "entries": [
+   18
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "D",
+   "count": 43
+  },
+  {
+   "code": "D",
+   "count": 42
+  },
+  {
+   "code": "D",
+   "count": 42
+  },
+  {
+   "code": "S",
+   "count": 26
+  },
+  {
+   "code": "S",
+   "count": 26
+  },
+  {
+   "code": "S",
+   "count": 26
+  },
+  {
+   "code": "Y",
+   "count": 23
+  },
+  {
+   "code": "Y",
+   "count": 23
+  },
+  {
+   "code": "Y",
+   "count": 22
+  },
+  {
+   "code": "B",
+   "count": 53
+  },
+  {
+   "code": "B",
+   "count": 53
+  },
+  {
+   "code": "B",
+   "count": 53
+  },
+  {
+   "code": "B",
+   "count": 53
+  },
+  {
+   "code": "B",
+   "count": 53
+  },
+  {
+   "code": "B",
+   "count": 52
+  },
+  {
+   "code": "O",
+   "count": 30
+  },
+  {
+   "code": "O",
+   "count": 29
+  },
+  {
+   "code": "O",
+   "count": 29
+  },
+  {
+   "code": "C",
+   "count": 30
+  },
+  {
+   "code": "C",
+   "count": 30
+  },
+  {
+   "code": "C",
+   "count": 29
+  },
+  {
+   "code": "N",
+   "count": 14
+  },
+  {
+   "code": "N",
+   "count": 14
+  },
+  {
+   "code": "G",
+   "count": 18
+  },
+  {
+   "code": "G",
+   "count": 17
+  }
+ ],
+ "tray": [
+  [
+   0,
+   19,
+   24,
+   3,
+   15,
+   8,
+   6,
+   1
+  ],
+  [
+   21,
+   17,
+   18,
+   13,
+   10,
+   4,
+   23,
+   7
+  ],
+  [
+   20,
+   14,
+   16,
+   12,
+   5,
+   11,
+   9,
+   22,
+   2
+  ]
+ ],
+ "mechanics": [],
+ "engine": {
+  "rules": "ec33026e742e6efee1626ebea071d5582ff1cdc9bb8ca889ce35ee0935626598",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

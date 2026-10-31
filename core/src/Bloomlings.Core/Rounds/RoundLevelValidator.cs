@@ -44,10 +44,16 @@ namespace Bloomlings.Core.Rounds
         /// <summary>17 §8: from the second bridge introduction exactly one bridge decides (a proof check of the pipeline).</summary>
         public const string BridgeDecides = "one deciding bridge from the second introduction";
 
+        /// <summary>
+        /// 17 §5 as amended on 2026-10-31: the calm test (Hard at most 50 %, Super Hard at most 25 %, a regular Normal at
+        /// least 50 %; a proof check of the round tools' audit). The owner kept L30 above it.
+        /// </summary>
+        public const string CalmTest = "calm test (17 §5, amendment of 2026-10-31)";
+
         public const string UnknownException = "the exception names a rule that may be excepted";
 
         /// <summary>The rules an owner's exception may waive.</summary>
-        public static IReadOnlyList<string> ExceptableRules { get; } = new[] { Calendar, Introductions, HiddenFirstRow, BridgeDecides };
+        public static IReadOnlyList<string> ExceptableRules { get; } = new[] { Calendar, Introductions, HiddenFirstRow, BridgeDecides, CalmTest };
 
         /// <summary>The mechanic introductions of 17 §9 the round engine plays: mechanic, first and second meeting.</summary>
         public static IReadOnlyList<(string Mechanic, int First, int Second)> IntroductionTable { get; } = new[]

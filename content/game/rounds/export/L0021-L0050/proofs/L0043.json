@@ -1,0 +1,267 @@
+{
+ "format": "round-proof.v1",
+ "number": 43,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 23000000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 23000000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 55350000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 70800000
+   },
+   {
+    "type": "tap",
+    "pod": 24,
+    "atUs": 70800000
+   },
+   {
+    "type": "tap",
+    "pod": 28,
+    "atUs": 80125000
+   },
+   {
+    "type": "tap",
+    "pod": 32,
+    "atUs": 90275000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 99875000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 119225000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 128750000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 199000000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 199000000
+   },
+   {
+    "type": "bridge",
+    "choice": 0,
+    "atUs": 199000000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 259800000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 275750000
+   },
+   {
+    "type": "tap",
+    "pod": 25,
+    "atUs": 287600000
+   },
+   {
+    "type": "tap",
+    "pod": 29,
+    "atUs": 302800000
+   },
+   {
+    "type": "tap",
+    "pod": 33,
+    "atUs": 358125000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 368250000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 390375000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 400725000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 492850000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 504900000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 520700000
+   },
+   {
+    "type": "tap",
+    "pod": 26,
+    "atUs": 531350000
+   },
+   {
+    "type": "tap",
+    "pod": 30,
+    "atUs": 547575000
+   },
+   {
+    "type": "tap",
+    "pod": 34,
+    "atUs": 565025000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 576275000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 595850000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 637200000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 654900000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 673675000
+   },
+   {
+    "type": "tap",
+    "pod": 27,
+    "atUs": 685450000
+   },
+   {
+    "type": "tap",
+    "pod": 31,
+    "atUs": 703275000
+   },
+   {
+    "type": "tap",
+    "pod": 35,
+    "atUs": 733800000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 745700000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 100,
+  "wins": 68,
+  "share": 0.68,
+  "wilson95": [
+   0.583,
+   0.763
+  ],
+  "classOfShare": "Normal",
+  "borderline": false,
+  "bridge": 0
+ },
+ "checks": {
+  "forced": 0.05,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": false,
+  "hiddenMatters": {
+   "ok": true,
+   "pods": [
+    {
+     "pod": 5,
+     "revealAt": 10,
+     "gap": 0,
+     "newColour": true
+    },
+    {
+     "pod": 14,
+     "revealAt": 22,
+     "gap": 0,
+     "newColour": true
+    }
+   ]
+  },
+  "bridgeKind": "better",
+  "bridgeSingle": {
+   "each": [
+    true,
+    true
+   ],
+   "offered": [
+    40,
+    15
+   ],
+   "policy": "random",
+   "ok": false
+  },
+  "pressure": {
+   "stuck": 0.81,
+   "tight": 0.85
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0021-L0050.md",
+  "notes": [
+   "слой Б: стоят без работы 0.81 < 0.9 (§13, quality.json)",
+   "место дозы не записано (уровень собран до поправки)",
+   "после 80 % W запусков 5 (ориентир 1–4, §10)",
+   "последний запуск при 99 % W (ориентир 80–92 %, §10)",
+   "время быстрых нажатий 275.6 с (ориентир 70–160 с, §12)"
+  ]
+ },
+ "engine": {
+  "rules": "ec33026e742e6efee1626ebea071d5582ff1cdc9bb8ca889ce35ee0935626598",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

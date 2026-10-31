@@ -1,0 +1,204 @@
+{
+ "format": "round-proof.v1",
+ "number": 34,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 26125000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 55000000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 75175000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 100425000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 137650000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 137650000
+   },
+   {
+    "type": "tap",
+    "pod": 25,
+    "atUs": 168025000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 188425000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 188425000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 188425000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 223900000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 239750000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 286400000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 316650000
+   },
+   {
+    "type": "tap",
+    "pod": 27,
+    "atUs": 343900000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 372350000
+   },
+   {
+    "type": "tap",
+    "pod": 26,
+    "atUs": 397800000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 412250000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 432250000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 448100000
+   },
+   {
+    "type": "tap",
+    "pod": 29,
+    "atUs": 459325000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 470025000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 488650000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 520425000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 537750000
+   },
+   {
+    "type": "tap",
+    "pod": 28,
+    "atUs": 551675000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 564475000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 100,
+  "wins": 85,
+  "share": 0.85,
+  "wilson95": [
+   0.767,
+   0.907
+  ],
+  "classOfShare": "Normal",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.17,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": true,
+  "hiddenMatters": {
+   "ok": true,
+   "pods": [
+    {
+     "pod": 23,
+     "revealAt": 2,
+     "gap": 0,
+     "newColour": true
+    },
+    {
+     "pod": 26,
+     "revealAt": 17,
+     "gap": 0,
+     "newColour": false
+    }
+   ]
+  },
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 0.57,
+   "tight": 0.92
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0021-L0050.md",
+  "notes": [
+   "слой Б: стоят без работы 0.57 < 0.9 (§13, quality.json)",
+   "после 80 % W запусков 5 (ориентир 1–4, §10)",
+   "последний запуск при 97 % W (ориентир 80–92 %, §10)",
+   "время быстрых нажатий 55.1 с (ориентир 100–210 с, §12)"
+  ]
+ },
+ "engine": {
+  "rules": "ec33026e742e6efee1626ebea071d5582ff1cdc9bb8ca889ce35ee0935626598",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

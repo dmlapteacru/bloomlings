@@ -1,0 +1,211 @@
+{
+ "format": "round-level.v1",
+ "number": 25,
+ "definitionVersion": 1,
+ "class": "Hard",
+ "picture": {
+  "id": "P0166",
+  "version": 1
+ },
+ "board": {
+  "w": 34,
+  "h": 34,
+  "rowsBottomFirst": [
+   "#################.################",
+   "#................................#",
+   "#.EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.#",
+   "#.EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.#",
+   "#.EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.#",
+   "#.EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.#",
+   "#.OAAARRKRREEEEEEEEEEEERRRKRAAAA.#",
+   "#.OAAAKKKKKEEEEEEEEEEEEKKKKKKAAA.#",
+   "#.OAAARRRRRNOOYYYYYYOONKRRRRAAAA.#",
+   "#.OAAARRRRRNNOOYYYYOONNKRRRRAAAA.#",
+   "#.OAAAKKKKKNNNOYYYYONNNKKKKKKAAA.#",
+   "#.OAAARRKRRNNNOOYYOONNNRRRKRAAAA.#",
+   "#.OAAARRKRRNNNNOYYONNNNRRRKRAAAA.#",
+   "#.OAAAKKKKKNNNNOOOONNNNKKKKKKAAA.#",
+   "#.OAAARRRRRNNNNNOONNNNNKRRRRAAAA.#",
+   "#.OAAARRRRRNNNNNOONNNNNKRRRRAAAA.#",
+   "#.OAAAKKKKKNNNNNNNNNNNNKKKKKKAAA.#",
+   "#.OAAARRKRRRRNNNNNNNNRRRRRKRAAAA.#",
+   "#.OAAARRKRRRRRKNNNNRKRRRRRKRAAAA.#",
+   "#.OAAAKKKKKKKKKKKKKKKKKKKKKKKAAA.#",
+   "#.OAAARRRRRKRRRRRKRRRRRKRRRRAAAA.#",
+   "#.OAAARRRRRKRRRRRKRRRRRKRRRRAAAA.#",
+   "#.OACCCCCCCCCCCCCCCCCCCCCCCCCCAA.#",
+   "#.OACCCCCCCCCCCCCCCCCCCCCCCCCCAA.#",
+   "#.OACCCCCCCCCCCCEECCCCCCCCCCCCAA.#",
+   "#.OAAAACCAAAAAOECCEAOAAAACCAAAAA.#",
+   "#.OAAAACCAAAAAECCCCEOAAAACCAAAAA.#",
+   "#.OAAAACCAAAAAECCNCEOAAAACCAAAAA.#",
+   "#.OAAAAAOAAAAAECCCCEOAAAAAOAAAAA.#",
+   "#.OAAAAYYAAAAAOEEEEAOAAAAYYAAAAA.#",
+   "#.OAAAAAOAAAAAOAAAAAOAAAAAOAAAAA.#",
+   "#.OAAAAAOAAAAAOAAAAAOAAAAAOAAAAA.#",
+   "#................................#",
+   "##################################"
+  ],
+  "entries": [
+   17
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "O",
+   "count": 23,
+   "group": "A"
+  },
+  {
+   "code": "O",
+   "count": 22
+  },
+  {
+   "code": "O",
+   "count": 22,
+   "group": "C"
+  },
+  {
+   "code": "A",
+   "count": 52
+  },
+  {
+   "code": "A",
+   "count": 52
+  },
+  {
+   "code": "A",
+   "count": 52
+  },
+  {
+   "code": "A",
+   "count": 52
+  },
+  {
+   "code": "A",
+   "count": 52
+  },
+  {
+   "code": "Y",
+   "count": 11
+  },
+  {
+   "code": "Y",
+   "count": 11
+  },
+  {
+   "code": "E",
+   "count": 53
+  },
+  {
+   "code": "E",
+   "count": 53,
+   "group": "B"
+  },
+  {
+   "code": "E",
+   "count": 52
+  },
+  {
+   "code": "C",
+   "count": 34,
+   "group": "C"
+  },
+  {
+   "code": "C",
+   "count": 34
+  },
+  {
+   "code": "C",
+   "count": 33,
+   "group": "B"
+  },
+  {
+   "code": "N",
+   "count": 27,
+   "group": "D"
+  },
+  {
+   "code": "N",
+   "count": 26,
+   "group": "A"
+  },
+  {
+   "code": "N",
+   "count": 26,
+   "group": "D"
+  },
+  {
+   "code": "R",
+   "count": 42
+  },
+  {
+   "code": "R",
+   "count": 41,
+   "mystery": "depth"
+  },
+  {
+   "code": "R",
+   "count": 41
+  },
+  {
+   "code": "K",
+   "count": 30
+  },
+  {
+   "code": "K",
+   "count": 30,
+   "mystery": "depth"
+  },
+  {
+   "code": "K",
+   "count": 29
+  }
+ ],
+ "tray": [
+  [
+   0,
+   21,
+   24,
+   8,
+   14,
+   20,
+   9
+  ],
+  [
+   17,
+   7,
+   2,
+   22,
+   5,
+   1
+  ],
+  [
+   16,
+   23,
+   13,
+   11,
+   3,
+   4
+  ],
+  [
+   18,
+   6,
+   10,
+   15,
+   12,
+   19
+  ]
+ ],
+ "mechanics": [
+  "hidden",
+  "links"
+ ],
+ "engine": {
+  "rules": "ec33026e742e6efee1626ebea071d5582ff1cdc9bb8ca889ce35ee0935626598",
+  "timeline": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
+  "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}
