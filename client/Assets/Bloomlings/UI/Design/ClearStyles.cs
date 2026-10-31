@@ -108,6 +108,20 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>How long a restored tile's effect lasts after the clear (the flower, the confetti, the slot's ring).</summary>
         public const float RestoreSeconds = 1f;
 
+        /// <summary>
+        /// Seconds a round level's walker keeps acting at its cube after the rules clear the cell (the owner, 2026-10-31: the
+        /// clearing animations must be seen, the walk out and home keeping its pace). The rules give the act 0.1 s; the look
+        /// plays it until the clear plus this, and the walk home, at the rules' own pace, starts and ends that much later.
+        /// Presentation only: the rules' clear, return and every outcome stay.
+        /// </summary>
+        public const float LiveLinger = 0.35f;
+
+        /// <summary>
+        /// How much larger a round level's walker stands at its cube during its act than on the way (the owner, 2026-10-31:
+        /// the heroes are small): it pops up as it arrives and shrinks back as it leaves.
+        /// </summary>
+        public const float ActPop = 1.5f;
+
         /// <summary>The free style, every level's while no bought style is chosen (the owner, 2026-10-11: "Munchers stays the main one").</summary>
         public const ClearStyle Default = ClearStyle.Munchers;
 

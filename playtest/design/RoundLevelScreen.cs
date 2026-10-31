@@ -82,7 +82,8 @@ namespace Bloomlings.Playtest.Design
         public RoundAnimator Animator => Play.Animator;
 
         /// <summary>The level's clearing style (spec 005 FR-038): Munchers, or the chosen bought one.</summary>
-        public ClearStyle Style { get; }
+        /// <summary>The clearing style its walkers play (settable for the preview's review videos).</summary>
+        public ClearStyle Style { get; set; }
 
         public PlaytestMeta Meta => _app.Meta;
 

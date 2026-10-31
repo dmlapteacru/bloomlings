@@ -40,6 +40,7 @@ bool auditLaunch = false;
 string? shape = null;
 bool perf = false;
 bool roundsPreview = false;
+(int Level, float Seconds, string Out, string? Style)? clearVideo = null;
 string? roundsFolder = null;
 string? csv = null;
 float purchaseSize = ProfileGameDesign.PurchaseScale;
@@ -49,6 +50,13 @@ for (int i = 0; i < args.Length; i++)
     if (args[i] == "--audit-launch")
     {
         auditLaunch = true;
+    }
+    else if (args[i] == "--clear-video" && i + 3 < args.Length)
+    {
+        // --clear-video <level> <seconds> <out dir> [style id]: review frames of a round level's walkers (ClearVideo)
+        string? styleId = i + 4 < args.Length && !args[i + 4].StartsWith("--", StringComparison.Ordinal) ? args[i + 4] : null;
+        clearVideo = (int.Parse(args[i + 1], System.Globalization.CultureInfo.InvariantCulture), float.Parse(args[i + 2], System.Globalization.CultureInfo.InvariantCulture), args[i + 3], styleId);
+        i += styleId != null ? 4 : 3;
     }
     else if (args[i] == "--rounds")
     {
@@ -195,6 +203,11 @@ if (sounds)
 if (roundsPreview)
 {
     return RoundsPreview.Write(root, outDir, roundsFolder);
+}
+
+if (clearVideo != null)
+{
+    return ClearVideo.Write(root, clearVideo.Value.Level, clearVideo.Value.Seconds, Path.GetFullPath(clearVideo.Value.Out), clearVideo.Value.Style);
 }
 
 Directory.CreateDirectory(outDir);

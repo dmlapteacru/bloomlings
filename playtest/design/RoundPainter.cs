@@ -420,7 +420,7 @@ namespace Bloomlings.Playtest.Design
             RoundBoardLayout board = cache.Board;
             ClearStyle style = s.Style;
             float now = s.ShowSeconds;
-            foreach (RoundWalk walk in a.Walkers)
+            foreach (RoundWalk walk in a.ShownWalkers)
             {
                 if (walk.Route.Count == 0)
                 {
@@ -450,13 +450,13 @@ namespace Bloomlings.Playtest.Design
             }
 
             // Forget the routes of walkers that are home.
-            if (cache.Points.Count > a.Walkers.Count + 64)
+            if (cache.Points.Count > a.ShownWalkers.Count + 64)
             {
                 cache.Gone.Clear();
                 foreach (int id in cache.Points.Keys)
                 {
                     bool walking = false;
-                    foreach (RoundWalk walk in a.Walkers)
+                    foreach (RoundWalk walk in a.ShownWalkers)
                     {
                         walking |= walk.Id == id;
                     }

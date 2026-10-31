@@ -141,7 +141,8 @@ namespace Bloomlings.Client.UI.Design
             Spot spot = Locate(style, walk, now);
             if (walk.IsLive)
             {
-                // Live: the cube is the look's from the arrival to the rules' clear; then the board shows the cleared cell.
+                // Live: the cube is the look's from the arrival to the act's end (the rules' clear plus the linger); then the
+                // board shows the cleared cell.
                 return spot.Leg == Leg.Act;
             }
 
@@ -159,6 +160,8 @@ namespace Bloomlings.Client.UI.Design
 
             list.Slot = SlotOf(style);
             list.Material = walk.Material;
+            _pop = walk.IsLive && spot.Leg == Leg.Act ? ActPopAt(spot.U) : 1f;
+            _liveAct = walk.IsLive;
             if (walk.IsLive && spot.Leg == Leg.Back && style != ClearStyle.Munchers && style != ClearStyle.Pushers)
             {
                 LiveReturn(list, style, walk, spot, now);
@@ -192,8 +195,27 @@ namespace Bloomlings.Client.UI.Design
                     break;
             }
 
+            _pop = 1f;
+            _liveAct = false;
             list.Material = -1;
             list.Layer = FxLayer.Board;
+        }
+
+        // A round walker's size at its cube (ClearStyles.ActPop): it pops up over the act's first sixth with a little
+        // overshoot, stands, and shrinks back over its last sixth. Body multiplies every size by it while a walker is drawn.
+        [ThreadStatic]
+        private static float _pop;
+
+        // Whether the walker being drawn is a round level's (the act is longer there: the chewing slows down).
+        [ThreadStatic]
+        private static bool _liveAct;
+
+        private static float ActPopAt(float u)
+        {
+            float up = Clamp01(u / 0.16f);
+            float down = Clamp01((1f - u) / 0.16f);
+            float k = Math.Min(Back(up), Smooth(down));
+            return 1f + ((ClearStyles.ActPop - 1f) * k);
         }
 
         /// <summary>
@@ -362,7 +384,8 @@ namespace Bloomlings.Client.UI.Design
                 {
                     float u = spot.U;
                     Box tile = TileAt(walk.Target);
-                    float chew = u > 0.15f && u < 0.9f ? (float)Math.Sin(u * Math.PI * 14f) : 0f;
+                    // Three bites with a chew each: slower on a round level's longer act, so each bite is seen.
+                    float chew = u > 0.15f && u < 0.9f ? (float)Math.Sin(u * Math.PI * (_liveAct ? 6f : 14f)) : 0f;
                     float gulp = u > 0.88f ? (float)Math.Sin((u - 0.88f) / 0.12f * Math.PI * 0.5f) : 0f;
                     float bites = Bites(u);
                     float climb = Smooth(u / 0.15f);
@@ -696,6 +719,7 @@ namespace Bloomlings.Client.UI.Design
                 return;
             }
 
+            size *= _pop > 0f ? _pop : 1f;
             list.PushAlpha(alpha);
             Box body = Box.FromCenter(x, y - (size * 0.1f) - hop, size, size);
             Box ground = Box.FromCenter(x, y - (size * 0.1f), size * sx * (1f - hop), size);
@@ -979,7 +1003,8 @@ namespace Bloomlings.Client.UI.Design
             return spot;
         }
 
-        // A live walk: out from its start to its arrival, its act until the clear, back until it is home (the timeline's times).
+        // A live walk: out from its start to its arrival, its act until the clear plus the linger, back at the rules' pace
+        // until it is home the linger after the rules' return (ClearStyles.LiveLinger).
         private static Spot LocateLive(in ClearWalk walk, float now)
         {
             int segments = Math.Max(1, walk.Points.Count - 1);
@@ -999,17 +1024,19 @@ namespace Bloomlings.Client.UI.Design
                 spot.Hops = progress * segments * HopsPerCell;
                 spot.Walking = progress < 1f;
             }
-            else if (now < walk.ClearAt)
+            else if (now < walk.ClearAt + ClearStyles.LiveLinger)
             {
+                // The act lasts past the rules' clear by the linger (presentation only), so the style is seen.
                 at = Along(walk.Points, 1f);
                 spot.Leg = Leg.Act;
-                spot.U = Clamp01((now - walk.ArriveAt) / Math.Max(1e-4f, walk.ClearAt - walk.ArriveAt));
+                spot.U = Clamp01((now - walk.ArriveAt) / Math.Max(1e-4f, walk.ClearAt + ClearStyles.LiveLinger - walk.ArriveAt));
                 spot.Hops = segments * HopsPerCell;
             }
-            else if (now < walk.DoneAt)
+            else if (now < walk.DoneAt + ClearStyles.LiveLinger)
             {
+                // Home at the rules' pace, the linger later.
                 spot.Leg = Leg.Back;
-                spot.U = Clamp01((now - walk.ClearAt) / Math.Max(1e-4f, walk.DoneAt - walk.ClearAt));
+                spot.U = Clamp01((now - walk.ClearAt - ClearStyles.LiveLinger) / Math.Max(1e-4f, walk.DoneAt - walk.ClearAt));
                 at = Along(walk.Points, 1f - spot.U);
                 spot.Hops = (segments * HopsPerCell) + (spot.U * segments * HopsPerCell);
                 spot.Walking = true;

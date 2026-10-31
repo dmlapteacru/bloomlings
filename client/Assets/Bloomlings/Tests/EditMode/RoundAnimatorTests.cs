@@ -83,6 +83,35 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
+        public void AWalkerHomeInTheRules_IsDrawnUntilItsLookIsHome()
+        {
+            // the owner, 2026-10-31: the act lasts past the clear by ClearStyles.LiveLinger, so the walk home ends that much later
+            var play = new RoundPlay(Plain());
+            play.Commit(RoundAction.Tap(0));
+            RoundWalk first = play.Animator.Walkers[0];
+            bool lingered = false;
+            for (int k = 0; k < 10_000 && (play.Timeline.Pending || play.Animator.Busy); k++)
+            {
+                play.Advance(1.0 / 60.0, 1);
+                long now = play.Animator.Now;
+                bool inRules = play.Animator.Walkers.Any(w => w.Id == first.Id);
+                bool shown = play.Animator.ShownWalkers.Any(w => w.Id == first.Id);
+                Assert.That(inRules, Is.EqualTo(now < first.Done), "the rules' courier is home at its return");
+                Assert.That(shown, Is.EqualTo(now < first.Done + RoundAnimator.LingerUs), "drawn until the return plus the linger");
+                if (shown && !inRules)
+                {
+                    lingered = true;
+                    Assert.That(play.Animator.Busy, Is.True, "the board still moves while a walker walks home");
+                    Assert.That(play.Animator.ShowsRulesState(play.Timeline, out string difference), Is.True, difference);
+                }
+            }
+
+            Assert.That(lingered, Is.True);
+            Assert.That(play.Status, Is.EqualTo(RoundStatus.Won));
+            Assert.That(play.Animator.ShownWalkers, Is.Empty);
+        }
+
+        [Test]
         public void TheDisplaySpeed_AndTheFrames_NeverChangeTheOutcome()
         {
             string Final(Func<int, double> frame, int speed)
@@ -173,12 +202,15 @@ namespace Bloomlings.Client.Tests
             int material = RoundMaterial.IndexOf('P');
             ClearWalk walk = ClearWalk.Live(points, material, VariantId.Flower, 1f, 1.7f, 1.8f, 2.4f, null);
             Assert.That(walk.IsLive, Is.True);
+            // the act lasts past the rules' clear (1.8 s) by the linger, and the walk home (0.6 s) starts that much later
+            float linger = ClearStyles.LiveLinger;
             foreach (ClearStyle style in Enum.GetValues(typeof(ClearStyle)))
             {
                 Assert.That(ClearLook.Holds(style, walk, 1.5f), Is.False, style + ": walking out");
                 Assert.That(ClearLook.Holds(style, walk, 1.75f), Is.True, style + ": acting until the clear");
-                Assert.That(ClearLook.Holds(style, walk, 1.9f), Is.False, style + ": the cell is cleared");
-                foreach (float now in new[] { 1.4f, 2.1f })
+                Assert.That(ClearLook.Holds(style, walk, 1.8f + linger - 0.05f), Is.True, style + ": still acting the linger after the clear");
+                Assert.That(ClearLook.Holds(style, walk, 1.8f + linger + 0.05f), Is.False, style + ": the act is over, the cell is cleared");
+                foreach (float now in new[] { 1.4f, 2.4f + linger - 0.2f })
                 {
                     var list = new FxList();
                     ClearLook.Walker(list, style, walk, now);
@@ -187,7 +219,7 @@ namespace Bloomlings.Client.Tests
                 }
 
                 var done = new FxList();
-                ClearLook.Walker(done, style, walk, 2.5f);
+                ClearLook.Walker(done, style, walk, 2.4f + linger + 0.05f);
                 Assert.That(done.Items, Is.Empty, style + ": home");
             }
 

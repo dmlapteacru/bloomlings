@@ -72,7 +72,7 @@ namespace Bloomlings.Client.Gameplay.Rounds
             list.Clear();
             ClearHeld();
             float now = clockUs / 1_000_000f;
-            foreach (RoundWalk walk in a.Walkers)
+            foreach (RoundWalk walk in a.ShownWalkers)
             {
                 if (walk.Route.Count == 0)
                 {
@@ -154,7 +154,7 @@ namespace Bloomlings.Client.Gameplay.Rounds
         // Forgets the routes of walkers that are home.
         private void ForgetHome(RoundAnimator a)
         {
-            if (_points.Count <= a.Walkers.Count + 64)
+            if (_points.Count <= a.ShownWalkers.Count + 64)
             {
                 return;
             }
@@ -163,7 +163,7 @@ namespace Bloomlings.Client.Gameplay.Rounds
             foreach (int id in _points.Keys)
             {
                 bool walking = false;
-                foreach (RoundWalk walk in a.Walkers)
+                foreach (RoundWalk walk in a.ShownWalkers)
                 {
                     walking |= walk.Id == id;
                 }

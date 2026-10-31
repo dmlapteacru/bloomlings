@@ -110,6 +110,14 @@ namespace Bloomlings.Client.UI.Design
         private readonly long[] _clearedAt;
         private readonly bool[] _burst;
         private readonly List<RoundWalk> _walkers = new List<RoundWalk>();
+
+        // Walkers the rules have home already whose look still walks back (ClearStyles.LiveLinger), and the list to draw.
+        private readonly List<RoundWalk> _homing = new List<RoundWalk>();
+        private readonly List<RoundWalk> _drawn = new List<RoundWalk>();
+        private bool _drawnDirty = true;
+
+        /// <summary>How long a walker is drawn after the rules' return (<see cref="ClearStyles.LiveLinger"/>), display µs.</summary>
+        public static readonly long LingerUs = (long)Math.Round(ClearStyles.LiveLinger * 1_000_000.0);
         private readonly long[] _revealedAt;
         private readonly long[] _committedAt;
         private readonly long[] _recalledAt;
@@ -161,8 +169,29 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>When the bridge was built (display µs).</summary>
         public long BridgeAt { get; private set; } = Before;
 
-        /// <summary>The couriers on the way, in departure order.</summary>
+        /// <summary>The couriers on the way, in departure order (the rules' couriers: <see cref="MatchesRules"/> counts them).</summary>
         public IReadOnlyList<RoundWalk> Walkers => _walkers;
+
+        /// <summary>
+        /// The walkers to draw: the couriers on the way, then those the rules have home already whose look still walks back,
+        /// until their return plus <see cref="LingerUs"/> (the act lasts past the clear by <see cref="ClearStyles.LiveLinger"/>,
+        /// the walk home at the rules' pace that much later). Presentation only.
+        /// </summary>
+        public IReadOnlyList<RoundWalk> ShownWalkers
+        {
+            get
+            {
+                if (_drawnDirty)
+                {
+                    _drawn.Clear();
+                    _drawn.AddRange(_walkers);
+                    _drawn.AddRange(_homing);
+                    _drawnDirty = false;
+                }
+
+                return _drawn;
+            }
+        }
 
         /// <summary>The number of places (6 after Extra Slot).</summary>
         public int PlaceCount => _slots.Length;
@@ -170,7 +199,7 @@ namespace Bloomlings.Client.UI.Design
         public int ColumnCount => _columns.Length;
 
         /// <summary>Whether the board still moves: a walker on the way, or a clear's effects within <see cref="SettleUs"/>.</summary>
-        public bool Busy => _walkers.Count > 0 || Now - LastEventAt < SettleUs;
+        public bool Busy => _walkers.Count > 0 || _homing.Count > 0 || Now - LastEventAt < SettleUs;
 
         /// <summary>Starts over from <paramref name="timeline"/> (a new or restored attempt) at display time <paramref name="nowUs"/>.</summary>
         public void Reset(RoundTimeline timeline, long nowUs)
@@ -201,6 +230,8 @@ namespace Bloomlings.Client.UI.Design
             Bridge = timeline.State.Bridge;
             BridgeAt = Before;
             _walkers.Clear();
+            _homing.Clear();
+            _drawnDirty = true;
             foreach (RoundCourier j in timeline.Couriers)
             {
                 _walkers.Add(new RoundWalk(j.Id, j.Pod, _prepared.Colours[j.Pod], j.Cell, j.Start + offset, j.Arrive + offset, j.Clear + offset, j.Done + offset, j.Route));
@@ -216,6 +247,16 @@ namespace Bloomlings.Client.UI.Design
             if (nowUs > Now)
             {
                 Now = nowUs;
+            }
+
+            // A walker home in the rules is drawn until its look is home too.
+            for (int w = _homing.Count - 1; w >= 0; w--)
+            {
+                if (_homing[w].Done + LingerUs <= Now)
+                {
+                    _homing.RemoveAt(w);
+                    _drawnDirty = true;
+                }
             }
         }
 
@@ -244,6 +285,7 @@ namespace Bloomlings.Client.UI.Design
                         break;
                     case RoundEventType.Depart:
                         _walkers.Add(new RoundWalk(e.Id, e.Pod, _prepared.Colours[e.Pod], e.Cell, at, e.ArriveAt + offsetUs, e.ClearAt + offsetUs, e.DoneAt + offsetUs, e.Route ?? Array.Empty<int>()));
+                        _drawnDirty = true;
                         break;
                     case RoundEventType.Clear:
                     case RoundEventType.BurstClear:
@@ -256,7 +298,13 @@ namespace Bloomlings.Client.UI.Design
                         {
                             if (_walkers[w].Id == e.Id)
                             {
+                                if (_walkers[w].Done + LingerUs > Now)
+                                {
+                                    _homing.Add(_walkers[w]);
+                                }
+
                                 _walkers.RemoveAt(w);
+                                _drawnDirty = true;
                                 break;
                             }
                         }
