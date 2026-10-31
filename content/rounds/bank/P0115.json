@@ -425,6 +425,11 @@
     "pressure": {
      "stuck": 0.6,
      "tight": 0.86
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
     }
    }
   },
@@ -867,6 +872,11 @@
     "pressure": {
      "stuck": 0.67,
      "tight": 0.85
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -1312,6 +1322,11 @@
     "pressure": {
      "stuck": 0.86,
      "tight": 0.87
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -1757,6 +1772,11 @@
     "pressure": {
      "stuck": 0.63,
      "tight": 0.85
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",

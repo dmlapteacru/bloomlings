@@ -419,6 +419,11 @@
     "pressure": {
      "stuck": 1.46,
      "tight": 0.85
+    },
+    "traps": {
+     "links": 3,
+     "traps": 2,
+     "top": 2
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -854,6 +859,11 @@
     "pressure": {
      "stuck": 1.81,
      "tight": 0.96
+    },
+    "traps": {
+     "links": 4,
+     "traps": 3,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",

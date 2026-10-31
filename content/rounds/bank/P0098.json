@@ -414,6 +414,11 @@
     "pressure": {
      "stuck": 0.31,
      "tight": 0.81
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
     }
    }
   },
@@ -832,6 +837,11 @@
     "pressure": {
      "stuck": 0.39,
      "tight": 0.83
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
     }
    }
   },
@@ -1234,6 +1244,11 @@
     "pressure": {
      "stuck": 0.62,
      "tight": 0.84
+    },
+    "traps": {
+     "links": 1,
+     "traps": 0,
+     "top": 0
     }
    }
   },
@@ -1638,6 +1653,11 @@
     "pressure": {
      "stuck": 0.27,
      "tight": 0.81
+    },
+    "traps": {
+     "links": 1,
+     "traps": 1,
+     "top": 0
     }
    }
   },
@@ -2064,6 +2084,11 @@
     "pressure": {
      "stuck": 1.21,
      "tight": 0.88
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
     }
    }
   },
@@ -2465,6 +2490,11 @@
     "pressure": {
      "stuck": 1.22,
      "tight": 0.9
+    },
+    "traps": {
+     "links": 3,
+     "traps": 1,
+     "top": 1
     }
    }
   },
@@ -2866,6 +2896,11 @@
     "pressure": {
      "stuck": 1.35,
      "tight": 0.92
+    },
+    "traps": {
+     "links": 3,
+     "traps": 3,
+     "top": 1
     }
    }
   },
@@ -3288,6 +3323,11 @@
     "pressure": {
      "stuck": 0.65,
      "tight": 0.84
+    },
+    "traps": {
+     "links": 3,
+     "traps": 1,
+     "top": 0
     }
    }
   },
@@ -3756,6 +3796,11 @@
     "pressure": {
      "stuck": 2.38,
      "tight": 0.97
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
     }
    }
   },
@@ -4211,6 +4256,11 @@
     "pressure": {
      "stuck": 2.51,
      "tight": 0.98
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
     }
    }
   },
@@ -4643,6 +4693,11 @@
     "pressure": {
      "stuck": 1.55,
      "tight": 0.94
+    },
+    "traps": {
+     "links": 4,
+     "traps": 3,
+     "top": 1
     }
    }
   },
@@ -5075,6 +5130,11 @@
     "pressure": {
      "stuck": 1.35,
      "tight": 0.96
+    },
+    "traps": {
+     "links": 4,
+     "traps": 3,
+     "top": 2
     }
    }
   },
@@ -5504,6 +5564,11 @@
     "pressure": {
      "stuck": 0.97,
      "tight": 0.94
+    },
+    "traps": {
+     "links": 7,
+     "traps": 4,
+     "top": 1
     }
    }
   },
@@ -5935,6 +6000,11 @@
     "pressure": {
      "stuck": 3.03,
      "tight": 0.99
+    },
+    "traps": {
+     "links": 6,
+     "traps": 3,
+     "top": 1
     }
    }
   },
@@ -6353,6 +6423,11 @@
     "pressure": {
      "stuck": 1.36,
      "tight": 0.92
+    },
+    "traps": {
+     "links": 3,
+     "traps": 1,
+     "top": 1
     }
    }
   },
@@ -6812,6 +6887,11 @@
     "pressure": {
      "stuck": 2.35,
      "tight": 0.98
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -7219,6 +7299,11 @@
     "pressure": {
      "stuck": 1.36,
      "tight": 0.92
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)"
@@ -7640,6 +7725,11 @@
     "pressure": {
      "stuck": 1.32,
      "tight": 0.93
+    },
+    "traps": {
+     "links": 3,
+     "traps": 1,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -8063,6 +8153,11 @@
     "pressure": {
      "stuck": 1.16,
      "tight": 0.87
+    },
+    "traps": {
+     "links": 3,
+     "traps": 2,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -8486,6 +8581,11 @@
     "pressure": {
      "stuck": 1.21,
      "tight": 0.92
+    },
+    "traps": {
+     "links": 3,
+     "traps": 1,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -8907,6 +9007,11 @@
     "pressure": {
      "stuck": 0.7,
      "tight": 0.87
+    },
+    "traps": {
+     "links": 3,
+     "traps": 2,
+     "top": 1
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -9330,6 +9435,11 @@
     "pressure": {
      "stuck": 1.05,
      "tight": 0.89
+    },
+    "traps": {
+     "links": 3,
+     "traps": 1,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -9753,6 +9863,11 @@
     "pressure": {
      "stuck": 1.21,
      "tight": 0.92
+    },
+    "traps": {
+     "links": 3,
+     "traps": 2,
+     "top": 1
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -10176,6 +10291,11 @@
     "pressure": {
      "stuck": 1.18,
      "tight": 0.91
+    },
+    "traps": {
+     "links": 3,
+     "traps": 1,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -10599,6 +10719,11 @@
     "pressure": {
      "stuck": 1.54,
      "tight": 0.91
+    },
+    "traps": {
+     "links": 3,
+     "traps": 0,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -11022,6 +11147,11 @@
     "pressure": {
      "stuck": 1,
      "tight": 0.9
+    },
+    "traps": {
+     "links": 3,
+     "traps": 2,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -11445,6 +11575,11 @@
     "pressure": {
      "stuck": 0.83,
      "tight": 0.91
+    },
+    "traps": {
+     "links": 2,
+     "traps": 2,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -11868,6 +12003,11 @@
     "pressure": {
      "stuck": 1.36,
      "tight": 0.93
+    },
+    "traps": {
+     "links": 3,
+     "traps": 2,
+     "top": 1
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -12290,6 +12430,11 @@
     "pressure": {
      "stuck": 1.59,
      "tight": 0.9
+    },
+    "traps": {
+     "links": 2,
+     "traps": 1,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)"
