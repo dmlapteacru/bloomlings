@@ -117,14 +117,11 @@ namespace Bloomlings.Client.UI.Design
         public const float LiveLinger = 0.6f;
 
         /// <summary>
-        /// How much larger than <see cref="ClearLook.WalkerSize"/> a round level's walker stands at its cube during its act
-        /// (the owner, 2026-10-31: the heroes are small, "still small"): it pops up from <see cref="LiveWalkScale"/> as it
-        /// arrives and shrinks back as it leaves.
+        /// How much larger than <see cref="ClearLook.WalkerSize"/> a round level's walker is, on its way and at its cube alike
+        /// (the owner, 2026-10-31: the heroes were small; "V4 без роста": 1.17 cubes, between the review's 0.93 and 1.4, with
+        /// no growth at the cube; Colony Flow's ants are about 2–2.5 cubes long and 1 wide).
         /// </summary>
-        public const float ActPop = 2f;
-
-        /// <summary>How much larger than <see cref="ClearLook.WalkerSize"/> a round level's walker is on its way out and home.</summary>
-        public const float LiveWalkScale = 1.25f;
+        public const float LiveWalkScale = 1.575f;
 
         /// <summary>The free style, every level's while no bought style is chosen (the owner, 2026-10-11: "Munchers stays the main one").</summary>
         public const ClearStyle Default = ClearStyle.Munchers;

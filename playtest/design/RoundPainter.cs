@@ -51,13 +51,7 @@ namespace Bloomlings.Playtest.Design
             new System.Runtime.CompilerServices.ConditionalWeakTable<RoundLevelScreen, LayoutCache>();
 
         /// <summary>The variant a round material's family is drawn with by hosts that know only variants.</summary>
-        public static VariantId FamilyVariant(int material) => RoundMaterial.All[material].Family switch
-        {
-            Family.Bloom => VariantId.Flower,
-            Family.Drop => VariantId.Water,
-            Family.Twig => VariantId.Wood,
-            _ => VariantId.Leaf,
-        };
+        public static VariantId FamilyVariant(int material) => RoundLook.WalkerVariant(RoundMaterial.All[material].Family);
 
         /// <summary>This frame's regions and board layout for <paramref name="s"/> (cached by screen size and tray).</summary>
         public static LayoutCache Layout(IPainter p, RoundLevelScreen s, bool hasBoosters, bool hasBadge)

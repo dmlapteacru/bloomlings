@@ -83,7 +83,7 @@ namespace Bloomlings.Playtest.Design
             var pictures = new (string, string)[4];
             foreach (Family family in new[] { Family.Sprig, Family.Bloom, Family.Drop, Family.Twig })
             {
-                string icon = VariantCatalog.Default.TryGet(HeroVariant(family), out VariantInfo info) ? info.IconId : "leaf";
+                string icon = VariantCatalog.Default.TryGet(RoundLook.WalkerVariant(family), out VariantInfo info) ? info.IconId : "leaf";
                 pictures[(int)family] = (CharacterArt.Slot2D(icon), CharacterArt.Picture2D(icon, CharacterMood.Happy));
             }
 

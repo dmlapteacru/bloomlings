@@ -25,3 +25,14 @@ Videos (top: now, bottom: proposal), rendered by `playtest/preview -- --clear-vi
   Munchers was drawn for; the walk home keeps its pace, 0.6 s later.
 - The walker is `LiveWalkScale` = 1.25× larger on its way and `ActPop` = 2× at its cube (was 1× and 1.5×).
 - `L1-compare2-x1.mp4`, `L22-compare2-x1.mp4` (top: now, bottom: second proposal); `L1-act-frames-2.png`.
+
+## Decision, the same day: «V4 без роста»; walkers stay the 2D characters, the acorn instead of the log
+
+- Size: the walker is `LiveWalkScale` = 1.575 × `WalkerSize` = 1.17 cubes on its way and at its cube alike (no growth;
+  between the reviews' 0.93 and 1.4). Colony Flow's ants measured on three of its videos: about 2–2.5 cubes long and
+  1 cube wide (the cube 5–6.5 px at 640 × 360, an ant 11–14 × 6 px). The act at the cube stays 0.7 s.
+- The walkers stay the materials' 2D characters, tinted in the cube's colour; Twig's is the acorn, no longer the log
+  (`RoundLook.WalkerVariant`): `walkers-tinted-acorn.png` (each family in its four materials, the game's 55 % tint).
+- `L1-final-v4flat-acorn.mp4`: L1 at ×1 as it is now.
+- The other option the owner asked for: flat 2D walkers drawn after the meta screens' heroes, to be tinted in the cube's
+  colour: `mock-heroes-concept.png` (sketches; source `mock-heroes-concept.html`, SVG). Not in the game until approved.

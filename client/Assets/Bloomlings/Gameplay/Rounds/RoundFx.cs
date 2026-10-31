@@ -33,13 +33,7 @@ namespace Bloomlings.Client.Gameplay.Rounds
         public bool Holds(int cell) => cell >= 0 && cell < _held.Length && _held[cell];
 
         /// <summary>The variant of a round material's family, for the kit's pieces that still take a variant.</summary>
-        public static VariantId FamilyVariant(int material) => material < 0 ? VariantId.Leaf : RoundMaterial.All[material].Family switch
-        {
-            Family.Bloom => VariantId.Flower,
-            Family.Drop => VariantId.Water,
-            Family.Twig => VariantId.Wood,
-            _ => VariantId.Leaf,
-        };
+        public static VariantId FamilyVariant(int material) => material < 0 ? VariantId.Leaf : RoundLook.WalkerVariant(RoundMaterial.All[material].Family);
 
         /// <summary>Forgets every walker's route (a new layout, a restart).</summary>
         public void Reset()

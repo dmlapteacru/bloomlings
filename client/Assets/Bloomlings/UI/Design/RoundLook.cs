@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Bloomlings.Core.Rounds;
+using Bloomlings.Core.Variants;
 
 namespace Bloomlings.Client.UI.Design
 {
@@ -35,6 +36,19 @@ namespace Bloomlings.Client.UI.Design
     /// </summary>
     public static class RoundLook
     {
+        /// <summary>
+        /// The 2D character a round level's walker of <paramref name="family"/> is drawn as, tinted in its cube's colour: the
+        /// leaf, the flower, the drop and the acorn (the owner, 2026-10-31: the acorn instead of the log, nearer Twig's acorn
+        /// hat; the walkers stay these characters, not the meta screens' heroes).
+        /// </summary>
+        public static VariantId WalkerVariant(Family family) => family switch
+        {
+            Family.Bloom => VariantId.Flower,
+            Family.Drop => VariantId.Water,
+            Family.Twig => VariantId.Acorn,
+            _ => VariantId.Leaf,
+        };
+
         /// <summary>The board's cubes: the soft cube with colour alone (the symbol, when on, is drawn by <see cref="UiRaster.MaterialTile"/>).</summary>
         public const TileStyle CubeStyle = TileStyle.BoardColor;
 

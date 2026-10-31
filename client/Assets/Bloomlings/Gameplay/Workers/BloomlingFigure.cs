@@ -99,13 +99,7 @@ namespace Bloomlings.Client.Gameplay.Workers
         /// </summary>
         public void ShowWalker(Family family, Rgba tint)
         {
-            VariantId hero = family switch
-            {
-                Family.Bloom => VariantId.Flower,
-                Family.Drop => VariantId.Water,
-                Family.Twig => VariantId.Wood,
-                _ => VariantId.Leaf,
-            };
+            VariantId hero = RoundLook.WalkerVariant(family);
             Sprite? picture = CharacterSprites.Character(hero, CharacterMood.Happy);
             (float X, float Y) face = VariantCatalog.Default.TryGet(hero, out VariantInfo info) ? CharacterArt.FaceCenter2D(info.IconId) : (0.5f, 0.6f);
             Show(picture, family, UiTheme.Of(tint), null, face, 1f);

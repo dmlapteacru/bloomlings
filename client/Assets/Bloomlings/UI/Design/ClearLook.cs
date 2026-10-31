@@ -160,7 +160,7 @@ namespace Bloomlings.Client.UI.Design
 
             list.Slot = SlotOf(style);
             list.Material = walk.Material;
-            _pop = !walk.IsLive ? 1f : spot.Leg == Leg.Act ? ActPopAt(spot.U) : ClearStyles.LiveWalkScale;
+            _pop = walk.IsLive ? ClearStyles.LiveWalkScale : 1f;
             _liveAct = walk.IsLive;
             if (walk.IsLive && spot.Leg == Leg.Back && style != ClearStyle.Munchers && style != ClearStyle.Pushers)
             {
@@ -201,23 +201,13 @@ namespace Bloomlings.Client.UI.Design
             list.Layer = FxLayer.Board;
         }
 
-        // A round walker's size (ClearStyles.LiveWalkScale on the way, ClearStyles.ActPop at its cube): it pops up over the
-        // act's first sixth with a little overshoot, stands, and shrinks back over its last sixth. Body multiplies every size
-        // by it while a walker is drawn.
+        // A round walker's size (ClearStyles.LiveWalkScale): Body multiplies every size by it while a walker is drawn.
         [ThreadStatic]
         private static float _pop;
 
         // Whether the walker being drawn is a round level's (the act is longer there: the chewing slows down).
         [ThreadStatic]
         private static bool _liveAct;
-
-        private static float ActPopAt(float u)
-        {
-            float up = Clamp01(u / 0.16f);
-            float down = Clamp01((1f - u) / 0.16f);
-            float k = Math.Min(Back(up), Smooth(down));
-            return ClearStyles.LiveWalkScale + ((ClearStyles.ActPop - ClearStyles.LiveWalkScale) * k);
-        }
 
         /// <summary>
         /// A live walk's way back (spec 006 contracts/presentation.md: the walkers "return until done") in a style without a

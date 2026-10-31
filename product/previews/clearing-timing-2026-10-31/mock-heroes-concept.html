@@ -1,0 +1,50 @@
+<!DOCTYPE html><html><head><style>body{margin:0;background:transparent}svg{display:block}</style></head><body>
+<svg id="defs" width="0" height="0"><defs>
+ <radialGradient id="gloss" cx="35%" cy="30%" r="70%"><stop offset="0" stop-color="#fff" stop-opacity=".55"/><stop offset=".45" stop-color="#fff" stop-opacity="0"/><stop offset="1" stop-color="#000" stop-opacity=".18"/></radialGradient>
+ <radialGradient id="cheek"><stop offset="0" stop-color="#ff8fa3" stop-opacity=".75"/><stop offset="1" stop-color="#ff8fa3" stop-opacity="0"/></radialGradient>
+ <pattern id="hatch" width="12" height="12" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><rect width="12" height="12" fill="none"/><path d="M0 0V12M0 0H12" stroke="#000" stroke-opacity=".22" stroke-width="2.4"/></pattern>
+</defs></svg>
+<script>
+const face=(cx,cy,s=1)=>`
+ <ellipse cx="${cx-23*s}" cy="${cy+16*s}" rx="${12*s}" ry="${7*s}" fill="url(#cheek)"/><ellipse cx="${cx+23*s}" cy="${cy+16*s}" rx="${12*s}" ry="${7*s}" fill="url(#cheek)"/>
+ ${[-1,1].map(k=>`<ellipse cx="${cx+k*20*s}" cy="${cy}" rx="${11*s}" ry="${13*s}" fill="#fff"/>
+ <ellipse cx="${cx+k*20*s}" cy="${cy+1.5*s}" rx="${9*s}" ry="${11*s}" fill="#4a2a17"/>
+ <ellipse cx="${cx+k*20*s}" cy="${cy+3*s}" rx="${5.5*s}" ry="${7*s}" fill="#1e0f07"/>
+ <circle cx="${cx+k*20*s+3*s}" cy="${cy-4*s}" r="${3.6*s}" fill="#fff"/><circle cx="${cx+k*20*s-3*s}" cy="${cy+5*s}" r="${1.6*s}" fill="#fff" opacity=".85"/>`).join('')}
+ <path d="M${cx-8*s} ${cy+17*s} Q${cx} ${cy+25*s} ${cx+8*s} ${cy+17*s}" stroke="#5a2c17" stroke-width="${3*s}" fill="none" stroke-linecap="round"/>`;
+const body=(c,dark,belly)=>`
+ <ellipse cx="100" cy="232" rx="44" ry="7" fill="#000" opacity=".16"/>
+ <rect x="72" y="205" width="22" height="26" rx="11" fill="${dark}"/><rect x="106" y="205" width="22" height="26" rx="11" fill="${dark}"/>
+ <ellipse cx="62" cy="182" rx="11" ry="17" transform="rotate(25 62 182)" fill="${c}"/><ellipse cx="138" cy="182" rx="11" ry="17" transform="rotate(-25 138 182)" fill="${c}"/>
+ <ellipse cx="100" cy="190" rx="36" ry="32" fill="${c}"/><ellipse cx="100" cy="196" rx="20" ry="18" fill="${belly}" opacity=".9"/>
+ <ellipse cx="100" cy="190" rx="36" ry="32" fill="url(#gloss)"/>`;
+const leaf=(x,y,r,len,w,c,v)=>`<g transform="translate(${x} ${y}) rotate(${r})"><path d="M0 0 C${w} ${-len*.3} ${w*.6} ${-len*.8} 0 ${-len} C${-w*.6} ${-len*.8} ${-w} ${-len*.3} 0 0Z" fill="${c}"/><path d="M0 -2 L0 ${-len*.85}" stroke="${v}" stroke-width="2.2" stroke-linecap="round" opacity=".7"/></g>`;
+const heroes={
+sprig:`${body('#9bd13d','#6fa52a','#d9f08f')}
+ <circle cx="100" cy="112" r="60" fill="#c3e66a"/><circle cx="100" cy="112" r="60" fill="url(#gloss)"/>
+ ${leaf(100,66,-62,62,26,'#5fae2e','#3f7f1d')}${leaf(100,64,62,62,26,'#5fae2e','#3f7f1d')}${leaf(100,62,-28,72,30,'#7cc63a','#4f9227')}${leaf(100,62,28,72,30,'#7cc63a','#4f9227')}${leaf(100,60,0,80,32,'#93d64a','#5fa330')}
+ ${face(100,122)}`,
+bloom:`${body('#f58aa8','#d9607f','#ffd3df')}
+ ${[0,60,120,180,240,300].map(a=>{const r=a*Math.PI/180;return `<circle cx="${100+52*Math.sin(r)}" cy="${110-52*Math.cos(r)}" r="34" fill="#ef5f86"/><circle cx="${100+52*Math.sin(r)}" cy="${110-52*Math.cos(r)}" r="34" fill="url(#gloss)"/>`}).join('')}
+ <circle cx="100" cy="112" r="54" fill="#ffc3d2"/><circle cx="100" cy="112" r="54" fill="url(#gloss)"/>
+ <circle cx="88" cy="62" r="8" fill="#ffd34d"/><circle cx="100" cy="56" r="9" fill="#ffc21f"/><circle cx="112" cy="62" r="8" fill="#ffd34d"/>
+ ${face(100,120)}`,
+drop:`<ellipse cx="100" cy="232" rx="42" ry="7" fill="#000" opacity=".16"/>
+ <rect x="74" y="208" width="20" height="23" rx="10" fill="#2d8fd0"/><rect x="106" y="208" width="20" height="23" rx="10" fill="#2d8fd0"/>
+ <ellipse cx="44" cy="168" rx="10" ry="16" transform="rotate(30 44 168)" fill="#4fb4ee"/><ellipse cx="156" cy="168" rx="10" ry="16" transform="rotate(-30 156 168)" fill="#4fb4ee"/>
+ <path d="M100 18 C120 58 162 100 162 148 C162 186 134 214 100 214 C66 214 38 186 38 148 C38 100 80 58 100 18Z" fill="#5cc0f2"/>
+ <path d="M100 18 C120 58 162 100 162 148 C162 186 134 214 100 214 C66 214 38 186 38 148 C38 100 80 58 100 18Z" fill="url(#gloss)"/>
+ <path d="M70 92 C78 74 88 62 94 52" stroke="#fff" stroke-width="9" stroke-linecap="round" opacity=".55" fill="none"/>
+ <ellipse cx="100" cy="188" rx="26" ry="16" fill="#bfe8ff" opacity=".7"/>
+ ${face(100,148)}`,
+twig:`${body('#f0913a','#c96a1f','#ffd9a8')}
+ <circle cx="100" cy="118" r="56" fill="#ffd9a3"/><circle cx="100" cy="118" r="56" fill="url(#gloss)"/>
+ <path d="M36 104 C36 52 164 52 164 104 C164 114 36 114 36 104Z" fill="#e67e22"/>
+ <path d="M36 104 C36 52 164 52 164 104 C164 114 36 114 36 104Z" fill="url(#hatch)"/>
+ <path d="M36 104 C36 52 164 52 164 104 C164 114 36 114 36 104Z" fill="url(#gloss)"/>
+ <path d="M34 102 C60 118 140 118 166 102" stroke="#b85e14" stroke-width="7" fill="none" stroke-linecap="round"/>
+ <path d="M100 58 C99 44 104 36 110 30" stroke="#8a4a14" stroke-width="7" stroke-linecap="round" fill="none"/>
+ ${leaf(110,34,62,44,20,'#7cc63a','#4f9227')}
+ ${face(100,132)}`};
+for(const [k,v] of Object.entries(heroes)){document.body.insertAdjacentHTML('beforeend',`<svg id="${k}" width="400" height="480" viewBox="0 0 200 240">${v}</svg>`);}
+</script></body></html>
