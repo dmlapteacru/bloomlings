@@ -84,7 +84,8 @@ namespace Bloomlings.Client.Gameplay.Rounds
                     _points[walk.Id] = points;
                 }
 
-                ClearWalk live = ClearWalk.Live(points, walk.Material, FamilyVariant(walk.Material), walk.Start / 1_000_000f, walk.Arrive / 1_000_000f, walk.Clear / 1_000_000f, walk.Done / 1_000_000f, seat(walk.Pod));
+                ClearWalk live = ClearWalk.Live(points, walk.Material, FamilyVariant(walk.Material), walk.Start / 1_000_000f, walk.Arrive / 1_000_000f, walk.Clear / 1_000_000f, walk.Done / 1_000_000f, seat(walk.Pod),
+                    layout.Surface.Width / Math.Max(1f, layout.Cell));
                 if (ClearLook.Holds(style, live, now) && walk.Cell >= 0 && walk.Cell < _held.Length && !_held[walk.Cell])
                 {
                     _held[walk.Cell] = true;

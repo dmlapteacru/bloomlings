@@ -83,6 +83,20 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
+        public void TheWalkerSize_Is1Point4CubesOnBigCubes_And1Point6OnSmallOnes()
+        {
+            // the owner, 2026-10-31: "1.6 when the cubes get small, 1.4 on big ones"
+            Assert.That(ClearStyles.WalkerCubes(10f), Is.EqualTo(1.4f).Within(1e-5f));
+            Assert.That(ClearStyles.WalkerCubes(ClearStyles.BigCubesAcross), Is.EqualTo(1.4f).Within(1e-5f));
+            Assert.That(ClearStyles.WalkerCubes((ClearStyles.BigCubesAcross + ClearStyles.SmallCubesAcross) / 2f), Is.EqualTo(1.5f).Within(1e-5f));
+            Assert.That(ClearStyles.WalkerCubes(ClearStyles.SmallCubesAcross), Is.EqualTo(1.6f).Within(1e-5f));
+            Assert.That(ClearStyles.WalkerCubes(60f), Is.EqualTo(1.6f).Within(1e-5f));
+            var points = new List<(float X, float Y)> { (3f, 4f), (3f, 3f) };
+            ClearWalk walk = ClearWalk.Live(points, 0, VariantId.Leaf, 0f, 1f, 1.1f, 1.5f, null, ClearStyles.SmallCubesAcross);
+            Assert.That(walk.LiveScale * ClearLook.WalkerSize, Is.EqualTo(1.6f).Within(1e-5f));
+        }
+
+        [Test]
         public void AWalkerHomeInTheRules_IsDrawnUntilItsLookIsHome()
         {
             // the owner, 2026-10-31: the act lasts past the clear by ClearStyles.LiveLinger, so the walk home ends that much later

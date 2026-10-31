@@ -117,11 +117,28 @@ namespace Bloomlings.Client.UI.Design
         public const float LiveLinger = 0.6f;
 
         /// <summary>
-        /// How much larger than <see cref="ClearLook.WalkerSize"/> a round level's walker is, on its way and at its cube alike
-        /// (the owner, 2026-10-31: the heroes were small; "V4 без роста": 1.17 cubes, between the review's 0.93 and 1.4, with
-        /// no growth at the cube; the reference game's ants are about 2–2.5 cubes long and 1 wide).
+        /// A round level's walker's size in cubes on the biggest cubes (<see cref="BigCubesAcross"/> or fewer across the board's
+        /// box) and on the smallest (<see cref="SmallCubesAcross"/> or more), the same on its way and at its cube; in between it
+        /// goes linearly (the owner, 2026-10-31: "1.6 when the cubes get small, 1.4 on big ones"; it was 1.17 throughout, and
+        /// 0.74 before; the reference game's ants are about 1.4 cubes long in their body whatever the board).
         /// </summary>
-        public const float LiveWalkScale = 1.575f;
+        public const float WalkerCubesBig = 1.4f;
+
+        /// <inheritdoc cref="WalkerCubesBig"/>
+        public const float WalkerCubesSmall = 1.6f;
+
+        /// <summary>The fewest cubes across the board's box (L1's 16 columns fill about 19): the biggest cubes.</summary>
+        public const float BigCubesAcross = 19f;
+
+        /// <summary>The most cubes across the board's box (a 48-wide board's 46 columns): the smallest cubes.</summary>
+        public const float SmallCubesAcross = 46f;
+
+        /// <summary>A round walker's size in cubes when <paramref name="cubesAcross"/> cubes span the board's box.</summary>
+        public static float WalkerCubes(float cubesAcross)
+        {
+            float k = Math.Max(0f, Math.Min(1f, (cubesAcross - BigCubesAcross) / (SmallCubesAcross - BigCubesAcross)));
+            return WalkerCubesBig + ((WalkerCubesSmall - WalkerCubesBig) * k);
+        }
 
         /// <summary>
         /// Seconds a round walker takes to step out of its gate and, on the way home, into it (the owner, 2026-10-31: they

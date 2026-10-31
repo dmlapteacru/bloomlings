@@ -19,8 +19,10 @@ namespace Bloomlings.Client.UI.Design
         {
         }
 
-        private ClearWalk(IReadOnlyList<(float X, float Y)> points, VariantId variant, float start, float arrival, Box? seat, int material, float arriveAt, float clearAt, float doneAt)
+        private ClearWalk(IReadOnlyList<(float X, float Y)> points, VariantId variant, float start, float arrival, Box? seat, int material, float arriveAt, float clearAt, float doneAt,
+            float liveScale = 1f)
         {
+            LiveScale = liveScale;
             Points = points;
             Variant = variant;
             Start = start;
@@ -40,8 +42,9 @@ namespace Bloomlings.Client.UI.Design
         /// (<see cref="RoundMaterial.Index"/>): the plain cube, and the hero of the material's family tinted in its colour.
         /// <paramref name="variant"/> is a variant of that family, for hosts that draw only variants.
         /// </summary>
-        public static ClearWalk Live(IReadOnlyList<(float X, float Y)> points, int material, VariantId variant, float start, float arrive, float clear, float done, Box? seat) =>
-            new ClearWalk(points, variant, start, clear - start, seat, material, arrive, clear, done);
+        public static ClearWalk Live(IReadOnlyList<(float X, float Y)> points, int material, VariantId variant, float start, float arrive, float clear, float done, Box? seat,
+            float cubesAcross = ClearStyles.BigCubesAcross) =>
+            new ClearWalk(points, variant, start, clear - start, seat, material, arrive, clear, done, ClearStyles.WalkerCubes(cubesAcross) / ClearLook.WalkerSize);
 
         public IReadOnlyList<(float X, float Y)> Points { get; }
 
@@ -64,6 +67,12 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>A live walk's return home (NaN for a legacy walk).</summary>
         public float DoneAt { get; }
+
+        /// <summary>
+        /// A live walk's walker size as a share of <see cref="ClearLook.WalkerSize"/> (<see cref="ClearStyles.WalkerCubes"/> by the
+        /// board's cubes across; 1 for a legacy walk).
+        /// </summary>
+        public float LiveScale { get; }
 
         /// <summary>Whether the walk's legs come from the live timeline (<see cref="Live"/>) instead of <see cref="ClearStyles.LegsOf"/>.</summary>
         public bool IsLive => !float.IsNaN(ClearAt);
@@ -160,7 +169,7 @@ namespace Bloomlings.Client.UI.Design
 
             list.Slot = SlotOf(style);
             list.Material = walk.Material;
-            _pop = walk.IsLive ? ClearStyles.LiveWalkScale * spot.GateSize : 1f;
+            _pop = walk.IsLive ? walk.LiveScale * spot.GateSize : 1f;
             _liveAct = walk.IsLive;
             bool gate = walk.IsLive && spot.GateAlpha < 1f;
             if (gate)
@@ -218,7 +227,7 @@ namespace Bloomlings.Client.UI.Design
             list.Layer = FxLayer.Board;
         }
 
-        // A round walker's size (ClearStyles.LiveWalkScale): Body multiplies every size by it while a walker is drawn.
+        // A round walker's size (ClearWalk.LiveScale): Body multiplies every size by it while a walker is drawn.
         [ThreadStatic]
         private static float _pop;
 

@@ -433,7 +433,8 @@ namespace Bloomlings.Playtest.Design
                     cache.Points[walk.Id] = points;
                 }
 
-                ClearWalk live = ClearWalk.Live(points, walk.Material, FamilyVariant(walk.Material), walk.Start / 1_000_000f, walk.Arrive / 1_000_000f, walk.Clear / 1_000_000f, walk.Done / 1_000_000f, Seat(s, cache, walk.Pod));
+                ClearWalk live = ClearWalk.Live(points, walk.Material, FamilyVariant(walk.Material), walk.Start / 1_000_000f, walk.Arrive / 1_000_000f, walk.Clear / 1_000_000f, walk.Done / 1_000_000f, Seat(s, cache, walk.Pod),
+                    board.Surface.Width / Math.Max(1f, board.Cell));
                 if (ClearLook.Holds(style, live, now) && !cache.Held[walk.Cell])
                 {
                     cache.Held[walk.Cell] = true;

@@ -56,3 +56,9 @@ Videos (top: now, bottom: proposal), rendered by `playtest/preview -- --clear-vi
 - The gate: a walker sets off from a standstill and slows down into the gate, growing and fading out of the arch and
   back into it (0.25 s), and walks home at its way out's pace (the rules' way back is quicker): `L22-gate-x1.mp4`,
   `gate-frames-L22.png`. Presentation only; the last walker is home a little later than the rules' end.
+
+## The same day: «Размер героев при уменьшении кубиков делаем больше: 1.6, а на больших 1.4»
+
+- `ClearStyles.WalkerCubes`: 1.4 cubes on the biggest cubes (19 or fewer across the board box, L1) to 1.6 on the smallest
+  (46 or more, the 48-wide boards), linearly in between; the hosts pass the board box width over the cube
+  (`ClearWalk.Live(…, cubesAcross)`): `walker-size-by-cubes.png` (L1, L22, L27).
