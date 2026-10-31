@@ -38,6 +38,16 @@ namespace Bloomlings.Client.Art
         }
 
         /// <summary>
+        /// The Sprig bridge (<c>board.bridge</c>, <see cref="UiRaster.FootBridge"/>; the playtest's <c>Kit.BridgePlank</c>): a
+        /// wooden footbridge with rails, horizontal, <paramref name="width"/> × <paramref name="height"/> pixels.
+        /// </summary>
+        public static Sprite Bridge(int seed, int width, int height)
+        {
+            int k = ((seed % 5) + 5) % 5;
+            return ProceduralSprites.Picture(RoundBoardLayout.BridgeSlot + "/" + k, Math.Max(1, width), Math.Max(1, height), (w, h) => UiRaster.FootBridge(w, h, k));
+        }
+
+        /// <summary>
         /// A cell of a wall laid over the picture (<c>board.wall</c>, 17 §8 as amended on 2026-10-28), its picture by its place
         /// (<see cref="UiRaster.WallSeed"/>).
         /// </summary>

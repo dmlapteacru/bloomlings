@@ -199,3 +199,16 @@ export function png(W,H,px){const raw=Buffer.alloc((W*3+1)*H);for(let y=0;y<H;y+
  return Buffer.concat([Buffer.from([137,80,78,71,13,10,26,10]),chunk('IHDR',ih),chunk('IDAT',zlib.deflateSync(raw)),chunk('IEND',Buffer.alloc(0))]);}
 export const FONT={'L':'100100100100111','P':'110101110100100','A':'010101111101101','B':'110101110101110','C':'011100100100011','D':'110101101101110','0':'111101101101111','1':'010110010010111','2':'111001111100111','3':'111001111001111','4':'101101111001001','5':'111100111001111','6':'111100111101111','7':'111001001001001','8':'111101111101111','9':'111101111001111','·':'000000010000000','/':'001001010100100','x':'000101010101000',' ':'000000000000000','#':'101111101111101','?':'111001011000010','!':'010010010000010'};
 export const rgbOf=h=>[parseInt(h.slice(1,3),16),parseInt(h.slice(3,5),16),parseInt(h.slice(5,7),16)];
+
+// ---- which bridge sites a level shows over the cubes from its start (17 §8 as amended on 2026-10-31, the owner) ----
+// Presentation only: the game draws a site not shown only once its approach opens, and the rules never read it. Normal
+// shows both sites; Hard: the wave's Hard bridge levels in calendar order alternate, the first shows both, the next none
+// ("на хардах 50-50 в волнах"); Super Hard shows none ("чтоб юзер первый раз искал их") but a bridge the solver proved
+// losing (bridge.each[i].win === false), shown as a lure ("показывать один над кубиками, который будет проигрышным").
+// levels: the round levels of one wave; returns {level: [shown per choice]} for its bridge levels.
+export function bridgeShowing(levels){const out={};let hard=0;
+ for(const L of [...levels].sort((a,b)=>a.level-b.level)){const hero=L.definition&&L.definition.hero;if(!hero)continue;const n=hero.choices.length;
+  if(L.cls==='Normal')out[L.level]=Array(n).fill(true);
+  else if(L.cls==='Hard'){out[L.level]=Array(n).fill(hard%2===0);hard++;}
+  else{const each=(L.bridge&&L.bridge.each)||[];out[L.level]=Array.from({length:n},(_,i)=>!!each[i]&&each[i].win===false);}}
+ return out;}

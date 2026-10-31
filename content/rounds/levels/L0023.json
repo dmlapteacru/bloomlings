@@ -509,5 +509,9 @@
   "strip": "gap",
   "id": 23,
   "difficulty": "Normal"
- }
+ },
+ "bridgeShown": [
+  true,
+  true
+ ]
 }

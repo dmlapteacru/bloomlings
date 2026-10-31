@@ -69,7 +69,11 @@ Water/Dew, Wood/Acorn). The launch has 2500 sequential levels, with later expans
   constant of `RoundScreenLook` (the board constructor's values), laid out by `ScreenLayout.RoundGameplay`; the board's
   cubes, pods and places are oblique cubes from one fixed viewpoint (`UiRaster.BoardCube`, `PodCube`, `SideFace`; rows
   `BoardRowShare` of a column, fronts and side faces only beside empty cells); three pods a column, no "+N", the number
-  in the middle of the cube. The legacy `Bloomlings.Core.Simulation` path still builds
+  in the middle of the cube. The owner's bridge batch of 2026-10-31 (spec 006 FR-065, 17 §8): the link tube is twice as
+  thick, the stream is deep water with cream stone banks (`RoundBoardLayout.Banks`), a bridge is a big wooden footbridge
+  (`UiRaster.FootBridge`) over the cubes, and each site's `shown` (level data; `rounds.mjs bridges` writes the round
+  level's `bridgeShown`: Normal both shown, Hard alternating in a wave, Super Hard hidden but a losing lure) decides
+  whether it is drawn faintly from the start or only once its approach opens. The legacy `Bloomlings.Core.Simulation` path still builds
   for the generator, solver and their tests (`specs/006-round-levels-in-game/legacy-references.md`).
 - **Development gate** (from `LOCKED_CONCEPT_v0.5.md`): passed on 2026-09-29, all docs are locked. Changes to
   locked docs now go through the product owner.

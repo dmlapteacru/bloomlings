@@ -55,7 +55,8 @@ export function levelV1(L,engine,definitionVersion=1){const d=L.definition,n=L.l
  return {format:'round-level.v1',number:n,definitionVersion,class:L.cls,
   ...(intro?{introduction:{mechanic:L.intro,second:intro[2]===n}}:{}),
   picture:{id:L.picture,version:null},
-  board:{w:d.w,h:d.h,rowsBottomFirst:d.rowsBottomFirst,entries:d.entries,...(d.hero?{hero:{id:d.hero.id,choices:d.hero.choices.map(c=>({cell:c.cell,anchor:c.anchor,label:c.label}))}}:{}),
+  // a site hidden at the start (17 §8 as amended on 2026-10-31, rounds.mjs bridges) is "shown": false; absent means shown
+  board:{w:d.w,h:d.h,rowsBottomFirst:d.rowsBottomFirst,entries:d.entries,...(d.hero?{hero:{id:d.hero.id,choices:d.hero.choices.map((c,i)=>({cell:c.cell,anchor:c.anchor,label:c.label,...(L.bridgeShown&&L.bridgeShown[i]===false?{shown:false}:{})}))}}:{}),
    // the generator's wall over the approved picture (17 §8), picture coordinates: the board is that picture plus this
    ...(d.overlay?{overlay:{walls:d.overlay.walls.map(c=>[c[0],c[1]]),sites:d.overlay.sites.map(c=>[c[0],c[1]])}}:{})},
   capacity:d.capacity??5,
@@ -73,6 +74,8 @@ export function entryChecks(from,to){const failures=[],levels={},pictures={};
   if(!L){failures.push(`not placed: ${lid(n)} (no ${rel(f)})`);continue;}levels[n]=L;
   const pic=readJSON(path.join(PICTURES,L.picture+'.json'));
   if(!pic)failures.push(`picture missing: ${L.picture} of ${lid(n)}`);
+  if(L.definition&&L.definition.hero&&!(Array.isArray(L.bridgeShown)&&L.bridgeShown.length===L.definition.hero.choices.length))
+   failures.push(`${lid(n)}: which bridge sites it shows is not decided (node tools/rounds/rounds.mjs bridges ${from} ${to}; 17 §8 as amended on 2026-10-31)`);
   else{if(pic.status!=='approved')failures.push(`picture not approved: ${L.picture} of ${lid(n)} (${pic.status})`);
    if(FRANCHISE.has(pic.source))failures.push(`picture is a franchise reference: ${L.picture} of ${lid(n)} (${pic.source})`);
    if(!Number.isInteger(pic.version)||pic.version<1)failures.push(`picture without a version: ${L.picture}`);

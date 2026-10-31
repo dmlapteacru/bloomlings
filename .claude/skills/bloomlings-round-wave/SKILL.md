@@ -81,6 +81,9 @@ Before anything, read:
        for a new-strip one; a scene's record carries the winning site, and the builder keeps its gate deep);
      - missing checks;
      - placement;
+     - which bridge sites each bridge level shows from its start (`rounds.mjs bridges <from> <to>`, 17 §8 as amended
+       on 2026-10-31: Normal both, Hard alternating both / none in calendar order, Super Hard none but a proven losing
+       bridge as a lure; run it again after placing a hand-built bridge level);
      - `audit.mjs`;
      - `summary.md`;
      - the sample pilot in `content/rounds/runs/L####-L####/sample/`.

@@ -352,7 +352,9 @@ namespace Bloomlings.Client.Tests.EditMode
                 Assert.That(y, Is.InRange(frontTop, cube.Bottom), "on the cube's front face, under its top");
             }
 
-            Assert.That(tube.Thickness, Is.LessThan(left.Height * 0.2f));
+            // Twice the old 0.15 of a cube (the owner, 2026-10-31: "twice as thick").
+            Assert.That(tube.Thickness, Is.EqualTo(Math.Min(left.Height, right.Height) * LinkTube.CubeThicknessShare).Within(1e-3));
+            Assert.That(LinkTube.CubeThicknessShare, Is.EqualTo(0.3f).Within(1e-6));
         }
 
         // ---- The board box ----

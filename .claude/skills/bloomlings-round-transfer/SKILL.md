@@ -34,7 +34,8 @@ script: your part is to run it in order, read the reports, and talk to the owner
    `node tools/rounds/export.mjs <from> <to> --out content/game/rounds/export/L####-L#### --owner-results
    product/playtests/<pilot>/results.json` (repeat `--owner-results` for every results file of the wave).
    - It refuses, naming the reason, when a position is open, the audit has a НЕТ without an exception, a picture is
-     not approved or is a franchise reference, or the confirmation is missing. Fix the cause in the wave, never in
+     not approved or is a franchise reference, the confirmation is missing, or a bridge level has no `bridgeShown`
+     (run `node tools/rounds/rounds.mjs bridges <from> <to>`; a site hidden at the start is exported as `"shown": false`). Fix the cause in the wave, never in
      the export.
    - An owner exception (like L18's bridge, 2026-10-27) must be in `OWNER_EXCEPTIONS` of `export.mjs` with the rule
      it waives, the reason, `decidedBy: "owner"` and the date, or (from wave L21–L50) as the object in the level file's

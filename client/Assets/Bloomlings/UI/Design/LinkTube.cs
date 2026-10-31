@@ -77,8 +77,11 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The tube's asset slot.</summary>
         public const string Slot = "pod.link.tube";
 
-        /// <summary>The tube picture's thickness (the collars included), as a share of the shorter pod's height.</summary>
-        public const float ThicknessShare = 0.2f;
+        /// <summary>
+        /// The tube picture's thickness (the collars included), as a share of the shorter pod's height (the owner, 2026-10-31:
+        /// "twice as thick"; it was 0.2).
+        /// </summary>
+        public const float ThicknessShare = 0.4f;
 
         /// <summary>How high on the pod's front the tube plugs in, from its bottom, as a share of its height.</summary>
         public const float FrontShare = 0.2f;
@@ -92,8 +95,11 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public const float CubeFrontShare = UiRaster.CubeMargin + (UiRaster.CubeSide * 0.5f);
 
-        /// <summary>The tube's thickness between pod cubes, as a share of the smaller cube's side: about the front face's height.</summary>
-        public const float CubeThicknessShare = 0.15f;
+        /// <summary>
+        /// The tube's thickness between pod cubes, as a share of the smaller cube's side (the owner, 2026-10-31: "twice as
+        /// thick"; it was 0.15, about the front face's height).
+        /// </summary>
+        public const float CubeThicknessShare = 0.3f;
 
         /// <summary>The height on <paramref name="body"/> (a pod's frame or a place's plate) where the tube plugs in.</summary>
         public static float FrontY(Box body) => FrontY(body, FrontShare);

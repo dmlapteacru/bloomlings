@@ -1,5 +1,5 @@
 {
-  "contentVersion": 3,
+  "contentVersion": 4,
   "engine": {
     "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e",
     "palette": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
@@ -271,7 +271,7 @@
     },
     {
       "class": "Super Hard",
-      "definitionVersion": 1,
+      "definitionVersion": 2,
       "number": 30,
       "picture": {
         "id": "P0153",
@@ -406,7 +406,7 @@
     },
     {
       "class": "Super Hard",
-      "definitionVersion": 1,
+      "definitionVersion": 2,
       "number": 45,
       "picture": {
         "id": "P0154",
@@ -451,7 +451,7 @@
     },
     {
       "class": "Hard",
-      "definitionVersion": 1,
+      "definitionVersion": 2,
       "number": 50,
       "picture": {
         "id": "P0159",
@@ -461,12 +461,12 @@
   ],
   "packs": [
     {
-      "bytes": 16808,
+      "bytes": 16846,
       "id": "round_levels_0001_0050",
       "kind": "levels",
       "levelRange": [1, 50],
       "path": "levels/round_levels_0001_0050.jsonl.gz",
-      "sha256": "25a90f62599a37555af80e33f89ad48d4dcb419e5e73ee0dd3bb84265e9fa55a"
+      "sha256": "eb6774ad54bd6b4117d948069656789ccc9f65d4ce4614f8ee0b1e65c110173c"
     },
     {
       "bytes": 14401,

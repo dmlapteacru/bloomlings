@@ -50,11 +50,12 @@ namespace Bloomlings.Core.Rounds
     /// </summary>
     public sealed class RoundBridgeChoice
     {
-        public RoundBridgeChoice(int cell, int anchor, string label)
+        public RoundBridgeChoice(int cell, int anchor, string label, bool shown = true)
         {
             Cell = cell;
             Anchor = anchor;
             Label = label;
+            Shown = shown;
         }
 
         public int Cell { get; }
@@ -62,6 +63,13 @@ namespace Bloomlings.Core.Rounds
         public int Anchor { get; }
 
         public string Label { get; }
+
+        /// <summary>
+        /// Presentation only (17 §8 as amended on 2026-10-31, the owner): whether the site is drawn over the cubes from the
+        /// level's start; a site not shown appears only once its approach opens. Normal shows both, Hard half of a wave's
+        /// bridge levels, Super Hard none but a bridge that provably loses (a lure). The rules never read it.
+        /// </summary>
+        public bool Shown { get; }
     }
 
     /// <summary>

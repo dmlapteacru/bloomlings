@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Rounds;
+using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
 
 namespace Bloomlings.Playtest.Design
 {
@@ -71,8 +72,11 @@ namespace Bloomlings.Playtest.Design
             p.Picture(WallKeys[k], full, WallPictures[k]);
         }
 
-        /// <summary>A built bridge (<c>board.bridge</c>): a light wooden plank across its site, turned to its crossing (up, down, left or right).</summary>
-        public static void BridgePlank(IPainter p, RoundBridgeSite site)
+        /// <summary>
+        /// A bridge (<c>board.bridge</c>, <see cref="UiRaster.FootBridge"/>): a wooden footbridge with rails across its site,
+        /// turned to its crossing (up, down, left or right), scaled by <paramref name="scale"/> about its middle.
+        /// </summary>
+        public static void BridgePlank(IPainter p, RoundBridgeSite site, float scale = 1f)
         {
             p.Mark(RoundBoardLayout.BridgeSlot);
             bool turned = Math.Abs(site.PlankDegrees) > 0.5f;
@@ -82,12 +86,45 @@ namespace Bloomlings.Playtest.Design
                 p.PushRotate(site.PlankDegrees, plank.CenterX, plank.CenterY);
             }
 
-            WoodPlank(p, plank, 0.3f, site.Cell);
+            Box box = Box.FromCenter(plank.CenterX, plank.CenterY, plank.Width * scale, plank.Height * scale);
+            int seed = ((site.Cell % 5) + 5) % 5;
+            p.Picture(BridgeKeys[seed], box, BridgePictures[seed]);
             if (turned)
             {
                 p.PopTransform();
             }
         }
+
+        /// <summary>
+        /// The stone banks along the stream (<see cref="RoundBoardLayout.Banks"/>, the owner, 2026-10-31): each band in the
+        /// frame's cream stone with its dark line on the water side. Draw them after the water and before the cubes.
+        /// </summary>
+        public static void Banks(IPainter p, RoundBoardLayout board)
+        {
+            if (board.Banks.Count == 0)
+            {
+                return;
+            }
+
+            p.Mark(RoundBoardLayout.WaterSlot);
+            foreach (RoundBank bank in board.Banks)
+            {
+                p.FillRect(bank.Band, C.StoneTop);
+            }
+
+            foreach (RoundBank bank in board.Banks)
+            {
+                p.FillRect(bank.Line, C.StoneLine);
+            }
+        }
+
+        private static readonly string[] BridgeKeys = { "board.bridge/0", "board.bridge/1", "board.bridge/2", "board.bridge/3", "board.bridge/4" };
+
+        private static readonly Func<int, int, byte[]>[] BridgePictures =
+        {
+            (w, h) => UiRaster.FootBridge(w, h, 0), (w, h) => UiRaster.FootBridge(w, h, 1), (w, h) => UiRaster.FootBridge(w, h, 2),
+            (w, h) => UiRaster.FootBridge(w, h, 3), (w, h) => UiRaster.FootBridge(w, h, 4),
+        };
 
         /// <summary>
         /// A link tube (<c>pod.link.tube</c>, spec 006 FR-043): its picture upright in its box, turned about its middle. Draw

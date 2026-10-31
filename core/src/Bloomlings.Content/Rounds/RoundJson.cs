@@ -106,11 +106,18 @@ namespace Bloomlings.Content.Rounds
                 {
                     string at = JsonDoc.Index(choicesPath, i);
                     JObject choice = JsonDoc.Object(choices[i], at);
-                    JsonDoc.AllowOnly(choice, at, "cell", "anchor", "label");
+                    JsonDoc.AllowOnly(choice, at, "cell", "anchor", "label", "shown");
+                    JToken? shown = JsonDoc.Optional(choice, "shown");
+                    if (shown != null && JsonDoc.Bool(shown, JsonDoc.Join(at, "shown")))
+                    {
+                        throw new ContentFormatException(JsonDoc.Join(at, "shown"), "is written only as false (absent means shown)");
+                    }
+
                     bridge.Add(new RoundBridgeChoice(
                         Cell(JsonDoc.Required(choice, at, "cell"), JsonDoc.Join(at, "cell"), w * h),
                         Cell(JsonDoc.Required(choice, at, "anchor"), JsonDoc.Join(at, "anchor"), w * h),
-                        JsonDoc.String(JsonDoc.Required(choice, at, "label"), JsonDoc.Join(at, "label"))));
+                        JsonDoc.String(JsonDoc.Required(choice, at, "label"), JsonDoc.Join(at, "label")),
+                        shown == null));
                 }
             }
 
@@ -248,7 +255,14 @@ namespace Bloomlings.Content.Rounds
                 var choices = new JArray();
                 foreach (RoundBridgeChoice choice in level.Bridge)
                 {
-                    choices.Add(new JObject { ["cell"] = choice.Cell, ["anchor"] = choice.Anchor, ["label"] = choice.Label });
+                    var item = new JObject { ["cell"] = choice.Cell, ["anchor"] = choice.Anchor, ["label"] = choice.Label };
+                    if (!choice.Shown)
+                    {
+                        // Presentation (17 §8 as amended on 2026-10-31): only a site hidden at the start is written.
+                        item["shown"] = false;
+                    }
+
+                    choices.Add(item);
                 }
 
                 board["hero"] = new JObject { ["id"] = HeroId, ["choices"] = choices };

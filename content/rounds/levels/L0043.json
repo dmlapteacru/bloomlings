@@ -588,5 +588,9 @@
   "strip": "gap",
   "id": 43,
   "difficulty": "Normal"
- }
+ },
+ "bridgeShown": [
+  true,
+  true
+ ]
 }

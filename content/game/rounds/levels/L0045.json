@@ -1,7 +1,7 @@
 {
  "format": "round-level.v1",
  "number": 45,
- "definitionVersion": 1,
+ "definitionVersion": 2,
  "class": "Super Hard",
  "picture": {
   "id": "P0154",
@@ -62,7 +62,8 @@
     {
      "cell": 343,
      "anchor": 307,
-     "label": "Мостик вверх в центре"
+     "label": "Мостик вверх в центре",
+     "shown": false
     }
    ]
   }

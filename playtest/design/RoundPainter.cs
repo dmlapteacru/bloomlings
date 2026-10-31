@@ -283,6 +283,9 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
+            // The stone banks along the water, under the cubes (the owner, 2026-10-31).
+            Kit.Banks(p, board);
+
             // The cubes, the far (top) row first: each nearer cube hides the front face of the one behind it, so a front shows
             // only on the picture's bottom edge, at its steps and where a cube was eaten (the owner's oblique cubes, FR-064).
             for (int y = board.Height - 2; y >= 1; y--)
@@ -330,6 +333,9 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
+            // The bridges over the cubes (17 §8 as amended on 2026-10-31): the built one; a site that can be built, whole,
+            // breathing and ringed in the glow, taking the tap (FR-009); a site shown from the start (RoundBridgeSite.Shown)
+            // faint until its approach opens; a site not shown stays unseen until then.
             List<int> buildable = s.BuildableBridges();
             foreach (RoundBridgeSite site in board.Bridges)
             {
@@ -337,20 +343,24 @@ namespace Bloomlings.Playtest.Design
                 {
                     Kit.BridgePlank(p, site);
                 }
-                else if (buildable.Contains(site.Index))
+                else if (a.Bridge < 0 && buildable.Contains(site.Index))
                 {
-                    // A site whose approach is open glows toward its near bank and takes the tap (FR-009).
                     p.Mark(RoundBoardLayout.BridgeSlot);
                     float glow = GardenLook.Glow(p.Now);
-                    p.PushAlpha(0.45f + (0.4f * glow));
-                    Kit.BridgePlank(p, site);
-                    p.PopAlpha();
-                    p.StrokeRound(site.Glow.Inset(-board.Cell * 0.08f), board.Cell * 0.2f, Math.Max(1.5f, board.Cell * 0.1f), C.GardenGlow.WithAlpha(0.6f + (0.4f * glow)));
+                    Box ring = site.PlankBounds.Inset(-board.Cell * RoundBoardLayout.BridgeRingShare);
+                    p.StrokeRound(ring, Math.Min(ring.Width, ring.Height) * 0.3f, Math.Max(2f, board.Cell * 0.14f), C.GardenGlow.WithAlpha(0.55f + (0.45f * glow)));
+                    Kit.BridgePlank(p, site, 1f + (RoundBoardLayout.BridgeBreath * glow));
                     int choice = site.Index;
                     if (s.HudAlpha >= 1f)
                     {
-                        p.Hit(Kit.Touch(p, site.PlankBounds), () => s.BuildBridge(choice));
+                        p.Hit(Kit.Touch(p, ring), () => s.BuildBridge(choice));
                     }
+                }
+                else if (a.Bridge < 0 && site.Shown)
+                {
+                    p.PushAlpha(RoundBoardLayout.ShownBridgeAlpha);
+                    Kit.BridgePlank(p, site);
+                    p.PopAlpha();
                 }
             }
 
@@ -956,12 +966,20 @@ namespace Bloomlings.Playtest.Design
                         Kit.Water(p, new Box(left + (x * cell), area.CenterY - (cell * 0.5f), left + ((x + 1) * cell), area.CenterY + (cell * 0.5f)), x);
                     }
 
+                    // The stream's stone banks, as on the board.
+                    float band = cell * RoundBoardLayout.BankShare;
+                    float rule = Math.Max(1f, cell * RoundBoardLayout.BankLineShare);
+                    p.FillRect(new Box(left, area.CenterY - (cell * 0.5f), left + (cell * cells), area.CenterY - (cell * 0.5f) + band), C.StoneTop);
+                    p.FillRect(new Box(left, area.CenterY + (cell * 0.5f) - band, left + (cell * cells), area.CenterY + (cell * 0.5f)), C.StoneTop);
+                    p.FillRect(new Box(left, area.CenterY - (cell * 0.5f) + band - rule, left + (cell * cells), area.CenterY - (cell * 0.5f) + band), C.StoneLine);
+                    p.FillRect(new Box(left, area.CenterY + (cell * 0.5f) - band, left + (cell * cells), area.CenterY + (cell * 0.5f) - band + rule), C.StoneLine);
+
                     Box site = Box.FromCenter(area.CenterX + (cell * 0.5f), area.CenterY, cell, cell);
                     float plank = Kit.Ease(Visuals.Clamp01((since - 0.2f) / 0.4f));
                     p.PushAlpha(plank);
                     p.Mark(RoundBoardLayout.BridgeSlot);
                     p.PushRotate(90f, site.CenterX, site.CenterY);
-                    Kit.WoodPlank(p, Box.FromCenter(site.CenterX, site.CenterY, cell * (1f + (2f * RoundBoardLayout.PlankReach)), cell * RoundBoardLayout.PlankWidth), 0.3f, 3);
+                    p.Picture("board.bridge/3", Box.FromCenter(site.CenterX, site.CenterY, cell * (1f + (2f * RoundBoardLayout.PlankReach)), cell * RoundBoardLayout.PlankWidth), (w, hh) => UiRaster.FootBridge(w, hh, 3));
                     p.PopTransform();
                     p.PopAlpha();
                     break;

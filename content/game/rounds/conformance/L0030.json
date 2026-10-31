@@ -1,7 +1,7 @@
 {
  "format":"round-conformance.v1",
  "number":30,
- "definitionVersion":1,
+ "definitionVersion":2,
  "engine":{
   "rules":"ec33026e742e6efee1626ebea071d5582ff1cdc9bb8ca889ce35ee0935626598",
   "timeline":"b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",

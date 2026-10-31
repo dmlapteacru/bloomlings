@@ -32,7 +32,8 @@
             "id": {"const": "sprig-bridge"},
             "choices": {"type": "array", "minItems": 2, "maxItems": 2, "items": {
               "type": "object", "additionalProperties": false, "required": ["cell", "anchor", "label"],
-              "properties": {"cell": {"type": "integer", "minimum": 0}, "anchor": {"type": "integer", "minimum": 0}, "label": {"type": "string"}}
+              "properties": {"cell": {"type": "integer", "minimum": 0}, "anchor": {"type": "integer", "minimum": 0}, "label": {"type": "string"},
+                "shown": {"const": false, "description": "presentation only (17 §8, the owner, 2026-10-31): the site is not drawn until its approach opens; absent means shown over the cubes from the start"}}
             }}
           }
         },

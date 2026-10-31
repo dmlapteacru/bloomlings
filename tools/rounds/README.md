@@ -9,6 +9,7 @@ Tools of the skills `bloomlings-round-wave`, `bloomlings-round-pictures` and `bl
 node tools/rounds/rounds.mjs plan 21 70                  # mechanics breakdown (runs/…/mechanics.json), positions, supply, picture order → runs/L0021-L0070/plan.md
 node tools/rounds/rounds.mjs run 21 70 --jobs 4          # dry place, build what is open, checks, place, audit, summary, sample pilot
 node tools/rounds/rounds.mjs review results.json         # owner's ratings next to the metrics → content/rounds/reports/
+node tools/rounds/rounds.mjs bridges 21 50                # which bridge sites each bridge level shows from its start (17 §8, 2026-10-31)
 # pictures from SVG drafts and the screen before the sheet (17 §13)
 node tools/rounds/svg2cells.mjs drafts.mjs --out content/rounds/pictures/src/batch-0120.mjs --sheet /tmp/s.png --level 30
 node tools/rounds/screen.mjs content/rounds/pictures/src/batch-0120.mjs --level 30

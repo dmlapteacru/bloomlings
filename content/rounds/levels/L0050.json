@@ -591,5 +591,9 @@
   "strip": "gap",
   "id": 50,
   "difficulty": "Hard"
- }
+ },
+ "bridgeShown": [
+  false,
+  false
+ ]
 }

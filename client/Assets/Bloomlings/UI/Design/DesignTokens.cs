@@ -271,13 +271,16 @@ namespace Bloomlings.Client.UI.Design
 
             // ---- Round levels (spec 006 contracts/presentation.md): a stream inside the frame is water ----
 
-            /// <summary>The stream's light water near its banks.</summary>
-            public static readonly Rgba WaterTop = Rgba.FromHex("#7ED0E4");
+            /// <summary>The stream's lighter water, a little of it in the channel's tone.</summary>
+            public static readonly Rgba WaterTop = Rgba.FromHex("#3C9CBF");
 
-            /// <summary>The stream's deep water in its middle.</summary>
-            public static readonly Rgba WaterDeep = Rgba.FromHex("#3B98BC");
+            /// <summary>
+            /// The stream's deep water (the owner, 2026-10-31: the water round the pictures blended with the blue cubes; it was
+            /// #3B98BC, a light #7ED0E4 by the banks): deeper than the Water and Sky cubes, bluer-green than the Deep one.
+            /// </summary>
+            public static readonly Rgba WaterDeep = Rgba.FromHex("#1F6688");
 
-            /// <summary>The stream's ripples and its foam along the banks.</summary>
+            /// <summary>The stream's ripples.</summary>
             public static readonly Rgba WaterFoam = Rgba.FromHex("#E8F9FC");
 
             // ---- Round levels: the board's solid neutral surface (the owner's board of 2026-10-28, "like the reference game") ----

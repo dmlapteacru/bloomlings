@@ -348,6 +348,18 @@ owner sees the same behaviour as in the playtest app.
     rest. A pod is a cube with no frame or box round it: the top row's in a white outline, its number big in the middle
     of its top (no corner count anywhere: pods, places, flights). Waiting pods MUST keep their colour clearly
     recognisable (barely lighter, a flatter base, the number half clear); a hidden pod is the neutral "?" cube.
+- **FR-065** (the owner, 2026-10-31, after playing the bridge levels on the phone: "the links' tube twice as thick"; "the
+  water round the pictures must stand out clearly, it blends in, especially by blue cubes"; "the bridges bigger, they
+  are hard to see"; "on Normals show them over the cubes, on Hards 50-50 in the waves, on Super Hards the player looks
+  for them, show one over the cubes that loses"; 17 §8 as amended on 2026-10-31):
+  - The link tube MUST be twice as thick as before (0.3 of a pod cube, 0.4 of a plate's height).
+  - The stream MUST read as a channel set apart from every cube colour: deep water in one tone with light ripples, and a
+    cream stone bank with a dark line along every side where it meets a cube or the surface.
+  - A bridge MUST be a wooden footbridge with rails, about 2.7 cells long and 1.5 cells wide, drawn over the cubes.
+  - Each bridge site MUST carry, in the level data, whether it is shown from the start (`shown`, absent = shown). A
+    shown site MUST be drawn faintly over the cubes until its approach opens; a site not shown MUST stay unseen until
+    then. A buildable site MUST be drawn whole, breathing, in a glow ring, and take the tap; a built bridge is drawn
+    whole. The rules never read `shown`.
 
 **Transfer path**
 

@@ -128,7 +128,47 @@ namespace Bloomlings.Client.Tests
             Box bounds = site.PlankBounds;
             Assert.That(bounds.Top, Is.LessThan(site.Site.Top), "onto the far bank");
             Assert.That(bounds.Bottom, Is.GreaterThan(site.Site.Bottom), "onto the near bank");
-            Assert.That(bounds.Width, Is.LessThan(site.Site.Width));
+            Assert.That(bounds.Width, Is.EqualTo(site.Site.Width * RoundBoardLayout.PlankWidth).Within(1e-3), "a footbridge half a cube wider than its strip (FR-065)");
+            Assert.That(bounds.Height, Is.EqualTo(site.Site.Width * (1f + (2f * RoundBoardLayout.PlankReach))).Within(1e-3));
+            Assert.That(RoundBoardLayout.PlankWidth, Is.GreaterThan(1f), "the owner, 2026-10-31: bigger bridges");
+            Assert.That(RoundBoardLayout.PlankReach, Is.GreaterThanOrEqualTo(0.8f));
+        }
+
+        [Test]
+        public void TheStream_HasStoneBanksWhereItMeetsCubesOrTheSurface_NotAlongTheFrameOrItself()
+        {
+            // FR-065, the owner, 2026-10-31: the water round the pictures must stand out from the blue cubes.
+            RoundLevel level = BoardOf(BridgePicture);
+            RoundBoardLayout layout = RoundBoardLayout.Fit(new Box(0f, 0f, 800f, 900f), level);
+            int w = level.Width;
+            float band = layout.Cell * RoundBoardLayout.BankShare;
+
+            // The stream row (y 3) runs x 1..6 inside the frame: a bank above and below each cell, none at its ends (frame)
+            // and none between its cells (water on both sides).
+            Assert.That(layout.Banks.Count, Is.EqualTo(2 * 6));
+            foreach (RoundBank bank in layout.Banks)
+            {
+                Assert.That(bank.Band.Height, Is.EqualTo(band).Within(1e-3), "banks run along the row");
+                Assert.That(bank.Line.Height, Is.LessThan(bank.Band.Height));
+            }
+
+            Box water = layout.CellBox(3, 3);
+            Assert.That(layout.IsWater(3 + (3 * w)), Is.True, "a bridge site in the stream is water");
+            Assert.That(layout.Banks.Any(b => Math.Abs(b.Band.Top - water.Top) < 1e-3 && Math.Abs(b.Band.Left - water.Left) < 1e-3), Is.True, "the bank above");
+            Assert.That(layout.Banks.Any(b => Math.Abs(b.Band.Bottom - water.Bottom) < 1e-3 && Math.Abs(b.Band.Left - water.Left) < 1e-3), Is.True, "the bank below");
+            Assert.That(layout.Banks.Where(b => Math.Abs(b.Band.Bottom - water.Bottom) < 1e-3).All(b => Math.Abs(b.Line.Top - b.Band.Top) < 1e-3), Is.True, "the line on the water side");
+        }
+
+        [Test]
+        public void ABridgeSite_CarriesWhetherTheLevelShowsItFromTheStart()
+        {
+            // 17 §8 as amended on 2026-10-31: presentation only, the level's own data.
+            RoundLevel plain = BoardOf(BridgePicture);
+            var hidden = new RoundLevel(plain.Number, plain.Width, plain.Height, plain.RowsBottomFirst, plain.Pods, plain.Tray, plain.Entries,
+                new[] { new RoundBridgeChoice(plain.Bridge![0].Cell, plain.Bridge[0].Anchor, "lure"), new RoundBridgeChoice(plain.Bridge[1].Cell, plain.Bridge[1].Anchor, "deciding", shown: false) });
+            Assert.That(RoundBoardLayout.Fit(new Box(0f, 0f, 800f, 900f), plain).Bridges.All(b => b.Shown), Is.True, "absent: shown");
+            Assert.That(RoundBoardLayout.Fit(new Box(0f, 0f, 800f, 900f), hidden).Bridges.Select(b => b.Shown), Is.EqualTo(new[] { true, false }));
+            Assert.That(RoundBoardLayout.ShownBridgeAlpha, Is.InRange(0.5f, 0.9f), "faint but plainly a bridge");
         }
 
         // ---- Bridges on any strip and walls laid over a picture (17 §8 as amended on 2026-10-28) ----
@@ -182,7 +222,7 @@ namespace Bloomlings.Client.Tests
             Box bounds = left.PlankBounds;
             Assert.That(bounds.Left, Is.LessThan(left.Site.Left), "onto the far bank");
             Assert.That(bounds.Right, Is.GreaterThan(left.Site.Right), "onto the near bank");
-            Assert.That(bounds.Height, Is.LessThan(left.Site.Height));
+            Assert.That(bounds.Height, Is.EqualTo(left.Site.Width * RoundBoardLayout.PlankWidth).Within(1e-3));
             Assert.That(left.Glow.Left, Is.EqualTo(left.Site.Left).Within(1e-3));
             Assert.That(left.Glow.Right, Is.EqualTo(left.Site.Right + (left.Site.Width * RoundBoardLayout.GlowReach)).Within(1e-3), "the glow leans toward the anchor");
             Assert.That(left.Glow.Top, Is.EqualTo(left.Site.Top).Within(1e-3));
@@ -421,9 +461,9 @@ namespace Bloomlings.Client.Tests
             Assert.That(tube.Middle.X, Is.EqualTo((left.Frame.Right + right.Frame.Left) / 2f).Within(left.Frame.Height * 0.05f));
             foreach (PodChip pod in new[] { left, right })
             {
-                // Low on the front, never above or over the pod's top.
+                // Low on the front, never above or over the pod's top; twice as thick since 2026-10-31, its foot on the pod's.
                 Assert.That(tube.Box.Top, Is.GreaterThan(pod.Frame.CenterY));
-                Assert.That(tube.Box.Bottom, Is.LessThan(pod.Frame.Bottom));
+                Assert.That(tube.Box.Bottom, Is.LessThanOrEqualTo(pod.Frame.Bottom + 0.5f));
             }
         }
 

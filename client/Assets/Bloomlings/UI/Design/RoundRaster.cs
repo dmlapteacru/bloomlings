@@ -14,10 +14,11 @@ namespace Bloomlings.Client.UI.Design
         public static int WaterSeed(int x) => ((x % WaterVariants) + WaterVariants) % WaterVariants;
 
         /// <summary>
-        /// One cell of a stream inside a round level's frame (<c>board.water</c>): water filling the whole square, so cells in a
-        /// row join into one stream, lighter near its banks (<c>water.top</c>) and deeper in its middle (<c>water.deep</c>), a
-        /// soft dark band under each bank, short <c>water.foam</c> ripples drifting across it (their phase from
-        /// <paramref name="seed"/>, <see cref="WaterSeed"/>) and a thin foam line along both banks.
+        /// One cell of a stream inside a round level's frame (<c>board.water</c>): deep water filling the whole square in one
+        /// tone (<c>water.deep</c> with a little <c>water.top</c>), so cells join into one channel whichever way it runs, and
+        /// short <c>water.foam</c> ripples drifting across it (their phase from <paramref name="seed"/>, <see cref="WaterSeed"/>).
+        /// The banks are the stone kerbs the hosts lay along it (<see cref="RoundBoardLayout.Banks"/>; the owner, 2026-10-31: the
+        /// water round the pictures "must stand out clearly", it blended with the blue cubes).
         /// </summary>
         public static byte[] Water(int size, int seed) => Water(size, size, seed);
 
@@ -29,37 +30,105 @@ namespace Bloomlings.Client.UI.Design
             float s = width;
             float sh = height;
             float phase = seed * 0.37f;
+            Rgba body = C.WaterDeep.Mix(C.WaterTop, 0.22f);
             for (int py = 0; py < height; py++)
             {
                 float y = py + 0.5f;
                 float v = y / sh;
-
-                // Across the stream: light by the banks, deep in the middle.
-                float middle = 1f - (Math.Abs(v - 0.5f) * 2f);
-                var row = new Color(C.WaterTop.Mix(C.WaterDeep, Smooth(Clamp01(middle * 1.3f))));
                 for (int px = 0; px < width; px++)
                 {
                     float x = px + 0.5f;
                     float u = x / s;
-                    Color c = row;
-
-                    // The banks' shade and their foam lines.
-                    c.Mix(C.WaterDeep.Darken(0.35f), 0.35f * Clamp01(1f - (v / 0.14f)));
-                    c.Mix(C.WaterFoam, 0.7f * Clamp01(1f - (Math.Abs(v - 0.08f) / 0.035f)));
-                    c.Mix(C.WaterFoam, 0.55f * Clamp01(1f - (Math.Abs(v - 0.94f) / 0.03f)));
+                    var c = new Color(body);
 
                     // Two rows of short ripples, offset by the seed.
                     for (int k = 0; k < 2; k++)
                     {
-                        float ry = 0.36f + (k * 0.28f);
+                        float ry = 0.3f + (k * 0.4f);
                         float rx = (u * 2f) + phase + (k * 0.5f);
                         float wave = rx - (float)Math.Floor(rx);
                         float dash = Math.Abs(wave - 0.5f) * 2f;
-                        float line = Clamp01(1f - (Math.Abs(v - ry - (0.03f * (float)Math.Sin((u + phase) * Math.PI * 2f))) / 0.028f));
-                        c.Mix(C.WaterFoam, 0.55f * line * Clamp01((0.6f - dash) / 0.2f));
+                        float line = Clamp01(1f - (Math.Abs(v - ry - (0.04f * (float)Math.Sin((u + phase) * Math.PI * 2f))) / 0.05f));
+                        c.Mix(C.WaterFoam, 0.75f * line * Clamp01((0.55f - dash) / 0.2f));
                     }
 
                     Put(pixels, width, px, py, c, 1f);
+                }
+            }
+
+            return pixels;
+        }
+
+        /// <summary>
+        /// The Sprig bridge (<c>board.bridge</c>; the owner, 2026-10-31: bigger, plainly a bridge) as a horizontal picture
+        /// <paramref name="width"/> long and <paramref name="height"/> wide, turned to its crossing by the hosts: light wooden
+        /// slats across its width, each outlined and lit along its upper edge, on two darker rails along its length, a soft
+        /// shadow under it; <paramref name="seed"/> nudges the slats' tones. Straight alpha.
+        /// </summary>
+        public static byte[] FootBridge(int width, int height, int seed)
+        {
+            Check(width, height);
+            var pixels = new byte[width * height * 4];
+            float w = width;
+            float h = height;
+            float rail = h * 0.16f;
+            float margin = h * 0.06f;
+            float line = Math.Max(1f, h * 0.04f);
+            int slats = Math.Max(3, (int)Math.Round(w / (h * 0.32f)));
+            float pitch = (w - (2f * margin)) / slats;
+            float gap = Math.Max(1f, pitch * 0.14f);
+            for (int py = 0; py < height; py++)
+            {
+                float y = py + 0.5f;
+                for (int px = 0; px < width; px++)
+                {
+                    float x = px + 0.5f;
+
+                    // The rails along both long edges.
+                    float railTop = RoundRect(x, y, margin, margin, w - margin, margin + rail, rail * 0.5f);
+                    float railBottom = RoundRect(x, y, margin, h - margin - rail, w - margin, h - margin, rail * 0.5f);
+                    float rails = Math.Min(railTop, railBottom);
+
+                    // The slat under x, across between the rails' middles.
+                    int k = Math.Max(0, Math.Min(slats - 1, (int)Math.Floor((x - margin) / pitch)));
+                    float sl = margin + (k * pitch) + (gap / 2f);
+                    float sr = margin + ((k + 1) * pitch) - (gap / 2f);
+                    float slat = RoundRect(x, y, sl, margin + (rail * 0.5f), sr, h - margin - (rail * 0.5f), Math.Max(1f, pitch * 0.18f));
+
+                    // A soft shadow under the bridge, down and right.
+                    float shadowShape = RoundRect(x - (h * 0.04f), y - (h * 0.06f), margin, margin, w - margin, h - margin, rail * 0.5f);
+                    float shape = Math.Min(rails, slat);
+                    float cover = Coverage(shape);
+                    if (cover <= 0f)
+                    {
+                        float shade = 0.3f * Clamp01(0.5f - (shadowShape / Math.Max(1f, h * 0.05f)));
+                        if (shade > 0.004f)
+                        {
+                            Put(pixels, width, px, py, new Color(C.WoodDarkLine), shade);
+                        }
+
+                        continue;
+                    }
+
+                    bool isRail = rails <= slat;
+                    Color c;
+                    if (isRail)
+                    {
+                        float t = Clamp01((y - (y < h / 2f ? margin : h - margin - rail)) / rail);
+                        c = new Color(C.WoodDarkTop.Mix(C.WoodDark, t));
+                        c.Mix(C.WoodDarkLine, Clamp01(0.5f - (-rails - line)));
+                    }
+                    else
+                    {
+                        float tone = ((((k * 37) + (seed * 11)) % 7) - 3) * 0.025f;
+                        Rgba face = tone >= 0f ? C.WoodMid.Lighten(tone) : C.WoodMid.Darken(-tone);
+                        float t = Clamp01((x - sl) / Math.Max(1f, sr - sl));
+                        c = new Color(C.WoodLight.Mix(face, Smooth(t)));
+                        c.Mix(C.WoodGrain, 0.25f * Clamp01(1f - (Math.Abs(((y / h) * 9f) % 1f - 0.5f) / 0.12f)));
+                        c.Mix(C.WoodLine, Clamp01(0.5f - (-slat - line)));
+                    }
+
+                    Put(pixels, width, px, py, c, cover);
                 }
             }
 

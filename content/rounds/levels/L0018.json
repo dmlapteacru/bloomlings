@@ -441,5 +441,9 @@
    ]
   },
   "difficulty": "Normal"
- }
+ },
+ "bridgeShown": [
+  true,
+  true
+ ]
 }

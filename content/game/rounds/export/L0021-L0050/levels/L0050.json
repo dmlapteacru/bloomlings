@@ -1,7 +1,7 @@
 {
  "format": "round-level.v1",
  "number": 50,
- "definitionVersion": 1,
+ "definitionVersion": 2,
  "class": "Hard",
  "picture": {
   "id": "P0159",
@@ -61,12 +61,14 @@
     {
      "cell": 418,
      "anchor": 384,
-     "label": "Мостик вверх слева"
+     "label": "Мостик вверх слева",
+     "shown": false
     },
     {
      "cell": 431,
      "anchor": 397,
-     "label": "Мостик вверх справа"
+     "label": "Мостик вверх справа",
+     "shown": false
     }
    ]
   }

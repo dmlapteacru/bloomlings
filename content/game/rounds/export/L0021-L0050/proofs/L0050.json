@@ -1,7 +1,7 @@
 {
  "format": "round-proof.v1",
  "number": 50,
- "definitionVersion": 1,
+ "definitionVersion": 2,
  "solution": {
   "commands": [
    {

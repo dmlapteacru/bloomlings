@@ -22,6 +22,9 @@ namespace Bloomlings.Playtest.Preview
 
         private const float TapEvery = 0.7f;
 
+        /// <summary>Only every Nth frame is written (<c>BLOOMLINGS_FRAME_EVERY</c>, default 1), for stills over a long play.</summary>
+        private static readonly int Every = Math.Max(1, int.TryParse(Environment.GetEnvironmentVariable("BLOOMLINGS_FRAME_EVERY"), out int n) ? n : 1);
+
         public static int Write(string root, int level, float seconds, string outDir, string? styleId)
         {
             string folder = Path.Combine(root, "content/game/rounds/published");
@@ -93,7 +96,10 @@ namespace Bloomlings.Playtest.Preview
                     }
 
                     Frame(1f / Fps);
-                    File.WriteAllBytes(Path.Combine(outDir, "frame-" + f.ToString("0000", CultureInfo.InvariantCulture) + ".png"), painter.Png());
+                    if (f % Every == 0)
+                    {
+                        File.WriteAllBytes(Path.Combine(outDir, "frame-" + f.ToString("0000", CultureInfo.InvariantCulture) + ".png"), painter.Png());
+                    }
                 }
 
                 Console.WriteLine($"clear video: L{level}, {frames} frames at {Fps} fps, {s.Play.Inputs.Count} taps, board {outer.Width:0}×{outer.Height:0} px, cell {board.Cell:0.0} px → {outDir}");

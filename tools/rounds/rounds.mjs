@@ -20,6 +20,10 @@
 //      the owner's pilot results next to the metrics: ratings, notes, mismatches with quality.json, a draft for
 //      content/rounds/owner-notes.md → content/rounds/reports/<pilot>-review-<date>.md; a compact copy of the results
 //      goes to product/playtests/<pilot>-owner-<date>/results.json
+// node tools/rounds/rounds.mjs bridges <from> <to>
+//      which bridge sites each bridge level of the wave shows over the cubes from its start (17 §8 as amended on
+//      2026-10-31): Normal both, Hard alternating both / none in calendar order, Super Hard none but a proven losing
+//      bridge as a lure → the level's bridgeShown (run by run after the placement; export.mjs needs it)
 // node tools/rounds/rounds.mjs confirm <from> <to> --sample <results.json> [--date YYYY-MM-DD]
 //      the owner's confirmation of the wave's sample, played in the pilot on the current engine (spec 006 FR-050):
 //      → content/rounds/runs/L####-L####/confirmed.json, the entry check of tools/rounds/export.mjs
@@ -27,7 +31,7 @@
 //      the owner told us to move the wave into the game before playing its sample: the words are recorded as they were
 //      said, with no sample (sample [], results null); the phone check after publishing is then the first play
 import fs from 'node:fs';import path from 'node:path';import os from 'node:os';import {spawn,execFileSync} from 'node:child_process';
-import {root,ROUNDS,LEVELS,BANK,readJSON,writeJSON,lid,arg,flag,manifest,picture,measure,stageOf,fitsStage,sizeBin,slotOf,classOf,INTRO,MECH_RU,SUPPORTED,usage,motifsOf,boardOf,overlaid,bridgeSide,wallOverlay,mechanicsPlans,planOf} from './lib.mjs';
+import {root,ROUNDS,LEVELS,BANK,readJSON,writeJSON,lid,arg,flag,manifest,picture,measure,stageOf,fitsStage,sizeBin,slotOf,classOf,INTRO,MECH_RU,SUPPORTED,usage,motifsOf,boardOf,overlaid,bridgeSide,wallOverlay,mechanicsPlans,planOf,bridgeShowing} from './lib.mjs';
 import {fitness} from './fitness.mjs';
 import {fingerprints,sameEngine} from './conformance.mjs';
 const cmd=process.argv[2],HERE=path.dirname(new URL(import.meta.url).pathname),NODE=process.execPath;
@@ -197,6 +201,8 @@ async function runWave(a,b){const dir=waveDir(a,b),jobs=+arg('--jobs',Math.max(1
  await Promise.all(Array.from({length:jobs},(_,k)=>run1([path.join(HERE,'levels.mjs'),'checks','--shard',`${k}/${jobs}`])));step('проверки кандидатов');
  const pl=await run1([path.join(HERE,'levels.mjs'),'place',String(a),String(b)]);fs.writeFileSync(path.join(dir,'place.log'),pl.out);
  needs=(readJSON(path.join(ROUNDS,'needs.json'),{needs:[]}).needs||[]).filter(x=>x.level>=a&&x.level<=b);step('расстановка',{open:needs.map(x=>x.level)});
+ // which bridge sites each bridge level shows from its start (17 §8 as amended on 2026-10-31)
+ bridges(a,b);step('видимость мостов');
  // 5. the audit of everything placed in the wave (17 §14)
  const au=await run1([path.join(HERE,'audit.mjs'),String(a),String(b),'--out',path.join(dir,'audit.md')]);fs.copyFileSync(path.join(dir,'audit.md'),path.join(ROUNDS,`audit-${lid(a)}-${lid(b)}.md`));
  const failed=(au.out.match(/\| НЕТ: /g)||[]).length+(/Последовательность[^\n]*: OK/.test(au.out)?0:1);step('проверка правил',{failed});
@@ -252,6 +258,17 @@ function review(file){const res=readJSON(file),preview=arg('--preview'),date=(re
 
 // ---- confirm ----
 // the sample is every level of the wave the results file has attempts on; the results must be played on this engine
+// 17 §8 as amended on 2026-10-31: which bridge sites each bridge level of the wave shows over the cubes from its start
+// (lib.mjs bridgeShowing), written to the level as bridgeShown (outside its definition: the pilot's catalog stays the
+// same); export.mjs carries it to round-level.v1 (a site not shown is "shown": false)
+function bridges(a,b){if(!(Number.isInteger(a)&&Number.isInteger(b)&&a>=1&&b>=a)){console.error('usage: rounds.mjs bridges <from> <to>');return 1;}
+ const placed=placedLevels(),rows=[];for(let n=a;n<=b;n++)if(placed[n])rows.push(placed[n]);
+ const show=bridgeShowing(rows),word=v=>v.every(Boolean)?'оба видны':v.some(Boolean)?`виден ${v.map((x,i)=>x?i:null).filter(i=>i!==null).join(', ')} (приманка)`:'оба скрыты';
+ for(const L of rows){if(!show[L.level])continue;const f=path.join(LEVELS,lid(L.level)+'.json');const cur=readJSON(f);
+  if(JSON.stringify(cur.bridgeShown)!==JSON.stringify(show[L.level])){cur.bridgeShown=show[L.level];writeJSON(f,cur);}
+  console.log(`${lid(L.level)} ${L.cls}: ${word(show[L.level])}`);}
+ if(!Object.keys(show).length)console.log(`L${a}–L${b}: no bridge level`);return 0;}
+
 function confirm(a,b,file,date=new Date().toISOString().slice(0,10),word=null){const fail=m=>{console.error(`confirm ${a}–${b} refused: ${m}`);return 1;};
  if(!(Number.isInteger(a)&&Number.isInteger(b)&&a>=1&&b>=a))return fail('usage: rounds.mjs confirm <from> <to> --sample <results.json> | --owner-word "<words>"');
  if(file&&word)return fail('give --sample or --owner-word, not both');
@@ -277,4 +294,5 @@ if(cmd==='plan'){plan(+process.argv[3],+process.argv[4]);}
 else if(cmd==='confirm'){process.exitCode=confirm(+process.argv[3],+process.argv[4],arg('--sample'),arg('--date')||undefined,arg('--owner-word'));}
 else if(cmd==='run'){process.exitCode=await runWave(+process.argv[3],+process.argv[4]);}
 else if(cmd==='review'){process.exitCode=review(process.argv[3]);}
+else if(cmd==='bridges'){process.exitCode=bridges(+process.argv[3],+process.argv[4]);}
 else console.log(fs.readFileSync(new URL(import.meta.url),'utf8').split('\n').filter(l=>l.startsWith('//')).join('\n'));

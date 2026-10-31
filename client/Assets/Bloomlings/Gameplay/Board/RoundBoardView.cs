@@ -51,6 +51,7 @@ namespace Bloomlings.Client.Gameplay.Board
         private RoundBoardLayout? _layout;
         private Image?[] _ground = Array.Empty<Image?>();
         private readonly List<(Image Image, RoundStripPiece Piece)> _pieces = new List<(Image, RoundStripPiece)>();
+        private readonly List<(Image Band, Image Line, int Index)> _banks = new List<(Image, Image, int)>();
         private Image?[] _cube = Array.Empty<Image?>();
         private Image?[] _rings = Array.Empty<Image?>();
         private sbyte[] _shownCube = Array.Empty<sbyte>();
@@ -121,6 +122,7 @@ namespace Bloomlings.Client.Gameplay.Board
             _arches.Clear();
             _sites.Clear();
             _pieces.Clear();
+            _banks.Clear();
             _ringed.Clear();
             _puffs.Clear();
             _layout = layout;
@@ -151,6 +153,23 @@ namespace Bloomlings.Client.Gameplay.Board
                     }
                 }
             }
+
+            // The stone banks along the water, over it and under the cubes (the owner, 2026-10-31; RoundBoardLayout.Banks).
+            for (int i = 0; i < layout.Banks.Count; i++)
+            {
+                Image band = UiFactory.CreateImage("Bank", _cells, null, UiTheme.Of(C.StoneTop));
+                band.raycastTarget = false;
+                _banks.Add((band, null!, i));
+            }
+
+            for (int i = 0; i < _banks.Count; i++)
+            {
+                Image line = UiFactory.CreateImage("BankLine", _cells, null, UiTheme.Of(C.StoneLine));
+                line.raycastTarget = false;
+                _banks[i] = (_banks[i].Band, line, i);
+            }
+
+            PlaceBanks();
 
             // The oblique cubes (spec 006 FR-064), the far (top) row first: each nearer cube, a later sibling, hides the front
             // face of the one behind it, so a front shows only on the picture's bottom edge, at its steps and where a cube was
@@ -230,6 +249,7 @@ namespace Bloomlings.Client.Gameplay.Board
                 PlaceInGrid(image.rectTransform, piece.Box);
             }
 
+            PlaceBanks();
             PlaceDecor();
             int pixels = CellPixels();
             if (Mathf.Abs(pixels - _pixels) > _pixels / 4)
@@ -374,15 +394,20 @@ namespace Bloomlings.Client.Gameplay.Board
             bool live = core.HudLive && core.Intro == null && core.Guide == null && !core.Targeting.HasValue;
             foreach ((Image plank, Image ring, Button touch, RoundBridgeSite site) in _sites)
             {
+                // 17 §8 as amended on 2026-10-31: the built bridge; a buildable site whole, breathing and ringed; a site shown
+                // from the start faint until its approach opens; a site not shown unseen until then.
                 bool built = a.Bridge == site.Index;
                 bool open = !built && a.Bridge < 0 && Contains(buildable, site.Index);
-                plank.enabled = built || open;
-                plank.color = new Color(1f, 1f, 1f, built ? 1f : 0.45f + (0.4f * glow));
+                bool shown = !built && !open && a.Bridge < 0 && site.Shown;
+                plank.enabled = built || open || shown;
+                plank.color = new Color(1f, 1f, 1f, shown ? RoundBoardLayout.ShownBridgeAlpha : 1f);
+                float breath = open ? 1f + (RoundBoardLayout.BridgeBreath * glow) : 1f;
+                plank.transform.localScale = new Vector3(breath, breath, 1f);
                 ring.gameObject.SetActive(open);
                 if (open)
                 {
                     Color c = UiTheme.Of(C.GardenGlow);
-                    ring.color = new Color(c.r, c.g, c.b, 0.6f + (0.4f * glow));
+                    ring.color = new Color(c.r, c.g, c.b, 0.55f + (0.45f * glow));
                 }
 
                 touch.gameObject.SetActive(open && live);
@@ -502,6 +527,18 @@ namespace Bloomlings.Client.Gameplay.Board
 
         private void PlaceInGrid(RectTransform rect, Box box) => UiKit.PlaceBox(rect, box, _layout!.Grid);
 
+        /// <summary>The stone banks along the water, relative to the grid.</summary>
+        private void PlaceBanks()
+        {
+            RoundBoardLayout layout = _layout!;
+            foreach ((Image band, Image line, int index) in _banks)
+            {
+                RoundBank bank = layout.Banks[index];
+                PlaceInGrid(band.rectTransform, bank.Band);
+                PlaceInGrid(line.rectTransform, bank.Line);
+            }
+        }
+
         /// <summary>The arches and the bridge sites, which reach beyond their cells.</summary>
         private void PlaceDecor()
         {
@@ -523,11 +560,13 @@ namespace Bloomlings.Client.Gameplay.Board
                 Box box = site.Plank;
                 PlaceInGrid(plank.rectTransform, box);
                 plank.transform.localEulerAngles = new Vector3(0f, 0f, -site.PlankDegrees);
-                int seed = site.Cell;
-                PictureFit.On(plank, (w, h) => ProceduralSprites.Plank(WoodTone.Light, w, h, 0.3f, 0.025f, seed), sliced: true);
-                PlaceInGrid(ring.rectTransform, site.Glow.Inset(-layout.Cell * 0.08f));
+                int seed = ((site.Cell % 5) + 5) % 5;
+                plank.sprite = RoundSprites.Bridge(seed, UiRaster.Quantize(box.Width), UiRaster.Quantize(box.Height));
+                plank.type = Image.Type.Simple;
                 Box bounds = site.PlankBounds;
-                PlaceInGrid((RectTransform)touch.transform, Box.FromCenter(bounds.CenterX, bounds.CenterY, Mathf.Max(bounds.Width, min), Mathf.Max(bounds.Height, min)));
+                Box glowBox = bounds.Inset(-layout.Cell * RoundBoardLayout.BridgeRingShare);
+                PlaceInGrid(ring.rectTransform, glowBox);
+                PlaceInGrid((RectTransform)touch.transform, Box.FromCenter(bounds.CenterX, bounds.CenterY, Mathf.Max(glowBox.Width, min), Mathf.Max(glowBox.Height, min)));
             }
         }
 

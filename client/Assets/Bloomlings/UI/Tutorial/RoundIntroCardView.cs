@@ -150,9 +150,29 @@ namespace Bloomlings.Client.UI.Tutorial
                         BoxLayout.Place(stream.rectTransform, water);
                     }
 
+                    // The stream's stone banks, as on the board (the owner, 2026-10-31).
+                    float band = cell * RoundBoardLayout.BankShare;
+                    float rule = Mathf.Max(1f, cell * RoundBoardLayout.BankLineShare);
+                    float top = local.CenterY - (cell * 0.5f);
+                    float bottom = local.CenterY + (cell * 0.5f);
+                    float end = x0 + (cell * cells);
+                    foreach ((Box box, Rgba color) in new[]
+                    {
+                        (new Box(x0, top, end, top + band), C.StoneTop), (new Box(x0, bottom - band, end, bottom), C.StoneTop),
+                        (new Box(x0, top + band - rule, end, top + band), C.StoneLine), (new Box(x0, bottom - band, end, bottom - band + rule), C.StoneLine),
+                    })
+                    {
+                        Image bank = UiFactory.CreateImage("Bank", holder, null, UiTheme.Of(color));
+                        bank.raycastTarget = false;
+                        BoxLayout.Place(bank.rectTransform, box);
+                    }
+
                     Box site = Box.FromCenter(local.CenterX + (cell * 0.5f), local.CenterY, cell, cell);
-                    Image plank = UiKit.WoodPlank("Bridge", holder, 0.3f, 3);
-                    BoxLayout.Place(plank.rectTransform, Box.FromCenter(site.CenterX, site.CenterY, cell * (1f + (2f * RoundBoardLayout.PlankReach)), cell * RoundBoardLayout.PlankWidth));
+                    Box span = Box.FromCenter(site.CenterX, site.CenterY, cell * (1f + (2f * RoundBoardLayout.PlankReach)), cell * RoundBoardLayout.PlankWidth);
+                    Image plank = UiFactory.CreateImage("Bridge", holder, null, Color.white);
+                    plank.raycastTarget = false;
+                    BoxLayout.Place(plank.rectTransform, span);
+                    PictureFit.On(plank, (w, ph) => RoundSprites.Bridge(3, w, ph));
                     plank.transform.localEulerAngles = new Vector3(0f, 0f, -90f);
                     break;
                 }

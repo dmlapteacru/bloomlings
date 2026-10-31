@@ -336,6 +336,66 @@ namespace Bloomlings.Content.Tests.Rounds
         }
 
         [Test]
+        public void Level_ABridgeSiteHiddenAtTheStart_RoundTrips_AndAShownOneIsNotWritten()
+        {
+            // 17 §8 as amended on 2026-10-31: which sites a level shows over the cubes from its start (presentation).
+            RoundLevel sample = RoundJson.ReadLevel(LevelSample);
+            var level = new RoundLevel(
+                18,
+                sample.Width,
+                sample.Height,
+                sample.RowsBottomFirst,
+                new[] { new RoundPod('G', 2), new RoundPod('P', 4) },
+                new IReadOnlyList<int>[] { new[] { 0 }, new[] { 1 } },
+                new[] { 3 },
+                new[] { new RoundBridgeChoice(40, 33, "Левый мостик"), new RoundBridgeChoice(44, 37, "Правый мостик", shown: false) },
+                5,
+                RoundClass.SuperHard,
+                1,
+                null,
+                "P9001",
+                1,
+                new[] { "bridge" },
+                null,
+                sample.Engine);
+
+            string json = RoundJson.WriteLevel(level);
+            RoundLevel back = RoundJson.ReadLevel(json);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(ContractSchemas.IsValidRoundLevel(json), Is.True);
+                Assert.That(back.Bridge!.Select(c => c.Shown), Is.EqualTo(new[] { true, false }));
+                Assert.That(RoundJson.WriteLevel(back), Is.EqualTo(json));
+                Assert.That(JObject.Parse(json)["board"]!["hero"]!["choices"]![0]!["shown"], Is.Null, "a shown site is not written");
+                Assert.That((bool)JObject.Parse(json)["board"]!["hero"]!["choices"]![1]!["shown"]!, Is.False);
+            });
+        }
+
+        [TestCase(true)]
+        [TestCase("no")]
+        public void Level_ABadBridgeShown_IsRejectedByBoth(object value)
+        {
+            RoundLevel sample = RoundJson.ReadLevel(LevelSample);
+            var level = new RoundLevel(
+                18, sample.Width, sample.Height, sample.RowsBottomFirst,
+                new[] { new RoundPod('G', 2), new RoundPod('P', 4) },
+                new IReadOnlyList<int>[] { new[] { 0 }, new[] { 1 } },
+                new[] { 3 },
+                new[] { new RoundBridgeChoice(40, 33, "Левый мостик"), new RoundBridgeChoice(44, 37, "Правый мостик") },
+                5, RoundClass.Normal, 1, null, "P9001", 1, new[] { "bridge" }, null, sample.Engine);
+            JObject json = JObject.Parse(RoundJson.WriteLevel(level));
+            json["board"]!["hero"]!["choices"]![0]!["shown"] = JToken.FromObject(value);
+            string text = json.ToString();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(ContractSchemas.IsValidRoundLevel(text), Is.False, "schema");
+                Assert.Throws<ContentFormatException>(() => RoundJson.ReadLevel(text), "reader");
+            });
+        }
+
+        [Test]
         public void Proof_ABridgeLevelsRandomTestNamesItsBridge_AndRoundTrips()
         {
             JObject proof = JObject.Parse(ProofSample);

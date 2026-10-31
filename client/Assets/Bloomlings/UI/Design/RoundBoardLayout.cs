@@ -92,7 +92,7 @@ namespace Bloomlings.Client.UI.Design
     /// <summary>A site of the Sprig bridge: the strip cell it opens, its anchor on the near bank, and its plank.</summary>
     public sealed class RoundBridgeSite
     {
-        internal RoundBridgeSite(int index, int cell, int anchor, string label, Box site, Box anchorCell, RoundCrossing crossing, bool onWall)
+        internal RoundBridgeSite(int index, int cell, int anchor, string label, Box site, Box anchorCell, RoundCrossing crossing, bool onWall, bool shown)
         {
             Index = index;
             Cell = cell;
@@ -102,7 +102,15 @@ namespace Bloomlings.Client.UI.Design
             AnchorCell = anchorCell;
             Crossing = crossing;
             OnWall = onWall;
+            Shown = shown;
         }
+
+        /// <summary>
+        /// Whether the site is drawn over the cubes from the level's start, a faint bridge until its approach opens (the level's
+        /// <see cref="RoundBridgeChoice.Shown"/>; 17 §8 as amended on 2026-10-31). A site not shown appears only once it can be
+        /// built.
+        /// </summary>
+        public bool Shown { get; }
 
         /// <summary>The choice's index in the level's bridge (the rules' <c>choice</c>).</summary>
         public int Index { get; }
@@ -167,6 +175,25 @@ namespace Bloomlings.Client.UI.Design
         public Box PlankBounds => Across ? Box.FromCenter(Plank.CenterX, Plank.CenterY, Plank.Height, Plank.Width) : Plank;
     }
 
+
+    /// <summary>
+    /// A stone bank along the stream (<see cref="RoundBoardLayout.Banks"/>, the owner, 2026-10-31): its band in the frame's
+    /// cream stone and the dark line on its water side, screen pixels.
+    /// </summary>
+    public readonly struct RoundBank
+    {
+        public RoundBank(Box band, Box line)
+        {
+            Band = band;
+            Line = line;
+        }
+
+        /// <summary>The bank's band (<c>stone.top</c>).</summary>
+        public Box Band { get; }
+
+        /// <summary>The line on its water side (<c>stone.line</c>).</summary>
+        public Box Line { get; }
+    }
 
     /// <summary>
     /// A piece of a strip carried on beyond the grid to the frame (<see cref="RoundBoardLayout.StripPieces"/>): the strip's ring
@@ -258,11 +285,32 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public const int ExtraPad = RoundScreenLook.PadCells > 1 ? RoundScreenLook.PadCells - 1 : 0;
 
-        /// <summary>How far a built bridge's plank reaches beyond its site onto each bank, in cells.</summary>
-        public const float PlankReach = 0.22f;
+        /// <summary>
+        /// How far a bridge reaches beyond its site onto each bank, in cells (the owner, 2026-10-31: "make the bridges bigger,
+        /// they are hard to see"; it was 0.22).
+        /// </summary>
+        public const float PlankReach = 0.85f;
 
-        /// <summary>A built bridge's plank width, in cells.</summary>
-        public const float PlankWidth = 0.78f;
+        /// <summary>A bridge's width with its rails, in cells, half a cube wider than its strip (it was 0.78).</summary>
+        public const float PlankWidth = 1.5f;
+
+        /// <summary>
+        /// A bridge shown from the start but not yet buildable is drawn this faint over the cubes (<see cref="RoundBridgeSite.Shown"/>):
+        /// plainly a bridge to come, not one already built.
+        /// </summary>
+        public const float ShownBridgeAlpha = 0.72f;
+
+        /// <summary>How much a buildable bridge breathes (its scale grows by this at the glow's peak).</summary>
+        public const float BridgeBreath = 0.08f;
+
+        /// <summary>How far a buildable bridge's glow ring stands round it, in cells.</summary>
+        public const float BridgeRingShare = 0.14f;
+
+        /// <summary>A stone bank's width along the water, in cells (<see cref="Banks"/>).</summary>
+        public const float BankShare = 0.18f;
+
+        /// <summary>The dark line on a bank's water side, in cells.</summary>
+        public const float BankLineShare = 0.04f;
 
         /// <summary>How far a buildable site's glow reaches onto its near bank, in cells (<see cref="RoundBridgeSite.Glow"/>).</summary>
         public const float GlowReach = 0.25f;
@@ -325,11 +373,12 @@ namespace Bloomlings.Client.UI.Design
                 int d = choice.Cell - choice.Anchor;
                 RoundCrossing crossing = d == width ? RoundCrossing.Up : d == -width ? RoundCrossing.Down : d == -1 ? RoundCrossing.Left : RoundCrossing.Right;
                 bool onWall = choice.Cell >= 0 && choice.Cell < stone.Length && stone[choice.Cell];
-                sites.Add(new RoundBridgeSite(i, choice.Cell, choice.Anchor, choice.Label, CellBox(choice.Cell), CellBox(choice.Anchor), crossing, onWall));
+                sites.Add(new RoundBridgeSite(i, choice.Cell, choice.Anchor, choice.Label, CellBox(choice.Cell), CellBox(choice.Anchor), crossing, onWall, choice.Shown));
             }
 
             Bridges = sites;
             StripPieces = Pieces();
+            Banks = BanksOf();
         }
 
         /// <summary>The rows' width, the wall included.</summary>
@@ -484,6 +533,71 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The same board moved so its frame's bottom is on <paramref name="bottom"/> (the cube size kept).</summary>
         public RoundBoardLayout DockBottom(float bottom) =>
             new RoundBoardLayout(Outer.Offset(0f, bottom - Outer.Bottom), Width, Height, _kinds, _materials, _entries, _bridge, _stone, _maxCell);
+
+        /// <summary>
+        /// The stone banks along the stream (the owner, 2026-10-31: the water round the pictures "must stand out clearly", it
+        /// blended with the blue cubes): on every side of a water cell inside the frame (a stream cell or a bridge site that
+        /// is not stone) whose neighbour is neither water nor stone nor the frame, a band <see cref="BankShare"/> of a cell
+        /// wide in the frame's cream stone with a dark line on its water side. Hosts draw them over the water and under the
+        /// cubes, so a standing cube's front face covers the bank above it until it is eaten. Static: the strips never change.
+        /// </summary>
+        public IReadOnlyList<RoundBank> Banks { get; }
+
+        private List<RoundBank> BanksOf()
+        {
+            var banks = new List<RoundBank>();
+            float band = Math.Max(1f, Cell * BankShare);
+            float line = Math.Max(1f, Cell * BankLineShare);
+            for (int y = 1; y < Height - 1; y++)
+            {
+                for (int x = 1; x < Width - 1; x++)
+                {
+                    int cell = (y * Width) + x;
+                    if (!IsWater(cell))
+                    {
+                        continue;
+                    }
+
+                    Box b = CellBox(cell);
+                    // Up on screen is the row above (y + 1), down the row below (y - 1).
+                    if (IsShore(x, y + 1))
+                    {
+                        banks.Add(new RoundBank(new Box(b.Left, b.Top, b.Right, b.Top + band), new Box(b.Left, b.Top + band - line, b.Right, b.Top + band)));
+                    }
+
+                    if (IsShore(x, y - 1))
+                    {
+                        banks.Add(new RoundBank(new Box(b.Left, b.Bottom - band, b.Right, b.Bottom), new Box(b.Left, b.Bottom - band, b.Right, b.Bottom - band + line)));
+                    }
+
+                    if (IsShore(x - 1, y))
+                    {
+                        banks.Add(new RoundBank(new Box(b.Left, b.Top, b.Left + band, b.Bottom), new Box(b.Left + band - line, b.Top, b.Left + band, b.Bottom)));
+                    }
+
+                    if (IsShore(x + 1, y))
+                    {
+                        banks.Add(new RoundBank(new Box(b.Right - band, b.Top, b.Right, b.Bottom), new Box(b.Right - band, b.Top, b.Right - band + line, b.Bottom)));
+                    }
+                }
+            }
+
+            return banks;
+        }
+
+        /// <summary>Whether a cell is the stream's water: a stream cell, or a bridge site that is not in a stone wall.</summary>
+        public bool IsWater(int cell) => _kinds[cell] == RoundCellKind.Stream || (_kinds[cell] == RoundCellKind.BridgeSite && !_stone[cell]);
+
+        private bool IsShore(int x, int y)
+        {
+            if (!IsInner(x, y))
+            {
+                return false;
+            }
+
+            int cell = (y * Width) + x;
+            return !IsWater(cell) && _kinds[cell] != RoundCellKind.Wall && _kinds[cell] != RoundCellKind.BridgeSite;
+        }
 
         /// <summary>Whether (<paramref name="x"/>, <paramref name="y"/>) is inside the frame (row 0 at the bottom).</summary>
         public bool IsInner(int x, int y) => x > 0 && y > 0 && x < Width - 1 && y < Height - 1;
