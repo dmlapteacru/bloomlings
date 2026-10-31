@@ -45,6 +45,12 @@ The commands below remain the building blocks. Use them directly only to debug o
 pass every check and your look. Every Super Hard, every bridge level and a Hard the generator does not manage are built
 by hand (skill `bloomlings-round-wave`, step «Hand-built positions»): do not spend generator runs on them.
 
+**The calm test and trap links** (17 §5, §8, the owner, 2026-10-31): besides the random test, every candidate gets the
+calm test (`measure.mjs calmTest`: the same choices with the board settled before each, the class's best bridge): a Hard
+wins at most 50 %, a Super Hard at most 25 % (evaluate refuses it), a regular Normal at least 50 % (the placer holds it,
+measuring a banked candidate when needed); a Hard or Super Hard with links needs a trap link (`trapLinks`: a member whose
+material is hidden at the start). A result still crossing a threshold after 400 games is borderline: shown to the owner.
+
 **A bridge level's class** (17 §5, the owner, 2026-10-30) is the random test with its best bridge only: the deciding one,
 or the one the random games win more often when both win. `evaluate` records it as `random` (with `bridge`) and the
 test over both bridges as `randomAll`; the card shows both. The export refuses such a level until the proof format

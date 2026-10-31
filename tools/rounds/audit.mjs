@@ -7,7 +7,7 @@ import fs from 'node:fs';import path from 'node:path';
 import {LEVELS,CODES,readJSON,lid,arg,picture,measure,fitsStage,stageOf,budget,columnsFor,slotOf,SUPPORTED,FIXED_VOLUMES,motifsOf,boardOf,overlaid} from './lib.mjs';
 import {engine} from './engine.mjs';
 import {run} from '../level-stats/trace.mjs';
-import {bridgeChoicesWin,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,pressure} from './measure.mjs';
+import {bridgeChoicesWin,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,pressure,calmTest,calmFails,trapLinks} from './measure.mjs';
 import {INTRO,planOf,repeatWindow} from './lib.mjs';
 import {fitness} from './fitness.mjs';
 const from=+process.argv[2]||1,to=+process.argv[3]||20,preview=arg('--preview'),out=arg('--out');
@@ -87,6 +87,11 @@ for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
  if(n>=4){const f=await forcedShare(d);if(f>.35)bad.push(`вынужденных решений ${Math.round(f*100)} % > 35 % (§5)`);L._forced=f;}
  const prevL=levels[n-1]||readJSON(path.join(LEVELS,lid(n-1)+'.json'));L._regular=L.cls==='Normal'&&n>3&&!L.intro&&!(prevL&&prevL.cls!=='Normal');
  if(L._regular&&!(L.recipe||'').includes('bridge')&&!(await holdPod(d)))bad.push('обычный Normal без пода, держащего место (§6)');
+ // §5 the calm test and §8 trap links (the owner's amendment of 2026-10-31): with the board settled before every tap a Hard
+ // wins at most 50 %, a Super Hard at most 25 %, a regular Normal at least 50 % (the class's best bridge); a Hard or Super
+ // Hard with links has a group with a member whose material is hidden at the start
+ if(!slot.intro&&n>3){const calm=await calmTest(d,L.random&&L.random.bridge!=null?{bridge:L.random.bridge}:{});L._calm=calm.share;const cf=calmFails(L.cls,calm,L._regular);if(cf)bad.push(cf);else if(calm.borderline&&(L.cls!=='Normal'||L._regular))soft.push(`спокойная игра ${Math.round(calm.share*100)} % на границе по Wilson — решение человека (§5)`);
+  const tl=trapLinks(d);if((L.cls==='Hard'||L.cls==='Super Hard')&&tl.length&&!tl.some(x=>x.trap))bad.push('нет связки-ловушки: у каждой связки материалы открыты с самого начала (§8)');}
  // layer B (§13, content/rounds/quality.json): pods without work at least the class's bound; soft notes unless mode 'hard'
  {const pm=slot.intro?null:L._regular?QUALITY.pressure.min.regularNormal:L.cls!=='Normal'?QUALITY.pressure.min[L.cls]:null;
   if(pm!=null){const pr=await pressure(d,QUALITY.pressure.games);L._pressure=pr.stuck;if(pr.stuck<pm)(QUALITY.pressure.mode==='hard'?bad:soft).push(`слой Б: стоят без работы ${pr.stuck} < ${pm} (§13, quality.json)`);}}
@@ -132,10 +137,10 @@ for(let n=from;n<=to;n++){const a=levels[n];if(!a)continue;const [lo,hi]=repeatW
 const wide=Object.values(levels).filter(L=>L&&L.colours>=10).length;if(wide>2)seq.push(`картинок с 10–11 цветами ${wide} > 2 в 20 (§2)`);
 const pics=Object.values(levels).filter(Boolean).map(L=>L.picture);if(new Set(pics).size!==pics.length)seq.push('одна картинка на двух уровнях');
 // report
-const lines=[`# Проверка уровней ${from}–${to} по правилам 17`,'',`| Уровень | Класс | Картинка | Вынужденных | «По цветам» | Дебют + цвета (1 / 3 запуска) | Стоят без работы | Обязательные правила | Замечания (мягкие ориентиры) |`,'|---|---|---|---|---|---|---|---|---|'];
+const lines=[`# Проверка уровней ${from}–${to} по правилам 17`,'',`| Уровень | Класс | Картинка | Вынужденных | «По цветам» | Дебют + цвета (1 / 3 запуска) | Стоят без работы | Спокойно | Обязательные правила | Замечания (мягкие ориентиры) |`,'|---|---|---|---|---|---|---|---|---|---|'];
 let fails=0;for(const r of rows){if(r.missing){lines.push(`| ${r.n} | — | — | нет уровня | |`);fails++;continue;}if(r.bad.length)fails++;
  const st=r.L.strategies||{},gl=!st['most-now|left']&&!st['most-now|right'],o=r.L._opening;
- lines.push(`| ${r.n} | ${r.L.cls}${r.L.intro?' · знакомство':''} | ${r.L.picture} «${picture(r.L.picture)?.title||''}» | ${r.L._forced!=null?Math.round(r.L._forced*100)+' %':'—'} | ${gl?'проигрывает':'выигрывает'} | ${o?`${o.first.wins} из ${o.first.openings} / ${Math.round(o.three.share*100)} %`:'—'} | ${r.L._pressure!=null?r.L._pressure:'—'} | ${r.bad.length?'НЕТ: '+r.bad.join('; '):'OK'} | ${r.soft.join('; ')||'—'} |`);}
+ lines.push(`| ${r.n} | ${r.L.cls}${r.L.intro?' · знакомство':''} | ${r.L.picture} «${picture(r.L.picture)?.title||''}» | ${r.L._forced!=null?Math.round(r.L._forced*100)+' %':'—'} | ${gl?'проигрывает':'выигрывает'} | ${o?`${o.first.wins} из ${o.first.openings} / ${Math.round(o.three.share*100)} %`:'—'} | ${r.L._pressure!=null?r.L._pressure:'—'} | ${r.L._calm!=null?Math.round(r.L._calm*100)+' %':'—'} | ${r.bad.length?'НЕТ: '+r.bad.join('; '):'OK'} | ${r.soft.join('; ')||'—'} |`);}
 lines.push('',`Последовательность (§2, §11, мотивы): ${seq.length?seq.join('; '):'OK'}`,'',fails||seq.length?`Итог: нарушений обязательных правил — ${fails} уровней${seq.length?`, последовательность — ${seq.length}`:''}.`:'Итог: все обязательные правила соблюдены.');
 const text=lines.join('\n')+'\n';if(out)fs.writeFileSync(out,text);
 // --json <file>: the same verdicts as data, for the exporter's entry check (tools/rounds/export.mjs)

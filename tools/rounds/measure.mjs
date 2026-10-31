@@ -31,6 +31,35 @@ export async function randomTest(level,{seed=1,first=100,max=400,bridge=null}={}
  play(first);let ci=wilson(wins,n);const crosses=([a,b])=>[.05,.2,.5].some(x=>a<x&&b>=x);
  if(crosses(ci)&&max>first){play(max-first);ci=wilson(wins,n);}
  return {runs:n,wins,share:Math.round(wins/n*1000)/1000,wilson95:ci.map(x=>Math.round(x*1000)/1000),cls:classOfShare(wins/n),borderline:crosses(ci),protocol:'§5 extended: uniform over legal actions + wait before a scheduled event, ×1',seedBase:seed,...(bridge===null?{}:{bridge})};}
+// the calm test (17 §5, the owner's amendment of 2026-10-31, after the Colony Flow patterns): the same choices as the random
+// test (a pod, a whole group, the best bridge of a bridge level), but before every one the board plays until nothing more
+// changes (the idle engine), so only the order of the choices counts, never the tempo. Hard ≤ 50 %, Super Hard ≤ 25 %,
+// a regular Normal ≥ 50 % (CF's exact models: Hard 25–27 %, Super Hard 12–16 %, Normal 68–100 %).
+export async function calmTest(level,{first=200,max=400,seed=3,bridge=null,borders=[.25,.5]}={}){const {R,idle:I}=await engine();let wins=0,n=0;
+ const play=k=>{for(let i=0;i<k;i++){const r=rng(seed*7919+n*104729+5);let s=R.create(level,level.capacity||5),g=0;
+  while(s.status==='Playing'&&g++<5000){const mv=R.legal(s).filter(a=>bridge===null||a.type!=='bridge'||a.choice===bridge);if(!mv.length)break;const x=I.step(s,mv[Math.floor(r()*mv.length)]);if(!x.accepted)break;s=x.state;}
+  if(s.status==='Won')wins++;n++;}};
+ // 200 games, widened to 400 when the 95 % Wilson interval crosses a threshold of the calm rule (as the class test does)
+ const crosses=([a,b])=>borders.some(x=>a<x&&b>=x);play(first);let ci=wilson(wins,n);if(crosses(ci)&&max>first){play(max-first);ci=wilson(wins,n);}
+ return {runs:n,wins,share:Math.round(wins/n*1000)/1000,wilson95:ci.map(x=>Math.round(x*1000)/1000),borderline:crosses(ci),protocol:'§5 calm: uniform over legal actions, the board settled before each',seedBase:seed,...(bridge!==null?{bridge}:{})};}
+// the calm rule of a class (17 §5): null when it holds, else the reason; a borderline result (the Wilson interval still
+// crosses the threshold after 400 games) holds, as a borderline class does, and is left to a person
+export function calmFails(cls,calm,regularNormal=false){if(!calm||calm.borderline)return null;
+ if(cls==='Hard'&&calm.share>.5)return `спокойная игра: Hard выигрывается в ${Math.round(calm.share*100)} % (не больше 50 %, §5)`;
+ if(cls==='Super Hard'&&calm.share>.25)return `спокойная игра: Super Hard выигрывается в ${Math.round(calm.share*100)} % (не больше 25 %, §5)`;
+ if(regularNormal&&cls==='Normal'&&calm.share<.5)return `спокойная игра: Normal выигрывается в ${Math.round(calm.share*100)} % (не меньше 50 %, §5)`;
+ return null;}
+// trap links (17 §8, the owner's amendment of 2026-10-31): a linked group with a member whose material has no cell on the
+// open front at the start (its access depth is above 0, or a strip keeps it behind a bridge), so the group holds its places
+// long; row is the group's highest start row in its column (1 = top)
+const CODES16='GPBACDVYOLMRKNSE';
+export function trapLinks(level){const {w,h,rowsBottomFirst:rows,entries}=level,g=rows.join(''),d=new Float64Array(w*h).fill(Infinity),dq=[];for(const e of entries){d[e]=0;dq.push(e);}
+ while(dq.length){const c=dq.shift(),x=c%w,y=Math.floor(c/w);for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const u=x+dx,v=y+dy;if(u<0||v<0||u>=w||v>=h)continue;const n=v*w+u;if(g[n]==='#'||g[n]==='b')continue;
+  const cost=CODES16.includes(g[c])?1:0,nd=d[c]+cost;if(nd<d[n]){d[n]=nd;cost?dq.push(n):dq.unshift(n);}}}
+ const minD={};for(let i=0;i<g.length;i++)if(CODES16.includes(g[i]))minD[g[i]]=Math.min(minD[g[i]]??Infinity,d[i]);
+ const groups=new Map();level.pods.forEach((p,i)=>{if(p.group){if(!groups.has(p.group))groups.set(p.group,[]);groups.get(p.group).push(i);}});
+ const rowOf=i=>{for(const st of level.tray){const r=st.indexOf(i);if(r>=0)return r+1;}return null;};
+ return [...groups].map(([group,m])=>({group,trap:m.some(i=>(minD[level.pods[i].color]??0)>0),row:Math.min(...m.map(rowOf))}));}
 // a quick estimate for screening candidates before the full test
 export async function quickShare(level,games=40,seed=11,bridge=null){const E=await engine(),keep=bridge===null?null:a=>a.type!=='bridge'||a.choice===bridge;let w=0;for(let i=0;i<games;i++)if(randomGame(E,level,seed*31+i*977,keep))w++;return w/games;}
 

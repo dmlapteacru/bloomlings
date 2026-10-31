@@ -1,5 +1,20 @@
 # Bloomlings Pre-production v0.5 — Revision Notes
 
+## Owner decisions · 2026-10-31 — calm test, trap links (after the Colony Flow tap patterns)
+
+- [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md) §5: the class is also checked by the **calm test** — the
+  random test's choices (a pod, a whole link, a bridge level's best bridge) with the board settled before every one, so
+  only the order of choices counts: Hard at most 50 %, Super Hard at most 25 %, a regular Normal at least 50 %; 200 games,
+  400 when the Wilson interval crosses a threshold, a result still crossing it is left to a person. CF's exact models
+  calm: Hard 25–27 %, Super Hard 12–16 %, Normal 68–100 % (L26 fast: 0 %) —
+  [`audits/colony-flow-patterns/README.md`](audits/colony-flow-patterns/README.md).
+- §8: a Hard or Super Hard with links has at least one **trap link**: a member whose material has no cell on the open front
+  at the start, so the link holds two places long (CF L20, L25: in the places in every calm loss); in the top two rows is
+  a guideline.
+- Tools: `tools/rounds/measure.mjs` `calmTest`, `calmFails`, `trapLinks`; `levels.mjs` evaluate refuses a Hard or Super
+  Hard that fails them, `place` holds a regular Normal to 50 % calm (measuring banked candidates when needed), `checks`
+  adds both; `audit.mjs` makes them mandatory with a «Спокойно» column. Wave L21–L50: L25, L27, L29, L42, L48 rebuilt.
+
 ## Owner decisions · 2026-10-30 — the difficulty is the pods'; Super Hard and bridge levels by hand
 
 - [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md) §7: the difficulty is built by the pods (the queue's
