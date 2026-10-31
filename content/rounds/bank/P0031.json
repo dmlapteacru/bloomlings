@@ -415,6 +415,23 @@
     "pressure": {
      "stuck": 0.47,
      "tight": 0.88
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 191,
+     "share": 0.955,
+     "wilson95": [
+      0.917,
+      0.976
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 3,
+     "traps": 0,
+     "top": 0
     }
    },
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
