@@ -97,7 +97,7 @@ namespace Bloomlings.Client.Tests
                 bool inRules = play.Animator.Walkers.Any(w => w.Id == first.Id);
                 bool shown = play.Animator.ShownWalkers.Any(w => w.Id == first.Id);
                 Assert.That(inRules, Is.EqualTo(now < first.Done), "the rules' courier is home at its return");
-                Assert.That(shown, Is.EqualTo(now < first.Done + RoundAnimator.LingerUs), "drawn until the return plus the linger");
+                Assert.That(shown, Is.EqualTo(now < RoundAnimator.HomeUs(first)), "drawn until its look is home");
                 if (shown && !inRules)
                 {
                     lingered = true;
@@ -210,7 +210,9 @@ namespace Bloomlings.Client.Tests
                 Assert.That(ClearLook.Holds(style, walk, 1.75f), Is.True, style + ": acting until the clear");
                 Assert.That(ClearLook.Holds(style, walk, 1.8f + linger - 0.05f), Is.True, style + ": still acting the linger after the clear");
                 Assert.That(ClearLook.Holds(style, walk, 1.8f + linger + 0.05f), Is.False, style + ": the act is over, the cell is cleared");
-                foreach (float now in new[] { 1.4f, 2.4f + linger - 0.2f })
+                float home = ClearStyles.LiveHomeAt(1f, 1.7f, 1.8f, 2.4f);
+                Assert.That(home, Is.EqualTo(1.8f + linger + 0.7f).Within(1e-5f), "home at the way out's pace (0.7 s), not the rules' 0.6 s");
+                foreach (float now in new[] { 1.4f, home - 0.3f })
                 {
                     var list = new FxList();
                     ClearLook.Walker(list, style, walk, now);
@@ -219,7 +221,7 @@ namespace Bloomlings.Client.Tests
                 }
 
                 var done = new FxList();
-                ClearLook.Walker(done, style, walk, 2.4f + linger + 0.05f);
+                ClearLook.Walker(done, style, walk, home + 0.05f);
                 Assert.That(done.Items, Is.Empty, style + ": home");
             }
 

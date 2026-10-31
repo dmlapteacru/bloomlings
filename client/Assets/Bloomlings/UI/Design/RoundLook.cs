@@ -41,6 +41,12 @@ namespace Bloomlings.Client.UI.Design
         /// leaf, the flower, the drop and the acorn (the owner, 2026-10-31: the acorn instead of the log, nearer Twig's acorn
         /// hat; the walkers stay these characters, not the meta screens' heroes).
         /// </summary>
+        /// <summary>
+        /// A hidden pod's cube (the owner, 2026-10-31: neutral, as the reference game's): a dark neutral grey in every row,
+        /// white "?" marks on its top, no material colour until it reveals.
+        /// </summary>
+        public static readonly Rgba HiddenPodColor = Rgba.FromHex("#4A4C55");
+
         public static VariantId WalkerVariant(Family family) => family switch
         {
             Family.Bloom => VariantId.Flower,

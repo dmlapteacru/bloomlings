@@ -442,13 +442,11 @@ namespace Bloomlings.Client.UI
                 _side.transform.SetSiblingIndex(_material.transform.GetSiblingIndex());
             }
 
-            _side.gameObject.SetActive(sideStep != 0);
+            // Pods have no side face (the owner, 2026-10-31; the board's cubes keep theirs).
+            _side.gameObject.SetActive(false);
             int key = ((material + 1) * 8) + (symbolsMode ? 4 : 0) + (Waiting ? 2 : 0);
             if (key != _round || sideChanged)
             {
-                bool left = sideStep < 0;
-                float topShare = 1f - (Waiting ? RoundScreenLook.WaitingDepthShare : RoundScreenLook.CubeDepthShare);
-                PictureFit.On(_side, (w, h) => RoundSprites.SideFace(material, left, topShare, w, h));
                 bool dim = Waiting;
                 RoundPodLook cubeLook = dim ? RoundPodLook.Waiting : RoundPodLook.Top;
                 PictureFit.On(_material, (w, h) => RoundSprites.PodCube(material, cubeLook, symbolsMode, System.Math.Min(w, h)), square: true);

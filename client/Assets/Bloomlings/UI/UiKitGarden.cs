@@ -1295,27 +1295,20 @@ namespace Bloomlings.Client.UI
             if (key != _materialKey)
             {
                 _materialKey = key;
-                PictureFit.On(_material, (w, h) => RoundSprites.PodCube(material, RoundPodLook.Placed, symbolsMode, Math.Min(w, h), stuck), square: true);
+                // A waiting pod keeps its colour, paler, as the columns' waiting pods (the owner, 2026-10-31: no neutral grey).
+                PictureFit.On(_material, (w, h) => RoundSprites.PodCube(material, stuck ? RoundPodLook.Waiting : RoundPodLook.Placed, symbolsMode, Math.Min(w, h)), square: true);
             }
 
-            // Its side face by its place across the screen (constitution 1.2.0 VII).
-            if (_side == null)
+            // Pods have no side face (the owner, 2026-10-31; the board's cubes keep theirs).
+            if (_side != null)
             {
-                _side = UiFactory.CreateImage("Side", _filled.transform, null, Color.white);
-                _side.raycastTarget = false;
-                _side.transform.SetSiblingIndex(_material.transform.GetSiblingIndex());
+                _side.gameObject.SetActive(false);
             }
 
-            _side.gameObject.SetActive(sideStep != 0);
-            if (sideStep != 0)
-            {
-                bool left = sideStep < 0;
-                PictureFit.On(_side, (w, h) => RoundSprites.SideFace(material, left, 1f - RoundScreenLook.CubeDepthShare, w, h, stuck));
-            }
-
-            // The pod's cube keeps its number big in the middle of its top (spec 006 FR-064), no corner count.
+            // The pod's cube keeps its number big in the middle of its top (spec 006 FR-064), no corner count; half clear
+            // while it waits.
             _roundCube = true;
-            UiKit.ApplyLook(_count, GameplaySkin.PodCount, PodChip.CountLook(stuck));
+            UiKit.ApplyLook(_count, GameplaySkin.PodCount, PodChip.CubeCountLook(stuck));
             _layout.Apply();
         }
 

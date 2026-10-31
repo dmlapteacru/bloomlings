@@ -116,8 +116,14 @@ namespace Bloomlings.Client.UI.Design
         private readonly List<RoundWalk> _drawn = new List<RoundWalk>();
         private bool _drawnDirty = true;
 
-        /// <summary>How long a walker is drawn after the rules' return (<see cref="ClearStyles.LiveLinger"/>), display µs.</summary>
+        /// <summary>How long a walker's act is drawn after the rules' clear (<see cref="ClearStyles.LiveLinger"/>), display µs.</summary>
         public static readonly long LingerUs = (long)Math.Round(ClearStyles.LiveLinger * 1_000_000.0);
+
+        /// <summary>
+        /// When a walker's look is home again, display µs (<see cref="ClearStyles.LiveHomeAt"/>): its act to the clear plus the
+        /// linger, then home at its way out's pace.
+        /// </summary>
+        public static long HomeUs(RoundWalk walk) => walk.Clear + LingerUs + Math.Max(walk.Done - walk.Clear, walk.Arrive - walk.Start);
         private readonly long[] _revealedAt;
         private readonly long[] _committedAt;
         private readonly long[] _recalledAt;
@@ -174,8 +180,8 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// The walkers to draw: the couriers on the way, then those the rules have home already whose look still walks back,
-        /// until their return plus <see cref="LingerUs"/> (the act lasts past the clear by <see cref="ClearStyles.LiveLinger"/>,
-        /// the walk home at the rules' pace that much later). Presentation only.
+        /// until <see cref="HomeUs"/> (the act lasts past the clear by <see cref="ClearStyles.LiveLinger"/>, the walk home at the
+        /// way out's pace). Presentation only.
         /// </summary>
         public IReadOnlyList<RoundWalk> ShownWalkers
         {
@@ -252,7 +258,7 @@ namespace Bloomlings.Client.UI.Design
             // A walker home in the rules is drawn until its look is home too.
             for (int w = _homing.Count - 1; w >= 0; w--)
             {
-                if (_homing[w].Done + LingerUs <= Now)
+                if (HomeUs(_homing[w]) <= Now)
                 {
                     _homing.RemoveAt(w);
                     _drawnDirty = true;
@@ -298,7 +304,7 @@ namespace Bloomlings.Client.UI.Design
                         {
                             if (_walkers[w].Id == e.Id)
                             {
-                                if (_walkers[w].Done + LingerUs > Now)
+                                if (HomeUs(_walkers[w]) > Now)
                                 {
                                     _homing.Add(_walkers[w]);
                                 }

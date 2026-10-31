@@ -584,7 +584,7 @@ namespace Bloomlings.Playtest.Design
 
                 bool symbols = s.Symbols;
                 Kit.SlotPlate(p, plate, working ? SlotPlateState.Working : SlotPlateState.Stuck, null, a.Remaining(pod), extra, tile: (box, stuck) =>
-                    Kit.PlacedCube(p, box, material, a.Remaining(pod), stuck, symbols, ScreenSide(p, box)));
+                    Kit.PlacedCube(p, box, material, a.Remaining(pod), stuck, symbols));
                 if (arrival < 1f)
                 {
                     p.PopAlpha();
@@ -599,7 +599,6 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>The side face's step of a pod or place at <paramref name="box"/>, by its distance from the screen's middle (constitution 1.2.0 VII).</summary>
-        private static int ScreenSide(IPainter p, Box box) => RoundLook.SideStep(box.CenterX - (p.Width / 2f), p.Width / 2f);
 
         /// <summary>The materials with a cube in reach now (a place whose material has none waits, greyed).</summary>
         private static void ReachableMaterials(RoundTimeline t, bool[] into)
@@ -759,7 +758,7 @@ namespace Bloomlings.Playtest.Design
                 p.PushSquash(drawn.Width / Math.Max(1f, layout.Width), drawn.Height / Math.Max(1f, layout.Height), layout.Left, layout.Top);
                 Kit.Squash(p, layout, press, tile: true);
                 RoundMaterial? material = a.Revealed(pod) ? RoundMaterial.All[a.MaterialOf(pod)] : null;
-                Kit.RoundPod(p, chip, material, a.Remaining(pod), look, depth > 0, s.Symbols, ScreenSide(p, layout));
+                Kit.RoundPod(p, chip, material, a.Remaining(pod), look, depth > 0, s.Symbols);
                 p.PopTransform();
                 p.PopTransform();
                 p.PopTransform();

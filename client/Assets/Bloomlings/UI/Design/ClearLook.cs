@@ -160,11 +160,23 @@ namespace Bloomlings.Client.UI.Design
 
             list.Slot = SlotOf(style);
             list.Material = walk.Material;
-            _pop = walk.IsLive ? ClearStyles.LiveWalkScale : 1f;
+            _pop = walk.IsLive ? ClearStyles.LiveWalkScale * spot.GateSize : 1f;
             _liveAct = walk.IsLive;
+            bool gate = walk.IsLive && spot.GateAlpha < 1f;
+            if (gate)
+            {
+                list.PushAlpha(spot.GateAlpha);
+            }
             if (walk.IsLive && spot.Leg == Leg.Back && style != ClearStyle.Munchers && style != ClearStyle.Pushers)
             {
                 LiveReturn(list, style, walk, spot, now);
+                if (gate)
+                {
+                    list.Pop();
+                }
+
+                _pop = 1f;
+                _liveAct = false;
                 list.Material = -1;
                 list.Layer = FxLayer.Board;
                 return;
@@ -193,6 +205,11 @@ namespace Bloomlings.Client.UI.Design
                 default:
                     Blossom(list, walk, spot);
                     break;
+            }
+
+            if (gate)
+            {
+                list.Pop();
             }
 
             _pop = 1f;
@@ -931,6 +948,10 @@ namespace Bloomlings.Client.UI.Design
             public float Y;
             public float Hops;
             public bool Walking;
+
+            // A round walker stepping out of or into its gate: its size and opacity (1 elsewhere).
+            public float GateSize;
+            public float GateAlpha;
         }
 
         private static Spot Locate(ClearStyle style, in ClearWalk walk, float now)
@@ -994,12 +1015,14 @@ namespace Bloomlings.Client.UI.Design
             return spot;
         }
 
-        // A live walk: out from its start to its arrival, its act until the clear plus the linger, back at the rules' pace
-        // until it is home the linger after the rules' return (ClearStyles.LiveLinger).
+        // A live walk: out from its start to its arrival (setting off from a standstill), its act until the clear plus the
+        // linger, back at its way out's pace, slowing down into the gate (ClearStyles.LiveLinger, LiveHomeAt, GateEaseShare);
+        // it grows and fades in out of the arch and shrinks and fades into it (GateSeconds).
         private static Spot LocateLive(in ClearWalk walk, float now)
         {
             int segments = Math.Max(1, walk.Points.Count - 1);
-            var spot = new Spot();
+            var spot = new Spot { GateSize = 1f, GateAlpha = 1f };
+            float home = ClearStyles.LiveHomeAt(walk.Start, walk.ArriveAt, walk.ClearAt, walk.DoneAt);
             (float X, float Y) at;
             if (now < walk.Start)
             {
@@ -1008,12 +1031,13 @@ namespace Bloomlings.Client.UI.Design
             }
             else if (now < walk.ArriveAt)
             {
-                float progress = Clamp01((now - walk.Start) / Math.Max(1e-4f, walk.ArriveAt - walk.Start));
+                float progress = SetOff(Clamp01((now - walk.Start) / Math.Max(1e-4f, walk.ArriveAt - walk.Start)));
                 at = Along(walk.Points, progress);
                 spot.Leg = Leg.Out;
                 spot.U = progress;
                 spot.Hops = progress * segments * HopsPerCell;
                 spot.Walking = progress < 1f;
+                Gate(ref spot, (now - walk.Start) / ClearStyles.GateSeconds);
             }
             else if (now < walk.ClearAt + ClearStyles.LiveLinger)
             {
@@ -1023,14 +1047,16 @@ namespace Bloomlings.Client.UI.Design
                 spot.U = Clamp01((now - walk.ArriveAt) / Math.Max(1e-4f, walk.ClearAt + ClearStyles.LiveLinger - walk.ArriveAt));
                 spot.Hops = segments * HopsPerCell;
             }
-            else if (now < walk.DoneAt + ClearStyles.LiveLinger)
+            else if (now < home)
             {
-                // Home at the rules' pace, the linger later.
+                // Home at its way out's pace, slowing down into the gate.
+                float from = walk.ClearAt + ClearStyles.LiveLinger;
                 spot.Leg = Leg.Back;
-                spot.U = Clamp01((now - walk.ClearAt - ClearStyles.LiveLinger) / Math.Max(1e-4f, walk.DoneAt - walk.ClearAt));
+                spot.U = 1f - SetOff(1f - Clamp01((now - from) / Math.Max(1e-4f, home - from)));
                 at = Along(walk.Points, 1f - spot.U);
                 spot.Hops = (segments * HopsPerCell) + (spot.U * segments * HopsPerCell);
                 spot.Walking = true;
+                Gate(ref spot, (home - now) / ClearStyles.GateSeconds);
             }
             else
             {
@@ -1045,6 +1071,24 @@ namespace Bloomlings.Client.UI.Design
         }
 
         private static float Swing(Spot spot) => (float)Math.Sin(spot.Hops * Math.PI);
+
+        // The share of the way covered at time share t when the walker sets off from a standstill: constant acceleration over
+        // ClearStyles.GateEaseShare of the time, then its steady pace (a little quicker than the average, so it still arrives
+        // on time).
+        private static float SetOff(float t)
+        {
+            float a = ClearStyles.GateEaseShare;
+            float v = 1f / (1f - (a / 2f));
+            return t < a ? v * t * t / (2f * a) : (v * a / 2f) + (v * (t - a));
+        }
+
+        // Stepping out of or into the arch: k from 0 (in the arch) to 1 (out of it).
+        private static void Gate(ref Spot spot, float k)
+        {
+            float g = Smooth(Clamp01(k));
+            spot.GateSize = ClearStyles.GateScale + ((1f - ClearStyles.GateScale) * g);
+            spot.GateAlpha = g;
+        }
 
         private static (float X, float Y) Along(IReadOnlyList<(float X, float Y)> points, float progress)
         {

@@ -303,7 +303,8 @@ namespace Bloomlings.Client.UI.Design
             float s = size;
             float ring = s * RoundScreenLook.PodRingShare;
             float m = ring;
-            Rgba col = hidden ? C.TileMystery : look == RoundPodLook.Waiting ? RoundLook.WaitingColor(color) : color;
+            // A hidden pod is the neutral dark "?" cube in every row (the owner, 2026-10-31, as the reference game's).
+            Rgba col = hidden ? RoundLook.HiddenPodColor : look == RoundPodLook.Waiting ? RoundLook.WaitingColor(color) : color;
             float front = look == RoundPodLook.Waiting ? RoundScreenLook.WaitingDepthShare : RoundScreenLook.CubeDepthShare;
             float bevel = s * RoundScreenLook.BoardBevelShare * 0.8f;
             float topBottom = (s - m) - ((s - (2f * m)) * front);
@@ -323,11 +324,22 @@ namespace Bloomlings.Client.UI.Design
                     (Color c, float cover, float _) = ObliqueCube(x, y, s, s, col, front, m, m, bevel, 0f);
                     if (mystery != null && cover > 0f)
                     {
-                        float u = (x - (s / 2f)) / mysteryUnit;
-                        float v = -(y - ((m + topBottom) / 2f)) / mysteryUnit;
-                        if (Math.Abs(u) < 1.3f && Math.Abs(v) < 1.3f)
+                        // A big "?" in the middle of the top and four small ones round it, white.
+                        float cx = s / 2f;
+                        float cy = (m + topBottom) / 2f;
+                        float dx = (s - (2f * m)) * 0.3f;
+                        float dy = (topBottom - m) * 0.32f;
+                        for (int q = 0; q < 5; q++)
                         {
-                            c.Mix(Rgba.White, Coverage(mystery(u, v) * mysteryUnit));
+                            float unit = q == 0 ? mysteryUnit : mysteryUnit * 0.4f;
+                            float ox = q == 0 ? 0f : (q % 2 == 1 ? -dx : dx);
+                            float oy = q == 0 ? 0f : (q < 3 ? -dy : dy);
+                            float u = (x - cx - ox) / unit;
+                            float v = -(y - cy - oy) / unit;
+                            if (Math.Abs(u) < 1.3f && Math.Abs(v) < 1.3f)
+                            {
+                                c.Mix(Rgba.White, Coverage(mystery(u, v) * unit) * (q == 0 ? 1f : 0.85f));
+                            }
                         }
                     }
 

@@ -180,16 +180,11 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// A round pod's cube picture filling the square in <paramref name="box"/> (<see cref="UiRaster.PodCube"/>,
-        /// <c>pod.cube</c>): <paramref name="material"/> null is the hidden "?" cube; <paramref name="grey"/> a stuck place's.
+        /// <c>pod.cube</c>): <paramref name="material"/> null is the hidden "?" cube; <paramref name="grey"/> greys it. Pods have
+        /// no side face (the owner, 2026-10-31; the board's cubes keep theirs).
         /// </summary>
-        public static void PodCubePicture(IPainter p, Box box, RoundMaterial? material, RoundPodLook look, bool symbolsMode, bool grey = false, int sideStep = 0)
+        public static void PodCubePicture(IPainter p, Box box, RoundMaterial? material, RoundPodLook look, bool symbolsMode, bool grey = false)
         {
-            if (sideStep != 0)
-            {
-                float depth = look == RoundPodLook.Waiting ? RoundScreenLook.WaitingDepthShare : RoundScreenLook.CubeDepthShare;
-                SideFace(p, RoundLook.SideBox(RoundLook.PodBody(box), sideStep), material, sideStep < 0, 1f - depth, grey);
-            }
-
             p.Mark(RoundLook.PodCubeSlot);
             bool hidden = material == null;
             bool symbol = symbolsMode && !hidden;
@@ -215,16 +210,17 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// A round pod's cube in a place, in flight or on a card (spec 006 FR-064, Colony Flow's): the top row's cube without
-        /// its outline filling the square in <paramref name="box"/>, its number big in the middle of its top when
-        /// <paramref name="count"/> is given (no corner count), greyed while stuck.
+        /// A round pod's cube in a place, in flight or on a card (spec 006 FR-064): the top row's cube without its outline
+        /// filling the square in <paramref name="box"/>, its number big in the middle of its top when <paramref name="count"/>
+        /// is given (no corner count). While it waits (<paramref name="stuck"/>: work left, none in reach) it keeps its colour,
+        /// paler with its number half clear, as the columns' waiting pods (the owner, 2026-10-31: no neutral grey).
         /// </summary>
-        public static void PlacedCube(IPainter p, Box box, RoundMaterial material, int? count, bool stuck, bool symbolsMode, int sideStep = 0)
+        public static void PlacedCube(IPainter p, Box box, RoundMaterial material, int? count, bool stuck, bool symbolsMode)
         {
-            PodCubePicture(p, box, material, RoundPodLook.Placed, symbolsMode, stuck, sideStep);
+            PodCubePicture(p, box, material, stuck ? RoundPodLook.Waiting : RoundPodLook.Placed, symbolsMode);
             if (count.HasValue)
             {
-                CubeCount(p, PodChip.Cube(box).Count, count.Value, false, stuck);
+                CubeCount(p, PodChip.Cube(box, stuck).Count, count.Value, stuck);
             }
         }
 
@@ -259,11 +255,11 @@ namespace Bloomlings.Playtest.Design
         /// (<see cref="PodChip.Cube"/>, <see cref="PodChip.CubeCountLook"/>); a hidden pod (<paramref name="material"/> null)
         /// is the neutral "?" cube with no number until it reveals (FR-007). A pressed pod sinks a little. Returns its box.
         /// </summary>
-        public static Box RoundPod(IPainter p, PodChip chip, RoundMaterial? material, int count, PodLook look, bool waiting, bool symbolsMode, int sideStep = 0)
+        public static Box RoundPod(IPainter p, PodChip chip, RoundMaterial? material, int count, PodLook look, bool waiting, bool symbolsMode)
         {
             float sink = look == PodLook.Pressed ? chip.Frame.Height * 0.04f : 0f;
             Box cube = chip.Frame.Offset(0f, sink);
-            PodCubePicture(p, cube, material, waiting ? RoundPodLook.Waiting : RoundPodLook.Top, symbolsMode, false, sideStep);
+            PodCubePicture(p, cube, material, waiting ? RoundPodLook.Waiting : RoundPodLook.Top, symbolsMode);
             if (material != null)
             {
                 CubeCount(p, chip.Count.Offset(0f, sink), count, waiting);

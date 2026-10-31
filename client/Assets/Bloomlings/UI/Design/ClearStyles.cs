@@ -123,6 +123,30 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public const float LiveWalkScale = 1.575f;
 
+        /// <summary>
+        /// Seconds a round walker takes to step out of its gate and, on the way home, into it (the owner, 2026-10-31: they
+        /// shot out of the gate and flew into it): it grows from <see cref="GateScale"/> and fades in as it leaves the arch,
+        /// and shrinks and fades as it goes in.
+        /// </summary>
+        public const float GateSeconds = 0.25f;
+
+        /// <summary>A round walker's size in the arch, as a share of its own (<see cref="GateSeconds"/>).</summary>
+        public const float GateScale = 0.55f;
+
+        /// <summary>
+        /// The share of a round walker's way out it takes to reach its pace from a standstill at the gate, and of its way home
+        /// to slow down to one (constant acceleration; the walk's other times stay).
+        /// </summary>
+        public const float GateEaseShare = 0.3f;
+
+        /// <summary>
+        /// When a round walker's look is home again (seconds of the host's clock): its act lasts to the rules' clear plus
+        /// <see cref="LiveLinger"/>, then it walks home at its way out's pace (not the rules' quicker way back), so a trip
+        /// looks calm end to end. Presentation only: the rules' return stays.
+        /// </summary>
+        public static float LiveHomeAt(float start, float arrive, float clear, float done) =>
+            clear + LiveLinger + Math.Max(done - clear, arrive - start);
+
         /// <summary>The free style, every level's while no bought style is chosen (the owner, 2026-10-11: "Munchers stays the main one").</summary>
         public const ClearStyle Default = ClearStyle.Munchers;
 

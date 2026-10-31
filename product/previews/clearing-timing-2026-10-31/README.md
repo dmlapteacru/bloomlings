@@ -43,3 +43,16 @@ Videos (top: now, bottom: proposal), rendered by `playtest/preview -- --clear-vi
   `acorn-wider.png` (before / after, in Twig's four materials).
 - The log is gone: Wood's character is the acorn's (`CharacterArt.CharacterIcon`), its pictures removed from the set (53
   pictures), the Store's Pushers preview shows the acorn. The log's symbol on legacy tiles stays.
+
+## The owner's batch, the same day (pods and the gate)
+
+- Colony Flow's ants scale with the cubes too: measured on four levels, an ant's body is about 1.4 cubes long whatever
+  the board (5.6 px at 3.5 px cubes, 9 px at 6.6 px cubes), so ours keep their size in cubes.
+- A pod waiting in its place keeps its colour, paler with its number half clear, as the columns' waiting pods (no neutral
+  grey): `pods-waiting-places-L22.png`.
+- Pods and places have no side face (the board's cubes keep theirs).
+- A hidden pod is the reference game's neutral cube: dark grey with a big white "?" and four small ones, the same in every
+  row: `pods-hidden-L6.png`.
+- The gate: a walker sets off from a standstill and slows down into the gate, growing and fading out of the arch and
+  back into it (0.25 s), and walks home at its way out's pace (the rules' way back is quicker): `L22-gate-x1.mp4`,
+  `gate-frames-L22.png`. Presentation only; the last walker is home a little later than the rules' end.
