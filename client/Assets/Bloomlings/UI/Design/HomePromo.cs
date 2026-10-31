@@ -282,6 +282,75 @@ namespace Bloomlings.Client.UI.Design
             return scene == PromoScene.NoAds ? NoAds(box, seconds, a) : Daily(box, seconds, a);
         }
 
+        // ---- Home's floating buttons in the reference game's style (the owner, 2026-10-31) ----
+
+        /// <summary>The badge's diameter as a share of the scene box's width (smaller than the stand was).</summary>
+        public const float BadgeDiscShare = 0.62f;
+
+        /// <summary>The badge's gentle white outline, as a share of its diameter.</summary>
+        public const float BadgeRingShare = 0.035f;
+
+        /// <summary>How much the scene's props are scaled on the badge (they stood on the stand before).</summary>
+        public const float BadgeArtScale = 0.85f;
+
+        /// <summary>Where the props' feet stand on the badge, as a share of its diameter from its top.</summary>
+        public const float BadgeFeetShare = 0.72f;
+
+        /// <summary>The props' feet on the stand, as a share of the scene box's width from its top (<see cref="Prop"/>'s y).</summary>
+        private const float StandFeetShare = 0.43f;
+
+        /// <summary>
+        /// Home's floating button (the owner, 2026-10-31: "as the reference game's, a gentle outline and a one-colour back, the
+        /// animations a little out in front over the outline, and a little smaller"): a round badge in
+        /// <c>ui.promo.badge</c> (<see cref="UiRaster.PromoBadge"/>) in the scene box's upper part.
+        /// </summary>
+        public static Box BadgeDisc(Box box)
+        {
+            float d = box.Width * BadgeDiscShare;
+            return Box.FromCenter(box.CenterX, box.Top + (box.Width * 0.06f) + (d / 2f), d, d);
+        }
+
+        /// <summary>The badge's label pill over its bottom edge (<see cref="UiRaster.PromoBadgePill"/>, <c>ui.promo.badge_label</c>).</summary>
+        public static Box BadgePill(Box disc) => Box.FromCenter(disc.CenterX, disc.Bottom - (disc.Height * 0.04f), disc.Width * 1.16f, disc.Height * 0.3f);
+
+        /// <summary>The label's letters' height, as a share of the pill.</summary>
+        public const float BadgeLabelShare = 0.62f;
+
+        /// <summary>
+        /// A scene's props on its badge at <paramref name="seconds"/> (<see cref="Layers"/> without the stand): scaled by
+        /// <see cref="BadgeArtScale"/> about their feet, which stand <see cref="BadgeFeetShare"/> down the badge, so their tops
+        /// and sides reach a little out over its outline.
+        /// </summary>
+        public static IReadOnlyList<PromoLayer> BadgeLayers(PromoScene scene, Box box, float seconds, bool calling)
+        {
+            IReadOnlyList<PromoLayer> all = Layers(scene, box, seconds, calling);
+            Box disc = BadgeDisc(box);
+            float px = box.CenterX, py = box.Top + (box.Width * StandFeetShare);
+            float tx = disc.CenterX, ty = disc.Top + (disc.Height * BadgeFeetShare);
+            float s = BadgeArtScale;
+            var props = new List<PromoLayer>(all.Count);
+            foreach (PromoLayer l in all)
+            {
+                if (l.Picture == DailyStand || l.Picture == NoAdsStand)
+                {
+                    continue;
+                }
+
+                props.Add(new PromoLayer(l.Picture, tx + ((l.X - px) * s), ty + ((l.Y - py) * s), l.Width * s, l.Height * s, l.PivotX, l.PivotY, l.ScaleX, l.ScaleY, l.Rotation, l.Alpha));
+            }
+
+            return props;
+        }
+
+        /// <summary>The Daily Challenge's badge in its square side-button box.</summary>
+        public static Box ChallengeDisc(Box box) => Box.FromCenter(box.CenterX, box.CenterY, box.Width * 0.92f, box.Width * 0.92f);
+
+        /// <summary>The Daily Challenge's board on its badge: the board picture a little bigger than the badge, out over its top.</summary>
+        public static Box BadgeChallenge(Box disc) => Box.FromCenter(disc.CenterX, disc.CenterY - (disc.Height * 0.08f), disc.Width * 0.86f, disc.Height * 0.86f);
+
+        /// <summary>The "!" seal on a badge: at its top right, over the outline.</summary>
+        public static Box BadgeSeal(Box disc) => Box.FromCenter(disc.Right - (disc.Width * 0.1f), disc.Top + (disc.Height * 0.1f), disc.Width * 0.3f, disc.Width * 0.3f);
+
         /// <summary>A short, shared tap spring. The host transforms art, never the touch rectangle.</summary>
         public static float PressScale(bool down, float sinceRelease) => down ? .94f :
             sinceRelease < 0f || sinceRelease >= .22f ? 1f : Key(sinceRelease, (0f, .94f), (.10f, 1.02f), (.22f, 1f));

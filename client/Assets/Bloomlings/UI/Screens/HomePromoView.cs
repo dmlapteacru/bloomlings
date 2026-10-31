@@ -42,6 +42,10 @@ namespace Bloomlings.Client.UI.Screens
         private RectTransform? _shadowLayer;
         private RectTransform? _badge;
         private RectTransform? _done;
+
+        // Home's floating button (the owner, 2026-10-31, as the reference game's): the round badge and the label's pill.
+        private Image? _disc;
+        private Image? _pill;
         public bool Completed { get; set; }
 
         /// <summary>Whether the scene calls for attention (its sequence plays every cycle); else it only idles.</summary>
@@ -96,15 +100,31 @@ namespace Bloomlings.Client.UI.Screens
                 UiKit.PlaceBox((RectTransform)_sign.transform, Box.FromCenter(box.CenterX, box.CenterY, box.Width * SignWidthShare, box.Width * SignHeightShare), box);
             }
 
+            Box disc = HomePromo.BadgeDisc(box);
+            if (_disc != null)
+            {
+                UiKit.PlaceBox(_disc.rectTransform, disc, box);
+                UiKit.PlaceBox(_pill!.rectTransform, HomePromo.BadgePill(disc), box);
+            }
+
             if (_label != null)
             {
-                // Centered on the plaque's face, its letters LabelShare of the face's height, fitted to its width.
-                Box plaque = UiKit.ToLocal(HomePromo.Plaque(box, _scene), box);
-                KitText.Place(_label, HomePromo.LabelStyle, plaque.CenterX, plaque.CenterY, plaque.Height * HomePromo.LabelShare, plaque.Width);
+                if (_plated)
+                {
+                    // On the badge's pill, its letters BadgeLabelShare of the pill's height.
+                    Box pill = UiKit.ToLocal(HomePromo.BadgePill(disc), box);
+                    KitText.Place(_label, HomePromo.LabelStyle, pill.CenterX, pill.CenterY, pill.Height * HomePromo.BadgeLabelShare, pill.Width * 0.86f);
+                }
+                else
+                {
+                    // Centered on the plaque's face, its letters LabelShare of the face's height, fitted to its width.
+                    Box plaque = UiKit.ToLocal(HomePromo.Plaque(box, _scene), box);
+                    KitText.Place(_label, HomePromo.LabelStyle, plaque.CenterX, plaque.CenterY, plaque.Height * HomePromo.LabelShare, plaque.Width);
+                }
             }
 
             PlaceBadge();
-            if (_done != null) UiKit.PlaceBox(_done, HomePromo.SealBox(box), box);
+            if (_done != null) UiKit.PlaceBox(_done, SealOf(box), box);
             _placed = true;
             Animate(Seconds);
         }
@@ -136,9 +156,12 @@ namespace Bloomlings.Client.UI.Screens
         {
             if (_badge != null)
             {
-                UiKit.PlaceBox(_badge, HomePromo.SealBox(_box), _box);
+                UiKit.PlaceBox(_badge, SealOf(_box), _box);
             }
         }
+
+        // The seal's box: over the badge's top right on Home, the stand's on the Remove Ads card.
+        private Box SealOf(Box box) => _plated ? HomePromo.BadgeSeal(HomePromo.BadgeDisc(box)) : HomePromo.SealBox(box);
 
         /// <summary>Starts the scene's time again (the attention sequences count from here).</summary>
         public void Restart() => _start = Time.unscaledTime;
@@ -167,7 +190,7 @@ namespace Bloomlings.Client.UI.Screens
                 if (Completed && _done == null)
                 {
                     _done = UiKit.PromoSeal("Completed", _art, completed: true);
-                    UiKit.PlaceBox(_done, HomePromo.SealBox(_box), _box);
+                    UiKit.PlaceBox(_done, SealOf(_box), _box);
                 }
                 if (_done != null) { _done.gameObject.SetActive(Completed); _done.SetAsLastSibling(); }
             }
@@ -182,10 +205,12 @@ namespace Bloomlings.Client.UI.Screens
                 return;
             }
 
-            // Only the short stone stand casts a contact shadow. The background stays visible around it.
+            // On Home the scene's props stand on the round badge (the owner, 2026-10-31), no stand and no shadows.
             if (_plated)
             {
-                _shadowLayer = UiFactory.CreateRect("Shadows", _art);
+                _disc = UiFactory.CreateImage("Badge", _art, null, Color.white);
+                _disc.raycastTarget = false;
+                PictureFit.On(_disc, (pw, ph) => ProceduralSprites.Picture("ui.promo.badge", Math.Min(pw, ph), Math.Min(pw, ph), (x, y) => UiRaster.PromoBadge(Math.Min(x, y), C.PromoBadge, HomePromo.BadgeRingShare)), square: true);
             }
 
             // One image per picture of the scene, hidden until posed; a missing prop is left out.
@@ -220,6 +245,19 @@ namespace Bloomlings.Client.UI.Screens
                 }
             }
 
+            if (_plated)
+            {
+                _pill = UiFactory.CreateImage("LabelPill", _art, null, Color.white);
+                _pill.raycastTarget = false;
+                PictureFit.On(_pill, (pw, ph) =>
+                {
+                    float ring = Math.Max(1f, ph / 0.3f * HomePromo.BadgeRingShare);
+                    return ProceduralSprites.Picture("ui.promo.badge_label/" + (int)Math.Round(ring), pw, ph, (x, y) => UiRaster.PromoBadgePill(x, y, C.PromoBadgeLabel, ring));
+                });
+                _label = UiKit.KitLabel("Label", _art, label, HomePromo.LabelStyle, TextLook.Plain(Rgba.White));
+                return;
+            }
+
             _label = UiKit.KitLabel("Label", _art, label, HomePromo.LabelStyle, GardenLook.SignLetters(C.InkBrown));
         }
 
@@ -235,7 +273,7 @@ namespace Bloomlings.Client.UI.Screens
                 return;
             }
 
-            IReadOnlyList<PromoLayer> layers = HomePromo.Layers(_scene, _box, seconds, Calling);
+            IReadOnlyList<PromoLayer> layers = _plated ? HomePromo.BadgeLayers(_scene, _box, seconds, Calling) : HomePromo.Layers(_scene, _box, seconds, Calling);
             Reorder(layers);
             _shown.Clear();
             for (int i = 0; i < layers.Count; i++)
@@ -318,10 +356,17 @@ namespace Bloomlings.Client.UI.Screens
                     image.transform.SetAsLastSibling();
                 }
 
-                if (i == 0 && _label != null)
+                if (i == 0 && _label != null && !_plated)
                 {
                     _label.transform.SetAsLastSibling();
                 }
+            }
+
+            // On Home the label's pill and its letters lie over the props, as the reference game's.
+            if (_plated && _pill != null && _label != null)
+            {
+                _pill.transform.SetAsLastSibling();
+                _label.transform.SetAsLastSibling();
             }
         }
     }

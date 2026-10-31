@@ -154,7 +154,7 @@ namespace Bloomlings.Client.UI.Screens
             screen._dailyReward.gameObject.SetActive(false);
 
             // The Daily Challenge side button at the right (the other features are the bottom menu's places).
-            Image challenge = UiKit.ChallengeObject("DailyChallenge", root);
+            Image challenge = UiKit.ChallengeBadge("DailyChallenge", root);
             challenge.raycastTarget = true;
             Button daily = UiKit.TapTarget(challenge, () => features?.OnDailyChallenge?.Invoke());
             challenge.gameObject.AddComponent<PressMotion>();

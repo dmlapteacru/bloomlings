@@ -176,14 +176,13 @@ namespace Bloomlings.Playtest.Design
                 bool calling = scene == PromoScene.NoAds || app.Meta.DailyReward.CanClaim;
                 Action open = scene == PromoScene.NoAds ? () => app.OpenOverlay(Overlay.RemoveAds) : app.OpenDailyReward;
                 float press = HomePromo.PressScale(p.Pressed(box), p.Released(box));
-                press *= HomePromo.HomeVisualScale;
-                p.PushSquash(press, press, box.CenterX, box.Bottom);
-                moving |= Promo(p, scene, box, app.PromoSeconds, calling, r.W);
+                Box disc = HomePromo.BadgeDisc(box);
+                p.PushSquash(press, press, disc.CenterX, disc.CenterY);
+                moving |= PromoBadge(p, scene, box, app.PromoSeconds, calling);
 
                 if (scene == PromoScene.Daily && (app.Meta.DailyReward.ShowsBadge || !app.Meta.DailyReward.CanClaim))
                 {
-                    Box seal = HomePromo.SealBox(box);
-                    PromoSeal(p, seal, !app.Meta.DailyReward.CanClaim);
+                    PromoSeal(p, HomePromo.BadgeSeal(disc), !app.Meta.DailyReward.CanClaim);
                 }
 
                 p.PopTransform();
@@ -191,6 +190,60 @@ namespace Bloomlings.Playtest.Design
             }
 
             return moving;
+        }
+
+        /// <summary>
+        /// Home's floating button for a promo scene (the owner, 2026-10-31, as the reference game's): the one-colour round badge
+        /// in its gentle outline (<see cref="HomePromo.BadgeDisc"/>), the scene's props on it, a little out over the outline
+        /// (<see cref="HomePromo.BadgeLayers"/>), and the label on the pill over its bottom edge. Returns whether it moves.
+        /// </summary>
+        public static bool PromoBadge(IPainter p, PromoScene scene, Box box, float seconds, bool calling)
+        {
+            p.Mark(HomePromo.Slot(scene));
+            Box disc = HomePromo.BadgeDisc(box);
+            BadgeDisc(p, disc);
+            bool moving = false;
+            if (HasPromoPictures(p, scene))
+            {
+                foreach (PromoLayer layer in HomePromo.BadgeLayers(scene, box, seconds, calling))
+                {
+                    if (layer.Alpha <= 0f)
+                    {
+                        continue;
+                    }
+
+                    p.PushAlpha(layer.Alpha);
+                    p.PushRotate(layer.Rotation, layer.X, layer.Y);
+                    p.PushSquash(layer.ScaleX, layer.ScaleY, layer.X, layer.Y);
+                    p.Sprite(PainterBase.DecorPrefix + layer.Picture, layer.Box);
+                    p.PopTransform();
+                    p.PopTransform();
+                    p.PopAlpha();
+                }
+
+                moving = true;
+            }
+
+            BadgeLabel(p, disc, PlaytestText.T(HomePromo.LabelKey(scene)));
+            return moving;
+        }
+
+        /// <summary>A floating button's round badge (<c>ui.promo.badge</c>, <see cref="UiRaster.PromoBadge"/>).</summary>
+        private static void BadgeDisc(IPainter p, Box disc)
+        {
+            p.Mark("ui.promo.badge");
+            p.Picture("ui.promo.badge", disc, (w, h) => UiRaster.PromoBadge(Math.Min(w, h), C.PromoBadge, HomePromo.BadgeRingShare));
+        }
+
+        /// <summary>A floating button's label on its pill (<c>ui.promo.badge_label</c>), in white.</summary>
+        private static void BadgeLabel(IPainter p, Box disc, string label)
+        {
+            p.Mark("ui.promo.badge_label");
+            Box pill = HomePromo.BadgePill(disc);
+            float ring = Math.Max(1f, disc.Width * HomePromo.BadgeRingShare);
+            p.Picture("ui.promo.badge_label/" + (int)Math.Round(ring), pill, (w, h) => UiRaster.PromoBadgePill(w, h, C.PromoBadgeLabel, ring));
+            float scale = pill.Height * HomePromo.BadgeLabelShare / p.U(HomePromo.LabelStyle.Size);
+            p.Text(label, pill.CenterX, pill.CenterY, HomePromo.LabelStyle, Rgba.White, pill.Width * 0.86f, scale, TextLook.Plain(Rgba.White));
         }
 
         /// <summary>
@@ -343,10 +396,8 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The owner's layered Home over the backdrop's garden (spec 005 FR-028, <see cref="HomeLayers"/>), every layer in
-        /// the backdrop's own cover box, back to front: the fountain's basin; Drop and Bloom, each on its soft shadow; the
-        /// lotus on the basin's pedestal (Bloom stands behind it); Sprig and Twig on their shadows; the fountain's front
-        /// bushes in the corners. Each hero shows its pose of <see cref="DesignApp.HomeMotion"/> (<see cref="Visuals.MotionHero"/>), or its
+        /// The owner's layered Home over the backdrop's terrace (spec 005 FR-028, <see cref="HomeLayers"/>; no fountain since
+        /// 2026-10-31): the heroes far to near, each on its soft shadow, at their depth on the terrace. Each hero shows its pose of <see cref="DesignApp.HomeMotion"/> (<see cref="Visuals.MotionHero"/>), or its
         /// still picture while its frames are missing, in <paramref name="outfitOf"/>'s outfit; the heroes and their shadows
         /// fade in with <paramref name="heroAlpha"/> and the heroes rise by <paramref name="heroRise"/> (the splash).
         /// Returns whether a hero moves.
@@ -356,16 +407,8 @@ namespace Bloomlings.Playtest.Design
             Box picture = HomeLayers.Stage(new Box(0f, 0f, p.Width, p.Height));
             HomeMotion motion = app.HomeMotion;
             bool moving = false;
-            bool lotus = false;
-            Layer(p, picture, HomeLayers.FountainBack);
             foreach (Family family in HomeLayers.DrawOrder)
             {
-                if (!lotus && !HomeLayers.BehindLotus(family))
-                {
-                    Layer(p, picture, HomeLayers.Lotus);
-                    lotus = true;
-                }
-
                 p.PushAlpha(heroAlpha);
                 LayerShadow(p, picture, family);
                 p.PushTransform(0f, heroRise, 1f, 0f, 0f);
@@ -385,20 +428,7 @@ namespace Bloomlings.Playtest.Design
                 p.PopAlpha();
             }
 
-            if (!lotus)
-            {
-                Layer(p, picture, HomeLayers.Lotus);
-            }
-
-            Layer(p, picture, HomeLayers.FountainFront);
             return moving;
-        }
-
-        /// <summary>A layer of the owner's layered Home in its box over the screen.</summary>
-        private static void Layer(IPainter p, Box picture, PictureBox layer)
-        {
-            p.Mark(HomeLayers.SlotOf(layer));
-            p.Sprite(PainterBase.BackgroundPrefix + layer.Name, HomeLayers.Place(picture, layer));
         }
 
         /// <summary>The soft shadow under a hero's feet (<see cref="HomeLayers.ShadowBox"/>), when the picture is embedded.</summary>
@@ -555,9 +585,22 @@ namespace Bloomlings.Playtest.Design
         {
             if (look.DailyChallenge)
             {
+                // A floating button as the promo scenes' (the owner, 2026-10-31): the board on the round badge, its label on the pill.
                 float depth = Kit.Press(p, r.Daily, true);
                 Kit.Squash(p, r.Daily, depth);
-                ChallengePicture(p, r.Daily);
+                Box disc = HomePromo.ChallengeDisc(r.Daily);
+                BadgeDisc(p, disc);
+                p.Mark("ui.sun");
+                if (p.HasSprite(PainterBase.DecorPrefix + HomePromo.ChallengePicture))
+                {
+                    p.Sprite(PainterBase.DecorPrefix + HomePromo.ChallengePicture, HomePromo.BadgeChallenge(disc));
+                }
+                else
+                {
+                    Kit.RaisedGlyph(p, "ui.sun", disc.Inset(disc.Width * 0.2f), C.GardenFlowerCenter);
+                }
+
+                BadgeLabel(p, disc, PlaytestText.T("daily.short"));
                 p.PopTransform();
                 p.Hit(Kit.Touch(p, r.Daily), () => app.OpenOverlay(Overlay.DailyChallenge));
             }

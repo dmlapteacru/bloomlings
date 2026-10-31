@@ -119,7 +119,7 @@ namespace Bloomlings.Playtest.Preview
                         "the page draws its bundled garden: " + picture);
                 }
                 Scene(OwnerPictures.Home, app.GoHome);
-                Expect(p.Slots.Contains("bg.home.fountain_back") && p.Slots.Contains("bg.home.lotus"), "Home retains its separate fountain layers");
+                Expect(!p.Slots.Contains("bg.home.fountain_back") && !p.Slots.Contains("bg.home.lotus"), "Home is the owner's terrace with no fountain (2026-10-31)");
                 Scene(OwnerPictures.Wardrobe, app.OpenWardrobe);
                 Scene(OwnerPictures.Leaderboard, app.OpenLeaderboard);
                 Scene(OwnerPictures.Collection, app.OpenCollection);

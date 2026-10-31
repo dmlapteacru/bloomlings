@@ -20,55 +20,19 @@
   "note": "colors as delivered since 2026-10-08 (spec 005 FR-031 as changed by the owner); it was x0.738 to 70% of the heroes"
  },
  "data": "client/Assets/Bloomlings/UI/Design/HomeLayersData.cs",
- "dataSha256": "925596e0c9f081721e92d4fb96ef08fe99123c59cb207c494f7263422e04f3df",
+ "dataSha256": "23c9506fa995116e0d165b75be595bcbc8ff34e2bf2524414e602c503bb7bbb5",
  "outputs": [
   {
    "name": "home.jpg",
    "box": {
     "x": 0,
     "y": 0,
-    "w": 852,
-    "h": 1846
+    "w": 941,
+    "h": 1672
    },
-   "from": "OpenAI ImageGen Home light/fountain refinement, 2026-10-15; original canvas, layer boxes and hero placements retained (tools/artgen/models/home-fountain-2026-10-15.md)",
-   "sha256": "ba0b6d0c3082d1f523ac1f41ee107da87cf919854180c2ed4504d5f530cb53da",
-   "bytes": 440083
-  },
-  {
-   "name": "home-fountain-back.png",
-   "box": {
-    "x": 24,
-    "y": 827,
-    "w": 804,
-    "h": 413
-   },
-   "from": "OpenAI ImageGen Home fountain complete side contours, 2026-10-15; transparent safety margins, original canvas and layer box retained (tools/artgen/models/home-fountain-2026-10-15.md)",
-   "sha256": "3a094e95783ff223b6bc7ab0448d0195d9a43ad6bd88ef381718fdd610b6f256",
-   "bytes": 450938
-  },
-  {
-   "name": "home-fountain-front.png",
-   "box": {
-    "x": 0,
-    "y": 1043,
-    "w": 852,
-    "h": 250
-   },
-   "from": "OpenAI ImageGen Home fountain complete side contours, 2026-10-15; transparent safety margins, original canvas and layer box retained (tools/artgen/models/home-fountain-2026-10-15.md)",
-   "sha256": "3341151c6e253bbec9dd11ba2c157d6c0e3c4de85a022529d418797b055745ba",
-   "bytes": 189942
-  },
-  {
-   "name": "home-lotus.png",
-   "box": {
-    "x": 278,
-    "y": 871,
-    "w": 296,
-    "h": 217
-   },
-   "from": "OpenAI ImageGen Home lotus rose/gold color refinement, 2026-10-15; original canvas, layer box and hero placements retained (tools/artgen/models/home-fountain-2026-10-15.md)",
-   "sha256": "fe1c80f548370c098e9cf4580697a677acf2d1d06debe1d56f101a088bf8e780",
-   "bytes": 94629
+   "from": "the owner's sunlit stone terrace of 2026-10-31 (chat picture, 941 x 1672), no fountain; JPEG quality 90",
+   "sha256": "b9cadc5965416cb5e0867a5f1e23af3fd5fe8a8d1979191e3622a2d14c0daea6",
+   "bytes": 149566
   },
   {
    "name": "home-shadow.png",
@@ -82,5 +46,6 @@
    "sha256": "61b7b2fbb3aef58036f1510619630c89465721ace34f6c6bc5a4fff100b3457f",
    "bytes": 105044
   }
- ]
+ ],
+ "note": "since 2026-10-31 the Home is the owner's terrace with no fountain: home.jpg and the heroes' shadow; HomeLayersData.cs written by hand from it"
 }

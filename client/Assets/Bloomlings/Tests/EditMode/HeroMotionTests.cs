@@ -212,7 +212,8 @@ namespace Bloomlings.Client.Tests
             }
 
             Assert.That(HomeLayers.Back.Name, Is.EqualTo(OwnerPictures.Home), "the garden is the Home picture the backdrop draws");
-            Assert.That(HomeLayers.SlotOf(HomeLayers.FountainBack), Is.EqualTo("bg.home.fountain_back"));
+            Assert.That(HomeLayers.SlotOf(HomeLayers.Shadow), Is.EqualTo("bg.home.shadow"));
+            Assert.That(HomeLayers.Required, Is.Empty, "the terrace needs no other layer (no fountain since 2026-10-31)");
         }
 
         [Test]

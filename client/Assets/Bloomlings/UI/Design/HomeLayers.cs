@@ -29,16 +29,11 @@ namespace Bloomlings.Client.UI.Design
     }
 
     /// <summary>
-    /// The owner's layered Home (spec 005 FR-028, pictures.md B1; <c>bloomlings_home_assets.zip</c>, prepared by
-    /// <c>tools/heroanim/layers.mjs</c>, boxes in <c>HomeLayersData.cs</c>; since 2026-10-08 the fountain is the owner's
-    /// three pictures of that day, fitted by hand and recorded in <c>layers.json</c>), back to front: the garden
-    /// (<see cref="Back"/>, the <c>home</c> picture every Home backdrop already draws), the fountain's basin
-    /// (<see cref="FountainBack"/>), the heroes at the back with their shadows (Drop, Bloom), the lotus on the basin's
-    /// pedestal (<see cref="Lotus"/>, so Bloom stands behind it), the heroes in front with their shadows (Sprig, Twig), the
-    /// fountain's front bushes (<see cref="FountainFront"/>, in the corners), then the UI. The
-    /// layers over the garden share one box over the screen (<see cref="Stage"/>: the backdrop's own cover fit,
-    /// <see cref="Cover"/>, drawn at <see cref="StageScale"/>), so the heroes stay on the fountain on every screen shape.
-    /// Engine-free.
+    /// The owner's layered Home (spec 005 FR-028; since 2026-10-31 the owner's sunlit stone terrace, no fountain): the terrace
+    /// (<see cref="Back"/>, the <c>home</c> picture every Home backdrop already draws), then the heroes back to front, each on
+    /// its soft shadow, at their own depth on the terrace's floor (the far ones by the balustrade smaller, the near ones
+    /// bigger), then the UI. The heroes lie in the terrace's own cover box (<see cref="Stage"/> = <see cref="Cover"/>), so they
+    /// stand on its floor on every screen shape. Engine-free.
     /// </summary>
     public static partial class HomeLayers
     {
@@ -46,34 +41,32 @@ namespace Bloomlings.Client.UI.Design
         public const float ShadowAlpha = 0.85f;
 
         /// <summary>
-        /// The stage's size (the owner's tuning of 2026-10-05, spec 005 FR-036): the fountain's layers, the heroes, their
-        /// shadows are drawn at this share of the garden's cover box, toward the screen's middle across and
-        /// <see cref="StageAnchorShare"/> of its height down (about the plaque), so the fountain sits a little smaller in the
-        /// blurred garden.
+        /// The stage's size: 1 since the terrace (2026-10-31), the heroes stand on the picture's own floor. It was 0.9 of the
+        /// garden's cover box round the fountain (the owner's tuning of 2026-10-05).
         /// </summary>
-        public const float StageScale = 0.9f;
+        public const float StageScale = 1f;
 
         public const float StageAnchorShare = 0.6f;
 
-        /// <summary>Each hero's size on the stage, about its feet (the owner's tuning of 2026-10-05).</summary>
-        public const float HeroScale = 1.05f;
+        /// <summary>Each hero's size on the stage, about its feet (<see cref="Placement"/> holds each one's own size).</summary>
+        public const float HeroScale = 1f;
 
         /// <summary>When Home's first reaction comes after it opens, and how often one follows, in seconds.</summary>
         public const float FirstReaction = 1.5f;
 
         public const float ReactionEvery = 6f;
 
-        /// <summary>Every layer picture (the drawing order is the class's: see its summary).</summary>
-        public static IReadOnlyList<PictureBox> All => new[] { Back, FountainBack, Lotus, Shadow, FountainFront };
+        /// <summary>Every layer picture: the terrace and the heroes' shadow.</summary>
+        public static IReadOnlyList<PictureBox> All => new[] { Back, Shadow };
 
-        /// <summary>The layers the heroes need over the garden: the fountain's back, the lotus and the fountain's front.</summary>
-        public static IReadOnlyList<PictureBox> Required => new[] { FountainBack, Lotus, FountainFront };
+        /// <summary>The layers the heroes need over the terrace: none since the fountain went (2026-10-31).</summary>
+        public static IReadOnlyList<PictureBox> Required => System.Array.Empty<PictureBox>();
 
         /// <summary>
         /// Whether a scene shows the layered Home (<see cref="HomeStage.ShowsHeroes"/>'s <c>layered</c>): the picture it
-        /// resolves to (<paramref name="resolved"/>, <see cref="OwnerPictures.Resolve"/>) is the garden (<see cref="Back"/>)
-        /// and the host has the garden and every <see cref="Required"/> layer (<paramref name="has"/>, by picture name).
-        /// The shadow is drawn when present. Both builds decide by this rule.
+        /// resolves to (<paramref name="resolved"/>, <see cref="OwnerPictures.Resolve"/>) is the terrace (<see cref="Back"/>)
+        /// and the host has it and every <see cref="Required"/> layer (<paramref name="has"/>, by picture name). The shadow is
+        /// drawn when present. Both builds decide by this rule.
         /// </summary>
         public static bool IsLayered(string resolved, Func<string, bool> has)
         {
@@ -93,33 +86,27 @@ namespace Bloomlings.Client.UI.Design
             return true;
         }
 
-        /// <summary>The asset slot of a layer: <c>bg.home</c> (the garden), <c>bg.home.fountain_back</c>, …</summary>
+        /// <summary>The asset slot of a layer: <c>bg.home</c> (the terrace), <c>bg.home.shadow</c>.</summary>
         public static string SlotOf(PictureBox layer) => layer.Name == Back.Name
             ? OwnerPictures.SlotOf(OwnerPictures.Home)
             : "bg.home." + layer.Name.Substring("home-".Length).Replace('-', '_');
 
-        /// <summary>The heroes back to front: Drop at the right back, Bloom behind the lotus, Sprig at the left front, Twig at the right front.</summary>
-        public static IReadOnlyList<Family> DrawOrder { get; } = new[] { Family.Drop, Family.Bloom, Family.Sprig, Family.Twig };
-
-        /// <summary>The heroes standing behind the lotus, drawn before it (<see cref="Lotus"/>).</summary>
-        public static bool BehindLotus(Family family) => family == Family.Drop || family == Family.Bloom;
+        /// <summary>The heroes back to front (far to near): Bloom by the balustrade, Drop by the bench, Twig by the column, Sprig in front.</summary>
+        public static IReadOnlyList<Family> DrawOrder { get; } = new[] { Family.Bloom, Family.Drop, Family.Twig, Family.Sprig };
 
         /// <summary>
-        /// Where a hero stands, measured on the reference (its Home, look.md §6.4) and fitted to the layered fountain:
-        /// its feet's middle as shares of the picture's width and height, and its seam pose's height as a share of the
-        /// picture's width. Bloom stands behind the lotus, its feet hidden; Sprig on the left rim and Twig on the right
-        /// rim, their feet behind the fountain's front flowers. Twig V2 retains the approved stand scale and sits slightly
-        /// inward so its wider face stays inside a 21:9 screen. Sprig and Bloom stand further left to open the space
-        /// around Drop's face beside the petals; Drop sits slightly inward, clear of Twig's headwear.
-        /// On the owner's fountain (a smaller lotus on the
-        /// basin's pedestal) Bloom stands a little lower, so its feet stay behind the lotus's petals.
+        /// Where a hero stands on the terrace (the owner, 2026-10-31: "at different distances and sizes, as if someone is far
+        /// and someone near"): its feet's middle as shares of the picture's width and height, and its seam pose's height as a
+        /// share of the picture's width, smaller the further back it stands. Bloom far by the balustrade's middle, Drop by the
+        /// bench at the left, Twig by the column's plinth at the right, Sprig in front at the left of the middle, clear of the
+        /// side buttons above and the level's plaque below on a 19.5:9 screen (which shows the picture's middle 82% across).
         /// </summary>
         public static (float X, float Feet, float Height) Placement(Family family) => family switch
         {
-            Family.Bloom => (0.43f, 0.505f, 0.40f),
-            Family.Drop => (0.71f, 0.532f, 0.36f),
-            Family.Sprig => (0.195f, 0.56f, 0.40f),
-            _ => (0.84f, 0.568f, 0.352f),
+            Family.Bloom => (0.58f, 0.52f, 0.165f),
+            Family.Drop => (0.21f, 0.548f, 0.205f),
+            Family.Twig => (0.79f, 0.562f, 0.22f),
+            _ => (0.37f, 0.6f, 0.31f),
         };
 
         /// <summary>How far into its idle loop a hero starts (seconds), so the four do not breathe together.</summary>

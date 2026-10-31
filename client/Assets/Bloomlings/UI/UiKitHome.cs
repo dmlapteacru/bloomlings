@@ -25,6 +25,37 @@ namespace Bloomlings.Client.UI
             return (RectTransform)seal.transform;
         }
 
+        /// <summary>
+        /// Home's Daily Challenge floating button (the owner, 2026-10-31, as the promo scenes' and the reference game's): the
+        /// board on the one-colour round badge (<see cref="HomePromo.ChallengeDisc"/>), its label in white on the pill.
+        /// </summary>
+        public static Image ChallengeBadge(string name, Transform parent)
+        {
+            Image root = UiFactory.CreateImage(name, parent, null, Color.clear);
+            root.raycastTarget = false;
+            Image disc = UiFactory.CreateImage("Badge", root.transform, null, Color.white);
+            disc.raycastTarget = false;
+            PictureFit.On(disc, (pw, ph) => ProceduralSprites.Picture("ui.promo.badge", System.Math.Min(pw, ph), System.Math.Min(pw, ph), (x, y) => UiRaster.PromoBadge(System.Math.Min(x, y), DesignTokens.Colors.PromoBadge, HomePromo.BadgeRingShare)), square: true);
+            Image board = UiFactory.CreateImage("Board", root.transform, OwnerArt.Decor(HomePromo.ChallengePicture), Color.white);
+            board.preserveAspect = true;
+            board.raycastTarget = false;
+            Image pill = UiFactory.CreateImage("LabelPill", root.transform, null, Color.white);
+            pill.raycastTarget = false;
+            PictureFit.On(pill, (pw, ph) =>
+            {
+                float ring = System.Math.Max(1f, ph / 0.3f * HomePromo.BadgeRingShare);
+                return ProceduralSprites.Picture("ui.promo.badge_label/" + (int)System.Math.Round(ring), pw, ph, (x, y) => UiRaster.PromoBadgePill(x, y, DesignTokens.Colors.PromoBadgeLabel, ring));
+            });
+            var label = KitLabel("Label", root.transform, Localization.Loc.T("daily.short"), HomePromo.LabelStyle, TextLook.Plain(Rgba.White));
+            BoxLayout layout = BoxLayout.On(root.rectTransform);
+            layout.Add(disc.rectTransform, b => HomePromo.ChallengeDisc(b));
+            layout.Add(board.rectTransform, b => HomePromo.BadgeChallenge(HomePromo.ChallengeDisc(b)));
+            layout.Add(pill.rectTransform, b => HomePromo.BadgePill(HomePromo.ChallengeDisc(b)));
+            layout.Add(label.rectTransform, b => HomePromo.BadgePill(HomePromo.ChallengeDisc(b)));
+            BoxLayout.On(label.rectTransform).Then(b => { label.fontSize = b.Height * HomePromo.BadgeLabelShare; label.fontSizeMax = label.fontSize; label.fontSizeMin = label.fontSize * .6f; });
+            return root;
+        }
+
         public static Image ChallengeObject(string name, Transform parent)
         {
             Image image = UiFactory.CreateImage(name, parent, OwnerArt.Decor(HomePromo.ChallengePicture), Color.white);

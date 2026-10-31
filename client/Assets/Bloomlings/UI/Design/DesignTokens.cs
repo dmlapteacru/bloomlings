@@ -110,6 +110,12 @@ namespace Bloomlings.Client.UI.Design
             public static readonly Rgba GardenBadge = Rgba.FromHex("#3B2A1A");
             public static readonly Rgba GardenBadgeRing = Rgba.FromHex("#FBF3E1");
             public static readonly Rgba GardenShadow = Rgba.FromHex("#3C2814");
+
+            /// <summary>Home's floating buttons (the owner, 2026-10-31, as the reference game's): the round badge's one colour.</summary>
+            public static readonly Rgba PromoBadge = Rgba.FromHex("#3F86D8");
+
+            /// <summary>The floating buttons' label pill under the badge.</summary>
+            public static readonly Rgba PromoBadgeLabel = Rgba.FromHex("#2E6CC0");
             public static readonly Rgba GardenLabelFillTop = Rgba.FromHex("#FFFFFF");
             public static readonly Rgba GardenLabelFillBottom = Rgba.FromHex("#EEF2DA");
             public static readonly Rgba GardenLabelPlain = Rgba.FromHex("#5A3F24");
@@ -338,6 +344,8 @@ namespace Bloomlings.Client.UI.Design
                 ["tile.stone"] = TileStone,
                 ["tile.stone_edge"] = TileStoneEdge,
                 ["tile.mystery"] = TileMystery,
+                ["ui.promo.badge"] = PromoBadge,
+                ["ui.promo.badge_label"] = PromoBadgeLabel,
                 ["pod.mystery"] = PodMystery,
                 ["pod.mystery_mark"] = PodMysteryMark,
                 ["special.gate"] = SpecialGate,

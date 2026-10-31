@@ -81,6 +81,82 @@ namespace Bloomlings.Client.UI.Design
             return pixels;
         }
 
+        /// <summary>
+        /// Home's floating button (the owner, 2026-10-31, as the reference game's): a round badge in one colour
+        /// (<paramref name="fill"/>, a touch lighter at the top) in a gentle white outline of <paramref name="ringShare"/> of its
+        /// diameter, with a soft shadow under it, in a <paramref name="size"/> square. Deterministic, straight alpha.
+        /// </summary>
+        public static byte[] PromoBadge(int size, Rgba fill, float ringShare)
+        {
+            Check(size, size);
+            var pixels = new byte[size * size * 4];
+            float s = size;
+            float c = s / 2f;
+            float r = s * 0.46f;
+            float ring = Math.Max(1f, s * ringShare);
+            var white = new Color(Rgba.White);
+            var shade = new Color(C.GardenShadow);
+            for (int py = 0; py < size; py++)
+            {
+                for (int px = 0; px < size; px++)
+                {
+                    float x = px + 0.5f, y = py + 0.5f;
+                    float d = (float)Math.Sqrt(((x - c) * (x - c)) + ((y - c) * (y - c))) - r;
+                    float sd = (float)Math.Sqrt(((x - c) * (x - c)) + ((y - c - (s * 0.025f)) * (y - c - (s * 0.025f)))) - r;
+                    float shadow = 0.28f * 0.5f * Erfc(sd / Math.Max(1f, s * 0.03f));
+                    float body = Coverage(d);
+                    if (body <= 0f)
+                    {
+                        if (shadow > 0.004f)
+                        {
+                            Put(pixels, size, px, py, shade, shadow);
+                        }
+
+                        continue;
+                    }
+
+                    // One colour, a touch lighter toward the top; the gentle white outline inside the edge.
+                    var col = new Color(fill);
+                    col.Mix(Rgba.White, 0.12f * Clamp01((c - y) / r));
+                    float inRing = Coverage(d + ring) < 1f ? 1f - Coverage(d + ring) : 0f;
+                    col.Mix(Rgba.White, 0.92f * inRing);
+                    Put(pixels, size, px, py, col, body);
+                }
+            }
+
+            return pixels;
+        }
+
+        /// <summary>
+        /// The floating button's label pill (the owner, 2026-10-31): a rounded bar of <paramref name="fill"/> in the same gentle
+        /// white outline (<paramref name="ring"/> pixels), <paramref name="width"/> × <paramref name="height"/>. Straight alpha.
+        /// </summary>
+        public static byte[] PromoBadgePill(int width, int height, Rgba fill, float ring)
+        {
+            Check(width, height);
+            var pixels = new byte[width * height * 4];
+            float rr = height / 2f;
+            for (int py = 0; py < height; py++)
+            {
+                for (int px = 0; px < width; px++)
+                {
+                    float d = RoundRect(px + 0.5f, py + 0.5f, 0.5f, 0.5f, width - 0.5f, height - 0.5f, rr);
+                    float body = Coverage(d);
+                    if (body <= 0f)
+                    {
+                        continue;
+                    }
+
+                    var col = new Color(fill);
+                    float inRing = 1f - Coverage(d + Math.Max(1f, ring));
+                    col.Mix(Rgba.White, 0.92f * inRing);
+                    Put(pixels, width, px, py, col, body);
+                }
+            }
+
+            return pixels;
+        }
+
         /// <summary>The source alpha (0 to 1) between four pixels, clamped at the edges.</summary>
         private static float Bilinear(byte[] mask, int w, int h, float u, float v)
         {

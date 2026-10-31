@@ -219,12 +219,15 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   until Remove Ads is owned; a tap opens the Remove Ads card, FR-033) and Daily at the right (the Daily Reward), each
   idling and playing its attention sequence every 12 s, never together; hosts draw `HomePromo.Layers` per frame.
 - The owner's Home tuning (spec 005 FR-036, research D29, 2026-10-05), chosen on a constructor page of the game's own
-  layers: Home has no logo (the splash keeps it); the garden in `home.jpg` is the owner's picture, already blurred (since 2026-10-08; `layers.mjs` `gardenBlur` is 0); the
-  fountain and heroes stand in `HomeLayers.Stage` (0.9 of the cover box) at `HeroScale` 1.05; the heroes' Home frames
+  layers: Home has no logo (the splash keeps it); since 2026-10-31 `home.jpg` is the owner's sunlit stone terrace with no fountain
+  (`tools/heroanim/layers.json`), the heroes standing on its floor at their own depth and size (`HomeLayers.Placement`, far
+  to near `DrawOrder`; `Stage` = the cover box); the heroes' Home frames
   are sharpened and at 110% contrast and saturation (`heroes.json` `home`, `tools/heroanim/post.mjs`, applied by the
-  bake); Play, the plaque, the promo scenes and the sun follow `ReferenceHomeRegions`' shares; each promo scene stands on
-  the round buttons' cream cushion with soft shadows made from its pictures' alpha (`HomePromo.PlateBox`, `ShadowOf`,
-  `UiRaster.SilhouetteShadow`, `RoundShadow`; `IPainter.SpriteAlpha`, `OwnerArt.DecorAlpha`). Home has no falling
+  bake); Play, the plaque, the promo scenes and the sun follow `ReferenceHomeRegions`' shares; since 2026-10-31 the floating
+  buttons (No Ads, the Daily Reward, the Daily Challenge) are the reference game's round badges: one colour
+  (`ui.promo.badge`) in a gentle white outline (`UiRaster.PromoBadge`, `HomePromo.BadgeDisc`), the scene's props on it a
+  little out over the outline (`HomePromo.BadgeLayers`), the label in white on a pill over its bottom (`BadgePill`); the
+  Remove Ads card keeps the stand. Home has no falling
   petals and Settings no switch for them (the owner removed both on 2026-10-06; older saves' `homePetalsOn` is ignored).
 - The guided spotlights (spec 005 FR-035, the owner, 2026-10-05): `GuideTour` (kit) decides the onboarding's steps
   (Level 1's arch and forced first tap; the first level that starts with a pod's tiles out of reach, Level 2; each

@@ -11,12 +11,10 @@ namespace Bloomlings.Client.UI.Screens
 {
     /// <summary>
     /// The owner's layered Home in Unity (spec 005 FR-028, pictures.md B1; <see cref="HomeLayers"/>, the playtest's Home
-    /// stage) over the garden the backdrop already draws (<c>home</c>, <c>bg.home</c>), back to front: the fountain's basin
-    /// (<c>bg.home.fountain_back</c>), Drop and Bloom each on their soft shadow (<c>bg.home.shadow</c>), the lotus on the
-    /// basin's pedestal (<c>bg.home.lotus</c>, so Bloom stands behind it), Sprig and Twig on their shadows, the fountain's
-    /// front bushes in the corners (<c>bg.home.fountain_front</c>); the screen's UI goes over it. Every layer lies at
-    /// <see cref="HomeLayers.Place"/> in the picture cover-fitted over the screen (<see cref="HomeLayers.Cover"/>, the
-    /// backdrop's own fit), so the heroes stay on the fountain on every screen shape. The heroes are the owner's animated
+    /// stage) over the terrace the backdrop already draws (<c>home</c>, <c>bg.home</c>; no fountain since 2026-10-31): the
+    /// heroes far to near, each on its soft shadow (<c>bg.home.shadow</c>), at their depth on the terrace's floor; the
+    /// screen's UI goes over it. The heroes lie in the picture cover-fitted over the screen (<see cref="HomeLayers.Cover"/>,
+    /// the backdrop's own fit), so they stand on its floor on every screen shape. The heroes are the owner's animated
     /// ones (<see cref="HeroMotionView"/>, slots <c>char.hero3d.motion.{family}</c>), each idling from its own phase and
     /// taking turns to react (<see cref="HomeMotion"/>); a tap on a hero (its seam picture's box) makes it react at once.
     /// The splash and Home share one motion while both show (<see cref="Join"/>), so the splash turns into Home without a
@@ -32,9 +30,6 @@ namespace Bloomlings.Client.UI.Screens
         private readonly CanvasGroup?[] _stillFades = new CanvasGroup?[4];
         private readonly RawImage[] _shadows = new RawImage[4];
         private readonly RectTransform?[] _touches = new RectTransform?[4];
-        private RawImage _fountainBack = null!;
-        private RawImage _lotus = null!;
-        private RawImage _fountainFront = null!;
         private Clock _shared = null!;
         private bool _built;
         private bool _placed;
@@ -44,9 +39,8 @@ namespace Bloomlings.Client.UI.Screens
 
         /// <summary>
         /// Whether <paramref name="scene"/> (Home or the splash) shows the owner's layered Home: its owner picture is the Home
-        /// garden (the splash takes it while its own picture is missing, <see cref="OwnerPictures.Resolve"/>) and the
-        /// fountain's back, the lotus and the fountain's front are there (<see cref="HomeLayers.IsLayered"/>, the
-        /// playtest's rule too).
+        /// terrace (the splash takes it while its own picture is missing, <see cref="OwnerPictures.Resolve"/>) and it is there
+        /// (<see cref="HomeLayers.IsLayered"/>, the playtest's rule too).
         /// </summary>
         public static bool Shows(BackdropScene scene) =>
             HomeLayers.IsLayered(OwnerPictures.Resolve(scene, string.Empty, name => OwnerArt.Background(name) != null), name => OwnerArt.Background(name) != null);
@@ -63,7 +57,7 @@ namespace Bloomlings.Client.UI.Screens
             return view;
         }
 
-        /// <summary>How opaque the heroes and their shadows are (the splash fades them in over the fountain).</summary>
+        /// <summary>How opaque the heroes and their shadows are (the splash fades them in on the terrace).</summary>
         public float HeroAlpha
         {
             get => _heroAlpha;
@@ -96,9 +90,6 @@ namespace Bloomlings.Client.UI.Screens
         {
             _picture = HomeLayers.Stage(screen);
             _parent = parent;
-            PlaceLayer(_fountainBack, HomeLayers.FountainBack);
-            PlaceLayer(_lotus, HomeLayers.Lotus);
-            PlaceLayer(_fountainFront, HomeLayers.FountainFront);
             for (int i = 0; i < _families.Length; i++)
             {
                 Family family = _families[i];
@@ -146,18 +137,11 @@ namespace Bloomlings.Client.UI.Screens
         private void Build(RectTransform root, bool tappable)
         {
             _shared = Join();
-            _fountainBack = Layer("FountainBack", root, HomeLayers.FountainBack, 1f);
-            bool lotus = false;
+            // The heroes far to near on the terrace (no fountain since 2026-10-31), each on its soft shadow.
             for (int i = 0; i < _families.Length; i++)
             {
                 Family family = HomeLayers.DrawOrder[i];
                 _families[i] = family;
-                if (!lotus && !HomeLayers.BehindLotus(family))
-                {
-                    _lotus = Layer("Lotus", root, HomeLayers.Lotus, 1f);
-                    lotus = true;
-                }
-
                 string name = family.ToString();
                 _shadows[i] = Layer("Shadow" + name, root, HomeLayers.Shadow, HomeLayers.ShadowAlpha);
                 if (HeroFrames.Has(family))
@@ -176,13 +160,6 @@ namespace Bloomlings.Client.UI.Screens
                     _stills[i] = still;
                 }
             }
-
-            if (!lotus)
-            {
-                _lotus = Layer("Lotus", root, HomeLayers.Lotus, 1f);
-            }
-
-            _fountainFront = Layer("FountainFront", root, HomeLayers.FountainFront, 1f);
 
             // Clear touch boxes over the heroes, front heroes last; the screen's buttons are built after the stage, so
             // they lie above it and keep every tap on them.
@@ -226,9 +203,6 @@ namespace Bloomlings.Client.UI.Screens
                 _shared.Users--;
             }
         }
-
-        private void PlaceLayer(RawImage image, PictureBox layer) =>
-            UiKit.PlaceBox(image.rectTransform, HomeLayers.Place(_picture, layer), _parent);
 
         /// <summary>A layer picture (hidden while it is missing), at <paramref name="alpha"/>; never a touch target.</summary>
         private static RawImage Layer(string name, Transform parent, PictureBox layer, float alpha)
