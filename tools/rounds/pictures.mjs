@@ -114,7 +114,11 @@ else if(cmd==='replace'){const id=process.argv[3].startsWith('P')?process.argv[3
  const m=manifest();m.pictures=m.pictures.filter(p=>p.id!==id).concat([entryOf(pic)]);saveManifest(m);console.log(pic.id,'v'+pic.version,pic.title,pic.N,'кл.',pic.colours,'цв.');publish();}
 else if(cmd==='check'){let bad=0;for(const id of idsFrom(process.argv.slice(3))){const p=picture(id);if(!p)continue;const r=check(p);if(!r.ok)bad++;
   console.log(`${r.ok?'OK ':'НЕТ'} ${r.id} L${r.forLevel} ${r.N} кл. ${r.colours} цв. (${r.size})${r.issues.length?' — '+r.issues.join('; '):''}${r.warn.length?' · '+r.warn.join('; '):''}`);}if(bad)process.exitCode=1;}
-else if(cmd==='sheet'){const r=sheet(idsFrom(process.argv.slice(3)).map(picture).filter(Boolean),arg('--out','content/rounds/pictures/sheets/sheet.png'),+arg('--columns',5));console.log(r.out,r.md,r.count,'картинок');}
+else if(cmd==='sheet'){let pics=idsFrom(process.argv.slice(3)).map(picture).filter(Boolean);
+ // --by-level: a picture in a level is labelled by the level ("L23", its number small beside it) and the sheet goes by
+ // level, the free ones after it by number
+ if(flag('--by-level')){const lv=p=>p.usedBy?+String(p.usedBy).replace(/\D/g,''):null;pics=pics.map(p=>lv(p)?{...p,label:'L'+lv(p),inUse:p.id}:p).sort((a,b)=>(lv(a)??1e6+a.seq)-(lv(b)??1e6+b.seq));}
+ const r=sheet(pics,arg('--out','content/rounds/pictures/sheets/sheet.png'),+arg('--columns',5));console.log(r.out,r.md,r.count,'картинок');}
 else if(cmd==='approve'||cmd==='reject'){const m=manifest(),note=arg('--note');for(const id of idsFrom(process.argv.slice(3).filter(a=>a!=='--note'&&a!==note))){const p=picture(id);if(!p)continue;
   if(cmd==='approve'&&!check(p).ok)throw Error(id+' не проходит проверку правил — сначала исправить');
   p.status=cmd==='approve'?'approved':'rejected';p.note=note;p.decidedAt=new Date().toISOString().slice(0,10);

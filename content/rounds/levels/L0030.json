@@ -604,5 +604,11 @@
   "strip": "gap",
   "id": 30,
   "difficulty": "Super Hard"
+ },
+ "exception": {
+  "rule": "calm test (17 §5, amendment of 2026-10-31)",
+  "reason": "Super Hard calm 30-32 % with its deciding bridge (threshold 25 %); the owner kept the level as it is",
+  "decidedBy": "owner",
+  "decidedAt": "2026-10-31"
  }
 }

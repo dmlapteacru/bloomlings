@@ -90,7 +90,9 @@ for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
  // §5 the calm test and §8 trap links (the owner's amendment of 2026-10-31): with the board settled before every tap a Hard
  // wins at most 50 %, a Super Hard at most 25 %, a regular Normal at least 50 % (the class's best bridge); a Hard or Super
  // Hard with links has a group with a member whose material is hidden at the start
- if(!slot.intro&&n>3){const calm=await calmTest(d,L.random&&L.random.bridge!=null?{bridge:L.random.bridge}:{});L._calm=calm.share;const cf=calmFails(L.cls,calm,L._regular);if(cf)bad.push(cf);else if(calm.borderline&&(L.cls!=='Normal'||L._regular))soft.push(`спокойная игра ${Math.round(calm.share*100)} % на границе по Wilson — решение человека (§5)`);
+ if(!slot.intro&&n>3){const calm=await calmTest(d,L.random&&L.random.bridge!=null?{bridge:L.random.bridge}:{});L._calm=calm.share;const cf=calmFails(L.cls,calm,L._regular),ex=L.exception&&typeof L.exception==='object'&&/calm/i.test(L.exception.rule||'')?L.exception:null;
+  // an owner's exception to the calm rule (the level's exception field) turns the failure into a note
+  if(cf&&ex)soft.push(`исключение владельца от ${ex.decidedAt}: ${cf}`);else if(cf)bad.push(cf);else if(calm.borderline&&(L.cls!=='Normal'||L._regular))soft.push(`спокойная игра ${Math.round(calm.share*100)} % на границе по Wilson — решение человека (§5)`);
   const tl=trapLinks(d);if((L.cls==='Hard'||L.cls==='Super Hard')&&tl.length&&!tl.some(x=>x.trap))bad.push('нет связки-ловушки: у каждой связки материалы открыты с самого начала (§8)');}
  // layer B (§13, content/rounds/quality.json): pods without work at least the class's bound; soft notes unless mode 'hard'
  {const pm=slot.intro?null:L._regular?QUALITY.pressure.min.regularNormal:L.cls!=='Normal'?QUALITY.pressure.min[L.cls]:null;
