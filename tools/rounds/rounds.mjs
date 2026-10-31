@@ -41,7 +41,7 @@ const QUALITY=readJSON(path.join(ROUNDS,'quality.json'),{pressure:{min:{}},sampl
 const pct=x=>x==null?'—':Math.round(x*100)+' %';
 const waveDir=(a,b)=>path.join(ROUNDS,'runs',`${lid(a)}-${lid(b)}`);
 const placedLevels=()=>{const o={};if(fs.existsSync(LEVELS))for(const f of fs.readdirSync(LEVELS).filter(f=>/^L\d+\.json$/.test(f))){const L=readJSON(path.join(LEVELS,f));o[L.level]=L;}return o;};
-const FRANCHISE=new Set(['сторонняя вселенная','мем']);
+const FRANCHISE=new Set(['сторонняя вселенная','мем','интернет-мем/тренд']);
 // a picture usable for rounds: approved, not locked to L1–3, not a franchise reference, not yet in a round
 function freePictures(){const u=usage();return manifest().pictures.filter(e=>e.status==='approved'&&!u[e.id]).map(e=>picture(e.id)).filter(p=>p&&!p.locked&&!FRANCHISE.has(p.source));}
 const weakOf=f=>f.hiddenColours<=1||f.visible>=6;

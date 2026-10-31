@@ -25,7 +25,7 @@ import {validate} from './schema.mjs';
 const HERE=path.dirname(fileURLToPath(import.meta.url));
 export const POLICY='17§5 extended: uniform over legal actions + wait before a state event';
 export const FIXTURE_POLICY='17§5 extended';
-const FRANCHISE=new Set(['сторонняя вселенная','мем']);
+const FRANCHISE=new Set(['сторонняя вселенная','мем','интернет-мем/тренд']);
 const MECHANICS=['hidden','links','bridge'];
 // owner decisions behind a level's exception string (content/rounds/levels keeps them as a note); the rule names the
 // audit failure it excuses, matched on the audit's own wording
