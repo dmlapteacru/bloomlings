@@ -25,6 +25,5 @@ the outline; the heroes closer and bigger"):
 
 Previews: `home-progressed-19.5x9.png`, `home-early-19.5x9.png`, `home-16x9-19.5x9-21x9.png`, `badges-19.5x9.png`.
 
-The badge's colour for the owner to choose (`badge-colours.png`, disc / label pill): 1 grey blue #94B8D6 / #5F84AD (in the
-game until the choice), 2 sage #A9C0A1 / #6C8A62, 3 stone #D6C3A2 / #96764F, 4 lavender #B8AFCE / #7A6EA0, 5 teal
-#9FC9C2 / #5B958C.
+The badge's colour for the owner to choose (`badge-colours.png`, disc / label pill): 1 grey blue #94B8D6 / #5F84AD, 2 sage #A9C0A1 / #6C8A62, 3 stone #D6C3A2 / #96764F, 4 lavender #B8AFCE / #7A6EA0, 5 teal
+#9FC9C2 / #5B958C. The owner chose 2, sage (the same day); it is in the game.
