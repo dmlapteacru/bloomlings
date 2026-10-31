@@ -120,7 +120,7 @@ namespace Bloomlings.Playtest.Design
                 switch (item.Kind)
                 {
                     case FxKind.Character:
-                        if (item.Material >= 0) Visuals.Walker(p, box, RoundMaterial.All[item.Material].Family, RoundLook.ColorOf(item.Material));
+                        if (item.Material >= 0) Visuals.Walker(p, box, RoundMaterial.All[item.Material]);
                         else if(icons)Visuals.Hero(p,box.Inset(-box.Width*.25f),Visuals.FamilyOf(item.Variant),null);
                         else if (heroWalkers) Visuals.Walker(p, box, Visuals.FamilyOf(item.Variant), Visuals.ColorOf(item.Variant));
                         else Visuals.Character(p, box, item.Variant, item.Mood);

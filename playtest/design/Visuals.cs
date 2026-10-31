@@ -63,6 +63,24 @@ namespace Bloomlings.Playtest.Design
         /// <paramref name="tint"/>, the material's colour, at <see cref="WalkerTint"/>. Without the picture it is the family
         /// silhouette in the tint. No new art: the variants' own pictures, recoloured.
         /// </summary>
+        /// <summary>
+        /// A round level's walker in its cube's colour (the owner, 2026-10-31): its family's character drawn with the
+        /// material's colour as its body (<see cref="CharacterArt.WalkerPicture"/>, no tint over another colour); without that
+        /// picture, the family's character washed with the colour (<see cref="Walker(IPainter, Box, Family, Rgba)"/>).
+        /// </summary>
+        public static void Walker(IPainter p, Box box, Bloomlings.Core.Rounds.RoundMaterial material)
+        {
+            string name = CharacterArt.WalkerPicture(material);
+            p.Mark(CharacterArt.WalkerSlot);
+            if (p.HasSprite(name))
+            {
+                p.Sprite(name, box);
+                return;
+            }
+
+            Walker(p, box, material.Family, RoundLook.ColorOf(material));
+        }
+
         public static void Walker(IPainter p, Box box, Family family, Rgba tint)
         {
             p.Mark(ShapeLibrary.SilhouetteId(family));

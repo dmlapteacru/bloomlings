@@ -62,3 +62,10 @@ Videos (top: now, bottom: proposal), rendered by `playtest/preview -- --clear-vi
 - `ClearStyles.WalkerCubes`: 1.4 cubes on the biggest cubes (19 or fewer across the board box, L1) to 1.6 on the smallest
   (46 or more, the 48-wide boards), linearly in between; the hosts pass the board box width over the cube
   (`ClearWalk.Live(…, cubesAcross)`): `walker-size-by-cubes.png` (L1, L22, L27).
+
+## The same day: «герои должны быть тех же цветов, что и кубики все»
+
+- The 55 % tint over the characters' own colours left e.g. the drop blue on white cubes. Now each of the 16 materials has
+  its own walker picture (tools/artgen `2d/walker-{code}-happy.png`, `CharacterArt.WalkerPicture`): the family's character
+  with the cube's colour as its body (lifted a little when too dark for the face), drawn with no tint:
+  `walkers-by-material.png`, `walkers-colour-L22.png`.

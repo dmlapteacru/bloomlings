@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Bloomlings.Core.Rounds;
 using Bloomlings.Core.Variants;
 
 namespace Bloomlings.Client.UI.Design
@@ -99,6 +100,16 @@ namespace Bloomlings.Client.UI.Design
 
         public static string Slot2D(string iconId) => "char.v." + CharacterIcon(iconId);
 
+        /// <summary>The asset slot of the round walkers drawn in their cube's colour (<see cref="WalkerPicture"/>).</summary>
+        public const string WalkerSlot = "char.v.walker";
+
+        /// <summary>
+        /// A round level's walker drawn in its material's colour, its family's character (<see cref="RoundLook.WalkerVariant"/>)
+        /// with the cube's colour as its body, happy: <c>2d/walker-g-happy</c> for Лист (the owner, 2026-10-31: the walkers are
+        /// the same colour as the cubes; a tint over the character's own colour left the drop blue on white cubes).
+        /// </summary>
+        public static string WalkerPicture(RoundMaterial material) => "2d/walker-" + char.ToLowerInvariant(material.Code) + "-happy";
+
         public static string HeroSlot(Family family) => "char.hero3d." + FamilyName(family);
 
         /// <summary>A family's celebrating hero (spec 005 pictures.md A7, optional, 512 × 576): <c>3d/bloom-cheer</c>.</summary>
@@ -144,6 +155,11 @@ namespace Bloomlings.Client.UI.Design
                 return GroupSlot;
             }
 
+            if (picture.StartsWith("2d/walker-", StringComparison.Ordinal))
+            {
+                return WalkerSlot;
+            }
+
             if (picture.StartsWith("2d/", StringComparison.Ordinal))
             {
                 string stem = picture.Substring(3);
@@ -161,7 +177,10 @@ namespace Bloomlings.Client.UI.Design
             return "char.hero3d." + (blank > 0 ? name.Substring(0, blank) : name);
         }
 
-        /// <summary>Every picture of the set (53): 11 characters × 4 moods (Wood shows the acorn), 4 heroes × 2, and the group.</summary>
+        /// <summary>
+        /// Every picture of the set (69): 11 characters × 4 moods (Wood shows the acorn), the 16 round walkers in their
+        /// materials' colours, 4 heroes × 2, and the group.
+        /// </summary>
         public static IReadOnlyList<string> AllPictures(IEnumerable<VariantInfo> variants)
         {
             var names = new List<string>();
@@ -175,6 +194,11 @@ namespace Bloomlings.Client.UI.Design
                         names.Add(name);
                     }
                 }
+            }
+
+            foreach (RoundMaterial material in RoundMaterial.All)
+            {
+                names.Add(WalkerPicture(material));
             }
 
             foreach (Family family in Families)

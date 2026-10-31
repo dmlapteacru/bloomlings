@@ -255,6 +255,8 @@ namespace Bloomlings.Client.UI.Design
 
             // Spec 005 FR-028: the owner's animated FBX heroes, pre-rendered offline by tools/heroanim into flat frames
             // (constitution VII: no 3D model, scene or camera in the game; flat pictures on meta screens only).
+            Add(CharacterArt.WalkerSlot, "Round walker: its family's character drawn in its cube's colour (16, one a material; the owner, 2026-10-31)", new[] { 7, 8, 9 }, "Round levels: the walkers", "happy", SizeClass.Small, true, Launch, PlaceholderKind.Generated, "`2d/walker-{code}-happy.png` (tools/artgen)");
+
             foreach (Family family in CharacterArt.Families)
             {
                 string name = CharacterArt.FamilyName(family);

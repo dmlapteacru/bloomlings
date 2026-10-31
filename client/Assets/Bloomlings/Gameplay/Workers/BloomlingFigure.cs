@@ -5,6 +5,7 @@ using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Client.UI.Screens;
+using Bloomlings.Core.Rounds;
 using Bloomlings.Core.Variants;
 using UnityEngine;
 using UnityEngine.UI;
@@ -97,6 +98,26 @@ namespace Bloomlings.Client.Gameplay.Workers
         /// <see cref="WalkerTint"/>: the picture masks a flat fill of the colour laid over it. No outfit: the material, not a
         /// cosmetic, tells walkers apart. Without the picture, the family body in the colour.
         /// </summary>
+        /// <summary>
+        /// A round level's walker in its cube's colour (the owner, 2026-10-31; the playtest's <c>Visuals.Walker</c>): its
+        /// family's character drawn with the material's colour as its body (<see cref="CharacterArt.WalkerPicture"/>), with no
+        /// tint over it; without the picture, <see cref="ShowWalker(Family, Rgba)"/>.
+        /// </summary>
+        public void ShowWalker(RoundMaterial material)
+        {
+            Sprite? picture = CharacterSprites.Get(CharacterArt.WalkerPicture(material));
+            if (picture == null)
+            {
+                ShowWalker(material.Family, RoundLook.ColorOf(material));
+                return;
+            }
+
+            VariantId hero = RoundLook.WalkerVariant(material.Family);
+            (float X, float Y) face = VariantCatalog.Default.TryGet(hero, out VariantInfo info) ? CharacterArt.FaceCenter2D(info.IconId) : (0.5f, 0.6f);
+            Show(picture, material.Family, UiTheme.Of(RoundLook.ColorOf(material)), null, face, 1f);
+            _skinMask.gameObject.SetActive(false);
+        }
+
         public void ShowWalker(Family family, Rgba tint)
         {
             VariantId hero = RoundLook.WalkerVariant(family);

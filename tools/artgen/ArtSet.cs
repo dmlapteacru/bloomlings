@@ -1,6 +1,7 @@
 using System;
 using System.Linq;
 using Bloomlings.Client.UI.Design;
+using Bloomlings.Core.Rounds;
 using Bloomlings.Core.Variants;
 using SkiaSharp;
 
@@ -11,6 +12,16 @@ namespace Bloomlings.ArtGen
     {
         public static byte[] Render(string name)
         {
+            if (name.StartsWith("2d/walker-", StringComparison.Ordinal))
+            {
+                // a round walker in its cube's colour: 2d/walker-{code}-happy
+                char code = char.ToUpperInvariant(name["2d/walker-".Length]);
+                RoundMaterial material = RoundMaterial.All.First(m => m.Code == code);
+                string icon = VariantCatalog.Default.Get(RoundLook.WalkerVariant(material.Family)).IconId;
+                using SKBitmap walker = Characters2D.Render(icon, Characters2D.WalkerBody(RoundLook.ColorOf(material)), CharacterMood.Happy);
+                return Png.Encode(walker);
+            }
+
             if (name.StartsWith("2d/", StringComparison.Ordinal))
             {
                 string stem = name.Substring(3);

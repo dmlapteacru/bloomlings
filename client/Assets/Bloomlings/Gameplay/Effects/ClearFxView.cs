@@ -202,7 +202,7 @@ namespace Bloomlings.Client.Gameplay.Effects
                 if (material >= 0)
                 {
                     // A round walker: the hero of the material's family in the material's colour (FR-048).
-                    figure.ShowWalker(RoundMaterial.All[material].Family, RoundLook.ColorOf(material));
+                    figure.ShowWalker(RoundMaterial.All[material]);
                 }
                 else if (CatalogIcons)
                 {

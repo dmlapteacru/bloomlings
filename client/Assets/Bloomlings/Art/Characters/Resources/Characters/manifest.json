@@ -311,6 +311,118 @@
       "slot": "char.v.vine"
     },
     {
+      "path": "2d/walker-a-happy.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "6e218006b380f84b3ef376551513ac862ea40d31b07ad7728490adee293f7527",
+      "slot": "char.v.walker"
+    },
+    {
+      "path": "2d/walker-b-happy.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "49f204f28b8bfe2682abc07e9e6927efc310adb0acae5ab682062460a219fef1",
+      "slot": "char.v.walker"
+    },
+    {
+      "path": "2d/walker-c-happy.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "0f02b18ce8faf0b173aa4858c771798a2e6ccc7c30e1bc24a44a0b472f51cae5",
+      "slot": "char.v.walker"
+    },
+    {
+      "path": "2d/walker-d-happy.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "a761935d676032bc301e02fb74fed98cf5c67fd054a83f25da424cad5aacfbcc",
+      "slot": "char.v.walker"
+    },
+    {
+      "path": "2d/walker-e-happy.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "87626d0fe6cdd6ed78b92d36319d928d09665eee48aa2dafe26b89ac27883012",
+      "slot": "char.v.walker"
+    },
+    {
+      "path": "2d/walker-g-happy.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "00e8ae3750c97a87b7ab9281299816258e5bbe46c380e8a876aa01371fea52c3",
+      "slot": "char.v.walker"
+    },
+    {
+      "path": "2d/walker-k-happy.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "5eff96699eab821b30928d80329a0e82b2f9a74928ad54bc3d5112e5c7e1307e",
+      "slot": "char.v.walker"
+    },
+    {
+      "path": "2d/walker-l-happy.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "acbf43eb23d909ca978e369fca8e0c79eb9ea85a50825df040b359dd2b16863d",
+      "slot": "char.v.walker"
+    },
+    {
+      "path": "2d/walker-m-happy.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "7eecad4d07dcf96d00e57e42aa5608724cf9033da24e1cc21189a7508f2d3827",
+      "slot": "char.v.walker"
+    },
+    {
+      "path": "2d/walker-n-happy.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "b02aa56e92bcd10d7b8651bf9b516d553875eaf4985bb5f641a8cbef6629dcf5",
+      "slot": "char.v.walker"
+    },
+    {
+      "path": "2d/walker-o-happy.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "e4e47ee07645f1e695fbd88ca735ef5a6745f36da4e13690a197290d8b226c47",
+      "slot": "char.v.walker"
+    },
+    {
+      "path": "2d/walker-p-happy.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "65b241793d2c5f9f20c6a01a7e93019b2d688a2ac315adb5b4e0d30c7ebe771d",
+      "slot": "char.v.walker"
+    },
+    {
+      "path": "2d/walker-r-happy.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "1f5a4c9c50dad9119146cbdd20636874b82cbd4c6b9adb1c1f52090fa9822180",
+      "slot": "char.v.walker"
+    },
+    {
+      "path": "2d/walker-s-happy.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "fdd1d8cdcf2b64f179930426acb337a228bdbfd0230c473aab75c7af51cfee86",
+      "slot": "char.v.walker"
+    },
+    {
+      "path": "2d/walker-v-happy.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "6f2aba42f56ff9bc6af6bed686b0e7541d4bac0b0fed4e5f682558f3883f9823",
+      "slot": "char.v.walker"
+    },
+    {
+      "path": "2d/walker-y-happy.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "eda8c95125b624abd0dfd398c5399d5ccc0a733263df7c8bec06147349b194df",
+      "slot": "char.v.walker"
+    },
+    {
       "path": "3d/bloom-blank.png",
       "width": 512,
       "height": 576,

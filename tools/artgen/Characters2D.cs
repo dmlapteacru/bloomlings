@@ -15,8 +15,23 @@ namespace Bloomlings.ArtGen
     {
         private const float Outline = 3.4f;
 
+        /// <summary>
+        /// A round walker's body colour for a cube colour (the owner, 2026-10-31: the walkers are the cubes' colour): the cube's
+        /// own, lifted a little when it is so dark that the face would not read (the hue stays).
+        /// </summary>
+        public static Rgba WalkerBody(Rgba cube)
+        {
+            float luma = ((0.2126f * cube.R) + (0.7152f * cube.G) + (0.0722f * cube.B)) / 255f;
+            return luma < 0.32f ? cube.Lighten(0.32f - luma) : cube;
+        }
+
+        /// <summary>Renders the character <paramref name="icon"/> with <paramref name="body"/> as its body colour.</summary>
+        public static SKBitmap Render(string icon, Rgba body, CharacterMood mood) => Render(icon, new Look(body, mood), mood);
+
         /// <summary>Renders one character picture (<see cref="CharacterArt.Size2D"/> square, transparent background).</summary>
-        public static SKBitmap Render(VariantInfo variant, CharacterMood mood)
+        public static SKBitmap Render(VariantInfo variant, CharacterMood mood) => Render(variant.IconId, new Look(variant, mood), mood);
+
+        private static SKBitmap Render(string icon, Look look, CharacterMood mood)
         {
             int size = CharacterArt.Size2D;
             var bitmap = new SKBitmap(new SKImageInfo(size, size, SKColorType.Rgba8888, SKAlphaType.Premul));
@@ -25,9 +40,8 @@ namespace Bloomlings.ArtGen
             float margin = size * CharacterArt.Margin2D;
             canvas.Translate(margin, margin);
             canvas.Scale((size - (2f * margin)) / 100f);
-            var look = new Look(variant, mood);
-            Draw(canvas, variant.IconId, look);
-            (float fx, float fy) = CharacterArt.FaceDesign2D(variant.IconId);
+            Draw(canvas, icon, look);
+            (float fx, float fy) = CharacterArt.FaceDesign2D(icon);
             Face(canvas, fx, fy, mood);
             canvas.Flush();
             return bitmap;
@@ -396,9 +410,14 @@ namespace Bloomlings.ArtGen
         private sealed class Look
         {
             public Look(VariantInfo variant, CharacterMood mood)
+                : this(Palette.BodyColor(variant.IconId, Rgba.FromHex(variant.ColorHex)), mood)
+            {
+            }
+
+            public Look(Rgba raw, CharacterMood mood)
             {
                 Mood = mood;
-                Raw = Palette.BodyColor(variant.IconId, Rgba.FromHex(variant.ColorHex));
+                Raw = raw;
                 Base = Tone(Raw);
                 Line = Base.Darken(0.38f);
             }
