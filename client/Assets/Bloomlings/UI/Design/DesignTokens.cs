@@ -111,11 +111,15 @@ namespace Bloomlings.Client.UI.Design
             public static readonly Rgba GardenBadgeRing = Rgba.FromHex("#FBF3E1");
             public static readonly Rgba GardenShadow = Rgba.FromHex("#3C2814");
 
-            /// <summary>Home's floating buttons (the owner, 2026-10-31, as the reference game's): the round badge's one colour.</summary>
-            public static readonly Rgba PromoBadge = Rgba.FromHex("#3F86D8");
+            /// <summary>
+            /// Home's floating buttons (the owner, 2026-10-31, as the reference game's): the round badge's one colour, a quiet
+            /// grey blue a little deeper than the terrace's sky, so the badge belongs to the scene as the reference's do
+            /// ("too contrasting, more neutral"; it was #3F86D8).
+            /// </summary>
+            public static readonly Rgba PromoBadge = Rgba.FromHex("#94B8D6");
 
-            /// <summary>The floating buttons' label pill under the badge.</summary>
-            public static readonly Rgba PromoBadgeLabel = Rgba.FromHex("#2E6CC0");
+            /// <summary>The floating buttons' label pill under the badge, a muted deeper blue that keeps its white letters legible.</summary>
+            public static readonly Rgba PromoBadgeLabel = Rgba.FromHex("#5F84AD");
             public static readonly Rgba GardenLabelFillTop = Rgba.FromHex("#FFFFFF");
             public static readonly Rgba GardenLabelFillBottom = Rgba.FromHex("#EEF2DA");
             public static readonly Rgba GardenLabelPlain = Rgba.FromHex("#5A3F24");

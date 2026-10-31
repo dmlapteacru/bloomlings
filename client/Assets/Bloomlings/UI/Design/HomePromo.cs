@@ -290,11 +290,20 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The badge's gentle white outline, as a share of its diameter.</summary>
         public const float BadgeRingShare = 0.035f;
 
-        /// <summary>How much the scene's props are scaled on the badge (they stood on the stand before).</summary>
-        public const float BadgeArtScale = 0.85f;
+        /// <summary>
+        /// How much the scene's props are scaled on the badge (they stood on the stand before): big enough to reach out over
+        /// the outline at the top and the sides (the owner, 2026-10-31: "bigger, it must go out past the outline").
+        /// </summary>
+        public const float BadgeArtScale = 1.25f;
+
+        /// <summary>
+        /// How far the props stand apart across the badge against the stand: less than <see cref="BadgeArtScale"/>, so the
+        /// bigger props gather over the badge (overlapping it and each other) instead of spreading toward the screen's edge.
+        /// </summary>
+        public const float BadgeSpread = 0.95f;
 
         /// <summary>Where the props' feet stand on the badge, as a share of its diameter from its top.</summary>
-        public const float BadgeFeetShare = 0.72f;
+        public const float BadgeFeetShare = 0.8f;
 
         /// <summary>The props' feet on the stand, as a share of the scene box's width from its top (<see cref="Prop"/>'s y).</summary>
         private const float StandFeetShare = 0.43f;
@@ -318,8 +327,8 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// A scene's props on its badge at <paramref name="seconds"/> (<see cref="Layers"/> without the stand): scaled by
-        /// <see cref="BadgeArtScale"/> about their feet, which stand <see cref="BadgeFeetShare"/> down the badge, so their tops
-        /// and sides reach a little out over its outline.
+        /// <see cref="BadgeArtScale"/> about their feet, which stand <see cref="BadgeFeetShare"/> down the badge, and drawn
+        /// <see cref="BadgeSpread"/> as far apart across, so their tops and sides reach out over its outline.
         /// </summary>
         public static IReadOnlyList<PromoLayer> BadgeLayers(PromoScene scene, Box box, float seconds, bool calling)
         {
@@ -336,17 +345,20 @@ namespace Bloomlings.Client.UI.Design
                     continue;
                 }
 
-                props.Add(new PromoLayer(l.Picture, tx + ((l.X - px) * s), ty + ((l.Y - py) * s), l.Width * s, l.Height * s, l.PivotX, l.PivotY, l.ScaleX, l.ScaleY, l.Rotation, l.Alpha));
+                props.Add(new PromoLayer(l.Picture, tx + ((l.X - px) * BadgeSpread), ty + ((l.Y - py) * s), l.Width * s, l.Height * s, l.PivotX, l.PivotY, l.ScaleX, l.ScaleY, l.Rotation, l.Alpha));
             }
 
             return props;
         }
 
-        /// <summary>The Daily Challenge's badge in its square side-button box.</summary>
-        public static Box ChallengeDisc(Box box) => Box.FromCenter(box.CenterX, box.CenterY, box.Width * 0.92f, box.Width * 0.92f);
+        /// <summary>The Daily Challenge's badge in its square side-button box, a little low so its board clears the Daily pill above.</summary>
+        public static Box ChallengeDisc(Box box) => Box.FromCenter(box.CenterX, box.CenterY + (box.Width * 0.08f), box.Width, box.Width);
 
-        /// <summary>The Daily Challenge's board on its badge: the board picture a little bigger than the badge, out over its top.</summary>
-        public static Box BadgeChallenge(Box disc) => Box.FromCenter(disc.CenterX, disc.CenterY - (disc.Height * 0.08f), disc.Width * 0.86f, disc.Height * 0.86f);
+        /// <summary>
+        /// The Daily Challenge's board on its badge: raised so its sun and top corners stand out over the outline, narrow
+        /// enough that the badge shows at its sides.
+        /// </summary>
+        public static Box BadgeChallenge(Box disc) => Box.FromCenter(disc.CenterX, disc.CenterY - (disc.Height * 0.15f), disc.Width * 0.9f, disc.Height * 0.9f);
 
         /// <summary>The "!" seal on a badge: at its top right, over the outline.</summary>
         public static Box BadgeSeal(Box disc) => Box.FromCenter(disc.Right - (disc.Width * 0.1f), disc.Top + (disc.Height * 0.1f), disc.Width * 0.3f, disc.Width * 0.3f);

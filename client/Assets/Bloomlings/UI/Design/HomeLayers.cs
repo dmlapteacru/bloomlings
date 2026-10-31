@@ -97,16 +97,16 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>
         /// Where a hero stands on the terrace (the owner, 2026-10-31: "at different distances and sizes, as if someone is far
         /// and someone near"): its feet's middle as shares of the picture's width and height, and its seam pose's height as a
-        /// share of the picture's width, smaller the further back it stands. Bloom far by the balustrade's middle, Drop by the
+        /// share of the picture's width, smaller the further back it stands ("closer and bigger", the same day). Bloom far by the balustrade's middle, Drop by the
         /// bench at the left, Twig by the column's plinth at the right, Sprig in front at the left of the middle, clear of the
         /// side buttons above and the level's plaque below on a 19.5:9 screen (which shows the picture's middle 82% across).
         /// </summary>
         public static (float X, float Feet, float Height) Placement(Family family) => family switch
         {
-            Family.Bloom => (0.58f, 0.52f, 0.165f),
-            Family.Drop => (0.21f, 0.548f, 0.205f),
-            Family.Twig => (0.79f, 0.562f, 0.22f),
-            _ => (0.37f, 0.6f, 0.31f),
+            Family.Bloom => (0.57f, 0.538f, 0.22f),
+            Family.Drop => (0.2f, 0.572f, 0.28f),
+            Family.Twig => (0.8f, 0.6f, 0.31f),
+            _ => (0.36f, 0.608f, 0.4f),
         };
 
         /// <summary>How far into its idle loop a hero starts (seconds), so the four do not breathe together.</summary>
