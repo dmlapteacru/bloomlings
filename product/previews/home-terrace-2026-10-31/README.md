@@ -17,10 +17,14 @@ the outline; the heroes closer and bigger"):
 
 - `ui.promo.badge` is a quiet grey blue a little deeper than the sky (#94B8D6, was #3F86D8), the label pill a muted
   deeper blue (#5F84AD) for its white letters.
-- The props on a badge are scaled 1.25 about their feet (was 0.85) and stand 0.95 as far apart across
+- The props on a badge are scaled 1.25 about their feet (was 0.85; 1.1 after the owner's "a little smaller" the same day) and stand 0.95 as far apart across
   (`HomePromo.BadgeSpread`), so they gather over the badge and reach out over its outline at the top and the sides; the
   Daily Challenge's badge is its box's width, its board 0.9 of the badge and raised so the sun and top corners stand out.
 - The heroes far to near: Bloom 0.22 of the width tall, Drop 0.28, Twig 0.31, Sprig 0.4, their feet lower (closer);
   Twig's hat clears the Challenge label on a 16:9 screen.
 
 Previews: `home-progressed-19.5x9.png`, `home-early-19.5x9.png`, `home-16x9-19.5x9-21x9.png`, `badges-19.5x9.png`.
+
+The badge's colour for the owner to choose (`badge-colours.png`, disc / label pill): 1 grey blue #94B8D6 / #5F84AD (in the
+game until the choice), 2 sage #A9C0A1 / #6C8A62, 3 stone #D6C3A2 / #96764F, 4 lavender #B8AFCE / #7A6EA0, 5 teal
+#9FC9C2 / #5B958C.

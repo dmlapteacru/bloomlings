@@ -294,7 +294,7 @@ namespace Bloomlings.Client.UI.Design
         /// How much the scene's props are scaled on the badge (they stood on the stand before): big enough to reach out over
         /// the outline at the top and the sides (the owner, 2026-10-31: "bigger, it must go out past the outline").
         /// </summary>
-        public const float BadgeArtScale = 1.25f;
+        public const float BadgeArtScale = 1.1f;
 
         /// <summary>
         /// How far the props stand apart across the badge against the stand: less than <see cref="BadgeArtScale"/>, so the
