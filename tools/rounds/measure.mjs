@@ -42,9 +42,12 @@ export async function calmTest(level,{first=200,max=400,seed=3,bridge=null,borde
  // 200 games, widened to 400 when the 95 % Wilson interval crosses a threshold of the calm rule (as the class test does)
  const crosses=([a,b])=>borders.some(x=>a<x&&b>=x);play(first);let ci=wilson(wins,n);if(crosses(ci)&&max>first){play(max-first);ci=wilson(wins,n);}
  return {runs:n,wins,share:Math.round(wins/n*1000)/1000,wilson95:ci.map(x=>Math.round(x*1000)/1000),borderline:crosses(ci),protocol:'§5 calm: uniform over legal actions, the board settled before each',seedBase:seed,...(bridge!==null?{bridge}:{})};}
-// the calm rule of a class (17 §5): null when it holds, else the reason; a borderline result (the Wilson interval still
-// crosses the threshold after 400 games) holds, as a borderline class does, and is left to a person
-export function calmFails(cls,calm,regularNormal=false){if(!calm||calm.borderline)return null;
+// the calm rule of a class (17 §5): null when it holds, else the reason. A result whose Wilson interval still crosses the
+// class's own threshold after 400 games (Super Hard 25 %, Hard and Normal 50 %) is borderline: it holds, as a borderline
+// class does, and is left to a person
+export const calmThreshold=cls=>cls==='Super Hard'?.25:.5;
+export function calmBorderline(cls,calm){if(!calm||!calm.wilson95)return false;const t=calmThreshold(cls),[a,b]=calm.wilson95;return a<t&&b>=t;}
+export function calmFails(cls,calm,regularNormal=false){if(!calm||calmBorderline(cls,calm))return null;
  if(cls==='Hard'&&calm.share>.5)return `спокойная игра: Hard выигрывается в ${Math.round(calm.share*100)} % (не больше 50 %, §5)`;
  if(cls==='Super Hard'&&calm.share>.25)return `спокойная игра: Super Hard выигрывается в ${Math.round(calm.share*100)} % (не больше 25 %, §5)`;
  if(regularNormal&&cls==='Normal'&&calm.share<.5)return `спокойная игра: Normal выигрывается в ${Math.round(calm.share*100)} % (не меньше 50 %, §5)`;

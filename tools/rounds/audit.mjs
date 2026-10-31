@@ -7,7 +7,7 @@ import fs from 'node:fs';import path from 'node:path';
 import {LEVELS,CODES,readJSON,lid,arg,picture,measure,fitsStage,stageOf,budget,columnsFor,slotOf,SUPPORTED,FIXED_VOLUMES,motifsOf,boardOf,overlaid} from './lib.mjs';
 import {engine} from './engine.mjs';
 import {run} from '../level-stats/trace.mjs';
-import {bridgeChoicesWin,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,pressure,calmTest,calmFails,trapLinks} from './measure.mjs';
+import {bridgeChoicesWin,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,pressure,calmTest,calmFails,calmBorderline,trapLinks} from './measure.mjs';
 import {INTRO,planOf,repeatWindow} from './lib.mjs';
 import {fitness} from './fitness.mjs';
 const from=+process.argv[2]||1,to=+process.argv[3]||20,preview=arg('--preview'),out=arg('--out');
@@ -92,7 +92,7 @@ for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
  // Hard with links has a group with a member whose material is hidden at the start
  if(!slot.intro&&n>3){const calm=await calmTest(d,L.random&&L.random.bridge!=null?{bridge:L.random.bridge}:{});L._calm=calm.share;const cf=calmFails(L.cls,calm,L._regular),ex=L.exception&&typeof L.exception==='object'&&/calm/i.test(L.exception.rule||'')?L.exception:null;
   // an owner's exception to the calm rule (the level's exception field) turns the failure into a note
-  if(cf&&ex)soft.push(`исключение владельца от ${ex.decidedAt}: ${cf}`);else if(cf)bad.push(cf);else if(calm.borderline&&(L.cls!=='Normal'||L._regular))soft.push(`спокойная игра ${Math.round(calm.share*100)} % на границе по Wilson — решение человека (§5)`);
+  if(cf&&ex)soft.push(`исключение владельца от ${ex.decidedAt}: ${cf}`);else if(cf)bad.push(cf);else if(calmBorderline(L.cls,calm)&&(L.cls!=='Normal'||L._regular))soft.push(`спокойная игра ${Math.round(calm.share*100)} % на границе по Wilson — решение человека (§5)`);
   const tl=trapLinks(d);if((L.cls==='Hard'||L.cls==='Super Hard')&&tl.length&&!tl.some(x=>x.trap))bad.push('нет связки-ловушки: у каждой связки материалы открыты с самого начала (§8)');}
  // layer B (§13, content/rounds/quality.json): pods without work at least the class's bound; soft notes unless mode 'hard'
  {const pm=slot.intro?null:L._regular?QUALITY.pressure.min.regularNormal:L.cls!=='Normal'?QUALITY.pressure.min[L.cls]:null;
