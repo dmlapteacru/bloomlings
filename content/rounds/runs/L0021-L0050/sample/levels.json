@@ -5,124 +5,134 @@
  "levels": [
   {
    "id": 25,
-   "title": "Дом в цветочном бутоне",
-   "subject": "P0030",
-   "w": 48,
-   "h": 48,
+   "title": "Камин с часами",
+   "subject": "P0166",
+   "w": 34,
+   "h": 34,
    "rowsBottomFirst": [
-    "########################.#######################",
-    "#..............................................#",
-    "#.....................GGMM.....................#",
-    "#.....................GGMM.....................#",
-    "#....................MGGMM.....................#",
-    "#...............GGGGMMGGMM.....................#",
-    "#.............GGGGMMG.GGMMM....................#",
-    "#............GGGGMMG..GGMMMMG..................#",
-    "#..........GGGGMMGGG..GGMMGGMMG................#",
-    "#.........GGGGMMGGG...GGMM.GGMMGG..............#",
-    "#........GGGMMGGGG....GGMM..GGGMMGG............#",
-    "#.......GGGMMGGGG.....GGMM..GGGGGMMGG..........#",
-    "#......GGGMGGGG.......GGMM...GGGGGMMGG.........#",
-    "#.....GGMMGGGG........GGMM....GGGGGGMMG........#",
-    "#....GGGGGGG.......RRRRRRRRRR...GGGGGMMG.......#",
-    "#..............RRRRRRRRRRRRRRRRRR.GGGGGMM......#",
-    "#............RPPPPPPPPPPPPPPPPRRRRR.GGGGGG.....#",
-    "#..........RPPPPPPPPPPPPPPPPPPPPRRRRR..........#",
-    "#.........PPPPPPPPPPPPPPPPPPPPPPPPRRRR.........#",
-    "#........PPPPPPPPPPPPPPPPPPPPPPPPPPPRRR........#",
-    "#.......PPPPPPPPPPPPPPPPPPPPPPPPPPPPPRRR.......#",
-    "#.......PPPPPPPPPPPPPPPPPPPPPPPPPPPPPRRR.......#",
-    "#.......PPPPPPPPPPPPAAAKKKKKPPPPPPPPPPRR.......#",
-    "#.......PPPPPPPPPPCCAAACCCCCCCPPPPPPPPRR.......#",
-    "#.......PPPPPPPPPPCCAAACCCCCCCPPPPPPPPPR.......#",
-    "#......PPPPPPPPPPPCCAACCCCCCCCPPPPPPPPPRR......#",
-    "#......PPPPPPPPPPPCCAAACCCAAACPPPPPPPPPRR......#",
-    "#......PPPPPPPPPPPCCAAACCASSSAPPPPPPPPPRR......#",
-    "#......PPPPPPPPPPPCCAAACCASSSAPPPPPPPPPPR......#",
-    "#.....PPPPPPPPPPPPCCAAACCASSSAPPPPPPPPPPRR.....#",
-    "#.....PPPPPPPPPPPPCCCCCCCCAAACPPPPPPPPPPRR.....#",
-    "#.....PPPPPPPPPPPPCCCCCCCCCCCCPPPPPPPPPPRR.....#",
-    "#.....PPPPPPPPPPRRRRRRRRRRRRRRRRPPPPPPPPRR.....#",
-    "#.....PPPPPPPPPPPRRRRRRRRRRRRRRPPPPPPPPPRR.....#",
-    "#.....PPPPPPPPPPKKRRRRRRRRRRRRKKPPPPPPPPRR.....#",
-    "#.....PPPPPPPPPP.KKRRRRRRRRRRKK.PPPPPPPPRR.....#",
-    "#.....PPPPPPPPP..KKKRRRRRRRRKKK..PPPPPPPRR.....#",
-    "#......PPPPPPP...KKKKRRRRRRKKKK...PPPPPPR......#",
-    "#......PPPPPPP....KKKKRRRRKKKK....PPPPPPR......#",
-    "#......PPPPPP......KKKKRRKKKK......PPPPRR......#",
-    "#......PPPPP........KKKKKKKK........PPPRR......#",
-    "#......PPPP..........KKKKKK..........PPRR......#",
-    "#......PPP...........KKKKKK...........PRR......#",
-    "#......PP.............KKKK.............RR......#",
-    "#......................KK......................#",
-    "#..............................................#",
-    "#..............................................#",
-    "################################################"
+    "#################.################",
+    "#................................#",
+    "#.EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.#",
+    "#.EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.#",
+    "#.EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.#",
+    "#.EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.#",
+    "#.OAAARRKRREEEEEEEEEEEERRRKRAAAA.#",
+    "#.OAAAKKKKKEEEEEEEEEEEEKKKKKKAAA.#",
+    "#.OAAARRRRRNOOYYYYYYOONKRRRRAAAA.#",
+    "#.OAAARRRRRNNOOYYYYOONNKRRRRAAAA.#",
+    "#.OAAAKKKKKNNNOYYYYONNNKKKKKKAAA.#",
+    "#.OAAARRKRRNNNOOYYOONNNRRRKRAAAA.#",
+    "#.OAAARRKRRNNNNOYYONNNNRRRKRAAAA.#",
+    "#.OAAAKKKKKNNNNOOOONNNNKKKKKKAAA.#",
+    "#.OAAARRRRRNNNNNOONNNNNKRRRRAAAA.#",
+    "#.OAAARRRRRNNNNNOONNNNNKRRRRAAAA.#",
+    "#.OAAAKKKKKNNNNNNNNNNNNKKKKKKAAA.#",
+    "#.OAAARRKRRRRNNNNNNNNRRRRRKRAAAA.#",
+    "#.OAAARRKRRRRRKNNNNRKRRRRRKRAAAA.#",
+    "#.OAAAKKKKKKKKKKKKKKKKKKKKKKKAAA.#",
+    "#.OAAARRRRRKRRRRRKRRRRRKRRRRAAAA.#",
+    "#.OAAARRRRRKRRRRRKRRRRRKRRRRAAAA.#",
+    "#.OACCCCCCCCCCCCCCCCCCCCCCCCCCAA.#",
+    "#.OACCCCCCCCCCCCCCCCCCCCCCCCCCAA.#",
+    "#.OACCCCCCCCCCCCEECCCCCCCCCCCCAA.#",
+    "#.OAAAACCAAAAAOECCEAOAAAACCAAAAA.#",
+    "#.OAAAACCAAAAAECCCCEOAAAACCAAAAA.#",
+    "#.OAAAACCAAAAAECCNCEOAAAACCAAAAA.#",
+    "#.OAAAAAOAAAAAECCCCEOAAAAAOAAAAA.#",
+    "#.OAAAAYYAAAAAOEEEEAOAAAAYYAAAAA.#",
+    "#.OAAAAAOAAAAAOAAAAAOAAAAAOAAAAA.#",
+    "#.OAAAAAOAAAAAOAAAAAOAAAAAOAAAAA.#",
+    "#................................#",
+    "##################################"
    ],
    "entries": [
-    24
+    17
    ],
    "capacity": 5,
    "pods": [
     {
-     "color": "K",
+     "color": "O",
      "count": 23,
      "group": "A"
     },
     {
-     "color": "K",
-     "count": 23
+     "color": "O",
+     "count": 22
     },
     {
-     "color": "K",
-     "count": 23
+     "color": "O",
+     "count": 22,
+     "group": "C"
     },
     {
-     "color": "P",
-     "count": 46,
+     "color": "A",
+     "count": 52
+    },
+    {
+     "color": "A",
+     "count": 52
+    },
+    {
+     "color": "A",
+     "count": 52
+    },
+    {
+     "color": "A",
+     "count": 52
+    },
+    {
+     "color": "A",
+     "count": 52
+    },
+    {
+     "color": "Y",
+     "count": 11
+    },
+    {
+     "color": "Y",
+     "count": 11
+    },
+    {
+     "color": "E",
+     "count": 53
+    },
+    {
+     "color": "E",
+     "count": 53,
      "group": "B"
     },
     {
-     "color": "P",
-     "count": 46
+     "color": "E",
+     "count": 52
     },
     {
-     "color": "P",
-     "count": 45,
-     "group": "E"
+     "color": "C",
+     "count": 34,
+     "group": "C"
     },
     {
-     "color": "P",
-     "count": 45
+     "color": "C",
+     "count": 34
     },
     {
-     "color": "P",
-     "count": 45
+     "color": "C",
+     "count": 33,
+     "group": "B"
     },
     {
-     "color": "P",
-     "count": 45
+     "color": "N",
+     "count": 27,
+     "group": "D"
     },
     {
-     "color": "P",
-     "count": 45
+     "color": "N",
+     "count": 26,
+     "group": "A"
     },
     {
-     "color": "P",
-     "count": 45
-    },
-    {
-     "color": "P",
-     "count": 45
-    },
-    {
-     "color": "P",
-     "count": 45,
-     "mystery": "depth"
-    },
-    {
-     "color": "P",
-     "count": 45
+     "color": "N",
+     "count": 26,
+     "group": "D"
     },
     {
      "color": "R",
@@ -130,273 +140,63 @@
     },
     {
      "color": "R",
-     "count": 41
-    },
-    {
-     "color": "R",
-     "count": 41
-    },
-    {
-     "color": "R",
-     "count": 41
-    },
-    {
-     "color": "C",
-     "count": 23
-    },
-    {
-     "color": "C",
-     "count": 22,
-     "group": "C"
-    },
-    {
-     "color": "C",
-     "count": 22,
-     "group": "A"
-    },
-    {
-     "color": "A",
-     "count": 18,
-     "group": "D"
-    },
-    {
-     "color": "A",
-     "count": 17,
-     "group": "B"
-    },
-    {
-     "color": "S",
-     "count": 9,
-     "group": "E"
-    },
-    {
-     "color": "G",
-     "count": 46,
-     "group": "C"
-    },
-    {
-     "color": "G",
-     "count": 46
-    },
-    {
-     "color": "G",
-     "count": 45
-    },
-    {
-     "color": "M",
-     "count": 21,
+     "count": 41,
      "mystery": "depth"
     },
     {
-     "color": "M",
-     "count": 20,
-     "group": "D"
+     "color": "R",
+     "count": 41
     },
     {
-     "color": "M",
-     "count": 20
+     "color": "K",
+     "count": 30
+    },
+    {
+     "color": "K",
+     "count": 30,
+     "mystery": "depth"
+    },
+    {
+     "color": "K",
+     "count": 29
     }
    ],
    "tray": [
     [
-     6,
-     16,
-     27,
-     25,
-     2,
-     15
-    ],
-    [
-     7,
-     11,
-     26,
-     12,
+     0,
+     21,
+     24,
+     8,
      14,
-     24
+     20,
+     9
     ],
     [
      17,
-     5,
-     18,
-     28,
-     1,
-     19
-    ],
-    [
-     10,
-     23,
-     3,
-     21,
-     4,
-     0
-    ],
-    [
-     9,
-     13,
+     7,
+     2,
      22,
-     8,
-     29,
-     20
+     5,
+     1
+    ],
+    [
+     16,
+     23,
+     13,
+     11,
+     3,
+     4
+    ],
+    [
+     18,
+     6,
+     10,
+     15,
+     12,
+     19
     ]
    ],
    "difficulty": "Hard"
-  },
-  {
-   "id": 29,
-   "title": "Скейтборд",
-   "subject": "P0019",
-   "w": 42,
-   "h": 38,
-   "rowsBottomFirst": [
-    "#####################.####################",
-    "#........................................#",
-    "#............O...........................#",
-    "#......DDDDOOOO..........................#",
-    "#....DDDDDOOOOOO.........................#",
-    "#...DNNNNNNOOOOO.........................#",
-    "#...NBBBBBBNNOOD.........................#",
-    "#..NBBBBBBBBNNDDD........................#",
-    "#.NNBBBBBBBBBBNNDDD......................#",
-    "#.NBBBBBBBBBBBBNNDDD.....................#",
-    "#.NBBBBBBBBYYBBBBNNDDD...................#",
-    "#.NBBBBBBBBBYYBBBBNNDDD..................#",
-    "#.NNBBBBBBBBYYYBBBBBNDDDD................#",
-    "#..NBBBBBBBBBYYYBBBBBNNDDD...............#",
-    "#...NBBBBBBBBYYYYBBBBBBNDDDD.............#",
-    "#..OONNBBBBBBBYYYYBBBBYBNNDDD............#",
-    "#.OOOONNBBBBBBBYYYYBBBYYBBNDDDD..........#",
-    "#.OOOOOONNBBBBBYYYYYBBYYBBBNNDDD.........#",
-    "#..OOOO..NNBBBBBYYYYYYYYYBBBNNDDD..OO....#",
-    "#...OO.....NNBBBYYYYYYYYYBBBBBNNDDOOOO...#",
-    "#...........NNBBBYYBBYYYYYBBBBBNNOOOOOO..#",
-    "#.............NBBYYBBBYYYYYBBBBBBNNOOOO..#",
-    "#..............NNBYBBBBYYYYBBBBBBBNNOOD..#",
-    "#................NBBBBBBYYYYBBBBBBBBNDD..#",
-    "#.................NNBBBBBYYYBBBBBBBBBNDD.#",
-    "#...................NBBBBBYYYBBBBBBBBNND.#",
-    "#....................NNBBBBYYBBBBBBBBBND.#",
-    "#.....................NNBBBBBYBBBBBBBBND.#",
-    "#.......................NNBBBBYBBBBBBBN..#",
-    "#........................NNBBBBBBBBBBNN..#",
-    "#..........................NNBBBBBBBBN...#",
-    "#.........................OONNBBBBBBN....#",
-    "#........................OOOOONNNNNN.....#",
-    "#........................OOOOOO..........#",
-    "#.........................OOOO...........#",
-    "#..........................O.............#",
-    "#........................................#",
-    "##########################################"
-   ],
-   "entries": [
-    21
-   ],
-   "capacity": 5,
-   "pods": [
-    {
-     "color": "O",
-     "count": 24,
-     "group": "A"
-    },
-    {
-     "color": "O",
-     "count": 24
-    },
-    {
-     "color": "O",
-     "count": 24
-    },
-    {
-     "color": "N",
-     "count": 32,
-     "group": "A"
-    },
-    {
-     "color": "N",
-     "count": 32
-    },
-    {
-     "color": "N",
-     "count": 32
-    },
-    {
-     "color": "B",
-     "count": 48
-    },
-    {
-     "color": "B",
-     "count": 48
-    },
-    {
-     "color": "B",
-     "count": 48
-    },
-    {
-     "color": "B",
-     "count": 48,
-     "group": "B"
-    },
-    {
-     "color": "B",
-     "count": 48
-    },
-    {
-     "color": "B",
-     "count": 47,
-     "mystery": "depth"
-    },
-    {
-     "color": "Y",
-     "count": 28,
-     "group": "B"
-    },
-    {
-     "color": "Y",
-     "count": 28
-    },
-    {
-     "color": "Y",
-     "count": 27
-    },
-    {
-     "color": "D",
-     "count": 20
-    },
-    {
-     "color": "D",
-     "count": 20
-    },
-    {
-     "color": "D",
-     "count": 20
-    }
-   ],
-   "tray": [
-    [
-     15,
-     12,
-     7,
-     1,
-     2,
-     0
-    ],
-    [
-     13,
-     9,
-     8,
-     11,
-     17,
-     3
-    ],
-    [
-     14,
-     10,
-     5,
-     4,
-     16,
-     6
-    ]
-   ],
-   "difficulty": "Normal"
   },
   {
    "id": 30,
@@ -722,17 +522,16 @@
    "pods": [
     {
      "color": "S",
+     "count": 21
+    },
+    {
+     "color": "S",
      "count": 21,
      "group": "A"
     },
     {
-     "color": "S",
-     "count": 21
-    },
-    {
      "color": "D",
-     "count": 39,
-     "mystery": "depth"
+     "count": 39
     },
     {
      "color": "D",
@@ -740,16 +539,16 @@
     },
     {
      "color": "D",
-     "count": 38,
+     "count": 38
+    },
+    {
+     "color": "C",
+     "count": 24
+    },
+    {
+     "color": "C",
+     "count": 24,
      "group": "B"
-    },
-    {
-     "color": "C",
-     "count": 24
-    },
-    {
-     "color": "C",
-     "count": 24
     },
     {
      "color": "C",
@@ -761,7 +560,11 @@
     },
     {
      "color": "R",
-     "count": 54,
+     "count": 54
+    },
+    {
+     "color": "R",
+     "count": 53,
      "group": "A"
     },
     {
@@ -770,15 +573,13 @@
     },
     {
      "color": "R",
-     "count": 53
+     "count": 53,
+     "mystery": "depth"
     },
     {
      "color": "R",
-     "count": 53
-    },
-    {
-     "color": "R",
-     "count": 53
+     "count": 53,
+     "group": "B"
     },
     {
      "color": "R",
@@ -790,8 +591,7 @@
     },
     {
      "color": "K",
-     "count": 14,
-     "group": "B"
+     "count": 14
     },
     {
      "color": "K",
@@ -800,28 +600,28 @@
    ],
    "tray": [
     [
-     3,
+     14,
+     13,
+     12,
      16,
      10,
-     11,
-     12,
-     15
+     0
     ],
     [
-     9,
-     4,
-     2,
-     1,
-     13,
-     14
-    ],
-    [
-     0,
-     8,
-     5,
-     17,
+     15,
      6,
-     7
+     5,
+     8,
+     1,
+     2
+    ],
+    [
+     7,
+     17,
+     11,
+     4,
+     3,
+     9
     ]
    ],
    "difficulty": "Normal"
@@ -1450,6 +1250,163 @@
    "difficulty": "Normal"
   },
   {
+   "id": 48,
+   "title": "Скейтборд",
+   "subject": "P0019",
+   "w": 42,
+   "h": 38,
+   "rowsBottomFirst": [
+    "#####################.####################",
+    "#........................................#",
+    "#............O...........................#",
+    "#......DDDDOOOO..........................#",
+    "#....DDDDDOOOOOO.........................#",
+    "#...DNNNNNNOOOOO.........................#",
+    "#...NBBBBBBNNOOD.........................#",
+    "#..NBBBBBBBBNNDDD........................#",
+    "#.NNBBBBBBBBBBNNDDD......................#",
+    "#.NBBBBBBBBBBBBNNDDD.....................#",
+    "#.NBBBBBBBBYYBBBBNNDDD...................#",
+    "#.NBBBBBBBBBYYBBBBNNDDD..................#",
+    "#.NNBBBBBBBBYYYBBBBBNDDDD................#",
+    "#..NBBBBBBBBBYYYBBBBBNNDDD...............#",
+    "#...NBBBBBBBBYYYYBBBBBBNDDDD.............#",
+    "#..OONNBBBBBBBYYYYBBBBYBNNDDD............#",
+    "#.OOOONNBBBBBBBYYYYBBBYYBBNDDDD..........#",
+    "#.OOOOOONNBBBBBYYYYYBBYYBBBNNDDD.........#",
+    "#..OOOO..NNBBBBBYYYYYYYYYBBBNNDDD..OO....#",
+    "#...OO.....NNBBBYYYYYYYYYBBBBBNNDDOOOO...#",
+    "#...........NNBBBYYBBYYYYYBBBBBNNOOOOOO..#",
+    "#.............NBBYYBBBYYYYYBBBBBBNNOOOO..#",
+    "#..............NNBYBBBBYYYYBBBBBBBNNOOD..#",
+    "#................NBBBBBBYYYYBBBBBBBBNDD..#",
+    "#.................NNBBBBBYYYBBBBBBBBBNDD.#",
+    "#...................NBBBBBYYYBBBBBBBBNND.#",
+    "#....................NNBBBBYYBBBBBBBBBND.#",
+    "#.....................NNBBBBBYBBBBBBBBND.#",
+    "#.......................NNBBBBYBBBBBBBN..#",
+    "#........................NNBBBBBBBBBBNN..#",
+    "#..........................NNBBBBBBBBN...#",
+    "#.........................OONNBBBBBBN....#",
+    "#........................OOOOONNNNNN.....#",
+    "#........................OOOOOO..........#",
+    "#.........................OOOO...........#",
+    "#..........................O.............#",
+    "#........................................#",
+    "##########################################"
+   ],
+   "entries": [
+    21
+   ],
+   "capacity": 5,
+   "pods": [
+    {
+     "color": "O",
+     "count": 24,
+     "group": "A"
+    },
+    {
+     "color": "O",
+     "count": 24
+    },
+    {
+     "color": "O",
+     "count": 24,
+     "mystery": "depth"
+    },
+    {
+     "color": "N",
+     "count": 32,
+     "group": "A"
+    },
+    {
+     "color": "N",
+     "count": 32,
+     "group": "B"
+    },
+    {
+     "color": "N",
+     "count": 32
+    },
+    {
+     "color": "B",
+     "count": 48
+    },
+    {
+     "color": "B",
+     "count": 48
+    },
+    {
+     "color": "B",
+     "count": 48
+    },
+    {
+     "color": "B",
+     "count": 48
+    },
+    {
+     "color": "B",
+     "count": 48
+    },
+    {
+     "color": "B",
+     "count": 47
+    },
+    {
+     "color": "Y",
+     "count": 28
+    },
+    {
+     "color": "Y",
+     "count": 28
+    },
+    {
+     "color": "Y",
+     "count": 27
+    },
+    {
+     "color": "D",
+     "count": 20
+    },
+    {
+     "color": "D",
+     "count": 20
+    },
+    {
+     "color": "D",
+     "count": 20,
+     "group": "B"
+    }
+   ],
+   "tray": [
+    [
+     11,
+     10,
+     9,
+     16,
+     13,
+     1
+    ],
+    [
+     15,
+     12,
+     8,
+     17,
+     7,
+     3
+    ],
+    [
+     14,
+     5,
+     2,
+     4,
+     6,
+     0
+    ]
+   ],
+   "difficulty": "Normal"
+  },
+  {
    "id": 50,
    "title": "Роза собора",
    "subject": "P0159",
@@ -1723,27 +1680,15 @@
  "lessons": {
   "25": [
    "Первая картинка",
-   "bloom",
-   "K",
-   "Нажимай верхние капсулы. Команда выходит из ворот внизу, идёт по дорожке вокруг картинки и собирает доступные клетки своего точного цвета, снаружи внутрь. Число на капсуле — сколько клеток она соберёт. Пять мест ожидания: можно отправлять следующие команды, пока работают прежние. Материалы: Румянец — Bloom, Лепесток — Bloom, Ягода — Bloom, Жемчуг — Drop, Янтарь — Twig, Небо — Drop, Лист — Sprig, Мох — Sprig. Этот уровень сложнее: подумай, какие команды отправить раньше и где оставить место. Ретрай бесплатный."
-  ],
-  "29": [
-   "Новые цвета",
    "twig",
    "O",
-   "Тыква собирает Twig. Глубина собирает Drop. Вода собирает Drop. Солнце собирает Sprig. Земля собирает Twig. Это отдельные материалы: команда собирает только свой точный цвет."
+   "Нажимай верхние капсулы. Команда выходит из ворот внизу, идёт по дорожке вокруг картинки и собирает доступные клетки своего точного цвета, снаружи внутрь. Число на капсуле — сколько клеток она соберёт. Пять мест ожидания: можно отправлять следующие команды, пока работают прежние. Материалы: Тыква — Twig, Янтарь — Twig, Солнце — Sprig, Кора — Twig, Жемчуг — Drop, Глубина — Drop, Ягода — Bloom, Румянец — Bloom. Этот уровень сложнее: подумай, какие команды отправить раньше и где оставить место. Ретрай бесплатный."
   ],
   "30": [
-   "Новый цвет: Лайм",
-   "sprig",
-   "L",
-   "Лайм собирает Sprig. Это отдельные материалы: команда собирает только свой точный цвет. Самый трудный тип уровня: очередь и места нужно планировать заранее. Ретрай бесплатный."
-  ],
-  "34": [
-   "Новый цвет: Кора",
-   "twig",
-   "E",
-   "Кора собирает Twig. Это отдельные материалы: команда собирает только свой точный цвет."
+   "Новые цвета",
+   "bloom",
+   "P",
+   "Лепесток собирает Bloom. Лист собирает Sprig. Земля собирает Twig. Лайм собирает Sprig. Мох собирает Sprig. Небо собирает Drop. Вода собирает Drop. Это отдельные материалы: команда собирает только свой точный цвет. Самый трудный тип уровня: очередь и места нужно планировать заранее. Ретрай бесплатный."
   ],
   "45": [
    "Новый цвет: Слива",
@@ -1765,40 +1710,18 @@
    "gap": false,
    "cls": "Hard",
    "intro": null,
-   "picture": "P0030",
+   "picture": "P0166",
    "recipe": "links+hidden",
-   "N": 1040,
+   "N": 900,
    "colours": 8,
-   "P": 30,
-   "columns": 5,
-   "linked": 10,
+   "P": 25,
+   "columns": 4,
+   "linked": 8,
    "hidden": 2,
-   "random": 0.38,
+   "random": 0.33,
    "runs": 100,
    "borderline": false,
-   "seconds": 467.1,
-   "draft": false
-  },
-  {
-   "level": 29,
-   "bridgeKind": null,
-   "bridgeSide": null,
-   "overlay": false,
-   "gap": false,
-   "cls": "Normal",
-   "intro": null,
-   "picture": "P0019",
-   "recipe": "links+hidden",
-   "N": 598,
-   "colours": 5,
-   "P": 18,
-   "columns": 3,
-   "linked": 4,
-   "hidden": 1,
-   "random": 0.61,
-   "runs": 100,
-   "borderline": false,
-   "seconds": 251.7,
+   "seconds": 404,
    "draft": false
   },
   {
@@ -1839,10 +1762,10 @@
    "columns": 3,
    "linked": 4,
    "hidden": 1,
-   "random": 0.68,
+   "random": 0.77,
    "runs": 100,
    "borderline": false,
-   "seconds": 257.7,
+   "seconds": 283.7,
    "draft": false
   },
   {
@@ -1912,6 +1835,28 @@
    "draft": false
   },
   {
+   "level": 48,
+   "bridgeKind": null,
+   "bridgeSide": null,
+   "overlay": false,
+   "gap": false,
+   "cls": "Normal",
+   "intro": null,
+   "picture": "P0019",
+   "recipe": "links+hidden",
+   "N": 598,
+   "colours": 5,
+   "P": 18,
+   "columns": 3,
+   "linked": 4,
+   "hidden": 1,
+   "random": 0.72,
+   "runs": 100,
+   "borderline": false,
+   "seconds": 221.3,
+   "draft": false
+  },
+  {
    "level": 50,
    "bridgeKind": "better",
    "bridgeSide": "up",
@@ -1940,7 +1885,7 @@
   "45": true,
   "50": true
  },
- "hash": "618cd0ec9fcf8179415118e65d56a2ec3f73a49494829dc515387eb62d7682b2",
+ "hash": "32088180cde633221e0519ffc72c35e2a1ace4cfd2d8d16cb43ffa715b7ef7dc",
  "rulesHash": "ec33026e742e6efee1626ebea071d5582ff1cdc9bb8ca889ce35ee0935626598",
  "timelineHash": "b423a3feccd70d027f0d9630796daa3f72f56363618170b503f6efad895d939d",
  "paletteHash": "a6c30515cd923c00e05e74d066e7cc0201efb7cff12ddb0677f5281ebaf22cca",
