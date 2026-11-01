@@ -462,6 +462,85 @@ namespace Bloomlings.Content.Tests.Rounds
         }
 
         [Test]
+        public void Level_WithLatches_RoundTrips()
+        {
+            // 17 §8 «Засов и жёлудь-ключ» (2026-11-01): the top-level latches [{column, depth, key}]; mechanics "latch".
+            JObject root = JObject.Parse(LevelSample);
+            root["latches"] = JArray.Parse("[{\"column\": 1, \"depth\": 0, \"key\": 8}]");
+            root["mechanics"] = new JArray("latch");
+            string json = root.ToString();
+
+            RoundLevel level = RoundJson.ReadLevel(json);
+            string written = RoundJson.WriteLevel(level);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(ContractSchemas.IsValidRoundLevel(json), Is.True);
+                Assert.That(ContractSchemas.IsValidRoundLevel(written), Is.True);
+                Assert.That(level.Latches.Select(l => (l.Column, l.Depth, l.Key)), Is.EqualTo(new[] { (1, 0, 8) }));
+                Assert.That(level.Mechanics, Is.EqualTo(new[] { "latch" }));
+                Assert.That(RoundValidatorErrors(level), Is.Empty);
+                Assert.That(RoundJson.WriteLevel(RoundJson.ReadLevel(written)), Is.EqualTo(written));
+                Assert.That(JObject.Parse(written)["latches"]!.ToString(Newtonsoft.Json.Formatting.None), Is.EqualTo("[{\"column\":1,\"depth\":0,\"key\":8}]"));
+                Assert.That(JObject.Parse(RoundJson.WriteLevel(RoundJson.ReadLevel(LevelSample)))["latches"], Is.Null, "absent means none");
+            });
+        }
+
+        [TestCase("[]", true, TestName = "LatchesEmpty_IsRejectedByBoth")]
+        [TestCase("[{\"column\": 1, \"depth\": 0}]", true, TestName = "LatchWithoutKey_IsRejectedByBoth")]
+        [TestCase("[{\"column\": 1, \"depth\": -1, \"key\": 8}]", true, TestName = "LatchNegativeDepth_IsRejectedByBoth")]
+        [TestCase("[{\"column\": 1, \"depth\": 0, \"key\": 8, \"tag\": 1}]", true, TestName = "LatchExtraProperty_IsRejectedByBoth")]
+        [TestCase("[{\"column\": 1, \"depth\": 0, \"key\": 56}]", false, TestName = "LatchKeyOffTheBoard_IsRejectedByTheReader")]
+        public void Level_BadLatches_AreRejected(string latches, bool bySchema)
+        {
+            JObject root = JObject.Parse(LevelSample);
+            root["latches"] = JArray.Parse(latches);
+            root["mechanics"] = new JArray("latch");
+            string text = root.ToString();
+
+            Assert.Multiple(() =>
+            {
+                if (bySchema)
+                {
+                    Assert.That(ContractSchemas.IsValidRoundLevel(text), Is.False, "schema");
+                }
+
+                Assert.Throws<ContentFormatException>(() => RoundJson.ReadLevel(text), "reader");
+            });
+        }
+
+        [Test]
+        public void Level_ALatchKeyOnAWall_IsTheValidatorsJob()
+        {
+            JObject root = JObject.Parse(LevelSample);
+            root["latches"] = JArray.Parse("[{\"column\": 1, \"depth\": 0, \"key\": 0}]");
+            root["mechanics"] = new JArray("latch");
+
+            RoundLevel level = RoundJson.ReadLevel(root.ToString());
+
+            Assert.That(RoundLevelValidator.ValidateDefinition(level), Does.Contain(RoundLevelValidator.LatchKey));
+        }
+
+        [Test]
+        public void Picture_TheOwnersRights_RoundTrip()
+        {
+            // A franchise or meme picture the owner took in by his own decision (pictures.mjs rights --owner, 2026-11-01).
+            JObject picture = JObject.Parse(PictureSample);
+            picture["rights"] = "owner";
+            string json = picture.ToString();
+
+            RoundPicture read = RoundJson.ReadPicture(json);
+            Assert.Multiple(() =>
+            {
+                Assert.That(ContractSchemas.IsValidRoundPicture(json), Is.True);
+                Assert.That(read.Rights, Is.EqualTo(RoundPicture.OwnerRights));
+                Assert.That(JObject.Parse(RoundJson.WritePicture(read))["rights"]!.ToString(), Is.EqualTo("owner"));
+                Assert.That(read.Recolored(new[] { (0, 0, read.RowsTopFirst[0][0] == 'G' ? 'P' : 'G') }).Rights, Is.EqualTo(RoundPicture.OwnerRights));
+                Assert.That(RoundJson.ReadPicture(PictureSample).Rights, Is.EqualTo(RoundPicture.OwnRights));
+            });
+        }
+
+        [Test]
         public void Level_AHiddenCellOnAWall_IsTheValidatorsJob()
         {
             JObject root = JObject.Parse(LevelSample);

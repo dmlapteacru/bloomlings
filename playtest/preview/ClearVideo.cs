@@ -16,7 +16,8 @@ namespace Bloomlings.Playtest.Preview
     /// at 30 fps written as <c>frame-0000.png</c> with <c>board.txt</c> (the board's box in pixels: left top width
     /// height), for a video of the clearing style's walkers (ffmpeg crops and encodes). Review material only. The environment
     /// variable <c>BLOOMLINGS_ROUNDS_DIR</c> points it at another rounds folder (its <c>published/</c> and <c>proofs/</c>), e.g.
-    /// a temporary set with a level given hidden cells, so the game's <c>content/game/rounds</c> is never touched.
+    /// a temporary set with a level given hidden cells, so the game's <c>content/game/rounds</c> is never touched. A level that
+    /// opens with an introduction card writes it as <c>intro.png</c> first, then closes it.
     /// </summary>
     public static class ClearVideo
     {
@@ -75,6 +76,18 @@ namespace Bloomlings.Playtest.Preview
                     {
                         s.NextGuideStep();
                     }
+                }
+
+                // A level that opens with an introduction card: the card is written as intro.png, then closed.
+                if (s.Intro != null)
+                {
+                    for (int k = 0; k < Fps; k++)
+                    {
+                        Frame(1f / Fps);
+                    }
+
+                    File.WriteAllBytes(Path.Combine(outDir, "intro.png"), painter.Png());
+                    s.CloseIntro();
                 }
 
                 Frame(1f / Fps);

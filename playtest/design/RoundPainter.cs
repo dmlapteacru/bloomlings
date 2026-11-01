@@ -43,6 +43,10 @@ namespace Bloomlings.Playtest.Design
             public readonly Dictionary<int, List<(float X, float Y)>> Points = new Dictionary<int, List<(float X, float Y)>>();
             public readonly List<int> Gone = new List<int>();
             public readonly List<(int Pod, int Column, int Depth, Box Layout, Box Drawn, float Fade)> Pods = new List<(int, int, int, Box, Box, float)>();
+
+            // Latch + key (17 §8): a column's queue items and the latch blocks to draw this frame.
+            public readonly List<RoundQueueItem> Items = new List<RoundQueueItem>();
+            public readonly List<(int Latch, int Column, int Row, Box Drawn)> Latches = new List<(int, int, int, Box)>();
             public Box?[] FrameOf = Array.Empty<Box?>();
             public readonly bool[] Reachable = new bool[RoundMaterial.Codes.Length];
         }
@@ -368,6 +372,21 @@ namespace Bloomlings.Playtest.Design
                         p.StrokeRound(board.CellBox(cell).Inset(board.Cell * 0.06f), board.Cell * 0.16f, Math.Max(1f, board.Cell * 0.08f), C.GardenGlow.WithAlpha(0.5f + (0.5f * pulse)));
                     }
                 }
+            }
+
+            // The acorn keys (17 §8 «Засов и жёлудь-ключ», FR-067): each closed latch's acorn on its empty cell, with its latch's
+            // mark; when the latch opens it pops (swells and fades).
+            for (int latch = 0; latch < a.LatchCount; latch++)
+            {
+                if (!a.LatchShown(latch))
+                {
+                    continue;
+                }
+
+                float since = a.LatchOpenSince(latch);
+                p.PushAlpha(RoundLook.KeyPopAlpha(since));
+                Kit.AcornKey(p, board.CellBox(a.Level.Latches[latch].Key), latch, RoundLook.KeyPopScale(since));
+                p.PopAlpha();
             }
 
             // The bridges over the cubes (17 §8 as amended on 2026-10-31): the built one; a site that can be built, whole,
@@ -735,6 +754,8 @@ namespace Bloomlings.Playtest.Design
             }
 
             bool swirl = s.LastBooster.HasValue && s.LastBooster.Value.Kind == BoosterKind.Shuffle && s.Play.ClockUs - s.LastBooster.Value.At < 450_000;
+            List<(int Latch, int Column, int Row, Box Drawn)> latches = cache.Latches;
+            latches.Clear();
             for (int st = 0; st < columns; st++)
             {
                 int waiting = a.Waiting(st);
@@ -743,13 +764,30 @@ namespace Bloomlings.Playtest.Design
                     continue;
                 }
 
-                for (int depth = Math.Min(waiting, r.PodRows + 1) - 1; depth >= 0; depth--)
+                // The column's queue with its latches at their places (17 §8 «Засов и жёлудь-ключ», FR-067): a pod's row is its
+                // depth plus the latches before it.
+                a.ColumnItems(st, r.PodRows + 1, cache.Items);
+                for (int k = cache.Items.Count - 1; k >= 0; k--)
                 {
-                    int pod = a.At(st, depth);
-                    bool shown = r.Shows(depth);
-                    Box layout = shown ? r.Pod(st, depth) : r.Pod(st, r.PodRows - 1);
+                    RoundQueueItem item = cache.Items[k];
+                    int row = item.Row;
+                    bool shown = r.Shows(row);
+                    Box layout = shown ? r.Pod(st, row) : r.Pod(st, r.PodRows - 1);
                     Box target = shown ? layout : new Box(layout.Left, layout.Bottom, layout.Right, layout.Bottom);
-                    TrayMotion.Slide slide = motion.Track(s.KeyOf(pod), st, depth, target, now, snap: swirl);
+                    TrayMotion.Slide slide = motion.Track(item.IsLatch ? LatchKey(item.Id) : s.KeyOf(item.Id), st, row, target, now, snap: swirl);
+                    if (item.IsLatch)
+                    {
+                        if (shown)
+                        {
+                            latches.Add((item.Id, st, row, slide.Box));
+                        }
+
+                        continue;
+                    }
+
+                    // A pod behind a closed latch is no top pod: drawn as a waiting one, it takes no tap.
+                    int pod = item.Id;
+                    int depth = a.HeldBehind(cache.Items, k) ? item.Depth + 1 : item.Depth;
                     bool entering = slide.Moving && !r.Shows(slide.FromDepth);
                     if (!shown && !slide.Moving)
                     {
@@ -827,8 +865,25 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
+            // The latch blocks (FR-067): each at its row, a pod's size; an opening one swells, lifts and fades out of its
+            // column, then the pods behind it slide up.
+            foreach ((int latch, int st, int row, Box drawn) in latches)
+            {
+                (float lift, float scale, float alpha) = RoundLook.LatchOpenLift(a.LatchOpenSince(latch));
+                PodChip chip = PodChip.Cube(drawn, row > 0);
+                Box frame = chip.Frame;
+                p.PushAlpha(alpha);
+                p.PushTransform(0f, -lift * frame.Height, scale, frame.CenterX, frame.CenterY);
+                Kit.LatchBlock(p, chip, latch);
+                p.PopTransform();
+                p.PopAlpha();
+            }
+
             Hint(p, s, cache);
         }
+
+        /// <summary>The tray motion's key of a latch block (pods use <see cref="RoundLevelScreen.KeyOf"/>).</summary>
+        private static string LatchKey(int latch) => "latch:" + latch.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
         /// <summary>
         /// The pulse round the link partner a refused tap waits for, or, while it waits deeper than the rows show, round its
@@ -992,19 +1047,29 @@ namespace Bloomlings.Playtest.Design
                     break;
                 }
 
-                case RoundIntroPicture.HiddenCell:
+                case RoundIntroPicture.Latch:
                 {
-                    // A hidden cell's "?" cube, the arrow, the same cube revealed (17 §8 «Скрытые клетки»).
-                    float cw = h * 0.62f;
-                    float ch = cw * (RoundScreenLook.BoardRowShare + RoundScreenLook.BoardFrontShare);
-                    var left = Box.FromCenter(area.CenterX - ((cw + gap) / 2f), area.CenterY, cw, ch);
-                    var right = Box.FromCenter(area.CenterX + ((cw + gap) / 2f), area.CenterY, cw, ch);
-                    Kit.HiddenCube(p, left);
-                    p.Shape("ui.chevron", Box.FromCenter(area.CenterX, area.CenterY, h * 0.28f, h * 0.28f), C.InkBrownSoft);
-                    float pop = RoundLook.CellRevealScale((since % 1.6f) - 0.4f);
-                    p.PushTransform(0f, 0f, pop, right.CenterX, right.CenterY);
-                    Kit.BoardCube(p, right, RoundMaterial.All[1], false);
+                    // The latch block on top of a column with a pod behind it, and the board's acorn key with the same mark on
+                    // a patch of surface (17 §8 «Засов и жёлудь-ключ»); the key pops and the block lifts away in a loop.
+                    float t = (since % 2.4f) - 1.2f;
+                    float pw = h * 0.5f;
+                    float colX = area.CenterX - (h * 0.55f);
+                    var top = Box.FromCenter(colX, area.CenterY - (pw * 0.5f), pw, pw);
+                    var behind = Box.FromCenter(colX, area.CenterY + (pw * 0.5f), pw, pw);
+                    (float lift, float scale, float alpha) = RoundLook.LatchOpenLift(t);
+                    Kit.RoundPod(p, PodChip.Cube(behind, t < 0f), RoundMaterial.All[2], 9, PodLook.Exposed, t < 0f, false);
+                    p.PushAlpha(alpha);
+                    p.PushTransform(0f, -lift * pw, scale, top.CenterX, top.CenterY);
+                    Kit.LatchBlock(p, PodChip.Cube(top), 0);
                     p.PopTransform();
+                    p.PopAlpha();
+                    float cw = h * 0.3f;
+                    var patch = Box.FromCenter(area.CenterX + (h * 0.6f), area.CenterY, cw * 3f, cw * 2f);
+                    Kit.BoardSurface(p, patch, cw * 0.3f);
+                    Box keyCell = Box.FromCenter(patch.CenterX + (cw * 0.5f), patch.CenterY, cw, cw);
+                    p.PushAlpha(RoundLook.KeyPopAlpha(t));
+                    Kit.AcornKey(p, keyCell, 0, RoundLook.KeyPopScale(t));
+                    p.PopAlpha();
                     break;
                 }
 

@@ -148,7 +148,8 @@ namespace Bloomlings.Core.Tests.Rounds
         public void MechanicsMustMatchThePodsAndTheHero()
         {
             Assert.That(RoundLevelValidator.Validate(Make(mechanics: new[] { "links" })), Does.Contain(RoundLevelValidator.Mechanics));
-            Assert.That(RoundLevelValidator.Validate(Make(mechanics: new[] { "hidden", "links", "latch" })), Does.Contain(RoundLevelValidator.UnknownMechanic));
+            Assert.That(RoundLevelValidator.Validate(Make(mechanics: new[] { "hidden", "links", "canal" })), Does.Contain(RoundLevelValidator.UnknownMechanic), "a mechanic the round engine does not play yet");
+            Assert.That(RoundLevelValidator.Validate(Make(mechanics: new[] { "hidden", "links", "latch" })), Does.Contain(RoundLevelValidator.Mechanics), "latch is played since 2026-11-01, but listed only with latches");
         }
 
         [Test]

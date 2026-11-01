@@ -104,8 +104,11 @@ namespace Bloomlings.Core.Tests.Rounds
             Assert.That(s.BlockedColumns(), Is.Empty);
             Assert.That(s.Revealed[3], Is.False, "the hidden pod behind the latch stays hidden");
 
-            // tapping the G pod brings the latch on top of column 2: the column has no top pod until it opens
-            RoundState after = RoundSolver.Step(s, RoundAction.Tap(2))!;
+            // tapping the G pod brings the latch on top of column 2: the column has no top pod until it opens (the G cells are
+            // reached round the ring, but the key in the middle of the G area is not, yet)
+            var t = new RoundTimeline(level);
+            t.Commit(RoundAction.Tap(2));
+            RoundState after = t.State;
             Assert.That(after.BlockedColumns(), Is.EqualTo(new[] { 2 }));
             Assert.That(after.TopLatchOf(2), Is.EqualTo(0));
             Assert.That(after.TopOf(2), Is.EqualTo(-1));
@@ -318,29 +321,41 @@ namespace Bloomlings.Core.Tests.Rounds
             }
         }
 
+        // A walled garden: an open row with the entry at the bottom, A above it, G above that with a hole at (2, 4); the G
+        // cells are out of reach until the A row is cleared, so a G pod waits in its place with no courier.
+        private static RoundLevel Walled(int key) => RoundTestLevels.Board(
+            new[] { "#######", "#######", "#######", "#GGGGG#", "#G.GGG#", "#GGGGG#", "#AAAAA#", "#.....#" },
+            new[] { new RoundPod('A', 5), new RoundPod('G', 7), new RoundPod('G', 7) },
+            new[] { new[] { 0 }, new[] { 1, 2 } },
+            3).WithLatchesForTests(new[] { new RoundLatch(1, 1, key) });
+
         [Test]
         public void ReturnPutsAPodBackBeforeAClosedLatchAndAnOpenLatchStaysOpen()
         {
-            // the G pod of column 2 has no reachable cell yet, so it waits in its place with no courier
-            RoundLevel level = Small();
+            RoundLevel level = Walled(RoundTestLevels.Cell(Walled(0), 2, 3));
+            Assert.That(RoundLevelValidator.ValidateDefinition(level), Is.Empty);
             var t = new RoundTimeline(level);
-            t.Commit(RoundAction.Tap(2));
-            Assert.That(t.State.BlockedColumns(), Is.EqualTo(new[] { 2 }));
-            Assert.That(RoundBoosters.Return(t, 2).Accepted, Is.True);
-            Assert.That(RoundRules.TopPods(t.State), Does.Contain(2));
-            Assert.That(t.State.BlockAt(2), Is.EqualTo(1));
+            t.Commit(RoundAction.Tap(1));
+            Assert.That(t.State.BlockedColumns(), Is.EqualTo(new[] { 1 }));
+            RoundCommitResult back = RoundBoosters.Return(t, 1);
+            Assert.That(back.Accepted, Is.True, back.Reason);
+            Assert.That(RoundRules.TopPods(t.State), Is.EqualTo(new[] { 0, 1 }));
+            Assert.That(t.State.BlockAt(1), Is.EqualTo(1));
             Assert.That(t.State.Latched, Is.EqualTo(new[] { true }));
             Assert.That(t.Copy().State.Latched, Is.EqualTo(new[] { true }));
 
-            // a latch whose key is reached from the start opens as the tap brings it on top; Return keeps it open
-            RoundLevel ring = WithLatches(level, new[] { new RoundLatch(2, 1, level.Width + 1) });
+            // a key reached from the start (an open cell of the bottom row): the latch opens as the tap brings it on top, and
+            // Return keeps it open though the column's head goes back before it
+            RoundLevel ring = Walled(RoundTestLevels.Cell(level, 1, 0));
             var u = new RoundTimeline(ring);
-            RoundCommitResult tap = u.Commit(RoundAction.Tap(2));
+            RoundCommitResult tap = u.Commit(RoundAction.Tap(1));
             Assert.That(tap.Events.Count(e => e.Type == RoundEventType.LatchOpen), Is.EqualTo(1));
-            Assert.That(RoundBoosters.Return(u, 2).Accepted, Is.True);
+            RoundCommitResult again = RoundBoosters.Return(u, 1);
+            Assert.That(again.Accepted, Is.True, again.Reason);
             Assert.That(u.State.Latched, Is.EqualTo(new[] { false }));
             Assert.That(u.Copy().State.Latched, Is.EqualTo(new[] { false }), "a restored snapshot keeps it open");
-            Assert.That(RoundRules.TopPods(u.State), Is.EqualTo(new[] { 0, 1, 2 }));
+            Assert.That(RoundRules.TopPods(u.State), Is.EqualTo(new[] { 0, 1 }));
+            Assert.That(RoundRules.CanTap(u.State, 2), Is.EqualTo(RoundRefusal.NotExposed), "pod 2 waits under the returned pod");
         }
 
         [Test]

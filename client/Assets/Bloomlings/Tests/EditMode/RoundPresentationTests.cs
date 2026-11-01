@@ -655,17 +655,21 @@ namespace Bloomlings.Client.Tests
             Assert.That(links.Id, Is.EqualTo("round.intro.links.reminder"));
 
             Assert.That(RoundIntroCards.For("bridge", false)!.Picture, Is.EqualTo(RoundIntroPicture.Bridge));
-            RoundIntroCard? cells = RoundIntroCards.For(new RoundIntroduction("cells", false));
-            Assert.That(cells!.Kind, Is.EqualTo(RoundIntroKind.Explanation));
-            Assert.That(cells.Picture, Is.EqualTo(RoundIntroPicture.HiddenCell));
-            Assert.That(cells.LineKeys.Count, Is.EqualTo(3));
-            Assert.That(cells.Id, Is.EqualTo("round.intro.cells"));
-            RoundIntroCard? cellsAgain = RoundIntroCards.For(new RoundIntroduction("cells", true));
-            Assert.That(cellsAgain!.Kind, Is.EqualTo(RoundIntroKind.Reminder));
-            Assert.That(cellsAgain.Id, Is.EqualTo("round.intro.cells.reminder"));
-            Assert.That(RoundIntroCards.Mechanics, Is.EqualTo(new[] { "hidden", "links", "bridge", "cells" }));
+            RoundIntroCard? latch = RoundIntroCards.For(new RoundIntroduction("latch", false));
+            Assert.That(latch!.Kind, Is.EqualTo(RoundIntroKind.Explanation));
+            Assert.That(latch.Picture, Is.EqualTo(RoundIntroPicture.Latch));
+            Assert.That(latch.LineKeys.Count, Is.EqualTo(3));
+            Assert.That(latch.Id, Is.EqualTo("round.intro.latch"));
+            RoundIntroCard? latchAgain = RoundIntroCards.For(new RoundIntroduction("latch", true));
+            Assert.That(latchAgain!.Kind, Is.EqualTo(RoundIntroKind.Reminder));
+            Assert.That(latchAgain.Id, Is.EqualTo("round.intro.latch.reminder"));
+            Assert.That(RoundIntroCards.Mechanics, Is.EqualTo(new[] { "hidden", "links", "bridge", "latch" }));
             Assert.That(RoundIntroCards.For((RoundIntroduction?)null), Is.Null);
-            Assert.That(RoundIntroCards.For("latch", false), Is.Null);
+
+            // hidden cells (L51, L53) open with no card at all (the owner, 2026-11-01)
+            Assert.That(RoundIntroCards.For("cells", false), Is.Null);
+            Assert.That(RoundIntroCards.For("cells", true), Is.Null);
+            Assert.That(RoundIntroCards.Keys().Any(k => k.StartsWith("round.intro.cells", StringComparison.Ordinal)), Is.False);
 
             var seen = new HashSet<string> { "round.intro.hidden" };
             Assert.That(RoundIntroCards.ToShow(new RoundIntroduction("hidden", false), seen.Contains), Is.Null, "shown once");

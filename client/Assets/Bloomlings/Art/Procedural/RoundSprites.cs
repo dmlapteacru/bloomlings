@@ -129,6 +129,27 @@ namespace Bloomlings.Client.Art
             return ProceduralSprites.Picture(UiRaster.HiddenSideFaceKey(left, share), Math.Max(1, width), Math.Max(1, height), (w, h) => UiRaster.SideFace(w, h, RoundLook.HiddenPodColor, left, share));
         }
 
+        /// <summary>
+        /// A latch block (17 §8 «Засов и жёлудь-ключ», spec 006 FR-067; the playtest's <c>Kit.LatchBlock</c>): the pod-sized
+        /// oblique wooden block with latch <paramref name="latch"/>'s mark (<see cref="UiRaster.LatchBlock"/>).
+        /// </summary>
+        public static Sprite LatchBlock(int latch, int size)
+        {
+            int tag = RoundLook.TagIndex(latch);
+            int s = Math.Max(1, size);
+            return ProceduralSprites.Picture(UiRaster.LatchBlockKey(tag), s, s, (w, h) => UiRaster.LatchBlock(Math.Min(w, h), tag));
+        }
+
+        /// <summary>
+        /// The acorn key of latch <paramref name="latch"/> (<c>board.round.key</c>; the playtest's <c>Kit.AcornKey</c>, <see cref="UiRaster.AcornKey"/>).
+        /// </summary>
+        public static Sprite AcornKey(int latch, int size)
+        {
+            int tag = RoundLook.TagIndex(latch);
+            int s = Math.Max(1, size);
+            return ProceduralSprites.Picture(UiRaster.AcornKeyKey(tag), s, s, (w, h) => UiRaster.AcornKey(Math.Min(w, h), tag));
+        }
+
         /// <summary>The link tube's picture (<see cref="UiRaster.LinkTube"/>) of <paramref name="shape"/>'s colours at a pixel size.</summary>
         public static Sprite LinkTube(LinkTubeShape shape, int width, int height)
         {

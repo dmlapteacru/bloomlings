@@ -578,11 +578,11 @@ round.intro.bridge.1,The stream cuts the garden in two
 round.intro.bridge.2,"Clear the way to a bridge site, then tap it to build the bridge. It takes no pod and no place"
 round.intro.bridge.3,Only one bridge can be built. Choose its side well
 round.intro.bridge.reminder,Remember: only one bridge can be built. Choose its side well
-round.intro.cells.title,Hidden cells
-round.intro.cells.1,A ? cube keeps its color a secret
-round.intro.cells.2,It shows its color as soon as the way to it is open
-round.intro.cells.3,"Clear around it to see it, then plan your next pods"
-round.intro.cells.reminder,"Remember: a ? cube shows its color once the way to it is open"
+round.intro.latch.title,The latch
+round.intro.latch.1,A latch holds its column: the pods behind it wait
+round.intro.latch.2,It opens by itself when the Bloomlings reach its acorn key on the board
+round.intro.latch.3,Clear the way to the acorn with the same mark to free the column
+round.intro.latch.reminder,"Remember: a latch opens by itself once the way to its acorn key is open"
 round.soon.title,New levels soon
 round.soon.body,"You have played all {0} levels. New levels are on the way, come back soon!"
 round.jump.dev,Go

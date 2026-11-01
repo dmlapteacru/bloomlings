@@ -387,6 +387,30 @@ namespace Bloomlings.Playtest.Design
             p.StrokeRound(frame.Inset(-s * 0.03f), radius + (s * 0.03f), s * 0.035f, DesignTokens.Colors.GardenGlow.WithAlpha(strength));
         }
 
+        /// <summary>
+        /// A latch block (17 §8 «Засов и жёлудь-ключ», spec 006 FR-067; <c>pod.round.latch</c>) in a pod's chip
+        /// <paramref name="chip"/>: the pod-sized oblique wooden block with its iron bolt, acorn padlock and the mark of latch
+        /// <paramref name="latch"/> (<see cref="UiRaster.LatchBlock"/>). It takes no tap.
+        /// </summary>
+        public static void LatchBlock(IPainter p, PodChip chip, int latch)
+        {
+            p.Mark(RoundLook.LatchSlot);
+            int tag = RoundLook.TagIndex(latch);
+            p.Picture(UiRaster.LatchBlockKey(tag), chip.Frame, (w, h) => UiRaster.LatchBlock(Math.Min(w, h), tag));
+        }
+
+        /// <summary>
+        /// The acorn key of latch <paramref name="latch"/> (<c>board.round.key</c>) centred on <paramref name="cell"/>'s box, a
+        /// little larger than the cell (<see cref="RoundLook.KeyCellShare"/>), at <paramref name="scale"/> (its pop).
+        /// </summary>
+        public static void AcornKey(IPainter p, Box cell, int latch, float scale = 1f)
+        {
+            p.Mark(RoundLook.KeySlot);
+            int tag = RoundLook.TagIndex(latch);
+            float side = Math.Min(cell.Width, cell.Height) * RoundLook.KeyCellShare * scale;
+            p.Picture(UiRaster.AcornKeyKey(tag), Box.FromCenter(cell.CenterX, cell.CenterY, side, side), (w, h) => UiRaster.AcornKey(Math.Min(w, h), tag));
+        }
+
         private static T[] MakeWall<T>(Func<int, T> make)
         {
             var items = new T[UiRaster.WallVariants];

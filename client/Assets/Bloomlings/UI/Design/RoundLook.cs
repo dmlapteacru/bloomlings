@@ -33,6 +33,10 @@ namespace Bloomlings.Client.UI.Design
     /// (<see cref="RevealGlow"/>).</description></item>
     /// <item><description>A hidden cell (17 §8 «Скрытые клетки») is the neutral "?" cube (<see cref="HiddenCellSlot"/>) until
     /// it reveals, then pops into its material (<see cref="CellRevealScale"/>, <see cref="CellRevealVeil"/>).</description></item>
+    /// <item><description>A latch (17 §8 «Засов и жёлудь-ключ», FR-067) is a wooden latch block (<see cref="LatchSlot"/>) standing in its
+    /// column at its place in the queue, its acorn key (<see cref="KeySlot"/>) on its board cell with the same mark
+    /// (<see cref="LatchTag"/>, <see cref="LatchPips"/>); when it opens the key pops (<see cref="KeyPopScale"/>) and the
+    /// block swings out of its column (<see cref="LatchOpenLift"/>).</description></item>
     /// </list>
     /// Engine-free.
     /// </summary>
@@ -56,6 +60,81 @@ namespace Bloomlings.Client.UI.Design
         /// <c>cellReveal</c> event plays; then it pops into its material's cube (<see cref="CellRevealScale"/>).
         /// </summary>
         public const string HiddenCellSlot = "tile.round.hidden";
+
+        /// <summary>
+        /// The latch block's asset slot (rules 17 §8 «Засов и жёлудь-ключ», the owner, 2026-11-01; spec 006 FR-067): a pod-sized
+        /// oblique wooden block with an iron bolt and an acorn padlock (<see cref="UiRaster.LatchBlock"/>), standing in its column
+        /// at its place among the pods, the pods behind it drawn below it as usual.
+        /// </summary>
+        public const string LatchSlot = "pod.round.latch";
+
+        /// <summary>
+        /// The acorn key's asset slot (17 §8): an acorn on its empty board cell (<see cref="UiRaster.AcornKey"/>) with its latch's
+        /// mark, a little larger than a cell (<see cref="KeyCellShare"/>) so it reads on a big board.
+        /// </summary>
+        public const string KeySlot = "board.round.key";
+
+        /// <summary>The acorn key's picture side in cells.</summary>
+        public const float KeyCellShare = 1.2f;
+
+        /// <summary>The latch block's warm wood.</summary>
+        public static readonly Rgba LatchWood = Rgba.FromHex("#A8733F");
+
+        /// <summary>The latch's iron bolt and brackets.</summary>
+        public static readonly Rgba LatchIron = Rgba.FromHex("#4F4A47");
+
+        /// <summary>The acorn's nut, cap and outline (the padlock on the block and the key on the board).</summary>
+        public static readonly Rgba AcornNut = Rgba.FromHex("#C07A3A");
+
+        public static readonly Rgba AcornCap = Rgba.FromHex("#6E4A26");
+
+        public static readonly Rgba AcornInk = Rgba.FromHex("#3F2810");
+
+        /// <summary>
+        /// The latches' tag colours in latch order (the pilot's: red, blue, amber, purple, green, pink); with
+        /// <see cref="LatchPips"/> each latch of a level has its own mark on its block and its key.
+        /// </summary>
+        public static IReadOnlyList<Rgba> LatchTags { get; } = new[]
+        {
+            Rgba.FromHex("#C0392B"), Rgba.FromHex("#2F6FD6"), Rgba.FromHex("#D99A00"),
+            Rgba.FromHex("#7D3FB8"), Rgba.FromHex("#1F8A5B"), Rgba.FromHex("#D4568C"),
+        };
+
+        /// <summary>The mark index of latch <paramref name="latch"/> (its tag colour and pips repeat after six latches).</summary>
+        public static int TagIndex(int latch) => ((latch % LatchTags.Count) + LatchTags.Count) % LatchTags.Count;
+
+        /// <summary>Latch <paramref name="latch"/>'s tag colour.</summary>
+        public static Rgba LatchTag(int latch) => LatchTags[TagIndex(latch)];
+
+        /// <summary>Latch <paramref name="latch"/>'s white pips on its tag (1, 2, 3, 1, 2, 3): with the colour, a mark that reads without colour too.</summary>
+        public static int LatchPips(int latch) => (TagIndex(latch) % 3) + 1;
+
+        /// <summary>How long a latch's opening plays, in seconds of display time (<see cref="RoundAnimator.LatchOpenUs"/>).</summary>
+        public const float LatchOpenSeconds = RoundAnimator.LatchOpenUs / 1_000_000f;
+
+        /// <summary>
+        /// The opening latch block <paramref name="seconds"/> after its <c>latchOpen</c>: how far it rises (a share of its height),
+        /// its scale and its opacity: a small swell, then it lifts up and fades out of its column over
+        /// <see cref="LatchOpenSeconds"/>.
+        /// </summary>
+        public static (float Lift, float Scale, float Alpha) LatchOpenLift(float seconds)
+        {
+            if (seconds < 0f)
+            {
+                return (0f, 1f, 1f);
+            }
+
+            float t = Math.Min(1f, seconds / LatchOpenSeconds);
+            float swell = t < 0.25f ? (float)Math.Sin(Math.PI * t / 0.5f) * 0.12f : 0.12f * (1f - ((t - 0.25f) / 0.75f));
+            float rise = t < 0.25f ? 0f : (t - 0.25f) / 0.75f;
+            return (0.9f * rise * rise, 1f + swell, 1f - (rise * rise * (3f - (2f * rise))));
+        }
+
+        /// <summary>The acorn key's scale <paramref name="seconds"/> after its latch opened: it pops up to 1.9 while it fades.</summary>
+        public static float KeyPopScale(float seconds) => seconds < 0f ? 1f : 1f + (0.9f * Math.Min(1f, seconds / LatchOpenSeconds));
+
+        /// <summary>The acorn key's opacity <paramref name="seconds"/> after its latch opened (1 while closed, 0 at the end).</summary>
+        public static float KeyPopAlpha(float seconds) => seconds < 0f ? 1f : Math.Max(0f, 1f - (seconds / LatchOpenSeconds));
 
         /// <summary>How long a hidden cell's reveal pops, in seconds of display time (<see cref="RoundAnimator.CellRevealUs"/>).</summary>
         public const float CellRevealSeconds = RoundAnimator.CellRevealUs / 1_000_000f;

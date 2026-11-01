@@ -17,7 +17,8 @@ namespace Bloomlings.Client.Gameplay.Tray
     /// nothing for the rest (no "+N"); a pod's cube in its material's colour with its count, the waiting ones only a little
     /// lighter, a hidden pod's "?" cube until it reveals and its glow then (FR-045); the link tubes on linked cubes' front
     /// faces, under the pods (FR-043); and the pulse round the partner a refused tap waits for. The pods slide up a row
-    /// when the top one leaves.
+    /// when the top one leaves. A latch (17 §8 «Засов и жёлудь-ключ», FR-067) stands as a wooden block at its place in its
+    /// column's queue, the pods behind it below it; when it opens it lifts out and they slide up.
     /// </summary>
     public sealed partial class TrayView
     {
@@ -31,6 +32,11 @@ namespace Bloomlings.Client.Gameplay.Tray
         private RectTransform? _roundFront;
         private ReferenceGameplayRegions? _roundGrid;
         private readonly Dictionary<int, (bool Empty, int Rows)> _roundColumns = new Dictionary<int, (bool, int)>();
+
+        // Latch + key (17 §8): a column's queue items, the latch blocks and which of them show this frame.
+        private readonly List<RoundQueueItem> _roundItems = new List<RoundQueueItem>();
+        private readonly Dictionary<int, Image> _roundLatches = new Dictionary<int, Image>();
+        private readonly HashSet<int> _roundLatchShown = new HashSet<int>();
 
         /// <summary>A shown round pod's tile box in the tray area's top-down canvas units (its flight to a place starts there).</summary>
         public Box? RoundTileBox(int pod) =>
@@ -56,6 +62,7 @@ namespace Bloomlings.Client.Gameplay.Tray
             float touchMin = UiKit.Units(DesignTokens.Size.TouchMin);
             int columns = Mathf.Min(a.ColumnCount, grid.Columns.Count);
             _roundShown.Clear();
+            _roundLatchShown.Clear();
             if (force)
             {
                 _roundColumns.Clear();
@@ -92,14 +99,26 @@ namespace Bloomlings.Client.Gameplay.Tray
                     well.gameObject.SetActive(false);
                 }
 
-                int rows = Mathf.Min(waiting, grid.PodRows);
-                for (int depth = rows - 1; depth >= 0; depth--)
+                // The column's queue with its latches at their places (17 §8 «Засов и жёлудь-ключ», FR-067): a pod's row is its
+                // depth plus the latches before it; a pod behind a closed latch is drawn waiting and takes no tap.
+                a.ColumnItems(s, grid.PodRows, _roundItems);
+                int rows = _roundItems.Count;
+                for (int k = rows - 1; k >= 0; k--)
                 {
-                    int pod = a.At(s, depth);
+                    RoundQueueItem item = _roundItems[k];
+                    int depth = item.Row;
+                    if (item.IsLatch)
+                    {
+                        ShowLatch(item.Id, grid.Pod(s, depth), a.LatchOpenSince(item.Id));
+                        _roundLatchShown.Add(item.Id);
+                        continue;
+                    }
+
+                    int pod = item.Id;
                     PodView view = Get(Key(pod));
                     bool wasShown = view.IsShown;
                     int material = a.Revealed(pod) ? a.MaterialOf(pod) : -1;
-                    bool exposed = depth == 0;
+                    bool exposed = item.Depth == 0 && !a.HeldBehind(_roundItems, k);
                     view.ShowRound(pod, material, a.Remaining(pod), interactive && exposed, !exposed, symbols, RoundSide(grid, s));
                     Box box = grid.Pod(s, depth);
                     bool moved = !_roundPlaced.TryGetValue(pod, out (int Stack, int Depth, Box Box) placed) || placed.Stack != s || placed.Depth != depth;
@@ -144,7 +163,37 @@ namespace Bloomlings.Client.Gameplay.Tray
                 }
             }
 
+            foreach (KeyValuePair<int, Image> latch in _roundLatches)
+            {
+                latch.Value.gameObject.SetActive(_roundLatchShown.Contains(latch.Key));
+            }
+
             SyncRoundOverlays(core, grid);
+        }
+
+        /// <summary>
+        /// A latch block (17 §8 «Засов и жёлудь-ключ», FR-067; the playtest's <c>Kit.LatchBlock</c>) at its row's pod box
+        /// <paramref name="row"/>: the pod-sized wooden block (<see cref="RoundSprites.LatchBlock"/>); while it opens
+        /// (<paramref name="since"/> ≥ 0) it swells, lifts and fades out of its column (<see cref="RoundLook.LatchOpenLift"/>).
+        /// </summary>
+        private void ShowLatch(int latch, Box row, float since)
+        {
+            Box frame = PodChip.Cube(row).Frame;
+            if (!_roundLatches.TryGetValue(latch, out Image? image))
+            {
+                image = UiFactory.CreateImage("Latch", _area, null, Color.white);
+                image.raycastTarget = false;
+                int tag = latch;
+                PictureFit.On(image, (w, h) => Bloomlings.Client.Art.RoundSprites.LatchBlock(tag, Mathf.Min(w, h)));
+                _roundLatches[latch] = image;
+            }
+
+            (float lift, float scale, float alpha) = RoundLook.LatchOpenLift(since);
+            BoxLayout.Place(image.rectTransform, frame.Offset(0f, -lift * frame.Height));
+            image.rectTransform.localScale = new Vector3(scale, scale, 1f);
+            image.color = new Color(1f, 1f, 1f, alpha);
+            image.gameObject.SetActive(true);
+            image.transform.SetSiblingIndex(_roundFront!.GetSiblingIndex());
         }
 
         /// <summary>Forgets where the round pods stood (a restart puts the whole tray back at once).</summary>
@@ -152,6 +201,11 @@ namespace Bloomlings.Client.Gameplay.Tray
         {
             _roundPlaced.Clear();
             _roundColumns.Clear();
+            foreach (Image latch in _roundLatches.Values)
+            {
+                latch.gameObject.SetActive(false);
+            }
+
             foreach (PodView view in _pods.Values)
             {
                 if (view.IsShown)

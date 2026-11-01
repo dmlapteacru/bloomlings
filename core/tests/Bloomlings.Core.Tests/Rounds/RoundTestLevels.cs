@@ -158,6 +158,12 @@ namespace Bloomlings.Core.Tests.Rounds
             return new RoundLevel(number, w, rows.Length, rows, pods, tray.Select(c => (IReadOnlyList<int>)c).ToArray(), new[] { entryX }, bridge);
         }
 
+        /// <summary>The same level with <paramref name="latches"/> (and "latch" among its mechanics).</summary>
+        public static RoundLevel WithLatchesForTests(this RoundLevel level, IReadOnlyList<RoundLatch> latches) =>
+            new RoundLevel(level.Number, level.Width, level.Height, level.RowsBottomFirst, level.Pods, level.Tray, level.Entries, level.Bridge,
+                mechanics: level.Mechanics.Where(m => m != "latch").Concat(latches.Count > 0 ? new[] { "latch" } : Array.Empty<string>()).ToArray(),
+                hiddenCells: level.HiddenCells, latches: latches);
+
         /// <summary>The cell index of (x, y), y counted from the bottom row.</summary>
         public static int Cell(RoundLevel level, int x, int y) => y * level.Width + x;
     }

@@ -1292,6 +1292,25 @@ namespace Bloomlings.Playtest
                 Fill(canvas, plank, Color.ParseColor("#A87A45"), 0f);
             }
 
+            // The acorn keys (17 §8 «Засов и жёлудь-ключ»): a brown disc with its latch's number on its cell while the latch is closed.
+            _paint.SetStyle(Paint.Style.Fill);
+            for (int latch = 0; latch < a.LatchCount; latch++)
+            {
+                if (!a.LatchClosed(latch))
+                {
+                    continue;
+                }
+
+                int key = level.Latches[latch].Key;
+                float kx = ox + (((key % w) + 0.5f) * cell);
+                float ky = oy + ((h - 1 - (key / w) + 0.5f) * cell);
+                _paint.Color = Color.ParseColor("#6E4A26");
+                canvas.DrawCircle(kx, ky, cell * 0.48f, _paint);
+                _paint.Color = Color.ParseColor("#C07A3A");
+                canvas.DrawCircle(kx, ky, cell * 0.38f, _paint);
+                Text(canvas, (latch + 1).ToString(CultureInfo.InvariantCulture), kx, ky, cell * 0.6f, Color.White);
+            }
+
             // The walkers: a dot of their material where the timeline puts each courier now.
             _paint.SetStyle(Paint.Style.Fill);
             foreach (RoundCourier courier in _play.Timeline.Couriers)
@@ -1363,15 +1382,29 @@ namespace Bloomlings.Playtest
             float columnWidth = area.Width() / stacks;
             float gap = 0.12f;
             float size = Math.Min(columnWidth * 0.86f, area.Height() / (visible + ((visible - 1) * gap)));
+            var items = new List<Bloomlings.Client.UI.Design.RoundQueueItem>();
             for (int s = 0; s < stacks; s++)
             {
-                int waiting = a.Waiting(s);
                 float cx = area.Left + (columnWidth * (s + 0.5f));
-                for (int i = 0; i < waiting && i < visible; i++)
+
+                // The queue with its latches at their places (17 §8): a closed latch is a brown block with its number.
+                a.ColumnItems(s, visible, items);
+                for (int n = 0; n < items.Count; n++)
                 {
+                    Bloomlings.Client.UI.Design.RoundQueueItem item = items[n];
+                    int i = item.Row;
                     float y = area.Top + (i * size * (1f + gap));
                     var rect = new RectF(cx - (size / 2f), y, cx + (size / 2f), y + size);
-                    int index = a.At(s, i);
+                    if (item.IsLatch)
+                    {
+                        Fill(canvas, rect, Color.ParseColor("#6E4A26"), size * 0.2f);
+                        Fill(canvas, Inset(rect, size * 0.08f), Color.ParseColor("#A8733F"), size * 0.16f);
+                        Text(canvas, (item.Id + 1).ToString(CultureInfo.InvariantCulture), rect.CenterX(), rect.CenterY(), size * 0.4f, Color.White);
+                        continue;
+                    }
+
+                    int index = item.Id;
+                    bool held = a.HeldBehind(items, n);
                     RoundPod pod = level.Pods[index];
                     bool hidden = !a.Revealed(index);
                     Color color = hidden ? Locked : MaterialColor(pod.Code);
@@ -1392,7 +1425,7 @@ namespace Bloomlings.Playtest
                         Text(canvas, "∞" + pod.Group, rect.Right - (size * 0.18f), rect.Top + (size * 0.18f), size * 0.22f, EntryColor);
                     }
 
-                    if (i == 0)
+                    if (item.Depth == 0 && !held)
                     {
                         int tapped = index;
                         Hit(rect, () => CommitRound(RoundAction.Tap(tapped)));

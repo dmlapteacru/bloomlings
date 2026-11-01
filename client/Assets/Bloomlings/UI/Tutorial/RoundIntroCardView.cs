@@ -122,23 +122,30 @@ namespace Bloomlings.Client.UI.Tutorial
                     break;
                 }
 
-                case RoundIntroPicture.HiddenCell:
+                case RoundIntroPicture.Latch:
                 {
-                    // A hidden cell's "?" cube, the arrow, the same cube revealed (17 §8 «Скрытые клетки»).
-                    float cw = h * 0.62f;
-                    float ch = cw * (RoundScreenLook.BoardRowShare + RoundScreenLook.BoardFrontShare);
-                    var hiddenBox = Box.FromCenter(local.CenterX - ((cw + gap) / 2f), local.CenterY, cw, ch);
-                    var shownBox = Box.FromCenter(local.CenterX + ((cw + gap) / 2f), local.CenterY, cw, ch);
-                    Image hidden = UiFactory.CreateImage("HiddenCell", holder, null, Color.white);
-                    hidden.raycastTarget = false;
-                    BoxLayout.Place(hidden.rectTransform, hiddenBox);
-                    PictureFit.On(hidden, (w, ph) => RoundSprites.HiddenCube(w, ph));
-                    Image arrow = UiKit.ShapeImage("Arrow", holder, "ui.chevron", C.InkBrownSoft);
-                    BoxLayout.Place(arrow.rectTransform, Box.FromCenter(local.CenterX, local.CenterY, h * 0.28f, h * 0.28f));
-                    Image shown = UiFactory.CreateImage("RevealedCell", holder, null, Color.white);
-                    shown.raycastTarget = false;
-                    BoxLayout.Place(shown.rectTransform, shownBox);
-                    PictureFit.On(shown, (w, ph) => RoundSprites.BoardCube(1, false, w, ph));
+                    // The latch block on top of a column with a pod behind it, and the board's acorn key with the same mark on
+                    // a patch of surface (17 §8 «Засов и жёлудь-ключ»; the playtest's IntroPicture).
+                    float pw = h * 0.5f;
+                    float colX = local.CenterX - (h * 0.55f);
+                    var top = Box.FromCenter(colX, local.CenterY - (pw * 0.5f), pw, pw);
+                    var behind = Box.FromCenter(colX, local.CenterY + (pw * 0.5f), pw, pw);
+                    Pod(holder, behind, 2, 9);
+                    Image latch = UiFactory.CreateImage("Latch", holder, null, Color.white);
+                    latch.raycastTarget = false;
+                    BoxLayout.Place(latch.rectTransform, PodChip.Cube(top).Frame);
+                    PictureFit.On(latch, (w, ph) => RoundSprites.LatchBlock(0, Mathf.Min(w, ph)));
+                    float cw = h * 0.3f;
+                    var patch = Box.FromCenter(local.CenterX + (h * 0.6f), local.CenterY, cw * 3f, cw * 2f);
+                    Image surface = UiFactory.CreateImage("Surface", holder, null, Color.white);
+                    surface.raycastTarget = false;
+                    BoxLayout.Place(surface.rectTransform, patch);
+                    PictureFit.On(surface, (w, ph) => RoundSprites.Surface(w, ph, 0.1f));
+                    float side = cw * RoundLook.KeyCellShare;
+                    Image key = UiFactory.CreateImage("AcornKey", holder, null, Color.white);
+                    key.raycastTarget = false;
+                    BoxLayout.Place(key.rectTransform, Box.FromCenter(patch.CenterX + (cw * 0.5f), patch.CenterY, side, side));
+                    PictureFit.On(key, (w, ph) => RoundSprites.AcornKey(0, Mathf.Min(w, ph)));
                     break;
                 }
 

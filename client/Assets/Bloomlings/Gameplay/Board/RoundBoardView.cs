@@ -66,6 +66,9 @@ namespace Bloomlings.Client.Gameplay.Board
         // A hidden cell's shown code (17 §8 «Скрытые клетки»): the "?" cube, beside the material indices.
         private const sbyte VeiledCube = 100;
         private Image?[] _veils = Array.Empty<Image?>();
+
+        // Latch + key (17 §8 «Засов и жёлудь-ключ», FR-067): each latch's acorn key on its board cell.
+        private readonly List<Image> _keys = new List<Image>();
         private bool _symbols;
         private bool _bursting;
 
@@ -126,6 +129,7 @@ namespace Bloomlings.Client.Gameplay.Board
             }
 
             _arches.Clear();
+            _keys.Clear();
             _sites.Clear();
             _pieces.Clear();
             _banks.Clear();
@@ -212,6 +216,16 @@ namespace Bloomlings.Client.Gameplay.Board
                 image.raycastTarget = false;
                 PlaceInGrid(image.rectTransform, piece.Box);
                 _pieces.Add((image, piece));
+            }
+
+            // The acorn keys on their empty cells, over the cubes and under the bridges (17 §8, FR-067).
+            for (int i = 0; i < level.Latches.Count; i++)
+            {
+                Image key = UiFactory.CreateImage("AcornKey", _decor, null, Color.white);
+                key.raycastTarget = false;
+                int latch = i;
+                PictureFit.On(key, (w, h) => RoundSprites.AcornKey(latch, Mathf.Min(w, h)));
+                _keys.Add(key);
             }
 
             foreach (RoundBridgeSite site in layout.Bridges)
@@ -376,8 +390,36 @@ namespace Bloomlings.Client.Gameplay.Board
             }
 
             SyncSides();
+            SyncKeys(a, layout);
             SyncBridges(core, buildable, uiNow);
             SyncTargets(core, uiNow);
+        }
+
+        /// <summary>
+        /// Each closed latch's acorn key on its cell, a little larger than the cell (<see cref="RoundLook.KeyCellShare"/>), with
+        /// its latch's mark; when its latch opens it pops (<see cref="RoundLook.KeyPopScale"/>, <see cref="RoundLook.KeyPopAlpha"/>).
+        /// </summary>
+        private void SyncKeys(RoundAnimator a, RoundBoardLayout layout)
+        {
+            for (int i = 0; i < _keys.Count && i < a.LatchCount; i++)
+            {
+                Image key = _keys[i];
+                bool shown = a.LatchShown(i);
+                key.gameObject.SetActive(shown);
+                if (!shown)
+                {
+                    continue;
+                }
+
+                float since = a.LatchOpenSince(i);
+                Box cell = layout.CellBox(a.Level.Latches[i].Key);
+                float side = Mathf.Min(cell.Width, cell.Height) * RoundLook.KeyCellShare;
+                PlaceInGrid(key.rectTransform, Box.FromCenter(cell.CenterX, cell.CenterY, side, side));
+
+                float scale = RoundLook.KeyPopScale(since);
+                key.rectTransform.localScale = new Vector3(scale, scale, 1f);
+                key.color = new Color(1f, 1f, 1f, RoundLook.KeyPopAlpha(since));
+            }
         }
 
         /// <summary>

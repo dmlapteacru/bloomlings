@@ -1,0 +1,91 @@
+{
+ "id": "P0469",
+ "seq": 469,
+ "version": 1,
+ "title": "Палатка у костра — мост",
+ "theme": "bridge-splits",
+ "family": "Походы и отдых на природе",
+ "subject": "треугольная палатка с открытым пологом рядом с маленьким костром",
+ "source": "оригинальный",
+ "forLevel": 85,
+ "w": 33,
+ "h": 28,
+ "rows": [
+  "VVVVVVVVVVV#VVVVVVVVVVVVVVVVVVVVV",
+  "VVVVVVVVVVV#VVVVVVCVVVVVVVVVVVVVV",
+  "VVCCCCVVVVVbVVVVVCCCVVVVVVVVVVCVV",
+  "VCCCCCCVVVV#VVVVVVCVVVVVVVVVVCCCV",
+  "VCCCCCCVVDV#DVVVVVVVVVVVVVVVVVCVV",
+  "VCCCCCCVVDB#DVVVVVVVVVVVVVVVVVVVV",
+  "VVCCCCCVVVB#VVVVVVVVVVVCVVVVVVVVV",
+  "VVVCCCVVVBB#BVVVVVVVVVCCCVVVVVVVV",
+  "VVVVVVVVVBD#BVVVVVVVVVVCVVVVVVVVV",
+  "VVVVVVVVBBD#BBVVVVVVVVVVVVVVRVVVV",
+  "VVVVVVVVBCD#BBBVVVVVVVVVVVVRRVVVV",
+  "VVCVVVVBBCD#BBBVVVVVVVVVVVVRRVVVV",
+  "VCCCVVBBCDD#DBBBVVVVVVVVVVRRORVVV",
+  "VVCVVVBBCDD#DBBBVVVVVVVVVVRRORVVV",
+  "VVVVVBBCCDDbDBBBBVVVVVVVVVROORVVV",
+  "MMMMMBBCCDD#DBBBBMMMMMMMMRROOORMM",
+  "MMMMBBBCCDD#DDBBBBMMMMMMMRROOORMM",
+  "MMMMBBCCDDD#DDBBBBMMMMMMRROYOORRM",
+  "MMMBBBCCDDD#DDBBBBBMMMMMRROYYOORM",
+  "MMBBBCCCDDD#DDBBBBBBMMMMROOYYOORM",
+  "MMBBBCCCDDD#DDBBBBBBMMMMCOOYYOORM",
+  "MBBBCCCDDDD#DDDBBBBBBMMCCCCCYCCCC",
+  "MBBBCCCDDDD#DDDBBBBBBMMMCCCCCCCCM",
+  "BBBCCCCDDDD#DDDBBBBBBBMCCCCCCCCCC",
+  "MMMMMMMMMMM#MMMMMMMMMMMCCCCMMCCCC",
+  "MMMMMMMMMMM#MMMMMMMMMMMMMMMMMMMMM",
+  "MMMMMMMMMMM#MMMMMMMMMMMMMMMMMMMMM",
+  "MMMMMMMMMMM#MMMMMMMMMMMMMMMMMMMMM"
+ ],
+ "scene": {
+  "from": "P0023",
+  "mode": "split",
+  "side": "left",
+  "at": 11,
+  "sites": [
+   [
+    11,
+    2
+   ],
+   [
+    11,
+    14
+   ]
+  ],
+  "share": 0.344,
+  "kind": "better",
+  "cls": "Hard",
+  "recipe": "bridge+links+cells",
+  "win": [
+   11,
+   2
+  ],
+  "lose": [
+   11,
+   14
+  ],
+  "queue": {
+   "gate": 2,
+   "delay": 1
+  }
+ },
+ "N": 896,
+ "colours": 8,
+ "volumes": {
+  "V": 354,
+  "C": 116,
+  "D": 65,
+  "B": 109,
+  "R": 29,
+  "O": 24,
+  "M": 191,
+  "Y": 8
+ },
+ "status": "draft",
+ "batch": "split-L0085",
+ "createdAt": "2026-11-01",
+ "history": []
+}

@@ -1,0 +1,99 @@
+{
+ "id": "P0468",
+ "seq": 468,
+ "version": 1,
+ "title": "Маяк на скале — мост",
+ "theme": "bridge-splits",
+ "family": "Дома и архитектура",
+ "subject": "полосатый маяк на скале",
+ "source": "оригинальный",
+ "forLevel": 65,
+ "w": 27,
+ "h": 36,
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSDSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSDSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSRRRSSSSSSSSSSSS",
+  "SSSSSSSSSSRRRRRRRSSSSSSSSSS",
+  "YYYYYSSSSRRRRRRRRRSSSSYYYYY",
+  "YYYYYYYYYDDDDDDDDDYYYYYYYYY",
+  "YYYYYYYYYDDYYYYYDDYYYYYYYYY",
+  "YYYYYYYYYDDYYYYYDDYYYYYYYYY",
+  "YYYYYYYYYDDYYYYYDDYYYYYYYYY",
+  "YYYYSSSDDDDDDDDDDDDDSSSYYYY",
+  "SSSSSSSDDDDDDDDDDDDDSSSSSSS",
+  "###b###########b###########",
+  "SSSSSSSSSRRRRRRRRRSSSSSSSSS",
+  "SSSSSSSSSRRRRRRRRRSSSSSSSSS",
+  "SSSSSSSSSRRRRRRRRRSSSSSSSSS",
+  "SSSSSSSSSCCCCCCCCCSSSSSSSSS",
+  "SSSSSSSSSCCCCCCCCCSSSSSSSSS",
+  "SSSSSSSSSCCCCDCCCCSSSSSSSSS",
+  "SSSSSSSSRRRRRDRRRRRSSSSSSSS",
+  "SSSSSSSSRRRRRRRRRRRSSSSSSSS",
+  "SSSSSSSSRRRRRRRRRRRSSSSSSSS",
+  "SSSSSSSSRRRRRRRRRRRSSSSSSSS",
+  "SSSSSSSSCCCCCCCCCCCSSSSSSSS",
+  "SSSSSSSSCCCCCCCCCCCSSSSSSSS",
+  "SSSSSSSSCCCCCDCCCCCSSSSSSSS",
+  "SSSSSSSSRRRRDDDRRRRSSSSSSSS",
+  "SSSSSSSRRRRRDDDRRRRRSSSSSSS",
+  "SSSSSSSRRRRRDDDRRRRRSSSSSSS",
+  "SSSSSSAAAAAAAAAAAAAAAASSSSS",
+  "SSSSSAAAAAAAAAAAAAAAAASSSSS",
+  "BBBBAAAAAAAAAAAAAAAAEEEBBBB",
+  "BBBAAAAAAAAAAAAAAAAAEEEEBCC",
+  "BBBAAAAAAAAAAAAAAAAEEEEEEBB",
+  "BBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  "BBCCCBBBBCCCBBBBCCCBBBBCCCB"
+ ],
+ "scene": {
+  "from": "P0014",
+  "mode": "split",
+  "side": "up",
+  "at": 12,
+  "sites": [
+   [
+    3,
+    12
+   ],
+   [
+    15,
+    12
+   ]
+  ],
+  "share": 0.343,
+  "kind": "better",
+  "cls": "Hard",
+  "recipe": "bridge+links",
+  "win": [
+   15,
+   12
+  ],
+  "lose": [
+   3,
+   12
+  ],
+  "queue": {
+   "gate": 3,
+   "delay": 2
+  }
+ },
+ "N": 945,
+ "colours": 8,
+ "volumes": {
+  "S": 436,
+  "D": 61,
+  "R": 117,
+  "Y": 105,
+  "C": 72,
+  "A": 82,
+  "B": 59,
+  "E": 13
+ },
+ "status": "draft",
+ "batch": "split-L0065",
+ "createdAt": "2026-11-01",
+ "history": []
+}

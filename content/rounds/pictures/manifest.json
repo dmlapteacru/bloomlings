@@ -8317,6 +8317,42 @@
    "batch": "packs-0268-0467",
    "note": "владелец 01.11.2026: из нового пака не включать (Губка Боб, Розовая Пантера, Донки Конг)",
    "usedBy": null
+  },
+  {
+   "id": "P0468",
+   "seq": 468,
+   "version": 1,
+   "title": "Маяк на скале — мост",
+   "theme": "bridge-splits",
+   "family": "Дома и архитектура",
+   "direction": null,
+   "forLevel": 65,
+   "w": 27,
+   "h": 36,
+   "N": 945,
+   "colours": 8,
+   "status": "draft",
+   "batch": "split-L0065",
+   "note": null,
+   "usedBy": null
+  },
+  {
+   "id": "P0469",
+   "seq": 469,
+   "version": 1,
+   "title": "Палатка у костра — мост",
+   "theme": "bridge-splits",
+   "family": "Походы и отдых на природе",
+   "direction": null,
+   "forLevel": 85,
+   "w": 33,
+   "h": 28,
+   "N": 896,
+   "colours": 8,
+   "status": "draft",
+   "batch": "split-L0085",
+   "note": null,
+   "usedBy": null
   }
  ]
 }
