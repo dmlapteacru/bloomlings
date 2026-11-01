@@ -177,14 +177,15 @@ namespace Bloomlings.Pipeline.Rounds
 
         /// <summary>
         /// The picture ↔ board check: the level's board is exactly the reference's <c>boardOf</c> of its picture and its
-        /// overlay, if any (size, rows, the entry, the bridge sites and anchors).
+        /// recolouring and overlay, if any (size, rows, the entry, the bridge sites and anchors); a bad recolour entry is
+        /// refused here.
         /// </summary>
         public static IEnumerable<RoundIssue> PictureBoard(string where, RoundLevel level, RoundPicture picture)
         {
             RoundBoardShape board;
             try
             {
-                board = RoundPictureBoard.Of(picture, level.Overlay);
+                board = RoundPictureBoard.Of(picture, level.Overlay, level.Recolor);
             }
             catch (ArgumentException e)
             {
@@ -196,7 +197,14 @@ namespace Bloomlings.Pipeline.Rounds
 
         private static IEnumerable<RoundIssue> PictureBoard(string where, RoundLevel level, RoundPicture picture, RoundBoardShape board)
         {
-            string what = level.Overlay == null ? $"picture {picture.Id} v{picture.Version}" : $"picture {picture.Id} v{picture.Version} with its overlay";
+            string laid = (level.Recolor.Count > 0, level.Overlay != null) switch
+            {
+                (true, true) => " with its recolouring and overlay",
+                (true, false) => " with its recolouring",
+                (false, true) => " with its overlay",
+                _ => string.Empty,
+            };
+            string what = $"picture {picture.Id} v{picture.Version}{laid}";
             if (board.Width != level.Width || board.Height != level.Height)
             {
                 yield return new RoundIssue(where, "picture-board", $"board {level.Width}×{level.Height}, but {what} ({picture.Width}×{picture.Height}) makes {board.Width}×{board.Height}");

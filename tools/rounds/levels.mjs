@@ -6,7 +6,8 @@
 //      [--recipes none,links,hidden,links+hidden,bridge,…] [--seed 1] [--fresh: search again a combination already searched]
 //      [--overlay up,left,right,two: on a wall the generator lays over the picture, lib.mjs wallOverlay; none = the
 //      picture's own board] [--pairs Normal:links,Hard:bridge+links@up: only these class:recipe(@overlay side) pairs]
-//      [--no-intro]
+//      [--no-intro] [--accents auto|on|off: accents of 17 §6 (2026-11-01) painted as the level's recolouring, auto = every
+//      Hard and Super Hard attempt and every third regular Normal attempt]
 //      candidates for each picture, recipe and class: balance → queue → saved solution → random test → bank. Recipes put
 //      the lead first (17 §7): none, links, hidden, bridge, links+hidden, hidden+links, bridge+links, bridge+hidden,
 //      hidden+bridge, links+bridge, links+bridge+hidden, bridge+links+hidden; hidden cells (17 §8, 2026-11-01) as 'cells':
@@ -24,8 +25,8 @@
 // node tools/rounds/levels.mjs checks [--shard i/n] [--levels] [--calm]  add missing checks (17 §5–§9, §13 layer B) to banked candidates and placed
 //      levels (the §5 calm test only with --calm: place measures the candidates it weighs)
 import fs from 'node:fs';import path from 'node:path';
-import {repeatWindow,siteChoice,ROUNDS,PICTURES,LEVELS,BANK,CODES,manifest,saveManifest,picture,readJSON,writeJSON,lid,pid,arg,flag,measure,stageOf,fitsStage,sizeBin,budget,columnsFor,classOf,slotOf,INTRO,MECH_RU,SUPPORTED,recipeAllowed,boardOf,usage,motifsOf,overlaid,bridgeSide,wallOverlay,planOf,fitsPlan,mechanicsPlans} from './lib.mjs';import {execFileSync} from 'node:child_process';
-import {fitness} from './fitness.mjs';
+import {repeatWindow,siteChoice,ROUNDS,PICTURES,LEVELS,BANK,CODES,PALETTE,manifest,saveManifest,picture,readJSON,writeJSON,lid,pid,arg,flag,measure,stageOf,fitsStage,sizeBin,budget,columnsFor,classOf,slotOf,INTRO,MECH_RU,SUPPORTED,recipeAllowed,boardOf,usage,motifsOf,overlaid,bridgeSide,wallOverlay,planOf,fitsPlan,mechanicsPlans} from './lib.mjs';import {execFileSync} from 'node:child_process';
+import {fitness} from './fitness.mjs';import {deltaE,labOf} from './colour-distance.mjs';
 import {cellsHiddenAtStart,cellFairness,randomTest,quickShare,solve,fairness,strategies,rhythm,bridgeChoicesWin,bridgeChoices,greedy,greedyBeaten,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,bridgeLoss,pressure,calmTest,calmFails,calmBorderline,trapLinks} from './measure.mjs';
 // layer B of 17 §13: the bounds of the metrics of interest (content/rounds/quality.json)
 const QUALITY=readJSON(path.join(ROUNDS,'quality.json'),{pressure:{min:{},games:30,mode:'soft'}});import {engine} from './engine.mjs';
@@ -154,6 +155,13 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null,opt
  if(opts.expose&&intended!==null&&board.hero.choices.length===2){const o=board.hero.choices[1-intended],wc=g[o.anchor],gc=g[2*o.cell-o.anchor];
   if(CODES.includes(wc)&&wc!==gc&&!tray.some(st=>st.slice(0,2).some(p=>pods[p].color===wc))){const i=pods.map((p,i)=>i).filter(i=>pods[i].color===wc).sort((a,b)=>pods[a].key-pods[b].key)[0];
    const cs=[...Array(cols).keys()].filter(c=>tray[c].length>=2);if(i!==undefined&&cs.length){const c=tray.findIndex(st=>st.includes(i)),k=tray[c].indexOf(i),c2=cs[Math.floor(r()*cs.length)];[tray[c2][1],tray[c][k]]=[tray[c][k],tray[c2][1]];}}}
+ // accents (17 §6 «Акценты для давления на места», the owner, 2026-11-01; opts.accents = the accent materials): each accent
+ // pod stands in an early or middle row (the second row to the middle of the tray), so it comes up before its few deep
+ // cubes are reachable and holds a place while the rest is played
+ if(opts.accents&&opts.accents.length){const acc=new Set(opts.accents),rows=Math.max(...tray.map(t=>t.length)),lo=1,hi=Math.max(1,Math.floor((rows-1)/2));
+  for(const i of pods.map((p,i)=>i).filter(i=>acc.has(pods[i].color))){const c=tray.findIndex(st=>st.includes(i)),k=tray[c].indexOf(i);if(k>=lo&&k<=hi)continue;
+   const to=[];tray.forEach((st,c2)=>st.forEach((q,k2)=>{if(k2>=lo&&k2<=hi&&!acc.has(pods[q].color))to.push([c2,k2]);}));if(!to.length)break;
+   const [c2,k2]=to[Math.floor(r()*to.length)];[tray[c][k],tray[c2][k2]]=[tray[c2][k2],tray[c][k]];}}
  // §6: at the start at least one visible launch has reachable work; else the shallowest pod swaps with a column's top
  const frontier=new Set();for(let i=0;i<g.length;i++)if(CODES.includes(g[i])&&d[i]===0)frontier.add(g[i]);
  if(!tray.some(st=>st.length&&frontier.has(pods[st[0]].color))){const best=ord.filter(i=>frontier.has(pods[i].color)).sort((a,b)=>pods[a].key-pods[b].key)[0];
@@ -179,12 +187,14 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null,opt
  // hidden cells (17 §8, 2026-11-01): the lead its dose place, an additional one its minimum, an introduction 5–10
  let hiddenCells=null;
  if(types.includes('cells')){const [a,b]=dz.cells,lead0=types.filter(m=>m!=='bridge')[0]==='cells',want=pos===null||intro||!lead0?a+Math.floor(r()*(b-a+1)):a+Math.round(pos*(b-a));
-  hiddenCells=pickHiddenCells(board,want,r,{intro});if(!hiddenCells)return {error:'не хватило глубоких клеток для скрытых клеток'};}
+  // never a recoloured cell (an accent must be seen to read as the reason its pod waits)
+  const avoid=new Set((board.recolor||[]).map(([x,y])=>(board.h-1-(y+2))*board.w+x+2));
+  hiddenCells=pickHiddenCells(board,want,r,{intro,avoid});if(!hiddenCells)return {error:'не хватило глубоких клеток для скрытых клеток'};}
  if(types.includes('bridge')&&!board.hero)return {error:'на картинке нет мест моста (b)'};
  // a strip cuts a part off: without a bridge its cells cannot be reached
  if(board.hero&&!types.includes('bridge'))return {error:'на поле полоса с местами моста — нужен рецепт с мостом'};
  // a level on the generator's wall keeps the wall (picture coordinates), so its board is rebuilt from the approved picture
- const level={id:1,title:pic.title,subject:pic.id,w:board.w,h:board.h,rowsBottomFirst:board.rowsBottomFirst,entries:board.entries,capacity:5,pods:pods.map(({key,keyO,order,...p})=>p),tray,recipe,...(types.includes('bridge')?{hero:board.hero}:{}),...(board.overlay?{overlay:board.overlay}:{}),...(board.strip?{strip:board.strip}:{}),...(hiddenCells?{hiddenCells}:{})};
+ const level={id:1,title:pic.title,subject:pic.id,w:board.w,h:board.h,rowsBottomFirst:board.rowsBottomFirst,entries:board.entries,capacity:5,pods:pods.map(({key,keyO,order,...p})=>p),tray,recipe,...(types.includes('bridge')?{hero:board.hero}:{}),...(board.overlay?{overlay:board.overlay}:{}),...(board.recolor?{recolor:board.recolor}:{}),...(board.strip?{strip:board.strip}:{}),...(hiddenCells?{hiddenCells}:{})};
  return {level};}
 
 // ---- hidden cells (17 §8 «Скрытые клетки», the owner, 2026-11-01) ----
@@ -193,8 +203,8 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null,opt
 // §8) and no bridge anchor; in one to three compact patches grown from deep seeds, so the «?» reads as fog over a part of
 // the picture. An introduction takes one patch round a seed of middle depth, so it reveals in the course of the round.
 // Returns the sorted cell indices (rows bottom first, y*w+x) or null when the picture has too few such cells.
-export function pickHiddenCells(board,want,r,{intro=false}={}){const {d,g}=depths(board,-1),w=board.w,n=g.length,anchors=new Set((board.hero?board.hero.choices:[]).map(c=>c.anchor));
- const ok=i=>CODES.includes(g[i])&&d[i]>=1&&d[i]<Infinity&&!anchors.has(i),nb=i=>{const x=i%w,out=[];if(i>=w)out.push(i-w);if(i+w<n)out.push(i+w);if(x>0)out.push(i-1);if(x<w-1)out.push(i+1);return out;};
+export function pickHiddenCells(board,want,r,{intro=false,avoid=null}={}){const {d,g}=depths(board,-1),w=board.w,n=g.length,anchors=new Set((board.hero?board.hero.choices:[]).map(c=>c.anchor));
+ const ok=i=>CODES.includes(g[i])&&d[i]>=1&&d[i]<Infinity&&!anchors.has(i)&&!(avoid&&avoid.has(i)),nb=i=>{const x=i%w,out=[];if(i>=w)out.push(i-w);if(i+w<n)out.push(i+w);if(x>0)out.push(i-1);if(x<w-1)out.push(i+1);return out;};
  const pool=[];for(let i=0;i<n;i++)if(ok(i))pool.push(i);if(want<1||pool.length<want)return null;
  const maxD=Math.max(...pool.map(i=>d[i])),lo=Math.max(1,Math.floor(maxD*(intro?.3:.5))),hi=intro?Math.max(lo,Math.ceil(maxD*.6)):maxD;
  const patches=intro||want<=12?1:want<=40?2:3,chosen=new Set();
@@ -205,6 +215,85 @@ export function pickHiddenCells(board,want,r,{intro=false}={}){const {d,g}=depth
   while(patch.length<size){const front=[...new Set(patch.flatMap(nb))].filter(j=>ok(j)&&!chosen.has(j));if(!front.length)break;
    let best=null,bs=-1;for(const j of front){const sc=nb(j).filter(q=>chosen.has(q)).length+r()*.5;if(sc>bs){bs=sc;best=j;}}patch.push(best);chosen.add(best);}}
  return chosen.size>=want?[...chosen].slice(0,want).sort((a,b)=>a-b):null;}
+
+// ---- accents for pressure on the places (17 §6 «Акценты для давления на места», §3; the owner, 2026-11-01) ----
+// Colony Flow's main trick on Hard and Super Hard (sometimes Normal): a few small elements of the picture — 2–4 cubes of
+// stars, decorations, details in the middle or on the background — in a material of their own whose pods come early or
+// mid queue, so the player parks them and plays the rest for a while. The builder paints them as the level's recolouring
+// (definition.recolor, picture coordinates); the approved picture stays as it is.
+// The cluster shapes (2–4 cells, 4-connected), offsets [dx, dy]
+const ACCENT_SHAPES=[[[0,0],[1,0]],[[0,0],[0,1]],[[0,0],[1,0],[2,0]],[[0,0],[0,1],[0,2]],[[0,0],[1,0],[0,1]],[[0,0],[1,0],[1,1]],[[0,0],[0,1],[1,1]],[[1,0],[0,1],[1,1]],
+ [[0,0],[1,0],[0,1],[1,1]],[[0,0],[1,0],[2,0],[1,1]],[[1,0],[0,1],[1,1],[2,1]],[[0,0],[0,1],[0,2],[1,1]],[[1,0],[1,1],[1,2],[0,1]]];
+// an accent sits in an area of one colour of at least this many cells (so it reads as a decoration of that area), at
+// least this access depth share of the deepest colour cell (and 2), with at least this CIEDE2000 to its ground
+export const ACCENT={area:30,depthShare:.3,minDepth:2,minDE:10,gap:3};
+// what reads as a decoration on a ground (the owner's examples: Солнце / Снег stars on a dark sky, Фуксия / Лаванда
+// flowers on green): stars and snow on a dark or blue ground, flowers on green, dark or saturated dots on a light one,
+// a bright spot elsewhere; 0–1
+export function decorScore(ground,a){const [L,A,B]=labOf(ground),h=(Math.atan2(B,A)*180/Math.PI+360)%360,ch=Math.hypot(A,B),La=labOf(a)[0];
+ if(L<42)return ({Y:1,W:1}[a])??(La>75?.5:0);
+ if(ch>18&&h>=95&&h<=180)return ({F:1,H:1,K:.8,P:.8,Y:.7,R:.6,W:.4}[a])??0;
+ if(ch>15&&h>=190&&h<=290)return ({W:1,Y:.9,C:.6}[a])??(La>80?.4:0);
+ if(L>80)return ({R:.8,F:.8,N:.6,V:.6,E:.5}[a])??0;
+ return ({Y:.7,W:.7,F:.6,R:.5}[a])??0;}
+// Picks `materials` (1–2) accent materials absent from the picture (with its overlay) and paints each in 1–maxClusters
+// clusters of 2–4 cells: every cluster cell and its eight neighbours in one colour area of ACCENT.area+ cells (so the
+// silhouette never changes and the accent reads as a detail of that area), deep (access depth ≥ ACCENT.minDepth and
+// ACCENT.depthShare of the deepest colour cell), at least ACCENT.gap cells (Chebyshev) from any other accent cell, the
+// clusters of one material spread apart. One material is painted over one ground colour (so the card's comparison can
+// put it back), its CIEDE2000 to every neighbour at least ACCENT.minDE (17 §3). Deterministic by r; returns
+// {recolor: [[x, y, code], …] (reading order), accents: [{code, from, cells, clusters: [[[x, y], …], …]}]} or null.
+export function pickAccents(pic,overlay,r,{materials=1,maxClusters=3}={}){const p=overlaid(pic,overlay),rows=p.rows,pw=rows[0].length,ph=rows.length,board=boardOf(pic,overlay),{d}=depths(board,null);
+ const at=(x,y)=>x<0||y<0||x>=pw||y>=ph?'.':rows[y][x],dep=(x,y)=>d[(board.h-1-(y+2))*board.w+x+2],present=new Set([...rows.join('')].filter(c=>CODES.includes(c)));
+ // one-colour areas (4-connected) and their sizes
+ const comp=new Int32Array(pw*ph).fill(-1),size=[];
+ for(let y0=0;y0<ph;y0++)for(let x0=0;x0<pw;x0++){if(comp[y0*pw+x0]>=0||!CODES.includes(at(x0,y0)))continue;const k=size.length,c=at(x0,y0),q=[[x0,y0]];comp[y0*pw+x0]=k;let n=0;
+  while(q.length){const [x,y]=q.pop();n++;for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const u=x+dx,v=y+dy;if(at(u,v)===c&&comp[v*pw+u]<0){comp[v*pw+u]=k;q.push([u,v]);}}}size.push(n);}
+ let maxD=0;for(let y=0;y<ph;y++)for(let x=0;x<pw;x++)if(CODES.includes(at(x,y))&&dep(x,y)<Infinity)maxD=Math.max(maxD,dep(x,y));
+ const dmin=Math.max(ACCENT.minDepth,Math.round(ACCENT.depthShare*maxD));
+ // every placement of every shape that fits, by ground colour
+ const spots={};
+ for(let y=0;y<ph;y++)for(let x=0;x<pw;x++){const g=at(x,y);if(!CODES.includes(g))continue;
+  for(const sh of ACCENT_SHAPES){const cells=sh.map(([dx,dy])=>[x+dx,y+dy]),inside=new Set(cells.map(([u,v])=>u+','+v));
+   if(!cells.every(([u,v])=>at(u,v)===g&&comp[v*pw+u]===comp[y*pw+x]&&dep(u,v)>=dmin&&dep(u,v)<Infinity))continue;if(size[comp[y*pw+x]]<ACCENT.area)continue;
+   let ring=true;for(const [u,v] of cells){for(let dy=-1;dy<=1&&ring;dy++)for(let dx=-1;dx<=1;dx++){if(inside.has((u+dx)+','+(v+dy)))continue;if(at(u+dx,v+dy)!==g){ring=false;break;}}if(!ring)break;}
+   if(ring)(spots[g]=spots[g]||[]).push(cells);}}
+ // the materials: absent from the picture, readable on the ground, ranked by how much they look like a decoration there
+ const opts=[];for(const a of CODES)if(!present.has(a))for(const g of Object.keys(spots)){const de=deltaE(g,a);if(de<ACCENT.minDE)continue;opts.push({a,g,score:25*decorScore(g,a)+Math.min(de,50)+4*r()});}
+ opts.sort((x,y)=>y.score-x.score);
+ const taken=[],out=[],far=(cells)=>Math.min(Infinity,...taken.flatMap(([u,v])=>cells.map(([x,y])=>Math.max(Math.abs(x-u),Math.abs(y-v)))));
+ for(const o of opts){if(out.length>=materials)break;if(out.some(m=>m.code===o.a))continue;
+  const want=1+Math.floor(r()*maxClusters),clusters=[];
+  for(let k=0;k<want;k++){const len=2+Math.floor(r()*3),free=spots[o.g].filter(c=>far(c)>=ACCENT.gap);if(!free.length)break;
+   // spread: the first cluster anywhere, the next ones among the farthest from what is painted
+   const mine=clusters.flat(),dist=c=>mine.length?Math.min(...mine.flatMap(([u,v])=>c.map(([x,y])=>Math.max(Math.abs(x-u),Math.abs(y-v))))):0;
+   let pool=free.filter(c=>c.length===len);if(!pool.length)pool=free;if(mine.length){const top=Math.max(...pool.map(dist));pool=pool.filter(c=>dist(c)>=.6*top);}
+   const c=pool[Math.floor(r()*pool.length)];clusters.push(c);taken.push(...c);}
+  if(!clusters.length)continue;
+  // readable next to every neighbour (17 §3: CIEDE2000 ≥ 10), the other accents included
+  const cells=clusters.flat(),inside=new Set(cells.map(([x,y])=>x+','+y));let readable=true;
+  for(const [x,y] of cells)for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1],[1,1],[1,-1],[-1,1],[-1,-1]]){const n=at(x+dx,y+dy);if(inside.has((x+dx)+','+(y+dy))||!CODES.includes(n))continue;if(deltaE(n,o.a)<ACCENT.minDE)readable=false;}
+  if(!readable){taken.splice(taken.length-cells.length,cells.length);continue;}
+  out.push({code:o.a,from:o.g,cells:cells.length,clusters});}
+ if(!out.length)return null;
+ const recolor=out.flatMap(m=>m.clusters.flat().map(([x,y])=>[x,y,m.code])).sort((a,b)=>a[1]-b[1]||a[0]-b[0]);
+ return {recolor,accents:out};}
+// the pods of the accent materials: the quota is the accent's volume (always below 20 cells, so 1–2 pods, 17 §3); a
+// volume of 4+ is split into two pods in about half the candidates. Returns the pods (the other materials' as given)
+export function accentPods(pods,accents,r){const acc=new Set(accents.map(a=>a.code)),out=[];
+ for(const p of pods){if(!acc.has(p.color)){out.push(p);continue;}const v=pods.filter(q=>q.color===p.color).reduce((s,q)=>s+q.count,0);if(out.some(q=>q.color===p.color))continue;
+  for(const n of v>=4&&r()<.5?even(v,2):[v])out.push({color:p.color,count:n});}
+ return out;}
+// The same level without its accents (the card's comparison, «стоят без работы» with / without): the accent cubes back in
+// the colour they were painted over, each accent pod playing that colour; the same queue, the same places, the same
+// mechanics. null when the level has no recolouring or one of its materials is not an accent (also on the picture, or
+// painted over more than one colour, so a pod could not tell which).
+export function accentTwin(level,pic){const rc=level.recolor;if(!rc||!rc.length)return null;const from={},present=new Set([...pic.rows.join('')].filter(c=>CODES.includes(c)));
+ for(const [x,y,c] of rc){const was=pic.rows[y][x];if(present.has(c)||(from[c]&&from[c]!==was))return null;from[c]=was;}
+ const g=level.rowsBottomFirst.map(r=>[...r]);for(const [x,y] of rc)g[level.h-1-(y+2)][x+2]=pic.rows[y][x];
+ const {recolor:_,...rest}=level;return {...rest,rowsBottomFirst:g.map(r=>r.join('')),pods:level.pods.map(p=>from[p.color]?{...p,color:from[p.color]}:p)};}
+// the tray row (0 = the top) of each pod of a level
+const rowOfPod=(level,i)=>{for(const st of level.tray){const k=st.indexOf(i);if(k>=0)return k;}return -1;};
 
 // ---- the checks of one candidate level (17 §5–§9, §13 layer B), shared by build and the bridge scene search ----
 // Returns {reason} for the first failed check, else the measured parts of a bank entry: random, solution, fairness,
@@ -285,7 +374,17 @@ export function sceneOpts(pic,board,P,cols,k){if(!pic.scene||!board.hero||!Array
 
 // ---- build: candidates for each picture, recipe and class, measured and banked ----
 const SIDES=['up','left','right','two'];
-async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard')).split(','),seed0=+arg('--seed',+(process.env.ROUNDS_SEED||1)),sides=arg('--overlay')?arg('--overlay').split(','):null;
+// which attempts try accents (--accents auto|on|off; 17 §6, the owner, 2026-11-01): auto = every Hard and Super Hard
+// attempt and every third attempt of a regular Normal; on = every attempt; never an introduction or L1–3
+export const accentWanted=(mode,cls,intro,fixed,k)=>!intro&&!fixed&&mode!=='off'&&(mode==='on'||cls!=='Normal'||k%3===1);
+// the card's record of a candidate's accents: materials, cells, clusters, their pods' tray rows, and «стоят без работы»
+// with them and without (accentTwin: the accent cubes back in their ground, the accent pods playing it)
+export async function accentCheck(level,pic,accents,withP=null){const twin=accentTwin(level,pic),games=QUALITY.pressure.games;
+ const w=withP||await pressure(level,games),wo=twin?await pressure(twin,games):null;
+ return {materials:accents.map(a=>({code:a.code,name:PALETTE[a.code].name,from:a.from,cells:a.cells,clusters:a.clusters.length,
+   pods:level.pods.map((p,i)=>p.color===a.code?i:-1).filter(i=>i>=0).map(i=>({pod:i,count:level.pods[i].count,row:rowOfPod(level,i)}))})),
+  cells:accents.reduce((s,a)=>s+a.cells,0),pressure:{with:w.stuck,without:wo?wo.stuck:null}};}
+async function build(ids){const accentMode=arg('--accents','auto');if(!['auto','on','off'].includes(accentMode))throw Error('--accents: auto, on или off');const classes=(arg('--classes','Normal,Hard,Super Hard')).split(','),seed0=+arg('--seed',+(process.env.ROUNDS_SEED||1)),sides=arg('--overlay')?arg('--overlay').split(','):null;
  if(sides&&sides.some(x=>x!=='none'&&!SIDES.includes(x)))throw Error(`--overlay: стороны none, ${SIDES.join(', ')}`);
  // --pairs (rounds.mjs run under a mechanics plan): only the planned class:recipe pairs, @side for a wall's side
  const pairs=arg('--pairs')?new Set(arg('--pairs').split(',')):null;
@@ -322,15 +421,26 @@ async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard
      const pos=recipe==='none'||intro?null:DOSE_CYCLE[k%DOSE_CYCLE.length];
      const cseed=seed0*1000003+k*7919+CLASSES.indexOf(cls)*31+all.indexOf(recipe)*131+(intro?17:0)+(v.overlay?(SIDES.indexOf(v.side)+1)*523:0);
      const blend=steer?Math.min(1,Math.max(0,steer.t+(rnd(cseed^0x5bd1e995)()-.5)*.12)):null;
-     const c=candidate(pic,board,base.pods,cols,recipe,cls,cseed,intro,pos,{...sceneOpts(pic,board,base.pods.length,cols,k),...(blend!==null?{t:blend}:{})});
+     // accents (17 §6, the owner, 2026-11-01): this attempt paints 1–2 accent materials over the picture (the level's
+     // recolouring) and puts their pods early or mid queue; a picture without room for them is built without
+     let acc=null,cm=m,cboard=board,cpods=base.pods;
+     if(accentWanted(accentMode,cls,intro,fixed,k)){const ar=rnd(cseed^0x2545f491),room=(m.N<400?6:10)-m.colours;
+      const a=room>0?pickAccents(pic,v.overlay,ar,{materials:room>=2&&m.colours<=7&&ar()<.4?2:1}):null;
+      if(!a)no(room>0?'акценты: нет места в картинке (строим без них)':'акценты: цветов уже предел (строим без них)');
+      else{const am=measure(overlaid(pic,v.overlay,a.recolor)),ab=splitPods(am.volumes,am.N,fixed);
+       if(ab.error)no('акценты: '+ab.error+' (строим без них)');
+       else{let ps=accentPods(ab.pods,a.accents,ar);if(ps.length>budget(am.N)[1])ps=ab.pods;acc=a;cm=am;cpods=ps;cboard=boardOf(pic,v.overlay,a.recolor);}}}
+     const c=candidate(pic,cboard,cpods,cols,recipe,cls,cseed,intro,pos,{...sceneOpts(pic,cboard,cpods.length,cols,k),...(blend!==null?{t:blend}:{}),...(acc?{accents:acc.accents.map(x=>x.code)}:{})});
      if(c.error){reasons[c.error]=(reasons[c.error]||0)+1;continue;}
      let quick=null;const trace=process.env.ROUNDS_TRACE?(l=>console.error(`  ${id} ${cls} ${recipe} #${k}${blend!==null?' t '+blend.toFixed(2):''} ${l} ${((Date.now()-t0)/1000).toFixed(1)} s`)):()=>{},t0=Date.now();
      const tick=l=>{const q=/^быстрая оценка ([\d.]+)/.exec(l);if(q)quick=+q[1];trace(l);};
-     const e=await evaluate(c.level,{m,cls,intro,fixed,tick});
+     const e=await evaluate(c.level,{m:cm,cls,intro,fixed,tick});
      // the steering step shrinks with the attempts (a noisy share: the same t gives 10–90 % on some pictures)
      if(steer){const q=e.random?e.random.share:quick;if(q!==null){steer.n++;steer.t=Math.min(1,Math.max(.3,steer.t+.45/Math.sqrt(steer.n)*(q-steer.aim)));}}
      if(e.reason){no(e.reason);continue;}
-     bank.candidates.push({id:`${id}-${cls[0]}${recipe}${v.overlay?'~'+v.side:''}${runTag?'-'+runTag:''}-${k}${intro?'-intro':''}`,picture:id,requested:cls,cls:e.random.cls,intro,recipe,level:c.level,...(v.overlay?{overlay:v.overlay}:{}),...(side?{bridgeSide:side}:{}),N:m.N,W,colours:m.colours,P:c.level.pods.length,columns:cols,
+     // the accents and «стоят без работы» with / without them (the same queue, the accent pods playing their ground)
+     if(acc)e.checks.accents=await accentCheck(c.level,pic,acc.accents,e.checks.pressure);
+     bank.candidates.push({id:`${id}-${cls[0]}${recipe}${v.overlay?'~'+v.side:''}${runTag?'-'+runTag:''}${acc?'-a':''}-${k}${intro?'-intro':''}`,picture:id,requested:cls,cls:e.random.cls,intro,recipe,level:c.level,...(v.overlay?{overlay:v.overlay}:{}),...(side?{bridgeSide:side}:{}),N:cm.N,W:cm.N,colours:cm.colours,P:c.level.pods.length,columns:cols,
       linked:c.level.pods.filter(p=>p.group).length,hidden:c.level.pods.filter(p=>p.mystery).length,...(c.level.hiddenCells?{cells:cellsHiddenAtStart(c.level)}:{}),random:e.random,...(e.randomAll?{randomAll:e.randomAll}:{}),solution:e.solution,fairness:e.fairness,strategies:e.strategies,rhythm:e.rhythm,dosePos:pos,...(blend!==null?{blend:Math.round(blend*1000)/1000}:{}),...(e.bridge?{bridge:e.bridge}:{}),checks:e.checks,engine:'tools/rounds/engine.mjs (pilot v9 + §8 link rule)',seed:seed0,attempt:k});
      found++;if(e.checks.greedyLoses)foundLoss++;}
     console.log(id,tag,cls.padEnd(10),recipe.padEnd(13),intro?'знакомство':'',`найдено ${found} из ${tried}`,Object.keys(reasons).length?JSON.stringify(reasons):'');
@@ -436,7 +546,9 @@ async function place(from,to){const placed={};for(const f of fs.existsSync(LEVEL
   const normalScore=c=>introScore(c)+(pressureLow(c)?.5:0)+(slot.cls!=='Normal'||slot.intro?0:(c.random.share>=.95&&high>=1?.6:0)+(!needMech&&c.recipe!=='none'?.2:0)+(needLoss&&!greedyLost(c)?.6:0));
   // a regular Normal aims at 55 % itself (not just anywhere in the zone), so the median lands in 50–60 %
   const aim=slot.cls==='Normal'&&!slot.intro&&!afterHard?(medN>.6?.52:medN<.5?.58:.55):null;
-  const score=c=>{const s=c.random.share;return doseScore(c)+normalScore(c)+scarce(c)+(c.random.borderline?1:0)+(calmBorderline(c.cls,c.checks.calm)?.5:0)+(aim!==null?2*Math.abs(s-aim):s>=zone[0]&&s<=zone[1]?0:Math.min(Math.abs(s-zone[0]),Math.abs(s-zone[1])))+(bins.filter(b=>b===sizeBin(c.N)).length>=want[sizeBin(c.N)]?.3:0);};
+  // layer B soft preference (quality.json pressure.prefer, 2026-11-01): more pods without work is better, up to a cap
+  const pPref=QUALITY.pressure.prefer,prefer=c=>pPref&&!slot.intro&&c.checks&&c.checks.pressure?-pPref.weight*Math.min(c.checks.pressure.stuck,pPref.cap)/pPref.cap:0;
+  const score=c=>{const s=c.random.share;return prefer(c)+doseScore(c)+normalScore(c)+scarce(c)+(c.random.borderline?1:0)+(calmBorderline(c.cls,c.checks.calm)?.5:0)+(aim!==null?2*Math.abs(s-aim):s>=zone[0]&&s<=zone[1]?0:Math.min(Math.abs(s-zone[0]),Math.abs(s-zone[1])))+(bins.filter(b=>b===sizeBin(c.N)).length>=want[sizeBin(c.N)]?.3:0);};
   if(QUALITY.pressure.mode==='hard')for(let i=ok.length-1;i>=0;i--)if(pressureLow(ok[i]))ok.splice(i,1);
   ok.sort((a,b)=>score(a)-score(b));
   // --pick n:id takes that candidate at position n when it passes every filter above (a sequence rule of §5 that the
@@ -454,7 +566,13 @@ async function place(from,to){const placed={};for(const f of fs.existsSync(LEVEL
  if(needs.length)console.log(`не заполнено ${needs.length}: ${needs.map(x=>`L${x.level} ${x.cls}${x.intro?' ('+x.intro+')':''}${x.recipe?' '+x.recipe+(x.bridgeSide?' '+x.bridgeSide+(x.strip?'/'+x.strip:''):''):''}`).join(', ')} → content/rounds/needs.json`);}
 
 function card(n){const L=readJSON(path.join(LEVELS,lid(n)+'.json'));if(!L)return console.log('нет уровня',n);
- console.log(`${lid(n)} · ${L.cls}${L.intro?' · знакомство: '+MECH_RU[L.intro]:''} · картинка ${L.picture} «${L.definition.title}»\nN ${L.N} · W ${L.W} · материалов ${L.colours} · подов ${L.P} · колонок ${L.columns} · мест ${L.definition.capacity}\nрецепт: ${L.recipe} (связанных ${L.linked}, скрытых ${L.hidden}${L.cells!=null?`, скрытых клеток ${L.cells} из ${L.definition.hiddenCells.length}`:''})${L.definition.hero?` · мост: ${bridgeSide(L.definition)} (${L.definition.hero.choices.map(c=>c.label).join(', ')})${L.definition.overlay?', стена генератора поверх картинки':''}`:''}\nслучайный тест: ${Math.round(L.random.share*100)} % из ${L.random.runs}, Wilson95 ${L.random.wilson95.map(x=>Math.round(x*100)+' %').join('–')}${L.random.bridge!=null&&L.definition.hero?` (с мостом «${L.definition.hero.choices[L.random.bridge].label}»${L.randomAll?`; с обоими мостами ${Math.round(L.randomAll.share*100)} %`:''})`:''}\nрешение: ${L.solution.route.length} действий, опасных развилок ${L.solution.forks}, с одним безопасным ${L.solution.singleSafe}\nпосле 80 % W запусков: ${L.rhythm.launchesAfter80}, последний при ${L.rhythm.lastLaunchAtW} % W, время решения ${L.rhythm.seconds} с (×1, после окончания работы), тапы сразу: ${L.solution.fast?L.solution.fast.seconds+' с ('+L.solution.fast.status+')':'—'}\nэтапы: ${L.rhythm.segments.map(s=>`${s.from}–${s.to}%: своб. ${s.meanFree}/${s.minFree}, полный ${Math.round((s.fullShare||0)*100)} %`).join(' · ')}\nпростые стратегии: выиграли ${Object.values(L.strategies).filter(Boolean).length} из ${Object.keys(L.strategies).length}; «больше работы сейчас» ${greedyLost(L)?'проигрывает':'выигрывает'}\nвынужденных решений: ${L.checks?Math.round(L.checks.forced*100)+' %':'—'}${L.checks&&L.checks.opening?` · дебют + цвета: после первого запуска ${L.checks.opening.first.wins} из ${L.checks.opening.first.openings}, после трёх ${Math.round(L.checks.opening.three.share*100)} %`:''}${L.checks&&L.checks.hold!=null?' · под держит место: '+(L.checks.hold?'да':'нет'):''}${L.checks&&L.checks.pressure?' · стоят без работы: '+L.checks.pressure.stuck:''}${L.checks&&L.checks.bridgeKind?' · мост: '+(L.checks.bridgeKind==='single'?'решает ровно один':'оба выигрывают, один лучше'):''}`);}
+ console.log(`${lid(n)} · ${L.cls}${L.intro?' · знакомство: '+MECH_RU[L.intro]:''} · картинка ${L.picture} «${L.definition.title}»\nN ${L.N} · W ${L.W} · материалов ${L.colours} · подов ${L.P} · колонок ${L.columns} · мест ${L.definition.capacity}\nрецепт: ${L.recipe} (связанных ${L.linked}, скрытых ${L.hidden}${L.cells!=null?`, скрытых клеток ${L.cells} из ${L.definition.hiddenCells.length}`:''})${L.definition.hero?` · мост: ${bridgeSide(L.definition)} (${L.definition.hero.choices.map(c=>c.label).join(', ')})${L.definition.overlay?', стена генератора поверх картинки':''}`:''}\nслучайный тест: ${Math.round(L.random.share*100)} % из ${L.random.runs}, Wilson95 ${L.random.wilson95.map(x=>Math.round(x*100)+' %').join('–')}${L.random.bridge!=null&&L.definition.hero?` (с мостом «${L.definition.hero.choices[L.random.bridge].label}»${L.randomAll?`; с обоими мостами ${Math.round(L.randomAll.share*100)} %`:''})`:''}\nрешение: ${L.solution.route.length} действий, опасных развилок ${L.solution.forks}, с одним безопасным ${L.solution.singleSafe}\nпосле 80 % W запусков: ${L.rhythm.launchesAfter80}, последний при ${L.rhythm.lastLaunchAtW} % W, время решения ${L.rhythm.seconds} с (×1, после окончания работы), тапы сразу: ${L.solution.fast?L.solution.fast.seconds+' с ('+L.solution.fast.status+')':'—'}\nэтапы: ${L.rhythm.segments.map(s=>`${s.from}–${s.to}%: своб. ${s.meanFree}/${s.minFree}, полный ${Math.round((s.fullShare||0)*100)} %`).join(' · ')}\nпростые стратегии: выиграли ${Object.values(L.strategies).filter(Boolean).length} из ${Object.keys(L.strategies).length}; «больше работы сейчас» ${greedyLost(L)?'проигрывает':'выигрывает'}\nвынужденных решений: ${L.checks?Math.round(L.checks.forced*100)+' %':'—'}${L.checks&&L.checks.opening?` · дебют + цвета: после первого запуска ${L.checks.opening.first.wins} из ${L.checks.opening.first.openings}, после трёх ${Math.round(L.checks.opening.three.share*100)} %`:''}${L.checks&&L.checks.hold!=null?' · под держит место: '+(L.checks.hold?'да':'нет'):''}${L.checks&&L.checks.pressure?' · стоят без работы: '+L.checks.pressure.stuck:''}${L.checks&&L.checks.bridgeKind?' · мост: '+(L.checks.bridgeKind==='single'?'решает ровно один':'оба выигрывают, один лучше'):''}${accentLine(L)}`);}
+// the card's accents (17 §6, 2026-11-01): each material, its clusters over which ground, its pods' rows, and «стоят без
+// работы» with and without the accents; a recolouring that is no builder's accent is listed cell by cell
+function accentLine(L){const d=L.definition,a=L.checks&&L.checks.accents;if(!a&&!(d.recolor&&d.recolor.length))return '';
+ if(!a)return `\nперекраска: ${d.recolor.map(([x,y,c])=>`(${x}, ${y}) → ${PALETTE[c].name}`).join(', ')}`;
+ const pr=a.pressure||{},diff=pr.without!=null?` (без акцентов ${pr.without}, ${pr.with-pr.without>=0?'+':''}${Math.round((pr.with-pr.without)*100)/100})`:'';
+ return `\nакценты: ${a.materials.map(m=>`${m.name} ×${m.cells} (${m.clusters} скопл. на «${PALETTE[m.from].name}», поды ${m.pods.map(p=>`${m.code}${p.count} в ряду ${p.row+1}`).join(', ')})`).join('; ')} · стоят без работы ${pr.with}${diff}`;}
 
 if(cmd==='calendar'){const a=+process.argv[3]||1,b=+process.argv[4]||30;for(let n=a;n<=b;n++){const s=slotOf(n);console.log(lid(n),s.cls.padEnd(10),s.intro?('знакомство: '+MECH_RU[s.intro]+(SUPPORTED.has(s.intro)?'':' — НЕ ПОДДЕРЖИВАЕТСЯ ДВИЖКОМ')).padEnd(46):''.padEnd(46),'разрешены:',s.allowed.map(x=>MECH_RU[x]+(SUPPORTED.has(x)?'':' (нет в движке)')).join(', ')||'без допов');}}
 else if(cmd==='build'){const ids=flag('--approved')?(u=>manifest().pictures.filter(p=>p.status==='approved'&&!u[p.id]).map(p=>p.id))(usage()):process.argv.slice(3).filter(a=>/^P\d+$/.test(a));await build(ids);}

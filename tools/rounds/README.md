@@ -29,6 +29,7 @@ node tools/rounds/pictures.mjs replace P0034 content/rounds/pictures/src/batch-0
 node tools/rounds/levels.mjs calendar 1 60
 node tools/rounds/levels.mjs build --approved --candidates 64
 node tools/rounds/levels.mjs build P0012 --overlay up,left --recipes bridge,bridge+links --classes Normal --no-intro   # on the generator's wall
+node tools/rounds/levels.mjs build P0042 --classes Hard --recipes links --accents on   # accents (17 §6): auto (default) | on | off
 node tools/rounds/levels.mjs bank
 node tools/rounds/levels.mjs place 1 30
 # split pictures (17 §8 «Одна цельная картинка», 2026-10-29): one whole free pool picture split by an inserted neutral strip,
@@ -169,9 +170,40 @@ an additional one its minimum admissible dose, three types the lead in its lower
 - *Pilot* (`tools/gameplay-pilot-v12`): an unrevealed hidden cell is a neutral grey cube with «?»; it reveals by the
   engine's rule; the finished picture shows its colour; both introductions carry an explanation.
 
+**Recolouring and accents** (17 §3 «кубики можно докрасить или перекрасить в более насыщенный материал», §6 «Акценты для
+давления на места», the owner, 2026-11-01). The exact contract, which the C# port follows:
+
+- *Level data.* A level may carry `definition.recolor` = `[[x, y, code], …]` in picture coordinates (x from the left, y
+  from the top, like the overlay): each a colour cell of the approved picture that this level paints another palette
+  material — never an empty cell or a strip, never its own colour, one entry per cell, never under the overlay's wall.
+  It is applied before the overlay: `boardOf(pic, overlay, recolor)` / `overlaid(pic, overlay, recolor)` (bad entries
+  throw, `recolorErrors` lists them), and N, W and the colours count the recoloured board. The exporter writes it as
+  `board.recolor` of `round-level.v1` (`[x, y, "C"]`); a level without one has no key and exports byte-identically. The
+  game rebuilds the board from the picture with it (`RoundPictureBoard.Of(picture, overlay, recolor)`, the validator's
+  picture ↔ board check) and shows the finished picture recoloured (`RoundPicture.Recolored`).
+- *Builder accents.* `levels.mjs build --accents auto|on|off` (default `auto`: every Hard and Super Hard attempt, every
+  third attempt of a regular Normal; never an introduction or L1–3). `pickAccents(pic, overlay, r, {materials})` picks
+  1–2 materials absent from the picture (the colours stay within 10, 6 on a compact picture), ranked by how much they look
+  like decorations on their ground (`decorScore`: Солнце / Снег stars on a dark or blue ground, Фуксия / Лаванда flowers
+  on green, dark dots on light) and their CIEDE2000 to it (at least 10 to every neighbour, 17 §3), and paints each in 1–3
+  clusters of 2–4 cells (`ACCENT`): every cluster cell and its eight neighbours in one colour area of 30+ cells (the
+  silhouette never changes), access depth at least 2 and 30 % of the deepest colour cell, 3+ cells from any other accent,
+  one ground colour per material. `accentPods` gives each accent material its pods (quota = the accent volume, 1–2 pods)
+  and `candidate` (opts `accents`) moves them into the second row to the middle of the tray, so they come up before
+  their cubes are reachable; hidden cells never take an accent cell. A picture without room is built without accents.
+  The class tests, doses and checks are the same (`evaluate`); the §2 picture fitness reads the picture without the
+  recolouring, so accents never make a weak picture strong.
+- *Pressure.* `accentCheck` records `checks.accents` (materials, cells, clusters, their pods' rows, «стоят без работы»
+  `with` and `without`); `without` plays `accentTwin(level, pic)`: the same queue with the accent cubes back in their
+  ground and the accent pods playing it. The level card lists the accents and the difference; the placer prefers more
+  pods without work by `quality.json` `pressure.prefer` (soft; the pass/fail bounds stay `min` and `mode`). Candidate ids
+  carry `-a` (`P0042-Hlinks-a-5`).
+- *Audit.* Each entry valid, the board equal to picture + recolouring + overlay, N, W and the colours of the recoloured
+  board.
+
 | File | What |
 |---|---|
-| `lib.mjs` | paths, manifest, palette, the rules' tables (stages, budgets, calendar, introductions, supported mechanics), board around a picture (overlay, ring closure, anchors, crossing side), the generator's wall `wallOverlay`, the wave's mechanics plan (`planOf`, `fitsPlan`), PNG writer |
+| `lib.mjs` | paths, manifest, palette, the rules' tables (stages, budgets, calendar, introductions, supported mechanics), board around a picture (recolouring, overlay, ring closure, anchors, crossing side), the generator's wall `wallOverlay`, the wave's mechanics plan (`planOf`, `fitsPlan`), PNG writer |
 | `themes.json` | the theme catalog's 50 families, 24 directions and meme families (from `product/design/Bloomlings-picture-theme-catalog.md`), for the tag check |
 | `pictures.mjs` | sequential numbering, render, rules check, contact sheet, approve/reject/replace |
 | `engine.mjs`, `engine/` | the round engine, our own code grown from the pilot: rules, timeline, palette, clock with the §1 slot positions, the §8 link rule, boards up to 48×48, 4–5 places; the pilot v10 embeds the same files |
@@ -185,7 +217,7 @@ an additional one its minimum admissible dose, three types the lead in its lower
 | `conformance.mjs` | the reference side of the conformance gate: canonical event log, extended signature, the §5 random policy game by game, owner attempts at whole µs; engine fingerprints |
 | `schema.mjs` | a dependency-free checker for the keywords the round schemas use |
 | `transfer-log.mjs` | `content/game/rounds/transfers.jsonl`: exported → validated → published → confirmed |
-| `levels.mjs` | §3 pod split, candidates (queue by access depth, doses of §7; a scene's gate and lean), `evaluate` (the checks of one candidate, shared with the scene search), build → bank, calendar placement with the §11 variety rules and the plan's bridge kind, cards |
+| `levels.mjs` | §3 pod split, candidates (queue by access depth, doses of §7; a scene's gate and lean; accents of §6), `evaluate` (the checks of one candidate, shared with the scene search), build → bank, calendar placement with the §11 variety rules and the plan's bridge kind, cards |
 | `bridge-scene.mjs` | split pictures (`splitOf`, `splitsFor`, `checkSplit`, `make --mode split`, `preview`) and the older bridge scenes: `scene` (a smaller picture behind a wall with two sites, strips and beds), `stripsOver`, `checkScene`, the search `make` → a draft picture module with the evidence |
 
 The engine plays hidden pods, linked pairs, the bridge and hidden cells. Latch + key (now 401/403), canal, shutters,

@@ -29,7 +29,7 @@ for(const n of IDS){let L=readJSON(path.join(LEVELS,lid(n)+'.json')),draft=false
  const d=L.definition;
  // a level on the generator's wall (definition.overlay, 17 §8): its board cells, drawn as stone (kept out of the level
  // objects, whose shape the exporter's catalog hash reads)
- if(d.overlay)stone[n]=boardOf(readJSON(path.join(root,'content/rounds/pictures',L.picture+'.json')),d.overlay).stone;
+ if(d.overlay)stone[n]=boardOf(readJSON(path.join(root,'content/rounds/pictures',L.picture+'.json')),d.overlay,d.recolor).stone;
  // a split picture's strip (definition.strip 'gap', 17 §8 «Одна цельная картинка», 2026-10-29): drawn as the board's
  // surface with a subtle edge, not as water (kept out of the level objects too)
  if(d.strip==='gap')gap[n]=true;

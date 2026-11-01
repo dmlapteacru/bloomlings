@@ -190,6 +190,46 @@ namespace Bloomlings.Content.Tests.Rounds
             Assert.That(ex!.Path, Is.EqualTo(path));
         }
 
+        [Test]
+        public void Level_WithARecolouring_RoundTrips()
+        {
+            // Rules 17 §3 and §6 (the owner, 2026-11-01): board.recolor paints picture cells another material for this level.
+            JObject root = JObject.Parse(LevelSample);
+            root["board"]!["recolor"] = new JArray(new JArray(1, 1, "F"), new JArray(2, 3, "Y"));
+            string json = root.ToString();
+
+            RoundLevel level = RoundJson.ReadLevel(json);
+            string written = RoundJson.WriteLevel(level);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(level.Recolor, Is.EqualTo(new[] { (1, 1, 'F'), (2, 3, 'Y') }));
+                Assert.That(RoundJson.WriteLevel(RoundJson.ReadLevel(written)), Is.EqualTo(written));
+                Assert.That(JObject.Parse(written)["board"]!["recolor"]!.ToString(Newtonsoft.Json.Formatting.None), Is.EqualTo("[[1,1,\"F\"],[2,3,\"Y\"]]"));
+                Assert.That(ContractSchemas.IsValidRoundLevel(written), Is.True);
+                Assert.That(RoundJson.ReadLevel(LevelSample).Recolor, Is.Empty, "absent means none");
+                Assert.That(RoundJson.WriteLevel(RoundJson.ReadLevel(LevelSample)), Does.Not.Contain("recolor"), "a level without one is written as before");
+            });
+        }
+
+        [TestCase("[[3,0,\"F\"]]", "board.recolor[0][0]", TestName = "RecolourRightOfThePicture_IsRejected")]
+        [TestCase("[[0,4,\"F\"]]", "board.recolor[0][1]", TestName = "RecolourBelowThePicture_IsRejected")]
+        [TestCase("[[0,0,\"q\"]]", "board.recolor[0][2]", TestName = "RecolourToNoMaterial_IsRejected")]
+        [TestCase("[[0,0,\"FF\"]]", "board.recolor[0][2]", TestName = "RecolourToTwoLetters_IsRejected")]
+        [TestCase("[[0,0]]", "board.recolor[0]", TestName = "RecolourOfTwoItems_IsRejected")]
+        [TestCase("[[0,0,\"F\"],[0,0,\"Y\"]]", "board.recolor[1]", TestName = "RecolourOfOneCellTwice_IsRejected")]
+        [TestCase("[]", "board.recolor", TestName = "RecolourEmpty_IsRejected")]
+        public void Level_BadRecolouring_IsRejected(string recolor, string path)
+        {
+            // The sample's board is 7 × 8: its picture is 3 × 4.
+            JObject root = JObject.Parse(LevelSample);
+            root["board"]!["recolor"] = JArray.Parse(recolor);
+
+            var ex = Assert.Throws<ContentFormatException>(() => RoundJson.ReadLevel(root.ToString()));
+
+            Assert.That(ex!.Path, Is.EqualTo(path));
+        }
+
         [TestCase("[[0,1]]", TestName = "OverlayWithOneSite_IsRejected")]
         [TestCase("[[0,1],[1,1],[2,1]]", TestName = "OverlayWithThreeSites_IsRejected")]
         public void Level_OverlayWithoutTwoSites_IsRejected(string sites)

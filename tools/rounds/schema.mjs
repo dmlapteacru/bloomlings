@@ -1,6 +1,6 @@
 // A small JSON Schema (draft 2020-12) checker for the round formats of spec 006 (no dependency): the keywords those
 // schemas use — type, const, enum, pattern, minimum, maximum, minLength, minItems, maxItems, uniqueItems, items,
-// properties, required, additionalProperties: false, $ref to #/$defs, oneOf, format: date. An unknown keyword fails, so a
+// properties, required, additionalProperties: false, $ref to #/$defs, oneOf, format: date, prefixItems. An unknown keyword fails, so a
 // schema change is not checked silently.
 import fs from 'node:fs';import path from 'node:path';import {root} from './lib.mjs';
 
@@ -8,7 +8,7 @@ export const SCHEMAS=path.join(root,'specs/006-round-levels-in-game/contracts');
 const cache=new Map();
 export function schema(name){if(!cache.has(name))cache.set(name,JSON.parse(fs.readFileSync(path.join(SCHEMAS,name+'.schema.json'),'utf8')));return cache.get(name);}
 
-const KNOWN=new Set(['$schema','$id','title','description','$defs','type','const','enum','pattern','minimum','maximum','minLength','minItems','maxItems','uniqueItems','items','properties','required','additionalProperties','$ref','oneOf','format']);
+const KNOWN=new Set(['$schema','$id','title','description','$defs','type','const','enum','pattern','minimum','maximum','minLength','minItems','maxItems','uniqueItems','items','properties','required','additionalProperties','$ref','oneOf','format','prefixItems']);
 const typeOf=v=>v===null?'null':Array.isArray(v)?'array':Number.isInteger(v)?'integer':typeof v;
 const same=(a,b)=>JSON.stringify(a)===JSON.stringify(b);
 
@@ -27,6 +27,7 @@ export function validate(name,value){const root=schema(name),errors=[];
   if(typeof v==='number'){if(s.minimum!=null&&v<s.minimum)errors.push(`${at||'/'}: below minimum ${s.minimum}`);if(s.maximum!=null&&v>s.maximum)errors.push(`${at||'/'}: above maximum ${s.maximum}`);}
   if(Array.isArray(v)){if(s.minItems!=null&&v.length<s.minItems)errors.push(`${at||'/'}: fewer than ${s.minItems} items`);if(s.maxItems!=null&&v.length>s.maxItems)errors.push(`${at||'/'}: more than ${s.maxItems} items`);
    if(s.uniqueItems&&new Set(v.map(x=>JSON.stringify(x))).size!==v.length)errors.push(`${at||'/'}: items not unique`);
+   if(s.prefixItems)s.prefixItems.forEach((p,i)=>{if(i<v.length)check(p,v[i],`${at}/${i}`);});
    if(s.items)v.forEach((x,i)=>check(s.items,x,`${at}/${i}`));}
   if(v&&typeof v==='object'&&!Array.isArray(v)){
    for(const k of s.required||[])if(!(k in v))errors.push(`${at||'/'}: missing ${k}`);

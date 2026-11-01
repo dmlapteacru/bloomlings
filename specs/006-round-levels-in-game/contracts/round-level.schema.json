@@ -2,7 +2,7 @@
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "$id": "https://bloomlings.game/schemas/round-level.v1.json",
   "title": "round-level.v1",
-  "description": "A round level in the game (spec 006 FR-020). Rows are the reference engine's input: bottom first, '.' open, '#' wall, a material code otherwise; the frame ring and wall are part of the rows. A bridge choice's anchor is an orthogonal neighbour of its cell (17 §8, 2026-10-28). board.overlay, when present, is the generator's wall laid over the approved picture, in picture coordinates ([x, y], x from the left, y from the top): the rows are that picture with each wall cell '#', each site a bridge site, and the ring closed outward of every strip cell on the picture's edge.",
+  "description": "A round level in the game (spec 006 FR-020). Rows are the reference engine's input: bottom first, '.' open, '#' wall, a material code otherwise; the frame ring and wall are part of the rows. A bridge choice's anchor is an orthogonal neighbour of its cell (17 §8, 2026-10-28). board.overlay, when present, is the generator's wall laid over the approved picture, in picture coordinates ([x, y], x from the left, y from the top): the rows are that picture with each wall cell '#', each site a bridge site, and the ring closed outward of every strip cell on the picture's edge. board.recolor, when present, paints picture cells another material before the overlay is laid.",
   "type": "object",
   "additionalProperties": false,
   "required": ["format", "number", "definitionVersion", "class", "picture", "board", "capacity", "pods", "tray", "mechanics", "engine"],
@@ -39,6 +39,9 @@
         },
         "hiddenCells": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "integer", "minimum": 0},
           "description": "hidden cells (rules 17 §8 «Скрытые клетки», the owner, 2026-11-01): indices y*w+x of rowsBottomFirst (row 0 at the bottom), sorted ascending, each a material cell; shown as a neutral «?» cube until it gets an open neighbour reachable from an entry (or is an entry cell), then an ordinary cell; never with hidden pods"},
+        "recolor": {"type": "array", "minItems": 1, "items": {"type": "array", "minItems": 3, "maxItems": 3,
+            "prefixItems": [{"type": "integer", "minimum": 0}, {"type": "integer", "minimum": 0}, {"type": "string", "pattern": "^[GPBACDVYOLMRKNSETUFHXWZJ]$"}]},
+          "description": "the level's recolouring of its approved picture (rules 17 §3 and §6 «Акценты», the owner, 2026-11-01): [x, y, code] in picture coordinates (x from the left, y from the top), each a material cell of the picture that this level paints another material (never an empty cell or a strip, never its own colour, one entry per cell); applied before board.overlay and never under its walls; absent means none"},
         "overlay": {
           "type": "object", "additionalProperties": false, "required": ["walls", "sites"],
           "properties": {

@@ -383,6 +383,21 @@ owner sees the same behaviour as in the playtest app.
     material's cube (about 0.36 s). The walkers never go to it before. Its first meeting shows an explanation card and
     its second a reminder, as the hidden pods' (FR-045).
 
+- **FR-067** (a level's recolouring of its picture, rules 17 §3 and §6 «Акценты для давления на места», the owner's
+  amendment of 2026-11-01; the reference contract is `tools/rounds/README.md` "Recolouring and accents"):
+  - Data: a round level MAY carry `board.recolor` of `round-level.v1`: `[x, y, "C"]` entries in picture coordinates (x
+    from the left, y from the top), each a material cell of its approved picture that this level paints another
+    material; at least one entry, one entry per cell, never an empty cell or a strip, never its own material, never under
+    `board.overlay`'s walls. It is applied before the overlay. Absent means none, and a level without it is written and
+    read exactly as before.
+  - Validation: the picture ↔ board check MUST rebuild the board from the picture with the recolouring, then the overlay,
+    and refuse a bad entry (outside the picture, not a material cell, its own material, twice, under the overlay) as well
+    as rows that do not show it. The rules read only the rows.
+  - Look: the finished picture on the win MUST show the level's recolouring.
+  - Use: the round tools paint small accents (2–4 cubes in 1–3 clusters, 1–2 materials absent from the picture, their
+    pods early or mid queue) and recolour cubes into richer materials where the picture gains; the approved picture
+    stays as approved.
+
 **Transfer path**
 
 - **FR-050**: The transfer of a wave MUST refuse to start unless the wave passes three entry checks:

@@ -77,7 +77,7 @@ namespace Bloomlings.Content.Rounds
 
             string boardPath = JsonDoc.Join(path, "board");
             JObject board = JsonDoc.Object(JsonDoc.Required(root, path, "board"), boardPath);
-            JsonDoc.AllowOnly(board, boardPath, "w", "h", "rowsBottomFirst", "entries", "hero", "overlay", "hiddenCells");
+            JsonDoc.AllowOnly(board, boardPath, "w", "h", "rowsBottomFirst", "entries", "hero", "overlay", "hiddenCells", "recolor");
             int w = JsonDoc.Int(JsonDoc.Required(board, boardPath, "w"), JsonDoc.Join(boardPath, "w"), 7, RoundLevel.MaxSide);
             int h = JsonDoc.Int(JsonDoc.Required(board, boardPath, "h"), JsonDoc.Join(boardPath, "h"), 8, RoundLevel.MaxSide);
             string rowsPath = JsonDoc.Join(boardPath, "rowsBottomFirst");
@@ -131,6 +131,33 @@ namespace Bloomlings.Content.Rounds
                 overlay = new RoundOverlay(
                     PictureCells(JsonDoc.Required(overlayObject, overlayPath, "walls"), JsonDoc.Join(overlayPath, "walls"), w - 4, h - 4),
                     PictureCells(JsonDoc.Required(overlayObject, overlayPath, "sites"), JsonDoc.Join(overlayPath, "sites"), w - 4, h - 4, 2, 2));
+            }
+
+            // The level's recolouring (rules 17 §3 and §6, 2026-11-01): [x, y, "C"] inside the picture, one entry per cell;
+            // absent means none. That each paints a material cell of the picture another material is the picture ↔ board
+            // check's (RoundPictureBoard.Of).
+            List<(int X, int Y, char Code)>? recolor = null;
+            JToken? recolorToken = JsonDoc.Optional(board, "recolor");
+            if (recolorToken != null)
+            {
+                string recolorPath = JsonDoc.Join(boardPath, "recolor");
+                JArray recolorArray = JsonDoc.Array(recolorToken, recolorPath, minItems: 1);
+                recolor = new List<(int X, int Y, char Code)>(recolorArray.Count);
+                var seen = new HashSet<(int, int)>();
+                for (int i = 0; i < recolorArray.Count; i++)
+                {
+                    string at = JsonDoc.Index(recolorPath, i);
+                    JArray entry = JsonDoc.Array(recolorArray[i], at, 3, 3);
+                    int x = JsonDoc.Int(entry[0], JsonDoc.Index(at, 0), 0, w - 5);
+                    int y = JsonDoc.Int(entry[1], JsonDoc.Index(at, 1), 0, h - 5);
+                    string code = Match(entry[2], JsonDoc.Index(at, 2), PodCode);
+                    if (!seen.Add((x, y)))
+                    {
+                        throw new ContentFormatException(at, $"picture cell ({x},{y}) is recoloured twice");
+                    }
+
+                    recolor.Add((x, y, code[0]));
+                }
             }
 
             // Hidden cells (rules 17 §8 «Скрытые клетки», 2026-11-01): sorted, unique cell indices; absent means none. That
@@ -246,7 +273,8 @@ namespace Bloomlings.Content.Rounds
                 exception,
                 engine,
                 overlay,
-                hiddenCells);
+                hiddenCells,
+                recolor);
         }
 
         public static string WriteLevel(RoundLevel level, bool indented = true) => CanonicalJson.Write(ToJObject(level), indented);
@@ -291,6 +319,17 @@ namespace Bloomlings.Content.Rounds
             if (level.Overlay != null)
             {
                 board["overlay"] = new JObject { ["walls"] = PictureCells(level.Overlay.Walls), ["sites"] = PictureCells(level.Overlay.Sites) };
+            }
+
+            if (level.Recolor.Count > 0)
+            {
+                var recolor = new JArray();
+                foreach ((int x, int y, char code) in level.Recolor)
+                {
+                    recolor.Add(new JArray(x, y, code.ToString()));
+                }
+
+                board["recolor"] = recolor;
             }
 
             if (level.HiddenCells.Count > 0)

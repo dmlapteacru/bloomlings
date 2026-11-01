@@ -130,6 +130,41 @@ namespace Bloomlings.Pipeline.Tests.Rounds
         }
 
         [Test]
+        public void ABoardWithARecolouring_IsItsPictureRecolouredThenTheOverlayLaid()
+        {
+            // Rules 17 §3 and §6 (the owner, 2026-11-01): two accent cells painted into the green half, then the wall.
+            var picture = new RoundPicture("P9100", 1, "Fence", 5, 4, new[] { "GGPPP", "GGPPP", "GGPPP", "GGPPP" }, "2026-10-28");
+            var overlay = new RoundOverlay(new[] { (1, 0), (1, 1), (1, 2), (1, 3) }, new[] { (1, 1) });
+            var recolor = new[] { (3, 1, 'F'), (3, 2, 'F') };
+            RoundBoardShape board = RoundPictureBoard.Of(picture, overlay, recolor);
+            RoundLevel Level(IReadOnlyList<(int X, int Y, char Code)>? painted) => new RoundLevel(
+                16, board.Width, board.Height, board.RowsBottomFirst, new[] { new RoundPod('G', 4) }, new[] { new[] { 0 } }, board.Entries, board.Bridge,
+                pictureId: "P9100", overlay: overlay, recolor: painted);
+            string[] Issues(IReadOnlyList<(int X, int Y, char Code)>? painted) =>
+                RoundSetValidator.PictureBoard("L0016", Level(painted), picture).Select(i => i.ToString()).ToArray();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(board.RowsBottomFirst.Reverse().Skip(3).First(), Is.EqualTo("#.G#PFP.#"), "picture row 1: the wall at x = 1, the accent at x = 3");
+                Assert.That(Issues(recolor), Is.Empty);
+                Assert.That(Issues(null), Is.EqualTo(new[]
+                {
+                    "error L0016 picture-board: row 3 (bottom first) is '#.G#PFP.#', picture P9100 v1 with its overlay makes '#.G#PPP.#'",
+                }), "without its recolouring the board is not the picture's");
+                Assert.That(Issues(new[] { (3, 1, 'F') }).Single(), Does.StartWith("error L0016 picture-board: row 3 (bottom first) is '#.G#PFP.#', picture P9100 v1 with its recolouring and overlay makes '#.G#PPP.#'"));
+                Assert.That(Issues(new[] { (3, 1, 'P'), (3, 2, 'F') }).Single(), Is.EqualTo("error L0016 picture-board: picture P9100@1: recolour (3,1) paints its own material 'P'."));
+                Assert.That(Issues(new[] { (1, 1, 'F') }).Single(), Is.EqualTo("error L0016 picture-board: picture P9100@1: recolour (1,1) lies under the overlay."));
+                Assert.That(Issues(new[] { (5, 1, 'F') }).Single(), Is.EqualTo("error L0016 picture-board: picture P9100@1: recolour (5,1) lies outside the 5×4 picture."));
+                Assert.That(Issues(new[] { (3, 1, 'F'), (3, 1, 'F') }).Single(), Is.EqualTo("error L0016 picture-board: picture P9100@1: recolour (3,1) is listed twice."));
+                Assert.That(picture.Recolored(recolor).RowsTopFirst, Is.EqualTo(new[] { "GGPPP", "GGPFP", "GGPFP", "GGPPP" }), "the finished picture shows the accents");
+                Assert.That(picture.Recolored(Array.Empty<(int, int, char)>()), Is.SameAs(picture));
+            });
+
+            var empty = new RoundPicture("P9101", 1, "Gap", 3, 1, new[] { "G.G" }, "2026-10-28");
+            Assert.That(() => RoundPictureBoard.Of(empty, null, new[] { (1, 0, 'F') }), Throws.ArgumentException.With.Message.EqualTo("picture P9101@1: recolour (1,0) is not a material cell ('.')."));
+        }
+
+        [Test]
         public void AMissingOrOtherPictureVersion_IsAnError()
         {
             using var content = new RoundTestContent();

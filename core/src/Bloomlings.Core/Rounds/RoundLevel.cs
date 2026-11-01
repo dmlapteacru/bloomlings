@@ -182,7 +182,8 @@ namespace Bloomlings.Core.Rounds
             RoundException? exception = null,
             RoundEngineVersion? engine = null,
             RoundOverlay? overlay = null,
-            IReadOnlyList<int>? hiddenCells = null)
+            IReadOnlyList<int>? hiddenCells = null,
+            IReadOnlyList<(int X, int Y, char Code)>? recolor = null)
         {
             Number = number;
             Width = width;
@@ -203,6 +204,7 @@ namespace Bloomlings.Core.Rounds
             Engine = engine;
             Overlay = overlay;
             HiddenCells = hiddenCells ?? Array.Empty<int>();
+            Recolor = recolor ?? Array.Empty<(int X, int Y, char Code)>();
         }
 
         public int Number { get; }
@@ -253,6 +255,14 @@ namespace Bloomlings.Core.Rounds
         /// without hidden cells; never on a level with hidden pods.
         /// </summary>
         public IReadOnlyList<int> HiddenCells { get; }
+
+        /// <summary>
+        /// The level's recolouring of its approved picture (rules 17 §3 and §6 «Акценты», the owner, 2026-11-01;
+        /// <c>board.recolor</c> of <c>round-level.v1</c>): picture cells (x from the left, y from the top) that this level
+        /// paints another material, applied before the <see cref="Overlay"/>. The rows already hold the new materials; the
+        /// picture ↔ board check rebuilds them from the picture with this list. Empty on a level without one.
+        /// </summary>
+        public IReadOnlyList<(int X, int Y, char Code)> Recolor { get; }
 
         /// <summary>
         /// The board cell of a picture cell (x from the left, y from the top): the picture sits inside a wall frame and an

@@ -70,6 +70,25 @@ namespace Bloomlings.Content.Rounds
         public string Key => KeyOf(Id, Version);
 
         public static string KeyOf(string id, int version) => id + "@" + version;
+
+        /// <summary>
+        /// The picture as a level shows it finished: the approved rows with the level's recolouring (rules 17 §3 and §6,
+        /// 2026-11-01; <see cref="RoundLevel.Recolor"/>) painted in; the same id and version. This picture itself when the
+        /// list is empty.
+        /// </summary>
+        /// <exception cref="ArgumentException">An entry lies outside the picture, or is not a material cell painted another
+        /// material.</exception>
+        public RoundPicture Recolored(IReadOnlyList<(int X, int Y, char Code)> recolor)
+        {
+            if (recolor == null || recolor.Count == 0)
+            {
+                return this;
+            }
+
+            char[][] cells = RowsTopFirst.Select(r => r.ToCharArray()).ToArray();
+            RoundPictureBoard.Paint(this, cells, recolor);
+            return new RoundPicture(Id, Version, Title, Width, Height, cells.Select(r => new string(r)).ToArray(), DecidedAt, Family, Direction, Subject, Source);
+        }
     }
 
     /// <summary>
@@ -84,10 +103,15 @@ namespace Bloomlings.Content.Rounds
     /// </summary>
     public static class RoundPictureBoard
     {
-        /// <summary>The board of a picture with an optional overlay: size, rows bottom first, the entry and the bridge sites.</summary>
-        /// <exception cref="ArgumentException">An overlay cell lies outside the picture, or a site has no reachable
-        /// neighbour or more than one.</exception>
-        public static RoundBoardShape Of(RoundPicture picture, RoundOverlay? overlay = null)
+        /// <summary>
+        /// The board of a picture with an optional recolouring and overlay: size, rows bottom first, the entry and the
+        /// bridge sites. The recolouring (rules 17 §3 and §6, 2026-11-01; <c>board.recolor</c>) paints picture cells first:
+        /// each a material cell becoming another material, one entry per cell, never under the overlay.
+        /// </summary>
+        /// <exception cref="ArgumentException">An overlay or recolour cell lies outside the picture, a recolour entry does
+        /// not paint a material cell another material (or paints one twice, or under the overlay), or a site has no
+        /// reachable neighbour or more than one.</exception>
+        public static RoundBoardShape Of(RoundPicture picture, RoundOverlay? overlay = null, IReadOnlyList<(int X, int Y, char Code)>? recolor = null)
         {
             int pw = picture.Width;
             int ph = picture.Height;
@@ -95,6 +119,21 @@ namespace Bloomlings.Content.Rounds
             for (int y = 0; y < ph; y++)
             {
                 cells[y] = picture.RowsTopFirst[y].ToCharArray();
+            }
+
+            if (recolor != null && recolor.Count > 0)
+            {
+                Paint(picture, cells, recolor);
+                if (overlay != null)
+                {
+                    foreach ((int x, int y) in overlay.Walls.Concat(overlay.Sites))
+                    {
+                        if (recolor.Any(e => e.X == x && e.Y == y))
+                        {
+                            throw new ArgumentException($"picture {picture.Key}: recolour ({x},{y}) lies under the overlay.");
+                        }
+                    }
+                }
             }
 
             if (overlay != null)
@@ -249,6 +288,44 @@ namespace Bloomlings.Content.Rounds
             }
 
             return new RoundBoardShape(w, h, rows, new[] { mid }, choices);
+        }
+
+        /// <summary>Paints the recolouring into a picture's cells (top first), checking every entry.</summary>
+        internal static void Paint(RoundPicture picture, char[][] cells, IReadOnlyList<(int X, int Y, char Code)> recolor)
+        {
+            int pw = picture.Width;
+            int ph = picture.Height;
+            var seen = new HashSet<(int, int)>();
+            foreach ((int x, int y, char code) in recolor)
+            {
+                if (x < 0 || x >= pw || y < 0 || y >= ph)
+                {
+                    throw new ArgumentException($"picture {picture.Key}: recolour ({x},{y}) lies outside the {pw}×{ph} picture.");
+                }
+
+                char was = picture.RowsTopFirst[y][x];
+                if (RoundMaterial.Codes.IndexOf(was) < 0)
+                {
+                    throw new ArgumentException($"picture {picture.Key}: recolour ({x},{y}) is not a material cell ('{was}').");
+                }
+
+                if (RoundMaterial.Codes.IndexOf(code) < 0)
+                {
+                    throw new ArgumentException($"picture {picture.Key}: recolour ({x},{y}) paints '{code}', not a material.");
+                }
+
+                if (code == was)
+                {
+                    throw new ArgumentException($"picture {picture.Key}: recolour ({x},{y}) paints its own material '{code}'.");
+                }
+
+                if (!seen.Add((x, y)))
+                {
+                    throw new ArgumentException($"picture {picture.Key}: recolour ({x},{y}) is listed twice.");
+                }
+
+                cells[y][x] = code;
+            }
         }
 
         private const string Up = "вверх";
