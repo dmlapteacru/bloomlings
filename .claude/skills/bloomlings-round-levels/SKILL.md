@@ -58,7 +58,21 @@ carries the restriction.
 
 Layer B of the quality is `content/rounds/quality.json`. Its metric "pods without work" is stored per candidate
 (`checks.pressure`, `measure.mjs pressure`). Placement prefers candidates at or above the class's bound; the audit notes
-those below it, and fails them once the bound's mode is `hard`.
+those below it, and fails them once the bound's mode is `hard`. Since 2026-11-01 placement also prefers more pods without
+work among the candidates that pass (`pressure.prefer`, soft, up to its cap).
+
+**Accents for pressure on the places** (17 §6, principle 14 of the owner's notes, 2026-11-01): Colony Flow's main trick
+on Hard and Super Hard (sometimes Normal) is a few small elements of the picture — 2–4 cubes of stars, decorations,
+details — in a material whose pods come early or mid queue, so the player parks them and plays the rest for a while. The
+builder makes them with `--accents auto` (the default: every Hard and Super Hard attempt, every third regular Normal
+attempt; `on`, `off`): 1–2 materials absent from the picture that read as decorations on their ground (Солнце / Снег
+stars on a dark sky, Фуксия / Лаванда flowers on green; CIEDE2000 ≥ 10 to every neighbour), 1–3 clusters of 2–4 cells
+deep inside one-colour areas (the silhouette never changes), their pods (quota = the accent volume, 1–2 pods) in the
+second row to the middle of the tray. They are the level's recolouring (`definition.recolor`, `[[x, y, code], …]` in
+picture coordinates, applied before the overlay; exported as `board.recolor`), so the approved picture stays as it is and
+the game still checks the board against picture + recolouring + overlay. Every class test, dose and check stays as it is;
+the card lists the accents and «стоят без работы» with and without them (the same queue with the accent cubes back in
+their ground, `accentTwin`). A recolouring into a richer material that suits the picture (17 §3) uses the same field.
 
 ## Principle
 
@@ -148,7 +162,11 @@ the supported three.
        the lead's dose at the place of the §7 cycle; small queue under 16 pods: one type). Introductions use teaching doses: 2–3 hidden pods (the first in row 2), 1 pair, 1 bridge choice, 5–10 hidden cells.
        Hidden pods start from the second row and are never in a group. Hidden cells (`cells`, 17 §8) are counted after
        the start reveal (shares of N: lead Normal 5–10 %, Hard 10–20 %, Super Hard 15–30 %; additional 5–8 %), lie off
-       the start front and off a bridge's far bank, in one to three compact patches (`pickHiddenCells`).
+       the start front and off a bridge's far bank, in one to three compact patches (`pickHiddenCells`), never on an
+       accent cell.
+     - on an accent attempt (above), paints the accents first (`pickAccents`), splits the pods of the recoloured board
+       (`accentPods`) and moves the accent pods into the second row to the middle of the tray; a picture without room for
+       accents is built without them (the reason is counted).
      - checks the exact balance of every material and the pod rules.
      - screens with 40 random games, then saves a winning solution: a full-information search, replayed on the live
        timeline. It also records the same actions tapped at once, as the lower bound of time.
