@@ -3,7 +3,7 @@
 //
 //   node tools/rounds/proto/compare.mjs proto <job…>   route-first on these jobs (indices or labels), one after another
 //   node tools/rounds/proto/compare.mjs old <job…>     the current builder (levels.mjs build, a fresh search tagged cmp)
-//   node tools/rounds/proto/compare.mjs report         the table (out/table.md, out/table.json) and the preview levels
+//   node tools/rounds/proto/compare.mjs report [job…]  the table (out/table.md, out/table.json) and the preview levels
 //        (preview/L1001… : odd = the level as built today, even = the route-first level on the same picture)
 import fs from 'node:fs';import path from 'node:path';import {spawnSync} from 'node:child_process';
 const HERE=path.dirname(new URL(import.meta.url).pathname),ROOT=path.resolve(HERE,'../../..'),WORK=path.join(ROOT,'content/work/proto-route');
@@ -50,7 +50,7 @@ else if(cmd==='report'){const table=[],prev=path.join(WORK,'preview');fs.mkdirSy
   return {src,cls:L0.cls,share:L0.random.share,wilson:L0.random.wilson95,runs:L0.random.runs,P:L0.P,cols:L0.columns,linked:L0.linked,traps:k.traps?`${k.traps.traps}/${k.traps.links}`:'—',hidden:L0.hidden,cells:L0.cells??null,latches:L0.latches??null,
    stuck:k.pressure?k.pressure.stuck:null,forced:k.forced,opening:k.opening?`${k.opening.first.wins}/${k.opening.first.openings}, ${Math.round(k.opening.three.share*100)} %`:'—',calm:k.calm?k.calm.share:null,hold:k.hold??null,
    strategies:`${won.length}/${Object.keys(st).length}`,greedyLoses:!st['most-now|left']&&!st['most-now|right'],fast:L0.solution&&L0.solution.fast?`${L0.solution.fast.seconds} с ${L0.solution.fast.status}`:'—',seconds:L0.rhythm?L0.rhythm.seconds:null,accents:k.accents?k.accents.cells:0};};
- for(const j of JOBS){const placed=L.readJSON(path.join(ROOT,'content/rounds/levels',j.label+'.json')),old=L.readJSON(out(`${j.label}-old.json`)),pro=L.readJSON(out(`${j.label}-proto.json`));
+ for(const j of pick(rest)){const placed=L.readJSON(path.join(ROOT,'content/rounds/levels',j.label+'.json')),old=L.readJSON(out(`${j.label}-old.json`)),pro=L.readJSON(out(`${j.label}-proto.json`));
   // the level as built today: the placed one; for the wave-51 positions (not placed yet) the current builder's best
   // candidate of this comparison run (the placer's preference: in zone, then nearest the aim)
   let today=placed;if(!today&&old){const bank=L.readJSON(path.join(COPY,'bank',j.pic+'.json'),{candidates:[]}),ok=old.candidates.filter(c=>!c.why.length).sort((a,b)=>(b.zone-a.zone)||Math.abs(a.share-.6)-Math.abs(b.share-.6))[0];
