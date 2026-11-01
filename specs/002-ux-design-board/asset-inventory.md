@@ -30,9 +30,9 @@ How to read the columns:
 | Backgrounds | 18 | 0 | 18 |
 | Bloomling characters | 22 | 8 | 30 |
 | Variant symbols | 32 | 4 | 36 |
-| Board tiles and overlays | 34 | 8 | 42 |
+| Board tiles and overlays | 35 | 8 | 43 |
 | Specials | 7 | 0 | 7 |
-| Pods and slots | 19 | 0 | 19 |
+| Pods and slots | 20 | 0 | 20 |
 | Booster icons | 11 | 0 | 11 |
 | UI kit | 103 | 0 | 103 |
 | Materials | 3 | 0 | 3 |
@@ -42,7 +42,7 @@ How to read the columns:
 | Visual effects | 12 | 5 | 17 |
 | Typography | 3 | 0 | 3 |
 | Audio | 11 | 3 | 14 |
-| **All** | **297** | **40** | **337** |
+| **All** | **299** | **40** | **339** |
 
 ## Brand
 
@@ -202,6 +202,7 @@ the fallback when a picture is missing.
 | `board.wall` | A wall laid over the picture: a strip the level's overlay lays is a stone wall (spec 006, 17 §8 as amended on 2026-10-28) | 7, 8, 9 | Round levels with an overlay: the board | a run of cells, across or along the board; a bridge site in it before its bridge | Small | yes | Launch | UiRaster.WallStone: a dry stone wall filling the cell, two courses of rounded `stone.top` to `stone.face` blocks (a `stone.lip` foot, lit along the top) offset by a quarter cell in deep `stone.line` joints (four variants) |
 | `board.surface` | Round board's solid neutral surface inside the fixed stone frame (the owner's board of 2026-10-28, like the reference game): no grid, no grass, no imprint of eaten cubes (spec 006) | 7, 8, 9 | Round levels: the board; the finished round picture (win, Collection) | one panel a screen | Large | yes | Launch | UiRaster.BoardSurface: flat `board.surface` with a soft `board.surface_shade` along its top and left edges and a faint lighter lip along its bottom, corners rounded 0.12 frame unit |
 | `tile.round.hidden` | Hidden cell of a round level (rules 17 §8 «Скрытые клетки», the owner's amendment of 2026-11-01; spec 006 FR-066) | 7, 8, 9 | Round levels: the board | hidden (the neutral "?" cube); revealing (a short pop into its material) | Small | yes | Launch | UiRaster.HiddenBoardCube: the board's oblique cube in the hidden pod's neutral grey (RoundLook.HiddenPodColor) with its white "?" marks (`tile.mystery`, a big one and four small ones), its side face in the same grey; on its cellReveal event it pops into its material's cube over RoundLook.CellRevealSeconds (a swell to 1.2, the "?" fading) |
+| `board.round.key` | Acorn key of a latch: an acorn on its empty board cell, with the mark of its latch (rules 17 §8 «Засов и жёлудь-ключ»; spec 006 FR-068) | 7, 8, 9 | Round levels with a latch: the board; the latch introduction card | waiting (on its cell while its latch is closed); popping (it swells to 1.9 and fades as its latch opens) | Small | yes | Launch | UiRaster.AcornKey: an acorn (a warm brown nut with a light spot under a darker scaled cap with its stem, outlined) standing on the surface with a soft shadow, RoundLook.KeyCellShare (1.9) cells wide so it reads on a big board, and its latch's mark (the same tag disc and pips as pod.round.latch) at its lower right; on its latchOpen it pops (RoundLook.KeyPopScale, KeyPopAlpha) |
 | `tile.picture` | Finished picture reveal | 6, 15 | Win; Collection | reveal; framed | Large | yes | Launch | the level's cells as the board's soft cubes (`tile.candy`, with the owner's field icons `tile.gem.*`; spec 005 FR-046: "as in the gameplay, volumetric") of each role's variant in a thin stone border (spec 005 D14) |
 
 ## Specials
@@ -220,6 +221,7 @@ the fallback when a picture is missing.
 
 | Id | What | Frames | Where | States or variants | Size | Readable | Priority | Placeholder now |
 |---|---|---|---|---|---|---|---|---|
+| `pod.round.latch` | Latch block of a round level: a pod-sized wooden block standing in its column at its place in the queue (rules 17 §8 «Засов и жёлудь-ключ», the owner, 2026-11-01; spec 006 FR-068) | 7, 8, 9 | Round levels with a latch: the tray's columns; the latch introduction card | closed (in its row, the pods behind it below it); opening (a swell, then it lifts up and fades out of its column, the pods behind sliding up) | Small | yes | Launch | UiRaster.LatchBlock: the round pod's oblique cube in warm wood (RoundLook.LatchWood) with four plank grooves along its top, a dark iron bolt across it (RoundLook.LatchIron) and darker bracket bands on its front, an acorn padlock (the acorn symbol in RoundLook.AcornNut / AcornCap, outlined in AcornInk) in the middle and the latch's mark at the top's lower right: a disc of its tag colour (RoundLook.LatchTags) in a white rim with 1–3 white pips (RoundLook.LatchPips), so several latches read apart without colour; no white outline (it takes no tap); opening over RoundLook.LatchOpenSeconds (RoundLook.LatchOpenLift) |
 | `pod.card` | Spirit Pod (owner's visual update, 2026-10-13) | 7, 8, 9, 12 | Tray | exposed (bright, takes the tap); waiting in its column (muted); pressed (sunk) | Small | yes | Launch | GameplaySkin.Pod: a smooth rim in the variant's color around a raised tinted face, generated pod-atlas icon in the center, white count with brown outline at the lower right; waiting icons and faces are softer; mystery and lock remain readable |
 | `pod.state.locked` | Locked pod | 12 | Tray | locked; unlocking | Small | yes | Launch | the wooden frame around a grey panel with a padlock and the softer count |
 | `pod.state.mystery` | Mystery pod | 12 | Tray; slots | hidden; revealing | Small | yes | Launch | the lilac mystery tile with a white ? (`tile.mystery`) and its count; it flips over to the variant tile in its slot |
