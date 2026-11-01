@@ -440,7 +440,7 @@ namespace Bloomlings.Client.Tests
             RoundLevel level = BoardOf(Enumerable.Repeat(row, 4).ToArray());
             Assert.Throws<ArgumentOutOfRangeException>(() => RoundBoardLayout.Fit(new Box(0f, 0f, 800f, 900f), level));
             Assert.Throws<ArgumentException>(() => RoundBoardLayout.Fit(new Box(0f, 0f, 800f, 900f), 5, 5, new[] { "#####", "#.G.#", "#####" }, new[] { 2 }, null));
-            Assert.Throws<ArgumentException>(() => RoundBoardLayout.Fit(new Box(0f, 0f, 800f, 900f), 5, 3, new[] { "##.##", "#.Z.#", "#####" }, new[] { 2 }, null));
+            Assert.Throws<ArgumentException>(() => RoundBoardLayout.Fit(new Box(0f, 0f, 800f, 900f), 5, 3, new[] { "##.##", "#.Q.#", "#####" }, new[] { 2 }, null));
         }
 
         [Test]

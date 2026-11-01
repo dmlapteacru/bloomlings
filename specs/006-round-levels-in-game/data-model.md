@@ -12,7 +12,7 @@ the fingerprints recorded in the level's proof (research R12).
 | `family` | sprig, bloom, drop or twig (G sprig, P bloom, B drop, A twig, C drop, D twig, V bloom, Y sprig, O twig, L sprig, M sprig, R bloom, K bloom, N drop, S drop, E twig, T sprig, U sprig, F bloom, H bloom, X drop, W drop, Z twig, J twig) |
 | `color` | normal palette hex (`palette.cjs normal`) |
 | `accessibleColor` | accessible palette hex |
-| `symbol` | the symbol shown in the symbols mode (♧ ✿ ◆ ● ◇ ▰ ✦ ☀ ▲ ✚ ♣ ♥ ❀ ▼ ○ ■ ♠ ✕ ★ ☾ ☁ ❄ ⧗ ⬢) |
+| `symbol` | the symbol shown in the symbols mode (♧ ✿ ◆ ● ◇ ▰ ✦ ☀ ▲ ✚ ♣ ♥ ❀ ▼ ○ ■ ❦ ✕ ★ ☾ ☁ ❄ ⧗ ⬢) |
 
 Rules:
 - A pod clears only cells of its own code.

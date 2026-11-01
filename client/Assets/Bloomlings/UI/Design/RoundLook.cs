@@ -78,7 +78,7 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// The symbol shape (a <see cref="ShapeLibrary"/> id and an asset slot) of each material, in
-        /// <see cref="RoundMaterial.Codes"/> order: ♧ ✿ ◆ ● ◇ ▰ ✦ ☀ ▲ ✚ ♣ ♥ ❀ ▼ ○ ■ ♠ ✕ ★ ☾ ☁ ❄ ⧗ ⬢ (the last 8 the owner's of 2026-11-01).
+        /// <see cref="RoundMaterial.Codes"/> order: ♧ ✿ ◆ ● ◇ ▰ ✦ ☀ ▲ ✚ ♣ ♥ ❀ ▼ ○ ■ ❦ ✕ ★ ☾ ☁ ❄ ⧗ ⬢ (the last 8 the owner's of 2026-11-01).
         /// </summary>
         public static IReadOnlyList<string> SymbolIds { get; } = new[]
         {

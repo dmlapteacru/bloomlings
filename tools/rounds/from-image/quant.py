@@ -4,7 +4,7 @@
 import json, sys, numpy as np, functools
 codes='GPBACDVYOLMRKNSETUFHXWZJ'  # the 24 materials of tools/rounds/engine/palette.cjs (2026-11-01)
 hexes=['#6DBE45','#EB799C','#36B7DA','#A45F28','#F5E6BD','#334B48','#7851A5','#F6CB3E','#EF8A32','#CDEB5E','#2F7D45','#D8394B','#F9C6D6','#2C5AA8','#A8E2F5','#6A3A1E',
-       '#22A88C','#84892C','#C8329C','#B39CE3','#8E959D','#FAFBFC','#DFB48F','#1F1F26']
+       '#22A88C','#84892C','#C8329C','#B39CE3','#8E959D','#F3F7FC','#DFB48F','#1F1F26']
 def lab(rgb):
     c=np.asarray(rgb,float)/255;c=np.where(c<=.04045,c/12.92,((c+.055)/1.055)**2.4)
     M=np.array([[.4124,.3576,.1805],[.2126,.7152,.0722],[.0193,.1192,.9505]]);xyz=c@M.T/np.array([.9505,1,1.089])

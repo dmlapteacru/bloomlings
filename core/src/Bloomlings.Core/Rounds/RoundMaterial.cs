@@ -66,12 +66,12 @@ namespace Bloomlings.Core.Rounds
             new RoundMaterial(15, "Кора", Family.Twig, "#6A3A1E", "#8C510A", "■"),
 
             // The owner's 24 (2026-11-01): two more a hero, for character pictures (grey, white, black, skin) and saturation.
-            new RoundMaterial(16, "Мята", Family.Sprig, "#22A88C", "#5AB4AC", "♠"),
+            new RoundMaterial(16, "Мята", Family.Sprig, "#22A88C", "#5AB4AC", "❦"),
             new RoundMaterial(17, "Олива", Family.Sprig, "#84892C", "#999933", "✕"),
             new RoundMaterial(18, "Фуксия", Family.Bloom, "#C8329C", "#AA4499", "★"),
             new RoundMaterial(19, "Лаванда", Family.Bloom, "#B39CE3", "#C2A5CF", "☾"),
             new RoundMaterial(20, "Туман", Family.Drop, "#8E959D", "#7A7A7A", "☁"),
-            new RoundMaterial(21, "Снег", Family.Drop, "#FAFBFC", "#BDBDBD", "❄"),
+            new RoundMaterial(21, "Снег", Family.Drop, "#F3F7FC", "#BDBDBD", "❄"),
             new RoundMaterial(22, "Песок", Family.Twig, "#DFB48F", "#D8B365", "⧗"),
             new RoundMaterial(23, "Уголь", Family.Twig, "#1F1F26", "#000000", "⬢"),
         };

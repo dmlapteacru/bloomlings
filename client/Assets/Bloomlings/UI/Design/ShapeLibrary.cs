@@ -423,7 +423,7 @@ namespace Bloomlings.Client.UI.Design
 
                 // ---- The 24 round materials' symbols (spec 006 FR-047: the symbols mode, off by default) ----
                 // In RoundMaterial's channel order: ♧ ✿ ◆ ● ◇ ▰ ✦ ☀ ▲ ✚ ♣ ♥ ❀ ▼ ○ ■, then the owner's 8 of 2026-11-01
-                // ♠ ✕ ★ ☾ ☁ ❄ ⧗ ⬢ (RoundLook.SymbolIds). One hero's materials differ by silhouette or by fill (♣ and ♧,
+                // ❦ ✕ ★ ☾ ☁ ❄ ⧗ ⬢ (RoundLook.SymbolIds). One hero's materials differ by silhouette or by fill (♣ and ♧,
                 // ◆ and ◇, ✿ and ❀).
                 ["symbol.material.leaf"] = (x, y) => MathF.Abs(Club(x, y)) - 0.075f,
                 ["symbol.material.petal"] = Flower,
@@ -441,7 +441,7 @@ namespace Bloomlings.Client.UI.Design
                 ["symbol.material.deep"] = (x, y) => TriangleSdf(x, y, -0.76f, 0.6f, 0f, -0.74f, 0.76f, 0.6f) - 0.06f,
                 ["symbol.material.sky"] = (x, y) => MathF.Abs(Length(x, y) - 0.56f) - 0.12f,
                 ["symbol.material.bark"] = (x, y) => RoundedBox(x, y, 0f, 0f, 0.6f, 0.6f, 0.08f),
-                ["symbol.material.mint"] = Spade,
+                ["symbol.material.mint"] = MintLeaf,
                 ["symbol.material.olive"] = Cross,
                 ["symbol.material.fuchsia"] = (x, y) => Star5(x, y + 0.06f, 0.9f, 0.4f) - 0.03f,
                 ["symbol.material.lavender"] = (x, y) => Max(Length(x, y) - 0.74f, -(Length(x - 0.36f, y - 0.2f) - 0.6f)),
@@ -1001,10 +1001,10 @@ namespace Bloomlings.Client.UI.Design
             Length(x - 0.34f, y + 0.04f) - 0.31f,
             TriangleSdf(x, y, -0.26f, -0.82f, 0.26f, -0.82f, 0f, -0.02f));
 
-        /// <summary>A spade (♠): the heart turned point up over a short flared stem.</summary>
-        private static float Spade(float x, float y) => Min(
-            Heart(x / 0.86f, -(y - 0.14f) / 0.86f) * 0.86f,
-            TriangleSdf(x, y, -0.28f, -0.86f, 0.28f, -0.86f, 0f, -0.2f));
+        /// <summary>A mint leaf (❦): a lens lying from the lower right to the upper left, a midrib cut into it, a short stem.</summary>
+        private static float MintLeaf(float x, float y) => Min(
+            Max(Leaf(x, y), -(Segment(x, y, 0.42f, -0.42f, -0.32f, 0.32f) - 0.05f)),
+            Segment(x, y, 0.45f, -0.45f, 0.8f, -0.8f) - 0.08f);
 
         /// <summary>A five-pointed star (★) of outer radius <paramref name="outer"/> and inner <paramref name="inner"/>, point up: ten triangles from its middle.</summary>
         private static float Star5(float x, float y, float outer, float inner)

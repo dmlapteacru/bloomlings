@@ -346,10 +346,31 @@
       "slot": "char.v.walker"
     },
     {
+      "path": "2d/walker-f-happy.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "5664f6e7bbd164e396ea6931c467f441eef2dcdd4edeef21f7ebaff42afa4a38",
+      "slot": "char.v.walker"
+    },
+    {
       "path": "2d/walker-g-happy.png",
       "width": 256,
       "height": 256,
       "sha256": "00e8ae3750c97a87b7ab9281299816258e5bbe46c380e8a876aa01371fea52c3",
+      "slot": "char.v.walker"
+    },
+    {
+      "path": "2d/walker-h-happy.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "61b4fc94cbdad37251251a4874dead09188737845f37331d1ad46c5a8965980f",
+      "slot": "char.v.walker"
+    },
+    {
+      "path": "2d/walker-j-happy.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "56494300534f919948e0bf1c4751a412d9937850f60af57382c8eeb7caeb8a3a",
       "slot": "char.v.walker"
     },
     {
@@ -409,6 +430,20 @@
       "slot": "char.v.walker"
     },
     {
+      "path": "2d/walker-t-happy.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "134a07cb7dc78ed68cc34d1d537e28bef68445807f483faa14b02b45e3c3beca",
+      "slot": "char.v.walker"
+    },
+    {
+      "path": "2d/walker-u-happy.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "22f86436070e5b1ba8be3356a0c95a73b24ec0d31766e1b5c448732dd3b12a27",
+      "slot": "char.v.walker"
+    },
+    {
       "path": "2d/walker-v-happy.png",
       "width": 256,
       "height": 256,
@@ -416,10 +451,31 @@
       "slot": "char.v.walker"
     },
     {
+      "path": "2d/walker-w-happy.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "d732822d7cd6ad11c042051a362ff8e3b2dc2ae0fa3b13eaf1cf573a52d0ec4f",
+      "slot": "char.v.walker"
+    },
+    {
+      "path": "2d/walker-x-happy.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "b52815abfeb1f783875e18c48829d5664bae64080d10725b66463e4eb6c472cc",
+      "slot": "char.v.walker"
+    },
+    {
       "path": "2d/walker-y-happy.png",
       "width": 256,
       "height": 256,
       "sha256": "eda8c95125b624abd0dfd398c5399d5ccc0a733263df7c8bec06147349b194df",
+      "slot": "char.v.walker"
+    },
+    {
+      "path": "2d/walker-z-happy.png",
+      "width": 256,
+      "height": 256,
+      "sha256": "dbba2a9beab3dad6789c7b8734c7113ff6238fea6b9920e3f39e07cc5916b07e",
       "slot": "char.v.walker"
     },
     {

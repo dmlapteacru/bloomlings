@@ -244,8 +244,8 @@ namespace Bloomlings.Content.Tests.Rounds
 
         // ------------------------------------------------------------ schema rejections (the reader and the schema agree)
 
-        [TestCase("pods[0].code", "X", TestName = "BadCode_InAPod_IsRejected")]
-        [TestCase("board.rowsBottomFirst[3]", "#.XP..#", TestName = "BadCode_InARow_IsRejected")]
+        [TestCase("pods[0].code", "Q", TestName = "BadCode_InAPod_IsRejected")]
+        [TestCase("board.rowsBottomFirst[3]", "#.QP..#", TestName = "BadCode_InARow_IsRejected")]
         [TestCase("board.w", 49, TestName = "FortyNineWideBoard_IsRejected")]
         [TestCase("board.h", 7, TestName = "SevenHighBoard_IsRejected")]
         [TestCase("capacity", 4, TestName = "CapacityFour_IsRejected")]
@@ -496,7 +496,7 @@ namespace Bloomlings.Content.Tests.Rounds
         [TestCase("w", 45)]
         [TestCase("rights", "franchise")]
         [TestCase("approval.status", "draft")]
-        [TestCase("rows[0]", "GXP")]
+        [TestCase("rows[0]", "GQP")]
         public void Picture_SchemaViolation_IsRejectedByBoth(string path, object value)
         {
             JObject picture = JObject.Parse(PictureSample);
