@@ -54,7 +54,8 @@ namespace Bloomlings.Client.Services.Content
             }
 
             RoundLevel level = source.GetLevel(levelNumber);
-            return new RoundAttempt(levelNumber, level, source.GetPicture(level), source.ContentVersion);
+            // The finished picture is the level's: its recolouring painted in (rules 17 §3 and §6, 2026-11-01).
+            return new RoundAttempt(levelNumber, level, source.GetPicture(level).Recolored(level.Recolor), source.ContentVersion);
         }
     }
 }
