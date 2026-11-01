@@ -139,7 +139,7 @@ their codes, colours, names and places: Мята T #22A88C ❦ and Олива U 
 H #B39CE3 ☾ (bloom), Туман X #8E959D ☁ and Снег W #F3F7FC ❄ (drop), Песок Z #DFB48F ⧗ and Уголь J #1F1F26 ⬢ (twig): the
 grey, white, black and skin tone character pictures lacked, and more saturated hues. Under normal vision the smallest
 pair is still Вода/Небо 14.0 (of the new ones Жемчуг/Песок 14.8), and a waiting pod lightened by 0.18 still keeps 10
-from every other colour; under the simulations 28 of the 276 pairs merge (the game's ColorScience; 27 by readability.mjs), so the symbols mode matters more.
+from every other colour; under the simulations 29 of the 276 pairs merge (the game's ColorScience; 28 by readability.mjs), so the symbols mode matters more.
 
 The owner chose a **symbols mode** in Settings (off by default) that shows each material's symbol on cubes, pods and
 places (FR-047). The readability gate checks normal vision for the palette. Pipeline validation records the simulation
