@@ -178,7 +178,7 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>
-        /// Every picture of the set (69): 11 characters × 4 moods (Wood shows the acorn), the 16 round walkers in their
+        /// Every picture of the set (77): 11 characters × 4 moods (Wood shows the acorn), the 24 round walkers in their
         /// materials' colours, 4 heroes × 2, and the group.
         /// </summary>
         public static IReadOnlyList<string> AllPictures(IEnumerable<VariantInfo> variants)

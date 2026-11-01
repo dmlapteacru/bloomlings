@@ -254,7 +254,7 @@ namespace Bloomlings.Client.UI.Design
             // (constitution VII: no 3D model, scene or camera in the game; flat pictures on meta screens only).
             Add("ui.promo.badge", "Home's floating button: a one-colour round badge in a gentle white outline (the owner, 2026-10-31, as the reference game's)", new[] { 2, 3 }, "Home: No Ads, the Daily Reward, the Daily Challenge", "idle; pressed", SizeClass.Medium, false, Launch, PlaceholderKind.Procedural, "UiRaster.PromoBadge: `ui.promo.badge`, a touch lighter at the top, a white outline of HomePromo.BadgeRingShare, a soft shadow");
             Add("ui.promo.badge_label", "Home's floating button's label pill over the badge's bottom edge", new[] { 2, 3 }, "Home: the floating buttons' labels", "idle", SizeClass.Small, false, Launch, PlaceholderKind.Procedural, "UiRaster.PromoBadgePill: `ui.promo.badge_label` in the badge's white outline, the label in white");
-            Add(CharacterArt.WalkerSlot, "Round walker: its family's character drawn in its cube's colour (16, one a material; the owner, 2026-10-31)", new[] { 7, 8, 9 }, "Round levels: the walkers", "happy", SizeClass.Small, true, Launch, PlaceholderKind.Generated, "`2d/walker-{code}-happy.png` (tools/artgen)");
+            Add(CharacterArt.WalkerSlot, "Round walker: its family's character drawn in its cube's colour (24, one a material; the owner, 2026-10-31 and 2026-11-01)", new[] { 7, 8, 9 }, "Round levels: the walkers", "happy", SizeClass.Small, true, Launch, PlaceholderKind.Generated, "`2d/walker-{code}-happy.png` (tools/artgen)");
 
             foreach (Family family in CharacterArt.Families)
             {

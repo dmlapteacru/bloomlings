@@ -27,14 +27,14 @@ How to read the columns:
 | Category | Launch | Later | Total |
 |---|---|---|---|
 | Brand | 3 | 1 | 4 |
-| Backgrounds | 21 | 0 | 21 |
+| Backgrounds | 18 | 0 | 18 |
 | Bloomling characters | 22 | 8 | 30 |
-| Variant symbols | 24 | 4 | 28 |
+| Variant symbols | 32 | 4 | 36 |
 | Board tiles and overlays | 33 | 8 | 41 |
 | Specials | 7 | 0 | 7 |
-| Pods and slots | 17 | 0 | 17 |
+| Pods and slots | 19 | 0 | 19 |
 | Booster icons | 11 | 0 | 11 |
-| UI kit | 101 | 0 | 101 |
+| UI kit | 103 | 0 | 103 |
 | Materials | 3 | 0 | 3 |
 | Currency and rewards | 5 | 0 | 5 |
 | Collection frames | 2 | 0 | 2 |
@@ -42,7 +42,7 @@ How to read the columns:
 | Visual effects | 12 | 5 | 17 |
 | Typography | 3 | 0 | 3 |
 | Audio | 11 | 3 | 14 |
-| **All** | **287** | **40** | **327** |
+| **All** | **296** | **40** | **336** |
 
 ## Brand
 
@@ -66,7 +66,7 @@ How to read the columns:
 | `bg.theme.pear` | Gameplay backdrop: Pear Garden (from L350) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | Backgrounds/gameplay-pear.jpg, quiet teal clearing with fruit branches at the edges |
 | `bg.theme.citrus` | Gameplay backdrop: Citrus Grove (from L400) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | Backgrounds/gameplay-citrus.jpg, quiet teal clearing with fruit branches at the edges |
 | `bg.theme.plum` | Gameplay backdrop: Plum Garden (from L450) | 7, 8, 9 | Gameplay | tall; short | Screen | no | Launch | Backgrounds/gameplay-plum.jpg, quiet teal clearing with fruit branches at the edges |
-| `bg.home` | Home courtyard: mint-teal garden behind the existing layered fountain | 2, 3 | Home | early; progressed | Screen | no | Launch | `Backgrounds/home.jpg`, the approved Shop-palette garden; fountain and heroes remain separate layers, finished by `tools/heroanim/backdrops.mjs` |
+| `bg.home` | Home: the owner's sunlit stone terrace (2026-10-31), the heroes standing on it at their depth | 2, 3 | Home | early; progressed | Screen | no | Launch | `Backgrounds/home.jpg`, the approved Shop-palette garden; fountain and heroes remain separate layers, finished by `tools/heroanim/backdrops.mjs` |
 | `bg.home.shadow` | Home layer: the soft shadow under each hero's feet (one picture, as wide as the hero's seam pose) | 2, 3 | Home | each hero | Medium | no | Launch | the owner's picture `Backgrounds/home-shadow.png` at 85% opacity (tools/heroanim/layers.mjs); without it the heroes stand without shadows |
 | `bg.splash` | Splash backdrop: the Home courtyard behind the lotus loader | 1 | Splash | portrait | Screen | no | Launch | `Backgrounds/home.jpg` with a dim veil and mint glow; clipped outside the opening lotus iris, with a teal fallback cover |
 | `bg.wardrobe` | Wardrobe: shaded wooden garden pavilion | 4, 17, 88 | Wardrobe; locked Store | portrait | Screen | no | Launch | `Backgrounds/wardrobe.jpg`, calm teal center with wooden trellis at the edges |
@@ -110,6 +110,7 @@ the fallback when a picture is missing.
 | `char.hero3d.cheer.bloom` | 3D hero celebrating: Bloom (the owner's picture, spec 005 pictures.md A7) | 15, 16 | Win; milestone (the level's main family) | arms up, eyes closed with joy | Large | no | Later | none while the animated hero's frames exist (`char.hero3d.motion.bloom` celebrates instead); without them `3d/bloom-cheer.png`, and the group picture `3d/group.png` without both (not in the game yet) |
 | `char.hero3d.cheer.drop` | 3D hero celebrating: Drop (the owner's picture, spec 005 pictures.md A7) | 15, 16 | Win; milestone (the level's main family) | arms up, eyes closed with joy | Large | no | Later | none while the animated hero's frames exist (`char.hero3d.motion.drop` celebrates instead); without them `3d/drop-cheer.png`, and the group picture `3d/group.png` without both (not in the game yet) |
 | `char.hero3d.cheer.twig` | 3D hero celebrating: Twig (the owner's picture, spec 005 pictures.md A7) | 15, 16 | Win; milestone (the level's main family) | arms up, eyes closed with joy | Large | no | Later | none while the animated hero's frames exist (`char.hero3d.motion.twig` celebrates instead); without them `3d/twig-cheer.png`, and the group picture `3d/group.png` without both (not in the game yet) |
+| `char.v.walker` | Round walker: its family's character drawn in its cube's colour (24, one a material; the owner, 2026-10-31 and 2026-11-01) | 7, 8, 9 | Round levels: the walkers | happy | Small | yes | Launch | `2d/walker-{code}-happy.png` (tools/artgen) |
 | `char.hero3d.motion.sprig` | 3D hero in motion: Sprig (the owner's animated hero as pre-rendered flat frames, 24/s; spec 005 FR-028) | 2, 3, 15, 16 | Home (around the lotus fountain, a tap makes it react); win and milestone (the level's main family) | idle loop (4 s, breathing and sway); reaction (2 s, from and back to the idle's first pose, cross-fading when tapped mid-loop); outfit layers | Large | no | Launch | `HeroMotion/sprig-idle-NN.png` and `sprig-react-NN.png` (tools/heroanim), decoded when first drawn; while they are missing, the still hero `3d/sprig.png` (Home) or `3d/sprig-cheer.png` (win) |
 | `char.hero3d.motion.bloom` | 3D hero in motion: Bloom (the owner's animated hero as pre-rendered flat frames, 24/s; spec 005 FR-028) | 2, 3, 15, 16 | Home (around the lotus fountain, a tap makes it react); win and milestone (the level's main family) | idle loop (4 s, breathing and sway); reaction (2 s, from and back to the idle's first pose, cross-fading when tapped mid-loop); outfit layers | Large | no | Launch | `HeroMotion/bloom-idle-NN.png` and `bloom-react-NN.png` (tools/heroanim), decoded when first drawn; while they are missing, the still hero `3d/bloom.png` (Home) or `3d/bloom-cheer.png` (win) |
 | `char.hero3d.motion.drop` | 3D hero in motion: Drop (the owner's animated hero as pre-rendered flat frames, 24/s; spec 005 FR-028) | 2, 3, 15, 16 | Home (around the lotus fountain, a tap makes it react); win and milestone (the level's main family) | idle loop (4 s, breathing and sway); reaction (2 s, from and back to the idle's first pose, cross-fading when tapped mid-loop); outfit layers | Large | no | Launch | `HeroMotion/drop-idle-NN.png` and `drop-react-NN.png` (tools/heroanim), decoded when first drawn; while they are missing, the still hero `3d/drop.png` (Home) or `3d/drop-cheer.png` (win) |
@@ -147,6 +148,14 @@ the fallback when a picture is missing.
 | `symbol.material.deep` | Round material symbol (symbols mode, spec 006 FR-047): Deep ▼ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.deep` |
 | `symbol.material.sky` | Round material symbol (symbols mode, spec 006 FR-047): Sky ○ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.sky` |
 | `symbol.material.bark` | Round material symbol (symbols mode, spec 006 FR-047): Bark ■ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.bark` |
+| `symbol.material.mint` | Round material symbol (symbols mode, spec 006 FR-047): Mint ❦ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.mint` |
+| `symbol.material.olive` | Round material symbol (symbols mode, spec 006 FR-047): Olive ✕ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.olive` |
+| `symbol.material.fuchsia` | Round material symbol (symbols mode, spec 006 FR-047): Fuchsia ★ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.fuchsia` |
+| `symbol.material.lavender` | Round material symbol (symbols mode, spec 006 FR-047): Lavender ☾ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.lavender` |
+| `symbol.material.fog` | Round material symbol (symbols mode, spec 006 FR-047): Fog ☁ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.fog` |
+| `symbol.material.snow` | Round material symbol (symbols mode, spec 006 FR-047): Snow ❄ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.snow` |
+| `symbol.material.sand` | Round material symbol (symbols mode, spec 006 FR-047): Sand ⧗ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.sand` |
+| `symbol.material.coal` | Round material symbol (symbols mode, spec 006 FR-047): Coal ⬢ | 7, 12, 13 | Round levels in the symbols mode: board cubes; pods; places | cube; pod; place (in the tile's ink, with a thin halo) | Icon | yes | Launch | shape `symbol.material.coal` |
 
 ## Board tiles and overlays
 
@@ -216,6 +225,8 @@ the fallback when a picture is missing.
 | `pod.link` | Connected pods link | 12 | Tray | pair; triple | Small | yes | Launch | a teal bar with a white rim and a light streak, riveted to each wooden frame of members side by side; on every member the link badge (UiRaster.LinkBadge: a white chain of two woven links on a disc of the group's color in the count badge's white ring) over its frame's top right corner, a smaller one at the "+N" disc of a column hiding a member, and a ring of the group's color pulsing round the partner after a tap that waits for it (spec 005 FR-043) |
 | `pod.link.tube` | Link tube of a round level's linked pods (spec 006 FR-043) | 7, 12, 13 | Round levels: the columns and the places | pair in the columns (level or slanted); pair in the places | Small | yes | Launch | UiRaster.LinkTube: a round glossy hose plugged into each pod's front low on its facing side (LinkTube), its half nearer each pod in that pod's colour, a cream coupling ring in the middle and a collar at each end, 0.3 of a pod cube thick (twice the old, the owner, 2026-10-31); drawn under the pods, never over them |
 | `pod.reveal.glow` | Reveal glow of a round level's hidden pod (spec 006 FR-045) | 7, 12 | Round levels: the columns | rising; fading (about 1.6 s) | Small | yes | Launch | soft rings of `garden.glow` round the pod's frame and a bright outline, rising over 0.18 s and fading by 1.6 s (RoundLook.RevealGlow) |
+| `pod.cube` | Round level's pod as a cube (spec 006 FR-064, the owner's pods of 2026-10-28) | 7, 12 | Round levels: the columns (exactly three rows, one after another, no "+N") | top (takes the tap); waiting (rows 2 and 3, a little lighter); pressed (sunk); hidden (the neutral "?" cube) | Small | yes | Launch | UiRaster.PodCube: the board's soft cube (UiRaster.Cube) in the material's colour with no frame or box round it, a waiting pod's lightened RoundScreenLook.InactiveLighten toward white, the symbol on its top in the symbols mode, the white count in a dark outline on its top (PodChip.Cube); a hidden pod is `tile.mystery` with its white "?" |
+| `pod.cube.side` | Side face of a round level's cube (constitution 1.2.0 VII, the owner's "with side faces" of 2026-10-28) | 7, 12 | Round levels: the board's cubes (pods and places have none since the owner's note of 2026-10-31) | left (lighter) or right; five widths a side; only beside an empty neighbour | Small | yes | Launch | UiRaster.SideFace: a strip on the cube's outer side, its width by the column's distance from the centre (RoundLook.SideStep, at most RoundScreenLook.SideShare of the cube), a shade between the top and the front, the left side a little lighter |
 | `pod.deck` | Source stack column (owner's visual update, 2026-10-13) | 7, 8, 9, 12 | Tray | next pods (two on 16:9, three from 19.5:9); more below (+N); sliding up or down a row; emptied stack | Small | yes | Launch | slightly overlapping pod cards drawn deepest first; exposed pod in front; +N and connected marks at the lower left, counts lower right; existing slide, Return, Shuffle and empty-stack behavior |
 | `pod.count` | Pod and slot count | 7, 12, 13 | Pods; slots; jam row | normal; dropping; dimmed | Icon | yes | Launch | small brown digits in a white outline, no "x": at a pod's bottom right corner over its icon; plain below a slot's tile |
 | `slot.empty` | Empty Waiting Slot | 7, 13 | Slots | empty | Small | yes | Launch | a cream plate pressed into the parchment with a light inner ring and a stitched dashed inner outline |
@@ -253,6 +264,8 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 
 | Id | What | Frames | Where | States or variants | Size | Readable | Priority | Placeholder now |
 |---|---|---|---|---|---|---|---|---|
+| `ui.promo.badge` | Home's floating button: a one-colour round badge in a gentle white outline (the owner, 2026-10-31, as the reference game's) | 2, 3 | Home: No Ads, the Daily Reward, the Daily Challenge | idle; pressed | Medium | no | Launch | UiRaster.PromoBadge: `ui.promo.badge`, a touch lighter at the top, a white outline of HomePromo.BadgeRingShare, a soft shadow |
+| `ui.promo.badge_label` | Home's floating button's label pill over the badge's bottom edge | 2, 3 | Home: the floating buttons' labels | idle | Small | no | Launch | UiRaster.PromoBadgePill: `ui.promo.badge_label` in the badge's white outline, the label in white |
 | `ui.panel` | Rounded panel base (9-slice) | 4, 5, 6, 10, 11, 15, 16, 17 | Every card, button, pill and tile | any tint | Small | no | Launch | shape `ui.panel` |
 | `ui.circle` | Disc (round buttons, badges, avatars) | 2, 3, 5, 7, 14 | Round buttons; badges; medals; avatars | any tint | Icon | no | Launch | shape `ui.circle` |
 | `ui.ring` | Ring (highlights, profile frame) | 3, 7 | Highlights; entry marker; avatar frame | any tint | Icon | no | Launch | shape `ui.ring` |

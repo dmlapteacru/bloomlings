@@ -246,7 +246,7 @@
   function validate(level) {
     const errors = [];
     if (!Number.isInteger(level.id) || level.id < 1 || level.w < 7 || level.h < 8 || level.w > 48 || level.h > 48) errors.push('dimensions/id');
-    if (level.rowsBottomFirst.length !== level.h || level.rowsBottomFirst.some(r => r.length !== level.w || /[^GPBACDVYOLMRKNSE.#]/.test(r))) errors.push('grid');
+    if (level.rowsBottomFirst.length !== level.h || level.rowsBottomFirst.some(r => r.length !== level.w || new RegExp('[^'+CHANNELS+'.#]').test(r))) errors.push('grid');
     if (level.tray.length < 2 || level.tray.length > 6) errors.push('columns');
     if(level.capacity!==undefined&&![4,5].includes(level.capacity))errors.push('capacity');
     const seen = level.tray.flat();
