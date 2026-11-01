@@ -192,7 +192,7 @@ export default {theme:'Сказочные герои', pictures:[
    circ(13,8.4,4.6,'A'),
    rect(17,8,9,2,'A'), circ(26,9,1.2,'A'),
    poly('8,6 18,6 16.4,2.6 11,1.2 4.6,2.6','R'), circ(4.6,3,1.6,'R'),
-   rect(14,7,2,2,'D'), rect(11,9,2,2,'R'), rect(13,11,3,1,'D'))},
+   rect(14,7,2,2,'E'), rect(11,9,2,2,'R'), rect(13,11,3,1,'E'))},
 
  // 11 — large, strong: Cinderella in a blue ball gown before her pumpkin carriage, the glass slipper on the ground
  {title:'Золушка и тыква-карета', family:F, direction:'Предметные гибриды', subject:'девушка в голубом бальном платье, карета-тыква и хрустальная туфелька', source:S, forLevel:61,

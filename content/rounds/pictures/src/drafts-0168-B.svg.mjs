@@ -75,7 +75,7 @@ export default {theme:'Герои мультфильмов', pictures:[
    <polygon points="3.8,8.8 4.4,4.2 8,6.2" fill="${C.C}"/>
    <ellipse cx="11" cy="10.5" rx="8.6" ry="5.2" fill="${C.C}"/>
    <rect x="6" y="10" width="2" height="3" fill="${C.D}"/><rect x="14" y="10" width="2" height="3" fill="${C.D}"/>
-   <rect x="10" y="12" width="2" height="2" fill="${C.Y}"/>
+   <rect x="9" y="12" width="4" height="2" rx="0.8" fill="${C.Y}"/>
    <rect x="0" y="11" width="4" height="1" fill="${C.D}"/><rect x="0" y="13" width="4" height="1" fill="${C.D}"/>
    <rect x="18" y="11" width="4" height="1" fill="${C.D}"/><rect x="18" y="13" width="4" height="1" fill="${C.D}"/>
    <polygon points="11,0 16.5,2.6 22,0 22,8 16.5,5.4 11,8" fill="${C.D}"/>
@@ -126,8 +126,8 @@ export default {theme:'Герои мультфильмов', pictures:[
    <polygon points="21.4,3.6 22.4,0.8 24,2.4 25.6,0.8 26.6,3.6" fill="${C.A}"/>
   </svg>`},
  // 7 — Stitch: blue alien, huge ears, big black eyes, a wide grin; sunset sky and sand
- {title:'Стич', family:'Космос', subject:'синий инопланетянин Стич с огромными ушами, большими чёрными глазами и широкой улыбкой',
-  source:U, reference:'Lilo & Stitch — Stitch', forLevel:61, cells:900, colours:9,
+ {title:'Стич', family:'Космос', subject:'синий ушастый Стич с огромными ушами, большими чёрными глазами и широкой улыбкой',
+  source:U, reference:'Lilo & Stitch — Stitch', forLevel:61, cells:900, colours:8,
   svg:`<svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
    <rect width="30" height="30" fill="${C.O}"/><rect y="25" width="30" height="5" fill="${C.Y}"/>
    <ellipse cx="6.4" cy="8.6" rx="3.2" ry="6" transform="rotate(-48 6.4 8.6)" fill="${C.B}"/>
@@ -146,7 +146,6 @@ export default {theme:'Герои мультфильмов', pictures:[
    <ellipse cx="15" cy="13.8" rx="2.3" ry="1.5" fill="${C.N}"/>
    <path d="M9 16.4 L21 16.4 Q20 20.6 15 20.6 Q10 20.6 9 16.4 Z" fill="${C.D}"/>
    <rect x="10" y="16.4" width="10" height="1.4" fill="${C.C}"/>
-   <path d="M12.4 19.4 Q15 18.2 17.6 19.4 Q16.6 20.2 15 20.2 Q13.4 20.2 12.4 19.4 Z" fill="${C.P}"/>
   </svg>`},
  // 8 — Peppa Pig with her side-profile head like a hairdryer, red dress, jumping in a muddy puddle on the green hill
  {title:'Свинка Пеппа в луже', family:'Домашние животные', subject:'розовая свинка Пеппа в красном платье, голова в профиль, прыгает в грязную лужу',
@@ -397,7 +396,7 @@ export default {theme:'Герои мультфильмов', pictures:[
   </svg>`},
  // 20 — Po the Kung Fu Panda in a kung-fu stance: green-gold shorts, one fist forward and one raised; sunset sky and a wooden court
  {title:'Кунг-фу Панда По', family:'Спорт и активные игры', subject:'панда По в зелёных шортах с золотым поясом в стойке кунг-фу',
-  source:U, reference:'Kung Fu Panda — Po', forLevel:61, cells:1216, colours:7,
+  source:U, reference:'Kung Fu Panda — Po', forLevel:61, cells:1216, colours:6,
   svg:`<svg viewBox="0 0 38 32" xmlns="http://www.w3.org/2000/svg">
    <rect width="38" height="32" fill="${C.O}"/><rect y="28" width="38" height="4" fill="${C.A}"/>
    <circle cx="13.6" cy="3.6" r="2.4" fill="${C.D}"/><circle cx="24.4" cy="3.6" r="2.4" fill="${C.D}"/>
@@ -415,6 +414,5 @@ export default {theme:'Герои мультфильмов', pictures:[
    <rect x="16" y="8" width="1.6" height="1.6" fill="${C.C}"/><rect x="20.4" y="8" width="1.6" height="1.6" fill="${C.C}"/>
    <ellipse cx="19" cy="11.2" rx="1.4" ry="1" fill="${C.D}"/>
    <path d="M16.4 12.4 L21.6 12.4 Q21 14.6 19 14.6 Q17 14.6 16.4 12.4 Z" fill="${C.D}"/>
-   <rect x="18" y="13.2" width="2" height="1.2" fill="${C.P}"/>
   </svg>`},
 ]};
