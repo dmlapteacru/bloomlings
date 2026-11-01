@@ -7,8 +7,9 @@ namespace Bloomlings.Content.Rounds
 {
     /// <summary>
     /// An approved round picture (spec 006 FR-021, data model RoundPicture; wire format <c>round-picture.v1</c>). Rows are
-    /// top first: material codes, '.' empty, '#' stream, 'b' bridge site. Only owner-approved pictures of the project's
-    /// own (<c>rights: own</c>) exist in this format: the schema has no other status.
+    /// top first: material codes, '.' empty, '#' stream, 'b' bridge site. Only owner-approved pictures exist in this
+    /// format: the project's own (<c>rights: own</c>) or a third-party universe or meme picture the owner took in by his own
+    /// decision (<c>rights: owner</c>, 2026-11-01: <c>tools/rounds/pictures.mjs rights --owner</c>, e.g. P0425, P0465).
     /// </summary>
     public sealed class RoundPicture
     {
@@ -26,7 +27,8 @@ namespace Bloomlings.Content.Rounds
             string? family = null,
             string? direction = null,
             string? subject = null,
-            string? source = null)
+            string? source = null,
+            string rights = OwnRights)
         {
             Id = id ?? throw new ArgumentNullException(nameof(id));
             Version = version;
@@ -39,7 +41,18 @@ namespace Bloomlings.Content.Rounds
             Direction = direction;
             Subject = subject;
             Source = source;
+            Rights = rights ?? throw new ArgumentNullException(nameof(rights));
+            if (rights != OwnRights && rights != OwnerRights)
+            {
+                throw new ArgumentException("A picture's rights are \"own\" or \"owner\".", nameof(rights));
+            }
         }
+
+        /// <summary>The project's own picture (<c>rights: own</c>).</summary>
+        public const string OwnRights = "own";
+
+        /// <summary>A franchise or meme picture the owner took in by his own decision (<c>rights: owner</c>, 2026-11-01).</summary>
+        public const string OwnerRights = "owner";
 
         /// <summary><c>P####</c>, never reused.</summary>
         public string Id { get; }
@@ -56,6 +69,9 @@ namespace Bloomlings.Content.Rounds
         public string? Subject { get; }
 
         public string? Source { get; }
+
+        /// <summary><see cref="OwnRights"/> or <see cref="OwnerRights"/>.</summary>
+        public string Rights { get; }
 
         public int Width { get; }
 
@@ -87,7 +103,7 @@ namespace Bloomlings.Content.Rounds
 
             char[][] cells = RowsTopFirst.Select(r => r.ToCharArray()).ToArray();
             RoundPictureBoard.Paint(this, cells, recolor);
-            return new RoundPicture(Id, Version, Title, Width, Height, cells.Select(r => new string(r)).ToArray(), DecidedAt, Family, Direction, Subject, Source);
+            return new RoundPicture(Id, Version, Title, Width, Height, cells.Select(r => new string(r)).ToArray(), DecidedAt, Family, Direction, Subject, Source, Rights);
         }
     }
 

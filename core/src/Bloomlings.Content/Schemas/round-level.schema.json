@@ -13,7 +13,7 @@
     "class": {"enum": ["Normal", "Hard", "Super Hard"]},
     "introduction": {
       "type": "object", "additionalProperties": false, "required": ["mechanic", "second"],
-      "properties": {"mechanic": {"enum": ["hidden", "links", "bridge", "cells"]}, "second": {"type": "boolean"}}
+      "properties": {"mechanic": {"enum": ["hidden", "links", "bridge", "cells", "latch"]}, "second": {"type": "boolean"}}
     },
     "picture": {
       "type": "object", "additionalProperties": false, "required": ["id", "version"],
@@ -62,7 +62,15 @@
       }
     }},
     "tray": {"type": "array", "minItems": 2, "maxItems": 6, "items": {"type": "array", "minItems": 1, "items": {"type": "integer", "minimum": 0}}},
-    "mechanics": {"type": "array", "uniqueItems": true, "items": {"enum": ["hidden", "links", "bridge", "cells"]}},
+    "latches": {"type": "array", "minItems": 1, "items": {
+        "type": "object", "additionalProperties": false, "required": ["column", "depth", "key"],
+        "properties": {
+          "column": {"type": "integer", "minimum": 0, "description": "the tray column the latch stands in"},
+          "depth": {"type": "integer", "minimum": 0, "description": "how many pods of that column stand before the latch (at least one pod stands behind it)"},
+          "key": {"type": "integer", "minimum": 0, "description": "the acorn key's cell: an index y*w+x of board.rowsBottomFirst (row 0 at the bottom) of an empty '.' cell, not an entry"}
+        }},
+      "description": "latch + acorn key (rules 17 §8 «Засов и жёлудь-ключ», the owner, 2026-11-01; tools/rounds/README.md «Latch and key»): a latch is an element of its column's queue, not a pod (no quota, no place); it blocks the pods behind it until it is the column's top and its key cell is reached by an open path from an entry, then it opens by itself (event latchOpen); index i of this array is the latch of the event; absent means none"},
+    "mechanics": {"type": "array", "uniqueItems": true, "items": {"enum": ["hidden", "links", "bridge", "cells", "latch"]}},
     "exception": {
       "type": "object", "additionalProperties": false, "required": ["rule", "reason", "decidedBy", "decidedAt"],
       "properties": {"rule": {"type": "string"}, "reason": {"type": "string"}, "decidedBy": {"const": "owner"}, "decidedAt": {"type": "string", "format": "date"}}

@@ -92,6 +92,33 @@ namespace Bloomlings.Core.Rounds
         public IReadOnlyList<(int X, int Y)> Sites { get; }
     }
 
+    /// <summary>
+    /// A latch with its acorn key (rules 17 §8 «Засов и жёлудь-ключ», the owner, 2026-11-01; an item of <c>latches</c> of
+    /// <c>round-level.v1</c>; <c>tools/rounds/README.md</c> «Latch and key»). A latch is an element of its column's queue,
+    /// not a pod: no quota, no place. It stands after the first <see cref="Depth"/> pods of tray column
+    /// <see cref="Column"/> and holds every pod behind it until it is the column's top and its key cell
+    /// <see cref="Key"/> (an empty '.' cell of the board, never an entry) is reached by an open path from an entry; then it
+    /// opens by itself (<see cref="RoundEventType.LatchOpen"/>).
+    /// </summary>
+    public sealed class RoundLatch
+    {
+        public RoundLatch(int column, int depth, int key)
+        {
+            Column = column;
+            Depth = depth;
+            Key = key;
+        }
+
+        /// <summary>The tray column the latch stands in.</summary>
+        public int Column { get; }
+
+        /// <summary>How many pods of its column stand before it (0: it starts on top); at least one pod stands behind it.</summary>
+        public int Depth { get; }
+
+        /// <summary>The acorn key's cell, an index <c>y * w + x</c> of the rows (row 0 at the bottom).</summary>
+        public int Key { get; }
+    }
+
     /// <summary>The mechanic a level introduces, and whether it is its second meeting (spec 006 FR-045).</summary>
     public sealed class RoundIntroduction
     {
@@ -183,7 +210,8 @@ namespace Bloomlings.Core.Rounds
             RoundEngineVersion? engine = null,
             RoundOverlay? overlay = null,
             IReadOnlyList<int>? hiddenCells = null,
-            IReadOnlyList<(int X, int Y, char Code)>? recolor = null)
+            IReadOnlyList<(int X, int Y, char Code)>? recolor = null,
+            IReadOnlyList<RoundLatch>? latches = null)
         {
             Number = number;
             Width = width;
@@ -205,6 +233,7 @@ namespace Bloomlings.Core.Rounds
             Overlay = overlay;
             HiddenCells = hiddenCells ?? Array.Empty<int>();
             Recolor = recolor ?? Array.Empty<(int X, int Y, char Code)>();
+            Latches = latches ?? Array.Empty<RoundLatch>();
         }
 
         public int Number { get; }
@@ -263,6 +292,12 @@ namespace Bloomlings.Core.Rounds
         /// picture ↔ board check rebuilds them from the picture with this list. Empty on a level without one.
         /// </summary>
         public IReadOnlyList<(int X, int Y, char Code)> Recolor { get; }
+
+        /// <summary>
+        /// The latches with their acorn keys (rules 17 §8 «Засов и жёлудь-ключ», the owner, 2026-11-01; <c>latches</c> of
+        /// <c>round-level.v1</c>): index <c>i</c> is latch <c>i</c> of the events. Empty on a level without latches.
+        /// </summary>
+        public IReadOnlyList<RoundLatch> Latches { get; }
 
         /// <summary>
         /// The board cell of a picture cell (x from the left, y from the top): the picture sits inside a wall frame and an
@@ -423,6 +458,26 @@ namespace Bloomlings.Core.Rounds
                     }
                 }
             }
+
+            if (level.Latches.Count > 0)
+            {
+                IReadOnlyList<RoundLatch> latches = level.Latches;
+                LatchColumns = new int[level.Tray.Count][];
+                for (int c = 0; c < LatchColumns.Length; c++)
+                {
+                    var mine = new List<int>();
+                    for (int i = 0; i < latches.Count; i++)
+                    {
+                        if (latches[i].Column == c)
+                        {
+                            mine.Add(i);
+                        }
+                    }
+
+                    mine.Sort((a, b) => latches[a].Depth != latches[b].Depth ? latches[a].Depth.CompareTo(latches[b].Depth) : a.CompareTo(b));
+                    LatchColumns[c] = mine.ToArray();
+                }
+            }
         }
 
         public int[] Neighbours { get; }
@@ -439,5 +494,11 @@ namespace Bloomlings.Core.Rounds
 
         /// <summary>The hidden cells' mask (reference <c>prepare</c>'s <c>hidden</c>), or null on a level without them.</summary>
         public bool[]? Hidden { get; }
+
+        /// <summary>
+        /// Per tray column, the indices of its latches by increasing depth (ties by index; reference <c>prepare</c>'s
+        /// <c>latchCols</c>), or null on a level without latches.
+        /// </summary>
+        public int[][]? LatchColumns { get; }
     }
 }

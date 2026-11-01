@@ -18,6 +18,14 @@
 // fixed rule (every colour cell whose index hashes to 0 mod 7); each with the same solution, timed and solver entries, 40
 // random games (seedBase 1), the cells veiled after the start reveal, and the solution's cellReveal lines in order (the
 // small level: its whole canonical log).
+// Latch + acorn key (17 §8 «Засов и жёлудь-ключ», 2026-11-01), under `latches`: the small level of
+// tools/rounds/test/latch.test.mjs in four forms (a hidden pod behind the latch that a clear opens, the key reached before
+// the latch comes on top so a commit opens it, a latch open at the start, a pair whose partner stands behind the latch)
+// and placed levels L14, L16 (two latches, a bridge), L17 (hidden pods) and L28 (links) given latches by a fixed rule (in
+// the longest column(s) at depth 2 or 3, each key an empty cell the start board does not reach, chosen by a hash); each
+// with the route the patient solver finds (the saved routes may tap a held pod), the same solution, timed and solver
+// entries, 40 random games (seedBase 1), the latches closed after create, and the solution's latchOpen lines with the
+// line before each (the small levels: the whole canonical log).
 // Times are the reference's milliseconds × 1000, rounded (all of them are whole milliseconds here).
 'use strict';
 const fs = require('fs'), path = require('path'), crypto = require('crypto');
@@ -42,6 +50,7 @@ class Log {
       else if (e.type === 'reveal') this.lines.push(`${at} reveal pod=${e.pod} mode=${e.mode}`);
       else if (e.type === 'bridge') this.lines.push(`${at} bridge cell=${e.cell}`);
       else if (e.type === 'cellReveal') this.lines.push(`${us(e.at)} cellReveal cell=${e.cell}`);
+      else if (e.type === 'latchOpen') this.lines.push(`${e.at != null ? us(e.at) : at} latchOpen latch=${e.latch}`);
       else throw Error('unknown commit event ' + e.type);
     }
     this.timeline(t);
@@ -56,6 +65,9 @@ class Log {
       else if (e.type === 'return') this.lines.push(`${at} return id=${e.id}`);
       else if (e.type === 'complete') this.lines.push(`${at} complete pod=${e.pod}`);
       else if (e.type === 'cellReveal') this.lines.push(`${at} cellReveal cell=${e.cell}`);
+      // latch + key: a clear opened a latch; the pods it exposes reveal by the depth rule at that clear's time
+      else if (e.type === 'latchOpen') this.lines.push(`${at} latchOpen latch=${e.latch}`);
+      else if (e.type === 'reveal') this.lines.push(`${at} reveal pod=${e.pod} mode=${e.mode}`);
       else throw Error('unknown event ' + e.type);
     }
   }
@@ -133,7 +145,8 @@ function solverRoute(level, budget) {
 }
 
 const definitionOf = d => ({ w: d.w, h: d.h, rowsBottomFirst: d.rowsBottomFirst, entries: d.entries, capacity: d.capacity, pods: d.pods, tray: d.tray,
-  ...(d.hero ? { hero: d.hero } : {}), ...(d.hiddenCells ? { hiddenCells: d.hiddenCells } : {}) });
+  ...(d.hero ? { hero: d.hero } : {}), ...(d.hiddenCells ? { hiddenCells: d.hiddenCells } : {}),
+  ...(d.latches ? { latches: d.latches.map(l => ({ column: l.column, depth: l.depth, key: l.key })) } : {}) });
 // hidden cells by a fixed rule: every colour cell whose index hashes to 0 mod 7
 const pickCells = d => { const grid = d.rowsBottomFirst.join(''), out = [];
   for (let i = 0; i < grid.length; i++) if (R.CHANNELS.includes(grid[i]) && (Math.imul(i, 40503) >>> 0) % 7 === 0) out.push(i);
@@ -166,6 +179,53 @@ async function cellCases() {
   });
 }
 
+// latches by a fixed rule: in the longest columns (ties: the lower index), the first at depth 2, a second at depth 3;
+// each key an empty non-entry cell the start board does not reach, the hole picked by a hash of the level number
+function pickLatches(d, n, count) {
+  const s = R.create(d, d.capacity || 5), dist = R.reach(s).distance, grid = d.rowsBottomFirst.join(''), entries = d.entries || [Math.floor(d.w / 2)];
+  const holes = []; for (let i = 0; i < grid.length; i++) if (grid[i] === '.' && !(dist[i] > 0) && !entries.includes(i)) holes.push(i);
+  const columns = d.tray.map((c, i) => i).sort((a, b) => d.tray[b].length - d.tray[a].length || a - b);
+  const out = [];
+  for (let k = 0; k < count; k++) out.push({ column: columns[k], depth: 2 + k, key: holes[(Math.imul(n * 7 + k * 13, 40503) >>> 0) % holes.length] });
+  if (new Set(out.map(l => l.key)).size !== out.length) out[1].key = holes.find(h => h !== out[0].key);
+  return out;
+}
+async function latchCases() {
+  const L = await import(path.join(repo, 'tools/rounds/lib.mjs'));
+  // the small level of tools/rounds/test/latch.test.mjs: G (20 cells) over A (14), one hole in the G area at picture (1, 1)
+  const toy = ({ pods = [{ color: 'A', count: 7 }, { color: 'A', count: 7 }, { color: 'G', count: 10 }, { color: 'G', count: 10 }], tray = [[0], [1], [2, 3]], latches } = {}) => {
+    const b = L.boardOf({ id: 'T', title: 't', rows: ['GGGGGGG', 'G.GGGGG', 'GGGGGGG', 'AAAAAAA', 'AAAAAAA'], w: 7, h: 5 }), at = (x, y) => (b.h - 1 - (y + 2)) * b.w + x + 2;
+    return { w: b.w, h: b.h, rowsBottomFirst: b.rowsBottomFirst, entries: b.entries, capacity: 5, pods, tray, latches: latches ? latches(at, b) : [{ column: 2, depth: 1, key: at(1, 1) }] };
+  };
+  const cases = [
+    { name: 'small', definition: toy({ pods: [{ color: 'A', count: 7 }, { color: 'A', count: 7 }, { color: 'G', count: 10 }, { color: 'G', count: 10, mystery: 'depth' }] }), full: true },
+    { name: 'small-commit', definition: toy({ tray: [[0], [2], [1, 3]] }), full: true },
+    { name: 'small-start', definition: toy({ latches: (at, b) => [{ column: 2, depth: 0, key: b.w + 1 }] }), full: true },
+    { name: 'small-pair', definition: toy({ pods: [{ color: 'A', count: 7 }, { color: 'A', count: 7, group: 'P' }, { color: 'G', count: 10 }, { color: 'G', count: 10, group: 'P' }], tray: [[0, 1], [2, 3]],
+      latches: at => [{ column: 1, depth: 1, key: at(1, 1) }] }), full: true },
+  ];
+  for (const [n, count] of [[14, 1], [16, 2], [17, 1], [28, 1]]) {
+    const Lv = JSON.parse(fs.readFileSync(path.join(repo, `content/rounds/levels/L${String(n).padStart(4, '0')}.json`), 'utf8'));
+    const d = { ...Lv.definition }; d.latches = pickLatches(d, n, count);
+    cases.push({ name: `L${String(n).padStart(4, '0')}+latch`, definition: definitionOf(d), full: false });
+  }
+  return cases.map(c => {
+    const d = c.definition, errors = R.validate({ id: 1, ...d });
+    if (errors.length) throw Error(c.name + ': ' + errors.join(', '));
+    const sv = solverRoute(d, 200000);
+    if (!sv.win) throw Error(c.name + ': the patient solver finds no route (' + sv.win + ', ' + sv.nodes + ' nodes)');
+    const route = sv.route, s0 = R.create(d, d.capacity || 5), sol = solution(d, route), games = [];
+    for (let i = 0; i < 40; i++) games.push(randomGame(d, 1 * 7919 + i * 104729 + 1));
+    const opens = []; sol.lines.forEach((l, i) => { if (/ latchOpen /.test(l)) opens.push(sol.lines[i - 1] || '', l); });
+    return { name: c.name, definition: d, route,
+      latchedAtStart: Array.from(s0.latched).flatMap((v, i) => v ? [i] : []),
+      opens, ...(c.full ? { lines: sol.lines } : {}),
+      solution: { windows: sol.windows, outcome: sol.outcome, endUs: sol.endUs, finalSignature: sol.finalSignature },
+      timed: timed(d, route), random: { seedBase: 1, runs: games.length, wins: games.reduce((a, g) => a + g[1], 0), games },
+      solver: { win: sv.win, nodes: sv.nodes, sameAsSaved: true } };
+  });
+}
+
 const out = {
   format: 'bloomlings-round-reference-1',
   note: 'Generated by export-reference.cjs from the reference round engine; do not edit by hand.',
@@ -188,8 +248,10 @@ for (let n = first; n <= last; n++) {
   });
   console.error(`${file}: random ${wins}/${L.random.runs}, solver ${sv.win} in ${sv.nodes} nodes, ${Date.now() - t0} ms`);
 }
-cellCases().then(cases => {
+cellCases().then(async cases => {
   out.cells = cases;
   for (const c of cases) console.error(`${c.name}: ${c.veiledAtStart.length} veiled at the start, ${c.reveals.length} revealed, ${c.solution.outcome}, random ${c.random.wins}/${c.random.runs}`);
+  out.latches = await latchCases();
+  for (const c of out.latches) console.error(`${c.name}: ${c.latchedAtStart.length} closed at the start, ${c.opens.length / 2} opened, ${c.solution.outcome}, random ${c.random.wins}/${c.random.runs}, solver ${c.solver.nodes} nodes`);
   fs.writeFileSync(path.join(__dirname, 'reference-rounds.json'), JSON.stringify(out) + '\n');
 });

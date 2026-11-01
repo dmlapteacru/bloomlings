@@ -218,7 +218,7 @@ namespace Bloomlings.Core.Tests.Rounds
         public void HiddenCellsAreIntroducedOnLevels51And53()
         {
             Assert.That(RoundLevelValidator.IntroductionTable, Does.Contain(("cells", 51, 53)));
-            Assert.That(RoundLevelValidator.IntroductionTable.Any(t => t.Mechanic == "latch"), Is.False, "latch + key waits for engine work (now L401)");
+            Assert.That(RoundLevelValidator.IntroductionTable, Does.Contain(("latch", 61, 63)), "latch + key follows on 61 and 63 (17 §9 as amended on 2026-11-01)");
         }
 
         private static void AssertNoVeiledTarget(RoundState s)

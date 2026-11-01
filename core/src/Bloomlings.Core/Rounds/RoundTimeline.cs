@@ -181,8 +181,8 @@ namespace Bloomlings.Core.Rounds
         /// <summary>
         /// Applies a tap or a bridge at the current model time (reference <c>commit</c>): a link admission compacts the
         /// places first; each member takes the first free place and its column's head moves down; a sealed pod reveals on
-        /// commit; a bridge reveals the hidden cells it opens; then every hidden top pod in depth mode reveals, and work is
-        /// dispatched.
+        /// commit; a bridge reveals the hidden cells it opens; a latch now on top with its key reached opens; then every
+        /// hidden top pod in depth mode reveals, and work is dispatched.
         /// </summary>
         public RoundCommitResult Commit(RoundAction action)
         {
@@ -241,6 +241,8 @@ namespace Bloomlings.Core.Rounds
                 RoundRules.RevealCells(s, _events, Now);
             }
 
+            // Latch + key (17 §8): a latch the tap brought to its column's top, or whose key the bridge reached, opens now.
+            RoundRules.OpenLatches(s, _events, Now);
             RoundRules.RevealTops(s, _events, Now);
             Dispatch();
             Assert();
@@ -354,6 +356,13 @@ namespace Bloomlings.Core.Rounds
 
                         // Hidden cells (17 §8): the cells this clear reveals, right after it, at its time.
                         RoundRules.RevealCells(s, _events, Now);
+
+                        // Latch + key (17 §8): a latch on top whose key this clear reached opens at its time; the pods it
+                        // exposes reveal by the depth rule at the same time.
+                        if (RoundRules.OpenLatches(s, _events, Now) > 0)
+                        {
+                            RoundRules.RevealTops(s, _events, Now);
+                        }
                     }
                     else
                     {
@@ -739,6 +748,7 @@ namespace Bloomlings.Core.Rounds
                 (int[])s.Slots.Clone(),
                 (int[])s.Ages.Clone(),
                 (bool[])s.Revealed.Clone(),
+                s.Latched == null ? null : (bool[])s.Latched.Clone(),
                 s.Serial,
                 s.Bridge,
                 s.Status,
@@ -798,6 +808,10 @@ namespace Bloomlings.Core.Rounds
             fresh.Status = snapshot.Status;
             fresh.BoardChanged();
             RoundRules.SyncCells(fresh);
+
+            // Latch + key (17 §8): recomputed from heads and board (reference syncLatches); a latch the snapshot had open
+            // stays open (only Return moves a head back onto one).
+            RoundRules.SyncLatches(fresh, snapshot.Latched);
             State = fresh;
 
             _steps.Clear();
@@ -849,7 +863,7 @@ namespace Bloomlings.Core.Rounds
     public sealed class RoundSnapshot
     {
         internal RoundSnapshot(sbyte[] board, int[] remaining, int[][] columns, int[] columnOf, bool columnsChanged, int[] heads, int[] slots,
-            int[] ages, bool[] revealed, int serial, int bridge, RoundStatus status, RoundStep[] steps, long now, int courierSerial,
+            int[] ages, bool[] revealed, bool[]? latched, int serial, int bridge, RoundStatus status, RoundStep[] steps, long now, int courierSerial,
             int processedCells, RoundCourier[] couriers, int[] reserved, int[] inFlight, long[] departReady, bool extraSlotUsed, int shufflesUsed)
         {
             Board = board;
@@ -861,6 +875,7 @@ namespace Bloomlings.Core.Rounds
             Slots = slots;
             Ages = ages;
             Revealed = revealed;
+            Latched = latched;
             Serial = serial;
             Bridge = bridge;
             Status = status;
@@ -893,6 +908,12 @@ namespace Bloomlings.Core.Rounds
         public int[] Ages { get; }
 
         public bool[] Revealed { get; }
+
+        /// <summary>
+        /// Per latch, whether it was closed (null without latches). <see cref="RoundTimeline.Restore"/> recomputes the
+        /// latches from heads and board as the reference does and keeps only the opened ones of this record.
+        /// </summary>
+        public bool[]? Latched { get; }
 
         public int Serial { get; }
 

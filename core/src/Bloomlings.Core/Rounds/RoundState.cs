@@ -22,7 +22,8 @@ namespace Bloomlings.Core.Rounds
     /// - <see cref="Slots"/>: per place, a pod or -1;
     /// - <see cref="Ages"/>: per pod, its commit order (<see cref="Serial"/> counts commits);
     /// - <see cref="Revealed"/>, <see cref="Bridge"/> (the built site or -1) and <see cref="Status"/>;
-    /// - <see cref="Veiled"/>: per cell, whether it is a hidden cell not revealed yet (null without hidden cells).
+    /// - <see cref="Veiled"/>: per cell, whether it is a hidden cell not revealed yet (null without hidden cells);
+    /// - <see cref="Latched"/>: per latch, whether it is still closed (null without latches).
     /// The columns start as a copy of the level's tray. Only Return and Shuffle change them; without boosters they equal
     /// the tray, as the reference's fixed tray (research R10).
     /// </summary>
@@ -93,6 +94,8 @@ namespace Bloomlings.Core.Rounds
             Status = other.Status;
             Veiled = other.Veiled == null ? null : (bool[])other.Veiled.Clone();
             VeiledLeft = other.VeiledLeft;
+            Latched = other.Latched == null ? null : (bool[])other.Latched.Clone();
+            LatchedLeft = other.LatchedLeft;
             _reach = other._reach;
         }
 
@@ -144,6 +147,76 @@ namespace Bloomlings.Core.Rounds
         /// </summary>
         public bool Known(int cell) => Veiled == null || !Veiled[cell];
 
+        /// <summary>
+        /// Per latch, true while it is closed (reference <c>state.latched</c>, rules 17 §8 «Засов и жёлудь-ключ»); null on a
+        /// level without latches. Without boosters a function of the heads and the board (a latch is open exactly when its
+        /// column's head has passed it, or stands at it with its key reached), so the signature leaves it out;
+        /// <see cref="RoundRules.OpenLatches"/> keeps it up to date and a restored snapshot recomputes it.
+        /// </summary>
+        public bool[]? Latched { get; internal set; }
+
+        /// <summary>How many latches are still closed (reference <c>state.latchedLeft</c>).</summary>
+        public int LatchedLeft { get; internal set; }
+
+        /// <summary>
+        /// The depth of column <paramref name="column"/>'s first closed latch (reference <c>blockAt</c>): the pods at that
+        /// index and behind it are held; <see cref="int.MaxValue"/> when no closed latch stands in the column.
+        /// </summary>
+        public int BlockAt(int column)
+        {
+            if (Latched == null || LatchedLeft == 0)
+            {
+                return int.MaxValue;
+            }
+
+            foreach (int i in Prepared.LatchColumns![column])
+            {
+                if (Latched[i])
+                {
+                    return Level.Latches[i].Depth;
+                }
+            }
+
+            return int.MaxValue;
+        }
+
+        /// <summary>
+        /// The closed latch on top of column <paramref name="column"/> (its index in <see cref="RoundLevel.Latches"/>), or
+        /// -1: the column's head stands at its first closed latch, so the column has no top pod.
+        /// </summary>
+        public int TopLatchOf(int column)
+        {
+            if (Latched == null || LatchedLeft == 0)
+            {
+                return -1;
+            }
+
+            foreach (int i in Prepared.LatchColumns![column])
+            {
+                if (Latched[i])
+                {
+                    return Level.Latches[i].Depth == Heads[column] ? i : -1;
+                }
+            }
+
+            return -1;
+        }
+
+        /// <summary>The columns whose top is a closed latch (reference <c>blockedColumns</c>; 17 §8: 3 columns at most 1, 4 at most 2).</summary>
+        public List<int> BlockedColumns()
+        {
+            var result = new List<int>();
+            for (int c = 0; c < Columns.Length; c++)
+            {
+                if (TopLatchOf(c) >= 0)
+                {
+                    result.Add(c);
+                }
+            }
+
+            return result;
+        }
+
         /// <summary>A copy that shares nothing mutable (the cached reach is immutable and shared).</summary>
         public RoundState Clone() => new RoundState(this);
 
@@ -153,12 +226,15 @@ namespace Bloomlings.Core.Rounds
         /// <summary>Drops the cached reach; call after any change of <see cref="Board"/>.</summary>
         internal void BoardChanged() => _reach = null;
 
-        /// <summary>The pod on top of column <paramref name="column"/>, or -1 when the column is empty.</summary>
+        /// <summary>
+        /// The pod on top of column <paramref name="column"/>, or -1 when the column is empty or its head stands at a closed
+        /// latch (reference <c>topPods</c>: a pod behind a closed latch is no top pod).
+        /// </summary>
         public int TopOf(int column)
         {
             List<int> stack = Columns[column];
             int head = Heads[column];
-            return head < stack.Count ? stack[head] : -1;
+            return head < stack.Count && head < BlockAt(column) ? stack[head] : -1;
         }
 
         /// <summary>True when every column is empty (the reference's <c>queueEmpty</c>).</summary>

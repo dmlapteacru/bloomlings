@@ -50,6 +50,16 @@ namespace Bloomlings.Core.Rounds
         /// opened its neighbour, at that change's time; several in increasing cell order.
         /// </summary>
         CellReveal,
+
+        /// <summary>
+        /// A latch opened (rules 17 §8 «Засов и жёлудь-ключ», 2026-11-01): it was its column's top and its acorn key's cell
+        /// was reached by an open path from an entry. At the time of the change that made it true: a commit (after the
+        /// commit and sealed-reveal events), a clear (after that clear's cell reveals) or a bridge or burst (after its cell
+        /// reveals); several in increasing latch order. The depth reveals of the pods it exposes follow at the same time.
+        /// <see cref="RoundEvent.Latch"/> is its index in <see cref="RoundLevel.Latches"/>, <see cref="RoundEvent.Column"/>
+        /// its column and <see cref="RoundEvent.Cell"/> its key's cell.
+        /// </summary>
+        LatchOpen,
     }
 
     /// <summary>
@@ -61,7 +71,7 @@ namespace Bloomlings.Core.Rounds
     {
         private RoundEvent(RoundEventType type, long at, int pod = -1, int slot = -1, int cell = -1, int id = -1,
             RoundMystery mode = RoundMystery.None, long arrive = -1, long clear = -1, long done = -1, int[]? route = null,
-            int column = -1, char code = '\0', int count = -1)
+            int column = -1, char code = '\0', int count = -1, int latch = -1)
         {
             Type = type;
             At = at;
@@ -77,6 +87,7 @@ namespace Bloomlings.Core.Rounds
             Column = column;
             Code = code;
             Count = count;
+            Latch = latch;
         }
 
         public RoundEventType Type { get; }
@@ -105,7 +116,10 @@ namespace Bloomlings.Core.Rounds
         /// <summary>A depart's route, entry first, target cell last (shared with the courier; do not change it).</summary>
         public IReadOnlyList<int>? Route { get; }
 
-        /// <summary>The column of a recall.</summary>
+        /// <summary>The latch of a latch-open (its index in <see cref="RoundLevel.Latches"/>).</summary>
+        public int Latch { get; }
+
+        /// <summary>The column of a recall or a latch-open.</summary>
         public int Column { get; }
 
         /// <summary>The material of a burst.</summary>
@@ -142,6 +156,9 @@ namespace Bloomlings.Core.Rounds
         internal static RoundEvent BurstCell(long at, int cell) => new RoundEvent(RoundEventType.BurstClear, at, cell: cell);
 
         internal static RoundEvent CellRevealed(long at, int cell) => new RoundEvent(RoundEventType.CellReveal, at, cell: cell);
+
+        internal static RoundEvent LatchOpened(long at, int latch, RoundLatch info) =>
+            new RoundEvent(RoundEventType.LatchOpen, at, cell: info.Key, column: info.Column, latch: latch);
 
         /// <summary>The canonical line of this event (<see cref="RoundEvents.Line"/>).</summary>
         public override string ToString() => RoundEvents.Line(this);

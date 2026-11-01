@@ -70,7 +70,9 @@ export function levelV1(L,engine,definitionVersion=1){const d=L.definition,n=L.l
   mechanics:MECHANICS.filter(m=>recipe.includes(m)),...(ex?{exception:ex}:{}),engine};}
 export function pictureV1(pic){const tag=k=>typeof pic[k]==='string'&&pic[k]?{[k]:pic[k]}:{};
  return {format:'round-picture.v1',id:pic.id,version:pic.version,title:pic.title,...tag('family'),...tag('direction'),...tag('subject'),...tag('source'),
-  w:pic.w,h:pic.h,rows:pic.rows,approval:{status:'approved',by:'owner',decidedAt:pic.decidedAt||pic.approvedAt||null},rights:'own'};}
+  w:pic.w,h:pic.h,rows:pic.rows,approval:{status:'approved',by:'owner',decidedAt:pic.decidedAt||pic.approvedAt||null},
+  // 'owner': a franchise or meme picture the owner took in by his own decision (pictures.mjs rights --owner); else the project's own
+  rights:pic.rights==='owner'?'owner':'own'};}
 // the definition without its version and fingerprints, for "did it change since the game's copy"
 const definitionKey=lv=>JSON.stringify({...lv,definitionVersion:0,engine:null});
 

@@ -1,0 +1,60 @@
+{
+ "format": "bloomlings-split-search-1",
+ "params": {
+  "from": [
+   "P0014",
+   "P0023",
+   "P0026"
+  ],
+  "side": "two",
+  "kind": "single",
+  "cls": "Super Hard",
+  "recipes": [
+   "bridge+links+cells"
+  ],
+  "level": 75,
+  "seed": 1,
+  "candidates": 8,
+  "per": 3,
+  "share": [
+   0.25,
+   0.45
+  ],
+  "gapTolerance": 0,
+  "zone": [
+   0.05,
+   0.2
+  ]
+ },
+ "created": "2026-11-01T14:49:00.496Z",
+ "runs": [
+  {
+   "started": "2026-11-01T14:49:00.501Z",
+   "minutes": 35
+  }
+ ],
+ "tried": [
+  {
+   "from": "P0014",
+   "key": "two:tl:25,13:2,12",
+   "at": [
+    25,
+    13
+   ],
+   "corner": "tl",
+   "sites": [
+    2,
+    12
+   ],
+   "share": 0.344,
+   "score": 5.947,
+   "candidates": 8,
+   "reasons": {
+    "ниже 5 % по быстрой оценке (0 из 40)": 8
+   },
+   "seconds": 8
+  }
+ ],
+ "found": null,
+ "updated": "2026-11-01T14:49:08.284Z"
+}

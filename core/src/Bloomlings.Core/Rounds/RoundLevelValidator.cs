@@ -30,7 +30,7 @@ namespace Bloomlings.Core.Rounds
         public const string Entries = "entries are cells of the board";
         public const string BridgeSites = "bridge sites are walls with an orthogonal neighbour as anchor";
         public const string Mechanics = "mechanics match pods and hero";
-        public const string UnknownMechanic = "mechanics are hidden, links, bridge or cells";
+        public const string UnknownMechanic = "mechanics are hidden, links, bridge, cells or latch";
 
         /// <summary>17 §8 «Скрытые клетки» (2026-11-01): hidden cells are sorted, unique cell indices (reference "hidden cells").</summary>
         public const string HiddenCells = "hidden cells are sorted unique cells of the board";
@@ -40,6 +40,24 @@ namespace Bloomlings.Core.Rounds
 
         /// <summary>Hidden pods and hidden cells are interchangeable unknowns, never on one level (reference "hidden cells with hidden pods").</summary>
         public const string HiddenCellsWithPods = "hidden cells never with hidden pods";
+
+        /// <summary>
+        /// 17 §8 «Засов и жёлудь-ключ» (2026-11-01; reference "latch"): each latch's column exists, its depth is
+        /// <c>0 ≤ depth &lt; column length</c> (a pod stands behind it), and no two latches of one column share a depth.
+        /// </summary>
+        public const string Latch = "a latch stands in a column with a pod behind it, one per depth";
+
+        /// <summary>Each key is an empty '.' cell of the board, not an entry, and keys are distinct (reference "latch key").</summary>
+        public const string LatchKey = "a latch key is its own empty non-entry cell";
+
+        /// <summary>
+        /// The cheap necessary check (reference <c>latchKeysBlocked</c>, "latch key unreachable"): no key needs a material
+        /// wholly held behind closed latches, and latches never wait for each other in a cycle.
+        /// </summary>
+        public const string LatchKeyUnreachable = "every latch key can be reached";
+
+        /// <summary>At the start at most <c>max(1, columns − 2)</c> columns are blocked (reference "latches block too many columns").</summary>
+        public const string LatchesBlockTooMany = "latches block at most max(1, columns − 2) columns at the start";
 
         /// <summary>17 §5: every 15th level Super Hard, other multiples of 5 Hard, the rest Normal.</summary>
         public const string Calendar = "class matches the calendar";
@@ -71,6 +89,7 @@ namespace Bloomlings.Core.Rounds
             ("links", 11, 13),
             ("bridge", 16, 18),
             ("cells", 51, 53),
+            ("latch", 61, 63),
         };
 
         /// <summary>The calendar class of a level number (17 §5).</summary>
@@ -157,8 +176,8 @@ namespace Bloomlings.Core.Rounds
 
         /// <summary>
         /// The definition's errors, the reference's <c>validate</c> for round levels: board size, rows, tray partition,
-        /// columns, capacity, pod counts, exact accounting, link pairs, hidden pods, hidden cells, entries, bridge sites and
-        /// mechanics.
+        /// columns, capacity, pod counts, exact accounting, link pairs, hidden pods, hidden cells, entries, latches and their
+        /// keys, bridge sites and mechanics.
         /// </summary>
         public static List<string> ValidateDefinition(RoundLevel level)
         {
@@ -375,6 +394,59 @@ namespace Bloomlings.Core.Rounds
                 }
             }
 
+            // Latch + acorn key (17 §8, 2026-11-01; reference validate): an existing column with a pod behind the latch,
+            // one latch per depth of a column, each key its own empty non-entry cell; then the cheap reachability checks.
+            IReadOnlyList<RoundLatch> latches = level.Latches;
+            if (latches.Count > 0)
+            {
+                bool ok = true;
+                for (int i = 0; i < latches.Count; i++)
+                {
+                    RoundLatch l = latches[i];
+                    if (l.Column < 0 || l.Column >= level.Tray.Count || l.Depth < 0 || l.Depth >= level.Tray[l.Column].Count)
+                    {
+                        Add(errors, Latch);
+                        ok = false;
+                        continue;
+                    }
+
+                    bool sameDepth = false;
+                    bool sameKey = false;
+                    for (int j = 0; j < latches.Count; j++)
+                    {
+                        if (j != i)
+                        {
+                            sameDepth |= latches[j].Column == l.Column && latches[j].Depth == l.Depth;
+                            sameKey |= latches[j].Key == l.Key;
+                        }
+                    }
+
+                    if (sameDepth)
+                    {
+                        Add(errors, Latch);
+                        ok = false;
+                    }
+
+                    if (l.Key < 0 || l.Key >= cellCount || !rowsOk || grid[l.Key] != '.' || Contains(level.Entries, l.Key) || sameKey)
+                    {
+                        Add(errors, LatchKey);
+                        ok = false;
+                    }
+                }
+
+                if (ok && partition && listed == pods && rowsOk)
+                {
+                    if (LatchKeysBlocked(level).Count > 0)
+                    {
+                        Add(errors, LatchKeyUnreachable);
+                    }
+                    else if (StartBlocked(level) > Math.Max(1, level.Tray.Count - 2))
+                    {
+                        Add(errors, LatchesBlockTooMany);
+                    }
+                }
+            }
+
             if (level.Bridge != null)
             {
                 foreach (RoundBridgeChoice site in level.Bridge)
@@ -389,7 +461,7 @@ namespace Bloomlings.Core.Rounds
 
             foreach (string m in level.Mechanics)
             {
-                if (m != "hidden" && m != "links" && m != "bridge" && m != "cells")
+                if (m != "hidden" && m != "links" && m != "bridge" && m != "cells" && m != "latch")
                 {
                     Add(errors, UnknownMechanic);
                 }
@@ -398,7 +470,8 @@ namespace Bloomlings.Core.Rounds
             bool mechanicsOk = Contains(level.Mechanics, "hidden") == (hidden > 0)
                 && Contains(level.Mechanics, "links") == (names.Count > 0)
                 && Contains(level.Mechanics, "bridge") == (level.Bridge != null && level.Bridge.Count > 0)
-                && Contains(level.Mechanics, "cells") == (hiddenCells.Count > 0);
+                && Contains(level.Mechanics, "cells") == (hiddenCells.Count > 0)
+                && Contains(level.Mechanics, "latch") == (latches.Count > 0);
             if (!mechanicsOk)
             {
                 Add(errors, Mechanics);
@@ -416,6 +489,169 @@ namespace Bloomlings.Core.Rounds
         {
             int d = Math.Abs(cell - anchor);
             return d == w || (d == 1 && cell / w == anchor / w);
+        }
+
+        /// <summary>
+        /// The latches whose key can never be reached (reference <c>latchKeysBlocked</c>, a necessary condition of 17 §8):
+        /// starting with every latch closed, a material all of whose pods stand at or behind their column's first closed latch
+        /// is blocked and its cells are walls; every other material cell counts as clearable, open cells and bridge sites as
+        /// passable; each closed latch whose key that flood from the entries reaches opens, until nothing changes. Empty: the
+        /// keys may all be reached (the solver decides the rest). The level's rows and tray must be sound.
+        /// </summary>
+        public static List<int> LatchKeysBlocked(RoundLevel level)
+        {
+            IReadOnlyList<RoundLatch> latches = level.Latches;
+            int w = level.Width;
+            int n = level.CellCount;
+            var grid = new char[n];
+            int k = 0;
+            foreach (string row in level.RowsBottomFirst)
+            {
+                foreach (char c in row)
+                {
+                    if (k < n)
+                    {
+                        grid[k++] = c;
+                    }
+                }
+            }
+
+            var sites = new bool[n];
+            if (level.Bridge != null)
+            {
+                foreach (RoundBridgeChoice site in level.Bridge)
+                {
+                    if (site.Cell >= 0 && site.Cell < n)
+                    {
+                        sites[site.Cell] = true;
+                    }
+                }
+            }
+
+            var open = new bool[latches.Count];
+            var free = new bool[RoundMaterial.Codes.Length];
+            var seen = new bool[n];
+            var stack = new List<int>();
+            while (true)
+            {
+                Array.Clear(free, 0, free.Length);
+                for (int c = 0; c < level.Tray.Count; c++)
+                {
+                    int first = int.MaxValue;
+                    for (int i = 0; i < latches.Count; i++)
+                    {
+                        if (!open[i] && latches[i].Column == c)
+                        {
+                            first = Math.Min(first, latches[i].Depth);
+                        }
+                    }
+
+                    IReadOnlyList<int> column = level.Tray[c];
+                    for (int d = 0; d < column.Count && d < first; d++)
+                    {
+                        int material = RoundMaterial.IndexOf(level.Pods[column[d]].Code);
+                        if (material >= 0)
+                        {
+                            free[material] = true;
+                        }
+                    }
+                }
+
+                bool Pass(int i)
+                {
+                    char c = grid[i];
+                    if (c == '.' || sites[i])
+                    {
+                        return true;
+                    }
+
+                    int material = RoundMaterial.IndexOf(c);
+                    return material >= 0 && free[material];
+                }
+
+                Array.Clear(seen, 0, n);
+                stack.Clear();
+                foreach (int e in level.Entries)
+                {
+                    if (e >= 0 && e < n && !seen[e] && Pass(e))
+                    {
+                        seen[e] = true;
+                        stack.Add(e);
+                    }
+                }
+
+                while (stack.Count > 0)
+                {
+                    int i = stack[stack.Count - 1];
+                    stack.RemoveAt(stack.Count - 1);
+                    int x = i % w;
+                    int[] next = { i - w, i + w, x > 0 ? i - 1 : -1, x < w - 1 ? i + 1 : -1 };
+                    foreach (int j in next)
+                    {
+                        if (j >= 0 && j < n && !seen[j] && Pass(j))
+                        {
+                            seen[j] = true;
+                            stack.Add(j);
+                        }
+                    }
+                }
+
+                bool changed = false;
+                for (int i = 0; i < latches.Count; i++)
+                {
+                    if (!open[i] && latches[i].Key >= 0 && latches[i].Key < n && seen[latches[i].Key])
+                    {
+                        open[i] = true;
+                        changed = true;
+                    }
+                }
+
+                if (!changed)
+                {
+                    break;
+                }
+            }
+
+            var closed = new List<int>();
+            for (int i = 0; i < latches.Count; i++)
+            {
+                if (!open[i])
+                {
+                    closed.Add(i);
+                }
+            }
+
+            return closed;
+        }
+
+        /// <summary>The columns blocked at the start (reference <c>startBlocked</c>): a latch at depth 0 whose key the start board does not reach.</summary>
+        public static int StartBlocked(RoundLevel level)
+        {
+            var state = new RoundState(level, RoundRules.Capacity);
+            IReadOnlyList<int> distance = state.Reach().Distance;
+            var columns = new List<int>();
+            foreach (RoundLatch l in level.Latches)
+            {
+                if (l.Depth == 0 && !(distance[l.Key] > 0) && !columns.Contains(l.Column))
+                {
+                    columns.Add(l.Column);
+                }
+            }
+
+            return columns.Count;
+        }
+
+        private static bool Contains(IReadOnlyList<int> list, int value)
+        {
+            foreach (int item in list)
+            {
+                if (item == value)
+                {
+                    return true;
+                }
+            }
+
+            return false;
         }
 
         private static (int Column, int Depth) Place(RoundLevel level, int pod)

@@ -95,8 +95,9 @@ namespace Bloomlings.Core.Rounds
         public const int Capacity = 5;
 
         /// <summary>
-        /// A fresh state: reveals the top pods (depth mode), the hidden cells already on the start front (silently: part of
-        /// the start state) and sets the status (reference <c>create</c>).
+        /// A fresh state: opens the latches already open at the start (silently), reveals the top pods (depth mode), the
+        /// hidden cells already on the start front (silently: part of the start state) and sets the status (reference
+        /// <c>create</c>).
         /// </summary>
         public static RoundState Create(RoundLevel level, int capacity = 0)
         {
@@ -116,6 +117,9 @@ namespace Bloomlings.Core.Rounds
             }
 
             var state = new RoundState(level, capacity);
+
+            // A latch on top at the start whose key is already reached starts open (before the tops reveal).
+            SyncLatches(state);
             RevealTops(state, null);
             SyncCells(state);
             state.Status = StatusOf(state);
@@ -189,6 +193,80 @@ namespace Bloomlings.Core.Rounds
             state.Veiled = veiled;
             state.VeiledLeft = left;
             RevealCells(state, null);
+        }
+
+        /// <summary>
+        /// Opens every closed latch that is its column's top with its key cell reached by an open path from an entry
+        /// (reference <c>openLatches</c>, rules 17 §8 «Засов и жёлудь-ключ»), in increasing latch order, each as a
+        /// <see cref="RoundEventType.LatchOpen"/> at <paramref name="at"/> when <paramref name="events"/> is given. Called
+        /// after every change that can make it true: a tap's commits, a bridge, a clear and a burst (each after its cell
+        /// reveals). Opening changes no reach, and a column's next latch stands at least one pod deeper, so one pass finds
+        /// every latch that opens. Returns how many opened; the caller then reveals the tops they exposed.
+        /// </summary>
+        public static int OpenLatches(RoundState state, List<RoundEvent>? events, long at = 0)
+        {
+            bool[]? latched = state.Latched;
+            if (latched == null || state.LatchedLeft == 0)
+            {
+                return 0;
+            }
+
+            IReadOnlyList<RoundLatch> latches = state.Level.Latches;
+            IReadOnlyList<int>? distance = null;
+            int opened = 0;
+            for (int i = 0; i < latches.Count; i++)
+            {
+                RoundLatch latch = latches[i];
+                if (!latched[i] || state.Heads[latch.Column] != latch.Depth)
+                {
+                    continue;
+                }
+
+                distance ??= state.Reach().Distance;
+                if (distance[latch.Key] > 0)
+                {
+                    latched[i] = false;
+                    state.LatchedLeft--;
+                    opened++;
+                    events?.Add(RoundEvent.LatchOpened(at, i, latch));
+                }
+            }
+
+            return opened;
+        }
+
+        /// <summary>
+        /// Recomputes the latches from the heads and the board (reference <c>syncLatches</c>; a fresh state or a restored
+        /// snapshot): a latch its column's head has passed is open, the rest closed, then the opening rule silently. A latch
+        /// already open in <paramref name="before"/> (a snapshot's <see cref="RoundState.Latched"/>) stays open too: latches
+        /// never close, and only Return moves a head back onto an open latch (a booster the reference does not play; without
+        /// boosters <paramref name="before"/> changes nothing).
+        /// </summary>
+        public static void SyncLatches(RoundState state, bool[]? before = null)
+        {
+            IReadOnlyList<RoundLatch> latches = state.Level.Latches;
+            if (latches.Count == 0)
+            {
+                state.Latched = null;
+                state.LatchedLeft = 0;
+                return;
+            }
+
+            var latched = new bool[latches.Count];
+            int left = 0;
+            for (int i = 0; i < latches.Count; i++)
+            {
+                bool passed = state.Heads[latches[i].Column] > latches[i].Depth || (before != null && i < before.Length && !before[i]);
+                latched[i] = !passed;
+                if (!passed)
+                {
+                    left++;
+                }
+            }
+
+            state.Latched = latched;
+            state.LatchedLeft = left;
+            OpenLatches(state, null);
         }
 
         /// <summary>
@@ -286,7 +364,10 @@ namespace Bloomlings.Core.Rounds
             return false;
         }
 
-        /// <summary>The top pods in column order, empty columns skipped (reference <c>topPods</c>).</summary>
+        /// <summary>
+        /// The top pods in column order, empty columns and columns whose top is a closed latch skipped (reference
+        /// <c>topPods</c>).
+        /// </summary>
         public static List<int> TopPods(RoundState state)
         {
             var result = new List<int>(state.Columns.Length);
@@ -369,8 +450,8 @@ namespace Bloomlings.Core.Rounds
 
         /// <summary>
         /// Whether a pod can be tapped now (reference <c>canTap</c>): it must be a top pod; each member of its link must be
-        /// on top of a column, or below its column's top with only members of the same link above it; and there must be a
-        /// free place for each member.
+        /// on top of a column, or below its column's top with only members of the same link above it and no closed latch
+        /// before it; and there must be a free place for each member.
         /// </summary>
         public static RoundRefusal CanTap(RoundState state, int pod)
         {
@@ -410,7 +491,9 @@ namespace Bloomlings.Core.Rounds
                 List<int> stack = state.Columns[c];
                 int at = stack.IndexOf(member);
                 int head = state.Heads[c];
-                if (at < head)
+
+                // A partner behind a closed latch is not exposed (17 §8 «Засов и жёлудь-ключ»).
+                if (at < head || at >= state.BlockAt(c))
                 {
                     continue;
                 }

@@ -15,7 +15,7 @@ namespace Bloomlings.Core.Rounds
     /// - <b>Return</b>: a pod waiting in a place with unsent work and no courier on the way (for a link, every member)
     ///   goes back to the top of its column with its unsent count; its place frees and its pending check step is dropped.
     ///   Cleared cells stay cleared.
-    /// - <b>Shuffle</b>: the revealed single pods still in the columns trade positions (seeded, see
+    /// - <b>Shuffle</b>: the revealed single pods still in the columns (before a closed latch) trade positions (seeded, see
     ///   <see cref="ShuffleSeed"/>); hidden pods and links keep theirs, so hidden stay hidden and links stay paired at equal
     ///   depth in different columns. An arrangement is taken only when the patient solver finds a win from it, else the
     ///   order stays.
@@ -24,6 +24,13 @@ namespace Bloomlings.Core.Rounds
     ///   top), which by exact accounting brings them all to 0. Pods in places then release by the normal release rule.
     ///   Cells reserved by a courier stay with it. A hidden cell of the material clears too (unseen), and the cells the
     ///   burst opens the way to reveal right after it.
+    ///
+    /// Latch + acorn key (rules 17 §8, 2026-11-01): a latch is no pod, so no booster takes, moves or removes it; it opens
+    /// only by its rule. Return puts a pod back on top of its column before a closed latch there (the latch keeps its
+    /// place behind the column's first <c>depth</c> pods), and an open latch stays open. Shuffle moves only the pods before
+    /// each column's first closed latch. Bloom Burst may open the way to a key: the latch then opens right after the
+    /// burst's cell reveals, and the pods it exposes reveal by the depth rule; the work it settles may include revealed
+    /// pods behind a closed latch (they keep their places with nothing left to send).
     /// </summary>
     public static class RoundBoosters
     {
@@ -134,14 +141,18 @@ namespace Bloomlings.Core.Rounds
             return new RoundCommitResult(RoundRefusal.None, t.EventLog.ToArray());
         }
 
-        /// <summary>The positions (column, index) of the pods a Shuffle may move: revealed single pods in the columns.</summary>
+        /// <summary>
+        /// The positions (column, index) of the pods a Shuffle may move: revealed single pods in the columns, before the
+        /// column's first closed latch (the pods a latch holds keep their places, as hidden pods do).
+        /// </summary>
         private static List<(int Column, int Index)> Movable(RoundState s)
         {
             var positions = new List<(int, int)>();
             for (int c = 0; c < s.Columns.Length; c++)
             {
                 List<int> stack = s.Columns[c];
-                for (int k = s.Heads[c]; k < stack.Count; k++)
+                int end = Math.Min(stack.Count, s.BlockAt(c));
+                for (int k = s.Heads[c]; k < end; k++)
                 {
                     int pod = stack[k];
                     if (s.Revealed[pod] && s.Prepared.Groups[pod].Length == 1)
@@ -343,6 +354,13 @@ namespace Bloomlings.Core.Rounds
 
             // Hidden cells (17 §8): the cells the burst opens the way to reveal right after it.
             RoundRules.RevealCells(s, t.EventLog, t.Now);
+
+            // Latch + key (17 §8): a latch on top whose key the burst opened the way to opens now, and the pods it exposes
+            // reveal by the depth rule.
+            if (RoundRules.OpenLatches(s, t.EventLog, t.Now) > 0)
+            {
+                RoundRules.RevealTops(s, t.EventLog, t.Now);
+            }
 
             // Settle the material's unsent counts: places by age first, then the columns from the top.
             int left = cells.Count;

@@ -43,7 +43,7 @@ namespace Bloomlings.Content.Rounds
 
         private static readonly Regex Date = new Regex("^[0-9]{4}-[0-9]{2}-[0-9]{2}$", RegexOptions.CultureInvariant);
 
-        private static readonly string[] Mechanics = { "hidden", "links", "bridge", "cells" };
+        private static readonly string[] Mechanics = { "hidden", "links", "bridge", "cells", "latch" };
 
         // ---------------------------------------------------------------- round-level.v1
 
@@ -51,7 +51,7 @@ namespace Bloomlings.Content.Rounds
 
         public static RoundLevel ReadLevel(JObject root, string path)
         {
-            JsonDoc.AllowOnly(root, path, "format", "number", "definitionVersion", "class", "introduction", "picture", "board", "capacity", "pods", "tray", "mechanics", "exception", "engine");
+            JsonDoc.AllowOnly(root, path, "format", "number", "definitionVersion", "class", "introduction", "picture", "board", "capacity", "pods", "tray", "latches", "mechanics", "exception", "engine");
             Const(JsonDoc.Required(root, path, "format"), JsonDoc.Join(path, "format"), LevelFormat);
             int number = JsonDoc.Int(JsonDoc.Required(root, path, "number"), JsonDoc.Join(path, "number"), min: 1);
             int definitionVersion = JsonDoc.Int(JsonDoc.Required(root, path, "definitionVersion"), JsonDoc.Join(path, "definitionVersion"), min: 1);
@@ -224,6 +224,27 @@ namespace Bloomlings.Content.Rounds
                 tray.Add(indices);
             }
 
+            // Latch + acorn key (rules 17 §8, 2026-11-01): {column, depth, key} each; absent means none. That each column
+            // exists, a pod stands behind it, the key is an empty non-entry cell and can be reached is the validator's.
+            List<RoundLatch>? latches = null;
+            JToken? latchesToken = JsonDoc.Optional(root, "latches");
+            if (latchesToken != null)
+            {
+                string latchesPath = JsonDoc.Join(path, "latches");
+                JArray latchArray = JsonDoc.Array(latchesToken, latchesPath, minItems: 1);
+                latches = new List<RoundLatch>(latchArray.Count);
+                for (int i = 0; i < latchArray.Count; i++)
+                {
+                    string at = JsonDoc.Index(latchesPath, i);
+                    JObject latch = JsonDoc.Object(latchArray[i], at);
+                    JsonDoc.AllowOnly(latch, at, "column", "depth", "key");
+                    latches.Add(new RoundLatch(
+                        JsonDoc.Int(JsonDoc.Required(latch, at, "column"), JsonDoc.Join(at, "column"), min: 0),
+                        JsonDoc.Int(JsonDoc.Required(latch, at, "depth"), JsonDoc.Join(at, "depth"), min: 0),
+                        Cell(JsonDoc.Required(latch, at, "key"), JsonDoc.Join(at, "key"), w * h)));
+                }
+            }
+
             string mechanicsPath = JsonDoc.Join(path, "mechanics");
             JArray mechanicsArray = JsonDoc.Array(JsonDoc.Required(root, path, "mechanics"), mechanicsPath);
             var mechanics = new List<string>(mechanicsArray.Count);
@@ -274,7 +295,8 @@ namespace Bloomlings.Content.Rounds
                 engine,
                 overlay,
                 hiddenCells,
-                recolor);
+                recolor,
+                latches);
         }
 
         public static string WriteLevel(RoundLevel level, bool indented = true) => CanonicalJson.Write(ToJObject(level), indented);
@@ -380,6 +402,17 @@ namespace Bloomlings.Content.Rounds
                 ["mechanics"] = new JArray(ToArray(level.Mechanics)),
                 ["engine"] = WriteEngine(level.Engine),
             };
+            if (level.Latches.Count > 0)
+            {
+                var latches = new JArray();
+                foreach (RoundLatch latch in level.Latches)
+                {
+                    latches.Add(new JObject { ["column"] = latch.Column, ["depth"] = latch.Depth, ["key"] = latch.Key });
+                }
+
+                root["latches"] = latches;
+            }
+
             if (level.Introduction != null)
             {
                 root["introduction"] = new JObject { ["mechanic"] = level.Introduction.Mechanic, ["second"] = level.Introduction.Second };
@@ -427,7 +460,12 @@ namespace Bloomlings.Content.Rounds
             Const(JsonDoc.Required(approval, approvalPath, "status"), JsonDoc.Join(approvalPath, "status"), "approved");
             Const(JsonDoc.Required(approval, approvalPath, "by"), JsonDoc.Join(approvalPath, "by"), "owner");
             string decidedAt = JsonDoc.String(JsonDoc.Required(approval, approvalPath, "decidedAt"), JsonDoc.Join(approvalPath, "decidedAt"));
-            Const(JsonDoc.Required(root, path, "rights"), JsonDoc.Join(path, "rights"), "own");
+            string rightsPath = JsonDoc.Join(path, "rights");
+            string rights = JsonDoc.String(JsonDoc.Required(root, path, "rights"), rightsPath);
+            if (rights != RoundPicture.OwnRights && rights != RoundPicture.OwnerRights)
+            {
+                throw new ContentFormatException(rightsPath, "must be \"own\" or \"owner\"");
+            }
 
             return new RoundPicture(
                 id,
@@ -440,7 +478,8 @@ namespace Bloomlings.Content.Rounds
                 OptionalString(root, path, "family"),
                 OptionalString(root, path, "direction"),
                 OptionalString(root, path, "subject"),
-                OptionalString(root, path, "source"));
+                OptionalString(root, path, "source"),
+                rights);
         }
 
         public static string WritePicture(RoundPicture picture, bool indented = true) => CanonicalJson.Write(ToJObject(picture), indented);
@@ -457,7 +496,7 @@ namespace Bloomlings.Content.Rounds
                 ["h"] = picture.Height,
                 ["rows"] = new JArray(ToArray(picture.RowsTopFirst)),
                 ["approval"] = new JObject { ["status"] = "approved", ["by"] = "owner", ["decidedAt"] = picture.DecidedAt },
-                ["rights"] = "own",
+                ["rights"] = picture.Rights,
             };
             AddOptional(root, "family", picture.Family);
             AddOptional(root, "direction", picture.Direction);

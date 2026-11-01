@@ -14,6 +14,7 @@ namespace Bloomlings.Core.Rounds
     /// t reveal pod=&lt;p&gt; mode=&lt;depth|sealed&gt;
     /// t bridge cell=&lt;c&gt;
     /// t cellReveal cell=&lt;c&gt;
+    /// t latchOpen latch=&lt;i&gt;
     /// t depart id=&lt;j&gt; pod=&lt;p&gt; cell=&lt;c&gt; arrive=&lt;µs&gt; clear=&lt;µs&gt; done=&lt;µs&gt; route=&lt;len&gt;
     /// t arrive id=&lt;j&gt;
     /// t clear id=&lt;j&gt; cell=&lt;c&gt;
@@ -85,6 +86,9 @@ namespace Bloomlings.Core.Rounds
                     break;
                 case RoundEventType.CellReveal:
                     sb.Append("cellReveal cell=").Append(Num(e.Cell));
+                    break;
+                case RoundEventType.LatchOpen:
+                    sb.Append("latchOpen latch=").Append(Num(e.Latch));
                     break;
                 default:
                     throw new ArgumentOutOfRangeException(nameof(e), e.Type, "Unknown round event.");

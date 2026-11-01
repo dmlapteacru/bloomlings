@@ -22,6 +22,6 @@
       "type": "object", "additionalProperties": false, "required": ["status", "by", "decidedAt"],
       "properties": {"status": {"const": "approved"}, "by": {"const": "owner"}, "decidedAt": {"type": "string"}}
     },
-    "rights": {"const": "own"}
+    "rights": {"enum": ["own", "owner"], "description": "own: the project's own picture; owner: a third-party universe or meme picture the owner took in by his own decision (tools/rounds/pictures.mjs rights --owner, e.g. P0425 and P0465, 2026-11-01)"}
   }
 }

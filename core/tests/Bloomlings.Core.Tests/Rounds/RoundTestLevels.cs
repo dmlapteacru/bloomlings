@@ -32,6 +32,11 @@ namespace Bloomlings.Core.Tests.Rounds
 
         public static JsonElement ReferenceCellCase(string name) => ReferenceCellCases.First(c => c.GetProperty("name").GetString() == name);
 
+        /// <summary>The fixture's latch cases (17 §8 «Засов и жёлудь-ключ»): small levels and placed levels given latches.</summary>
+        public static IEnumerable<JsonElement> ReferenceLatchCases => Reference.GetProperty("latches").EnumerateArray();
+
+        public static JsonElement ReferenceLatchCase(string name) => ReferenceLatchCases.First(c => c.GetProperty("name").GetString() == name);
+
         /// <summary>A placed level from <c>content/rounds/levels/L####.json</c>, with its class, introduction and mechanics.</summary>
         public static RoundLevel Content(int number)
         {
@@ -112,6 +117,14 @@ namespace Bloomlings.Core.Tests.Rounds
                 mechanics.Add("cells");
             }
 
+            RoundLatch[]? latches = d.TryGetProperty("latches", out JsonElement lt)
+                ? lt.EnumerateArray().Select(l => new RoundLatch(l.GetProperty("column").GetInt32(), l.GetProperty("depth").GetInt32(), l.GetProperty("key").GetInt32())).ToArray()
+                : null;
+            if (latches != null && latches.Length > 0)
+            {
+                mechanics.Add("latch");
+            }
+
             RoundIntroduction? introduction = null;
             if (intro != null)
             {
@@ -121,7 +134,7 @@ namespace Bloomlings.Core.Tests.Rounds
 
             int capacity = d.TryGetProperty("capacity", out JsonElement cap) ? cap.GetInt32() : 5;
             return new RoundLevel(number, d.GetProperty("w").GetInt32(), d.GetProperty("h").GetInt32(), rows, pods, tray, entries, bridge, capacity,
-                ClassOf(cls), introduction: introduction, mechanics: mechanics, exception: exception, hiddenCells: hiddenCells);
+                ClassOf(cls), introduction: introduction, mechanics: mechanics, exception: exception, hiddenCells: hiddenCells, latches: latches);
         }
 
         public static RoundClass ClassOf(string cls) => cls switch
