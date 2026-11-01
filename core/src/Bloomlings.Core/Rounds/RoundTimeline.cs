@@ -181,7 +181,8 @@ namespace Bloomlings.Core.Rounds
         /// <summary>
         /// Applies a tap or a bridge at the current model time (reference <c>commit</c>): a link admission compacts the
         /// places first; each member takes the first free place and its column's head moves down; a sealed pod reveals on
-        /// commit; then every hidden top pod in depth mode reveals, and work is dispatched.
+        /// commit; a bridge reveals the hidden cells it opens; then every hidden top pod in depth mode reveals, and work is
+        /// dispatched.
         /// </summary>
         public RoundCommitResult Commit(RoundAction action)
         {
@@ -237,6 +238,7 @@ namespace Bloomlings.Core.Rounds
                 s.Bridge = action.Choice;
                 s.BoardChanged();
                 _events.Add(RoundEvent.BridgeBuilt(Now, site.Cell));
+                RoundRules.RevealCells(s, _events, Now);
             }
 
             RoundRules.RevealTops(s, _events, Now);
@@ -349,6 +351,9 @@ namespace Bloomlings.Core.Rounds
                         ProcessedCells++;
                         _lastClears.Add(j.Cell);
                         changed = true;
+
+                        // Hidden cells (17 §8): the cells this clear reveals, right after it, at its time.
+                        RoundRules.RevealCells(s, _events, Now);
                     }
                     else
                     {
@@ -792,6 +797,7 @@ namespace Bloomlings.Core.Rounds
             fresh.Bridge = snapshot.Bridge;
             fresh.Status = snapshot.Status;
             fresh.BoardChanged();
+            RoundRules.SyncCells(fresh);
             State = fresh;
 
             _steps.Clear();

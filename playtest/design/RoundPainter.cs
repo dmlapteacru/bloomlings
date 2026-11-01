@@ -303,17 +303,54 @@ namespace Bloomlings.Playtest.Design
                     {
                         // Its side face where the neighbour on the side it faces is empty (constitution 1.2.0 VII).
                         int beside = board.SideNeighbour(cell);
+                        bool veiled = a.Veiled(cell);
                         if (beside >= 0 && (board.KindOf(beside) != RoundCellKind.Material || a.MaterialAt(beside) < 0 || held[beside]))
                         {
-                            Kit.SideFace(p, board.SideBox(cell), RoundMaterial.All[m], board.SideStepOf(cell) < 0, RoundBoardLayout.TopShare);
+                            if (veiled)
+                            {
+                                Kit.HiddenSideFace(p, board.SideBox(cell), board.SideStepOf(cell) < 0, RoundBoardLayout.TopShare);
+                            }
+                            else
+                            {
+                                Kit.SideFace(p, board.SideBox(cell), RoundMaterial.All[m], board.SideStepOf(cell) < 0, RoundBoardLayout.TopShare);
+                            }
                         }
 
-                        Kit.BoardCube(p, board.CubeBox(cell), RoundMaterial.All[m], symbols);
+                        if (veiled)
+                        {
+                            // A hidden cell (17 §8 «Скрытые клетки»): the neutral "?" cube until its cellReveal plays.
+                            Kit.HiddenCube(p, board.CubeBox(cell));
+                        }
+                        else
+                        {
+                            float since = a.CellRevealSince(cell);
+                            if (since >= 0f)
+                            {
+                                // Its reveal: the material's cube pops in, the "?" fading over it.
+                                Box cube = board.CubeBox(cell);
+                                float scale = RoundLook.CellRevealScale(since);
+                                p.PushTransform(0f, 0f, scale, cube.CenterX, cube.CenterY);
+                                Kit.BoardCube(p, cube, RoundMaterial.All[m], symbols);
+                                float veil = RoundLook.CellRevealVeil(since);
+                                if (veil > 0f)
+                                {
+                                    p.PushAlpha(veil);
+                                    Kit.HiddenCube(p, cube);
+                                    p.PopAlpha();
+                                }
+
+                                p.PopTransform();
+                            }
+                            else
+                            {
+                                Kit.BoardCube(p, board.CubeBox(cell), RoundMaterial.All[m], symbols);
+                            }
+                        }
                     }
                     else if (m < 0 && a.Burst(cell))
                     {
                         // An eaten cube leaves the neutral surface bare: no imprint (the owner, 2026-10-28).
-                        BurstPuff(p, board, cell, a.OriginalMaterial(cell), now - a.ClearedAt(cell));
+                        BurstPuff(p, board, cell, a.BurstVeiled(cell) ? -2 : a.OriginalMaterial(cell), now - a.ClearedAt(cell));
                     }
                 }
             }
@@ -324,7 +361,7 @@ namespace Bloomlings.Playtest.Design
                 float pulse = 0.5f + (0.5f * (float)Math.Sin(p.Now * 6f));
                 for (int cell = 0; cell < board.Width * board.Height; cell++)
                 {
-                    int m = board.KindOf(cell) == RoundCellKind.Material ? a.MaterialAt(cell) : -1;
+                    int m = board.KindOf(cell) == RoundCellKind.Material && !a.Veiled(cell) ? a.MaterialAt(cell) : -1;
                     if (m >= 0 && !held[cell] && RoundBoosters.CanBloomBurst(s.Play.Timeline, RoundMaterial.All[m].Code) == RoundRefusal.None)
                     {
                         p.Mark("fx.burst");
@@ -386,10 +423,13 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        /// <summary>A cube cleared by Bloom Burst: it swells and fades in a ring of sparkles (<c>fx.burst</c>).</summary>
+        /// <summary>
+        /// A cube cleared by Bloom Burst: it swells and fades in a ring of sparkles (<c>fx.burst</c>); <paramref name="material"/>
+        /// -2 is a hidden cell taken while still veiled (its "?" cube puffs).
+        /// </summary>
         private static void BurstPuff(IPainter p, RoundBoardLayout board, int cell, int material, long sinceUs)
         {
-            if (material < 0 || sinceUs < 0 || sinceUs >= RoundAnimator.BurstUs)
+            if ((material < 0 && material != -2) || sinceUs < 0 || sinceUs >= RoundAnimator.BurstUs)
             {
                 return;
             }
@@ -399,7 +439,15 @@ namespace Bloomlings.Playtest.Design
             Box cube = board.CubeBox(cell);
             p.PushAlpha(1f - k);
             p.PushTransform(0f, 0f, 1f + (0.35f * k), cube.CenterX, cube.CenterY);
-            Kit.BoardCube(p, cube, RoundMaterial.All[material], false);
+            if (material == -2)
+            {
+                Kit.HiddenCube(p, cube);
+            }
+            else
+            {
+                Kit.BoardCube(p, cube, RoundMaterial.All[material], false);
+            }
+
             p.PopTransform();
             p.StrokeCircle(cube.CenterX, cube.CenterY, cube.Width * (0.4f + (0.5f * k)), Math.Max(1f, cube.Width * 0.08f), Rgba.White);
             p.PopAlpha();
@@ -924,7 +972,7 @@ namespace Bloomlings.Playtest.Design
             p.PopTransform();
         }
 
-        /// <summary>The introduction card's picture, made of the level's own pieces (pods, tube, water, plank).</summary>
+        /// <summary>The introduction card's picture, made of the level's own pieces (pods, tube, water, plank, cubes).</summary>
         private static void IntroPicture(IPainter p, RoundIntroPicture picture, Box area, float since)
         {
             float h = area.Height;
@@ -941,6 +989,22 @@ namespace Bloomlings.Playtest.Design
                     PodChip revealed = PodChip.Cube(right);
                     Kit.RevealGlow(p, revealed.Frame, 0.4f + (0.6f * GardenLook.Glow(p.Now)));
                     Kit.RoundPod(p, revealed, RoundMaterial.All[1], 12, PodLook.Exposed, false, false);
+                    break;
+                }
+
+                case RoundIntroPicture.HiddenCell:
+                {
+                    // A hidden cell's "?" cube, the arrow, the same cube revealed (17 §8 «Скрытые клетки»).
+                    float cw = h * 0.62f;
+                    float ch = cw * (RoundScreenLook.BoardRowShare + RoundScreenLook.BoardFrontShare);
+                    var left = Box.FromCenter(area.CenterX - ((cw + gap) / 2f), area.CenterY, cw, ch);
+                    var right = Box.FromCenter(area.CenterX + ((cw + gap) / 2f), area.CenterY, cw, ch);
+                    Kit.HiddenCube(p, left);
+                    p.Shape("ui.chevron", Box.FromCenter(area.CenterX, area.CenterY, h * 0.28f, h * 0.28f), C.InkBrownSoft);
+                    float pop = RoundLook.CellRevealScale((since % 1.6f) - 0.4f);
+                    p.PushTransform(0f, 0f, pop, right.CenterX, right.CenterY);
+                    Kit.BoardCube(p, right, RoundMaterial.All[1], false);
+                    p.PopTransform();
                     break;
                 }
 

@@ -14,7 +14,9 @@ namespace Bloomlings.Playtest.Preview
     /// <c>--clear-video &lt;level&gt; &lt;seconds&gt; &lt;out dir&gt; [style]</c>: a round level played at ×1 by a quick player
     /// (the saved solution's commands, one every <see cref="TapEvery"/> seconds while the rules take them), every frame
     /// at 30 fps written as <c>frame-0000.png</c> with <c>board.txt</c> (the board's box in pixels: left top width
-    /// height), for a video of the clearing style's walkers (ffmpeg crops and encodes). Review material only.
+    /// height), for a video of the clearing style's walkers (ffmpeg crops and encodes). Review material only. The environment
+    /// variable <c>BLOOMLINGS_ROUNDS_DIR</c> points it at another rounds folder (its <c>published/</c> and <c>proofs/</c>), e.g.
+    /// a temporary set with a level given hidden cells, so the game's <c>content/game/rounds</c> is never touched.
     /// </summary>
     public static class ClearVideo
     {
@@ -30,13 +32,15 @@ namespace Bloomlings.Playtest.Preview
 
         public static int Write(string root, int level, float seconds, string outDir, string? styleId)
         {
-            string folder = Path.Combine(root, "content/game/rounds/published");
+            // BLOOMLINGS_ROUNDS_DIR: another rounds folder with published/ and proofs/ (a temporary set for a review), else the game's.
+            string roundsDir = Environment.GetEnvironmentVariable("BLOOMLINGS_ROUNDS_DIR") is string dir && dir.Length > 0 ? Path.GetFullPath(dir) : Path.Combine(root, "content/game/rounds");
+            string folder = Path.Combine(roundsDir, "published");
             RoundContentSet rounds = RoundContentSet.Read(path =>
             {
                 string file = Path.Combine(folder, path);
                 return File.Exists(file) ? File.ReadAllBytes(file) : null;
             });
-            RoundProof proof = RoundJson.ReadProof(File.ReadAllText(Path.Combine(root, "content/game/rounds/proofs", "L" + level.ToString("0000", CultureInfo.InvariantCulture) + ".json")));
+            RoundProof proof = RoundJson.ReadProof(File.ReadAllText(Path.Combine(roundsDir, "proofs", "L" + level.ToString("0000", CultureInfo.InvariantCulture) + ".json")));
             var empty = new ContentSet(0, 0, Array.Empty<Bloomlings.Core.Definitions.LevelDefinition>(), Array.Empty<Bloomlings.Core.Definitions.BasePicture>());
             string data = Path.Combine(Path.GetTempPath(), "bloomlings-clear-video-" + Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(outDir);

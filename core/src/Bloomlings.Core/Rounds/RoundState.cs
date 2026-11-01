@@ -21,7 +21,8 @@ namespace Bloomlings.Core.Rounds
     /// - <see cref="Columns"/> and <see cref="Heads"/>: per column, its pods (top first) and the index of its top pod;
     /// - <see cref="Slots"/>: per place, a pod or -1;
     /// - <see cref="Ages"/>: per pod, its commit order (<see cref="Serial"/> counts commits);
-    /// - <see cref="Revealed"/>, <see cref="Bridge"/> (the built site or -1) and <see cref="Status"/>.
+    /// - <see cref="Revealed"/>, <see cref="Bridge"/> (the built site or -1) and <see cref="Status"/>;
+    /// - <see cref="Veiled"/>: per cell, whether it is a hidden cell not revealed yet (null without hidden cells).
     /// The columns start as a copy of the level's tray. Only Return and Shuffle change them; without boosters they equal
     /// the tray, as the reference's fixed tray (research R10).
     /// </summary>
@@ -90,6 +91,8 @@ namespace Bloomlings.Core.Rounds
             Serial = other.Serial;
             Bridge = other.Bridge;
             Status = other.Status;
+            Veiled = other.Veiled == null ? null : (bool[])other.Veiled.Clone();
+            VeiledLeft = other.VeiledLeft;
             _reach = other._reach;
         }
 
@@ -124,6 +127,22 @@ namespace Bloomlings.Core.Rounds
         public int Bridge { get; internal set; }
 
         public RoundStatus Status { get; internal set; }
+
+        /// <summary>
+        /// Per cell, true while it is a hidden cell not revealed yet (reference <c>state.veiled</c>, rules 17 §8 «Скрытые
+        /// клетки»); null on a level without hidden cells. A function of the board (a hidden material cell that is not a
+        /// target), so the signature leaves it out; <see cref="RoundRules.RevealCells"/> keeps it up to date.
+        /// </summary>
+        public bool[]? Veiled { get; internal set; }
+
+        /// <summary>How many cells are still veiled (reference <c>state.veiledLeft</c>).</summary>
+        public int VeiledLeft { get; internal set; }
+
+        /// <summary>
+        /// What a player may know about cell <paramref name="cell"/> (reference <c>known</c>): false only for a hidden
+        /// cell not revealed yet, whose material is shown as a neutral «?».
+        /// </summary>
+        public bool Known(int cell) => Veiled == null || !Veiled[cell];
 
         /// <summary>A copy that shares nothing mutable (the cached reach is immutable and shared).</summary>
         public RoundState Clone() => new RoundState(this);

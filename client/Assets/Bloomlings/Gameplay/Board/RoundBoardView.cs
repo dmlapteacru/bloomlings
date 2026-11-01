@@ -29,7 +29,9 @@ namespace Bloomlings.Client.Gameplay.Board
     /// no icon (the symbol only in the symbols mode, FR-041, FR-047) at the cube size the picture fits the surface with;</description></item>
     /// <item><description>an eaten cube, or one the clearing style holds (<see cref="RoundFx.Holds"/>, the style drawing it eaten,
     /// FR-042), leaves the surface bare, no imprint; a cube Bloom Burst took swells and fades; while Bloom Burst waits for its
-    /// target the cubes it can take carry a pulsing ring and a tap on the grid picks the material.</description></item>
+    /// target the cubes it can take carry a pulsing ring and a tap on the grid picks the material;</description></item>
+    /// <item><description>a hidden cell (17 §8 «Скрытые клетки», FR-066) is the neutral "?" cube (<see cref="RoundSprites.HiddenCube"/>)
+    /// until its cellReveal plays, then pops into its material's cube.</description></item>
     /// </list>
     /// Every cell is placed once relative to the grid, so a new screen size only moves the grid, its arches and planks. It
     /// reads the animator each frame (<see cref="Sync"/>) and changes only what changed. Presentation only.
@@ -60,6 +62,10 @@ namespace Bloomlings.Client.Gameplay.Board
         private int _pixels;
         private Image?[] _side = Array.Empty<Image?>();
         private sbyte[] _sideShown = new sbyte[0];
+
+        // A hidden cell's shown code (17 §8 «Скрытые клетки»): the "?" cube, beside the material indices.
+        private const sbyte VeiledCube = 100;
+        private Image?[] _veils = Array.Empty<Image?>();
         private bool _symbols;
         private bool _bursting;
 
@@ -132,6 +138,7 @@ namespace Bloomlings.Client.Gameplay.Board
             _side = new Image?[cells];
             _sideShown = new sbyte[cells];
             _rings = new Image?[cells];
+            _veils = new Image?[cells];
             _shownCube = new sbyte[cells];
             PlaceGrid();
             _pixels = CellPixels();
@@ -310,12 +317,18 @@ namespace Bloomlings.Client.Gameplay.Board
                 int original = Math.Max(0, a.OriginalMaterial(cell));
                 long since = now - a.ClearedAt(cell);
                 bool puff = m < 0 && a.Burst(cell) && a.ClearedAt(cell) >= 0 && since >= 0 && since < RoundAnimator.BurstUs;
-                sbyte shown = (sbyte)(puff ? original : m >= 0 && !held ? m : -1);
+                // A hidden cell (17 §8 «Скрытые клетки», FR-066) is the neutral "?" cube until its cellReveal plays.
+                bool veiled = puff ? a.BurstVeiled(cell) : m >= 0 && a.Veiled(cell);
+                sbyte shown = (sbyte)(veiled && (puff || !held) ? VeiledCube : puff ? original : m >= 0 && !held ? m : -1);
                 if (shown != _shownCube[cell])
                 {
                     _shownCube[cell] = shown;
                     cube.enabled = shown >= 0;
-                    if (shown >= 0)
+                    if (shown == VeiledCube)
+                    {
+                        cube.sprite = RoundSprites.HiddenCube(_pixels, CubePixelsTall());
+                    }
+                    else if (shown >= 0)
                     {
                         cube.sprite = RoundSprites.BoardCube(shown, _symbols, _pixels, CubePixelsTall());
                     }
@@ -325,6 +338,13 @@ namespace Bloomlings.Client.Gameplay.Board
                         cube.color = Color.white;
                         cube.rectTransform.localScale = Vector3.one;
                     }
+                }
+
+                // Its reveal: the material's cube pops in, the "?" fading over it.
+                float reveal = shown >= 0 && shown != VeiledCube && !puff ? a.CellRevealSince(cell) : -1f;
+                if (reveal >= 0f || _veils[cell] != null)
+                {
+                    ShowReveal(cell, cube, reveal);
                 }
 
                 if (puff)
@@ -360,6 +380,39 @@ namespace Bloomlings.Client.Gameplay.Board
             SyncTargets(core, uiNow);
         }
 
+        /// <summary>
+        /// A hidden cell's reveal pop (<paramref name="since"/> seconds after its cellReveal, or -1 once it ended): the cube
+        /// scaled by <see cref="RoundLook.CellRevealScale"/>, the "?" cube over it (a child, so it scales along) fading by
+        /// <see cref="RoundLook.CellRevealVeil"/>.
+        /// </summary>
+        private void ShowReveal(int cell, Image cube, float since)
+        {
+            Image? veil = _veils[cell];
+            if (since < 0f)
+            {
+                if (veil != null)
+                {
+                    Destroy(veil.gameObject);
+                    _veils[cell] = null;
+                }
+
+                cube.rectTransform.localScale = Vector3.one;
+                return;
+            }
+
+            if (veil == null)
+            {
+                veil = UiFactory.CreateImage("Veil", cube.rectTransform, RoundSprites.HiddenCube(_pixels, CubePixelsTall()), Color.white);
+                veil.raycastTarget = false;
+                UiFactory.Stretch(veil.rectTransform);
+                _veils[cell] = veil;
+            }
+
+            float scale = RoundLook.CellRevealScale(since);
+            cube.rectTransform.localScale = new Vector3(scale, scale, 1f);
+            veil.color = new Color(1f, 1f, 1f, RoundLook.CellRevealVeil(since));
+        }
+
         /// <summary>Each shown cube's side face where the neighbour it faces shows no cube (an edge, a hole, a cube eaten now).</summary>
         private void SyncSides()
         {
@@ -379,7 +432,11 @@ namespace Bloomlings.Client.Gameplay.Board
                 if (on && (side.sprite == null || _sideShown[cell] != shown))
                 {
                     Box box = layout.SideBox(cell);
-                    side.sprite = RoundSprites.SideFace(shown, layout.SideStepOf(cell) < 0, RoundBoardLayout.TopShare, UiRaster.Quantize(Mathf.Max(2f, box.Width)), CubePixelsTall());
+                    int width = UiRaster.Quantize(Mathf.Max(2f, box.Width));
+                    bool left = layout.SideStepOf(cell) < 0;
+                    side.sprite = shown == VeiledCube
+                        ? RoundSprites.HiddenSideFace(left, RoundBoardLayout.TopShare, width, CubePixelsTall())
+                        : RoundSprites.SideFace(shown, left, RoundBoardLayout.TopShare, width, CubePixelsTall());
                     _sideShown[cell] = shown;
                 }
 
@@ -452,7 +509,7 @@ namespace Bloomlings.Client.Gameplay.Board
                 }
 
                 int m = a.MaterialAt(cell);
-                bool target = m >= 0 && core.CanBurst(m);
+                bool target = m >= 0 && !a.Veiled(cell) && core.CanBurst(m);
                 Image? ring = _rings[cell];
                 if (!target)
                 {

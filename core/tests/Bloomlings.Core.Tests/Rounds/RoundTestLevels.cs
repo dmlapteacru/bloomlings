@@ -27,6 +27,11 @@ namespace Bloomlings.Core.Tests.Rounds
 
         public static JsonElement ReferenceLevel(int number) => ReferenceLevels.First(l => l.GetProperty("number").GetInt32() == number);
 
+        /// <summary>The fixture's hidden-cell cases (17 §8 «Скрытые клетки»): a small level and placed levels given hidden cells.</summary>
+        public static IEnumerable<JsonElement> ReferenceCellCases => Reference.GetProperty("cells").EnumerateArray();
+
+        public static JsonElement ReferenceCellCase(string name) => ReferenceCellCases.First(c => c.GetProperty("name").GetString() == name);
+
         /// <summary>A placed level from <c>content/rounds/levels/L####.json</c>, with its class, introduction and mechanics.</summary>
         public static RoundLevel Content(int number)
         {
@@ -101,6 +106,12 @@ namespace Bloomlings.Core.Tests.Rounds
                 mechanics.Add("bridge");
             }
 
+            int[]? hiddenCells = d.TryGetProperty("hiddenCells", out JsonElement hc) ? hc.EnumerateArray().Select(x => x.GetInt32()).ToArray() : null;
+            if (hiddenCells != null && hiddenCells.Length > 0)
+            {
+                mechanics.Add("cells");
+            }
+
             RoundIntroduction? introduction = null;
             if (intro != null)
             {
@@ -110,7 +121,7 @@ namespace Bloomlings.Core.Tests.Rounds
 
             int capacity = d.TryGetProperty("capacity", out JsonElement cap) ? cap.GetInt32() : 5;
             return new RoundLevel(number, d.GetProperty("w").GetInt32(), d.GetProperty("h").GetInt32(), rows, pods, tray, entries, bridge, capacity,
-                ClassOf(cls), introduction: introduction, mechanics: mechanics, exception: exception);
+                ClassOf(cls), introduction: introduction, mechanics: mechanics, exception: exception, hiddenCells: hiddenCells);
         }
 
         public static RoundClass ClassOf(string cls) => cls switch

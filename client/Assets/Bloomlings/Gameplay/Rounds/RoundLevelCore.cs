@@ -594,8 +594,9 @@ namespace Bloomlings.Client.Gameplay.Rounds
             }
 
             int material = Animator.MaterialAt(cell);
-            if (material < 0)
+            if (material < 0 || Animator.Veiled(cell))
             {
+                // An empty cell, or a hidden cell whose material is not known yet (17 §8 «Скрытые клетки»).
                 return RoundBoosterOutcome.Ignored;
             }
 

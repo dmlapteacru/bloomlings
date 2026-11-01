@@ -50,10 +50,12 @@ namespace Bloomlings.Core.Tests.Rounds
         }
 
         [TestCaseSource(nameof(Levels))]
-        public void TheSavedSolutionReplaysWithTheSameEventsAndStates(int number)
+        public void TheSavedSolutionReplaysWithTheSameEventsAndStates(int number) =>
+            _ = CheckSolution(RoundTestLevels.ReferenceLevel(number), RoundTestLevels.FromReference(RoundTestLevels.ReferenceLevel(number)), "L" + number.ToString("0000"));
+
+        /// <summary>The saved route replayed patiently: per window the same events and signature; returns the canonical lines.</summary>
+        internal static List<string> CheckSolution(JsonElement fixture, RoundLevel level, string name)
         {
-            JsonElement fixture = RoundTestLevels.ReferenceLevel(number);
-            RoundLevel level = RoundTestLevels.FromReference(fixture);
             JsonElement expected = fixture.GetProperty("solution");
             JsonElement[] windows = expected.GetProperty("windows").EnumerateArray().ToArray();
 
@@ -73,7 +75,7 @@ namespace Bloomlings.Core.Tests.Rounds
 
                 RoundInput command = RoundInput.Of(RoundTestLevels.Action(a), t.Now);
                 RoundCommitResult result = replay.Execute(command);
-                Assert.That(result.Accepted, Is.True, $"L{number} refused {command}: {result.Reason}");
+                Assert.That(result.Accepted, Is.True, $"{name} refused {command}: {result.Reason}");
                 commands.Add(command);
                 signatures.Add(RoundEvents.SignatureHash(t));
             }
@@ -85,26 +87,34 @@ namespace Bloomlings.Core.Tests.Rounds
             for (int k = 0; k < windows.Length; k++)
             {
                 JsonElement w = windows[k];
-                Assert.That(commands[k].AtUs, Is.EqualTo(w.GetProperty("command").GetProperty("atUs").GetInt64()), $"L{number} window {k}: command time");
+                Assert.That(commands[k].AtUs, Is.EqualTo(w.GetProperty("command").GetProperty("atUs").GetInt64()), $"{name} window {k}: command time");
                 string events = RoundEvents.Sha256(texts[k]);
                 if (events != w.GetProperty("events").GetString())
                 {
-                    Assert.Fail($"L{number:0000} solution window {k} ({commands[k]}): events differ. C# canonical log of the window:\n{texts[k]}");
+                    Assert.Fail($"{name} solution window {k} ({commands[k]}): events differ. C# canonical log of the window:\n{texts[k]}");
                 }
 
-                Assert.That(signatures[k], Is.EqualTo(w.GetProperty("signature").GetString()), $"L{number} window {k} ({commands[k]}): signature after the command");
+                Assert.That(signatures[k], Is.EqualTo(w.GetProperty("signature").GetString()), $"{name} window {k} ({commands[k]}): signature after the command");
             }
 
             Assert.That(RoundState.StatusText(t.State.Status), Is.EqualTo(expected.GetProperty("outcome").GetString()));
             Assert.That(t.Now, Is.EqualTo(expected.GetProperty("endUs").GetInt64()), "end time");
             Assert.That(RoundEvents.SignatureHash(t), Is.EqualTo(expected.GetProperty("finalSignature").GetString()), "final signature");
+            var lines = new List<string>();
+            foreach (string text in texts)
+            {
+                lines.AddRange(text.Split('\n', StringSplitOptions.RemoveEmptyEntries));
+            }
+
+            return lines;
         }
 
         [TestCaseSource(nameof(Levels))]
-        public void TheSavedRouteOnARunningClockEndsTheSame(int number)
+        public void TheSavedRouteOnARunningClockEndsTheSame(int number) =>
+            CheckTimed(RoundTestLevels.ReferenceLevel(number), RoundTestLevels.FromReference(RoundTestLevels.ReferenceLevel(number)), "L" + number.ToString("0000"));
+
+        internal static void CheckTimed(JsonElement fixture, RoundLevel level, string name)
         {
-            JsonElement fixture = RoundTestLevels.ReferenceLevel(number);
-            RoundLevel level = RoundTestLevels.FromReference(fixture);
             JsonElement expected = fixture.GetProperty("timed");
             long[] delays = expected.GetProperty("delaysUs").EnumerateArray().Select(d => d.GetInt64()).ToArray();
             string[] windows = expected.GetProperty("windows").EnumerateArray().Select(w => w.GetString()!).ToArray();
@@ -148,7 +158,7 @@ namespace Bloomlings.Core.Tests.Rounds
             {
                 if (RoundEvents.Sha256(texts[w]) != windows[w])
                 {
-                    Assert.Fail($"L{number:0000} timed window {w}: events differ. C# canonical log of the window:\n{texts[w]}");
+                    Assert.Fail($"{name} timed window {w}: events differ. C# canonical log of the window:\n{texts[w]}");
                 }
             }
 
@@ -160,10 +170,11 @@ namespace Bloomlings.Core.Tests.Rounds
         }
 
         [TestCaseSource(nameof(Levels))]
-        public void EveryRecordedRandomGameEndsTheSame(int number)
+        public void EveryRecordedRandomGameEndsTheSame(int number) =>
+            CheckRandom(RoundTestLevels.ReferenceLevel(number), RoundTestLevels.FromReference(RoundTestLevels.ReferenceLevel(number)), "L" + number.ToString("0000"));
+
+        internal static void CheckRandom(JsonElement fixture, RoundLevel level, string name)
         {
-            JsonElement fixture = RoundTestLevels.ReferenceLevel(number);
-            RoundLevel level = RoundTestLevels.FromReference(fixture);
             JsonElement random = fixture.GetProperty("random");
             long seedBase = random.GetProperty("seedBase").GetInt64();
             int n = 0;
@@ -188,7 +199,7 @@ namespace Bloomlings.Core.Tests.Rounds
                 }
             }
 
-            Assert.That(differences.ToString(), Is.Empty, $"L{number}: random games differ");
+            Assert.That(differences.ToString(), Is.Empty, $"{name}: random games differ");
             Assert.That(n, Is.EqualTo(random.GetProperty("runs").GetInt32()));
             Assert.That(wins, Is.EqualTo(random.GetProperty("wins").GetInt32()), "wins");
         }
@@ -245,10 +256,11 @@ namespace Bloomlings.Core.Tests.Rounds
         }
 
         [TestCaseSource(nameof(Levels))]
-        public void ThePatientSolverFindsTheSavedRoute(int number)
+        public void ThePatientSolverFindsTheSavedRoute(int number) =>
+            CheckSolver(RoundTestLevels.ReferenceLevel(number), RoundTestLevels.FromReference(RoundTestLevels.ReferenceLevel(number)));
+
+        internal static void CheckSolver(JsonElement fixture, RoundLevel level)
         {
-            JsonElement fixture = RoundTestLevels.ReferenceLevel(number);
-            RoundLevel level = RoundTestLevels.FromReference(fixture);
             JsonElement expected = fixture.GetProperty("solver");
             RoundSolveResult result = new RoundSolver(200000).Route(level);
             Assert.That(result.Win, Is.EqualTo(expected.GetProperty("win").GetBoolean()));

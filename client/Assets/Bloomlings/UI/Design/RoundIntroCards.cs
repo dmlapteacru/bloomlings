@@ -7,10 +7,10 @@ namespace Bloomlings.Client.UI.Design
     /// <summary>Whether an introduction card explains a mechanic (its first meeting) or reminds of it (its second).</summary>
     public enum RoundIntroKind
     {
-        /// <summary>The first meeting (L6 hidden pods, L11 links, L16 the bridge): the explanation card.</summary>
+        /// <summary>The first meeting (L6 hidden pods, L11 links, L16 the bridge, L51 hidden cells): the explanation card.</summary>
         Explanation,
 
-        /// <summary>The second meeting (L8, L13, L18): a short reminder card.</summary>
+        /// <summary>The second meeting (L8, L13, L18, L53): a short reminder card.</summary>
         Reminder,
     }
 
@@ -25,6 +25,12 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>A strip of stream with a plank across it (<see cref="UiRaster.Water"/>, the bridge's plank).</summary>
         Bridge,
+
+        /// <summary>
+        /// A hidden cell's "?" cube (<see cref="UiRaster.HiddenBoardCube"/>) beside the same cube revealed in its material
+        /// (17 §8 «Скрытые клетки»).
+        /// </summary>
+        HiddenCell,
     }
 
     /// <summary>
@@ -46,7 +52,10 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The id the save keeps once the card was shown: <c>round.intro.{mechanic}</c>, with <c>.reminder</c> for a reminder.</summary>
         public string Id => RoundIntroCards.IdOf(Mechanic, Kind == RoundIntroKind.Reminder);
 
-        /// <summary>The mechanic: <see cref="RoundIntroCards.Hidden"/>, <see cref="RoundIntroCards.Links"/> or <see cref="RoundIntroCards.Bridge"/>.</summary>
+        /// <summary>
+        /// The mechanic: <see cref="RoundIntroCards.Hidden"/>, <see cref="RoundIntroCards.Links"/>, <see cref="RoundIntroCards.Bridge"/>
+        /// or <see cref="RoundIntroCards.Cells"/>.
+        /// </summary>
         public string Mechanic { get; }
 
         public RoundIntroKind Kind { get; }
@@ -63,10 +72,10 @@ namespace Bloomlings.Client.UI.Design
     }
 
     /// <summary>
-    /// The introduction cards of the round levels' three mechanics (spec 006 FR-045, contracts/presentation.md,
+    /// The introduction cards of the round levels' four mechanics (spec 006 FR-045, FR-066, contracts/presentation.md,
     /// rules 17 §9): a level whose <c>introduction</c> names a mechanic opens with that mechanic's explanation card at its
-    /// first meeting (L6 hidden pods, L11 links, L16 the bridge) and with a short reminder card at its second
-    /// (<c>second: true</c>; L8, L13, L18). Each card shows once (<see cref="ToShow"/> with the save's seen ids, as the
+    /// first meeting (L6 hidden pods, L11 links, L16 the bridge, L51 hidden cells) and with a short reminder card at its
+    /// second (<c>second: true</c>; L8, L13, L18, L53). Each card shows once (<see cref="ToShow"/> with the save's seen ids, as the
     /// game's demo cards). Content only: the level screen draws the card and records <see cref="RoundIntroCard.Id"/>.
     /// Engine-free.
     /// </summary>
@@ -78,17 +87,21 @@ namespace Bloomlings.Client.UI.Design
 
         public const string Bridge = "bridge";
 
+        /// <summary>Hidden cells (17 §8 «Скрытые клетки», the owner's amendment of 2026-11-01).</summary>
+        public const string Cells = "cells";
+
         /// <summary>The cards' button.</summary>
         public const string ButtonKey = "round.intro.got_it";
 
-        /// <summary>The three mechanics in the order the levels meet them.</summary>
-        public static IReadOnlyList<string> Mechanics { get; } = new[] { Hidden, Links, Bridge };
+        /// <summary>The four mechanics in the order the levels meet them.</summary>
+        public static IReadOnlyList<string> Mechanics { get; } = new[] { Hidden, Links, Bridge, Cells };
 
         private static readonly Dictionary<string, RoundIntroCard> Explanations = new Dictionary<string, RoundIntroCard>(StringComparer.Ordinal)
         {
             [Hidden] = new RoundIntroCard(Hidden, RoundIntroKind.Explanation, RoundIntroPicture.HiddenPod, "round.intro.hidden.title", new[] { "round.intro.hidden.1", "round.intro.hidden.2", "round.intro.hidden.3" }),
             [Links] = new RoundIntroCard(Links, RoundIntroKind.Explanation, RoundIntroPicture.LinkedPair, "round.intro.links.title", new[] { "round.intro.links.1", "round.intro.links.2", "round.intro.links.3" }),
             [Bridge] = new RoundIntroCard(Bridge, RoundIntroKind.Explanation, RoundIntroPicture.Bridge, "round.intro.bridge.title", new[] { "round.intro.bridge.1", "round.intro.bridge.2", "round.intro.bridge.3" }),
+            [Cells] = new RoundIntroCard(Cells, RoundIntroKind.Explanation, RoundIntroPicture.HiddenCell, "round.intro.cells.title", new[] { "round.intro.cells.1", "round.intro.cells.2", "round.intro.cells.3" }),
         };
 
         private static readonly Dictionary<string, RoundIntroCard> Reminders = new Dictionary<string, RoundIntroCard>(StringComparer.Ordinal)
@@ -96,6 +109,7 @@ namespace Bloomlings.Client.UI.Design
             [Hidden] = new RoundIntroCard(Hidden, RoundIntroKind.Reminder, RoundIntroPicture.HiddenPod, "round.intro.hidden.title", new[] { "round.intro.hidden.reminder" }),
             [Links] = new RoundIntroCard(Links, RoundIntroKind.Reminder, RoundIntroPicture.LinkedPair, "round.intro.links.title", new[] { "round.intro.links.reminder" }),
             [Bridge] = new RoundIntroCard(Bridge, RoundIntroKind.Reminder, RoundIntroPicture.Bridge, "round.intro.bridge.title", new[] { "round.intro.bridge.reminder" }),
+            [Cells] = new RoundIntroCard(Cells, RoundIntroKind.Reminder, RoundIntroPicture.HiddenCell, "round.intro.cells.title", new[] { "round.intro.cells.reminder" }),
         };
 
         /// <summary>The id a card is remembered by: <c>round.intro.{mechanic}</c>, <c>round.intro.{mechanic}.reminder</c>.</summary>

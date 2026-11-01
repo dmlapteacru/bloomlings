@@ -13,6 +13,11 @@
 // - random: every game of the level's recorded random test (measure.mjs randomGame, seed seedBase*7919+n*104729+1):
 //   [seed, won 1/0, end µs, first 16 hex digits of the final signature's SHA-256, status letter];
 // - solver: the patient search (level-stats/solve.mjs route, budget 200000): nodes and whether it finds the saved route.
+// Hidden cells (17 §8 «Скрытые клетки», 2026-11-01), under `cells`: the small level of tools/rounds/test/cells.test.mjs
+// (far cells behind a bridge, a deep cell, a start-front cell) and placed levels L5, L13 and L16 given hidden cells by a
+// fixed rule (every colour cell whose index hashes to 0 mod 7); each with the same solution, timed and solver entries, 40
+// random games (seedBase 1), the cells veiled after the start reveal, and the solution's cellReveal lines in order (the
+// small level: its whole canonical log).
 // Times are the reference's milliseconds × 1000, rounded (all of them are whole milliseconds here).
 'use strict';
 const fs = require('fs'), path = require('path'), crypto = require('crypto');
@@ -29,13 +34,14 @@ const rng = seed => { let s = seed >>> 0 || 1; return () => { s ^= s << 13; s ^=
 
 // The canonical log (contract conformance-fixture.md): commit results, then the timeline's events; no assign.
 class Log {
-  constructor() { this.lines = []; this.cellOf = new Map(); }
+  constructor() { this.lines = []; this.all = []; this.cellOf = new Map(); }
   commit(t, events) {
     const at = us(t.now);
     for (const e of events) {
       if (e.type === 'commit') this.lines.push(`${at} commit pod=${e.pod} slot=${e.slot}`);
       else if (e.type === 'reveal') this.lines.push(`${at} reveal pod=${e.pod} mode=${e.mode}`);
       else if (e.type === 'bridge') this.lines.push(`${at} bridge cell=${e.cell}`);
+      else if (e.type === 'cellReveal') this.lines.push(`${us(e.at)} cellReveal cell=${e.cell}`);
       else throw Error('unknown commit event ' + e.type);
     }
     this.timeline(t);
@@ -49,10 +55,11 @@ class Log {
       else if (e.type === 'clear') this.lines.push(`${at} clear id=${e.id} cell=${this.cellOf.get(e.id)}`);
       else if (e.type === 'return') this.lines.push(`${at} return id=${e.id}`);
       else if (e.type === 'complete') this.lines.push(`${at} complete pod=${e.pod}`);
+      else if (e.type === 'cellReveal') this.lines.push(`${at} cellReveal cell=${e.cell}`);
       else throw Error('unknown event ' + e.type);
     }
   }
-  take() { const s = this.lines.map(l => l + '\n').join(''); this.lines = []; return s; }
+  take() { const s = this.lines.map(l => l + '\n').join(''); this.all.push(...this.lines); this.lines = []; return s; }
 }
 // The extended signature: signature(state)|now|steps (at:type:id-or-pod).
 const signature = t => R.signature(t.state) + '|' + us(t.now) + '|' + t.steps.map(e => `${us(e.at)}:${e.type}:${e.id ?? e.pod}`).join(',');
@@ -71,7 +78,7 @@ function solution(level, route) {
   }
   settle();
   windows[windows.length - 1].events = sha(log.take());
-  return { windows, outcome: t.state.status, endUs: us(t.now), finalSignature: sha(signature(t)) };
+  return { windows, outcome: t.state.status, endUs: us(t.now), finalSignature: sha(signature(t)), lines: log.all };
 }
 
 function timed(level, route) {
@@ -125,6 +132,40 @@ function solverRoute(level, budget) {
   catch (e) { if (e !== 0) throw e; return { win: null, route: null, nodes: n }; }
 }
 
+const definitionOf = d => ({ w: d.w, h: d.h, rowsBottomFirst: d.rowsBottomFirst, entries: d.entries, capacity: d.capacity, pods: d.pods, tray: d.tray,
+  ...(d.hero ? { hero: d.hero } : {}), ...(d.hiddenCells ? { hiddenCells: d.hiddenCells } : {}) });
+// hidden cells by a fixed rule: every colour cell whose index hashes to 0 mod 7
+const pickCells = d => { const grid = d.rowsBottomFirst.join(''), out = [];
+  for (let i = 0; i < grid.length; i++) if (R.CHANNELS.includes(grid[i]) && (Math.imul(i, 40503) >>> 0) % 7 === 0) out.push(i);
+  return out; };
+async function cellCases() {
+  const L = await import(path.join(repo, 'tools/rounds/lib.mjs'));
+  const pic = { id: 'T', title: 'test', rows: ['AAAAAAA', 'AAAAAAA', '##b####', 'GGGGGGG', 'GGGGGGG', 'GGGGGGG'], w: 7, h: 6 };
+  const board = L.boardOf(pic), idx = (x, y) => (board.h - 1 - (y + 2)) * board.w + x + 2;
+  const cases = [{ name: 'small', definition: { w: board.w, h: board.h, rowsBottomFirst: board.rowsBottomFirst, entries: board.entries, capacity: 5,
+    pods: [{ color: 'G', count: 21 }, { color: 'A', count: 14 }], tray: [[0], [1]], hero: board.hero,
+    hiddenCells: [idx(2, 1), idx(3, 1), idx(2, 0), idx(3, 4), idx(0, 3)].sort((a, b) => a - b) },
+    route: [{ type: 'tap', pod: 0 }, { type: 'bridge', choice: 0 }, { type: 'tap', pod: 1 }], full: true }];
+  for (const n of [5, 13, 16]) {
+    const Lv = JSON.parse(fs.readFileSync(path.join(repo, `content/rounds/levels/L${String(n).padStart(4, '0')}.json`), 'utf8'));
+    const d = { ...Lv.definition }; delete d.hiddenCells; d.hiddenCells = pickCells(d);
+    cases.push({ name: `L${String(n).padStart(4, '0')}+cells`, definition: definitionOf(d), route: Lv.solution.route, full: false });
+  }
+  return cases.map(c => {
+    const d = c.definition, errors = R.validate({ id: 1, ...d });
+    if (errors.length) throw Error(c.name + ': ' + errors.join(', '));
+    const s0 = R.create(d, d.capacity || 5), sol = solution(d, c.route), games = [];
+    for (let i = 0; i < 40; i++) games.push(randomGame(d, 1 * 7919 + i * 104729 + 1));
+    const sv = solverRoute(d, 200000);
+    return { name: c.name, definition: d, route: c.route,
+      veiledAtStart: Array.from(s0.veiled).flatMap((v, i) => v ? [i] : []),
+      reveals: sol.lines.filter(l => / cellReveal /.test(l)), ...(c.full ? { lines: sol.lines } : {}),
+      solution: { windows: sol.windows, outcome: sol.outcome, endUs: sol.endUs, finalSignature: sol.finalSignature },
+      timed: timed(d, c.route), random: { seedBase: 1, runs: games.length, wins: games.reduce((a, g) => a + g[1], 0), games },
+      solver: { win: sv.win, nodes: sv.nodes, sameAsSaved: !!sv.route && JSON.stringify(sv.route) === JSON.stringify(c.route) } };
+  });
+}
+
 const out = {
   format: 'bloomlings-round-reference-1',
   note: 'Generated by export-reference.cjs from the reference round engine; do not edit by hand.',
@@ -134,17 +175,21 @@ const out = {
 for (let n = first; n <= last; n++) {
   const file = `content/rounds/levels/L${String(n).padStart(4, '0')}.json`;
   const L = JSON.parse(fs.readFileSync(path.join(repo, file), 'utf8')), d = L.definition, t0 = Date.now();
-  const definition = { w: d.w, h: d.h, rowsBottomFirst: d.rowsBottomFirst, entries: d.entries, capacity: d.capacity, pods: d.pods, tray: d.tray, ...(d.hero ? { hero: d.hero } : {}) };
+  const definition = definitionOf(d);
   const games = []; let wins = 0;
   for (let i = 0; i < L.random.runs; i++) { const g = randomGame(d, L.random.seedBase * 7919 + i * 104729 + 1); wins += g[1]; games.push(g); }
   if (wins !== L.random.wins) throw Error(`${file}: the reference now wins ${wins}, the level records ${L.random.wins}`);
   const sv = solverRoute(d, 200000);
   out.levels.push({
     file, number: n, cls: L.cls, intro: L.intro, definition, route: L.solution.route,
-    solution: solution(d, L.solution.route), timed: timed(d, L.solution.route),
+    solution: (({ lines, ...rest }) => rest)(solution(d, L.solution.route)), timed: timed(d, L.solution.route),
     random: { seedBase: L.random.seedBase, runs: L.random.runs, wins, games },
     solver: { win: sv.win, nodes: sv.nodes, sameAsSaved: !!sv.route && JSON.stringify(sv.route) === JSON.stringify(L.solution.route) },
   });
   console.error(`${file}: random ${wins}/${L.random.runs}, solver ${sv.win} in ${sv.nodes} nodes, ${Date.now() - t0} ms`);
 }
-fs.writeFileSync(path.join(__dirname, 'reference-rounds.json'), JSON.stringify(out) + '\n');
+cellCases().then(cases => {
+  out.cells = cases;
+  for (const c of cases) console.error(`${c.name}: ${c.veiledAtStart.length} veiled at the start, ${c.reveals.length} revealed, ${c.solution.outcome}, random ${c.random.wins}/${c.random.runs}`);
+  fs.writeFileSync(path.join(__dirname, 'reference-rounds.json'), JSON.stringify(out) + '\n');
+});

@@ -601,6 +601,41 @@ namespace Bloomlings.Client.Tests
             Assert.That(RoundLook.RevealGlowSeconds, Is.EqualTo(1.6f));
         }
 
+        [Test]
+        public void AHiddenCell_IsTheNeutralQuestionCube_AndItsRevealPops()
+        {
+            // 17 §8 «Скрытые клетки»: the board cube's shape in the hidden pod's grey, with white "?" marks on its top.
+            const int w = 48;
+            const int h = 60;
+            byte[] hidden = UiRaster.HiddenBoardCube(w, h);
+            byte[] plain = UiRaster.BoardCube(w, h, RoundLook.HiddenPodColor, null);
+            int differ = 0;
+            int white = 0;
+            for (int i = 0; i < w * h; i++)
+            {
+                Assert.That(hidden[(i * 4) + 3], Is.EqualTo(plain[(i * 4) + 3]), "the same silhouette as a board cube");
+                if (hidden[i * 4] != plain[i * 4])
+                {
+                    differ++;
+                }
+
+                if (hidden[i * 4] > 230 && hidden[(i * 4) + 1] > 230 && hidden[(i * 4) + 2] > 230 && hidden[(i * 4) + 3] > 200)
+                {
+                    white++;
+                }
+            }
+
+            Assert.That(differ, Is.GreaterThan(20), "the marks");
+            Assert.That(white, Is.GreaterThan(10), "white marks");
+            Assert.That(UiRaster.HiddenBoardCubeKey, Does.StartWith(RoundLook.HiddenCellSlot));
+            Assert.That(AssetSlots.All.Any(slot => slot.Id == RoundLook.HiddenCellSlot), Is.True, "a registered asset slot");
+            Assert.That(RoundLook.CellRevealScale(-0.01f), Is.EqualTo(1f));
+            Assert.That(RoundLook.CellRevealScale(RoundLook.CellRevealSeconds / 2f), Is.GreaterThan(1.15f));
+            Assert.That(RoundLook.CellRevealScale(RoundLook.CellRevealSeconds), Is.EqualTo(1f));
+            Assert.That(RoundLook.CellRevealVeil(0f), Is.EqualTo(1f));
+            Assert.That(RoundLook.CellRevealVeil(RoundLook.CellRevealSeconds * 0.6f), Is.EqualTo(0f));
+        }
+
         // ---- Introduction cards ----
 
         [Test]
@@ -620,6 +655,15 @@ namespace Bloomlings.Client.Tests
             Assert.That(links.Id, Is.EqualTo("round.intro.links.reminder"));
 
             Assert.That(RoundIntroCards.For("bridge", false)!.Picture, Is.EqualTo(RoundIntroPicture.Bridge));
+            RoundIntroCard? cells = RoundIntroCards.For(new RoundIntroduction("cells", false));
+            Assert.That(cells!.Kind, Is.EqualTo(RoundIntroKind.Explanation));
+            Assert.That(cells.Picture, Is.EqualTo(RoundIntroPicture.HiddenCell));
+            Assert.That(cells.LineKeys.Count, Is.EqualTo(3));
+            Assert.That(cells.Id, Is.EqualTo("round.intro.cells"));
+            RoundIntroCard? cellsAgain = RoundIntroCards.For(new RoundIntroduction("cells", true));
+            Assert.That(cellsAgain!.Kind, Is.EqualTo(RoundIntroKind.Reminder));
+            Assert.That(cellsAgain.Id, Is.EqualTo("round.intro.cells.reminder"));
+            Assert.That(RoundIntroCards.Mechanics, Is.EqualTo(new[] { "hidden", "links", "bridge", "cells" }));
             Assert.That(RoundIntroCards.For((RoundIntroduction?)null), Is.Null);
             Assert.That(RoundIntroCards.For("latch", false), Is.Null);
 

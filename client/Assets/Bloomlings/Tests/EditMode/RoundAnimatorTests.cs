@@ -184,6 +184,71 @@ namespace Bloomlings.Client.Tests
             Assert.That(RoundLook.RevealGlow(RoundLook.RevealGlowSeconds), Is.EqualTo(0f));
         }
 
+        // 9 × 7 with the frame: a 5 × 3 block of G cubes, its two middle cubes of the middle row hidden (17 §8 «Скрытые клетки»).
+        private static RoundLevel HiddenCells() => new RoundLevel(4, 9, 7,
+            new[] { "####.####", "#.......#", "#.GGGGG.#", "#.GGGGG.#", "#.GGGGG.#", "#.......#", "#########" },
+            new[] { new RoundPod('G', 15) },
+            new IReadOnlyList<int>[] { new[] { 0 } },
+            mechanics: new[] { "cells" },
+            hiddenCells: new[] { 30, 31 });
+
+        [Test]
+        public void AHiddenCell_IsVeiledUntilItsRevealPlays_AndNoWalkerTargetsItBefore()
+        {
+            var play = new RoundPlay(HiddenCells());
+            Assert.That(play.Animator.Veiled(30) && play.Animator.Veiled(31), Is.True);
+            Assert.That(play.Animator.Veiled(29), Is.False, "a cube on the start front is no hidden cell");
+            play.Advance(0.1, 1);
+            play.Commit(RoundAction.Tap(0));
+            var revealedAt = new Dictionary<int, long>();
+            for (int k = 0; k < 100_000 && (play.Timeline.Pending || play.Animator.Busy); k++)
+            {
+                IReadOnlyList<RoundEvent> fresh = play.Advance(1.0 / 60.0, 1);
+                foreach (RoundEvent e in fresh.Where(e => e.Type == RoundEventType.CellReveal))
+                {
+                    revealedAt[e.Cell] = play.Animator.CellRevealedAt(e.Cell);
+                    Assert.That(play.Animator.CellRevealSince(e.Cell), Is.InRange(0f, RoundLook.CellRevealSeconds), "its pop starts with its reveal");
+                }
+
+                foreach (RoundWalk walk in play.Animator.Walkers)
+                {
+                    Assert.That(play.Animator.Veiled(walk.Cell), Is.False, "no walker goes to a cube still showing its \"?\"");
+                }
+            }
+
+            Assert.That(revealedAt.Keys.OrderBy(c => c), Is.EqualTo(new[] { 30, 31 }));
+            Assert.That(play.Animator.Veiled(30) || play.Animator.Veiled(31), Is.False);
+            Assert.That(play.Animator.CellRevealSince(30), Is.EqualTo(-1f), "the pop has ended");
+            Assert.That(play.Status, Is.EqualTo(RoundStatus.Won));
+            Assert.That(play.Animator.ShowsRulesState(play.Timeline, out string difference), Is.True, difference);
+        }
+
+        [Test]
+        public void ARevealAheadOfTheDisplayClock_StaysVeiledUntilItsTime()
+        {
+            RoundLevel level = HiddenCells();
+            var timeline = new RoundTimeline(level);
+            var animator = new RoundAnimator(level);
+            animator.Reset(timeline, 0);
+            timeline.Commit(RoundAction.Tap(0));
+            var reveals = new List<RoundEvent>();
+            while (timeline.Pending)
+            {
+                timeline.Advance(50_000);
+                reveals.AddRange(timeline.LastEvents.Where(e => e.Type == RoundEventType.CellReveal));
+            }
+
+            RoundEvent first = reveals[0];
+            Assert.That(first.At, Is.GreaterThan(0L));
+            animator.Observe(new[] { first }, 0);
+            Assert.That(animator.Veiled(first.Cell), Is.True, "before its moment");
+            animator.SetTime(first.At);
+            Assert.That(animator.Veiled(first.Cell), Is.False);
+            Assert.That(animator.CellRevealSince(first.Cell), Is.EqualTo(0f));
+            animator.SetTime(first.At + RoundAnimator.CellRevealUs);
+            Assert.That(animator.CellRevealSince(first.Cell), Is.EqualTo(-1f));
+        }
+
         [Test]
         public void ALinkedPair_HasItsTubeInTheColumns_ThenInThePlaces()
         {

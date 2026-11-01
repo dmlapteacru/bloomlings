@@ -122,6 +122,26 @@ namespace Bloomlings.Client.UI.Tutorial
                     break;
                 }
 
+                case RoundIntroPicture.HiddenCell:
+                {
+                    // A hidden cell's "?" cube, the arrow, the same cube revealed (17 §8 «Скрытые клетки»).
+                    float cw = h * 0.62f;
+                    float ch = cw * (RoundScreenLook.BoardRowShare + RoundScreenLook.BoardFrontShare);
+                    var hiddenBox = Box.FromCenter(local.CenterX - ((cw + gap) / 2f), local.CenterY, cw, ch);
+                    var shownBox = Box.FromCenter(local.CenterX + ((cw + gap) / 2f), local.CenterY, cw, ch);
+                    Image hidden = UiFactory.CreateImage("HiddenCell", holder, null, Color.white);
+                    hidden.raycastTarget = false;
+                    BoxLayout.Place(hidden.rectTransform, hiddenBox);
+                    PictureFit.On(hidden, (w, ph) => RoundSprites.HiddenCube(w, ph));
+                    Image arrow = UiKit.ShapeImage("Arrow", holder, "ui.chevron", C.InkBrownSoft);
+                    BoxLayout.Place(arrow.rectTransform, Box.FromCenter(local.CenterX, local.CenterY, h * 0.28f, h * 0.28f));
+                    Image shown = UiFactory.CreateImage("RevealedCell", holder, null, Color.white);
+                    shown.raycastTarget = false;
+                    BoxLayout.Place(shown.rectTransform, shownBox);
+                    PictureFit.On(shown, (w, ph) => RoundSprites.BoardCube(1, false, w, ph));
+                    break;
+                }
+
                 case RoundIntroPicture.LinkedPair:
                 {
                     Image tube = RoundTubes.Create("LinkTube", holder);

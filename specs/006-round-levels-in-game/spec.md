@@ -318,7 +318,7 @@ owner sees the same behaviour as in the playtest app.
   of the tube is in one member's colour and half in the other's. The tube is not drawn above or on top of the pods.
 - **FR-044**: When Auto starts, the whole HUD MUST disappear and leave the board. The normal speed-up control stays
   available until then.
-- **FR-045**: The first introduction of each mechanic (hidden pods, links, bridge) MUST show its explanation popup. The
+- **FR-045**: The first introduction of each mechanic (hidden pods, links, bridge, hidden cells since FR-066) MUST show its explanation popup. The
   second introduction shows a short reminder. A hidden pod that has just revealed glows briefly.
 - **FR-046**: The class badge (Hard, Super Hard), the finished picture in the win screen and Collection, and the rewards
   by class MUST work for round levels as for today's levels.
@@ -363,6 +363,25 @@ owner sees the same behaviour as in the playtest app.
     then. A buildable site MUST be drawn whole with its glow outline gently pulsing (swelling and brightening, the owner's
     "the outline could pulse a little" of the same day), and take the tap; a built bridge is drawn
     whole. The rules never read `shown`.
+
+- **FR-066** (hidden cells, rules 17 §8 «Скрытые клетки», the owner's amendment of 2026-11-01; the reference contract is
+  `tools/rounds/README.md` "Hidden cells"):
+  - Data: a round level MAY list hidden cells (`board.hiddenCells` of `round-level.v1`, `mechanics` then includes
+    `"cells"`): cell indices `y*w+x` of `rowsBottomFirst`, sorted ascending, unique, at least one, each a material cell.
+    Validation MUST refuse a bad list, a hidden cell that is not a material cell, and hidden cells on a level with hidden
+    pods (the two unknowns are interchangeable and never on one level). Absent means none. Hidden cells are introduced on
+    L51 and L53 (17 §9).
+  - Reveal: a hidden cell's material is fixed from the start; it MUST reveal exactly when it becomes a target (an
+    orthogonal neighbour open and reached from an entry, or itself an entry cell). The start reveal is silent (part of the
+    start state); afterwards each reveal is a `cellReveal` event right after the clear, bridge or Bloom Burst that opened
+    it, at that change's model time, several in increasing cell order (conformance line `<µs> cellReveal cell=<c>`).
+    Nothing else changes: targeting, dispatch, release, status, outcomes and the signature are those of the same level
+    without hidden cells, and a level without hidden cells plays byte-identically. Bloom Burst may take a hidden cell of
+    its material unseen; it cannot be aimed at a cube still showing "?".
+  - Look: an unrevealed hidden cell MUST be drawn as the board's oblique cube in the hidden pod's neutral grey with its
+    white "?" marks (`tile.round.hidden`), its side face in the same grey; when its `cellReveal` plays it pops into its
+    material's cube (about 0.36 s). The walkers never go to it before. Its first meeting shows an explanation card and
+    its second a reminder, as the hidden pods' (FR-045).
 
 **Transfer path**
 

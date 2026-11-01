@@ -181,7 +181,8 @@ namespace Bloomlings.Core.Rounds
             IReadOnlyList<string>? mechanics = null,
             RoundException? exception = null,
             RoundEngineVersion? engine = null,
-            RoundOverlay? overlay = null)
+            RoundOverlay? overlay = null,
+            IReadOnlyList<int>? hiddenCells = null)
         {
             Number = number;
             Width = width;
@@ -201,6 +202,7 @@ namespace Bloomlings.Core.Rounds
             Exception = exception;
             Engine = engine;
             Overlay = overlay;
+            HiddenCells = hiddenCells ?? Array.Empty<int>();
         }
 
         public int Number { get; }
@@ -242,6 +244,15 @@ namespace Bloomlings.Core.Rounds
 
         /// <summary>The strip laid over the picture (walls and sites in picture coordinates), or null.</summary>
         public RoundOverlay? Overlay { get; }
+
+        /// <summary>
+        /// The hidden cells (rules 17 §8 «Скрытые клетки», the owner, 2026-11-01; <c>board.hiddenCells</c> of
+        /// <c>round-level.v1</c>): cell indices <c>y * w + x</c> of <see cref="RowsBottomFirst"/>, sorted ascending, each a
+        /// material cell. Its material is fixed from the start but shown as a neutral «?» until the cell gets an open
+        /// neighbour reachable from an entry (or is an entry cell), the moment it would become a target. Empty on a level
+        /// without hidden cells; never on a level with hidden pods.
+        /// </summary>
+        public IReadOnlyList<int> HiddenCells { get; }
 
         /// <summary>
         /// The board cell of a picture cell (x from the left, y from the top): the picture sits inside a wall frame and an
@@ -390,6 +401,18 @@ namespace Bloomlings.Core.Rounds
 
                 Groups[p] = members.ToArray();
             }
+
+            if (level.HiddenCells.Count > 0)
+            {
+                Hidden = new bool[n];
+                foreach (int cell in level.HiddenCells)
+                {
+                    if (cell >= 0 && cell < n)
+                    {
+                        Hidden[cell] = true;
+                    }
+                }
+            }
         }
 
         public int[] Neighbours { get; }
@@ -403,5 +426,8 @@ namespace Bloomlings.Core.Rounds
         public bool[] IsEntry { get; }
 
         public int[][] Groups { get; }
+
+        /// <summary>The hidden cells' mask (reference <c>prepare</c>'s <c>hidden</c>), or null on a level without them.</summary>
+        public bool[]? Hidden { get; }
     }
 }

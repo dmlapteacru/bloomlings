@@ -393,23 +393,7 @@ namespace Bloomlings.Client.UI.Design
                     (Color c, float cover, float _) = ObliqueCube(x, y, s, s, col, front, m, m, bevel, 0f);
                     if (mystery != null && cover > 0f)
                     {
-                        // A big "?" in the middle of the top and four small ones round it, white.
-                        float cx = s / 2f;
-                        float cy = (m + topBottom) / 2f;
-                        float dx = (s - (2f * m)) * 0.3f;
-                        float dy = (topBottom - m) * 0.32f;
-                        for (int q = 0; q < 5; q++)
-                        {
-                            float unit = q == 0 ? mysteryUnit : mysteryUnit * 0.4f;
-                            float ox = q == 0 ? 0f : (q % 2 == 1 ? -dx : dx);
-                            float oy = q == 0 ? 0f : (q < 3 ? -dy : dy);
-                            float u = (x - cx - ox) / unit;
-                            float v = -(y - cy - oy) / unit;
-                            if (Math.Abs(u) < 1.3f && Math.Abs(v) < 1.3f)
-                            {
-                                c.Mix(Rgba.White, Coverage(mystery(u, v) * unit) * (q == 0 ? 1f : 0.85f));
-                            }
-                        }
+                        MysteryMarks(ref c, x, y, s / 2f, (m + topBottom) / 2f, (s - (2f * m)) * 0.3f, (topBottom - m) * 0.32f, mysteryUnit, mystery);
                     }
 
                     if (mark != null && cover > 0f)
@@ -441,6 +425,74 @@ namespace Bloomlings.Client.UI.Design
 
             return pixels;
         }
+
+        /// <summary>
+        /// The hidden pod's "?" marks on a cube's top (the owner, 2026-10-31): a big white "?" (<c>tile.mystery</c>) of
+        /// <paramref name="unit"/> at (<paramref name="cx"/>, <paramref name="cy"/>) and four small ones round it,
+        /// <paramref name="dx"/> and <paramref name="dy"/> off. Shared by the hidden pod and the hidden cell.
+        /// </summary>
+        private static void MysteryMarks(ref Color c, float x, float y, float cx, float cy, float dx, float dy, float unit0, Func<float, float, float> mystery)
+        {
+            for (int q = 0; q < 5; q++)
+            {
+                float unit = q == 0 ? unit0 : unit0 * 0.4f;
+                float ox = q == 0 ? 0f : (q % 2 == 1 ? -dx : dx);
+                float oy = q == 0 ? 0f : (q < 3 ? -dy : dy);
+                float u = (x - cx - ox) / unit;
+                float v = -(y - cy - oy) / unit;
+                if (Math.Abs(u) < 1.3f && Math.Abs(v) < 1.3f)
+                {
+                    c.Mix(Rgba.White, Coverage(mystery(u, v) * unit) * (q == 0 ? 1f : 0.85f));
+                }
+            }
+        }
+
+        /// <summary>
+        /// A hidden cell's cube (<c>tile.round.hidden</c>, rules 17 §8 «Скрытые клетки», the owner's amendment of 2026-11-01:
+        /// "a neutral «?» cube, like the hidden pod"): the board's oblique cube (<see cref="BoardCube"/>, the same size, front
+        /// and hairline) in the hidden pod's neutral grey (<see cref="RoundLook.HiddenPodColor"/>) with the hidden pod's white
+        /// "?" marks on its top (a big one and four small ones), never a material colour or symbol until it reveals.
+        /// </summary>
+        public static byte[] HiddenBoardCube(int width, int height)
+        {
+            Check(width, height);
+            var pixels = new byte[width * height * 4];
+            float w = width;
+            float h = height;
+            float m = w * (1f - RoundScreenLook.BoardCubeFill) / 2f;
+            float front = RoundScreenLook.BoardFrontShare / (RoundScreenLook.BoardRowShare + RoundScreenLook.BoardFrontShare);
+            float bevel = w * RoundScreenLook.BoardBevelShare;
+            float topBottom = h - ((h - m) * front);
+            Rgba color = RoundLook.HiddenPodColor;
+            Func<float, float, float> mystery = ShapeLibrary.Get("tile.mystery");
+            float topHeight = topBottom - m;
+            float unit = Math.Min(w * 0.5f, topHeight * 0.95f) / 2f / ShapeRaster.Margin;
+            for (int py = 0; py < height; py++)
+            {
+                float y = py + 0.5f;
+                for (int px = 0; px < width; px++)
+                {
+                    float x = px + 0.5f;
+                    (Color c, float cover, float _) = ObliqueCube(x, y, w, h, color, front, m, 0f, bevel);
+                    if (cover <= 0f)
+                    {
+                        continue;
+                    }
+
+                    MysteryMarks(ref c, x, y, w / 2f, (m + topBottom) / 2f, (w - (2f * m)) * 0.3f, topHeight * 0.32f, unit, mystery);
+                    Put(pixels, width, px, py, c, cover);
+                }
+            }
+
+            return pixels;
+        }
+
+        /// <summary>The cache key of a hidden cell's cube picture (<see cref="HiddenBoardCube"/>), the same in both builds.</summary>
+        public const string HiddenBoardCubeKey = RoundLook.HiddenCellSlot + "/oblique";
+
+        /// <summary>The cache key of a hidden cell's side face (<see cref="SideFace"/> in <see cref="RoundLook.HiddenPodColor"/>).</summary>
+        public static string HiddenSideFaceKey(bool left, float topShare) =>
+            RoundLook.HiddenCellSlot + "/side/" + (left ? "left" : "right") + "/" + ((int)Math.Round(topShare * 100f)).ToString(System.Globalization.CultureInfo.InvariantCulture);
 
         /// <summary>The cache key of a pod cube's picture (<see cref="PodCube"/>), the same in both builds.</summary>
         public static string PodCubeKey(char code, bool hidden, RoundPodLook look, bool symbol, bool grey = false) =>

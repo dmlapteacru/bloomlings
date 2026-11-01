@@ -43,7 +43,7 @@ namespace Bloomlings.Content.Rounds
 
         private static readonly Regex Date = new Regex("^[0-9]{4}-[0-9]{2}-[0-9]{2}$", RegexOptions.CultureInvariant);
 
-        private static readonly string[] Mechanics = { "hidden", "links", "bridge" };
+        private static readonly string[] Mechanics = { "hidden", "links", "bridge", "cells" };
 
         // ---------------------------------------------------------------- round-level.v1
 
@@ -77,7 +77,7 @@ namespace Bloomlings.Content.Rounds
 
             string boardPath = JsonDoc.Join(path, "board");
             JObject board = JsonDoc.Object(JsonDoc.Required(root, path, "board"), boardPath);
-            JsonDoc.AllowOnly(board, boardPath, "w", "h", "rowsBottomFirst", "entries", "hero", "overlay");
+            JsonDoc.AllowOnly(board, boardPath, "w", "h", "rowsBottomFirst", "entries", "hero", "overlay", "hiddenCells");
             int w = JsonDoc.Int(JsonDoc.Required(board, boardPath, "w"), JsonDoc.Join(boardPath, "w"), 7, RoundLevel.MaxSide);
             int h = JsonDoc.Int(JsonDoc.Required(board, boardPath, "h"), JsonDoc.Join(boardPath, "h"), 8, RoundLevel.MaxSide);
             string rowsPath = JsonDoc.Join(boardPath, "rowsBottomFirst");
@@ -131,6 +131,25 @@ namespace Bloomlings.Content.Rounds
                 overlay = new RoundOverlay(
                     PictureCells(JsonDoc.Required(overlayObject, overlayPath, "walls"), JsonDoc.Join(overlayPath, "walls"), w - 4, h - 4),
                     PictureCells(JsonDoc.Required(overlayObject, overlayPath, "sites"), JsonDoc.Join(overlayPath, "sites"), w - 4, h - 4, 2, 2));
+            }
+
+            // Hidden cells (rules 17 §8 «Скрытые клетки», 2026-11-01): sorted, unique cell indices; absent means none. That
+            // each is a material cell and that the level has no hidden pods is the validator's (RoundLevelValidator).
+            int[]? hiddenCells = null;
+            JToken? hiddenToken = JsonDoc.Optional(board, "hiddenCells");
+            if (hiddenToken != null)
+            {
+                string hiddenPath = JsonDoc.Join(boardPath, "hiddenCells");
+                JArray hiddenArray = JsonDoc.Array(hiddenToken, hiddenPath, minItems: 1);
+                hiddenCells = new int[hiddenArray.Count];
+                for (int i = 0; i < hiddenCells.Length; i++)
+                {
+                    hiddenCells[i] = Cell(hiddenArray[i], JsonDoc.Index(hiddenPath, i), w * h);
+                    if (i > 0 && hiddenCells[i] <= hiddenCells[i - 1])
+                    {
+                        throw new ContentFormatException(JsonDoc.Index(hiddenPath, i), "hidden cells must be sorted ascending and unique");
+                    }
+                }
             }
 
             int capacity = JsonDoc.Int(JsonDoc.Required(root, path, "capacity"), JsonDoc.Join(path, "capacity"));
@@ -226,7 +245,8 @@ namespace Bloomlings.Content.Rounds
                 mechanics,
                 exception,
                 engine,
-                overlay);
+                overlay,
+                hiddenCells);
         }
 
         public static string WriteLevel(RoundLevel level, bool indented = true) => CanonicalJson.Write(ToJObject(level), indented);
@@ -271,6 +291,13 @@ namespace Bloomlings.Content.Rounds
             if (level.Overlay != null)
             {
                 board["overlay"] = new JObject { ["walls"] = PictureCells(level.Overlay.Walls), ["sites"] = PictureCells(level.Overlay.Sites) };
+            }
+
+            if (level.HiddenCells.Count > 0)
+            {
+                var hidden = new List<int>(level.HiddenCells);
+                hidden.Sort();
+                board["hiddenCells"] = new JArray(ToArray(hidden));
             }
 
             var pods = new JArray();

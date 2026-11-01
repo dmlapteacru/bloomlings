@@ -1257,6 +1257,12 @@ namespace Bloomlings.Playtest
                         Color ground = site && a.Bridge != choice ? (buildable.Contains(choice) ? EntryColor : Color.ParseColor("#C9A46A")) : strip;
                         Fill(canvas, site ? full : run, ground, 0f);
                     }
+                    else if (shown >= 0 && a.Veiled(index))
+                    {
+                        // A hidden cell (17 §8 «Скрытые клетки»): neutral grey with a "?" until it reveals.
+                        Fill(canvas, Inset(full, cell * 0.04f), Color.ParseColor("#4A4C55"), 0f);
+                        Text(canvas, "?", full.CenterX(), full.CenterY(), cell * 0.7f, Color.White);
+                    }
                     else if (shown >= 0)
                     {
                         Fill(canvas, Inset(full, cell * 0.04f), MaterialColor(RoundMaterial.Codes[shown]), 0f);

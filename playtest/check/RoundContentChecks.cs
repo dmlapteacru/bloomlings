@@ -87,10 +87,11 @@ namespace Bloomlings.Playtest.Check
         /// from the round levels in the repository: <c>content/game/rounds/levels</c> once a wave is imported, else the
         /// exported waves (<c>content/game/rounds/export/L####-L####</c>). For checks and local APK builds only: the
         /// game's set comes from <c>rounds publish</c>, which validates and proves the levels first.
+        /// <paramref name="roundsFolder"/> replaces <c>content/game/rounds</c> (a temporary set for a review).
         /// </summary>
-        public static int Publish(string root, string folder, out string source)
+        public static int Publish(string root, string folder, out string source, string? roundsFolder = null)
         {
-            string rounds = Path.Combine(root, "content/game/rounds");
+            string rounds = roundsFolder ?? Path.Combine(root, "content/game/rounds");
             var sources = new List<string>();
             if (Directory.Exists(Path.Combine(rounds, "levels")) && Directory.GetFiles(Path.Combine(rounds, "levels"), "L*.json").Length > 0)
             {

@@ -30,7 +30,16 @@ namespace Bloomlings.Core.Rounds
         public const string Entries = "entries are cells of the board";
         public const string BridgeSites = "bridge sites are walls with an orthogonal neighbour as anchor";
         public const string Mechanics = "mechanics match pods and hero";
-        public const string UnknownMechanic = "mechanics are hidden, links or bridge";
+        public const string UnknownMechanic = "mechanics are hidden, links, bridge or cells";
+
+        /// <summary>17 §8 «Скрытые клетки» (2026-11-01): hidden cells are sorted, unique cell indices (reference "hidden cells").</summary>
+        public const string HiddenCells = "hidden cells are sorted unique cells of the board";
+
+        /// <summary>Each hidden cell is a material cell (reference "hidden cell not a colour cell").</summary>
+        public const string HiddenCellMaterial = "a hidden cell is a material cell";
+
+        /// <summary>Hidden pods and hidden cells are interchangeable unknowns, never on one level (reference "hidden cells with hidden pods").</summary>
+        public const string HiddenCellsWithPods = "hidden cells never with hidden pods";
 
         /// <summary>17 §5: every 15th level Super Hard, other multiples of 5 Hard, the rest Normal.</summary>
         public const string Calendar = "class matches the calendar";
@@ -61,6 +70,7 @@ namespace Bloomlings.Core.Rounds
             ("hidden", 6, 8),
             ("links", 11, 13),
             ("bridge", 16, 18),
+            ("cells", 51, 53),
         };
 
         /// <summary>The calendar class of a level number (17 §5).</summary>
@@ -147,7 +157,8 @@ namespace Bloomlings.Core.Rounds
 
         /// <summary>
         /// The definition's errors, the reference's <c>validate</c> for round levels: board size, rows, tray partition,
-        /// columns, capacity, pod counts, exact accounting, link pairs, hidden pods, entries, bridge sites and mechanics.
+        /// columns, capacity, pod counts, exact accounting, link pairs, hidden pods, hidden cells, entries, bridge sites and
+        /// mechanics.
         /// </summary>
         public static List<string> ValidateDefinition(RoundLevel level)
         {
@@ -320,6 +331,42 @@ namespace Bloomlings.Core.Rounds
                 Add(errors, Hidden);
             }
 
+            // Hidden cells (17 §8, 2026-11-01): sorted unique cell indices, each a material cell, never with hidden pods.
+            IReadOnlyList<int> hiddenCells = level.HiddenCells;
+            if (hiddenCells.Count > 0)
+            {
+                bool listOk = true;
+                for (int k = 0; k < hiddenCells.Count; k++)
+                {
+                    int c = hiddenCells[k];
+                    if (c < 0 || c >= cellCount || (k > 0 && c <= hiddenCells[k - 1]))
+                    {
+                        listOk = false;
+                    }
+                }
+
+                if (!listOk)
+                {
+                    Add(errors, HiddenCells);
+                }
+                else if (rowsOk)
+                {
+                    foreach (int c in hiddenCells)
+                    {
+                        if (RoundMaterial.IndexOf(grid[c]) < 0)
+                        {
+                            Add(errors, HiddenCellMaterial);
+                            break;
+                        }
+                    }
+                }
+
+                if (hidden > 0)
+                {
+                    Add(errors, HiddenCellsWithPods);
+                }
+            }
+
             foreach (int entry in level.Entries)
             {
                 if (entry < 0 || entry >= cellCount)
@@ -342,7 +389,7 @@ namespace Bloomlings.Core.Rounds
 
             foreach (string m in level.Mechanics)
             {
-                if (m != "hidden" && m != "links" && m != "bridge")
+                if (m != "hidden" && m != "links" && m != "bridge" && m != "cells")
                 {
                     Add(errors, UnknownMechanic);
                 }
@@ -350,7 +397,8 @@ namespace Bloomlings.Core.Rounds
 
             bool mechanicsOk = Contains(level.Mechanics, "hidden") == (hidden > 0)
                 && Contains(level.Mechanics, "links") == (names.Count > 0)
-                && Contains(level.Mechanics, "bridge") == (level.Bridge != null && level.Bridge.Count > 0);
+                && Contains(level.Mechanics, "bridge") == (level.Bridge != null && level.Bridge.Count > 0)
+                && Contains(level.Mechanics, "cells") == (hiddenCells.Count > 0);
             if (!mechanicsOk)
             {
                 Add(errors, Mechanics);

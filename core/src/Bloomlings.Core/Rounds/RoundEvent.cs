@@ -44,6 +44,12 @@ namespace Bloomlings.Core.Rounds
 
         /// <summary>One cell cleared by Bloom Burst.</summary>
         BurstClear,
+
+        /// <summary>
+        /// A hidden cell showed its material (rules 17 §8 «Скрытые клетки»): right after the clear, bridge or burst that
+        /// opened its neighbour, at that change's time; several in increasing cell order.
+        /// </summary>
+        CellReveal,
     }
 
     /// <summary>
@@ -134,6 +140,8 @@ namespace Bloomlings.Core.Rounds
         internal static RoundEvent Burst(long at, char code, int count) => new RoundEvent(RoundEventType.Burst, at, code: code, count: count);
 
         internal static RoundEvent BurstCell(long at, int cell) => new RoundEvent(RoundEventType.BurstClear, at, cell: cell);
+
+        internal static RoundEvent CellRevealed(long at, int cell) => new RoundEvent(RoundEventType.CellReveal, at, cell: cell);
 
         /// <summary>The canonical line of this event (<see cref="RoundEvents.Line"/>).</summary>
         public override string ToString() => RoundEvents.Line(this);

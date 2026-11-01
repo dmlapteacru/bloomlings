@@ -372,6 +372,67 @@ namespace Bloomlings.Content.Tests.Rounds
             });
         }
 
+        [Test]
+        public void Level_WithHiddenCells_RoundTrips()
+        {
+            // 17 §8 «Скрытые клетки» (2026-11-01): board.hiddenCells, sorted cell indices of the rows; mechanics "cells".
+            JObject root = JObject.Parse(LevelSample);
+            root["board"]!["hiddenCells"] = new JArray(31, 38);
+            root["mechanics"] = new JArray("cells");
+            string json = root.ToString();
+
+            RoundLevel level = RoundJson.ReadLevel(json);
+            string written = RoundJson.WriteLevel(level);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(ContractSchemas.IsValidRoundLevel(written), Is.True);
+                Assert.That(level.HiddenCells, Is.EqualTo(new[] { 31, 38 }));
+                Assert.That(level.Mechanics, Is.EqualTo(new[] { "cells" }));
+                Assert.That(RoundValidatorErrors(level), Is.Empty);
+                Assert.That(RoundJson.WriteLevel(RoundJson.ReadLevel(written)), Is.EqualTo(written));
+                Assert.That(JObject.Parse(written)["board"]!["hiddenCells"]!.ToString(Newtonsoft.Json.Formatting.None), Is.EqualTo("[31,38]"));
+                Assert.That(JObject.Parse(RoundJson.WriteLevel(RoundJson.ReadLevel(LevelSample)))["board"]!["hiddenCells"], Is.Null, "absent means none");
+            });
+        }
+
+        private static List<string> RoundValidatorErrors(RoundLevel level) => RoundLevelValidator.ValidateDefinition(level);
+
+        [TestCase("[]", true, TestName = "HiddenCellsEmpty_IsRejectedByBoth")]
+        [TestCase("[31,31]", true, TestName = "HiddenCellsTwice_IsRejectedByBoth")]
+        [TestCase("[-1]", true, TestName = "HiddenCellNegative_IsRejectedByBoth")]
+        [TestCase("[38,31]", false, TestName = "HiddenCellsUnsorted_IsRejectedByTheReader")]
+        [TestCase("[56]", false, TestName = "HiddenCellOffTheBoard_IsRejectedByTheReader")]
+        public void Level_BadHiddenCells_AreRejected(string cells, bool bySchema)
+        {
+            JObject root = JObject.Parse(LevelSample);
+            root["board"]!["hiddenCells"] = JArray.Parse(cells);
+            root["mechanics"] = new JArray("cells");
+            string text = root.ToString();
+
+            Assert.Multiple(() =>
+            {
+                if (bySchema)
+                {
+                    Assert.That(ContractSchemas.IsValidRoundLevel(text), Is.False, "schema");
+                }
+
+                Assert.Throws<ContentFormatException>(() => RoundJson.ReadLevel(text), "reader");
+            });
+        }
+
+        [Test]
+        public void Level_AHiddenCellOnAWall_IsTheValidatorsJob()
+        {
+            JObject root = JObject.Parse(LevelSample);
+            root["board"]!["hiddenCells"] = new JArray(0);
+            root["mechanics"] = new JArray("cells");
+
+            RoundLevel level = RoundJson.ReadLevel(root.ToString());
+
+            Assert.That(RoundLevelValidator.ValidateDefinition(level), Does.Contain(RoundLevelValidator.HiddenCellMaterial));
+        }
+
         [TestCase(true)]
         [TestCase("no")]
         public void Level_ABadBridgeShown_IsRejectedByBoth(object value)

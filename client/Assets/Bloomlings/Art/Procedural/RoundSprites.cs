@@ -115,6 +115,20 @@ namespace Bloomlings.Client.Art
             return ProceduralSprites.Picture(UiRaster.BoardCubeKey(m.Code, symbolsMode), Math.Max(1, width), Math.Max(1, height), (w, h) => UiRaster.BoardCube(w, h, color, mark));
         }
 
+        /// <summary>
+        /// A hidden cell's cube (17 §8 «Скрытые клетки», spec 006 FR-066; the playtest's <c>Kit.HiddenCube</c>): the board's
+        /// oblique cube in the hidden pod's grey with its white "?" marks (<see cref="UiRaster.HiddenBoardCube"/>).
+        /// </summary>
+        public static Sprite HiddenCube(int width, int height) =>
+            ProceduralSprites.Picture(UiRaster.HiddenBoardCubeKey, Math.Max(1, width), Math.Max(1, height), (w, h) => UiRaster.HiddenBoardCube(w, h));
+
+        /// <summary>A hidden cell's side face (the playtest's <c>Kit.HiddenSideFace</c>), in the hidden pod's grey.</summary>
+        public static Sprite HiddenSideFace(bool left, float topShare, int width, int height)
+        {
+            float share = (float)Math.Round(topShare * 100f) / 100f;
+            return ProceduralSprites.Picture(UiRaster.HiddenSideFaceKey(left, share), Math.Max(1, width), Math.Max(1, height), (w, h) => UiRaster.SideFace(w, h, RoundLook.HiddenPodColor, left, share));
+        }
+
         /// <summary>The link tube's picture (<see cref="UiRaster.LinkTube"/>) of <paramref name="shape"/>'s colours at a pixel size.</summary>
         public static Sprite LinkTube(LinkTubeShape shape, int width, int height)
         {

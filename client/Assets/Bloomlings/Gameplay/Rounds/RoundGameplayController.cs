@@ -742,7 +742,7 @@ namespace Bloomlings.Client.Gameplay.Rounds
             }
 
             int material = core.Animator.MaterialAt(cell);
-            if (material >= 0 && core.CanBurst(material))
+            if (material >= 0 && !core.Animator.Veiled(cell) && core.CanBurst(material))
             {
                 Use(BoosterKind.BloomBurst, RoundInput.BloomBurst(RoundMaterial.All[material].Code, 0));
             }

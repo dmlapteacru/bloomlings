@@ -50,7 +50,8 @@ Water/Dew, Wood/Acorn). The launch has 2500 sequential levels, with later expans
   Hard, other multiples of 5 Hard, the rest Normal. Leftovers stay in `content/rounds/bank/`; empty positions go to
   `content/rounds/needs.json` for new pictures. Tools: `tools/rounds/` (`pictures.mjs`, `levels.mjs`, `measure.mjs`,
   `engine.mjs`: pilot v9 rules with the §8 link rule). The behaviour of the 12 types is in the full catalog `product/design/Bloomlings-gameplay-mechanics.md`. Only mechanics the round engine plays may be used. Today these
-  are hidden pods, links and the Sprig bridge; latch + key (L51) and later types need engine and pilot work first.
+  are hidden pods, links, the Sprig bridge and hidden cells (`cells`, L51/L53; never with hidden pods); latch + key (now
+  L401) and later types need engine and pilot work first.
 - **Round levels in the game (spec 006, `specs/006-round-levels-in-game/`).** The game's rules are the round engine's,
   ported to `core/src/Bloomlings.Core/Rounds/` (`RoundTimeline` with integer µs model time, `RoundRules`,
   `RoundBoosters` in live time, `RoundEvents`, `RoundRandomPolicy`, `RoundSolver`, `RoundLevelValidator`); the JS
@@ -62,7 +63,9 @@ Water/Dew, Wood/Acorn). The launch has 2500 sequential levels, with later expans
   `pictures`, `proofs`, `conformance`, `published` for the clients, `transfers.jsonl`). The playtest and Unity play
   round levels only (`RoundPlay`, `RoundAnimator`, `RoundBoardLayout`, `LinkTube` in the kit; Daily off, "new levels
   soon" after the last level). Cubes have no variant icon; Settings' symbols mode (off by default, `settings.symbols`)
-  shows each material's symbol for colour-blind players. The board is the owner's of 2026-10-28 (spec 006 FR-049,
+  shows each material's symbol for colour-blind players. A hidden cell (spec 006 FR-066, `board.hiddenCells`) is the
+  neutral «?» cube (`UiRaster.HiddenBoardCube`) until its `cellReveal` event, which the rules emit the moment it becomes
+  a target. The board is the owner's of 2026-10-28 (spec 006 FR-049,
   `contracts/presentation.md`): one fixed box on every level (`ReferenceGameplayRegions.RoundBoard`) with a frame of
   one thickness, a solid neutral surface (`board.surface`, no grass, no grid, no imprint of eaten cubes), and the cube
   size fitted to the picture (`RoundBoardLayout.Cell`). The level screen is the owner's of 2026-10-28 (spec 006 FR-064): every size is a

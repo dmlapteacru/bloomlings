@@ -31,6 +31,8 @@ namespace Bloomlings.Client.UI.Design
     /// waiting pod is only a little lighter (<see cref="WaitingColor"/>).</description></item>
     /// <item><description>A hidden pod that has just revealed glows for <see cref="RevealGlowSeconds"/>
     /// (<see cref="RevealGlow"/>).</description></item>
+    /// <item><description>A hidden cell (17 §8 «Скрытые клетки») is the neutral "?" cube (<see cref="HiddenCellSlot"/>) until
+    /// it reveals, then pops into its material (<see cref="CellRevealScale"/>, <see cref="CellRevealVeil"/>).</description></item>
     /// </list>
     /// Engine-free.
     /// </summary>
@@ -46,6 +48,51 @@ namespace Bloomlings.Client.UI.Design
         /// white "?" marks on its top, no material colour until it reveals.
         /// </summary>
         public static readonly Rgba HiddenPodColor = Rgba.FromHex("#4A4C55");
+
+        /// <summary>
+        /// A hidden cell's asset slot (rules 17 §8 «Скрытые клетки», the owner's amendment of 2026-11-01; spec 006 FR-066): an
+        /// unrevealed hidden cell is drawn as the board's oblique cube in <see cref="HiddenPodColor"/> with the hidden pod's
+        /// white "?" marks (<see cref="UiRaster.HiddenBoardCube"/>), its side face in the same grey, until its
+        /// <c>cellReveal</c> event plays; then it pops into its material's cube (<see cref="CellRevealScale"/>).
+        /// </summary>
+        public const string HiddenCellSlot = "tile.round.hidden";
+
+        /// <summary>How long a hidden cell's reveal pops, in seconds of display time (<see cref="RoundAnimator.CellRevealUs"/>).</summary>
+        public const float CellRevealSeconds = RoundAnimator.CellRevealUs / 1_000_000f;
+
+        /// <summary>
+        /// A revealing hidden cell's cube scale <paramref name="seconds"/> after its reveal: a short swell to 1.2 and back over
+        /// <see cref="CellRevealSeconds"/>, 1 before and after.
+        /// </summary>
+        public static float CellRevealScale(float seconds)
+        {
+            if (seconds < 0f || seconds >= CellRevealSeconds)
+            {
+                return 1f;
+            }
+
+            return 1f + (0.2f * (float)Math.Sin(Math.PI * seconds / CellRevealSeconds));
+        }
+
+        /// <summary>
+        /// The "?" cube's opacity over the revealing cube <paramref name="seconds"/> after the reveal: it fades out over the first
+        /// 60% of <see cref="CellRevealSeconds"/> (1 before the reveal, 0 after the fade).
+        /// </summary>
+        public static float CellRevealVeil(float seconds)
+        {
+            if (seconds < 0f)
+            {
+                return 1f;
+            }
+
+            float t = seconds / (CellRevealSeconds * 0.6f);
+            if (t >= 1f)
+            {
+                return 0f;
+            }
+
+            return 1f - (t * t * (3f - (2f * t)));
+        }
 
         public static VariantId WalkerVariant(Family family) => family switch
         {

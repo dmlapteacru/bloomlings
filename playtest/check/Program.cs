@@ -21,8 +21,11 @@ int devPublish = Array.IndexOf(args, "--publish-dev");
 if (devPublish >= 0)
 {
     // A published round set for a local APK build before the first `rounds publish` (playtest/Catalog.props); never commit it.
-    string folder = Path.GetFullPath(devPublish + 1 < args.Length ? args[devPublish + 1] : Path.Combine(Root, "content/work/rounds-published"));
-    int count = Bloomlings.Playtest.Check.RoundContentChecks.Publish(Root, folder, out string source);
+    string folder = Path.GetFullPath(devPublish + 1 < args.Length && !args[devPublish + 1].StartsWith("--", StringComparison.Ordinal) ? args[devPublish + 1] : Path.Combine(Root, "content/work/rounds-published"));
+    // --from <rounds dir>: publish another rounds folder (its levels/ and pictures/) instead of content/game/rounds.
+    int from = Array.IndexOf(args, "--from");
+    string? rounds = from >= 0 && from + 1 < args.Length ? Path.GetFullPath(args[from + 1]) : null;
+    int count = Bloomlings.Playtest.Check.RoundContentChecks.Publish(Root, folder, out string source, rounds);
     Console.WriteLine($"published {count} round levels from {source} to {folder}");
     Console.WriteLine($"build an APK with it: dotnet build playtest/android -p:RoundContentDir={folder}/");
     return 0;

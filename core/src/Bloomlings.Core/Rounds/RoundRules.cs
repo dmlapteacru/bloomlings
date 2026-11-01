@@ -94,7 +94,10 @@ namespace Bloomlings.Core.Rounds
         /// <summary>The default number of places.</summary>
         public const int Capacity = 5;
 
-        /// <summary>A fresh state: reveals the top pods (depth mode) and sets the status (reference <c>create</c>).</summary>
+        /// <summary>
+        /// A fresh state: reveals the top pods (depth mode), the hidden cells already on the start front (silently: part of
+        /// the start state) and sets the status (reference <c>create</c>).
+        /// </summary>
         public static RoundState Create(RoundLevel level, int capacity = 0)
         {
             if (level == null)
@@ -114,8 +117,78 @@ namespace Bloomlings.Core.Rounds
 
             var state = new RoundState(level, capacity);
             RevealTops(state, null);
+            SyncCells(state);
             state.Status = StatusOf(state);
             return state;
+        }
+
+        /// <summary>
+        /// Reveals every veiled cell that is a target now (reference <c>revealCells</c>, rules 17 §8 «Скрытые клетки»): a
+        /// hidden cell reveals as soon as it has an orthogonal neighbour that is open and reached from an entry, or is itself
+        /// an entry cell. Called after every board change (a clear, a bridge, a burst); the cells come in increasing cell
+        /// order, each as a <see cref="RoundEventType.CellReveal"/> at <paramref name="at"/> when <paramref name="events"/>
+        /// is given. Open cells never close, so a target stays a target until cleared: the reveal changes no other rule.
+        /// </summary>
+        public static void RevealCells(RoundState state, List<RoundEvent>? events, long at = 0)
+        {
+            bool[]? veiled = state.Veiled;
+            if (veiled == null || state.VeiledLeft == 0)
+            {
+                return;
+            }
+
+            IReadOnlyList<int> targets = state.Reach().Targets;
+            List<int>? found = null;
+            foreach (int i in targets)
+            {
+                if (veiled[i])
+                {
+                    (found ??= new List<int>()).Add(i);
+                }
+            }
+
+            if (found == null)
+            {
+                return;
+            }
+
+            found.Sort();
+            foreach (int i in found)
+            {
+                veiled[i] = false;
+                state.VeiledLeft--;
+                events?.Add(RoundEvent.CellRevealed(at, i));
+            }
+        }
+
+        /// <summary>
+        /// Recomputes the veiled cells from the board (reference <c>syncCells</c>; a fresh state or a restored snapshot):
+        /// every hidden material cell, then the silent reveal of the targets among them.
+        /// </summary>
+        public static void SyncCells(RoundState state)
+        {
+            bool[]? hidden = state.Prepared.Hidden;
+            if (hidden == null)
+            {
+                state.Veiled = null;
+                state.VeiledLeft = 0;
+                return;
+            }
+
+            var veiled = new bool[hidden.Length];
+            int left = 0;
+            for (int i = 0; i < hidden.Length; i++)
+            {
+                if (hidden[i] && state.Board[i] >= 0)
+                {
+                    veiled[i] = true;
+                    left++;
+                }
+            }
+
+            state.Veiled = veiled;
+            state.VeiledLeft = left;
+            RevealCells(state, null);
         }
 
         /// <summary>

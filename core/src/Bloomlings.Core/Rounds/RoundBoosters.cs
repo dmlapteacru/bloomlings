@@ -22,7 +22,8 @@ namespace Bloomlings.Core.Rounds
     /// - <b>Bloom Burst</b>: for a material with a revealed pod still to do, every cell of it that no courier reserved
     ///   clears, and the material's pods lose that many from their unsent counts (places by age, then the columns from the
     ///   top), which by exact accounting brings them all to 0. Pods in places then release by the normal release rule.
-    ///   Cells reserved by a courier stay with it.
+    ///   Cells reserved by a courier stay with it. A hidden cell of the material clears too (unseen), and the cells the
+    ///   burst opens the way to reveal right after it.
     /// </summary>
     public static class RoundBoosters
     {
@@ -330,9 +331,18 @@ namespace Bloomlings.Core.Rounds
                 s.Board[c] = RoundLevel.Open;
                 t.CountClear(c);
                 t.EventLog.Add(RoundEvent.BurstCell(t.Now, c));
+                if (s.Veiled != null && s.Veiled[c])
+                {
+                    // A veiled cell of the material clears unseen: it is no hidden cell any more (an open cell).
+                    s.Veiled[c] = false;
+                    s.VeiledLeft--;
+                }
             }
 
             s.BoardChanged();
+
+            // Hidden cells (17 §8): the cells the burst opens the way to reveal right after it.
+            RoundRules.RevealCells(s, t.EventLog, t.Now);
 
             // Settle the material's unsent counts: places by age first, then the columns from the top.
             int left = cells.Count;

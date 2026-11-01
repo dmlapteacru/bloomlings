@@ -30,7 +30,7 @@ How to read the columns:
 | Backgrounds | 18 | 0 | 18 |
 | Bloomling characters | 22 | 8 | 30 |
 | Variant symbols | 32 | 4 | 36 |
-| Board tiles and overlays | 33 | 8 | 41 |
+| Board tiles and overlays | 34 | 8 | 42 |
 | Specials | 7 | 0 | 7 |
 | Pods and slots | 19 | 0 | 19 |
 | Booster icons | 11 | 0 | 11 |
@@ -42,7 +42,7 @@ How to read the columns:
 | Visual effects | 12 | 5 | 17 |
 | Typography | 3 | 0 | 3 |
 | Audio | 11 | 3 | 14 |
-| **All** | **296** | **40** | **336** |
+| **All** | **297** | **40** | **337** |
 
 ## Brand
 
@@ -201,6 +201,7 @@ the fallback when a picture is missing.
 | `board.bridge` | Sprig bridge: a wooden footbridge over the stream (spec 006 FR-065) | 7, 8, 9 | Round levels with a bridge: the board | shown from the start (faint); buildable (whole, its glow outline pulsing); built | Small | yes | Launch | UiRaster.FootBridge: light wooden slats across two darker rails with a soft shadow, turned to its crossing (up, down, left or right), reaching 0.85 cell onto each bank, 1.5 cells wide, over the cubes (the owner, 2026-10-31: bigger and plainly a bridge) |
 | `board.wall` | A wall laid over the picture: a strip the level's overlay lays is a stone wall (spec 006, 17 §8 as amended on 2026-10-28) | 7, 8, 9 | Round levels with an overlay: the board | a run of cells, across or along the board; a bridge site in it before its bridge | Small | yes | Launch | UiRaster.WallStone: a dry stone wall filling the cell, two courses of rounded `stone.top` to `stone.face` blocks (a `stone.lip` foot, lit along the top) offset by a quarter cell in deep `stone.line` joints (four variants) |
 | `board.surface` | Round board's solid neutral surface inside the fixed stone frame (the owner's board of 2026-10-28, like the reference game): no grid, no grass, no imprint of eaten cubes (spec 006) | 7, 8, 9 | Round levels: the board; the finished round picture (win, Collection) | one panel a screen | Large | yes | Launch | UiRaster.BoardSurface: flat `board.surface` with a soft `board.surface_shade` along its top and left edges and a faint lighter lip along its bottom, corners rounded 0.12 frame unit |
+| `tile.round.hidden` | Hidden cell of a round level (rules 17 §8 «Скрытые клетки», the owner's amendment of 2026-11-01; spec 006 FR-066) | 7, 8, 9 | Round levels: the board | hidden (the neutral "?" cube); revealing (a short pop into its material) | Small | yes | Launch | UiRaster.HiddenBoardCube: the board's oblique cube in the hidden pod's neutral grey (RoundLook.HiddenPodColor) with its white "?" marks (`tile.mystery`, a big one and four small ones), its side face in the same grey; on its cellReveal event it pops into its material's cube over RoundLook.CellRevealSeconds (a swell to 1.2, the "?" fading) |
 | `tile.picture` | Finished picture reveal | 6, 15 | Win; Collection | reveal; framed | Large | yes | Launch | the level's cells as the board's soft cubes (`tile.candy`, with the owner's field icons `tile.gem.*`; spec 005 FR-046: "as in the gameplay, volumetric") of each role's variant in a thin stone border (spec 005 D14) |
 
 ## Specials

@@ -76,7 +76,8 @@ namespace Bloomlings.Client.UI.Design
     /// it reads the live timeline's events and state, never changes them, and keeps for the painters
     /// <list type="bullet">
     /// <item><description>the board as shown: each cell's material until its <c>clear</c> (or Bloom Burst) moment, and that
-    /// moment for the cube's clear animation (FR-042); the built bridge;</description></item>
+    /// moment for the cube's clear animation (FR-042); the built bridge; each hidden cell veiled until its
+    /// <c>cellReveal</c> moment, and that moment for its pop (17 §8 «Скрытые клетки», FR-066);</description></item>
     /// <item><description>the walkers: every courier from its <c>depart</c> (which carries its whole plan) to its
     /// <c>return</c>, with its route and its four times;</description></item>
     /// <item><description>the places and the columns as the rules hold them, with when each pod took its place, when a
@@ -102,6 +103,9 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>How long the board keeps moving after the last event: the cleared cubes' restore effects (display µs).</summary>
         public const long SettleUs = 1_000_000;
 
+        /// <summary>How long a hidden cell's reveal pops (display µs; <c>RoundLook.CellRevealSeconds</c> in seconds).</summary>
+        public const long CellRevealUs = 360_000;
+
         /// <summary>A cell's clear moment when it was cleared before the animator started (a restored attempt): no animation.</summary>
         public const long Before = long.MinValue / 4;
 
@@ -109,6 +113,11 @@ namespace Bloomlings.Client.UI.Design
         private readonly sbyte[] _shown;
         private readonly long[] _clearedAt;
         private readonly bool[] _burst;
+
+        // Hidden cells (17 §8 «Скрытые клетки»): which cells are veiled as the events hold them, and when each revealed.
+        private readonly bool[] _veiled;
+        private readonly long[] _cellRevealedAt;
+        private readonly bool[] _burstVeiled;
         private readonly List<RoundWalk> _walkers = new List<RoundWalk>();
 
         // Walkers the rules have home already whose look still walks back (ClearStyles.LiveLinger), and the list to draw.
@@ -147,6 +156,9 @@ namespace Bloomlings.Client.UI.Design
             _shown = new sbyte[cells];
             _clearedAt = new long[cells];
             _burst = new bool[cells];
+            _veiled = new bool[cells];
+            _cellRevealedAt = new long[cells];
+            _burstVeiled = new bool[cells];
             _revealedAt = new long[pods];
             _committedAt = new long[pods];
             _recalledAt = new long[pods];
@@ -224,6 +236,9 @@ namespace Bloomlings.Client.UI.Design
                 _shown[c] = board[c];
                 _burst[c] = false;
                 _clearedAt[c] = _prepared.Board[c] >= 0 && board[c] < 0 ? Before : -1;
+                _veiled[c] = !timeline.State.Known(c);
+                _cellRevealedAt[c] = Before;
+                _burstVeiled[c] = false;
             }
 
             for (int p = 0; p < _revealedAt.Length; p++)
@@ -298,6 +313,14 @@ namespace Bloomlings.Client.UI.Design
                         _shown[e.Cell] = RoundLevel.Open;
                         _clearedAt[e.Cell] = at;
                         _burst[e.Cell] = e.Type == RoundEventType.BurstClear;
+
+                        // A veiled cell Bloom Burst took clears unseen: it puffs away as the "?" cube (BurstVeiled).
+                        _burstVeiled[e.Cell] = _veiled[e.Cell];
+                        _veiled[e.Cell] = false;
+                        break;
+                    case RoundEventType.CellReveal:
+                        _veiled[e.Cell] = false;
+                        _cellRevealedAt[e.Cell] = at;
                         break;
                     case RoundEventType.Return:
                         for (int w = 0; w < _walkers.Count; w++)
@@ -398,6 +421,35 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>Whether the cell's cube was cleared by Bloom Burst (it puffs away instead of being eaten).</summary>
         public bool Burst(int cell) => _burst[cell];
 
+        /// <summary>
+        /// Whether the cell is drawn as the hidden cell's neutral "?" cube now (17 §8 «Скрытые клетки»): a hidden cell whose
+        /// <c>cellReveal</c> has not been seen, or whose reveal's display time is still ahead of <see cref="Now"/>. Its material
+        /// stays unknown to the player until then (Bloom Burst cannot pick it).
+        /// </summary>
+        public bool Veiled(int cell) => _veiled[cell] || _cellRevealedAt[cell] > Now;
+
+        /// <summary>Whether Bloom Burst took the cell while it was still veiled: its puff is the "?" cube.</summary>
+        public bool BurstVeiled(int cell) => _burstVeiled[cell];
+
+        /// <summary>When the hidden cell revealed during play (display µs), or <see cref="Before"/>.</summary>
+        public long CellRevealedAt(int cell) => _cellRevealedAt[cell];
+
+        /// <summary>
+        /// Seconds since the cell's reveal at <see cref="Now"/> while its pop plays (<see cref="CellRevealUs"/>), else -1: the
+        /// painters scale its cube by <see cref="RoundLook.CellRevealScale"/> and fade the "?" over it by
+        /// <see cref="RoundLook.CellRevealVeil"/>.
+        /// </summary>
+        public float CellRevealSince(int cell)
+        {
+            long at = _cellRevealedAt[cell];
+            if (at == Before || at > Now || Now - at >= CellRevealUs)
+            {
+                return -1f;
+            }
+
+            return (Now - at) / 1_000_000f;
+        }
+
         // ---- Pods, places and columns ----
 
         /// <summary>The pod's unsent count, as the rules hold it (a courier takes one at its departure).</summary>
@@ -497,6 +549,12 @@ namespace Bloomlings.Client.UI.Design
                 if (_shown[c] != s.Board[c])
                 {
                     difference = Diagnostic("cell {0} shows {1}, the rules hold {2}", c, _shown[c], s.Board[c]);
+                    return false;
+                }
+
+                if (_veiled[c] != (s.Board[c] >= 0 && !s.Known(c)))
+                {
+                    difference = Diagnostic("cell {0}: veiled {1}, the rules hold {2}", c, _veiled[c], !s.Known(c));
                     return false;
                 }
             }

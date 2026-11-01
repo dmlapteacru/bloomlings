@@ -184,6 +184,31 @@ namespace Bloomlings.Playtest.Design
             p.Picture(key, box, render);
         }
 
+        /// <summary>
+        /// A hidden cell's cube (17 §8 «Скрытые клетки», spec 006 FR-066) in its picture box <paramref name="box"/>
+        /// (<see cref="RoundBoardLayout.CubeBox"/>): the board's oblique cube in the hidden pod's neutral grey with its white
+        /// "?" marks (<see cref="UiRaster.HiddenBoardCube"/>), never a symbol.
+        /// </summary>
+        public static void HiddenCube(IPainter p, Box box)
+        {
+            p.Mark(RoundLook.HiddenCellSlot);
+            p.Mark("tile.mystery");
+            p.Picture(UiRaster.HiddenBoardCubeKey, box, (w, h) => UiRaster.HiddenBoardCube(w, h));
+        }
+
+        /// <summary>A hidden cell's side face in <paramref name="box"/>, in the hidden pod's grey (<see cref="UiRaster.SideFace"/>).</summary>
+        public static void HiddenSideFace(IPainter p, Box box, bool left, float topShare)
+        {
+            if (box.Width < 0.5f)
+            {
+                return;
+            }
+
+            p.Mark(RoundLook.SideSlot);
+            float share = (float)Math.Round(topShare * 100f) / 100f;
+            p.Picture(UiRaster.HiddenSideFaceKey(left, share), box, (w, h) => UiRaster.SideFace(w, h, RoundLook.HiddenPodColor, left, share));
+        }
+
         private static readonly Dictionary<(char Code, bool Left, int Top, bool Grey), (string, Func<int, int, byte[]>)> SideFaces =
             new Dictionary<(char, bool, int, bool), (string, Func<int, int, byte[]>)>();
 
