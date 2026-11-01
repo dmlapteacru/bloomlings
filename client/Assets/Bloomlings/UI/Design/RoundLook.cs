@@ -39,7 +39,7 @@ namespace Bloomlings.Client.UI.Design
     /// (<see cref="RevealGlow"/>).</description></item>
     /// <item><description>A hidden cell (17 §8 «Скрытые клетки») is the neutral "?" cube (<see cref="HiddenCellSlot"/>) until
     /// it reveals, then pops into its material (<see cref="CellRevealScale"/>, <see cref="CellRevealVeil"/>).</description></item>
-    /// <item><description>A latch (17 §8, FR-068; the owner's look of 2026-11-01, as Colony Flow's) is drawn on the pod it holds:
+    /// <item><description>A latch (17 §8, FR-068; the owner's look of 2026-11-01, as the reference game's) is drawn on the pod it holds:
     /// that pod a little darker with a padlock (<see cref="PadlockSlot"/>) and our acorn hero hugging it
     /// (<see cref="LatchParts"/>); its key (<see cref="KeySlot"/>) is an ordinary big key in that pod's colour on its board cell
     /// (<see cref="KeyMetal"/>, <see cref="KeyBox"/>). When it opens the key lifts and fades (<see cref="KeyOpen"/>), the
@@ -69,7 +69,7 @@ namespace Bloomlings.Client.UI.Design
         public const string HiddenCellSlot = "tile.round.hidden";
 
         /// <summary>
-        /// The padlock's asset slot (rules 17 §8, the owner's look of 2026-11-01 as Colony Flow's; spec 006 FR-068): a latch
+        /// The padlock's asset slot (rules 17 §8, the owner's look of 2026-11-01 as the reference game's; spec 006 FR-068): a latch
         /// is drawn on the pod it holds (the pod right behind it in its column, <see cref="RoundAnimator.HeldPod"/>), in that
         /// pod's place: its cube and number a little darker (<see cref="RoundPodLook.Locked"/>), a brass padlock
         /// (<see cref="UiRaster.Padlock"/>) on its top's right and our acorn hero (the variant's 2D character

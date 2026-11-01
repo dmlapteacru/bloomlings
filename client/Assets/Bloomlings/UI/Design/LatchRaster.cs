@@ -3,7 +3,7 @@ using System;
 namespace Bloomlings.Client.UI.Design
 {
     /// <summary>
-    /// The latch's padlock and its key (rules 17 §8 «Засов и ключ»; the owner's look of 2026-11-01, as Colony Flow's: spec 006
+    /// The latch's padlock and its key (rules 17 §8 «Засов и ключ»; the owner's look of 2026-11-01, as the reference game's: spec 006
     /// FR-068, contracts/presentation.md): engine-free flat 2D pictures lit from the upper left, straight alpha,
     /// deterministic. The padlock (<see cref="Padlock"/>) hangs on the pod the latch holds, our acorn hero (the variant's 2D
     /// character, drawn by the host) hugging it as if he had locked the pod himself; the board's key
