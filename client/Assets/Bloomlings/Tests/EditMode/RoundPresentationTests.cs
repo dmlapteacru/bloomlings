@@ -639,6 +639,22 @@ namespace Bloomlings.Client.Tests
         // ---- Introduction cards ----
 
         [Test]
+        public void TheLatchAndItsKey_AreDeterministicPictures_WithAMarkPerLatch()
+        {
+            byte[] a = UiRaster.LatchBlock(64, 0);
+            Assert.That(a, Is.EqualTo(UiRaster.LatchBlock(64, 0)), "deterministic");
+            Assert.That(a.Length, Is.EqualTo(64 * 64 * 4));
+            Assert.That(a.Where((b, i) => i % 4 == 3).Count(x => x > 200), Is.GreaterThan(64 * 64 / 3), "a pod-sized block");
+            Assert.That(UiRaster.LatchBlock(64, 1), Is.Not.EqualTo(a), "another latch, another mark");
+            byte[] key = UiRaster.AcornKey(48, 0);
+            Assert.That(key.Where((b, i) => i % 4 == 3).Count(x => x > 200), Is.GreaterThan(48 * 48 / 8), "an acorn on the surface");
+            Assert.That(key.Where((b, i) => i % 4 == 3).Count(x => x == 0), Is.GreaterThan(48 * 48 / 4), "the surface shows round it");
+            Assert.That(UiRaster.AcornKey(48, 2), Is.Not.EqualTo(key));
+            Assert.That(UiRaster.LatchBlockKey(7), Is.EqualTo(UiRaster.LatchBlockKey(1)), "six marks, then they repeat");
+            Assert.That(AssetSlots.All.Select(slot => slot.Id), Does.Contain(RoundLook.LatchSlot).And.Contain(RoundLook.KeySlot));
+        }
+
+        [Test]
         public void TheFirstMeeting_Explains_TheSecondReminds()
         {
             RoundIntroCard? hidden = RoundIntroCards.For(new RoundIntroduction("hidden", false));

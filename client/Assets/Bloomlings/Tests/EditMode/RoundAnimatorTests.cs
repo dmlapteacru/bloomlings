@@ -249,6 +249,56 @@ namespace Bloomlings.Client.Tests
             Assert.That(animator.CellRevealSince(first.Cell), Is.EqualTo(-1f));
         }
 
+        // 9 × 8 with the frame: A under G with a hole at cell 40 in the G block, its acorn key; the latch in column 1 after one
+        // pod (17 §8 «Засов и жёлудь-ключ»).
+        private static RoundLevel Latched() => new RoundLevel(4, 9, 8,
+            new[] { "####.####", "#.......#", "#.AAAAA.#", "#.GGGGG.#", "#.GG.GG.#", "#.GGGGG.#", "#.......#", "#########" },
+            new[] { new RoundPod('A', 5), new RoundPod('G', 7), new RoundPod('G', 7) },
+            new IReadOnlyList<int>[] { new[] { 0 }, new[] { 1, 2 } },
+            mechanics: new[] { "latch" },
+            latches: new[] { new RoundLatch(1, 1, 40) });
+
+        [Test]
+        public void ALatch_StandsInItsColumnUntilItsOpeningPlays_ThenLeavesIt()
+        {
+            RoundLevel level = Latched();
+            Assert.That(RoundLevelValidator.ValidateDefinition(level), Is.Empty);
+            var play = new RoundPlay(level);
+            var items = new List<RoundQueueItem>();
+            play.Animator.ColumnItems(1, 3, items);
+            Assert.That(items.Select(i => (i.IsLatch, i.Id, i.Row)), Is.EqualTo(new[] { (false, 1, 0), (true, 0, 1), (false, 2, 2) }), "the latch stands after the first pod");
+            Assert.That(play.Animator.LatchOfKey(40), Is.EqualTo(0));
+            play.Advance(0.1, 1);
+            play.Commit(RoundAction.Tap(0));
+            play.Commit(RoundAction.Tap(1));
+            play.Animator.ColumnItems(1, 3, items);
+            Assert.That(items.Select(i => (i.IsLatch, i.Id, i.Row)), Is.EqualTo(new[] { (true, 0, 0), (false, 2, 1) }), "on top, the pod behind it below it");
+            Assert.That(play.Animator.HeldBehind(items, 1), Is.True, "the pod behind a closed latch takes no tap");
+            bool opened = false;
+            for (int k = 0; k < 100_000 && (play.Timeline.Pending || play.Animator.Busy); k++)
+            {
+                IReadOnlyList<RoundEvent> fresh = play.Advance(1.0 / 60.0, 1);
+                if (fresh.Any(e => e.Type == RoundEventType.LatchOpen))
+                {
+                    opened = true;
+                    Assert.That(play.Animator.LatchClosed(0), Is.False);
+                    Assert.That(play.Animator.LatchOpenSince(0), Is.InRange(0f, RoundLook.LatchOpenSeconds), "its opening starts with its event");
+                    play.Animator.ColumnItems(1, 3, items);
+                    Assert.That(items[0].IsLatch && !play.Animator.HeldBehind(items, 1), Is.True, "still drawn while it opens; the pod behind takes taps");
+                    play.Commit(RoundAction.Tap(2));
+                }
+            }
+
+            Assert.That(opened, Is.True);
+            Assert.That(play.Animator.LatchShown(0), Is.False, "the opening has ended");
+            Assert.That(play.Status, Is.EqualTo(RoundStatus.Won));
+            Assert.That(play.Animator.ShowsRulesState(play.Timeline, out string difference), Is.True, difference);
+            Assert.That(RoundLook.KeyPopAlpha(RoundLook.LatchOpenSeconds), Is.EqualTo(0f));
+            Assert.That(RoundLook.LatchOpenLift(-1f), Is.EqualTo((0f, 1f, 1f)));
+            Assert.That(RoundLook.LatchTag(0), Is.Not.EqualTo(RoundLook.LatchTag(1)));
+            Assert.That((RoundLook.LatchPips(0), RoundLook.LatchPips(1), RoundLook.LatchPips(2), RoundLook.LatchPips(3)), Is.EqualTo((1, 2, 3, 1)));
+        }
+
         [Test]
         public void ALinkedPair_HasItsTubeInTheColumns_ThenInThePlaces()
         {
