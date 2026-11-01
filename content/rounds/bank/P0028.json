@@ -1763,6 +1763,18 @@
    "tried": 2,
    "found": 2,
    "reasons": {}
+  },
+  {
+   "combo": "Normal|cells|",
+   "steer": {
+    "t": 1,
+    "aim": 0.56
+   },
+   "tried": 64,
+   "found": 0,
+   "reasons": {
+    "не тот класс по быстрой оценке": 64
+   }
   }
  ]
 }

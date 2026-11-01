@@ -16,6 +16,12 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>A pod in a place (or flying there): the top row's cube without the outline.</summary>
         Placed,
+
+        /// <summary>
+        /// The pod a closed latch holds (17 §8, FR-068): the placed cube a little darker (<see cref="RoundLook.LockedDarken"/>),
+        /// under its padlock and acorn hero; it takes no tap.
+        /// </summary>
+        Locked,
     }
 
     /// <summary>
@@ -33,10 +39,11 @@ namespace Bloomlings.Client.UI.Design
     /// (<see cref="RevealGlow"/>).</description></item>
     /// <item><description>A hidden cell (17 §8 «Скрытые клетки») is the neutral "?" cube (<see cref="HiddenCellSlot"/>) until
     /// it reveals, then pops into its material (<see cref="CellRevealScale"/>, <see cref="CellRevealVeil"/>).</description></item>
-    /// <item><description>A latch (17 §8 «Засов и жёлудь-ключ», FR-068) is a wooden latch block (<see cref="LatchSlot"/>) standing in its
-    /// column at its place in the queue, its acorn key (<see cref="KeySlot"/>) on its board cell with the same mark
-    /// (<see cref="LatchTag"/>, <see cref="LatchPips"/>); when it opens the key pops (<see cref="KeyPopScale"/>) and the
-    /// block swings out of its column (<see cref="LatchOpenLift"/>).</description></item>
+    /// <item><description>A latch (17 §8, FR-068; the owner's look of 2026-11-01, as Colony Flow's) is drawn on the pod it holds:
+    /// that pod a little darker with a padlock (<see cref="PadlockSlot"/>) and our acorn hero hugging it
+    /// (<see cref="LatchParts"/>); its key (<see cref="KeySlot"/>) is an ordinary big key in that pod's colour on its board cell
+    /// (<see cref="KeyMetal"/>, <see cref="KeyBox"/>). When it opens the key lifts and fades (<see cref="KeyOpen"/>), the
+    /// padlock springs open and drops (<see cref="PadlockOpen"/>) and the acorn hops off (<see cref="AcornHop"/>).</description></item>
     /// </list>
     /// Engine-free.
     /// </summary>
@@ -62,62 +69,149 @@ namespace Bloomlings.Client.UI.Design
         public const string HiddenCellSlot = "tile.round.hidden";
 
         /// <summary>
-        /// The latch block's asset slot (rules 17 §8 «Засов и жёлудь-ключ», the owner, 2026-11-01; spec 006 FR-068): a pod-sized
-        /// oblique wooden block with an iron bolt and an acorn padlock (<see cref="UiRaster.LatchBlock"/>), standing in its column
-        /// at its place among the pods, the pods behind it drawn below it as usual.
+        /// The padlock's asset slot (rules 17 §8, the owner's look of 2026-11-01 as Colony Flow's; spec 006 FR-068): a latch
+        /// is drawn on the pod it holds (the pod right behind it in its column, <see cref="RoundAnimator.HeldPod"/>), in that
+        /// pod's place: its cube and number a little darker (<see cref="RoundPodLook.Locked"/>), a brass padlock
+        /// (<see cref="UiRaster.Padlock"/>) on its top's right and our acorn hero (the variant's 2D character
+        /// <c>2d/acorn-happy</c>, <c>char.v.acorn</c>; <see cref="UiRaster.AcornFigure"/> while it is missing) sitting on the
+        /// corner hugging it, as if he had locked the pod himself (<see cref="LatchParts"/>).
         /// </summary>
-        public const string LatchSlot = "pod.round.latch";
+        public const string PadlockSlot = "pod.round.padlock";
 
         /// <summary>
-        /// The acorn key's asset slot (17 §8): an acorn on its empty board cell (<see cref="UiRaster.AcornKey"/>) with its latch's
-        /// mark, a little larger than a cell (<see cref="KeyCellShare"/>) so it reads on a big board.
+        /// The key's asset slot (17 §8): an ordinary big key (<see cref="UiRaster.RoundKey"/>) lying on its empty board cell,
+        /// <see cref="KeyLengthCells"/> long over the cubes round it, in the colour of the pod its latch holds
+        /// (<see cref="KeyMetal"/>), breathing up and down (<see cref="KeyBob"/>).
         /// </summary>
         public const string KeySlot = "board.round.key";
 
-        /// <summary>The acorn key's picture side in cells.</summary>
-        public const float KeyCellShare = 1.9f;
+        /// <summary>The key's length in cells (the owner, 2026-11-01: "a big key on the board").</summary>
+        public const float KeyLengthCells = 2.4f;
 
-        /// <summary>The latch block's warm wood.</summary>
-        public static readonly Rgba LatchWood = Rgba.FromHex("#A8733F");
+        /// <summary>The key picture's width in key lengths (the tilted key with its side face and halo).</summary>
+        public const float KeyBoxWidth = 1.34f;
 
-        /// <summary>The latch's iron bolt and brackets.</summary>
-        public static readonly Rgba LatchIron = Rgba.FromHex("#4F4A47");
+        /// <summary>The key picture's height in key lengths.</summary>
+        public const float KeyBoxHeight = 1.1f;
 
-        /// <summary>The acorn's nut, cap and outline (the padlock on the block and the key on the board).</summary>
+        /// <summary>
+        /// The key's shortest length as a share of the board surface's width, so it reads at phone scale on a board of small
+        /// cubes too (the owner, 2026-11-01: "a big key"): on a board of more than about 18 columns it is longer than
+        /// <see cref="KeyLengthCells"/>.
+        /// </summary>
+        public const float KeyBoardShare = 0.13f;
+
+        /// <summary>
+        /// The key's picture box over its cell <paramref name="cell"/> (a column wide) on the board surface
+        /// <paramref name="surface"/> (null: none, the cells alone): <see cref="KeyLengthCells"/> cells long, at least
+        /// <see cref="KeyBoardShare"/> of the surface's width; the key's middle on the cell's, moved in so the key stays on
+        /// the surface (a key by the edge never lies over the frame).
+        /// </summary>
+        public static Box KeyBox(Box cell, Box? surface = null)
+        {
+            float len = Math.Max(cell.Width * KeyLengthCells, surface.HasValue ? surface.Value.Width * KeyBoardShare : 0f);
+            Box box = Box.FromCenter(cell.CenterX, cell.CenterY, len * KeyBoxWidth, len * KeyBoxHeight);
+            if (!surface.HasValue)
+            {
+                return box;
+            }
+
+            // The picture's margin (the halo and the tilt's corners) may stand over the frame; the key itself stays inside.
+            Box s = surface.Value;
+            float mx = len * 0.08f;
+            float my = len * 0.12f;
+            float dx = Math.Max(0f, (s.Left - mx) - box.Left) - Math.Max(0f, box.Right - (s.Right + mx));
+            float dy = Math.Max(0f, (s.Top - my) - box.Top) - Math.Max(0f, box.Bottom - (s.Bottom + my));
+            return box.Offset(dx, dy);
+        }
+
+        /// <summary>A key's metal: the held pod's colour (<paramref name="material"/>), or <see cref="KeyBrass"/> for a hidden pod (-1).</summary>
+        public static Rgba KeyMetal(int material) => material < 0 ? KeyBrass : ColorOf(material);
+
+        /// <summary>The key of a latch holding a hidden pod: neutral brass.</summary>
+        public static readonly Rgba KeyBrass = Rgba.FromHex("#D9A23A");
+
+        /// <summary>The soft light halo round the key.</summary>
+        public static readonly Rgba KeyHalo = Rgba.FromHex("#FFF6D8");
+
+        /// <summary>The padlock's brass body.</summary>
+        public static readonly Rgba PadlockBrass = Rgba.FromHex("#E2AE3E");
+
+        /// <summary>The padlock's steel shackle.</summary>
+        public static readonly Rgba PadlockSteel = Rgba.FromHex("#9BA4AE");
+
+        /// <summary>The padlock's dark outline and keyhole.</summary>
+        public static readonly Rgba PadlockInk = Rgba.FromHex("#3A2A16");
+
+        /// <summary>The acorn's nut, cap and outline (the hero's arms and the drawn stand-in).</summary>
         public static readonly Rgba AcornNut = Rgba.FromHex("#C07A3A");
 
         public static readonly Rgba AcornCap = Rgba.FromHex("#6E4A26");
 
         public static readonly Rgba AcornInk = Rgba.FromHex("#3F2810");
 
+        /// <summary>How much darker the pod a closed latch holds is drawn (<see cref="RoundPodLook.Locked"/>).</summary>
+        public const float LockedDarken = 0.2f;
+
+        /// <summary>The locked pod's number's opacity.</summary>
+        public const float LockedCountAlpha = 0.8f;
+
         /// <summary>
-        /// The latches' tag colours in latch order (the pilot's: red, blue, amber, purple, green, pink); with
-        /// <see cref="LatchPips"/> each latch of a level has its own mark on its block and its key.
+        /// Where the acorn hero and the padlock stand on the held pod's cube <paramref name="frame"/> (<see cref="PodChip.Frame"/>):
+        /// the acorn sitting on the top's right corner (rising above the cube, a little out over its right side), the padlock
+        /// hanging from his arms below his face over the top's right, clear of the number in the middle.
         /// </summary>
-        public static IReadOnlyList<Rgba> LatchTags { get; } = new[]
+        public static (Box Acorn, Box Lock) LatchParts(Box frame)
         {
-            Rgba.FromHex("#C0392B"), Rgba.FromHex("#2F6FD6"), Rgba.FromHex("#D99A00"),
-            Rgba.FromHex("#7D3FB8"), Rgba.FromHex("#1F8A5B"), Rgba.FromHex("#D4568C"),
-        };
-
-        /// <summary>The mark index of latch <paramref name="latch"/> (its tag colour and pips repeat after six latches).</summary>
-        public static int TagIndex(int latch) => ((latch % LatchTags.Count) + LatchTags.Count) % LatchTags.Count;
-
-        /// <summary>Latch <paramref name="latch"/>'s tag colour.</summary>
-        public static Rgba LatchTag(int latch) => LatchTags[TagIndex(latch)];
-
-        /// <summary>Latch <paramref name="latch"/>'s white pips on its tag (1, 2, 3, 1, 2, 3): with the colour, a mark that reads without colour too.</summary>
-        public static int LatchPips(int latch) => (TagIndex(latch) % 3) + 1;
+            float s = Math.Min(frame.Width, frame.Height);
+            float ax = frame.Left + (s * 0.9f);
+            var acorn = new Box(ax - (s * 0.28f), frame.Top - (s * 0.28f), ax + (s * 0.28f), frame.Top + (s * 0.28f));
+            var padlock = new Box(ax - (s * 0.27f), frame.Top + (s * 0.045f), ax + (s * 0.27f), frame.Top + (s * 0.585f));
+            return (acorn, padlock);
+        }
 
         /// <summary>How long a latch's opening plays, in seconds of display time (<see cref="RoundAnimator.LatchOpenUs"/>).</summary>
         public const float LatchOpenSeconds = RoundAnimator.LatchOpenUs / 1_000_000f;
 
         /// <summary>
-        /// The opening latch block <paramref name="seconds"/> after its <c>latchOpen</c>: how far it rises (a share of its height),
-        /// its scale and its opacity: a small swell, then it lifts up and fades out of its column over
-        /// <see cref="LatchOpenSeconds"/>.
+        /// The padlock <paramref name="seconds"/> after its <c>latchOpen</c> (-1: closed): whether its shackle is open, how far
+        /// it has dropped (a share of the cube's side), its scale and opacity: it springs open with a small swell, then drops
+        /// and fades over <see cref="LatchOpenSeconds"/>.
         /// </summary>
-        public static (float Lift, float Scale, float Alpha) LatchOpenLift(float seconds)
+        public static (bool Open, float Drop, float Scale, float Alpha) PadlockOpen(float seconds)
+        {
+            if (seconds < 0f)
+            {
+                return (false, 0f, 1f, 1f);
+            }
+
+            float t = Math.Min(1f, seconds / LatchOpenSeconds);
+            float swell = t < 0.25f ? (float)Math.Sin(Math.PI * t / 0.25f) * 0.15f : 0f;
+            float fall = t < 0.25f ? 0f : (t - 0.25f) / 0.75f;
+            return (true, 0.55f * fall * fall, 1f + swell, 1f - (fall * fall));
+        }
+
+        /// <summary>
+        /// The acorn hero <paramref name="seconds"/> after his latch opened (-1: closed): how far he has moved (shares of the
+        /// cube's side, right and up) and his opacity: he hops up and off to the right and fades.
+        /// </summary>
+        public static (float X, float Y, float Alpha) AcornHop(float seconds)
+        {
+            if (seconds < 0f)
+            {
+                return (0f, 0f, 1f);
+            }
+
+            float t = Math.Min(1f, seconds / LatchOpenSeconds);
+            float hop = (float)Math.Sin(Math.PI * Math.Min(1f, t * 1.4f)) * 0.32f;
+            return (0.45f * t, hop - (0.15f * t * t), 1f - (t * t * (3f - (2f * t))));
+        }
+
+        /// <summary>
+        /// The key <paramref name="seconds"/> after its latch opened (-1: closed): how far it rises (cells), its scale and its
+        /// opacity: it swells as it lifts off its cell, then shrinks away and fades.
+        /// </summary>
+        public static (float Lift, float Scale, float Alpha) KeyOpen(float seconds)
         {
             if (seconds < 0f)
             {
@@ -125,16 +219,13 @@ namespace Bloomlings.Client.UI.Design
             }
 
             float t = Math.Min(1f, seconds / LatchOpenSeconds);
-            float swell = t < 0.25f ? (float)Math.Sin(Math.PI * t / 0.5f) * 0.12f : 0.12f * (1f - ((t - 0.25f) / 0.75f));
-            float rise = t < 0.25f ? 0f : (t - 0.25f) / 0.75f;
-            return (0.9f * rise * rise, 1f + swell, 1f - (rise * rise * (3f - (2f * rise))));
+            float scale = t < 0.3f ? 1f + (0.3f * (t / 0.3f)) : 1.3f - (0.8f * ((t - 0.3f) / 0.7f));
+            float fade = t < 0.35f ? 0f : (t - 0.35f) / 0.65f;
+            return (1.1f * (1f - ((1f - t) * (1f - t))), scale, 1f - (fade * fade));
         }
 
-        /// <summary>The acorn key's scale <paramref name="seconds"/> after its latch opened: it pops up to 1.9 while it fades.</summary>
-        public static float KeyPopScale(float seconds) => seconds < 0f ? 1f : 1f + (0.9f * Math.Min(1f, seconds / LatchOpenSeconds));
-
-        /// <summary>The acorn key's opacity <paramref name="seconds"/> after its latch opened (1 while closed, 0 at the end).</summary>
-        public static float KeyPopAlpha(float seconds) => seconds < 0f ? 1f : Math.Max(0f, 1f - (seconds / LatchOpenSeconds));
+        /// <summary>The waiting key's gentle bob at <paramref name="seconds"/> of display time: its rise in cells.</summary>
+        public static float KeyBob(float seconds) => 0.07f * (0.5f + (0.5f * (float)Math.Sin(seconds * 2f * Math.PI / 1.5f)));
 
         /// <summary>How long a hidden cell's reveal pops, in seconds of display time (<see cref="RoundAnimator.CellRevealUs"/>).</summary>
         public const float CellRevealSeconds = RoundAnimator.CellRevealUs / 1_000_000f;

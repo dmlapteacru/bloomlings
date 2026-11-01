@@ -124,28 +124,49 @@ namespace Bloomlings.Client.UI.Tutorial
 
                 case RoundIntroPicture.Latch:
                 {
-                    // The latch block on top of a column with a pod behind it, and the board's acorn key with the same mark on
-                    // a patch of surface (17 §8 «Засов и жёлудь-ключ»; the playtest's IntroPicture).
-                    float pw = h * 0.5f;
-                    float colX = local.CenterX - (h * 0.55f);
-                    var top = Box.FromCenter(colX, local.CenterY - (pw * 0.5f), pw, pw);
-                    var behind = Box.FromCenter(colX, local.CenterY + (pw * 0.5f), pw, pw);
-                    Pod(holder, behind, 2, 9);
-                    Image latch = UiFactory.CreateImage("Latch", holder, null, Color.white);
-                    latch.raycastTarget = false;
-                    BoxLayout.Place(latch.rectTransform, PodChip.Cube(top).Frame);
-                    PictureFit.On(latch, (w, ph) => RoundSprites.LatchBlock(0, Mathf.Min(w, ph)));
-                    float cw = h * 0.3f;
-                    var patch = Box.FromCenter(local.CenterX + (h * 0.6f), local.CenterY, cw * 3f, cw * 2f);
+                    // The locked pod with its padlock and our acorn hero, and its key in the pod's colour on a patch of the board
+                    // between cubes (17 §8, FR-068; the playtest's IntroPicture, RoundIntroLatch).
+                    RoundIntroLatch look = RoundIntroLatch.In(local);
+                    GridPodView locked = UiKit.GridPod("Pod", holder);
+                    BoxLayout.Place((RectTransform)locked.transform, look.Pod);
+                    locked.ShowRound(RoundIntroLatch.Material, RoundIntroLatch.Count, PodLook.Locked, false, false);
+                    Box frame = PodChip.Cube(look.Pod).Frame;
+                    (Box acornBox, Box lockBox) = RoundLook.LatchParts(frame);
+                    Image acorn = UiFactory.CreateImage("Acorn", holder, null, Color.white);
+                    acorn.raycastTarget = false;
+                    BoxLayout.Place(acorn.rectTransform, acornBox);
+                    Sprite? hero = CharacterSprites.Get(CharacterArt.Picture2D("acorn", CharacterMood.Happy));
+                    if (hero != null)
+                    {
+                        acorn.sprite = hero;
+                        acorn.preserveAspect = true;
+                    }
+                    else
+                    {
+                        PictureFit.On(acorn, (w, ph) => RoundSprites.AcornFigure(Mathf.Min(w, ph)));
+                    }
+
+                    Image padlock = UiFactory.CreateImage("Padlock", holder, null, Color.white);
+                    padlock.raycastTarget = false;
+                    BoxLayout.Place(padlock.rectTransform, lockBox);
+                    PictureFit.On(padlock, (w, ph) => RoundSprites.Padlock(0, false, Mathf.Min(w, ph)));
                     Image surface = UiFactory.CreateImage("Surface", holder, null, Color.white);
                     surface.raycastTarget = false;
-                    BoxLayout.Place(surface.rectTransform, patch);
+                    BoxLayout.Place(surface.rectTransform, look.Patch);
                     PictureFit.On(surface, (w, ph) => RoundSprites.Surface(w, ph, 0.1f));
-                    float side = cw * RoundLook.KeyCellShare;
-                    Image key = UiFactory.CreateImage("AcornKey", holder, null, Color.white);
+                    foreach ((Box box, int m) in look.Cubes)
+                    {
+                        Image cube = UiFactory.CreateImage("Cube", holder, null, Color.white);
+                        cube.raycastTarget = false;
+                        BoxLayout.Place(cube.rectTransform, box);
+                        int material = m;
+                        PictureFit.On(cube, (w, ph) => RoundSprites.BoardCube(material, false, w, ph));
+                    }
+
+                    Image key = UiFactory.CreateImage("Key", holder, null, Color.white);
                     key.raycastTarget = false;
-                    BoxLayout.Place(key.rectTransform, Box.FromCenter(patch.CenterX + (cw * 0.5f), patch.CenterY, side, side));
-                    PictureFit.On(key, (w, ph) => RoundSprites.AcornKey(0, Mathf.Min(w, ph)));
+                    BoxLayout.Place(key.rectTransform, RoundLook.KeyBox(look.KeyCell));
+                    PictureFit.On(key, (w, ph) => RoundSprites.RoundKey(RoundIntroLatch.Material, 0, w, ph));
                     break;
                 }
 

@@ -423,13 +423,20 @@ owner sees the same behaviour as in the playtest app.
     back on top of its column, before a closed latch there; an open latch stays open (a restored snapshot keeps it).
     Shuffle moves only the pods before each column's first closed latch. Bloom Burst may open the way to a key; the latch
     then opens right after the burst's cell reveals.
-  - Look: the latch is a pod-sized oblique wooden block with an acorn padlock (`pod.round.latch`) standing in its column at
-    its place in the queue, the pods behind it below it; its acorn key (`board.round.key`) lies on its board cell; block
-    and key carry the same mark (a tag colour with 1–3 pips). When `latchOpen` plays the key pops and the block lifts out
-    of its column, then the pods behind slide up (contracts/presentation.md).
-  - Popup: its first meeting (L61) shows an explanation card (the latch in a column and the acorn key on the board: the
-    latch holds the column until the Bloomlings reach the acorn key, then it opens by itself); its second (L63) a short
-    reminder.
+  - Look (the owner's look of 2026-11-01, as Colony Flow's: "a big key on the board and a lock, the key in the colour of
+    the pod it opens"; the acorn tied to the pod itself as our acorn hero locking it): the latch is drawn on the pod it
+    holds (the pod right behind it), in that pod's place, so the column shows one item where it holds one pod: the pod's
+    cube and number a little darker (a hidden pod keeps its "?"), a brass padlock (`pod.round.padlock`) on its top's
+    right and our acorn hero (the Acorn variant's 2D character, the walkers' art untinted) sitting on the corner hugging
+    it, as if he had locked the pod himself. Its key (`board.round.key`) is an ordinary big key (about 2.4 cells long,
+    over the cubes round its cell, volumetric as the cubes, breathing up and down) in the colour of the pod its latch holds
+    (brass for a hidden pod). Only when two latches of a level hold pods of one colour do their padlock and key carry 1–3
+    white pips to tell them apart. When `latchOpen` plays the key lifts off and fades, the padlock springs open and drops,
+    the acorn hops off and the pod is the column's top pod, taking taps from the event on (contracts/presentation.md).
+    Presentation only: rules, events and timing are unchanged.
+  - Popup: its first meeting (L61) shows an explanation card ("The lock": the padlocked pod with the acorn and its key in
+    the pod's colour on a patch of the board; "A padlocked pod waits in its column", "It opens when the Bloomlings reach
+    the key of its color on the board"); its second (L63) a short reminder.
 
 **Transfer path**
 

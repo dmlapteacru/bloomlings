@@ -249,8 +249,8 @@ namespace Bloomlings.Client.Tests
             Assert.That(animator.CellRevealSince(first.Cell), Is.EqualTo(-1f));
         }
 
-        // 9 × 8 with the frame: A under G with a hole at cell 40 in the G block, its acorn key; the latch in column 1 after one
-        // pod (17 §8 «Засов и жёлудь-ключ»).
+        // 9 × 8 with the frame: A under G with a hole at cell 40 in the G block, its key; the latch in column 1 after one pod,
+        // holding pod 2 (17 §8).
         private static RoundLevel Latched() => new RoundLevel(4, 9, 8,
             new[] { "####.####", "#.......#", "#.AAAAA.#", "#.GGGGG.#", "#.GG.GG.#", "#.GGGGG.#", "#.......#", "#########" },
             new[] { new RoundPod('A', 5), new RoundPod('G', 7), new RoundPod('G', 7) },
@@ -259,20 +259,23 @@ namespace Bloomlings.Client.Tests
             latches: new[] { new RoundLatch(1, 1, 40) });
 
         [Test]
-        public void ALatch_StandsInItsColumnUntilItsOpeningPlays_ThenLeavesIt()
+        public void ALatch_IsDrawnOnThePodItHoldsUntilItsOpeningPlays_ThenLeavesIt()
         {
             RoundLevel level = Latched();
             Assert.That(RoundLevelValidator.ValidateDefinition(level), Is.Empty);
             var play = new RoundPlay(level);
             var items = new List<RoundQueueItem>();
             play.Animator.ColumnItems(1, 3, items);
-            Assert.That(items.Select(i => (i.IsLatch, i.Id, i.Row)), Is.EqualTo(new[] { (false, 1, 0), (true, 0, 1), (false, 2, 2) }), "the latch stands after the first pod");
+            Assert.That(items.Select(i => (i.IsLatch, i.Id, i.Row, i.Holds)), Is.EqualTo(new[] { (false, 1, 0, false), (true, 0, 1, true), (false, 2, 1, false) }), "the latch shares the row of the pod it holds");
             Assert.That(play.Animator.LatchOfKey(40), Is.EqualTo(0));
+            Assert.That(play.Animator.HeldPod(0), Is.EqualTo(2));
+            Assert.That(play.Animator.KeyMaterial(0), Is.EqualTo(RoundMaterial.IndexOf('G')), "the key in the held pod's colour");
+            Assert.That(play.Animator.LatchPips(0), Is.EqualTo(0), "a single latch needs no pips");
             play.Advance(0.1, 1);
             play.Commit(RoundAction.Tap(0));
             play.Commit(RoundAction.Tap(1));
             play.Animator.ColumnItems(1, 3, items);
-            Assert.That(items.Select(i => (i.IsLatch, i.Id, i.Row)), Is.EqualTo(new[] { (true, 0, 0), (false, 2, 1) }), "on top, the pod behind it below it");
+            Assert.That(items.Select(i => (i.IsLatch, i.Id, i.Row)), Is.EqualTo(new[] { (true, 0, 0), (false, 2, 0) }), "on top, on its pod: one item in the column");
             Assert.That(play.Animator.HeldBehind(items, 1), Is.True, "the pod behind a closed latch takes no tap");
             bool opened = false;
             for (int k = 0; k < 100_000 && (play.Timeline.Pending || play.Animator.Busy); k++)
@@ -293,10 +296,27 @@ namespace Bloomlings.Client.Tests
             Assert.That(play.Animator.LatchShown(0), Is.False, "the opening has ended");
             Assert.That(play.Status, Is.EqualTo(RoundStatus.Won));
             Assert.That(play.Animator.ShowsRulesState(play.Timeline, out string difference), Is.True, difference);
-            Assert.That(RoundLook.KeyPopAlpha(RoundLook.LatchOpenSeconds), Is.EqualTo(0f));
-            Assert.That(RoundLook.LatchOpenLift(-1f), Is.EqualTo((0f, 1f, 1f)));
-            Assert.That(RoundLook.LatchTag(0), Is.Not.EqualTo(RoundLook.LatchTag(1)));
-            Assert.That((RoundLook.LatchPips(0), RoundLook.LatchPips(1), RoundLook.LatchPips(2), RoundLook.LatchPips(3)), Is.EqualTo((1, 2, 3, 1)));
+            Assert.That(RoundLook.KeyOpen(RoundLook.LatchOpenSeconds).Alpha, Is.EqualTo(0f));
+            Assert.That(RoundLook.KeyOpen(-1f), Is.EqualTo((0f, 1f, 1f)));
+            Assert.That(RoundLook.PadlockOpen(-1f), Is.EqualTo((false, 0f, 1f, 1f)));
+            Assert.That(RoundLook.PadlockOpen(RoundLook.LatchOpenSeconds).Alpha, Is.EqualTo(0f));
+            Assert.That(RoundLook.AcornHop(RoundLook.LatchOpenSeconds).Alpha, Is.EqualTo(0f));
+        }
+
+        [Test]
+        public void LatchesHoldingPodsOfOneColour_CarryPips_OthersNone()
+        {
+            // Three latches: two hold G pods (pips 1 and 2), one holds an A pod (none).
+            var level = new RoundLevel(4, 9, 8,
+                new[] { "####.####", "#.......#", "#.AAAAA.#", "#.GGGGG.#", "#.GG.GG.#", "#.GGGGG.#", "#.......#", "#########" },
+                new[] { new RoundPod('A', 2), new RoundPod('G', 7), new RoundPod('A', 3), new RoundPod('G', 7), new RoundPod('G', 7) },
+                new IReadOnlyList<int>[] { new[] { 0, 1 }, new[] { 2, 3 }, new[] { 4 } },
+                mechanics: new[] { "latch" },
+                latches: new[] { new RoundLatch(0, 1, 40), new RoundLatch(1, 1, 10), new RoundLatch(1, 0, 12) });
+            var animator = new RoundAnimator(level);
+            Assert.That((animator.LatchPips(0), animator.LatchPips(1), animator.LatchPips(2)), Is.EqualTo((1, 2, 0)));
+            Assert.That(RoundAnimator.LatchPipsOf(level, 1), Is.EqualTo(2));
+            Assert.That(animator.KeyMaterial(2), Is.EqualTo(RoundMaterial.IndexOf('A')));
         }
 
         [Test]

@@ -1292,7 +1292,8 @@ namespace Bloomlings.Playtest
                 Fill(canvas, plank, Color.ParseColor("#A87A45"), 0f);
             }
 
-            // The acorn keys (17 §8 «Засов и жёлудь-ключ»): a brown disc with its latch's number on its cell while the latch is closed.
+            // The keys (17 §8): a key glyph in the colour of the pod its latch holds (brass for a hidden pod) on its cell while
+            // the latch is closed, with its pips when two latches share a colour.
             _paint.SetStyle(Paint.Style.Fill);
             for (int latch = 0; latch < a.LatchCount; latch++)
             {
@@ -1304,11 +1305,8 @@ namespace Bloomlings.Playtest
                 int key = level.Latches[latch].Key;
                 float kx = ox + (((key % w) + 0.5f) * cell);
                 float ky = oy + ((h - 1 - (key / w) + 0.5f) * cell);
-                _paint.Color = Color.ParseColor("#6E4A26");
-                canvas.DrawCircle(kx, ky, cell * 0.48f, _paint);
-                _paint.Color = Color.ParseColor("#C07A3A");
-                canvas.DrawCircle(kx, ky, cell * 0.38f, _paint);
-                Text(canvas, (latch + 1).ToString(CultureInfo.InvariantCulture), kx, ky, cell * 0.6f, Color.White);
+                Bloomlings.Client.UI.Design.Rgba metal = Bloomlings.Client.UI.Design.RoundLook.KeyMetal(a.KeyMaterial(latch));
+                KeyGlyph(canvas, kx, ky, cell, Color.Argb(255, metal.R, metal.G, metal.B), a.LatchPips(latch));
             }
 
             // The walkers: a dot of their material where the timeline puts each courier now.
@@ -1387,7 +1385,8 @@ namespace Bloomlings.Playtest
             {
                 float cx = area.Left + (columnWidth * (s + 0.5f));
 
-                // The queue with its latches at their places (17 §8): a closed latch is a brown block with its number.
+                // The queue with its latches at their places (17 §8): a closed latch puts a padlock glyph on the pod it holds (a
+                // dark plate when no pod of its own stands behind it).
                 a.ColumnItems(s, visible, items);
                 for (int n = 0; n < items.Count; n++)
                 {
@@ -1397,9 +1396,12 @@ namespace Bloomlings.Playtest
                     var rect = new RectF(cx - (size / 2f), y, cx + (size / 2f), y + size);
                     if (item.IsLatch)
                     {
-                        Fill(canvas, rect, Color.ParseColor("#6E4A26"), size * 0.2f);
-                        Fill(canvas, Inset(rect, size * 0.08f), Color.ParseColor("#A8733F"), size * 0.16f);
-                        Text(canvas, (item.Id + 1).ToString(CultureInfo.InvariantCulture), rect.CenterX(), rect.CenterY(), size * 0.4f, Color.White);
+                        if (!item.Holds && a.LatchClosed(item.Id))
+                        {
+                            Fill(canvas, rect, Color.ParseColor("#55514A"), size * 0.2f);
+                            PadlockGlyph(canvas, rect, size, a.LatchPips(item.Id));
+                        }
+
                         continue;
                     }
 
@@ -1425,12 +1427,70 @@ namespace Bloomlings.Playtest
                         Text(canvas, "∞" + pod.Group, rect.Right - (size * 0.18f), rect.Top + (size * 0.18f), size * 0.22f, EntryColor);
                     }
 
+                    if (n > 0 && items[n - 1].IsLatch && items[n - 1].Holds && a.LatchClosed(items[n - 1].Id))
+                    {
+                        PadlockGlyph(canvas, rect, size, a.LatchPips(items[n - 1].Id));
+                    }
+
                     if (item.Depth == 0 && !held)
                     {
                         int tapped = index;
                         Hit(rect, () => CommitRound(RoundAction.Tap(tapped)));
                     }
                 }
+            }
+        }
+
+        // A padlock glyph over a pod's top right corner (17 §8): a brass body with a keyhole under a grey shackle, its pips below.
+        private void PadlockGlyph(Canvas canvas, RectF rect, float size, int pips)
+        {
+            float u = size * 0.42f;
+            float cx = rect.Right - (u * 0.45f);
+            float top = rect.Top - (u * 0.1f);
+            _paint.SetStyle(Paint.Style.Stroke);
+            _paint.StrokeWidth = u * 0.16f;
+            _paint.Color = Color.ParseColor("#6F7780");
+            canvas.DrawArc(new RectF(cx - (u * 0.27f), top, cx + (u * 0.27f), top + (u * 0.6f)), 180f, 180f, false, _paint);
+            _paint.SetStyle(Paint.Style.Fill);
+            var body = new RectF(cx - (u * 0.42f), top + (u * 0.32f), cx + (u * 0.42f), top + (u * 0.98f));
+            Fill(canvas, Inset(body, -u * 0.06f), Color.ParseColor("#3A2A16"), u * 0.16f);
+            Fill(canvas, body, Color.ParseColor("#E2AE3E"), u * 0.12f);
+            _paint.Color = Color.ParseColor("#3A2A16");
+            canvas.DrawCircle(cx, body.CenterY() - (u * 0.06f), u * 0.09f, _paint);
+            canvas.DrawRect(cx - (u * 0.04f), body.CenterY() - (u * 0.06f), cx + (u * 0.04f), body.CenterY() + (u * 0.16f), _paint);
+            for (int k = 0; k < pips; k++)
+            {
+                _paint.Color = Color.White;
+                canvas.DrawCircle(cx + ((k - ((pips - 1) / 2f)) * u * 0.2f), body.Bottom + (u * 0.14f), u * 0.07f, _paint);
+            }
+        }
+
+        // A key glyph (17 §8) centred at (cx, cy), about 2.2 cells long, in its colour with a dark outline: a round bow with a
+        // hole, a shaft and two teeth; its pips on the bow.
+        private void KeyGlyph(Canvas canvas, float cx, float cy, float cell, Color metal, int pips)
+        {
+            float len = cell * 2.2f;
+            float left = cx - (len / 2f);
+            float bowR = len * 0.18f;
+            float bowX = left + bowR;
+            Color ink = Color.Argb(255, metal.R * 4 / 10, metal.G * 4 / 10, metal.B * 4 / 10);
+            for (int pass = 0; pass < 2; pass++)
+            {
+                float grow = pass == 0 ? len * 0.03f : 0f;
+                _paint.SetStyle(Paint.Style.Fill);
+                _paint.Color = pass == 0 ? ink : metal;
+                canvas.DrawCircle(bowX, cy, bowR + grow, _paint);
+                canvas.DrawRect(bowX + (bowR * 0.6f) - grow, cy - (len * 0.045f) - grow, left + len + grow, cy + (len * 0.045f) + grow, _paint);
+                canvas.DrawRect(left + (len * 0.72f) - grow, cy, left + (len * 0.8f) + grow, cy + (len * 0.17f) + grow, _paint);
+                canvas.DrawRect(left + (len * 0.88f) - grow, cy, left + (len * 0.97f) + grow, cy + (len * 0.17f) + grow, _paint);
+            }
+
+            _paint.Color = ink;
+            canvas.DrawCircle(bowX, cy, bowR * 0.4f, _paint);
+            for (int k = 0; k < pips; k++)
+            {
+                _paint.Color = Color.White;
+                canvas.DrawCircle(bowX + ((k - ((pips - 1) / 2f)) * bowR * 0.5f), cy + (bowR * 0.7f), bowR * 0.17f, _paint);
             }
         }
 

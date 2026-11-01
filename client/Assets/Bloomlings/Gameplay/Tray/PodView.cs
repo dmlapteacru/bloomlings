@@ -119,9 +119,10 @@ namespace Bloomlings.Client.Gameplay.Tray
         /// <summary>
         /// Shows a round level's pod (spec 006 T059): pod <paramref name="pod"/> of <paramref name="material"/> (-1 while it
         /// is hidden: the "?"), its count, whether it takes the tap (the column's top pod, FR-011) and whether it waits under
-        /// the top pod; the symbols mode puts the material's symbol on its tile (FR-047). Redraws only what changed.
+        /// the top pod; the symbols mode puts the material's symbol on its tile (FR-047); <paramref name="locked"/> draws the pod
+        /// a closed latch holds (17 §8, FR-068: a little darker, under its padlock). Redraws only what changed.
         /// </summary>
-        public void ShowRound(int pod, int material, int count, bool interactive, bool waiting, bool symbolsMode, int sideStep = 0)
+        public void ShowRound(int pod, int material, int count, bool interactive, bool waiting, bool symbolsMode, int sideStep = 0, bool locked = false)
         {
             bool sideChanged = sideStep != _sideStep;
             _sideStep = sideStep;
@@ -129,7 +130,7 @@ namespace Bloomlings.Client.Gameplay.Tray
             _button.interactable = interactive;
             _touch.raycastTarget = interactive;
             var round = (material, count, symbolsMode);
-            if (RoundPod == pod && _round.HasValue && _round.Value.Equals(round) && _waiting == waiting && !sideChanged)
+            if (RoundPod == pod && _round.HasValue && _round.Value.Equals(round) && _waiting == waiting && _locked == locked && !sideChanged)
             {
                 return;
             }
@@ -140,7 +141,7 @@ namespace Bloomlings.Client.Gameplay.Tray
             _variant = null;
             _count = count;
             _waiting = waiting;
-            _locked = false;
+            _locked = locked;
             _pressedShown = false;
             Redraw();
         }

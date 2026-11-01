@@ -388,27 +388,81 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// A latch block (17 §8 «Засов и жёлудь-ключ», spec 006 FR-068; <c>pod.round.latch</c>) in a pod's chip
-        /// <paramref name="chip"/>: the pod-sized oblique wooden block with its iron bolt, acorn padlock and the mark of latch
-        /// <paramref name="latch"/> (<see cref="UiRaster.LatchBlock"/>). It takes no tap.
+        /// The pod a closed latch holds (17 §8, spec 006 FR-068; the owner's look of 2026-11-01) in <paramref name="chip"/>: its
+        /// cube as a placed one a little darker (<see cref="RoundPodLook.Locked"/>, no white outline: it takes no tap) with its
+        /// number a little clear, or the hidden pod's neutral "?" cube (<paramref name="material"/> null) with no number. The
+        /// latch's padlock and acorn hero go over it (<see cref="LatchOverlay"/>).
         /// </summary>
-        public static void LatchBlock(IPainter p, PodChip chip, int latch)
+        public static void LockedPod(IPainter p, PodChip chip, RoundMaterial? material, int count, bool symbolsMode)
         {
-            p.Mark(RoundLook.LatchSlot);
-            int tag = RoundLook.TagIndex(latch);
-            p.Picture(UiRaster.LatchBlockKey(tag), chip.Frame, (w, h) => UiRaster.LatchBlock(Math.Min(w, h), tag));
+            PodCubePicture(p, chip.Frame, material, RoundPodLook.Locked, symbolsMode);
+            if (material != null)
+            {
+                p.PushAlpha(RoundLook.LockedCountAlpha);
+                CubeCount(p, chip.Count, count, false);
+                p.PopAlpha();
+            }
         }
 
         /// <summary>
-        /// The acorn key of latch <paramref name="latch"/> (<c>board.round.key</c>) centred on <paramref name="cell"/>'s box, a
-        /// little larger than the cell (<see cref="RoundLook.KeyCellShare"/>), at <paramref name="scale"/> (its pop).
+        /// A latch's padlock with our acorn hero on the held pod's cube <paramref name="frame"/> (<c>pod.round.padlock</c>,
+        /// <see cref="RoundLook.LatchParts"/>): the acorn (the variant's 2D character <c>2d/acorn-happy</c>, the drawn acorn
+        /// while it is missing) sitting on the top's right corner, hugging the brass padlock with <paramref name="pips"/>.
+        /// <paramref name="since"/> ≥ 0 plays the opening: the shackle springs open and the padlock drops and fades
+        /// (<see cref="RoundLook.PadlockOpen"/>) while the acorn hops off (<see cref="RoundLook.AcornHop"/>).
         /// </summary>
-        public static void AcornKey(IPainter p, Box cell, int latch, float scale = 1f)
+        public static void LatchOverlay(IPainter p, Box frame, int pips, float since)
+        {
+            float s = Math.Min(frame.Width, frame.Height);
+            (Box acorn, Box padlock) = RoundLook.LatchParts(frame);
+            (float hx, float hy, float ha) = RoundLook.AcornHop(since);
+            if (ha > 0f)
+            {
+                p.PushAlpha(ha);
+                AcornHero(p, acorn.Offset(hx * s, -hy * s));
+                p.PopAlpha();
+            }
+
+            (bool open, float drop, float scale, float alpha) = RoundLook.PadlockOpen(since);
+            if (alpha > 0f)
+            {
+                p.Mark(RoundLook.PadlockSlot);
+                p.PushAlpha(alpha);
+                p.PushTransform(0f, drop * s, scale, padlock.CenterX, padlock.CenterY);
+                bool arms = !open;
+                p.Picture(UiRaster.PadlockKey(pips, open, arms), padlock, (w, h) => UiRaster.Padlock(Math.Min(w, h), pips, open, arms));
+                p.PopTransform();
+                p.PopAlpha();
+            }
+        }
+
+        /// <summary>Our acorn hero in <paramref name="box"/>: the Acorn variant's 2D character, happy, or the drawn acorn while it is missing.</summary>
+        public static void AcornHero(IPainter p, Box box)
+        {
+            p.Mark(CharacterArt.Slot2D("acorn"));
+            string name = CharacterArt.Picture2D("acorn", CharacterMood.Happy);
+            if (p.HasSprite(name))
+            {
+                p.Sprite(name, box);
+                return;
+            }
+
+            p.Picture(UiRaster.AcornFigureKey, box, (w, h) => UiRaster.AcornFigure(Math.Min(w, h)));
+        }
+
+        /// <summary>
+        /// A latch's key (<c>board.round.key</c>) on its cell <paramref name="cell"/>: the big ordinary key in
+        /// <paramref name="metal"/> (<see cref="RoundLook.KeyMetal"/>) with <paramref name="pips"/>, <see cref="RoundLook.KeyBox"/>,
+        /// raised by <paramref name="lift"/> cells and scaled by <paramref name="scale"/> (its bob and its opening), at least
+        /// <see cref="RoundLook.KeyBoardShare"/> of the board <paramref name="surface"/> and kept on it.
+        /// </summary>
+        public static void RoundKey(IPainter p, Box cell, Rgba metal, int pips, float lift = 0f, float scale = 1f, Box? surface = null)
         {
             p.Mark(RoundLook.KeySlot);
-            int tag = RoundLook.TagIndex(latch);
-            float side = Math.Min(cell.Width, cell.Height) * RoundLook.KeyCellShare * scale;
-            p.Picture(UiRaster.AcornKeyKey(tag), Box.FromCenter(cell.CenterX, cell.CenterY, side, side), (w, h) => UiRaster.AcornKey(Math.Min(w, h), tag));
+            Box box = RoundLook.KeyBox(cell, surface);
+            p.PushTransform(0f, -lift * cell.Width, scale, box.CenterX, box.CenterY);
+            p.Picture(UiRaster.RoundKeyKey(metal, pips), box, (w, h) => UiRaster.RoundKey(w, h, metal, pips));
+            p.PopTransform();
         }
 
         private static T[] MakeWall<T>(Func<int, T> make)

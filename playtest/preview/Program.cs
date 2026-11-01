@@ -40,6 +40,7 @@ bool auditLaunch = false;
 string? shape = null;
 bool perf = false;
 bool roundsPreview = false;
+(string Rounds, string Out)? latchStills = null;
 (int Level, float Seconds, string Out, string? Style)? clearVideo = null;
 string? roundsFolder = null;
 string? csv = null;
@@ -57,6 +58,12 @@ for (int i = 0; i < args.Length; i++)
         string? styleId = i + 4 < args.Length && !args[i + 4].StartsWith("--", StringComparison.Ordinal) ? args[i + 4] : null;
         clearVideo = (int.Parse(args[i + 1], System.Globalization.CultureInfo.InvariantCulture), float.Parse(args[i + 2], System.Globalization.CultureInfo.InvariantCulture), args[i + 3], styleId);
         i += styleId != null ? 4 : 3;
+    }
+    else if (args[i] == "--latch-stills" && i + 2 < args.Length)
+    {
+        // --latch-stills <rounds dir> <out dir>: the latch's look for the owner's review (LatchStills)
+        latchStills = (Path.GetFullPath(args[i + 1]), Path.GetFullPath(args[i + 2]));
+        i += 2;
     }
     else if (args[i] == "--rounds")
     {
@@ -203,6 +210,11 @@ if (sounds)
 if (roundsPreview)
 {
     return RoundsPreview.Write(root, outDir, roundsFolder);
+}
+
+if (latchStills != null)
+{
+    return LatchStills.Write(latchStills.Value.Rounds, latchStills.Value.Out);
 }
 
 if (clearVideo != null)

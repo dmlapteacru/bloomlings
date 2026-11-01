@@ -27,11 +27,89 @@ namespace Bloomlings.Client.UI.Design
         Bridge,
 
         /// <summary>
-        /// The latch block in a column with a pod behind it (<see cref="UiRaster.LatchBlock"/>), the board's acorn key on a
-        /// patch of surface with an open path of cleared cells reaching it (<see cref="UiRaster.AcornKey"/>), the same mark on
-        /// both (17 §8 «Засов и жёлудь-ключ»).
+        /// The locked pod with its padlock and our acorn hero (<see cref="RoundLook.LatchParts"/>) beside a patch of the board
+        /// with its key in the pod's colour between cubes (<see cref="UiRaster.RoundKey"/>; 17 §8, laid out by
+        /// <see cref="RoundIntroLatch"/>); in a loop the key lifts away and the pod opens.
         /// </summary>
         Latch,
+    }
+
+    /// <summary>
+    /// The latch card's picture (<see cref="RoundIntroPicture.Latch"/>), the same in both builds: the locked pod at the left,
+    /// a patch of the board at the right with cubes round an empty cell and the key on it, in the pod's colour.
+    /// </summary>
+    public sealed class RoundIntroLatch
+    {
+        /// <summary>The locked pod's material (the key's colour).</summary>
+        public const int Material = 2;
+
+        /// <summary>The locked pod's number.</summary>
+        public const int Count = 9;
+
+        private RoundIntroLatch(Box pod, Box patch, float cell, IReadOnlyList<(Box Cube, int Material)> cubes, Box keyCell)
+        {
+            Pod = pod;
+            Patch = patch;
+            Cell = cell;
+            Cubes = cubes;
+            KeyCell = keyCell;
+        }
+
+        /// <summary>The locked pod's place (its cube is <see cref="PodChip.Cube"/> of it).</summary>
+        public Box Pod { get; }
+
+        /// <summary>The patch of board surface.</summary>
+        public Box Patch { get; }
+
+        /// <summary>The patch's cell width.</summary>
+        public float Cell { get; }
+
+        /// <summary>The cubes on the patch (picture boxes, top face and front) with their materials, back rows first.</summary>
+        public IReadOnlyList<(Box Cube, int Material)> Cubes { get; }
+
+        /// <summary>The key's empty cell (its top face's box).</summary>
+        public Box KeyCell { get; }
+
+        /// <summary>The picture laid out in <paramref name="area"/>.</summary>
+        public static RoundIntroLatch In(Box area)
+        {
+            float h = area.Height;
+            float pw = h * 0.7f;
+            var pod = Box.FromCenter(area.Left + (area.Width * 0.25f), area.CenterY + (h * 0.12f), pw, pw);
+            float cell = Math.Min(h * 0.24f, area.Width * 0.11f);
+            float row = cell * RoundBoardLayout.RowShare;
+            const int cols = 5;
+            const int rows = 3;
+            float px = area.Left + (area.Width * 0.66f);
+            var patch = Box.FromCenter(px, area.CenterY, (cols * cell) + (cell * 0.5f), (rows * row) + (cell * RoundBoardLayout.FrontShare) + (cell * 0.5f));
+            float left = patch.CenterX - (cols * cell / 2f);
+            float top = patch.Top + (cell * 0.25f);
+            var cubes = new List<(Box, int)>();
+            int[] materials = { 0, 8, 0, 4, 8 };
+            Box key = default;
+            for (int y = 0; y < rows; y++)
+            {
+                for (int x = 0; x < cols; x++)
+                {
+                    var box = new Box(left + (x * cell), top + (y * row), left + ((x + 1) * cell), top + ((y + 1) * row));
+                    if (y == 1 && x == 2)
+                    {
+                        key = box;
+                        continue;
+                    }
+
+                    // the middle row's cubes either side of the key are cleared: the way the Bloomlings came
+                    if (y == 1 && (x == 1 || x == 0))
+                    {
+                        continue;
+                    }
+
+                    cubes.Add((new Box(box.Left, box.Top, box.Right, box.Bottom + (cell * RoundBoardLayout.FrontShare)), materials[(x + (y * 2)) % materials.Length]));
+                }
+            }
+
+            return new RoundIntroLatch(pod, patch, cell, cubes, key);
+        }
     }
 
     /// <summary>

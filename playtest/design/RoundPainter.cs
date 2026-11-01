@@ -46,7 +46,10 @@ namespace Bloomlings.Playtest.Design
 
             // Latch + key (17 §8): a column's queue items and the latch blocks to draw this frame.
             public readonly List<RoundQueueItem> Items = new List<RoundQueueItem>();
-            public readonly List<(int Latch, int Column, int Row, Box Drawn)> Latches = new List<(int, int, int, Box)>();
+            public readonly List<(int Latch, bool Holds, int Row, Box Drawn)> Latches = new List<(int, bool, int, Box)>();
+
+            /// <summary>The pods drawn locked this frame (each under the closed latch that holds it, FR-068).</summary>
+            public readonly HashSet<int> Locked = new HashSet<int>();
             public Box?[] FrameOf = Array.Empty<Box?>();
             public readonly bool[] Reachable = new bool[RoundMaterial.Codes.Length];
         }
@@ -374,8 +377,8 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
-            // The acorn keys (17 §8 «Засов и жёлудь-ключ», FR-068): each closed latch's acorn on its empty cell, with its latch's
-            // mark; when the latch opens it pops (swells and fades).
+            // The keys (17 §8, FR-068; the owner's look of 2026-11-01): each closed latch's big key in its held pod's colour on
+            // its empty cell, over the cubes round it, breathing up and down; when the latch opens it lifts off and fades.
             for (int latch = 0; latch < a.LatchCount; latch++)
             {
                 if (!a.LatchShown(latch))
@@ -384,8 +387,9 @@ namespace Bloomlings.Playtest.Design
                 }
 
                 float since = a.LatchOpenSince(latch);
-                p.PushAlpha(RoundLook.KeyPopAlpha(since));
-                Kit.AcornKey(p, board.CellBox(a.Level.Latches[latch].Key), latch, RoundLook.KeyPopScale(since));
+                (float lift, float scale, float alpha) = RoundLook.KeyOpen(since);
+                p.PushAlpha(alpha);
+                Kit.RoundKey(p, board.CellBox(a.Level.Latches[latch].Key), RoundLook.KeyMetal(a.KeyMaterial(latch)), a.LatchPips(latch), lift + RoundLook.KeyBob(s.ShowSeconds + (latch * 0.4f)), scale, board.Surface);
                 p.PopAlpha();
             }
 
@@ -754,8 +758,9 @@ namespace Bloomlings.Playtest.Design
             }
 
             bool swirl = s.LastBooster.HasValue && s.LastBooster.Value.Kind == BoosterKind.Shuffle && s.Play.ClockUs - s.LastBooster.Value.At < 450_000;
-            List<(int Latch, int Column, int Row, Box Drawn)> latches = cache.Latches;
+            List<(int Latch, bool Holds, int Row, Box Drawn)> latches = cache.Latches;
             latches.Clear();
+            cache.Locked.Clear();
             for (int st = 0; st < columns; st++)
             {
                 int waiting = a.Waiting(st);
@@ -764,8 +769,8 @@ namespace Bloomlings.Playtest.Design
                     continue;
                 }
 
-                // The column's queue with its latches at their places (17 §8 «Засов и жёлудь-ключ», FR-068): a pod's row is its
-                // depth plus the latches before it.
+                // The column's queue with its latches at their places (17 §8, FR-068): a latch shares the row of the pod it
+                // holds, drawn on that pod.
                 a.ColumnItems(st, r.PodRows + 1, cache.Items);
                 for (int k = cache.Items.Count - 1; k >= 0; k--)
                 {
@@ -779,15 +784,22 @@ namespace Bloomlings.Playtest.Design
                     {
                         if (shown)
                         {
-                            latches.Add((item.Id, st, row, slide.Box));
+                            latches.Add((item.Id, item.Holds, row, slide.Box));
                         }
 
                         continue;
                     }
 
-                    // A pod behind a closed latch is no top pod: drawn as a waiting one, it takes no tap.
+                    // A pod behind a closed latch is no top pod and takes no tap: the one the latch holds is drawn locked (a
+                    // little darker, under its padlock), the ones behind it as waiting ones.
                     int pod = item.Id;
-                    int depth = a.HeldBehind(cache.Items, k) ? item.Depth + 1 : item.Depth;
+                    bool held = a.HeldBehind(cache.Items, k);
+                    bool locked = held && k > 0 && cache.Items[k - 1].IsLatch && cache.Items[k - 1].Holds && a.LatchClosed(cache.Items[k - 1].Id);
+                    int depth = held && !locked ? item.Depth + 1 : item.Depth;
+                    if (locked)
+                    {
+                        cache.Locked.Add(pod);
+                    }
                     bool entering = slide.Moving && !r.Shows(slide.FromDepth);
                     if (!shown && !slide.Moving)
                     {
@@ -842,7 +854,8 @@ namespace Bloomlings.Playtest.Design
                     p.PushAlpha(fade);
                 }
 
-                PodChip chip = PodChip.Cube(layout, depth > 0);
+                bool locked = cache.Locked.Contains(pod);
+                PodChip chip = PodChip.Cube(layout, depth > 0 && !locked);
                 float glow = s.RevealGlow(pod);
                 if (glow > 0f)
                 {
@@ -855,7 +868,14 @@ namespace Bloomlings.Playtest.Design
                 p.PushSquash(drawn.Width / Math.Max(1f, layout.Width), drawn.Height / Math.Max(1f, layout.Height), layout.Left, layout.Top);
                 Kit.Squash(p, layout, press, tile: true);
                 RoundMaterial? material = a.Revealed(pod) ? RoundMaterial.All[a.MaterialOf(pod)] : null;
-                Kit.RoundPod(p, chip, material, a.Remaining(pod), look, depth > 0, s.Symbols);
+                if (locked)
+                {
+                    Kit.LockedPod(p, chip, material, a.Remaining(pod), s.Symbols);
+                }
+                else
+                {
+                    Kit.RoundPod(p, chip, material, a.Remaining(pod), look, depth > 0, s.Symbols);
+                }
                 p.PopTransform();
                 p.PopTransform();
                 p.PopTransform();
@@ -865,18 +885,18 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
-            // The latch blocks (FR-068): each at its row, a pod's size; an opening one swells, lifts and fades out of its
-            // column, then the pods behind it slide up.
-            foreach ((int latch, int st, int row, Box drawn) in latches)
+            // The latches (FR-068; the owner's look of 2026-11-01): each on the pod it holds, a padlock with our acorn hero
+            // hugging it; a closed latch with no pod of its own behind it on a dim empty plate. Opening, the padlock springs
+            // open and drops and the acorn hops off.
+            foreach ((int latch, bool holds, int row, Box drawn) in latches)
             {
-                (float lift, float scale, float alpha) = RoundLook.LatchOpenLift(a.LatchOpenSince(latch));
-                PodChip chip = PodChip.Cube(drawn, row > 0);
-                Box frame = chip.Frame;
-                p.PushAlpha(alpha);
-                p.PushTransform(0f, -lift * frame.Height, scale, frame.CenterX, frame.CenterY);
-                Kit.LatchBlock(p, chip, latch);
-                p.PopTransform();
-                p.PopAlpha();
+                Box frame = PodChip.Cube(drawn).Frame;
+                if (a.LatchClosed(latch) && !holds)
+                {
+                    PodPainter.EmptyColumn(p, drawn);
+                }
+
+                Kit.LatchOverlay(p, frame, a.LatchPips(latch), a.LatchOpenSince(latch));
             }
 
             Hint(p, s, cache);
@@ -1049,27 +1069,36 @@ namespace Bloomlings.Playtest.Design
 
                 case RoundIntroPicture.Latch:
                 {
-                    // The latch block on top of a column with a pod behind it, and the board's acorn key with the same mark on
-                    // a patch of surface (17 §8 «Засов и жёлудь-ключ»); the key pops and the block lifts away in a loop.
-                    float t = (since % 2.4f) - 1.2f;
-                    float pw = h * 0.5f;
-                    float colX = area.CenterX - (h * 0.55f);
-                    var top = Box.FromCenter(colX, area.CenterY - (pw * 0.5f), pw, pw);
-                    var behind = Box.FromCenter(colX, area.CenterY + (pw * 0.5f), pw, pw);
-                    (float lift, float scale, float alpha) = RoundLook.LatchOpenLift(t);
-                    Kit.RoundPod(p, PodChip.Cube(behind, t < 0f), RoundMaterial.All[2], 9, PodLook.Exposed, t < 0f, false);
-                    p.PushAlpha(alpha);
-                    p.PushTransform(0f, -lift * pw, scale, top.CenterX, top.CenterY);
-                    Kit.LatchBlock(p, PodChip.Cube(top), 0);
-                    p.PopTransform();
-                    p.PopAlpha();
-                    float cw = h * 0.3f;
-                    var patch = Box.FromCenter(area.CenterX + (h * 0.6f), area.CenterY, cw * 3f, cw * 2f);
-                    Kit.BoardSurface(p, patch, cw * 0.3f);
-                    Box keyCell = Box.FromCenter(patch.CenterX + (cw * 0.5f), patch.CenterY, cw, cw);
-                    p.PushAlpha(RoundLook.KeyPopAlpha(t));
-                    Kit.AcornKey(p, keyCell, 0, RoundLook.KeyPopScale(t));
-                    p.PopAlpha();
+                    // The locked pod with its padlock and our acorn hero, and its key in the pod's colour on a patch of the board
+                    // between cubes (17 §8, FR-068): in a loop the key lifts away, the padlock springs open and the acorn hops off.
+                    float t = (since % 2.6f) - 1.4f;
+                    RoundIntroLatch look = RoundIntroLatch.In(area);
+                    RoundMaterial material = RoundMaterial.All[RoundIntroLatch.Material];
+                    PodChip chip = PodChip.Cube(look.Pod);
+                    if (t < 0f)
+                    {
+                        Kit.LockedPod(p, chip, material, RoundIntroLatch.Count, false);
+                    }
+                    else
+                    {
+                        Kit.RoundPod(p, chip, material, RoundIntroLatch.Count, PodLook.Exposed, false, false);
+                    }
+
+                    Kit.LatchOverlay(p, chip.Frame, 0, t < 0f ? -1f : t);
+                    Kit.BoardSurface(p, look.Patch, look.Cell * 0.3f);
+                    foreach ((Box cube, int m) in look.Cubes)
+                    {
+                        Kit.BoardCube(p, cube, RoundMaterial.All[m], false);
+                    }
+
+                    (float lift, float scale, float alpha) = RoundLook.KeyOpen(t < 0f ? -1f : t);
+                    if (alpha > 0f)
+                    {
+                        p.PushAlpha(alpha);
+                        Kit.RoundKey(p, look.KeyCell, RoundLook.KeyMetal(RoundIntroLatch.Material), 0, lift + RoundLook.KeyBob(since), scale);
+                        p.PopAlpha();
+                    }
+
                     break;
                 }
 

@@ -218,13 +218,15 @@ namespace Bloomlings.Client.Gameplay.Board
                 _pieces.Add((image, piece));
             }
 
-            // The acorn keys on their empty cells, over the cubes and under the bridges (17 §8, FR-068).
+            // The keys on their empty cells, over the cubes and under the bridges (17 §8, FR-068): each a big key in the colour
+            // of the pod its latch holds.
             for (int i = 0; i < level.Latches.Count; i++)
             {
-                Image key = UiFactory.CreateImage("AcornKey", _decor, null, Color.white);
+                Image key = UiFactory.CreateImage("Key", _decor, null, Color.white);
                 key.raycastTarget = false;
-                int latch = i;
-                PictureFit.On(key, (w, h) => RoundSprites.AcornKey(latch, Mathf.Min(w, h)));
+                int material = RoundAnimator.KeyMaterial(level, i);
+                int pips = RoundAnimator.LatchPipsOf(level, i);
+                PictureFit.On(key, (w, h) => RoundSprites.RoundKey(material, pips, w, h));
                 _keys.Add(key);
             }
 
@@ -396,8 +398,9 @@ namespace Bloomlings.Client.Gameplay.Board
         }
 
         /// <summary>
-        /// Each closed latch's acorn key on its cell, a little larger than the cell (<see cref="RoundLook.KeyCellShare"/>), with
-        /// its latch's mark; when its latch opens it pops (<see cref="RoundLook.KeyPopScale"/>, <see cref="RoundLook.KeyPopAlpha"/>).
+        /// Each closed latch's key on its cell (<see cref="RoundLook.KeyBox"/>, <see cref="RoundLook.KeyLengthCells"/> long over the
+        /// cubes round it), breathing up and down (<see cref="RoundLook.KeyBob"/>); when its latch opens it lifts off and fades
+        /// (<see cref="RoundLook.KeyOpen"/>).
         /// </summary>
         private void SyncKeys(RoundAnimator a, RoundBoardLayout layout)
         {
@@ -413,12 +416,11 @@ namespace Bloomlings.Client.Gameplay.Board
 
                 float since = a.LatchOpenSince(i);
                 Box cell = layout.CellBox(a.Level.Latches[i].Key);
-                float side = Mathf.Min(cell.Width, cell.Height) * RoundLook.KeyCellShare;
-                PlaceInGrid(key.rectTransform, Box.FromCenter(cell.CenterX, cell.CenterY, side, side));
-
-                float scale = RoundLook.KeyPopScale(since);
+                (float lift, float scale, float alpha) = RoundLook.KeyOpen(since);
+                lift += RoundLook.KeyBob((a.Now / 1_000_000f) + (i * 0.4f));
+                PlaceInGrid(key.rectTransform, RoundLook.KeyBox(cell, layout.Surface).Offset(0f, -lift * cell.Width));
                 key.rectTransform.localScale = new Vector3(scale, scale, 1f);
-                key.color = new Color(1f, 1f, 1f, RoundLook.KeyPopAlpha(since));
+                key.color = new Color(1f, 1f, 1f, alpha);
             }
         }
 

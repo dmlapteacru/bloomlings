@@ -55,18 +55,28 @@ namespace Bloomlings.Client.UI.Design
     }
 
     /// <summary>
-    /// One thing a column shows in its queue (spec 006 FR-068, rules 17 §8 «Засов и жёлудь-ключ»): a pod, or a latch standing
-    /// at its place among the pods (<see cref="IsLatch"/>), at display row <see cref="Row"/> (0 = the top).
+    /// One thing a column shows in its queue (spec 006 FR-068, rules 17 §8): a pod, or a latch at its place among the pods
+    /// (<see cref="IsLatch"/>), at display row <see cref="Row"/> (0 = the top). A latch is drawn on the pod it holds (the
+    /// owner's look of 2026-11-01): it shares that pod's row (<see cref="Holds"/>, the pod the next item), so the column
+    /// shows one item where it holds one pod.
     /// </summary>
     public readonly struct RoundQueueItem
     {
-        public RoundQueueItem(bool isLatch, int id, int depth, int row)
+        public RoundQueueItem(bool isLatch, int id, int depth, int row, bool holds = false)
         {
             IsLatch = isLatch;
             Id = id;
             Depth = depth;
             Row = row;
+            Holds = holds;
         }
+
+        /// <summary>
+        /// A latch drawn on the pod it holds, the next item at the same row; false for a pod, and for a latch with no pod of
+        /// its own right behind it (one whose pod has left while it opens, drawn over its row; or one with none at all, drawn
+        /// in a row of its own).
+        /// </summary>
+        public bool Holds { get; }
 
         /// <summary>A latch (its index in <see cref="RoundLevel.Latches"/> is <see cref="Id"/>), else a pod.</summary>
         public bool IsLatch { get; }
@@ -77,7 +87,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>A pod's depth in its column (0 = the top pod, the one that takes the tap); a latch's: the pods before it.</summary>
         public int Depth { get; }
 
-        /// <summary>The row the item is drawn in: its depth plus the latches shown before it.</summary>
+        /// <summary>The row the item is drawn in: its depth plus the latches before it that take a row of their own.</summary>
         public int Row { get; }
     }
 
@@ -111,7 +121,8 @@ namespace Bloomlings.Client.UI.Design
     /// finished pod left one (its puff) and when a hidden pod revealed (its glow, FR-045);</description></item>
     /// <item><description>the link tubes between linked pods in the columns and in the places (FR-043);</description></item>
     /// <item><description>the latches (17 §8 «Засов и жёлудь-ключ», FR-068): each closed until its <c>latchOpen</c> moment, and
-    /// that moment for its opening; the columns' queues with the latches at their places (<see cref="ColumnItems"/>).</description></item>
+    /// that moment for its opening; the columns' queues with the latches at their places on the pods they hold
+    /// (<see cref="ColumnItems"/>); each key's colour and the pips that tell latches of one colour apart.</description></item>
     /// </list>
     /// Its clock is the host's display clock in µs (<see cref="Now"/>): the model time plus the time that passed while
     /// nothing was pending (the timeline stands still then, <see cref="RoundReplay"/>). The host passes that offset with
@@ -136,8 +147,8 @@ namespace Bloomlings.Client.UI.Design
         public const long CellRevealUs = 360_000;
 
         /// <summary>
-        /// How long a latch's opening plays (display µs; <c>RoundLook.LatchOpenSeconds</c>): the acorn key pops off its cell and
-        /// the latch block swings open and leaves its column; then the pods behind it slide up.
+        /// How long a latch's opening plays (display µs; <c>RoundLook.LatchOpenSeconds</c>): the key lifts off its cell and fades,
+        /// the padlock springs open and drops and the acorn hero hops off the pod, which takes taps from the event on.
         /// </summary>
         public const long LatchOpenUs = 520_000;
 
@@ -157,6 +168,7 @@ namespace Bloomlings.Client.UI.Design
         // Latch + key (17 §8 «Засов и жёлудь-ключ»): which latches are closed as the events hold them, and when each opened.
         private readonly bool[] _latched;
         private readonly long[] _latchOpenedAt;
+        private readonly int[] _latchPips;
         private readonly List<RoundWalk> _walkers = new List<RoundWalk>();
 
         // Walkers the rules have home already whose look still walks back (ClearStyles.LiveLinger), and the list to draw.
@@ -200,6 +212,7 @@ namespace Bloomlings.Client.UI.Design
             _burstVeiled = new bool[cells];
             _latched = new bool[level.Latches.Count];
             _latchOpenedAt = new long[level.Latches.Count];
+            _latchPips = LatchMarks(level);
             _revealedAt = new long[pods];
             _committedAt = new long[pods];
             _recalledAt = new long[pods];
@@ -501,7 +514,7 @@ namespace Bloomlings.Client.UI.Design
             return (Now - at) / 1_000_000f;
         }
 
-        // ---- Latches and their acorn keys (17 §8 «Засов и жёлудь-ключ», FR-068) ----
+        // ---- Latches and their keys (17 §8, FR-068; the owner's look of 2026-11-01) ----
 
         /// <summary>The level's latches (<see cref="RoundLevel.Latches"/>).</summary>
         public int LatchCount => _latched.Length;
@@ -514,7 +527,7 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// Seconds since the latch opened at <see cref="Now"/> while its opening plays (<see cref="LatchOpenUs"/>), else -1: the
-        /// painters pop the acorn key off its cell and swing the latch block open and out of its column.
+        /// painters lift the key off its cell, spring the padlock open and let the acorn hero hop off the pod.
         /// </summary>
         public float LatchOpenSince(int latch)
         {
@@ -527,10 +540,64 @@ namespace Bloomlings.Client.UI.Design
             return (Now - at) / 1_000_000f;
         }
 
-        /// <summary>Whether the latch (and its acorn key) is drawn now: closed, or opening.</summary>
+        /// <summary>Whether the latch (its padlock and key) is drawn now: closed, or opening.</summary>
         public bool LatchShown(int latch) => LatchClosed(latch) || LatchOpenSince(latch) >= 0f;
 
-        /// <summary>The latch whose acorn key lies on <paramref name="cell"/>, or -1.</summary>
+        /// <summary>
+        /// The pod latch <paramref name="latch"/> holds: the one right behind it in its column (<see cref="RoundLatch.Depth"/>
+        /// of the level's tray; the pods a latch holds keep their places, so it is the same pod all level long).
+        /// </summary>
+        public int HeldPod(int latch)
+        {
+            RoundLatch l = Level.Latches[latch];
+            return Level.Tray[l.Column][l.Depth];
+        }
+
+        /// <summary>The material of the pod latch <paramref name="latch"/> holds (its key's colour), or -1 for a hidden pod (a brass key).</summary>
+        public int KeyMaterial(int latch) => KeyMaterial(Level, latch);
+
+        /// <summary>
+        /// The white pips on latch <paramref name="latch"/>'s padlock and key: 0 when no other latch of the level holds a pod of
+        /// its colour (the colour tells them apart), else its place among those latches, 1 to 3.
+        /// </summary>
+        public int LatchPips(int latch) => _latchPips[latch];
+
+        /// <summary>The material of the pod <paramref name="level"/>'s latch <paramref name="latch"/> holds, or -1 for a hidden pod (<see cref="KeyMaterial(int)"/>).</summary>
+        public static int KeyMaterial(RoundLevel level, int latch)
+        {
+            RoundLatch l = level.Latches[latch];
+            RoundPod pod = level.Pods[level.Tray[l.Column][l.Depth]];
+            return pod.Mystery != RoundMystery.None ? -1 : RoundMaterial.IndexOf(pod.Code);
+        }
+
+        /// <summary>The pips of <paramref name="level"/>'s latch <paramref name="latch"/> (<see cref="LatchPips(int)"/>).</summary>
+        public static int LatchPipsOf(RoundLevel level, int latch) => LatchMarks(level)[latch];
+
+        private static int[] LatchMarks(RoundLevel level)
+        {
+            int n = level.Latches.Count;
+            var pips = new int[n];
+            for (int i = 0; i < n; i++)
+            {
+                int colour = KeyMaterial(level, i);
+                int before = 0;
+                int same = 0;
+                for (int j = 0; j < n; j++)
+                {
+                    if (j != i && KeyMaterial(level, j) == colour)
+                    {
+                        same++;
+                        before += j < i ? 1 : 0;
+                    }
+                }
+
+                pips[i] = same == 0 ? 0 : Math.Min(3, before + 1);
+            }
+
+            return pips;
+        }
+
+        /// <summary>The latch whose key lies on <paramref name="cell"/>, or -1.</summary>
         public int LatchOfKey(int cell)
         {
             IReadOnlyList<RoundLatch> latches = Level.Latches;
@@ -548,7 +615,10 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>
         /// Column <paramref name="column"/>'s queue as drawn (FR-068), top first, into <paramref name="into"/> (cleared): its
         /// waiting pods with every shown latch (<see cref="LatchShown"/>) of the column at its place among them, a latch
-        /// before the pod at its depth, each item at its row; at most <paramref name="maxRows"/> rows (0: all).
+        /// just before the pod at its depth, each item at its row; at most <paramref name="maxRows"/> rows (0: all). A latch
+        /// shares the row of the pod it holds (<see cref="RoundQueueItem.Holds"/>: the padlock is drawn on that pod); an
+        /// opening latch whose pod has already left is drawn over the row it stood in, taking none; a closed latch with no
+        /// pod right behind it takes a row of its own.
         /// </summary>
         public void ColumnItems(int column, int maxRows, List<RoundQueueItem> into)
         {
@@ -578,7 +648,12 @@ namespace Bloomlings.Client.UI.Design
                         break;
                     }
 
-                    into.Add(new RoundQueueItem(true, found, k, row++));
+                    bool holds = k < waiting && head + k == latches[found].Depth;
+                    into.Add(new RoundQueueItem(true, found, k, row, holds));
+                    if (!holds && LatchClosed(found))
+                    {
+                        row++;
+                    }
                 }
 
                 if (k < waiting && row < limit)

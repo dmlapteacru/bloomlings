@@ -130,24 +130,32 @@ namespace Bloomlings.Client.Art
         }
 
         /// <summary>
-        /// A latch block (17 §8 «Засов и жёлудь-ключ», spec 006 FR-068; the playtest's <c>Kit.LatchBlock</c>): the pod-sized
-        /// oblique wooden block with latch <paramref name="latch"/>'s mark (<see cref="UiRaster.LatchBlock"/>).
+        /// A latch's padlock (17 §8, spec 006 FR-068; <c>pod.round.padlock</c>; the playtest's <c>Kit.LatchOverlay</c>) with
+        /// <paramref name="pips"/>, closed with the acorn hero's arms round it or open (<see cref="UiRaster.Padlock"/>).
         /// </summary>
-        public static Sprite LatchBlock(int latch, int size)
+        public static Sprite Padlock(int pips, bool open, int size)
         {
-            int tag = RoundLook.TagIndex(latch);
             int s = Math.Max(1, size);
-            return ProceduralSprites.Picture(UiRaster.LatchBlockKey(tag), s, s, (w, h) => UiRaster.LatchBlock(Math.Min(w, h), tag));
+            bool arms = !open;
+            return ProceduralSprites.Picture(UiRaster.PadlockKey(pips, open, arms), s, s, (w, h) => UiRaster.Padlock(Math.Min(w, h), pips, open, arms));
+        }
+
+        /// <summary>The drawn acorn, the acorn hero's stand-in while his picture is missing (<see cref="UiRaster.AcornFigure"/>).</summary>
+        public static Sprite AcornFigure(int size)
+        {
+            int s = Math.Max(1, size);
+            return ProceduralSprites.Picture(UiRaster.AcornFigureKey, s, s, (w, h) => UiRaster.AcornFigure(Math.Min(w, h)));
         }
 
         /// <summary>
-        /// The acorn key of latch <paramref name="latch"/> (<c>board.round.key</c>; the playtest's <c>Kit.AcornKey</c>, <see cref="UiRaster.AcornKey"/>).
+        /// A latch's key (<c>board.round.key</c>; the playtest's <c>Kit.RoundKey</c>, <see cref="UiRaster.RoundKey"/>): the big
+        /// ordinary key in the held pod's colour (<paramref name="material"/>, -1 brass) with <paramref name="pips"/>, at a
+        /// pixel size of <see cref="RoundLook.KeyBox"/>.
         /// </summary>
-        public static Sprite AcornKey(int latch, int size)
+        public static Sprite RoundKey(int material, int pips, int width, int height)
         {
-            int tag = RoundLook.TagIndex(latch);
-            int s = Math.Max(1, size);
-            return ProceduralSprites.Picture(UiRaster.AcornKeyKey(tag), s, s, (w, h) => UiRaster.AcornKey(Math.Min(w, h), tag));
+            Rgba metal = RoundLook.KeyMetal(material);
+            return ProceduralSprites.Picture(UiRaster.RoundKeyKey(metal, pips), Math.Max(1, width), Math.Max(1, height), (w, h) => UiRaster.RoundKey(w, h, metal, pips));
         }
 
         /// <summary>The link tube's picture (<see cref="UiRaster.LinkTube"/>) of <paramref name="shape"/>'s colours at a pixel size.</summary>

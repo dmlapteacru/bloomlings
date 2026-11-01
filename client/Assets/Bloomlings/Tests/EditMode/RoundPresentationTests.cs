@@ -639,19 +639,24 @@ namespace Bloomlings.Client.Tests
         // ---- Introduction cards ----
 
         [Test]
-        public void TheLatchAndItsKey_AreDeterministicPictures_WithAMarkPerLatch()
+        public void ThePadlockAndTheKey_AreDeterministicPictures_InTheHeldPodsColour()
         {
-            byte[] a = UiRaster.LatchBlock(64, 0);
-            Assert.That(a, Is.EqualTo(UiRaster.LatchBlock(64, 0)), "deterministic");
+            byte[] a = UiRaster.Padlock(64, 0, false, true);
+            Assert.That(a, Is.EqualTo(UiRaster.Padlock(64, 0, false, true)), "deterministic");
             Assert.That(a.Length, Is.EqualTo(64 * 64 * 4));
-            Assert.That(a.Where((b, i) => i % 4 == 3).Count(x => x > 200), Is.GreaterThan(64 * 64 / 3), "a pod-sized block");
-            Assert.That(UiRaster.LatchBlock(64, 1), Is.Not.EqualTo(a), "another latch, another mark");
-            byte[] key = UiRaster.AcornKey(48, 0);
-            Assert.That(key.Where((b, i) => i % 4 == 3).Count(x => x > 200), Is.GreaterThan(48 * 48 / 8), "an acorn on the surface");
-            Assert.That(key.Where((b, i) => i % 4 == 3).Count(x => x == 0), Is.GreaterThan(48 * 48 / 4), "the surface shows round it");
-            Assert.That(UiRaster.AcornKey(48, 2), Is.Not.EqualTo(key));
-            Assert.That(UiRaster.LatchBlockKey(7), Is.EqualTo(UiRaster.LatchBlockKey(1)), "six marks, then they repeat");
-            Assert.That(AssetSlots.All.Select(slot => slot.Id), Does.Contain(RoundLook.LatchSlot).And.Contain(RoundLook.KeySlot));
+            Assert.That(a.Where((b, i) => i % 4 == 3).Count(x => x > 200), Is.GreaterThan(64 * 64 / 5), "a padlock");
+            Assert.That(UiRaster.Padlock(64, 2, false, true), Is.Not.EqualTo(a), "pips tell two latches of one colour apart");
+            Assert.That(UiRaster.Padlock(64, 0, true, false), Is.Not.EqualTo(a), "the open padlock");
+            Rgba blue = RoundLook.ColorOf(2);
+            byte[] key = UiRaster.RoundKey(96, 76, blue, 0);
+            Assert.That(key, Is.EqualTo(UiRaster.RoundKey(96, 76, blue, 0)));
+            Assert.That(key.Where((b, i) => i % 4 == 3).Count(x => x > 200), Is.GreaterThan(96 * 76 / 10), "a big key");
+            Assert.That(key.Where((b, i) => i % 4 == 3).Count(x => x == 0), Is.GreaterThan(96 * 76 / 4), "the board shows round it");
+            Assert.That(UiRaster.RoundKey(96, 76, RoundLook.ColorOf(0), 0), Is.Not.EqualTo(key), "another pod's colour, another key");
+            Assert.That(UiRaster.RoundKeyKey(blue, 1), Is.Not.EqualTo(UiRaster.RoundKeyKey(blue, 0)));
+            Assert.That(RoundLook.KeyMetal(-1), Is.EqualTo(RoundLook.KeyBrass), "a hidden pod's key is brass");
+            Assert.That(UiRaster.PodCubeKey('G', false, RoundPodLook.Locked, false), Is.Not.EqualTo(UiRaster.PodCubeKey('G', false, RoundPodLook.Placed, false)));
+            Assert.That(AssetSlots.All.Select(slot => slot.Id), Does.Contain(RoundLook.PadlockSlot).And.Contain(RoundLook.KeySlot));
         }
 
         [Test]
