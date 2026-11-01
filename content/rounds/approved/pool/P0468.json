@@ -1,0 +1,107 @@
+{
+ "code": "P0468",
+ "state": "free",
+ "usedBy": null,
+ "version": 4,
+ "title": "Снежный шар с ёлкой",
+ "theme": "bridge-contour",
+ "family": "Ярмарки и праздники",
+ "device": "сцена с переправой",
+ "subject": "снежный шар на деревянной подставке: внутри наряженная ёлка в снегу под ночным небом со снежинками; стекло шара — нейтральный контур, в шар ведут две ступени подставки: золотая полоса слева и дерево справа",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 36,
+ "N": 1069,
+ "colours": 9,
+ "volumes": {
+  "H": {
+   "cells": 288,
+   "name": "Лаванда",
+   "hex": "#B39CE3"
+  },
+  "N": {
+   "cells": 281,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "M": {
+   "cells": 135,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "W": {
+   "cells": 123,
+   "name": "Снег",
+   "hex": "#F3F7FC"
+  },
+  "E": {
+   "cells": 123,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "G": {
+   "cells": 45,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "A": {
+   "cells": 26,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 24,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 24,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "HHHHHHHHHHHHHHHHHHHHHHHHHHHHHHHH",
+  "HHHHHHHHHHHHHH####HHHHHHHHHHHHHH",
+  "HHHHHHHHHH####NNNN####HHHHHHHHHH",
+  "HHHHHHHH##NNNNNNNNNNNN##HHHHHHHH",
+  "HHHHHHH#NNNNWNNYYNNNNWNN#HHHHHHH",
+  "HHHHHH#NNNNNNNNYYNNNNNNNN#HHHHHH",
+  "HHHHH#NNNWNNNNNMGNNNNNNNNN#HHHHH",
+  "HHHH#NNNNNNNNMGMMMMNNNNNWNN#HHHH",
+  "HHH#NNNNNNNNGGMMMGGMNNNNNNNN#HHH",
+  "HHH#NNNNNNNGMMRRGMMMMNNNNNNN#HHH",
+  "HH#NNNWNNNMMMMRRMYMGMMNWNNNNN#HH",
+  "HH#NNNNNNMMMGMMMYYYMMMGNNNNNN#HH",
+  "H#NNNNNNNNNNMMMGGMMMNNNNNNWNNN#H",
+  "H#NNNNNWNNNMYYGMMMMGRNNNNNNNNN#H",
+  "H#NNNNNNNNMMYYMMMGMRRRNNNNNNNN#H",
+  "H#NNNNNNNMGGMMMGGRRMGGMNNNNNNN#H",
+  "H#NNNWNMMGMMMMGMMRRGMMMMGNNNNN#H",
+  "H#NNNNMGMMRRGMMYYGMMMMGMMMNNNN#H",
+  "H#NNNNNNNMRRMMMYYMMMGGMNNNNWNN#H",
+  "H#NNNNNNMGMMMMGMMMMGMRMMNNNNNN#H",
+  "H#NNNNNGMYMMGMMMMGMMRRRMMNNNNN#H",
+  "HH#NWNMMYYYMRRRGMMYMGMMMMGNNN#HH",
+  "HH#NNMMMGYMMMRGMMMYYMMMGGMMNN#HH",
+  "HHH#NNNNNWWWNNNEENNNNNNWWWNN#HHH",
+  "HHH#NNNWWWWWWWNEENNNNWWWWWWW#HHH",
+  "HHHH#WWWWWWWWWWWWWWWWWWWWWW#HHHH",
+  "HHHHH#WWWWWWWWWWWWWWWWWWWW#HHHHH",
+  "HHHHHH#WWWWWWWWWWWWWWWWWW#HHHHHH",
+  "HHHHHHH#WWWWWWWWWWWWWWWW#HHHHHHH",
+  "HHHHHHAA##WWWWWWWWWWWWb#AAHHHHHH",
+  "HHHHHAAAA#b###WWWW####EEAAAHHHHH",
+  "HHHHEEEEEAAAEE####EEEEEEEEEEHHHH",
+  "HHHEEEEEEAAAEEEEEEEEEEEEEEEEEHHH",
+  "HHEEEEEEEAAAEEEEEEEEEEEEEEEEEEHH",
+  "HHEEEEEEEAAAEEEEEEEEEEEEEEEEEEHH",
+  "HEEEEEEEEAAAEEEEEEEEEEEEEEEEEEEH"
+ ]
+}

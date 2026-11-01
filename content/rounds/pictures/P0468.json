@@ -62,7 +62,7 @@
   "E": 123,
   "A": 26
  },
- "status": "draft",
+ "status": "approved",
  "batch": "batch-0468-contour-bridges",
  "createdAt": "2026-11-01",
  "history": [
@@ -195,5 +195,7 @@
     "HEEEEEEEEAAAEEEEEEEEEEEEEEEEEEEH"
    ]
   }
- ]
+ ],
+ "note": null,
+ "decidedAt": "2026-11-01"
 }

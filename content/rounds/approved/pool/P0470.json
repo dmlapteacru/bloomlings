@@ -1,0 +1,103 @@
+{
+ "code": "P0470",
+ "state": "free",
+ "usedBy": null,
+ "version": 3,
+ "title": "Улитка с домиком",
+ "theme": "bridge-contour",
+ "family": "Насекомые и маленькие существа",
+ "device": "сцена с переправой",
+ "subject": "большая садовая улитка ползёт влево, раковина-спираль; улитка обведена нейтральной линией, мостки с двух сторон: вверх с галечной дорожки на ногу и влево с клубники на раковину",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 31,
+ "N": 991,
+ "colours": 9,
+ "volumes": {
+  "G": {
+   "cells": 212,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "S": {
+   "cells": 205,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "Z": {
+   "cells": 175,
+   "name": "Песок",
+   "hex": "#DFB48F"
+  },
+  "O": {
+   "cells": 158,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 114,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 79,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 20,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "X": {
+   "cells": 16,
+   "name": "Туман",
+   "hex": "#8E959D"
+  },
+  "R": {
+   "cells": 12,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSS#######SSSSSSSSSSS",
+  "SSSSSSSSSSSSSSS##EOOOOOO##SSSSSSSSS",
+  "SSSSSSSSSSSSSS#EOOOOOOOOOO#SSSSSSSS",
+  "SSSSSSSSSSSSS#EOOOAAAAAAAOO#SSSSSSS",
+  "SSSSSSSSSSSS#EOOAAEEEEEEEAOO#SSSSSS",
+  "SSSSSSSSSSS#EOOAEEEOOOOOEEAAO#SSSSS",
+  "SSSSSS###S#EOOAEEOOOOOOOOOEAOO#SSSS",
+  "S###S#DDD#GEOOAEOOAAAEAAOOOEAO#SSSS",
+  "#DDD#GDDDGEOOAEOOAAEEEEEAOOEEAO#SSS",
+  "#DDDGGGDDGEOOAEOOAEOOOOEEAOOEAO#SSS",
+  "S#DDGGGZZGEOOAEOOEEOOAOOEAOOEAO#RRR",
+  "S#ZZZGZZZGEOOAEOOEEOAEAOEEOOEAObRRR",
+  "SS#ZZGZZGGEOOAEOOAEOOEAOEEAOEAO#RRR",
+  "SS#ZZGZZGGEOOAEOOAAEEAOOEEOOEAO#RRR",
+  "SS#ZZZZZGGEEOOAEOOOAAOOOEAOOEAO#SSS",
+  "SS#ZZZZZZGGEOOAEEOOOOOOEEAOEEA#SSSS",
+  "G#ZZZZZZZGGEEOOAEEEEEEEAAOOEAO#GGSS",
+  "G#ZZZZZZZZGGEEOOAAAEEAAOOOEEA#GGGGG",
+  "G#ZZZZZZZZGGGEEOOOOOOOOOOEEAO#GGGGG",
+  "G#ZZZZZZZZGGGGEEEOOOOOOEEEAO#GGGGGG",
+  "G#ZDDDDZZZZZZZZAEEEEEEEEAAZZZ##GGGG",
+  "GG#ZZZZZZZZZZZZZZAAAAAAAZZZZZZZ#GGG",
+  "GG#ZZZZZZZZZZZZZZZZZZZZZZZZZZZZ#GGG",
+  "GG#ZZZZZZZZZZZZZZZZZZZZZZZZZZZZ#GGG",
+  "GG#ZZZZZZZZZZZZZZZZZZZZZZZZZZZZ#GGG",
+  "GGG#############b##############GGGG",
+  "GGGGGGGGGGGGGGGXXXGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGXXXGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGXXXXXGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGXXXXXGGGGGGGGGGGGGGGG"
+ ]
+}

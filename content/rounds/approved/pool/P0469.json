@@ -1,0 +1,101 @@
+{
+ "code": "P0469",
+ "state": "free",
+ "usedBy": null,
+ "version": 2,
+ "title": "Паровозик",
+ "theme": "bridge-contour",
+ "family": "Наземный транспорт",
+ "device": "сцена с переправой",
+ "subject": "маленький красный паровоз с синей будкой, белый дым над трубой; паровоз обведён нейтральной линией, к будке ведут мостки справа: с песчаной платформы на будку и с земляной кучи на красную нижнюю панель",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 29,
+ "N": 888,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 268,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "N": {
+   "cells": 144,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "R": {
+   "cells": 134,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 96,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 89,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "J": {
+   "cells": 74,
+   "name": "Уголь",
+   "hex": "#1F1F26"
+  },
+  "W": {
+   "cells": 35,
+   "name": "Снег",
+   "hex": "#F3F7FC"
+  },
+  "D": {
+   "cells": 33,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Z": {
+   "cells": 15,
+   "name": "Песок",
+   "hex": "#DFB48F"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSSSSSSWSSWWWSSSSSSSSSSSSSSSSSS",
+  "SSSSSWWWSWWWSWWWSSSSSSSSSSSSSSSSSS",
+  "SSSSSWWWWWWWWWWWSSSSSSSSSSSSSSSSSS",
+  "SSSSSSWWWWWWWSWSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSWWWSSSSSSSS##########SSSS",
+  "SSSSSSS#####SSSSSSS#DDDDDDDDDD#SSS",
+  "SSSSSS#NNNNN#SSSSSS#DDDDDDDDDD#SSS",
+  "SSSSSS#NNNNN#SSSSSS#NNNNNNNNNN#SSS",
+  "SSSSSSS#NNN#SSSSSSS#NNYYYYYYNN#ZZZ",
+  "SSSSSSS#NNN#S####SS#NNYYYYYYNNbZZZ",
+  "SSSS###SNNNS#YYYY##SNNYYYYYYNN#ZZZ",
+  "SS##RRRRNNNRRYYYYYYRNNYYYYYYNN#ZZZ",
+  "S#NNNRRRYYRRRYYYYYYRNNYYYYYYNN#ZZZ",
+  "S#NYYRRRYYRRRYRRRYYRNNNNNNNNNN#SSS",
+  "S#NYYRRRYYRRRYRRRYYRNNNNNNNNNN#SSS",
+  "S#NNNRRRYYRRRYRRRYYRRRRRRRRRRR#SSS",
+  "S#NNNRRRYYRRRYRRRYYRRRRRRRRRRR#SSS",
+  "S#NNNRRRYYRRRYRRRYYRRRRRRRRRRR#SSS",
+  "S#NNNRRRYYRRRYRRRYYRRRRRRRRRRR#SSS",
+  "S#NNNRRRYYRRRYRRRYYRRRRRRRRRRRbSDD",
+  "S#NNNNNNNNNNNNNNNNNNNNNJJJNNNN#DDD",
+  "S#NNNNJJJJNNNJJJJNNNNNJJJJJNNN#DDD",
+  "S#NNNNJJJJJNNJJJJJNNNNJJYJJJNN#DDD",
+  "SS##SJJYYJJSJJYYJJS##JJJYYJJS#SSDD",
+  "SSSS#JJJYJJ#JJJYJJ#SS#JJJJJJ#SSSSS",
+  "GSSSS#JJJJ#S#JJJJ#SSS#JJJJJ#SSSSSS",
+  "GGGGGG####GGG####GGGGG##J##GGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGG#GGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+ ]
+}
