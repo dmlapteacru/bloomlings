@@ -3,7 +3,7 @@
   51,
   100
  ],
- "created": "2026-11-01T12:46:46.013Z",
+ "created": "2026-11-01T14:39:30.070Z",
  "positions": [
   {
    "level": 51,
@@ -241,12 +241,9 @@
   {
    "level": 61,
    "cls": "Normal",
-   "intro": null,
+   "intro": "latch",
    "allowed": [
-    "hidden",
-    "links",
-    "bridge",
-    "cells"
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -289,12 +286,9 @@
   {
    "level": 63,
    "cls": "Normal",
-   "intro": null,
+   "intro": "latch",
    "allowed": [
-    "hidden",
-    "links",
-    "bridge",
-    "cells"
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -318,7 +312,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -342,7 +337,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -366,7 +362,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -390,7 +387,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -414,7 +412,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -438,7 +437,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -462,7 +462,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -486,7 +487,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -510,7 +512,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -534,7 +537,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -558,7 +562,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -582,7 +587,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -606,7 +612,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -630,7 +637,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -654,7 +662,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -678,7 +687,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -702,7 +712,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -726,7 +737,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -750,7 +762,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -774,7 +787,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -798,7 +812,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -822,7 +837,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -846,7 +862,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -870,7 +887,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -894,7 +912,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -918,7 +937,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -942,7 +962,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -966,7 +987,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -990,7 +1012,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -1014,7 +1037,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -1038,7 +1062,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -1062,7 +1087,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -1086,7 +1112,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -1110,7 +1137,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -1134,7 +1162,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -1158,7 +1187,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -1182,7 +1212,8 @@
     "hidden",
     "links",
     "bridge",
-    "cells"
+    "cells",
+    "latch"
    ],
    "stage": {
     "cells": [
@@ -1309,22 +1340,22 @@
    {
     "level": 57,
     "cls": "Normal",
-    "lead": "links",
-    "add": [
-     "cells"
-    ],
-    "recipe": "links+cells",
-    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
-   },
-   {
-    "level": 58,
-    "cls": "Normal",
     "lead": "cells",
     "add": [
      "links"
     ],
     "recipe": "cells+links",
     "doses": "скрытые клетки 5–10 % N (35–70 при N = 700); связки доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 58,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
    },
    {
     "level": 59,
@@ -1347,25 +1378,13 @@
    {
     "level": 61,
     "cls": "Normal",
-    "lead": "links",
-    "add": [
-     "cells"
-    ],
-    "recipe": "links+cells",
-    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+    "lead": "latch",
+    "add": [],
+    "recipe": "latch",
+    "doses": "засов и ключ 1 пара"
    },
    {
     "level": 62,
-    "cls": "Normal",
-    "lead": "links",
-    "add": [
-     "hidden"
-    ],
-    "recipe": "links+hidden",
-    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые доп. 5 % P (2 при P = 24)"
-   },
-   {
-    "level": 63,
     "cls": "Normal",
     "lead": "links",
     "add": [],
@@ -1373,14 +1392,22 @@
     "doses": "связки 10–30 % P (4–6 при P = 24)"
    },
    {
+    "level": 63,
+    "cls": "Normal",
+    "lead": "latch",
+    "add": [],
+    "recipe": "latch",
+    "doses": "засов и ключ 1 пара"
+   },
+   {
     "level": 64,
     "cls": "Normal",
-    "lead": "cells",
+    "lead": "links",
     "add": [
-     "links"
+     "cells"
     ],
-    "recipe": "cells+links",
-    "doses": "скрытые клетки 5–10 % N (35–70 при N = 700); связки доп. 5 % P (2 при P = 24)"
+    "recipe": "links+cells",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
    },
    {
     "level": 65,
@@ -1399,49 +1426,23 @@
     "cls": "Normal",
     "lead": "links",
     "add": [
-     "cells"
+     "latch"
     ],
-    "recipe": "links+cells",
-    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+    "recipe": "links+latch",
+    "doses": "связки 10–30 % P (4–6 при P = 24); засов и ключ доп. 1 пара"
    },
    {
     "level": 67,
     "cls": "Normal",
-    "lead": "links",
-    "add": [],
-    "recipe": "links",
-    "doses": "связки 10–30 % P (4–6 при P = 24)"
+    "lead": "cells",
+    "add": [
+     "links"
+    ],
+    "recipe": "cells+links",
+    "doses": "скрытые клетки 5–10 % N (35–70 при N = 700); связки доп. 5 % P (2 при P = 24)"
    },
    {
     "level": 68,
-    "cls": "Normal",
-    "lead": "cells",
-    "add": [],
-    "recipe": "cells",
-    "doses": "скрытые клетки 5–10 % N (35–70 при N = 700)"
-   },
-   {
-    "level": 69,
-    "cls": "Normal",
-    "lead": "links",
-    "add": [
-     "cells"
-    ],
-    "recipe": "links+cells",
-    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
-   },
-   {
-    "level": 70,
-    "cls": "Hard",
-    "lead": "links",
-    "add": [
-     "cells"
-    ],
-    "recipe": "links+cells",
-    "doses": "связки 20–45 % P (6–10 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
-   },
-   {
-    "level": 71,
     "cls": "Normal",
     "lead": "links",
     "add": [
@@ -1449,6 +1450,36 @@
     ],
     "recipe": "links+hidden",
     "doses": "связки 10–30 % P (4–6 при P = 24); скрытые доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 69,
+    "cls": "Normal",
+    "lead": "latch",
+    "add": [
+     "links"
+    ],
+    "recipe": "latch+links",
+    "doses": "засов и ключ 1 пара; связки доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 70,
+    "cls": "Hard",
+    "lead": "links",
+    "add": [
+     "latch"
+    ],
+    "recipe": "links+latch",
+    "doses": "связки 20–45 % P (6–10 при P = 24); засов и ключ доп. 1 пара"
+   },
+   {
+    "level": 71,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
    },
    {
     "level": 72,
@@ -1463,20 +1494,18 @@
     "cls": "Normal",
     "lead": "links",
     "add": [
-     "cells"
+     "latch"
     ],
-    "recipe": "links+cells",
-    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+    "recipe": "links+latch",
+    "doses": "связки 10–30 % P (4–6 при P = 24); засов и ключ доп. 1 пара"
    },
    {
     "level": 74,
     "cls": "Normal",
     "lead": "cells",
-    "add": [
-     "links"
-    ],
-    "recipe": "cells+links",
-    "doses": "скрытые клетки 5–10 % N (35–70 при N = 700); связки доп. 5 % P (2 при P = 24)"
+    "add": [],
+    "recipe": "cells",
+    "doses": "скрытые клетки 5–10 % N (35–70 при N = 700)"
    },
    {
     "level": 75,
@@ -1502,12 +1531,12 @@
    {
     "level": 77,
     "cls": "Normal",
-    "lead": "links",
+    "lead": "latch",
     "add": [
-     "cells"
+     "links"
     ],
-    "recipe": "links+cells",
-    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+    "recipe": "latch+links",
+    "doses": "засов и ключ 1 пара; связки доп. 5 % P (2 при P = 24)"
    },
    {
     "level": 78,
@@ -1522,6 +1551,37 @@
    {
     "level": 79,
     "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 80,
+    "cls": "Hard",
+    "lead": "links",
+    "add": [
+     "cells",
+     "latch"
+    ],
+    "recipe": "links+cells+latch",
+    "doses": "связки 20–32.5 % P (6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700); засов и ключ доп. 1 пара"
+   },
+   {
+    "level": 81,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "latch"
+    ],
+    "recipe": "links+latch",
+    "doses": "связки 10–30 % P (4–6 при P = 24); засов и ключ доп. 1 пара"
+   },
+   {
+    "level": 82,
+    "cls": "Normal",
     "lead": "cells",
     "add": [
      "links"
@@ -1530,17 +1590,7 @@
     "doses": "скрытые клетки 5–10 % N (35–70 при N = 700); связки доп. 5 % P (2 при P = 24)"
    },
    {
-    "level": 80,
-    "cls": "Hard",
-    "lead": "links",
-    "add": [
-     "cells"
-    ],
-    "recipe": "links+cells",
-    "doses": "связки 20–45 % P (6–10 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
-   },
-   {
-    "level": 81,
+    "level": 83,
     "cls": "Normal",
     "lead": "links",
     "add": [],
@@ -1548,32 +1598,14 @@
     "doses": "связки 10–30 % P (4–6 при P = 24)"
    },
    {
-    "level": 82,
-    "cls": "Normal",
-    "lead": "links",
-    "add": [
-     "cells"
-    ],
-    "recipe": "links+cells",
-    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
-   },
-   {
-    "level": 83,
-    "cls": "Normal",
-    "lead": "cells",
-    "add": [],
-    "recipe": "cells",
-    "doses": "скрытые клетки 5–10 % N (35–70 при N = 700)"
-   },
-   {
     "level": 84,
     "cls": "Normal",
-    "lead": "links",
+    "lead": "latch",
     "add": [
      "cells"
     ],
-    "recipe": "links+cells",
-    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+    "recipe": "latch+cells",
+    "doses": "засов и ключ 1 пара; скрытые клетки доп. 5 % N (35 при N = 700)"
    },
    {
     "level": 85,
@@ -1619,22 +1651,23 @@
    {
     "level": 89,
     "cls": "Normal",
-    "lead": "cells",
+    "lead": "latch",
     "add": [
      "links"
     ],
-    "recipe": "cells+links",
-    "doses": "скрытые клетки 5–10 % N (35–70 при N = 700); связки доп. 5 % P (2 при P = 24)"
+    "recipe": "latch+links",
+    "doses": "засов и ключ 1 пара; связки доп. 5 % P (2 при P = 24)"
    },
    {
     "level": 90,
     "cls": "Super Hard",
     "lead": "links",
     "add": [
+     "latch",
      "cells"
     ],
-    "recipe": "links+cells",
-    "doses": "связки 35–60 % P (10–14 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+    "recipe": "links+latch+cells",
+    "doses": "связки 35–47.5 % P (10 при P = 24); засов и ключ доп. 1 пара; скрытые клетки доп. 5 % N (35 при N = 700)"
    },
    {
     "level": 91,
@@ -1647,20 +1680,22 @@
    {
     "level": 92,
     "cls": "Normal",
-    "lead": "links",
+    "lead": "cells",
     "add": [
-     "cells"
+     "links"
     ],
-    "recipe": "links+cells",
-    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+    "recipe": "cells+links",
+    "doses": "скрытые клетки 5–10 % N (35–70 при N = 700); связки доп. 5 % P (2 при P = 24)"
    },
    {
     "level": 93,
     "cls": "Normal",
-    "lead": "cells",
-    "add": [],
-    "recipe": "cells",
-    "doses": "скрытые клетки 5–10 % N (35–70 при N = 700)"
+    "lead": "links",
+    "add": [
+     "latch"
+    ],
+    "recipe": "links+latch",
+    "doses": "связки 10–30 % P (4–6 при P = 24); засов и ключ доп. 1 пара"
    },
    {
     "level": 94,
@@ -1677,10 +1712,10 @@
     "cls": "Hard",
     "lead": "links",
     "add": [
-     "cells"
+     "latch"
     ],
-    "recipe": "links+cells",
-    "doses": "связки 20–45 % P (6–10 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+    "recipe": "links+latch",
+    "doses": "связки 20–45 % P (6–10 при P = 24); засов и ключ доп. 1 пара"
    },
    {
     "level": 96,
@@ -1695,14 +1730,6 @@
    {
     "level": 97,
     "cls": "Normal",
-    "lead": "links",
-    "add": [],
-    "recipe": "links",
-    "doses": "связки 10–30 % P (4–6 при P = 24)"
-   },
-   {
-    "level": 98,
-    "cls": "Normal",
     "lead": "cells",
     "add": [
      "links"
@@ -1711,24 +1738,35 @@
     "doses": "скрытые клетки 5–10 % N (35–70 при N = 700); связки доп. 5 % P (2 при P = 24)"
    },
    {
-    "level": 99,
+    "level": 98,
     "cls": "Normal",
     "lead": "links",
     "add": [
-     "cells"
+     "hidden"
     ],
-    "recipe": "links+cells",
-    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+    "recipe": "links+hidden",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 99,
+    "cls": "Normal",
+    "lead": "latch",
+    "add": [
+     "links"
+    ],
+    "recipe": "latch+links",
+    "doses": "засов и ключ 1 пара; связки доп. 5 % P (2 при P = 24)"
    },
    {
     "level": 100,
     "cls": "Hard",
     "lead": "links",
     "add": [
+     "latch",
      "cells"
     ],
-    "recipe": "links+cells",
-    "doses": "связки 20–45 % P (6–10 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+    "recipe": "links+latch+cells",
+    "doses": "связки 20–32.5 % P (6 при P = 24); засов и ключ доп. 1 пара; скрытые клетки доп. 5 % N (35 при N = 700)"
    }
   ],
   "shares": {
@@ -1738,9 +1776,9 @@
     "lead": 3
    },
    "links": {
-    "levels": 42,
-    "share": 0.84,
-    "lead": 33
+    "levels": 41,
+    "share": 0.82,
+    "lead": 29
    },
    "hidden": {
     "levels": 5,
@@ -1748,9 +1786,14 @@
     "lead": 0
    },
    "cells": {
-    "levels": 33,
-    "share": 0.66,
-    "lead": 11
+    "levels": 23,
+    "share": 0.46,
+    "lead": 8
+   },
+   "latch": {
+    "levels": 16,
+    "share": 0.32,
+    "lead": 7
    },
    "none": {
     "levels": 3,
@@ -1762,9 +1805,9 @@
    40
   ],
   "types": {
-   "one": 13,
-   "two": 32,
-   "three": 2
+   "one": 11,
+   "two": 31,
+   "three": 5
   },
   "sides": {
    "up": 1,
@@ -1773,29 +1816,379 @@
   }
  },
  "need": {
-  "Normal": 38,
+  "Normal": 36,
   "Hard": 5,
   "Super Hard": 2,
-  "intro": 2,
+  "intro": 4,
   "bridge": 0
  },
  "supply": {
-  "pictures": 111,
-  "strong": 73,
+  "pictures": 260,
+  "strong": 166,
   "stream": 0,
   "bank": {
-   "знакомство: hidden": 42,
-   "Normal": 354,
-   "знакомство: links": 38,
-   "Hard": 45,
-   "Super Hard": 24
+   "знакомство: hidden": 40,
+   "Normal": 330,
+   "знакомство: links": 36,
+   "Hard": 41,
+   "Super Hard": 21
+  },
+  "packs": {
+   "owner-0004-0008": 1,
+   "owner-0010": 1,
+   "batch-0011-env": 9,
+   "batch-0011": 26,
+   "batch-0061": 30,
+   "batch-0168-C": 20,
+   "batch-0168-D": 19,
+   "batch-0168-E": 2,
+   "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01": 50,
+   "packs-0268-0467 · Миниатюрные мастерские": 10,
+   "packs-0268-0467 · Необычные магазины": 10,
+   "packs-0268-0467 · Музыка": 10,
+   "packs-0268-0467 · Ретрофутуризм": 10,
+   "packs-0268-0467 · Праздники и карнавал": 10,
+   "packs-0268-0467 · Доисторические находки": 10,
+   "packs-0268-0467 · Невозможная архитектура": 10,
+   "packs-0268-0467 · Путешествия и походы": 10,
+   "packs-0268-0467 · Обмен свойствами предметов": 10,
+   "packs-0268-0467 · Уютная мистика": 10,
+   "packs-0268-0467 · Новые версии знакомых героев": 1,
+   "packs-0268-0467 · Новые герои игр": 1
+  },
+  "latch": {
+   "positions": [
+    61,
+    63,
+    66,
+    69,
+    70,
+    73,
+    77,
+    80,
+    81,
+    84,
+    89,
+    90,
+    93,
+    95,
+    99,
+    100
+   ],
+   "pictures": 53
   },
   "overlay": {}
  },
+ "pins": [
+  {
+   "id": "P0317",
+   "title": "Светофор-бабочкарий",
+   "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
+   "positions": [
+    51,
+    52,
+    53,
+    54,
+    56,
+    57,
+    58,
+    59,
+    61,
+    62,
+    63,
+    64,
+    66,
+    67,
+    68,
+    69,
+    71,
+    72,
+    73,
+    74,
+    76,
+    77,
+    78,
+    79,
+    81,
+    82,
+    83,
+    84,
+    86,
+    87,
+    88,
+    89,
+    91,
+    92,
+    93,
+    94,
+    96,
+    97,
+    98,
+    99
+   ],
+   "reserved": 66,
+   "status": "free",
+   "reason": null
+  },
+  {
+   "id": "P0425",
+   "title": "ВАЛЛ-И — маленький сад",
+   "pack": "packs-0268-0467 · Новые версии знакомых героев",
+   "positions": [
+    62,
+    64,
+    67,
+    68,
+    71,
+    72,
+    74,
+    76,
+    78,
+    79,
+    82,
+    83,
+    86,
+    87,
+    88,
+    91,
+    92,
+    94,
+    96,
+    97,
+    98
+   ],
+   "reserved": 82,
+   "status": "free",
+   "reason": null
+  },
+  {
+   "id": "P0465",
+   "title": "Рыцарь — гвоздь",
+   "pack": "packs-0268-0467 · Новые герои игр",
+   "positions": [
+    51,
+    52,
+    53,
+    54,
+    56,
+    57,
+    58,
+    59,
+    61,
+    62,
+    63,
+    64,
+    66,
+    67,
+    68,
+    69,
+    71,
+    72,
+    73,
+    74,
+    76,
+    77,
+    78,
+    79,
+    81,
+    82,
+    83,
+    84,
+    86,
+    87,
+    88,
+    89,
+    91,
+    92,
+    93,
+    94,
+    96,
+    97,
+    98,
+    99
+   ],
+   "reserved": 77,
+   "status": "free",
+   "reason": null
+  },
+  {
+   "id": "P0341",
+   "title": "Заводная дискета",
+   "pack": "packs-0268-0467 · Ретрофутуризм",
+   "positions": [
+    51,
+    52,
+    53,
+    54,
+    56,
+    57,
+    58,
+    59,
+    62,
+    64,
+    67,
+    68,
+    71,
+    72,
+    74,
+    76,
+    78,
+    79,
+    82,
+    83,
+    86,
+    87,
+    88,
+    91,
+    92,
+    94,
+    96,
+    97,
+    98
+   ],
+   "reserved": 54,
+   "status": "free",
+   "reason": null
+  },
+  {
+   "id": "P0337",
+   "title": "Зеркало отражает другую осень",
+   "pack": "packs-0268-0467 · Уютная мистика",
+   "positions": [
+    61,
+    62,
+    63,
+    64,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99,
+    100
+   ],
+   "reserved": 95,
+   "status": "free",
+   "reason": null
+  },
+  {
+   "id": "P0326",
+   "title": "Мягкий дорожный конус",
+   "pack": "packs-0268-0467 · Обмен свойствами предметов",
+   "positions": [
+    51,
+    52,
+    53,
+    54,
+    56,
+    57,
+    58,
+    59,
+    62,
+    64,
+    67,
+    68,
+    71,
+    72,
+    74,
+    76,
+    78,
+    79,
+    82,
+    83,
+    86,
+    87,
+    88,
+    91,
+    92,
+    94,
+    96,
+    97,
+    98
+   ],
+   "reserved": 59,
+   "status": "free",
+   "reason": null
+  },
+  {
+   "id": "P0391",
+   "title": "Кассета — американские горки",
+   "pack": "packs-0268-0467 · Ретрофутуризм",
+   "positions": [
+    61,
+    62,
+    63,
+    64,
+    66,
+    67,
+    68,
+    69,
+    70,
+    71,
+    72,
+    73,
+    74,
+    76,
+    77,
+    78,
+    79,
+    80,
+    81,
+    82,
+    83,
+    84,
+    86,
+    87,
+    88,
+    89,
+    90,
+    91,
+    92,
+    93,
+    94,
+    95,
+    96,
+    97,
+    98,
+    99,
+    100
+   ],
+   "reserved": 70,
+   "status": "free",
+   "reason": null
+  }
+ ],
  "order": {
   "total": 0,
   "strong": 0,
   "streams": 0,
+  "latch": 0,
   "byStage": {},
   "sizeMix": {
    "200–499": 0,
@@ -1804,7 +2197,7 @@
   },
   "strips": [],
   "scenes": [],
-  "sceneSources": 37,
+  "sceneSources": 72,
   "splits": [
    {
     "level": 65,
@@ -1850,36 +2243,40 @@
    }
   ],
   "avoidMotifs": [
-   "ретро-техника (8)",
+   "ретро-техника (10)",
    "лампы и фонари (5)",
-   "инструменты музыки (3)",
-   "книги (3)",
-   "рыбы (5)",
+   "инструменты музыки (5)",
+   "книги (5)",
+   "рыбы (7)",
    "подводный мир (6)",
-   "космонавты и ракеты (4)",
+   "космонавты и ракеты (6)",
    "полив цветка (4)",
    "роботы (4)",
-   "чашки и кружки (4)",
-   "динозавры (3)",
-   "домики-сказки (4)",
+   "цветок в горшке (3)",
+   "чашки и кружки (5)",
+   "динозавры (5)",
+   "домики-сказки (8)",
    "корабли и лодки (4)",
    "привидения и духи (3)",
-   "печенье и выпечка (3)",
-   "кошки (5)"
+   "печенье и выпечка (4)",
+   "зонты (6)",
+   "собаки (4)",
+   "кошки (9)",
+   "воздушные шары (3)"
   ],
   "suggestFamilies": [
    "Герои и мир Bloomlings (0)",
-   "Магазины и витрины (1)",
    "Водный транспорт (1)",
    "Цветы и букеты (2)",
-   "Деревья, листья и плоды (2)",
-   "Камни, минералы и кристаллы (2)",
    "Хлеб и выпечка (2)",
-   "Мебель и уютные уголки (2)",
-   "Кафе и мастерские (2)",
-   "Городские пространства (2)",
-   "Походы и отдых на природе (2)",
-   "Багаж и навигация (2)"
+   "Подводные экспедиции (2)",
+   "Сказочные жилища (2)",
+   "Грибы и лесные находки (3)",
+   "Камни, минералы и кристаллы (3)",
+   "Мебель и уютные уголки (4)",
+   "Городские пространства (4)",
+   "Наземный транспорт (4)",
+   "Воздушный транспорт (4)"
   ]
  }
 }
