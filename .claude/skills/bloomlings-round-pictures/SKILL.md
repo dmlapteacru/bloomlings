@@ -73,6 +73,7 @@ order asks for, not a free batch.
     below (`content/rounds/pictures/src/variants-0114.mjs`). Draw a new subject only when no such picture fits.
   - A level that only needs a straight wall over an existing picture (the plan's `strip: overlay`) needs no new
     picture: the level skill lays the wall (`lib.mjs wallOverlay`).
+  - **Retired on 2026-11-01** (the owner: «У нас плохо получается когда они идут вразрез… Вокруг объекта получалось лучше»; 17 §8 «Только контур, без разреза»): every bridge level is a contour picture drawn for it (the subject outlined from its own meaning, two sites on the contour, scripts like `content/rounds/experiments/contour-bridges-51/`), and its queue is searched by hand; the split below is kept only for the record. 
   - **Split pictures** (the main path since 2026-10-29, the plan's `strip: gap`; 17 §8 «Одна цельная картинка», the owner:
     «сделать одну большую картинку и просто в рандомных местах разделить её и поставить мосты … полоской нейтральной в
     цвет фона»). `tools/rounds/bridge-scene.mjs make --mode split --from P#### --side up|left|right|two --kind

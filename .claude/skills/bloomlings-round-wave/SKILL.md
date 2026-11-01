@@ -44,8 +44,8 @@ Before anything, read:
      recipe and, for a bridge, its crossing side and bridge kind.
    - Run `node tools/rounds/rounds.mjs plan <from> <to>`. It writes `content/rounds/runs/L####-L####/plan.md`: the
      breakdown with shares, the positions, the supply (how many free pool pictures take the wall of each overlay
-     position) and the picture order for what the plan needs: **the split pictures** for the gap positions (side, kind,
-     class, recipe, suggested free sources and the `bridge-scene.mjs make --mode split` command each), the bridge scenes
+     position) and the picture order for what the plan needs: **the contour pictures** for the bridge positions (side, kind,
+     class, recipe; drawn by hand since 2026-11-01, 17 §8 «Только контур, без разреза»), the bridge scenes
      for the new-strip positions, pool pictures for the rest.
    - Pictures the owner pins to the wave (`mechanics.json` `pin`): the plan reserves each for a fitting position (its
      «Закреплённые картинки» table, `plan.json` `pins`), `run` builds candidates for them and `place` uses them there; a
@@ -54,7 +54,7 @@ Before anything, read:
      while another candidate fits). Latch positions need pictures with an empty area closed in by work for the acorn key.
    - Tell the owner which positions the engine cannot fill yet (an introduction of an unsupported mechanic, 17 §14).
      They stay open and the rest of the wave runs; never fake one mechanic with another.
-2. **Split pictures** (17 §8 «Одна цельная картинка», the owner, 2026-10-29; the plan's `strip: gap`). For each split the
+2. **Split pictures** (17 §8 «Одна цельная картинка», the owner, 2026-10-29; the plan's `strip: gap`). **Retired on 2026-11-01** (the owner: «У нас плохо получается когда они идут вразрез… Вокруг объекта получалось лучше»; 17 §8 «Только контур, без разреза»): every bridge level is a contour picture drawn for it (the subject outlined from its own meaning, two sites on the contour, scripts like `content/rounds/experiments/contour-bridges-51/`), and its queue is searched by hand; the split below is kept only for the record.  For each split the
    plan lists, run its command in the background in chunks (`--minutes 35`, at most two processes; rerun the same command
    to resume: the evidence `<out>.json` keeps every split tried), e.g.
    `node tools/rounds/bridge-scene.mjs make --mode split --from P0074 --side up --kind better --cls Normal --recipe bridge+hidden --level 23 --out content/rounds/pictures/src/split-L0023.mjs`.

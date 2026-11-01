@@ -68,7 +68,7 @@ board from the approved picture plus the overlay, N and W count the board with t
 stone. `bridgeSide(level)` is the crossing of the group: the common direction, or `two` for different directions or
 strips.
 
-**Split pictures** (`bridge-scene.mjs make --mode split`, 17 §8 «Одна цельная картинка», the owner, 2026-10-29: «сделать
+**Retired on 2026-11-01** (17 §8 «Только контур, без разреза»: every bridge level is a hand-drawn contour picture, e.g. `content/rounds/experiments/contour-bridges-51/`); kept for the record: **Split pictures** (`bridge-scene.mjs make --mode split`, 17 §8 «Одна цельная картинка», the owner, 2026-10-29: «сделать
 одну большую картинку и просто в рандомных местах разделить её и поставить мосты»). The main path for a planned bridge
 position (`strip: gap`). `splitOf(src, {side, at, sites, corner})` inserts a strip line into one whole picture: `up` a row
 before row `at`, `left`/`right` a column before column `at`, `two` an L (`at = [x0, y0]`, corner `tl` or `tr`) whose
