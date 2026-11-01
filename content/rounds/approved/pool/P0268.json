@@ -1,0 +1,104 @@
+{
+ "code": "P0268",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Водопад в песочных часах",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Магические предметы",
+ "direction": "Миры внутри предметов",
+ "device": "Вместилище и внутренний мир",
+ "subject": "Вместо песка в часах падает водопад; две стеклянные колбы; узкая струя между ними; озеро внизу",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 36,
+ "N": 892,
+ "colours": 8,
+ "volumes": {
+  "A": {
+   "cells": 224,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 169,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 134,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "S": {
+   "cells": 120,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "B": {
+   "cells": 111,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 68,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 41,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 25,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  "EAAAAAAAAAAAAAAAAAAAAAAAAAAAAE",
+  "EAAAAAAAAAAAAAAAAAAAAAAAAAAAAE",
+  "EAAAAAAAAAAAAAAAAAAAAAAAAAAAAE",
+  "EAAAAAAAAAAAAAAAAAAAAAAAAAAAAE",
+  ".EEYYYNNNNNNNNNNNNNNNNNNNYYEE.",
+  "..EYYYNSSSSSSSSSSSSSSSSSNYYE..",
+  "..EYYYNSSSSSSSSSSSSSSSSNYYYE..",
+  "..EYYYNSBBBBBBBBBBBBBBSNYYYE..",
+  "..EYYYNSBBBBBBBBBBBBBBSNEYYE..",
+  "..EYYYEEBBBBBBBBBBBBBBNNEYYE..",
+  "..EYYYEEBBBBBBBBBBBBBNN.EYYE..",
+  "..EYYYE.NBBBBBCCBBBBNN..EYYE..",
+  "..EYYYE.NNSBBBCCBBBSNN..EYYE..",
+  "..EYYYE..NSSBBCCBBSSN...EYYE..",
+  "..EYYYE...SSSBCCCSSS....EYYE..",
+  "..EYYYE....SSBCCCSS.....EYYE..",
+  "..EYYYE.....BBCCCC......EYYE..",
+  "..EYYYE......BCCC.......EYYE..",
+  "..EYYYE.....BBCCCC......EYYE..",
+  "..EYYYE....SSBCCSSS.....EYYE..",
+  "..EYYYE...SSSBCCSSSS....EYYE..",
+  "..EYYYE..SSSSSCCSSSSS...EYYE..",
+  "..EYYYE.SSSSSSCCSSSSSS..EYYE..",
+  "..EYYYESSSSSGGGGGSSSSSS.EYYE..",
+  "..EYYYESSGGGGGGGGGGGSSSEEYYE..",
+  "..EYYYNGGGBBBBBBBBBBBBNNEYYE..",
+  "..EYYYNGBBCCCCCCCCCCBBGNYYYE..",
+  "..EYYYNGGBBBBBBBBBBBBGGNYYYE..",
+  "..EYYYNSSSSSSSSSSSSSSSSSNYYE..",
+  ".EEYYYNNNNNNNNNNNNNNNNNNNYYEE.",
+  "EAAAAAAAAAAAAAAAAAAAAAAAAAAAAE",
+  "EAAAAAAAAAAAAAAAAAAAAAAAAAAAAE",
+  "EAAAAAAAAAAAAAAAAAAAAAAAAAAAAE",
+  "EAAAAAAAAAAAAAAAAAAAAAAAAAAAAE",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
+ ]
+}

@@ -1,0 +1,95 @@
+{
+ "code": "P0304",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Ступеньки из падающих домино",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Игрушки и настольные игры",
+ "direction": "Геометрическая фантазия",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Падающие костяшки складываются в невозможную лестницу; три уровня плиток; контрастные точки; ступенчатый силуэт",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 32,
+ "N": 861,
+ "colours": 7,
+ "volumes": {
+  "V": {
+   "cells": 524,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "C": {
+   "cells": 188,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 66,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 33,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 20,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 18,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "N": {
+   "cells": 12,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........VVVVVVVVVV...........",
+  ".........VVVVVVVVVVVVVV..EEE....",
+  ".......VVVVVVVVVVVVVVVVCCCCE....",
+  "......VVVVVVVVVVVVVVVRRCCCCCC...",
+  ".....VVVVVVVVVVVVVEECRRRCCAAC...",
+  "....VVVVVVVVVVVVVVECCCRAAAACCC..",
+  "...VVVVVVVVVVVVVVVECCAAACCCCCC..",
+  "..VVVVVVVVVVVVVVVVVCCACCCNNCCCE.",
+  "..VVVVVVVVVVVVVVVVVCCCCCCNNCCCE.",
+  ".VVVVVVVVVVVVVVVEEEECCCCCCCCCEE.",
+  ".VVVVVVVVVVVVVVVCCEECCCCCCCCCVV.",
+  "VVVVVVVVVVVVRRCCCCCEEECCEEEVVVVV",
+  "VVVVVVVVVEEERRRCCAAEEEEEVVVVVVVV",
+  "VVVVVVVVVECCCRAAAACCCVVVVVVVVVVV",
+  "VVVVVVVVVECCAAAACCCCCVVVVVVVVVVV",
+  "VVVVVVVVVVCCACCCNNCCCEVVVVVVVVVV",
+  "VVVVVVVVVVCCCCCCNNCCCEVVVVVVVVVV",
+  "VVVVVVVEEEECCCCCCCCCEEVVVVVVVVVV",
+  "VVVVVVVCCEECCCCCCCCCVVVVVVVVVVVV",
+  "VVVRRCCCCCEEECCCCCVVVVVVVVVVVVVV",
+  "EEERRRCCAAEEEEEEVVVVVVVVVVVVVVVV",
+  "ECCCRAAAACCCVVVVVVVVVVVVVVVVVVV.",
+  "ECCAAAACCCCCVVVVVVVVVVVVVVVVVVV.",
+  ".CCAACCNNCCCEVVVVVVVVVVVVVVVVV..",
+  ".CCCCCCNNCCCEVVVVVVVVVVVVVVVVV..",
+  "..CCCCCCCCCEEVVVVVVVVVVVVVVVV...",
+  "..CCCCCCCCCVVVVVVVVVVVVVVVVV....",
+  "...ECCCCCVVVVVVVVVVVVVVVVVV.....",
+  "...EEEYYYVVVVVVVVVVVVVVVVV......",
+  "...YYYYYYYVVVVVVVVVVVVVVV.......",
+  "...YYYYYYYVVVVVVVVVVVVV.........",
+  "....YYY....VVVVVVVVVV..........."
+ ]
+}

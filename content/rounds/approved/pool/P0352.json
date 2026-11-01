@@ -1,0 +1,104 @@
+{
+ "code": "P0352",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Венок из карманных часов",
+ "theme": "Праздники и карнавал",
+ "family": "Ярмарки и праздники",
+ "direction": "Уютный сюрреализм",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Праздничный венок собран из часов; пять круглых циферблатов; зелёные связующие листья; красный бант внизу",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 36,
+ "N": 862,
+ "colours": 8,
+ "volumes": {
+  "C": {
+   "cells": 214,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 183,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 165,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "S": {
+   "cells": 103,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "G": {
+   "cells": 88,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "R": {
+   "cells": 57,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "N": {
+   "cells": 43,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "P": {
+   "cells": 9,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............YYYYYYY..............",
+  ".............YYYYYYYYY.............",
+  "............EYYSSNSSYYE............",
+  "............EYYSSNSSSYE............",
+  "............EYSSSNNSSYE............",
+  "...........EEYSSSNNNNYEE...........",
+  ".........GGGEYYSSSSSYYEGGG.........",
+  "........GGGGGYYYSSSYYEGGGGG........",
+  "....EEEEGGGGGGYYYYYYEEGGGGGEEEE....",
+  "..YYYYYEEGGGGGGEEEEEGGGGGGEEYYYYY..",
+  ".YYYYYYYYEGGGCCCCCCCCCGGGYYYYYYYYY.",
+  ".YYSSNSSYEEGCCCCCCCCCCCCGYYSSNSSYYE",
+  "EYYSSNSSYYECCCCCCCCCCCCCEYYSSNSSYYE",
+  "EYSSSNNSSYECCCCCCCCCCCCCEYSSSNNSSYE",
+  "EYSSSNNNNYECCCCCCCCCCCCCEYSSSNNNNYE",
+  "EYYSSSSNYYECCCCCCCCCCCCCEYYSSSSNYYE",
+  ".EYYSSSYYECCCCCCCCCCCCCCCEYYSSSYYY.",
+  ".EEYYYYYEECCCCCCCCCCCCCCCEEYYYYYYY.",
+  "..EEEYEEECCCCCCCCCCCCCCCCCEEEYEEE..",
+  "...EGGGGCCCCCCCCCCCCCCCCCCCGGGGE...",
+  "...EGGGGGCCCCCCCCCCCCCCCCCCGGGGE...",
+  "...EGGGGEEECCCCCCCCCCCCCCCCGGGGE...",
+  "...EGGGGYYYEECCCCCCCCCEEYYYYYGGE...",
+  "....EEYYYYYYEECCCCCCCEEYYYYYYEE....",
+  "....EYYSNNSYYECCCCCCCEYYSNNSYYE....",
+  "....EYSSNNSSYYECCCCCCYYSSNNSSYE....",
+  "....EYSSNNNSYYECCCCCCYYSSNNSSYE....",
+  "....EYSSSEEEYYECCCCCCYYSEENNNYE....",
+  "....EYSSSEREEEEGGGGGGEEERESSNYE....",
+  "....EYYSSERRREEEGGGGEERRRESSYYE....",
+  ".....YYYYERRRRREPPPEERRRREYYYY.....",
+  "......EEEERRRRRRPPPRRRRRREEEE......",
+  ".........ERRRRRRPPPERRRRRE.........",
+  ".........ERRRRRRR..EERRRRE.........",
+  ".........ERREEE......RRRRE.........",
+  ".........EEE...........EEE........."
+ ]
+}

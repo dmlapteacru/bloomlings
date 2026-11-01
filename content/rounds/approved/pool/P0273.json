@@ -1,0 +1,83 @@
+{
+ "code": "P0273",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Планета-авокадо",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Фрукты и ягоды",
+ "direction": "Кулинарная фантастика",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Разрез авокадо стал планетой; крупная круглая косточка; орбитальное кольцо; листок на верхушке",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 24,
+ "h": 26,
+ "N": 391,
+ "colours": 6,
+ "volumes": {
+  "L": {
+   "cells": 184,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "Y": {
+   "cells": 81,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "N": {
+   "cells": 48,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 45,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "G": {
+   "cells": 22,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 11,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "............LL..GGG.....",
+  ".........LLLLLGGGGG.....",
+  "........LLLLLLGGGGG.....",
+  "........LLLLLLGGGGG.....",
+  ".......LLLLLLLGGGG......",
+  ".......LLLLLLLLLLLM.....",
+  "......LLLLLLLLLLLLM.....",
+  "......LLLLLLLLLLLLM.....",
+  "......LLLLLLLLLLLLL.....",
+  ".....LLLLLLLLLLLLLLL....",
+  ".....LLLLLLLLLLLLLLL....",
+  "....LLLLLNNNNNNNNNNNN...",
+  "....LLNNNNNNNNNNNNNNNNNN",
+  "...NNNNNNYYYYAAAALLLLNNN",
+  "..NNNNLLAYYYYYAAAALLLYYY",
+  "NNNNLLLLAYYYYYAAAALLLYYY",
+  ".NYYLLLAAYYYYYAAAAAYYYY.",
+  ".YYYLLLAAYYYYYAAAYYYYM..",
+  "..YYYLLLAAAYAAAYYYYLLM..",
+  "...YYYYYYYYYYYYYYALLLM..",
+  "....YYYYYYYYYYYAAALLL...",
+  "....LLLYYYYYAAAAALLLL...",
+  ".....LLLLLLAAAALLLLL....",
+  "......LLLLLLLLLLLLL.....",
+  "........LLLLLLLLL.......",
+  "..........MMMMM........."
+ ]
+}

@@ -1,0 +1,106 @@
+{
+ "code": "P0285",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Дверь холодильника ведёт в лето",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Мебель и уютные уголки",
+ "direction": "Миры через портал",
+ "device": "Контраст миров по сторонам проёма",
+ "subject": "За открытой дверью холодильника летний пейзаж; светлый холодный корпус; тёплое солнце внутри; открытая дверца",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 35,
+ "h": 35,
+ "N": 1218,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 324,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "N": {
+   "cells": 266,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 235,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "V": {
+   "cells": 208,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "A": {
+   "cells": 57,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "O": {
+   "cells": 35,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "G": {
+   "cells": 33,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 32,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "B": {
+   "cells": 28,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV..",
+  ".VVVNNNNNNNNNNNNNNNNNNNVVVVVVVVVVV.",
+  "VVVNCCCCCCCCCCCCCCCCCCNNNVVVVVVVVVV",
+  "VVVNCCCCCCCCCCCCCCCCCCNSSSSVVVVVVVV",
+  "VVVNCCCCCCCCCCCCCCCCCCNSSSSNNNVVVVV",
+  "VVVNCCCCCCCCCCCCCCCCCCNSSSSSSSSSVVV",
+  "VVVNCCNNNNNNNNNNNNNNCCNSSSSSSSSSNVV",
+  "VVVNCCNNNSSSSSSSSSNNCCNSSSSSSSSSNVV",
+  "VVVNCCNNSSSSSSSSSSNNCCNSSSSSSSSSNVV",
+  "VVVNCCNNSSSSYYYYSSNNCCNSSSSSSSSSNVV",
+  "VVVNCCNNSSSYYYYYYSNNCCNSSSSSSSSSNVV",
+  "VVVNCCNNSSSYYYYYYSNNCCNSSSSSBBSSNVV",
+  "VVVNCCNNSSSYYYYYYSNNCCNSSSSSBBSSNVV",
+  "VVVNCCNNSSSYYYYYYSNNCCNSSSSSBBSSNVV",
+  "VVVNCCNNSSSSYYYYSSNNCCNSSSSSBBSSNVV",
+  "VVVNCCNNSSSSSSSSSSNNCCNSSSSSBBSSNVV",
+  "VVVNCCNNSSSSSSSSSSNNCCNSSSSSBBSSNVV",
+  "VVVNCCNNSSSSSSSSSSNNCCNSSSSSBBSSNVV",
+  "VVVNCCNNSSSSSSSSSSNNCCNSSSSSBBSSNVV",
+  "VVVNCCNNSSSSSSSSSSNNCCNSSSSSBBSSNVV",
+  "VVVNCCNNGGGGGGGGGGNNCCNSSSSSBBSSNVV",
+  "VVVNCCNNGGGGGGGGGGNNCCNSSSSSBBSSNVV",
+  "VVVNCCNNGGGGGCCCCCNNCCNSSSSSBBSSNVV",
+  "VVVNCCNNGGCCCCCOOONNCCNSSSSSBBSSNVV",
+  "VVVNCCNNGGCCOOOOOONNCCNSSSSSBBSSNVV",
+  "VVVNCCNNGGOOOOOOOONNCCNSSSSSSSSSNVV",
+  "VVVNCCNNGOOOOOOOOONNCCNSSSSSSSSSNVV",
+  "VVVNCCNNGOOOOOOOOONNCCNSSSSSSSSSNVV",
+  "VVVNCCNNNNNNNNNNNNNNCCNSSSSSSSSSNVV",
+  "VVVNCCCNNNNNNNNNNNNNCCNSSSSSSSSSNVV",
+  "VVVNCCCCCCCCCCCCCCCCCCNSSSSSSSSSNVV",
+  "AAANCCCCCCCCCCCCCCCCCCNSSSSSSSSSNAA",
+  "AAANCCCCCCCCCCCCCCCCCCNSSSSNNNNNAAA",
+  "AAAANNNNNNNNNNNNNNNNNNNNNNNAAAAAAAA",
+  ".AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+ ]
+}

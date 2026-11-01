@@ -1,0 +1,104 @@
+{
+ "code": "P0400",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Аккордеон-город",
+ "theme": "Музыка",
+ "family": "Музыка",
+ "direction": "Предметные гибриды",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Складки аккордеона превратились в кварталы; два корпуса с клавишами и кнопками; цветные дома между ними; крыши разной высоты",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 42,
+ "h": 37,
+ "N": 1178,
+ "colours": 8,
+ "volumes": {
+  "E": {
+   "cells": 297,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "N": {
+   "cells": 227,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "R": {
+   "cells": 169,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 132,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "P": {
+   "cells": 100,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "C": {
+   "cells": 98,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "B": {
+   "cells": 87,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "V": {
+   "cells": 68,
+   "name": "Слива",
+   "hex": "#7851A5"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....................E....................",
+  "....................EEE...................",
+  "....................EVEE..................",
+  "...................VVVVE..................",
+  "..................EVVVVVE.................",
+  ".................EEVVVVVEE................",
+  "..............EE.EVVVVVVVE................",
+  "..EEEEEEEEE..EEEEEEYYYYYEE.....EEEEEEEEE..",
+  ".RRRRRRRRREE.EVVEEEYYYYYE..EE.EENNNNNNNNN.",
+  "ERRRRRRRRRREEVVVVEEYYYYYE..EEEENNNNNNNNNNE",
+  "ERRRRRRRRRREVVVVVEEYYYYYEEEVVEENNNNNNNNNNE",
+  "ERRRRRRRRRREVVVVVVEYYCYYEEEVVVENNNNNNNNNNE",
+  "ERRRRRRRRREEVVVVVVEYCCCYEEVVVVVENNYYYNNNNE",
+  "ERRRCCCCCRREPPPPPPEYCCCYEVVVVVVEENYYYNNNNE",
+  "ERRRCCCCCRREPPPPPPEYCCCEEVVVVVVVENYYYNNNNE",
+  "ERRRCCCCCRREPPPPPPEYYCCYEBBBBBBEENNNNNNNNE",
+  "ERREEEEEEEREPPPPPPEYYYYYEBBBBBBENNNNNNNNNE",
+  "ERREEEEEERREPPCCPPEYYYYYEBBBBBBENNNNNNNNNE",
+  "ERRRCCCCCRREPPCCPPEYYYYYEBBBBBBENNNNNNNNNE",
+  "ERRRCCCCCRREPPCCPPEYYYYYEBBCCBBENNNNNNNNNE",
+  "ERRRCCCCCRREPPCCPPEYYYYYEBBCCBBENNYYYNNNNE",
+  "ERRECCCCERREPPPPPPEYYYYYEBBCCBBENNYYYNNNNE",
+  "ERREEEEEEEREPPPPPPEYYYYYEBBCCBBENNYYNNNNNE",
+  "ERRRCCCCCRREPPPPPPEYYYYYEBBBCBBENNNNNNNNNE",
+  "ERRRCCCCCRREPPPPPPEYYYYYEBBBBBBENNNNNNNNNE",
+  "ERRRCCCCCRREPPPPPPEYYYYYEBBBBBBENNNNNNNNNE",
+  "ERRRCCCCCRREPPPPPPEYYYYYEBBBBBBENNNNNNNNNE",
+  "ERREEEEEEEREPPPPPPEYYYYYEBBBBBBENNNYNNNNNE",
+  "ERREEEEEERREPPPPPPEYYYYYEBBBBBBENNYYYNNNNE",
+  "ERRRCCCCCRREPPPPPPEYYYYYEBBBBBBENNYYYNNNNE",
+  "ERRRCCCCCRREPPPPPPEYYYYYEBBBBBBENNNYNNNNNE",
+  "ERRRCCCCCRREEEEEEEEEEEEEEEEEEEEENNNNNNNNNE",
+  "ERRRRRRRRRRE..................ENNNNNNNNNNE",
+  "ERRRRRRRRRRE..................ENNNNNNNNNNE",
+  "EERRRRRRRRRE..................ENNNNNNNNNNE",
+  ".EERRRRRREE....................EENNNNNNEE.",
+  "...EEEEEEE......................EEEEEEEE.."
+ ]
+}

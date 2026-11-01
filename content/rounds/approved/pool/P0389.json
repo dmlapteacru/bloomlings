@@ -1,0 +1,78 @@
+{
+ "code": "P0389",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Лоток ледяных специй",
+ "theme": "Необычные магазины",
+ "family": "Магазины и витрины",
+ "direction": "Домашняя магия",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "На подносе холодные специи; голубая солонка; кубик льда с перцем; маленький мерный совок",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 21,
+ "N": 390,
+ "colours": 6,
+ "volumes": {
+  "S": {
+   "cells": 169,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "A": {
+   "cells": 83,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 53,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 48,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 25,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "R": {
+   "cells": 12,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "....CCCCCCC.................",
+  "....CCCCCCC.................",
+  "...CCCCCCCC.................",
+  "...NCCCCCCSN................",
+  "...NSSSSSSSN..........S.....",
+  "...NSSSSSSSN......NNNSSS....",
+  "...NSSSSSSSN...SSSSSSSSS....",
+  "...NSSSSSSSN..NSSSSSSSSSS...",
+  "...NSSSSSSSN..NSSSSSSSSSSS..",
+  "...NSSSSSSSN..NSSSRRSSSSSSS.",
+  "...NSSSSSSSN...SSSRRSSSSSSS.",
+  "...NSSSSSSSN...NSSRRRSSSSS..",
+  "...NSSSSSSSNEEENSSRRRSSSSN..",
+  "...NSSSSSSSNAAANSSRRSSSSSN..",
+  ".AANSSSSSSAAAAANSSSSSSSSSNN.",
+  "EAAAANNNNNAAAAANSSSSSSSSSNAE",
+  "EAAAAAAAAAAAAAAANNNNNNNNNAAE",
+  "EAAAAAAAACCCCCCCCAAAAAAAAAAE",
+  ".AAAAAAAACCCCCCCCCCCCAAAAAA.",
+  "....EEEAAAAAAAAAAAAAAEEE....",
+  ".........EEEEEEEEEE........."
+ ]
+}

@@ -1,0 +1,102 @@
+{
+ "code": "P0315",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Носки с разными сезонами",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Одежда и аксессуары",
+ "direction": "Уютный сюрреализм",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "У двух носков разная погода; зимний носок с заснеженной ёлкой; летний носок с солнцем; одинаковые вязаные манжеты",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 34,
+ "N": 898,
+ "colours": 8,
+ "volumes": {
+  "S": {
+   "cells": 196,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "Y": {
+   "cells": 158,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "N": {
+   "cells": 147,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "O": {
+   "cells": 100,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "V": {
+   "cells": 98,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "C": {
+   "cells": 88,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 87,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 24,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..NNNNNNNNNNNNNN....NNNNNNNNNNNNNN.",
+  "..NVVVVVVVVVVVVN....NVVVVVVVVVVVVN.",
+  "..NVVVVVVVVVVVVN....NVVVVVVVVVVVVN.",
+  "..NVVVVVVVVVVVVN....NVVVVVVVVVVVVN.",
+  "..NVVVVVVVVVVVVN....NVVVVVVVVVVVVN.",
+  "..NVSSSSSSSSSSSN....NYYYYYYYYYYYVN.",
+  "..NSSSSSSSSSSSSN....NYYYYYYYYYYYYN.",
+  "..NSSSSSSSSSSSSN....NYYYYYYYYYYYYN.",
+  "...SSSSSSSSSSSSN....NYYYYOOOYYYYYN.",
+  "...NSSSSSSSSSSSN....NYYYOOOOOOYYY..",
+  "...NSSSSSSSSSSSN....NYYOOOOOOOYYN..",
+  "...NSSSSSMSSSSSN....NYYOOOOOOOYYN..",
+  "...NSSSSGMSSSSSN....NYYOOOOOOOYYN..",
+  "...NSSSSGMMSSSSN....NYYOOOOOOOYYN..",
+  "...NSSSGGMMSSSSN....NYYYOOOOOYYYN..",
+  "...NSSSGGMMMSSSN....NYYYYYOOYYYYN..",
+  "...NSSSGGMMMSSSN....NYYYYYYYYYYYN..",
+  "...NSSMMGMMMSSSN....NYYYYYYYYYYYN..",
+  "...NSSMMMMMMMSSN....YYYYYYYYYYYYN..",
+  "....NCCCCCCCCCSN....YYYYYYGGGYYYN..",
+  "....NCCCCCCCCCSN...NYYYGGGGGGGGG...",
+  "...NNCCCCCCCCCSN...NYYGGGGGGGGGGG..",
+  "...NSCCCCCCCCCSN...NYGGGGGGGGGGGG..",
+  "..SSSSSSSSSSSSSN...NYYGGGGGGGGGGGG.",
+  "..SSSSSSSSSSSSSN...NYYGGGGGGGGGGGG.",
+  ".SSSSSSSSSSSSSN....NYYGGGGGGGGGGGGN",
+  ".SSSSSSSSSSSSSN....NYYGGGGGGGOOOOON",
+  "NCCCCCCSSSSSSSN....NYYYYYYYOOOOOOON",
+  "NCCCCCCCCSSSSS......YYYYYOOOOOOOOOO",
+  "NCCCCCCCCCSSS........YYYOOOOOOOOOOO",
+  "NCCCCCCCCCCC..........YYYOOOOOOOOON",
+  "NCCCCCCCCCC............YYOOOOOOOOON",
+  ".CCCCCCCC................NNNOOOOONN",
+  "..NNNNNN...................NNNNNN.."
+ ]
+}

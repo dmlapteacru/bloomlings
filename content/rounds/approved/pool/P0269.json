@@ -1,0 +1,91 @@
+{
+ "code": "P0269",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Печенье-затмение",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Десерты и сладости",
+ "direction": "Кулинарная фантастика",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Печенье закрывает солнечный диск; светлая корона вокруг печенья; надкушенный шоколадный край",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 33,
+ "h": 33,
+ "N": 871,
+ "colours": 6,
+ "volumes": {
+  "N": {
+   "cells": 404,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 226,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 152,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 41,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 35,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 13,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "............NNNNNNNNN............",
+  ".........NNNNNNNNNNNNNNN.........",
+  "........NNNNNNNNNNNNNNNNN........",
+  "......NNNNNNNNNNNNNNNNNNNNN......",
+  ".....NNNNNNNOOOOOOOOONNNNNNN.....",
+  "....CNNNNNNNYYYYYYYYYYYNNNNNN....",
+  "...CCNNNOOYYYYYYYYYYYYYNNNNNNN...",
+  "...NNNNOOYYYYYAAAAAAAYYYNNNNNN...",
+  "..NNNNOOYYYYAAAAAAAAAAANNNNNNNN..",
+  ".NNNNNOYYYYAAAAAAAACCANNNNNNNNNN.",
+  ".NNNNYYYYYAAAAAAAAACCCNNNNNNNNNN.",
+  ".NNNNYYYYAAAEEEAAAACCCNNNNNNNNNN.",
+  "NNNNOYYYYAAAEEEEAAACCAAANNNNNNNNN",
+  "NNNNOYYYAAAAEEEEAAAAAAAANNNNNNNNN",
+  "NNNNOYYYAAAAAEEAAAAAAAAANNNNNNNNN",
+  "NNNNOYYYAAAAAAAAAAAAAAAANNNNNNNNN",
+  "NNNNOYYYAAAAAAAAAAAAAAAAANNNNNNNN",
+  "NNNNOYYYAAAAAAAAAAAAAAAAAAAYYNNNN",
+  "NNNNOYYYAAAEAAAAAAAAEAAAAAAYONNNN",
+  "NNNNOYYYAAEEEEAAAAAEEEAAAAAYONNNN",
+  "NNNNOYYYYAEEEEAAAAEEEEAAAAYYONNNN",
+  ".NNNNYYYYAAEEAAAAAAEEEAAAAYYNNNN.",
+  ".NNNNYYYYYAAAAAAAAAAAAAAAYYNNNNN.",
+  ".NNNNNOYYYYAAAAAAAAAAAAAYYNNNNNN.",
+  "..NNNNOOYYYYAAAAAAAAAAAYYYNNNNN..",
+  "...NNNNOOYYYYYAAAAAAAYYYYNNNNNN..",
+  "...NNNNNOOYYYYYYYYYYYYYYYNYYYN...",
+  "....NNNNNNNNYYYYYYYYYYNNNNNYY....",
+  ".....NNNNNNNOOOYYYOOONNNNNNN.....",
+  "......NNNNNNNNNNNNNNNNNNNNN......",
+  "........NNNNNNNNNNNNNNNNNN.......",
+  ".........NNNNNNNNNNNNNNN.........",
+  "............NNNNNNNNN............"
+ ]
+}

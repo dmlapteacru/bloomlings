@@ -1,0 +1,66 @@
+{
+ "code": "P0346",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Подушка из кирпичей",
+ "theme": "Обмен свойствами предметов",
+ "family": "Лаборатории и изобретения",
+ "direction": "Предметные гибриды",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Подушка сложена из кирпичей; мягко раздутый контур; контрастные кирпичные швы; четыре вытянутых уголка",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 25,
+ "h": 19,
+ "N": 377,
+ "colours": 4,
+ "volumes": {
+  "O": {
+   "cells": 258,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 71,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 42,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "R": {
+   "cells": 6,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".O.........EEE.........OO",
+  ".OOEEEEEEEOOOOOEEEEEEEEO.",
+  ".EOOOOOCOOOOOOOOCOOOOOOO.",
+  ".EOOOOOCOOOOOOOOCOOOOOOE.",
+  ".EOOOOOCOOOOOOOOCOOOOOOE.",
+  ".EOOOOOCCOOOOOOOCCOOOOOE.",
+  "..CCCCCCCCCCCCCCCCCCCCC..",
+  "..OOOCOOOOOOOOCOOOOOOOO..",
+  "..OOOCOOOOORRRCOOOOOOOO..",
+  "..OOOCOOOOORRRCOOOOOOOO..",
+  "..OOCCOOOOOOOOCOOOOOOOO..",
+  "..CCCCCCCCCCCCCCCCCCCCC..",
+  "..OOOOOOOCCOOOOOOOOCOOOE.",
+  ".EOOOOOOOCOOOOOOOOOCOOOE.",
+  ".EOOOOOOOCOOOOOOOOOCOOOE.",
+  ".EOOOOOOOCOOOOOOOOOCOOOE.",
+  ".OOOOOOOOCOOOOOOOOOOOOOE.",
+  "EEE......OOOOOOO......EEE",
+  "...........EEE..........."
+ ]
+}

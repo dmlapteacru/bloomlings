@@ -1,0 +1,101 @@
+{
+ "code": "P0412",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Гирлянда из маленьких дверей",
+ "theme": "Праздники и карнавал",
+ "family": "Ярмарки и праздники",
+ "direction": "Уютный сюрреализм",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "На праздничной верёвке висят двери; дугообразный шнур; три разных дверных полотна; цветные петли и ручки",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 41,
+ "h": 33,
+ "N": 870,
+ "colours": 8,
+ "volumes": {
+  "N": {
+   "cells": 167,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "B": {
+   "cells": 141,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "C": {
+   "cells": 139,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 133,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "P": {
+   "cells": 129,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "E": {
+   "cells": 71,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "R": {
+   "cells": 50,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 40,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "EE.....................................EE",
+  "EEEE.................................EEEE",
+  ".EEEEE..Y.......................Y..EEEEE.",
+  "...EEEEYY.......................YYEEEE...",
+  ".....EEYYEE...................EEYYEE.....",
+  ".......YYEEEEEEE....Y....EEEEEEEYY.......",
+  "...NNNNYYNNNNEEEEEEEYYEEEEEENNNNYYNNNN...",
+  "..NNPPPPPPPPPN..EEEYYYEEE..NGGGGGGGGGNN..",
+  "..NPPPPPPPPPPN......YY.....NGGGGGGGGGGN..",
+  "..NPPPPPPPPPPN......YY.....NGGGGGGGGGGN..",
+  "..NPPPCCCCCPPN..NNNYYYNNN..NGGCCCCCGGGN..",
+  "..NPPCCCCCCPPNNNBBBYYYBBBNNNGGCCCCCCGGN..",
+  "..NPPCCCCCCPPNNBBBBBBBBBBBNNGGCCCCCCGGN..",
+  "..NPPCCCCCCPPNNBBBBBBBBBBBNNGGCCCCCCGGN..",
+  "..NPPCCCCCCPPNNBBBBBBBBBBBNNGGCCCCCCGGN..",
+  "..NPPCCCCCCPPNNBBCCCCCCCBBNNGGCCCCCCGGN..",
+  "..NPPCCCCCCPPNNBBCCCCCCCBBNNGGCCCCCCGGN..",
+  "..NPPPCCCCCPPNNBBCCCCCCCBBNNGGCCCCCGGGN..",
+  "..NPPPPPPPPPPNNBBCCCCCCCBBNNGGGGGGGGGGN..",
+  "..NPPPPPPYYPPNNBBCCCCCCCBBNNGGGGGGGGGGN..",
+  "..NPPPPPPPYPPNNBBCCCCCCCBBNNGGGGGGGGGGN..",
+  "..NPPPPPPPPPPNNBBBCCCCCBBBNNGGGGGGGGGGN..",
+  "..NPPPPPPPPPPNNBBBBBBBBBBBNNGGGGGGGGGGN..",
+  "..NPPPPPPPPPPNNBBBBBBBYYBBNNGGGGGGGGGGN..",
+  "..NNPPPPPPPPPNNBBBBBBBYBBBNNGGGGGGGGGGN..",
+  "...NNNNNNNNNN.NBBBBBBBBBBBN.NNNNNNNNNN...",
+  "..............NBBBBBBBBBBBN..............",
+  "..............NBBBBBBBBBBBN..............",
+  "..RRRR.........NBBBBBBBBBNN........RRRR..",
+  "..RRRRRRRRR....NNNNNNNNNNN......RRRRRRR..",
+  "......RRRRRRR...............RRRRRRRR.....",
+  "..........RRR.............RRRRRR.........",
+  "..........................RR............."
+ ]
+}

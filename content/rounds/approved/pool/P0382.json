@@ -1,0 +1,105 @@
+{
+ "code": "P0382",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Карнавальная маска с днём и ночью",
+ "theme": "Праздники и карнавал",
+ "family": "Ярмарки и праздники",
+ "direction": "Уютный сюрреализм",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Две половины маски показывают день и ночь; вытянутые края; отверстия для глаз; солнце и полумесяц",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 44,
+ "h": 32,
+ "N": 985,
+ "colours": 9,
+ "volumes": {
+  "V": {
+   "cells": 322,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "Y": {
+   "cells": 278,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "N": {
+   "cells": 109,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "E": {
+   "cells": 86,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 60,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "R": {
+   "cells": 52,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "G": {
+   "cells": 40,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 32,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 6,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...................................VVV......",
+  "RR...............................VVVVVV...RR",
+  "RR.......OOOOEEEEE........EEEEEECVVVVVVV..RR",
+  "RRR...OOOOOOOOOYYYYY....VVVVVVVCCVVVVVVV.RRR",
+  ".RR.EEYOOOOOOOOYYYYYEEEEVVVVVVCCCVVVVVVV.RR.",
+  ".RREEYYOOOOOOOOYYYYYYEEVVVVVVVCCCVVVVVVVVRR.",
+  ".RRYYYYOOOOOOOOYYYYYYYVVVVVVVVCCCVVVVVVVVRR.",
+  ".RRRYYYOOOOOOOOYYYYYYYVVVVVVVVCCCCCVVVVVVRR.",
+  ".RRRYYYOOOOOOOOYYYYYYYVVVVVVVVCCCCCCCCVVRRR.",
+  "..RRYYYYOOOOOOYYYYYYYYVVVVVVVVVCCCCCCVVVRR..",
+  "..RRYYYYYYYOYYYYYYYYYYVVVVVVVVVVVVCVVVVVRR..",
+  "..RRYYYYYYYYYYYYYYYYYYVVVVVVVVVVVVVVVVVVRR..",
+  "...RYYYYYYYYYYYYYYYYYYVVVVVVVVVVVVVVVVVVRR..",
+  "...EYYYYYNNNNNNYYYYYYYVVVVVVVNNNNNNVVVVVE...",
+  "...EYYYNNNNNNNNNNYYYYYVVVVVNNNNNNNNNNVVVE...",
+  "...EYYYNNNNNNNNNNNYYYYVVVVVNNNNNNNNNNVVVE...",
+  "...EEYYNNNNNNNNNNNYYYYVVVVVNNNNNNNNNNVVEE...",
+  "....EYYNNNNNNNNNNYYYYYVVVVVNNNNNNNNNNVVE....",
+  "....EYYYYNNNNNNNYYYYYYVVVVVVNNNNNNNNVVVE....",
+  "....EYYYYYYYYYYYYYYYYYVVVVVVVVVVVVVVVVVE....",
+  "....EEYYYYYYYYYYYYYYYYVVVVVVVVVVVVVVVVVE....",
+  ".....EYYYYYYYYYYYYYYYYVVVVVVVVVVVVVVVVE.....",
+  ".....EYYYYYYYYYYYYYYYYVVVVVVVVVVVVVVVVE.....",
+  ".....EYYYYYYYYYYYYYYYEEVVVVVVPVVVVVVVVE.....",
+  ".....EEYYYYYYYYYYYYYYEEEVVVVPPPVVVVVVVE.....",
+  "......EEEYYYYYYYYYYGGGGGGVVVVPPVVVVEEE......",
+  "........EEEEYYYYYYYGGGGGGVVVVVVVEEEE........",
+  "............EEEEYYEGGGGGGEVVEEEE............",
+  "...............EEEEGGGGGGEEEE...............",
+  "...................GGGGGG...................",
+  "...................GGGGGG...................",
+  "....................GGGG...................."
+ ]
+}

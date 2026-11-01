@@ -1,0 +1,103 @@
+{
+ "code": "P0399",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Магазин дверных ручек-порталов",
+ "theme": "Необычные магазины",
+ "family": "Магазины и витрины",
+ "direction": "Домашняя магия",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "На стенде дверные ручки показывают маленькие миры; три круглых щитка; разные пейзажи внутри; длинные рычажки",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 30,
+ "N": 899,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 383,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 118,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "V": {
+   "cells": 92,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "S": {
+   "cells": 86,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "B": {
+   "cells": 86,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "A": {
+   "cells": 50,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "O": {
+   "cells": 35,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 33,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 16,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".EEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  "ECCCCCCCCCCCCCCCCCCCCCCCCCCCCE",
+  "ECCCCCCSSSSSCCCCCCCCAAAACCCCCE",
+  "ECCAASSSSSSSCCCCCCCCVVVVVVCCCE",
+  "ECCASSSSSSSSSCCCCVVVVVVVVVCCCE",
+  "ECSSSSGSSSSSSSCCVVVVCCVVVVVCCE",
+  "ECSSSSGGSSSSSSACVVVVCCVVVVVCCE",
+  "ECSSSGGGSSSSSSAAVVVVVVVVVVVVCE",
+  "ECSSSGGGGOOSSSAAVVVVVOOVVVVVEE",
+  "ECSSGGGGGGOOOOAAVVVVYOOOOOVVEE",
+  "ECSSSSYYYYYOOOOAVVVYYYOOOOOOEE",
+  "ECSSSSYYYYSSSOOAVVVYYYYYVOOOOE",
+  "ECCSSSSSSSSSAACCVVVVYYYYVVVOCE",
+  "ECCCSSSSSSSAACCCCVVVVVVVVVCCCE",
+  "ECCCCCAAAAACCCCCCCVVVVVVVVCCCE",
+  "ECCCCCCCCCCCCCCCCCCCAAAACCCCCE",
+  "ECCCCCCCCCCCAAAAAACCCCCCCCCCCE",
+  "ECCCCCCCCCCBBBBBBBCCCCCCCCCCCE",
+  "ECCCCCCCCCBBBBBBBBBCCCCCCCCCCE",
+  "ECCCCCCCCBBBBBBBBBBBCCCCCCCCCE",
+  "ECCCCCCCCBBBBBBBBBBBBCCCCCCCCE",
+  "ECCCCCCCABBBBBBBBBBBBACCCCCCCE",
+  "ECCCCCCCABBBCCCCCCBBBACCCCCCCE",
+  "ECCCCCCCABBCCCYCCCCCBACCCCCCCE",
+  "ECCCCCCCABBBYYYYCCCCOOCCCCCCCE",
+  "ECCCCCCCCABBBYYYYBBOOOCCCCCCCE",
+  "ECCCCCCCCAABBBYYBBBBCCCCCCCCCE",
+  "ECCCCCCCCCAABBBBBBBCCCCCCCCCCE",
+  "ECCCCCCCCCCCBBBBAAACCCCCCCCCCE",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
+ ]
+}

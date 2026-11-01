@@ -1,0 +1,105 @@
+{
+ "code": "P0359",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Булочная съедобных облаков",
+ "theme": "Необычные магазины",
+ "family": "Магазины и витрины",
+ "direction": "Домашняя магия",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Пекарня печёт облачные булочки; округлая печь с окошком; облачные хлебцы на полке; дымоход",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 36,
+ "h": 39,
+ "N": 1254,
+ "colours": 8,
+ "volumes": {
+  "O": {
+   "cells": 424,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 214,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 180,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "E": {
+   "cells": 151,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "V": {
+   "cells": 86,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "C": {
+   "cells": 79,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 65,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 55,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................RR......AAAAAAA....",
+  "................RRRR.....AAAAAAA....",
+  "..............RRRRRRRR...AAAAAAA....",
+  "............RRRRRRRRRRRR.AAAAAAA....",
+  "..........RRRRRRRRRRRRRRRCCCAAAA....",
+  "........RRRRRRRRRRRRRRRCCCCCCCAA....",
+  ".......RRRRRRRRRRRRRRRRCCCCCCCAA....",
+  ".....RRRRRRRRRRRRRRRRRRRRAAAAAAA....",
+  "...RRRRRRRRRRRRRRRRRRRRRRAAAAAAAR...",
+  ".RRRRRRRRRRRRRRRRRRRRRRRRRAAAAARRRR.",
+  "RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+  "EEOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOEE",
+  "EOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOE",
+  "EOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOE",
+  "EOOOOOOOOOEEEEEEEEEEOOOOOOOOOOOOOOOE",
+  "EOOOOOOOOOYYYYYYYYYYYYOOOOOOOOOOOOOE",
+  "EOOOOOEEYYYYYYYYYYYYYYOOOOOOOOOOOOOE",
+  "EOOOOOEYYYYYYYYYYYYYYYYOOOOOOOOOOOOE",
+  "EOOOOEYYYYYYYYYYYYYYYYYYEOOOOOOOOOOE",
+  "EOOOOEYYYYYYYYYYYYYYYYYYEOONNNNOOOOE",
+  "EOOOEEYYYYVVVVVVVVVVYYYYEONNNNNNOOOE",
+  "EOOOEYYYYVVVVVVVVVVVVYYYEONNNNNNOOOE",
+  "EOOOEYYYYVVVVCCCCVVVVYYYEONNNNNNOOOE",
+  "EOOOEYYYYVVVCCCCCCVVVYYYECCCCCNNOOOE",
+  "EOOOEYYYYVCCCCCCCCCCVYYYCCCCCCCNOOOE",
+  "EOOOEYYYYCCCCCCCCCCCCYYYCCCCCCCCOOOE",
+  "EOOOEYYYYVCCCCCCCCCCVYYYEONNNNNNOOOE",
+  "EOOOEYYYYVVVVVVVVVVVVYYYEONNNNNNOOOE",
+  "EOOOEYYYYVVVVVVVVVVVVYYYEONNNNNNOOOE",
+  "EOOOEYYYYVVVVVVVVVVVVYYYEONNNNNNOOOE",
+  "EOOOEYYYYYVVVVVVVVVVYYYYEONNNNNNOOOE",
+  "EOOOEYYYYYYYYYYYYYYYYYYYEONNNNNNOOOE",
+  "EOOOEYYYYYYYYYYYYYYYYYYYEOONNNNOOOOE",
+  "EOOOEEYYYYYYYYYYYYYYYYYYEOOOOOOOOOOE",
+  "EOOOOEEEEEEEEEEEEEEEEEEEEOOOOOOOOOOE",
+  "EOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOE",
+  "EOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOE",
+  ".OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO.",
+  "..EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.."
+ ]
+}

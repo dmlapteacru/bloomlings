@@ -1,0 +1,112 @@
+{
+ "code": "P0334",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Библиотека на винтовой лестнице",
+ "theme": "Невозможная архитектура",
+ "family": "Дома и архитектура",
+ "direction": "Невесомый мир",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Книги образуют винтовую лестницу; центральный столб; четыре разноцветные ступени-книги; поворотные площадки",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 39,
+ "N": 869,
+ "colours": 9,
+ "volumes": {
+  "E": {
+   "cells": 239,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 128,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 124,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "V": {
+   "cells": 82,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "B": {
+   "cells": 81,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "G": {
+   "cells": 78,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "R": {
+   "cells": 67,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "N": {
+   "cells": 66,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 4,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...............EEEEEE..............",
+  "...............EAAAAEE.............",
+  ".............NEEEEEEEEEEEEEEEEEEE..",
+  "...........NNNVVVVVVVVVVVVVVVVVVVE.",
+  "..........NNNNVVVVVVVVVVVVVVVVVVVE.",
+  ".........NNNEEVVCCCCCCCCCCCCCCCVVE.",
+  "........NNN.EEVVCCCCCCCCCCCCCCCVVE.",
+  ".......NNN..EEVVYVVVVVVVVVVVVVVVVE.",
+  "......NNN...EEVVYVVVVVVVVVVVVVVVVE.",
+  ".....NNN.....EEEYYEEEEEEEEEEEEEEE..",
+  "...ENNNEEEEEEEEEYYEEEE.............",
+  ".EEENNGGGGGGGGGGYYGGGE.............",
+  ".ENNNNGGGGGGGGGGGYGGGGE............",
+  ".ENNNCCCCCCCCCCCCCCGGGE............",
+  ".ENNCCCCCCCCCCCCCCCCGGE............",
+  ".ENNGCGGGGGGGGGGGGGGGGE............",
+  ".NNGGYYYGGGGGGGGGGGGGGE............",
+  ".NNGGYYYYYYGGGGGGGGGGE.............",
+  ".NNEEEEE.YYYYYEEEEEEEE.............",
+  "NNN.........YYYYYEEEEEEEEEEEEEEEEEE",
+  "NN............YYYYBBBBBBBBBBBBBBBBE",
+  "NN............BBBCBBBBBBBBBBBBBBBBE",
+  "NN............BBBCCCCCCCCCCCCCCCBBE",
+  "NN............BBBCCCCCCCCCCCCCCCBBE",
+  "NNN...........BBBYBBBBBBBBBBBBBBBBE",
+  ".NN...........EBBYBBBBBBBBBBBBBBBEE",
+  ".NN...........EEEYEEEEEEEEEEEEEEEE.",
+  ".NNEEEEEEEEEEEEEEYEEEEE............",
+  "..NRRRRRRRRRRRRRRYRRRRRE...........",
+  "..ERRRRRRRRRRRRRRYRRRRRE...........",
+  "..ERRCCCCCCCCCCCCCCCCRRE...........",
+  "..ERRCCCCCCCCCCCCCCCCRRE...........",
+  "..ERRRYRRRRRRRRRRRRRRRRE...........",
+  "..EERRYYEEEEEEEEEEEEEEEEEEE........",
+  "...EEEEEYYYYYYYYYYYYYYYYYYYEEEE....",
+  "...EEYYYYYYYYYYYYYYYYYYYYYYYYYEE...",
+  "...EEYYYYYYYYYYYYYYYYYYYYYYYYYEE...",
+  "....EEEEEYYYYYYYYYYYYYYYYYYEEEE....",
+  ".........EEEEEEEEEEEEEEEEEE........"
+ ]
+}

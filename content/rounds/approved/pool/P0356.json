@@ -1,0 +1,96 @@
+{
+ "code": "P0356",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Молния расстёгивает камень",
+ "theme": "Обмен свойствами предметов",
+ "family": "Лаборатории и изобретения",
+ "direction": "Предметные гибриды",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Камень расстёгивается как куртка; неровный серый контур; золотая молния; мягкая голубая ткань внутри разреза",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 33,
+ "N": 857,
+ "colours": 7,
+ "volumes": {
+  "S": {
+   "cells": 453,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "B": {
+   "cells": 144,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "E": {
+   "cells": 96,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 62,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 39,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "O": {
+   "cells": 36,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 27,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".......EEEEE..EEEEEEEE............",
+  ".......ESSSSSEEOOOOOOE............",
+  ".......ESSSSSSEOOOOOOEEEE.........",
+  "......SSSSSSSSEOOCCOOESSSEE.......",
+  "......SSSSSSSSEOOCCOOESSSSE.......",
+  ".....SSSSSSSSSEOOCCOOESSSSSE......",
+  ".....SSSSSSSSSEOOOOOOESSSSSEE.....",
+  "....ESSSSSSSSSEOOOOOOESSSSSSE.....",
+  "....ESSSSSSSSSEEEEEEEESSSSSSSS....",
+  "....ESSSSSSSSSYYBBBBYYSSSSSSSS....",
+  "...SSSSSSSASSYYBBBBBBYYASSSSSSS...",
+  "...SSSSSSSAAAAYBBBBBBYYAAAASSSS...",
+  "..ESSSSSSSSSYABBBBBBBBYYYSASSSSS..",
+  "..ESSSSSSSSSYYBBBBBBBBBYYSSSSSSS..",
+  "..ESSSSSSSSYYBBBBBBBBBBBYYSSSSSSS.",
+  ".SSSSSSSSSSYYBBBBBBBBBBBYYSSSSSSS.",
+  ".SSSSSSSSSAAABBBBBBBBBAAAASSSSSSSE",
+  "ESSSSSSSSSSAAACCCCCCBBBBAAASSSSSSE",
+  "ESSSSSSSSSSYYCCCCCCCCCBBYYSSSSSSSE",
+  "EESSSSSSSSSYCCBBBBBBBCCYYYSSSSSSE.",
+  ".ESSSSSSSSSYYBBBBBBBBBCCYYSSSSSSE.",
+  "..SSSSSSSSAYBBBBBBBBBBBAYSSSSSSEE.",
+  "..SSSSSSSSAAAABBBBBBBBBAAAASSSSE..",
+  "...SSSSSSSYYAABBBBBBBBBYYAASSSSE..",
+  "...SSSSSSSYYBBBBBBBBBBBYYSSSSSS...",
+  "....ESSSSSYYBBBBBBBBBBBYYSSSSSS...",
+  "....EESSSSYYSSSSBBBBBBBYYSSSSS....",
+  ".....ESSSSYYSSSSSSSSSSSYYSSSSS....",
+  "......SSSSSSSSSSSSSSSSSSYSSSE.....",
+  "......SSSSSSSSSSSSSSSSSSSSSSE.....",
+  ".......ESSSSSSSSSSSSSSSSSSSSE.....",
+  ".......EEEESSSSSSSSSSSSSSSSE......",
+  ".............EEEEEEEEEEEEEEE......"
+ ]
+}

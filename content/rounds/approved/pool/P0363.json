@@ -1,0 +1,117 @@
+{
+ "code": "P0363",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Папоротник из каменных пластин",
+ "theme": "Доисторические находки",
+ "family": "Доисторический мир",
+ "direction": "Фольклорная фантазия",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Папоротник собран из каменных плит; дугообразный стебель; широкие парные пластины; земляной островок",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 40,
+ "h": 44,
+ "N": 840,
+ "colours": 9,
+ "volumes": {
+  "N": {
+   "cells": 216,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 184,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 84,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 81,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "B": {
+   "cells": 75,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "S": {
+   "cells": 74,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "G": {
+   "cells": 65,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 44,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "Y": {
+   "cells": 17,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............................NN........",
+  "...................NN........NNN........",
+  "...................NNN.......NBBB.......",
+  "..................SSSNN.....BBBBB.......",
+  "..................SSSSNN..NBBBBBBN......",
+  ".................NSSSSSNNNNBBBBBBN......",
+  ".................NSSSSSSNNNBBBBBNN......",
+  ".................NNSSSSSSNBBBBBNN.......",
+  "...........NNN....NNSSSSSNBBBBB.........",
+  "...........NCNN.....SSSSNNNBNN..........",
+  "..........NNCCNN...MMNNSNGGNN...........",
+  "..........NCCCCCC..MNNNNGGGNN...........",
+  ".........NNCCCCCCCNNNGGGGGGNN...........",
+  ".........NNCCCCCCCNNGGGGGGNN............",
+  "..........NNCCCCCCNGGGGGNN..............",
+  "...........NNCCCCCNNGGGNN...............",
+  ".............CCCCCNNNNNNN...............",
+  ".......NNN.....NNNM.NNBBN...............",
+  "......NNSNN....MNMMNNBBBNN..............",
+  "......NSSSSS...MMMNNBBBBBN..............",
+  ".....NNSSSSSNN.MMNNBBBBBBN..............",
+  ".....NSSSSSSSNNMNNBBBBBBBN..............",
+  ".....NNSSSSSSSSNBBBBBBBBB...............",
+  "......NNSSSSSSSNBBBBBNN.................",
+  "........NNSSSSSNNBBNNN..N...............",
+  ".........NNNSSNMNNNN...NNN..............",
+  "........NNNNNNNMM....NNGGN..............",
+  ".......NNCCNNNMMM...NNGGGGN.............",
+  ".......NCCCCNNMMM..NNGGGGGN.............",
+  "......NNCCCCCNNMMMNNGGGGGGNN............",
+  "......NCCCCCCCCNNNGGGGGGGNN.............",
+  "......NNCCCCCCCCNGGGGGGGNN..............",
+  "........NNCCCCCCNGGGGGGG..........Y.....",
+  ".........NNCCCCCNNGGNN..........YYY.....",
+  "...........CCCCNMMNNN..........YYYYY....",
+  "............ENNNMMEEEEEEEEE....YYYYY....",
+  ".....EEEEEEEEEAMMMMAAAAAAEEEEEEEEEYYY...",
+  "..EEEEAAAAAAAAAAMMMAAAAAAAAAAAAAAAEEEE..",
+  ".EEAAAAAAAAAAAAAMMMAAAAAAAAAAAAAAAAAAAA.",
+  "EAAAAAAAAAAAAAAAMMMAAAAAAAAAAAAAAAAAAAAE",
+  "EEAAAAAAAAAAAAAAAMMAAAAAAAAAAAAAAAAAAAEE",
+  ".EEEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEEE.",
+  "....EEEEEEEAAAAAAAAAAAAAAAAAAEEEEEEE....",
+  "..........EEEEEEEEEEEEEEEEEEEE.........."
+ ]
+}

@@ -1,0 +1,83 @@
+{
+ "code": "P0340",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Флейта-карандаш",
+ "theme": "Музыка",
+ "family": "Музыка",
+ "direction": "Предметные гибриды",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Карандаш стал музыкальной флейтой; заострённый кончик; ряд крупных отверстий; маленькая нота сбоку",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 26,
+ "h": 31,
+ "N": 373,
+ "colours": 5,
+ "volumes": {
+  "Y": {
+   "cells": 205,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 57,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "N": {
+   "cells": 56,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "E": {
+   "cells": 36,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 19,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..EEE.....................",
+  ".ENNNEEE..................",
+  ".ENNNCCCEE................",
+  ".ENCCCCCCEE...............",
+  ".ECCCCCYYYE...............",
+  ".ECCCYYYYYYY..............",
+  ".ECCYYYYYYYY..............",
+  "EEYYYYYYYYYYY.............",
+  ".EYYYYYNNYYYYY............",
+  ".EYYYYNNNYYYYY............",
+  "..YYYYNNNYYYYYY...........",
+  "..YYYYYYYYYYYYY...........",
+  "...YYYYYYYYYYYYE..........",
+  "...YYYYYYNNNYYYEE.........",
+  "....YYYYYNNNYYYYE.......NN",
+  ".....YYYYNNNYYYYYY....NN.N",
+  ".....YYYYYYYYYYYYY....N..N",
+  "......YYYYYYYYYYYYE...N..N",
+  "......YYYYYYNNNYYYEE..NNNN",
+  ".......EYYYYNNNYYYYE..NNNN",
+  ".......EEYYYNNNYYYYYNNN...",
+  "........EYYYYYYYYYYYNNN...",
+  ".........YYYYYYYYYYYRR....",
+  ".........YYYYYYYYYRRRR....",
+  "..........YYYYYYRRRRRRE...",
+  "..........YYYYYRRRRRRRE...",
+  "...........YYRRRRRRRRRE...",
+  "............RRRRRRRRRR....",
+  "............RRRRRRRRR.....",
+  ".............RRRRRR.......",
+  ".............RRRR........."
+ ]
+}

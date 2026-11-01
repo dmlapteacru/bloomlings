@@ -1,0 +1,108 @@
+{
+ "code": "P0426",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Стич — укулеле",
+ "theme": "Новые версии знакомых героев",
+ "family": "Космос",
+ "direction": "Театр эмоций",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Стич играет на укулеле; большие широкие уши с розовой серединой; две раздельные тёмные глазницы; маленький корпус и инструмент",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Lilo & Stitch",
+  "url": "https://en.wikipedia.org/wiki/Stitch_(Lilo_%26_Stitch)",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 39,
+ "h": 35,
+ "N": 878,
+ "colours": 8,
+ "volumes": {
+  "B": {
+   "cells": 381,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 213,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 86,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "A": {
+   "cells": 76,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "K": {
+   "cells": 46,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "E": {
+   "cells": 45,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 17,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 14,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..B................................BB..",
+  ".BBBB............................BBBBB.",
+  "NBBBBNN........NNNNNNNNN.......BBBBBBBN",
+  "NBBKBBNN.....NNNBBBBBBBNNN....BBBBBKBBN",
+  "NBBKKBBBB..NNBBBBBBBBBBBBBNNNNBBBBKKBBN",
+  "NBBKKKBBBNNNBBBBBBBBBBBBBBBBNBBBBKKKBBN",
+  "NBBBKKKBBNBBBBBBBBBBBBBBBBBBBBBBKKKKBBN",
+  "NBBBKKKKNNBBNNBBBBBBBBBBBNNBBBBKKKKBBBN",
+  "NBBBKKKKNBBNNNNNBBBBBBBNNNNNNBBKKKKBBBN",
+  "NNBBBKKNNBNNCCDNBBBBBBBNCCDNNBBNKKKBBNN",
+  ".NBBBKKNBBNNCCDDNBBBBBNDCCDNNNBNKKBBBN.",
+  "..BBBBKNBNNDDDDDNBBBBBNDDDDDNNBNKBBBN..",
+  "...BBBBNBNNNDDDDNBBBBBNDDDDDNNBNBBBNN..",
+  "...BBBBNBBNNDDDDNBNNNBNNDDDNNNBNBBBN...",
+  "....BBBNBBNNNDDNNNNNNNNNDDNNNBBNBBB....",
+  ".....NBNBBNNNNNNNNNEEENNNNNNNBBNBN.....",
+  ".....NNNBBBNNNNBNNNAAENBNNNNBBBNNN.....",
+  "......NNBBBBBBBBEAAAAAEBBBBBBBBNN......",
+  ".......NNNBBBBBNEAAACAENBBBBBNNN.......",
+  "........NNNBBBNNEAAACAENNBBBNNN........",
+  "...........NNNBBBEAACCEBBDDDD..........",
+  "..........DDDBBBBEEYYCEBBBBBBB.........",
+  ".........DDBBDDBEEEEYCEBDBBBBBB........",
+  ".........DBBBBDEEEAAYYYDDBBBBBB........",
+  "........BBBBBBDEEAAAAYYDDBBBBD.........",
+  ".........DBBBBDEAAAAAYYYDDDDDD.........",
+  ".........DDDDDEAAADDDDYYAAED...........",
+  "...........NBBEAAADDDDYYAAEN...........",
+  "...........NBEEAAADDDDYYAAEN...........",
+  "...........NBBEAAADDDDAAAANN...........",
+  "............BBEAAAAAAAAAAAN............",
+  "...........BBBEEAAAAAAAABBBB...........",
+  "..........BBBBBEEAAAAAAABBBBB..........",
+  "..........BBBBBBEEEEEEBBBBBBB..........",
+  "...........BBBB..NNNNN...BBB..........."
+ ]
+}

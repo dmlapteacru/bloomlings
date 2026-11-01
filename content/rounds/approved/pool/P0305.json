@@ -1,0 +1,110 @@
+{
+ "code": "P0305",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Раковина — орбитальная станция",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Космос",
+ "direction": "Предметные гибриды",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Спиральная раковина стала орбитальной станцией; крупная спираль; две солнечные панели; стыковочный шлюз",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 44,
+ "h": 38,
+ "N": 1083,
+ "colours": 9,
+ "volumes": {
+  "A": {
+   "cells": 282,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "B": {
+   "cells": 239,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "O": {
+   "cells": 188,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 111,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 98,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 59,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "S": {
+   "cells": 56,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "V": {
+   "cells": 32,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "Y": {
+   "cells": 18,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..................NNCCCCCCCC................",
+  "................NNNNCCCCCCCOOO..............",
+  "...............NNNNACCCCCCOOOONN............",
+  "..............AAAAAACCCCCCAAOOONN...........",
+  ".............AAAAAAAAAAAAAAAAAOONN..........",
+  "............AAAAAAAAAAAAAAAAAAAOON..........",
+  "...........AAAAAAOOOOOOOOOOAAAAAOOO.........",
+  ".DDDDDDDDDDAAAAAOOOOAAAAAOOOOAAAAODDDDDDDDD.",
+  "DDBBBDBBBBDDAAAOOOOAAAAAAAAOOAAAADDBBBDBBBDD",
+  "DBBBBSBBBBBDAAAOOOAAAAAAAAAAAAAAADBBBBSBBBBD",
+  "DBBBBSBBBBBDAAOOOOAAAOOOAAAAAAAAADBBBBSBBBBD",
+  "DBBBBSBBBBBDAAOOOAAAAOOOOOAAAAAAADBBBBSBBBBD",
+  "DBBBBSBBBBBDAAOOOAAAAOOOOOOOAAAAADBBBBSBBBBD",
+  "DBBBBSBBBBBDAAOOOAAAOOOOOOOOAAAAADBBBBSBBBBD",
+  "DBBBBSBBBBBDAAOOOAAAOOOOAOOOOAAAADBBBBSBBBBD",
+  "DBSSSSSSSSBDAAOOOAAAAOAAAAOOAAAAADBSSSSSSSBD",
+  "DBSSSSSSSSBDAAAOOOAAAAAAAAOOAAAAADBSSSSSSSBD",
+  "DBBBBSBBBBBDAAAOOOAAAAAAAOOAAAAAADBBBBSBBBBD",
+  "DBBBBSBBBBBDAAAOOOOAAAAOOOAAAAOAADBBBBSBBBBD",
+  "DBBBBSBBBBBDAAAAOOOOOOOOOAAAAAOAADBBBBSBBBBD",
+  "DBBBBSBBBBBDOAAAAOOOOOOOAAAAAOOOADBBBBSBBBBD",
+  "DBBBBSBBBBBDOAAAAAOOOOAAAAAAOOOOODBBBBSBBBBD",
+  "DBBBBSBBBBBDOOAAAAAAAAAAAAOOOOOOODBBBBSBBBBD",
+  "DDBBBSBBBBBDOOOAAAAAAAAAAOOOOOOOODDBBBSBBBDD",
+  ".DDDDDDDDDD.OOOOOAAAAAAAOOOOOOOOONDDDDDDDDD.",
+  ".............OOOONNNNVVVVNNNNOOONN..........",
+  "..............NNNCCCVVVVVVCCCNNNN...........",
+  "...............NNCCCVVVVVVCCCCN.............",
+  "...............NNCCCVVVVVVCCCCN.............",
+  "...............NNCCCVVVVVVCCCCN.............",
+  "...............NNCCCCVVVVCCCCCN.............",
+  "...............NNCCCCCCCCCCCCCN.............",
+  "................NCCCCCCCCCCCCNN.............",
+  "................NNCCCCCCCCCCNN..............",
+  "..................YYYYYYYYYNN...............",
+  ".....................YYYYY..................",
+  "......................YYY...................",
+  ".......................Y...................."
+ ]
+}

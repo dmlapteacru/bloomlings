@@ -1,0 +1,108 @@
+{
+ "code": "P0312",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Рисовые террасы в ложке",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Деревья, листья и плоды",
+ "direction": "Перевёрнутый масштаб",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "В чаше ложки ступенчатые рисовые поля; большой овальный край; чередующиеся зелёные террасы и вода; серебристая ручка",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 39,
+ "h": 40,
+ "N": 901,
+ "colours": 8,
+ "volumes": {
+  "C": {
+   "cells": 249,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 183,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "B": {
+   "cells": 132,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 122,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "L": {
+   "cells": 99,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "S": {
+   "cells": 93,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "G": {
+   "cells": 18,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 5,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............NNNNNNN...................",
+  "..........NNNCCCCCCCNNN................",
+  "........CCCCCCCCCCCCCCCCC..............",
+  "......NNCCCCCCCCCCCCCCCCCNN............",
+  ".....NNCCCCCCCMMMMMCCCCCCCNN...........",
+  "....NCCCCCCMMMMGMMMMMMCCCCCCN..........",
+  "...NNCCCCMMMMMMGMMMMMMMMCCCCNN.........",
+  "...NCCCCMMMBBBBGBBBBBBBGCCCCCNN........",
+  "..NCCCCGGBBBBBBGBBBBBBBGBBCCCCN........",
+  ".NNCCCBBGBBBBBBGBBBBBBBGBBBCCCNN.......",
+  ".NCCCBBBGBBBBBMGMMMMMMBGBBBBCCCN.......",
+  ".NCCCBBBGBMMMMMMMMMMMMMGMMBBCCCN.......",
+  "NCCCCBBBGMMMMMMMMMMMMMMGMMMMCCCCN......",
+  "NCCCBBMMMMMLLLLLLLLLLLMMMMMMMCCCN......",
+  "NCCCMMMMLLLLLLLLLLLLLLLLLLMMMCCCN......",
+  "NCCCMLLLLLLLLLLLLLLLLLLLLLLLMCCCN......",
+  "NCCCLLLLLLLLLLLLLLLLLLLLLLLLLCCCN......",
+  "NCCCLLLLLLLLLMMMMMMMMMMMLLLLLCCCN......",
+  "NCCCCLLLLLMMMMMMMMMMMMMMMMMLCCCNN......",
+  ".NCCCLLMMMMMMMMMMMMMMMMMMMMMCCCN.......",
+  ".NCCCCMMMBBBBBBBBBBBBBBBMMMMCCCN.......",
+  ".NNCCCBBBBBBBBBBBBBBBBBBBBBCCCNN.......",
+  "..NCCCCBBBBBBBBBBBBBBBBBBBCCCCN........",
+  "...NCCCCBBBBBBMMMMMMMMMBBSSSSN.........",
+  "...NNCCCCBMMMMMMMMMMMMMMSSSSSNN........",
+  "....NNCCCCCMMMMMMMMMMMCCSSSSSSN........",
+  ".....NNCCCCCCCYYYYYCCCCCCSSSSSSS.......",
+  "......NNCCCCCCCCCCCCCCCCCNSSSSSSS......",
+  "........CCCCCCCCCCCCCCCNNNSSSSSSSN.....",
+  "..........NNNCCCCCCCNNN...SSSSSSSNN....",
+  ".............NNNNNNN.......NSSSSSSNN...",
+  "...........................NNSSSSSSNN..",
+  "............................NSSSSSSSN..",
+  ".............................NSSSSSSSS.",
+  ".............................NNSSSSSSSN",
+  "..............................NSSSSSSNN",
+  "...............................SSSSSSN.",
+  "................................NSSSS..",
+  "................................NNNN...",
+  ".................................NN...."
+ ]
+}

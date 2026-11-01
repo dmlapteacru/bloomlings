@@ -1,0 +1,102 @@
+{
+ "code": "P0306",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Стиральная машина выпускает облачную пену",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Роботы и механизмы",
+ "direction": "Домашняя магия",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Из стиральной машины выходит облачная пена; квадратный корпус и панель управления; круглое окошко; большое облако из барабана",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 40,
+ "h": 41,
+ "N": 1217,
+ "colours": 7,
+ "volumes": {
+  "C": {
+   "cells": 646,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 182,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "S": {
+   "cells": 165,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "B": {
+   "cells": 131,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "V": {
+   "cells": 51,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "P": {
+   "cells": 28,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "R": {
+   "cells": 14,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........PP.............................",
+  "........PPPP............................",
+  "........PPPP.....................SSS....",
+  "........PPPP....................SSSSS...",
+  "................................SSSSSS..",
+  "...............................SSSSSSS..",
+  "...............................SSSSSSS..",
+  "....NNNNNNNNNNNNNNNNNNNNNNNNNNNNSSSSS...",
+  "....NCCCCCCCCCCCCCCCCCCCCCCCCCCCCSSS....",
+  "...NCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCN...",
+  "...NCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCN...",
+  "...NCCCCBBBBBBBBBBBBBCCCCCCCRRRCCCCCN...",
+  "...NCCCCBBBBBBBBBBBBBBCCCCCRRRRCCCCCN...",
+  "...NCCCCBBBBBBBBBBBBBBCCCCCRRRRCCCCCN...",
+  "...NCCCCBBBBBBBBBBNNNNNCCCCCRRRCCCCCN...",
+  "...NCCCCCCCCCCCNNNSSSSSNNNCCCCCCCCCCN...",
+  "...NCCCCCCCCCNNNSSSSSSSSSSNNCCCCCCCCN...",
+  "...NCCCCCCCCNNSSSSSSSSSSSSSNNCCCCCCCN...",
+  "...NCCCCCCCNNSSSSSSSSBBBBBSSNNCCCCCCN...",
+  "...NCCCCCCCNSSSSSVVBBBCCCCCCNNNCCCCCN...",
+  "...NCCCCCCSSSSSVVVBBCCCCCCCCCNNCCCCCN...",
+  "...NCCCCCCSSSSSVBBBCCCCCCCCCCBBBCCCCN...",
+  "...NCCCCCNSSSSBBBCCCCCCCCCCCCCCBBCCCN...",
+  ".PPPCCCCCNSSSVBBCCCCCCCCCCCCCCCCBCCCN...",
+  "PPPPCCCCCNSSSVBCCCCCCCCCCCCCCCCCBCCCN...",
+  "PPPPCCCCCNSSSVBBCCCCCCCCCCCCCCCCBCCCN...",
+  ".PPPCCCCCNSSSVVBBCCCCCCCCCCCCCCCBBBCN...",
+  "...NCCCCCNSSSVVVVBBBBBBBBBCCCCCCCCBBN...",
+  "...NCCCCCNSSSVVVVVVVVVVBBCCCCCCCCCCBBB..",
+  "...NCCCCCNSSSSVVVVVVVVBCCCCCCCCCCCCCCB..",
+  "...NCCCCCCSSSSSVVVVVVVBCCCCCCCCCCCCCCCB.",
+  "...NCCCCCCSSSSSSVVVVVVBCCCCCCCCCCCCCCBB.",
+  "...NCCCCCCCNSSSSSVVVVVBBCCCCCCCCCCCCBB..",
+  "...NCCCCCCCNNSSSSSSSSSSSBBBBBCCCCCCCBB..",
+  "...NCCCCCCCCNNSSSSSSSSSSSBBCCCCCCCCCCCC.",
+  "...NCCCCCCCCCCNNSSSSSSSSSBCCCCCCCCCCCCCC",
+  "...NCCCCCCCCCCCNNNNSSSNNNBCCCCCCCCCCCCCC",
+  "...NCCCCCCCCCCCCCCNNNNNCCCBBCCCCCCCCCCC.",
+  "...NNCCCNNNNCCCCCCCCCCCCCCCBBNNNNNBBB...",
+  "....NCCCNNNNCCCCCCCCCCCCCCCCCNNNNNNB....",
+  ".....NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN....."
+ ]
+}

@@ -1,0 +1,77 @@
+{
+ "code": "P0408",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Ювелирный стол в кольце",
+ "theme": "Миниатюрные мастерские",
+ "family": "Кафе и мастерские",
+ "direction": "Миниатюрные мастерские",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Золотое кольцо служит мастерской; кольцевая рамка; яркий камень наверху; крошечный верстак с инструментом",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 20,
+ "h": 25,
+ "N": 376,
+ "colours": 5,
+ "volumes": {
+  "Y": {
+   "cells": 139,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 122,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "B": {
+   "cells": 57,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "A": {
+   "cells": 41,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 17,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".......EEEEEE.......",
+  "......BBBBBBBB......",
+  "......BBBBBBBB......",
+  ".....EBBBBBBBBE.....",
+  ".....EBBBBBBBBE.....",
+  ".....EEBBBBBBBE.....",
+  "....YYYBBBBBYYYY....",
+  "...YYYYYBBBBYYYYY...",
+  "..YYYYYCCCCCCYYYYY..",
+  ".YYYYYCCCCCCCCCYYYY.",
+  ".YYYCCCCCCCCCCCCYYY.",
+  "YYYYCCCCCCCCCCCCYYYY",
+  "YYYCCCCCCCCCCCCCCYYY",
+  "YYYCCECCCCBBCCCCCYYY",
+  "YYYCCEECCBBBCCCCCYYY",
+  "YYYCCCECCBBBCCCCCYYY",
+  "YYYCCCCCCCBCCCCCCYYY",
+  "YYYCCCCCCCCCCCCCCYYY",
+  "YYYYAAAAAAAAAAAAAYYY",
+  ".YYYAAAAAAAAAAAAYYY.",
+  ".YYYYAACCCCCCAAYYYY.",
+  "..YYYAACCCCCCAAYYY..",
+  "...YYAAYYYYYYAAYY...",
+  "....AAYYYYYYYYAA....",
+  "......YYYYYYYY......"
+ ]
+}

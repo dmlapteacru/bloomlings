@@ -1,0 +1,110 @@
+{
+ "code": "P0385",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Рюкзак с пикниковым садом",
+ "theme": "Путешествия и походы",
+ "family": "Походы и отдых на природе",
+ "direction": "Миры через портал",
+ "device": "Контраст миров по сторонам проёма",
+ "subject": "В раскрытом рюкзаке маленький пикник; большие боковые лямки; зелёный внутренний сад; клетчатая скатерть и корзинка",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 44,
+ "h": 39,
+ "N": 1215,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 315,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 263,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 173,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 147,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 138,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "O": {
+   "cells": 73,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "P": {
+   "cells": 63,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "R": {
+   "cells": 23,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "A": {
+   "cells": 20,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...................YYYYYY...................",
+  "...................YYYYYY...................",
+  "...................YYYYYY...................",
+  "................EEEYYYYYYEEE................",
+  "..............EEEGGYYYYYYGGEEE..............",
+  "............EEGGGGGGGGGGGGGGGGGG............",
+  "...........EEGGGGGGGGGGGGGGGGGGGEE..........",
+  ".........EEGGGGGGGGGGGGGGGGGGGGGGEE.........",
+  "........EEGGGGGGGGGGGGGGGGGGGGGGGGEE........",
+  "........EEEEEEEEEEEEEEEEEEEEEEEEEEEE........",
+  "........EEECCCCCCCCCCCCCCCCCCCCCCEEEE.......",
+  ".......EEECCCCCCCCCCCCCCCCCCCCCCCCCEE.......",
+  ".......EECCCCCCCCCCCCCCAACCCCCCCCCCEE.......",
+  "....YYYEECCCCCCCCCCCCCAAAAACCCCCCCCEEYYY....",
+  "...YYYYEECCMMRRRMMMMMAAMMAAMMMMMMCCEEYYYY...",
+  "..YYYYYEECCMRRRRRMMMMAAMMMAAMMMMMCCEEYYYYY..",
+  "..YYYY.EECCMRRRRRMEEAAEEEEAAMMMMMCCEE.YYYY..",
+  ".YYYY..EECCMRRRRRMEOOOOOOOOAOOEMMCCEE..YYYY.",
+  ".YYYY.EEECCMRRRRMMEOOOOOOOOOOOEMMCCEEE..YYY.",
+  ".YYY..EEECCMMMRMMMEOOOOOOOOOOOEMMCCEEE..YYY.",
+  "YYYY..EEECCMMMMMMMEOOOOOOOOOOOEMMCCEEE..YYYY",
+  "YYYY..EGECCMMMMMMMEOOOOOOOOOOOEMMCCEGE..YYYY",
+  "YYYY..EGECCMMMMMMMEOOOOOOOOOOOEMMCCEGE...YYY",
+  "YYYY..EGECCMMMMMMMEEOOOOOOOOEEEMMCCEGE..YYYY",
+  "YYYY..EGECCMMPPCCCCEEEEEEEEEEMMMMCCEGE..YYYY",
+  ".YYY..EGECCMMPPPCCCCCCCCCCCCMMMMMCCEGEE.YYY.",
+  ".YYY.EEGECCMMPPPPPCCCCCCCCCCCMMMMCCEGGE.YYY.",
+  ".YYYYEGGECCMMPPPPPPPCCCCPPPCCCCMMCCEGGEYYYY.",
+  "..YYYEGGECCMMMPPPPPPPPCCCCPPPCCCCCCEGGEYYYY.",
+  "..YYYYGGECCMMMPPPPPPPPPPCCCCPPPCCCCEGGEYYY..",
+  "..YYYYGGECCMMMMPPPPPPPPPPPCCPMMMMCCEGGYYYY..",
+  "...YYYGGECCCMMMPPPPPPPMMMMMMMMMMCCCEGGYYY...",
+  "....YEGGECCCCCCCCCCCCCCCCCCCCCCCCCCEGGEYY...",
+  ".....EGGECCCCCCCCCCCCCCCCCCCCCCCCCCEGGEE....",
+  ".....EGGEECCCCCCCCCCCCCCCCCCCCCCCCEEGGEE....",
+  ".....EEEEEECCCCCCCCCCCCCCCCCCCCCCEEEEEE.....",
+  "........EEEEEEEEEEEEEEEEEEEEEEEEEEEE........",
+  "..........EEEEEGGGGGGGGGGGGGGGEEEE..........",
+  "..............EEEEEEEEEEEEEEEE.............."
+ ]
+}

@@ -1,0 +1,98 @@
+{
+ "code": "P0464",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Санс — руки в карманах",
+ "theme": "Новые герои игр",
+ "family": "Маски и костюмы",
+ "direction": "Театр эмоций",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Санс стоит в куртке; широкая белая голова-череп; большая зубастая улыбка; синяя куртка и розовые тапочки",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Undertale",
+  "url": "https://en.wikipedia.org/wiki/Sans_(Undertale)",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 31,
+ "h": 40,
+ "N": 882,
+ "colours": 5,
+ "volumes": {
+  "C": {
+   "cells": 352,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 310,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "B": {
+   "cells": 142,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "P": {
+   "cells": 55,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "N": {
+   "cells": 23,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........DDDDDDDDD...........",
+  ".......DDDDCCCCCCCCCDDDD.......",
+  "......DDCCCCCCCCCCCCCCCDD......",
+  ".....CCCCCCCCCCCCCCCCCCCCC.....",
+  "....CCCCCCCCCCCCCCCCCCCCCCC....",
+  "....CCCCCCCCCCCCCCCCCCCCCCC....",
+  "...DCCCCCDDDCCCCCCCCDDCCCCCD...",
+  "...DCCCCDDDDDCCCCCDDDDDCCCCD...",
+  "...DCCCDDDDDDDCCCDDDDDDDCCCD...",
+  "...DCCCDDDDDDDCCCDDDDDDDCCCD...",
+  "....DCCDDDDDDDCCCDDDDDDDCCCD...",
+  "....DCCDDDDDDDCCCDDDDDDDCCD....",
+  "....DCCDDDDDDCCCCCDDDDDDCCD....",
+  "....DCCCDDDDDCCDCCDDDDDCCCD....",
+  "....DCCCCCCCCCDDDCCCCCCCCCD....",
+  "....DCCCCCCCCCCCCCCCCCCCCCD....",
+  "....DCCCCCCCCCCCCCCCCCDDDCD....",
+  "....DCCDDDDCCCCCCCDCDDDDCCD....",
+  ".....CCCDDDDDCDCCDDDDDDCCDD....",
+  ".....CCCCCDDDDDDDDDDDCDCCD.....",
+  "......DCCCDCDDDDDDDCCCCCDD.....",
+  ".....DDDDCCCCCDCCCCCCCDDDD.....",
+  ".....DBBDDDDDCDCCCDDDDDBBDD....",
+  "....DBBBBBBBDDDDDDDDBBBBBBD....",
+  "...DDBNNBBBBCCCCCCCCBBBNNBBB...",
+  "...DBBBNNBBBCCCCCCCCBBNNNBBB...",
+  "..DBBBBNNBBBCCCCCCCCBBNNBBBBD..",
+  ".DDBBBBBNNBBCCCCCCCCBNNBBBBBDD.",
+  ".DBBBBBBNNBBCCCCCCCCBNNBBBBBBD.",
+  "BBBBBBBBBNBBCCCCCCCCBNBBBBBBBBD",
+  ".BBBBBBBBBBBCCCCCCCCBBBBBBBBBDD",
+  "..BBBBBBBBBBCCCCCCCCBBBBBBBBB..",
+  "....DDBBDDDDDDDDDDDDDDDDBDD....",
+  ".....DDDDDDDDDDDDDDDDDDDDD.....",
+  "........DDDDDDD...DDDDDD.......",
+  "........DDDDDDD...DDCCDD.......",
+  "........PPPDDDD...DDCCPP.......",
+  "......PPPPPPP......PPPPPPP.....",
+  ".....PPPPPPPPP....PPPPPPPPP....",
+  ".....PPPPPPPPP....PPPPPPPPP...."
+ ]
+}

@@ -1,0 +1,98 @@
+{
+ "code": "P0452",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Люмьер — три огонька",
+ "theme": "Новые герои мультфильмов",
+ "family": "Свет и домашний декор",
+ "direction": "Ожившие вещи",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Люмьер приветствует тремя огнями; золотое тело подсвечника; лицо на центральной свече; две руки с боковыми свечами",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Beauty and the Beast",
+  "url": "https://en.wikipedia.org/wiki/Lumi%C3%A8re_(Beauty_and_the_Beast)",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 30,
+ "N": 858,
+ "colours": 7,
+ "volumes": {
+  "V": {
+   "cells": 335,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "Y": {
+   "cells": 150,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 135,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 124,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 47,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 46,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 21,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".VVVVVVVVVVVVVOVVVVVVVVVVVVV..",
+  "VVVVVVVVVVVVVOOOVVVVVVVVVOOVV.",
+  "VVVOOVVVVVVVVOOOVVVVVVVVVOOVV.",
+  "VVOOOVVVVVVVVOOOVVVVVVVVOOOOV.",
+  "VVOOOOVVVVVVVOOOVVVVVVVVOOOOV.",
+  "VVOOOOVVVVVVVVOVVVVVVVVVVOOOV.",
+  "VVOOOVVVVVVEEEEEEEVVVVVVVOOEEE",
+  "EEECCCCVVVEEEECCEEEVVVECCCCCCE",
+  "ECCCCCCEVVEEECCCCEEVVVECCCCCCE",
+  "ECCCCCCEVVECDCCCDEEVVVECCCCCCE",
+  "ECCCCCCEVVECDDCCDDEVVVECCCCCCE",
+  "ECCCCCCEVVECDCCCDDEVVVECCCCCCE",
+  "ECCCCCCEVVECCCYYYEEVVVECCCCCCE",
+  "ECCCCCCEVVECCCYYYEEVVVECCCCCCE",
+  "ECCCCCVVVVEDDCCCCDEVVVVEEEEEE.",
+  "VVVYYYVVVVECDDDDDDEVVVVVYYYEV.",
+  "VVVYYYVVVVECCDDDCCEVVVVYYYYVV.",
+  "VVVYYYYEEEEECCCCCEEEEEYYYYVVV.",
+  "VVVVYYYYYYYYYEEEYYYYYYYYYVVVV.",
+  "VVVVVYYYYYYYYEYEEYYYYYYYVVVVV.",
+  "VVVVVVVEEEEEYYYYYEEEEEEVVVVVV.",
+  "VVVVVVVVVVVEYYYYYYVVVVVVVVVVV.",
+  "VVVVVVVVVVVEYYYYYYEVVVVVVVVVV.",
+  "VVVVVVVVVVVEYYYYYYEVVVVVVVVVV.",
+  "VVVVVVVVVEEEYYYYYYEEEVVVVVVVV.",
+  "VAAAAAYYYYYEEEEEEEEYYYYAAAAAV.",
+  "AAAAAAYYYYYYYYYYYYYYYYYAAAAAA.",
+  "AAAAAAYYYYYYYYYYYYYYYYYAAAAAA.",
+  "AAAAAAYYYYYYYYYYYYYYYYYAAAAAA.",
+  ".........EEEEEEEEEEE.........."
+ ]
+}

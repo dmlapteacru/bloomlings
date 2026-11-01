@@ -1,0 +1,111 @@
+{
+ "code": "P0361",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Радиоприёмник с антеннами-парусами",
+ "theme": "Ретрофутуризм",
+ "family": "Ретро-техника и ностальгия",
+ "direction": "Ретрофутуристические приключения",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "У старого радио вместо антенн паруса; округлый корпус; большой круглый динамик; два белых паруса на мачтах",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 38,
+ "N": 875,
+ "colours": 9,
+ "volumes": {
+  "O": {
+   "cells": 369,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "N": {
+   "cells": 99,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "E": {
+   "cells": 93,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 83,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "S": {
+   "cells": 60,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "B": {
+   "cells": 51,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "A": {
+   "cells": 48,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "V": {
+   "cells": 45,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "Y": {
+   "cells": 27,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........A.........................",
+  ".........AA........................",
+  ".........AA........................",
+  ".........AA..............A.........",
+  ".........CA.............AA.........",
+  "........CCA.B...........AA.........",
+  ".......CCCA.BB..........SA.........",
+  ".......CCCA.BB.........SSA.........",
+  "......CCCCA.BBB.......SSSA.........",
+  "......CCCCA.BBBB.....SSSSA.........",
+  ".....CCCCCA.BBBBB....SSSSA.........",
+  "....CCCCCCA.BBBBB...SSSSSA.........",
+  "....CCCCCCA.BBBBBB.SSSSSSA.........",
+  "...CCCCCCCA.BBBBBBBSSSSSSA.........",
+  "..CCCCCCCCA.BBBBBBBBSSSSSA.........",
+  "..CCCCCCCCA.BBBBBBBBSSSSSA.........",
+  "..CCCCCCCAA.....SSSSSSSSSA.........",
+  ".........AA....SSSSSSSSSSA.........",
+  ".........AA.............AA.........",
+  ".EEEEEEEEAAEEEEEEEEEEEEEAAEEEEEEEE.",
+  ".EOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOEE",
+  "EOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOE",
+  "EOOOOOOONNNNNNNOOOOOOOOOOOOOOOOOOOE",
+  "EOOOOOONNNNNNNNNOOOOOOOCCCCCOOOOOOE",
+  "EOOOOONNNNNVNNNNNOOOOOCCCCCCCOOOOOE",
+  "EOOOOONNNVVVVVNNNNOOOOCCCCCCCOOOOOE",
+  "EOOOONNNVVVVVVVNNNOOOOOOOOOOOOOOOOE",
+  "EOOOONNNVVVVVVVNNNNOOOOOOOOOOOOOOOE",
+  "EOOOONNNVVVVVVVVNNNOOOOOYYOOOOOOOOE",
+  "EOOOONNNVVVVVVVNNNOOOOOYYYYYOOOOOOE",
+  "EOOOONNNNVVVVVVNNNOOOOOYYYYYOOOOOOE",
+  "EOOOOONNNNVVVVNNNNOOOOYYYYYYOOOOOOE",
+  "EOOOOONNNNNNNNNNNOOOOOOYYYYYOOOOOOE",
+  "EOOOOOONNNNNNNNNOOOOOOOYYYYOOOOOOOE",
+  "EOOOOOOOONNNNNNOOOOOOOOOOOOOOOOOOOE",
+  "EOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOE",
+  ".OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO.",
+  "..EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.."
+ ]
+}

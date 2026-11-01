@@ -1,0 +1,101 @@
+{
+ "code": "P0390",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Арфа из колосьев",
+ "theme": "Музыка",
+ "family": "Музыка",
+ "direction": "Предметные гибриды",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Струны арфы превратились в колосья; изогнутая деревянная рама; три золотых стебля; крупные зёрна",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 38,
+ "N": 855,
+ "colours": 7,
+ "volumes": {
+  "A": {
+   "cells": 425,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 126,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "V": {
+   "cells": 75,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "Y": {
+   "cells": 72,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 66,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "G": {
+   "cells": 56,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 35,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "................EEEE................",
+  "..........EEEEEEEEEEEEEEE...........",
+  "......EEEEAAAAAAAAAAAAAAAEEE........",
+  "......EAAAAAAAAAAAAAAAAAAAAEE.......",
+  ".....EEAAAAAAAAAAAAAAAAAAAAAAEE.....",
+  ".....EAAAAAAAAAAAAAAAAAAAAAAAAEE....",
+  ".....EAAAAAAAAAAAAAAAAAAAAAAAAAEE...",
+  ".....EAAAAAAAAAAAAAAAAAAAAAAAAAAEE..",
+  ".....EAAAAAAAAAAEEEEAAAAAAAAAAAAAE..",
+  ".....EAAAAAAAAAG....EEEAAAAAAAAAAAE.",
+  ".....EAAAAAAE.GG.......AAAAAAAAAAAEE",
+  ".....EAAAAAAE.GG.....G...AAAAAAAAAEE",
+  ".....EAAAAAAE.GG.....G....EEAAAAAAE.",
+  ".....EAAAAAAE.GG.....G.....EGAAAAA..",
+  "....EEAAAAAAEYYG.....G.....GGEAAAA..",
+  "....EAAAAAAAYYYG.....G.....GGEEAE...",
+  "....EAAAAAAYYYYY....YG.....GG.EEE...",
+  "....EAAAAAAYYYYY...YYY.....GG.......",
+  "....EAAAAAAYYYYY..YYYY.....GG.......",
+  "....EAAAAAAEYYYY..YYYY...YYYG.......",
+  "....EAAAAAAE.YOOOOYYYY...YYYY.......",
+  "....EAAAAAAE..OOOOYYYY..YYYYY.......",
+  "....EAAAAAAE...OOOOYYOOOYYYYY.......",
+  "....EAAAAAAE...OOOO..OOOOYYYY.......",
+  "...EAAAAAAAE..GOOOO..OOOOYYYYOO.....",
+  "...EAAAAAAEE..GGOO...OOOO..OOOOO....",
+  "...EAAAAAAE...GG.....OOOO...OOOO....",
+  "...EAAAAAAE...GG.....GOOO...OOOO....",
+  "...EAAAAAAE...GG.....G......OOOO....",
+  "...EAAAAAAE...GG.....G.....GOOO.....",
+  "...EAMAAAAEEEEGGEEEEEGGEEEEGGEE.....",
+  "..MMMMMAAAAAAAGGAAAAAGGAAAAGGAE.....",
+  ".MMMMMMAAAAAAAAAAAAAAAAAAAAAAAE.....",
+  "MMMMMMMAAAAAAAAAAAAAAAAAAAAAAAE.....",
+  "MMMMMMAAAAAAAAAAAAAAAAAAAAAAAAE.....",
+  "MMMMMMMVVVVVVVVVVVVVVVVVVVVVVVVV....",
+  "MMM....VVVVVVVVVVVVVVVVVVVVVVVVV....",
+  ".......VVVVVVVVVVVVVVVVVVVVVVVVV...."
+ ]
+}

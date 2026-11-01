@@ -1,0 +1,108 @@
+{
+ "code": "P0298",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Капля воды с пустыней внутри",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Времена года и погода",
+ "direction": "Миры внутри предметов",
+ "device": "Вместилище и внутренний мир",
+ "subject": "Внутри капли засушливая пустыня; заострённый верх и круглый низ; дюны и солнце; одиночный кактус",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 40,
+ "N": 889,
+ "colours": 8,
+ "volumes": {
+  "B": {
+   "cells": 357,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "S": {
+   "cells": 161,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "Y": {
+   "cells": 133,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 99,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "N": {
+   "cells": 81,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 22,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 22,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 14,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "................N.................",
+  "...............NNN................",
+  "...............NBBB...............",
+  "...............NBBBB..............",
+  "..............BBBBBBN.............",
+  "..............BBBBBBNN............",
+  ".............BBBBBBBBN............",
+  ".............BBBSSBBBBB...........",
+  "............BBBBSSBBBBBB..........",
+  "...........BBBBSSSSBBBBBN.........",
+  "...........BBBBSSSSSBBBBNN........",
+  "..........BBBBSSSSSSSBBBBN........",
+  ".........NBBBBSSSSSSSBBBBBB.......",
+  "........NNBBBSSSSSSSYYBBBBBB......",
+  ".......NNBBBBSSSSSYYYYYBBBBB......",
+  ".......NBBBBSSSSSYYYYYYYBBBBB.....",
+  "......BBBBBSSSSSSYYYYYYYBBBBBB....",
+  ".....BBBBBBSSSSSSYYYYYYYYBBBBB....",
+  "....BBBBBBSSSSSSSYYYYYYYYBBBBBB...",
+  "...NBBBBBBSSSSSSSYYYYYYYSSBBBBB...",
+  "..NNBBBBBSSSSSSSSSYYYYYSSSBBBBBB..",
+  "..NBBBBBSSSSSSSSSSSSYSSSSSSBBBBB..",
+  ".NNBBBBSSSSSSSSSSSSSSSSSSSSBBBBBN.",
+  ".NBBBBCCSSSSSSSMSSSSSSSSSSSSBBBBN.",
+  ".NBBBBCCYYYYYYYMMSSSSSSSSSSSBBBBNN",
+  "NBBBBCCYYYYGGYYMYYYSSSSSSSYYBBBBBN",
+  "NBBBBCCYYYYGGYYMYYYYSSYYYYYYYBBBBN",
+  "NBBBBCCYYYYGGYYMYYMMYYYYYYYYYBBBBN",
+  "NBBBBCCYYYYGGGGGYYMMYYYYYYYYYBBBBN",
+  "NBBBBCCCYYYYGGGMMYMMYYYYYYYYYBBBBN",
+  "NBBBBCCCYYOOOOOMMMMMOOOOOOOOBBBBBN",
+  "NBBBBBCCCOOOOOOMMOOOOOOOOOOOBBBBN.",
+  ".BBBBBOOCOOOOOOMOOOOOOOOOOOOBBBBN.",
+  ".BBBBBBOOOOOOOOOOOOOOOOOOOOBBBBBN.",
+  "..BBBBBBBOOOOOOOOOOOOOOOOOBBBBBB..",
+  "...NNBBBBBBBOOOOOOOOOOOOBBBBBBN...",
+  "....NNBBBBBBBBBBBBBBBBBBBBBBBNN...",
+  "......NNNBBBBBBBBBBBBBBBBBBBNN....",
+  "........NNNNNBBBBBBBBBBBBNNN......",
+  ".............NNNNNNNNNNNNN........"
+ ]
+}

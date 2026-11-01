@@ -1,0 +1,101 @@
+{
+ "code": "P0310",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Конверт с садом камней",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Багаж и навигация",
+ "direction": "Миры внутри предметов",
+ "device": "Вместилище и внутренний мир",
+ "subject": "В открытом конверте японский сад камней; раскрытый треугольный клапан; белый песок с дугами; три гладких камня",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 33,
+ "h": 33,
+ "N": 905,
+ "colours": 8,
+ "volumes": {
+  "C": {
+   "cells": 229,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 180,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "N": {
+   "cells": 139,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "S": {
+   "cells": 139,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "Y": {
+   "cells": 109,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 44,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "A": {
+   "cells": 33,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 32,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "................NN...............",
+  "..............CCCNN..............",
+  ".............CCCCCCC.............",
+  "...........CCCCCCCCCCC...........",
+  "..........CCCCCPPPCCCCC..........",
+  "........NNCCCPPPPPPPCCCNN........",
+  ".......NNCCCPPPPPPPPPPCCNN.......",
+  "......CCCCPPPPPPPPPPPPPCCCNN.....",
+  "....CCCCPPPPPPPPPPPPPPPPPCCNN....",
+  "...PPPPPPPPPPPPPPPPPPPPPPPPPPP...",
+  ".NNPPPPPPPPPPPPPPPPPPPPPPPPPPPCC.",
+  "NNPPPPPPPPPPPPPPPPPPPPPPPGGGGPCCN",
+  "NCPPPPPPPPPPPPPPPPPPPPPGGGGGGPPCN",
+  "NCCCPPPPPPPPPPPPPPPPPPGGGGGGGPCCN",
+  "NCCCCPPPEEEEEEPPPPPPPGGGGGGGGCCCN",
+  "NCCYYYYEESSSSEEAAAAAAGGGGGGGYYCCN",
+  "NCCYYYYESSSSSSEAAAAAAGGGGGGYYYCCN",
+  "NCCYYYYSSSSSSSSYYYYNNGGGGGGYYYCCN",
+  "NCCYAAASSSSSSSSYYEENNNNNNNNYYYCCN",
+  "NCCYAAYSSSSSSSSYYENNNNNNNNNYYYCCN",
+  "NCCYYYYYEEEEEEAYYNNNNNNNNNNYYYCCN",
+  "NCCCYYYYYAAAAAAAANNNNNNNNNEYYCCCN",
+  "NCCCCYYAAAAAYYYYYYNNNNNNNEEYCCCCN",
+  "NCCCCCAAYYYYYYYYYYYEEEEEEEECCCCCN",
+  "NCCCCCCCYYYYYYYYYYYYYYYYYCCCCCCCN",
+  "NCCCCCCCCYYYYYYSSSYYYYYYCCCCCCCCN",
+  "NCCCCCCCCCYYYSSSSSSSYYYCCCCCCCCCN",
+  "NCCCCCCCCCCSSSSSSSSSSSCCCCCCCCCCN",
+  "NCCCCCCCCSSSSSSSSSSSSSSSCCCCCCCCN",
+  "NCCCCCCSSSSSSSSSSSSSSSSSSSCCCCCCN",
+  "NCCCCSSSSSSSSSSSSSSSSSSSSSSSCCCCN",
+  "NCCSSSSSSSSSSSSSSSSSSSSSSSSSSSCCN",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+ ]
+}

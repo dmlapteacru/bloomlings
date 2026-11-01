@@ -1,0 +1,104 @@
+{
+ "code": "P0402",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Подарочная коробка с бальным залом",
+ "theme": "Праздники и карнавал",
+ "family": "Ярмарки и праздники",
+ "direction": "Уютный сюрреализм",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "В раскрытом подарке бальный зал; крышка с бантом; светлый зал с колоннами; люстра над клетчатым полом",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 33,
+ "h": 38,
+ "N": 1225,
+ "colours": 8,
+ "volumes": {
+  "P": {
+   "cells": 284,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "R": {
+   "cells": 241,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "E": {
+   "cells": 175,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "V": {
+   "cells": 140,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "C": {
+   "cells": 138,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 91,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "K": {
+   "cells": 88,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "B": {
+   "cells": 68,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "....EEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  "...ERRRRREEEEEERRRREEEEEERRRRRRRE",
+  "...ERRRREEKKKKKEEEEKKKKKEERRRRRRE",
+  "...ERRRKKKKKKKKKKKKKKKKKKKRRRRRRE",
+  "..ERRRRKKKKKKKKKKKKKKKKKKKKERRRRE",
+  "..ERRRRKKKKKKKKYYYYYKKKKKKKERRRRE",
+  "..ERRRREKKKKKKKYYYYYKKKKKKEERRRRE",
+  "..ERRRREEKKKKKKYYYYYKKKKKEERRRRRE",
+  "..ERRRRRREEEEEYYYYYYEEEEERRRRRRRE",
+  ".ERRRRRRRRRRRRRYYYYYRRRRRRRRRRRRE",
+  ".ERRRRRRRRRRRRRYYYYYRRRRRRRRRRRRE",
+  ".ERRRRRRRRRRRRRYYYYYRRRRRRRRRRRRE",
+  ".ERRRRRRRRRRRRRYYYYYRRRRRRRRRRRRE",
+  "ERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRE",
+  "EERRRRRRRRRRRRRRRRRRRRRRRRRRRRREE",
+  "EEPPPPPPPPPPPPPPPPPPPPPPPPPPPPPEE",
+  "EPPPPPPPPPPPPPPPYYPPPPPPPPPPPPPPE",
+  "EPPPPPPPPPPPPPPYYYPPPPPPPPPPPPPPE",
+  "EPPPPVCCCVVVVVVVYYVVVVVVCCCVPPPPE",
+  "EPPPPVCCCVVVVVVVYYVVVVVVCCCVPPPPE",
+  "EPPPPVCCCCYYYVVYYYVVYYYYCCCVPPPPE",
+  "EPPPPVCCCYYYYYYYYYYYYYYYCCCVPPPPE",
+  "EPPPPVCCCCYYYYYYYYYYYYYYCCCVPPPPE",
+  "EPPPPVCCCVVYVVVVVVVVVYVVCCCVPPPPE",
+  "EPPPPVCCCVVVVVVVVVVVVVVVCCCVPPPPE",
+  "EPPPPVCCCVVVVVVVVVVVVVVVCCCVPPPPE",
+  "EPPPPVCCCVVVVVVVVVVVVVVVCCCVPPPPE",
+  "EPPPPVCCCVVVVVVVVVVVVVVVCCCVPPPPE",
+  "EPPPPVCCCVVVVVVVVVVVVVVVCCCVPPPPE",
+  "EPPPPBBBBBBCCCCCCBBBBBCCCCCCPPPPE",
+  "EPPPPBBBBBBCCCCCCBBBBBCCCCCCPPPPE",
+  "EPPPPCCCCCCBBBBBBCCCCCBBBBBBPPPPE",
+  "EPPPPCCCCCCBBBBBBCCCCCBBBBBBPPPPE",
+  "EPPPPBBBBBBCCCCCCBBBBBCCCCCCPPPPE",
+  "EPPPPBBBBBBCCCCCCBBBBBCCCCCCPPPPE",
+  "EPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPE",
+  "EPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPE",
+  ".EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE."
+ ]
+}

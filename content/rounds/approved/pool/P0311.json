@@ -1,0 +1,110 @@
+{
+ "code": "P0311",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Вилка поднимает закрученную галактику",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Космос",
+ "direction": "Предметные гибриды",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "На вилку намотана галактика вместо спагетти; три зубца; большая цветная спираль; длинная ручка",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 37,
+ "h": 42,
+ "N": 882,
+ "colours": 8,
+ "volumes": {
+  "P": {
+   "cells": 354,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "V": {
+   "cells": 204,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "N": {
+   "cells": 91,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "E": {
+   "cells": 79,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 63,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 47,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 36,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "S": {
+   "cells": 8,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............EEEE....................",
+  "............ECCCE....................",
+  "....EEEE....ECCCEE....EEE............",
+  "....ECCEE...ECCCEE...ECCCE...........",
+  "...ECCCCE...ECCCEE...ECCCE...........",
+  "...ECCCCE...ECCCEE...ECCCE...........",
+  "...ECCCCE...ECCCEE...ECCCE...........",
+  "...ECCCCE...NNNNNNNNNNNNCE...........",
+  "...ECCCCNNNNPPPPPPPPPPPNNNNN.........",
+  "...ECCCCPPPPPPPPPPPPPPPPPPPNNN.......",
+  "...ENNPPPPPPPPPPPPPPPPPPPPPPPNNN.....",
+  "...NNPPPPPPPPPVVVVPPPPPPPPPPPPNNN....",
+  "..NNPPPPPPVVVVVPPPPPPPPVVPPPPPPVVV...",
+  ".NNPPPPPVVVVPPPPPPPPPPPPVVVPPPPPVVN..",
+  ".NPPPPPVVPPPPPPPPPPPPPPPPVVVVPPPPVNN.",
+  "NPPPPPVVPPPPPPPPPPYYYPPPPVVVVPPPPVVN.",
+  "NPPPPSSPPPPPPVVYYYYYYPPPPPVVVCPPPVVNN",
+  "NPPPSSSSPPPVVVYYYYYYYYPPPPVVCCCPPVVVN",
+  "NPPPPSSPPVVVVVYYYYYYYYYPPPVVCCPPPVVVN",
+  "NPPPPPPPPVVVVVYYYYYYYYPPPPVVVPPPVVVVN",
+  "NPPPVPPPPVVVVVYYYYYYYYPPPPVVPPPPVVVVN",
+  "NPPVVVPPPVVVVVPPYYYYYPPPPVVPPPPVVVVV.",
+  "NNVVVVPPPPVVVVVPPPPPPPPPVVPPPPPVVVVV.",
+  ".NVVVVPPPPPVVVVVVVPPPPPVVPPPPPVVVVN..",
+  "..NVVVVPPPPPVVVVVVVVVVVVPPPPPVVVVNN..",
+  "..NNVVVVPPPPPPVVVVVVVVPPPPPPVVVVNN...",
+  "....VVVVVPPPPPPPPPPPPPPPPPPVVVVNN....",
+  ".....VVVVVVPPPPPPPPPPPPPPVVVVVV......",
+  ".......NNNVVVPPPPPPPPPPVVVVVV........",
+  ".........NNNNNPPPPPPVVVNNNN..........",
+  ".............NNNNNNNNNN..............",
+  ".............EAAAAE..................",
+  ".............EAAAAE..................",
+  ".............EAAAAE..................",
+  ".............EAAAAE..................",
+  ".............EAAAAE..................",
+  ".............EAAAAE..................",
+  ".............EAAAAE..................",
+  ".............EAAAAE..................",
+  ".............EAAAAE..................",
+  ".............EEEEEE..................",
+  "..............EEEE..................."
+ ]
+}

@@ -1,0 +1,109 @@
+{
+ "code": "P0339",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Автомат карманных закатов",
+ "theme": "Необычные магазины",
+ "family": "Магазины и витрины",
+ "direction": "Домашняя магия",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Автомат продаёт маленькие закаты; высокий корпус с кнопками; три пейзажа в ячейках; нижнее выдающее окно",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 33,
+ "h": 38,
+ "N": 1242,
+ "colours": 9,
+ "volumes": {
+  "N": {
+   "cells": 441,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "V": {
+   "cells": 254,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "P": {
+   "cells": 148,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "E": {
+   "cells": 128,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 88,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 72,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 60,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 39,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 12,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..EEEEEEEEEEEEEEEEEEEEEEEEEEEEE..",
+  ".EENNCCCCCCCCCCCCCCCCCCCNNNNNNNN.",
+  "ENNNNCCCCCCCCCCCCCCCCCCCCNNNNNNNE",
+  "ENNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNE",
+  "ENNNVVVVVVVVVVVVVVVVVVVVVVNNNNNNE",
+  "ENNNVVVVVVVVVVVVVVVVVVVVVVNNNNNNE",
+  "ENNNVVVVVVVVVVVVVVVVVVVVVVNNNNNNE",
+  "ENNNVVPPPPPPPPPPPPPPPPPPVVNNNNNNE",
+  "ENNNVVPPPPPPPYYYYPPPPPPPVVNNYYNNE",
+  "ENNNVVPPPPPPYYYYYYPPPPPPVVNYYYYNE",
+  "ENNNVVPPPPPYYYYYYYYPPPPPVVNYYYYNE",
+  "ENNNVVPPPPPYYYYYYYYPPPPPVVNNYYNNE",
+  "ENNNVVPPPPPYYYYYYYYPPPPPVVNNNNNNE",
+  "ENNNVVOOOOOOOOOOOOOOOOOOVVNNNNNNE",
+  "ENNNVVOOOOOOOOOOOOOOOOOOVVNNNNNNE",
+  "ENNNVVVVVVVVVYYYYVVVVVVVVVNNRRNNE",
+  "ENNNVVVVVVVVVVVVVVVVVVVVVVNRRRRNE",
+  "ENNNVVPPPPPPPPPPPPPPPPPPVVNRRRRNE",
+  "ENNNVVPPPPPPPYYYYPPPPPPPVVNNRRNNE",
+  "ENNNVVPPPPPPYYYYYYPPPPPPVVNNNNNNE",
+  "ENNNVVPPPPPYYYYYYYYPPPPPVVNNNNNNE",
+  "ENNNVVPPPPPYYYYYYYYPPPPPVVNNNNNNE",
+  "ENNNVVPPPPPYYYYYYYYPPPPPVVNNNNNNE",
+  "ENNNVVOOOOOOOOOOOOOOOOOOVVNNNNNNE",
+  "ENNNVVOOOOOOOOOOOOOOOOOOVVNNNNNNE",
+  "ENNNVVVVVVVVVYYYYVVVVVVVVVNNNNNNE",
+  "ENNNVVVVVVVVVVVVVVVVVVVVVVNNNNNNE",
+  "ENNNVVVVVVVVVVVVVVVVVVVVVVNNNNNNE",
+  "ENNNVVVVVVVVVVVVVVVVVVVVVVNNNNNNE",
+  "ENNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNE",
+  "ENNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNE",
+  "ENNNNNNNDDDDDDDDDDDDDDDNNNNNNNNNE",
+  "ENNNNNNNDDDDDDDDDDDDDDDNNNNNNNNNE",
+  "ENNNNNNNDDDDDDDDDDDDDDDNNNNNNNNNE",
+  "ENNNNNNNDDDDDDDDDDDDDDDNNNNNNNNNE",
+  "ENNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNE",
+  ".NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN.",
+  "..EEEEEEEEEEEEEEEEEEEEEEEEEEEEE.."
+ ]
+}

@@ -1,0 +1,112 @@
+{
+ "code": "P0362",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Воздушный змей — праздничная скатерть",
+ "theme": "Праздники и карнавал",
+ "family": "Ярмарки и праздники",
+ "direction": "Уютный сюрреализм",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Скатерть летит как воздушный змей; ромбовидное полотно; тарелки и приборы; хвост с бантиками",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 38,
+ "h": 44,
+ "N": 752,
+ "colours": 8,
+ "volumes": {
+  "P": {
+   "cells": 366,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "C": {
+   "cells": 153,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 80,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "N": {
+   "cells": 51,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 39,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 34,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 15,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "B": {
+   "cells": 14,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..................EE..................",
+  ".................EEEE.................",
+  "................EECCPP................",
+  "...............EEPCCPPP...............",
+  "..............EEPPCCPPPP..............",
+  ".............PPPPPCCPPPPP.............",
+  "............PPPPPPCCPPPPPP............",
+  "...........PPPPPPPCCPPPPPPP...........",
+  "..........PPPPPPPPCCPPPPPPPP..........",
+  ".........PPPPPPPPPCCPPPPPPPPEE........",
+  ".......NNPPPPPPPPPCCPPPPPPPPPEE.......",
+  "......NNNNPPPPPPPCCCCCPPPPPPPPEE......",
+  ".....ENNNNPPPPPCCCCCCCCPPPPPPPNEE.....",
+  "....EEPNNPPPPPCCCCYYCCCCCPPPPNNPEE....",
+  "...EEPPNNPPPPCCCCYYYYYCCCPPPPNNPPEE...",
+  "..EEPPPNNPPPPCCCYYYYYYCCCPPPPNNPPPEE..",
+  ".EEPPPPNNPPPCCCCYYYYYYCCCCPPPNNPPPPEE.",
+  "EECCCCCNNCCCCCCCYYYYYYCCCCCCCNNCCCCCEE",
+  ".ECCCCCNNPCCCCCCYYYYYYCCCCCCCNNPCCCCE.",
+  "..PPPPPNNPPPPPCCCCYYYCCCCPPPPNNPPPPP..",
+  "...PPPPNNPPPPPCCCCCCCCCCPPPPPNNPPPP...",
+  "....EEPNNPPPPPPPCCCCCCPPPPPPPNNPEE....",
+  ".....EENNPPPPPPPPPCCPPPPPPPPPNNPE.....",
+  "......EEPPPPPPPPPPCCPPPPPPPPPPEE......",
+  ".......EEPPPPPPPPPCCPPPPPPPPPEE.......",
+  "........EEPPPPPPPPCCPPPPPPPPEE........",
+  ".........EEPPPPPPPCCPPPPPPPEE.........",
+  "..........EEPPPPPPCCPPPPPPEE..........",
+  "...........EEPPPPPCCPPPPPEE...........",
+  ".............PPPPPCCPPPPEE............",
+  "..............PPPPCCPPPEE.............",
+  "...............PPPCCPPEE..............",
+  "................PPCCPP................",
+  ".................AAAA.................",
+  "..................AAAA................",
+  "................BB.AAAA...............",
+  "................BBBB.AAA..............",
+  "................BBBBB.AAA.............",
+  "................BBB....AAA..GG........",
+  ".......................AAA.GGG........",
+  "......................AAAGGGGG........",
+  "....................AAAA..GGGG........",
+  "..................AAAAA......G........",
+  "..................AAA................."
+ ]
+}

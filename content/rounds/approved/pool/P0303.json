@@ -1,0 +1,102 @@
+{
+ "code": "P0303",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Гранат с сотами вместо зёрен",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Фрукты и ягоды",
+ "direction": "Предметные гибриды",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "В разрезе граната золотые соты вместо зёрен; красная кожура; зубчатая корона; шесть крупных ячеек",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 40,
+ "h": 41,
+ "N": 1214,
+ "colours": 7,
+ "volumes": {
+  "R": {
+   "cells": 358,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 351,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 174,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 135,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 93,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "E": {
+   "cells": 89,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 14,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...................RR...................",
+  "...................RR...................",
+  ".............R.....RRR.....RR...........",
+  ".............RRR..RRRRR..RRR....GGGGGGG.",
+  ".............RRRRRRRRRRRRRRR..GGGGGGGGG.",
+  ".............RRRRRRRRRRRRRRR.GGGGGGGGGG.",
+  ".............RRRRRRRRRRRRRRR.GGGGGGGGGG.",
+  "...........EERRRRRRRRRRRRRRRGGGGGGGGGGG.",
+  ".........EEERRRRRRRRRRRRRRRRGGGGGGGGGG..",
+  "........EERRRRRRRRRRRRRRRRRRGGGGGGGGGG..",
+  ".......RRRRRRRRRRCCCCCCRRRRRGGGGGGGGG...",
+  ".....EERRRRRRRCCCCCCCCCCCYYGGGGGGGGG....",
+  "....EERRRRRRRYYYCCCCCCCCYYYGGGGGGGEE....",
+  "....ERRRRRRYYYYYYYCCCCYYYYYYYGRRRRRE....",
+  "...ERRRRAYYYYYYYYYAAYYYYYYYYYACRRRRRR...",
+  "..EERRRRAYYYYYYYYYAAYYYYYYYYYACCRRRRRE..",
+  "..ERRRRCAYYYYYYYYYAAYYYYYYYYYACCCRRRRE..",
+  ".EERRRCCAYYYYYYYYYAAYYYYYYYYYACCCCRRREE.",
+  ".ERRRRCCAYYYYYYYYYAAYYYYYYYYYACCCCRRRRE.",
+  ".ERRRCCCAAYYYYYYYAAAAYYYYYYYAACCCCCRRRE.",
+  ".ERRRCCAAAAAYYYOAAAAAAAYYYAAAAACCCCRRREE",
+  "ERRRRYYYYAAAAAAOAAYYAAAAAAAAAYYYYCCRRRRE",
+  "ERRAAYYYYYYAAAOOOYYYYYAAAAAYYYYYYAARRRRE",
+  "ERAAYYYYYYYYAAOOOYYYYYYAAAYYYYYYYYAARRRE",
+  "ERAAYYYYYYYYAAOOOYYYYYYAAAYYYYYYYYARRRRE",
+  "EEAAYYYYYYYYAAOOOYYYYYYAAAYYYYYYYYARRRRE",
+  ".EAAYYYYYYYYAAAYYYYYYYYAAAYYYYYYYYARRREE",
+  ".EAAYYYYYYYYAAAYYYYYYYYAAAYYYYYYYYARRRE.",
+  ".EAAAYYYYYYAACAAYYYYYYAACAAYYYYYYAARRRE.",
+  "..RRRRRYYYYCCCCCAAAAAACCCCCCCYYAAARRREE.",
+  "..RRRRRRRCCCCCCAAAYYAAACCCCCCCCCCRRRRE..",
+  "...RRRRRCCCCCCAAYYYYYYAACCCCCCCCRRRREE..",
+  "...RRRRRRCCCCAAYYYYYYYYACCCCCCCRRRRRE...",
+  "....RRRRRRCCCAAYYYYYYYYACCCCCCRRRRRR....",
+  ".....RRRRRRRCAAYYYYYYYYACCCCRRRRRRR.....",
+  "......RRRRRRRAAYYYYYYYYACCRRRRRRRR......",
+  ".......EERRRRAAYYYYYYYYARRRRRRREE.......",
+  "........EEERRRAAYYYYYAAARRRRRREE........",
+  "..........EEERRRRRYAAARRRRREEE..........",
+  "............EEEEEEAARRRREEEE............",
+  "................EEEEEEEE................"
+ ]
+}

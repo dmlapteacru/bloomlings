@@ -1,0 +1,78 @@
+{
+ "code": "P0393",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Ископаемый отпечаток кроссовка",
+ "theme": "Доисторические находки",
+ "family": "Доисторический мир",
+ "direction": "Фольклорная фантазия",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "На древней плите современный след; угловатая каменная плита; овальная пятка; три крупных полосы протектора",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 21,
+ "h": 21,
+ "N": 365,
+ "colours": 6,
+ "volumes": {
+  "A": {
+   "cells": 151,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "B": {
+   "cells": 92,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "C": {
+   "cells": 86,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 25,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "N": {
+   "cells": 6,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "O": {
+   "cells": 5,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "......EEEEEEAAAAA....",
+  "..EAAAAAAAAAAAAAA....",
+  "..EAAAAAAAAAAAAAAA...",
+  "..EACCCCCBBBBBAAAAA..",
+  "..AACCCCBBBBBBBCAAAA.",
+  ".EAACCCBBBBBBBBCAAAA.",
+  ".EAACCCBBBBBBBBCCAAAA",
+  ".EACCCCBBBBCCCBCCAAAA",
+  ".AACCCNBBBBBBBCCCAAA.",
+  ".AACCCNBCCCBBBCCCAAA.",
+  "AAACCCNBBBBBBCCCAAAA.",
+  "AAACCCBBBBBBBCCCAAAA.",
+  "AAACCBBBBBBBCCCCAAA..",
+  "AAACCBBBBBBBCCCCAAE..",
+  "OOOCNBBBBBBCCCCAAAE..",
+  ".OOANBBBBBCCCCCAAAE..",
+  ".AAANBBBBBCCCCCAAA...",
+  "..AAABBBBBCCCCAAAE...",
+  "..AAAAAAAAAAAAAAAE...",
+  "...AAAAAAAAAAAAAAE...",
+  "...AAAAAEEEEEEE......"
+ ]
+}

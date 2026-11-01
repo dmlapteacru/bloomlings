@@ -1,0 +1,104 @@
+{
+ "code": "P0309",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Росток со штекером вместо корней",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Лаборатории и изобретения",
+ "direction": "Природа и технология",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Корни растения превратились в электрический провод; две зелёные пары листьев; изогнутый кабель; двухконтактная вилка",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 38,
+ "h": 41,
+ "N": 779,
+ "colours": 7,
+ "volumes": {
+  "G": {
+   "cells": 253,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "L": {
+   "cells": 159,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "E": {
+   "cells": 136,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 89,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "M": {
+   "cells": 69,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "C": {
+   "cells": 44,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 29,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "............GGGG......................",
+  "........GGGGGGGGG.....................",
+  "......GGGGGGGGGGGMM...................",
+  ".....GGGGGGGGGGGGMM...................",
+  "....GGGGGGGGGGGGGMM...................",
+  "...GGGGGGGGGGGGGGMM...................",
+  "..GGGGGGGGGGGGGGMMM.......LLLLLLLL....",
+  "..GGMMMMGGGGGGGGMMM.....LLLLLLLLLL....",
+  "..GGGMMMMMMMGGGGMMM...LLLLLLLLLLLL....",
+  ".GGGGGGGGGGGGGG.MMM..LLLLLLLLLLLLL....",
+  ".GGGGGGGGGGGGGG.MMM.LLLLLLLLLLLLLL....",
+  ".GGGGGGGGGGGGG..MMM.LLLLLLLLMMLLLL....",
+  ".GGGGGGGGGGGG...MMMLLLLLLMMMMMLLL.....",
+  ".GGGGGGGGGG.....MMMLLLMMMMMLLLLLL.....",
+  ".GGGGGGG....GGG.MMMLLMMMLLLLLLLLL.....",
+  ".........GGGGGGGMMLLLLLLLLLLLLLL......",
+  ".......GGGGGGGGGMMLLLLLLLLLLLLL.......",
+  "......GGGGGGGGGGMMLLLLLLLLLLLL........",
+  ".....GGGGGGGGGG.MMLLLLLLLLLLL.........",
+  ".....GGGGGGGGGG.EEELLLLLLLL...........",
+  ".....GGGGGGGGGG.EEELLL................",
+  ".....GGGGGGGGG..EEE...................",
+  "....GGGGGGGGG...EEE...................",
+  "....GGGGGGGG...EEEE...................",
+  ".....GGGG......EEEE...................",
+  "..............EEEE....................",
+  "............EEEEEE....................",
+  "..EEEEEEEEEEEEEEE.....................",
+  ".EEEEEEEEEEEEEEE......................",
+  "EEEEEEEEEEEEEE........................",
+  "EEE..................NNNNNNNN.........",
+  "EEE................NNYYYYYYYYYY.......",
+  "EEEE...............NYYYYYYYYYYCCCCCCC.",
+  ".EEEE..............NYYYYYYYYYCCCCCCCCC",
+  "..EEEEEEEEEEEEEEEEENYYYYYYYYYYCCCCCCCC",
+  "...EEEEEEEEEEEEEEEENYYYYYYYYYYYC......",
+  "....EEEEEEEEEEEEEEENYYYYYYYYYYCC......",
+  "...................NYYYYYYYYYCCCCCCCCC",
+  "...................NYYYYYYYYYYCCCCCCCC",
+  "...................NNYYYYYYYYYY.......",
+  "....................NNNNNNNNNN........"
+ ]
+}

@@ -1,0 +1,113 @@
+{
+ "code": "P0313",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Кекс с собственной погодой",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Десерты и сладости",
+ "direction": "Кулинарная фантастика",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Кекс несёт собственную дождливую погоду; полосатая бумажная формочка; облачная глазурь; падающие ягоды",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 37,
+ "h": 40,
+ "N": 886,
+ "colours": 9,
+ "volumes": {
+  "K": {
+   "cells": 283,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "C": {
+   "cells": 152,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 149,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "R": {
+   "cells": 70,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 65,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "V": {
+   "cells": 50,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "P": {
+   "cells": 47,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "E": {
+   "cells": 40,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "G": {
+   "cells": 30,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....................GGGG........K...",
+  "....................GGGGG........KK..",
+  "......K............GGGGGG........K...",
+  ".....KK.........PPPGGGGG........KK...",
+  ".....KK........PPPGGGGGG........KK...",
+  ".....K........PPPPGGGG..........KK...",
+  "....KK........PPPPPPPP...............",
+  ".............PPPPPPPPP........RRR....",
+  "..RRR.........PPPPPPPP........RRRR...",
+  ".RRRR........CPPPPPPPCCC......RRRR...",
+  ".RRRR.......CCCPPPPPCCCCC.....RRRR...",
+  ".RRRR......CCCCCCCCCCCCCCC.....RR....",
+  "..RR.....CCCCCCCCCCCCCCCCCCCC........",
+  "........CCCCCCCCCCCCCCCCCCCCC........",
+  ".......CCCCCCCCCCCCCCCCCCCCCCC.......",
+  ".......CCCCCCCCCCCCCCCCCCCCCCC.......",
+  "........CCCCCCCCCCCCCCCCCCCCC........",
+  ".........VCCCCCCCCCCCCCCCCCV.........",
+  ".......VVVKKKKKKKKKKKKKKKKKVVV.......",
+  ".....VVVKKKKKKKKKKKKKKKKKKKKKKKK.....",
+  "....KKKKKKKKKKKKKKKKKKKKKKKKKKKKKRRR.",
+  ".RRRKKKKKKKKKKKKKKKKKKKKKKKKKKKKKRRRR",
+  "RRRRKKKKKKKKKKKKKKKKKKKKKKKKKKKKKRRRR",
+  "RRRRKKKKKKKKKKKKKKKKKKKKKKKKKKKKKRRRR",
+  "RRRRKKKKKKKKKKKKKKKKKKKKKKKKKKKKKRRR.",
+  ".RRRKKKKKKKKKKKKKKKKKKKKKKKKKKKKKV...",
+  "...VVKKKKKKKKKKKKKKKKKKKKKKKKKKKVV...",
+  "....VVVKKKKKKKKKKKKKKKKKKKKKKKVVV....",
+  ".....VVVVVVVVVVVVVVVVVVVVVVVVVVV.....",
+  "......EOOOOYYOOOOYYYOOOOYYOOOOOV.....",
+  "......EOOOOYYOOOOYYYOOOOYYOOOOE......",
+  "......EOOOOYYYOOOYYYOOOOYYOOOOE......",
+  "......EOOOOYYYOOOYYYOOOYYYOOOOE......",
+  ".......EOOOOYYOOOYYYOOOYYYOOOE.......",
+  ".......EOOOOYYOOOYYYOOOYYOOOOE.......",
+  ".......EOOOOYYOOOYYYOOOYYOOOOE.......",
+  "........EOOOYYOOOYYYOOOYYOOOOE.......",
+  "........EOOOYYOOOOYOOOOYYOOOE........",
+  "........EOOOOOOOOOOOOOOOOOOOE........",
+  "........EEEEEEEEEEEEEEEEEEEEE........"
+ ]
+}

@@ -1,0 +1,103 @@
+{
+ "code": "P0395",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Гамак между гигантскими карандашами",
+ "theme": "Путешествия и походы",
+ "family": "Походы и отдых на природе",
+ "direction": "Миры через портал",
+ "device": "Контраст миров по сторонам проёма",
+ "subject": "Два карандаша служат деревьями для гамака; высокие цветные опоры; широкое провисающее полотно; травяной берег",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 30,
+ "N": 898,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 351,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "P": {
+   "cells": 121,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "E": {
+   "cells": 103,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "R": {
+   "cells": 89,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "M": {
+   "cells": 89,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "B": {
+   "cells": 81,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "Y": {
+   "cells": 31,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 24,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 9,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".SSEESSSSSSSSSSSSSSSSSSSSSSSS.",
+  "SSSNESSSSSSSSSSSSSSSSSSENSSSSS",
+  "SSSNNSSSSSSSSSSSSSSSSSSENSSSSS",
+  "SSSNNSSSSSSSSSSSSSSSSSSENNESSS",
+  "SECCCSSSSSSSSSSSSSSSSSCCCCESSS",
+  "SECCCCSSSSSSSSSSSSSSSSCCCCESSS",
+  "SECCCCESSSSSSSSSSSSSSSCCCCCESS",
+  "SRRRRRESSSSSSSSSSSSSSEBBBBBESS",
+  "SRRRRRESSSSSSSSSSSSSSEBBBBBESS",
+  "SRRRRRESSSSSSSSSSSSSSEBBBBBESS",
+  "SRRRRRESSSSSSSSSSSSSSEBBBBBESS",
+  "SRRRRRESSSSSSSSSSSSSSEBBBBBESS",
+  "SRRREEESSSSSSSSSSSSSSEBBEBBESS",
+  "SRRREEESSSSSSSSSSSSSSEBEEBBESS",
+  "SRRREPPSSSSSSSSSSSSSSEEPEBBESS",
+  "SRRREPPPSSSSSSSSSSSSEEPPEBBESS",
+  "SRRRRPYYYSSSSSSSSSSPYYYPEBBESS",
+  "SRRRRPPYYYYEEEEEEEPPYYPPEBBESS",
+  "SRRRRPPPYYYPPPPPPPPYYPPPBBBESS",
+  "SRRRRRPPPYYYYPPPPYYYPPPBBBBESS",
+  "SRRRRREPPPPYYYYYYYPPPPPBBBBESS",
+  "SRRRRREPPPPPPPPPPPPPPPBBBBBESS",
+  "SRRRRREEPPPPPPPPPPPPPPBBBBBESS",
+  "SRRRRREEPPPPPPPPPPPPPEBBBBBESS",
+  "SRRRRREEPPPPPPPPPPPPPEBBBBBESS",
+  "SRRRRREMMPPPPPPPPPPEEEBBBBBEMS",
+  "MRRRRREMMMMMPPPPPPMMMEBBBBBEMM",
+  "MEEEEEEMMMMMMEEEEMMMMMEEEEEMMM",
+  "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM",
+  "MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM"
+ ]
+}

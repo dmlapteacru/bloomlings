@@ -1,0 +1,104 @@
+{
+ "code": "P0448",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Кики — полёт над крышами",
+ "theme": "Новые герои мультфильмов",
+ "family": "Магические предметы",
+ "direction": "Невесомый мир",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Кики летит на метле; чёрное платье и короткие волосы; большой красный бант; длинная метла над крышами",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Kiki’s Delivery Service",
+  "url": "https://en.wikipedia.org/wiki/Kiki%27s_Delivery_Service",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 31,
+ "h": 31,
+ "N": 909,
+ "colours": 8,
+ "volumes": {
+  "N": {
+   "cells": 345,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 189,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "V": {
+   "cells": 121,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "C": {
+   "cells": 114,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 54,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 39,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 24,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 23,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".......DRR.......DDD...........",
+  "..NNNNNDRRRNNNNNRRRRRNNNNNNNNN.",
+  ".NNNNNNDRRRDDDDDRRRRRNNNNNNNNNN",
+  ".NNNNNNDRRRRRDDRRRRRRDNNNNNNNNN",
+  ".NNNNNNRRRRRRRDDRRRRRDNNCCCCNNN",
+  ".NNNNNDDDDDDDDDDDDDDDDNCCCCCNNN",
+  ".NNNNNNDDDDDDDDDDDDDDNNCCCCCNNN",
+  ".NNNNNNDDDDCCDDDDDDDDNNCCCCCNNN",
+  ".NNNNNNNDDDCDCCCDDDDDNNNCCCNNNN",
+  ".NNNNNNNDDDCDDCCDDDDDDNNNNNNNNN",
+  ".NNNNNNNDDDCDDCCDDDDDNNNNNNNNNN",
+  ".NNNNNNNDCCCCCCCCCDDDNNNNNNNNNN",
+  ".NNNNNNNNCCCCCDDDCDDNNNNNNNNNNN",
+  ".NNNNNNNNCCCCCDDCCCDNNNNNNNNNNN",
+  ".NNNNNNNNNCCCCCCCCDDNNNNNNNNNNN",
+  ".NNNNNNNNNNDCCCCCDDDDNNNNNNNAAA",
+  ".NNNNNNNNNDDDDDDDDDDDNNNNAAAAAA",
+  ".NNNNNNNNNDDCCCDDDDDDNAAAAAAANN",
+  ".NNNNNNNNDDDCCCCCDDDDDAAAANNNNN",
+  ".NNNNNNNNDDDDDCCCDCCDDANNNNNNNN",
+  ".NNNNNNNNDDDDDDDDCCCCDDNNNNNNNN",
+  ".NNNNNNNNDDDDDDDDCCCCDDNNNNNNNN",
+  ".NNNNEEEEEDDDCDDDDDCDDDNNNNNNNN",
+  ".EEEYYYYEEDDDCCCDDDCCCRRRNNNNNN",
+  ".EYYYYYYENNDDDCCCDDDCRRRRRRVNNN",
+  ".YYAAYYYVNNVDDVCCCCCCCRRRRVVVNN",
+  "EYYAYYYVVVVVVVVVYCCCCVVVVVVVVVN",
+  "EYYYYYYVVVVVVVVVYYVVVVVVVVVVVVV",
+  "EYYYYYEVVVVVVVVVYYVVVVVVVVVVVVV",
+  "EYYYEEEVVVVVVVVVVVVVVVVVVVVVVVV",
+  "EEEVVVVVVVVVVVVVVVVVVVVVVVVVVVV"
+ ]
+}

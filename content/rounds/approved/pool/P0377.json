@@ -1,0 +1,98 @@
+{
+ "code": "P0377",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Сон, связанный в клубок",
+ "theme": "Уютная мистика",
+ "family": "Свет и домашний декор",
+ "direction": "Уютная мистика",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Клубок хранит полумесяц сна; круглая намотанная пряжа; открытое тёмное окошко; луна и свободная нить",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 35,
+ "N": 867,
+ "colours": 7,
+ "volumes": {
+  "P": {
+   "cells": 419,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "V": {
+   "cells": 257,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "B": {
+   "cells": 58,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "E": {
+   "cells": 56,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 44,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "N": {
+   "cells": 28,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 5,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "............EEEEEEEE...............",
+  ".........EEEPPPPPPPPEEE............",
+  ".......EEPPPPPPPPPPPPPPPP..........",
+  "......EEPPPPPPPPPPPPPPPPPP.........",
+  ".....PPPPPPPPVVVVPPPPPPPPPP........",
+  "....PPPPPPVVVVVVVVVVPPPPPPPP.......",
+  "...EPPPVVVVVVPPPPVVVVVPPPPPPP......",
+  "..EEPPVVVVPPPPPPPPVVVVVVPPPPPP.....",
+  "..EPVVVVPPPPPNNNVVVVVVVVVPPPPP.....",
+  ".EPPVVPPPPPPVVVVVVVVVVVVVVPPPPP....",
+  ".EPPPPPPPPPVVVYYVVVVVVVVPVVPPPP....",
+  ".EPPPPPPPPVVVYYYVVVVVVVVPPVVPPPE...",
+  "EPPPPPPPPNVVVYYYVVVVVVVVNPVVPPPE...",
+  "EPPPPPPPPNVVVYYYVVVVVVVVNPPPPPPE...",
+  "EPPPPPPVVNVVYYYYVVVVVVVVNPPPPPPE...",
+  "EPPPVVVVVVVVYYYYVVVVVVVVVNPPPPPE...",
+  "EPVVVVVPVVVVYYYYYVVVVVVVVNPPPPPE...",
+  "EVVVVPPPPNVVVYYYYYVVVVVVVNVPPPPE...",
+  "EVVPPPPPPNVVVYYYYYYYYVVVVVVVPPPE...",
+  "EPPPPPPPPNVVCCCYYYYYVVVVVPVVVPPE...",
+  ".EPPPPPPPPNVCCVVYYVVVVVNPPPPVVVE...",
+  ".EPPPPPPPPNNVVVVVVVVVVNNPPPPPVV....",
+  ".EPPPPPPPVVNNVVVVVVVVNNPPPPPPPV....",
+  "..PPPPPPVVVVPNNNVVVVVVVVPPPPPP.....",
+  "..PPPPPVVVPPPPPPPPPPPPVVVPPPPP.....",
+  "...PPVVVPPPPPPPPPPPPPPPPVVBBBBB....",
+  "....VVVPPPPPPPPPPPPPPPPPPBBBBBBBBB.",
+  ".....PPPPPPPPPPPPPPPPPPPPPBBBBBBBB.",
+  "......PPPPPPPPPPPPPPPPPPPP.BB...BBB",
+  ".......PPPPPPPPPPPPPPPPPP.......BBB",
+  ".........PPPPPPPPPPPPPP.........BBB",
+  "...........EEEEEEEEEE...BB......BB.",
+  "........................BBBBBBBBBB.",
+  ".........................BBBBBBBB..",
+  "............................BBB...."
+ ]
+}

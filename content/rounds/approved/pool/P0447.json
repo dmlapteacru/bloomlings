@@ -1,0 +1,107 @@
+{
+ "code": "P0447",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Беззубик — рыбка и красный хвост",
+ "theme": "Новые герои мультфильмов",
+ "family": "Волшебные существа",
+ "direction": "Театр эмоций",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Беззубик свернулся возле рыбки; широкая тёмная голова и зелёные глаза; большие складчатые крылья; красный хвостовой протез",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "How to Train Your Dragon",
+  "url": "https://en.wikipedia.org/wiki/Toothless_(How_to_Train_Your_Dragon)",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 37,
+ "h": 36,
+ "N": 1242,
+ "colours": 8,
+ "volumes": {
+  "D": {
+   "cells": 706,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "S": {
+   "cells": 330,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "B": {
+   "cells": 60,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "L": {
+   "cells": 52,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "R": {
+   "cells": 33,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "M": {
+   "cells": 30,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "N": {
+   "cells": 24,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 7,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS...",
+  "DDDSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSDD",
+  "DDDDDSSSSSSSSSSSSSSSSSSSSSSSSSSSDDDDD",
+  "DDDDDDDSSSSSSSSSSSSSSSSSSSSDSSDDDDDDD",
+  ".DDDDDDDDSSSSSSSSSSSSSSSSSDDDDDDDDDDD",
+  ".DDDDDDDDDDSSSSSSSSSSSSSDDDDDDDDDDDDD",
+  ".DDNNNDDDDDDSSDDDDDDDDDDDDDDDDDDNDDDD",
+  ".DDDNNNDDDDDDDDDDDDDDDDDDDDDDDNNNDDDD",
+  ".DDDNNNNDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  ".SDDDNNNDDDDDDDDDDDDDDDDDDDDDDDDDDDD.",
+  ".SDDDDNDDDDDDDDDDDDDDDDDDDDDDDDDDDDD.",
+  ".SDDDDDDDDDDDDDDDDDDDDDDDDDDDDDNDDDD.",
+  ".SSDDDDDDDLLDDLDDDDDDDLDDLLDDDDNDDDD.",
+  ".SSSDDDDDDLLDDLLDDDDDLLDDLLLDDNNDDDD.",
+  ".SSSSDDDDLLLDDLLLDDDDLLDDLLLDDNNDDDD.",
+  ".SSSSSDDDDLLDDLLLDDDDLLDDLLLDDDDDDDD.",
+  ".SSSSSSDDDLLDDLLDDDDDLLDDLLDDDDDDDDS.",
+  ".SSSSSSDDDDLLLLDDDDDDDLLLLDDDDDDDDSS.",
+  ".SSSSSSSDDDDDDDDDDDDDDDDDDDDDDDDDSSS.",
+  ".SSSSSSSSDDDDDDDDDDDDDDDDDDDDDDDDSSS.",
+  ".SSSSSSSSSDDDDDDDDDDDDDDDDDDDDDDSSSS.",
+  ".SSSSSSSSSSDDDDDDDDDDDDDDDDDDDDSSSSS.",
+  ".SSSSSSSSSDDDDDDDDDDDDDDDDDDDDSSSSSS.",
+  ".SSSSSSSSSDDDDDDDDDDDDDDDDDDDSSSSSSS.",
+  ".SSSSSSSSSDDDDDDDDDDDDDDDDDDDSSSSSSS.",
+  ".SSSSSSSSDDDDDDDDDDDDDDDDDDDDDSSSSSS.",
+  ".SSSSSSSSDDDDDDDDDDDDDDDDDDDDDSSSSSS.",
+  ".SSSSSSSDDDDDDDDDDDDDBDDDDDDDDSSSSSS.",
+  ".SSSSSDDBBBBBBBBDDDDBBDDDDDDDDDDSSSS.",
+  ".SSSSDBDDBBBBBBBBBDBBBDDDDDDDDDRRRRR.",
+  ".SSSSDBBBBBBBBBBBBBBBBDDDDDDDDDRRRRR.",
+  ".MMMMDBBBBBBBBBBBBDBBBDDDDDDDDRRRRRR.",
+  ".MMMMMMMBCCCCCCCBDDDBBDDDDDDDDRRRRRR.",
+  ".MMMMMMMDDDDDDDDDDDDDBDDDDDDDDRRRRRR.",
+  "..MMMMMMMMMMMMDDDDDDDDDDDDDDDDDRRRR..",
+  "................DDDDDDD......DDDD.R.."
+ ]
+}

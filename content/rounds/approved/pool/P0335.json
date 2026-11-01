@@ -1,0 +1,101 @@
+{
+ "code": "P0335",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Подзорная труба с тропинкой внутри",
+ "theme": "Путешествия и походы",
+ "family": "Походы и отдых на природе",
+ "direction": "Миры через портал",
+ "device": "Контраст миров по сторонам проёма",
+ "subject": "В разрезе трубы горная тропа; большой окуляр; длинный корпус с золотыми кольцами; извилистая дорога внутри",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 38,
+ "h": 38,
+ "N": 893,
+ "colours": 7,
+ "volumes": {
+  "Y": {
+   "cells": 220,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 160,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "B": {
+   "cells": 128,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "E": {
+   "cells": 125,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "M": {
+   "cells": 103,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "S": {
+   "cells": 100,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "N": {
+   "cells": 57,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..........................EEE.........",
+  ".........................YYYEE........",
+  "........................EYYYYE........",
+  "......................EEEYYYYE........",
+  "....................AAAAEYYYYYY.......",
+  ".................EEEAAAAAYYYYYY.......",
+  "...............EEEAAAAAAAYYYYYYE......",
+  ".............AAAAAAAAAASSSEYYYYE......",
+  "..........EEEAAAAAAAASSSSSEYYYYE......",
+  "........AAAAAAAAAASSSSSSSSEYYYYYY.....",
+  "......AAAAAAAAAASSSSSSSSSSSYYYYYY.....",
+  "...EEEAAAAAAAAMMMSSSSSSSSSYYYYYYYE....",
+  ".EEEEEEAAAASSMMMMSSSSSSSSYYYEYYYYE....",
+  ".EEEBBEESSSSSMMMMMSSSSSSYYYYEYYYYE....",
+  ".EEBBBBESSSSMMMMMMSSSSSSSYYYEYYYYYY...",
+  ".EBBBBBBESSSMMMMMMMSSSSSSYYYYYYYYYY...",
+  ".EBBBBBBESSSMMMMMMMMSSSSSYYYYYYYYYYE..",
+  ".EBBBBBBESSMMMMMMMMMSSSSSYYYYYEYYYYE..",
+  "EBBBBBBBBESMMMMMMMMMMSSSSYYYYYEYYYYE..",
+  "EBBBBBBBBEMMMMMMMMMMMSSSYYYYYYEYYYYYY.",
+  "EBBBBBBBBEMMMMMMMMMMMMYYYYYYYMMYYYYYY.",
+  "EBBBBBBBBEMMMMMMMYYYYYYYYYYYYMMYYYYYYE",
+  "EBBBBBBBBEMMMMYYYYYYYYYYYYYAAAAAEYYYYE",
+  "EBBBBBBBBEMMMYYYYYYYYYYYYAAAAAAAEYYYYE",
+  "EBBBBBBBBEAMYYYYYYYMMMMAAAAAAAAAEEYYEE",
+  "EBBBBBBBBEAMYYYYYYMMMAAAAAAAAAEEEEEEE.",
+  "EBBBBBBBBEAMYYYYYYAAAAAAAAAAAA........",
+  "EBBBBBBBBEAAYYYYAAAAANNAAEEE..........",
+  ".EBBBBBBEAAAYAAANNAAANNNN.............",
+  ".EBBBBBBEAAAAAAANNAAANNN..............",
+  ".EBBBBBBEAAAAAANNNAA..NNN.............",
+  "..EBBBBEAAAAAAANNN.....NN.............",
+  "..EEBBEEEAAAAANNN......NNN............",
+  "...EEEE.EAEEE.NNN.......NNN...........",
+  "........EEE...NN........NNN...........",
+  ".............NNN.........NNN..........",
+  ".............NNN.........NNN..........",
+  ".............NN...........NN.........."
+ ]
+}

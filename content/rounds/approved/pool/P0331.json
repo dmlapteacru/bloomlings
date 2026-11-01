@@ -1,0 +1,110 @@
+{
+ "code": "P0331",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Факс печатает бумажный город",
+ "theme": "Ретрофутуризм",
+ "family": "Ретро-техника и ностальгия",
+ "direction": "Ретрофутуристические приключения",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Из факса выходит сложенный бумажный город; клавиатура аппарата; длинный лист; три дома на конце листа",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 40,
+ "h": 39,
+ "N": 1224,
+ "colours": 9,
+ "volumes": {
+  "A": {
+   "cells": 485,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 310,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 109,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "P": {
+   "cells": 102,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "B": {
+   "cells": 60,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "E": {
+   "cells": 53,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "V": {
+   "cells": 41,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "R": {
+   "cells": 36,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "G": {
+   "cells": 28,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "........................B...............",
+  ".......................BBB..............",
+  ".............R.........BBBB.............",
+  "............RRR.......BBBBB.............",
+  "...........RRRRR.....BBBBBBBEE..........",
+  "..........RRRRRRR....BBBBBBBBEEE........",
+  ".........RRRRRRRRR..BBBBBBBBBCCEE.......",
+  "........RRRRRRRRRRRBBBBBBBBBBBCCE.......",
+  "........ECCCCCCCCCCBBBBBBBBBBBBCE.......",
+  "........ECCCCCCCCCCCCCCCCCCCCCCCE.......",
+  "........ECCCCCCCCCCCCCCCGGGGCCCCE.......",
+  ".......NECCCCCCCCCCCCCCGGGGGCCCCEN......",
+  "......NNECCCCCCCCCCCCCCGGGGGCCCCENN.....",
+  "......NAECCCCCCCCCCCCCCGGGGGCCCCEAN.....",
+  ".....AAAECCCCCCCCCCCCCCGGGGGCCCCEAAN....",
+  "....AAAAECCCCCCCCCCCCCCCGGGGCCCCEAANN...",
+  "...NAAAAECCCCCCCCCCCCCCCCCCCCCCCEAAAN...",
+  "..NNAAAAECCCCCCCCCCCCCCCCCCCCCCCEAAANN..",
+  ".NNAAAAAEEEEEEEEEEEEEEEEEEEEEEEEEAAAAN..",
+  "NNAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN.",
+  "NAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANN",
+  "NAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN",
+  "NAAAAACCCCCCCCCCCCCAAAAAAAAAAAAAAAAAAAAN",
+  "NAAAAACCCCCCCCCCCCCCAAAAAAAAAAAAAAAAAAAN",
+  "NAAAAACCCCCCCCCCCCCCAAAAAAAAAAAAAAAAAAAN",
+  "NAAAAACCCCCNNNCCCCCCAAAAAVVVVVVVVVVAAAAN",
+  "NAAAAACCCCCCCCCCCCCCAAAAAVVVVVVVVVVVAAAN",
+  "NAAAAACCCCCNNNCCCCCCAAAAAVVVVVVVVVVAAAAN",
+  "NAAAAACCCCCCCCCCCCCCAAAAAVVVVVVVVVVAAAAN",
+  "NAAAAACCCCCNNNCCCCCCAAAAAAAAAAAAAAAAAAAN",
+  "NAAAAACCCCCCCCCCCCCCAAAAAAAAAAAAAAAAAAAN",
+  "NAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN",
+  "NAAAAAAPPPPPPPPPPPPPPPPPPPPPPPPPPAAAAAAN",
+  "NAAAAAAPPPPPPPPPPPPPPPPPPPPPPPPPPAAAAAAN",
+  "NAAAAAAPPPPPPPPPPPPPPPPPPPPPPPPPPAAAAAAN",
+  "NAAAAAAAPPPPPPPPPPPPPPPPPPPPPPPPAAAAAAAN",
+  "NAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAN",
+  "NNAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAANN",
+  ".NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN."
+ ]
+}

@@ -1,0 +1,110 @@
+{
+ "code": "P0350",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Граммофон с ледяным рупором",
+ "theme": "Музыка",
+ "family": "Музыка",
+ "direction": "Предметные гибриды",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "У граммофона ледяной рупор; деревянный ящик и пластинка; большой голубой раструб; сосульки на краю",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 39,
+ "h": 42,
+ "N": 939,
+ "colours": 8,
+ "volumes": {
+  "A": {
+   "cells": 265,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "B": {
+   "cells": 155,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 128,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "S": {
+   "cells": 99,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "Y": {
+   "cells": 99,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 93,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 65,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 35,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........................NNN...........",
+  "...........BBBBBBBB..NNNNNSN...........",
+  "......BBBBBBBBBBBBBBBBBSSSSN...........",
+  "....BBBBBCCCCCCCCCCCBBBBBSSN...........",
+  "...BBBBCCCCCCCCCCCCCCCCBBBBN...........",
+  "..BBBBCCCCCCCCCCCCCCCCCBBBBB...........",
+  ".BBBBBCCCCCCCCCCCCCCCCCBBBBB...........",
+  ".BBBBBBBCCCCCCCCCCCCCBBBBBBB...........",
+  "..BBBBBBBBBBBBBBBBBBBBBBBBBN...........",
+  "..BBBBBBBBBBBBBBBBBBBBBBBBSN...........",
+  "...SSSSBBBBBBBBBBBBBBBBBSSSN...........",
+  "....SSSSBBBBBBBBBBBBBSSSSSNN...........",
+  "....SSSSSSSCCCSSSSSSSSSSSSN............",
+  ".....SSNNSSCCCSSSSSSSSSSSSN............",
+  ".....SS.NNSCCSSSSSSSSSSSSN.............",
+  ".....S....CCCSSSSSSSSSSSNN.............",
+  ".....S.....CCNNNNNSSSSSSN..............",
+  ".....S.....CC...YYNNSSSYYYYY...........",
+  "............C....YYNNSSYYYYY...........",
+  "............C.......NN.YYYYY...........",
+  "............C............YYY...........",
+  "............C............YYY...........",
+  ".........................YYY...........",
+  ".........................YYY...........",
+  ".........................YYY...........",
+  ".........................YYY...........",
+  ".......NNNNNNNNNNNNNNNNNNYYY...........",
+  ".....NNNNNNNNYYYYYYNNNNNNYYYY..........",
+  "..AANNNNNNNNYYYYYYYYNNNNNYYYYEEE.......",
+  ".EAANNNNNNNNYYYYYYYYNNNNNYYYAAAAE......",
+  ".EAAAANNNNNNNNNNNNNNNNNNNYYYAAAAE......",
+  "EEAAAAAAANNNNNNNNNNNNNAAAAAAAAAAE......",
+  "EEAAAOOOOOOAAAAAAAAAAAAAAAAAAAAAYYYYYYY",
+  "EEAAAOOOOOOAAAAAAAAAAAAAAAAAAAAYYYYYYYY",
+  "EEAAAOOOOOOAAAAAAAAAAAAAAAAAAAAAE....YY",
+  "EEAAAOOOOOOAAAAAAAAAAAAAAAAAAAAAE....YY",
+  "EEAAAOOOOOOAAAAAAAAAAAAAAAAAAAAAE....YY",
+  "EEAAAAOOOOOAAAAAAAAAAAAAAAAAAAAAE....YY",
+  "EEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE......",
+  ".EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE......",
+  ".EEAAAAAAAAAAAAAAAAAAAAAAAAAAAAEE......",
+  "..EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE......."
+ ]
+}

@@ -1,0 +1,109 @@
+{
+ "code": "P0409",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Киоск времён года",
+ "theme": "Необычные магазины",
+ "family": "Магазины и витрины",
+ "direction": "Домашняя магия",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "В киоске продают четыре сезона; полосатая крыша; четыре разные витрины; снежинка лист солнце и цветок",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 35,
+ "h": 38,
+ "N": 1269,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 338,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 309,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "A": {
+   "cells": 175,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 154,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "S": {
+   "cells": 102,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "V": {
+   "cells": 91,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "Y": {
+   "cells": 50,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 30,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "G": {
+   "cells": 20,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...............YYYYY...............",
+  "....PPPPPPPPPPYYYYYYYPPPPPPPPPP....",
+  "...PPPPPPPPPPPYYYYYYYPPPPPPPPPPP...",
+  "...PPPPPPPPPPPPPYYYPPPPPPPPPPPPPP..",
+  "..PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP..",
+  "..PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP.",
+  ".PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP.",
+  ".PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+  "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+  "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+  "EECCCCCCCCPPPPPPCCCCCCCCCCCPPPPPPPE",
+  "ECCCCCCCCCPPPPPPPCCCCCCCCCCPPPPPPPE",
+  "ECCCCCCCCCPPPPPPCCCCCCCCCCCPPPPPPPE",
+  "ECCCCCCCCCCCCCCCCECCCCCCCCCCCCCCCCE",
+  "ECCCCCCCCCCCCCCCCEECCCCCCCCCCCCCCCE",
+  "ECCCSSSSSSSSSSSSEEEVVVVVVCOOVVVCCCE",
+  "ECCCSSSSSSSSSSSSEEEVVVVVOOOOVVVVCCE",
+  "ECCCSSSSCCSSSSSSEEEVVVVOOOOOVVVVCCE",
+  "ECCCSSSCCCCSSSSSEEEVVVOOOOOOVVVVCCE",
+  "ECCCSSSSCCSSSSSSEEEVVVOOOOOOVVVVCCE",
+  "ECCCSSSSSSSSSSSSEEEVVVOOOOOVVVVVCCE",
+  "EEEEEEEEEEEEEEEEEEEEEEOOEEEEEEEEEEE",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  "ECCCSSSSYYSSSSSSEEEVVVVVGGVVVVVVCCE",
+  "ECCCSSSYYYYSSSSSEEEVVVVGGGGVVVVVCCE",
+  "ECCCSSYYYYYYSSSSEEEVVVGGYYGGVVVVCCE",
+  "ECCCSSYYYYYYSSSSEEEVVVGGYYGGVVVVCCE",
+  "ECCCSSSYYYYSSSSSEEEVVVVGGGGVVVVVCCE",
+  "ECCCCCCCYYCCCCCCEEECCCCCGGCCCCCCCCE",
+  "ECCCCCCCCCCCCCCCCEECCCCCCCCCCCCCCCE",
+  "ECCCCCCCCCCCCCCCCEECCCCCCCCCCCCCCCE",
+  "ECCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCE",
+  "EACCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCAE",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  ".AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA."
+ ]
+}

@@ -1,0 +1,106 @@
+{
+ "code": "P0278",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Горы на клавиатуре",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Книги, учёба и открытия",
+ "direction": "Перевёрнутый масштаб",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Из клавиш вырос горный хребет; три ряда крупных клавиш; горы вместо верхнего ряда; снежные вершины",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 35,
+ "h": 35,
+ "N": 1213,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 462,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "N": {
+   "cells": 185,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 176,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 121,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "D": {
+   "cells": 100,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "A": {
+   "cells": 71,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "B": {
+   "cells": 41,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "E": {
+   "cells": 35,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "P": {
+   "cells": 22,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS..",
+  ".SSSSSSSSSSSSSSSSSSSSDDSSSSSSSSSSS.",
+  "SSSSSSSSSSSSSSSSSSSSSDCSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSCCCSSSSSSSSSSSS",
+  "SSSSSSSSSSDDSSSSSSSSCCCCSSSSSSSSSSS",
+  "SSSSSSSSSSDCSSSSSSSCCCCCSSSSSSSSSSS",
+  "SSSSSSSSSCCCSSSSSSCCCCCCCSSSSSSSSSS",
+  "SSSSSSSSCCCCCSSSSSCCCCCCCCSSSSSSSSS",
+  "SSSSSSSSCCCCCSSSSDCCCCCCCCSSSSSSSSS",
+  "SSSSSSSCCCCCCCSSDDCCCCMMMCCSSSSSSSS",
+  "SSSSSSSCCCCCCCSSDCCCCMMMMMMSSSSSSSS",
+  "SSSSSSSCCCCCACCMMMCCCMMMMMMMSSSSSSS",
+  "SSSSSSSCCCCAAAAMMEMMMMMMMMMMMSSSSSS",
+  "SSSSSAAAACAAAAAEEEMMMMMMMMMMMSSSSSS",
+  "SSSSSAAAAAAAAAAEEEEMMMMMMMMMMMSSSSS",
+  "SSSSAAAAAAAAAAEEEEEMMMMMMMMMMMSSSSS",
+  "SSSSAAAAAAAAAEEEEEEEMMMMMMMMMMMSSSS",
+  "SSSAAAAAAAAAAEEEEEEEMMMMMMMMMMMMSSS",
+  "SSSAAAAAAAAAMEEEEEEEEMMMMMMMMMMMSSS",
+  "SSDAAAAAAAAAMMMMMMMMMMMMMMMMMMMMMDS",
+  "SSDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDS",
+  "SSSDNBBBNCCCNCCCNBBBNCCCCCCCCNNDDSS",
+  "SSDNNBBBNCCCNCCCNBBBNCCCCCCCCNNNDSS",
+  "SSDNNBBNNCCCNCCCNBBBNNCCNNCCNNNNDSS",
+  "SSDNNNNNNNNNNNNNNNNNNNNNNNNNNNNNDSS",
+  "SSDNCCCNCCCCBBBBNCCCNCCCNBBBNNNNNSS",
+  "SDNNCCCNCCCNNBBBNCCCNCCCNBBBNNNNNDS",
+  "SDNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNDS",
+  "SDNNCCCNBBBNCCCNCCCNBBBNNCCCNNNNNDS",
+  "SDNNCCCNBBBNCCCNCCCPPBBPPCCCNNNNNNS",
+  "DNNNNNNNPPPPPPPPPPPPPPPPPPNNNNNNNND",
+  "DNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNND",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  ".SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.",
+  "..SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.."
+ ]
+}

@@ -1,0 +1,82 @@
+{
+ "code": "P0274",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Лестница, завязанная узлом",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Багаж и навигация",
+ "direction": "Визуальные каламбуры",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Деревянная лестница завязана в узел; две перекладины по краям; ясная петля посередине",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 20,
+ "h": 30,
+ "N": 342,
+ "colours": 5,
+ "volumes": {
+  "A": {
+   "cells": 148,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "O": {
+   "cells": 77,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 52,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 44,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 21,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..A..........O......",
+  ".AAA........EOO.....",
+  ".AAA........EOOE....",
+  ".AAA........EOOE....",
+  ".AACCCCCCCCCCOOE....",
+  ".AAA........OOOE....",
+  ".AAA........OOOE....",
+  ".AACCCCCCCCCCOOE....",
+  ".AAA.....OOOOOO.....",
+  "EAAA....OOOOAAAAA...",
+  "EAAE...OOOOAAAAAAAA.",
+  "EAAE..OOOOAAAAAAAAA.",
+  "EAAEYYYOOOAA..AAAAAE",
+  "EAAEYYYYYY......AAAE",
+  "EAAAAAAYYY......AAAE",
+  ".AAAAAAOOO.YY...AAAE",
+  ".AAAAAAOOOYYY..AAAA.",
+  "..AAAAAOOYY...AAAAA.",
+  "...AAAAAYYOEEEAAAA..",
+  "....AAAAAOOOOAAAE...",
+  "....AAAEAAOOOOOOE...",
+  "....AAAEEEEOOOOOE...",
+  "....AAA.....EEOOE...",
+  "....AAA......EOOE...",
+  "....AACCCCCCCCOOE...",
+  "....AAACCCCCCCOOE...",
+  "....AAA......COOE...",
+  "....AACCCCCCCCOOE...",
+  "....AACCCCCCCCOOE...",
+  ".....A.........O...."
+ ]
+}

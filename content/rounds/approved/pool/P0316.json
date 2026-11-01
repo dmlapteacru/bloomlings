@@ -1,0 +1,116 @@
+{
+ "code": "P0316",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Ананас-электростанция",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Лаборатории и изобретения",
+ "direction": "Природа и технология",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Ананас работает электростанцией; ромбовидная кожура; зелёные трубы вместо короны; большое окошко с молнией",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 38,
+ "h": 44,
+ "N": 1169,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 244,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "N": {
+   "cells": 207,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "G": {
+   "cells": 137,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "E": {
+   "cells": 134,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "M": {
+   "cells": 117,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "O": {
+   "cells": 101,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 82,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 74,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "L": {
+   "cells": 73,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................MMMMMM...............",
+  "................MLLLLLM...............",
+  "........CCC.....MLLLLLM...CCC.........",
+  "......CCCCCCC...MLLLLLM..CCCCCC.......",
+  "......CCCCCCGG..MLLLLLM..CCCCCC.......",
+  ".......MGGGGGGM.MLLLLLM..MMMMMMM......",
+  ".......MGGGGGGM.MLLLLLM..MGGGGGM......",
+  ".......MGGGGGGM.MLLLLLM..MGGGGGM......",
+  ".......MGGGGGGM.MLLLLLM..MGGGGGM......",
+  ".......MGGGGGGM.MLLLLLM..MGGGGGM......",
+  ".......MGGGGGGM.MLLLLLM..MGGGGGM......",
+  ".......MGGGGGGMMMLLLLLMMMMGGGGGM......",
+  ".......MGGGGGGMYMLLLLLMMMMGGGGGM......",
+  ".......MGGGGGGMYMLLLLLMMYMGGGGGM......",
+  ".......MGGGGGGMYMLLLLLMYYMGGGGGM......",
+  "......EMGGGGGGMYMMLLLMMYYMGGGGGM......",
+  "......EMGGGGGGMYYMMMMMYYYMGGGGGM......",
+  ".....EEMMGGGGYYYOOOOOOYYYMGGGGMME.....",
+  ".....EOOMMMMMYYOOOYYOOOYYYMMMMMOE.....",
+  ".....EOOOYYYYYOOOYYYYOOOYYYYYOOOE.....",
+  ".....EYYOOYYYOOYYYYYYYYOOYYYOOYYE.....",
+  ".....EYYYOOEEEEEEEEEEEEEEEEOOYYYEE....",
+  "....EEYYYYNNNNNNNNNNNNNNNNNNYYYYYE....",
+  "....EYYYYENNNNNNNNNNCCCNNNNNEYYYYE....",
+  "....EYYYOENNNNNNNNNCCCNNNNNNEOYYYE....",
+  "....EYYOOENNNNNNNNCCCCNNNNNNEOOYYE....",
+  "....EYOOOENNNNNNNCCCCNNNNNNNEYOOYEE...",
+  "...EOOOYYENNNNNNNCCCCNNNNNNNEYYOOOE...",
+  "...EOOOYYENNNNNNCCCCCCCCNNNNEYYOOOE...",
+  "...EYYOOYENNNNNCCCCCCCCNNNNNEYOOYYE...",
+  "...EYYYOOENNNNNNNNNCCCNNNNNNEOOYYYE...",
+  "...EYYYYOENNNNNNNNCCCNNNNNNNEOYYYYE...",
+  "...EYYYYYENNNNNNNNCCNNNNNNNNEYYYYYE...",
+  "...EYYYYYENNNNNNNNCNNNNNNNNNEYYYYYE...",
+  ".AAAAAAYYENNNNNNNNNNNNNNNNNNEYYAAAAAAA",
+  "AAAAAAAYYEENNNNNNNNNNNNNNNNEEYYAAAAAAA",
+  "AAAAAAAYOOEEEEEEEEEEEEEEEEEEOOYAAAAAAA",
+  "AAAAAAAOOYYYYEEEEEEEEEEEEYYYYOOAAAAAAA",
+  "AAAAAAAYYYYYYYYYOOOOOOYYYYYYYYYAAAAAAA",
+  ".AAAAAAYYYYYYYYYYOOOOYYYYYYYYYYAAAAAAA",
+  ".......YYYYYYYYYYOOOOYYYYYYYYYY.......",
+  "........YYYYYYYYOOOYOOYYYYYYYY........",
+  "..........EEEEYYOYYYYOYYEEEE..........",
+  ".............EEEEEEEEEEEE............."
+ ]
+}

@@ -1,0 +1,108 @@
+{
+ "code": "P0337",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Зеркало отражает другую осень",
+ "theme": "Уютная мистика",
+ "family": "Свет и домашний декор",
+ "direction": "Уютная мистика",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "В зеркале осень при зелёных листьях снаружи; овальная золотая рама; оранжевое дерево в отражении; зелёная ветка перед рамой",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 41,
+ "h": 42,
+ "N": 1214,
+ "colours": 8,
+ "volumes": {
+  "Y": {
+   "cells": 305,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "S": {
+   "cells": 249,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "O": {
+   "cells": 165,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 143,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "R": {
+   "cells": 134,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "G": {
+   "cells": 92,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "A": {
+   "cells": 68,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "M": {
+   "cells": 58,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....................EEEEEE..............",
+  "..................EEEEYYYYYEEE...........",
+  ".................EEYYYYYYYYYYYEE.........",
+  "...............EEYYYYYYYYYYYYYYEE........",
+  "..............EEYYYYYYYYYYYYYYYYYY.......",
+  ".............EEYYYYYSSSRRRRRYYYYYYY......",
+  "............EEYYYYYSSSRRRRRRRRYYYYYE.....",
+  "............EYYYYSSSSRRRRRRRRRYYYYYEE....",
+  "...........EYYYYSSSSSRRRRRRRROOOYYYYE....",
+  "..........EEYYYYSSSRRRRRRRRRROOOOYYYYE...",
+  "..........EYYYYSSRRRRRRRRRRROOOOOOYYYEE..",
+  "..........EYYYSSRRRRRRRRRROOOOOOOOYYYYE..",
+  ".........EYYYYSRRRRRRRRRAAOOOOOOOOOYYYE..",
+  ".........EYYYYRRRRRRRRRRAOOOOOOOOOOYYYEE.",
+  ".........EYYYRRRRRRRRRRRAOOOOOOOOOOYYYYE.",
+  ".......EEYYYYRRRRRRRRRRRAOOOOOOOOOSSYYYE.",
+  "......EEEYYYYRRRRRRRRRRAAOOOOOOOSSSSYYYE.",
+  "......EEEYYYSRRRRRRRRRAAAOOOOSSSSSSSYYYEE",
+  "......GGGGGYSRRRRRRRRAAAAAAASSSSSSSSYYYEE",
+  "...GGGGGGGGYSRRRRRSSSAAAAAASSSSSSSSSYYYYE",
+  "..GGGGGGGGGYSSSSSSSSSSAAAAASSSSSSSSSYYYYE",
+  ".GGGGGGGGGGYSSSSSSSSSSSAAAASSSSSSSSSYYYYE",
+  ".GGGGGGGGGGYSSSSSSSSSSSSAAASSSSSSSSSYYYYE",
+  "GGGGGGGGGGGYSSSSSSSSSSSSAAASSSSSSSSSYYYYE",
+  "GGGGGGGGGGYYSSSSSSSSSSSSAAASSSSSSSSSYYYEE",
+  "GGGGGGGGGGYYYSSSSSSSSSSSAAASSSSSSSSSYYYE.",
+  "GGGGGGGGGYYYYSSSSSSSSSSSAAASSSSSSSSSYYYE.",
+  "GGGGGGG..MMMMMMMSSSSSSSSAAASSSSSSSSYYYYE.",
+  "GGG..EE..MMMMMMMSSSSSSSSAAASSSSSSSSYYYYE.",
+  ".....EE.MMMMMMMMSSSSSSSSAAASSSSSSSSYYYE..",
+  "....EEEMMMMMMMMOOOOOOOOOAAAOOOOOOOYYYYE..",
+  "....EEEMMMMMMMMOOOOOOOOOAAAOOOOOOOYYYEE..",
+  "....EEEMMMMMMMYYOOOOOOOOAAAOOOOOOYYYYE...",
+  "....EEMMMMMMMMYYOOOOOOOOAAAOOOOOYYYYEE...",
+  "....EEEMMMMMEYYYYOOOOOOOOOOOOOOYYYYYE....",
+  "....EE......EEYYYYOOOOOOOOOOOOYYYYYY.....",
+  "....EE.......EEYYYYYOOOOOOOOOYYYYYY......",
+  "...EEE........EEYYYYYYYYOYYYYYYYYY.......",
+  "...EEE.........EEYYYYYYYYYYYYYYEE........",
+  "...EEE..........EEEYYYYYYYYYYYEE.........",
+  "...EE.............EEEYYYYYYEEE...........",
+  ".....................EEEEEEE............."
+ ]
+}

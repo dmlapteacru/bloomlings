@@ -1,0 +1,83 @@
+{
+ "code": "P0411",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Летающий утюг на воздушной подушке",
+ "theme": "Ретрофутуризм",
+ "family": "Ретро-техника и ностальгия",
+ "direction": "Ретрофутуристические приключения",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Утюг парит на потоке воздуха; гладкая треугольная подошва; высокая ручка; три голубые струи снизу",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 27,
+ "h": 26,
+ "N": 373,
+ "colours": 6,
+ "volumes": {
+  "C": {
+   "cells": 165,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 97,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "R": {
+   "cells": 64,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "B": {
+   "cells": 30,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "Y": {
+   "cells": 12,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 5,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............RR............",
+  ".........NNNRRRRRR.........",
+  ".........RRRRRRRRRR........",
+  "........NRRRRRRRRRRR.......",
+  "........NRRRRRRRRRRRYYYY...",
+  "........NRRRRN.NRRRRN..YY..",
+  "........NRRRRN.NRRRRN...YY.",
+  ".......NNRRRRNNNRRRRN....Y.",
+  ".....CCCNNNNNNCNNNNNCC...Y.",
+  "...CCCCCCCCCCCCCCCCCCC...YY",
+  "..CCCCCCCCCCCCCCCCCCCCC....",
+  ".CCCCCCCCCCCCCCCCCCCCCCC...",
+  ".CCCCCCCCCCCCCCCCCCCCCCC...",
+  "ECCCCCCCCCCCCCCCCCCCCCCCC..",
+  "ECCCCCCCCCCCCCCCCCCCCCCCC..",
+  "ECCCCCCCCCCCCCCCCCCCCCCCCC.",
+  "EENNNNNNNNNNNNNNNNNNNNNNN..",
+  "..NNNNNNNNNNNNNNNNNNNNNN...",
+  "..NNNNNNNNNNNNNNNNNNNNNN...",
+  "...........................",
+  ".....B......BB......B......",
+  "....BB......BB......BB.....",
+  "....BB......BB......BB.....",
+  "...BB.......BB.......BB....",
+  "...BB.......BB.......BB....",
+  "............BB............."
+ ]
+}

@@ -1,0 +1,92 @@
+{
+ "code": "P0283",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Тапочки с лунными кратерами",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Одежда и аксессуары",
+ "direction": "Космическая повседневность",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Лунная поверхность покрывает домашние тапочки; пара мягких подошв; круглые кратеры; глубокие отверстия для ног",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 34,
+ "N": 893,
+ "colours": 6,
+ "volumes": {
+  "Y": {
+   "cells": 336,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "V": {
+   "cells": 197,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "A": {
+   "cells": 132,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 131,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 56,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "S": {
+   "cells": 41,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....NNN..........................",
+  "...NNVVVVV...............NNNN.....",
+  "..NNVVVVVVV.............NNVVVNN...",
+  "..NVVVVVVVVN...........VVVVVVVNN..",
+  ".NVVVVVVVVVNN.........VVVVVVVVVN..",
+  ".NVVVVVVVVVVNN.......VVVVVVVVVVVN.",
+  ".NVVVVVVVVVVYN......NYVVVVVVVVVVN.",
+  "NYVVVVVVVVVVYNN....NNYVVVVVVVVVVN.",
+  "NYVVVVVVVVVVYYNN...NYYVVVVVVVVVVNN",
+  "NYVVVVVVVVVVYYNN..AYYYVVVVVVVVVVYN",
+  "NYYVVVVVVVVYYYYN..AYYYVVVVVVVVVYYN",
+  "NYYYVVVVVVVYYYYANNAYYYYVVVVVVVVYYN",
+  "NYYYYVVVVVYYYYYANNAYYYYVVVVVVVYYYN",
+  "NYYYYYYYYYYYYYYANNAYYYYYYVVVVYYYYN",
+  "NYYYYYYYYYYYYYYYNAYYYYYYYYYYYYYYYN",
+  "NAYYYYYYYYYYYYYYNAYYYYYYYYYYYYYYAN",
+  "NAYYCCCCYYYYYYYYNAYYYYYYYYYYYYYYAN",
+  "NAYYCCCCCYYYYYYYNAYYCCCYYYYYYYYYAN",
+  "NAYCCCCCCYYYYYYYNAYCCCCCYYYYYYYYAN",
+  "NAACCCCCCYYYYYYYNACCCCCCYYYYYYYYAN",
+  ".NAYCCCCCYYYYYYYAACCCCCCYYYYYYYAN.",
+  ".NAYYCCYYYYSSSYYAAYCCCCCYYYYYYYAN.",
+  ".NAAYYYYYYSSSSSYAAYYCCCYYYYYYYAAN.",
+  "..AAYYYYYYSSSSSAAAYYYYYYYYYYYYANN.",
+  "..AAAYYYYYSSSSSNNAYYYYYYSSSSYAAN..",
+  "...AAAYYYYYSSSAANAAYYYYYSSSSSAAN..",
+  "...AAAYYYYYYYYAANAAYYYYYSSSSSAA...",
+  "....NAAYYYYYYYAANAAAYYYYSSSSAAA...",
+  "....NNAAAYYYAAAANNAAYYYYYSSAAA....",
+  ".....NNAAAAAAAAN.NAAAAYYAAAAN.....",
+  "......NNAAAAAANN..NAAAAAAAANN.....",
+  ".......NNNAAANN...NNAAAAAAA.......",
+  ".........NNNN......NNNANNN........",
+  "......................NN.........."
+ ]
+}

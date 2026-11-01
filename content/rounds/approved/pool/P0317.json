@@ -1,0 +1,99 @@
+{
+ "code": "P0317",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Светофор-бабочкарий",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Городские пространства",
+ "direction": "Природа и технология",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Из цветных линз светофора вылетают бабочки; три круглых сигнала; раскрытые симметричные крылья; длинная стойка",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 33,
+ "h": 36,
+ "N": 867,
+ "colours": 7,
+ "volumes": {
+  "N": {
+   "cells": 227,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "E": {
+   "cells": 196,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 141,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 135,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "R": {
+   "cells": 124,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "S": {
+   "cells": 23,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "A": {
+   "cells": 21,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................EEEE..EEEE......",
+  "..EEEEEEEEEEEE..EERRREERRREE.....",
+  ".NNNNNNNNNNNNNE.ERRRREERRRRE.....",
+  "ENNNNNNNNNNNNNEERRRRREERRRRRE....",
+  "ENNNNRRRRNNNNNNERRRRREERRRRRE....",
+  "ENNNRRRRRRNNNNNERRRRREERRRRRE....",
+  "ENNNRRRRRRRNNNNERRRRREERRRRRE....",
+  "ENNNRRRRRRRSSSSSRRRRREERRRRR.....",
+  "ENNNRRRRRRRNNNNE.ERRREERRRE......",
+  "ENNNRRRRRRNNNNNE.ERRREERRRE......",
+  "ENNNNRRRRNNNNNNE.ERRREERRRE......",
+  "ENNNNNNNNNNNNNNE..EEREEEEEEEEE...",
+  "ENNNNNYYYNNNNNNE...EEEYYEEEYYYY..",
+  "ENNNYYYYYYNNNNNE...EYYYYYEYYYYYY.",
+  "ENNNYYYYYYYNNNNE...EYYYYYEYYYYYY.",
+  "ENNNYYYYYYYSSSSS...EYYYYYEYYYYYYY",
+  "ENNNYYYYYYYNSSSSSS.EYYYYYEYYYYYYY",
+  "ENNNYYYYYYYNNNNE...EYYYYYEYYYYYY.",
+  "ENNNNYYYYYNNNNNE....EYYYYEYYYYYY.",
+  "ENNNNNNNNNNNNNNE....EEYYYEYYYYE..",
+  "ENNNNNNGNNNNNNNE.....EYYYEYYYYE..",
+  "ENNNNGGGGGNNNNNE.....EYYYEYYYYE..",
+  "ENNNGGGGGGGNNNNEEEE..EEEYEEYYY...",
+  "ENNNGGGGGGGNNNNEGGGEEEGGEE.Y.....",
+  "ENNNGGGGGGGSSSSGGGGGEGGGGEE......",
+  "ENNNGGGGGGGNNSSGGGGGEGGGGGE......",
+  "ENNNGGGGGGNNNESGGGGGEGGGGGE......",
+  "ENNNNNGGGNNNNEGGGGGGEGGGGGE......",
+  ".NNNNNNNNNNNNEEGGGGGEGGGGGE......",
+  "..EEEEAAAEEEE.EGGGGGEGGGGE.......",
+  "......AAA......EGGGGEGGGEE.......",
+  "......AAA......EGGGGEGGGE........",
+  "......AAA......EGGGGEGGGE........",
+  "......AAA.......GGGEEGGEE........",
+  "......AAA........EEE.GG..........",
+  "......AAA........................"
+ ]
+}

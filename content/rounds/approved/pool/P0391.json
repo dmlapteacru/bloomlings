@@ -1,0 +1,107 @@
+{
+ "code": "P0391",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Кассета — американские горки",
+ "theme": "Ретрофутуризм",
+ "family": "Ретро-техника и ностальгия",
+ "direction": "Ретрофутуристические приключения",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Лента кассеты стала аттракционом; два больших катушечных окна; петля рельсов над корпусом; яркий вагончик",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 39,
+ "h": 41,
+ "N": 1236,
+ "colours": 8,
+ "volumes": {
+  "P": {
+   "cells": 360,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "N": {
+   "cells": 244,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "B": {
+   "cells": 204,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "C": {
+   "cells": 188,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 89,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "V": {
+   "cells": 84,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "R": {
+   "cells": 49,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 18,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........NNNNNNNNN.....................",
+  "......NNNBBBBBBBBNN....................",
+  ".....NNBBBBBBBBBBBBN...................",
+  "....NNBBBBBNNNNNBBBNN..................",
+  "...NNBBBNNNN...NNBBBN..................",
+  "...NBBBNN.......NNBBN..................",
+  "..BBBBNN.........NBBBN.................",
+  "..BBBNN..........NBBBN.................",
+  ".NBBBN...........NBBBN.....RRRRRRRRRR..",
+  ".NBBBN...........NBBBN.....RRRRRRRRRRN.",
+  ".NBBBN...........NBBBN.....RRRRRRRRRRNN",
+  ".NBBBN...........NBBBN.....RRRRRRRRRRBN",
+  ".NBBBN...........NBBBN.....RRRRRRRRRBBN",
+  ".NBBBN...........NNBBN....NNYYYYYYYYBBN",
+  ".NNBBN............NBBN...NNBYYYY.YYYBBN",
+  "..NBBNN...........NBBBNNNBBBBYY...YNBBN",
+  "..NBBBNEEEEEEEEEEENBBBBBBBBBNNEEEEENBBN",
+  "..NNBBNNPPPPPPPPPPPBBBBBBBBNNPPPPPPNBBN",
+  ".EPNBBBNPPPPPPPPPPPPBBBBBBBPPPPPPPPNBBN",
+  "EEPNBBBNPPPPPPPPPPPPPNNNNPPPPPPPPPPNBBN",
+  "EPPPNBBBNPPPPPPPPPPPPPPPPPPPPPPPPPPNBBN",
+  "EPPPNNBBNNCCCCCCCCCCCCCCCCCCCCCCCCPNBBN",
+  "EPPPPNBBBNNNNNCCCCCCCCCCCCNNNNNCNNNNBBN",
+  "EPPPPNNBBBNNNNNCCCCCCCCCCNNNNNNNNBBBBBN",
+  "EPPPPCNBBBNNNNNCCCCCCCCCNNNNNBBBBBBBBBN",
+  "EPPPPCCNBBBNNNNCCCCCCCCCNNNBBBBBBBBNNNE",
+  "EPPPPCCNNBBNNNNCCCCCCCCCNNNBBBBNNNNPPPE",
+  "EPPPPCCNNNNNNNNCCCCCCCCCNNNNNNNNCCCPPPE",
+  "EPPPPCCNNNNNNNCCCCCCCCCCCNNNNNNNCCCPPPE",
+  "EPPPPCCCNNNNNCCCCCCCCCCCCCNNNNNCCCCPPPE",
+  "EPPPPCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCPPPE",
+  "EPPPPCCCCCCCCCCCCCCCCCCCCCCCCCCCCCPPPPE",
+  "EPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPE",
+  "EPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPE",
+  "EPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPE",
+  "EPPPPPPPPPVVVVVVVVVVVVVVVVVVVPPPPPPPPPE",
+  "EPPPPPPPPVVVVVVVVVVVVVVVVVVVVVPPPPPPPPE",
+  "EPPPPPPPPVVVVVVVVVVVVVVVVVVVVVPPPPPPPPE",
+  ".EPPPPPPVVVVVVVVVVVVVVVVVVVVVVVPPPPPPE.",
+  ".EEPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPEE.",
+  "...EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE..."
+ ]
+}

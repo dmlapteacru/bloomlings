@@ -1,0 +1,103 @@
+{
+ "code": "P0463",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Капхед — чашка с трубочкой",
+ "theme": "Новые герои игр",
+ "family": "Блюда и напитки",
+ "direction": "Ожившие вещи",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Капхед в позе старого мультфильма; большая голова-чашка и ручка; красно-белая трубочка; красные шорты и белые перчатки",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Cuphead",
+  "url": "https://en.wikipedia.org/wiki/Cuphead",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 40,
+ "N": 895,
+ "colours": 6,
+ "volumes": {
+  "C": {
+   "cells": 339,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 334,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 92,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "A": {
+   "cells": 80,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 38,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "S": {
+   "cells": 12,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....SSS..........DDDDDDDDD.........",
+  ".....SS...........DCRRRRCCD.........",
+  ".....SS...........DCRRRRCCD.........",
+  ".....SSS.........DCCRRRRCCD.........",
+  "......SS..DDDDDDDDCCCCDDDDD.........",
+  "......DDDDCCCCCCCDCCCCDDDDD.........",
+  "....CCCCCCCEEEEEDCCCCDDCCCDDDDD.....",
+  "...DCCCCEEEEEEEEDCCCCDEEECCCDCCDD...",
+  "...DCCCEEEEEEEEEDDDDDDEEECCCDCCCDD..",
+  "...DDDCCCCCEEEEEEEEEECCCCCDDDCCCCD..",
+  "...DCDDDDCCCCCCCCCCCCCCDDDDDDDDCCCD.",
+  "...DCCCCCCCCCDDDCCCCDDDCCCCDDDDCCCD.",
+  "...DCCCCCCCDCCCCCCDCCCCCCCCDDDDCCCD.",
+  "....DCCCCCCDDCCCCCDDCCCCCCDDDDDCCCD.",
+  "....DCCCCCDDDCCCCDDDCRRCCCDDDDDCCCD.",
+  "....DCCCCCDDDCCCCDDDRRRRCCDDDDDCCCD.",
+  "....DCCCCCCDCCCCCCDDRRRRCCDCCCCCCD..",
+  "....DCCCCCCCCCCCCCCCCRRCCCDCCCCCDD..",
+  "....DDCCCCCCCCCCCCCCCCCCCCDCCCCDD...",
+  ".....DDCCCCCCDCCCCCCDCCCDD.DDDD.....",
+  "......DDCCCCCDDDCCCDDCCDD...........",
+  "........CCCCCCDDDDDDDDD.............",
+  "..........DDCCCCCCCDDDD.............",
+  "...........DDDDDDDDDDDD.............",
+  "..........DDDDDDDDDDDDDDD.....DDDD..",
+  ".DDDD..DDDDDDDDDDDDDDDDDDDDDDDCCCCD.",
+  "DCCCCDDDDDDDDDDDDDDDDDDDDDDDDDCCCCD.",
+  "DCCCCDDDD.DDDDDDDDDDDDDD...DDDCCCCDD",
+  "DCCCCDD...DDDDDDDDDDDDDD.....DCCCCD.",
+  "DCCCCD....DRRRRRRRRRRRRD......DDDD..",
+  ".DDDD......RRRRRRRRRRRR.............",
+  "...........RRRRRRRRRRRR.............",
+  "...........RRRRRRRRRRRR.............",
+  "...........RRRRRRRRRRRR.............",
+  "...........RRCCRRRRRCCR.............",
+  ".......AAAA.CCCDDDD.CCCC.AAAA.......",
+  ".....AAAAAAAAC.......CCAAAAAAAA.....",
+  "....AAAAAAAAAA........AAAAAAAAAA....",
+  "....AAAAAAAAAA........AAAAAAAAAA....",
+  ".....AAAAAAAA..........AAAAAAAA....."
+ ]
+}

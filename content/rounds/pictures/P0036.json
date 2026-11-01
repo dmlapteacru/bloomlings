@@ -47,10 +47,10 @@
   "C": 82,
   "D": 45
  },
- "status": "approved",
+ "status": "rejected",
  "batch": "batch-0011",
  "createdAt": "2026-10-26",
  "history": [],
- "note": null,
- "decidedAt": "2026-10-26"
+ "note": "владелец 01.11.2026: заменена похожей картинкой из паков — P0361",
+ "decidedAt": "2026-11-01"
 }

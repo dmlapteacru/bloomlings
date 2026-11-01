@@ -1,0 +1,116 @@
+{
+ "code": "P0435",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Скуби-Ду — большой сэндвич",
+ "theme": "Новые герои мультфильмов",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Скуби держит огромный сэндвич; вытянутая собачья морда; остроконечные уши; голубой ошейник с золотым жетоном",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Scooby-Doo",
+  "url": "https://en.wikipedia.org/wiki/Scooby-Doo_(character)",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 38,
+ "N": 875,
+ "colours": 9,
+ "volumes": {
+  "A": {
+   "cells": 315,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 167,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 111,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 105,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 65,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "B": {
+   "cells": 43,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "Y": {
+   "cells": 29,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 28,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "R": {
+   "cells": 12,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..................D...............",
+  "DD...............DDD..............",
+  "DDD.............AAAD..............",
+  "DAAA...........DAAAD..............",
+  "DAAAA.........DDAAAD..............",
+  "DAAAADD......DDAAAAD..............",
+  ".DAAAADD..DDDDAAAAAD..............",
+  ".DAAAAADDDAAAAAAAAAAD.............",
+  ".DAAAAAAAAAAAAAAAAAAD.............",
+  ".DAAAAAAAAAAAAAAAAAAD.............",
+  ".DAAAAACCAAAAACCAAAAD.............",
+  ".DAAAACCCAAAACCCAAAAD.............",
+  ".DAAAACDDAAAACDDAAEEEEEEEEEEEEEEEE",
+  "..DAAACDDAAAACDDAAECCCCCCCCCCCCCCE",
+  "..DAAACCCAAAACCCAAECCCCCCCCCCCCCCE",
+  "..DAAAAAAAAAAAAAAAECCCCCCCCCCCCCCE",
+  "..DDAAAAAOOOOOOOOOECCCCCCCCCCCCCEE",
+  "...DDAAOOOOOOOOOODDEGGGGGGGGGGGGE.",
+  "....DAOOOOOOOOOOODEEEEEEEEEEEEEEEE",
+  ".....OOOOOOOOOOOOEECCCCCCCCCCCCCCE",
+  ".....OOOOOOOOOOOOOECCCCCCCCCCCCCCE",
+  "....AAAOODDOOODDOOECCCCCCCCCCCCCCE",
+  "....AAAAODDDDDDDOOECRRRRRRRRRRRREE",
+  "...BBBBBBBBBBBBBBBEEEEEEEEEEEEEEE.",
+  "...BBBBBBBBBBBBBBBECCCCCCCCCCCCCEE",
+  "...DDBBBBBBBBBBBBBECCCCCCCCCCCCCCE",
+  "..DDDDAAAAAYYYAAAEEDDDCCCCCCCCCCCE",
+  "..DDDDAAAAAYYYYAAAAAAACCCCCCCCCCCE",
+  "..DDDDAAAAYYYYYYADAAAAADGGGGGGGGEE",
+  ".EDDDDAAAYYYYYYYADAAAAADGGGGGGGG..",
+  ".EADDAAAAAYYYYYAADDAAADD..........",
+  ".EAAAAAAAAAYYYAAAADDDDDAE.........",
+  "EAAAAAAAAAAAYAAAAAAAAAAAE.........",
+  "EAAAAAAAAAAAAAAAAAAAAAAAE.........",
+  "EEEAAAAEEEEEEEEEEAAAEEEEE.........",
+  "..AAAAAA.......AAAAAA.............",
+  "..AAAAAA.......AAAAAA.............",
+  "...AAAA..........AAA.............."
+ ]
+}

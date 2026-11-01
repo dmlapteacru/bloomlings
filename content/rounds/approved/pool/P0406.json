@@ -1,0 +1,106 @@
+{
+ "code": "P0406",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Бумажная швейная машинка",
+ "theme": "Обмен свойствами предметов",
+ "family": "Лаборатории и изобретения",
+ "direction": "Предметные гибриды",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Швейная машинка сложена из бумаги; угловатая арка корпуса; складчатый маховик; белый лист под иглой",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 37,
+ "h": 38,
+ "N": 894,
+ "colours": 8,
+ "volumes": {
+  "C": {
+   "cells": 232,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 153,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "B": {
+   "cells": 141,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 114,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "Y": {
+   "cells": 104,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 56,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 55,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "S": {
+   "cells": 39,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "........NN...........................",
+  ".......NNPNNNNNN.....................",
+  ".......NCPPPPPPPNNNNNN...............",
+  "......CCCPPPPPPPPPPPPPNNNNNN.........",
+  ".....NCCCPPPPPPPPPPPPPPPPPPPP........",
+  "....NNCCCPPPPPPPPPPPPPPPPPPPPP.......",
+  "....NCCCCPPPPPPPPPPPPPPPPPPEEEE......",
+  "....NNCCCCPPPPPPPPPPPPPPPPOOYYEE.....",
+  ".....NNCCCPPPPPPPPPPPPPPPOOOYYYEEE...",
+  "......NNCCPPPPPPPPPPPPPPOOOOYYYYYEE..",
+  "........CCPPPPPPPPPPPPPEOOOOYYYYYYYEE",
+  ".........NCCCPPPPPPPPPPEOOOOYYYYYYYYE",
+  ".........NCCCCCCCCPPPPPEOOOOYYYYYYYYE",
+  ".........NCCCCCCSSSSSSSEOOOOYYYYYYYEE",
+  ".........NCCCCCCSSSSSSSEOOOOYYYYYYYE.",
+  ".........NCCCCCCSSSSSSSEOOOOYYYYYYYE.",
+  ".........NCCCCCCSSSSSSSEOOOOYYYYYYYE.",
+  ".........NCCCCCCSSSSSSSEOOOOYYYYYYYE.",
+  ".........NCCCCCCSSSS...EOOOOYYYYYYYE.",
+  ".........NCCCEECC......EEOOOYYYYYYYE.",
+  ".........NCCCEECN.......EOOOYYYYYYYE.",
+  ".........NCCCEECN........OOOYYYYYYY..",
+  ".........NCCCEECN.........OOYYYYY....",
+  ".........NCCCEECN..........EYYY......",
+  ".........NCCCEECN..........EE........",
+  ".........NCCCEECN....................",
+  ".NNNNNNNNNCCCEECNNNNNNNNNNNNNNNNNNN..",
+  "NNCCCCCBBBBBBBCCBBBBBBBBBCCCCCCCCCCN.",
+  "NCCCCCCBBBBBBCCCCCCBBBBBBBCCCCCCCCCN.",
+  "NCCCCCCCBBBBBCCBCCCCCCCCBBCCCCCCCCCN.",
+  "NCCCCCCCCBBBCCBBBBBBBCCCCBBCCCCCCCCN.",
+  "NCCCCCCCCBBBCCBBBBBBBBBBBBBBCCCCCCCN.",
+  "NNCCCCCCCCBCCBBBBBBBBBBBBBBBCCCCCCCN.",
+  ".NNNNNNNNNBCCBBBBBBBBBBBBBBBBNNCCCNN.",
+  "..........CCBBBBBBBBBBBBBBBBBBNNNNN..",
+  "................BBBBBBBBBBBBBB.......",
+  ".......................BBBBBBBB......",
+  ".............................BB......"
+ ]
+}

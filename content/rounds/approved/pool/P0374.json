@@ -1,0 +1,101 @@
+{
+ "code": "P0374",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Лестница переходит в водную горку",
+ "theme": "Невозможная архитектура",
+ "family": "Дома и архитектура",
+ "direction": "Невесомый мир",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Ступеньки наверху переходят в водную горку; лестница слева; изогнутый голубой спуск; бассейн внизу",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 35,
+ "h": 35,
+ "N": 1218,
+ "colours": 8,
+ "volumes": {
+  "S": {
+   "cells": 476,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "O": {
+   "cells": 231,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "B": {
+   "cells": 197,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "G": {
+   "cells": 109,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 64,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 49,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "N": {
+   "cells": 47,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "Y": {
+   "cells": 45,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS..",
+  ".SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSYYNNNNNNNNNSSSSSSSS",
+  "SSSSSSSSSSSSSSSYYNBCCCCCCCCSSSSSSSS",
+  "SSSSSSSSSSSSSSYYNNBCCCCCCCCCNSSSSSS",
+  "SSSSSSSSSSSSSYYYENBBBBBBBCCCNSSSSSS",
+  "SSSSSSSSSSSSYYYEENBBBBBBBBCCNSSSSSS",
+  "SSSSSSSSSSSSYYEEENBNNNBBBBCCBSSSSSS",
+  "SSSSSSSSSSSYYOOOONNONNBBBBCCBSSSSSS",
+  "SSSSSSSSSSYYEOOOOOOONNBBBBCCBSSSSSS",
+  "SSSSSSSSSYYYEOOOOOOONBBBBCCBNSSSSSS",
+  "SSSSSSSSYYYEEOOOOOOONBBBBCCBNSSSSSS",
+  "SSSSSSSSYYEEEOOOOOONBBBBBCBBNSSSSSS",
+  "SSSSSSSYYOOOOOOOOOONBBBBCCBBSSSSSSS",
+  "SSSSSSYYEOOOOOOOOOONBBBBCCBBSSSSSSS",
+  "SSSSSYYYEOOOOOOOOOONBBBBCCBBSSSSSSS",
+  "SSSSYYYEEOOOOOOOOOONBBBBCCBBSSSSSSS",
+  "SSSSYYOOOOOOOOOOOOONBBBBCCBBNSSSSSS",
+  "SSSYYOOOOOOOOOOOOOONBBBBCCBBNSSSSSS",
+  "SSYYYEOOOOOOOOOOOOONBBBBBCCBNSSSSSS",
+  "SSYYEEOOOOOOOOOOOOONBBBBBCCBBSSSSSS",
+  "SEEEEEOOOOOOOOOOOOOOBBBBBBCCBBSSSSS",
+  "SEOOOOOOOOOOOOOOOOOOBBBBBBCCCBBSSSS",
+  "SEOOOOOOOOOOOOOOOOOOONBBBBBCCCBBSSS",
+  "SEOOOOOOOOOOOOOOOOOOENNBBBBBBCCCSSS",
+  "SEOOOOOOOOOOOOOOOOOOESSBBBBBBBCCCSS",
+  "SEOOOOOOOOOOOOOOOOOOESSSBBBBBBBBCSS",
+  "SEEEEEEEEEEEEEEEEOBBBSSSSSSSSBBBBSS",
+  "GGGGGGGGGGGGGGGGBBBBSSSSSSSSSSBBBBG",
+  "GGGGGGGGGGGGGGGGBBBBBSSSSSSSSBBBBBG",
+  "GGGGGGGGGGGGGGGGBBBBBBBBBBBBBBBBBGG",
+  "GGGGGGGGGGGGGGGGGGGBBBBBBBBBBBBGGGG",
+  ".GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+ ]
+}

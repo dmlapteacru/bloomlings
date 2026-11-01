@@ -1,0 +1,105 @@
+{
+ "code": "P0398",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Красильня внутри палитры",
+ "theme": "Миниатюрные мастерские",
+ "family": "Кафе и мастерские",
+ "direction": "Миниатюрные мастерские",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "В палитре красильные чаны и ткань; овальный контур с отверстием для пальца; три ванны краски; отрез на верёвке",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 32,
+ "N": 863,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 434,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 136,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 52,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 47,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "P": {
+   "cells": 40,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "R": {
+   "cells": 40,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "A": {
+   "cells": 40,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "V": {
+   "cells": 39,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "B": {
+   "cells": 35,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "............EEEEEEEEEE..........",
+  ".........EEEYYYYYYYYYYEEE.......",
+  ".......YYYYYYYYYYYYYYYYYYY......",
+  ".....EEYYYYYYYYYYYYYYYYYNNEE....",
+  "....EEEEEEEEEEEEEEEYYYNNNNNEE...",
+  "...EEEPPPPPEEBBBBBEYYYNNNNNEE...",
+  "..YYYYPPPPPYYBBBBBYYYNNNNNNNYY..",
+  "..YYYYPPPPPYYBBBBBYYYNNNNNNNYYE.",
+  ".YYYYYPPPPPYYBBBBBYYYNNNNNNNYYE.",
+  ".YYYYYPPPPPYYBBBBBYYYYNNNNNNYYE.",
+  "EYYYYYPPPPPYYBBBBBYYYYNNNNNYYYYE",
+  "EYYYYYPPPPPYYBBBBBYYYYYNNNYYYYYE",
+  "EYYYYYPPPPPYYYYYYYYYYYYYYYYYYYYE",
+  "EYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYE",
+  "EYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYE",
+  "EYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYE",
+  "EYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYE",
+  "EYYYYCCCCCYYYCCCCCCYYYCCCCCYYYYE",
+  "EYYYCCCCCCCYYCCCCCCYYCCCCCCCYYYE",
+  "EYYERCCCCCREECCCCCCEEVCCCCCVEYYE",
+  "EYYERRRRRRREEYYYYYYEEVVVVVVVEYYE",
+  "EYYERRRRRRREEYYYYYYEEVVVVVVVEYYE",
+  "EYYERRRRRRREEYYYYYYEEVVVVVVVEYY.",
+  ".YYERRRRRRREEYYYYYYEEVVVVVVVEYY.",
+  ".YYERRRRRRREEYYYYYYEEVVVVVVVEY..",
+  ".YYERRRAAAAAAAAAAAAAAAAAAAVVEE..",
+  "..YEYYAAAAAAAAAAAAAAAAAAAAAEE...",
+  "...EYYYYYYYYYYYYYYYYYYYYYYYE....",
+  "...EEYYYYYYYYYYYYYYYYYYYYYY.....",
+  ".....YYYYYYYYYYYYYYYYYYYY.......",
+  "......EEEYYYYYYYYYYYEEE.........",
+  ".........EEEEEEEEEEE............"
+ ]
+}

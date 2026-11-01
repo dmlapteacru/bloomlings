@@ -1,0 +1,113 @@
+{
+ "code": "P0450",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Дамбо — волшебное пёрышко",
+ "theme": "Новые герои мультфильмов",
+ "family": "Саванна и джунгли",
+ "direction": "Невесомый мир",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Дамбо держит пёрышко хоботом; огромные раскрытые уши; маленькая жёлтая шляпа; длинный загнутый хобот",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Dumbo",
+  "url": "https://en.wikipedia.org/wiki/Dumbo",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 42,
+ "h": 42,
+ "N": 1236,
+ "colours": 8,
+ "volumes": {
+  "S": {
+   "cells": 598,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "N": {
+   "cells": 171,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "P": {
+   "cells": 142,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "Y": {
+   "cells": 134,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 97,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 62,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "A": {
+   "cells": 17,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 15,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................AAAAAAAAA................",
+  "................AAYYYYYYYYY...............",
+  "................AYYYYYYYYYY...............",
+  "................AYYYYYYYYYYY..............",
+  "...............YYYYYYYYYYYYYY.............",
+  "...............YYYYYYYYYYYYYY.............",
+  "..............YYYYYYYYYYYYYYYY............",
+  "..............YYYYYYYYYYYYYYYY............",
+  "..NNNNN.......YYYYYYYYYYYYYYY......NNNNNN.",
+  ".NSSSSSSS....SYYYYYYYYYYYYYYN....NNSSSSSNN",
+  ".NSSSSSSSNN..SSSSSSSSSSSSSSSNN..NNSSSSSSSN",
+  "NNSSSSSSSSNNNSSSSSSSSSSSSSSSSNNNSSSSSSSSSN",
+  "NSSSSSSSSSSNSSSSSSSSSSSSSSSSSSNSSSSSSSSSSS",
+  "NSSSPPPPSSSNSSSSSSSSSSSSSSSSSSNSSSSPPPSSSS",
+  "NSSSPPPPPSNSSSSCCSSSSSSSSSCSSSSNSPPPPPPSSS",
+  "NSSSPPPPPPNSSSCCCCSSSSSSSCCCSSSNPPPPPPPSSS",
+  "NSSSPPPPPPNSSSCCDCSSSSSSCDDCSSSNPPPPPPPSSS",
+  "NSSSPPPPPPNSSCCDDCSSSSSSCDDCCSSNNPPPPPPSSS",
+  "NSSSPPPPPPNSSCCDDCSSSSSSCDDCCSSSNPPPPPPSSS",
+  "NNSSPPPPPPNSSSCDDCSSSSSSCDDCSSSSNPPPPPPSSS",
+  ".NSSSPPPPPNSSSCCCSSSSSSSSCCCSSSNNPPPPPPSSN",
+  ".NSSSPPPPPNSSSSSSSSSSSSSSSSSSSSNPPPPPPSSSN",
+  ".NSSSPPPCCCCCCSSSNNNNNNNNNSSSSSNPPPPPPSSSN",
+  ".NSSSPCCCCCCCCCSSNSSSSSSSNSSSSSNPPPPPPSSSN",
+  ".NSSSCCCCCCCCCCSSNSSSSSSSNSSSSNPPPPPPPSSSN",
+  ".NSSSCCCCCCCCCNSSNNSSSSSSNSSSSNPPPPPPPSSSN",
+  ".NSSSCCCCCCCCCNNSSNSSSSSSNSSSSNPPPPPPSSSSN",
+  "..SSSCCCCCCCCCNNNNNSSSSSSNSSSSSNPPPPSSSSNN",
+  "..SSSCCCCCCSRRRRRRRRRRRRRRRRRRSNSSSSSSSSN.",
+  "...NSSCCSSSSNRRRRRRRRRRRRRRRRRSNSSSSSSSNN.",
+  "...NNSAASSSNNNRRRRRYYYYRRRRRRSSNNSSSSSNN..",
+  ".....AANNNNNNNNRRRRYYYYRRRRRSSSSNNNNNN....",
+  "............NSNNRRRYYYYRRRRSSSSNN.........",
+  "............NSSSNNNYYYSSSSSSSSSN..........",
+  "............NSSSSSSSSSSSSSSSSSSN..........",
+  "............NNSSSSSSSSSSSSSSSSSN..........",
+  ".............NSSSSSSSSSSSSSSSSN...........",
+  ".............NNSSSSSSSSSSSSSSNN...........",
+  "..............SSSSSSSSSSSSSSSSS...........",
+  ".............SSSSSSSSSSSSSSSSSSS..........",
+  ".............SSSSSSSSSSSSSSSSSSS..........",
+  "..............SSSS.NNNNNN..SSS............"
+ ]
+}

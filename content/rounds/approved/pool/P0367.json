@@ -1,0 +1,110 @@
+{
+ "code": "P0367",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Дверь в спинке кресла",
+ "theme": "Уютная мистика",
+ "family": "Свет и домашний декор",
+ "direction": "Уютная мистика",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "В спинке кресла спрятана дверь; красное кресло с подлокотниками; маленькая арочная дверь; голубое свечение внутри",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 40,
+ "h": 39,
+ "N": 1267,
+ "colours": 9,
+ "volumes": {
+  "R": {
+   "cells": 287,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "P": {
+   "cells": 240,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "O": {
+   "cells": 231,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 147,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "N": {
+   "cells": 144,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "S": {
+   "cells": 98,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "Y": {
+   "cells": 82,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 32,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 6,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........EEEEEEEEEEEEEEEEEEEEEE.........",
+  ".......EEERRRRRRRRRRRRRRRRRRRREEE.......",
+  "......EERRRRRRRRRRRRRRRRRRRRRRRREE......",
+  "......ERRRRRRRRRRRRRRRRRRRRRRRRRREE.....",
+  ".....RRRRRRRRRRRRRYYYYRRRRRRRRRRRRE.....",
+  ".....RRRRRRRRRYYYYNNNNYYYYRRRRRRRREE....",
+  "....ERRRRRRRRYYNNNNNNNNNNYYRRRRRRRRE....",
+  "....ERRRRRRRNNNNNNNNNNNNNNNYRRRRRRRE....",
+  "....ERRRRRRRNNNNNNNNNNNNNNNYYRRRRRRE....",
+  "....ERRRRRRYNNNNNNNNNNSSNNNNYRRRRRRE....",
+  "....ERRRRRRYNNNNNNNSSSSSNNNNYRRRRRRE....",
+  "....ERRRRRRYNNNSSSSSSSSSNNNNYRRRRRRE....",
+  "....ERRRRRRYNNNSSSSSSSSAAANNYRRRRRRE....",
+  "....ERRRRRRYNNNSSSSSSSSAAANNYYRRRRRE....",
+  "....ERRRRRRYNNNSSSSSSSSAAANNYYRRRRRE....",
+  "....ERRRRRRYNNNSSCCCCSSAAANNYYRRRRRE....",
+  "....ERRRRRRYNNNSSSCCSSSAAANNYYRRRRRE....",
+  "....ERRRRRRYNNNSSSSSSSSYYANNYYRRRRRE....",
+  "..EEERRRRRRYNNNSSSSSSSSYYANNYYRRRRREEE..",
+  ".EEPPPPPRRRYNNNSSSSSSSSAAANNYYRRPPPPPEE.",
+  "EEPPPPPPPRRYNNNSSSSSSSSAAANNYYRPPPPPPPEE",
+  "EPPPPPPPPRRYNNNSSSSSSSSAAANNYYRPPPPPPPPE",
+  "EPPPPPPPPPRYNNNSSSSSSSSAAANNYYRPPPPPPPPE",
+  "EPPPPPPPPPRYNNNNNNNNNNNAAANNYYRPPPPPPPPE",
+  "EPPPPPPPPPRYYYYYYYYYYYYYYYYYYRRPPPPPPPPE",
+  "EPPPPPPPPPOOOOOOOOOOOOOOOOOOOOOPPPPPPPPE",
+  "EPPPPPPPPOOOOOOOOOOOOOOOOOOOOOOPPPPPPPPE",
+  "EPPPPPPPOOOOOOOOOOOOOOOOOOOOOOOOPPPPPPPE",
+  "EPPPPPPPOOOOOOOOOOOOOOOOOOOOOOOOPPPPPPPE",
+  "EPPPPPPPOOOOOOOOOOOOOOOOOOOOOOOOPPPPPPPE",
+  "EPPPPPPPOOOOOOOOOOOOOOOOOOOOOOOOPPPPPPPE",
+  "EPPPPPPPOOOOOOOOOOOOOOOOOOOOOOOOPPPPPPPE",
+  "EPPPPPPPOOOOOOOOOOOOOOOOOOOOOOOOPPPPPPPE",
+  "EPPPPPPPPOOOOOOOOOOOOOOOOOOOOOOPPPPPPPPE",
+  ".EPPPPPPPOOOOOOOOOOOOOOOOOOOOOOPPPPPPPEE",
+  ".EEPEEEEE......................EEEEEPEE.",
+  "...EEEEEE.......................EEEEEE..",
+  "....EEEE........................EEEE....",
+  "....EEEE........................EEEE...."
+ ]
+}

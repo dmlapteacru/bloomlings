@@ -1,0 +1,89 @@
+{
+ "code": "P0441",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Марвин Марсианин — флажок",
+ "theme": "Новые герои мультфильмов",
+ "family": "Космос",
+ "direction": "Космическая повседневность",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Марвин на астероиде; чёрное лицо с большими белыми глазами; зелёный римский шлем с жёлтой щёткой; красная одежда",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Looney Tunes",
+  "url": "https://en.wikipedia.org/wiki/Marvin_the_Martian",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 25,
+ "h": 27,
+ "N": 383,
+ "colours": 6,
+ "volumes": {
+  "G": {
+   "cells": 129,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 67,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 63,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 56,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "R": {
+   "cells": 40,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 28,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "........YYYYYYY..........",
+  ".........YYYY............",
+  ".......GGYYYYY.......EY..",
+  ".....GGGGGYYYGGG.....EYYY",
+  "....GGGGGGYYYGGGG....EYY.",
+  "....GGGGGGGGGGGGGG...E...",
+  "...GGGGGGGGGGGGGGGG..E...",
+  "...GGGGGGGGGGGGGGGG..E...",
+  "...GGGGGGGGGGGGGGGG..E...",
+  "...GGGGGGGGGGGGGGGGG.E...",
+  "....DDDCCCCCCCCDDD...E...",
+  "....DDDCCCCCCCCDD....E...",
+  ".....DDCCCDDCCDDD..DDD...",
+  ".....DDDDDDDDDDDD.DCCCC..",
+  "......DDDDDDDDDD..DCCCC..",
+  "......DDDDDDDDD..DDDCC...",
+  "......DRRRRRRRRD.........",
+  "......DRRRRRRRRD.........",
+  "......DRRRRRRRRD.........",
+  "......DRRRRRRRRD.........",
+  "......DRRRRRRRRD.........",
+  ".....GGGGGGGGGGGG........",
+  ".....EGGGGGGGGGG.........",
+  "EEEEEEEGGGGGGGEEEEEEE....",
+  "EEECCCCGEEEEEEECCCCCEEE..",
+  ".ECCCCCCEEEEEEECCCCCCEE..",
+  "..CCCCCEEEEEEEECCCCCC...."
+ ]
+}

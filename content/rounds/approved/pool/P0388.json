@@ -1,0 +1,106 @@
+{
+ "code": "P0388",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Мастерская зонтов под клавишей",
+ "theme": "Миниатюрные мастерские",
+ "family": "Кафе и мастерские",
+ "direction": "Миниатюрные мастерские",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Под снятой клавишей мастерская зонтов; крупный колпачок клавиши сверху; три зонта в стойке; раскрытые рабочие створки",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 33,
+ "N": 861,
+ "colours": 9,
+ "volumes": {
+  "V": {
+   "cells": 233,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "C": {
+   "cells": 207,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 122,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "S": {
+   "cells": 102,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "Y": {
+   "cells": 67,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 62,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "G": {
+   "cells": 24,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "P": {
+   "cells": 23,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "B": {
+   "cells": 21,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....EEEEEEEEEEEEEEEEEEEEEE.....",
+  "....EESSSSSSSSSSSSSSSSSSSSCC....",
+  "....ECCSSSSSSSSSSSSSSSSSSCCC....",
+  "...CCCCSSSSSSSSSSSSSSSSSSCCCC...",
+  "..CCCCCCSSSSSSSSSSSSSSSSCCCCCC..",
+  ".CCCCCCCSSSSSSSSSSSSSSSSCCCCCCC.",
+  ".CCCCCCCCSSSSSSSSSSSSSSCCCCCCCC.",
+  "ECCCCCCCCCCCCCCCCCCCCCCCCCCCCCCE",
+  "ECCCCCCCCCCCCCCCCCCCCCCCCCCCCCCE",
+  "ECCCCCCCCCCCCCCCCCCCCCCCCCCCCCCE",
+  "ECCCCCCCCCCCCCCCCCCCCCCCCCCCCCCE",
+  "ECCCCCCCCCCCCCCCCCCCCCCCCCCCCCCE",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  "...VVVVVVVVVVVVVVVVVVVVVVVVVV...",
+  "...VVVVVVVVVVVVVVVVVVVVVVVVVV...",
+  "...VVVVVVVVVVVVVVVVVVVVVVVVVVV..",
+  "...VVVVPPPPVVVVBBBBVVVGGGGVVVV..",
+  "...VVVPPPPPPVVBBBBBBVGGGGGGVVV..",
+  "...VVPPPPPPPPBBBBBBBGGGGGGGGVV..",
+  "...VVPPPAAPPVBBBAABVGGGAAGGGVV..",
+  "...VVVVVAAVVVVVVAAVVVVVAAVVVVV..",
+  "...VVVVVAAVVVVVVAAVVVVVAAVVVVV..",
+  "...VVVVVAAVVVVVVAAVVVVVAAVVVVV..",
+  "...VVVVVAAVVVVVVAAVVVVVAAVVVVV..",
+  "...VVVVVAAVAVVVVAAVAVVVAAVVVVV..",
+  "...VVVVVAAVAVVVVAAVAVVVAAVAAVV..",
+  "..EEEEEEAAAAEEEEAAAAEEEEAAAEEE..",
+  "..EYYYYYYYAYYYYYYYAYYYYYYAYYYY..",
+  "..EYYYYYYYYYYYYYYYYYYYYYYYYYYY..",
+  "..EEYYEEEEEEEEEEEEEEEEEEEEYYEE..",
+  "...EYYE..................EYYE...",
+  "...EYYE..................EYYE...",
+  "...EYYE..................EYYE..."
+ ]
+}

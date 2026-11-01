@@ -1,0 +1,100 @@
+{
+ "code": "P0364",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Дом-гармошка",
+ "theme": "Невозможная архитектура",
+ "family": "Дома и архитектура",
+ "direction": "Невесомый мир",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Дом складывается гармошкой; три фасада с общими складками; ступенчатые крыши; окна на разных плоскостях",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 32,
+ "N": 876,
+ "colours": 8,
+ "volumes": {
+  "C": {
+   "cells": 356,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 164,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 121,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 117,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "P": {
+   "cells": 77,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "A": {
+   "cells": 18,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "B": {
+   "cells": 12,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 11,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....R.....................R......",
+  "....RRR..........R.........RR.....",
+  "....RRRR........RRR.......RRR.....",
+  "...RRRRRR......RRRRR......RRRR....",
+  "...RRRRRRR....RRRRRRR....RRRRR....",
+  "..RRRRRRRR...RRRRRRRRR...RRRRRR...",
+  ".RRRRRRRRRR.RRRRRRRRRRR.RRRRRRRR..",
+  ".RRRRRRRCYRRRRRRRRRRRRRRRCPRRRRR..",
+  "RRRRRCCCCYYYRRRRRRRRRRRCCCPPPRRRR.",
+  "RRRCCCCCCYYYYYRRRRRRRCCCCCPPPPPRR.",
+  "ECCCCCCCCYYYYYYYYRCCCCCCCCPPPPPPEE",
+  "ECCCCCCCCYYYYYYYYYCCCCCCCCPPPPPPE.",
+  "ECCCCCCCCYYYYYYYYYCCCCCCCCPPPPPPE.",
+  "ECCCCCCCCYYYYYYYYYCCCCCCCCPPPPPPE.",
+  "ECCCCCCCCYYYYYYYYYCCCCCCCCPPPPPPE.",
+  "ECEECEECCYYEECCYYYCCCCCEECPECCEPE.",
+  "ECECCEECCYYECCNNYYCCCCCEECPECCEPE.",
+  "ECECCEECCYYECCNNYYCCCCCEECPECCEPE.",
+  "ECCCCCCCCYYCCCCCYYCCCCCCCCPCCCCPE.",
+  "ECEBCBECCYYENCCNYYCEBCCBECPECCEPE.",
+  "ECEBCBECCYYENCNNYYCEBCCBECPECCEPE.",
+  "ECEBCBECCYYENCNEYYCEBCCBECPECCEPE.",
+  "ECCCCCCCCYYYYCEEYYCCEEEECCPPEEEPE.",
+  "ECCCCCCCCYYYYYYYYYCCCCCCCCPPPPPPE.",
+  "ECCCCCCCCYYYYYYYYYCCCCCCCCPPPPPPE.",
+  "ECCCCAAACCCYYYYYYYCCCCCCCCCPPPPPE.",
+  "ECCCCAAACCCCCYYYYYCCCCCCCCCCCPPPE.",
+  "ECCCCAAACCCCCCCYYYCCCCCCCCCCCCCPE.",
+  ".EECCAAACCCCCEEEEECCCCCCCCCCCCCCE.",
+  "..EEAAAACCCCC.....CCCCCCCCCCCEEE..",
+  "....AACCCCC.........CCCCCCEEE.....",
+  "......EEE.............EEEE........"
+ ]
+}

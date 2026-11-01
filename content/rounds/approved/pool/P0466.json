@@ -1,0 +1,94 @@
+{
+ "code": "P0466",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Йоши — пятнистое яйцо",
+ "theme": "Новые герои игр",
+ "family": "Доисторический мир",
+ "direction": "Театр эмоций",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Йоши обнимает яйцо; зелёная круглая морда и большие глаза; белый живот; крупное белое яйцо с зелёными пятнами",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Super Mario",
+  "url": "https://en.wikipedia.org/wiki/Yoshi",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 36,
+ "N": 896,
+ "colours": 5,
+ "volumes": {
+  "G": {
+   "cells": 311,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 296,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 164,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "O": {
+   "cells": 65,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "R": {
+   "cells": 60,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................CCC...CCC.........",
+  "................CCCCCCCCCCC........",
+  "................CCDDCCCCDDC........",
+  "...............CCCDDCCCDDDCC.......",
+  "..............GGCCDDCCCDDDCC.......",
+  ".............GGGCCDDCGCDDDCC.......",
+  "............DGGGCCDDCGCCDDCRR......",
+  "............DDDDDDDCCGGCCCRRR......",
+  ".........DDDDDGGGDDDDDGGCCRRRR.....",
+  ".......DDDGGGGGGGGGGGDDDGGRRRR.....",
+  "......DDGGGGGGGGGGGGGGGDDGRRRR.....",
+  ".....DDGGGGGGGGGGGGGGGGGDDRRRD.....",
+  ".....DGDDGGGGGGGGGGGGGGGGDGGDD.....",
+  "....DGGGDGGGGGGGGGGGGGGGGGDGD......",
+  "....DGGDDDDGGGGGGGGGGGGGGGDGD......",
+  "....DDDCCCCDDCCCCCCCCCCGGGDDD......",
+  "....DDCCCCCCDDCCCCCCCCCCGDDDRR.....",
+  "...DDCCCCCCCCDDDCCCCDCCCCDDRRRRR...",
+  "...DCCGCCCCCCCDDDDDDDCCCGGGRRRRR...",
+  "..CCGGGGCCCCCCCDDDDCCCCGGGGRRRRR...",
+  ".DCCGGGGGCCCCCCDDCCCGGGGGGGRRRRR...",
+  ".DCCGGGGGCCCCCCDDDDGGGGGGGGRRRRR...",
+  "DDCCGGGGGCCCDDDDDGGGGGGGCGGRRRRR...",
+  "DCCCGGGGGCCDGGGGGDGGGGCCCCGRRRRR...",
+  "DCCCCGGGCCCDGGGGGDGGCCCCCCGGRRRD...",
+  "DCCCCCCCCCCDGGGGGDCCCCCCCCGGGGGD...",
+  "DCCCCCCCCCGDDGGGDDCCCCCCCCGGGGGD...",
+  "DCCCCCCCCGGGGDDDDCCCCCCCCGGGGGGG...",
+  "DCGGGCCCCGGGGGCCDCCCCCCCCGGGGGGGGG.",
+  "DGGGGCCCCGGGGGCDDCCCCCCCGGGGGGGGGGG",
+  "DGGGGCCCCGGGGGCDDCCCCCCCGGGGGGGGGGG",
+  ".GGGCCCCCCGGGCC.DCOCCCGGGGGGGGGG...",
+  "..DDCCCCCCCCCC.OOOOOOOGGGOOOOOOO...",
+  "...DDCCCCCCCC.OOOOOOOOOGGOOOOOOOO..",
+  ".....DDDDDD...OOOOOOOOOOOOOOOOOOO..",
+  "...............OOOOOOO...OOOOOOO..."
+ ]
+}

@@ -1,0 +1,101 @@
+{
+ "code": "P0417",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Каменная арка со шторой из снега",
+ "theme": "Уютная мистика",
+ "family": "Свет и домашний декор",
+ "direction": "Уютная мистика",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Арка закрыта снежной занавеской; каменные блоки; голубые складки; тёплая тропинка за раздвинутой шторой",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 33,
+ "N": 908,
+ "colours": 8,
+ "volumes": {
+  "A": {
+   "cells": 431,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "V": {
+   "cells": 112,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "S": {
+   "cells": 98,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "B": {
+   "cells": 94,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "E": {
+   "cells": 78,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 57,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 29,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "P": {
+   "cells": 9,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..........EEEEEEEEEE..........",
+  ".......EEEAAAAAAAAAAAAA.......",
+  ".....AAAAAAAAAAAAAAAAAAAA.....",
+  "....AAAAAAACAAAAAAACCAAAAA....",
+  "...AAAAAAAACCAAAAAACCAAAAAA...",
+  "..AAAAAAAAACCAAAAAACAAAAAAAA..",
+  ".EAAAAAAAAACCAAAAACCAAAAAAAAA.",
+  ".EAAAAAAAAAACAAAAACCAAAAAAAAA.",
+  ".EAAAAAAAAAACAAAAACAAAAAAAAAA.",
+  "EAAAAAAAAAAASSSBBBBAAAAAAAAAAE",
+  "EAAAAAAAASSSSSSBBBBBBAAAAAAAAE",
+  "EAAAAAAASSSSSSSVBBBBBBAAAAAAAE",
+  "EAACAAAASSSSSSVVBBBBBBAAAAACAE",
+  "EAACCCAASSSSSSVVBBBBBBBACCCCAE",
+  "EAAAACCSSSSSSSPPPBBBBBBCCAAAAE",
+  "EAAAAAASSSSSSSPPPPBBBBBAAAAAAE",
+  "EAAAAAASSCCSSVVPPBBBBBBAAAAAAE",
+  "EAAAAAASSCCSSVVVVBBBBBBAAAAAAE",
+  "EAAAAAASSSSSSVVVVBBBBBBAAAAAAE",
+  "EAAAAAASSSSSSVVVVBBBCCBAAAAAAE",
+  "EAAAAAASSSSSSVVVVVBBCBBAAAAAAE",
+  "ECCCCCCSSSSSVVVVVVBBBBBAAAAAAE",
+  "EAAAAAASSSSSVVVYVVBBBBBCCCCCCE",
+  "EAAAAAASSSSSVVVYVVBBBBBCCCCCCE",
+  "EAAAAAASSSSSVVYYVVVBBBBAAAAAAE",
+  "EAAAAAASSSSVVVYYYVVVBBBAAAAAAE",
+  "EAAAAAASSSVVVVYYYVVVBBBAAAAAAE",
+  "EAAAAAASSVVVVVYYYVVVVBBAAAAAAE",
+  "EAAAAAASVVVVVVYYYYVVVVBAAAAAAE",
+  "EAAAAAAAVVVVVVYYYYVVVVVAAAAAAE",
+  "EAAAAAAVVVVVVVYYYYVVVVVAAAAAAE",
+  "EAAAAAAVVVVVVVYYYYVVVVVAAAAAAE",
+  "EEEEEEEE..............EEEEEEEE"
+ ]
+}

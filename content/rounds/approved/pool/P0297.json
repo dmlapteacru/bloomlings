@@ -1,0 +1,99 @@
+{
+ "code": "P0297",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Лупа увеличивает крошку до горы",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Книги, учёба и открытия",
+ "direction": "Перевёрнутый масштаб",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Лупа превращает хлебную крошку в горный пейзаж; большое круглое стекло; горы внутри; ручка и крошки снаружи",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 31,
+ "h": 31,
+ "N": 904,
+ "colours": 8,
+ "volumes": {
+  "C": {
+   "cells": 321,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 153,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 123,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "O": {
+   "cells": 81,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "S": {
+   "cells": 79,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "E": {
+   "cells": 51,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "M": {
+   "cells": 48,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "Y": {
+   "cells": 48,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".CCCCCCCCCCCCCCCCCCCCCCCCCCCC..",
+  "CCCCCCCEEENNNEEECCCCCCCCCCCCCC.",
+  "CCCCCCNNNNNNNNNNNNCCCCCCCCCCCC.",
+  "CCCCCCNNNNNNNNNNNNCCCCCCCCCCCC.",
+  "CCCNNNNNNSSSSSSNNNNCCCCCCCCCCC.",
+  "CCCNNNNSSSSSSSSSSNNNCCCCCCCCCC.",
+  "CCNNNNSSSSSSSSSSSSNNNCCCCCCCCC.",
+  "CENNNSSSCSSSSSSSSSSNNCCCCCCCCC.",
+  "CENNNSSCCSSSSSSSCSSNNNCCCCCCCC.",
+  "CENNSSSCCCSSSSSCCCSNNNECCCCCCC.",
+  "CNNNSSCCMCSSSSSCCCSSNNECCCCCCC.",
+  "CNNNSSMMMMMMSSCCCCCSNNECCCCCCC.",
+  "CNNNSMMMMMMMMSCMMMCSNNECCCCCCC.",
+  "CENNSMMMMMMMMYYMMMMNNNECCCCCCC.",
+  "CENNMMMMMMMYYYYYMMMNNNECCCCCCC.",
+  "CENNNMMMMYYYYYYYYMMNNNCCCCCCCC.",
+  "CCNNNMMYYYYYYYYYYYNNNNCCCCCCCC.",
+  "CCNNNNYYYYYYYYYYYNNNOOCCCCCCCC.",
+  "CCCNNNNYYYYYYYYYNNNNOOOECCCCCC.",
+  "CCCCNNNNNNNNYYNNNNNOOOOEECCCCC.",
+  "CCCCCNNNNNNNNNNNNEOOOOOOECCCCC.",
+  "CCCCCCCCNNNNNNNNEEEOOOOOOCCCCC.",
+  "CCCCCCCCCEEEEEECCCCEOOOOOOCCCC.",
+  "CCCCCECCCCCCCCCCCCCEEOOOOOOCCC.",
+  "AAAAEEEAAAAAAAAAAAAAEEOOOOOOOO.",
+  "AAAAEEEAAAAAAAAAAAAAAEOOOOOOOO.",
+  "AAAAAAAAAAAAOOAAAAAAAAOOOOOOOOE",
+  "AAAAAAAAAAAOOOOAAAAAAAAOOOOOOOE",
+  "AAAAAAAAAAAAAAAAAAAAAAAAOOOOOOE",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAOOOOO.",
+  "..........................EEE.."
+ ]
+}

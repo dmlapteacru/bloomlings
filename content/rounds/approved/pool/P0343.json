@@ -1,0 +1,90 @@
+{
+ "code": "P0343",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Следы динозавра на куске Луны",
+ "theme": "Доисторические находки",
+ "family": "Доисторический мир",
+ "direction": "Фольклорная фантазия",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "На лунной породе отпечатки динозавра; круглый камень с кратерами; три трёхпалых следа; чёткий наклон цепочки",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 32,
+ "N": 869,
+ "colours": 6,
+ "volumes": {
+  "S": {
+   "cells": 587,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "N": {
+   "cells": 88,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "M": {
+   "cells": 71,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "C": {
+   "cells": 63,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "B": {
+   "cells": 54,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "Y": {
+   "cells": 6,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "............NNNNNNNNNN............",
+  "..........SSSSSSSSSSSSNNN.........",
+  "........SSSSSSYYYYSSSSSSNN........",
+  "......NNSSSSSSSYYSSSSSSSSSNN......",
+  ".....NNSSSSSSSSSSSSSSSSCCSSNN.....",
+  "....CCCCCCSSSSSSSSSSSSCCCCSSSS....",
+  "...CCCCCCCCSSSSSSSSSSCCCCCSSSSN...",
+  "...CCCCCCCCSSSSSSSSSSSCCMCSSSSNN..",
+  "..SSCCCCCCCSSSSSSSSSSSSCMMSSSSSN..",
+  ".NSSCCCCCCCSSSSSSSSSSSSMMMSSSSSSN.",
+  ".NSSCCCCCCCSSSSSSSSSSMMMMMMMSSSSN.",
+  ".NSSSCCCCCSSSSSSSSSSSSMMMMMSSSSSN.",
+  "NSSSSSSSSSSSSSSSMMSSSSSMMMSSSSSSSN",
+  "NSSSSSSSSSSSSSSSMMSSSSSSMMSSSSSSSN",
+  "NSSSSSSSSSSSSSSMMMMSSSSSMSSSSSSSSN",
+  "NSSSSSSSSSSSSSMMMMMMSSSSSSSSSSSSSN",
+  "NSSSSSSSSSSSSSSMMMMSSSSSSSSSSSSSSN",
+  "NSSSSSSSSSSSSSSSMMMSSSSSSSSSSSSSSN",
+  "NSSSSSSSSSSSSSSSMMSSSSSSSSSSSSSSSN",
+  "NSSSSSSSMSSSSSSSSSSSSSSBBBBBSSSSSN",
+  ".NSSSSSSMSSSSSSSSSSSSSBBBBBBBSSSN.",
+  ".NSSSSSMMMSSSSSSSSSSSBBBBBBBBBSSN.",
+  ".NSSSMMMMMMMSSSSSSSSSBBBBBBBBBSSN.",
+  "..SSSSMMMMMSSSSSSSSSSBBBBBBBBBSN..",
+  "...NSSSMMMSSSSSSSSSSSBBBBBBBBBNN..",
+  "...NNSSMMMSSSSSSSSSSSSSBBBBBBNN...",
+  "....NSSSMSSSSSSSSSSSSSSSSSSSSS....",
+  ".....NNSSSSSSSSSSSSSSSSSSSSSS.....",
+  "......NNSSSSSSSSSSSSSSSSSSSS......",
+  "........NNSSSSSSSSSSSSSSNN........",
+  ".........NNNSSSSSSSSSSNNN.........",
+  "............NNNNNNNNNN............"
+ ]
+}

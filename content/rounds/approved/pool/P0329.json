@@ -1,0 +1,94 @@
+{
+ "code": "P0329",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Лавка запасных радуг",
+ "theme": "Необычные магазины",
+ "family": "Магазины и витрины",
+ "direction": "Домашняя магия",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "В магазине сложены запасные радуги; навес и прилавок; большой цветной арочный рулон; маленькие цветные образцы",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 31,
+ "h": 31,
+ "N": 889,
+ "colours": 7,
+ "volumes": {
+  "C": {
+   "cells": 175,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "B": {
+   "cells": 171,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "R": {
+   "cells": 165,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "E": {
+   "cells": 115,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 106,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 82,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "G": {
+   "cells": 75,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...BBBBBBBBBBBBBBBBBBBBBBBBB...",
+  "...BBBBBBBBBBBBBBBBBBBBBBBBB...",
+  "..BBBBBBBBBBBBBBBBBBBBBBBBBBB..",
+  "..BBBBBBBBBBBBBBBBBBBBBBBBBBB..",
+  ".BBBBBBBBBBBBEEEEEBBBBBBBBBBBB.",
+  ".BBBBBBBBEEEERRRRREEEEBBBBBBBB.",
+  "BBBBBBBBBRRRRRRRRRRRRRRRBBBBBBB",
+  ".ECCCCRRRRRRRRRRRRRRRRRRBBBBBE.",
+  ".ECCCERRRRRYYYYYYYYYRRRRRBBBBE.",
+  ".ECCEERRRYYYYYYYYYYYYYRRRRRBBE.",
+  ".ECCERRRYYYYYRRRRRYYYYYRRRRCCE.",
+  ".ECERRRRYYYEEEEEEEEYYYYYRRRECE.",
+  ".ECERRRYYYGGGGGGGGGGYYYYRRRECE.",
+  ".ECERRRYYYGGGGGGGGGGGYYYRRRECE.",
+  ".ECERRYYYYGGGCCCCCGGGEYYYRRECE.",
+  ".ECERRYYREGGCCCCCCCGGERYYRRRCE.",
+  ".ECERRYYREGGCCCCCCCGGERYYRRRCE.",
+  ".ECERRYYREGGCCCCCCCGGERYYRRRCE.",
+  ".ECERRYYREGGCCCCCCCGGERYYRRRCE.",
+  ".ECERRYYREGGCCCCCCCGGERYYRRRCE.",
+  ".ECERRYYREGGCCCCCCCGGERYYRRRCE.",
+  ".ECERRYYREGGCCCCCCCGGERYYRRRCE.",
+  ".ECERRYYREGGCCCCCCCGGERYYRRRCE.",
+  ".ECERRYYREGGCCCCCCCGGERYYRRECE.",
+  ".ECEEEEEEECCCCCCCCCCCCEEEEEECE.",
+  ".ECCCCCCCCCCCCCCCCCCCCCCCCCCCE.",
+  ".ECCCCCCCCCCCCCCCCCCCCCCCCCCCE.",
+  ".AAARRRRRRAAYYYYYAAGGGGGGAAAAA.",
+  ".AAARRRRRRAAYYYYYAAGGGGGGAAAAA.",
+  ".AAAAAAAAAAAAAAAAAAAAAAAAAAAAA.",
+  ".AAAAAAAAAAAAAAAAAAAAAAAAAAAAA."
+ ]
+}

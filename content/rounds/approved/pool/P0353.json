@@ -1,0 +1,98 @@
+{
+ "code": "P0353",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Палеонтологический чемодан",
+ "theme": "Доисторические находки",
+ "family": "Доисторический мир",
+ "direction": "Фольклорная фантазия",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Открытый чемодан с находками; крышка с двумя инструментами; окаменелость спираль; зуб и рёбра в лотке",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 31,
+ "h": 30,
+ "N": 879,
+ "colours": 8,
+ "volumes": {
+  "A": {
+   "cells": 213,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "O": {
+   "cells": 179,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "V": {
+   "cells": 153,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "C": {
+   "cells": 136,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 128,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 42,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "N": {
+   "cells": 19,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "S": {
+   "cells": 9,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..EEEEEEEEEEEEEEEEEEEEEEEEEEE..",
+  "..EAAAAAAAAAAAAAAAAAAAAAAAAAA..",
+  "..AAAAAAAAAAAAAAAAAAAAANNNAAAE.",
+  "..AAAVVVVVVVVVVVVVVVVVYYYNAAAE.",
+  "..AAAVVCCCCVVVVVVVVVVYYYVVAAAE.",
+  "..AAAVVCCCCVVVVVVVVVYYYVVVAAAE.",
+  "..AAAVVCCCCVVVVVVVVYYYVVVVAAAE.",
+  "..AAAVVVSSSVVVVVVVVYYVVVVVAAAE.",
+  "..AAAVVVVVSSVVVVVVVVVVVVVVAAAE.",
+  "..AAAVVVVVVSSVVVVVVVVVVVVVAAAE.",
+  "..AAAVVVVVVVSSVVVVVVVVVVVVAAAE.",
+  "..AAAVVVVVVVVVVVVVVVVVVVVVAAAE.",
+  "..AAAAAAAAAAAAAAAAAAAAAAAAAAAE.",
+  "..EAAAAAAAAAAAAAAAAAAAAAAAAAA..",
+  "..EEAAAAAAAAAAAAAAAAAAAAAAAAA..",
+  "EEOOOOOOOOOOOOOOOOOOOOOOOOOOOEE",
+  "EOOOOOOOOOOOOOOOOOOOOOOOOOOOOOE",
+  "EOOOOOOOOOOOOOOOOOOOOOOOOOOOOOE",
+  "EOOCCCCAAAAACCCCCCCYYYYCCCCCOOE",
+  "EOOCCCEEEEEAAACCCCCYYYYCCNCCOOE",
+  "EOOCCEEEAAEEAACCCCCYYYYNNNNNOOE",
+  "EOOCCEEAAEEEEAACCCCYYYYCCNCCOOE",
+  "EOOCCEAAAEEEEEACCCCCYYCCCNCCOOE",
+  "EOOCCEAAAAEEAACCCCCCYYCNNNNNOOE",
+  "EOOCCEEAAAEEAACCCCCCCYCCCNCCOOE",
+  "EOOCCCEEEEECCCCCCCCCCCCCCNCCOOE",
+  "EOOCCCCCCCCCCCCCCCCCCCCCCCCCOOE",
+  "EOOOOOOOOOOOOOOOOOOOOOOOOOOOOOE",
+  "EOOOOOOOOOOOOOOOOOOOOOOOOOOOOOE",
+  ".EEEEEEEEEEEYYYYYYYEEEEEEEEEEE."
+ ]
+}

@@ -1,0 +1,110 @@
+{
+ "code": "P0318",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Гончарная мастерская в напёрстке",
+ "theme": "Миниатюрные мастерские",
+ "family": "Кафе и мастерские",
+ "direction": "Миниатюрные мастерские",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "В напёрстке оборудована мастерская; открытый срез металлического корпуса; гончарный круг; две готовые вазы",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 37,
+ "h": 39,
+ "N": 1235,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 288,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "V": {
+   "cells": 279,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "B": {
+   "cells": 180,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 150,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "E": {
+   "cells": 130,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 92,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 47,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 39,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "P": {
+   "cells": 30,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............NNNNNNNNN..............",
+  "........NNNNNNBBBBBBBBBNNNNNN........",
+  "....NNNNBBBBBBBBBBBBBBBBBBBBNNNNN....",
+  "...NNSSBBBBBBBBBBBBBBBBBBBBBBBSSNN...",
+  "...NSSBBBBBBBBBBBBBBBBBBBBBBBBBSSN...",
+  "...NSSBBBBBBBBBBBBBBBBBBBBBBBBBSSN...",
+  "...NSSBBBBBBBBBBBBBBBBBBBBBBBBBSSN...",
+  "...NSSSBBBBBBBBBBBBBBBBBBBBBBBSSSN...",
+  "...NSSSSSBBBBBBBBBBBBBBBBBBBSSSSSN...",
+  "...NSSSSSSSSSBBBBBBBBBBBSSSSSSSSSN...",
+  "...NSSSSSSSSSSSSSSSSSSSSSSSSSSSSSN...",
+  "...NSSVVVVVVVVVVVVVVVVVVVVVVVVVSSN...",
+  "...NSSVVVVVVVVVVVVVVVVVVVVVVVVVSSNN..",
+  "..NNSSVVVVVVVVVVVVVVVVVVVVVVVVVSSSN..",
+  "..NSSSVVVVVVVVVVEEEEEVVVVVVVVVVSSSN..",
+  "..NSSSVVVVVVVVVVEOOOEVVVVVVVVVVSSSN..",
+  "..NSSSVVVVVVVVVVEOOOEVVVVVVVVVVSSSN..",
+  "..NSSSVVVVVVVVVVEOOOEVVVVVVVVVVSSSN..",
+  "..NSSSVVVVVVVVVEOOOOOEVVVVVVVVVSSSN..",
+  "..NSSSVVVVVVVVEEOOOOOEEVVVVVVVVSSSN..",
+  "..NSSSVVVVVVVVEOOOOOOOEVVVVVVVVSSSN..",
+  "..NSSSVVVVVVVVEOOOOOOOEVVVVVVVVSSSN..",
+  "..NSSSVVVVVVCCCOOOOOOCCCCVVVVVVSSSNN.",
+  ".NNSSSVVVVCCCCCCEEEEECCCCCCVVVVSSSSN.",
+  ".NSSSSVVVVCCCCCCCCCCCCCCCCCVVVVSSSSN.",
+  ".NSSSSVVVVVVVCCCCCCCCCCCVVVEEEEESSSN.",
+  ".NSSSSVEEEEVVVVVEEEEEVVVVVVEYYYESSSN.",
+  ".NSSSSEPPPEEVVEEEEEEEVVVVVVEYYYESSSN.",
+  ".NSSSSEPPPEEEEEYEEEEEYYEEEEEYYYESSSN.",
+  ".NSSSSEPPPEEYYYYEEEEEYYYYYEYYYYEESSN.",
+  ".NSSSEEPPPPEYYYYEEEEEYYYYEYYYYYYESSN.",
+  ".NSSSEPPPPPPEYYYYYYYYYYYYEYYYYYYESSN.",
+  ".NSSSEPPPPPPEYYYYYYYYYYYYEEYYYYYESSSN",
+  "NNSSSEPPPPPEEYYYYYYYYYYYYYEEEEEESSSSN",
+  "NNSSSSEEEEEEEEEEYYYYYEEEEESSSSSSSSSSN",
+  ".NNNSSSSSSSSSSSSEEEEESSSSSSSSSSSSSSS.",
+  "...NNNNNSSSSNNSSSSSNNSSSSNNSSSSNNN...",
+  "......NNNNSSNNSSSSSNSSSSSNNNNNN.N....",
+  "..........NNNNNNNNNNNNNNNNN.........."
+ ]
+}

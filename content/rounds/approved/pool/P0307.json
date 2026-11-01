@@ -1,0 +1,100 @@
+{
+ "code": "P0307",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Ракетка отбивает маленькое солнце",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Спорт и активные игры",
+ "direction": "Перевёрнутый масштаб",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Теннисная ракетка играет маленьким солнцем; овальная сетка; длинная ручка; пылающий солнечный мяч",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 31,
+ "h": 32,
+ "N": 903,
+ "colours": 8,
+ "volumes": {
+  "S": {
+   "cells": 363,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 189,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 118,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "B": {
+   "cells": 81,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "P": {
+   "cells": 54,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "Y": {
+   "cells": 40,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "N": {
+   "cells": 33,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "O": {
+   "cells": 25,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "........................OO.....",
+  ".SSSSSSSSSSSSSSSSSSSSSSYYOSSS..",
+  "SSSSSNNNCCNNNSSSSSSSSSSYYYSSSS.",
+  "SSSSCCCCCCCCCSSSSSSOOOOYYYOOOOO",
+  "SSSCCCCCCCCCCCNNSSSOYYYYYYYYYO.",
+  "SSSCCCCCBBBBCCCNNSSSYYYYYYYYSS.",
+  "SSCCCCBBCBBBCCCCNSSSSOYYYYYOSS.",
+  "SSCCCBBBCBBCCCCCCSSSSOYYYYYOSS.",
+  "SSCCCBBBCCCBBCBCCCSSSOYYYYYOSS.",
+  "SNCCCCCCBCBBBCBCCCSSSOOOSSSOSS.",
+  "SNCCCCBBBCBBBBBBCCSSSOSSSSSSSS.",
+  "SNCCCCBBBBCBBBCCCCCSSSSSSSSSSS.",
+  "SNCCCBCBBBCCCBCCCCCNSSSSSSSSSS.",
+  "SSCCCBCBBCCCBBBCCCCNSSSSSSSSSS.",
+  "SSCCCBCCCBBCBBBCCCCNSSSSSSSSSS.",
+  "SSCCCCCCBBBCBBBBCCCNSSSSSSSSSS.",
+  "SSSCCCCCBBBBCBCCCCCSSSSSSSSSSS.",
+  "SSSCCCCCCBBBCCBBCCSSSSSSSSSSSS.",
+  "SSSSCCCCCCCBCBBCCCSSSSSSSSSSSS.",
+  "SSSSSCCCCCBBBCCCCNSSSSSSSSSSSS.",
+  "SSSSSSCCCCCCCCCCNNSSSSSSSSSSSS.",
+  "SSSSSSSCCCCCCCNNNNSSSSSSSSSSSS.",
+  "SSSSSSSSNNNNNPPPPNSSSSSSSSSSSS.",
+  "SSSSSSSSSSSNPPPPPPSSSSSSSSSSSS.",
+  "SSSSSSSSSSSSPPPPPPSSSSSSSSSSSS.",
+  "SSSSSSSSSSSSPPPPPPSSSSSSSSSSSS.",
+  "SMMMMMMMMMMMMPPPPPPPMMMMMMMMMS.",
+  "MMMMMMMMMMMMMPPPPPPPMMMMMMMMMM.",
+  "MMMMMMMMMMMMMMPPPPPPMMMMMMMMMM.",
+  "MMMMMMMMMMMMMMPPPPPMMMMMMMMMMM.",
+  "MMMMMMMMMMMMMMPPPPPMMMMMMMMMMM.",
+  "...............PP.............."
+ ]
+}

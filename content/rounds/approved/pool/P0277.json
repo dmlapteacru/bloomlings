@@ -1,0 +1,98 @@
+{
+ "code": "P0277",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Зубная щётка выращивает лес",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Деревья, листья и плоды",
+ "direction": "Перевёрнутый масштаб",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "На щетинках зубной щётки вырос хвойный лес; длинная ручка; ряд щетинок; три кроны",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 30,
+ "N": 896,
+ "colours": 8,
+ "volumes": {
+  "S": {
+   "cells": 477,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 180,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 66,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "M": {
+   "cells": 65,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 34,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "N": {
+   "cells": 32,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "V": {
+   "cells": 32,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "A": {
+   "cells": 10,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".CCSSSSSSSSSSSSSSSSSSSSSSSSSS.",
+  "SCCCCCCCCCCCCCCCCCCCCCCCCCCCCS",
+  "SCCCCCCCCCCCCCCCCCCCCCCCCCCCCS",
+  "SCCSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SCCSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SCCSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SCCSSSSSSSSSSSSSGMSSSSSSSSSSSS",
+  "SCCSSSSSSSSSSSSGGMSSSSSSSSSSSS",
+  "SCCSSSSSSSSSSSSGGMSSSSSSSSSSSS",
+  "SCCSSSSSSSSSSSGGGMMSSSSSSSSSSS",
+  "SCCSSSSSSSMSSSGGGMMSSSGMSSSSSS",
+  "SCCSSSSSSGMSSSGGGMMMSSGMSSSSSS",
+  "SCCSSSSSSGMMSMGGGMMMSSGMSSSSSS",
+  "SCCSSSSSGGMMSMMMMMMMSGGMMSSSSS",
+  "SCCSSSSSGGMMMMMMMMMMMGGMMSSSSS",
+  "SCCSSSSMGGMMMSSSASSSMGGMMMSSSS",
+  "SCCSSSSMMMMMMSSSASSSMMMMMMSSSS",
+  "SCCSSSSSSSASSSSSASSSSSSASSSSSS",
+  "SCCSSSSCCCACCCCCACCCCCAACCSSSS",
+  "SCCSSSSCCCACCCCCCCCCCCCCCCSSSS",
+  "SCCSSSSCCCCCCCCCCCCCCCCCCCSSSS",
+  "SCCSNNNCCCCCCCCCCCCCCCCCCCSSSS",
+  "SCCPPPPPPPPPPPPPPPPPPPPPPPPSSS",
+  "SCNPPVVVVVVVVVVVVVVVVVPPPPPPSS",
+  "SCNPPPVVVVVVVVVVVVVVVPPPPPPPSS",
+  "SCNPPPPPPPPPPPPPPPPPPPPPPPPNSS",
+  "SCCNNNNNNNNNNNNNNNNNNNNNNNNNSS",
+  "SCCSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SCCSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  ".CCSSSSSSSSSSSSSSSSSSSSSSSSSS."
+ ]
+}

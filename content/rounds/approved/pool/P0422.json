@@ -1,0 +1,78 @@
+{
+ "code": "P0422",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Билл Шифр — фокус с картами",
+ "theme": "Новые версии знакомых героев",
+ "family": "Волшебные существа",
+ "direction": "Уютная мистика",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Билл показывает карты; жёлтый треугольник; один крупный глаз и цилиндр; чёрная бабочка",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Gravity Falls",
+  "url": "https://en.wikipedia.org/wiki/Bill_Cipher",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 27,
+ "h": 26,
+ "N": 386,
+ "colours": 4,
+ "volumes": {
+  "D": {
+   "cells": 171,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 115,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 61,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 39,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........DDDDDD..........",
+  "...........DDDDDD..........",
+  "...........DDDDDD..........",
+  "...........DDDDDD..........",
+  "...........DDDDDD..........",
+  "...........DDDDDD..........",
+  "....DDRDDDDDDDDDDDD........",
+  "DDDCCDRRRRRDDYYD...........",
+  "CCCCCRRRRRRDYYYYY..........",
+  "CCCRCRRCCRDDYYYYY.......D..",
+  "DCRRRRCCCRDYYYYYYY.....DDD.",
+  "DCCRRRRCRRYYYYYYYYY....D...",
+  "DCCCRRRRRDYYYYYYYYY....D...",
+  ".CCCRRRRRDCCCDDCCCCC...DDD.",
+  ".CCCCDDRRDCCCDDCCCCYY....DD",
+  ".CCDDDDDYCCCCDDCCCCYY...DDD",
+  "....DDDYYYCCCDDCCCYYYDDD.DD",
+  ".....DYYYYYYYDDYYYYYYYD..DD",
+  ".....DYYYYYYYYYYYYYYYYY..DD",
+  "....YYYYYYYYYYYYYYYYYYYY.DD",
+  "...DYYYYYYYYDDDDYYYYYYYYDDD",
+  "...DDDDDDDDDDDDDDDDDDDDDDDD",
+  ".......DD..........DD....DD",
+  ".......DD..........DD....DD",
+  ".......D............D....DD",
+  "....DDDD............DDDD..."
+ ]
+}

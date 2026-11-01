@@ -1,0 +1,75 @@
+{
+ "code": "P0288",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Чайный пакетик принимает ванну в лимоне",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Блюда и напитки",
+ "direction": "Визуальные каламбуры",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Лимон служит ванной для чайного пакетика; жёлтая половинка с белым краем; пакетик в воде; нить с ярлычком",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 26,
+ "h": 23,
+ "N": 360,
+ "colours": 5,
+ "volumes": {
+  "C": {
+   "cells": 148,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 122,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 55,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "R": {
+   "cells": 20,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "B": {
+   "cells": 15,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "............AAAAAAAAA.....",
+  "............A......AA.....",
+  "............A......AA.....",
+  ".........AAAAAA....AA.....",
+  ".........CCCACCC...AA.....",
+  "........CCCCACCC...AA.....",
+  "........CCCCCCCCC..AA.....",
+  ".....CCACCCCCCCCCCRRRRR...",
+  "....CCCACCCCCCCCCCRRRRR...",
+  "..CCCCBACCCCCCCCCBRRRRRC..",
+  "CCCCCBBACCCCCCCCCBRRRRRCCC",
+  ".CCCCBBACCCCCCCCCBBBBCCCC.",
+  ".ACCCCBACCCCCCCCCBBBCCCCC.",
+  ".AYCCCCACCCCCCCCACCCCCCYY.",
+  ".AYYYCCCAAAAAAAAACCCCYYYY.",
+  "..YYYYYYCCCCCCCCCCYYYYYY..",
+  "..YYYYYYYYYYYYYYYYYYYYYY..",
+  "...YYYYYYYYYYYYYYYYYYYY...",
+  "....YYYYYYYYYYYYYYYYYY....",
+  ".....YYYYYYYYYYYYYYYY.....",
+  "......YYYYYYYYYYYYYY......",
+  "........YYYYYYYYYY........",
+  "...........AAAA..........."
+ ]
+}

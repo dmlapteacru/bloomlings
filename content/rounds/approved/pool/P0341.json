@@ -1,0 +1,77 @@
+{
+ "code": "P0341",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Заводная дискета",
+ "theme": "Ретрофутуризм",
+ "family": "Ретро-техника и ностальгия",
+ "direction": "Ретрофутуристические приключения",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Дискета с заводным механизмом; квадратный корпус со срезанным углом; металлическая шторка; золотой ключ сбоку",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 21,
+ "h": 20,
+ "N": 375,
+ "colours": 6,
+ "volumes": {
+  "V": {
+   "cells": 192,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "C": {
+   "cells": 59,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 44,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "S": {
+   "cells": 42,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "Y": {
+   "cells": 24,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "B": {
+   "cells": 14,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "VVVVSSSSSSSSSVV......",
+  "VVVVSSSSNNNSSVVV.....",
+  "VVVVSSSSNNNSSVVVV....",
+  "VVVVSSSSNNNSSVVVVN...",
+  "VVVVSSSSNNNSSVVVVN...",
+  "VVVVSSSSSSSSSVVVVN.Y.",
+  "VVVVVVVVVVVVVVVVVNYYY",
+  "VVVVVVVVVVVVVVVVVNYYY",
+  "VVVVVVVVVVVVVVVVVNYYY",
+  "VVVVVVVVVVVVVVVVYYYY.",
+  "VVVVVVVVVVVVVVVVVNYY.",
+  "VVVVCCCCCCCCCVVVVNYYY",
+  "VVVCCCCCCCCCCCVVVNYYY",
+  "VVVCCBBBBBBBCCVVVN.YY",
+  "VVVCCCCCCCCCCCVVVN...",
+  "VVVCCCCCCCCCCCVVVN...",
+  "VVVCBBBBBBBCCCVVVN...",
+  "VVVVCCCCCCCCCVVVVN...",
+  "VVVVVVVVVVVVVVVVVN...",
+  "NNNNNNNNNNNNNNNNN...."
+ ]
+}

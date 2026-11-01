@@ -1,0 +1,106 @@
+{
+ "code": "P0333",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Бивень мамонта с ледником внутри",
+ "theme": "Доисторические находки",
+ "family": "Доисторический мир",
+ "direction": "Фольклорная фантазия",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "В срезе бивня ледяной пейзаж; длинная изогнутая форма; голубой ледник внутри; снежные вершины",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 41,
+ "h": 43,
+ "N": 918,
+ "colours": 7,
+ "volumes": {
+  "C": {
+   "cells": 514,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 133,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "B": {
+   "cells": 96,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "G": {
+   "cells": 58,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "S": {
+   "cells": 46,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "N": {
+   "cells": 45,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 26,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................E.......................",
+  "..............EEEEE......................",
+  "............EECCCEE......................",
+  "...........EECCCCE.......................",
+  "..........CCCCCCCE.......................",
+  "........EECCCCCCCE.......................",
+  "........ECCCCCCCEE.......................",
+  ".......CCCCCCCCCE........................",
+  "......ECCCCCCCCCE........................",
+  ".....EECCCCCCCCCE........................",
+  ".....ECCCCCSCCCCE........................",
+  "....EECCCCSSCCCCE........................",
+  "....ECCCCSSSCCCEE........................",
+  "...EECCCCSSSCCCEE........................",
+  "...ECCCCSSSSCCCE.........................",
+  "...ECCCCSSSSCCCE.........................",
+  "..EECCCCSSSSCCCEE........................",
+  "..ECCCCSSSSSCCCEE......................EE",
+  "..ECCCCSSSSCCCCEE.....................CCE",
+  "..ECCCCSSSSCCCCCE....................CCCE",
+  ".EECAACSSSCCCCCCE...................CCCCE",
+  ".ECCAAASSSCCCCCCE..................CCCCE.",
+  ".ECCCAAAACCCCCCCE.................CCCCCE.",
+  ".ECCCCAAACCCCCCCCC..............EECCCCCE.",
+  ".ECCCCSSCCCBBBCCCC.............EECCCCCCE.",
+  ".ECCCCSSCCBBBBCCCCC...........EECCCCCCCE.",
+  ".ECCCCSBBBBBBBBCCCCC........CCCCCCCCCCE..",
+  "EECCCCSBBBBBBBBCCCCCEEEEEEEECCCCCCCCCCE..",
+  "EECCCCBBBBBBBBBBCCCCCCCEECCCCCCCCCCCCEE..",
+  "EECCCCBBBBBBBBBBBCCCCCCCCCCCCCCCCCCCCE...",
+  "EAAACCBBBBBBBBBBBBCCCCCCCCCCCCCCCCCCCE...",
+  "EAAAACBBBBBBBBBBBBCCCCCCCCCCCCCCCCCCC....",
+  "ECCAAAABBBBBBBBBBBBBBCCCCCCCCCCCCCCCC....",
+  "ECCCAAACCBBBBBBBBBBBBBBCCCCCCCCCCCCC.....",
+  "EECCCCCCCCCCNNNNNNNNNNNNNNNNNNCCCGGG.....",
+  ".ECCCCCCCCCCCNNNNNNNNNNNNNNNCCCGGGGGG....",
+  "..CCCCCCCCCCCCCCNNNNNNNNNNNCCGGGGGGGG....",
+  "...CCCCCCCCCCCCCCCCCCNCCCCCCCGGGGGGGG....",
+  "....CCCCCCCCCCCCCCCCCCCCCCCCGGGGGGGG.....",
+  "......CCCCCCCCCCCCCCCCCCCCCEGGGGGGGG.....",
+  "........EEEECCCCCCCCCCCEEEEEGGGGGGG......",
+  "...........EEEEEEEEEEEEE....GGGGGG.......",
+  "............................GGGG........."
+ ]
+}

@@ -1,0 +1,108 @@
+{
+ "code": "P0403",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Метеорит с древним папоротником",
+ "theme": "Доисторические находки",
+ "family": "Доисторический мир",
+ "direction": "Фольклорная фантазия",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Из метеорита вырос папоротник; тёмный угловатый камень с кратерами; изогнутый стебель; широкие парные листья",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 37,
+ "h": 40,
+ "N": 865,
+ "colours": 8,
+ "volumes": {
+  "N": {
+   "cells": 397,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "G": {
+   "cells": 154,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 148,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "E": {
+   "cells": 55,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "V": {
+   "cells": 45,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "S": {
+   "cells": 41,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "Y": {
+   "cells": 14,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 11,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "........................MMMM.........",
+  ".......................MMMMMM........",
+  "......................GMMMMMMM.......",
+  "...................GGGGMMMMMMMM......",
+  "..................GGGGGGMMMMMMM......",
+  ".................GGGGGGGMMMMMMMM.....",
+  ".................GGGGGGGGMMMMMMM.....",
+  "................GGGGGGGGGMMMMMMM.....",
+  "..............GGGGGGGGGGMM...........",
+  ".............GGGGGGGGGMMMMM..........",
+  "............GGGGGGGMMMMMMMM..........",
+  "...........GGGGGGGGMMMMMMMM..........",
+  "...........GGGGGGGGGMMMMMMM..........",
+  "...........GGGGGGGGMMMMMMMM..........",
+  "...........GGGGGGGMMMMMM.............",
+  "..........GGGGGGMMMMMMMMM............",
+  ".........GGGGGGGMMMMMMMMM............",
+  ".........GGGGGGGMMMMMMMMMM...........",
+  ".........GGGGGGGGMMMMMMMMMNN.........",
+  ".......EGGGGGGGGGGMMMMMMMMNNN........",
+  "......EEGGGGGGGGGANNMMMMMNNNNN.......",
+  ".....NNNGGGGGGGGAANNNNNNNNNNNNN......",
+  "....NNNNGGGGGGNNAANNNNNNNNNNNNNN.....",
+  "...NNNNNNNNNNNNNAANNNNNNNNNNNNNNE....",
+  "..ENNNNNNNNNNNNNAANNNNNNNNNNNNNNEE...",
+  "..ENNNNNNNNNNNNNAANNNNNNNNNNNNNNNEE..",
+  ".EENNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNEE.",
+  ".ENNNNNNNVVVNNNNNNNNNNNNNNSNNNNNNNNE.",
+  ".ENNNNNVVVVVVVNNNNNNNNNNSSSSSNNNNNNNN",
+  "EENNNNNVVVVVVVVNNNNNNNNNSSSSSNNNNNNE.",
+  "ENNNNNVVVVVVVVVNNNNNNNNSSSSSSNNNNNEE.",
+  ".NNNNNNVVVVVVVVNYYYYNNNSSSSSSSNNNNE..",
+  "..NNNNNVVVVVVVNNYYYYNNNSSSSSSNNNNE...",
+  "...NNNNNNVVVNNNNYYYYNNNNSSSSSNNNEE...",
+  "....NNNNNNNNNNNNNYYNNNNNSSSSSNNNE....",
+  ".....NNNNNNNNNNNNNNNNNNNNNSNNNNN.....",
+  "......NNNNNNNNNNNNNNNNNNNNNNNNE......",
+  ".......NNNNNNNNNNNNNNNNNNNNNNEE......",
+  "........EEEEEEEEEEEEENNNNNNNNE.......",
+  "...................EEEEEEEEEE........"
+ ]
+}

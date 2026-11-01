@@ -1,0 +1,106 @@
+{
+ "code": "P0381",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Калькулятор с грядками вместо кнопок",
+ "theme": "Ретрофутуризм",
+ "family": "Ретро-техника и ностальгия",
+ "direction": "Ретрофутуристические приключения",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Калькулятор выращивает овощи в кнопках; цифровое табло без цифр; шесть прямоугольных грядок; зелёные побеги",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 27,
+ "h": 33,
+ "N": 876,
+ "colours": 9,
+ "volumes": {
+  "N": {
+   "cells": 388,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 116,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 101,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "S": {
+   "cells": 83,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "G": {
+   "cells": 75,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 71,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 19,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 17,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "R": {
+   "cells": 6,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..EEEEEEEEEEEEEEEEEEEEEEE..",
+  ".NNNNNNNNNNNNNNNNNNNNNNNNN.",
+  ".NNNNNNNNNNNNNNNNNNNNNNNNN.",
+  "ENNNNNNNNNNNNNNNNNNNNNNNNNE",
+  "ENNNNSSSSSSSSSSSSSSSSSNNNNE",
+  "ENNNNSSSSSSSSSSSSCSSSSNNNNE",
+  "ENNNNSSCCCCCCSSSCCCSSSNNNNE",
+  "ENNNNSSCCCCCCSSSSSCCSSNNNNE",
+  "ENNNNSSSSSSSSSSSSSSCSSNNNNE",
+  "ENNNNSSSSSSSSSSSSSSSSSNNNNE",
+  "ENNNNNNNNNNNNNNNNNNNNNNNNNE",
+  "ENNNNNNNNNNNNNNNNNNNNNNNNNE",
+  "ENNNNNNNGGNNNNNNNNNGGNNNNNE",
+  "ENNNNNGGGGNNNNNNNGGGGGNNNNE",
+  "ENNNNGGGGGNNNNNNGGGGGYYNNNE",
+  "ENNYAGGGGGAYNNYAGGGGGAYNNNE",
+  "ENNYAGGOOAAYNNYAGGOOAAYNNNE",
+  "ENNYAAAOAAAYNNYAAAOOAAYNNNE",
+  "ENNYAAAOAAAYNNYAAAOAAAYNNNE",
+  "ENNYAAAAAAAYNNYAAAAAAAYNNNE",
+  "ENNYAAAGGGAYNNNYAAGGGAYNNNE",
+  "ENNNYYGGGGNNNNNYYGGGGGNNNNE",
+  "ENNYYGGGGGNNNNNYGGGGGYYNNNE",
+  "ENNYAGGGGAAYNNYAGGGGGAYNNNE",
+  "ENNYAGGOOAAYNNYAGGOOAAYNNNE",
+  "ENNYAAAOAAAYNNYAAAOOAAYNNNE",
+  "ENNYAAAOAAAYNNYAAAAAAAYNNNE",
+  "ENNYAAAAAAAYNNYAAAAAAAYNNNE",
+  "ENNYAAAAAAAYNRRRAAAAAAYNNNE",
+  "ENNNYYYYYYYNNRRRYYYYYYNNNNE",
+  ".NNNNNNNNNNNNNNNNNNNNNNNNNE",
+  ".NNNNNNNNNNNNNNNNNNNNNNNNN.",
+  "..EEEEEEEEEEEEEEEEEEEEEEE.."
+ ]
+}

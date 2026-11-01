@@ -1,0 +1,97 @@
+{
+ "code": "P0325",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Пикник на гигантской кувшинке",
+ "theme": "Путешествия и походы",
+ "family": "Походы и отдых на природе",
+ "direction": "Миры через портал",
+ "device": "Контраст миров по сторонам проёма",
+ "subject": "Пикник устроен на листе кувшинки; круглый лист с вырезом; клетчатая скатерть; корзинка с фруктами",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 29,
+ "N": 874,
+ "colours": 8,
+ "volumes": {
+  "G": {
+   "cells": 479,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 135,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "A": {
+   "cells": 82,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "P": {
+   "cells": 65,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "Y": {
+   "cells": 38,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 30,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "R": {
+   "cells": 27,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 18,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..........MMMMMMMMMMMMMMM..........",
+  ".......MMMGGGGGGMMGGGGGGGMMM.......",
+  "......GGGGGGGGGGMMGGGGGGGGGGMM.....",
+  "....MMGGGGGGGGGYYGGGGGGGGGGGGMM....",
+  "...MMGGGGGGGGGYYYYGGGGGGGGGGGGGM...",
+  "..MMGGGGGGGGGYYYYYYGGGGGGGGGGGGMM..",
+  "..MGGGGGGGGGGYYYYYYYGPPGGGGGGGGGM..",
+  ".MGGGGGGGGEEYYEEEEYYAAPPGGGGGGGGGG.",
+  ".MGGGGGGGGEAYYAAAAAYAAEPGGGGGGGGGG.",
+  ".MGGGGGGGEAAAAAAAAAAAAEPPGGGGGGGGG.",
+  "MGGGGGGGGEAAAAAAAAAAAAEPPGGGGGGGGGM",
+  "MGGGGGGGGEAAAAAAAAAAAAECCCCGGGGGGGM",
+  "MGGGGGGGGEAAAAAAAAAAAAERRRRGGGGGGGM",
+  "MGGGGGGGGEAAAAAAAAAAAARRRRRRGGGGGGM",
+  "MGGGGGGGGEAAAAAAAAAAAARRRRRRGGGGGGM",
+  "MGGGGGGGGGEEEEEEEEEEEERRRRRRGGGGGGM",
+  "MGGGGGGGGGGGPPPPCCPPPPRRRRRPGGGGGGM",
+  "MGGGGGGMMMGGGPPPCCPPPPPCPPPPPGGGGGM",
+  "MGGGGMMMMMGGGPPPPCCPPPPCCPYYPGGGGGM",
+  "MGGGMMMMMMGGGPPPPPCPPPPPCYYYYGGGGGM",
+  "MGGMMMMMMMGGGGPPPPCCPPPPGYYYYGGGGG.",
+  ".MGMMMMMMMGGGGPPPPPCGGGGGGYYGGGGGG.",
+  ".MMMMMMMMGGGGGGPGGGGGGGGGGGGGGGGG..",
+  "..MMMMMMGGGGGGGGGGGGGGGGGGGGGGGGG..",
+  "...MMGGGGGGGGGGGGGGGGGGGGGGGGGGG...",
+  "....MGGGGGGGGGGGGGGGGGGGGGGGGMM....",
+  ".....GGGGGGGGGGGGGGGGGGGGGGGMM.....",
+  ".......MMMGGGGGGGGGGGGGGGMMM.......",
+  "..........MMMMMMMMMMMMMMM.........."
+ ]
+}

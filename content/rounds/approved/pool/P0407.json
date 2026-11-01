@@ -1,0 +1,104 @@
+{
+ "code": "P0407",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Комод с лунными фазами",
+ "theme": "Уютная мистика",
+ "family": "Свет и домашний декор",
+ "direction": "Уютная мистика",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "В ящиках комода лежат фазы Луны; три широких ящика; полный круг полумесяц и серп; золотые ручки",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 34,
+ "h": 38,
+ "N": 1212,
+ "colours": 8,
+ "volumes": {
+  "V": {
+   "cells": 430,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "A": {
+   "cells": 214,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 195,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "Y": {
+   "cells": 172,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 118,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 59,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "B": {
+   "cells": 12,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "P": {
+   "cells": 12,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
+  "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
+  "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
+  "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
+  "EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE",
+  "EAAANNNNNNNNNNNNNNNNNNNNNNNNNNAAAE",
+  "EAANVVVVVVVVVCCCVVVVVVVVVVVVVVNAAE",
+  "EAANVVBBBVVVCCCCCVVVVVVVVVVVVVNAAE",
+  "EAANVVBBBVVCCCCCCVVVVVVVYYYYVVNAAE",
+  "EAANVVBBBVVCCCCCCVVVVVVVYYYYVVNAAE",
+  "EAANVVBBBVVCCCCCCVVVVVVVYYYYVVNAAE",
+  "EAANVVVVVVVVCCCCVVVVVVVVVVVVVVNAAE",
+  "EAANVVVVVVVVVVVVVVVVVVVVVVVVVVNAAE",
+  "EAAANNNNNNNNNNNNNNNNNNNNNNNNNNAAAE",
+  "EAAANNNNNNNNNNNNNNNNNNNNNNNNNNAAAE",
+  "EAANVVVVVVVVCCVVVVVVVVVVVVVVVVNAAE",
+  "EAANVVPPPVVCCCVVVVVVVVVVVVVVVVNAAE",
+  "EAANVVPPPVVCCCVVVVVVVVVVYYYYVVNAAE",
+  "EAANVVPPPVVCCCVVVVVVVVVVYYYYVVNAAE",
+  "EAANVVPPPVVCCCVVVVVVVVVVYYYYVVNAAE",
+  "EAANVVVVVVVVCCVVVVVVVVVVVVVVVVNAAE",
+  "EAANVVVVVVVVVVVVVVVVVVVVVVVVVVNAAE",
+  "EAAANNNNNNNNNNNNNNNNNNNNNNNNNNAAAE",
+  "EAAANNNNNNNNNNNVVVNNNNNNNNNNNNAAAE",
+  "EAANVVVVVVVVCVVVVVVVVVVVVVVVVVNAAE",
+  "EAANVVVVVVVVCVVVVVVVVVVVVVVVVVNAAE",
+  "EAANVVVVVVVCCVVVVVVVVVVVYYYYVVNAAE",
+  "EAANVVVVVVVCCVVVVVVVVVVVYYYYVVNAAE",
+  "EAANVVVVVVVCCCVVVVVVVVVVYYYYVVNAAE",
+  "EAANVVVVVVVVCCCCVVVVVVVVVVVVVVNAAE",
+  "EAANVVVVVVVVVVVVVVVVVVVVVVVVVVNAAE",
+  "EAAANNNNNNNNNNNNNNNNNNNNNNNNNNAAAE",
+  "EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE",
+  "EEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEE",
+  ".EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.",
+  "...EEEE....................EEEE...",
+  "...EEEE....................EEEE...",
+  "...EEEE....................EEEE..."
+ ]
+}

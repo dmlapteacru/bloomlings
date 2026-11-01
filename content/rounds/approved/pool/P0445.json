@@ -1,0 +1,96 @@
+{
+ "code": "P0445",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Барашек Шон — на тюке сена",
+ "theme": "Новые герои мультфильмов",
+ "family": "Домашние животные",
+ "direction": "Театр эмоций",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Шон балансирует на тюке; белая шерсть и вытянутая чёрная голова; четыре тонкие ноги; большой золотой тюк",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Shaun the Sheep",
+  "url": "https://en.wikipedia.org/wiki/Shaun_the_Sheep",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 33,
+ "N": 870,
+ "colours": 6,
+ "volumes": {
+  "Y": {
+   "cells": 261,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 236,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 188,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "A": {
+   "cells": 75,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "G": {
+   "cells": 70,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "E": {
+   "cells": 40,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....................CCCCCC........",
+  "...................CCCCCCCCC.......",
+  "...................CCCCCCCCCD......",
+  "..................DCCCCCCCCCDDDDD..",
+  "................DDDDCCCCCCCDDDDDDD.",
+  "..........DDDDDDDDDDDDCCCCCCDDDDD..",
+  "........CCCCCCCCCCCDDCCCCCCCDD.....",
+  "......DDCCCCCCCCCCCDDCDDCCCCDD.....",
+  ".....DDCCCCCCCCCCCCDDCDDDCCCDD.....",
+  "....CCCCCCCCCCCCCCCDDDDDDDDDDD.....",
+  "....CCCCCCCCCCCCCCCDDDDDDDDDDD.....",
+  "...DCCCCCCCCCCCCCCCDDDDDDDDDDD.....",
+  "...DCCCCCCCCCCCCCCCCDDDDDDDDDD.....",
+  "...DCCCCCCCCCCCCCCCCDDDDDDDDD......",
+  "...DCCCCCCCCCCCCCCCCCDDDDDDDD......",
+  "...DCCCCCCCCCCCCCCCDCCDDDDDD.......",
+  "....CCDDCCCCCCCCCCCDDDDDDDD........",
+  ".....DDDCCCCDDCCCCCDDD...DD........",
+  "......DDCCCCDDCCCDDDDD....D........",
+  ".EEEEEDDDDDDDDDDDEEEDDDEEEEEEEEEE..",
+  "EYYYYYDDAYYYYDDYYYYYYDDYYAYYYYYYYE.",
+  "EYYYYYDDAYYYYDDYYYYYYYYYYAYYYYYYYE.",
+  "EYYYYYDDAYYYYDDYYYYYYYYYYAYYYYYYYE.",
+  "EYYAAADDAAAAAAAAAAAAAAAAAAAAAAAYYE.",
+  "EYYYYYYYAYYYYYYYYYYYYYYYYAYYYYYYYE.",
+  "EYYYYYYYAYYYYYYYYYYYYYYYYAYYYYYYYE.",
+  "EYYYYYYAAAYYYYYYYYYYYYYYYAAYYYYYYE.",
+  "EYYAAAAAAAAAAAAAAAAAAAAAAAAAAAAYYE.",
+  "EYYYYYYYAYYYYYYYYYYYYYYYYAYYYYYYYE.",
+  "EYYYYYYYAYYYYYYYYYYYYYYYYAYYYYYYYE.",
+  "EYYYYYYYAYYYYYYYYYYYYYYYYAYYYYYYYE.",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+ ]
+}

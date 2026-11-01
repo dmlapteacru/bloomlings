@@ -1,0 +1,113 @@
+{
+ "code": "P0354",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Башня, сшитая из лоскутов",
+ "theme": "Невозможная архитектура",
+ "family": "Дома и архитектура",
+ "direction": "Невесомый мир",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Башня собрана из ткани; разные крупные цветные панели; контрастные швы; молния вместо входной двери",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 40,
+ "N": 880,
+ "colours": 9,
+ "volumes": {
+  "G": {
+   "cells": 187,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "V": {
+   "cells": 161,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "E": {
+   "cells": 159,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "B": {
+   "cells": 119,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "Y": {
+   "cells": 112,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 95,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 22,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "N": {
+   "cells": 16,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "O": {
+   "cells": 9,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............V...............",
+  ".............VVV..............",
+  "............VVVVV.............",
+  "...........VVVVVVV............",
+  "..........VVVVVVVVV...........",
+  ".........VVVVVVVVVVV..........",
+  "........VVVVVVVVVVVVV.........",
+  ".......VVVVVVVVVVVVVVVV.......",
+  ".....VVVVVVVVVVVVVVVVVVV......",
+  "....VVVVVVVVVVVVVVVVVVVVV.....",
+  "...VVVVVVVVVVVVVVVVVVVVVVV....",
+  "..VVVVVVVVVVGGGBBBVVVVVVVVV...",
+  ".VVVVVVVEGGGGGCBBBBBBVVVVVVV..",
+  "....GGGEEGGGGGCBBBBBEEBBB.....",
+  "....GGGEEGGGGGCBBBBBEEBBBE....",
+  "...EGGGEEEEEGGCBBBBBBBBBBE....",
+  "...EGGEENCCNEGCBBBBBBBBBBE....",
+  "...EGGENNCCNEECBBBBBBBBBBE....",
+  "...EGGENNCCNEECBBBBBBBBBBE....",
+  "...EGGCCCCCCCCCBBBBBBBBBBE....",
+  "...EGGENNCCNEECBBBBBBBBBBBE...",
+  "..EEGGENNCCNEECBBBBBBBBBBBE...",
+  "..EGGGEENCCNEGCBBBBBBBBBBBE...",
+  "..EGGGGEEEEEGGCBBBBBBBBBBBE...",
+  "..ECCCCCCCCCCCCCCCCCCCCCCCC...",
+  "..ECCCCCCCCCCCCCCCCCCCCCCCC...",
+  "..EGGGGGGGGGGGCYYYYYYYYYYYYE..",
+  ".EPGGGGGGGGGGGCYYYYYYYYYYYYE..",
+  ".EPGGGGGGGGGGGCYYYYYYYYYYYYE..",
+  ".EPGGGGGGGGGGGCYYYYYYYYYYYYE..",
+  ".EPGGGGGGGGGGGCYYEOOOEYYYYYE..",
+  ".EGGGGGGGGGGGGCYYEOOOEYYYYYE..",
+  ".EGGGGGGGGGGGGCYYEOOOEYYYYYEE.",
+  "EPEEEEGGGGGGGGCYYEEEEEYYYYYYE.",
+  "EPGGGGGGGGGGGGCYYEEEEEYYEEEEE.",
+  "EPGGGGGGGGGGGGCYYEEEEEYYYYYYE.",
+  "EPGGGGGGGGGGGGCYYEEEEEYYYYYYE.",
+  "EPGGGGGGGGGGGGCYYEEEEEYYYYYYE.",
+  "EPPPPPPPPPPPPPCCYEEEEEYYYYYYEE",
+  "EEEEEEEEEEEEEECEEEEEEEEEEEEEE."
+ ]
+}

@@ -1,0 +1,110 @@
+{
+ "code": "P0323",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Окаменевшее гнездо с кристаллическим яйцом",
+ "theme": "Доисторические находки",
+ "family": "Доисторический мир",
+ "direction": "Фольклорная фантазия",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "В каменном гнезде кристаллическое яйцо; широкое гнездо из плоских пластин; гранёное яйцо; цветные крупные грани",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 42,
+ "h": 43,
+ "N": 1132,
+ "colours": 8,
+ "volumes": {
+  "A": {
+   "cells": 217,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "P": {
+   "cells": 199,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "B": {
+   "cells": 184,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "S": {
+   "cells": 155,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 131,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 125,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "E": {
+   "cells": 64,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "V": {
+   "cells": 57,
+   "name": "Слива",
+   "hex": "#7851A5"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "....................NN....................",
+  "...................NNNN...................",
+  "..................NNPVNN..................",
+  ".................NNPPVVNN.................",
+  "................NNPPPPVVNN................",
+  "...............NNPPPPPVVVNN...............",
+  "..............NNPPPPPPVVVVNN..............",
+  ".............NNPPPPPPPVVVVVNN.............",
+  "............NNPPPPPPPPVVVVVVNN............",
+  "...........NNPPPPPPPPPVVVVVVVNN...........",
+  "..........NNPPPPPPPPPPVVVVVVVVNN..........",
+  "..........NBPPPPPPPPPPPVVVVVVVSN..........",
+  "..........NBBCBPPPPPPPPVVVVVVSSN..........",
+  ".........NBBCCBBBBPPPPPVVVVSSSSSN.........",
+  ".........NBBCCBBBBBBPPPVVSSSSSSSN.........",
+  ".........NBBCCBBBBBBBBBSSSSSSSSSN.........",
+  "........NNBCCCBBBBBBBBBSSSSSSSSSNN........",
+  "........NBBCCBBBBBBBBBPPSSSSSSSSSN........",
+  "........NBBCCBBBBBBBBBPPSSSSSSSSSN........",
+  "........NBBCCBBBBBBBBPPPSSSSSSSSSN........",
+  ".......NBBCCCBBBBBBBBPPPSSSSSSSSSSN.......",
+  ".......NBBCCBBBBBBBBPPPPPSSSSSSSSSN.......",
+  ".......NBBCCBBBBBBBBPPPPPSSSSSSSSSN.......",
+  "......NNBBBBBBBBBBBPPPPPPSSSSSSSSSNN......",
+  "......NBBBBBBBBBBBBPPPPPPSSSSSSSSSSN......",
+  "....EENBBBBBBBBBBBBPPPPPPPSSSSSSSSSNEE....",
+  "...EEANBBBBBBBBBBBPPPPPPPPSSSSSSSSSNAEE...",
+  "..EEAANNBBBBBBBBBBPPPPPPPPSSSSSSSSNNAAAA..",
+  ".EECCCNNNBBBBBBBBPPPPPPPPPSSSSSSSNNAAAAAA.",
+  ".EACCCCCNNBBBBBBBPPPPPPPPPPSSSSSNNCCCCAAA.",
+  "EEACCCCCCNNBBBBBPPPPPPPPPPPSSSSNNCCCCCCAAE",
+  "EAAAACCCCCNNBBBBPPPPPPPPPPPSSSNNCCCCCCCAAE",
+  "EAAAAAAAACCNNBBPPPPPPPPPPPPSSNNCCCCCCCAAAE",
+  "EAAAAAAAAAAANNBPPPPPPPPPPPPSNNCCCAAAAAAAAE",
+  ".EAAAAAAACCCCNNNNNNNNNNNNNNNNCCCAAAAAAAAA.",
+  ".EEAAAACCCCCCCCCCCCCCNNCCCCCCCCCCCAAAAAAA.",
+  "..EAAACCCCCCCCCCCAAAAAAAAACCCCCCCCCAAAAA..",
+  "...EEAACCCCAAAAAAAAAAAAAAAAAAACCCCAAAAA...",
+  "....EEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEE....",
+  "......AAAAAAAAAAAAAAAAAAAAAAAAAAAAEEE.....",
+  "........EEEAAAAAAAAAAAAAAAAAAAAEEEE.......",
+  "..........EEEEEAAAAAAAAAAAAEEEEE..........",
+  "...............EEEEEEEEEEEE..............."
+ ]
+}

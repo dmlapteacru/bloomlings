@@ -1,0 +1,85 @@
+{
+ "code": "P0455",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Кирби — звезда полёта",
+ "theme": "Новые герои игр",
+ "family": "Космос",
+ "direction": "Космическая повседневность",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Кирби летит на звезде; круглый розовый корпус; две длинные тёмные глазки и красные ступни; большая жёлтая пятиконечная звезда",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Kirby",
+  "url": "https://en.wikipedia.org/wiki/Kirby_(character)",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 29,
+ "h": 28,
+ "N": 389,
+ "colours": 5,
+ "volumes": {
+  "P": {
+   "cells": 180,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "Y": {
+   "cells": 110,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 43,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 29,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "A": {
+   "cells": 27,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............Y..............",
+  ".............YYY.............",
+  ".............YYY.............",
+  "............YYYYY............",
+  "............YYYYY............",
+  "..........DDDPPPDDD..........",
+  ".........PPPPPPPPPPP.........",
+  "........PPPPPPPPPPPPP........",
+  ".......PPPPPPPPPPPPPPP.......",
+  ".......PPPPPDPPPDPPPPP.......",
+  "AAYYYPPPPPPDDPPPDDDPPPPPPYYAA",
+  "AAYYPPPPPPPDDPPPDDPPPPPPPYYYA",
+  ".AAYPPPPPPPDPPPPPDPPPPPPPYYY.",
+  "...PPPPPPPPPPDDDPPPPPPPPPP...",
+  "....PPPPPPPPPDDDPPPPPPPPP....",
+  ".....PPPPPPPPPDPPPPPPPPP.....",
+  "......RRPPPPPPPPPPPPPPP......",
+  "......RRRRRRRPPPRRRRRRR......",
+  "......RRRRRRRDDDRRRRRRR......",
+  ".......RRRRRRYYYRRRRRRR......",
+  ".......YYYYYYYYYYYYYYY.......",
+  "......AYYYYYYYYYYYYYYYA......",
+  "......AYYYYYYAAAYYYYYYA......",
+  "......AYYYYYY...YYYYYYA......",
+  "......AYYYYY......YYYYY......",
+  ".....AYYYY.........YYYYA.....",
+  ".....AYY.............YYA.....",
+  ".....AA...............AA....."
+ ]
+}

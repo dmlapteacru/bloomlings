@@ -1,0 +1,113 @@
+{
+ "code": "P0404",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Город в раскрытом веере",
+ "theme": "Невозможная архитектура",
+ "family": "Дома и архитектура",
+ "direction": "Невесомый мир",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Раскрытый веер держит город; полукруглая основа; расходящиеся рёбра; четыре домика вдоль верхнего края",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 42,
+ "h": 41,
+ "N": 1166,
+ "colours": 9,
+ "volumes": {
+  "E": {
+   "cells": 338,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "S": {
+   "cells": 254,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "B": {
+   "cells": 129,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "R": {
+   "cells": 104,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 97,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "P": {
+   "cells": 64,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "G": {
+   "cells": 62,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "O": {
+   "cells": 60,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 58,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................EEEEEEEE.................",
+  ".............EEEEESSSSEEEEEEE.............",
+  "...........EEEEEESSSSSERREESEEE...........",
+  ".........EEEEEEREESSSEERRRESSSSEE.........",
+  "........EESSEERRREESEERRRRRSSSSSEE........",
+  ".......EESSSERRRRREEERRRRRRRESSSSEE.......",
+  "......EESSSERRRRRRRERRRRRRRREESSSSEE......",
+  ".....EESSSEERRRRRRREEGGGGGGGEEBSSSSEE.....",
+  ".....EEESSEEYYYYYYYEEGGGGGGGEBBSEESSE.....",
+  "....EEREESSEYYYYYYYEEGGGGGGGEBEEERESSE....",
+  "....EERRESSEYYYYYYYEEGGCCCGGEBEERREESEE...",
+  "...EERRRRESEYYCCCYYEEGGCCCGGEBRRRRREEEE...",
+  "...ERRRRREEEYYCCCYYEEGGCCCGGEERRRRRREEE...",
+  "..ERRRRRRREEYYCCCYYEEGGCCCGGEERRRRRRREEE..",
+  ".EERRRRRRRREYYCCCYYEEGGCCCGGERRRRRRRREEE..",
+  ".EEPPPPPPPEEYYCCCYYEEGGGGGGGEEOOOOOOOESEE.",
+  ".EEPPPPPPPEEYYYYYYYEEGGGGGGGEEOOOOOOOESSE.",
+  ".EEPPPPPPPEEYYYYYYYEEGGGGGGGEEOOOOOOOESSE.",
+  ".EEPPCCCPPEEYYYYYYYEEEEEEEEEEEOCCCCOOESSE.",
+  ".EEPPCCCPPEEEEEEEEEEBBSSSSBBSEOCCCCOOESSE.",
+  ".EEPPCCCPPESSSSBBSSSBBSSSBBSSEOCCCCOOESSSE",
+  "ESEPPCCCPPESSSSBBSSSBBSSSBBSSEOCCCCOOESSSE",
+  "ESEPPPPPPPESSSSBBSSSBBSSSBBSSEOOOOOOOESSSE",
+  "ESEPPPPPPPESSSSSBBSSBBSSBBSSSEOOOOOOOESSSE",
+  ".EEPPPPPPPESSSSSBBSSBBSSBBSSSEOOOOOOOESSS.",
+  "..EEPPPPPPESSSSSBBSSBBSSBBSSSEOOOOOOEEEE..",
+  "...EEEEEEEBBSSSSBBBSBBSBBBSSSEEEEEEEEEE...",
+  ".....ESSSSBBBSSSSBBSBBSBBSSSSBBBSSSSEE....",
+  "......SSSSSBBBSSSBBSBBSBBSSSBBBSSSSS......",
+  ".......EESSSBBBSSBBSBBSBBSSBBBSSSEE.......",
+  "........EESSSBBBSSBBBBBBSSSBBSSSEE........",
+  ".........EESSSBBSSBBBBBBSSBBSSSEE.........",
+  "..........EESSSBBSBEEEEBSBBBSSEE..........",
+  "............SSSBBBEEYYEEBBBSSS............",
+  ".............EEBBEEYYYYYEBEEE.............",
+  "..............EEEEYYYYYYEEEE..............",
+  "...............EEEYYYYYYEEE...............",
+  "................EEYYYYYYEE................",
+  ".................EYYYYYYE.................",
+  "..................EEYYYY..................",
+  "...................EEEE..................."
+ ]
+}

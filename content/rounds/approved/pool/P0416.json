@@ -1,0 +1,107 @@
+{
+ "code": "P0416",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Каменный воздушный шар",
+ "theme": "Обмен свойствами предметов",
+ "family": "Лаборатории и изобретения",
+ "direction": "Предметные гибриды",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Тяжёлый камень летит на верёвках; многогранный каменный купол; подвешенная корзина; облачный небосвод",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 35,
+ "h": 36,
+ "N": 1224,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 560,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "N": {
+   "cells": 167,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "B": {
+   "cells": 130,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "V": {
+   "cells": 107,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "E": {
+   "cells": 103,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 84,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 54,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 12,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 7,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..SSSSSSSSSSSSEEEEEEEEEESSSSSSSSS..",
+  ".SSSSSSEEEEEENNNNNNNNNVVSSSSSSSSSS.",
+  "SSSSSSBBBBNNNNNNNNNNNVVVSSSSSSSSSSS",
+  "SSSSSSBBBBBBBNNNNNNVVVVVVSSSSSSSSSS",
+  "SSSSCBBBBBBBBBBBBNVVVVVVVVSSSSSSSSS",
+  "SSCCCBBBBBBBBBBBBNVVVVVVVVVSSSSSSSS",
+  "SSCCEBBBBBBBBBBBBNVVVVVVVVVSSSSSSSS",
+  "SSSCEBBBBBBBBBBBNNNVVVVVVVVVSSSSSSS",
+  "SSSSEBBBBBBBBBBBNNNVVVVVVVVVVSSSSSS",
+  "SSSBBBBBBBBBBBBNNNNNVVVVVVVVVVSSSSS",
+  "SSSBBBBBBBBBBBBNNNNNVVVVVVVVVVSSSSS",
+  "SSEBBBBBBBBBBBBNNNNNVVVVVVVVVVVESSS",
+  "SSEBBBBBBBBBBBNNNNNNNVVVVVVVVVNESSS",
+  "SSENNBBBBBBBBBNNNNNNNVVVVVVVNNNESSS",
+  "SSSNNNNNNBBBBNNNNNNNNNVVVNNNNNSSSSS",
+  "SSSNNNNNNNNNBNNNNNNNNNVNNNNNNNSSSSS",
+  "SSSSNNNNNNNNNAAAAAAAAAANNNNNNSSSSSS",
+  "SSSSSNNNNNNNAAAAAAAAAAANNNNNSSSSSSS",
+  "SSSSSNNNNNNNAAAAAAAAAAAANNNNSSSSSSS",
+  "SSSSSSENNNNAAAAAAAAAAAAANNNSSSSSSSS",
+  "SSSSSSEENNNAAAAAAAAAAAAAANNSSSSSSSS",
+  "SSSSSSSENNAAAAAAAAAAAAAAAEESSSSSSSS",
+  "SSSSSSSSEEAAAAAAAAAEEEEEEEESSSSSSSS",
+  "SSSSSSSSEEEEEEEEEESSSSSSEESSSSSSSSS",
+  "SSSSSSSSSSEESSSSSSSSSSSEESSSSSSSSSS",
+  "SSSSSSSSSSEESSSSSSSSSSSEESSSSSSSSSS",
+  "SSSSSSSSSSSEESSSSSSSSSEESSSSSSSSSSS",
+  "SSSSSSSSSSSSEESSSSSSSSESSSSSSSSSSSS",
+  "SSSSSSSSSSSSEEEEEEEEEEEESSSSSSSSSSS",
+  "SSSSSSSSSSSEYYOYYYYYOYYESSSSSSSSSSS",
+  "SSSSSSSSSSSEYYOYYYYYOYYESSSSSSSSSSS",
+  "SSSSSSSSSSSEYYOYYYYYOYYESSSSSSSSSSS",
+  "SSSSSSSSSSSEYYOYYYYYOYYESSSSSSSSSSS",
+  ".SSSSSSSSSSEYYOYYYYYOYYESSSSSSSSSS.",
+  "..SSSSSSSSSEYYOYYYYYOYYESSSSSSSSS..",
+  "............EEEEEEEEEEE............"
+ ]
+}

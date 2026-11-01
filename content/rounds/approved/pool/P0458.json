@@ -1,0 +1,79 @@
+{
+ "code": "P0458",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Пакман — погоня за призраком",
+ "theme": "Новые герои игр",
+ "family": "Фигуры, знаки и эмблемы",
+ "direction": "Театр эмоций",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Пакман догоняет призрака; жёлтый круг с открытым ртом; розовый призрак с двумя глазами; крупные точки между ними",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Pac-Man",
+  "url": "https://en.wikipedia.org/wiki/Pac-Man_(character)",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 26,
+ "h": 22,
+ "N": 382,
+ "colours": 5,
+ "volumes": {
+  "Y": {
+   "cells": 203,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "P": {
+   "cells": 122,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "D": {
+   "cells": 30,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "B": {
+   "cells": 20,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "C": {
+   "cells": 7,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "......DDDDDD..............",
+  "...YYYYYYYYYYY............",
+  "..YYYYYYYYYYYY............",
+  ".YYYYYYYYYYYY.....PPPPPPP.",
+  "YYYYYYYYYYYYY....PPPPPPPPP",
+  "YYYYYYYYYYYY.....PPPPPPPPP",
+  "YYYYYYYYYYY.....DPPPPPPPPP",
+  "YYYYYYYYYYY.....DPPPPPPPPP",
+  "YYYYYYYYYY......DPPPPPDDPP",
+  "YYYYYYYYY.......DPPPPPDDPP",
+  "YYYYYYYY........DPPPPPPPPP",
+  "YYYYYYYY....CC.CCPPPPPPPPP",
+  "YYYYYYYYY...CC..CPPPPPPPPP",
+  "YYYYYYYYYY......DPPPPPPPPP",
+  "YYYYYYYYYYY.....DPPPPPPPPP",
+  "YYYYYYYYYYYY....DPPPPPPPPP",
+  "YYYYYYYYYYYYY...DPPPPPPPPP",
+  ".YYYYYYYYYYYY...DD...P...P",
+  "..YYYYYYYYYYYD............",
+  "....YYYYYYYYDD............",
+  "......DDDDDD..............",
+  "...BBBBBBBBBBBBBBBBBBBB..."
+ ]
+}

@@ -1,0 +1,110 @@
+{
+ "code": "P0378",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Мастерская ключей в навесном замке",
+ "theme": "Миниатюрные мастерские",
+ "family": "Кафе и мастерские",
+ "direction": "Миниатюрные мастерские",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Корпус навесного замка раскрыт как мастерская; высокая дужка; стол с напильником; два ключа на стене",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 29,
+ "h": 37,
+ "N": 881,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 231,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "S": {
+   "cells": 172,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "E": {
+   "cells": 131,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "V": {
+   "cells": 118,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "A": {
+   "cells": 75,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 66,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 49,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "B": {
+   "cells": 25,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "R": {
+   "cells": 14,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........NNNNNNN...........",
+  "........NNNSSSSSSSSSS........",
+  ".......SSSSSSSSSSSSSSS.......",
+  "......SSSSSSSSSSSSSSSSS......",
+  ".....NSSSSSSSSSSSSSSSSSN.....",
+  ".....NSSSSSSSSSSSSSSSSSN.....",
+  ".....NSSSSSSNNNNNSSSSSSN.....",
+  "....NSSSSSSN.....NSSSSSSN....",
+  "....NSSSSSSN.....NSSSSSSN....",
+  "....NSSSSSSN.....NSSSSSSN....",
+  "....NSSSSSSN.....NSSSSSSN....",
+  "....NSSSSSSN.....NSSSSSSN....",
+  "....NSSSSSSN.....NSSSSSSN....",
+  "....NSSSSSSN.....NSSSSSSN....",
+  "..EEEEEEEEEEEEEEEEEEEEEEEEEE.",
+  "EEYYYYYYYYYYYYYYYYYYYYYYYYYEE",
+  "EYYYYYYYYYYYYYYYYYYYYYYYYYYYE",
+  "EYYYYYYYYYYYYYYYYYYYYYYYYYYYE",
+  "EYYYVVVVCCVVVVVVVVCCVVVVVYYYE",
+  "EYYYVVVCCCCVVVVVVCCCCVVVVYYYE",
+  "EYYYVVCCVVCCVVVVCCVVCCVVVYYYE",
+  "EYYYVVCCVVCCVVVVCCVVVCVVVYYYE",
+  "EYYYVVCCCCCCVVVVVCCCCCVVVYYYE",
+  "EYYYVVVCCCCVVVVVVCCCCVVVVYYYE",
+  "EYYYVVVVCCVVVVVVVVCCVVVVVYYYE",
+  "EYYYVVVVCCVVVVVVVBBBVVVVVYYYE",
+  "EYYYVVVVCCCCBBBBBBBBCCCCVYYYE",
+  "EYYEEEEEBBBBBBBBBBCCCCCCAAYYE",
+  "EYYERRRRBBBBAAAAAAAAAAAAAAYYE",
+  "EYYRRRRRAAAAAAAAAAAAAAAAAAYYE",
+  "EYYRRRRRAAAAAAAAAAAAAAAAAYYYE",
+  "EYYYEAAEEEEEEEEEEEEEEEAAEYYYE",
+  "EYYYEAAEYYYYYYYYYYYYYEAAEYYYE",
+  "EYYYEAAEYYYYYYYYYYYYYEAAEYYYE",
+  "EYYYEAAEYYYYYYYYYYYYYEAAEYYYE",
+  ".YYYEAAEYYYYYYYYYYYYYEAAEYYEE",
+  "..EEEAAEEEEEEEEEEEEEEEAAEEEE."
+ ]
+}

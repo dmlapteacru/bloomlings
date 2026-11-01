@@ -1,0 +1,92 @@
+{
+ "code": "P0420",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Джейк — живая арка",
+ "theme": "Новые версии знакомых героев",
+ "family": "Домашние животные",
+ "direction": "Уютный сюрреализм",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Джейк растянулся аркой; жёлтое эластичное тело с большим проходом; белые глаза и округлая собачья морда; короткие висячие уши",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Adventure Time",
+  "url": "https://en.wikipedia.org/wiki/Jake_the_Dog",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 34,
+ "N": 910,
+ "colours": 5,
+ "volumes": {
+  "Y": {
+   "cells": 661,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 157,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "G": {
+   "cells": 55,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 31,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 6,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "............DDDDDDDDDD.............",
+  ".........DDDYYYYYYYYYYYDDD.........",
+  ".......YYYYYYYYYYYYYYYYYYYDD.......",
+  ".....DDYYYYYYYYYYYYYYYYYYYYDD......",
+  "....DDDDDDDDDYYYYYYYOOOYYYYYYY.....",
+  "....DDDYYYYYYYYYYYYYOOOYYYYYYYD....",
+  "...DDYYYYYYYYYYYYYYYYYYYYYYYYYDD...",
+  "..DDYYYYYYYYYYYYYYYYYYYYYYYYYYYD...",
+  "..DYYYYYYYYYYYYYYYYYYYYYYYYYYYYYD..",
+  ".YYYYCCCYYYCCCYYYYYYYYYYYYYYYYYYD..",
+  ".YYYYCDDCYCCDDCYYYYYYYYYYYYYYYYYD..",
+  "YYYYCCDDCYCDDDCYYYY..YYYYYYYYYYYYD.",
+  "YYYYCCDDCYCCDDCYYYY...YYYYYYYYYYYD.",
+  "YYYYYCCCCYYCCCCYYYYY...DYYYYYYYYYD.",
+  "YYYYYYCDDDDDDYYYYYYY...DYYYYYYYYYD.",
+  "YYYYYYYYDDDYYYYYYYYY...DYYYYYYYYYD.",
+  "YYYYYDYYYDDYYYYYYYYY...DYYYYYYYYYD.",
+  "YYYYYDYYYYYYYYYYYYY....DYYYYYYYYYD.",
+  ".YYYYDYYYYYYYDYYYYY....DYYYYYYYYYD.",
+  ".DYYYYDDDYYDDDYYYY.....DYYYYYYYYYD.",
+  ".DDYYYYDDDDDDYYYYY.....DYYYYYYYYYD.",
+  ".DDDYYYYYDDYYYYYY......DYYYYYYYYYD.",
+  ".DYDDYYYYYYYYYYY.......DYYYYYYYYYD.",
+  ".DYYDDYYYYYYYDD........DYYYYYYYYYD.",
+  ".DYYYYDDDDDDDD.........DYYYYYYYYYD.",
+  ".DYYYYYYYYDD...........DGGYYYYYYYD.",
+  ".DYYYYYYYYYD..........GGGGYYYYYYYD.",
+  ".DYYYYYYYYYD.........GGGGGYYYYYYYD.",
+  ".DYYYYYYYYYD.........GGGGGYYYYYYYD.",
+  ".DYYYYYYYYYD........GGGGGYYYYYYYYD.",
+  ".DYYYYYYYYYD........GGGGYYYYYYYYYD.",
+  ".YYYYYYYYYGGGGGGGGGGGGGGGYYYYYYYYYY",
+  ".YYYYYYYYYGGGGGGGGGGGGGGGYYYYYYYYYY",
+  "..YYYYYYYY................YYYYYYYY."
+ ]
+}

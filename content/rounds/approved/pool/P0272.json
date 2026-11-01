@@ -1,0 +1,111 @@
+{
+ "code": "P0272",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Почтовый ящик с северным сиянием",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Городские пространства",
+ "direction": "Миры через портал",
+ "device": "Контраст миров по сторонам проёма",
+ "subject": "Открытый ящик выпускает северное сияние; красный почтовый флажок; светящиеся ленты; снежная ночь",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 35,
+ "h": 35,
+ "N": 1218,
+ "colours": 10,
+ "volumes": {
+  "N": {
+   "cells": 522,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 183,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "L": {
+   "cells": 113,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "P": {
+   "cells": 98,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "G": {
+   "cells": 92,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "V": {
+   "cells": 81,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "E": {
+   "cells": 44,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 32,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "S": {
+   "cells": 30,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "R": {
+   "cells": 23,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN..",
+  ".NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN.",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNSSSSNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNSSSSSSNNNN",
+  "NNNNNNNNNGGGGGGNNNNNNNNNSSSSSSSNNNN",
+  "NNNNNNNGGGGGGGGGGNNNNNNRRRRRRSSNNNN",
+  "NNNNNNNGGGGLLLLGGGNNNNRRRRRRRRSNNNN",
+  "NNNNNNGGGGLLLLLLLGGNNNRRRSSSSSSGNNN",
+  "NNNNNGGGGLLLLLLLLLGGNNRRNNSSSSGGNNN",
+  "NNNNNGGGLLLLLLLLLLLGGNRRNNNNNGGGNNN",
+  "NNNNNGGLLLLNNNLLLLLLGGRRNNNNGGGGNNN",
+  "NNNNNGGLLLNNNNNLLLLLLGGGGGGGGGLGNNN",
+  "NNNNNGGLLLNNNNNNLLLLLLGGGGGGGLLNNNN",
+  "NNNNNGGLLLVVVEEEELLLLLLGGGGLLLLNNNN",
+  "NNNNNGGGLLLVVVPPPPLLLLLLLLLLLLNNNNN",
+  "NNNNNVGGLLLLVVPPPPPLLLLLLLLLLNNNNNN",
+  "NNNEVVVGGLLLVVPPPPPPPLLLLLLPENNNNNN",
+  "NNNEVVVGGGGVVVVPPPPPPPPPPPPPENNNNNN",
+  "NNNEVVVVVVVVVVVEPPPPPPPPPPPPENNNNNN",
+  "NNNEVVVVVVVVVVVEPPPPPPPPPPPPENNNNNN",
+  "NNNEVVVVVVVVVVVEPPPPPPPPPPPPENNNNNN",
+  "NNNEVVVVVVVVVVVPPPPPPPPPPPPPENNNNNN",
+  "NNNEVVVVVVVVVVVPPPPPPPPPPPPNNNNNNNN",
+  "NNNNVVCCCCCCCCCCCCCCCCCPPPPNNNNNNNN",
+  "NNNNNNCCCCCCCCCCCCCCCCCPPPNNNNNNNNN",
+  "NNNNNNNNVVVNNEAAAAEEEEEEEENNNNNNNNN",
+  "NNNNNNNNEEENNEAAAANNNNNNNNNNNNNNNNN",
+  "NNNNNNNNNNNNNEAAAANNNNNNNNNNNNNNNNN",
+  "NNNNNNNNNNNNNEAAAANNNNNNNNNNNNNNNNN",
+  "CCCCCCCCCCCCCEAAAACCCCCCCCCCCCCCCCC",
+  "CCCCCCCCCCCCCEAAAACCCCCCCCCCCCCCCCC",
+  "CCCCCCCCCCCCCEAAAACCCCCCCCCCCCCCCCC",
+  "CCCCCCCCCCCCCEAAAACCCCCCCCCCCCCCCCC",
+  ".CCCCCCCCCCCCEEEEECCCCCCCCCCCCCCCCC"
+ ]
+}

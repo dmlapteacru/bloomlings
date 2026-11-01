@@ -1,0 +1,112 @@
+{
+ "code": "P0428",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Марио — из зелёной трубы",
+ "theme": "Новые версии знакомых героев",
+ "family": "Игровая интернет-культура",
+ "direction": "Театр эмоций",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Марио выбирается из трубы; красная кепка и большие усы; синий комбинезон; широкая зелёная труба",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Super Mario",
+  "url": "https://en.wikipedia.org/wiki/Mario",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 35,
+ "h": 36,
+ "N": 1244,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 412,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "G": {
+   "cells": 174,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "R": {
+   "cells": 168,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 143,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 126,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "M": {
+   "cells": 89,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "B": {
+   "cells": 53,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "E": {
+   "cells": 49,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 30,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS..",
+  ".SSSSSSSSSSSSRRRRRRRRRSSSSSSSSSSSS.",
+  "SSSSSSSSSSSRRRRRCCCRRRRRSSSSSSSSSSS",
+  "SSSSSSSSSSRRRRRCCCCCRRRRRSSSSSSSSSS",
+  "SSSSSSSSSRRRRRRCCCCCRRRRRSSSSSSSSSS",
+  "SSSSSSSSRRRRRRRCCCCCRRRRRRSSSSSSSSS",
+  "SSSSSSSRRRRRRRRRCCCRRRRRRRRSSSSSSSS",
+  "SSSSSSRRRRRRRRRRRRRRRRRRRRRRSSSSSSS",
+  "SSSSSSSRREERRRDRRRRRDDRRRRRRSSSSSSS",
+  "SSSSSSSEEEECCCDDCCCCDDCCCCESSSSSSSS",
+  "SSSSSSSCEEECCCDDEEECDDCCCCESSSSSSSS",
+  "SSSSSSSCEEECCCDCCCCCDDCCCCESSSSSSSS",
+  "SSSSSSSCEEECCCECCCCCECCCCCESSSSSSSS",
+  "SSSSSSSEEEECCDECCCCCECCCCESSSSSSSSS",
+  "SSSSSSSEEEEDDDECCCCCEDCCCESSSSSSSSS",
+  "SSSSSSSSECCDDDDEEEEEDDCCEESSSSSSSSS",
+  "SSSSSSSSEECCDDDDDDDDDCCCESSSSSSSSSS",
+  "SSSSSSSSSRRRRDDDDDDDDRRRRSSSSCCCRRS",
+  "SSSSSSSSSRRRRBBBBBBBBRRRRSSSRRCRRRR",
+  "SSSSSDDDDRRRRBBBBBBBBRRRRSSSRRCCCRR",
+  "SSSSCCCCDRRRRBBBBBBBBRRRDDCCRRCCCRR",
+  "SSSSCCCCCDRRRBBBBBBBBRRRDCCCCCCCCRS",
+  "SSSSCCCCCDRRRBBBBBBBBRRRDCCCCDCCCSS",
+  "SSSMDCCCDDBBBBBBBBBBBBBDDCCCDDMSSSS",
+  "SSSMDDDDDDDDDDDDDDDDDDDDDDDDDMMSSSS",
+  "SSSMMMMMMMMMMMMMMMMMMMMMMMMMMMMSSSS",
+  "SSSMMMMMMMMMMMMMMMMMMMMMMMMMMMMSSSS",
+  "SSSMMMMMMMMMMMMMMMMMMMMMMMMMMMMSSSS",
+  "SSSSDGGGGGGGGGGGGGGGGGGGGGGGGGDSSSS",
+  "SSSSDGGGGGGGGGGGGGGGGGGGGGGGGGDSSSS",
+  "SSSSDGGGGGGGGGGGGGGGGGGGGGGGGGDSSSS",
+  "SAAADGGGGGGGGGGGGGGGGGGGGGGGGGDAAAS",
+  "AAAADGGGGGGGGGGGGGGGGGGGGGGGGGDAAAA",
+  "AAAADGGGGGGGGGGGGGGGGGGGGGGGGGDAAAA",
+  ".AAADGGGGGGGGGGGGGGGGGGGGGGGGDAAAAA",
+  "....DDDDDDDDDDDDDDDDDDDDDDDDDD....."
+ ]
+}

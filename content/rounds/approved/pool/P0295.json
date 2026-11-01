@@ -1,0 +1,104 @@
+{
+ "code": "P0295",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Парашют-одуванчик переносит чемодан",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Багаж и навигация",
+ "direction": "Невесомый мир",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Чемодан летит на одуванчике; белая круглая шапка с крупными семенами; сходящиеся стропы; маленький чемодан",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 40,
+ "h": 42,
+ "N": 1181,
+ "colours": 7,
+ "volumes": {
+  "S": {
+   "cells": 516,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 250,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 147,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "O": {
+   "cells": 123,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 70,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 42,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 33,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "................SSSSSSSS................",
+  "............SSSSSCCCCCCSSSSS............",
+  "..........SSSSSSSCCCCCCCSSSSSS..........",
+  "........SSSSSSSSCCCCCCCCSSSSSSSS........",
+  "......CCCCCSSSSSSCCCCCCCSSSSSCCCCC......",
+  ".....SCCCCCCSSSSSSCCCCCSSSSSCCCCCCC.....",
+  "....SSCCCCCCCSSSSSSMMSSSSSSCCCCCCCCS....",
+  "...SSSCCCCCCCSSSSSSMMSSSSSSCCCCCCCCSS...",
+  "..SSSSCCCCCCSSSSSSSMMSSSSSSSCCCCCCSSSS..",
+  "..SSSSSCCCCMMMSSSSSMMSSSSSMMMCCCCSSSSS..",
+  ".SSSSSSSSSSSMMMSSSSMMSSSSMMMSSSSSSSSSSS.",
+  ".SSSSSSSSSSSSSMMSSSMMSSSMMMSSSSSSSSSSSS.",
+  ".SSSSSSSSSSSSSSMMSYYYYSMMSSSSSSSSSSSSSS.",
+  "SSCCCCCSSSSSSSSSMYYYYYYMSSSSSSSSSCCCCCSS",
+  "SCCCCCCCSSSSSSSSYYYYYYYYSSSSSSSSCCCCCCCS",
+  "SCCCCCCCMMMMMMMMYYYYYYYYMMMMMMMMCCCCCCCS",
+  "SCCCCCCCSSSSSSSSYYYYYYYYSSSSSSSSCCCCCCCS",
+  "SSCCCCCSSSSSSSSSMYYMMYYMSSSSSSSSSCCCCCSS",
+  ".SSSSSSSSSSSSSSMMYYMMYYMMSSSSSSSSSSSSSS.",
+  ".SSSMSSSSSSSSSMMSSSMMSSSMMSSSSSSSSSMSSS.",
+  ".SSSMMSSSSSSMMMSSSSMMSSSSMMMSSSSSSMMSSS.",
+  "..SSSMMSCCCMMMSSSSSMMSSSSSMMMCCCSMMSSS..",
+  "..SSSSMMCCCCMSSSSSSMMSSSSSSSCCCCMMSSSS..",
+  "...SSSCMMCCCCSSSSSSMMSSSSSSCCCCMMCCSS...",
+  "....SCCCMMCCCSSSSSSMMSSSSSSCCCMMMCCS....",
+  ".....CCCMMMCSSSSSSCMMCSSSSSSCMMMCCC.....",
+  "......CCCMMMSSSSSCCMMCCSSSSSMMMCCC......",
+  "........SSMMMSSSCCCMMCCCSSSMMMSSS.......",
+  ".........SSMMMSSAAAAAAAASSMMMSS.........",
+  "............MMSSAAAAAAAASSMM............",
+  "............EEEEAAAAAAAAAEEEE...........",
+  "...........OOOOOAAAAAAAAOOOOEE..........",
+  "..........EOOOOOOOOOOOOOOOOOOE..........",
+  "..........EYYYYYYYCCCCYYYYYYYE..........",
+  "..........EYYYYYYYCCCCYYYYYYYE..........",
+  "..........EOOOOOOOCCCCOOOOOOOE..........",
+  "..........EOOOOOOOCCCCOOOOOOOE..........",
+  "..........EOOOOOOOCCCCOOOOOOOE..........",
+  "..........EOOOOOOOOOOOOOOOOOOE..........",
+  "..........EOOOOOOOOOOOOOOOOOOE..........",
+  "...........OOOOOOOOOOOOOOOOOO...........",
+  "............EEEEEEEEEEEEEEEE............"
+ ]
+}

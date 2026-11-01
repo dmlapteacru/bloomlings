@@ -1,0 +1,80 @@
+{
+ "code": "P0373",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Янтарь с грозовым облаком",
+ "theme": "Доисторические находки",
+ "family": "Доисторический мир",
+ "direction": "Фольклорная фантазия",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Кусок янтаря хранит древнюю грозу; неровный золотой контур; тёмное облако внутри; яркая молния",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 23,
+ "h": 23,
+ "N": 386,
+ "colours": 6,
+ "volumes": {
+  "O": {
+   "cells": 180,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 133,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "V": {
+   "cells": 34,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "C": {
+   "cells": 24,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 8,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 7,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........EEEEEOOO......",
+  "....OOOOOOOOOOOOOO.....",
+  "....OOOOOOOOYYYOOO.....",
+  "...OOOOYYYYYYYYYOOO....",
+  "..OOOOYYYYYYYYYYOOOO...",
+  ".OOOOYYYYYYYYYYYYOOOO..",
+  "EOOOAYYYYYYYYYYYYYOOO..",
+  "EOOOAYYYYYYVYYYYYYOOOO.",
+  "EOOOAYYYYVVVVVYYYYYOOOO",
+  ".OOOAYYVVVVVVVVVYYYOOO.",
+  ".OOOAYVVVVVVVVVVVYOOOO.",
+  ".OOOAYVVVVVCCCVVVYOOOO.",
+  ".OOOAYYYYYCCCCYYYYOOO..",
+  ".OOOYYYYYYCCCCCYYYOOO..",
+  ".OOOYYYYYCCCCCCYYOOOO..",
+  ".OOOOYYYYYYCCCYYYOOO...",
+  "..OOOOYYYYYCCYYYYOOO...",
+  "...OOOOYYYYCYYYYOOOO...",
+  "....OOOOYYYYYOOOOOO....",
+  ".....OOOOOOOOOOOOOO....",
+  "......OOOOOOOOOOOO.....",
+  ".......OOOOOOOO........",
+  ".......OOOO............"
+ ]
+}

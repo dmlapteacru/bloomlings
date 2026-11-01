@@ -1,0 +1,102 @@
+{
+ "code": "P0415",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Походные ботинки на гусеницах",
+ "theme": "Путешествия и походы",
+ "family": "Походы и отдых на природе",
+ "direction": "Миры через портал",
+ "device": "Контраст миров по сторонам проёма",
+ "subject": "Походные ботинки ездят на гусеницах; высокая шнуровка; округлые носы; два ряда маленьких колёс",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 34,
+ "N": 881,
+ "colours": 8,
+ "volumes": {
+  "N": {
+   "cells": 233,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "O": {
+   "cells": 154,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 145,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 96,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 94,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "G": {
+   "cells": 66,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "V": {
+   "cells": 49,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "C": {
+   "cells": 44,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...................EEEEEEEEEE.......",
+  "..................EOOOOOOOOOE.......",
+  "..................EOOOOOOOOOE.......",
+  "..................EOOVVVVVOOE.......",
+  "...EEEEEEEEEE.....EOOVVVVVOOE.......",
+  "...EAAAAAAAAE.....EOOVVVVVOOE.......",
+  "...EAAVVVVAAE.....EOOVVVVVOOE.......",
+  "..EAAAVVVVAAE.....EOOVVVVVOOE.......",
+  "..EAAAVVVVAAE.....EOCCCOOOOOE.......",
+  "..EAAAVVVVAAE.....EOOOCCCOOOE.......",
+  "..EAAAVVVVAAE.....EOOOOOCCCOE.......",
+  "..EACCVVVVAAE.....OOCOOOOOCOE.......",
+  "..EACCCCAAAAE....EOOCCCOOOOOE.......",
+  "..EAAAACCCAAE....EOOOOCCCCOOEEEE....",
+  "..EAAAAAACCCE....EOOOOOOOCCOOOOOEE..",
+  "..EACCAAAAAAE....EOOOOOOOOOOOOOOOE..",
+  "..EAACCCAAAAEE...EOOOOOOOOOOOOOOOOE.",
+  "..AAAAACCCCAAAAEEEOOOOOOOOOOOOOOOOE.",
+  ".EAAAAAAACCCAAAAAEOOOOOOOOOOOOOOOOE.",
+  ".EAAAAAAAAAAAAAAAEONNNNNNNNNNNNNNOE.",
+  ".EAAAAAAAAAAAAAAANNNNNNNNNNNNNNNNNN.",
+  ".EAAAAAAAAAAAAAANNNNNNNNNNNNNNNNNNN.",
+  ".EAAAAAAAAAAAAAANNNYYYNNYYYYNNYYYNNN",
+  ".EANNNNNNNNNNNNNNNYYYYYNYYYYNYYYYYNN",
+  ".NNNNNNNNNNNNNNNNNYYYYYNYYYYNYYYYYNN",
+  ".NNNYNNNNYYNNNNYNNNYYYNNYYYYNNYYYNNN",
+  "NNNYYYYNYYYYNNYYNNNNNNNNNNNNNNNNNNN.",
+  "NNYYYYYNYYYYNYYYYNNNNNNNNNNNNNNNNN..",
+  "NNYYYYYNYYYYNNYYYYNNNNNNNNNNNNNN....",
+  "NNNYYYNNNYYNNNYYYNNN................",
+  ".NNNNNNNNNNNNNNNNNN.................",
+  "..NNNNNNNNNNNNNNNN..................",
+  ".GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG...",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG.."
+ ]
+}

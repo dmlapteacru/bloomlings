@@ -1,0 +1,109 @@
+{
+ "code": "P0280",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Пустыня внутри раковины",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Камни, минералы и кристаллы",
+ "direction": "Миры внутри предметов",
+ "device": "Вместилище и внутренний мир",
+ "subject": "Открытая раковина скрывает пустыню; раскрытый веер створки; песчаные дюны; кактус внутри",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 40,
+ "h": 38,
+ "N": 1262,
+ "colours": 9,
+ "volumes": {
+  "K": {
+   "cells": 431,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "P": {
+   "cells": 263,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "O": {
+   "cells": 184,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 165,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 127,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 55,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 20,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 10,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "A": {
+   "cells": 7,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............EEEEEEEEEEEE..............",
+  "...........EEEPPKKKKKKKKKPEEE...........",
+  ".........KKKKKPPKKKKKKKKPPKKKKK.........",
+  "......EEEKKKKKPPKKKKKKKKPPKKKKKEEE......",
+  ".....EEPPKKKKKPPKKKKKKKKPPKKKKKPEEE.....",
+  "....KKKPPPKKKKPPPKKKKKKPPPKKKKPPPKKEE...",
+  "...KKKKKPPKKKKKPPKKKKKKPPKKKKKPPKKKKE...",
+  "..EKKKKKKPPKKKKPPKKKKKKPPKKKKPPPKKKKKE..",
+  ".EEKKKKKKPPPKKKPPKKKKKKPPKKKPPPKKKKKKEE.",
+  ".EKKKKKKKKPPKKKPPPKKKKPPPKKKPPKKKKKKKKE.",
+  ".EKKKKKKKKPPPKKKPPKKKKPPKKKPPPKKKKKKKKE.",
+  ".EKKKKKKKKKPPKKKPPKKKKPPKKKPPKKKKKKKKKEE",
+  "EEKKKKKKKKKKPPKKPPKKKKPPKKPPKKKKKKKKKKKE",
+  "EKKKKKKKKKKKPPPKPPPKKKPPKPPPKKKKKKKKKKKE",
+  "EKKKKKKKKKKKKPPKKPPKKPPKKPPKKKKKKKKKKKKE",
+  "EEKKKKKKKKKKKPPPKPPKKPPKPPPKKKKKKKKKKKKE",
+  ".EKKKKKKKKKKKKPPPPPKKPPKPPKKKKKKKKKKKKEE",
+  ".EKKKKKKKKKKKKEEEEEEEEEEEEKKKKKKKKKKKKE.",
+  ".EKKKKKKKKEEEEEYYYYYYYYYYYEEEEKKKKKKKKE.",
+  ".EEKKKKKEEEYYYYYYMMYYYYYYYYYYEEEEKKKKEE.",
+  "..EEKKKKYYYYYYYYYMMYYYYYYYYYYYYEEEKKEE..",
+  "...EEEPPYYYYYYGGYMMYYYYYYYYYYYYYYEEEE...",
+  "...EEPPYYYYYYYGGYMMYYYYYYYYYYYYYYYPEE...",
+  "...EPPYYYYYYYYGGYMMYMYYYYYYOOOOOOOPPEE..",
+  "..EPPYYYYYOOOOOGGGGYMYYYYYOOOOOOOOOPPE..",
+  ".EEPPYYYOOOOOOOOOMMMMYYYOOOOOOOOOOOPPEE.",
+  ".EPPPPOOOOOOOOOOOMMOOYYOOOOOOOOOOOOPPPE.",
+  ".EPPPPOOOOOOOOOOOMMOOOOOOOOAAOOOOOPPPPE.",
+  ".EPPPPPOOOOOOOOOOOOOOOOOOOAAAOOOOPPPPPE.",
+  "..PPPPPPOOOOOOOOOOOOOOOOOOOAAOOOPPPPPEE.",
+  "..PPPPPPPOOOOOOOOOOOOOOOOOOOOOOPPPPPPE..",
+  "...EPPPCCCCOOOOOOOOOOOOOOOOOOOCCCPPPEE..",
+  "...EEPPPCCCCCPPPOOOOOOOOPPPCCCCCPPPEE...",
+  ".....PPPPPCCCCCCCPPPPPPCCCCCCCPPPPP.....",
+  "......PPPPPPCCCCCCCCCCCCCCCCPPPPPP......",
+  "........EEEPPPPPCCCCCCCCPPPPPEEE........",
+  "..........EEEEEPPPPPPPPPPEEEEE..........",
+  "..............EEEEEEEEEEEE.............."
+ ]
+}

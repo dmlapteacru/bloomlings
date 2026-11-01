@@ -1,0 +1,105 @@
+{
+ "code": "P0368",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Стеклодувная мастерская в бусине",
+ "theme": "Миниатюрные мастерские",
+ "family": "Кафе и мастерские",
+ "direction": "Миниатюрные мастерские",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "В большой бусине стеклодувный цех; круглое отверстие; горелка; три цветных стеклянных сосуда",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 32,
+ "N": 885,
+ "colours": 9,
+ "volumes": {
+  "P": {
+   "cells": 285,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "C": {
+   "cells": 145,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 98,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "V": {
+   "cells": 91,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "E": {
+   "cells": 91,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 90,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "B": {
+   "cells": 42,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "G": {
+   "cells": 35,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "O": {
+   "cells": 8,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "............NNNNNNNNNN............",
+  ".........NNNPPPPPPPPPPNNN.........",
+  "........NNPPPPPPPPPPPPPPPP........",
+  "......PPPPPPPPPPPPPPPPPPPPPP......",
+  ".....PPPPPPPPPPVVVVPPPPPPPPPP.....",
+  "....PPPPPPPPVVVVVVVVVVPPPPPPPP....",
+  "...PPPPPPPVVVVCCCCCCVVVVPPPPPPN...",
+  "...PPPPPVVVVCCCCCCCCCCVVBBBPPPNN..",
+  "..PPPPPVVVCCCCCCCCCCCCCBBBBBPPPN..",
+  ".NPPPPPVVCCCCCCCCCCCCCBBBBBBPPPPN.",
+  ".NPPPPVVCCCCCCCCCCCCCCCBBBBBPPPPN.",
+  ".NNNNNVCCCCCCCCCCCCCCCCBBBBVVPPPN.",
+  "NPPNNNNNCCCCCCCCCCCEEEEECCCVVPPPPN",
+  "NPPPPVNNNNNNNCCCCCCEGGGECCCVVPPPPN",
+  "NPPPPVCCNNNNNNCCCCCEGGGECCCCVVPPPN",
+  "NPPPVVCCBBBBNNNNNCCEGGGGCCCCVVPPPN",
+  "NPPPVVCCBBBBBECNNNNNGGGGCCCCVVPPPN",
+  "NPPPPVCCBBBBBECCOONNNNGGGECCVVPPPN",
+  "NPPPPVVCBBBBBECCOOGGGNGGGECVVPPPPN",
+  "NPPPPVVEEEEEECCCOOGGGGGGGECVVPPPPN",
+  ".NPPPVVEEEEEECCCOOGGGGGEEEEVVPPPP.",
+  ".NPPPPAAAAAAAAAAAAAAEEEAAAAEEPPPP.",
+  ".NPPPPAAAAAAAAAAAAAAAAAAAAAAEPPPP.",
+  "..NPPPAAAAAAAAAAAAAAAAAAAAAAEPPP..",
+  "..NNPPEEAAEEEEEEEEEEEEEEAAEEPPPP..",
+  "...NPPPEAAEVVVCCCCCCVVVEAAEPPPP...",
+  "....PPPEAAEVVVVVVVVVVVVEAAEPPP....",
+  ".....PPEAAEPPPPVVVVPPPPEAAEPP.....",
+  "......EEAAEPPPPPPPPPPPPEAAEE......",
+  ".......EAAEPPPPPPPPPPPPEAAE.......",
+  ".......EAAEPPPPPPPPPPPPEAAE.......",
+  ".......EEEE.NNNNNNNNNN.EEEE......."
+ ]
+}

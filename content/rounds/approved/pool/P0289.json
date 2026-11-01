@@ -1,0 +1,103 @@
+{
+ "code": "P0289",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Магнитная буря над пустыней",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Лаборатории и изобретения",
+ "direction": "Визуальные каламбуры",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Подковообразный магнит поднимает камни над дюнами; двухцветная подкова; висящие камни; пустынный горизонт",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 30,
+ "N": 898,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 379,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "O": {
+   "cells": 213,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "R": {
+   "cells": 78,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "N": {
+   "cells": 72,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 48,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 35,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 30,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 26,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 17,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".SSSSSSSSSSSSSSSSSSSSSSSSSSSS.",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSCCCCCCDSSSSSSDCCCCCCSSSSS",
+  "SSSSSCCCCCCDSSSSSSDCCCCCCSSSSS",
+  "SSSSSCCCCCCDSSSSSSDCCCCCCSSSSS",
+  "SSSSSCCCCCCDSSSSSSDCCCCCCSSSSS",
+  "SSSSSRRRRRRDSSSSSSDNNNNNNSSSSS",
+  "SSSSSRRRRRRDSSSSSSDNNNNNNSSSSS",
+  "SSSSSRRRRRRDSSSSSSDNNNNNNSSSSS",
+  "SSSSSRRRRRRDSSSSSSDNNNNNNSSSSS",
+  "SSSSSRRRRRRDSSSSSSDNNNNNNSSSSS",
+  "SSSSSRRRRRRRSSSSSNNNNNNNSSSSSS",
+  "SSSSSSRRRRRRRDDDDNNNNNNSSSSSSS",
+  "SSSSSSRRRRRRRRRRRNNNNNNSSSSSSS",
+  "SSSSSSSRRRRRRRRNNNNNNNSSSSSSSS",
+  "SSSSSSSSRRRRRRRNNNNNNSSSSSSSSS",
+  "SSSSSSSAARRRRRRNNNNNNSSSSSSSSS",
+  "SSSSSSAAAASSSRRNNNNSSSAAASSSSS",
+  "SSSSSSAAAASSSDDDDSSSSSSAAASSSS",
+  "SSSSSSAAAAASSSSSSSSSSSSAAAASSS",
+  "YYYYYOOAAOOOOOOEEYYYYYYAAAYYYY",
+  "YYYOOOOOOOOOOOOEEEYYYYYYYYYYYY",
+  "YOOOOOOOOOOOOOEEEEEOOOOOOOYYYY",
+  "OOOOOOOOOOOOOOEEEEEOOOOOOOOOOO",
+  "OOOOOOOOOOOOOOOOEEOOOOOOOOOOOO",
+  "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO",
+  "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO",
+  "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO",
+  "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO"
+ ]
+}

@@ -1,0 +1,85 @@
+{
+ "code": "P0384",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Башня стоит на собственном ключе",
+ "theme": "Невозможная архитектура",
+ "family": "Дома и архитектура",
+ "direction": "Невесомый мир",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Башня поставлена на огромный ключ; круглая головка ключа; зубцы под башней; контрастная крыша и два окна",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 27,
+ "h": 28,
+ "N": 385,
+ "colours": 6,
+ "volumes": {
+  "Y": {
+   "cells": 127,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 103,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 75,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "R": {
+   "cells": 56,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "B": {
+   "cells": 12,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "A": {
+   "cells": 12,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "................RR.........",
+  "...............RRRR........",
+  "..............RRRRRR.......",
+  ".............RRRRRRRR......",
+  "............RRRRRRRRRR.....",
+  "...........RRRRRRRRRRRRR...",
+  "..........ERRRRRRRRRRRRRE..",
+  "..........EEECCCCCCCCCEEE..",
+  "............ECCCCCCCCCE....",
+  "............ECCCCCCCCCE....",
+  "............ECCCBBBCCCE....",
+  "............ECCCBBBCCCE....",
+  "............ECCCBBBCCCE....",
+  "............ECCCBBBCCCE....",
+  "............ECCCCCCCCCE....",
+  "............ECCCCCCCCCE....",
+  "............ECCCAAACCCE....",
+  "..YYYYYY....ECCCAAACCCE....",
+  ".YYYYYYYE...ECCCAAACCCE....",
+  "YYYYYYYEEEEEECCCAAACCCEEEEE",
+  "YYYYCCYEYYYYYYYYYYYYYYYYYYE",
+  "YYYCCCCEYYYYYYYYYYYYYYYYYYE",
+  "YYYCCCYEYYYYYYYYYYYYYYYYYYE",
+  "YYYYCYYEEEEEEEEEYYYYYYYYYE.",
+  ".YYYYYYYE.......YYYE..YYYE.",
+  ".YYYYYYY........YYYE..EEEE.",
+  "...EEEE.........YYYE.......",
+  "................EEEE......."
+ ]
+}

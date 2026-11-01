@@ -1,0 +1,103 @@
+{
+ "code": "P0371",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Телевизор с бумажным водопадом",
+ "theme": "Ретрофутуризм",
+ "family": "Ретро-техника и ностальгия",
+ "direction": "Ретрофутуристические приключения",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Из экрана старого телевизора падает бумага; выпуклый экран; угловатые бумажные складки; белая лента на полу",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 33,
+ "h": 35,
+ "N": 877,
+ "colours": 8,
+ "volumes": {
+  "A": {
+   "cells": 312,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 154,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "V": {
+   "cells": 142,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "C": {
+   "cells": 107,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 77,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "S": {
+   "cells": 65,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "Y": {
+   "cells": 10,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "P": {
+   "cells": 10,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".......................NN........",
+  "....N.................NNN........",
+  "....NN...............NNN.........",
+  ".....NN.............NNN..........",
+  "......NN...........NNN...........",
+  ".......NN.........NNN............",
+  ".......NNNN......NNNN............",
+  ".AAAAAAAANNAAAAANNNAAAAAAAAAAAAA.",
+  "EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE",
+  "EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE",
+  "EAAAANNNNNNNNNNNNNNNNNNNAAAAAAAAE",
+  "EAAANNNNNNNNNNNNNNNNNNNNNAAAAAAAE",
+  "EAAANNVVVVVVVVVVVVVVVVVNNNAYYYAAE",
+  "EAAANNVVVVVVVVVVVVVVVVVVNNAYYYAAE",
+  "EAAANVVVVVVVVVVVVVVVVVVVNNAYYYAAE",
+  "EAAANVVVVVVVVVVVCCCVVVVVNNAAYAAAE",
+  "EAAANVVVVVCCCCCCCSSSVVVVNNAAAAAAE",
+  "EAAANVVVVCCCCCCCSSSSVVVVNNAAAAAAE",
+  "EAAANVVVVVCCCCCCSSSSVVVVNNAAAAAAE",
+  "EAAANVVVVVCCCCCCSSSSSVVVNNAAAAAAE",
+  "EAAANVVVVVCCCCCSSSSSSVVVNNAAPAAAE",
+  "EAAANVVVVVVCCCCSSSSSSVVVNNAPPPAAE",
+  "EAAANVVVVVVCCCCSSSSSVVVVNNAPPPAAE",
+  "EAAANNVVVVVVCCCCSSVVVVVNNNAPPPAAE",
+  "EAAANNNNNNNNNCCCSNNNNNNNNAAAAAAAE",
+  "EAAAANNNNNNNNNCCCNNNNNNNNAAAAAAAE",
+  "EAAAAAAAAAAAAACCCCAAAAAAAAAAAAAAE",
+  "EAAAAAAAAAAAAASSSCCAAAAAAAAAAAAAE",
+  "EAAAAAAAAAAAASSSSSSSAAAAAAAAAAAAE",
+  ".EEEEEAAAAAACSSSSSSSAAAAAEEAAAAA.",
+  "...EEEEEEEECCSSSSSSEEEEEEEEEEE...",
+  "....E......CSSSSSS.......EE......",
+  "....E......CCCCCCCCCCCCCCEE......",
+  "....E.......CCCCCCCCCCCCCEEC.....",
+  "............CCCCCCCCCCCCCCCCC...."
+ ]
+}

@@ -1,0 +1,102 @@
+{
+ "code": "P0291",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Гроза под стеклянным колпаком тарелки",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Посуда и кухонные вещи",
+ "direction": "Домашняя магия",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Под сервировочным колпаком бушует гроза; круглая ручка сверху; прозрачный купол; облако молния и дождь внутри",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 38,
+ "h": 34,
+ "N": 863,
+ "colours": 8,
+ "volumes": {
+  "S": {
+   "cells": 251,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 212,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "V": {
+   "cells": 119,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "Y": {
+   "cells": 77,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 70,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 68,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 45,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "B": {
+   "cells": 21,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................AAAA.................",
+  "................YYYYYY................",
+  "...............AYYYYYYA...............",
+  "...............AYYYYYYA...............",
+  "...............AYYYYYYA...............",
+  "...............AYYYYYYA...............",
+  "............NNNSYYYYYSSNNNN...........",
+  "..........SSSSSSSAAAASSSSSNN..........",
+  "........NNSSSSSSSSSSSSSSSSSSNN........",
+  "........NSSSCCSSSSSSSSSSSSSSSNN.......",
+  ".......SSSCCCCSSSSSSSSSSSSSSSSN.......",
+  "......NSSCCCSSSSVVVVVVSSSSSSSSSS......",
+  ".....NNSSCCSSSVVVVVVVVVVSSSSSSSSS.....",
+  ".....NSSCCSSSSVVVVVVVVVVVSSSSSSSS.....",
+  ".....NSSCCSSVVVVVVVVVVVVVVVSSSSSSN....",
+  "....NSSCCCVVVVVVVVVVVVVVVVVVSSSSSN....",
+  "....NSSCCVVVVVVVVVVVVVVVVVVVVSSSSN....",
+  "....NSSCCVVVVVVVVVVYYYYYVVVVVSSSSN....",
+  "...NSSSCCSVVVVVVVVYYYYYVVVVVSSSSSSN...",
+  "...NSSSCCSSVVVVVVYYYYYVVVVVSSSSSSSN...",
+  "...NSSSSSSBBSSSSSYYYYYYYYYBBSSSSSSN...",
+  "...NSSSSSSBBSSSSYYYYYYYYSSBBSSSSSSN...",
+  "...NSSSSSBBBSSSYYYYYYYYSSBBBSSSSSSN...",
+  "...NSSSSSBBSSSSSSSSSYYSSSBBBSSSSSSN...",
+  "...NSSSSBBEEEEEEEEEEEEEEEEEESSSSSSN...",
+  "...NSEEEEEECCCCCCCCCCCCCCCCEEEEEESN...",
+  "..EEECCCCCCCCCCCCCCCCCCCCCCCCCCCCEEE..",
+  ".CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.",
+  "CCCCCCAAAAAAAAAAAAAAAAAAAAAAAAAACCCCCC",
+  "CCCCCCAAAAAAAAAAAAAAAAAAAAAAAAAACCCCCC",
+  ".CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.",
+  "..EEECCCCCCCCCCCCCCCCCCCCCCCCCCCCEEE..",
+  ".....EEEEECCCCCCCCCCCCCCCCCCEEEEE.....",
+  "..........EEEEEEEEEEEEEEEEEE.........."
+ ]
+}

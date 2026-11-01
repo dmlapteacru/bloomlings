@@ -1,0 +1,99 @@
+{
+ "code": "P0366",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Стеклянный хлеб с клубничным вареньем",
+ "theme": "Обмен свойствами предметов",
+ "family": "Лаборатории и изобретения",
+ "direction": "Предметные гибриды",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Прозрачный голубой хлеб намазан вареньем; широкий ломоть с корочкой; прозрачные голубые отверстия; яркий красный слой",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 40,
+ "h": 37,
+ "N": 1196,
+ "colours": 7,
+ "volumes": {
+  "B": {
+   "cells": 470,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "S": {
+   "cells": 271,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "R": {
+   "cells": 173,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "N": {
+   "cells": 141,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 74,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 59,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 8,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................NNNNNN.................",
+  ".............NNNNNBBBBNNNNN.............",
+  "...........NNNBBBBBBBBBBBBNNN...........",
+  ".........NNNBBBBBBBBBBBBBBBBBNN.........",
+  "........NNBBBBBBBBBBBBBBBBBBBBNN........",
+  "......BBBBBBBBBBBBBBBBBBBBBBBBBBBB......",
+  "....BBBBBBBBBBBBSSSSSSSSGGGGGBBBBBBB....",
+  "..NNBBBBBBBBBBSSSSSSSSGGGGGGGBBBBBBBNN..",
+  ".NNBBBBBBBBBSSSSSSSSSGGGGGGGGBBBBBBBBNN.",
+  ".NBBBBBBBBSSSSSRRRRRRGGGGGGGGSBBBBBBBBN.",
+  "NBBBBBBBSSSSSRRRRRRRGGGGGGGGGSSSBBBBBBBN",
+  "NBBBBBCSSSSRRRRRRRRRGGGGGGGGRRSSSBBBBBBN",
+  "NBBBBBCCSSRRRRRRRRRRGGGGGGGRRRRSSSBBBBBN",
+  "NBBBBBCCSSRRRRRRRRRRGGGGGGRRRRRSSSBBBBBN",
+  "NBBBBBCCSSRRRRRRRRRYYGRRRRRRRRSSSSBBBBBN",
+  ".NBBBBCCSSRRRRRRRRYYYYRRRRRRRRSSSBBBBBB.",
+  ".NNBBBCCSSRRRRRRRRRYYRRRRRRRRRSSBBBBBBB.",
+  "..NBBBCCBSRRRRRRRRRRRRRRRRRRRRSBBBBBBB..",
+  "...NBBCCBRRRRRRRRRRRRRRRSSRRRSSBBBBBN...",
+  "...NNBCCBRRRRRRCRRRRRRRSSSSSRSSBBBBNN...",
+  "....NBCCBRRRRCCCCRRRRRSSSSSSSSSBBBBNN...",
+  "....NBCCBRRSSCCCSSRRRRSSSSSSSSSBBBBNN...",
+  "....NBCCBSSSSSSSSSSRRSSSCCCSSSSBBBBNN...",
+  "....NBCCBSSSSSSSSSSSSSSCCCCCSSSBBBBNN...",
+  "....NBCCBSSSSSSSSSSSSSCCCCCCCSSBBBBNN...",
+  "....NBCCBSSSSSSSSSSSSSCCCCCCCSSBBBBNN...",
+  "....NBBBBSSSSSSSSSSSSSCCCCCCCSSBBBBNN...",
+  "....NBBBBSSSSSSSSSSSSSSCCCCCSSSBBBBNN...",
+  "....NBBBBSSSBBBSSSSSSSSSCCCSSSSBBBBNN...",
+  "....NBBBBSSBBBBBSSSSSSSSSSSSSSSBBBBNN...",
+  "....NBBBBSSBBBBBSSSSSSSSSSSSSSSBBBBNN...",
+  "....NBBBBSSSBBBSSSSSSSSSSSSSSSSBBBBNN...",
+  "....NBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBNN...",
+  "....NBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBNN...",
+  "....NBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBNN...",
+  "....NBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBNN...",
+  "....NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN...."
+ ]
+}

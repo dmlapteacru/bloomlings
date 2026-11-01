@@ -1,0 +1,86 @@
+{
+ "code": "P0347",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Свеча с ледяным пламенем",
+ "theme": "Уютная мистика",
+ "family": "Свет и домашний декор",
+ "direction": "Уютная мистика",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Свеча горит ледяным огнём; толстый восковой столбик; голубое гранёное пламя; ледяные потёки по бокам",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 22,
+ "h": 29,
+ "N": 368,
+ "colours": 6,
+ "volumes": {
+  "S": {
+   "cells": 89,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "V": {
+   "cells": 86,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "Y": {
+   "cells": 68,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 58,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 49,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "E": {
+   "cells": 18,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..........CC..........",
+  ".........CCSS.........",
+  "........CCCSSS........",
+  "........CCCSSS........",
+  ".......CCCCSSSS.......",
+  "......CCCCCSSSSS......",
+  ".....CCCCCCSSSSSS.....",
+  "....NCCCCCCSSSSSSS....",
+  "....NCCCCCCSSSSSSS....",
+  "....NCCCCCCSSSSSSS....",
+  "....NCCCCCCSSSSSSS....",
+  ".....NCCCCCSSSSSN.....",
+  ".....NCCCCSSSSSSN.....",
+  ".....NSSSSSSSSSNN.....",
+  ".....NSSSNNNNNNVN.....",
+  ".....NSSSVVVVVVVN.....",
+  ".....NSSSVVVVVVVN.....",
+  ".....NSSSVVVVVVVN.....",
+  ".....NSSSVVVVVVVN.....",
+  ".....NSSSVVVVVVVN.....",
+  ".....NVVVVVVVVVVN.....",
+  ".....NVVVVVVVVVVN.....",
+  "...YYNVVVVVVVVVVNYY...",
+  ".YYYYNVVVVVVVVVVNYYYY.",
+  "EYYYYNVVVVVVVVVVNYYYYE",
+  "EYYYYYNNNNNNNNNNYYYYYE",
+  "EYYYYYYYYYYYYYYYYYYYYE",
+  "..YYYYYYYYYYYYYYYYYY..",
+  ".....EEEEEEEEEEEE....."
+ ]
+}
