@@ -21,7 +21,7 @@
 //   count and check a module's matrices without recording them (skill bloomlings-board-picture), sheet from the matrices
 // A batch module: export default {theme, pictures:[{title, theme?, forLevel?, family, direction?, device?, subject?, source?,
 // reference?, rows:[…top first…]}]} (tags: product/design/Bloomlings-picture-theme-catalog.md); rows use the
-// palette letters GPBACDVYOLMRKNSE, '.' for empty, '#' for an impassable strip and 'b' for a bridge site on it. A strip
+// palette letters GPBACDVYOLMRKNSETUFHXWZJ, '.' for empty, '#' for an impassable strip and 'b' for a bridge site on it. A strip
 // may run in any direction (17 §8, 2026-10-28): a stream across, a fence or wall along; each site's anchor is its one
 // neighbour on the near bank (below, left or right), a colour cell, and exactly two sites make the choice.
 import fs from 'node:fs';import path from 'node:path';import {pathToFileURL} from 'node:url';

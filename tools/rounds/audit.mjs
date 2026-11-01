@@ -7,10 +7,12 @@ import fs from 'node:fs';import path from 'node:path';
 import {LEVELS,CODES,readJSON,lid,arg,picture,measure,fitsStage,stageOf,budget,columnsFor,slotOf,SUPPORTED,FIXED_VOLUMES,motifsOf,boardOf,overlaid} from './lib.mjs';
 import {engine} from './engine.mjs';
 import {run} from '../level-stats/trace.mjs';
-import {bridgeChoicesWin,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,pressure,calmTest,calmFails,calmBorderline,trapLinks} from './measure.mjs';
+import {cellsHiddenAtStart,bridgeChoicesWin,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,pressure,calmTest,calmFails,calmBorderline,trapLinks} from './measure.mjs';
 import {INTRO,planOf,repeatWindow} from './lib.mjs';
 import {fitness} from './fitness.mjs';
 const from=+process.argv[2]||1,to=+process.argv[3]||20,preview=arg('--preview'),out=arg('--out');
+// the builder's doses (levels.mjs; 'noop' keeps its command line quiet), for the hidden-cell dose of 17 §8
+process.argv.splice(2,0,'noop');const LV=await import('./levels.mjs');process.argv.splice(2,1);
 const QUALITY=readJSON(path.join(path.dirname(LEVELS),'quality.json'),{pressure:{min:{},games:30,mode:'soft'},launchesAfter80:{}});
 const E=await engine(),{R}=E,FIX={1:[[26,26,26,25,25],[16,16,16],[5]],2:[[40,40,40],[33,32,32],[10,9],[4]],3:[[26,25,25],[24,23,23],[35,34],[26,25],[13],[2]]};
 const rows=[],levels={};
@@ -59,6 +61,17 @@ for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
  if(types.includes('hidden')!==(hidden>0))bad.push('рецепт и скрытые поды не совпадают');if(types.includes('links')!==(groups.length>0))bad.push('рецепт и связки не совпадают');
  if(groups.some(g=>g.length!==2))bad.push('связка не парная (обычная генерация — пары, §8)');
  if(types.includes('bridge')!==!!d.hero)bad.push('рецепт и мост не совпадают');
+ // hidden cells (17 §8 «Скрытые клетки», the owner, 2026-11-01): colour cells, never with hidden pods, the dose counted
+ // after the start reveal by class and role (an introduction 5–10 cells, §9)
+ {const hc=d.hiddenCells||[],grid=d.rowsBottomFirst.join('');
+  if(types.includes('cells')!==(hc.length>0))bad.push('рецепт и скрытые клетки не совпадают');
+  if(hc.some(i=>!CODES.includes(grid[i])))bad.push('скрытая клетка не цветная (§8)');
+  if(hc.length&&hidden>0)bad.push('скрытые клетки вместе со скрытыми подами (§8: на уровне либо одно, либо другое)');
+  if(types.includes('hidden')&&types.includes('cells'))bad.push('рецепт со скрытыми подами и скрытыми клетками (§8)');
+  if(hc.length){const k=cellsHiddenAtStart(d);L._cells=k;
+   if(slot.intro==='cells'){if(k<5||k>10)bad.push(`знакомство: скрытых клеток после стартового раскрытия ${k}, нужно 5–10 (§9)`);}
+   else if(types.includes('cells')){const dz=LV.doses(L.recipe,L.cls,P,false,W);if(dz.cells&&(k<dz.cells[0]||k>Math.max(dz.cells[0],dz.cells[1])))bad.push(`скрытых клеток после стартового раскрытия ${k} вне ${dz.cells.join('–')} для ${L.cls} (${types.filter(t=>t!=='bridge')[0]==='cells'?'ведущая':'дополнительная'}, §7, §8)`);}
+   if(k<hc.length)soft.push(`скрытых клеток ${hc.length}, из них ${hc.length-k} раскрыты сразу на старте (в дозу не входят, §8)`);}}
  if(L.cls!==slot.cls)bad.push(`класс ${L.cls}, календарь ждёт ${slot.cls} (§5)`);
  const secondIntro=!!slot.intro&&INTRO.some(([m,,b])=>m===slot.intro&&b===n);
  if(slot.intro){if(L.intro!==slot.intro||L.recipe!==slot.intro)bad.push(`знакомство с ${slot.intro}: рецепт ${L.recipe} (§9)`);
@@ -111,7 +124,7 @@ for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
  if(n===1&&(sh<1||L.solution.forks>0))bad.push('L1: есть проигрышный выбор (§4)');if((n===2||n===3)&&sh<.9)bad.push('L2–L3: случайный тест ниже 90 % (§4)');
  // the saved solution (§1, §13.7, §14): replayed now on the live timeline, without boosters, 5 places
  const tr=run(E,d,{commands:L.solution.route.map(a=>({t:0,action:a})),patient:true});if(tr.status!=='won')bad.push(`сохранённое решение не выигрывает при воспроизведении (${tr.status})`);
- if(!L.fairness||L.fairness.fair!==true)bad.push('честность скрытых не подтверждена (§8)');
+ if(!L.fairness||L.fairness.fair!==true)bad.push((d.hiddenCells&&d.hiddenCells.length?'честность скрытых клеток':'честность скрытых')+' не подтверждена (§8)');
  const att=+String(L.candidate).split('-').filter(x=>/^\d+$/.test(x)).pop();if(att>=64)bad.push(`кандидат №${att}: бюджет поиска 64 (§13.5)`);
  // soft targets: §5 extras, §10 rhythm, §11 simple strategies, §12 durations
  const fk={Normal:[0,2],Hard:[2,5],'Super Hard':[3,8]}[L.cls];if(L.solution.forks<fk[0]||L.solution.forks>fk[1])soft.push(`опасных развилок ${L.solution.forks} (ориентир ${fk.join('–')}, §5)`);

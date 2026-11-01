@@ -230,8 +230,10 @@ owner sees the same behaviour as in the playtest app.
 - **FR-003**: Time on the timeline MUST be model time in whole microseconds, never device time. A command MUST carry the
   model time at which it was accepted, so the same commands always give the same outcome, at any display speed or frame
   rate.
-- **FR-004**: The game MUST know the 16 materials of the round palette (4 per hero, with their names). Each material is
-  its own exact target: a pod clears only its own material, and the four materials of one hero are not interchangeable.
+- **FR-004**: The game MUST know the 24 materials of the round palette (6 per hero, with their names; 16, 4 per hero,
+  until the owner's amendment of 2026-11-01 to rules 17 §3, which appends 8 and keeps the first 16 as they were). Each
+  material is its own exact target: a pod clears only its own material, and the materials of one hero are not
+  interchangeable.
 - **FR-005**: A round board MUST be the approved picture (up to 44×44 cells) inside the frame of the round engine:
   - an open ring path, then a wall;
   - one gate in the middle of the bottom;
@@ -320,11 +322,11 @@ owner sees the same behaviour as in the playtest app.
   second introduction shows a short reminder. A hidden pod that has just revealed glows briefly.
 - **FR-046**: The class badge (Hard, Super Hard), the finished picture in the win screen and Collection, and the rewards
   by class MUST work for round levels as for today's levels.
-- **FR-047**: Every pair of the 16 round colours MUST pass the game's readability test under normal vision: the
+- **FR-047**: Every pair of the 24 round colours MUST pass the game's readability test under normal vision: the
   smallest CIEDE2000 is at least 10. Settings MUST offer a symbols mode, off by default, that shows each material's
   symbol on board cubes, pods and places, so colour-blind players can tell materials apart. Levels need not avoid colour
   pairs.
-- **FR-048**: The walking Bloomlings of every clearing style MUST show the hero of the material's family (each of the 16
+- **FR-048**: The walking Bloomlings of every clearing style MUST show the hero of the material's family (each of the 24
   colours belongs to one of the 4 heroes), tinted in that material's colour. The same holds in the Store's clearing
   previews.
 - **FR-049** (the owner's board, 2026-10-28): The board MUST stand in one fixed, roughly square box, the same position and

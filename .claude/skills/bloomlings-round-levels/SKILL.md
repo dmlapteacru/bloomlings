@@ -74,8 +74,8 @@ Pictures are not tied to levels (except the locked levels 1–3).
 
 - Every 15th level is Super Hard, other multiples of 5 are Hard, the rest Normal.
 - Mechanic introductions are two Normal levels each, alone, with a random-test target of 90–100 %: hidden pods 6/8,
-  links 11/13, Sprig bridge 16/18, latch + acorn key 51/53, canal 101/103, shutters 151/153, repair 201/203, bud
-  251/253, seed 301/303, well 351/353, hidden cells 401/403, stacks 451/453.
+  links 11/13, Sprig bridge 16/18, hidden cells 51/53 (the owner's amendment of 2026-11-01), canal 101/103, shutters
+  151/153, repair 201/203, bud 251/253, seed 301/303, well 351/353, latch + acorn key 401/403, stacks 451/453.
 - A type is not used before its first introduction, nor between its two introductions. From the third appearance it
   may combine with known types.
 - L1–L5 have no extras. L1 must have no losing choice; L2–L3 aim at 90–100 %.
@@ -85,8 +85,9 @@ Pictures are not tied to levels (except the locked levels 1–3).
 ## Engine support (17 §14: every mechanic used must really be supported)
 
 `tools/rounds/engine.mjs` is the pilot v9 engine (v8 base, slot positions of §1) with the §8 link rule.
-- **It plays:** hidden pods, linked pairs, Sprig's bridge.
-- **It does not play yet:** latch + acorn key, canal, shutters, repair, bud, seed, well, hidden cells, stacks
+- **It plays:** hidden pods, linked pairs, Sprig's bridge, hidden cells (recipe `cells`; never on a level with hidden
+  pods; the data and event spec in `tools/rounds/README.md`).
+- **It does not play yet:** latch + acorn key, canal, shutters, repair, bud, seed, well, stacks
   (`SUPPORTED` in `tools/rounds/lib.mjs`).
 
 The builder only uses supported types. For a position that needs an unsupported type, stop and tell the owner:
@@ -144,8 +145,10 @@ the supported three.
        work (§6). It deals the pods into 3 or 4 columns by N, with start heights within 1.
      - adds the recipe's mechanics at the doses of §7 (one type: full range; two: the additional at its minimum
        admissible dose, links an even count; three: the lead in the lower half of its range, the others at minimum;
-       the lead's dose at the place of the §7 cycle; small queue under 16 pods: one type). Introductions use teaching doses: 2–3 hidden pods (the first in row 2), 1 pair, 1 bridge choice.
-       Hidden pods start from the second row and are never in a group.
+       the lead's dose at the place of the §7 cycle; small queue under 16 pods: one type). Introductions use teaching doses: 2–3 hidden pods (the first in row 2), 1 pair, 1 bridge choice, 5–10 hidden cells.
+       Hidden pods start from the second row and are never in a group. Hidden cells (`cells`, 17 §8) are counted after
+       the start reveal (shares of N: lead Normal 5–10 %, Hard 10–20 %, Super Hard 15–30 %; additional 5–8 %), lie off
+       the start front and off a bridge's far bank, in one to three compact patches (`pickHiddenCells`).
      - checks the exact balance of every material and the pod rules.
      - screens with 40 random games, then saves a winning solution: a full-information search, replayed on the live
        timeline. It also records the same actions tapped at once, as the lower bound of time.
@@ -153,7 +156,8 @@ the supported three.
        legal actions plus waiting before a scheduled event; ×1.
      - rechecks the doses against the **measured** class.
      - checks fairness of hidden pods: every world where the hidden pods swap material and count must still win after
-       following the saved solution until a differing pod shows.
+       following the saved solution until a differing pod shows; for hidden cells (`cellFairness`) every world where two
+       hidden cells of different materials swap them, until one of them reveals.
      - runs the simple strategies of §11 (left/right hero choice) and the rhythm by fifths of W of §10.
    - Accepted candidates go to `content/rounds/bank/P####.json` with all measures. A picture whose pods cannot fit
      §3 is recorded with its reason.

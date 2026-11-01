@@ -1,5 +1,5 @@
 // Shared pieces of the round pipeline (product/17_LEVEL_GENERATION_RULES.md): paths, the picture manifest, the
-// palette of the pilot (16 colours, 4 per hero), the rules' tables (stages, pod budgets, difficulty calendar, mechanic
+// palette of the pilot (24 colours, 6 per hero), the rules' tables (stages, pod budgets, difficulty calendar, mechanic
 // introductions), a dependency-free PNG writer and the board built around a picture.
 import fs from 'node:fs';import path from 'node:path';import zlib from 'node:zlib';import {createRequire} from 'node:module';import {fileURLToPath} from 'node:url';
 export const root=path.resolve(path.dirname(fileURLToPath(import.meta.url)),'../..');
@@ -56,10 +56,14 @@ export function columnsFor(N){return N<700?[3]:N<1000?[3,4]:[4,5];}
 
 // ---- difficulty calendar (§5) and mechanic introductions (§9) ----
 export const classOf=n=>n%15===0?'Super Hard':n%5===0?'Hard':'Normal';
-export const INTRO=[['hidden',6,8],['links',11,13],['bridge',16,18],['latch',51,53],['canal',101,103],['shutters',151,153],['repair',201,203],['bud',251,253],['seed',301,303],['well',351,353],['hiddenCells',401,403],['stacks',451,453]];
-export const MECH_RU={hidden:'скрытые поды',links:'связки',bridge:'мост Sprig',latch:'засов и жёлудь-ключ Twig',canal:'водный канал Drop',shutters:'деревянные створки Twig',repair:'ремонт пятого места Twig',bud:'закрытый бутон Bloom',seed:'семечко Bloom',well:'колодец Drop',hiddenCells:'скрытые клетки Drop',stacks:'стопки одного материала'};
+// hidden cells ('cells') at 51/53 and latch + key at 401/403 (the owner's amendment of 2026-11-01, 17 §9)
+export const INTRO=[['hidden',6,8],['links',11,13],['bridge',16,18],['cells',51,53],['canal',101,103],['shutters',151,153],['repair',201,203],['bud',251,253],['seed',301,303],['well',351,353],['latch',401,403],['stacks',451,453]];
+export const MECH_RU={hidden:'скрытые поды',links:'связки',bridge:'мост Sprig',latch:'засов и жёлудь-ключ Twig',canal:'водный канал Drop',shutters:'деревянные створки Twig',repair:'ремонт пятого места Twig',bud:'закрытый бутон Bloom',seed:'семечко Bloom',well:'колодец Drop',cells:'скрытые клетки',stacks:'стопки одного материала'};
 // what the round engine (tools/rounds/engine.mjs) really plays today; the rest waits for an engine change (§14)
-export const SUPPORTED=new Set(['hidden','links','bridge']);
+export const SUPPORTED=new Set(['hidden','links','bridge','cells']);
+// hidden pods and hidden cells are interchangeable unknowns and never on one level (17 §8, the owner, 2026-11-01)
+export const EXCLUSIVE=[['hidden','cells']];
+export const recipeAllowed=recipe=>{const t=(recipe||'none').split('+');return !EXCLUSIVE.some(g=>g.every(m=>t.includes(m)));};
 // which mechanic a level must introduce, which may appear, and whether the level is a first meeting
 export function slotOf(n){const intro=INTRO.find(([,a,b])=>n===a||n===b);
  const open=INTRO.filter(([,a,b])=>n>b).map(([m])=>m);

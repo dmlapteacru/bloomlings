@@ -3,16 +3,16 @@
 Entities, fields, validation rules and states. Wire formats are in `contracts/`. "Reference" means the round engine at
 the fingerprints recorded in the level's proof (research R12).
 
-## RoundMaterial (16, fixed)
+## RoundMaterial (24, fixed; 16 until the owner's amendment of 2026-11-01, which appended the last 8)
 
 | Field | Meaning |
 |---|---|
-| `code` | one letter of `GPBACDVYOLMRKNSE`; the wire id in matrices and pods |
-| `name` | Лист, Лепесток, Вода, Янтарь, Жемчуг, Земля, Слива, Солнце, Тыква, Лайм, Мох, Ягода, Румянец, Глубина, Небо, Кора (localized keys in the client) |
-| `family` | sprig, bloom, drop or twig (G sprig, P bloom, B drop, A twig, C drop, D twig, V bloom, Y sprig, O twig, L sprig, M sprig, R bloom, K bloom, N drop, S drop, E twig) |
+| `code` | one letter of `GPBACDVYOLMRKNSETUFHXWZJ`; the wire id in matrices and pods |
+| `name` | Лист, Лепесток, Вода, Янтарь, Жемчуг, Земля, Слива, Солнце, Тыква, Лайм, Мох, Ягода, Румянец, Глубина, Небо, Кора, Мята, Олива, Фуксия, Лаванда, Туман, Снег, Песок, Уголь (localized keys in the client) |
+| `family` | sprig, bloom, drop or twig (G sprig, P bloom, B drop, A twig, C drop, D twig, V bloom, Y sprig, O twig, L sprig, M sprig, R bloom, K bloom, N drop, S drop, E twig, T sprig, U sprig, F bloom, H bloom, X drop, W drop, Z twig, J twig) |
 | `color` | normal palette hex (`palette.cjs normal`) |
 | `accessibleColor` | accessible palette hex |
-| `symbol` | the symbol shown in the symbols mode (♧ ✿ ◆ ● ◇ ▰ ✦ ☀ ▲ ✚ ♣ ♥ ❀ ▼ ○ ■) |
+| `symbol` | the symbol shown in the symbols mode (♧ ✿ ◆ ● ◇ ▰ ✦ ☀ ▲ ✚ ♣ ♥ ❀ ▼ ○ ■ ♠ ✕ ★ ☾ ☁ ❄ ⧗ ⬢) |
 
 Rules:
 - A pod clears only cells of its own code.

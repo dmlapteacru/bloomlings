@@ -63,7 +63,7 @@ No new third-party packages.
 
 **Scale/Scope**:
 - 20 levels now, waves of 50 up to 2500;
-- 16 materials;
+- 24 materials (16 until 2026-11-01);
 - 3 mechanics (hidden, links, bridge);
 - 4 boosters.
 
@@ -111,7 +111,7 @@ specs/006-round-levels-in-game/
 
 ```text
 core/src/Bloomlings.Core/Rounds/              # NEW: the game's rules (port of tools/rounds/engine)
-├── RoundMaterial.cs        # 16 materials: code, family, colours, symbol
+├── RoundMaterial.cs        # 24 materials: code, family, colours, symbol
 ├── RoundLevel.cs           # definition + validation (round-level.v1)
 ├── RoundState.cs           # board, remaining, columns, heads, slots, ages, revealed, bridge, status
 ├── RoundRules.cs           # reach, routeTo, topPods, canTap, legal, check, status, compactSlots, bridgeChoices

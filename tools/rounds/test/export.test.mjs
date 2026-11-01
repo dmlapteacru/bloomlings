@@ -48,7 +48,8 @@ test('refuses an exception string without a recorded owner decision',()=>{const 
  const f=path.join(dir,'levels','L0002.json'),L=readJSON(f);L.exception='временно';fs.writeFileSync(f,JSON.stringify(L));
  const r=exportCli(dir,1,2);assert.equal(r.status,1);assert.match(r.stderr,/unknown exception: L0002/);});
 
-test('confirm refuses results played on another engine',()=>{const dir=sandbox(),res=readJSON(path.join(ROOT,RESULTS));res.rulesHash='0'.repeat(64);
+// (only the rules differ: the other parts as the current engine's, so the refusal names the rules alone)
+test('confirm refuses results played on another engine',()=>{const dir=sandbox(),res=readJSON(path.join(ROOT,RESULTS)),fp=C.fingerprints();Object.assign(res,{timelineHash:fp.timeline,paletteHash:fp.palette,clockHash:fp.clock});res.rulesHash='0'.repeat(64);
  const f=path.join(dir,'results.json');fs.writeFileSync(f,JSON.stringify(res));
  const r=confirmCli(dir,1,2,f);assert.equal(r.status,1);assert.match(r.stderr,/another engine \(rules differ\)/);
  assert.equal(fs.existsSync(path.join(dir,'runs','L0001-L0002','confirmed.json')),false);});
@@ -90,7 +91,7 @@ test('L18 carries the owner exception in the level format',()=>{const lv=X.level
 
 test('schemas refuse the contract cases',()=>{const lv=X.levelV1(level(1),C.fingerprints());lv.picture.version=1;assert.deepEqual(validate('round-level',lv),[]);
  const bad=f=>{const x=structuredClone(lv);f(x);return validate('round-level',x);};
- assert.ok(bad(x=>x.board.w=49).length);assert.ok(bad(x=>x.capacity=4).length);assert.ok(bad(x=>x.pods[0].count=61).length);assert.ok(bad(x=>x.pods[0].code='X').length);
+ assert.ok(bad(x=>x.board.w=49).length);assert.ok(bad(x=>x.capacity=4).length);assert.ok(bad(x=>x.pods[0].count=61).length);assert.ok(bad(x=>x.pods[0].code='Q').length);
  assert.ok(bad(x=>x.extra=1).length);assert.ok(bad(x=>delete x.engine).length);});
 
 test('canonical event lines and the extended signature',async()=>{const def=X.levelV1(level(1),C.fingerprints()),tr=await C.solutionTrace(def,level(1).solution.route);

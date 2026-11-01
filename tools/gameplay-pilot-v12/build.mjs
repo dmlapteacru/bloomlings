@@ -33,11 +33,11 @@ for(const n of IDS){let L=readJSON(path.join(LEVELS,lid(n)+'.json')),draft=false
  // a split picture's strip (definition.strip 'gap', 17 §8 «Одна цельная картинка», 2026-10-29): drawn as the board's
  // surface with a subtle edge, not as water (kept out of the level objects too)
  if(d.strip==='gap')gap[n]=true;
- levels.push({id:n,title:d.title,subject:L.picture,w:d.w,h:d.h,rowsBottomFirst:d.rowsBottomFirst,entries:d.entries,capacity:d.capacity,pods:d.pods,tray:d.tray,difficulty:L.cls,...(d.hero?{hero:d.hero}:{})});
+ levels.push({id:n,title:d.title,subject:L.picture,w:d.w,h:d.h,rowsBottomFirst:d.rowsBottomFirst,entries:d.entries,capacity:d.capacity,pods:d.pods,tray:d.tray,difficulty:L.cls,...(d.hero?{hero:d.hero}:{}),...(d.hiddenCells?{hiddenCells:d.hiddenCells}:{})});
  // a level stands on a draft when its picture is not approved in the repository (a trial folder may approve drafts)
  {const real=readJSON(path.join(root,'content/rounds/pictures',L.picture+'.json'));if(real&&real.status!=='approved')draft=true;}
  if(draft)drafts.push(n);
- cards.push({level:n,bridgeKind:L.checks&&L.checks.bridgeKind||null,bridgeSide:L.bridgeSide||null,overlay:!!d.overlay,gap:d.strip==='gap',cls:L.cls,intro:L.intro,picture:L.picture,recipe:L.recipe,N:L.N,colours:L.colours,P:L.P,columns:L.columns,linked:L.linked,hidden:L.hidden,random:L.random.share,runs:L.random.runs,borderline:!!L.random.borderline,seconds:L.rhythm.seconds,draft});}
+ cards.push({level:n,bridgeKind:L.checks&&L.checks.bridgeKind||null,bridgeSide:L.bridgeSide||null,overlay:!!d.overlay,gap:d.strip==='gap',cls:L.cls,intro:L.intro,picture:L.picture,recipe:L.recipe,N:L.N,colours:L.colours,P:L.P,columns:L.columns,linked:L.linked,hidden:L.hidden,...(L.cells!=null?{cells:L.cells}:{}),random:L.random.share,runs:L.random.runs,borderline:!!L.random.borderline,seconds:L.rhythm.seconds,draft});}
 
 // ---- lessons: L1, each new colour, each mechanic's introductions (the second as a reminder), the first Hard and Super Hard ----
 const lessons={},tags={},seen=new Set(),introduced=new Set();
@@ -58,6 +58,10 @@ for(const L of levels){const used=[...new Set(L.pods.map(p=>p.color))],fresh=use
   texts.unshift('Капсула ? прячет цвет и число, пока не станет верхней в своём столбце; тогда она открывается сама, ещё до выбора. Держи свободное место для команды, которая может понадобиться.');}
  if(intro==='links'){title='Связка';hero='bloom';swatch=swatch||L.pods.find(p=>p.group).color;
   texts.unshift('Трубка связывает две капсулы. Тап отправляет обе сразу: нужны два свободных места, а напарник должен быть доступен — наверху своего столбца или прямо под капсулой своей же связки. Оба места освободятся вместе, когда закончит вся пара.');}
+ // hidden cells (17 §8 «Скрытые клетки», the owner, 2026-11-01): explained on both introductions
+ if(intro==='cells'){title='Скрытые клетки';hero='drop';swatch=swatch||used[0];
+  texts.unshift('Серые кубики со знаком ? прячут свой цвет. Кубик откроется сам, когда рядом с ним появится расчищенная дорожка от ворот, — тогда это обычный кубик своего цвета. Пока он скрыт, его не собрать и через него не пройти. Оставь место для команды, цвет которой может понадобиться.');}
+ if(again==='cells'){title='Снова скрытые клетки';hero='drop';swatch=swatch||used[0];texts.unshift('Кубик ? откроется, когда к нему подойдёт расчищенная дорожка. Его цвет заранее не узнать: держи место свободным.');}
  if(intro==='bridge'){title='Мостик Sprig';hero='sprig';swatch=swatch||'G';
   texts.unshift('Ручей не перейти. Когда путь к отмеченному месту у берега открыт, нажми кнопку под полем: Sprig вырастит мостик. Мест два, построить можно один, выбор постоянный. Мостик не тратит капсулу и место.');}
  const firstOf=cls=>levels.find(x=>x.difficulty===cls)===L;
@@ -73,7 +77,7 @@ Object.assign(dataset,{rulesHash:sha(rules),timelineHash:sha(timeline),paletteHa
 // ---- page: the data-driven texts go into this folder's page.html markers ----
 const ui=read(path.join(SRC,'ui.js'));
 const intro=cards.filter(c=>c.intro),hard=cards.filter(c=>c.cls!=='Normal');
-const MECH={hidden:'капсулы ?',links:'связки',bridge:'мостик Sprig'};
+const MECH={hidden:'капсулы ?',links:'связки',bridge:'мостик Sprig',cells:'клетки ?'};
 const welcome=`<h2>${list?`Выборка волны: ${list.map(n=>'L'+n).join(', ')}`:`Первые ${levels.length} уровней по правилам 17`}</h2><div class="welcome-heroes" id="welcomeHeroes"></div><p>Новые раунды: картинки из утверждённого набора, очереди собраны генератором и решены. Класс каждого уровня измерен случайным тестом (100–400 партий): Normal — бот выигрывает от 50 %, Hard — 20–50 %, Super Hard — 5–20 %. Календарь: каждый 5-й уровень Hard, 15-й — Super Hard.</p><p>Что нового в v12 (по вашим заметкам к v11): Hard и Super Hard не проходятся «правильным первым тапом и дальше по цветам»; в части Normal игра «по цветам» проигрывает и есть капсула, которая держит место; со второго мостика решать должен только один мост (для L18 нужна новая картинка с ручьём, пока исключение); скрытых капсул больше, они раньше, а открывшаяся капсула подсвечивается.</p><p>Знакомства: ${[...new Set(intro.map(c=>c.intro))].map(m=>`${MECH[m]} — L${intro.filter(c=>c.intro===m).map(c=>c.level).join(' и L')}`).join('; ')}. Сложные: ${hard.map(c=>`L${c.level} ${c.cls}`).join(', ')}.${exceptions.map(e=>` L${e.level} — исключение: ${e.note}.`).join('')}${drafts.length?` Уровни ${drafts.map(n=>'L'+n).join(', ')} собраны на картинках-черновиках (ждут утверждения) — в меню «ЧЕРНОВИК».`:''}</p><ol><li>Можно отправить несколько верхних капсул подряд, пока есть пустые места.</li><li>Команда собирает только точный материал своей капсулы.</li><li>Пока работа недоступна, остаток занимает место. Для пары нужны 2 места; оба освободятся после завершения всей пары.</li></ol><p class="subtle">Три ряда, пять мест, автоматическое ускорение ×2,5 в конце — как в v9. Внешний вид временный.</p>`;
 let page=read(path.join(SRC,'page.html'));
 for(const [k,v] of Object.entries({'/*__TITLE__*/':`Bloomlings · ${NAME} · ${levels.length} раундов`,'/*__LABEL__*/':`${NAME.toUpperCase()} · РАУНДЫ · ${levels.length} УРОВНЕЙ`,'/*__FIRST__*/':`ПЕРВЫЕ ${levels.length}`,'/*__WELCOME__*/':welcome})){if(page.split(k).length!==2)throw Error('page.html: '+k);page=page.split(k).join(v);}
@@ -89,9 +93,9 @@ fs.mkdirSync(OUT,{recursive:true});fs.writeFileSync(path.join(OUT,'index.html'),
 fs.writeFileSync(path.join(OUT,'levels.json'),JSON.stringify(dataset,null,1)+'\n');
 // README: the level table from the cards (17 §14), for the owner
 const pics=Object.fromEntries(cards.map(c=>[c.picture,readJSON(path.join(root,'content/rounds/pictures',c.picture+'.json'))]));
-const MECH_ONE={none:'—',hidden:'скрытые',links:'связки',bridge:'мост'},SIDE_RU={up:'вверх',left:'влево',right:'вправо',down:'вниз',two:'две стороны'};
+const MECH_ONE={none:'—',hidden:'скрытые',links:'связки',bridge:'мост',cells:'скрытые клетки'},SIDE_RU={up:'вверх',left:'влево',right:'вправо',down:'вниз',two:'две стороны'};
 const MECH_RU=new Proxy({},{get:(_,r)=>String(r).split('+').map(m=>MECH_ONE[m]||m).join(' + ')});
-const rows=cards.map(c=>`| ${c.level} | ${c.cls}${c.intro?` · знакомство: ${MECH_RU[c.intro]}`:''} | ${c.picture} «${pics[c.picture]?.title||''}»${c.draft?' (черновик)':''} | ${c.N} / ${c.colours} | ${c.P} / ${c.columns} | ${MECH_RU[c.recipe]||c.recipe}${c.bridgeSide?` (${SIDE_RU[c.bridgeSide]||c.bridgeSide}${c.overlay?', стена':''}${c.gap?', разделённая картинка':''})`:''}${c.linked?` (связанных ${c.linked})`:''}${c.hidden?` (скрытых ${c.hidden})`:''} | ${Math.round(c.random*100)} % из ${c.runs}${c.borderline?' (на границе)':''} | ${c.seconds} с |`).join('\n');
+const rows=cards.map(c=>`| ${c.level} | ${c.cls}${c.intro?` · знакомство: ${MECH_RU[c.intro]}`:''} | ${c.picture} «${pics[c.picture]?.title||''}»${c.draft?' (черновик)':''} | ${c.N} / ${c.colours} | ${c.P} / ${c.columns} | ${MECH_RU[c.recipe]||c.recipe}${c.bridgeSide?` (${SIDE_RU[c.bridgeSide]||c.bridgeSide}${c.overlay?', стена':''}${c.gap?', разделённая картинка':''})`:''}${c.linked?` (связанных ${c.linked})`:''}${c.hidden?` (скрытых ${c.hidden})`:''}${c.cells?` (скрытых клеток ${c.cells})`:''} | ${Math.round(c.random*100)} % из ${c.runs}${c.borderline?' (на границе)':''} | ${c.seconds} с |`).join('\n');
 fs.writeFileSync(path.join(OUT,'README.md'),`# Bloomlings v12 — первые ${levels.length} уровней раундов
 
 [Скачать ZIP для телефона](Bloomlings-pilot-${NAME}.zip). Распакуй и открой [index.html](index.html). Сеть не нужна, все уровни открыты в меню. После игры: Уровни → Результаты → скачать JSON.

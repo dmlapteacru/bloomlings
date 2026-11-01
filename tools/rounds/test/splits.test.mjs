@@ -83,8 +83,10 @@ test('gap contrast: a split with Жемчуг beside the strip is refused (it is
  const gc=BS.gapContrast(sp);assert.equal(gc.code,'C');assert.ok(gc.worst<BS.GAP_CONTRAST);assert.equal(gc.low,10);assert.equal(gc.cells,20);
  assert.ok(!BS.checkSplit(sp,pic).ok);assert.ok(BS.checkSplit(sp,pic).issues.some(i=>/почти цвета фона/.test(i)));
  assert.ok(!BS.gapOk(gc,.25)&&BS.gapOk(gc,.5),'tolerance: at most that share of the colour cells beside the strip');
- // every other palette colour is at least GAP_CONTRAST away from both surfaces
- for(const c of L.CODES)if(c!=='C'){const s=BS.splitOf({rows:['GGGG','GGGG',c.repeat(4),'GGGG','GGGG']},{side:'up',at:2,sites:[1,3]});assert.ok(BS.gapContrast(s).worst>=BS.GAP_CONTRAST,c);}
+ // every other palette colour is at least GAP_CONTRAST away from both surfaces, but for the light ones near the board's
+ // colour (Жемчуг C, and of the owner's 24 of 2026-11-01 Снег W and Песок Z), which a split refuses beside its strip too
+ const NEAR='CWZ';
+ for(const c of L.CODES){const s=BS.splitOf({rows:['GGGG','GGGG',c.repeat(4),'GGGG','GGGG']},{side:'up',at:2,sites:[1,3]});assert.equal(BS.gapContrast(s).worst>=BS.GAP_CONTRAST,!NEAR.includes(c),c);}
  // splitsFor skips the C position
  assert.ok(BS.splitsFor(pic,'up',{share:[0,1]}).every(s=>s.at!==5));});
 

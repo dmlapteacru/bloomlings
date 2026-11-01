@@ -13,7 +13,7 @@
     "class": {"enum": ["Normal", "Hard", "Super Hard"]},
     "introduction": {
       "type": "object", "additionalProperties": false, "required": ["mechanic", "second"],
-      "properties": {"mechanic": {"enum": ["hidden", "links", "bridge"]}, "second": {"type": "boolean"}}
+      "properties": {"mechanic": {"enum": ["hidden", "links", "bridge", "cells"]}, "second": {"type": "boolean"}}
     },
     "picture": {
       "type": "object", "additionalProperties": false, "required": ["id", "version"],
@@ -24,7 +24,7 @@
       "properties": {
         "w": {"type": "integer", "minimum": 7, "maximum": 48},
         "h": {"type": "integer", "minimum": 8, "maximum": 48},
-        "rowsBottomFirst": {"type": "array", "items": {"type": "string", "pattern": "^[GPBACDVYOLMRKNSE.#]+$"}},
+        "rowsBottomFirst": {"type": "array", "items": {"type": "string", "pattern": "^[GPBACDVYOLMRKNSETUFHXWZJ.#]+$"}},
         "entries": {"type": "array", "minItems": 1, "items": {"type": "integer", "minimum": 0}},
         "hero": {
           "type": "object", "additionalProperties": false, "required": ["id", "choices"],
@@ -37,6 +37,8 @@
             }}
           }
         },
+        "hiddenCells": {"type": "array", "minItems": 1, "uniqueItems": true, "items": {"type": "integer", "minimum": 0},
+          "description": "hidden cells (rules 17 §8 «Скрытые клетки», the owner, 2026-11-01): indices y*w+x of rowsBottomFirst (row 0 at the bottom), sorted ascending, each a material cell; shown as a neutral «?» cube until it gets an open neighbour reachable from an entry (or is an entry cell), then an ordinary cell; never with hidden pods"},
         "overlay": {
           "type": "object", "additionalProperties": false, "required": ["walls", "sites"],
           "properties": {
@@ -50,14 +52,14 @@
     "pods": {"type": "array", "minItems": 2, "items": {
       "type": "object", "additionalProperties": false, "required": ["code", "count"],
       "properties": {
-        "code": {"type": "string", "pattern": "^[GPBACDVYOLMRKNSE]$"},
+        "code": {"type": "string", "pattern": "^[GPBACDVYOLMRKNSETUFHXWZJ]$"},
         "count": {"type": "integer", "minimum": 1, "maximum": 60},
         "mystery": {"const": "depth"},
         "group": {"type": "string", "pattern": "^[A-Z][0-9]*$"}
       }
     }},
     "tray": {"type": "array", "minItems": 2, "maxItems": 6, "items": {"type": "array", "minItems": 1, "items": {"type": "integer", "minimum": 0}}},
-    "mechanics": {"type": "array", "uniqueItems": true, "items": {"enum": ["hidden", "links", "bridge"]}},
+    "mechanics": {"type": "array", "uniqueItems": true, "items": {"enum": ["hidden", "links", "bridge", "cells"]}},
     "exception": {
       "type": "object", "additionalProperties": false, "required": ["rule", "reason", "decidedBy", "decidedAt"],
       "properties": {"rule": {"type": "string"}, "reason": {"type": "string"}, "decidedBy": {"const": "owner"}, "decidedAt": {"type": "string", "format": "date"}}

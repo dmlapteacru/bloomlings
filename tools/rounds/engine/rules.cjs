@@ -9,8 +9,10 @@
   else root.BloomPilotRules = api;
 })(typeof globalThis !== 'undefined' ? globalThis : this, function () {
   'use strict';
-  const CHANNELS = 'GPBACDVYOLMRKNSE';
+  const CHANNELS = 'GPBACDVYOLMRKNSETUFHXWZJ';
   const OPEN = -1, WALL = -2, CAPACITY = 5;
+  // view() shows a hidden cell not revealed yet as HIDDEN (17 §8 «Скрытые клетки»); never a board value of the rules
+  const HIDDEN = -3;
   const prepared = new WeakMap();
 
   function prepare(level) {
@@ -29,7 +31,11 @@
     const entries = level.entries || [Math.floor(level.w / 2)];
     const entrySet = new Set(entries);
     const groups = level.pods.map((p,i) => p.group ? level.pods.map((other,j) => other.group===p.group?j:-1).filter(j=>j>=0) : [i]);
-    const result = { board, neighbours, colours, entries, entrySet, groups };
+    // hidden cells (17 §8 «Скрытые клетки», the owner, 2026-11-01): level.hiddenCells lists cell indices (y*w+x, rows
+    // bottom first); hidden is their mask, or null on a level without hidden cells
+    let hidden = null;
+    if (level.hiddenCells && level.hiddenCells.length) { hidden = new Uint8Array(n); for (const i of level.hiddenCells) hidden[i] = 1; }
+    const result = { board, neighbours, colours, entries, entrySet, groups, hidden };
     prepared.set(level, result);
     return result;
   }
@@ -37,6 +43,33 @@
   function revealTops(state,events) {
     for(const pod of topPods(state))if(!state.revealed[pod]&&state.level.pods[pod].mystery!=='sealed'){state.revealed[pod]=1;if(events)events.push({type:'reveal',pod});}
   }
+
+  // Hidden cells (17 §8 «Скрытые клетки», the owner, 2026-11-01): a picture cell whose material is fixed but shown as a
+  // neutral «?» until it reveals. state.veiled[i] = 1 while cell i is hidden and not revealed yet (state.veiled is null on a
+  // level without hidden cells; state.veiledLeft counts the ones). A hidden cell reveals when it gets an orthogonal
+  // neighbour that is open and reachable from an entry, or is itself an entry cell: exactly when it becomes a target
+  // (reach().targets). Open cells never close, so a target stays a target until it is cleared: the reveal never changes
+  // targeting or any other rule, and veiled is a function of the board (veiled[i] = hidden[i] && board[i] >= 0 && i is not
+  // a target), so the signature leaves it out. After every board change (a round of clears, one clear on the timeline, a
+  // bridge) revealCells reveals every such cell, in increasing cell order, each as {type:'cellReveal', cell} (with `at`
+  // when the caller gives the model time). The start reveal in create emits nothing: it is part of the start state.
+  function revealCells(state,events,at) {
+    if (!state.veiled || !state.veiledLeft) return;
+    const found = [];
+    for (const i of reach(state).targets) if (state.veiled[i]) found.push(i);
+    found.sort((a, b) => a - b);
+    for (const i of found) { state.veiled[i] = 0; state.veiledLeft--; if (events) events.push(at === undefined ? { type: 'cellReveal', cell: i } : { type: 'cellReveal', at, cell: i }); }
+  }
+  // veiled recomputed from the board (create, a restored checkpoint): every hidden colour cell, then the reveal
+  function syncCells(state) {
+    const hidden = state.meta.hidden;
+    if (!hidden) { state.veiled = null; state.veiledLeft = 0; return; }
+    state.veiled = Uint8Array.from(hidden, (m, i) => m && state.board[i] >= 0 ? 1 : 0);
+    state.veiledLeft = state.veiled.reduce((a, b) => a + b, 0);
+    revealCells(state, null);
+  }
+  // what a player may know about cell i: false only for a hidden cell not revealed yet
+  function known(state,i) { return !state.veiled || !state.veiled[i]; }
 
   function create(level,capacity=level.capacity||CAPACITY) {
     if(!Number.isInteger(capacity)||capacity<3||capacity>5)throw new Error('Capacity must be 3, 4 or 5');
@@ -46,13 +79,14 @@
       heads: new Int16Array(level.tray.length), slots: new Int16Array(capacity).fill(-1),
       ages: new Int16Array(level.pods.length), revealed: Uint8Array.from(level.pods,p=>p.mystery?0:1), serial: 0, bridge: -1, status: 'Playing', _reach: null };
     revealTops(state);
+    syncCells(state);
     state.status = status(state);
     return state;
   }
 
   function clone(state) {
     return { ...state, board: state.board.slice(), remaining: state.remaining.slice(),
-      heads: state.heads.slice(), slots: state.slots.slice(), ages: state.ages.slice(), revealed: state.revealed.slice(), _reach: state._reach };
+      heads: state.heads.slice(), slots: state.slots.slice(), ages: state.ages.slice(), revealed: state.revealed.slice(), veiled: state.veiled ? state.veiled.slice() : null, _reach: state._reach };
   }
 
   function reach(state) {
@@ -159,6 +193,7 @@
         if (events) events.push({ type: 'clear', round, pod, cell, route:routes[ci] });
       }
       state._reach = null;
+      revealCells(state, events);
       for(const pod of occupied)if(state.remaining[pod]===0&&state.slots.includes(pod)){
         const group=state.meta.groups[pod];
         if(group.some(p=>state.remaining[p]>0))continue;
@@ -185,6 +220,7 @@
       const bridge = next.level.hero.choices[action.choice];
       next.board[bridge.cell] = OPEN; next.bridge = action.choice; next._reach = null;
       if (events) events.push({ type: 'bridge', cell: bridge.cell });
+      revealCells(next, events);
     }
     revealTops(next,events);
     settle(next, events);
@@ -200,7 +236,7 @@
 
   // Public observation: never exposes a hidden colour, including for bots.
   function view(state){
-    return {board:Array.from(state.board),heads:Array.from(state.heads),slots:Array.from(state.slots),remaining:Array.from(state.remaining),
+    return {board:state.veiled?Array.from(state.board,(c,i)=>state.veiled[i]?HIDDEN:c):Array.from(state.board),heads:Array.from(state.heads),slots:Array.from(state.slots),remaining:Array.from(state.remaining),
       colours:state.level.pods.map((p,i)=>state.revealed[i]?p.color:null),groups:state.level.pods.map(p=>p.group||null),
       bridge:state.bridge,status:state.status};
   }
@@ -239,6 +275,13 @@
     if(hidden.some(i=>level.pods[i].mystery!=='depth')){if(hidden.length!==2||level.pods[hidden[0]].count!==level.pods[hidden[1]].count||level.pods[hidden[0]].color===level.pods[hidden[1]].color)errors.push('two equal-count mystery colours required');}
     else if(hidden.length>6)errors.push('at most six depth mysteries');
     const n = level.w * level.h;
+    // hidden cells (17 §8, 2026-11-01): sorted unique colour-cell indices, never on a level with hidden pods
+    if (level.hiddenCells !== undefined) {
+      const hc = level.hiddenCells, grid = level.rowsBottomFirst.join('');
+      if (!Array.isArray(hc) || !hc.length || hc.some((c, k) => !Number.isInteger(c) || c < 0 || c >= n || (k > 0 && c <= hc[k - 1]))) errors.push('hidden cells');
+      else if (hc.some(c => !CHANNELS.includes(grid[c]))) errors.push('hidden cell not a colour cell');
+      if (level.pods.some(p => p.mystery)) errors.push('hidden cells with hidden pods');
+    }
     if ((level.entries || [Math.floor(level.w / 2)]).some(i => !Number.isInteger(i) || i < 0 || i >= n)) errors.push('entry');
     if (level.hero) for (const choice of level.hero.choices) {
       const grid = level.rowsBottomFirst.join('');
@@ -259,6 +302,6 @@
     return true;
   }
 
-  return { CHANNELS, CAPACITY, OPEN, WALL, create, clone, reach, routeTo, bridgeChoices, topPods,
+  return { CHANNELS, CAPACITY, OPEN, WALL, HIDDEN, revealCells, syncCells, known, create, clone, reach, routeTo, bridgeChoices, topPods,
     legal, check, canTap, compactSlots, step, signature, observation, view, queueEmpty, validate, assertAccounting, settle };
 });

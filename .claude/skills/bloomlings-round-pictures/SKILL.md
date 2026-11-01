@@ -48,7 +48,7 @@ order asks for, not a free batch.
 
 ## What a picture is
 
-- A rectangular cell matrix in the pilot palette: 16 colours, 4 per hero (`tools/gameplay-pilot-v9/palette.cjs`).
+- A rectangular cell matrix in the round palette: 24 colours, 6 per hero (`tools/rounds/engine/palette.cjs`; the owner, 2026-11-01: still 7–9 a picture, chosen from the richer gamut).
   The codes are `G P B A C D V Y O L M R K N S E`: Лист, Лепесток, Вода, Янтарь, Жемчуг, Земля, Слива, Солнце, Тыква,
   Лайм, Мох, Ягода, Румянец, Глубина, Небо, Кора. Two shades of one hero are different materials.
 - `.` is an empty cell (not counted, it can be a hole or an island gap), `#` an impassable strip (a stream, a fence, a

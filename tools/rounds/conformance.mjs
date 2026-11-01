@@ -10,7 +10,8 @@
 // - window k = command k's commit events, then everything the timeline emits until command k+1 is committed (the
 //   last window runs until nothing is pending); `signature` of a window is taken right after its command is committed
 //   (after the commit's own dispatch, before time moves on); the end state is `finalSignature`;
-// - commit, reveal and bridge lines carry the timeline's time at the commit;
+// - commit, reveal and bridge lines carry the timeline's time at the commit; a cellReveal line (hidden cells, 17 §8)
+//   follows the clear or bridge that revealed it, at that change's time, cells in increasing order;
 // - depart `route=` is the route's cell count (entry … target, both included), the pilot's routeLength;
 // - a step line's time is the step's own time; complete carries the release time;
 // - `steps` in the signature are `atUs:type:idOrPod`, check steps included, in the timeline's step order;
@@ -34,7 +35,7 @@ export function us(ms){const v=ms*1000,r=Math.round(v);if(!Number.isFinite(v)||M
 
 // the engine's level object from a round-level.v1 definition (pods carry `code` on the wire, `color` in the engine)
 export function engineLevel(def){return {id:def.number,w:def.board.w,h:def.board.h,rowsBottomFirst:def.board.rowsBottomFirst,entries:def.board.entries,capacity:def.capacity,
- pods:def.pods.map(p=>({color:p.code,count:p.count,...(p.mystery?{mystery:p.mystery}:{}),...(p.group?{group:p.group}:{})})),tray:def.tray,...(def.board.hero?{hero:def.board.hero}:{})};}
+ pods:def.pods.map(p=>({color:p.code,count:p.count,...(p.mystery?{mystery:p.mystery}:{}),...(p.group?{group:p.group}:{})})),tray:def.tray,...(def.board.hero?{hero:def.board.hero}:{}),...(def.board.hiddenCells?{hiddenCells:def.board.hiddenCells}:{})};}
 
 // ---- canonical event log (contract table) ----
 // commit, reveal and bridge come from Timeline.commit's result; depart, arrive, clear, return and complete from the
@@ -44,6 +45,8 @@ export function lineOf(e,nowUs){
   case 'commit':return `${nowUs} commit pod=${e.pod} slot=${e.slot}`;
   case 'reveal':return `${nowUs} reveal pod=${e.pod} mode=${e.mode}`;
   case 'bridge':return `${nowUs} bridge cell=${e.cell}`;
+  // a hidden cell revealed by a clear (its time) or by a bridge (the commit's time), 17 §8 «Скрытые клетки»
+  case 'cellReveal':return `${e.at!=null?us(e.at):nowUs} cellReveal cell=${e.cell}`;
   case 'depart':{const [id,pod,cell,,start,arrive,clear,done,routeLength]=e.plan;return `${us(start)} depart id=${id} pod=${pod} cell=${cell} arrive=${us(arrive)} clear=${us(clear)} done=${us(done)} route=${routeLength}`;}
   case 'arrive':return `${us(e.at)} arrive id=${e.id}`;
   case 'clear':return `${us(e.at)} clear id=${e.id} cell=${e.jobCell}`;

@@ -6,12 +6,15 @@
 // - a group is available when no other pod stands before any of its members (§8: members may stand over each other);
 // - boards up to 48×48 with the frame (pictures up to 1400 cells, §2);
 // - 4 or 5 places (§1; the repair of the fifth place, §8, is not played yet).
-// Mechanics it plays: hidden pods (reveal on reaching the top), linked groups, Sprig's bridge. Others are listed in
+// Mechanics it plays: hidden pods (reveal on reaching the top), linked groups, Sprig's bridge, hidden cells (a «?» cell
+// reveals when it gets an open neighbour reachable from an entry, 17 §8; rules.cjs revealCells). Others are listed in
 // lib.mjs SUPPORTED and refused by the level builder until the engine plays them. The playable pilot
 // (tools/gameplay-pilot-v10) embeds these same files.
 import {createRequire} from 'node:module';
 const req=createRequire(import.meta.url);
 let cached=null;
+// the rules alone, synchronously (the same module object engine() gives as R)
+export const rulesSync=()=>req('./engine/rules.cjs');
 export async function engine(){
  if(!cached)cached={R:req('./engine/rules.cjs'),T:req('./engine/timeline.cjs'),idle:req('./engine/idle-rules.cjs')};
  return cached;}

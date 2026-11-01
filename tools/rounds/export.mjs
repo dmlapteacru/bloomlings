@@ -26,7 +26,7 @@ const HERE=path.dirname(fileURLToPath(import.meta.url));
 export const POLICY='17§5 extended: uniform over legal actions + wait before a state event';
 export const FIXTURE_POLICY='17§5 extended';
 const FRANCHISE=new Set(['сторонняя вселенная','мем','интернет-мем/тренд']);
-const MECHANICS=['hidden','links','bridge'];
+const MECHANICS=['hidden','links','bridge','cells'];
 // owner decisions behind a level's exception string (content/rounds/levels keeps them as a note); the rule names the
 // audit failure it excuses, matched on the audit's own wording
 export const OWNER_EXCEPTIONS={
@@ -58,7 +58,9 @@ export function levelV1(L,engine,definitionVersion=1){const d=L.definition,n=L.l
   // a site hidden at the start (17 §8 as amended on 2026-10-31, rounds.mjs bridges) is "shown": false; absent means shown
   board:{w:d.w,h:d.h,rowsBottomFirst:d.rowsBottomFirst,entries:d.entries,...(d.hero?{hero:{id:d.hero.id,choices:d.hero.choices.map((c,i)=>({cell:c.cell,anchor:c.anchor,label:c.label,...(L.bridgeShown&&L.bridgeShown[i]===false?{shown:false}:{})}))}}:{}),
    // the generator's wall over the approved picture (17 §8), picture coordinates: the board is that picture plus this
-   ...(d.overlay?{overlay:{walls:d.overlay.walls.map(c=>[c[0],c[1]]),sites:d.overlay.sites.map(c=>[c[0],c[1]])}}:{})},
+   ...(d.overlay?{overlay:{walls:d.overlay.walls.map(c=>[c[0],c[1]]),sites:d.overlay.sites.map(c=>[c[0],c[1]])}}:{}),
+   // hidden cells (17 §8 «Скрытые клетки», 2026-11-01): sorted cell indices of the rows (bottom first, y*w+x)
+   ...(d.hiddenCells&&d.hiddenCells.length?{hiddenCells:[...d.hiddenCells].map(Number).sort((a,b)=>a-b)}:{})},
   capacity:d.capacity??5,
   pods:d.pods.map(p=>({code:p.color,count:p.count,...(p.mystery?{mystery:p.mystery}:{}),...(p.group?{group:p.group}:{})})),
   tray:d.tray,mechanics:MECHANICS.filter(m=>recipe.includes(m)),...(ex?{exception:ex}:{}),engine};}
@@ -105,7 +107,7 @@ export function auditCheck(from,to,levels){const report=path.join(ROUNDS,`audit-
 
 // ---- the pilot's catalog hash (tools/gameplay-pilot-v12/build.mjs): did the owner play these very definitions? ----
 function pilotCatalogHash(levelsInOrder){return sha256(JSON.stringify(levelsInOrder.map(L=>{const d=L.definition;
- return {id:L.level,title:d.title,subject:L.picture,w:d.w,h:d.h,rowsBottomFirst:d.rowsBottomFirst,entries:d.entries,capacity:d.capacity,pods:d.pods,tray:d.tray,difficulty:L.cls,...(d.hero?{hero:d.hero}:{})};})));}
+ return {id:L.level,title:d.title,subject:L.picture,w:d.w,h:d.h,rowsBottomFirst:d.rowsBottomFirst,entries:d.entries,capacity:d.capacity,pods:d.pods,tray:d.tray,difficulty:L.cls,...(d.hero?{hero:d.hero}:{}),...(d.hiddenCells?{hiddenCells:d.hiddenCells}:{})};})));}
 
 // ---- export ----
 export async function exportWave(from,to,{out,ownerResults=[],game=path.join(root,'content/game/rounds'),log=console.log}={}){

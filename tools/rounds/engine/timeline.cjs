@@ -1,4 +1,6 @@
-/* v8D/v9: the auto-tail. Once the queue is empty (and no bridge is still to choose) every command is given and the
+/* Hidden cells (17 §8, 2026-11-01): a clear or a bridge reveals the hidden cells it opens (rules.cjs revealCells), as
+ * cellReveal events at that change's time; a restored checkpoint recomputes them from the board (rules.cjs syncCells).
+ * v8D/v9: the auto-tail. Once the queue is empty (and no bridge is still to choose) every command is given and the
  * outcome is fixed, so the page plays the rest at TAIL.speed (×2.5, couriers still leave one after another).
  * v8 authoritative live simulation. A slot stores UNSENT quota. Targets are
  * reserved only at dispatch; walking jobs outlive the slot and can overlap
@@ -17,7 +19,7 @@
    if(saved){
     if(saved.profile!==JSON.stringify({...PROFILE,tail:TAIL})||saved.definition!==JSON.stringify(state.level))throw Error('Stale checkpoint');
     for(const key of fields){const a=saved.state[key];if(!Array.isArray(a)||a.length!==this.state[key].length)throw Error('Invalid checkpoint');this.state[key]=new this.state[key].constructor(a);}
-    Object.assign(this.state,{serial:saved.state.serial,bridge:saved.state.bridge,status:saved.state.status,_reach:null});
+    Object.assign(this.state,{serial:saved.state.serial,bridge:saved.state.bridge,status:saved.state.status,_reach:null});R.syncCells(this.state);
     this.steps=saved.steps.map(e=>({...e}));this.now=saved.now;this.serial=saved.serial;this.processedCells=saved.processedCells;this.jobs=new Map(saved.jobs.map(j=>[j.id,{...j,route:j.route.slice()}]));this.reserved=Int32Array.from(saved.reserved);this.inFlight=Int16Array.from(saved.inFlight);this.departReady=Float64Array.from(saved.departReady);
     if(!Number.isFinite(this.now)||this.now<0||this.steps.some(e=>e.at<this.now-1e-7))throw Error('Invalid event time');
    }
@@ -73,7 +75,7 @@
    if(action.type==='tap')for(const pod of s.meta.groups[action.pod]){
     const column=s.level.tray.findIndex((stack,c)=>stack[s.heads[c]]===pod),slot=s.slots.indexOf(-1);
     s.heads[column]++;s.slots[slot]=pod;s.ages[pod]=++s.serial;events.push({type:'commit',pod,slot});if(!s.revealed[pod]){s.revealed[pod]=1;events.push({type:'reveal',pod,mode:'sealed',color:s.level.pods[pod].color});}
-   }else{const c=s.level.hero.choices[action.choice];s.board[c.cell]=R.OPEN;s.bridge=action.choice;s._reach=null;events.push({type:'bridge',cell:c.cell});}
+   }else{const c=s.level.hero.choices[action.choice];s.board[c.cell]=R.OPEN;s.bridge=action.choice;s._reach=null;events.push({type:'bridge',cell:c.cell});R.revealCells(s,events,this.now);}
    for(const p of R.topPods(s))if(!s.revealed[p]&&s.level.pods[p].mystery!=='sealed'){s.revealed[p]=1;events.push({type:'reveal',pod:p,mode:'depth',color:s.level.pods[p].color});}
    this.dispatch();this.assert();return {accepted:true,events};
   }
@@ -92,6 +94,8 @@
      if(e.type==='clear'){
       if(this.reserved[j.cell]!==j.id||this.state.board[j.cell]!==this.state.meta.colours[j.pod])throw Error('Invalid reservation');
       this.reserved[j.cell]=-1;this.state.board[j.cell]=R.OPEN;this.state._reach=null;this.processedCells++;this.lastClears.push(j.cell);changed=true;
+      // hidden cells (17 §8): the cells this clear reveals, right after it, at its time (rules.cjs revealCells)
+      R.revealCells(this.state,this.lastEvents,this.now);
      }
      if(e.type==='return'){this.inFlight[j.pod]--;this.jobs.delete(j.id);}
     }

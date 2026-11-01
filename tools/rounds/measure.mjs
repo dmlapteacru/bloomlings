@@ -1,7 +1,7 @@
 // Checks of a candidate level on the round engine (product/17_LEVEL_GENERATION_RULES.md §1, §5, §8, §10, §11):
 // the saved solution (search, then replay on the live timeline), the extended random test with waiting and the
 // Wilson interval, the simple strategies, the fairness of hidden pods, the rhythm by fifths of done work.
-import {engine} from './engine.mjs';
+import {engine,rulesSync} from './engine.mjs';
 import {solver} from '../level-stats/solve.mjs';
 import {run} from '../level-stats/trace.mjs';
 import {STRATEGIES,rng} from '../level-stats/strategies.mjs';
@@ -55,7 +55,7 @@ export function calmFails(cls,calm,regularNormal=false){if(!calm||calmBorderline
 // trap links (17 §8, the owner's amendment of 2026-10-31): a linked group with a member whose material has no cell on the
 // open front at the start (its access depth is above 0, or a strip keeps it behind a bridge), so the group holds its places
 // long; row is the group's highest start row in its column (1 = top)
-const CODES16='GPBACDVYOLMRKNSE';
+const CODES16='GPBACDVYOLMRKNSETUFHXWZJ'; // the 24 materials (name kept from the 16-colour palette)
 export function trapLinks(level){const {w,h,rowsBottomFirst:rows,entries}=level,g=rows.join(''),d=new Float64Array(w*h).fill(Infinity),dq=[];for(const e of entries){d[e]=0;dq.push(e);}
  while(dq.length){const c=dq.shift(),x=c%w,y=Math.floor(c/w);for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const u=x+dx,v=y+dy;if(u<0||v<0||u>=w||v>=h)continue;const n=v*w+u;if(g[n]==='#'||g[n]==='b')continue;
   const cost=CODES16.includes(g[c])?1:0,nd=d[c]+cost;if(nd<d[n]){d[n]=nd;cost?dq.push(n):dq.unshift(n);}}}
@@ -94,6 +94,27 @@ export async function fairness(level,route,limit=24){const E=await engine(),{idl
   while(k<route.length&&!diff.some(p=>s.revealed[p])){const st=R.step(s,route[k]);if(!st.accepted){s=null;break;}s=st.state;k++;}
   if(!s){bad++;continue;}const ok=solver(E,60000).winnable(s);if(ok===false)bad++;else if(ok===null)unknown++;}
  return {checked:worlds.length,unfair:bad,unknown,fair:bad===0&&unknown===0,note:'перестановки материала и числа между скрытыми подами с тем же балансом'};}
+
+// hidden cells (17 §8 «Скрытые клетки», the owner, 2026-11-01): the cells still hidden after the start reveal (the dose of
+// §8 counts only these); 0 on a level without hidden cells
+export const cellsHiddenAtStart=level=>level.hiddenCells&&level.hiddenCells.length?rulesSync().create(level,level.capacity||5).veiledLeft:0;
+// fairness of hidden cells (17 §8: hidden cells and hidden pods are two separate sources of the unknown, each checked):
+// worlds where two cells still hidden at the start, of different materials, swap their materials (the balance holds);
+// following the saved solution until one of them shows must still leave a winning continuation. Until a swapped cell
+// reveals, the two worlds play alike (a hidden cell is never a target), so the player could not have told them apart.
+// Up to `limit` swaps, spread over the pairs by a fixed seed; a fresh solver for each world.
+export async function cellFairness(level,route,limit=12,seed=7){const E=await engine(),{idle:R}=E;
+ if(!level.hiddenCells||!level.hiddenCells.length||!route)return {checked:0,fair:true,note:'нет скрытых клеток'};
+ const s0=R.create(level,level.capacity||5),hid=level.hiddenCells.filter(i=>s0.veiled[i]),g=level.rowsBottomFirst.join(''),pairs=[];
+ for(let a=0;a<hid.length;a++)for(let b=a+1;b<hid.length;b++)if(g[hid[a]]!==g[hid[b]])pairs.push([hid[a],hid[b]]);
+ if(!pairs.length)return {checked:0,fair:true,note:'все скрытые клетки одного материала — нечего переставлять'};
+ const r=rng(seed),pick=[];const pool=pairs.slice();while(pick.length<limit&&pool.length)pick.push(pool.splice(Math.floor(r()*pool.length),1)[0]);
+ let bad=0,unknown=0;
+ for(const [a,b] of pick){const cells=[...g];[cells[a],cells[b]]=[cells[b],cells[a]];const rows=[];for(let y=0;y<level.h;y++)rows.push(cells.slice(y*level.w,(y+1)*level.w).join(''));
+  const lv={...level,rowsBottomFirst:rows};let s=R.create(lv,lv.capacity||5),k=0;
+  while(k<route.length&&s.veiled[a]&&s.veiled[b]){const st=R.step(s,route[k]);if(!st.accepted){s=null;break;}s=st.state;k++;}
+  if(!s){bad++;continue;}const ok=s.status==='Won'?true:solver(E,60000).winnable(s);if(ok===false)bad++;else if(ok===null)unknown++;}
+ return {checked:pick.length,unfair:bad,unknown,fair:bad===0&&unknown===0,note:'перестановки материалов двух скрытых клеток разного цвета'};}
 
 // the simple strategies of §11, each with the leftmost and the rightmost hero choice, tapping as soon as possible
 export async function strategies(level){const E=await engine(),{R,T}=E,out={};

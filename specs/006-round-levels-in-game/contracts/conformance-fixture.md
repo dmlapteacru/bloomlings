@@ -39,6 +39,7 @@ next command, or to the end) are hashed together with SHA-256.
 | commit | `t commit pod=<p> slot=<s>` |
 | reveal | `t reveal pod=<p> mode=<depth\|sealed>` |
 | bridge | `t bridge cell=<c>` |
+| cellReveal | `t cellReveal cell=<c>` (hidden cells, rules 17 §8, 2026-11-01: right after the clear or bridge that revealed it, at that change's time; several in increasing cell order) |
 | depart | `t depart id=<j> pod=<p> cell=<c> arrive=<µs> clear=<µs> done=<µs> route=<len>` |
 | arrive | `t arrive id=<j>` |
 | clear | `t clear id=<j> cell=<c>` |
@@ -55,6 +56,8 @@ The reference's `signature(state)` string, extended with the timeline:
 - `steps` is `at:type:id-or-pod` joined by commas, in step order;
 - `now` is in µs;
 - columns appear only if a booster changed them, which never happens in fixtures.
+- hidden cells add nothing: which hidden cells are still unrevealed follows from the board (a hidden colour cell that is
+  not a target), so the signature is the same as without them.
 
 The signature is hashed with SHA-256.
 

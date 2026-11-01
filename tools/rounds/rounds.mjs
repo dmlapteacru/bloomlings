@@ -31,7 +31,7 @@
 //      the owner told us to move the wave into the game before playing its sample: the words are recorded as they were
 //      said, with no sample (sample [], results null); the phone check after publishing is then the first play
 import fs from 'node:fs';import path from 'node:path';import os from 'node:os';import {spawn,execFileSync} from 'node:child_process';
-import {root,ROUNDS,LEVELS,BANK,readJSON,writeJSON,lid,arg,flag,manifest,picture,measure,stageOf,fitsStage,sizeBin,slotOf,classOf,INTRO,MECH_RU,SUPPORTED,usage,motifsOf,boardOf,overlaid,bridgeSide,wallOverlay,mechanicsPlans,planOf,bridgeShowing} from './lib.mjs';
+import {root,ROUNDS,LEVELS,BANK,readJSON,writeJSON,lid,arg,flag,manifest,picture,measure,stageOf,fitsStage,sizeBin,slotOf,classOf,INTRO,MECH_RU,SUPPORTED,recipeAllowed,usage,motifsOf,boardOf,overlaid,bridgeSide,wallOverlay,mechanicsPlans,planOf,bridgeShowing} from './lib.mjs';
 import {fitness} from './fitness.mjs';
 import {fingerprints,sameEngine} from './conformance.mjs';
 const cmd=process.argv[2],HERE=path.dirname(new URL(import.meta.url).pathname),NODE=process.execPath;
@@ -50,21 +50,24 @@ const run1=(args,env={})=>new Promise(res=>{const p=spawn(NODE,args,{cwd:root,en
 
 // ---- plan ----
 // the mechanics breakdown (17 §13 step 1, amendment of 2026-10-28): the owner-approved content/rounds/runs/<wave>/mechanics.json
-const MRU={none:'без допов',links:'связки',hidden:'скрытые',bridge:'мост'},SIDE_RU={up:'вверх',left:'влево',right:'вправо',two:'две стороны'},STRIP_RU={new:'новая картинка с полосой',overlay:'стена поверх утверждённой',gap:'разделённая картинка (полоса в цвет фона)'};
+const MRU={none:'без допов',links:'связки',hidden:'скрытые',bridge:'мост',cells:'скрытые клетки'},SIDE_RU={up:'вверх',left:'влево',right:'вправо',two:'две стороны'},STRIP_RU={new:'новая картинка с полосой',overlay:'стена поверх утверждённой',gap:'разделённая картинка (полоса в цвет фона)'};
 const pr=x=>+(x*100).toFixed(1),pctR=([a,b])=>a===b?`${pr(a)} %`:`${pr(a)}–${pr(b)} %`;
-function doseText(recipe,cls){if(recipe==='none')return 'без допов';const d=LV.doses(recipe,cls,24,false),n=k=>d[k][0]===d[k][1]?d[k][0]:d[k].join('–');
- return LV.doseShares(recipe,cls).map(x=>x.choice?'мост: 1 выбор из 2 мест':`${MRU[x.m]} ${x.role==='lead'?'':'доп. '}${pctR(x.range)} P (${n(x.m)} при P = 24)`).join('; ');}
+// hidden cells (17 §8): shares of N, the cells still hidden after the start reveal (counted at N = 700)
+function doseText(recipe,cls){if(recipe==='none')return 'без допов';const d=LV.doses(recipe,cls,24,false,700),n=k=>d[k][0]===d[k][1]?d[k][0]:d[k].join('–');
+ return LV.doseShares(recipe,cls).map(x=>x.choice?'мост: 1 выбор из 2 мест':x.m==='cells'?`${MRU[x.m]} ${x.role==='lead'?'':'доп. '}${pctR(x.range)} N (${n(x.m)} при N = 700)`:`${MRU[x.m]} ${x.role==='lead'?'':'доп. '}${pctR(x.range)} P (${n(x.m)} при P = 24)`).join('; ');}
 const stageKey=s=>s.fixed?'фикс.':`${s.cells[0]}–${s.cells[1]} клеток, ${s.colours[0]}–${s.colours[1]} цветов${s.compact?' (или компактная 200–399 / 3–6)':''}`;
 // the breakdown of the wave's planned levels: per level lead, additional, doses, bridge side and strip; shares per mechanic
 function breakdown(levels){if(!levels.length)return null;const n=levels.length,has=m=>levels.filter(l=>l.recipe.split('+').includes(m)),cnt={};
  const normal=levels.filter(l=>l.cls==='Normal'),types=k=>levels.filter(l=>(l.recipe==='none'?0:l.recipe.split('+').length)===k).length;
  for(const l of levels)if(l.bridgeSide)cnt[l.bridgeSide]=(cnt[l.bridgeSide]||0)+1;
  return {levels:levels.map(l=>({level:l.level,cls:l.cls,lead:l.lead||null,add:l.add||[],recipe:l.recipe,doses:doseText(l.recipe,l.cls),...(l.bridgeSide?{bridgeSide:l.bridgeSide,strip:l.strip||null}:{})})),
-  shares:Object.fromEntries(['bridge','links','hidden'].map(m=>[m,{levels:has(m).length,share:Math.round(has(m).length/n*100)/100,lead:levels.filter(l=>l.lead===m).length}]).concat([['none',{levels:levels.filter(l=>l.recipe==='none').length,share:Math.round(levels.filter(l=>l.recipe==='none').length/n*100)/100}]])),
+  shares:Object.fromEntries(['bridge','links','hidden','cells'].map(m=>[m,{levels:has(m).length,share:Math.round(has(m).length/n*100)/100,lead:levels.filter(l=>l.lead===m).length}]).concat([['none',{levels:levels.filter(l=>l.recipe==='none').length,share:Math.round(levels.filter(l=>l.recipe==='none').length/n*100)/100}]])),
   normalWithMechanic:[normal.filter(l=>l.recipe!=='none').length,normal.length],types:{one:types(1),two:types(2),three:types(3)},sides:cnt};}
 function plan(a,b){const placed=placedLevels(),positions=[],blockers=[],plans=mechanicsPlans();
  for(let n=a;n<=b;n++){const s=slotOf(n),st=stageOf(n),pl=planOf(n,plans);positions.push({level:n,cls:s.cls,intro:s.intro,allowed:s.allowed.filter(m=>SUPPORTED.has(m)),stage:st,placed:!!placed[n],picture:placed[n]?.picture||null,...(pl?{plan:pl}:{})});
-  if(s.intro&&!SUPPORTED.has(s.intro))blockers.push(`L${n}: знакомство «${MECH_RU[s.intro]}» — движок и пилот этой механики ещё не готовы (§14)`);}
+  if(s.intro&&!SUPPORTED.has(s.intro))blockers.push(`L${n}: знакомство «${MECH_RU[s.intro]}» — движок и пилот этой механики ещё не готовы (§14)`);
+  // hidden pods and hidden cells never on one level (17 §8, the owner, 2026-11-01)
+  if(pl&&!recipeAllowed(pl.recipe))blockers.push(`L${n}: рецепт плана ${pl.recipe} — скрытые поды и скрытые клетки не бывают на одном уровне (§8)`);}
  const mech=breakdown(positions.filter(p=>p.plan).map(p=>p.plan));
  const open=positions.filter(p=>!p.placed),pics=freePictures().map(p=>{const m=measure(p),f=fitness(p),board=boardOf(p);return {id:p.id,title:p.title,pic:p,N:m.N,colours:m.colours,bin:sizeBin(m.N),strong:f.hiddenColours>=3&&!weakOf(f),weak:weakOf(f),stream:!!board.hero,side:bridgeSide(board),family:p.family||null,motifs:motifsOf(p),fits:open.filter(q=>fitsStage(m,q.level)).map(q=>q.level)};});
  // under a mechanics plan: a bridge position of strip "new" needs a picture with its own strip crossing to the planned
@@ -125,7 +128,7 @@ function plan(a,b){const placed=placedLevels(),positions=[],blockers=[],plans=me
  const mechMd=mech?['## Разбор допов','',`Утверждён владельцем (\`runs/${lid(a)}-${lid(b)}/mechanics.json\`, 17 §13 шаг 1). Расстановка берёт на позицию только кандидата с этим рецептом и, для моста, с этой стороной перехода. Дозы по §7: ведущая — свой диапазон (при трёх типах нижняя половина), дополнительная — минимум; место дозы по кругу §7.`,'',
   '| Ур. | Класс | Ведущая | Дополнительные | Дозы | Мост: сторона | Полоса |','|---|---|---|---|---|---|---|',
   ...mech.levels.map(l=>`| ${l.level} | ${l.cls} | ${l.lead?MRU[l.lead]:'—'} | ${l.add.map(m=>MRU[m]).join(', ')||'—'} | ${l.doses} | ${l.bridgeSide?SIDE_RU[l.bridgeSide]:''} | ${l.strip?STRIP_RU[l.strip]||l.strip:''} |`),'',
-  `- Доли: ${['bridge','links','hidden'].map(m=>`${MRU[m]} — ${mech.shares[m].levels} (${Math.round(mech.shares[m].share*100)} %, ведущая в ${mech.shares[m].lead})`).join('; ')}; без допов — ${mech.shares.none.levels} (${Math.round(mech.shares.none.share*100)} %).`,
+  `- Доли: ${['bridge','links','hidden','cells'].map(m=>`${MRU[m]} — ${mech.shares[m].levels} (${Math.round(mech.shares[m].share*100)} %, ведущая в ${mech.shares[m].lead})`).join('; ')}; без допов — ${mech.shares.none.levels} (${Math.round(mech.shares.none.share*100)} %).`,
   `- Normal с допом: ${mech.normalWithMechanic[0]} из ${mech.normalWithMechanic[1]}. Типов на уровне: один — ${mech.types.one}, два — ${mech.types.two}, три — ${mech.types.three}.`,
   `- Стороны мостов: ${Object.entries(mech.sides).map(([s,n])=>`${SIDE_RU[s]} — ${n}`).join('; ')||'—'}.`,'']:[];
  const md=[`# План волны L${a}–L${b}`,'',`Создан ${out.created.slice(0,16).replace('T',' ')}. Правила: 17 §13. Позиций ${positions.length}, открыто ${open.length}.`,'',
@@ -189,7 +192,7 @@ async function runWave(a,b){const dir=waveDir(a,b),jobs=+arg('--jobs',Math.max(1
   // positions without a plan: as before, every allowed recipe of the classes those positions need
   for(const {pc,m,f,stream} of pics){const mine=needs.filter(x=>!x.recipe&&fitsStage(m,x.level)&&strong(x,f)&&(x.intro!=='bridge'||stream));if(!mine.length)continue;
    const classes=[...new Set(mine.map(x=>x.cls))],allowed=new Set(mine.flatMap(x=>x.intro?[x.intro]:x.allowed));
-   const rec=[];for(const r of ['none','hidden','links','links+hidden',...(stream?['bridge','bridge+links']:[])])if(r.split('+').every(t=>t==='none'||allowed.has(t)))rec.push(r);
+   const rec=[];for(const r of ['none','hidden','links','links+hidden','cells','links+cells',...(stream?['bridge','bridge+links']:[])])if(r.split('+').every(t=>t==='none'||allowed.has(t)))rec.push(r);
    for(const r of rec.filter(r=>classes.includes('Normal')||(r!=='none')))for(const c of classes)add(pc.id,'none',c,r);}
   const tasks=[...byPic.values()],noIntro=!needs.some(x=>x.intro);
   step('сборка кандидатов',{pictures:tasks.length,jobs});let i=0,done=0;
@@ -229,7 +232,7 @@ function summary(a,b,rows,needs,audit,sample,placed,minutes){const reg=rows.filt
  const lost=reg.filter(L=>{const s=L.strategies||{};return !s['most-now|left']&&!s['most-now|right'];}).length,itog=(audit.match(/Итог:[^\n]*/)||['Итог: —'])[0];
  return [`# Волна L${a}–L${b}`,'',`Прогон ${minutes.toFixed(0)} мин. ${itog}`,'',needs.length?`**Не заполнено ${needs.length}:** ${needs.map(x=>`L${x.level} ${x.cls}${x.intro?' ('+MECH_RU[x.intro]+')':''}`).join(', ')} → заказ картинок (\`rounds.mjs plan ${a} ${b}\`).`:'Все позиции заполнены.','',
   '| Ур. | Класс | Картинка | Механики | Бот | Стоят без работы | Вынужденных | Дебют + цвета | «По цветам» |','|---|---|---|---|---|---|---|---|---|',
-  ...rows.map(L=>{const k=L.checks||{},s=L.strategies||{};return `| ${L.level} | ${L.cls}${L.intro?' · знакомство':''} | ${L.picture} «${picture(L.picture)?.title||''}» | ${L.recipe}${L.linked?` (связанных ${L.linked})`:''}${L.hidden?` (скрытых ${L.hidden})`:''}${L.definition?.hero?` (мост ${SIDE_RU[bridgeSide(L.definition)]||''}${L.definition.overlay?', стена':''})`:''} | ${pct(L.random.share)} | ${k.pressure?.stuck??'—'} | ${pct(k.forced)} | ${k.opening?`${k.opening.first.wins}/${k.opening.first.openings} · ${pct(k.opening.three.share)}`:'—'} | ${!s['most-now|left']&&!s['most-now|right']?'проигрывает':'выигрывает'} |`;}),
+  ...rows.map(L=>{const k=L.checks||{},s=L.strategies||{};return `| ${L.level} | ${L.cls}${L.intro?' · знакомство':''} | ${L.picture} «${picture(L.picture)?.title||''}» | ${L.recipe}${L.linked?` (связанных ${L.linked})`:''}${L.hidden?` (скрытых ${L.hidden})`:''}${L.cells?` (скрытых клеток ${L.cells})`:''}${L.definition?.hero?` (мост ${SIDE_RU[bridgeSide(L.definition)]||''}${L.definition.overlay?', стена':''})`:''} | ${pct(L.random.share)} | ${k.pressure?.stuck??'—'} | ${pct(k.forced)} | ${k.opening?`${k.opening.first.wins}/${k.opening.first.openings} · ${pct(k.opening.three.share)}`:'—'} | ${!s['most-now|left']&&!s['most-now|right']?'проигрывает':'выигрывает'} |`;}),
   '','## Распределения','',`- Классы: ${cnt(L=>L.cls)}.`,`- Рецепты: ${cnt(L=>L.recipe)}.`,`- Размеры: ${cnt(L=>sizeBin(L.N))}.`,`- Медиана бота обычных Normal: ${pct(med)} (нужно 50–60 %); «по цветам» проигрывает ${lost} из ${reg.length}.`,
   `- Семьи: ${cnt(L=>picture(L.picture)?.family||'без тега')}.`,'',
   '## Выборка для владельца','',sample.length?`${sample.map(n=>'L'+n).join(', ')} — пилот \`content/rounds/runs/${lid(a)}-${lid(b)}/sample/index.html\`. После игры: \`node tools/rounds/rounds.mjs review <results.json>\`.`:'—','',

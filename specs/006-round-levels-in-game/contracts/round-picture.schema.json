@@ -17,7 +17,7 @@
     "source": {"type": "string"},
     "w": {"type": "integer", "minimum": 1, "maximum": 44},
     "h": {"type": "integer", "minimum": 1, "maximum": 44},
-    "rows": {"type": "array", "minItems": 1, "items": {"type": "string", "pattern": "^[GPBACDVYOLMRKNSE.#b]+$"}},
+    "rows": {"type": "array", "minItems": 1, "items": {"type": "string", "pattern": "^[GPBACDVYOLMRKNSETUFHXWZJ.#b]+$"}},
     "approval": {
       "type": "object", "additionalProperties": false, "required": ["status", "by", "decidedAt"],
       "properties": {"status": {"const": "approved"}, "by": {"const": "owner"}, "decidedAt": {"type": "string"}}

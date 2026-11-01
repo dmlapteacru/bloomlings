@@ -264,7 +264,8 @@ export async function search(pic,{side,kind,cls='Normal',recipes=['bridge'],leve
 // for left / right) and a colour cell (the approach to clear first, §8); its far neighbour is a colour or empty cell. The
 // gap contrast (the strip contrast of 2026-10-28 for the gap look): every colour cell beside the strip is at least
 // GAP_CONTRAST away in CIEDE2000 from the board's surface (the game's board.surface and the pilot's ground), else the split
-// cannot be read there and that position is not used (in the palette only Жемчуг C falls below: 9.2 / 2.3).
+// cannot be read there and that position is not used (in the palette Жемчуг C falls below: 9.2 / 2.3; of the owner's 24
+// of 2026-11-01 also Снег W 11.5 / 16.3 and Песок Z 13.7 / 13.5).
 export const GAP_SURFACES={'board.surface':'#DCD3C4','земля пилота v12':'#EADCB5'},GAP_CONTRAST=15,GAP_SHARE=[.25,.45];
 const D4=[[1,0],[-1,0],[0,1],[0,-1]],GAP_DE=Object.fromEntries(CODES.split('').map(c=>[c,Math.min(...Object.values(GAP_SURFACES).map(h=>deltaEHex(c,h)))]));
 const mirrorRows=rows=>rows.map(r=>[...r].reverse().join(''));

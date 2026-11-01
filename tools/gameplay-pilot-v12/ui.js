@@ -212,7 +212,7 @@ const GAP_SURFACE='#eadcb5',GAP_EDGE='rgba(118,96,58,.2)',gapOf=id=>!!(data.gap&
   // the soft cube of the game (spec 005 contracts/look.md §6.18): a clear margin of 3.5 %, a rounded body (corners 17 %),
   // the top ending 10 % above the bottom (the colour lightened 12 % to darkened 4 %), a cushion toward the colour lightened
   // 35 %, a white gloss dash at the top left, the front face darkened 20 % to 36 %, a soft deep edge darkened 55 %
-  const cubes=new Map();
+  const cubes=new Map(),HIDDEN_CUBE='#b9b7ae';
   const mixHex=(hex,f)=>{const n=parseInt(hex.slice(1),16),c=[n>>16,(n>>8)&255,n&255],t=f>0?255:0,k=Math.abs(f);return c.map(v=>Math.round(v+(t-v)*k));};
   const rgb=(hex,f,a=1)=>`rgba(${mixHex(hex,f).join(',')},${a})`;
   function cube(color,size){const key=color+':'+size;let c=cubes.get(key);if(c)return c;
@@ -259,6 +259,12 @@ const GAP_SURFACE='#eadcb5',GAP_EDGE='rgba(118,96,58,.2)',gapOf=id=>!!(data.gap&
           else{ctx.fillRect(px+gap,py,cell-gap*2,cell);for(let k=1;k<4;k++){ctx.beginPath();ctx.moveTo(px+gap,py+cell*k/4);ctx.lineTo(px+cell-gap,py+cell*k/4);ctx.stroke();}}}
         continue;
       }
+      // a hidden cell not revealed yet (17 §8 «Скрытые клетки», the owner, 2026-11-01): a neutral grey cube with «?», like
+      // a hidden capsule; it reveals by the engine's rule (an open neighbour reachable from a gate), the finished picture
+      // shows its colour
+      if(!finished&&s.veiled&&s.veiled[index]){ctx.drawImage(cube(HIDDEN_CUBE,Math.max(4,Math.round(cell*scale))),px,py,cell,cell);
+        if(cell>=6){ctx.fillStyle='#4a4a44';ctx.font=`900 ${Math.max(5,cell*.56)}px Nunito, sans-serif`;ctx.textAlign='center';ctx.textBaseline='middle';ctx.fillText('?',px+cell*.5,py+cell*.47);}
+        continue;}
       const p=palette[R.CHANNELS[code]];
       // v11: the game's soft cube (spec 005 §6.18), drawn from a cached picture per colour and size
       ctx.drawImage(cube(p.color,Math.max(4,Math.round(cell*scale))),px,py,cell,cell);

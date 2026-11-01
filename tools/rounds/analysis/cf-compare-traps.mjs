@@ -10,7 +10,7 @@ const arg=(k,d)=>{const i=process.argv.indexOf(k);return i>0?process.argv[i+1]:d
 const [from,to]=process.argv.slice(2).map(Number),G=+arg('--games',200);
 const ours=await (await import(ROOT+'tools/rounds/engine.mjs')).engine();
 const {allRecords}=await import(ROOT+'tools/level-stats/levels.mjs');const cf=await (await import(ROOT+'tools/level-stats/engines.mjs')).engine('CF');
-const CODES='GPBACDVYOLMRKNSE';
+const CODES='GPBACDVYOLMRKNSETUFHXWZJ';
 // access depth of every cell from the entries: coloured cells cost 1 to pass (0 = on the open front)
 function depths(level){const {w,h,rowsBottomFirst:rows,entries}=level,g=rows.join(''),d=new Float64Array(w*h).fill(Infinity),dq=[];for(const e of entries){d[e]=0;dq.push(e);}
  while(dq.length){const c=dq.shift(),x=c%w,y=Math.floor(c/w);for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const u=x+dx,v=y+dy;if(u<0||v<0||u>=w||v>=h)continue;const n=v*w+u;if(g[n]==='#')continue;

@@ -134,6 +134,13 @@ The legacy `VariantCatalog` stays for the legacy path.
   pairs occur in 11 of the 19 placed levels and in 86 of 116 approved pictures;
 - the accessible palette also has 11 merging pairs.
 
+**The 24 materials** (the owner, 2026-11-01, rules 17 §3): 8 materials are appended, two a hero, and the first 16 keep
+their codes, colours, names and places: Мята T #22A88C ♠ and Олива U #84892C ✕ (sprig), Фуксия F #C8329C ★ and Лаванда
+H #B39CE3 ☾ (bloom), Туман X #8E959D ☁ and Снег W #FAFBFC ❄ (drop), Песок Z #DFB48F ⧗ and Уголь J #1F1F26 ⬢ (twig): the
+grey, white, black and skin tone character pictures lacked, and more saturated hues. Under normal vision the smallest
+pair is still Вода/Небо 14.0 (of the new ones Жемчуг/Песок 14.8), and a waiting pod lightened by 0.18 still keeps 10
+from every other colour; under the simulations 27 of the 276 pairs merge, so the symbols mode matters more.
+
 The owner chose a **symbols mode** in Settings (off by default) that shows each material's symbol on cubes, pods and
 places (FR-047). The readability gate checks normal vision for the palette. Pipeline validation records the simulation
 numbers as a report, not a failure.

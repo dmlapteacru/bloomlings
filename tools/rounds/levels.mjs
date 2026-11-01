@@ -9,7 +9,8 @@
 //      [--no-intro]
 //      candidates for each picture, recipe and class: balance → queue → saved solution → random test → bank. Recipes put
 //      the lead first (17 §7): none, links, hidden, bridge, links+hidden, hidden+links, bridge+links, bridge+hidden,
-//      hidden+bridge, links+bridge, links+bridge+hidden, bridge+links+hidden; a board with a strip takes bridge recipes only,
+//      hidden+bridge, links+bridge, links+bridge+hidden, bridge+links+hidden; hidden cells (17 §8, 2026-11-01) as 'cells':
+//      cells, links+cells, cells+links, bridge+cells, bridge+links+cells … (never with hidden); a board with a strip takes bridge recipes only,
 //      a board without one the others
 // node tools/rounds/levels.mjs place <from> <to> [--pick <level>:<candidate>,…]  fill calendar positions from the bank (variety rules),
 //      write levels and cards, list what is still missing in content/rounds/needs.json; a position of an approved
@@ -23,9 +24,9 @@
 // node tools/rounds/levels.mjs checks [--shard i/n] [--levels] [--calm]  add missing checks (17 §5–§9, §13 layer B) to banked candidates and placed
 //      levels (the §5 calm test only with --calm: place measures the candidates it weighs)
 import fs from 'node:fs';import path from 'node:path';
-import {repeatWindow,siteChoice,ROUNDS,PICTURES,LEVELS,BANK,CODES,manifest,saveManifest,picture,readJSON,writeJSON,lid,pid,arg,flag,measure,stageOf,fitsStage,sizeBin,budget,columnsFor,classOf,slotOf,INTRO,MECH_RU,SUPPORTED,boardOf,usage,motifsOf,overlaid,bridgeSide,wallOverlay,planOf,fitsPlan,mechanicsPlans} from './lib.mjs';import {execFileSync} from 'node:child_process';
+import {repeatWindow,siteChoice,ROUNDS,PICTURES,LEVELS,BANK,CODES,manifest,saveManifest,picture,readJSON,writeJSON,lid,pid,arg,flag,measure,stageOf,fitsStage,sizeBin,budget,columnsFor,classOf,slotOf,INTRO,MECH_RU,SUPPORTED,recipeAllowed,boardOf,usage,motifsOf,overlaid,bridgeSide,wallOverlay,planOf,fitsPlan,mechanicsPlans} from './lib.mjs';import {execFileSync} from 'node:child_process';
 import {fitness} from './fitness.mjs';
-import {randomTest,quickShare,solve,fairness,strategies,rhythm,bridgeChoicesWin,bridgeChoices,greedy,greedyBeaten,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,bridgeLoss,pressure,calmTest,calmFails,calmBorderline,trapLinks} from './measure.mjs';
+import {cellsHiddenAtStart,cellFairness,randomTest,quickShare,solve,fairness,strategies,rhythm,bridgeChoicesWin,bridgeChoices,greedy,greedyBeaten,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,bridgeLoss,pressure,calmTest,calmFails,calmBorderline,trapLinks} from './measure.mjs';
 // layer B of 17 §13: the bounds of the metrics of interest (content/rounds/quality.json)
 const QUALITY=readJSON(path.join(ROUNDS,'quality.json'),{pressure:{min:{},games:30,mode:'soft'}});import {engine} from './engine.mjs';
 const cmd=process.argv[2];const CLASSES=['Normal','Hard','Super Hard'];
@@ -61,8 +62,12 @@ function depths(board,only=null){const {w,h,rowsBottomFirst:rows,entries}=board,
  return {d,g};}
 
 // ---- doses (§7, §9): ranges by class and role; a small queue (< 16 pods) has its own table ----
-const DOSE_T={links:{lead:[[.1,.3],[.2,.45],[.35,.6]],add:[[.05,.15],[.1,.2],[.15,.25]]},hidden:{lead:[[.05,.15],[.1,.25],[.15,.35]],add:[[.05,.1],[.05,.1],[.05,.15]]}};
-function doseRange(m,cls,role,P){const i=CLASSES.indexOf(cls);
+// hidden cells ('cells', 17 §8 «Скрытые клетки», 2026-11-01): shares of N (the colour cells), counting only the cells still
+// hidden after the start reveal; the small-queue table (P < 16) gives them the lead range
+const DOSE_T={links:{lead:[[.1,.3],[.2,.45],[.35,.6]],add:[[.05,.15],[.1,.2],[.15,.25]]},hidden:{lead:[[.05,.15],[.1,.25],[.15,.35]],add:[[.05,.1],[.05,.1],[.05,.15]]},
+ cells:{lead:[[.05,.1],[.1,.2],[.15,.3]],add:[[.05,.08],[.05,.08],[.05,.08]]}};
+function doseRange(m,cls,role,P,N=0){const i=CLASSES.indexOf(cls);
+ if(m==='cells'){const [a,b]=DOSE_T.cells[P<16?'lead':role][i];return [Math.ceil(a*N),Math.floor(b*N)];}
  if(P<16)return m==='hidden'?[[1,2],[2,3],[3,4]][i]:m==='links'?[[2,2],[4,4],[4,6]][i]:[1,1];
  const T=DOSE_T;
  if(!T[m])return [1,1];const [a,b]=T[m][role][i];return [Math.ceil(a*P),Math.floor(b*P)];}
@@ -82,18 +87,26 @@ export {doses};
 export const DOSE_CYCLE=[.5,.8,.4,.7,1,.6];
 // the dose place a banked candidate was built for, read back from its attempt number (P####-…-k)
 export const posOf=(id,recipe,intro)=>{if(intro||(recipe||'none')==='none')return null;const k=+String(id).split('-').pop();return Number.isInteger(k)?DOSE_CYCLE[k%DOSE_CYCLE.length]:null;};
-function doses(recipe,cls,P,intro){const types=recipe==='none'?[]:recipe.split('+'),out={},pr=podRoles(types);
- types.forEach(m=>{if(m==='bridge'){out.bridge=1;return;}const role=pr.role(m),j=pr.first(m)?0:1;let [a,b]=doseRange(m,cls,role,P);
+// N: the colour cells of the board (the doses of hidden cells are shares of N)
+function doses(recipe,cls,P,intro,N=0){const types=recipe==='none'?[]:recipe.split('+'),out={},pr=podRoles(types);
+ // hidden pods and hidden cells never on one level (17 §8, the owner, 2026-11-01)
+ if(!recipeAllowed(recipe))out.error='скрытые поды и скрытые клетки не бывают на одном уровне (§8)';
+ types.forEach(m=>{if(m==='bridge'){out.bridge=1;return;}const role=pr.role(m),j=pr.first(m)?0:1;let [a,b]=doseRange(m,cls,role,P,N);
   // the engine plays at most six hidden (depth) pods
   if(m==='hidden'){a=Math.min(a,6);b=Math.min(b,6);}
   // teaching doses (§9): 1 pair of links, 2–3 hidden pods (the owner's second amendment of 2026-10-27)
   // an additional mechanic takes the minimum admissible dose of its range: for links the smallest even count in it (pairs,
   // §7: 10 % of 24 pods is 2.4 → 3 → 4 participants, still inside 10–20 %)
-  if(intro){if(m==='hidden'){a=2;b=3;}else a=b=m==='links'?2:1;}else if(j>0){if(m==='links')a+=a%2;b=a<=b?a:b;}else if(role==='lead'&&pr.count>=3){b=Math.floor((a+b)/2);}
+  // 5–10 really hidden cells on a hidden-cell introduction (§9)
+  if(intro){if(m==='hidden'){a=2;b=3;}else if(m==='cells'){a=5;b=10;}else a=b=m==='links'?2:1;}else if(j>0){if(m==='links')a+=a%2;b=a<=b?a:b;}else if(role==='lead'&&pr.count>=3){b=Math.floor((a+b)/2);}
   if(m==='links'){a+=a%2;b-=b%2;}if(a>b)out.error=`нет целых доз ${m} для ${cls} при P=${P}`;out[m]=[a,b];});
  return out;}
+// the colour cells of a level's board (N)
+export const cellsOf=level=>{let n=0;for(const ch of level.rowsBottomFirst.join(''))if(CODES.includes(ch))n++;return n;};
 export function dosesOk(level,cls){const P=level.pods.length,hidden=level.pods.filter(p=>p.mystery).length,linked=level.pods.filter(p=>p.group).length,types=(level.recipe||'none')==='none'?[]:level.recipe.split('+');
- const d=doses(level.recipe||'none',cls,P,false);if(d.error)return d.error;
+ const d=doses(level.recipe||'none',cls,P,false,cellsOf(level));if(d.error)return d.error;
+ if(types.includes('cells')!==!!(level.hiddenCells&&level.hiddenCells.length))return 'рецепт и скрытые клетки не совпадают';
+ if(types.includes('cells')){const k=cellsHiddenAtStart(level);if(k<d.cells[0]||k>Math.max(d.cells[1],d.cells[0]))return `скрытых клеток после стартового раскрытия ${k} вне ${d.cells.join('–')} для ${cls}`;}
  if(types.includes('links')&&(linked<d.links[0]||linked>Math.max(d.links[1],d.links[0])))return `связанных ${linked} вне ${d.links.join('–')} для ${cls}`;
  if(types.includes('hidden')&&(hidden<d.hidden[0]||hidden>Math.max(d.hidden[1],d.hidden[0])))return `скрытых ${hidden} вне ${d.hidden.join('–')} для ${cls}`;
  const max=cls==='Normal'?2:3;if(types.length>max)return `типов ${types.length} больше ${max} для ${cls}`;if(P<16&&types.length>1)return 'очередь меньше 16 подов — только один тип';return null;}
@@ -150,7 +163,7 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null,opt
  if(cls==='Normal'&&!intro&&!pic.locked&&!tray.some(st=>st.slice(0,2).some(p=>!frontier.has(pods[p].color)))){
   const deep=[];tray.forEach((st,c)=>st.forEach((p,row)=>{if(row>=2&&!frontier.has(pods[p].color))deep.push([c,row]);}));deep.sort((a,b)=>pods[tray[a[0]][a[1]]].key-pods[tray[b[0]][b[1]]].key);
   const cs=[...Array(cols).keys()].filter(c=>tray[c].length>=2);if(deep.length&&cs.length){const [dc,dr]=deep[0],c=cs[Math.floor(r()*cs.length)];[tray[c][1],tray[dc][dr]]=[tray[dc][dr],tray[c][1]];}}
- const types=recipe==='none'?[]:recipe.split('+'),dz=doses(recipe,cls,pods.length,intro);if(dz.error)return {error:dz.error};
+ const types=recipe==='none'?[]:recipe.split('+'),dz=doses(recipe,cls,pods.length,intro,[...g].filter(ch=>CODES.includes(ch)).length);if(dz.error)return {error:dz.error};
  if(types.includes('links')){const want=pos===null||intro?dz.links[0]+2*Math.floor(r()*((dz.links[1]-dz.links[0])/2+1)):dz.links[0]+2*Math.round(pos*(dz.links[1]-dz.links[0])/2),pairs=[];const used=new Set();
   // pairs of neighbouring columns at the same depth; harder classes prefer a useful-now pod with a later one (§6.3)
   const opts=[];for(let c=0;c+1<cols;c++)for(let row=0;row<Math.min(tray[c].length,tray[c+1].length);row++)opts.push([tray[c][row],tray[c+1][row],row]);
@@ -163,12 +176,35 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null,opt
   // an introduction puts its first hidden pod in the second row, to reveal within the first launches (§8)
   if(intro){const k=opts.findIndex(([,row])=>row===1);if(k<0)return {error:'нет подходящего места во втором ряду для скрытого'};opts=[opts[k],...opts.filter((_,i)=>i!==k)];}
   if(opts.length<want)return {error:'не хватило подов для скрытых'};opts.slice(0,want).forEach(([p])=>pods[p].mystery='depth');}
+ // hidden cells (17 §8, 2026-11-01): the lead its dose place, an additional one its minimum, an introduction 5–10
+ let hiddenCells=null;
+ if(types.includes('cells')){const [a,b]=dz.cells,lead0=types.filter(m=>m!=='bridge')[0]==='cells',want=pos===null||intro||!lead0?a+Math.floor(r()*(b-a+1)):a+Math.round(pos*(b-a));
+  hiddenCells=pickHiddenCells(board,want,r,{intro});if(!hiddenCells)return {error:'не хватило глубоких клеток для скрытых клеток'};}
  if(types.includes('bridge')&&!board.hero)return {error:'на картинке нет мест моста (b)'};
  // a strip cuts a part off: without a bridge its cells cannot be reached
  if(board.hero&&!types.includes('bridge'))return {error:'на поле полоса с местами моста — нужен рецепт с мостом'};
  // a level on the generator's wall keeps the wall (picture coordinates), so its board is rebuilt from the approved picture
- const level={id:1,title:pic.title,subject:pic.id,w:board.w,h:board.h,rowsBottomFirst:board.rowsBottomFirst,entries:board.entries,capacity:5,pods:pods.map(({key,keyO,order,...p})=>p),tray,recipe,...(types.includes('bridge')?{hero:board.hero}:{}),...(board.overlay?{overlay:board.overlay}:{}),...(board.strip?{strip:board.strip}:{})};
+ const level={id:1,title:pic.title,subject:pic.id,w:board.w,h:board.h,rowsBottomFirst:board.rowsBottomFirst,entries:board.entries,capacity:5,pods:pods.map(({key,keyO,order,...p})=>p),tray,recipe,...(types.includes('bridge')?{hero:board.hero}:{}),...(board.overlay?{overlay:board.overlay}:{}),...(board.strip?{strip:board.strip}:{}),...(hiddenCells?{hiddenCells}:{})};
  return {level};}
+
+// ---- hidden cells (17 §8 «Скрытые клетки», the owner, 2026-11-01) ----
+// `want` colour cells of the board, none on the start front (so each stays hidden after the start reveal and counts in the
+// dose), none behind a bridge (the far bank: the bridge choice must not hang on a colour the player cannot know yet,
+// §8) and no bridge anchor; in one to three compact patches grown from deep seeds, so the «?» reads as fog over a part of
+// the picture. An introduction takes one patch round a seed of middle depth, so it reveals in the course of the round.
+// Returns the sorted cell indices (rows bottom first, y*w+x) or null when the picture has too few such cells.
+export function pickHiddenCells(board,want,r,{intro=false}={}){const {d,g}=depths(board,-1),w=board.w,n=g.length,anchors=new Set((board.hero?board.hero.choices:[]).map(c=>c.anchor));
+ const ok=i=>CODES.includes(g[i])&&d[i]>=1&&d[i]<Infinity&&!anchors.has(i),nb=i=>{const x=i%w,out=[];if(i>=w)out.push(i-w);if(i+w<n)out.push(i+w);if(x>0)out.push(i-1);if(x<w-1)out.push(i+1);return out;};
+ const pool=[];for(let i=0;i<n;i++)if(ok(i))pool.push(i);if(want<1||pool.length<want)return null;
+ const maxD=Math.max(...pool.map(i=>d[i])),lo=Math.max(1,Math.floor(maxD*(intro?.3:.5))),hi=intro?Math.max(lo,Math.ceil(maxD*.6)):maxD;
+ const patches=intro||want<=12?1:want<=40?2:3,chosen=new Set();
+ for(let k=0;chosen.size<want&&k<patches+6;k++){const size=Math.min(want-chosen.size,k<patches-1?Math.round(want/patches):want);
+  const free=i=>!chosen.has(i)&&!nb(i).some(j=>chosen.has(j));let seeds=pool.filter(i=>free(i)&&d[i]>=lo&&d[i]<=hi);if(!seeds.length)seeds=pool.filter(free);if(!seeds.length)seeds=pool.filter(i=>!chosen.has(i));if(!seeds.length)break;
+  const patch=[seeds[Math.floor(r()*seeds.length)]];chosen.add(patch[0]);
+  // grow: the frontier cell with the most patch neighbours first (a compact patch), ties at random
+  while(patch.length<size){const front=[...new Set(patch.flatMap(nb))].filter(j=>ok(j)&&!chosen.has(j));if(!front.length)break;
+   let best=null,bs=-1;for(const j of front){const sc=nb(j).filter(q=>chosen.has(q)).length+r()*.5;if(sc>bs){bs=sc;best=j;}}patch.push(best);chosen.add(best);}}
+ return chosen.size>=want?[...chosen].slice(0,want).sort((a,b)=>a-b):null;}
 
 // ---- the checks of one candidate level (17 §5–§9, §13 layer B), shared by build and the bridge scene search ----
 // Returns {reason} for the first failed check, else the measured parts of a bank entry: random, solution, fairness,
@@ -181,6 +217,9 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null,opt
 export async function evaluate(level,{m,cls,intro=false,fixed=null,kind=null,tick=()=>{}}){const W=m.N,recipe=level.recipe||'none';
  const errs=checkPods(level.pods,m.volumes);if(errs.length)return {reason:'баланс'};
  {const {R}=await engine(),ve=R.validate(level);if(ve&&ve.length)return {reason:'движок отклоняет: '+ve[0]};}
+ // hidden cells (17 §8, §9): never with hidden pods; an introduction has 5–10 cells still hidden after the start reveal
+ if(!recipeAllowed(recipe))return {reason:'скрытые поды и скрытые клетки на одном уровне (§8)'};
+ if(intro&&recipe==='cells'){const k=cellsHiddenAtStart(level);if(k<5||k>10)return {reason:`знакомство: скрытых клеток после стартового раскрытия ${k}, нужно 5–10 (§9)`};}
  if(level.hero){const {R}=await engine();if(R.bridgeChoices(R.create(level,level.capacity||5)).length)return {reason:'мост доступен сразу — нужен расчищенный подход (§8)'};}
  // a bridge introduction may be the second one, where one bridge only wins: its target is the Normal zone (§9)
  // a bridge level's class is its best bridge's (17 §5, the owner, 2026-10-30): the quick estimate takes the better bridge
@@ -218,7 +257,8 @@ export async function evaluate(level,{m,cls,intro=false,fixed=null,kind=null,tic
  if(!intro&&(rt.cls==='Hard'||rt.cls==='Super Hard')&&traps.length&&!trapN)return {reason:'нет связки-ловушки: у каждой связки материалы открыты с самого начала (§8)'};
  if(intro&&recipe!=='bridge'&&rt.share<.9)return {reason:'знакомство ниже 90 %'};
  const dErr=dosesOk(level,rt.cls);if(dErr&&!intro)return {reason:'дозы не подходят фактическому классу: '+dErr};
- const fair=level.pods.some(p=>p.mystery)?await fairness(level,sol.route):{fair:true,checked:0};if(!fair.fair)return {reason:'честность скрытых не подтверждена'};
+ // hidden pods and hidden cells are separate sources of the unknown (17 §8), each with its own fairness check
+ const fair=level.pods.some(p=>p.mystery)?await fairness(level,sol.route):level.hiddenCells?await cellFairness(level,sol.route):{fair:true,checked:0};if(!fair.fair)return {reason:level.hiddenCells?'честность скрытых клеток не подтверждена':'честность скрытых не подтверждена'};
  // §8: on a hidden-pod introduction one hidden pod matters (reveals early with a new colour and is launched soon)
  const hm=level.pods.some(p=>p.mystery)?await hiddenMatters(level,sol.route):null;if(intro&&recipe==='hidden'&&!hm.ok)return {reason:'скрытый под не влияет на выбор (§8)'};
  // a bridge level measures each bridge (§8, §9): the first introduction needs both to win and one clearly better; the
@@ -260,7 +300,7 @@ async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard
   const fixed=pic.locked||null,base=splitPods(m.volumes,W,fixed);
   if(base.error){bank.rejected.push({reason:base.error,...(v.overlay?{overlay:v.side}:{})});writeJSON(bankFile,bank);console.log(id,tag,'отклонена:',base.error);continue;}
   // a board with a strip takes bridge recipes only (its far part needs a bridge), a board without one no bridge recipe
-  const all=(arg('--recipes')||(fixed?'none':hasBridge?'bridge,bridge+links':'none,links,hidden,links+hidden')).split(','),recipes=all.filter(x=>x.split('+').every(t=>t==='none'||SUPPORTED.has(t))&&x.split('+').includes('bridge')===hasBridge);
+  const all=(arg('--recipes')||(fixed?'none':hasBridge?'bridge,bridge+links':'none,links,hidden,links+hidden')).split(','),recipes=all.filter(x=>x.split('+').every(t=>t==='none'||SUPPORTED.has(t))&&recipeAllowed(x)&&x.split('+').includes('bridge')===hasBridge);
   for(const cls of fixed?['Normal']:classes)for(const recipe of recipes){if(fixed&&recipe!=='none')continue;if(pairs&&!pairs.has(`${cls}:${recipe}${v.overlay?'@'+v.side:''}`))continue;
    for(const intro of recipe!=='none'&&!recipe.includes('+')&&cls==='Normal'&&!flag('--no-intro')?[false,true]:[false]){
     // resumable: a combination already searched (bank.searched) is skipped; the bank is saved after each one
@@ -291,7 +331,7 @@ async function build(ids){const classes=(arg('--classes','Normal,Hard,Super Hard
      if(steer){const q=e.random?e.random.share:quick;if(q!==null){steer.n++;steer.t=Math.min(1,Math.max(.3,steer.t+.45/Math.sqrt(steer.n)*(q-steer.aim)));}}
      if(e.reason){no(e.reason);continue;}
      bank.candidates.push({id:`${id}-${cls[0]}${recipe}${v.overlay?'~'+v.side:''}${runTag?'-'+runTag:''}-${k}${intro?'-intro':''}`,picture:id,requested:cls,cls:e.random.cls,intro,recipe,level:c.level,...(v.overlay?{overlay:v.overlay}:{}),...(side?{bridgeSide:side}:{}),N:m.N,W,colours:m.colours,P:c.level.pods.length,columns:cols,
-      linked:c.level.pods.filter(p=>p.group).length,hidden:c.level.pods.filter(p=>p.mystery).length,random:e.random,...(e.randomAll?{randomAll:e.randomAll}:{}),solution:e.solution,fairness:e.fairness,strategies:e.strategies,rhythm:e.rhythm,dosePos:pos,...(blend!==null?{blend:Math.round(blend*1000)/1000}:{}),...(e.bridge?{bridge:e.bridge}:{}),checks:e.checks,engine:'tools/rounds/engine.mjs (pilot v9 + §8 link rule)',seed:seed0,attempt:k});
+      linked:c.level.pods.filter(p=>p.group).length,hidden:c.level.pods.filter(p=>p.mystery).length,...(c.level.hiddenCells?{cells:cellsHiddenAtStart(c.level)}:{}),random:e.random,...(e.randomAll?{randomAll:e.randomAll}:{}),solution:e.solution,fairness:e.fairness,strategies:e.strategies,rhythm:e.rhythm,dosePos:pos,...(blend!==null?{blend:Math.round(blend*1000)/1000}:{}),...(e.bridge?{bridge:e.bridge}:{}),checks:e.checks,engine:'tools/rounds/engine.mjs (pilot v9 + §8 link rule)',seed:seed0,attempt:k});
      found++;if(e.checks.greedyLoses)foundLoss++;}
     console.log(id,tag,cls.padEnd(10),recipe.padEnd(13),intro?'знакомство':'',`найдено ${found} из ${tried}`,Object.keys(reasons).length?JSON.stringify(reasons):'');
     bank.searched.push({combo,...(runTag?{tag:runTag}:{}),...(steer?{steer:{t:Math.round(steer.t*1000)/1000,aim:steer.aim}}:{}),tried,found,reasons});writeJSON(bankFile,bank);}}}
@@ -313,7 +353,9 @@ export function mechOk(c,n,slot,plan=null){const k=c.checks||{},second=slot.intr
  if(c.recipe.includes('bridge')){if(slot.intro==='bridge'&&!second)return k.bridgeKind==='first';const want=(!slot.intro&&plan&&plan.bridgeKind)||'single';
   const ok=want==='any'?['single','better'].includes(k.bridgeKind):k.bridgeKind===want;
   return ok&&(k.bridgeKind!=='single'||!k.bridgeLoss||k.bridgeLoss.ok||c.cls==='Super Hard');}
- if(slot.intro==='hidden')return c.hidden>=2&&c.hidden<=3&&!!(k.hiddenMatters&&k.hiddenMatters.ok);return true;}
+ if(slot.intro==='hidden')return c.hidden>=2&&c.hidden<=3&&!!(k.hiddenMatters&&k.hiddenMatters.ok);
+ // a hidden-cell introduction: 5–10 cells still hidden after the start reveal (§9)
+ if(slot.intro==='cells')return c.cells>=5&&c.cells<=10;return true;}
 const greedyLost=L=>{const s=L.strategies||{};return !s['most-now|left']&&!s['most-now|right'];};
 // §2 picture fitness: Hard and Super Hard need 3+ colours hidden at the start; a weak picture carries a Normal only with a mechanic
 // measured on the board the level plays: a level on the generator's wall is measured with the wall
@@ -403,7 +445,7 @@ async function place(from,to){const placed={};for(const f of fs.existsSync(LEVEL
   const c=pick?ok.find(x=>x.id===pick):ok[0];
   if(process.env.ROUNDS_TRACE)console.error(lid(n),'кандидатов',ok.length,ok.slice(0,6).map(c=>`${c.picture} ${c.recipe} ${Math.round(c.random.share*100)}% поз ${c.dosePos??'—'} балл ${score(c).toFixed(2)}`).join(' | '));
   if(!c){needs.push({level:n,cls:slot.cls,intro:slot.intro,allowed:slot.allowed,stage:stageOf(n),...(plan?{recipe:plan.recipe,...(plan.bridgeSide?{bridgeSide:plan.bridgeSide,strip:plan.strip||null,bridgeKind:plan.bridgeKind||'single'}:{})}:{})});continue;}
-  const L={level:n,cls:slot.cls,intro:slot.intro,picture:c.picture,candidate:c.id,recipe:c.recipe,N:c.N,W:c.W,colours:c.colours,P:c.P,columns:c.columns,linked:c.linked,hidden:c.hidden,random:c.random,...(c.randomAll?{randomAll:c.randomAll}:{}),solution:c.solution,fairness:c.fairness,strategies:c.strategies,rhythm:c.rhythm,dosePos:c.dosePos??null,...(c.bridge?{bridge:c.bridge,bridgeSide:c.bridgeSide??bridgeSide(c.level)}:{}),checks:c.checks,engine:c.engine,definition:{...c.level,id:n,difficulty:slot.cls}};
+  const L={level:n,cls:slot.cls,intro:slot.intro,picture:c.picture,candidate:c.id,recipe:c.recipe,N:c.N,W:c.W,colours:c.colours,P:c.P,columns:c.columns,linked:c.linked,hidden:c.hidden,...(c.cells!=null?{cells:c.cells}:{}),random:c.random,...(c.randomAll?{randomAll:c.randomAll}:{}),solution:c.solution,fairness:c.fairness,strategies:c.strategies,rhythm:c.rhythm,dosePos:c.dosePos??null,...(c.bridge?{bridge:c.bridge,bridgeSide:c.bridgeSide??bridgeSide(c.level)}:{}),checks:c.checks,engine:c.engine,definition:{...c.level,id:n,difficulty:slot.cls}};
   writeJSON(path.join(LEVELS,lid(n)+'.json'),L);placed[n]=L;usedPic.add(c.picture);
   const e=m.pictures.find(p=>p.id===c.picture);if(e)e.usedBy=lid(n);const pf=path.join(PICTURES,c.picture+'.json'),pj=readJSON(pf);pj.usedBy=lid(n);writeJSON(pf,pj);
   for(const b of banks)if(b.picture===c.picture){b.candidates=b.candidates.filter(x=>x.id!==c.id);b.placed=(b.placed||[]).concat([c.id]);writeJSON(path.join(BANK,b.picture+'.json'),b);}
@@ -412,7 +454,7 @@ async function place(from,to){const placed={};for(const f of fs.existsSync(LEVEL
  if(needs.length)console.log(`не заполнено ${needs.length}: ${needs.map(x=>`L${x.level} ${x.cls}${x.intro?' ('+x.intro+')':''}${x.recipe?' '+x.recipe+(x.bridgeSide?' '+x.bridgeSide+(x.strip?'/'+x.strip:''):''):''}`).join(', ')} → content/rounds/needs.json`);}
 
 function card(n){const L=readJSON(path.join(LEVELS,lid(n)+'.json'));if(!L)return console.log('нет уровня',n);
- console.log(`${lid(n)} · ${L.cls}${L.intro?' · знакомство: '+MECH_RU[L.intro]:''} · картинка ${L.picture} «${L.definition.title}»\nN ${L.N} · W ${L.W} · материалов ${L.colours} · подов ${L.P} · колонок ${L.columns} · мест ${L.definition.capacity}\nрецепт: ${L.recipe} (связанных ${L.linked}, скрытых ${L.hidden})${L.definition.hero?` · мост: ${bridgeSide(L.definition)} (${L.definition.hero.choices.map(c=>c.label).join(', ')})${L.definition.overlay?', стена генератора поверх картинки':''}`:''}\nслучайный тест: ${Math.round(L.random.share*100)} % из ${L.random.runs}, Wilson95 ${L.random.wilson95.map(x=>Math.round(x*100)+' %').join('–')}${L.random.bridge!=null&&L.definition.hero?` (с мостом «${L.definition.hero.choices[L.random.bridge].label}»${L.randomAll?`; с обоими мостами ${Math.round(L.randomAll.share*100)} %`:''})`:''}\nрешение: ${L.solution.route.length} действий, опасных развилок ${L.solution.forks}, с одним безопасным ${L.solution.singleSafe}\nпосле 80 % W запусков: ${L.rhythm.launchesAfter80}, последний при ${L.rhythm.lastLaunchAtW} % W, время решения ${L.rhythm.seconds} с (×1, после окончания работы), тапы сразу: ${L.solution.fast?L.solution.fast.seconds+' с ('+L.solution.fast.status+')':'—'}\nэтапы: ${L.rhythm.segments.map(s=>`${s.from}–${s.to}%: своб. ${s.meanFree}/${s.minFree}, полный ${Math.round((s.fullShare||0)*100)} %`).join(' · ')}\nпростые стратегии: выиграли ${Object.values(L.strategies).filter(Boolean).length} из ${Object.keys(L.strategies).length}; «больше работы сейчас» ${greedyLost(L)?'проигрывает':'выигрывает'}\nвынужденных решений: ${L.checks?Math.round(L.checks.forced*100)+' %':'—'}${L.checks&&L.checks.opening?` · дебют + цвета: после первого запуска ${L.checks.opening.first.wins} из ${L.checks.opening.first.openings}, после трёх ${Math.round(L.checks.opening.three.share*100)} %`:''}${L.checks&&L.checks.hold!=null?' · под держит место: '+(L.checks.hold?'да':'нет'):''}${L.checks&&L.checks.pressure?' · стоят без работы: '+L.checks.pressure.stuck:''}${L.checks&&L.checks.bridgeKind?' · мост: '+(L.checks.bridgeKind==='single'?'решает ровно один':'оба выигрывают, один лучше'):''}`);}
+ console.log(`${lid(n)} · ${L.cls}${L.intro?' · знакомство: '+MECH_RU[L.intro]:''} · картинка ${L.picture} «${L.definition.title}»\nN ${L.N} · W ${L.W} · материалов ${L.colours} · подов ${L.P} · колонок ${L.columns} · мест ${L.definition.capacity}\nрецепт: ${L.recipe} (связанных ${L.linked}, скрытых ${L.hidden}${L.cells!=null?`, скрытых клеток ${L.cells} из ${L.definition.hiddenCells.length}`:''})${L.definition.hero?` · мост: ${bridgeSide(L.definition)} (${L.definition.hero.choices.map(c=>c.label).join(', ')})${L.definition.overlay?', стена генератора поверх картинки':''}`:''}\nслучайный тест: ${Math.round(L.random.share*100)} % из ${L.random.runs}, Wilson95 ${L.random.wilson95.map(x=>Math.round(x*100)+' %').join('–')}${L.random.bridge!=null&&L.definition.hero?` (с мостом «${L.definition.hero.choices[L.random.bridge].label}»${L.randomAll?`; с обоими мостами ${Math.round(L.randomAll.share*100)} %`:''})`:''}\nрешение: ${L.solution.route.length} действий, опасных развилок ${L.solution.forks}, с одним безопасным ${L.solution.singleSafe}\nпосле 80 % W запусков: ${L.rhythm.launchesAfter80}, последний при ${L.rhythm.lastLaunchAtW} % W, время решения ${L.rhythm.seconds} с (×1, после окончания работы), тапы сразу: ${L.solution.fast?L.solution.fast.seconds+' с ('+L.solution.fast.status+')':'—'}\nэтапы: ${L.rhythm.segments.map(s=>`${s.from}–${s.to}%: своб. ${s.meanFree}/${s.minFree}, полный ${Math.round((s.fullShare||0)*100)} %`).join(' · ')}\nпростые стратегии: выиграли ${Object.values(L.strategies).filter(Boolean).length} из ${Object.keys(L.strategies).length}; «больше работы сейчас» ${greedyLost(L)?'проигрывает':'выигрывает'}\nвынужденных решений: ${L.checks?Math.round(L.checks.forced*100)+' %':'—'}${L.checks&&L.checks.opening?` · дебют + цвета: после первого запуска ${L.checks.opening.first.wins} из ${L.checks.opening.first.openings}, после трёх ${Math.round(L.checks.opening.three.share*100)} %`:''}${L.checks&&L.checks.hold!=null?' · под держит место: '+(L.checks.hold?'да':'нет'):''}${L.checks&&L.checks.pressure?' · стоят без работы: '+L.checks.pressure.stuck:''}${L.checks&&L.checks.bridgeKind?' · мост: '+(L.checks.bridgeKind==='single'?'решает ровно один':'оба выигрывают, один лучше'):''}`);}
 
 if(cmd==='calendar'){const a=+process.argv[3]||1,b=+process.argv[4]||30;for(let n=a;n<=b;n++){const s=slotOf(n);console.log(lid(n),s.cls.padEnd(10),s.intro?('знакомство: '+MECH_RU[s.intro]+(SUPPORTED.has(s.intro)?'':' — НЕ ПОДДЕРЖИВАЕТСЯ ДВИЖКОМ')).padEnd(46):''.padEnd(46),'разрешены:',s.allowed.map(x=>MECH_RU[x]+(SUPPORTED.has(x)?'':' (нет в движке)')).join(', ')||'без допов');}}
 else if(cmd==='build'){const ids=flag('--approved')?(u=>manifest().pictures.filter(p=>p.status==='approved'&&!u[p.id]).map(p=>p.id))(usage()):process.argv.slice(3).filter(a=>/^P\d+$/.test(a));await build(ids);}
@@ -423,7 +465,7 @@ else if(cmd==='unplace'){const a=+process.argv[3],b=+process.argv[4],m=manifest(
   // a hand-built level (adopt) has no bank: it is only taken off its position and its picture freed
   if(L.hand){fs.unlinkSync(f);const e=m.pictures.find(p=>p.id===L.picture);if(e)delete e.usedBy;const pf=path.join(PICTURES,L.picture+'.json'),pj=readJSON(pf);delete pj.usedBy;writeJSON(pf,pj);console.log(lid(n),'снят (ручной):',L.picture);continue;}
   const bf=path.join(BANK,L.picture+'.json'),bank=readJSON(bf,{picture:L.picture,candidates:[],rejected:[]});
-  const {id,difficulty,...level}=L.definition;bank.candidates.push({id:L.candidate,picture:L.picture,requested:L.cls,cls:L.cls,intro:!!L.intro,recipe:L.recipe,level:{id:1,...level},N:L.N,W:L.W,colours:L.colours,P:L.P,columns:L.columns,linked:L.linked,hidden:L.hidden,random:L.random,solution:L.solution,fairness:L.fairness,strategies:L.strategies,rhythm:L.rhythm,dosePos:L.dosePos??posOf(L.candidate,L.recipe,L.intro),...(L.bridge?{bridge:L.bridge}:{}),...(level.overlay?{overlay:level.overlay}:{}),...(L.bridgeSide?{bridgeSide:L.bridgeSide}:{}),checks:L.checks,engine:L.engine});
+  const {id,difficulty,...level}=L.definition;bank.candidates.push({id:L.candidate,picture:L.picture,requested:L.cls,cls:L.cls,intro:!!L.intro,recipe:L.recipe,level:{id:1,...level},N:L.N,W:L.W,colours:L.colours,P:L.P,columns:L.columns,linked:L.linked,hidden:L.hidden,...(L.cells!=null?{cells:L.cells}:{}),random:L.random,solution:L.solution,fairness:L.fairness,strategies:L.strategies,rhythm:L.rhythm,dosePos:L.dosePos??posOf(L.candidate,L.recipe,L.intro),...(L.bridge?{bridge:L.bridge}:{}),...(level.overlay?{overlay:level.overlay}:{}),...(L.bridgeSide?{bridgeSide:L.bridgeSide}:{}),checks:L.checks,engine:L.engine});
   bank.placed=(bank.placed||[]).filter(x=>x!==L.candidate);writeJSON(bf,bank);fs.unlinkSync(f);
   const e=m.pictures.find(p=>p.id===L.picture);if(e)delete e.usedBy;const pf=path.join(PICTURES,L.picture+'.json'),pj=readJSON(pf);delete pj.usedBy;writeJSON(pf,pj);console.log(lid(n),'снят:',L.picture,L.candidate);}
  saveManifest(m);execFileSync(process.execPath,[new URL('./pictures.mjs',import.meta.url).pathname,'publish'],{stdio:'inherit',env:process.env});}

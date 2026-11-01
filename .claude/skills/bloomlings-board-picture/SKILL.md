@@ -25,7 +25,7 @@ Fill each from the request. If one is missing, take the default.
 | Cells | occupied cells, min–max | the stage range of 17 §2 (L1–L3: their exact counts and volumes, §4) |
 | Target | the wished number of cells | the middle of the range; at times near the top. Never the floor by default |
 | Colours | number of materials | inside the stage range of 17 §2 |
-| Palette | the materials | the pilot palette (`tools/gameplay-pilot-v9/palette.cjs`): `G P B A C D V Y O L M R K N S E` |
+| Palette | the materials | the round palette (`tools/rounds/engine/palette.cjs`, 24 materials, 6 per hero): `G P B A C D V Y O L M R K N S E T U F H X W Z J` |
 | Reference | an attached picture | none |
 
 ## Look

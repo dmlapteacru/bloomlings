@@ -120,8 +120,54 @@ generator's wall) and `bridgeKind` (`single`: exactly one bridge wins; `better`:
 builds only each open position's planned recipe (`levels.mjs build --pairs cls:recipe@side --overlay …`); `levels.mjs
 place` accepts a candidate on a planned position only with that recipe and, for a bridge, that crossing side and bridge kind. Recipes:
 `none`, `links`, `hidden`, `bridge`, `links+hidden`, `hidden+links`, `bridge+links`, `bridge+hidden`, `hidden+bridge`,
-`links+bridge`, `links+bridge+hidden`, `bridge+links+hidden`; doses by §7 (the lead its range with the dose place cycle,
+`links+bridge`, `links+bridge+hidden`, `bridge+links+hidden`, and with hidden cells `cells`, `links+cells`, `cells+links`,
+`bridge+cells`, `bridge+links+cells`, `bridge+cells+links` (never `hidden` and `cells` together); doses by §7 (the lead its range with the dose place cycle,
 an additional one its minimum admissible dose, three types the lead in its lower half).
+
+**Hidden cells** (17 §8 «Скрытые клетки», the owner's amendment of 2026-11-01; recipe and mechanic name `cells`,
+«скрытые клетки»). The exact contract, which the C# port follows:
+
+- *Level data.* The round level's `definition.hiddenCells` (exported as `board.hiddenCells` of `round-level.v1`, and
+  `mechanics` then includes `"cells"`): cell indices `y*w+x` of `rowsBottomFirst` (row 0 at the bottom, as bridge
+  choices), sorted ascending, unique, at least one, each a material cell. `R.validate` refuses anything else (`hidden
+  cells`, `hidden cell not a colour cell`) and a level that also has hidden pods (`hidden cells with hidden pods`).
+  A level without hidden cells has no `hiddenCells` key.
+- *State.* `state.veiled` (a byte per cell, 1 = hidden and not revealed yet; `null` on a level without hidden cells) and
+  `state.veiledLeft` (how many ones). The material of a hidden cell is in the board from the start; nothing else changes.
+- *Reveal rule.* A hidden, unrevealed cell reveals as soon as it has an orthogonal neighbour that is open and reachable
+  from an entry, or is itself an entry cell — exactly the condition for being a target (`reach().targets`). It is
+  checked at create (the start reveal, no events: part of the start state) and after every board change: in
+  `rules.step`/`settle` after each round's clears (before that round's `complete` events) and after a bridge (right after
+  the `bridge` event); on the timeline after each single `clear` step (right after it, `at` = that clear's time) and
+  after a bridge commit (in the commit's events, `at` = the commit time). All cells a change reveals come in increasing
+  cell order, each `{type:'cellReveal', cell}` (`at` added on the timeline). The conformance log line is
+  `<µs> cellReveal cell=<c>`.
+- *Why nothing else changes.* Open cells never close, so reachability only grows and a target stays a target until it
+  is cleared: a hidden cell is never a target or a passage while hidden (it is a colour cell, not open), and it is
+  revealed at the very moment it would become a target. Targeting, dispatch, release, status and every outcome are the
+  same as without hidden cells; `veiled` is a function of the board (a hidden colour cell that is not a target), so
+  `signature()` leaves it out and a restored timeline checkpoint recomputes it (`syncCells`). A level without hidden
+  cells plays byte-identically (events, states, signatures; checked by `test/cells.test.mjs` and a replay of every
+  placed level).
+- *Information.* `R.view` shows an unrevealed hidden cell as `R.HIDDEN` (−3); `R.known(state, i)` is false for it. The
+  strategies that read colours off the board (`tools/level-stats/strategies.mjs` top-down/bottom-up) skip such cells;
+  the ones that read only targets (most-now, fast-release, the opening test, holdPod, pressure) never see one. The random
+  and calm tests are unchanged. `trapLinks` and `fitness` read access depth of the start board, where every start-front
+  cell is revealed, so they are unchanged too.
+- *Dose* (§8 table): only the cells still hidden after the start reveal count (`cellsHiddenAtStart`). Shares of N
+  (the board's colour cells): lead Normal 5–10 %, Hard 10–20 %, Super Hard 15–30 % (also the small-queue table); an
+  additional one 5–8 %, at its minimum; an introduction (51, 53: Normal, alone, random test 90–100 %) 5–10 cells.
+- *Builder.* `pickHiddenCells(board, want, r, {intro})`: colour cells off the start front (access depth ≥ 1, so all stay
+  hidden), not behind a bridge (the far bank, so the bridge choice never hangs on an unknown colour) and no bridge anchor;
+  one to three compact patches grown from deep seeds (an introduction: one patch round a seed of middle depth).
+  `evaluate` refuses `hidden`+`cells`, checks an introduction's 5–10, the dose for the measured class, and the fairness of
+  hidden cells (`cellFairness`: up to 12 worlds where two hidden cells of different materials swap them; following the
+  saved solution until one of them reveals must leave a winning continuation). Bank candidates and placed levels carry
+  `cells` (the count after the start reveal).
+- *Audit.* Recipe and `hiddenCells` agree, every hidden cell is a colour cell, never with hidden pods, the dose after
+  the start reveal for the class and role, an introduction 5–10; cells revealed at the start are a note.
+- *Pilot* (`tools/gameplay-pilot-v12`): an unrevealed hidden cell is a neutral grey cube with «?»; it reveals by the
+  engine's rule; the finished picture shows its colour; both introductions carry an explanation.
 
 | File | What |
 |---|---|
@@ -142,7 +188,7 @@ an additional one its minimum admissible dose, three types the lead in its lower
 | `levels.mjs` | §3 pod split, candidates (queue by access depth, doses of §7; a scene's gate and lean), `evaluate` (the checks of one candidate, shared with the scene search), build → bank, calendar placement with the §11 variety rules and the plan's bridge kind, cards |
 | `bridge-scene.mjs` | split pictures (`splitOf`, `splitsFor`, `checkSplit`, `make --mode split`, `preview`) and the older bridge scenes: `scene` (a smaller picture behind a wall with two sites, strips and beds), `stripsOver`, `checkScene`, the search `make` → a draft picture module with the evidence |
 
-The engine plays hidden pods, linked pairs and the bridge. Latch + key, canal, shutters, repair, bud, seed, well,
-hidden cells and stacks need engine and pilot work first (`SUPPORTED` in `lib.mjs`). The search behind the saved
+The engine plays hidden pods, linked pairs, the bridge and hidden cells. Latch + key (now 401/403), canal, shutters,
+repair, bud, seed, well and stacks need engine and pilot work first (`SUPPORTED` in `lib.mjs`). The search behind the saved
 solution assumes each action's work settles before the next. A search that runs out of budget means "not checked",
 never "impossible".

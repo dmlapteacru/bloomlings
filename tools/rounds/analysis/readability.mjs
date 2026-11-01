@@ -1,5 +1,5 @@
 const ROOT=new URL('../../../',import.meta.url).pathname;
-// The game's readability check (core/src/Bloomlings.Pipeline/Readability: ColorScience, ReadabilityCommand) on the 16
+// The game's readability check (core/src/Bloomlings.Pipeline/Readability: ColorScience, ReadabilityCommand) on the 24
 // round colours: CIEDE2000 between each pair under normal vision and the protanopia, deuteranopia and tritanopia
 // simulations, the smallest of the four; a pair fails under MinDeltaE 10 (spec 006 FR-047: on cubes without icons, colour
 // alone must tell materials apart). Then lists which placed round levels and approved pictures hold a failing pair.
