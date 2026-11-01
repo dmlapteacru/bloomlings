@@ -130,7 +130,7 @@ namespace Bloomlings.Client.Art
         }
 
         /// <summary>
-        /// A latch block (17 §8 «Засов и жёлудь-ключ», spec 006 FR-067; the playtest's <c>Kit.LatchBlock</c>): the pod-sized
+        /// A latch block (17 §8 «Засов и жёлудь-ключ», spec 006 FR-068; the playtest's <c>Kit.LatchBlock</c>): the pod-sized
         /// oblique wooden block with latch <paramref name="latch"/>'s mark (<see cref="UiRaster.LatchBlock"/>).
         /// </summary>
         public static Sprite LatchBlock(int latch, int size)

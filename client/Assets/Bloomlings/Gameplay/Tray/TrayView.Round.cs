@@ -17,7 +17,7 @@ namespace Bloomlings.Client.Gameplay.Tray
     /// nothing for the rest (no "+N"); a pod's cube in its material's colour with its count, the waiting ones only a little
     /// lighter, a hidden pod's "?" cube until it reveals and its glow then (FR-045); the link tubes on linked cubes' front
     /// faces, under the pods (FR-043); and the pulse round the partner a refused tap waits for. The pods slide up a row
-    /// when the top one leaves. A latch (17 §8 «Засов и жёлудь-ключ», FR-067) stands as a wooden block at its place in its
+    /// when the top one leaves. A latch (17 §8 «Засов и жёлудь-ключ», FR-068) stands as a wooden block at its place in its
     /// column's queue, the pods behind it below it; when it opens it lifts out and they slide up.
     /// </summary>
     public sealed partial class TrayView
@@ -99,7 +99,7 @@ namespace Bloomlings.Client.Gameplay.Tray
                     well.gameObject.SetActive(false);
                 }
 
-                // The column's queue with its latches at their places (17 §8 «Засов и жёлудь-ключ», FR-067): a pod's row is its
+                // The column's queue with its latches at their places (17 §8 «Засов и жёлудь-ключ», FR-068): a pod's row is its
                 // depth plus the latches before it; a pod behind a closed latch is drawn waiting and takes no tap.
                 a.ColumnItems(s, grid.PodRows, _roundItems);
                 int rows = _roundItems.Count;
@@ -172,7 +172,7 @@ namespace Bloomlings.Client.Gameplay.Tray
         }
 
         /// <summary>
-        /// A latch block (17 §8 «Засов и жёлудь-ключ», FR-067; the playtest's <c>Kit.LatchBlock</c>) at its row's pod box
+        /// A latch block (17 §8 «Засов и жёлудь-ключ», FR-068; the playtest's <c>Kit.LatchBlock</c>) at its row's pod box
         /// <paramref name="row"/>: the pod-sized wooden block (<see cref="RoundSprites.LatchBlock"/>); while it opens
         /// (<paramref name="since"/> ≥ 0) it swells, lifts and fades out of its column (<see cref="RoundLook.LatchOpenLift"/>).
         /// </summary>

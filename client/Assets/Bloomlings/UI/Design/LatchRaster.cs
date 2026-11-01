@@ -3,7 +3,7 @@ using System;
 namespace Bloomlings.Client.UI.Design
 {
     /// <summary>
-    /// The latch and its acorn key (rules 17 §8 «Засов и жёлудь-ключ», the owner, 2026-11-01; spec 006 FR-067,
+    /// The latch and its acorn key (rules 17 §8 «Засов и жёлудь-ключ», the owner, 2026-11-01; spec 006 FR-068,
     /// contracts/presentation.md): engine-free flat 2D pictures in the round pods' oblique look, lit from the upper left,
     /// straight alpha, deterministic. Each latch has its mark (<see cref="RoundLook.LatchTag"/> colour and
     /// <see cref="RoundLook.LatchPips"/> white pips), the same on its block and on its key, so a level with several latches

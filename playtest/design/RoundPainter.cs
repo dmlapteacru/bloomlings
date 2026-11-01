@@ -374,7 +374,7 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
-            // The acorn keys (17 §8 «Засов и жёлудь-ключ», FR-067): each closed latch's acorn on its empty cell, with its latch's
+            // The acorn keys (17 §8 «Засов и жёлудь-ключ», FR-068): each closed latch's acorn on its empty cell, with its latch's
             // mark; when the latch opens it pops (swells and fades).
             for (int latch = 0; latch < a.LatchCount; latch++)
             {
@@ -764,7 +764,7 @@ namespace Bloomlings.Playtest.Design
                     continue;
                 }
 
-                // The column's queue with its latches at their places (17 §8 «Засов и жёлудь-ключ», FR-067): a pod's row is its
+                // The column's queue with its latches at their places (17 §8 «Засов и жёлудь-ключ», FR-068): a pod's row is its
                 // depth plus the latches before it.
                 a.ColumnItems(st, r.PodRows + 1, cache.Items);
                 for (int k = cache.Items.Count - 1; k >= 0; k--)
@@ -865,7 +865,7 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
-            // The latch blocks (FR-067): each at its row, a pod's size; an opening one swells, lifts and fades out of its
+            // The latch blocks (FR-068): each at its row, a pod's size; an opening one swells, lifts and fades out of its
             // column, then the pods behind it slide up.
             foreach ((int latch, int st, int row, Box drawn) in latches)
             {

@@ -8353,6 +8353,24 @@
    "batch": "split-L0085",
    "note": null,
    "usedBy": null
+  },
+  {
+   "id": "P0470",
+   "seq": 470,
+   "version": 1,
+   "title": "Маяк на скале — мост",
+   "theme": "bridge-splits",
+   "family": "Дома и архитектура",
+   "direction": null,
+   "forLevel": 75,
+   "w": 28,
+   "h": 36,
+   "N": 945,
+   "colours": 8,
+   "status": "draft",
+   "batch": "split-L0075",
+   "note": null,
+   "usedBy": null
   }
  ]
 }

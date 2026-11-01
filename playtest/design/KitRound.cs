@@ -388,7 +388,7 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// A latch block (17 §8 «Засов и жёлудь-ключ», spec 006 FR-067; <c>pod.round.latch</c>) in a pod's chip
+        /// A latch block (17 §8 «Засов и жёлудь-ключ», spec 006 FR-068; <c>pod.round.latch</c>) in a pod's chip
         /// <paramref name="chip"/>: the pod-sized oblique wooden block with its iron bolt, acorn padlock and the mark of latch
         /// <paramref name="latch"/> (<see cref="UiRaster.LatchBlock"/>). It takes no tap.
         /// </summary>

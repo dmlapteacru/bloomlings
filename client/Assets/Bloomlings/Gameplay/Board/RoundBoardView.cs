@@ -67,7 +67,7 @@ namespace Bloomlings.Client.Gameplay.Board
         private const sbyte VeiledCube = 100;
         private Image?[] _veils = Array.Empty<Image?>();
 
-        // Latch + key (17 §8 «Засов и жёлудь-ключ», FR-067): each latch's acorn key on its board cell.
+        // Latch + key (17 §8 «Засов и жёлудь-ключ», FR-068): each latch's acorn key on its board cell.
         private readonly List<Image> _keys = new List<Image>();
         private bool _symbols;
         private bool _bursting;
@@ -218,7 +218,7 @@ namespace Bloomlings.Client.Gameplay.Board
                 _pieces.Add((image, piece));
             }
 
-            // The acorn keys on their empty cells, over the cubes and under the bridges (17 §8, FR-067).
+            // The acorn keys on their empty cells, over the cubes and under the bridges (17 §8, FR-068).
             for (int i = 0; i < level.Latches.Count; i++)
             {
                 Image key = UiFactory.CreateImage("AcornKey", _decor, null, Color.white);

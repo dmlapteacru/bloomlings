@@ -55,7 +55,7 @@ namespace Bloomlings.Client.UI.Design
     }
 
     /// <summary>
-    /// One thing a column shows in its queue (spec 006 FR-067, rules 17 §8 «Засов и жёлудь-ключ»): a pod, or a latch standing
+    /// One thing a column shows in its queue (spec 006 FR-068, rules 17 §8 «Засов и жёлудь-ключ»): a pod, or a latch standing
     /// at its place among the pods (<see cref="IsLatch"/>), at display row <see cref="Row"/> (0 = the top).
     /// </summary>
     public readonly struct RoundQueueItem
@@ -110,7 +110,7 @@ namespace Bloomlings.Client.UI.Design
     /// <item><description>the places and the columns as the rules hold them, with when each pod took its place, when a
     /// finished pod left one (its puff) and when a hidden pod revealed (its glow, FR-045);</description></item>
     /// <item><description>the link tubes between linked pods in the columns and in the places (FR-043);</description></item>
-    /// <item><description>the latches (17 §8 «Засов и жёлудь-ключ», FR-067): each closed until its <c>latchOpen</c> moment, and
+    /// <item><description>the latches (17 §8 «Засов и жёлудь-ключ», FR-068): each closed until its <c>latchOpen</c> moment, and
     /// that moment for its opening; the columns' queues with the latches at their places (<see cref="ColumnItems"/>).</description></item>
     /// </list>
     /// Its clock is the host's display clock in µs (<see cref="Now"/>): the model time plus the time that passed while
@@ -501,7 +501,7 @@ namespace Bloomlings.Client.UI.Design
             return (Now - at) / 1_000_000f;
         }
 
-        // ---- Latches and their acorn keys (17 §8 «Засов и жёлудь-ключ», FR-067) ----
+        // ---- Latches and their acorn keys (17 §8 «Засов и жёлудь-ключ», FR-068) ----
 
         /// <summary>The level's latches (<see cref="RoundLevel.Latches"/>).</summary>
         public int LatchCount => _latched.Length;
@@ -546,7 +546,7 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>
-        /// Column <paramref name="column"/>'s queue as drawn (FR-067), top first, into <paramref name="into"/> (cleared): its
+        /// Column <paramref name="column"/>'s queue as drawn (FR-068), top first, into <paramref name="into"/> (cleared): its
         /// waiting pods with every shown latch (<see cref="LatchShown"/>) of the column at its place among them, a latch
         /// before the pod at its depth, each item at its row; at most <paramref name="maxRows"/> rows (0: all).
         /// </summary>

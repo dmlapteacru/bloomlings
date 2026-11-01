@@ -33,7 +33,7 @@ namespace Bloomlings.Client.UI.Design
     /// (<see cref="RevealGlow"/>).</description></item>
     /// <item><description>A hidden cell (17 §8 «Скрытые клетки») is the neutral "?" cube (<see cref="HiddenCellSlot"/>) until
     /// it reveals, then pops into its material (<see cref="CellRevealScale"/>, <see cref="CellRevealVeil"/>).</description></item>
-    /// <item><description>A latch (17 §8 «Засов и жёлудь-ключ», FR-067) is a wooden latch block (<see cref="LatchSlot"/>) standing in its
+    /// <item><description>A latch (17 §8 «Засов и жёлудь-ключ», FR-068) is a wooden latch block (<see cref="LatchSlot"/>) standing in its
     /// column at its place in the queue, its acorn key (<see cref="KeySlot"/>) on its board cell with the same mark
     /// (<see cref="LatchTag"/>, <see cref="LatchPips"/>); when it opens the key pops (<see cref="KeyPopScale"/>) and the
     /// block swings out of its column (<see cref="LatchOpenLift"/>).</description></item>
@@ -62,7 +62,7 @@ namespace Bloomlings.Client.UI.Design
         public const string HiddenCellSlot = "tile.round.hidden";
 
         /// <summary>
-        /// The latch block's asset slot (rules 17 §8 «Засов и жёлудь-ключ», the owner, 2026-11-01; spec 006 FR-067): a pod-sized
+        /// The latch block's asset slot (rules 17 §8 «Засов и жёлудь-ключ», the owner, 2026-11-01; spec 006 FR-068): a pod-sized
         /// oblique wooden block with an iron bolt and an acorn padlock (<see cref="UiRaster.LatchBlock"/>), standing in its column
         /// at its place among the pods, the pods behind it drawn below it as usual.
         /// </summary>
