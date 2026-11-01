@@ -1,0 +1,93 @@
+{
+ "code": "P1055",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Александр, Железный Кулак",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Волшебные существа",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Elden Ring · FromSoftware: Iron Fist Alexander from Elden Ring: one big round terracotta LIVING JAR with a broad circular lid bearing a simple RED seal, thick pale clay arms and short sturdy legs, large rope band around his shoulders. Friendly triumphant pose with one fist raised, preserve the unmistakable pot-warrior silhouette, no human face painted on the jar.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 35,
+ "N": 967,
+ "colours": 6,
+ "volumes": {
+  "A": {
+   "cells": 525,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 284,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 67,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 48,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 34,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "O": {
+   "cells": 9,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "............................DDDDD..",
+  ".............DDDDDDDDD......AAAAAD.",
+  "..........DDAAAAAAAAAAADD..DAAAAAA.",
+  ".......DDAAAAARRAAAAAAAAAD.DDAAAAA.",
+  "......DDDAAAARRRRRAAAAAAADDDDDDADAD",
+  ".....DARRAAAARRRRAAAAAAAADDDDDDDAAD",
+  "....AAARRAAAAAAARAAAAAAAADDD.DDDAAD",
+  "...DAAAARRRAAARRRRAAAAAADDDD.DEDAAD",
+  "...DAAAAAAAAAAAAAAAAAAADAADD.DEEAAA",
+  "...DAAAAAAAAAAAAAAAAADAAAAAADAAEAAA",
+  "...DDAAAAAAAAAAAAAAAAAAAAADDAAAADEE",
+  "..DDDDDDDAAAAAADDAAAAAAAAADDADAEEED",
+  ".DADDEEEAAAAAAAAAAAAAAAAAADDADDDEE.",
+  ".DAODAAAAAAAAAAAAAAAAAAAAADDDDDDD..",
+  ".DAOODAAAAAAAAAAAAAAAAAAADADDDDD...",
+  ".DDOOAADAAAAAAAAAADAAAAADAAAEEDD...",
+  "DEDDAAAAOOAAAAAAAAAAAADAAAAAEEDDD..",
+  "DEDDDDDAAOOAAAAAAAAADAAAAAAAEEDDD..",
+  "EEDDCDDDDDDADDAADDDARAAAAAAAAEDD...",
+  "EECCCCDAAAAAAAAAAAAARAAAAAAADAD....",
+  "EDCCCDDDAAAAAAAAAAAARAAAAAAAAAD....",
+  "ECCCDDDDAAAAAAAAAAAARAAAAAAAAAD....",
+  "DCCCCCCDAAAAAAAAAAAARRAAAAAAAD.....",
+  "DCCAACCCDAAAAAAAAAAARRRAAAADDD.....",
+  "DCCCACCCDDDAAAAAAAARRAAAAAAAD......",
+  ".DDEECCCCCCDAAAAAAAAAAAAEADAD......",
+  "..DDEECCCCDDAAAAAAAAAAEAEEDDDD.....",
+  ".....DDCCDDDAAAAAAAAAEEEDDDDAAD....",
+  "......DDDDDDDAAAAAAAAAEDDDDAAACD...",
+  "......DDDDDADDAAAAAAADDDDDAAAADD...",
+  ".....DDDDAAADDDDDDDDDD..DDDDDDDDD..",
+  ".....DCCCCAAEDDDDDDD...DEEDEEEED...",
+  "....DDCCCEEEED........DDEEDEEDD....",
+  "...DAAADDEED.........DEEEDDDEDD....",
+  "..DAAAADDDED.........DEEEEAAAAAAD.."
+ ]
+}

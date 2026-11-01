@@ -1,0 +1,110 @@
+{
+ "code": "P0958",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Велосипед из двух половинок киви",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Наземный транспорт",
+ "direction": "Кулинарная фантастика",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Два больших зелёных среза киви служат колёсами компактного велосипеда, толстая розовая рама и золотые руль и седло, без ездока и тонких спиц",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 41,
+ "h": 37,
+ "N": 922,
+ "colours": 9,
+ "volumes": {
+  "L": {
+   "cells": 268,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "E": {
+   "cells": 159,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "G": {
+   "cells": 130,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 94,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 65,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 63,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 49,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 48,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "P": {
+   "cells": 46,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "....................CEEEE.........CC.....",
+  "...................YYYYYYYYY.....YYYY....",
+  "..................YYYYOOOYYYYY..CYYYYY...",
+  "..................YYOOOOOYYYYYYEEEYYYY...",
+  "...................EEE.....YYYYYYYYYY....",
+  "...........................YYYYYYYYY.....",
+  "............................YYC..........",
+  "............................YYY..........",
+  ".......EEEEEE...............YYY..........",
+  ".....YYYYYYYYYYYY...........YORR.........",
+  ".....YYYYYYYYYYYY..........OOOOR.........",
+  ".....EYYYOOOOOOOO..........OOOOR.........",
+  ".....EEOOOOEEEE...........PRRROO.........",
+  ".......EEEEERRE.........PPPRROOEE........",
+  "..........EERREE.......PPPRREOEEEEEE.....",
+  "........EEEEERRR......RRRRRCEOEEELLLLL...",
+  "......GGEEEEEEERR....PPRRR.EEOOELLLLGGG..",
+  "....EGGGGGGGEEERR...PPPRCCGGGOOLLLLLGGGG.",
+  "...EEGGLLGLGGGGRRR.PPRRRCCLLGGLLLLLLLLGEE",
+  "..LLLLGLLGLGGGGRRRPPPRR.DLLLGGLLDLLLLLGEE",
+  "..LLLLGGLDLLGGGRRRPPRR..LLLLGPPPGGDLLGGGE",
+  ".LLLLLLDLDDLGLGRRRPRR..LLLLLLPPPGGLLLLLGE",
+  ".LLLLDLLCCDDLLGRRRPRR..LLLLDLLPPPLLDLLGGE",
+  ".GGLLLLCCCCPPPPROORR...LLLLLLLPPPCLDDGGGE",
+  "EGGGDLLCCCCPPPPOOOORR.ELLLLLLCCCCCCDDLLLE",
+  "ELLLGGCCCCCPPPPPOOORR.ELLLLLLCCCCCCLLLLGE",
+  "ELLLDGCCCCCGGGGGEOER..ELLLDDLCCCCCLLDLGGE",
+  "ELLLLLCCCCCGGGGGEEE...ELLLLDDCCCCCLLLLLGE",
+  "ELLLDDDCCGDDLLGEEE....ELLLLDLLCCCLLLLLGGE",
+  "ELLLLLDGGGDGGLGEEE....ELLLLLLLLLLLLDLLGGE",
+  ".ELLLDLDLDLGGGEEE......LLLLLDDDDDDLLGGGEE",
+  ".ELLLLLLLGLLGGEEE......LLLLLLDLDLLDLLGGEE",
+  ".EELLLLLLGLGGEEE.......DLLLLLLLLLLGGGGEEE",
+  "..ELLLLLLGGGEEED........LLLLLLLLLLGGGEEE.",
+  "...DGGGGGGGEEED..........LLLLLLLLGGGEEE..",
+  ".....EEEEEEEE.............EEELLLGGEEEE...",
+  "............................EEEEEEE......"
+ ]
+}

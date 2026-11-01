@@ -1,0 +1,113 @@
+{
+ "code": "P0863",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Броненосец в надувном жилете",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Саванна и джунгли",
+ "direction": "Уютный сюрреализм",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один милый коричневый броненосец надел большой золотой надувной жилет, широкие синие ремни охватывают округлый сегментированный панцирь, короткие лапы и дружелюбная морда",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 41,
+ "h": 42,
+ "N": 1330,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 268,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 239,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 216,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "O": {
+   "cells": 202,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 150,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 117,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "S": {
+   "cells": 72,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "D": {
+   "cells": 56,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "K": {
+   "cells": 10,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "....................................EE...",
+  "................AADNNN.AAAAAA.....AAAE...",
+  "...............AAAADNNNYYYYYYOO..EAAAA...",
+  "..........AAADNOOOAANNNNYYYYYOOOEEAAAAA..",
+  "........YYYYNNNOOOOAADNNAAAAAAAEEEAAAAA..",
+  ".......YYYYNNNNKKOOAAAAAAAAAAAAAEEEAAA...",
+  "......OOYYNNNNNDKKOAAAAAAAAAAAAAAAAAAA...",
+  ".....OOOYNNNNNDYKKKAAAAAAAAAAAAAAAAAA....",
+  ".....OOONNNNNDYYYKKKAAAAAAAAAAAAAAAAA....",
+  "....YYYONNNNNYYYYOEEAAACCCAAAAAAAAACCC...",
+  "...YYYYYNNNNOOYYYOEEAACCCCCCAAAAAAADDC...",
+  "..YYYYYNNNNNOOOOOOEAAACDDDDCCAAAAAADDDE..",
+  "..YYYYNNNNNYYYYYOEEAACCDCDDCCAAAAAADDDE..",
+  ".YYYYYNNNNYYYYYYYEEAACDCDDDCCCAAAAADDDEE.",
+  ".YYYYNNNNNYYYYYYYEEAACCCDDDDCCCAAEEDDCCC.",
+  "COYYYNNNNYYYYYYYYOEEOOCCCDDCCCCCEEECCCCO.",
+  "COOONNNNNYYYYYYYYOOEOOCCCCCCCCCCCECCCCOOO",
+  "COOONNNNNYYYYYYYYYOOOOCCCCCCCCCCCECCCOOOO",
+  ".OOONNNNNYYYYYYYYYYOODCCCCCCCCCCCCCCCOYOO",
+  "EYYYNNNNNYYYYYYYYYYYYNNDCCCCCCCCCCCDNYYOO",
+  "EYYYNNNNNYYYYYYYYYYYYNNNNYEEEEEENNNNNYOOE",
+  "EYYYNNNNNYYYOOOOYYYYONNNNYYYYYYYYYNNNOOOE",
+  "EYYDCCCCYYYYYYYOOYOOONNNNYYYYYYYYYNNNOOOE",
+  "YYYDCCCCDYYYYYYYAAAOONNNNNYYYYYYYYNNNYYOE",
+  "COOONNNNNYYYYYYYYYYYYNNNNNNYYNNYYNNNNYOO.",
+  ".OOONNNNNYYYYYYYYYYYYNNNNNNYYNNYYNNNNOOO.",
+  ".OOOONNNNYYYOYYYYYYOONNNNNNYYNNYYNNNDOO..",
+  "..OOONNNNDOOOOOOOOOOONNNNOOOYNNOOONNOOO..",
+  ".AAEOONNNEEOOOOOOOOONNNNOOOOOOOOOONNOO...",
+  ".AAEOODNAAEEEOOOOOODNNNNYYYOOOOOONNDE....",
+  "AAEEEOONAAAAEEEEAEENNNNOYYYYYYOODNEEE....",
+  "AAAEEEEEDAAAAAAAAEEENNOOOOOOOOOEEEAEE....",
+  ".AAAEEEEEDAAAAAAAAAEEOOOOOOOOOEEEAAAE....",
+  ".AAAAAAEEDDEAAAAAAAEEEEOOOOEEEEEAAEE.....",
+  "..DAAAAAE..EAAAAAAEE...EEEEE..EEEAAE.....",
+  "..SSADDSSSSEAAOOOAESSSSEEEEESSEEECEEES...",
+  "..SSSSSSSSSSAACECEEESSSSSSSSSSSEEEEEESSS.",
+  "......SSSSSSSSSEEEEESSSSSSSSSSSSSSSSSS...",
+  "..............SSSSSSSS...................",
+  ".........................................",
+  ".........................................",
+  ".....................YYY................."
+ ]
+}

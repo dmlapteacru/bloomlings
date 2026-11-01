@@ -1,0 +1,111 @@
+{
+ "code": "P1021",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Утренняя роса на настольной игре",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Игрушки и настольные игры",
+ "direction": "Природа и технология",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна широкая зелёная игровая плитка с четырьмя крупными розовыми лунками, в каждой по одной большой синей росинке-фишке, кремовый кант и золотой игральный кубик сбоку",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 38,
+ "h": 39,
+ "N": 1128,
+ "colours": 9,
+ "volumes": {
+  "G": {
+   "cells": 257,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "N": {
+   "cells": 174,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "P": {
+   "cells": 174,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "C": {
+   "cells": 159,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 104,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "Y": {
+   "cells": 100,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 76,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "O": {
+   "cells": 45,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 39,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........DDDDDD.......................",
+  ".......DDCCCCCCDDDDDD.................",
+  "......DCCGGMMCCCCCCCCDDDDDDD..........",
+  ".....DCCGGGMNNNNGGGGGCCCCCCCDDDD......",
+  ".....DCGPPPCCNNNPPGGGGGGGGGCCCCCDDD...",
+  "....DCCGPPPCCNNNNPPGGGGGGGGPPPGGCCCDD.",
+  "....DCGGPNNCNNNNNPPGGGGGPPPPPPGGGGGCD.",
+  "...DCCGPPNNNNNNNNNPGGGGPPPPNNNPPGGGCCD",
+  "...DCGGPPNNNNNNNNPPGGGPPNCCNNNNPPGGCCD",
+  "..DCCGGGPPNNNNNNPPPGGGPPNNCNNNNNPGGCCD",
+  "..DCGGGGPPPPPPPPPGGGGGPNNNNNNNNNPGGCCD",
+  ".DCCGGGGGGPPPPPGGGGGGGPNNNNNNNNNPPGCCD",
+  ".DCGGGGGGGPMMMGGGGGGGGPPNNNNNNNPPGGCCD",
+  ".DCGGPPPPPPPMGGGGGGGGGGPPPPPPPPPGGGCGD",
+  "DCGGPPPPNNNPPPGGGGGGGGGGPPPPPPGGGGCCG.",
+  "CCGPPNCCNNNNNPGGGGGGGGGPPPGGGGGGGGCCG.",
+  "CGGPNNNCNNNNNPPGGGGPPPNNPPPPGGGGGCCCC.",
+  "CGPPNNNNNNNNNPPGGGPPPNNNNNPPPGGGGCCGD.",
+  "GGPPNNNNNNNNNPPGGGPPNCCNNNNPPGGGGCCG..",
+  "GGGPPNNNNNNNPPGGGPPNNCNNNNNNPPGGCCGG..",
+  "GGGPPPPNNNPPPGGGGPPNNNNNNNNNPPGGCCDD..",
+  "CGGGPPPPPPPGGGGGGPPNNNNNNNNNPEEEEDDD..",
+  "CCCCGGGGGGGGGGGGGPPPNNNNNNNYYYEEYYYY..",
+  "CCCCCCGGGGGGGGGGGGPPPPNNNYYYYYYYYYYYY.",
+  "MCCCCCCCCCCCCCGGGGGGPPPPEYYYYYYYYYYYYE",
+  "MGGCMCCCCCCCCCCCCMMMMMMMEYYYYYYYYYYOOE",
+  "MGGMMMMMMCCCCCCCCCCCCMMMEYEYYYYYYOOEOE",
+  "MGGMMMMMMMMMMMMCCCCCCCCCEYEEYYYYOOEEOE",
+  "DGGMMMMMMMMMMMMMMMMCCCCCEYYYYYYYOOOOOE",
+  "..DDDMMMMMMMMMMMMMMMMMMMEYYYYYYYOOOOOE",
+  "......DDDMMMMMMMMMMMMMMMEYEYYYYYOOOEOE",
+  "...........DDDDMMMMMMMMMEYEEYYYYOOEEOE",
+  "...............DDDDMMMMMEYYYYYYYOOOOOE",
+  ".....................DDDDYYYYYYYOOOOO.",
+  "..........................YYYYYYOOOO..",
+  "............................YYOOOO....",
+  "..............................OO......",
+  "......................................",
+  "..................EEE................."
+ ]
+}

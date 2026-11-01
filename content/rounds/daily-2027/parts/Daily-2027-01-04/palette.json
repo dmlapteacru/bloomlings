@@ -1,0 +1,168 @@
+{
+  "G": {
+    "color": "#6DBE45",
+    "dark": "#4e8932",
+    "light": "#a2d588",
+    "text": "#000000",
+    "contrast": 9.101558511740736,
+    "name": "Лист",
+    "mark": "♧",
+    "hero": "sprig"
+  },
+  "P": {
+    "color": "#EB799C",
+    "dark": "#a95770",
+    "light": "#f2a9c0",
+    "text": "#000000",
+    "contrast": 7.747442404453993,
+    "name": "Лепесток",
+    "mark": "✿",
+    "hero": "bloom"
+  },
+  "B": {
+    "color": "#36B7DA",
+    "dark": "#27849d",
+    "light": "#7ed1e7",
+    "text": "#000000",
+    "contrast": 8.942639595957818,
+    "name": "Вода",
+    "mark": "◆",
+    "hero": "drop"
+  },
+  "A": {
+    "color": "#A45F28",
+    "dark": "#76441d",
+    "light": "#c59975",
+    "text": "#FFFFFF",
+    "contrast": 4.945800554869865,
+    "name": "Янтарь",
+    "mark": "●",
+    "hero": "twig"
+  },
+  "C": {
+    "color": "#F5E6BD",
+    "dark": "#b0a688",
+    "light": "#f9efd5",
+    "text": "#000000",
+    "contrast": 16.936045833258085,
+    "name": "Жемчуг",
+    "mark": "◇",
+    "hero": "drop"
+  },
+  "D": {
+    "color": "#334B48",
+    "dark": "#253634",
+    "light": "#7c8c8a",
+    "text": "#FFFFFF",
+    "contrast": 9.3717860070391,
+    "name": "Земля",
+    "mark": "▰",
+    "hero": "twig"
+  },
+  "V": {
+    "color": "#7851A5",
+    "dark": "#563a77",
+    "light": "#a990c5",
+    "text": "#FFFFFF",
+    "contrast": 5.967759991320772,
+    "name": "Слива",
+    "mark": "✦",
+    "hero": "bloom"
+  },
+  "Y": {
+    "color": "#F6CB3E",
+    "dark": "#b1922d",
+    "light": "#f9de83",
+    "text": "#000000",
+    "contrast": 13.530500547829957,
+    "name": "Солнце",
+    "mark": "☀",
+    "hero": "sprig"
+  },
+  "O": {
+    "color": "#EF8A32",
+    "dark": "#ac6324",
+    "light": "#f5b47c",
+    "text": "#000000",
+    "contrast": 8.351593900672418,
+    "name": "Тыква",
+    "mark": "▲",
+    "hero": "twig"
+  },
+  "L": {
+    "color": "#CDEB5E",
+    "dark": "#94a944",
+    "light": "#dff298",
+    "text": "#000000",
+    "contrast": 15.640789910256188,
+    "name": "Лайм",
+    "mark": "✚",
+    "hero": "sprig"
+  },
+  "M": {
+    "color": "#2F7D45",
+    "dark": "#225a32",
+    "light": "#7aac88",
+    "text": "#FFFFFF",
+    "contrast": 5.0721599369057095,
+    "name": "Мох",
+    "mark": "♣",
+    "hero": "sprig"
+  },
+  "R": {
+    "color": "#D8394B",
+    "dark": "#9c2936",
+    "light": "#e6808c",
+    "text": "#000000",
+    "contrast": 4.606636903216465,
+    "name": "Ягода",
+    "mark": "♥",
+    "hero": "bloom"
+  },
+  "K": {
+    "color": "#F9C6D6",
+    "dark": "#b38f9a",
+    "light": "#fbdbe5",
+    "text": "#000000",
+    "contrast": 14.076588690439772,
+    "name": "Румянец",
+    "mark": "❀",
+    "hero": "bloom"
+  },
+  "N": {
+    "color": "#2C5AA8",
+    "dark": "#204179",
+    "light": "#7895c7",
+    "text": "#FFFFFF",
+    "contrast": 6.698583962361997,
+    "name": "Глубина",
+    "mark": "▼",
+    "hero": "drop"
+  },
+  "S": {
+    "color": "#A8E2F5",
+    "dark": "#79a3b0",
+    "light": "#c7ecf9",
+    "text": "#000000",
+    "contrast": 14.862023143456904,
+    "name": "Небо",
+    "mark": "○",
+    "hero": "drop"
+  },
+  "E": {
+    "color": "#6A3A1E",
+    "dark": "#4c2a16",
+    "light": "#a0816f",
+    "text": "#FFFFFF",
+    "contrast": 9.388394496568822,
+    "name": "Кора",
+    "mark": "■",
+    "hero": "twig"
+  },
+  "?": {
+    "color": "#d8d4c5",
+    "text": "#000000",
+    "name": "Скрытый цвет",
+    "mark": "?"
+  }
+}

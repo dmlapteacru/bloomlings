@@ -1,0 +1,102 @@
+{
+ "code": "P1003",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Лемур с рулоном клетчатой ткани",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Саванна и джунгли",
+ "direction": "Обмен ролями",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один сидящий оригинальный серо-кремовый лемур с большими золотыми глазами и широким полосатым хвостом держит крупный розово-синий рулон ткани, конец ткани широким ковриком лежит у лап",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 34,
+ "N": 892,
+ "colours": 8,
+ "volumes": {
+  "D": {
+   "cells": 365,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "P": {
+   "cells": 166,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "C": {
+   "cells": 161,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 118,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "K": {
+   "cells": 65,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "Y": {
+   "cells": 7,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "V": {
+   "cells": 6,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "B": {
+   "cells": 4,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....DCDCKKD.DDDDDDD..DKKDDD.......",
+  ".....CDDDCKKDKKKKKKKKDKKDDDC.......",
+  ".....CDDDDCKKKKKKKKKCCDDDDDD.......",
+  ".....DDDDDCCCCCCCKKCCCCDDDDD.......",
+  ".....DCDDDCCDDDDCCCCDDDDDDCD.......",
+  ".DD..DCDDCCDDDDDDCCDDDDDDDD........",
+  "DDDDD.DCDCCDDYDDDCCDDDDDDDD........",
+  "DDDDDD.DCCCDYYDDDCCDDDDDDD.........",
+  "DDDDDDDDCCCDYYDDDDDDDDDDCD.........",
+  "DDCCCCDDCCCDDYYDCDDDDDDDCD.........",
+  "DCCCCCDDCCCCDDDCDDDDCCCCCD.........",
+  "CCCCCCCDDCCCCCCCCCCDCCCCPPPPPP.....",
+  "CCCDDDDD.DCCCCCCCCCDNNNPPPPPPPP....",
+  "CDDDDDDD..DDDCCCCDPPNNPPPPPPPPPP...",
+  "DDDDDDDD..DDDDCCDPPNNNPPPPPPPPPP...",
+  "DDDDDDDD..DKKKCCPPPNNNPPPPPPPPNP...",
+  "DDDDDDDD.DDKKKCCPPPNNNPPPPPPPPNP...",
+  "DDCCCCD..KDKKKDDDDDNNNPPPPNPPNNP...",
+  "DCCCCCD.DKKDKKDDDDDNNNPPPPNNNNPP...",
+  "CCCDDCDDKKKDDDDDDDDNNNNPPPPNPPP....",
+  "CDDDDDDDKKDDCCDDDDPPNNNPPPPPPP.....",
+  "DDDDDDDDKDCCCCCDNNNPNNNNNNND.......",
+  "DDDDDDDDKCCCCCCCNNNPPNVVVNNN.......",
+  "DDDDCCDDKKKCCCCCNNNPPPVVVNNND......",
+  "DDDCCCDDKKKKCCDDNNNPPPPPBNNNNN.....",
+  "DDCCCDDDDDKKDDDDDNNNPPPBBBKPPPP....",
+  ".DCCDDDDDDDDDDDDDNNNPPPPKKKKPPPNNNN",
+  ".DDCDDDDDDDDDDDDDNNNNPPPPKKKNNNNNNP",
+  "..DDDDDDDDDDDDDDDDNNNNNPNNNNNNNPPPP",
+  "....DDDDDDDDDDDDD.NNNNNNNNNPPPPPPPP",
+  "..........DDDDDD...NNNNPPPPPPPPPPPP",
+  "....................NNPPPPPPPPPPPP.",
+  "......................PPPPPPPP.....",
+  ".......................NNN........."
+ ]
+}

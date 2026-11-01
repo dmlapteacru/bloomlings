@@ -1,0 +1,107 @@
+{
+ "code": "P0866",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Букет из воздушных змеев",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Воздушный транспорт",
+ "direction": "Предметные гибриды",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Три крупных ромбовидных воздушных змея розового, золотого и синего цветов собраны как букет, толстые шнуры образуют стебли в одной зелёной ленте",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 36,
+ "h": 36,
+ "N": 1296,
+ "colours": 9,
+ "volumes": {
+  "P": {
+   "cells": 324,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "M": {
+   "cells": 243,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "B": {
+   "cells": 212,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "G": {
+   "cells": 183,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 122,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "S": {
+   "cells": 80,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "N": {
+   "cells": 67,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 41,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 24,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  "BBBBSBBBBBBBBBBBYYBBBBBBBBSSSSSSBBBB",
+  "BBBSSSBBBBBBBBBYYYYBBBBBBSSSSSSSSBBB",
+  "SSBSSBBPPBBBBBYYYYYYBBBSSSSSSSSSSSBB",
+  "SSSBBBPPPBBBBYYYYYYYYYSSSSSSSNNNSSSS",
+  "SSSSBBPPPPPBYYYYYYYYYYSSSSSNNNNBSSSS",
+  "SSSSSPPPPPPPYYYYYYYYYYYSSSSNNNNBBSSB",
+  "SSSSSPPPPPPPPPYYYYYYYYYNNBBNNNBBBBBB",
+  "SSSSPPPPPPPPPPPYYYYYYYYNNNBBBNBBBBBB",
+  "BBBPPPPPPPPPPPPYYYYYYYYNNNNBNBBBBBBB",
+  "GBBPPPPPPPPPPPPYYYYYYYNNBBNNNBBBBBBG",
+  "GGBPPPPPPPPPPPYYYYYYYYNNBBBNBBBBBBBG",
+  "GGBPPPPPPPPPPPBYYYYYYBMNBBBNBBBNNBGG",
+  "MMBBPPPPPPPPPPBYYYYYBBMBBBBBBBNNNNGG",
+  "MMBBBPPPPPPPPPBMYYYYBMMBBBBBNNNNNGGG",
+  "CCMMPPPPPPPPPYYMMYYBBMMBBBNNNNNBBGMC",
+  "CCMMYYMPPPPPPYYMMMMBBMMNNNNNNNNBGGMC",
+  "MMMMYYMMBPPPPYYYYYMMMMMNNNNNBYYMMMMM",
+  "MMPPYMMMBBPPMMMMYYMMMMMNNNMBBYYMMMMM",
+  "PPPPPMCCMMDDMMMMMYMMMMMMBBMGGYYPPMCC",
+  "PMMPPMCCMMGGGGMMMMMMGGGGBBMGGPPMPPCC",
+  "MMPPPMMMMGGGGGGMMMMMMMMGMMCMMPPMPPMC",
+  "MMPPMMMMMGGMMMMMGGMMMMMGMCCCMMMMPPMM",
+  "MMPMMMMMMGMMMGMMGGGGGGGGPPCCMMMMPPGG",
+  "MMMMDPPMMMGGGGMMDGGGMMMMPPPPPDMMPPMG",
+  "CCMMPPPPPPDDDDDDDDDGGMMGGDPPPPMMPPMM",
+  "CCMMPPPPPPPPPPPPPPPGGGGGGGPPPDMMPPMM",
+  "CMMMPPPPPPPPPPPPPPPDGGDGGGGPPPMMGGMM",
+  "MMMMDPPPPPPPPPPPPPPPGGGGDGDPPMMMGCCC",
+  "MMMGDPPPPPPPPPPPPPPPGGGGGGPPPMMMMCCC",
+  "MMGGMPPPPPPPPPPPPPPPGGGDPPPPDGGGMCCC",
+  "MMGMMMPPPPPPPPPPPPPPGPPPPPPPGGGGGCCC",
+  "GGGMMMMPPPPPPPPPPPPPPPPPPPPMMGGGGGGC",
+  "GGGGGGGGGPPPPPPPPPPPPPPPMMMMGCCGGGGG",
+  "GGGGGGGGGGGGMMMMMMMMMMMGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGMMMMMMMMMMGGGGGGGGGGGGG"
+ ]
+}

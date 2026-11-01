@@ -1,0 +1,96 @@
+{
+ "code": "P1081",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Тоф",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Avatar: The Last Airbender · Nickelodeon: Toph Beifong from Avatar The Last Airbender: black hair in a bun with large round side sections, GREEN headband with CREAM circular ear decorations, pale green unfocused eyes, green earthbender outfit with cream trim. Confident grin and one broad gray rock held near a raised hand, compact large-headed portrait; respect her canonical pale eyes, no dark pupils added.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 39,
+ "h": 39,
+ "N": 1040,
+ "colours": 6,
+ "volumes": {
+  "D": {
+   "cells": 517,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 293,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 114,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 59,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "L": {
+   "cells": 36,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "O": {
+   "cells": 21,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........DDDDDDDDDDDDDDDDD...........",
+  ".........DDDDDDDDDDDDDDDDDDDD..........",
+  "........DDDDDDDDDDDGGGDDDDDDDD.........",
+  ".......DDDDDDDDDGGGGGGGGGDDDDD.........",
+  "......DDDDDDDDGGGGGGLLLGGGGDDDD........",
+  ".....DDDDDDDDGGGGGLLLLLLLGGGDDD........",
+  "....DDDDDDDDGGGGLLLLDDDDDDDGGDDD.......",
+  "....DDDDDDDMGGGLLDDDDDDDDDDDDDDD.......",
+  "...DDDDDDDMMMGDDDDDDDDDDDDDDDDDD.......",
+  "...DDDDDDDMMMDDDDDDDDDDDDDDDDDDDD......",
+  "...DDDCCCCCMDDDDDDDDDDDDDDDDDDDCCCC....",
+  "...DDCCCCCCDDDDDDDDDDDDDDDDDDDDDCCCC...",
+  "...DDCCCCCCDDDDDDDDDDDDDDDDDDDDDCCCC...",
+  "...DCCCCCCCDDDDDDDDDDDDDDDDDDDDDDCCC...",
+  "...DDCCCCCDDDDDDDDCCDDDDDDCDDDDDDCCC...",
+  "....DCCCCCDDDDDDDCCCDDDDDDCCDDDDDCCC...",
+  "....DDCCCDDDDDDDDDDCDDDDCDCDDDDDDCC....",
+  "....DDDDDDDDDDDDCCDDDDDDCDDDDDDDDD.....",
+  ".....DDDCDDDDDDDDDDDCDDDDDCDCDDDDD.....",
+  ".....DDDCDDDDDD.CC.DCDDDCDD.DDDDDD.....",
+  "......DDCDDDDDD.CC.CCCDDDDD.DDDDDD.....",
+  ".......DCDDDDDDCCCCCCCDDCC..DDDDDD.....",
+  "........DDDDDDCCCCCCCCCDCCCCDDDDDD.....",
+  ".........DDDDDCCCCCCCCCCCCCCDDDD.......",
+  "..........DDDDCCCCCCCCCCCCCD.DD........",
+  "..........D.DDDCCCCCCCCCCCCD.DD........",
+  "..........D..DDCCCCCCCCCCCC..D.........",
+  ".............DDCCCCCCCCCCC..DD.........",
+  ".............DDDOOCCCCCCC...D..........",
+  "...........DCCDDOOOOCCCCCCD.D..........",
+  "..........DCCCDMOOOOOOMMCCCD...........",
+  "..........CCCCMMMOOOOODMMCCCD..........",
+  "......DDMLCCCCMMMMOOOCDMGCCCDDM........",
+  "...DMMMMMLCCCCCMMGGOCCCGGCCCLLMMMD.....",
+  "..MMMMMMMLLCCCCCCGGGCCGGCCCCLLMMMMMMD..",
+  ".MMMMMMMMLLCCCCCCCGGGGGCCCCCCLMMMMMMMD.",
+  "DMMMMMMMMLLCCCCCCCDGGGGCCCCCCLMMMMMMMM.",
+  "MMMMMMMMMMLLCCCCCCCCCCCCCCCCCLMMMMMMMMD",
+  "MMMMMMMMMMLLCCCCCCCCCCCCCCCCCLMMMMMMMMM"
+ ]
+}

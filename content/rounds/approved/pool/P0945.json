@@ -1,0 +1,115 @@
+{
+ "code": "P0945",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Складной стул распускает листья",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Мебель и уютные уголки",
+ "direction": "Живая архитектура",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один низкий складной синий стул с широким кремовым сиденьем выпускает из спинки два крупных зелёных листа, золотые перекрещённые ножки хорошо читаются",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 40,
+ "h": 43,
+ "N": 1022,
+ "colours": 9,
+ "volumes": {
+  "N": {
+   "cells": 255,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "G": {
+   "cells": 197,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 180,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 142,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 99,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "M": {
+   "cells": 65,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "O": {
+   "cells": 36,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 27,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "L": {
+   "cells": 21,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "....DDDDDD..............................",
+  "..MMLLGGGGDDDD..........................",
+  "..MGGLLLLGLLLGD...............DDMMMM....",
+  "..DDGLLGGGGLGGGGD..........MMMLLLGGGGGDD",
+  "...DGGGGGGGLGGGGDD........DGGLLLGGGGGGGD",
+  "....GGGGGGGGGGGGGD.......DGGGLLGGGGGGGGD",
+  "....DGGGGGGGGGGGGG......DGGGGGGGGGGGGGD.",
+  "....DGGGGGGGGGGGGGD....GGGGGMMGGGGGGGD..",
+  ".....GGGGGGGGGMGGGD....DGGGMMGGGGGGGDD..",
+  "......DGGGGGGGMMGGD....DGGGGGGGGGGGGD...",
+  "......DMGGGGGGGMMGD....MGMGGGGGGGGGDD...",
+  ".......MMMGGGGMMMMD...DMMMGGGGGGGDDD....",
+  "........DMMMMMMMMMDD..GGMMMMGGMMMDD.....",
+  "..........DDMMMMDMMDDDGGMMMMMMMD........",
+  "............DNNNNDMDDDGDDNNDDDDNNNNN....",
+  "............NNNNNNDDDDGDNNNNNNNDDDDNN...",
+  "............NNNNNNDMDDDDNNNNNNNNNNNNN...",
+  "............NNNNNNDMMDDDNNNNNNNNYNNND...",
+  "............NNNNNNDDDDDNNNNNNNNNYNNNN...",
+  "............NNNNNNNNNNNNNNNNNNNNYNNND...",
+  "...........DDDDNNNNNNNNNNNNNNNNNNNNN....",
+  ".........NNNCDNNNNNNNNNNNNNNNNNNNNND....",
+  ".......CCCCCCCCCCCNNNNNNNNNNNNNDDDNN....",
+  "....CCCCCCCCCCCCCCCCCCDNNNNNNNDYYYN.....",
+  "..NNCCCCCCCCCCCCCCCCCCCCCCCCCDYYYY......",
+  ".NNCCCCCCCCCCCCCCCCCCCCCCCCCCYYYY.......",
+  ".NNCCCCCCCCCCCCCCCCCCCCCCCCCYYYYD.......",
+  ".NNNNNNNCCCCCCCCCCCCCCCCCNNNYYOO........",
+  ".DNNNNNNNNCCCCCCCCCCCCCNNNNYYOOD........",
+  "...DNNNNNNNNNNNNCCCCNNNNNNYYYOD.........",
+  "....NNNNNNNNNNNNNDDDNNNNDYYYYO..........",
+  ".....EYYOOONNNNNNNNNNNNNYYYOOO..........",
+  ".....EEYYOOONNN.DNNNN.EEYYYOOOOE........",
+  "....YYEEYYYYYC........CEYYEOOOOEE.......",
+  "...YYYEEEYYYYY........YYYEE.OOOOOO......",
+  "..DDYEE..YYYYYYY.....YYYEE...OOOODDD....",
+  ".DDDDD.....YYYYYY...YYYEE.....OOODDD....",
+  "DDDDDD......YYYYYY.YYYYEE......DDDDD....",
+  "DDDDD........YYYYYDYYYEE.......DDDDD....",
+  ".DDD...........YYDDDDDD.................",
+  "................DDDDDD..................",
+  "................DDDDDD..................",
+  "................DDDDD..................."
+ ]
+}

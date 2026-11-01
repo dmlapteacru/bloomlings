@@ -1,0 +1,111 @@
+{
+ "code": "P0858",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Матрас-плот на лаванде",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Мебель и уютные уголки",
+ "direction": "Невесомый мир",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Пухлый кремовый матрас с синей полоской парит над компактным полем фиолетовой лаванды, на нём одна розовая подушка, без персонажей и воды",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 40,
+ "h": 40,
+ "N": 1328,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 403,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "S": {
+   "cells": 288,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "V": {
+   "cells": 241,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "N": {
+   "cells": 112,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "P": {
+   "cells": 107,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "G": {
+   "cells": 90,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 38,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "L": {
+   "cells": 33,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "D": {
+   "cells": 16,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............SSSSSSSSS..................",
+  "...........SSSSSSSSSSSSS................",
+  ".........SSSSSSSSSSSSSSSS...............",
+  "........SSSSSSSSSSSSPPSSSCCC............",
+  ".......SSSSSSSSSSSSSPPCCCCCCCPP.........",
+  ".......SSSSSSSSSSSSSCCCCCCCCCPPPPPPP....",
+  "......SSSSSSSSSSSSSSCCCCCCPPPPPPPPPP....",
+  "...SSSSSSSSSSSSSCCDCCCCCPPPPPPPPPPP.....",
+  "..SSS....SSSSCCCCCDPPPPPPPPPPPPPPPSS....",
+  ".SSSS..SSSSSCCCCCCDPPPPPPPPPPPPPPDDS....",
+  ".SS...SSCCDCCCCCPPPPPPPPPPPPPPPPPDCCC...",
+  "SSSSSSSCCCCCCCCCPPPPPPPPPPPPPPPPPCCCCCC.",
+  "SSSSCCCCCCCCCCCCCCCCCCCCPPPPPPPPCCCCCCC.",
+  "SSCCCCCCCCCCCCCCCCCCCCCCCCCCCCPPCCCCCCC.",
+  "SSCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCN.",
+  ".CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCNNNN",
+  ".CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCNNNNN.",
+  ".NNCCCCCCCCCCCCCCCCCCCCCCCCCCCCCNNNNNNC.",
+  ".NNNNNCCCCCCCCCCCCCCCCCCCCCCCCNNNNNNCCC.",
+  ".NNNNNNNNNCCCCCCCCCCCCCCCCCCNNNNNNCCCCC.",
+  ".CCNNNNNNNNNNNCCCCCCCCCCCCNNNNNNCCCSSS..",
+  ".CCCCCCNNNNNNNNNNNCCCCCNNNNNNNCCCCSSSS..",
+  "..CCCCCCCCCNNNNNNNNNNNNNNNNNCCCSSSSSSS..",
+  "...SSSCCCCCCCCCNNNNNNNNNNNCCCCSSSSSSSS..",
+  "...SSSSSSCCCCCCCCCCNNNNNCCCSSSSSSSSSSS..",
+  "...SSSSSSSSSSCCCCCCCCCCCCCSSSSSSSSSSSS..",
+  "...SSSSSSSSSSSSSSSCCCCCCSSSSSSVSSSSSS...",
+  ".V..SSSVVSVSSSSSSSSSSSSSSSVSSVVSSVV.....",
+  ".VV..VSVVSVVSSVVSSSSSSSSSVVSSVVSVVV...V.",
+  ".VVV.VVVVVVVVSVVSSSSSSVSSVVVSVVSVVVV.VV.",
+  ".VVVVVVVVVVVVSVVVVVSSVVVVVVVVVVVVVVVVVV.",
+  ".VVVVVVVVVVVVGVVVVVVVVVDVVVVVVVVVVVVVVV.",
+  ".VVVVVVVVDVVVGGLLLLLLLLVVVVVVVDVVVGVVVV.",
+  ".VVMVGGGVVVVVVLLLLLLLLLVVVVVVVVVVGGVVVV.",
+  ".VVMVVDGVVVVVLLLVLLLLVVVVVVVVVVVVVVVVMM.",
+  ".GGMMVVDVVDVVVVVVGGGGVVVVVVMVVVDVMVVDMG.",
+  "GGGMMGDMMMGVVVVVVGGGGVVVVVVMMVVMMMVVMGGG",
+  "GGGLGGGMGMGGGVVVVGGGGGVVMMMMMMGGMGMMMGG.",
+  "..LLLGGGGGGGGGGGGGGGGGMMMMMGGGGGGGGGGG..",
+  "..........GGGGGLLLLLGGGMGGGGG..........."
+ ]
+}

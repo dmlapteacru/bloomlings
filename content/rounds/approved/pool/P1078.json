@@ -1,0 +1,101 @@
+{
+ "code": "P1078",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Дядя Стэн",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Gravity Falls · Disney: Grunkle Stan from Gravity Falls: adult elderly square-jawed face, thick white sideburns and gray stubble, broad dark square GLASSES, unmistakable RED FEZ with a gold abstract emblem, BLACK suit and RED bow tie. Large face-and-torso portrait, one hand on a thick brown cane held close, mischievous grin, no Bill Cipher.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 33,
+ "h": 33,
+ "N": 822,
+ "colours": 8,
+ "volumes": {
+  "D": {
+   "cells": 324,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 137,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "K": {
+   "cells": 130,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "C": {
+   "cells": 129,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 54,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 25,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "S": {
+   "cells": 19,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "Y": {
+   "cells": 4,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........RRRRRRRREEE...........",
+  "...........RRRRRRRRRRRRRRDDD.....",
+  "...........RRRRRRRRRRRRRREDD.....",
+  "..........RRRRRRRRRRRRRRREDD.....",
+  "..........RRRRRRRRRRRRRRREDD.....",
+  ".........RRRRRRRRRRRRRRRREYY.....",
+  ".........RRRRRRRRRRRRRRRREYY.....",
+  ".........RRDDRRRRRRRRRRRRRDDD....",
+  "........DRRDDDRRRRRRRRRRREDDD....",
+  ".....EEEDDDDDDDRRRRRRDDRREDDDD...",
+  "....CCCCDCCCCDDDDDDDDDRRREDDDD...",
+  "...ECCCDDCCC..DDDDDDDDDDDEDDDD...",
+  "...ECCCSDCCDD..DD...CCCDDDEEE....",
+  "...ECCDSDCCD...DDD..DCCDDDCCCC...",
+  "...ECCDSDDCCD.OOO...DCCDSDCCCC...",
+  "....CCSSKDDDDOOOO..DCCCDSDCCCC...",
+  "....CCSKKCCCOOOOODDDDDDSSSCCCC...",
+  "....CCDKKDDCOOOOOKKKKKKSSSDCCC...",
+  "....CCDKKDCCOOOOODDDDKKSSSDCC....",
+  "....CDKKKKDCCOOOCCCCCDKDSDCC.....",
+  ".....DKKKKKDCCCCCCCCDKKKSDCC.....",
+  ".....DKKKKKKDDCCDCDDKKKKDCCC.....",
+  ".....DKKKKKKKKKKKKKKKKKKDCCC.....",
+  "..DDDDKKKKKKKKKKKKKKKKKKDCDDDDD..",
+  "DDDDDDDKKKKKKKKKKKKKKKKKDDDDDDDDD",
+  "DDDDDDDDKKKKKKKKKKKKKKKDDDDDDDDDD",
+  "DDDDDDDDKKKKKKKKKKKKKKDCDDDDDDDDD",
+  "DDDDDDDDDDDKKKKKKKKKDCCCDDDDDDDDD",
+  "DDDDDDDDDCCCDDDDKDDDCCCCDDDDDDDDD",
+  "DDDDDDDDDDCCCDEEEEEECCCDDDDDDDDDD",
+  "DDDDDDDDDDCCEEEEEEEEEECDDDDDDDDDD",
+  "DDDDDDDDDDDEEEEEEECEEECDDDDDDDDDD",
+  "DDDDDDDDDDDCEECEEECCECDDDDDDDDDDD"
+ ]
+}

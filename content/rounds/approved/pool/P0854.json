@@ -1,0 +1,115 @@
+{
+ "code": "P0854",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Лимонный лифт",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Фрукты и ягоды",
+ "direction": "Миры внутри предметов",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Большой лимон разрезан вертикально, внутри его кремовой мякоти расположена одна синяя кабина лифта на деревянной рейке, зелёный лист наверху",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 39,
+ "h": 44,
+ "N": 1305,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 604,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 208,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 136,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "A": {
+   "cells": 114,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 80,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "M": {
+   "cells": 60,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "B": {
+   "cells": 50,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "L": {
+   "cells": 38,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "D": {
+   "cells": 15,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...............GGGG.DGGGGGGGGD.........",
+  "...............GGGGGGGMMMGGGGGD........",
+  "................GGGGDGGGGGGGGGGD.......",
+  ".............CYYYYYYYYGGGGGGGGGG.......",
+  "...........CYYYYYYYCYYYDGGGGGGGGD......",
+  "..........CYYYYCCCAACCYYYGGGGGGGG......",
+  ".........YYYYYCCYAAAAACYYYDDGGGGGD.....",
+  "........YYYYCCYYYAAAAAYCYYYYYDDGGG.....",
+  ".......YYYYYCYYYYAAAAAYCCYYYYYY..D.....",
+  "......YYCYYCCYYYCAAAAAYYCCYYYYYY.......",
+  ".....YYYCYCCYYYYCAAAAAYYYCCYYYYYC......",
+  ".....YYYYYCCYYYYCAAAAACYYCCYYYYYY......",
+  "....YYYCYCCCCYYYCAAAAAYYYCCCYYYYYY.....",
+  "....YYYYYCCYYCYYCAAAAAYYCYYCYYYYYY.....",
+  "...YYYCYYCYYYYCCCNNNNNYCYYYCCYYYYYC....",
+  "...YYYYYCCYYYYCCBBBBBBNNYYYCCYYYYYY....",
+  "...YYYYYCCYYYYBBBBBBBBNNYCYYCYYYYYY....",
+  "..YYYYYYCCCYYCBBNNNNNBBNNYYYCYYYYYYA...",
+  "..YYYYYYCYYCCCBNCCNNCNBNNCCCCCYYYYYA...",
+  "..YYYYYYCYYYYYBNCCNCCNBNNCYYCCYYYYYA...",
+  "..YYYYYYCYYYYYBNCCNCCNBNNYYYCCYYYYYA...",
+  "..YYYYYYCYYYCCNNCCNCCNBNNYYYCCYYYYYA...",
+  ".AYYYYYYCYYCYCNNCCNCCNBNDCYYCCYYYYYA...",
+  ".AYYYYYYCCYYYCNNBBNBBNBNNYCCCCYYYYYA...",
+  ".AYYYYYYCCYYYYBBBBNBBNBNNYYCCCYYYYYA...",
+  "..YYYYYYCCYYYYBBBBNBBNBNNYYYCCYYYYYA...",
+  "..YYYYYYCCYYYYBNBBNBBNNNNYYYCCYYYYYA...",
+  "..YYYYYYYCYYYCNNNNNNNNNNCYYYCYYYYYYA...",
+  "..YYYYYYYCCYCYYDNNNNNNNYYCYYCYYYYYY....",
+  "..YYYYYYYCCCYYYYYAAAAAYYYYCCCYYYYYY....",
+  "...YYYYYYYCYYYYYCAAAAAYYYYYCCYYYYYC....",
+  "...YYYYYYYCYYYYCCAAAAACYYYYCYYYYYY.....",
+  "....YYYYYYCCYYYYLAAAAACYYYCCYYYYYY.....",
+  "....YYYYYYYCYYCYLAAAAAYYYYCCYYYYY......",
+  ".....YYYYYYCCCYYLAAAAAYYCCCYYYYY.......",
+  "...GG.YYYYYYCCYYYAAAAAYYYCCYYYYY.MM....",
+  "....GGCYYYYYCCYYYAAAAAYYCCYYYYGGMM.....",
+  ".GG.GGMMYYYYYCCYYAAAAAYYCYYYYGGGMCGGG..",
+  ".GGGMMMMMYYYYYCCYAAAAAYCYYYYMGGGMMGGG..",
+  ".GGMMMGGMMYYYYYCCAAAACCYYYYMMGGGMMMMCG.",
+  "LLMMLLGGMMMMMYYYYCCCCCYYYMMMMMGMMGGMGGG",
+  ".LLLLLGMMLLMMMMYYYYYYYYMMMMMMMMLLGGGGG.",
+  "....LLLLLLLLLLMGGAAAAGGMGGLLLLLLLG.....",
+  "............LLLGGGGGGGGGGLL............"
+ ]
+}

@@ -1,0 +1,93 @@
+{
+ "code": "P1051",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Ральзей",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Волшебные существа",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Deltarune · Toby Fox: Ralsei from Deltarune: small fluffy white goat-like prince, tall floppy GREEN wizard hat, round DARK glasses, broad PINK scarf and green robe with one large black heart. Very large gentle face and little horns/long ears, hands together, hat folds compactly so the silhouette stays nearly square.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 36,
+ "N": 1026,
+ "colours": 6,
+ "volumes": {
+  "D": {
+   "cells": 375,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "G": {
+   "cells": 265,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 224,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 100,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "M": {
+   "cells": 36,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "K": {
+   "cells": 26,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..................DDGGGGGGGD........",
+  ".................DGGGGGGGGGGD.......",
+  "...............DDGGGGGGGGGGGGD......",
+  "..............DMGGGGGGGGGGGGGD......",
+  ".............DMMGGGGGGGGGGDMGGDDD...",
+  ".........DD.DDGGGGGGGGGGGGDMMGGGGD..",
+  ".........MDDDMMGGGGGGGDGGGGDMMMMGD..",
+  "........DMMGDMGGGGGGGGDGGGGDDDDMGG..",
+  "...DDDGGGGGGGGGGGGGGGDDDGGMDD.DDGG..",
+  ".DDGGGDDDDDDDGGGGGGGGGGGMMMGGD.DGG..",
+  ".DDDDDDDDDDDCDDDDGGGGGGGGGGGMD..DD..",
+  "DDDDDDDDDDCCCCCCCDDDGGGGGGGMM....D..",
+  "DDDDDDDDCCCCCCCCCCCCDDDGGGGGDD......",
+  ".DDDDDDDDCCDCCCCCCCCDDDDDDGGGGD.....",
+  ".DDDDDDDCDDCCDCCCCCDCCCDDDDDGGGD....",
+  "..DDDDDDDDCCDDDCCCDCDDCCDCCCDDDGGD..",
+  "...DDDDCDCCDDDDDCCCDDDDCCDCCDDDDGGD.",
+  ".....DCDDCCDDDDDDDCCDDDCCDCCCDDDDDD.",
+  "....DCCDDCCCDDDDCDCCDDDCCDCCCDDDDDDD",
+  "...DDCCKDCCCDDDCCCCCDDDCDDCCCDDDDDDD",
+  "..DDCCCKDDCCDDDCCCDCDDCCDCCCCCDDDDDD",
+  ".DDCCCKKDCCDDCCCCCCCDDDDCCCCCCDDDDD.",
+  ".DCCCCKDDCCCCCCDDDCCCCCCCDCCCCCDD...",
+  "DCCCCKKKDDCCCCCCCCCCCCCCDDCCCCCCD...",
+  "DCCCKKKDDDDDDDCCCCCCPPPPPDCCCCCCDD..",
+  ".DKKKKKDPPPPPPPPPPPPPPPPPDCCCCCCCD..",
+  ".DDKKKDPPPPPPPPPPPPPPPPPDDDKKCKCDD..",
+  "...DDDPPPPPPPPPPPPPPPPDGGGGDKKKKDD..",
+  "...DDPPDPPPPDPPPPPGGGGGGGGGGDDDD....",
+  "..DDPPPDPPPPGGGGGGGGGGGGGMGGDD......",
+  "..DPPPDDDDPGGGGDDDDDDGGGMMGGGD......",
+  ".DPPPPDGDMMMGGGDDDDDDGGDMGGGGD......",
+  "DPPPPPGGGMMDGGGDDDDDGGDDMMMGGGD.....",
+  "DPPPPDGGGGGGDCCDDDDDCDDGGGGGGGD.....",
+  "PPPPPGGGGGGDCCCCDDDCCCCDGGGGGGGD....",
+  "PPPPPGGGGGDCCCCCDDDCCCCCDGGGGGGDD..."
+ ]
+}

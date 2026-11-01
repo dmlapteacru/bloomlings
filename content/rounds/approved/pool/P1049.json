@@ -1,0 +1,97 @@
+{
+ "code": "P1049",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Загрей",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Hades · Supergiant Games: Zagreus from the game Hades: adult pale prince with tousled BLACK hair, RED laurel leaves in the hair, one red and one green eye where readable, red-and-black asymmetrical Greek tunic, a prominent cream skull-shaped shoulder clasp. Playful confident smirk, chest-up portrait, one short broad sword hilt beside him, no flames or combat.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 34,
+ "N": 901,
+ "colours": 7,
+ "volumes": {
+  "D": {
+   "cells": 491,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 193,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 139,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "A": {
+   "cells": 31,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 28,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 16,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 3,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........DDDDDDDDDDDDDD...........",
+  "....DDDDDDDDDDDDDDDYDRDDD.........",
+  "....DDDDDDDDDDDDDDDYDRDDD.........",
+  ".....DDDDDDDDDDDDDYYDRRDD.........",
+  ".....DDDDDDDDDDDDDDRRRRRRDD.......",
+  "....DDDDDDDDDDDDDDDDRRRRRDD.......",
+  "...DDDDDRDDDDDDDDDDDDDDRRRD.......",
+  "....DRRRRDDDDDDDDCDCDDDDRRD.......",
+  "...DDRRRDDDDDDDDCCDDDDDDDD........",
+  "....DDRRRDDDDDDCCDDCDDDDDD........",
+  "...DDDDRDDDCDDCDDDDDDDDDDDD.......",
+  "...DDDDRDDDDDDCCDDDDDDDCCDD..DDD..",
+  ".....DDDDDDDDDCCCCDCCDDAAD..DDRRD.",
+  ".....DDDDDDCDDCCCCCCCDDACD..DDRRDD",
+  ".....DDDDDDCDCCCCCCCCCCCD...DDRDDD",
+  ".......DDDDCCCCCCCCCCCDDD...DDDDD.",
+  ".......DDDDCCCCCCCCCCCDDD...DDDD..",
+  ".........DDCCCCCCCCCCCDDD...DDDD..",
+  ".........DDDCCCCCCCCCDDD...DDDDD..",
+  "..........DDDCCCCCCCDDDD...DDDD...",
+  "..DDDDDDD..DDDCCCCCDACD..DDDDDD...",
+  ".DCCCCCDDDDDDAADCDDAACDDDAADDDD...",
+  "DCCCCCCCDEEDAAADDDDACCDDDDADYYYD..",
+  "CDDCCCCCDDEDAAAAAAAACCDDEEDDDOOOD.",
+  "DDDCDDDCCDRRDAACAAACCCCDDERDDDDDD.",
+  "DDDCDDDDCCDRRDACCACCCCCCDERRDDDD..",
+  "CCCCDDDCCDDDRRDCCACCCCCCDDRRRRRD..",
+  "CDDCCDCCCDDDDRRDCCCCCCCCCCRRRRRRRD",
+  "CDDCCDDDDDYYYRRRRRCCCCCCCCDRRRRRRR",
+  "CDDCDDDDDDYYYYDRRRRRDCCCCCDRRRRRRR",
+  "CCCDDDDDDRYYYYYDDDRRRRRDCCDRRRRRRR",
+  "CDCDDDDDDRREDYYYDRRRRRRRRDDRRRRERR",
+  "DDDDDDDDDDREEDYYYDRRRRRRRDDDRRRERR",
+  "DDDDDDDDDDRREEDYYYDRRRRRRDDDRRREER"
+ ]
+}

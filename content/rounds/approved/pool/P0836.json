@@ -1,0 +1,115 @@
+{
+ "code": "P0836",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Шахматный конь перевозит яблоко",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Игрушки и настольные игры",
+ "direction": "Обмен ролями",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Большая деревянная шахматная фигура коня везёт на спине огромное красное яблоко, под фигурой компактная площадка из четырёх шахматных клеток",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 43,
+ "h": 44,
+ "N": 1218,
+ "colours": 9,
+ "volumes": {
+  "E": {
+   "cells": 379,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 277,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "R": {
+   "cells": 189,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 180,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 131,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "G": {
+   "cells": 24,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 20,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 14,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "M": {
+   "cells": 4,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "......................G.D..................",
+  "....................GGGGGGG..AA............",
+  "...............EE..DGGGGGGGD.AAA...........",
+  "............E..EEE..DGGGGGMMEAE............",
+  "...........EEEECYEE...GGGGMMEEEEE..........",
+  "...........EEEEYYEEE..DDDDDREERRRRR........",
+  "...........EYYYYOOEEE.RRRRRREERRRRRRR......",
+  ".........EECCCOOOOEERRRRRRREEERRRRRRRR.....",
+  ".........ECCCOOOOOOOORRRRRRRRRRRRCCRRR.....",
+  "........YYYCDDDOOOOOORRRRRRRRRRRRCCRRRE....",
+  ".......OYYCODDOOOOOOORRRRRRRRRRRRCCRRRE....",
+  "......OOOOOOOOOOOOOOOERRRRRRRRRRRRRRRRE....",
+  ".....OOOOOOOOOOOOOOOOERRRRRRRRRRRRRRRRR....",
+  ".....OOCOOOOOOOOOOOOOEAAARRRRRRRRRRRRRE....",
+  ".....OOOOOOOOOOOAAOOOEAAARRRRRRRRRRRRRE....",
+  ".....OOOOOOAAAAAAOOOOEAAAAERRRRRRRRRRRE....",
+  ".....OOOOOEEEAAAOYOOOEEEAEERRRRRRRRRRR.....",
+  "......EEEEE.EAAAOYOOOOEEEEERRRRRRRRRRR.....",
+  ".......EE...AAAOOYOOOOEEEEEEERRRRRRRRR.....",
+  "...........AAAOOOYOOOOOEEEEEEEERRRRRR......",
+  "..........AAAOOOCOOOOOEEEEEEEAAAARRR.......",
+  "..........AAAOOOYOOOOEEEEEEEEAAAAEEE.......",
+  "..........AAOOOYYOOOOEEEEAAEOAAAEEEE.......",
+  ".........AAAOOOOYOOOEEEEEAAEOOOEEEE........",
+  ".........AAAOOOOOOOEEEEOEAAEOOOOOE.........",
+  "..........AAAAAOOAEEEEOOEAAOOOOOOE.........",
+  "...........AAAAAAAEEEOOOEEEOOOOOOE.........",
+  "...........AAAAAAEEEAOOEEEEOOOOOOE.........",
+  "..........EOOEEEEEAAAAEEEEEOOOOOOOA........",
+  "..........EOOOOOOOOOOOEEEEEAOOOAAAA........",
+  "........EEEOOOCCCOOOAAEEEEAAAAAOOOAE.......",
+  "......CCCEOOAAAAOAAAAAAEEAAOOOOOOAAEEE.....",
+  "....CCCCCEOOOCCOOOOOOAAEEAOOOOOOOAEEEEEEE..",
+  "..CCCCCCCEOOOOOOOOOAOAAECEEEOOEEEEEEEEEEEEE",
+  ".CCCCCCCCCCOOOOOOOOAAEEEEEECEEEEEEEEEEEEEEE",
+  "EEECCCCCCCCCEEEEEEEEEEEEEEECCCEEEEEEEEEEEEE",
+  "EEEEEEECCCCEEEEEEEEEEEEECCCCCCCCCCEEEEEEEEE",
+  "EEEEEEEEEECCEEEEEEEEEECCCCCCCCCCCCCCEEEEEE.",
+  ".EEEEEEEEECCCCCCEEEECCCCCCCCCCCCCCCCEEEE...",
+  "....EEEEEECCCCCCCCEECCCCCCCCCCCCCCCCEE.....",
+  "........EECCCCCCCCEEEEECCCCCCCCCCCCC.......",
+  "............CCCCCCEEEEEEEECCCCCCCC.........",
+  "................EEEEEEEEEECCCCC............",
+  "....................EEEEEECCC.............."
+ ]
+}

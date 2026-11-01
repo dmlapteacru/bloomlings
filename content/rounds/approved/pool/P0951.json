@@ -1,0 +1,115 @@
+{
+ "code": "P0951",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Сахарная луна на весенней ветке",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Десерты и сладости",
+ "direction": "Уютный сюрреализм",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой золотой сахарный полумесяц лежит на толстой ветке с двумя зелёными листьями и одним крупным розовым цветком, несколько крупных граней без мелкой посыпки",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 42,
+ "h": 43,
+ "N": 1108,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 345,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "P": {
+   "cells": 218,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "G": {
+   "cells": 135,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "E": {
+   "cells": 123,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 106,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 55,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 45,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "A": {
+   "cells": 44,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 37,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....................AAAAAA...............",
+  ".................AAAAYYYYYYY..............",
+  "................YYCYYYYYYOOO..............",
+  "..............YYYYCCCYOOOOO...............",
+  "............EYYYYYCCYYOOOO................",
+  "...........EEYYYYYYYYYYOOO................",
+  "...........ECCCCCYYYYYYYOO................",
+  "..........YYCYYYCYYYYYOYO.................",
+  ".........YYYCYYCCCYYYOOOO.................",
+  "........YYYYCYCCCCCYYOOO..................",
+  "........YYYYCCCCCCCYOOOO..................",
+  "........YYYYCCCCCCCYOOOO...........GGDGG..",
+  ".......YYYYYYCCCCCYYOOOY.........GGGGGGGG.",
+  ".......YYYYYYYCCCCYYYOOYE.......GGGGGGGG..",
+  "......CYYYYYYYYCCYYYYOOYE......GGGGGGGGG..",
+  "......YYYCYYYYYYYYYYYYYYE.....DGGGGGGGGD..",
+  "......YYYCYYYYYYYYYYYYYYYY....GGGGGGGGGG..",
+  "......YYYYYYYYYYYYYYYYYYYYE..DGGGGGGGGG...",
+  "......YYOOYYYYYYYYYYYYYYYYEE.DGMMGGGGGG...",
+  "......YOOOYYYYYYYYYYYYYYYYYEEDMMMGGGGD....",
+  ".AA...COOOYYYYYYYYYYYYYYYYYYYYMMMGDDD.....",
+  "EAAA...EOOYYOYYYYYYYYYYYYYYYYYYMMMD.......",
+  "EAAAAA.EOOYYOOYYYYYYYYYYYYYYYYYYYYY...AA..",
+  "EEEEAAEEOYYYOOYYYYYYYYYYYYYYYYYYYYYEEEAAE.",
+  "EEEEAAEEEYYYOOYOYYYYYYYYYYYYOOOOPPPPPAAEE.",
+  "..EEEEEEEEYYYOOOOYYYYYYYYYYYYOOOPPPPPPEEE.",
+  "....EEEEEEEYYOOOOOYYYYYYYYPPPOOPPPPPPPEE..",
+  ".....EEEEEEEOOOOOOOYOYYYPPPPPPPPPPPPPPPP..",
+  "......DDDEEEEEOOOOOYOOOOPPPPPPPPPPPPPPPPPP",
+  "....DDGGGGMEEEOOOOOYOOOOPPPPPPPPPPPPPPPPPP",
+  "...GGGGGMMMMEEAAAEEEEEEEPPPPPPPPPPPPPPPPPP",
+  "..DGGGGMMMMMDEEEAAAAEEEAPPPPPPPPPPPYPPPPPP",
+  "..GGGGGGGGGMM.EEEEEAAAAAPPPPPPPPPYYYPPPPPP",
+  "..GGGGGGGGGMD..EEEEEAEEEEEPPPPPPPYYPPPPPPP",
+  ".DGGGGGGGGMMM....EEEEEEEEEEPCPPPPPPPPPPPPP",
+  ".MGGGGGGGMMD.......EEEEEEEPPCPPPPPPPPPPPP.",
+  ".MGGGGGGMMM.............EEPPCPPPPPPPPPPPP.",
+  ".MGGGGDDD................DPPPPPPPPPPPPPPP.",
+  ".MGGG....................MMPPPPPPPPPPPPPP.",
+  ".DDD......................MMEEEEMDPPPPPP..",
+  "..........................MGGGMMMD.PPPP...",
+  "...........................DGGGGGD........",
+  ".............................DDDDD........"
+ ]
+}

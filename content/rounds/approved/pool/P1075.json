@@ -1,0 +1,102 @@
+{
+ "code": "P1075",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Дива",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Overwatch · Blizzard Entertainment: D.Va: adult pilot with long brown hair, pink triangular cheek marks, blue-and-pink headset and fully covering blue-and-pink pilot-suit collar. Confident playful face and large clear eyes.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 34,
+ "N": 959,
+ "colours": 8,
+ "volumes": {
+  "E": {
+   "cells": 338,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "D": {
+   "cells": 236,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 162,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 115,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "P": {
+   "cells": 81,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "A": {
+   "cells": 18,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 5,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "K": {
+   "cells": 4,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..........EEEEDDDDDDDEEE..........",
+  ".........EEDDDEEDDDDDPPEE.........",
+  "........DDDEEEEEEEEEDDPEEE....P...",
+  ".......EDEEEEEEEEEEEADPPEE...PP...",
+  "..PP..EEEEEEEEEEDEEAAADPDEE..PP...",
+  "..PP.DDEEEEEAAEEEEEAEEEDDEE.PP....",
+  "...P.DEEEEEAAAAECEEEEEEDDDEEPP....",
+  "...PDEEEEEEEEEEECCEEEEEDDDEPPP....",
+  "...PPEEEEEEEEEEECCCEEEEDDDDPP.....",
+  "...PEEEEEEEEEEECCCCCEEEDDDYPP.....",
+  "....EEEEEEEEEEECCCCCCEEDDNYYDE....",
+  "....EEEEEEEEEECEECCDDEEDNNYDDE....",
+  "....EEEEEEECCCCECDDDDDDDNNYDDE....",
+  "....EEEEDEECCCCCDDEDDCDDNNDDDEE...",
+  "...DDDEEDDDDCCCCC.EECCDDNNDDEEE...",
+  "...DDDEEDDDDDCCCCCCCPCDDNNDDEEEE..",
+  "....DDDDDD.CCCCCCCCCPCDDDNDEEEEE..",
+  ".....DDDDDCCCCCCCCCCPCDDDDEEEEEEE.",
+  ".....DDDDDPPCCCCCCCCPPDDDDEEEEEEEE",
+  ".....EDDDDPCCCCCCCCCCCADEEEEEEEEEE",
+  ".....EEEDDDCCCCCCCCCCAADEEEEEEEEEE",
+  "....EEEEEDDDCCCCCCCCACADEEEEEEEEEE",
+  "..EEEEEEEEEDDDCCCCCAACPPDEEEEEEEEE",
+  "EEEEEEEEEEDEEDDDDDDDDPPNDEEEEEEEEE",
+  "E.EEEEEEEEEEEDDDDDDDNNNNDEEEEEEEEE",
+  ".EEEEDDDEEEDDDNDNDPPNNNNDDEEEEEEEE",
+  "EEEDCCCCCDDDNNNNNNPPNNNNNDEEEEEEEE",
+  "EKCCCCCCCCDDPPPNNNPNNNNNNPPDDDDEEE",
+  "KKPPCCCDDDDDDDPPNNNNNNPPPPDDCCCCDE",
+  "KPPPCCDDDDDDDDDPNNNNNNPPDDDDDCCCCD",
+  "DDPCCCDDDDDDDNNNNNNNNNNNDDDDDDCCCC",
+  "DDCCCPPDDDNNNNNNNN..NNNNNNDDDDCCPP",
+  "CCCCDPPPNNDNNNNNN.N.NNNNNNNNDPPCCP",
+  "CCDDDDPDNNCCNNNNNNNNNNNNNNDNNPPCCC"
+ ]
+}

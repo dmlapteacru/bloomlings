@@ -1,0 +1,110 @@
+{
+ "code": "P1031",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Плетёный шлем с сахарной звездой",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Маски и костюмы",
+ "direction": "Фольклорная фантазия",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой округлый золотой плетёный шлем с широким синим забралом и большой розовой сахарной звездой на макушке, зелёная мягкая подкладка, без персонажа и оружия",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 38,
+ "h": 38,
+ "N": 1122,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 326,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "N": {
+   "cells": 202,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "M": {
+   "cells": 169,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "K": {
+   "cells": 139,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "O": {
+   "cells": 103,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "G": {
+   "cells": 85,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "E": {
+   "cells": 70,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 16,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 12,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................KKKKK................",
+  "..............KKKKKKKKKKKK............",
+  ".............KKKKKKKKKKKKKK...........",
+  ".............KKKKKKKKKKKKK............",
+  "..........YYYYKKKKKKKKKKKOEEE.........",
+  ".........YYYYYKKKKKKKKKKOOYYYYY.......",
+  "........YYYYYYKKKKKKKKKKOOYYYYYY......",
+  "......YYYYYYYYKKKKKKKKKKOEEEYYYYY.....",
+  ".....YCCOOOCYYKKKYYYKKKKOOYYYYYYYY....",
+  ".....YCYYYYCYYKYYYYYYKKKYYYYYYYYYY....",
+  "....YYOYOYYYYYYYYYYCYYYYYYYYYYYYEYY...",
+  "...YYYOOOYYYYYYYYYCYYYYCYYYYYYYYEYYY..",
+  "...YYYKKKKKKKKKNNNNYYYOOOOYYYYYYEEYY..",
+  "...NNKKKKKKNNNNNNNNNNNNYYYYYYYYYYEOO..",
+  "..NNNNKKKKKNNNNNNNNNNNYYYYOYYYYYYYOOY.",
+  "..NNNNKKKKKNNNNNNNNNNNKKKOOOYYYYYYYYY.",
+  "..NNNNKKKKKNNNNNNNNNNNKKNNNYYYYYYYYYY.",
+  ".NNNNNNNNNNNNNKKKNNNNNKKNNNNNYYYYYYYO.",
+  ".YNNNMMMMMMMMDMMNNNNNNKKNNNNNNYYYYYEOE",
+  ".YNNMMMMMMMMMMMMMMMMNNNKNNNNNNYYYEEEOE",
+  "EYNNOMMMMMMMMMMMMMMMMMDNNNNNNNYYYEEEOE",
+  "EYNNOOMMMMMMMMMMMMMMMMMMMMNNNNNYYYOOOO",
+  "EYNNNMMMMDMMMMMMMMMMMMMMMMNNNNCCCYOOOO",
+  ".YNNNGGGMDMMMMMMMMMMMMMMMMMNNNCCCNNOOO",
+  ".NNNNGGGMDMMMMDDDDDMMDMMMMMNNNYYENNNOE",
+  ".NNNGGGMMDMGGGGGMMMGGGMMMGMNNEYYENNNOE",
+  ".NNNGGGMMGGGGGGMMMGGGGGMMGGNNEYYENNOEE",
+  ".YYNMGMMGGGGGGMMMGGGGGGMMMMNNEYYONNOOE",
+  ".YYYMMMMGGGGGMMMMGGGGGGGGGMNNNYYOOOOO.",
+  ".NYYMMMMMMMMMMMMGGGGGGGGGMMNNNYYOOOEO.",
+  ".NYYYYYYYYCCYYYMGGGGGGGGGMNNNYYEEEEEO.",
+  ".NYYYYYYYYYYYYYYYYGGGMGGNNNNNYYEOOEE..",
+  "..YYYEEEOOEEYYYYYYYYGMMMNNNNOOOOOOO...",
+  "...YOOOYYOEYYEEEYYYYYYYYNNNOOOOOO.....",
+  "....OOOYYYYYYYYYYYYYYYYYNNOOOO........",
+  ".....EEEYYYYYYOOOOOYYYYYYYOOO.........",
+  "........EEEEYYOOOOOEEEYYYYY...........",
+  ".............Y.EEEEEEE.Y.............."
+ ]
+}

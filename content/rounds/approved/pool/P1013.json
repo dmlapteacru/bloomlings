@@ -1,0 +1,110 @@
+{
+ "code": "P1013",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Пухлый корги и огромный бантик-лист",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Домашние животные",
+ "direction": "Уютный сюрреализм",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один оригинальный золотисто-кремовый корги с короткими лапами и большими ушами несёт в пасти огромный зелёный лист, свёрнутый в подарочный бант, розовый ошейник",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 37,
+ "h": 37,
+ "N": 921,
+ "colours": 9,
+ "volumes": {
+  "O": {
+   "cells": 278,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 199,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 198,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 82,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "M": {
+   "cells": 57,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "E": {
+   "cells": 38,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "K": {
+   "cells": 34,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "P": {
+   "cells": 25,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "Y": {
+   "cells": 10,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "........OOKKOOO.........OOOOOOO......",
+  "........OKKKOOOO.......OOOOOOOO......",
+  "........OKKKPOOO......OOOOKKKOO......",
+  "........OKKPPOOOCCEEEEOOOKKKKOO......",
+  "........OKPPOOOOCCOOOOOOKKKKKOO......",
+  "........OKPOOOOCCCOOOOOOPPKKKOO......",
+  "........OOOOOOOCCOOOOOOOOPKKOO.......",
+  "....DD..OOOODOCCCOOOOOOOOPKKOO.......",
+  "..DGGGDD.OODDDCCCODDOOOOOKKOOO.......",
+  ".DGGGGGGDOOODDCCCODDDOOOOKOOO...CC...",
+  "DGGGGGGGGCCCDDDDCCDDCOOOOOOO...CCCC..",
+  "GGGGGGGGGGDCDDDCCCCCCCCOOOO...CCCCCC.",
+  "GGGGGGGGGMMCCCCCCCCCCCCCOOC...CCCCCC.",
+  "MGGGGGGGGGMDGDCCDGGDCCCCOOE...OOOOCC.",
+  "MGGGGGGGGGMGGDGGGGGGCCCCCOEEEEOOOOOC.",
+  "MGGGGMMMMMMMMMGGGGGGGCCCCOOOOOOOOOOCE",
+  "MGMMMMMGGGGDDMGGGGGGGCCCPOOOOOOOOOOCE",
+  "DMMMMGGGGGGMMMGGGGGGGPPPPOOOOOOOOOOCE",
+  ".DDGGGGGGGDMMDMGGGGDDPPPPOOOOOOOOOOC.",
+  ".DGGGGGGGGMMMDMMGGGDPPPPOOOOOOOOOOOO.",
+  "DGGGGGGGGGMMGDDDGGGGPPOOOOOOOOOOOOE..",
+  "DGGGGGGGGGMMGDDDCCCCCCOOOOOOOOOOOOE..",
+  "DGGGGGGGGGMGGYYYYCCCCCOOOOOOOOOOOOE..",
+  "GGGGGGGGGDMGGCYYYCCCCCOOOOOOOOOOOOO..",
+  "DGGGGGGGGDMGDCYYYCCCCOOOOOOOOOOOOOC..",
+  ".MMMGGGGMMMGCCCCCCCCCOOOOOOOCCCOOCCE.",
+  ".DMMGGGG..MDCCCCCCCCCOOOOOCCEECCCCCE.",
+  "..DMGGD...DDCCCCCCCCCCCCOEEEE.CCCCCE.",
+  "...MMD....CCCCCCCCCCCCCCCEEE..CCCCC..",
+  "....D.....CCCCCC..CCCCCCC......EEE...",
+  "...........EEEE...CCCCCCD............",
+  "...................EEEED.............",
+  ".....................................",
+  ".....................................",
+  ".............................DDGD....",
+  ".........................DD.GGGGD....",
+  ".........................DDDGGGGDDDD."
+ ]
+}

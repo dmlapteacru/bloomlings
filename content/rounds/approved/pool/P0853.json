@@ -1,0 +1,114 @@
+{
+ "code": "P0853",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Квокка с рюкзаком-персиком",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Саванна и джунгли",
+ "direction": "Уютный сюрреализм",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна улыбающаяся квокка в три четверти несёт на спине разрезанный персик-рюкзак, большой круглый нос, маленькие уши, кремовый живот и зелёный лист на рюкзаке",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 42,
+ "h": 43,
+ "N": 1265,
+ "colours": 9,
+ "volumes": {
+  "O": {
+   "cells": 328,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "G": {
+   "cells": 224,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 159,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 146,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 135,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 123,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "R": {
+   "cells": 84,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "P": {
+   "cells": 40,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "Y": {
+   "cells": 26,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........................OO...............",
+  "........................AOOO..............",
+  ".......................AAOPOO.............",
+  "..........EEEEEE.EEE..AAAOPPOE............",
+  ".........OOOOOOEEOOEOOOOOOOOOE............",
+  ".........OOPPOOOEOOOOOOOOOOOOE............",
+  "........EEPPPEOOOOOOOOOOOOOOOOO...........",
+  "........EEPPPEEOOOOOOOOOOOOOCCCC..........",
+  "........EEOPPEOOOOOOOOOOOOOODDDCC.........",
+  "....DGGGGEOOPEOOOOCCDCCOOOOODDDCOOO.......",
+  "...DGGGGGGDOOOOOOOCDDDCOOODDDDDCOOOO......",
+  "..DGGGGGGDEEEOOOOODDDDDOODDDDDCOPPOO......",
+  ".DGGGGGGGRRREOOOOOCDDDDODDDDDDOOPPOOE.....",
+  ".GGGGGGGRRRREOOOOOCDDDDODDDDDDOOOOOAE.....",
+  "DGGGGDDRRRREOOOOOOCCDDOOODDDDDOOOOOAE.....",
+  "DDDOOOCCYYYEOOOOOPPOOOOEOODDDDOOOOOAE.....",
+  "...OOOCCCYYEOOOOOPPOOOOEEEDEEEOOOOAA......",
+  "..POOCCCCYYYOOOOOOOOOOOOERRREOOOOAAA......",
+  "..PPOCCCCCYYOAAOOOOOOOOOEPPREOOOAAA.......",
+  "..PPPCCCCCYYRAAAAOOOOOOOOPPOOOOAAA........",
+  ".EPPPCCCCCYYRYYYAAAAAOOOOOOOOAAEE.........",
+  ".ERPPCCCCCOORRRYYYAAAAAOOOOOAAAEEE........",
+  ".ERPPPCCCCOORRRRYYYYYAAAOOOOAAAEEE........",
+  ".ERRRRCCCCOORRREAAEEYEEEOOCCCAEEEED.......",
+  ".ERRRRCCCCOORREEAOOEEDDDOOCCCCCDEDDD......",
+  "..RRRRCCCOOORRGEAOOOOODDDCCCCCCCEDDD......",
+  "..RRRRRCCOORRDGEOOOOOODDDCCCCCCCEEE.......",
+  "...RRRRCCORRRGGEOOOOOADDDCCCCCCCEE........",
+  "...RRRRRRRRRRGAAAAAAAAECCCCCCCCCE.........",
+  "....RRRRRRRRRAAAAAAAEEECCCCCCCCAE.........",
+  ".....RRRRRRAAAAAAAAAEECCCCCCCCCAE.........",
+  "......EEEAAAAAAAAAOOOOCCCCCCCCCAE.........",
+  "........EAAAAAAAOOOOOOCCCCCCCCAA.DDD......",
+  ".........EEEAAAAOOOOOOCCCCCCCCAEDDDDD.....",
+  ".....GG....EEAAAAOOOOOCCCCCCCAAEDDDDD.GG..",
+  "...GGGG....EEAAAAAOAAOCCCOOEAAAEDDDD..GGG.",
+  "..GGGGGGGCAAAAAAAAAAEOOOOOEEAAAADDD...GGCG",
+  "..GGGGGGGGAAAEEAAAAEEOOOO...DAAADDDGGGGGGG",
+  "..GGGGGGGGAAAEEEDDGGGGGGGGGGGGDDDDGGGGGGG.",
+  ".GGGGGGGGGDDDDDGGGGGGGGGGGGGGGGDDGGGGGGGGG",
+  ".GGGGGGGGGGDDDDDGGGGGGGGGGGGGGGGGGGGGGGGG.",
+  ".....GGGGGGGDDDGGGGGGGGGGGGGGGGGGGGGGG....",
+  "..........GGGGGGGGGGGGGGGGGGGGGGG........."
+ ]
+}

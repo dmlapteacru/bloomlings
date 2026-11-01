@@ -1,0 +1,106 @@
+{
+ "code": "P1015",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Сундук для одной большой снежинки",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Багаж и навигация",
+ "direction": "Миры внутри предметов",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой синий сундук с золотыми широкими петлями раскрыт, внутри на розовой подкладке лежит одна огромная кремовая снежинка, толстая крышка и круглый замок",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 34,
+ "N": 1018,
+ "colours": 9,
+ "volumes": {
+  "N": {
+   "cells": 292,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 212,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 149,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "Y": {
+   "cells": 126,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 89,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 70,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "V": {
+   "cells": 40,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "E": {
+   "cells": 36,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "S": {
+   "cells": 4,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...NNNYYYYYYYYYYYYYDYYYOOOOOOOOOOO..",
+  "..NNNOOYYYOOOOOOOYYYYYDDDDDDVVOOO...",
+  "..NNNOYYDDDDVVVVVVVPPVVVVVVVVPEEO...",
+  "..NNNOYYVVVVVVVVVVVPPPPPPVVVPPEE....",
+  ".DNNNODDVVPPPPPPPCCPPPPPPVVVPPEE....",
+  ".NNNNDDVVVPPPPPPCCCCCPPPPPPPPPE.....",
+  ".NNNNYDVPPPPPPPCCCCCCPPPPPPPPEE.....",
+  "DNNNNYPPPPPPPPPCCCCCCPPPPPPPPE......",
+  "DNNNYYPPPPPCCPPPCCCCPPPCCCCCCC......",
+  ".NNNYDPPCCCCCPECCCCCCCCCCCCCC.......",
+  "DNNYYPPPCCCCCEECCCCCCCCCCCCCDD......",
+  ".OOYYPPPCCCCCCCCCCCCCCCCCCCCPPD.....",
+  ".DOYYDPPCCCCCCCCCCCCCCCCEEEPPPPD....",
+  ".DOYYYPPCCCCCCCCCCCCCCCCCCPPPPPPD...",
+  "..DDDDPPPPPPCCCCCCCCCCCCCCPPPPPPPPD.",
+  "..DDDDPPPPPPCCCCCCCCCCCCCCCCCPPPPPDD",
+  "..DOOYYPPPPEEECCCCCCCCCCCCCCCPPPPDDY",
+  "..DONNYYPPCCCCCCCSSCCCCCCCCCCPPPDYYY",
+  "..DONNNYYDCCCCCCCSSCCCCCCCCCDPPDDDDY",
+  "..NNNNNNOOOEEECCCCCCCCCDDDNNNNNNNNYY",
+  "..NNNNNNOOCYYYEEEEDDNNYYYYNNNNNNNNYY",
+  "..DNNNNNOOYYYYEEENNNNNYYYYNNNNNNNNYY",
+  "..NNNNNNNOYYYYNNNNNNNYYYDYYNNNNNNNYO",
+  "..NNNNNNNOYYYNNNNNNNNYYDDYYNNNNNNNOO",
+  "..DNNNNNNOYYYNNNNNNNNYYYDYYNNNNNNNOO",
+  "..NNNNNNNOYYYNNNNNNNNYYYYYDNNNNNNNOO",
+  "..OONNNNNYYYYNNNNNNNNNYYYYNNNNNNNNOO",
+  "..OOONNNNYYYONNNNNNNNNNNNNNNNNNNNOOO",
+  "..OOONNNNYYOONNNNNNNNNNNNNNNNNNNNOOO",
+  "....DNNNOYYOONNNNNNNNNNNNNNNNNNNDEEE",
+  "......NNOOYYONNNNNNNNNNNNNDNN.......",
+  ".......OOOYOOONNNNNNNDD.............",
+  "........OOYOOONND...................",
+  ".........EEEE......................."
+ ]
+}

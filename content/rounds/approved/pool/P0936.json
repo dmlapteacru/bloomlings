@@ -1,0 +1,114 @@
+{
+ "code": "P0936",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Бабочка из цветной бумаги",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Рисование и ремёсла",
+ "direction": "Домашняя магия",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Большие округлые золотые ножницы вырезают из широкого розово-синего листа одну крупную бабочку, одна половина крыльев уже приподнялась над листом",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 42,
+ "h": 42,
+ "N": 1128,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 321,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "K": {
+   "cells": 224,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "P": {
+   "cells": 187,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "S": {
+   "cells": 163,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "N": {
+   "cells": 106,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 54,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "B": {
+   "cells": 37,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "C": {
+   "cells": 35,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 1,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........AAAA...........................",
+  "........AAAYYYAA..........................",
+  ".......YYYYYYYYCC.........................",
+  "......YYYYYYYYYYCC........................",
+  "......YYYYY..AAYYYY.......................",
+  "......YYYY....AYYYY.......................",
+  "......YYY......YYYY.......................",
+  "......YYYY.....AYYY.......................",
+  "......YYYYY....AYYY.......................",
+  ".......YYYYYC..AYYY.............AAAAAAA...",
+  "....CC..YYYYYYYYYYYY.........CYYYYYYYYA...",
+  "...AAAAACYYYYYYYYYYY........YYYYYYYYYYA...",
+  "..YYYYYYYYCCCCYYYYYYY....YYYYYYYYYYYY.....",
+  ".YYYYYYYYYYCCC.YYYYYYYCYYYYYYYYYYYY.......",
+  "AYYYY...YYYYY....YYYYYYYYYYYYYYYY.........",
+  "AYYY.....YYYYY...AAYYYCYYYYYYYYY..........",
+  "AYYY......YYYYAAAYAYYYYCYYYYY.NNN.........",
+  "YYYY.......YYYYYYYYYDYYYCCC..PPPPPPP......",
+  ".YYY......YYYYYYYYYYYYYYCCCCPPPPPPPSSSS...",
+  ".YYYY....YYYYYAAA..YYYYYYCCPPPPPPPSSSSSNNN",
+  ".YYYYYYYYYYYYY....PPYYYYYYCPPPPPPSSSSSSSSS",
+  "..AAYYYYYYYAN..PPPPPPPYYYYCCC..SSSSNNNNSSS",
+  "...AAYYYAAAANNNPPPPPPPPYYYYCC..SSSSKKKNSSS",
+  ".....AAAANNNPPPPPPPPPPPPYYYYC..NNKKKKKKSSS",
+  "....NNNNNKKKKPPPPPPNNNNPPPYYYNNNKKKKKKKSSS",
+  "..KKKKKKKKKNNNPPPPPPNNNPPPPYYNNKKBKKKKKSSN",
+  "NNKKKKKKKNN.NNNNNNNPPPPPPPP.KKKKBBBKKKKSSN",
+  "NKKKKKKKKN..KKKKKSSSSPPPPP...KKBBBBKKKSSSN",
+  ".KKKKKPPP...KKKKKKSSSSPPPP..KKBBBBKKKKSSSN",
+  "..KKKKKPP....KKKKPPPPSSSSPP.KKBBBKKKKSSSN.",
+  "...SSSSSSS....KKKKPPPPPPPKKKKBBKKKKKNSSSN.",
+  "....SSSSSSBB..KKKKKPPPPPPKKKKKKKKKKNNSSSN.",
+  ".....SSSBBBB...KKKKKKKKPPKKKKKBBBKKKKSSSN.",
+  "......NBBBBBB....KKKKNNPPPKKKKKBBBBKKKSSN.",
+  "......NNKKKKKKKNNNKKNNKPPPSNNNKKKBKKKKSSN.",
+  ".........KKKKKKKPPSSNKKPPPSNSSKKKKKKKKSSSN",
+  ".....PPP.KKKKKKPPSSSKKPPPSSSSSSSKKKKKSSSSN",
+  "...PPPPP..KKKPPPPSSSKKKKKSPPPPSSSSSKSSSSSN",
+  "...PPPPPP..PPPPPSSSSKKKKKKPPPPPSSSSSSSSSSN",
+  "...PPPPPP...PPPSSSSSSSNNNKKPPPPPPSSSNNNNN.",
+  "......PPP....SSSSSSNNNNNNNKKPPPNNNNNN.....",
+  "..............SSSS........................"
+ ]
+}

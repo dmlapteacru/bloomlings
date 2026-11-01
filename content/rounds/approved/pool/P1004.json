@@ -1,0 +1,107 @@
+{
+ "code": "P1004",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Манжетка с ночным садом",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Одежда и аксессуары",
+ "direction": "Миры внутри предметов",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой открытый синий наручный браслет хранит маленький зелёный куст с крупным кремовым цветком на фиолетовом фоне, толстая золотая застёжка и розовая подкладка",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 37,
+ "h": 34,
+ "N": 985,
+ "colours": 9,
+ "volumes": {
+  "N": {
+   "cells": 328,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 124,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 123,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 104,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 76,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "V": {
+   "cells": 64,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "O": {
+   "cells": 60,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "P": {
+   "cells": 54,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "M": {
+   "cells": 52,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "....................DDDD.............",
+  ".............DD.NNNDCCCCD............",
+  "............GGGGGNNCCCCCCVVV.........",
+  ".........NNNGGGGGDDCCCCCCVVVVVV......",
+  "......NNNNNPGGGCCCDCCCCCCCCCDVVVD....",
+  ".....NNNPPPPGGGCCCCCCCCCCCCCCDVVVV...",
+  "....NNPPPPPPPGDCCCCCYYYCCCCCCDVVVVV..",
+  "...NNPPPPPPPDDDCCCCCYYYYCCCCCDVVVVVD.",
+  "..NNPPPPPGGGGGDCCCCCYYYYCCCCDGGGMVVV.",
+  ".DDPPPPPPGGGGGGDCCCCCYYYCCCDMMGGMVVV.",
+  ".DDPPPPPPGGGGMMMMDCCCCCCCCCCMGGGMVVV.",
+  ".DDPPPPPPDGGGGMMMCCCCCCCCCCCMMGGVVVN.",
+  ".DDPPPPPDVDMMMMMMCCCCCCCCCCDMMDVVVNN.",
+  ".NDPPPPVVVDGGGGMMDCCCCDDCCDMMDVVVNNN.",
+  ".NNPPPVVVVGGGGGGGMMDDMMMMMMGDVVVNNNN.",
+  ".NNNNVVVVGGGGGGGGGMMMMMMGGGGGVVNNNNN.",
+  ".NNNNNVVVGGGGGMGGGGGGGGMGGGGGNNNNNNND",
+  ".NNNNNNNDDDMMMMGGGGGGGGMMMMDNNNNNNNND",
+  ".NNNNNNNNNYYYYYYYYGGGGGGMNNNNNNNNNNNN",
+  ".NNYNNNNNNYCCYYYYYYYYDDDDDNNNNNNNNNNN",
+  "NNYYYNNNNNYCYYYYYYYYYYNNNNNNNNNNNNNND",
+  "NNOYYNNNNNYYYOOOOYYYYYNNNNNNNYYNNNNNN",
+  ".NOOONNNNNYYYONNNNYYYYNNNNNNNYYONNNNN",
+  ".NNONNNNNNYYYONNNNYYYYNNNNNNNYOONNNN.",
+  ".NNNNNNNNNYYYONNNNYYYYDNNNNNNOOONNNN.",
+  ".NNNNNNNNNYYYONNYYCCYYYNNNNNNNNNNNND.",
+  "..NNNNNNNNYYYONDOYYYYYONNNNNNNNNNND..",
+  "...NNNNNNNYYYONNOOOOOOONNNNNNNNNND...",
+  "....DNNNNNYYYONNNNOOOONNNNNNNNNND....",
+  "N.....DNNNYYYYNNNNOYOONNNNNNNNN......",
+  "NN.......OOOYYYYYOOYOONNNNNDD........",
+  "NN.........OYYYYYYYYODDDD............",
+  "N..........COOOOOOOOD................",
+  ".............COOOOO.................."
+ ]
+}

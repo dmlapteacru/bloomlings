@@ -1,0 +1,117 @@
+{
+ "code": "P0940",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Ручной снег из пипетки",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Лаборатории и изобретения",
+ "direction": "Домашняя магия",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна большая синяя пипетка с розовой резиновой грушей выпускает вместо капли одну крупную кремовую снежинку над низкой золотой лабораторной чашей",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 41,
+ "h": 44,
+ "N": 851,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 187,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "P": {
+   "cells": 152,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "S": {
+   "cells": 133,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 129,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 61,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "A": {
+   "cells": 58,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "B": {
+   "cells": 55,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "O": {
+   "cells": 53,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "N": {
+   "cells": 23,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "....PPPPP................................",
+  "..PPPCCCCC...............................",
+  ".PPPPCCCCCC..............................",
+  ".PPPPPPCCCPP.............................",
+  "PPPPPPPPCCPPP.PP.........................",
+  "PPPPPPPPPCCPPPPPP........................",
+  "PPPPPPPPPPCPPPPPPP.......................",
+  "PPPPPPPPPPPPPPPPPP.......................",
+  "PPPPPPPPPPPPPPPNNN.......................",
+  ".PPPPPPPPPPPPPNNNN.......................",
+  "..PPPPPPPPPPPBBBSSSS.....................",
+  "....PPPPPPPPBBBBBSSSS....................",
+  "......PPPPPPBBBBBBSSSNN..................",
+  ".......PPPPPBBBBBBBSSSNN.................",
+  ".......PPPPPBBBBBBBBBSSN.................",
+  ".......PPPPP.BBBBBBBBBSN.................",
+  ".........P....BBBBBBBBSSN................",
+  "...............BBBBBBBBSN..S.............",
+  ".................NNNNNNNN..SS............",
+  ".......................DDD...............",
+  ".......................DDCD..............",
+  "....................DDDDCCDDDDD..........",
+  "....................CCDDCCDDCCD..........",
+  "....................DCCDDCDCCCD..........",
+  "....................DDDCCCCCDD...........",
+  ".................SS.DDDCCCCDDD...........",
+  "..................S.DCCCCCCCCD...........",
+  "...................DDCCDDCDDCCDSS........",
+  "....................CDDDCCDDDCD.S........",
+  "............CAAAAAA..DDDCCDDD............",
+  "........AAAACCCCCCCCCC.SDCD..CCAAAA......",
+  ".....CCCCCOYYYCCYYYYYC.SSD..YYYYYCCAAA...",
+  "....AACOOOOYYYCCYYYYYCCCCC.YYYYYOOOYYYY..",
+  "....ACAOOOOYYYCSSSSCCCCSCSSS.CYYYOOOOCC..",
+  "....AYAAOOSSSSSSSSSSSSSSSSSSSSSSSCOOOCC..",
+  "....AYYCCCAAASSSSSSSSSSSSSSSSSSAAACCYYY..",
+  "....AYOOOOCCCCCYYYAAAAAAAAAACCCCYYOOYYY..",
+  "....AYOOOOOOYYYYYYYYYYYYYYYYCCYYYYOOYYY..",
+  "....AYOOOOOOYYYYYYYYYYYYYYYYCCYYYYOOYYY..",
+  "...SSYOOYOOOYYYYYYYYYYYYYYYYCCYYYYOOYYYS.",
+  "..SSSYYYYOOOYYYYYYYYYYYYYYYYCCYYYYYYYSSSS",
+  "...SSSSSSYYYYYYYYYYYYYYYYYYYYYYYYAAASSSSS",
+  "......SSSSAAAAAAYYYYYYYYYYYYAAAAASSSSS...",
+  "...........SSSSSSSSSSSSSSSSSSSSSS........"
+ ]
+}

@@ -1,0 +1,114 @@
+{
+ "code": "P0857",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Шестерёнка с клевером",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Роботы и механизмы",
+ "direction": "Природа и технология",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна большая медная шестерёнка в разрезе хранит крупный четырёхлистный клевер, стебель проходит через центральное отверстие, два маленьких крепёжных зубца сбоку",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 41,
+ "h": 43,
+ "N": 1252,
+ "colours": 9,
+ "volumes": {
+  "O": {
+   "cells": 490,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 248,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "G": {
+   "cells": 190,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "A": {
+   "cells": 102,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "L": {
+   "cells": 95,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "M": {
+   "cells": 59,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "D": {
+   "cells": 40,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 22,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 6,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..................AAAAAA.................",
+  "................AAAYYYYOO................",
+  "................AAAYEEEOO.....OO.........",
+  "................AAAEEEEEOO..EEOOO........",
+  "................AAAEEEEEOOEEEEOOOO.......",
+  "........OOOOO.OOOOOEEEEEGGGGEEEOOOO......",
+  ".......OOOOOOOOOOOOEEEEGGGGGEEEEEEOE.....",
+  "......OOOOOOOYYEEEEEEEDGGGGLLDEEEEOE.....",
+  ".....EAOOOOOOYYGGGGGEEMGGGLLLLLLDEOE.....",
+  ".....EAAAOOOOYDGGGGGGEMGGGGGLLLLLOO......",
+  ".....EAAAOOOOEEGLLGGGMMGGGGLLLLLLDO......",
+  "......AAAAOODEEGLLGGGGMGGGGGGLLLDDOO.....",
+  "......AAAAOODGLLLLLGGGMGGGGGGGLLDEOOOOOO.",
+  ".....OOOOOOEDGLLLLGGGGGMGGGGGGGDEEEOOOOO.",
+  "..OOOOOOOOOEDGLLLGGGGGGMMGGGGDDEEEEOOOOOO",
+  ".OOOOOOOOOYEDLLLLGGGGGMMMMMMMMMMEEEOOOOOO",
+  ".OOOOOOOOOYEELLLLGGGGMMMMGGGGGGLEEEEOOOOO",
+  "EOOOYOOOOOYEEEDMMMMMGGGGGGGGGGGLLEEEOOOOO",
+  "EOOOYOOOOOYEEEEEDLGGGGGGMGGGGGLLGGEEOOO..",
+  "EOOOYOOOOOYEEEELLLGGGGGGMGGGGLLLLGEEOO...",
+  ".AAAAOOOOOYEEEELLLLGGGGGMGGGLLLLLEEEOO...",
+  "..EEEEEOOOEEAAALLLLLGGGGMGGGLLLMMEEEOO...",
+  "...EAAAOOOOAAAELLLLLLLGGMMGGGLLMEEEEOO...",
+  "...EAAAOOOOOAOEDLLLLLLGGMDGGGGGEEEEEOOO..",
+  "...EOOOOOOOOOOEEMMMLLGGGMDDMMMDOOEEOOOOOO",
+  "...EOOOOOOOOOOOOOOMGGGMMMOOOOOOOOOOOOAOOO",
+  "...OOOOOOOOOOOOOEEEEDDMGMEEEOOOOOOOOOAAOO",
+  "..OOOOOEOOOOOOOEEEEEEEMGDEEEEEOOOOOOOAAOO",
+  ".OOOOOOEOOOOOOOEEEEEEDGGDEEEEEOOOCOOOAAOO",
+  ".AAAAOOEOOOOOOOOEECC.DGGDEEEEOOOOOOOAAAO.",
+  ".AAAAOOOOOOOOOOOOOOCCDGGDOOOOOOOOOOOAAAA.",
+  ".AAAAAOOOOOEOOOOOOOCYYYDEOOOOOOOOOOOOO...",
+  "..AAAAOOOEEEEOOOOOOOOOOOEOOOOOOOOOOOO....",
+  "...EEEEEEEEEEEOOOOOOOOOOEOOOOOOOOOE......",
+  "........EEAAAAOOOOOOOOOOEEOOOOOOOOE......",
+  ".........EAAAOOOOOOEEEEDDEEEEEOOOOE......",
+  ".........OOOOOOOOOEEEDMGGEEEEEOOOOE......",
+  "........OOOOOOOOOOEEEDMGGEEEEEEOOO.......",
+  "........OAAAAOOOOO.EEEMGG..EEEEOO........",
+  ".........AAAAAAOO..EEEMGG....EE..........",
+  "...........AAAAOO..EEEDGGD...............",
+  "......................DGGM...............",
+  ".......................GMM..............."
+ ]
+}

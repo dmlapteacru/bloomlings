@@ -1,0 +1,115 @@
+{
+ "code": "P0910",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Корзинка с лестницей в небо",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Походы и отдых на природе",
+ "direction": "Невесомый мир",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Большая коричневая пикниковая корзинка открыта, изнутри выдвинулась широкая зелёная лестница к одному кремовому облаку, одна розовая салфетка на краю",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 42,
+ "h": 44,
+ "N": 1214,
+ "colours": 9,
+ "volumes": {
+  "A": {
+   "cells": 282,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 266,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 261,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 205,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "G": {
+   "cells": 83,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 82,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "P": {
+   "cells": 26,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "R": {
+   "cells": 8,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 1,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "........................CCCCCCCC..........",
+  ".......................CCCCCCCCCC.........",
+  "...................CCCCCCCCCCCCCCCCCCC....",
+  "...................CCCCCCCCCCCCCCCCCCC....",
+  ".................CCCCCCCCCCCCCCCCCCCCCC...",
+  "................CCCCCCCCCCCCCCCCCCCCCCCCC.",
+  "................CCCCCCCCCCCCCCCCCCCCCCCCCC",
+  "................CCCCCCCMCCCCCMCCCCCCCCCCCC",
+  "................CCCCCCGMCCCCGMCCCCCCCCCCCC",
+  ".................CCCCGGMCCCCGMCCCCCCCCCCCC",
+  "....................CGGGGGGGGMCCCCCCCCCCC.",
+  ".....................GMMMMMGMDCCCCCCCCC...",
+  ".........EEEEEEOO...GGM...MGM...CCC.......",
+  "....EEEEEOOOOOOOOO..MMMMMMGGM.............",
+  "..OOOOOOOOOEEEEEAA.GMMGGGGGM..............",
+  ".OOOOOEEEEEEEEEEAAAGMMMMMMGM..............",
+  ".OOOEEEEEEEEEEEEEAAGM....GGM..............",
+  "EOOOEEEEEEEEAEEEEEGGMM..GGM...............",
+  "EAAOEEEAAAEEAAEEEEGGGGGGGGM...............",
+  "EAAOOEAAEEEAEEEEEEGMMMMMGMM...............",
+  "EAAAOAAEEEAAAAEEEGGMM..MGM................",
+  ".AAAOAAEAAAAAAEEEGMMMM.GGM................",
+  ".AAAOOEAAAAAAAAEGGGGGGGGMMEEEE............",
+  "..AAAOEAAAAAAAEEGMMMMMMGMMAOOOOEEEEE......",
+  "..AAAOEAAEEEAAAGGMMMEEGGMEAAAAAAOOOOOEE...",
+  "..AAAAEEAEOOOEEGGMEEEEGMMEEEEEEEEEOOOOE...",
+  "...EAAEEEEEEEEEGGGGGGGGMEEEEEEEECCCCOAA...",
+  "..EEAAAEEEEEEEGGMMMMMGGMEEEEECPPCCPPEAA...",
+  ".EOOEEOOEEEEEEGMMEEEEGEEEEPPCCPPPPPCEEE...",
+  ".EOOOEOOOOOOOOOMEEEEEGEECCCPRCCCPPCAAAE...",
+  ".EOOOAOAAOOOOOOOOOOEEOOOCCCRRRCCCCCAAAE...",
+  ".EEOAAOOAOOOOOOOOOOOOOAAAECPPPPCCCEAAA....",
+  "..EAAEEEAOEEOOOOOOOOAAAAAEEPCPRRCCEEAE....",
+  "..OOOAAAAAEAAEEEAOOOAAAAAAEECCRRPEEAAE....",
+  "..EOOAAAAAOAOOAAAAEEEAAAAAAECPPPPAAAAE....",
+  "..EOOOAAAOOAOOOOOOOOAAAAAAAAAPCCAAAAEE....",
+  "..EOOOAOOOOAAAAAAOOOAAAAAAAAAACCAAAAA.....",
+  "..EOOOAOOOOAOOOOAOOAAAAAAAAAAAAAAAAAA.....",
+  "...EOAAAOOOAOOOOAOOOAAAAAAAAAAAAAEAAAC....",
+  "...EOOOAOOOAAAAAAOOOAAAAAAAAAAAAEECC......",
+  "..CEOOOAOOOOAOOOAAAAAAAAAAAAAEEEC.........",
+  "...CEEEEEOAAAOOOAOOOAAAAAAEEEC............",
+  ".........EEEEOOOAOOOAAAEEEC...............",
+  "...............EEEEEEEE..................."
+ ]
+}

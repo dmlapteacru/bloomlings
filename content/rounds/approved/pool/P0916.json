@@ -1,0 +1,112 @@
+{
+ "code": "P0916",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Маленький трубкозуб-привратник",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Саванна и джунгли",
+ "direction": "Обмен ролями",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один милый оригинальный розово-кремовый трубкозуб с длинным округлым носом и двумя длинными ушами держит большой золотой ключ у небольшой зелёной калитки",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 44,
+ "h": 41,
+ "N": 1333,
+ "colours": 9,
+ "volumes": {
+  "P": {
+   "cells": 404,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "M": {
+   "cells": 297,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "C": {
+   "cells": 216,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 115,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "L": {
+   "cells": 90,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "D": {
+   "cells": 69,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 59,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 42,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "R": {
+   "cells": 41,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........CCRRCCC......PPPPPP..............",
+  "...........CCRRRCC......PPPPPP..............",
+  "...........CCRRRRCC....PPPPPPP..............",
+  "...........CCRRRRCC....PPPPPPP..............",
+  "...........CCCRRRCCE..EPPPPPP...............",
+  "............CCCRRRCE..EPPRRP................",
+  ".............CCCRRCEEEERRRR.................",
+  "..............CCCRPPPPPPRR..................",
+  "...............EECPPPPPPPR..................",
+  "...............EPPPPPPPPPPP.................",
+  "............PPPPPPPPPPPPPPP.........GGGG....",
+  "..........PPPPPPPPPPDPPPPPPD.......MGGGGG...",
+  ".........PPPPPPPPPPCDDPPPPPD.....MMMMMGGGG..",
+  "........PPPPPPPPPPPDDDPPPPPP....MMMMMGGGGGG.",
+  "......PPPPPPPPPPPPPDDDCPPPPPP..GGMMMMGGMGGG.",
+  "......PPPPPPPPCPCCCCDCCCPPPPP..GGMGMMMMMGGG.",
+  ".....PPPPPPPPCCCCCCCCCCCCPPPPPDGGMGGMMMMMGGM",
+  "....PPPPPPPPPCCCCCCCCCCCCCPPPPPGMMGGMMMMMGGM",
+  "...PPPPPPPPPPCCCCCCCCCCECCCPPPPMMMGGMMMMMGMM",
+  "...PPPPPPPPPPCCCCCCCEEEEECCCPPPPMMGGMMMMMMMM",
+  "...PPPPPPPPPPPCCCCCCCCC..CCCCPPPCEGGMGMMMGMM",
+  "..PPPPPPPPPPPPCCCCCCCCC...CCCCCCCEGGMGMMMGMM",
+  "GGPPPPPPPPPPPPPCCCCCCCCY.GGGMCCCCEGGMGYYMGMM",
+  "GGPPPPPPPPPPPPPPCCCCYYYYYGGGMMMMMMGGGYYYGGGM",
+  "GGEPPPPPPPPPPPPPPDDYYYYYYDDMMMMMMMGGMYYYGGMM",
+  "GGEPPPPPCPPPPPPPPDDDDDEYYDDYYYYYYGGMMMMMMGMM",
+  "GGEPPPPPCCCPPPPPPDDDDDEYYYYYYYYYYGGGMMMMMMMM",
+  "GMERPPPPCCCCPPPPDDDDD.EYYYYYYEEEYMGGMMMMMMMM",
+  "MMERPPPPCCCCCCCCDDDDEEEYYDMMMYYYYMGGMMMMMMMM",
+  "MMMRPPPPPCCCCCCCCCDDYYYYMMMMMYYYYMGGMGMMMMMM",
+  "MMMMPPPPPPCCCCCCCCCCEEEEMMMMMMMMMMGGMGGMMMMM",
+  "MMMMPPPPPPPCCCCCCCCCEC...MMMMMMMMMMGMGMMMMMM",
+  "MMMMPPPPPPPCCCCCCCCPPL..MMMMMMMMMMMGMGGMMMMM",
+  "LLPRRPPPPPPPCCCCCCPPPLLMMMMMMMMMMMMGMGGMMMMM",
+  "LPPRRPPPPPPPCCCCCPPPPLLLMMMMMMMMMMMMMGGMMMMM",
+  "PPPRRRPPPPPLLLLEPPPPPLLLMMMMMMMMMMMMMMGMMMMM",
+  "PPPPLPPPPPPLLLLEPPPPPLLLLLMMMMMLLMMMMMMMMMMM",
+  "PPLLLPPPPPDDLCLEPPDDDDLLLLLLLMMLLCCCCMMMMMMM",
+  "PPLLLLDPDDDDDCCDDDDDDDLLLLLLLLL....CCCCCMMMM",
+  "..LLLLLDDDDDDLLLLLDDDLLLLLLLL........CCLMMMM",
+  "........LLLLLLLLLLLLL................LLL...."
+ ]
+}

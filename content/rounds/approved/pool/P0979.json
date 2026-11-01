@@ -1,0 +1,113 @@
+{
+ "code": "P0979",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Вулкан из цветного пластилина",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Рисование и ремёсла",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой пластилиновый вулкан собран из трёх широких синих и фиолетовых колец, из вершины выходит толстая розовая спираль, широкая золотая доска для лепки снизу",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 41,
+ "h": 40,
+ "N": 963,
+ "colours": 9,
+ "volumes": {
+  "N": {
+   "cells": 250,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "P": {
+   "cells": 161,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "V": {
+   "cells": 159,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "Y": {
+   "cells": 129,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 111,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "B": {
+   "cells": 102,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "A": {
+   "cells": 22,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 16,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 13,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................PPCCCCCPPPPP............",
+  "................PPCCPPPPPPPPP............",
+  "...............PPPPPPPPPPPPPPP...........",
+  "...............PPPPPPPPPPPPPPP...........",
+  "..............PPPPPRR.RRRRPPPP...........",
+  "..............PPPPPR.PPPPPPPPP...........",
+  "..............PPPPPR.PPPPPPPP............",
+  "...............PPPPP.PPPPPPP.............",
+  "...............PPPPPPPRRRRR..............",
+  "...........PPP..PPPPPPP..................",
+  "...........PPP....PPPPP......PPP.........",
+  "...........PPP.....PPPPP....PPPP.........",
+  "............PP...PPPPPPPP...PPPP.........",
+  "...............BBBPPPPPNBBB..PP..........",
+  "..............BBBBPPPPNNBBBB.............",
+  ".............NBBBBBNNNNBBBBB.............",
+  ".............NBBBBBBBBBBBBBB.............",
+  ".............NBBBBBBBBBBBBBBB............",
+  "...........VVNBBBBBBBBBBBBBBBV...........",
+  "..........VVVVBBBBBBBBBBBBBVVVV..........",
+  "..........VVVVVVVBBBBBBBBBBVVVVV.........",
+  ".........VVVVVVVVNNNNNNNNVVVVVVV.........",
+  ".........VVVVVVVVVVVVVVVVVVVVVVVV........",
+  "......YYVVVVVVVVVVVVVVVVVVVVVVVVVYY......",
+  "....YYYYNNVVVVVVVVVVVVVVVVVVVVVVNNYYY....",
+  "...CYYYNNNVVVVVVVVVVVVVVVVVVVVVNNNNYYC...",
+  "...YYYNNNNNNVVVVVVVVVVVVVVVVVVNNNNNYYY...",
+  "..YYYYNNNNNNNNNVVVVVVVVVVVNNNNNNNNNNYYY..",
+  "..YYYNNNNNNNBBBBNNNNNNNNNNNNNNNNNNNNOYY..",
+  ".YYYYNNNNNNNNNNNBBBBBBBNNNNNNNNNNNNNOYYY.",
+  ".YYYYNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNOOYYY.",
+  "OYYYYYNNNNNNNNNNNNNNNNNNNNNNNNNNNNNOOYYYA",
+  "OOYYYYYNNNNNNNNNNNNNNNNNNNNNNNNNNNOOYYYOA",
+  "OOOYYYYYYNNNNNNNNNNNNNNNNNNNNNNNNNYYYYOOA",
+  "OOOOYYYYYYYYNNNNNNNNNNNNNNNNNNNNYYYYYOOOA",
+  ".OOOOOOYYYYYYYYYYYNNNNNNNNYYYYYYYYYOOOOOC",
+  "..OOOOOOOOYYYYYYYYYYYYYYYYYYYYYYOOOOOOOO.",
+  "...OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO...",
+  "........OOOOOOOOOOOOOOOOOOOOOOOOOAAA.....",
+  "............CCCCCAAAAAAAAAAAAAAAC........"
+ ]
+}

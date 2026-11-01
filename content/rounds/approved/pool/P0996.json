@@ -1,0 +1,116 @@
+{
+ "code": "P0996",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Пирожное-парашют для ягоды",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Десерты и сладости",
+ "direction": "Невесомый мир",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой кремовый купол желейного десерта служит парашютом для одной крупной красной вишни, две толстые синие стропы и зелёный лист, компактная округлая форма",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 38,
+ "h": 44,
+ "N": 1027,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 469,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 231,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "G": {
+   "cells": 89,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 79,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "N": {
+   "cells": 73,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 48,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "M": {
+   "cells": 16,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "E": {
+   "cells": 12,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "P": {
+   "cells": 10,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...............CAAAAAAAA..............",
+  ".............CCCCCCCCCCCCCC...........",
+  "..........AACCCCCCCCCCCCCCCAAA........",
+  "........CCACCCC..CCCCCCC.CCCACCC......",
+  "......CCCCCCCC...CCCCCCC...CCCCCC.....",
+  ".....CCCCCCCC....CCCCCCC...CCCCCCC....",
+  "....CCCCCCCCCC..CCCCCCCC...CCCCCCCC...",
+  "...CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.CC..",
+  "...CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.CC..",
+  "..CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.",
+  ".CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.",
+  ".CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.",
+  ".CCCCCCCCCCCCCCCCCDMCCCCCCCCCCCCCCCCCC",
+  "ACCCCCCCAACCCCCCCGGMMAACCCCCCACCCCCCCC",
+  "ACCCCCCCAAAACCCCDGGDCCACCCCAAAACCCCCCC",
+  "ACCCCCCAAACCCCCGGGDCCCCCCCCCAAAACCCCCC",
+  "ACCCCCCCCCCCCCDGGDCDDDDDDCCCCACAACCCCC",
+  "CCCCNDCCCCCCCCGGMMMGGGGGGDCCAACCNNCCCC",
+  ".DDDNNCCC.AAADGGMMMMMMGGGGGDC.CCNNNCC.",
+  "....NNN......DGDDMGGGGGGGGGG...DNN....",
+  "....NNN......GGDDGGGGGGGGGGGG..NNN....",
+  ".....NNN....DGDD.DGGGGGGGGGGGDNNN.....",
+  ".....NNN....DGD...DGGGGGGGGGGDNNN.....",
+  "......NNN...DGD....DGGGGGGGGGDNN......",
+  "......NNN...DGD.......DMMMD.NNNN......",
+  ".......NNN..DGD.............NNN.......",
+  "........NNN.DGDDRRRRRRR....NNN........",
+  "........NNN.DGGRRRRRRRRR..NNNN........",
+  ".........NNRRGGDRRRRRRRRRNNNN.........",
+  ".........RRRRRRRRRRRDRRRRNNN..........",
+  "........RRRRRRRRRRRRRCCRRRNN..........",
+  ".......RRRRCCDDRRRRRRCDDRRR...........",
+  ".......RRRCCCRRRRRRRRDDDRRRE..........",
+  ".......RRRRRRRCDRRRRRDDDRRRE..........",
+  "......RRRRRRRCCDDRRRRRDCPPRE..........",
+  "......RRRRRRRCDDDRRRRDRRPPRE..........",
+  ".......RRRRRRCDDDRDDDDRRRRRE..........",
+  ".......RRRRRRRCDRRDRDDRRRRR...........",
+  ".......RRRRRPPPRRRRRRRRRRRR...........",
+  "........RRRRPPPRRRRRRRRRRR............",
+  "........RRRRRRRRRRRRRRRRR.............",
+  ".........RRRRRRRRRRRRRRR..............",
+  "..........RRRRRRRRRRRRR...............",
+  ".............EEEEEEE.................."
+ ]
+}

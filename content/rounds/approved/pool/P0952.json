@@ -1,0 +1,114 @@
+{
+ "code": "P0952",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Песчаный замок в ведре-арбузе",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Походы и отдых на природе",
+ "direction": "Кулинарная фантастика",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна большая половинка арбуза с золотой дужкой стала пляжным ведром, внутри одна компактная кремовая песчаная башня, широкая синяя лопатка сбоку",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 40,
+ "h": 42,
+ "N": 1164,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 271,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 220,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 191,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "N": {
+   "cells": 146,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "Y": {
+   "cells": 106,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 77,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "R": {
+   "cells": 73,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 62,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "P": {
+   "cells": 18,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...............RAPPPP.........NNNNNN....",
+  "...............RAPPPPRR......NNNNDDDNNN.",
+  "...............RAPPPPPR......NNNNNNNDDNN",
+  "...............RAPPPPP.......NNNNNNNNDNN",
+  "...............RRRR.........NNNNNNNNNDNN",
+  "..............CCCC..........NNNNNNNNNNN.",
+  "..............CCCCC........NNNNNNNNNNNN.",
+  ".............CCCCCC........NDDNNNNNNNNN.",
+  "............ACCCCCCA........NDDDNNNNNN..",
+  "............ACCCCCCA........NNNDDDDNNN..",
+  "...........AACCCCCAAA........NNNNNNNN...",
+  ".........CCCACCCCAAACCC......NNNNNNN....",
+  ".........CCAACCACCCACCC.....NNNNN.......",
+  ".........CCCCCCAACCCCCCCCD..NNNNN.......",
+  "........ACCCCCCCCCCCCCCCCCCDDNNN........",
+  ".......AACCCCCCCCCCCCCCARRCCNNNDDD......",
+  "....CCDCACCCCCCAACCCCCCARRRNNNNNCDDD....",
+  "..DCCCCRACCCCCAAAACCCCCARNNNNNNRRCCCCC..",
+  ".CCCCRRRCCCCCCAAAACCCCCCNNNNNNNRRRRCCCC.",
+  "CCCCRRRCCCCCCAAAAAACCCCCCCCCNNNNCRRRCCCC",
+  "DGCCCRRCCCCCCAAAAAACCCCCCCCCCNNNCRRRCCCD",
+  "GGGCCCCRRRCCCAAAAAACCCCCCCCCCCNRRRCCCCGD",
+  "GGGGMCCCCCRRRRRRRRRCCCCCCCRRRRRRCCCCMMGD",
+  "DGGGMMYCCCCCCCCRRRRRRRRRRRRRRCCCCCMMMMGD",
+  ".DGGGYYYMMGGMGCCCCCCCCCCCCCCCGGMMMMMMMMD",
+  ".DGGGYYYMMGGMGGGGGGMMMMMMMGGGGGMMMMMMMY.",
+  ".GGGGYYYYMGGMGGGGGGMMMMMMMGGGGGMGMMMMMYC",
+  ".CGGGGYYYMGGMGGGGGGMMMMMMMGGGGGMGMMMMYY.",
+  "..GGGGYYYYGGGMGGGGGMMMMMMMGGGGMMGMMMMYYC",
+  "..DGGGMYYYYGGMGGGGGMMMMMMMGGGGGMMMMMYYA.",
+  "..DGGGMMYYYYMMGGGGGGMMMMMGGGGGMMMMMMYYA.",
+  "...DGGMMMYYYYMGGGGGGMMMMMGGGGGMMMMMYYAA.",
+  "...DGGGMMMYYYYYGGGGMMMMMMGGGGGMMMMYYYA..",
+  "....DGGMMMMYYYYGGGGMMMMMGGGGGMMMMYYYY...",
+  "....DGGMMMMMYYYYYYMMMMMMMGGGMMMYYYYY....",
+  ".....DGGMMMGGYYYYYYYMMMMMGGGYYYYYYY.....",
+  "......DGMMMGGMGGGYYYYYYYYYYYYYAAAA......",
+  ".......DMMMMMMGGGGGYYYYYYYYYYAAAD.......",
+  "........DMMMMMGGGGGMMAAAAAAMMMDD........",
+  "..........DDMMMGGGGMMMMMMMMMMMD.........",
+  "...........DMMMMGGGMMMMMMMMDD...........",
+  "................DDMMDDDDD..............."
+ ]
+}

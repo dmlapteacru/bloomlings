@@ -1,0 +1,115 @@
+{
+ "code": "P0913",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Киви с застёжкой чемодана",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Багаж и навигация",
+ "direction": "Предметные гибриды",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Большое круглое киви разрезано как открытый чемодан, зелёная мякоть с крупными тёмными семенами, золотой замок и синяя ручка по краям",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 40,
+ "h": 44,
+ "N": 1270,
+ "colours": 9,
+ "volumes": {
+  "G": {
+   "cells": 223,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 204,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 186,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 170,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "L": {
+   "cells": 151,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "O": {
+   "cells": 109,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "N": {
+   "cells": 85,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 81,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 61,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............OOOOOOOOOOEEEE............",
+  "............OOOOOOOOOOOOOOOOOC..........",
+  "...........OOOOOOOYYYOOOOOOOOOOO........",
+  "..........AOOOOOOYYYYYOOOOOOOOOOO.......",
+  ".........AAAOYYYYYYYYEEOOOOOOOOOAA......",
+  "........EYYYYGGGGYYYYEYYYOOOOOOOAAA.....",
+  "........EYYGGGGGGYYYYGGGYYYOOOOOAAAA....",
+  "........EYGGGGGGGGGGGGGGGGYYYOOOOAAAA...",
+  "........YYGGLLGGGGGGGGGGGGGGYYOOOAAAA...",
+  "........GGGGLLLDGGDGDDGGGGGGGGOOAAAAAA..",
+  "........EYGGGGGDDGDGGDGDDGGGGGGYYAAAAA..",
+  "........EYGGLLDDGGGGGGGDLDDGGGGGYAAAAAE.",
+  "........EYYGLLGGGGYYYYYLLDDGGGGGGYAAAAE.",
+  ".........YYGGGGDDGYYYYYYLGGGDGGGGYYAAAE.",
+  "..........YYGGLDDGGYYYYYYYGGDGLLGGYAAAE.",
+  "..........YYYGLLGDGGYYYYYYYGGGLLGGGYAAAA",
+  "...........YYYGGGGGDGGGYYYGGDDDGGGGYEEA.",
+  "............EYYYGGGGGDGGGGGGGGGGGGGYOEE.",
+  ".......EEEEEEYYYYEEEEEEEEGDGDGGGGGGYOEE.",
+  "....YYYYYYGGGGLGGGGGGYYYYEEEGGGGGGGYOEE.",
+  "...YGGLLLLGLLDLLDGDLGGGGGGGGGGGGGGYYYE..",
+  "..YYGGLLLLDDLLDLLLLLDDDGDGGGLLLGGGYYY...",
+  ".YYYGLLLLDDLLLCCCCCCCCCGLLLLLLLGGOOOC...",
+  ".YYYLLLLLLLLLLCCCCCCCCCCLDDDLLGGGGOOO...",
+  ".YYYYLLLLLDDLDDLLLLCLLLLLDDDLLLLLLYOA...",
+  "CAAAYYLLLLLLLDDLLDLLDLDLLDLLLLLLLLYYAE..",
+  "EAAAAYYYYLLLLLLLLLLLLLLLLLLLLLLLYYYAAE..",
+  "EEAAAAAAYYYYYYYLLLLLLLLLLLLLLYYYYAAAAE..",
+  ".EAAAAAAAAAYYYYAAYYYYYYYYYYYYYAAAAEEAE..",
+  ".EAEAYYYOEAYYYYOAAAYYAAAAAAAAAAAAAAEA...",
+  ".EAEEYYYOEEYYYYOAAAYYAAAAAAAAAAAEAEEE...",
+  "..EEENNNOEAYYYYOAAYYYYAAAAAAAAAAEEEEE...",
+  "..EEENNNNAAEEEEEAAYYYYEAAAAAAAAEEEEEE...",
+  "...EENNNNNNAAAAAEENNNEEAAAAAAAAEEEEE....",
+  "...CENNNNNNAAAAEENNNNEEAAAAAAEEEEAEE....",
+  "..CCEENNNNNNNNNNNNNNNEAAAAAAEEEEAAEC....",
+  "..CCCDNNNNNNNNNNNNNNNEEEEAEEEEEAACCCC...",
+  "..CCCCDNNNNNNNNNNNNNEEEEEEEEEEECCCCCC...",
+  "....CCCCNNNNNNNNNNNEEEEEEEEEEEECCCCC....",
+  "........CCCCNNNNNEEEEEEEEEEECCCCCC......",
+  "............CCCCCCCCCCCCCCCCCC..........",
+  "........................................",
+  "........................................",
+  "..........EEE.............EEE..........."
+ ]
+}

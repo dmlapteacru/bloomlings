@@ -1,0 +1,115 @@
+{
+ "code": "P0864",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Половник с японским садом",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Посуда и кухонные вещи",
+ "direction": "Миры внутри предметов",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "В большой округлой чаше деревянного половника помещается компактный сад: один камень, розовое цветущее дерево и золотая дорожка, длинная ручка хорошо видна",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 42,
+ "h": 44,
+ "N": 1222,
+ "colours": 9,
+ "volumes": {
+  "A": {
+   "cells": 271,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "P": {
+   "cells": 228,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "M": {
+   "cells": 161,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "K": {
+   "cells": 156,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "O": {
+   "cells": 142,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 118,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 75,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 67,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 4,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............K............................",
+  "..........KKKKPP....................OOOOO.",
+  "........KKKKKKKPKKKPP..............OOOOOOE",
+  ".......PKPKKKKPPKKKPPP............OOEEEOOE",
+  ".......PPPKKKKPPKKKPPP...........OOOOOOOAE",
+  "....KKPPPPPPPPKKKKKPPPP.P........OOOOOOAAE",
+  "...KKKKKPKPPPPPKKPPPPPKPPP......OOOOOOAAA.",
+  "...KKKKKKKPKKKPKPPPPPPKKPP......OOOOOAAA..",
+  ".PPPKKPPPPPKKKPPPPPPPPKKKPP....OOOOOAAA...",
+  ".PPPPPPPKKPPKKPPPPPPPKKKPP.....OOOOOAA....",
+  ".PPPPPPKKPPKKKPPPPEPPKKPPPP....OOOOAA.....",
+  ".PPPPPPPPPPKPPPPPEEPPPPPPPPP..OOOOOAA.....",
+  ".PPPPPPPPEPPPPPEEEEEPPPPPPP...OOOOAA......",
+  ".P..PEEPPEPPEEEEEPPPPPPPPPP..OOOOOAA......",
+  "PPPPPEEEEEPEEEEEPPPPP.PP....OOOOOAAA......",
+  "PPPPPPEEECEEEE..PPPP...M.MMOOOOOOAA.......",
+  "PPPPPPEEEEEEE.....EEMMMMMMMMMOOOOAE.......",
+  "..PPP..EAAEEEEEEEEEEMMMMMMMMMMMOOAE.......",
+  "........AAEEEEDDDYYYMMMMMMMMMMMDOOE.......",
+  ".....CEEAAEEEDDDKDDYYYYMMMMMMMMMOOE.......",
+  "....OEEEEEEEEKCKKDDDYYYYYMMMMMMMMOE.......",
+  "...OOEEEEEEEDKKKKDDDMMYYYYYMMMMMMOOE......",
+  "..OOEEMMMMDDKKKKDDDDDMMMYYYYYMMMMOOE......",
+  ".EOODMMMMMDKCKKDDKDDDMMMYYYYYMMMMOOE......",
+  ".EOOMMMMMMKKKKDDKKDDDMMMYYYYYMMMMMOE......",
+  ".EOOMMMMMMDKKDDKKDDDDDMYYYYYMMMMMOOE......",
+  ".EODPPPPMMDDDDDDDDDDDYYYYYYMMMMMDOAE......",
+  ".EOOPPPPMMMDDDDDDDDDYYYYYYYMMMMMOOAE......",
+  ".EAOODMMMMMMMMDMYYYYYYYYYMMMMMMMAAAE......",
+  ".EAAOOOMMMMMMMMMYYYYYOYMMMMMMMAAAAA.......",
+  "..AAAAOOOOMMMMMMYYYYYOYYOOOAAAAAAAA.......",
+  "..AAAAAAAYYYOOOOOOOOOOOOOAAAAAAAAA........",
+  "..AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA........",
+  "...AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.........",
+  "....AAAAAAAAAAAAAAAAAAAAAAAAAAAA..........",
+  ".....AAAAAAAAAAAAAAAAAAAAAAAAAAA..P.......",
+  ".....KAAAAAAAAAAAAAAAAAAAAAAAAKK.PPPP.....",
+  "...PPKKAAAAAAAAAAAAAAAAAAAAAKKKKKPPPPP....",
+  "...PPPKKAAAAAAAAAAEEEAAAAAAKKKKKKKKPP.....",
+  ".....KKKKKKKAAAAAAAAAAAAAAKKKKKKKK........",
+  "........KKKKKEEEEEAEEEKKKKKKKK............",
+  "..........................................",
+  "..........................................",
+  ".............AA..........................."
+ ]
+}

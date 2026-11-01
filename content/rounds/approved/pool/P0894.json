@@ -1,0 +1,107 @@
+{
+ "code": "P0894",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Керамический росток-колокол",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Свет и домашний декор",
+ "direction": "Предметные гибриды",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Большой кремовый керамический колокол украшен двумя крупными зелёными листьями, его язычок стал круглой розовой ягодой, широкая розовая подставка внизу",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 36,
+ "h": 36,
+ "N": 1296,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 367,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 291,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "P": {
+   "cells": 183,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "R": {
+   "cells": 125,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "M": {
+   "cells": 117,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "A": {
+   "cells": 84,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "G": {
+   "cells": 50,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "B": {
+   "cells": 42,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "D": {
+   "cells": 37,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "MMCCCCCCCCCCNNNNNNNNNNNNNNNCCCCCCCCC",
+  "MGCCCCCCCCCNNNNNNNNNNNNNNNNNNCCCCCCC",
+  "GGGCCGCCCNNNNNNDCCCCNNNBNNNNNNDCCCCC",
+  "MMCGGGCCNNNNNNNCCNDCNNNBBNNNNNNDCCCC",
+  "MMDGMMCCNNNNNNNCCNNCNNNBBNNNCNNNCCCC",
+  "MMMMMCCNNNNNCCNCCCCCNNNBBNCCCNNNNCCC",
+  "CMMCCCNNNNNNCNCCCCCCCNNNNNCCCNNNNDCC",
+  "DDDCCCNNNNNNNNCCCCCCCCNBBNCCNNNNNNCC",
+  "MMDMCNNNNNNNCCCCCCCCCCCDBNNNNNNBNNDC",
+  "MMMMCNNNNNNCCCMMMCCCCCCCNNNNNNBBNNNC",
+  "AAMMMNNNNBDCCMMMMMGCCCCCCNNNNNBNNNNC",
+  "CADMDNNNBBCCMMMMMMGCCCCCCNNNNNNBNNND",
+  "CCMDDNNNNDCCCMMMMMGCCCCGGGNBBNBBNNNC",
+  "MCMCNNNNNCCCCMMMGGGCCCCGGGNNBBBNNNNB",
+  "MMMCMMMNNCCCMMMGGGGCCMCGGGNNNBNNNNNB",
+  "MMMDMMMNNCCCMMGGGGGCCMCCGGNNNNNNBNNB",
+  "MMMDMMNNCCCCMMGGGGCMMMMCCGNNNNNBBNNC",
+  "DDMNNNNNCCCCMMMMCCMMCCMCCCCNBNNBBNNC",
+  "CMMNNNNNCCCCMCCCCMMCCCCCCCCNBBNNNNNC",
+  "GMMCCANNCCCCCCCCCCCCCCCCCCCNNBBNNNNC",
+  "GMMCCANDCCCCCCCCCCCCCCCCCCCCNNBBNNNC",
+  "GGGMCAACCCCCCCCCCCCCCCCCCCCCNNBNNNCC",
+  "GGGMMCCCCCCCCCAAADDAAAAACCCCCNNNNNCC",
+  "GGDMMDCCCAAAAAAARRRAAAAAAAAACCNNNCCC",
+  "DMDDMDCAAAAAAAARRPPPPAAAAAAAADNNCCCC",
+  "MMMMCCCAAAAAAAARRPPPPAAAAAAACNNACCCC",
+  "MMMMCACCCCAAAAARRPPPPAAACCCNNNAACCCC",
+  "MDMMCAARRRRDCCCRRRRRRCDDPPNNNAAACCCC",
+  "PPPPPPRRRPPPPPPRRRRPRRRPPPPPPAAACCCC",
+  "PPPPPPRRRPPPPPPPPPPPPPPPPPPPPPAACCCC",
+  "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+  "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+  "RRRRRRRRRPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+  "PRRRRRRRRRRRRPPPRRRRRRRRPPPPPPPPPPPP",
+  "PPPPPRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+  "PPPRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRR"
+ ]
+}

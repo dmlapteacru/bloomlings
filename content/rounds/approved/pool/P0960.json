@@ -1,0 +1,110 @@
+{
+ "code": "P0960",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Призма, выпускающая лепестки",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Камни, минералы и кристаллы",
+ "direction": "Домашняя магия",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна большая синяя треугольная призма преломляет толстый золотой луч, с другой стороны выходят три крупных розовых лепестка вместо лучей, компактная кремовая подставка",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 44,
+ "h": 37,
+ "N": 992,
+ "colours": 9,
+ "volumes": {
+  "P": {
+   "cells": 244,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "S": {
+   "cells": 190,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "B": {
+   "cells": 162,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "C": {
+   "cells": 149,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 122,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "Y": {
+   "cells": 111,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "K": {
+   "cells": 8,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "O": {
+   "cells": 3,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 3,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "......................................PPPP..",
+  ".................SSS................PPPPPPP.",
+  "................BBSS...............PPPPPPPP.",
+  "...............BBBSSS.............PPPPPPPPP.",
+  "...............BBBSSSS...........PPPPPPPPPP.",
+  "..............BBBBSSSS...........PPPPPPPPPP.",
+  ".............BBBBSSSSSS.........PPPPPPPPPP..",
+  ".............NBBNSSSSSSS........PPPPPPPPP...",
+  "............NNNNNSSSSSSS.......PPPPPPPPP....",
+  "............NNNNNSSSSNNNN....YYPPPPPPP......",
+  "...........YYSSSSSNNNNNNN..YYYYP..PPPPPPPPPP",
+  "........CYYYYOSSS.NNNNNNNYYYYY....PPPPPPPPPP",
+  ".....YYYYYYYYOSSSSNNNNNNNYYYCC...PPPPPPPPPPP",
+  "...YYYYYYYYYYOSSSNNNNNNNNNYYYYYYPPPPPPPPPPPP",
+  "YYYYYYYYYYYYYSSSSNNNNNNNNNYY..YYPPPPPPPPPPPP",
+  "YYYYYYYYYYYYSSSSSNNNBNNNNNSSS....PPPPPPPPPPP",
+  "YYYYYYYYYYSSSSSSSNBBBNNNNNSSYYYC...PPPPPPPPP",
+  "YYYYYYYYYSSSSSSSSBBBBBNNNNBSSYYYY....PPPPPP.",
+  "YYYYYY..SSSSSSSSBBBBBBNNNBBBB..YYPPPPPPP....",
+  "YYY.....SSSSSSBSBBBBBBBNBBBBBB..PPPPPPPPPP..",
+  "Y......SSSSSSBBSBBBBBBBBBBBBNNN..PPPPPPKPPP.",
+  ".......SSSSSBBBSBBBBBBSSSBBNNNN..PPPPPPKKKPP",
+  "......SSSSSBBBSSBBBBBSSSSSNNNNN...PPPPPKPKPP",
+  "......SSSSBBBBSBBBBBSSSSSSSBNNNB..PPPPPPPKKP",
+  ".....SSSSBBBBBSBBBBSSSSSSBBBBNNB...PPPPPPPPP",
+  ".....SSSBBBBBBSBBBSSSSSSSBBBBBBBN...PPPPPPPP",
+  "....BBBBBBBBBBSBBSSSSSSSBBBBBBBNN....PPPPPPP",
+  "....BBBBBBBBBBSBSSSSSSSSSSNNNNN........PPPPP",
+  "......NNNBBBBBSSSSSSSNNNNNNCCC..............",
+  "........CCNNNBSNNNNNCCCCCCCCCCC.............",
+  ".......ACCCCCNNNCCCCCCCCCCCCCCC.............",
+  ".......ACCCCCCCCCCCCCCCCCCCCCCC.............",
+  ".......ACCCCCCCCCCCCCCCCCCCCCCC.............",
+  "........CCCCCCCCCCCCCCCCCCCCCCC.............",
+  ".........CCCCCCCCCCCCCCCCCCCC...............",
+  "...........CCCCCCCCCCCCCC...................",
+  "...............CCCCCC......................."
+ ]
+}

@@ -1,0 +1,89 @@
+{
+ "code": "P1070",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "ГЛаДОС",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Космос и фантастика",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Portal · Valve: GLaDOS: iconic white articulated robotic head, large dark faceplate with a single bright yellow circular camera eye. White and dark teal mechanical shoulders below, two broad yellow mechanical rings and pale blue support panels form a compact square portrait. Clean friendly machine illustration.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 31,
+ "h": 31,
+ "N": 961,
+ "colours": 6,
+ "volumes": {
+  "D": {
+   "cells": 461,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 208,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "B": {
+   "cells": 181,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "Y": {
+   "cells": 102,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 6,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "S": {
+   "cells": 3,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "BBYYYDDBBDBBDDDDBBBBDBBDYYYYBBB",
+  "BBYYBBDBDDBDDDCCCDBBDBBDBYYYYBB",
+  "BYYYBBDBDDBDDCCCCCCDDDBDBBYYYBB",
+  "BYYYBBDBDBBDCCCCCCCCDDBDBBYYYBB",
+  "BYYBBBDDDBBDCCCCCCCCDDDDBBYYYYB",
+  "BYYBBBDDBBDDCCCCCCCCCDDDBBBOYYB",
+  "YYYBBBDDBBDCDCCDDDDDCCDDBBBOYYB",
+  "YYYDBBDDBDCCDCDDDDDDDCDDBBBOYYB",
+  "YYYBBBDDDDDCCCDDDDDDDCDDBBBOYYB",
+  "YYYBBBDDDDDCCCDDDDDDDCDDDBBOYYB",
+  "BYYBBBDDDDDDCCCDDDDDDCDDDBBOYYB",
+  "BYYBBDDDDDDDCCCDDDDDDCDDDCBYYYB",
+  "BYYYDDDDDDDDCCCDYYDDDCDDDDDYYYB",
+  "BBYYDDDDDDDDCCCDYYYDDCDDDDDYYBB",
+  "BBDDDBBDDDDDCCCDDYDDDCDDDDDYYBB",
+  "BBDDYBBBDDDCDCCDDDDDDCDDDDDDBBB",
+  "BDDDYYBBDDDCCCDDDDDDDCDYYYYDDBB",
+  "DDBBYYYBDDDCDCDDDDDDDCBYYYYDDDB",
+  "DBBBBYYBDDDCDCDDDDDDDCBYYYBBBDD",
+  "BBBBBBBBDDDDCCCCDDDCCDBYBBBBBDD",
+  "BBBBCDDDDDDDCCCCCCCCCDBBBBBBBBD",
+  "BDDDCCCCDDDDDDCCCCCCDDCCDBBDBBB",
+  "DDDDCCCCCDDDDDDCCCCDDDCCCCDDDDB",
+  "DDDDDCCCCDDDDDDDDDDDDDDCCCCDDDD",
+  "DDDDDCCCCCDDDDDDDDDDDDDCCCCDDDD",
+  "DDDDDCCCCCDDDDDDDDDDDDDCCCCDDDD",
+  "DDDDDDDCCCCDDDDDDDDDDDDCCCDDDDD",
+  "DDDDDDDCCCCDDDDDDDDDDDDCCCDDDDD",
+  "DDDDSDDCCCCDCDDDDDDDDDCDCCDDDDD",
+  "DDDDSCCCCCCDCCDDDDDDCCCDCCCDDDD",
+  "DDDDSCCCCCDDCCCCCCCCCCDDCCCCDDD"
+ ]
+}

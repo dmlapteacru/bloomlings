@@ -1,0 +1,105 @@
+{
+ "code": "P1074",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Фокс Макклауд",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Космос и фантастика",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Star Fox · Nintendo: Fox McCloud: orange fox pilot with cream muzzle, pointed ears, green eyes, silver headset and microphone, red scarf and white flight-jacket collar. Confident friendly expression.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 37,
+ "N": 914,
+ "colours": 8,
+ "volumes": {
+  "C": {
+   "cells": 244,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 233,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 212,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "K": {
+   "cells": 76,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "R": {
+   "cells": 70,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "A": {
+   "cells": 34,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 23,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "M": {
+   "cells": 22,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..........OOO.......................",
+  "..........OOOO......................",
+  ".........OOCOOO.....................",
+  ".........OCCOOO...............OOA...",
+  "........OOCCCOOO............OOOOA...",
+  "........OCCCCOOOODDD.......OOOOCA...",
+  "........OCCCCCOOODDKKKD...OOOOOCA...",
+  ".......OOCCCCCOOODDDKKKKDOOOOOCCA...",
+  ".......OOCCCCCOOOODDKDKKKDOOOCCCA...",
+  ".......OOCCCEEEOOOODKDDDDDOOCCCCC...",
+  "......DDOCCAAOOOOOOODDDDDDDOCCCCC...",
+  ".....DDDOOCAOOOOOOOOOCCCCDDOCCCC....",
+  ".....DDDDOOOOOOOOOOOOOCCCCOOCCCC....",
+  "....DDDDDDOOOOOOCOOOOOCCCOOOCCAA....",
+  "...DDKKKKDOOOOCCCCOOOOOCCOOOAAA.....",
+  "...DDMMKKKDOOOOOCCCOOOOCOOOOOAA.....",
+  "...DDMMKKKDOOODDDDCCOOOCOOOCCA......",
+  "...DDMMKKKDOOODDDDDCOOOOOOCCCAD.....",
+  "...DDMMKKKDOOOODDDDDCOOOOODDAAD.....",
+  "....DDMKKKDOOOOCOO.OOOOOODDDADDD....",
+  "...OODDDDDDOOOOOOO.OOOCODDDDADDD....",
+  "...OOODDDDOOOOCCCCOOCCCCDD.OODD.....",
+  "..OOOOODDDCCCCCCCCCCCCCCDCOOODD.....",
+  "...OOOOODDDDCCCCCCCCCCCDDDCOOO......",
+  ".....OOOCCDDDDDDCCCCCCCDDDCCOOO.....",
+  "......DDAAACDDDDCCCCCCCCCCCCCAA.....",
+  "......DDDDEEECCCCCCCCCCCCCCCAAA.....",
+  ".....CCCCCDDEEECCCCCCCCCCCCCC.......",
+  ".....DKKKCCCCEECCCCCCCCCEKKKKKD.....",
+  ".....DKKKKKCCRRRRRAAAADEEDKKKKKKD...",
+  "......DKKKKCCRRRRRRRRREEERRKKKKCD...",
+  "....DDDDDDKKCDRRRRRRRRRRRRRKKKCD....",
+  "...DDDDDDCDDCDDRRRRRRRRRRREDKKCD....",
+  ".DDCCDDDDDCCCCDDRRRRRRRREEEDKCDDD...",
+  "DKKCCCCDDDDCCCDMDDRRRRRREERDDCDDCD..",
+  "KKKCCCCDMMMCCCDMMMDRRRRRRRRDDDCDDCK.",
+  "KKCCCCCCMMMDCCCDMMMDRRRRRRRDDDCDDKKD"
+ ]
+}

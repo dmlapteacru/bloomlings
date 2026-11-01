@@ -1,0 +1,115 @@
+{
+ "code": "P0872",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Шахта внутри репы",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Овощи и урожай",
+ "direction": "Миры внутри предметов",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Крупная бело-фиолетовая репа в разрезе хранит одну золотую вагонетку с розовыми самоцветами, короткие зелёные листья сверху, чёткая толстая граница разреза",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 41,
+ "h": 44,
+ "N": 1355,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 329,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "V": {
+   "cells": 216,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "G": {
+   "cells": 191,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "P": {
+   "cells": 167,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "E": {
+   "cells": 115,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "D": {
+   "cells": 91,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "L": {
+   "cells": 84,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "O": {
+   "cells": 82,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 80,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "....................LLL....LLLGG.........",
+  "....................LLGG.LLLLLGG.........",
+  "......LLLLL.DGGG...DLGGDGLLLGGGGDDGGG....",
+  "......LLLLLGGGGGGG.DLGGGGLLLGGGGGGGGGGG..",
+  "......LLGGLGGGGGGGDDLGGGGLLGGGGGGGGGGGG..",
+  "......DGGGGGGGGGGGGGLGGGLLGGGGGGGGGGGGG..",
+  ".......GGGGGGGGGGGGGGGGGLLGGGGGGGGGGGGD..",
+  ".........DGGGGGGGGGDGGDLLGGDDGGGGGDDGG...",
+  ".........GGGGGGGGGGDGGDLLGDD.DDGGG.......",
+  "...........GD...GGGDGGDLGGD..............",
+  "................DGGGGGDLGGVVVV...........",
+  "...........VVVVVVGGGGGGGGDVVVVVVV........",
+  "........VVVVVVVVVDGGGDGGVVVVVVVVVVV......",
+  "......VVVVVVVVVVVVGGGDVVVVCCCCCVVVVV.....",
+  ".....VVVVVVVVVVVVVVVVVVCCCCCCCCCCCVVV....",
+  "....VVVVPPVVVVVVVVVVCCCCCCCCCCCCCCCVVV...",
+  "...VVVVPPPVVVVVVVVCCCCCEEEEAAAACCCCCVVV..",
+  "...VVVPPPPVVVVVVVCCCCEEEEEEEAAAACCCCCVV..",
+  "..VVVVVVVVVPPVVCCCCEEEEEEEEEEEAAACCCCCVV.",
+  ".VVVVVPPVVPPPVVCCCEEEEEEEEEEEEAAAACCCCVV.",
+  ".VVVVPPPVVVPPVCCEEEEEECCCPEEEEEAAAACCCCV.",
+  ".VVVPPPPVVVVVCCCEEEEECCCCPPEEEEAAAACCCCVV",
+  "VVPPPPPPVVPPCCCEEEEEEPPCPPPPPPPAAAAACCCVV",
+  "VPPPPPPPPPPPCCCEEPPPPPPPPPPCCPPAAAAACCCVV",
+  "VPPVVPPPPPPCCCEEPPPPPPPPPPPPCPPAAAAACCCVV",
+  "VVPVVPPPPPPCCCEEPPPPPPPPPPPPPPPPAAAACCCCV",
+  "VPPPPPVVPPPCCEEEPPPPPPPPPPPPPPPPAAAACCCCV",
+  "VPPPPPPVPPPCCEEOOLLLPPPPPPPPPPOOOOAAACCCV",
+  "VCPCCPPPPPPCCEEOOOLLLLLLLLLLOOOOOOAAACCVV",
+  ".CCCCPPCCPPCCEEEOOOOOLLLLOOOOOOOOEAAACCV.",
+  ".CCCCCCCCCCCCEEEOOOLLOOOOOOOOOOOOEAAACCV.",
+  ".CCCCCCCCCCCCEEEOOOLLLLLLOOOOOOOOEAAACCV.",
+  "..CCCCCCCCCCCEEEDDOLLLLLLOOOOOOOEEAACCVV.",
+  "..CCCCCCCCCCCCEDDDDLLDDLLOOOOOOOEEAACCV..",
+  "...CCCCCCCCCCCEOODDDDDDDLOOOOEEEDEAACCV..",
+  "....CCCCCCCCCCEODDDDDDDDDDDDDDODDEACCC...",
+  ".....CCCCCCCCCCCCDDDDDODDDDDDOODDEACCD...",
+  ".......CCCCCCCCCCDDDDOODDEEEEDDDCCCCC....",
+  "........EECCCCCCCCCCEEEDEEAAAADDCCCC.....",
+  ".........ECCCCCCCCCCCCCCAAAAAAACCCC......",
+  ".........ECCCCCCCCCCCCCCCCCCCCCCCC.......",
+  ".........ECCC...VVVCCCCCCCCCCCCC.........",
+  ".........CCC.......VVVVVVVVVVV...........",
+  ".........C..............................."
+ ]
+}

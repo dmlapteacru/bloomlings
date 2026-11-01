@@ -1,0 +1,109 @@
+{
+ "code": "P0990",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Зелёный желудёвый лифт",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Грибы и лесные находки",
+ "direction": "Заводная сказка",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой жёлудь в разрезе хранит одну широкую зелёную кабинку на толстой золотой зубчатой рейке, кремовый внутренний объём и розовая круглая ручка снаружи",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 39,
+ "h": 37,
+ "N": 1018,
+ "colours": 9,
+ "volumes": {
+  "A": {
+   "cells": 385,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 151,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 111,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "G": {
+   "cells": 83,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "E": {
+   "cells": 77,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "M": {
+   "cells": 66,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "Y": {
+   "cells": 66,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 57,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "P": {
+   "cells": 22,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........DDEEEAD...EEEEE...............",
+  "..........DEEAADOOOOAAAOOAD............",
+  "...........DEEAAOOOOAAAOOAAAD..........",
+  "..........DAAOOOAAOAOOOAAAAADD.........",
+  ".......DDAAAAOOOAOOAOOOAAAAAEAA........",
+  "......DAAAAAAAAAOOOAAAAEEEEEEAA........",
+  ".....DAAAAAAAOOAOOOAAACCCCCCCEE........",
+  "....AAAAAAAAOOOAAAACCAAAAAAACCE........",
+  "...DAAAAAAAAOOOACCCAAAAAAAAAACE........",
+  "..DAAAAAAAAAAACCCAAAAAAAAAACACC........",
+  "..AAAAAAAAAAACCAAAAAAAAAAACCCCCD.......",
+  ".DAAAAAAAAAACCAAAAAAAAAAAACCCCCD.......",
+  ".EEEAAAAAACCDGGGGGGGGAAAAACCCCCCD......",
+  ".AAEAEAEECCDGGGGGGGGGGGGAACCCCCCD......",
+  "DAAAAEAECCDMGGGGGDDDDMMMAAACCCCCD......",
+  "DAEAAEECCAMMMGMGDDDDDMMMMMACCCCCCD.....",
+  "DEEAAECCAAMMMMMGDDDDDDMMGMACCCCCCD..PP.",
+  "DAEEECCAAAMMMMMGDDDDDDMMGMACCCCCCDPPPPP",
+  "DAAEECCAAAMMMMMGDDDDDDMMGDAAYYCCCDPPPPP",
+  ".EEEACCAAAMMMMMGMMMMMMMMGDAEYYEECDPPPPP",
+  "..DAACCAAAMMMMMGGGGGGGGGGDAEYYEEEDPPPPP",
+  "..DAAACAAAMMMMMGGGGGGGGGGDAEYOECCD.DDD.",
+  "..DAAACCAOYMMMMMGGGGGGGGGGAEYOOCAD.....",
+  "..DAAACCCOYYYDMMGGGGGGGGGGAEYOOCAD.....",
+  "...AAAACCOOYYYYYYGGGGGGGGDOOOOCCAD.....",
+  "...DAAACCOOYYYYYYDYYYYYYYYYYYYCCAD.....",
+  "...DAAAACCOYYYYEYYYYYYYYYYYYYCCAAD.....",
+  "....AAAAACCCYYEEYYYYYYEEYYEYYCCAA......",
+  "....DAAAAACCAAAEEEEEEEEEEEEEECAAD......",
+  ".....DAAAAACCCAAAAAAAAAAAAAACAAAD......",
+  "......AAAAAAACCCCAAAAAAAAAACCAAD.......",
+  "......DAAAAAAAAACCCCCCCCAACCAAA........",
+  "........AAAAAAAAAAACCCCCCCCAAA.........",
+  ".........DAAAAAAAAAAAAAAAACADD.........",
+  "..........DDDAAAAAAAAAAAAAADD..........",
+  ".............DDAAAAAAAAADDDD...........",
+  "..................DDDDD................"
+ ]
+}

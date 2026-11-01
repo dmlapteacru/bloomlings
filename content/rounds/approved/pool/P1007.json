@@ -1,0 +1,110 @@
+{
+ "code": "P1007",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Тёплый камень в вязаной манжете",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Камни, минералы и кристаллы",
+ "direction": "Уютный сюрреализм",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой гладкий синий камень с золотой широкой прожилкой наполовину укутан пухлой розовой вязаной манжетой, кремовая кисточка сбоку, без лица и мелкой фактуры",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 43,
+ "h": 38,
+ "N": 1191,
+ "colours": 9,
+ "volumes": {
+  "R": {
+   "cells": 272,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "P": {
+   "cells": 251,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "N": {
+   "cells": 241,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 156,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "B": {
+   "cells": 144,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "E": {
+   "cells": 44,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 43,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 20,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "K": {
+   "cells": 20,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".......................DDDNN...............",
+  "....................NNNYYYBNNN.............",
+  ".................BBBYYCCYBBBBNNN...........",
+  "...............DBBBBYYCBBBBBBBNND..........",
+  "..............BBBBCCCYYBBBBBBBBNN..........",
+  "............DBBBBCCCCBBBBBBBBBBNND.........",
+  "...........DBBBBBCYBBBBBBBBBBBBNNN.........",
+  "..........DBBBBBYCYNBBBBBBBBBBNNNND........",
+  ".........DBBBBBBYCYNNBBBBBBBNBNNNND........",
+  "........DBBBBBBBYYBBNBBBBBBNNNNNNNDD.......",
+  ".......BBBBBBBBBCYBBBNNNNNNNNNNNNNDPPE.....",
+  ".....PPDBBBBBBBBCYBNNNNNNNNNNNNNNNDPPE.....",
+  "...PPPPNBBBBBBBYCNNNNNNNNNNNNNNNNNRRPE.....",
+  "...PPPNNNBBBBBYYYNNNNNNNNNNNNNNNNDRRPRE....",
+  "..EPPPNNNBBBBYYYYNNNNNNNNNNNNNNNNDRRPRE....",
+  "..EPPPNNNBYYYYYYNNNNNNNNNNNNNNNNNPPPRREE...",
+  ".EEPPPNNNYYYYYNNNNNNNNNNNNNNNNNNPPPPRRRE...",
+  ".EPPPPNNYYYNNNNNNNNNNNNNNNNNNPPPPPPPRRRE...",
+  ".ERPPPNNYYNNNNNNNNNNNNNNNNNKPPPPPPRRRRRE...",
+  ".ERPPPPPPNNNNNNNNNNNNNNNNKKKPPRRPPRRRRRE...",
+  ".ERPPPPPPPNNNNNNNNNNNNKKKKKPPPPRPRRRRRR....",
+  "RRRRRPPPPPPPNNNNNNNPPPPPPPPPPPPRRRRRRRR....",
+  "RRRRRPPPPPKKKKKNNPPPPPPPPPRPPRPRRRRRRR.....",
+  "RRRRRPPRRPPPPPPPPPPPRRPPPPRPRRRCCCCRRR.....",
+  "RRPPRRPPRPPPPPPKKKPRRRRPPPRRRRRCCCCCC......",
+  "RRPPRRRRRPPPPPPPPPPRRRRRRRRRRRRCCCCCCCCC...",
+  "RRRPPRRRRPPPPPPPPPPPPPPRRRRRRRRCCCCCCCCCC..",
+  "RRRPPPPPRRPPPPPPPRPPPPPPRPPRRRRCCCCCCCCCCC.",
+  ".RRRPPPRPPRRRRPPPRPPPPPPPPPRRRCCCCCCCCCCCC.",
+  ".RRRRRRRPPPPRRPPPRPPPPRPPPPRRRCCCCCCCCCCCCC",
+  "..RRRRRRPPPPRRRRRRPPPPRRRRRRRCCCCCCCCCCCCCC",
+  "...RRRRRRRPRPPPPPRRRRRRRRRRRRCCCCCCCCCCCCE.",
+  "....RRRRRRRRPPPPPRPPRRRRRRRRECCCCCCCCCCCCE.",
+  "......RRRRRRPPRPPRPPPRRRRRRRECCCCCCCCCECCE.",
+  ".......RRRRRRRRRRRRPRRRRRRREECCCCCCCCCECC..",
+  "..........EEERRRRRRRRRRRRR...CCCCCCCCCEE...",
+  ".............RRREEEEEKKK......CCCCCCEEE....",
+  ".................................EEE......."
+ ]
+}

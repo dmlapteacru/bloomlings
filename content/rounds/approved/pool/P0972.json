@@ -1,0 +1,112 @@
+{
+ "code": "P0972",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Гриб-садовый распылитель",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Грибы и лесные находки",
+ "direction": "Природа и технология",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой розовый гриб с кремовыми пятнами выпускает из-под широкой шляпки три толстые синие струи на два зелёных листа, короткая толстая ножка и компактная земляная площадка",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 39,
+ "h": 40,
+ "N": 1172,
+ "colours": 9,
+ "volumes": {
+  "B": {
+   "cells": 243,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "C": {
+   "cells": 219,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 164,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "P": {
+   "cells": 155,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "R": {
+   "cells": 130,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "A": {
+   "cells": 105,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "M": {
+   "cells": 70,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "E": {
+   "cells": 60,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "D": {
+   "cells": 26,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "................RRRRRRR................",
+  "..............CCCCCCRRRRR..............",
+  "............PPPCCCCCCPRRRRR............",
+  "...........PPPCCCCCCCPPRRCCC...........",
+  ".........CCPPPCCCCCCPPPPCCCCC..........",
+  "........CCCPPPPPPPPPPPPPPCCCCR.........",
+  "......CCCCPPPPPPPPPPPPPPPPPCCRRR.......",
+  ".....CCCCPPPCCCPPPPPPPCCPPPPRRRRR......",
+  "....RPCPPPPCCCCPPPPPPCCCCCPPPRRCCC.....",
+  "...RRPPPPPCCCCCPPPPPCCCCCCCPPPRCCCC....",
+  "..RCCCCPPPPCCCPPPPPPPCCCCCCPPPPCCCCR...",
+  "..RCCCCPPPPPPPPPPPPPPPPCCPPPPPPRCCCR...",
+  ".RRCCCPPPPPPPPPPPPPPPPPPPPPPPPPRRCCRR..",
+  ".RRRCPPPRRRRRRRRCCCCCCRRRRRRRPPRRRRRR..",
+  ".RRRRRRRRRCCCCCCCCCCCCCCCCAARRRRRRRRR..",
+  ".RRRRRRCCCCCCCCCCEEECCCCCAACAAARRRRRR..",
+  "..RRRAACCABBBDCCBBBBBACADBBBACCAARRRR..",
+  "..RRRAACAABBBBCABBBBBAAABBBBAAAAARRR...",
+  "...RRRRCCBBBBCAABBBBBAACBBBBCCAARRR....",
+  "......RRRBBBBAAABBBBBCAABBBBBRRRR......",
+  "........BBBBBAAABBBBBRRRRBBBBBB........",
+  "........BBBBB..ABBBBBB...BBBBB.........",
+  "..BBB...BBBBB..ABBBBB....BBBBB....BBB..",
+  ".BBBBB.BBBBB...CBBBBBB...BBBBB...BBBB..",
+  ".BBBBB.BBBBB..CCBBBBBB...BBBBBB..BBBB..",
+  "..BBBB.BBBBB..CCBBBBBCC..BBBBBB..BBB...",
+  "....BB.BBBBBB.CCBBBBBCC...BBBBB..B.....",
+  ".......BBBBBMMCCCCBBBCCCMBBBBBB.....BBB",
+  ".BBB.MMBBBBBMMCCCCCBCCCAMMBBBBBMMM..BBB",
+  ".BBB.MMMMBMMMMMCCCCCCCCAMMBBBBMGGGGG...",
+  ".BBDGGGGGMMMGGGGGCCCCCCADMGGBBMGGGGGG..",
+  "..GGGGGGGMMMGGGGGMCCCCGGGGGGGMMMGGGGG..",
+  ".MGGGGGGGGGGGGMMMMMCCMGGGGGGGGMMGGGGGD.",
+  ".MGGGGGGGGGGGGGGGMMCMMMMMGGGGGGGGGGGGD.",
+  ".MGGGGGGGGGGGGMMMMGDDMMMDDDGGGGGGGGGGD.",
+  ".MGGGGGGGGGGGGDMGGGAAAAAEEDGGGGGGGGGEEE",
+  "EEDGGGGGGGGGEEEMGGDAAAAAAEEEDDGGGGGGEEE",
+  "EEEDMMMMMMAAAAEDGEAAAEEEAAAEEEDDDDDDEEE",
+  "..EEEEEEEAAAAAAEEEAAAAAAAAAAAEEEEEEEEE.",
+  ".....EEEEAAAAAAAAAAAAAAAAAAAAEEEE......"
+ ]
+}

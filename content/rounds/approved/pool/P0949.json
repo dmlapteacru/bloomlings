@@ -1,0 +1,111 @@
+{
+ "code": "P0949",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Зелёный горошек на качелях",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Овощи и урожай",
+ "direction": "Ожившие вещи",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один крупный улыбающийся зелёный горошек сидит в раскрытой половинке своего стручка как на качелях, две толстые золотые верёвки крепятся к короткой розовой перекладине",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 37,
+ "h": 38,
+ "N": 954,
+ "colours": 9,
+ "volumes": {
+  "G": {
+   "cells": 191,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 173,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "L": {
+   "cells": 160,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "Y": {
+   "cells": 118,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 85,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 81,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "P": {
+   "cells": 77,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "O": {
+   "cells": 44,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 25,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".......OOO..................OOO......",
+  ".....PPOYYYRRRRRRRRRRRRRRRRROYYYY....",
+  "....RPPPYYYPPPPPPPPPPPPPPPPPPYYYPPR..",
+  "....RPPROYYPPPPPPPPPPPPPPPPPPYYYPPR..",
+  "....RRPROOYRPPPPPPPPPPPPPPPPPYYYPPR..",
+  "....RRRRYYYRRRRRRRRRRRRRRRRRRYYYRRR..",
+  ".....RRRYYO.RRRRRRRRRRRRRRRROOYYR....",
+  ".......ROOO.................OOOY.....",
+  ".......OOOO..................OOO.....",
+  ".......OOOO..................YYY.....",
+  ".......OOO...................YYY.....",
+  "......YYOO...................YYYY....",
+  "......YYYO.........MMMM......YYYY....",
+  "......YOYO......LLLLLLLDD.....YYY....",
+  "......YOO.....LLLLLLLLLLLLL...YYYY...",
+  ".....YYYY....LLLLLLLLLLLLLLL..YYYY...",
+  ".....YYYY...LLLLLCCLLLLLLCCCD..YYY...",
+  ".....YYY...LLLLLCCDCLLLLCDCCG..YYY...",
+  "....YYYY...DLLLCCDDDLLLLCDDCGG.YYYO..",
+  ".LLYYYYY..GGLLLCCDDDLLLLDDDCGG.YYYO..",
+  "DLLYYYYYDDDGLLLCCDDDLLLLDDDCGG..YYO..",
+  "DLLLYYYMMMMGGLLLCCDLLLLLDDCCGGGGYYYDD",
+  "MMLYYYYMMMMGGLPPPLLLDDDDDGGPPGGGYYYMD",
+  "MMMMMMDMMMDGGLPPPLLLRRRDGGGPPGMMMLMMD",
+  ".DMMMMLLMMMGGGLLLLLLRRRRGGGGGDMMMLMMD",
+  ".DMMMMGLLLDGGGGLLLLLGRGGGGGGGDMMLLMMD",
+  ".DGMMMGGLLLLGGGGLLLGGGGGGGGGGMMLLGMM.",
+  "..GGMMGGGLLLLGGGGGGGGGGGGGGDDDGGGGGM.",
+  "..DGMMGGGGLLLLLGGGGGGGGGGGDDDDGGGGGD.",
+  "..DGMMMGGGGGLLLLLMMMMMDMMMGGGGGGGGG..",
+  "...DMMMMGGGMMMLLLLLLLLLLLLGGGGGGGGD..",
+  "...DMMMMMGGMMMMMLLLLLGGGGGGMMGGGGG...",
+  "....DMMMMMGGMMMMMGGGGGGGMMMMMGGGGD...",
+  ".....DMMGMMMMMMMMGGGGGGGMMMMMGGGD....",
+  "......DMGGMMMMMMGGGGGGGMMMMMGGGD.....",
+  "........DGGMMMMMMMMMMMMMMMMMGDD......",
+  "..........DDMMMMMMMMMMMMMMMDD........",
+  "............DDDMMMMMMMMDDDD.........."
+ ]
+}

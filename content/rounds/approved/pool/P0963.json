@@ -1,0 +1,108 @@
+{
+ "code": "P0963",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Бобр точит гигантский мелок",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Лесные и горные животные",
+ "direction": "Обмен ролями",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один добродушный коричневый бобр с большими кремовыми резцами точит один огромный синий восковой мелок, широкая розовая стружка завивается у лап, хвост крупный и плоский",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 35,
+ "N": 880,
+ "colours": 9,
+ "volumes": {
+  "E": {
+   "cells": 220,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 206,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "P": {
+   "cells": 181,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "N": {
+   "cells": 63,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 58,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "S": {
+   "cells": 53,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 49,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "K": {
+   "cells": 35,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "B": {
+   "cells": 15,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...............AAAAAAAAAAA........",
+  "............AAAAAAAAAAAAAAA.......",
+  "...........EAEAAAAAAAAACDAAA......",
+  ".......D...EEEAAACCAAAADDDAA......",
+  "...EEEEEED..EAAACDDAADDDDCAAA.....",
+  "..DEEEEEEED.AAAACDDDCDDDCCAAAA..N.",
+  ".DEEEEEEEEEDAAAACDDCCDDDCCCAAASSN.",
+  ".EEEEEEEEEEAAAAACCCCCCCCCCCAASSSN.",
+  "DEEEEEEEEEEAAAAACCCDDDDDDCCANSSBNN",
+  "DEEEEEEEEEEAAAACCCCCD...DAANNBBBNN",
+  "DEEEDEEEEEEEAAAACCCCAD.AAABSSNNNNN",
+  "DEEEEEEEEEDAAAAAAACCAADAABBSBBBNN.",
+  "DEEEEEEEEEEAAAAAAAAAAAAASBSBBNNNN.",
+  "DEEEEEEEEEAAAAAAAAAEAEASSSSBBNNND.",
+  ".EEEEEEEEEAAAAAAAEEEAEESSSSSNNNNE.",
+  ".DEEEEEEEAAAAAAAAEEEEESPPSSSNEEEE.",
+  ".DEEEEEEEAAAAAAAEEEEESSNPPSNNEEEE.",
+  "..DEEEEEEAAAAAEAEEEESSSNPPPNNEEED.",
+  "..DEEEDDAAAAAAEEEEESSSNNPPPNNEEE..",
+  "...DEEEEAAAAAAAAEESSSNNNPPPPEAAAE.",
+  "....DEEEAAAAAAAAEESSSNNNPPPPEAAAE.",
+  ".....DDEAAAAAAAAASSSSNNNPPPPEKKKE.",
+  "...PPPPEEAAAEEEASSSSSNNNNPEKKKKKPP",
+  "...PPPPPEAAAEEEESPPSSNNNNEEKKKKPPP",
+  "..PPPPPKKKPEEEEEPPPPSNNNPPKKKKPPPP",
+  ".PPPPPKKKKPEEEEEPPPPNNNPPPKKKPPPPP",
+  "..PPPPKKKPPEEPPEEPPPPNDPPPPPKPPPPP",
+  "..PPPPPPPPPEPPPPEEKKPPPPPPPPPPPPPP",
+  "...PP.PPPPPPPPPPEEKKKPPPPPPPPPPPPP",
+  ".......PPPPPPPP...PPPPPPPPP...PPPP",
+  "........PPPP........PPPPPP.....PPP",
+  "..................................",
+  "..................................",
+  "......................C...........",
+  "............C.......CCCCC........."
+ ]
+}

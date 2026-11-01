@@ -1,0 +1,112 @@
+{
+ "code": "P0901",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Мастерская шариковых лабиринтов",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Магазины и витрины",
+ "direction": "Заводная сказка",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Компактный округлый розовый прилавок хранит один большой зелёный шар-лабиринт с золотыми широкими дорожками, сверху открыта синяя крышка и виден красный шарик внутри, без надписей",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 40,
+ "h": 41,
+ "N": 1268,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 266,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "N": {
+   "cells": 200,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "M": {
+   "cells": 180,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "P": {
+   "cells": 158,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "O": {
+   "cells": 138,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 130,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 114,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "B": {
+   "cells": 73,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "C": {
+   "cells": 9,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............NNNNNNNNNNNNN..............",
+  "...........BBBBBBBBBNBBBBBNNNYYYY.......",
+  "..........NBBBNNBBBBBBBBBBBBBBYYYY......",
+  "..........NNNNNNNNNNNNBBBBBBBBBBBBN.....",
+  "..........NNNNNNNNNNNNNNNBBBBBBBBNN.....",
+  "..........NNNNNNNNNNNNNNNNNBBBBBBNN.....",
+  "..........DNNNNNNNNNNNNNNNNNNBBBNNNN....",
+  "...........DNNDDDDDDDDDNNNNNNNNBBNNNN...",
+  "...........DDDDCYYDDDOOODDNNNNNNBBBNNN..",
+  "..........DYYYYYYMMMMMMMDDDNNNNNNNBNNN..",
+  "........DYYYYYMYYYYYCYYMMDDDNNNNNNNNNNN.",
+  ".......DDMMYYMMYYYYYYYYYYMMMNNNNNNNNNNN.",
+  "......DDMMMYYMMMMMMMMMMYYYMMONNNNNNNNNN.",
+  "......DYYMMYCMMMMMMMMMMMYYYMOODNNNNNNNND",
+  ".....DDYYMMYYYYYYYYYYYYMYYYMMOONNNNNNNND",
+  ".....BMYYMMYYYYYYYMMMYYMYYYMMOODNNNNNNN.",
+  "....DBMYYMMMMMMMMMMMMMYYMOYMMOOMDNNNNNN.",
+  "....DBMYYMMMMMMRRRRMMMYYMOYYMYOMDYYYD...",
+  "....DMMYYYYYCMMRRRRMMMYYMOYYYYOMDYYYD...",
+  "....DMMYYYYYYMMRRRRRMMYYMMMMMMOMDOOOD...",
+  "..DDDMMOYMMMMMMRRRRRMMYYMMMMMMOMDNOOD...",
+  ".NNNDMDOYMMMMMMRRRRYYYYYMMYYMMOMDNNNOO..",
+  "DYYNDMOOOMMYYYYYYYYYYYYYMYYYMMOMDNNNOOO.",
+  "DYYNDMOOOMMYYYYYYYYYDMMMMYYYMOOMDNNOOOO.",
+  "DOOOODDDOMMOYDMMMMMMMMMMMYYDMOODDNOOOO..",
+  ".DOOOYYDDDMOOOMMMMMMMYYYYYYDDOOOOOOOOD..",
+  ".DOOOOYYYYYYDDDDDDDDDDDYYBBBBOOOOOOOOD..",
+  ".DPRRRYYYYYYYYYYYYYYYYYYYYYYOOOOOOOPPD..",
+  ".DPPRPPPPYYYYYYYYYYYYYYYYYYYOOOPCCPPPD..",
+  "..PPPPPPPPPPRRRRRRRRRRRRRRRPPPPPCCPPP...",
+  "..RRRPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP...",
+  "...RRRPPPPPPPPPPPPPPPPPPPPPPPPPPPRRR....",
+  "...RRRPPPPPPPPPPPPPPPPPPPPPPPPPPRRRR....",
+  "....DRRRPPPPRPPPPPPPPPPPPPRPPPPPRRD.....",
+  "....DDRRRRRRRPPPPPPPPPPPRRRRRRRRDDD.....",
+  "....YYYRRRRRRRPPPPPPPPPRRRRRRRRRYYY.....",
+  "...DYYYOOORRRRRRRRRRRRRRRRRRROOOYCYD....",
+  "...DYYOOOOOOYYYYYYYYYYYYYYOOOOOOOYYD....",
+  "...DYYOOOOOOYYYYYYYYYYYYYOOOOOOOOOOD....",
+  "....OOOOO...DDDDDDDDDDDDDD....OOOOO.....",
+  ".....DDD.......................DDD......"
+ ]
+}

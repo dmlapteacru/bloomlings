@@ -1,0 +1,116 @@
+{
+ "code": "P0982",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Большая шишка в пуховике",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Грибы и лесные находки",
+ "direction": "Ожившие вещи",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна большая коричневая шишка с крупными кремовыми глазами надела пухлый синий жилет с розовыми застёжками, короткие золотые ботинки и три больших чешуйки сверху",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 39,
+ "h": 44,
+ "N": 1108,
+ "colours": 9,
+ "volumes": {
+  "A": {
+   "cells": 287,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 241,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "N": {
+   "cells": 181,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "E": {
+   "cells": 121,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "B": {
+   "cells": 83,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "O": {
+   "cells": 74,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "P": {
+   "cells": 44,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "C": {
+   "cells": 41,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 36,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "....................D..................",
+  "..................DOOD.................",
+  ".................DOOADD................",
+  "................DOOAAADD...............",
+  "...............DAAOOAADDDDD............",
+  "............DDDDEAAAEEODDDDD...........",
+  "...........DOOODEEAAEEOOOAADD..........",
+  "..........DOOAOOOEEAEEOOAAAAD..........",
+  "..........DOAAAAAEEEEEOAAAAAD..........",
+  "..........DAAAAAAAAEEEEAAEEEDD.........",
+  "..........DAAAAAAAAEEEAAEEEDOOD........",
+  "........DDDEAAAEAEEAAAAAAEEAAOD........",
+  "......DOOOOEEEEEDDEAAAAAADDAAAD........",
+  "......DOAAAAAEEOOODAAAAAAAAAAADDD......",
+  "......DOAAAAAEOOAAAAAAAAAAAAAAAADD.....",
+  "......DAAAAAAAACCAAAAAAAACCCCAAAAD.....",
+  "......DDAAAEAACCCDCAAAAAACCDDAEEAD.....",
+  "....DDDDEEEEACCCDDDAAAAACCDDDDAEE......",
+  "....OOAAAEEEACCCDDDAAAAACCDDDDAEDDD....",
+  "....OAAAAAEEACCCDDDAAAAAACDDDDAEAADD...",
+  "....DAAAAEEAACCCDDDADDDDDCCDDAPPAAAD...",
+  "....DAAEEEAAPCCCCDDADPPPDACCCAPPPDDD...",
+  "....NBEEEAAPPPACCCAADPPPDAAAAAAAADD....",
+  "...DNBBBDDAPPAAAAAAAADPPAAAAAAADBBB....",
+  "...DNBBBBBBDAAAAAAAAAADAAAAAADDBBNND...",
+  "..DDDNNBBBBBBBAAAAAAAAAAAAAADDBBBNNAAD.",
+  ".DAAANNNNNBBBBBDAAEEEAAAEEEEDNNNNNEAAD.",
+  ".OOOAAEDNNNNNNNNNDDDEEEEEDNNNNNNNDEAAAD",
+  "DAAAAAENNNNNNNNNNBBBBEEEEENNNNNNNNEAAAD",
+  "DAAAAEEBBBNBBBNNNNNPPPEEPNNNBBBNNNEEEE.",
+  ".DEEEEDNBBNBBBBNNNNPPPPPPNNNBBBNNNDEE..",
+  "..DDEDNNNNNNNBNNNNNPPNEENNNNNNNNNND....",
+  "....DNBBBNNNNNNNNNNNNNEENNNNNNNBBBD....",
+  "....DNBBBNBBBNNNNNNNNNEENNNBBBBNBND....",
+  ".....NNNNNBBBBBBNNNPPPPPPNBBBBNNNN.....",
+  "......DNNNNNBBBNNNNPPPPPPNNNNNNNN......",
+  "........DDNNNNNNNNNPDEEENNNNNDD........",
+  "........DAADDDDDDDDEEEEDDDDOOAD........",
+  "........DAAOOOODDDEEEDDOOOOOAADD.......",
+  ".......DYYYYOOOOD..DD.DOOOOYYYYYD......",
+  "......DYYYYYYYOOD.....DOOOYYYYYYYD.....",
+  "......DYYYYYYOOOD.....DOOOYYYYYYYD.....",
+  "......DDDDDDDDDDD.....DDDDDDDDDDDD.....",
+  ".......DDDDDDDD..........DDDDDDDD......"
+ ]
+}

@@ -1,0 +1,110 @@
+{
+ "code": "P0924",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Лунный серп из апельсиновой кожуры",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Фрукты и ягоды",
+ "direction": "Визуальные каламбуры",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Толстая оранжевая апельсиновая кожура свернулась в большой полумесяц, внутри лежит один спящий кремовый оригинальный марципановый человечек, зелёный лист у кончика",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 43,
+ "h": 44,
+ "N": 1275,
+ "colours": 8,
+ "volumes": {
+  "O": {
+   "cells": 575,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 407,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 118,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 85,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 63,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "M": {
+   "cells": 22,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "K": {
+   "cells": 3,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "D": {
+   "cells": 2,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".......................OCCCCC..............",
+  "....................YYYOGGGGGGG............",
+  "...................YYYYOGGGGGGGGG..........",
+  "..................CYYYOOGGGGGGGGGG.........",
+  "..................OYOOOOGGGGGGGGGGM........",
+  "..................OOOOOOOGGGGGGGGGMM.......",
+  "...................OC.OYYDGGGGGGMMMM.......",
+  "......................CYYYGGGGGGGMMMM......",
+  ".......................CYYOOGGGGMMMMMM.....",
+  ".......................COYOOOOODMMMMMOO....",
+  "........................OYOOYOOOOYYYOOOO...",
+  "........................OYYOYYOOOOYYOOOO...",
+  "........................OYYOYYYYYOOCOOOOO..",
+  "......................CCCCCCCCYYOOOCOOOOO..",
+  "....................CCCCCCCCCCCOOOOCCOOOOC.",
+  "....COOO...........CCCCCCCCCCCCOOOOOCOOOOO.",
+  "....OCCOO..........CCCCCCCCCCCCCOOOOCOOOOO.",
+  "...OOCOOO.........CCCCCCCCCCCCCCCOOOCCOOOO.",
+  "..OOCCOOOO........CCCCCCCCCCCCCCCAOOCCOOOOA",
+  "..OOOCOOYOO......ACKCCCCCCCCCCCCCAOOCCOOOOA",
+  "..OOOCOYYYOO..AAAAKKCCCCCCCCCCCCCAOCCCOOOOA",
+  ".OOOOCOYYOOOOCCCCAACCCCCCCCCCCCCAAOCCOOOOOA",
+  ".OOOOCOOOYOOACCCCCCCCCCCCCCCCCCCAAOCCOOOOOA",
+  ".OOOOCCOYYOOACCCCCCACCCCCCCCCCCCOOOCCOOOOOA",
+  "AOOOOCCOOOOAAACCCCCAAAAAACCCCCYYOOOCCOOOOOA",
+  "AOOOOOCOOCCCCCCCCCACCCCCCCCCCYYOOOOCOOOOOOA",
+  "AOOOOOCCOCCCCCAAAAACCCCCCCCCCCOOOOCCOOOOOA.",
+  "COOOOOCCOCCCCCCCCCCCCCCCCCCCCCOOOOCCOOOOOA.",
+  "OOOOOOOCCCCCCCCCCCCCCCCCCCCCCCOOOCCOOOOOOA.",
+  ".AOOOOOCCCCCCCCCCCCCCCCCCCCCCCOOOCCOOOOOOA.",
+  ".AOOOOOOCCCCCCCCCCCCCCCCCCCCYOOOCCOOOOOOOC.",
+  ".AOOOOOOOCCCOCCCCCCCCCCYYYYYYOOOCCOOOOOOO..",
+  "..OOOOOOOOCCOOCCCCCCCCCYAAAAAOOCCOOOOOOOO..",
+  "..OOOOOOOOOCCCCCCCCCCCYYAAOOOCCOOOOOOOOO...",
+  "...OOOOOOOOOOOOCOOOYYYOOOOOOCYYOOOOOOOO....",
+  "...OOOOOOOOOOOOCCCCOOOOOOOOYYYOOOOOOOOO....",
+  "....OOOOOOOOOOOOOCCCYYYOOYYYOOOOOOOOOO.....",
+  ".....OOOOOOOOOOOOOOOYYYYYYYOOOOOOOOOO......",
+  ".....COOOOOOOOOOOOOOOOYYOOOOOOOOOOOOC......",
+  "....GGGOOOOOOOOOOOOOOOOOOOOOOOOOOGGGGG.....",
+  "....GGGGOOOOOOOOOOOOOOOOOOOOOOOOOGGGGG.....",
+  "....CGGGGGGGOOOOOOOOOOOOOOOAAAGGGGGGGC.....",
+  ".......GGGGGOOOOOOOOOOOOAAAGGGGGGG.........",
+  ".............GGGGGGGGGGGGG................."
+ ]
+}

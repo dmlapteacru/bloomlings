@@ -1,0 +1,117 @@
+{
+ "code": "P0939",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Цветок из раскрытой булавки",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Одежда и аксессуары",
+ "direction": "Предметные гибриды",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Большая золотая безопасная булавка раскрывается, её пружинная петля превращается в один розовый цветок с двумя широкими зелёными листьями, контур булавки хорошо виден",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 42,
+ "h": 44,
+ "N": 963,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 324,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "P": {
+   "cells": 175,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "G": {
+   "cells": 137,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 77,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "K": {
+   "cells": 66,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "A": {
+   "cells": 53,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 51,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "D": {
+   "cells": 51,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 29,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............................CAAAA.......",
+  "............................AAAYYYYY......",
+  "..........................CCCYYY.YYYY.....",
+  ".........................CCYYYYYCYYYYY....",
+  ".......................CCCYYYYYYYYYYYY....",
+  "......................CCYYYYYYYYYYYYYYE...",
+  ".....................YYYYYYYYYYYCCEYYYE...",
+  "....................YYYYYYYYYYE...EYYEE...",
+  "..................AAYYYYYYYYYYEE..EYYEE...",
+  ".................AAYYY.CYYYYYYEECYYYYE....",
+  "................AAYYY....EEYEEYYYYYYYE....",
+  "...............YYYYY......EEEEYYYYYYY.....",
+  "..............YYYYY..........EYYYYYY......",
+  ".............CCYYY...........EYYYYY.......",
+  "............YYYYY............YYYYY........",
+  "...........YYYY.............YYYYY.........",
+  "..........CCYAA.............YYYY..........",
+  ".........CCAAA..............YYY...........",
+  "........YYYAA...............YY........GGGG",
+  ".......YYYY.........................GGGGGG",
+  "......YYYY.......................MMMGGGGGD",
+  ".....YYYY...........PPPPPP.....MMGGGGGGGGD",
+  ".....YYYY..........KKKKKKPP...MMGGGGGGGGGD",
+  "....YYYY......G...PKKKPPPPPP..MGGGGGGGGGGD",
+  "...YYYY......GGMM.PKKPPPPPPP.GGGGGGMMMGGGD",
+  "...YYYY.....MGGGMPPKPPPPPPPPPDGGMGGMGGGGD.",
+  "..YYYCC.....MGGGGDKKPPPPPPPPPPPPMMMMGGGGD.",
+  "..YYYCAAAC..MGGGGMPPPPPPPPPPKKKKMMMMMGGD..",
+  ".YYYYCYYYYYDMGMMMMPPPPPPPPPPPKKPPEMMMGGD..",
+  ".YYYYYYYYYYDDMMMMPPPPPPYYPPPPPKPPEMGGGD...",
+  ".YYYYAAAYYYYYMMMKKPPPPPYYYYPPPPPPEGGDD....",
+  "YYYYAAAAAYYYYMMKKKPPPPYYYYYPPPPPPDDD......",
+  "YYYAAA..YYAYYEMKKKPPPPYYYYYPPPPPPDD.......",
+  "CYYAA...CYAYYEDKKKKPPPPYYYPPPPPPMGGGD.....",
+  "EYYAA...YYAYYEEKKKKPPPPPPPPPPPPMMMGGGG....",
+  "EEYAA...YYAYE.DPPPKPPPPPPPPPPKMMMMGGGGD...",
+  ".EYYAAAAAYYYEDDPPPPPPPPKPPPPPKMMMMGGGGGG..",
+  ".EEYYAAAAYYEEYYYYPPPPPPKKPPKKKMMGMMGGGGD..",
+  "..YYYYYYYYYYYYYYMMMMMDPKKKKKKKMMGGMMGGGD..",
+  "...YYYYYYYYYYYYYMMMMD.PKKKKKKKDDGGGGGGGG..",
+  ".....EEEEEEEEDDDDDDD...KKKKPKK..DGGGGGGGD.",
+  ".........................PPP.....DGGGGGGD.",
+  "...................................DDDGGD.",
+  "......................................DD.."
+ ]
+}

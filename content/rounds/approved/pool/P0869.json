@@ -1,0 +1,107 @@
+{
+ "code": "P0869",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Шоколадный подъёмный кран",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Профессии и увлечения",
+ "direction": "Кулинарная фантастика",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Невысокий компактный подъёмный кран из крупных шоколадных плиток поднимает один розовый кубик маршмеллоу, золотой крюк и синяя кабина различимы",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 34,
+ "h": 36,
+ "N": 1224,
+ "colours": 9,
+ "volumes": {
+  "K": {
+   "cells": 291,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "E": {
+   "cells": 191,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "B": {
+   "cells": 187,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "O": {
+   "cells": 149,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 123,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 98,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "S": {
+   "cells": 87,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "D": {
+   "cells": 67,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 31,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "BBBBBBBBBBBBBBBBBBBBBBBEEEEYYBBBBB",
+  "BBBBSSSSBBBBBBBBBBBBBAAAAEYYYOBBBB",
+  "BBBSSSSSSBBBBBBBBBBAAAAAAEYYYOBBBB",
+  "BSSSSSSSSSBBBBBBBEEAAAEAEEYYYOBBBS",
+  "KKSSSSSSSSSSSBBBAAEAAAEEEEEYEEBSSS",
+  "KKKKSSSSSSSSSBEAAAAEEEEEBBBEESSSSS",
+  "KKKKKKSSSSSAAAEAAAEEEEBBBBBYESSSSS",
+  "KKKKKKSSSSEAAAEAAEEEEBBBBBBYYSSSSS",
+  "KKKKKKSSAEEAAAEEEEEBBBBBBBBYYSSSSS",
+  "KKKKKKSAAEEAAEEEEEBBBBBBBBBYYSSSSS",
+  "KKKKKAAAAAAEEEEOEKKKKKKBBBBYYBBBBS",
+  "KKKEAAAEAAAAEEEOEKKKKKKKBBYYYEBYYY",
+  "KKKEAAAEEEAAEEEOEKKKKKKKBBDDYEYYYY",
+  "KKKEAAEEEEBBBBBBBKKKKKKKKDDEEEYYYY",
+  "KKKKEEEEEEBBBBBBBBKKKKKKKKKKKKKKYY",
+  "KKKKEEAEEBBBBBBBBBKKKKKKKKKKKKKKKY",
+  "KKKAAAAEEBBBBSCCBBKKKKKKKKKKKKKKKY",
+  "KKKAAAAEEBBBBSSCBBKKKKKKKKKKKKKKKK",
+  "KKKAAAAEEBBBBSSSBBKKKKKKKKKKKKKKKK",
+  "KKKEEEEEEBBBBBBBBBBKKKKKKKKKKKKKKK",
+  "KKKEEAAEEEBBBBBBBBBKKKKKKKKKKKKKKK",
+  "KKKAAAAEAAAAAAEAAAAEKKKKKKKKKKKKKK",
+  "KKKAAEEEAEEEEEEEEEEEKKKKKKEEEEKKKK",
+  "KKKEEEEEAEEEEEEEEEEEKKKKKKKKKKKKKK",
+  "KKDDEEEEEEEEEEEEEEEEKKKKKKKKKKKKKK",
+  "KDDDDAEEEEDDEEEEEEDDDKKKKKKKKKKKKK",
+  "CDDDDAEEEDDDDDEEEEDDDCYKKKKKKKKKKK",
+  "CDDDDAEEDDDDDDEEEEDDDYYYYYCYOOOOKK",
+  "CDDDDEEEDDDDDDEEEDDDDYYYYYYYCYYYYY",
+  "CYDDDOOOODDDDDOOOODDDYCYOOOOOCYCYO",
+  "CYCYOOOOOCDDYYYOOOYYYYYCCYYYYOOOOO",
+  "OYYYYYYOOOOOYCYCCCYYYYYOOCCOOOOOOO",
+  "OOOOOYYCYYYYYOOOOYYYYYYYOOOOOOOOOO",
+  "OOOOOOOYYCYYYYYYYYCCCOOOOOOOOOOOOO",
+  "OOOOOOOOOOOYYYYYYYOOOOOOOOOOOOOOOO",
+  "OOOOOOOOOOOOYCCOOOOOOOOOOOOOOOOOOO"
+ ]
+}

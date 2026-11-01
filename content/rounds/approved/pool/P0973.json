@@ -1,0 +1,108 @@
+{
+ "code": "P0973",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Красная панда развешивает носки-листья",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Лесные и горные животные",
+ "direction": "Обмен ролями",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна сидящая оригинальная красная панда с крупной кремовой мордой и полосатым хвостом держит короткую золотую верёвку с двумя большими зелёными носками-листьями, предметы крупные и близко",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 35,
+ "N": 908,
+ "colours": 9,
+ "volumes": {
+  "E": {
+   "cells": 325,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 182,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 175,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "M": {
+   "cells": 116,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "D": {
+   "cells": 52,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "A": {
+   "cells": 31,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "L": {
+   "cells": 17,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "R": {
+   "cells": 7,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 3,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".......CCCCCC......................",
+  "......ECCCCCCC..EEE......EEEE......",
+  "......ECCEECCOOOOOOOEEEECCCCCE.....",
+  "......ECCEECOOOOOOOOOOECCCCCCE.....",
+  "......ECCEEOOOOOOOOOOOOCCECCCE.....",
+  "......ECCEOOOCOOOOOOOOOOEECCCE.....",
+  "......ECCOOOCCCOOOOOCOOOOEECCE.....",
+  ".....ECCOOOOCOOOOOOCCCOOOOCCCE.....",
+  ".....ECCOOOCDDOOOOOOOOOOOOCCC......",
+  ".....ECOOCCDDDCOOOODDCOOOOCCCC.....",
+  ".....EOOCCCDDDCCCCCDDDCCOOOCC......",
+  ".....ECCCCADDDCDDCCDDDCCCOOO.......",
+  ".....ECCCAACCCCDDCCDDDCCCOAAA......",
+  "......CCCAACCCEEDCCCCAACCCAE..EEE..",
+  "......ECCAACCCERRCCCCAACCCAEEOOOOO.",
+  "....EEEEEAAACCCRRCCCAAACCCEEOOOOOO.",
+  "...EEEEEEEEECCCCCCCCAAACCCEEEEEEOOE",
+  "...EEEEEEEEEEEEEEEEEEEEEE..EEEEEEEE",
+  "..EEEEEEEEEEEEEEEEEEEEEEE..OOOOEEEE",
+  "..EEEEEEEEEEEEEEEEEEEEEEOEEOOOOOOEE",
+  "...EEEEEEEEEYYYEEEEEEEEEOOEOOOOOOOE",
+  "...EECCCCCEEEEEEEEEEEEEEOOEEEEEOOOE",
+  "....DDCCCCEEEEECCCCCEEEEOOOEEEEEEOE",
+  "....MMMCCCEEEEECCCCCEEEEOOOOOOEEEOE",
+  "..DMMMLMMMEEEEDCCCCCEAAROOOOOOOEEE.",
+  ".DMMMLLMMMDEEEMMMMMMAARROOOOEOOOEE.",
+  ".MMMMLMMMMDEEDMMLMMMAAEEEEOOEEOOEE.",
+  "DMMLLMMMMMDEEMMLLMMMMEEEEEEOEEOOE..",
+  "DMMLMMMMMMEEDMMMLLMMMEEEEEEOEEEOE..",
+  "DMMMMMMMMEEEMMMMLMMMMEEEEEEOEEEE...",
+  "DMMMMMMMDEEEMMMLLMMMDEEEEEEEEE.....",
+  ".MMMMMDDEEEEMMMMLMMMEEEEEEEE.......",
+  "..DDD....EE.DMMMLMMDEEEEEEE........",
+  ".............MMMMMM...EEE..........",
+  ".............DMMMD................."
+ ]
+}

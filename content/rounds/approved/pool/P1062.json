@@ -1,0 +1,95 @@
+{
+ "code": "P1062",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Солер из Асторы",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Dark Souls · FromSoftware: Solaire of Astora from Dark Souls in the iconic PRAISE THE SUN pose: large simple cylindrical steel helmet with a RED feather, cream tunic bearing a BIG golden sun with a red face, green shoulder scarf, arms raised in a broad V close to the head. Compact chibi upper body, preserve the helmet, feather and sun emblem, no text or battle.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 33,
+ "h": 33,
+ "N": 1089,
+ "colours": 7,
+ "volumes": {
+  "Y": {
+   "cells": 387,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 352,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 149,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 88,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "K": {
+   "cells": 57,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "M": {
+   "cells": 42,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "E": {
+   "cells": 14,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "YYYYRRRRRRYYYYYYYYYYYYYYYYYYYYYYY",
+  "YYYYYRRRRRRYYYYYYYYYYYYYYYYYYYYYY",
+  "YYYYYDRRRRRDYYYYYYYYYYYYYYYYYYYYY",
+  "DYYYYYYDRRRRYYYYYYYYYYYYYYYYYYYYK",
+  "KDYYYYYDRRRRDYDDDDKDDYYYYYYYYYYDK",
+  "KKYYYYYYDRRRDKKKCKKDDDYYYYYYYYDKK",
+  "DDDYYYYYYYDDDKKKDDKDDDDYYYYYYYDKD",
+  "KKCDYYYYYYYDDDKKCDDDDDDYYYYYYDKKK",
+  "DKKCYYYYYYDDDKKKCDKDDDDYYYYYDCKKD",
+  "DDKDDYYYYYDDDDDDDDKDDDDYYYYYDDKKD",
+  "DDDDDYYYYYYDDDDDCDKDDDDYYYYDDDDDD",
+  "DDDDDDYYYYYDDKKKCDKDDDDYYYDDDDDDD",
+  "DDDDDDYYYYYDDDKKCDKDDDDYYYDDDDDDD",
+  "DDDDDDDDYYYDDDKKCDKDDDDYDDDDDDDDD",
+  "DDDDDDDDMDDDDDKKCDKDDDDDMMDDDDDDY",
+  "YDDDDDDMMMMDDDKKCDKDDDDDMMDDDDDDY",
+  "YDDDDDDDMMMMDDDKDDKDDDDDMMMDDDDDY",
+  "YDDDDDEDDMMMMDDDDDKDDDDMMMMDDDDYY",
+  "YYDDDEEEDMMMMMDDDDDDDDMMMMMDEDDYY",
+  "YYYDDEEDDDMMMDCCCCRCCCDMMMMDEDYYY",
+  "YYYDEEDDDDDDDCCCCCRRCCCDDDMDEDYYY",
+  "YYYYDDDDDDDCCRRCCCRRCCCCCCDDDYYYY",
+  "YYYYDDDDDDCCCCRRCCRRCCRCCCCDDYYYY",
+  "YYYYDDDDDDCCCCCRRRYYYRRCCCCDYYYYY",
+  "YYYYYDDDDDCCCCCCRYYYYYRCCCCDYYYYY",
+  "YYYYYDDDEDCCCCRRYYYYYYYRCCCDYYYYY",
+  "YYYYYDDDEDCRRRRRYYYYYYYRRRCDYYYYY",
+  "YYYYYYDDEDCCCRRRYYYYYYRRCCCDYYYYY",
+  "YYYYYYDDDDCCCCCCRYYYYYRCCCCCDYYYY",
+  "YYYYYYYDDCCCCCCRRRRRRRRRCCCCDYYYY",
+  "YYYYYYDDDCCCCCRRCCRRRCRRCCCCDYYYY",
+  "YYYYYYDDDCCCCRRCCCCRCCCRRCCCDYYYY",
+  "YYYYYDDDCCCCCRCCCCCRCCCCCCCCDYYYY"
+ ]
+}

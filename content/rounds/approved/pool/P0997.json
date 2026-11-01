@@ -1,0 +1,115 @@
+{
+ "code": "P0997",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Садовый совок держит маленький закат",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Походы и отдых на природе",
+ "direction": "Миры внутри предметов",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "В чаше одного большого синего садового совка лежит золотой солнечный диск над двумя зелёными холмами, розовая короткая ручка и толстый тёмный контур",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 44,
+ "h": 42,
+ "N": 921,
+ "colours": 9,
+ "volumes": {
+  "N": {
+   "cells": 290,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "Y": {
+   "cells": 193,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 174,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "B": {
+   "cells": 110,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "P": {
+   "cells": 75,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "R": {
+   "cells": 28,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 18,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "M": {
+   "cells": 17,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "C": {
+   "cells": 16,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "......................................DPP...",
+  ".....................................DPPPPD.",
+  "....................................PPPRPPP.",
+  "...................................PPRRRRPPP",
+  "..................................PPPRRRPPPP",
+  ".................................PPPPPDDPPRR",
+  "................................PPPPPPPPPRRR",
+  "...............................DPPPPPPPPPRR.",
+  ".............Y.....Y..........DPPPPPPPPRRRD.",
+  ".............YY...YY..........PPPPPPPPRRRD..",
+  ".......YY....YY...YY..........NNPPPPPPRDD...",
+  ".......YY....Y....YC...Y.....NNBNNPPRPPD....",
+  "........YY...C........YY....NNBBNNNRRRD.....",
+  "........YY.YYYYYYYY...YY...NNBBNNNNRRD......",
+  "..........YYYYYYYYYYY.C...NNBBNNNNNDD.......",
+  "...YYY..CYYYYCYYYYYYYC..DNNBBNNNNN..........",
+  "....YYY.YYYCCCCYYYYYYYNNNNNBNNNNNN..........",
+  ".......YYYYCCCYYYYYYYYYNBBBBNNNN............",
+  ".......YYYYCCYYYYYYYYYYNNNBBBBNN............",
+  "......YYYYYYYYYYYYYYYYYYNNNNBBBNN...........",
+  "..YYYCYYYYYYYYYYYYYYYYYYNNNNNNBBBB..........",
+  "..YYY.YYYYYYYYYYYYYYYYYYNNNNNNNBBBN.........",
+  "......YYYYYYYYYYYYYYYGGGGGGGNNNBBBN.........",
+  "....NNYYYYYYYYYYYYYGGGGGGGGGGNNBBNN.........",
+  "..NNNNNYYYMMMMYYYGGGGGGGGGGGGGBBBNN.........",
+  ".NNNNNNYGGGGGGGGGGGGGGGGGGGGGBBBNNN.........",
+  "BBBNNNGGGGGGGGGGGGGGGGGGGGGGBBBNNNN.........",
+  "BBNNNGGGGGGGGGGGGGGGGGGGGGGBBBNNNN..........",
+  "NBNNGGGGGGGGGGGGGGGGMMGGGBBBBBNNNN..........",
+  "NBBBGGGGGGGGGGGGGGGGGMMMMBBBBNNNNN..........",
+  "NNNBBBGGGGGGGGGGGGGGGMMMBBBBNNNNN...........",
+  "NNNNNBBBBGGGGGGGGGGGGGMBBBNNNNNN............",
+  ".NNNNNBBBBDGGGGGGGGGGGBBBNNNNNN.............",
+  "..NNNNNNNBBBBMMMGGGGBBBBNNNNNNN.............",
+  "...NNNNNNNNBBBBBBBBBBBBNNNNNNN..............",
+  "....NNNNNNNNNNNBBBBBBNNNNNNNN...............",
+  ".....NNNNNNNNNNNNNNNNNNNNNNN................",
+  "......NNNNNNNNNNNNNNNNNNNN..................",
+  "........NNNNNNNNNNNNNNNNN...................",
+  "..........NNNNNNNNNNNNN.....................",
+  "............NNNNNNNNNN......................",
+  "...............NNNN........................."
+ ]
+}

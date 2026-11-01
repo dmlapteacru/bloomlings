@@ -1,0 +1,114 @@
+{
+ "code": "P0981",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Весенний конь из прищепок",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Игрушки и настольные игры",
+ "direction": "Предметные гибриды",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна крупная деревянная игрушечная лошадка собрана из трёх широких золотых прищепок, зелёная грива из одного листа и розовое седло, без тонких ног",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 43,
+ "h": 42,
+ "N": 1129,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 421,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 210,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "G": {
+   "cells": 127,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "A": {
+   "cells": 110,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "P": {
+   "cells": 86,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "O": {
+   "cells": 77,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "M": {
+   "cells": 58,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "E": {
+   "cells": 31,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 9,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "........EE..DDDDD..........................",
+  "........EEDDDCGGGD.........................",
+  "........EAEEYYYGGDDDD......................",
+  "........EAEEYYYYGGGGGGDD...................",
+  "........EAEEYYYYDGGGGGGG...................",
+  "........EAAEAYYYDGGGGGGGD..................",
+  ".......DYYYAAYYYYDGGGGGGGD.................",
+  "......DYYYYYYYYYYDDGGGGGGD.................",
+  "......DYYYYYYYYYYYAMMMMGGDD................",
+  ".....DYYYYYYDDYYYYADGGMGGGGD...............",
+  ".....YYYYYYDDCYYYYAYGGGGGGGG...............",
+  "....AAAYYYDDDDYYYYAYDGGGGGGGD..............",
+  "...AAAAAYYDDDDYYYAYYDMMGGGGGD..............",
+  "..YYYYAAAYYDDDYYAAYYYDMMMGGGDD.............",
+  ".DYYYCYAAAYCCYYAAAYYYDMMMMMDD..............",
+  ".YYYCYYYAAYYYAAAYYYYYDMGMGGG...............",
+  "DYYYYYYYAAAAAAAYYYYYYYMGGGGGD....DDDDD.....",
+  "DYYYYYYYYEAAAAAYYYYYYYMMGGGGD.PPDGGGGGDD...",
+  ".OOYYYYYYEEEAAAYYYYYYYDDDGGGDDPPPGGGGGGGD..",
+  ".DOOYYYYYEDDAAAYYYYYYYDPPDDDDPPPPPGGGGGGD..",
+  "..DOOOOOD..DAAAYYYYYYYDPPPPPPPPPPPDGGGGGGD.",
+  "...DEEE....DAAAAYYYYYYPPPPPPPPPPPPDMMGGGGG.",
+  "...........DOOOAYYYYYYPPPPPPPPPPPPDMMGGGMMD",
+  "...........DOOOOYYYCCYPPPPPPPPPPPPDMMMGGMMD",
+  "..........DOOOOOYYYYYYYDPPPPPPPPPPYMMMMGGMD",
+  "..........DODOOOYYYYYYYYPPPPPPPPPYYDMMMGGMD",
+  ".........DOOODDDYYYYDDYYPPPPPPPPYYYYMMMMGMD",
+  ".........OOOADDYYYYDDDYYOOEEEEEYYYYYMMMMGG.",
+  "........DOOAAAYYYYYYYYYDOOOOODYYDDDYDMMMGM.",
+  "........OOOAAAYYYYYYYYYOOOOOOAYYDDDYDDMMMM.",
+  ".......DOOYAADYYYYYYYYDDDDDEDAAYYYYYY.DDMD.",
+  "......DYYYYAAYYYYYYYYYD.CAAEEOOYYYYYYD..DD.",
+  "......DYYYAAAYYYYYYYYY...DAAAOOYYYYYYD.....",
+  ".....DYYYAAAYYYYYYYYYD...DOAADAAYYYYYY.....",
+  ".....YYYYAAAYYYYYYYYY....DOAADOAYYYYYYD....",
+  "....DYYYOOAYYYYYDDYYD....DOAAAOOYYYDDYD....",
+  "....DYYYOOAYYYYYDDYYD.....DOAAAOOYDDDYYD...",
+  "....DYYOOADYYYYYDYYD......DOOADOOYYDYYYD...",
+  ".....DYOAAYYYYYYYYYD.......DDDDOOYYYYYYD...",
+  ".......DDDYYYYYYYYY............DDYYYYYYD...",
+  "..........DYYYYYYYD.............DDDDDDD....",
+  "............DDDDDD........................."
+ ]
+}

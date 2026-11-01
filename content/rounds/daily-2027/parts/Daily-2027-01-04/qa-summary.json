@@ -1,0 +1,31 @@
+{
+  "count": 365,
+  "changedMatrices": 365,
+  "uniqueDates": 365,
+  "uniqueMatrices": 365,
+  "dateAnchored": 311,
+  "artworkOverrides": [
+    "2027-11-06"
+  ],
+  "minN": 1961,
+  "maxN": 3650,
+  "minColours": 7,
+  "maxColours": 10,
+  "maxW": 75,
+  "maxH": 76,
+  "ordinaryPoolCompatible": false,
+  "runtimeIntegrated": false,
+  "checks": {
+    "rows": true,
+    "palette": true,
+    "counts": true,
+    "dateCoverage": true,
+    "notOldMatrices": true,
+    "withinDailyLargeRange": true
+  },
+  "notes": [
+    "This is an explicitly requested larger daily art set. Ordinary L1+ ranges and 48x48 engine support do not prove compatibility with this set.",
+    "Every image is freshly drawn rather than restamped from v1. Raster art is quantized to the exact 16-material game palette; each picture uses at most ten.",
+    "Art quality and holiday associations still need owner review. Queue difficulty, solutions and duration have not been measured."
+  ]
+}

@@ -1,0 +1,111 @@
+{
+ "code": "P0995",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Пара рукавиц для кактуса",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Одежда и аксессуары",
+ "direction": "Театр эмоций",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один округлый зелёный кактус с крупными дружелюбными глазами надел на два коротких боковых отростка огромные розовую и синюю варежки, стоит на низкой кремовой подставке",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 41,
+ "h": 39,
+ "N": 1037,
+ "colours": 9,
+ "volumes": {
+  "G": {
+   "cells": 349,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 259,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 102,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 101,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "P": {
+   "cells": 97,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "R": {
+   "cells": 37,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "M": {
+   "cells": 36,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "A": {
+   "cells": 30,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "B": {
+   "cells": 26,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "....................CC...................",
+  "...................CCCC..................",
+  "..................DDCCDD.................",
+  "............CC..GGGGGGGGGD..C............",
+  "............CCDGGGGGGGGGGGDCCC...........",
+  "............CCCGGGGGGGGGGGGCCC...........",
+  "............GGGGGGGGGGGGGGGGDD...........",
+  ".....PP....DGGGGGGGGGGGGGGGGGD...........",
+  "...PPPPPP.DGGGGDDGGGGGGDDGGGGGD...NNN....",
+  "..PPPPPPPDDGGGGGGGGGGGGGGDGGGGG.NNNBBNN..",
+  ".RPPPPPPPPGGGGGGGGGGGGGGGGGGGGGDNNBBBBNN.",
+  ".RPPPPPPPPGGGGCCCGGGGGGCCCGGGGGNNNNBBBBN.",
+  "ARPPPPPPPPGGGCCDDGGGGGCDDCCGGGDNNNNNBBBBN",
+  "ARPPPPPPPPPPCCDDDGGGGGDDDCCGGDBBNNNNNBBNN",
+  "ARRPPPPPPPCCDCDDDGGGGGDDDCCGGDCBNNNNNNNNN",
+  "ARRPPPPCCPPPCCCDDGGGGGDDDCCGGNCCNNCNNNNNN",
+  "ARRCCPCPCCPPGGCCGDDDDDGCCCGGDNNCCCCNNNNN.",
+  ".PPPPCCPPPPRGGGGGDDDDDGGGGGGDNNNNNNCCCNN.",
+  ".PRRPPPPPPRRGGGGGDRRRGGGGGGGDNNNNNNCCCCN.",
+  "..RRRPPPPPPPGGGGGGGRGGGGGGGGDNNNNNNNNNC..",
+  "..RRRRRRPPPPGGGGGGGGGGGGGGGGNNBNNNNNNND..",
+  "...DRRRPPPPDMGGGGGGGGGGGGGGMDNBBBNNNNN...",
+  "....RRRRRGDDMGGGGGGGGGGGGGGMDDBBBNNNN....",
+  "....DRDDDGGGMGCGGGGGGGGGGGGMGGGDNNNND....",
+  ".......DDGGGGGCCGMGGGGGGGGGMGGGGDDDD.....",
+  "........DGGGGMGGGMGGGGGGGGGMGGGGD........",
+  ".........DDDMMGGGMGGGGGGGCMMMDD..........",
+  ".........DDDMMGGGGGGGGMGGGMMDDD..........",
+  "........CCCDMMMGGGGGGGMGGMMMDCCC.........",
+  ".......ACCCDDMMMGGGGGMMMMAAACCCC.........",
+  ".......ACCCCCCCCCCDDCCDCCCCCCCCC.........",
+  ".......ACCCCCCC..C.....CCCCCCCCC.........",
+  ".......ACCCCCCCCCCCCCCCCCCCCCCCC.........",
+  ".......ACCCCCCCCCCCCCCCCCCCCCCCC.........",
+  ".......CCCCCCCCCCCCCCCCCCCCCCCC..........",
+  "........CCCCCCCCCCCCCCCCCCCCCCC..........",
+  "........CCCCCCCCCCCCCCCCCCCCCC...........",
+  "...........AAACCCCCCCCCCAAAA.............",
+  "..............AAAAAAAAAA................."
+ ]
+}

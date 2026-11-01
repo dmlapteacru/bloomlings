@@ -1,0 +1,105 @@
+{
+ "code": "P1034",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Инвокер",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Dota 2 · Valve: Invoker from Dota 2: smug adult blond mage with swept-back hair, enormous pointed WHITE high collar, purple-and-gold robes; three BIG distinct floating elemental orbs orange, blue and purple nest tightly around his shoulders. Large face and proud raised eyebrow, folded arms, preserve the exact iconic white collar silhouette.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 32,
+ "N": 920,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 254,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "V": {
+   "cells": 178,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "D": {
+   "cells": 163,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 122,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 84,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "N": {
+   "cells": 47,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 42,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "B": {
+   "cells": 27,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "K": {
+   "cells": 3,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "....OO.........CCCC........BB...",
+  "..OOOOOO.....DCCCCYYY....BBBBB..",
+  ".OOOOOOOO..DYYCCCCCCCC..BNNNNNN.",
+  ".OOOYYYOOODYYYYCCCCCCCCNBNBBBBNN",
+  ".OOYYCYOOOOOCCCAAAACCCCNBNBBBBNN",
+  ".OOYYCYOOOCYYCAAAAACCYYNBNBBBNNN",
+  ".OOOYYYOOYYYCCAACCCCCYYNBNBBBNNN",
+  ".OOOOOOCOOCYAAACCCCCCCANBNNNNNN.",
+  "..OOOOOCCCCAAACDDCCCCCAA.NNNNN..",
+  "....OOOCCCCYYCCDDDCCCDAA...N....",
+  "DDDVVVVVOOCYYCCDDCCDDAAC.CC.....",
+  "CCCCVVVVOCCYCCCCCCCDDCCVVVVV....",
+  "DCCCCCCVOCCYCCCCCCCCCCVVVVVVVVV.",
+  ".CCCCCCYYYYYCCCCCCCCCAVVVYVVVVVV",
+  "..CCCCCCCCYYYCCCCCCCCAVVYYVVVVVV",
+  "..VVCCCCCCCCYYCCCCCCCAYYYVVKKVVV",
+  "...VVCCCCCCCYYACCCCCVYYCCVVVKVVV",
+  "...VVVVVCCCCCYAACCCVVYCCDVVVVVVV",
+  ".DVVVVVVCCCCCYAAAADVVYCCDVVVVVVV",
+  "YYYYVVVVVCCCCYDAAADVDYCDVVVVVVV.",
+  "VVVDYYYVVVCCCCDDDDDDDCCVVYDVV...",
+  "VVDCCCYYYCCCCCDDDDDDDCVVYYD..D..",
+  "VDCCCCCYDDDCCDDDDDDDDYYYYVVVVD..",
+  "VCCCCCCNNNNDCDDYYDDYYYYYYVVVV...",
+  "CCCCCDVVVVCCCDVVYYYYVDDDVVDDDD..",
+  "CYYYNNVVVVCCCCDVVYYVVDVVVVVVDOO.",
+  "DDDNNVVVDDCCCCDDVDCDDDDDYYYYDDOO",
+  "DDDNVVVDDDDDDYYYYYCCCDDDDDDDDDDD",
+  "VVDNVVVDDDDDDYYYYYCCCCDYYDDDDDVV",
+  "VVDVVVVDDDDDDYYYYOCCCDAYYYDDDDVV",
+  "VVDDVVDDDDDDOOOOOOOCCAAOOYDDDDDV",
+  "VVDDVVDDDDDDOOOOOOODAAOOOODDDDDV"
+ ]
+}

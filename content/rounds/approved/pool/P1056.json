@@ -1,0 +1,89 @@
+{
+ "code": "P1056",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Ким Кицураги",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Профессии и увлечения",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Disco Elysium · ZA/UM: Kim Kitsuragi from Disco Elysium: adult East Asian man with neat swept dark hair, round DARK glasses, iconic bright ORANGE bomber jacket with cream collar and dark gloves; calmly holding one large dark notebook against his chest. Large serious but kind face, precise glasses and orange outfit, no text on notebook.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 37,
+ "h": 37,
+ "N": 1010,
+ "colours": 5,
+ "volumes": {
+  "D": {
+   "cells": 555,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "O": {
+   "cells": 179,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 170,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 103,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 3,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............DDDDDDDDDDDD.D.........",
+  ".............DDDDDDDDDDDDDDDD........",
+  "...........DDDDDDDDDDDDDDDDDDD.......",
+  "...........DDDDDDDDDDDDDDDDDD........",
+  "..........DDDDDDDDDDDDDDDDDDD.D......",
+  "..........DDDDDDDDDCDCCCCDDDDD.......",
+  ".........DDDDDDDDDCCDCCCCCADDD.......",
+  ".........DDDDDDDDDCCCCCCCCADDDD......",
+  "..........DDDDDDOODDDCCCCAADDDDD.....",
+  ".........DDCDDDDCODDDDDCCCCDDD.......",
+  ".........DDAAADDDDDDDDDDDDDDD........",
+  "..........DAAADCCDDDCDDDDADD.........",
+  "..........DAACCCCDCCCCDDDADD.........",
+  "..........DDCCCCCCDDDDCCAADD.........",
+  ".......DDDDDDDCCCCCDDCCCAADD.........",
+  "......DDCDDDDDCCCCCCCAAADDD..........",
+  ".....DDCCCDDDCCCCCCCCCAAAD...........",
+  ".....DCCCCDDCCDCCCCCCCAADDD..........",
+  "....DDCCCCDDCCADCCCCCCAAACDD.........",
+  ".DDODDCCCCCDCCAADCCCAAADACCDD........",
+  "DOOOODCCCCCDDCAADDCCCADAACCDADD......",
+  "OOOOOACCCCCCDCCCDDDDDDDDACCCAAODD....",
+  "OOOOOACCCCCCDDCCDDDDDDDDADDDDDOOOD...",
+  "OOOOOADCCCCCCDCDDDDDDDDDDDDDDDOOOD...",
+  "OOOOOODCCCDDDDDDDDDDDDDDDDDDDDOOOO...",
+  "OOOOOODDDDADDODDDDDDDDDDDDDDDDDOOOD..",
+  "OOOOOOOAAAADOODDDDDDDDDDDDDDDDDOOOOD.",
+  "OOOOOOOOOOAOOOODDDDDDDDDDDDDDDDDDOOOD",
+  "OOOOOOOOOOOOOOODDDDDDDDDDDDDDDDDDDOOD",
+  "OOOOOODOOODOOOODDDDDDDDDDDDDDDDDDDOOO",
+  "OOOOOODOOOADOOODDDDDDDDDDDDDDDDDDDAOO",
+  "OOOOOOODAAADDOAADDDDDDDDDDDDDDDDDDAAA",
+  "OOOAAOODDAADDOAADDDDDDDDDDDDDDDDDAAAA",
+  "OOAAAOOOODADDDAADDDDDDDDDDDDDDDDDDDDA",
+  "OAAOOOOEEDDDDDDDDDDCCCDDCDDDDDDDDOOOO",
+  "AAOOOOAAEOOOAAOOODCCCCCDDDDDDDDDDAAAA",
+  "AOOOOAAAOOOOOAOOOODCCCCCDDDDDDDDDAAAA"
+ ]
+}

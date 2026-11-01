@@ -1,0 +1,114 @@
+{
+ "code": "P0877",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Пуховая гора в корзине",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Мебель и уютные уголки",
+ "direction": "Уютный сюрреализм",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Большая плетёная корзина полна одной огромной пуховой подушки в форме горы, кремовая вершина и синее основание, маленькая розовая пуговица на боку",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 42,
+ "h": 43,
+ "N": 1239,
+ "colours": 9,
+ "volumes": {
+  "A": {
+   "cells": 379,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "O": {
+   "cells": 220,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 174,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 173,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "B": {
+   "cells": 163,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "E": {
+   "cells": 88,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "P": {
+   "cells": 33,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "D": {
+   "cells": 6,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 3,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................CCCCCCC..................",
+  "................CCCCCCCCC.................",
+  "...............CCCCCCCCCCC................",
+  "..............CCCCCCCCCCCC................",
+  "..............CCCCCCCCCCCCC...............",
+  ".............CCCCCCCCCCCCCCCC.............",
+  ".............CCCCCCCCCCCCCCCCC............",
+  "...OOAAA....CCCCCCCCCCCCCCCCCCC....AAAA...",
+  "..OOOAAAA..CCCCCCCCCCCCCCCCCCCCC..AAAAOO..",
+  "..OOOAAAAA.DCCCCCCCCCCCCCCCCCCCCDAAAAAOOO.",
+  ".EOOO.AAAADCCCCBCCCCBBCCCCCCBNNNNAAA..EOO.",
+  ".EOO...EADBCCCBBCCCBBBBBCCCCBBNNNNN...EOO.",
+  ".EOO...EEBBCCBBBBCBBBBBBBCCBBBBNNNNN..EOO.",
+  ".EOOEEEEBBBBBBBBBBBBBBBBBBBBBBBBNNNNEEEOO.",
+  "..OAEABBBBBBBBBBBBBBBNBBBBBBBBBBNNNNAAAAE.",
+  "..AAAABBBBBBBBBBBBBBBNNBBBBBBBBPPPNNNAAAE.",
+  "..EAADBBBBBNNBBBBBBBBBNBBBBBBBPPPPPNNDAAE.",
+  ".EEAANBBBBNNBBBBBBNNNBBBBBNBBPPRRRPPNNAEE.",
+  ".EENNNBBNNNBBBBBBNNNNNBBBBNNNPPPPPPPNNAEEE",
+  "OOONNNNNNNNBBBBNNNNNNNNBBBNNNPPPPPPPNNEEOE",
+  "OOOONNNNNNNBBBNNNNNNNNNNNNNNNNPPPPNNNNEOOE",
+  ".OOOOOONNNNNNNNNNNNNNNNNNNNNNNNPPPNNNNOOAE",
+  "..EOOOOOEEENNNNNNNNNNNNNNNNNNNNNNOOOOAOAA.",
+  "..EOOAAOOOOOOONNNNNNNNNNNNNNNNNOOOOOOAAAA.",
+  "..EAAAAOOOOOOOOOOOOOOOOOOOOOOOOOOAOOAAAA..",
+  "..EAAAAAAOOOOAOOOOOOOOOAOOOOAOOOAAEAAAAA..",
+  "...AAAAAAAAAAAAAEEEOOOAAOOAAAEEEAEEAAAAE..",
+  "...OOAAAAAAOAAAAAAAEEAAAAAAAAEAAAAAAAAAE..",
+  "...OOAAAAAOOOAAOOAAEOOOAAAAAAEAAAAAAAAAE..",
+  "...OAAAOAAOOOOAAOOOAAAAAAOOOOAAAAAAAAAAE..",
+  "....OOAOOOAAAAAAAAAAAOOAAAAAAAOOAAAAAAE...",
+  "....OOAAOAAOOAAAAAAAOOOOOAAAAAOOAAAAAAE...",
+  "....OAAOOAAOOOAAOOOAAAAAOOOOAAAAAAAAAAE...",
+  "....OAAOOOAAAAAAOOAAAOAAAAOAAAAOAAAAAA....",
+  ".....AAAAAAAOAAAAAAAOOOOAAOAAAOOAAAAAA....",
+  "......AAAAAOOOAAOAAAAAAAEEOAAAAAAAAAA.....",
+  ".......AAAAAAAAAOOOAAOAAEAOOAAAAAAAA......",
+  ".........EEEAAAAAAAAOOOAAAAAAEAAAA........",
+  ".............EEEAAAAOOAAAAEEEE............",
+  "..........................................",
+  "..........................................",
+  "..........................................",
+  "...........EEEE............EEEEE.........."
+ ]
+}

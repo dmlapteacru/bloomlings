@@ -1,0 +1,102 @@
+{
+ "code": "P1058",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Инженер",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Профессии и увлечения",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Team Fortress 2 · Valve: Engineer from Team Fortress 2: adult man in a large YELLOW hardhat, DARK protective goggles over the eyes, orange shirt, BLUE work overalls and one brown work glove; one broad silver wrench resting on his shoulder. Friendly compact bust, no visible pupils through dark goggles, no turret or text.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 29,
+ "h": 29,
+ "N": 841,
+ "colours": 9,
+ "volumes": {
+  "B": {
+   "cells": 252,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "D": {
+   "cells": 200,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "O": {
+   "cells": 161,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 71,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 46,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "K": {
+   "cells": 39,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "N": {
+   "cells": 28,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "R": {
+   "cells": 25,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 19,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "BBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  "BBBBBBBBBBBBBBDDDYYYDBBBBBBBB",
+  "BBBBBBBBBBBBBDYYYYYYYBBBBBBBB",
+  "BBBBBBBBBBBBYYYYYYYYYYYBBBBBB",
+  "BBBBBBBBBBBYYYYYYYYYYYYDBBBBB",
+  "BBBBBBBBBBDYYYYYYYYYYYOOBBBBB",
+  "BBBBBBBBBBYYYYYYYYYYYYOOBBBBB",
+  "BBBBBBBBBYYDDDYYYYYYYYYODBBBB",
+  "BBBDKKDBDDDDDDDDDDDDDDYYYBBBB",
+  "BBDKKDDBDDDDDDDDDDDDDDDDYDBBB",
+  "BDKKDDBBBDDAAODDDDDDDDDDDDBBB",
+  "BKKKDDDBBDDCAODDDDDDDDDDDBBBB",
+  "BKKKDDKDBBDAAOODDDDDDDDBBBBBB",
+  "BDKKKKKDBBDAAOCCOODDDDDBBBBBB",
+  "BDDKKKDDBBDAAOCCOOOOOOBBBBBBB",
+  "BBDKKDKKDDDCAACCCCCCODBBBBBBB",
+  "BBBDDDKKKDDOAAACCAACCBBBBBBBB",
+  "BBBBBDDKKKDOOAAAAAAAADBBBBBBB",
+  "BBBBDNNDKDDDDCAAAAAADRDDDBBBB",
+  "BDOODNNNDOOOODAAAAADRRRNNDBBB",
+  "DOOOODNDOOOOOODOAAADRORNNDDBB",
+  "OOOOODDOOOOOOODOOAADOOONNDODB",
+  "OOOOORDOOOOOOOODRCCOOOODNDOOD",
+  "OOORRROOOOOOOOODRROORRRDDDOOO",
+  "OORRDOOOOOOOODKDOOOOOOODDDDRO",
+  "OODOOOOOOOOODDKKDOOOOOODDDDRO",
+  "DOOOOOOOOOOADDKKKDDOODDDDDDRO",
+  "OOOOOOOOAOAADDKDDNNNNNNNDDDRR",
+  "OOOOOOOOAADDDDDDNNNNNNNNDDDRR"
+ ]
+}

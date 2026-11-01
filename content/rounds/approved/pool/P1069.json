@@ -1,0 +1,98 @@
+{
+ "code": "P1069",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Дрейвен",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "League of Legends · Riot Games: Draven: adult showman with sharply swept-up black hair, large curled black moustache, raised eyebrow, tan face, fur-trimmed red and dark steel shoulder armor. Confident theatrical grin. No weapon.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 30,
+ "N": 900,
+ "colours": 8,
+ "volumes": {
+  "D": {
+   "cells": 351,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "N": {
+   "cells": 181,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "O": {
+   "cells": 153,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 97,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 50,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "R": {
+   "cells": 42,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "K": {
+   "cells": 14,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "A": {
+   "cells": 12,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "NNNNNNNDDDDDDDDDDDDDDDNNNNNNNN",
+  "NNNNNNNNNDDDDDDDDDDDDDDNNNNNNN",
+  "NNNNNNNDDDDDDDDDDDDDDDDNNNNNNN",
+  "NNNNDDNNDDDDDDDDDDDDDDDDNNNNNN",
+  "NNNNNDDDDDDDDDDDDDDDDDDDNNNNNN",
+  "NNNNNNDDDDDDDDDDOOOODDDDDNNNNN",
+  "NNNNNNNNDDDDDAAOOOOOODDDDNNNNN",
+  "NNNNNNDDDDDDAADOOOOOOOOONNNNNN",
+  "NNNNNNNDDDDDDDDOODOOOOOONNNNNN",
+  "NNNNNNNNDDDDDDOOODDOOOODNNNNNN",
+  "NNNNNNNNDDOODDOODDDDODDDNNNNNN",
+  "NNCNCNCNNOOODOOOOOOOODDDNNNNNN",
+  "NNCCCCCCDOOODOOOOOOOODDNNNNNNN",
+  "CCCCCCCDDDOODODDDDOOOOONNNNNNN",
+  "CCCCCCCDDDDDDODDDDDDDOOCCCCNNN",
+  "CCCCCCCCDDDDOODOOCCDDDDCCCCNNN",
+  "RRRCCCCCCDOOOOOOOOCCDDDDDCCCNN",
+  "EEERRRRCCCOOOOOOOOOOODDDCCCCCC",
+  "DEEERRRCCCOOOOOOOOOOOKKCCCCCCE",
+  "DDDDRRRRCCDDOOOOOOOOOKKKCCCCEE",
+  "DDDDRRRRRCDDDOOEEOOOEEEKKCCCCC",
+  "DDDDOORRRRCDDDOEEEEDEEERRCCCCE",
+  "DDDDDODRRRRDDDOOAAAAEEERRCCCCE",
+  "DDDDDODDRRRRDDDOAAODDERRRCCCEE",
+  "DDDDDODDDDRRDDDOOAODDDRRKKCEEE",
+  "DDDDDODDDDDDDDDDOAOOODDDKCCEEE",
+  "DDDDDODDDDDDDDDDDOOOODDDKKKEEE",
+  "DDDDDDDDDDDDDDDDDDDOOOODDKEEED",
+  "EEDDDDDDDDDDDDDDDDDDOOODDDEEDD",
+  "EEEDDDDDDDDDDDDDDDDDOOODDDEEDD"
+ ]
+}

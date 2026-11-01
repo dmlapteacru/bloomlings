@@ -1,0 +1,114 @@
+{
+ "code": "P0896",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Гнездо в перчатке садовника",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Птицы",
+ "direction": "Миры внутри предметов",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Большая раскрытая зелёная садовая перчатка держит компактное плетёное гнездо с тремя крупными синими яйцами, один розовый цветок на манжете",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 43,
+ "h": 43,
+ "N": 1370,
+ "colours": 9,
+ "volumes": {
+  "M": {
+   "cells": 293,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 219,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 188,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "L": {
+   "cells": 170,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "B": {
+   "cells": 156,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "A": {
+   "cells": 142,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 108,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 93,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 1,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................DD........................",
+  "...............DLLLLD....DD................",
+  "..............DLLLLLG..DGLLLD..............",
+  "..............GGGGGGGDDGGGLLGD.............",
+  ".............DGGGGGGGDMGGGGGGD..DDD........",
+  "............DGGGGGGGMMMGGGGGGD.GLLLD.......",
+  "...........DMGGMMMMMDMGGGGGMMDGGLLLLD......",
+  "....DD.....DMGMMMMMMMMGMMMMMDDGGGGGLG......",
+  "...GGGGD...MMGGGMMMMMMMMMMMMDMGGGGGGG......",
+  "..DGGLLDD.DMGGGGGMDMMMMMMMMDMMGGGGGGG......",
+  "..MGGLLLD.MMMGGGGMMMMMMMMMDDMMMMGGMMD......",
+  "..MGGLLLGDMMGGMMMDDOOOODDDDDMMMMMMMMDGLLD..",
+  "..MGGLLLGDMMMMMMMOOOOOOBBBBBDMMMMMMDGGLLLD.",
+  "..MGGLLLGMMMMOAAOOOOOOBBBBCBBDMMMMDMGGGGLD.",
+  "..MGGLLLGMMOOOAEEOEEEDBBBBBBBDBBEEDMMGGGGG.",
+  "..MGGLLLGDDOOOAEEBBBBBBBBBBBBDBBEEOOMMGGGD.",
+  ".DMGGLLLGDDDDEAEBBBBBBBBBBBBBBBBEEOOOMMMMD.",
+  ".DMGGGGGGDDAEEEDBBBBBBBBBBBBBBBBEEEOAADMMD.",
+  ".DMGGLLLLDAAEEEDBBBBBBBBBBBBBBBBBDEEAAMMD..",
+  ".DMGGGLLLDAAEEEBBBBBBBBBBBBBBBBBBEEEOAAAD..",
+  ".DMMGGLLLLAAAOEBBBBBBBBBDBBBBBBBBBEEOAAADD.",
+  ".DMMGGLLLLDAOOOBBBBBBBBBDBBBBBBBBDEOOOOLLLD",
+  ".DMMGGGLLLLEEAOOOBBBBBBBDBBBBBBBBOOOOOEDLLG",
+  "..MMMGGGLLLDEAAAOOOOOBBDDBEBBEEEOOOOOEEEGGG",
+  "..DMMMGGLLLLDEAAOOOOOOOOOOEEOOOOOOOOAAEGGGD",
+  "..DMMMGGLLLLLEEEEEEEEAAAOOOOOOOOOOOAAAEGGGD",
+  "...MMMMGGLLLLDEEEEEEEAAAAOAAAOOOOOAAEEGGGGD",
+  "...DMMMMMMAALLLDEEEEEAAAAAAAAAAAAAEEEMGGGG.",
+  "...DMMMMMAAAALLLEEEAAAAAAAAAAAAAAEEEMMGGMD.",
+  "...MMMAAAAAAAAALLLDEEEEEEEEAAEEAAEEMMGMMM..",
+  "..DMMMAAAAAAAAALLLLLDDEEEEEEEEEEEDGGGGMMD..",
+  "..DMMMAAALLLAAAALLLLLLLLLDDEEDDMMGGGGMMD...",
+  ".DMMMMAAALLLAAAALLLLLLLLLLLLLLGGMGGGMMD....",
+  ".GGLLLAAAAAAAAADMLLLLLLLLLGLLLGGGGGMMD.....",
+  "DGGGGAAAAAAAAAMMMMLLLGGGGGGLLGMMMMMMD......",
+  "DDDDDDAAAAAAAAMMMMMMLLMGGGGMGGGMMMD........",
+  ".DMDDDDDDDDDDMMMMMMMLLMMMMMMMMMMDD.........",
+  "..MMMMMDDDDDDLLMMMMMMLMMMMMMMDDD...........",
+  "...MMMMMMDDDDLLLLMMMMMMDDDDDD..............",
+  "....DMMMMMMMDDDLLLMMMMD....................",
+  "......DMMMMMMMDDDLLMMD.....................",
+  ".........DDMMMMMDGGGMD.....................",
+  "............DDDMMMGDD......................"
+ ]
+}

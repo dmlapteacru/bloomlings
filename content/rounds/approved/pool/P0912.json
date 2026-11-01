@@ -1,0 +1,111 @@
+{
+ "code": "P0912",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Баранчик из мотков пряжи",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Домашние животные",
+ "direction": "Предметные гибриды",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один милый оригинальный баранчик имеет пышное кремовое тело из трёх крупных мотков пряжи, большие золотые завитые рога, розовая морда и синие копыта",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 41,
+ "h": 40,
+ "N": 1358,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 815,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 153,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "K": {
+   "cells": 130,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "O": {
+   "cells": 106,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "N": {
+   "cells": 72,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "E": {
+   "cells": 38,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "D": {
+   "cells": 19,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "A": {
+   "cells": 14,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "P": {
+   "cells": 11,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................CCCCCCC....YYYYY........",
+  ".........CCC..CCCCCCCCCCCCCYYYYYYYY......",
+  ".....YYYYYYYYYCCCCCCCCCCCCCYYYYYYYYY.....",
+  "....YYYYYYYYYYYCCCCCCCCCCCCYYYYOYYYYY....",
+  "...YYYYYYYYYYYYYCCCCCCCCCCCCOOOOOOYYY....",
+  "..YYYYYYYYYYYYYYYCCCCCCCCCCCOOOOOOOYYY...",
+  "..YYYYOYYOOYYOYYYCCCCCCCCCCCCC..EOOOYY...",
+  ".YYYYYOOOOOOOOYYYCCCCCCCCCCCCC..EOOOYYE..",
+  ".YYYYOOOOOOOOOOYYCCCCCCCCCCCCCEEEEOOYYE..",
+  "CYYYYOOCCCOOOOOOCCCCCCCCKKKKKKKKKKKYYOE..",
+  "YYYYYOOCCCKKKEEECCKKKKKKKKKKKEKKKKKYYO...",
+  "YYYYOOOKKCCCCPPCCKKKKKKKKKKDDEKKKKYYOO...",
+  "OOYYYOOKKAAAAPPCCKKDDKKKKKKDDEEOOOOOO....",
+  "COYYYOOKKKKKPPCCKKDDDKKKKKKKDEEOOOOOO....",
+  ".OYYYOOOOOOOPPCCKKDDDKKKKKKKKEEEEEEC.....",
+  ".OOYYYYYOOOOCCCCKKKDDKKKKKKEKKECCC.C.....",
+  "..OOOYYYYOOCCCCCKKKKKKKKEEEEKKECCCCCCC...",
+  "...OOOOOOOCCCCCCKKKKKKKKEEEKKKCCCCCCCCC..",
+  "...CCEEEECCCCCCCCKKKKKKKKKKKKCCCCCCCCCCC.",
+  "...CCCCCCCCCCCCCCCCAAAKKKKKKCCCCCCCCCCCC.",
+  "...CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+  "..CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+  "..CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+  "..CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+  "..CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+  "..CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+  "..CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+  "..CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.",
+  "...CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.",
+  "...CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC..",
+  "....CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC...",
+  ".....CCCCCCCCCCCCCCCCCCCCCACCCCCCCCCC....",
+  ".....DCCCCCCCCCCCCCCCCCCCAACCCCCCCCC.....",
+  ".....NNPPPCCCCCCCCCCCCCCN..CAAAANNNN.....",
+  ".....NNNNN..CCCCCCCCCCNNN......NNNNN.....",
+  "....NNNNNNCCCDNNNNNCNNNNNCCCC..NNNNN.....",
+  "..CCCNNNNDCCCNNNNNNCDNNNNCCCCCCCNNNNCC...",
+  "...CCCCCCCCCCNNNNNNCCCCCCCCCCCCCCCCCC....",
+  "......CCCCCCCNNNNNCCCCCCCCCCCCCCCC.......",
+  "...........CCCNCNCCCCCCCCCC.............."
+ ]
+}

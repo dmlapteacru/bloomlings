@@ -1,0 +1,108 @@
+{
+ "code": "P0974",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Апельсиновый спасательный круг для семечка",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Фрукты и ягоды",
+ "direction": "Миры внутри предметов",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой золотой апельсиновый круг с зелёным наружным кантом обнимает крупное розовое семечко с улыбкой, толстые широкие дольки и кремовая центральная пустота",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 35,
+ "N": 959,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 302,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 207,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 108,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "P": {
+   "cells": 108,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "O": {
+   "cells": 81,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "M": {
+   "cells": 69,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "D": {
+   "cells": 50,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 31,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "K": {
+   "cells": 3,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............DGGGGGGGD.............",
+  "..........DDGGGGGGGGGGGDD..........",
+  "........GGGGGCCCCCCCCCGGGG.........",
+  ".......GGGGCCCYYYYYYCCCCGGGD.......",
+  "......GGGCCCCYYYYYYYCYYYCCCGG......",
+  ".....GGGCCYYYCYYYYYYCYYYYCCGGG.....",
+  "....GGCCCYYYYCYYYYYYYYYYYYCCGGD....",
+  "...DGGCCYYYYYYCYYYYEEEYYYYCCCGDD...",
+  "..DGGCCYYYYYYYCYCYYEYYYYYCYYCCCC...",
+  "..GGCCYYYYYYYYYCCCYYYYPYCYYYYCCCD..",
+  "..GGCCYYYYYYDYCCCCCCYPPPYYYYYCCCM..",
+  ".DGGCCYYYDYYYYCCCCCCCPPYYYYYYYCCMD.",
+  ".GGCCYCCCYYYYCCEEECCCCCPPPYYYYCCMD.",
+  ".GGCCYYYCPPYCCCCCCCCCCCPPPPYYYCCGM.",
+  "DGGCYYYYPPPYCCCCCCCCCKKPPPPPYCCCGM.",
+  "DGGCYYYYYPYYYCCCCCCPPKPPPPPPEOOCGM.",
+  "DGGCYYYYYYYYYYCCCCPPEPPPPPPPEOOCGMD",
+  "DGGCYYYYYYYYCCCCCPPPEEPPPPPPEOOCMMD",
+  "DGGCCYYYYCCCYYCCPPPPPPPPPPDPEOOYYYD",
+  "DGGCCYYCCYYYYYECPPPPPPPPPPPPEOYYYYE",
+  ".GGCCCCYYYYYYYEEPPPPPPPPPPPPEEYYYOE",
+  ".GGGCCYYYYYYYYEEPPPPPPPPPPPYYYYYYOE",
+  ".DGGCCYYYYYYOYYYPPPPPPPPYYYYYYYYOO.",
+  "..GGGCYYYYYYOYYYYYPPPPYYYYYYOYYOOO.",
+  "..DMGCCYYYYYOYYYYYYYYYYYYYYOOOOOO..",
+  "..DMGGCCYYYCOOYYYYYYYYYYYYYOOOOOD..",
+  "...MMGGCCYCCOOOYYYYYYYYYYOOOEEEMD..",
+  "....MMGGCCCCOOOOOYYYYYYYOOOOCCMM...",
+  ".....MGGGCCCOOOOOOOOOOOOOOOOMMMD...",
+  ".....DMMGGCCCOOOOOOOOOOOOCCCMMD....",
+  "......DMMGGGCCCCCEEEOOOOOCMMMD.....",
+  "........MMMGGGCCCCCCCCCCMMMMM......",
+  ".........DMMMMMMMMMMMMMMMMMD.......",
+  "...........DMMMMMMMMMMMMDD.........",
+  "...............MDDDDDDD............"
+ ]
+}

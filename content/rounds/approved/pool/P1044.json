@@ -1,0 +1,103 @@
+{
+ "code": "P1044",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Лара Крофт",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Tomb Raider · Crystal Dynamics: Classic adult Lara Croft from Tomb Raider: brown braided ponytail, TURQUOISE sleeveless top, brown backpack straps and fingerless gloves, confident adventurous face; a short thick climbing rope coil held by one hand. Compact waist-up portrait with a clearly visible braid and turquoise outfit, no sexualized pose and no extra scenery.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 30,
+ "N": 899,
+ "colours": 9,
+ "volumes": {
+  "E": {
+   "cells": 221,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 217,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 179,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "B": {
+   "cells": 120,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "G": {
+   "cells": 75,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 49,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "A": {
+   "cells": 31,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 4,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 3,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "MDDMMBBBBBEEEEEEEEEEEEBBDGGGDD",
+  "MMMMBBBBEEAAEEEEEEEEEEBBDGGDDD",
+  "DGGBBDEEEEEAEAAAAEEEEEEBMMGDDD",
+  "DDGGBBEEEEEEAAAAEEEEEEEEBMGDDD",
+  "BDGGBBEEEEEAAEEEDDEEEAAABBGBDD",
+  "BBDGBEEEEEEEEEEEOOEEEDDABBGBBD",
+  "BBDGBEEEEEEEEEEOOOOOOODAABGGGB",
+  "BBBGBEEEEEEEAEEOOOOOOOODAEGGGB",
+  "DDBBBEEDEEEAAEOOOOOOOOODEEBDBB",
+  "DDBBDEDDEEEADEOOOOOOOOODEEBBBB",
+  "BDBBEEEEEEEDDDOODOOOCOODDEBBBB",
+  "BBBBEDEEEEEDDDDOOOOOODDDBEBBBB",
+  "MDBBDDOEEEODDDDDOOOODDDEBEBBMM",
+  "MMBBEDOOEDOEEDDOOOODDDDEBEBBBM",
+  "MMBBEEOOEDOOEECOOOODDCOEEEBGGM",
+  "GMGBDDDDEOOOOOOOOOOOO.OEEBGGMM",
+  "GGGDEEEDEOOOOOOOOOOOOOOBEBGDGG",
+  "GGGEEEDDEEOOOOOOOOOOOOBBBBGGGG",
+  "DGGDEEEDEDOOOOEEECOOODBBBGGGGD",
+  "GDDEEEEDEEOOOOORRROOOBBBGGGGDD",
+  "GGDEEEEMMEOAAOOOOOOOBBBBGMMMDD",
+  "GGDEEEEEMMOOAAOOOODGBBBBDDGGMM",
+  "DDDDEEEEMMOOOOOODBBGMMMMMGGMMM",
+  "DDDEEEEAADOOOOOODBGGMDMMGGDGGG",
+  "DEEEEEEEADOOOOOODDDDDDDDDDDGDD",
+  "EEOOOEEEEEOOOOOOOODDDDDDODDGDM",
+  "EOOOOOEDEEEDOOOOOOODDEEDOODGMM",
+  "OOOOOODEDEEEDOOOOOODBDEDOODDMD",
+  "OOOOOODEDDEEDDOOOODBBDDDOOODMD",
+  "OOOOOOEEDDEEDDBBBBBBBBDDDOODDD"
+ ]
+}

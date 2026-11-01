@@ -1,0 +1,115 @@
+{
+ "code": "P1010",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Вилка держит пучок лент-дорожек",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Посуда и кухонные вещи",
+ "direction": "Домашняя магия",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна большая золотая вилка держит три широкие розовые синие и зелёные ленты, которые сворачиваются в компактные дорожки на кремовой тарелке, никаких тонких спагетти",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 43,
+ "h": 43,
+ "N": 1040,
+ "colours": 9,
+ "volumes": {
+  "P": {
+   "cells": 225,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "C": {
+   "cells": 218,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 111,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "B": {
+   "cells": 99,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 94,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "G": {
+   "cells": 81,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 80,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 78,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "M": {
+   "cells": 54,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".......................................YYY.",
+  ".....................................YYYYYY",
+  "...................................YYYYYOOY",
+  "..................................YYYYOOOO.",
+  "...........................YYY..YYYYYYOO...",
+  "........................YYYYYYYYYYYDYY.....",
+  ".....................DDDYYYYYYYYYYDD.......",
+  "...................DDDDGGYYYYYYYYDD........",
+  "................PPPPPPBGGDDYYYYYYY.........",
+  "...............PPPPPPBBDGGDYYYYYY..........",
+  "..............PPPPPPPPBBGGGYYYYYY..........",
+  ".............PPPDPPPPPBBDGGDYYOOO..........",
+  ".............PPPPPPPPPPBBGGDOOOO...........",
+  "............DPPDNNPPPPPBBGGDOO.............",
+  "............DPPPNNDPPPPNNGGD...............",
+  "............DPPPNNNPPPPNNMG................",
+  "............DPPPNNNPPPPNMMD.D.D............",
+  ".............PPPNNNPPPPNMMDDGGGD...........",
+  ".........DDDDDPPBBNPPPPPDDGGGGGGD..........",
+  ".......PPPPCCDPDBNNNPPPPDDGGGGGGGDD........",
+  "......PPPPCCPDDNNNNNPPPPPMMMMGGGGMDCC......",
+  "....CCCCCCCPPPPNNNNNPPPPPPMMMMGGGMDCCCC....",
+  "...CCPPPDCPPPPPPNNNNPPPPPPMMMMGMMMMDDCCC...",
+  "..CCCPPPDDPPPPPPPNNNPPPPPPPMMMMMGGGGGDCCC..",
+  ".CCCCPPPPPPPPPPPNNNNDDDPPPPPDMGGGGGGGGCCCC.",
+  "CCCCCPPPPPPPPPPBBBBBBDDPPPPPDDGGGGGGGGMCCC.",
+  "CCCCCPPPPPPPBBBBBBBBBBDPPPPPPPGGGGDDDGMCCCD",
+  "CCCCCPPPPPPBBNNNBBBBBBBPPPPPPPMGGMMMMMMCCCD",
+  "CCCCCCPPPPBBNNNNBBBBBBBBPPPPPPMGMMMMMMMCCCD",
+  "CCCCCCCPPPNNNNNNBBBBBBBBPPPPPPMDGGMMMMMCCCD",
+  "CCCCCCCCCCNNNNNNBBBBBBNNNPPPPDMDGGMGGCCCCC.",
+  ".CCCCCCCCCBBNNNNNBBBBBNNBPPPDDCDGGGGCCCCCC.",
+  ".CCCCCCCCCDBNNNNNNBBBBBBBBBBBDDCDDDCCCCCC..",
+  "..OOOCCCCCCBNNNNDDNBBBBBBBBBBDCCCCCCCCCCC..",
+  "...OOOCCCCCCDCCCCCNNBBBBBNNNCCCCCCCCOOO....",
+  "....OOCCCCCCCCCCCCCDNNNNNCCCCCCCCCOOOO.....",
+  "......CCOOOOCCCCCCCCCCCCCCCCCCCOOOOOO......",
+  "........OOOOOOOOCCCCCCCCCCCOOOOODDD........",
+  "...........OOOOOOOOOOOOOOOOOODDD...........",
+  "...............CDDDDDDDDDDD................",
+  "...........................................",
+  "...........DDD.............................",
+  "..........OOOOO............................"
+ ]
+}

@@ -1,0 +1,112 @@
+{
+ "code": "P0873",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Маленький тапир-флорист",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Саванна и джунгли",
+ "direction": "Обмен ролями",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один милый тапир с коротким подвижным носом держит охапку из трёх больших разноцветных цветов, крупное кремовое пятно на туловище, маленький низкий прилавок",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 41,
+ "h": 41,
+ "N": 1222,
+ "colours": 9,
+ "volumes": {
+  "D": {
+   "cells": 576,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 235,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 111,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "P": {
+   "cells": 102,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "E": {
+   "cells": 60,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "B": {
+   "cells": 51,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "Y": {
+   "cells": 44,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "M": {
+   "cells": 32,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "O": {
+   "cells": 11,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...................DDD...................",
+  "..................DDDDD..................",
+  ".......DDD........DDDDD..................",
+  "......DDDDDD...DDDDDDDD..................",
+  "......DDDDDDDDDDDDDDDDD..................",
+  "......DDPPDDDDDDDDDDDDDDD................",
+  "......DDPPDDDDDDDDDDDDDDDD.......PP......",
+  "......DDDPPDDDDDDDDDDDDDDDD...PPPPPP.....",
+  ".......DDDDDDDDDDDDDDDDDDDDD.PPPPPPPP....",
+  "........DDDDDDDCDDDDDDDDDDDDDPPPPPPPPP...",
+  "........DDDDDDCCDDDDDDDDDDDDDPPPPCPPPPP..",
+  ".......DDDDDDDCDDDDDDDDDDDDDDPPPCCCPPPP..",
+  ".......DDDDDDDCDDDDDDDDDDDDDDDPPPPPPPPMM.",
+  "......DDDDDDDDDCDDDDDDDDDDDDDDPPPPPPPPMM.",
+  ".....CDDDDDDDDDDDDDDDEEEDDDDDDDDDPPPYYMM.",
+  "....CCDDDDDDDDDDDDDDDDDDDDDDDDBBYYYYYYYM.",
+  "...CCCCDDDDDDDDDDDDDDDDD.DDDDBBBBYYYYYYY.",
+  "..CCCCCCDDDDDDDDDDDDDDD..BBBBBBBBBYYYYYYA",
+  "..CCCCCCCDDDDDDDDDDDDDDD.BBBBDDBBBCCCYYYA",
+  ".CCCCCCCCCCDDDDDDDDDDDDD.BBBBDDBBBCCCYYYA",
+  ".CCCCCCCCCDDDDDDDDDDDDDMMMBBBBBBBBYYYYY..",
+  ".CCCCCCCCCDDDDDDDDDDDDDMMMBBBBBBBOYYYYY..",
+  ".CCCCCCCCCDDDDDDDDDDDDDMMDBBBBBBBOOYYYY..",
+  "ECCCCCCCCCDDDDDDDDDDDDDDDDDDDMMMMMMCYY...",
+  "ECCCCCCCCCDDDDDDDDDDDDDDDDDDDMMMMMMM.....",
+  "ECCCCCCCCCDDDDDDDDDDDDDDDDDDD...MMMM.....",
+  "ECCCCCCCCCCDDDDDDDDDDDDDDDDDD............",
+  "DDDCCCCCCCCDDDDDDDDDDDDDDDDD.............",
+  "DDDDCCCCCCCCDDDDDDDDDDDDDDDCC............",
+  "DDDDDCCCCAAACCCCCPPCPCCDDDCCCCCCPCCEE....",
+  ".DDDDDDDDAAAOAACCCPCPPCCCCCCCCCCPPCEEE...",
+  ".DDDDDDDDAAOOAACCCPCPPCCCCCCCCCCPPCEEE...",
+  ".DDDDDDDDDEEEEECCCPCPPCCCCCCCCCCPPCEE....",
+  "..DDDDDDDDEAEAACCCPCPPCCCCCCCCCCPPCEE....",
+  "..DDDDDDDDEAEAACCPPCPPCCCCCCCCCCPPCEE....",
+  "...DDDDDDDAAEOOAAPPCPPCCCCCCCCCCPPCAE....",
+  "...DDDDDD.AAEAOAAAEEEEEEEEEEEEEEAAAAE....",
+  "...DDDDDD.AAEAOAAAAAAAAAAAAAAAAAAAAAE....",
+  "...DDDDDD.AAEAOAAAAAAAAAAAAAAAAAAAAAE....",
+  "....DDDDD.AAEAAAAAAAAAAAAAAAAAAAAAAAE....",
+  "............EEEEEE................AA....."
+ ]
+}

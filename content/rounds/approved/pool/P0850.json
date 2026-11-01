@@ -1,0 +1,102 @@
+{
+ "code": "P0850",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Крепость из карамельных кубиков",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Десерты и сладости",
+ "direction": "Кулинарная фантастика",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна компактная крепость из трёх карамельных кубиков, кремовая глазурь подчёркивает зубцы, крупные розовые ворота и одна золотая звезда над аркой",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 42,
+ "h": 41,
+ "N": 1296,
+ "colours": 7,
+ "volumes": {
+  "C": {
+   "cells": 472,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 321,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 194,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 170,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "P": {
+   "cells": 88,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "R": {
+   "cells": 26,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 25,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....................EEEE.................",
+  "...............CEEE.ECCCCC................",
+  ".............C..CAAEE..CCCCC..............",
+  "............C..CCAAA..CCCCCC..............",
+  "............CCCCCCCCCCCCCCCCE.............",
+  "............C.CCCCCCCCCCCCCCE.............",
+  "............CCCCCCCCCCCAACCCE.............",
+  "............CCOOAAAOCCCAACCE..............",
+  ".............EOOOOOOCCCAAAEE..............",
+  ".............EOOOOOOOCCAAAAE..............",
+  ".............EOOOOOOOAAAAAAE..............",
+  ".........EEE.EOOOOOOOOOOAAAE.EEE..........",
+  "...EEEEEEC.CEEOOOOOOOOOOAAEECCCEEEECCC....",
+  "..E.CCCEE.CCCCOOCCCCOOOAAE..CCAAC..CCCEEE.",
+  ".C...CCEECCCCCCCC.CCCCCAEE..CCAACCCCCCCCCE",
+  ".CCCCCCCCCCCCCCCCCCCCCCCCCCCCCACC.CCCCCCCE",
+  "ECCCCC.CCCCCC.CCCCCCCCCCCCCCCCCCCCCCCCCCCE",
+  "ECCCCCCCCCCECCCCCCYYYCCCCCCCCCCCCCCCCCECCE",
+  "ECCCACCCCCCECCCCCYYYYCCCC.CCCCCCCCCCCCECCE",
+  ".CCAAACCAAAECCCCYYYYYCCCCCCAACCCAACCCEEEE.",
+  ".CCAOOAAAAAEOOOOYYYYEOAAAACAACCOOACCCEAAE.",
+  "..EAOOOAAOAEOOOOYYYYEOOOOAEOOOOOOACCCAAAE.",
+  "..EOOOOOOOAEOOOOCCCEEOOOOAEOOOOOOACCAAAAE.",
+  "..EOOOOOAAAEOOCCCCCCCCCOOAEOOOOOOOACAAAAE.",
+  ".EEOOOAAAAEEOCCCCCCCCCCOOAEOOOOOOOAAAAAAE.",
+  ".ECCOOOOOOOOOCCCRRRRCCCCAAEEAAAAAAAAAAAAAE",
+  ".EOOOOOOOOOCCCCRRRRRRCCCCAEECYYYYYOOOAAAAE",
+  ".EOOOOOOOOOCCCRRRPPPRRCCCAEOOOOOOOOOAAAAAE",
+  ".EOOOOOOOOOCCERRPPPPPRCCCAEOOOOOOOOAAAAAAE",
+  ".EOOOOOOOOACCEPPPPPPPPCCCCEOOOOOOOOAAAAAAE",
+  ".EOOOOOOOOACCEPPPPPPPPPECCEOOOOOOOOAAAAAAE",
+  ".EOOOOOOOOACCEPPPPPPPPPECCEOOOOOOOOAAAAAAE",
+  ".EOOOOOAAOACCEPPPRPPPPPECCEOOOOOOOOAAAAAAE",
+  ".EOOOOOAOOACCEPPRRPCRPPECCEOOOOOOOOAAAAAAE",
+  ".EOOOOOOOOACCEPPRRPRRPPECCEOOOOOOOOAAAAAAE",
+  ".EOOOOOOOOCCCEPPPPPPPPPECCEOOOOOOOOAAAAACC",
+  ".COOOOOOOOCCCEPPPPPPPPPECCEOOOOOOOOAAAAACC",
+  ".CCCCEEEEECCCEPPPPPPPPPECCEOOOOOOOOAAACCCC",
+  "...CCCCCCEECEEPPPPPPPPPECCEOOOOOOOAAACCCC.",
+  ".........CCCCCCCCCCCCCCECCECCEEEEEEECCCC..",
+  "..............CCCCCCCCCCCCCCCCCCCCCCC....."
+ ]
+}

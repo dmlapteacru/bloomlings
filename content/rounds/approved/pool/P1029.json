@@ -1,0 +1,116 @@
+{
+ "code": "P1029",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Лиственная лопатка для облачного песка",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Посуда и кухонные вещи",
+ "direction": "Предметные гибриды",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна большая зелёная кухонная лопатка в форме листа держит толстую кремовую горку сахарного песка, короткая золотая ручка и розовый обод снизу, без посуды и текста",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 44,
+ "h": 43,
+ "N": 875,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 295,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 228,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 144,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "Y": {
+   "cells": 54,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 47,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 38,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "L": {
+   "cells": 31,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "P": {
+   "cells": 23,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "R": {
+   "cells": 15,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "........................................MM..",
+  "......................................GGGMD.",
+  "...................................GGGGGGGM.",
+  "...............................DDDDGGGGGGGM.",
+  "...........................GGGGGGGGGGGMGGGM.",
+  ".........................DGGGGGMGGGGGMMGGGM.",
+  "......................GGGGGGGGMMGGGGMMGGGGGD",
+  ".....................GGGGCCCGGMGGGGMMMGGGGGG",
+  "...................GGGGGCCCCCMMMGGMMMGGGGGGG",
+  "..................DGGGGCCCCCCCMMGMMMMMGGGGGD",
+  ".................DGGGGCCCCCCCCCMMMMMGGGGGGGD",
+  ".................DGGGCCCCCCCCCCCMMMGGGGGGMGD",
+  "................DGGMCCCCCCCCCCCCCMMGGGGGMMGD",
+  "...............GGGMMCCCCCCCCCCCCCCCMMMMMMGGG",
+  "..............GGGMCCCCCCCCCCCCCCCCCCMMMMMGG.",
+  ".............GGGMMCCCCCCCCCCCCCCCCCCCMMMMGM.",
+  ".............GGMMCCCCCCCCCCCCCCCCCCCCCMMGGM.",
+  "............DGMMCCCCCCCCCCCCCCCCCCCCCCMMMMM.",
+  "............GGMDCCCCCCCCCCCCCCCCCCCCCCMLMM..",
+  "...........DGCCCCCCCCCCC..CCCCCCCCCCCCLLMM..",
+  "...........GGCCCCCCCCC.CCCCCCCCCCCCCDLLMM...",
+  "...........GGCCCCCCCCCCCCCCCCCCCCCDLLLMMM...",
+  "...........DGCCCCCCCCCCCCCCCCCCCCCLLGGMM....",
+  "...........GGGGDCCCCCCCCCCCCCDLLLLLGGGMM....",
+  "...........GGGGGDDCCCCCCCCCDLLLLGGGGGMM.....",
+  "..........PCCCGGGGCCCCCCCCLLLLGGGGGGMM......",
+  ".........PPCCCPPGGGLLLLLLLLGGGGGGGGGMD......",
+  "........RPPPPPPPPGGGGGMMGGGGGGGGMMMMD.......",
+  "........RRPPPPPPPMGGGMMGGGGMGGGMMMMD........",
+  ".......YYYYOORPRRMMMMMMGGGGMGGMMMM..........",
+  "......YYYYYOORPRRDMMMMMMMMMMMMMD............",
+  "....YYYYYYOOORPR....DDMMMMMMMD..............",
+  "...YYYYYYYOOORR.............................",
+  ".CYCCYYYYOOO................................",
+  ".YYCCYYYOOOO................................",
+  "YYCCYYYYOOO.................................",
+  "YYYYYYOOOO..................................",
+  "YYOYYOOOOO..................................",
+  "OOOOOOOOO...................................",
+  ".OOOOOOOO...................................",
+  "..YYYYYY....................................",
+  "...DDDD.....................................",
+  "......................RR...................."
+ ]
+}

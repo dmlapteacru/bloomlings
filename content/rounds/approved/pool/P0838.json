@@ -1,0 +1,110 @@
+{
+ "code": "P0838",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Маленький великан за мольбертом",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Рисование и ремёсла",
+ "direction": "Перевёрнутый масштаб",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Крошечный оригинальный великан в большом зелёном берете рисует гигантскую клубнику на низком мольберте, его крупное доброе лицо и кисть читаются отдельно",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 43,
+ "h": 39,
+ "N": 1314,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 435,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 200,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 152,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "R": {
+   "cells": 145,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "A": {
+   "cells": 122,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 117,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 74,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 65,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "L": {
+   "cells": 4,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............DDDDD.........................",
+  "..........DGGGGGGGGD............AAAA.......",
+  ".....DD..DGGGGGGGGGGD...........AAAA.......",
+  "....GGGDDGGGGGGGGGGGGD..........AAAA.AAACC.",
+  "....DMGDGGGGGGGGGGGGGM.........AAACCCCCCCCC",
+  ".....MMMGGGGGGGGGGMMMM......CCCCCCCCCCCCCCC",
+  "....DMMMGGGGGGGGGMMMMM...ACCCCCCCCCCCCCCCCC",
+  "...DMMGGGGGGGGGGMMMMMD...ACCCCCCCGCCCCCCCCC",
+  "..DGGGGGGGGGGGGMMMMMMD...ACCCCCGGGMGGCCCCCC",
+  ".DGGGGGGGGGGGGMMMMMMM....CCCCGGGGGMGGCCCCCC",
+  "DGGGGGGGGGGGGMMDOCCE.....CCCCGGGGGMMGGGCCC.",
+  "DGGGGGGGGGGGGMOOOOCEE...CCCCRRRRRGGMGGCCCC.",
+  "MGGGGGGGGGGMMCOCCCCEE...CCCRRRRRRRRRRRCCCC.",
+  "MGGGGGGGGGMMCCCCCCDDEC..CCRRRRRRRRRRRRCCCC.",
+  "MGGGGGGGGMMOOCCCCOODCCC.CCRRRRRRRRRRRRRCCA.",
+  "MMGGGGGMMMOOCDDCOOOOOCC.CCRRRRRRRRRRRRRCCA.",
+  "MMMMMMMMMCOOODDCOOOCCCCCCCRRRRRRRRRRRRRCCA.",
+  "MMMMMMMMDCOOOOOCCOCCCCCCCCEEERRRRRRRRRRCCA.",
+  "MMMMMMOOCCCOOOCCCCDCCCCCDCEEERRRRRRRRRCCCA.",
+  "MMMMDOOOCCCCCCCCCCCCCCCDCCEERRRRRRRRRRCCC..",
+  "DMMMOOOOCCCCCCCCCCCCCEEEDCRRRRRRRRRRRCCCCC.",
+  "..DDOOOOCCCCCCCCCCCCEEEECCRRRRRRRRRRCCCCCA.",
+  ".....OOOCCCCCCCCCOOOEECCCCRRRRRRRRRCCCCCCA.",
+  ".....ODMMCDDDCCCCOCOECCCCCRRRRRRRRCCCCCCCA.",
+  "....MMMMMMMMLLOOCCOOCCCCCCCRRRRRRCCCCCCCEE.",
+  "...EEDMMMGGMLLCOOCOOCCCCCCCRRRRRCCCCCCCCEE.",
+  "...EEDMMMGGMGGOOOOCCCCCCCCCCCCCCCCCCCCCCC..",
+  "...EEDMMMMMMGGODDCCCCCOOAAACCCCCCCCCCCCC...",
+  ".....MMMMDMMMGMMMDCCCEOAAAAAOOOAAACCCCCC...",
+  "....DMMMMMMMMMMMMMMD.EEAAAAAOAAAAAAAAAAAA..",
+  "....DMMMGGGMMMMMMMMD...AAEEEEEAAAAAAAAAAA..",
+  ".....DDMGGGGGGGMMMD....AAAE...EEEEEEAAAAE..",
+  "......EEEDDDDDDEEEC...AAAA.....AAE..AAEEEE.",
+  "......EEEEEEEEEEEAEE..AAAA....CAAE.CAAAEEE.",
+  ".....EEEAAEEEEEEAAEECCAAACCCCCCCCCCCAAAEEE.",
+  "....CEEAAAAECEEEEEECCCAACCCCCCCCCCCCAAAEEE.",
+  "....CEEEEEEECCCCCCCCCCCCCCCCCCCCCCCCAAAE...",
+  "......CEEEECCCCCCCCC.........CCCCCCCAAAE...",
+  ".....................................AA...."
+ ]
+}

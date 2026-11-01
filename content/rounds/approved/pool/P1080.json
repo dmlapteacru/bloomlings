@@ -1,0 +1,89 @@
+{
+ "code": "P1080",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Марселин",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Adventure Time · Cartoon Network: Marceline the Vampire Queen from Adventure Time: pale GRAY face, very long BLACK hair, two tiny visible fangs in a playful smile, dark top and blue jeans partly visible; her iconic RED AXE-SHAPED BASS held diagonally close to her chest. Adult head-and-torso chibi portrait, large face and unmistakable red bass, no blood or other characters.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 31,
+ "h": 31,
+ "N": 961,
+ "colours": 6,
+ "volumes": {
+  "D": {
+   "cells": 526,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "V": {
+   "cells": 142,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "R": {
+   "cells": 117,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 91,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "S": {
+   "cells": 69,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 16,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "VVVVVVVVVVVVYYYYYVVVVVVVVVVVVVV",
+  "VVVVVVVVVVYYYYYYYYYYVVVVVVVRRVV",
+  "VVVVVVVDDDDDDDDYYYYYYVVVVVDRRVV",
+  "VVVVVVDDDDDDDDDDYYYYYYVVVVRRRVV",
+  "VVVVVDDDDDDDDDDDDYYYYYYVVVRRRDV",
+  "VVVVDDDDDDDDDDDDDDYYYYYYVDRRRVV",
+  "VVVDDDDDDDSDDDDDDDYYYYYYVVRRDVV",
+  "VVVDDDDDDDSSDDDDDDYYYYYYYVRRVVV",
+  "VVDDDDDDDSSSDDDDDDDYYYYYYVRRVVV",
+  "VVDDDDDDDSSSSDDDDDDYYYYYYVRRVVV",
+  "VDDSSDDDSSSSSDDDDDDYYYYYYVRRVVV",
+  "VDDDSSDDSSDSSSDDDDDYYYYYYRRRVVV",
+  "VDDDSDDDSSSSSSDDDDDDYYYYYRRRVVV",
+  "VDDDDDDDSSSSSSSDDDDDYYYYVRRVVVV",
+  "DDDDDDDDSSSSSSSDDDDDYDYYVRRVVDD",
+  "DDDDDDDDSSSSSSSDDDDDYDYVVRRVVDD",
+  "DDDDDDDDSSSSSDDDDDDDYDDVVRRVDDD",
+  "DDDDDDDDSSDDDDDDDDDDDDDDDRRDDDD",
+  "DDDDDDDDSSDDDDDDDDDDDDDDDRRDDDD",
+  "DDDDDDDDSSDDDDDDDDDDCDDDDRDDDDD",
+  "DDDDDDDDDSSDDDDDDDDCRRDDRRDDDDD",
+  "DDDDDDDDDSSSDDDDDDDCRRRRRRDRRDD",
+  "DDDDDDDDDDSDDDDDDDCRRRRRRRRRRCD",
+  "DDDDDDDDDDDDDDDDDDCRRRRRRRRRRCD",
+  "DDDDDDDDDDDDDDDDDDCRRRRDRRRRRCD",
+  "DDDDDDDDDDDDDDDDDDCRRRRDDDDRRCD",
+  "DDDDDDDDDDDDDDDDDDCRRRRRRRRRRCD",
+  "DDDDDDDDDDDDDDDDDDDRRRRDDRRRRCD",
+  "DDDDDDDDDDDDDDDDDDDCRRDDDDRRRDD",
+  "DDDDDDDDDDDDDDDDDDDDRRDDDDRRCDD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDRDDD"
+ ]
+}

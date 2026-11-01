@@ -1,0 +1,108 @@
+{
+ "code": "P0947",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Сырная расчёска",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Блюда и напитки",
+ "direction": "Визуальные каламбуры",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой золотой прямоугольный кусок сыра стал расчёской с пятью широкими зубцами, три крупных синих отверстия и кремовая боковина, зелёный лист под основанием",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 41,
+ "h": 36,
+ "N": 1170,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 520,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 123,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "G": {
+   "cells": 115,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "O": {
+   "cells": 97,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "N": {
+   "cells": 92,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 89,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 80,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "D": {
+   "cells": 36,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "A": {
+   "cells": 18,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........YY..............................",
+  ".......YYYYEEE...........................",
+  ".....YYYYYYYYYYYYY.......................",
+  "....YYYYYYYYYYYYYYEEE....................",
+  "....YYYYYYNNNNYYYYYYYYYY.................",
+  "...EYYYYYYNNNNNYYYYYCYYYYYY..............",
+  "...ECYYYYYNNNNNYYYYYYYYYYYYYYYY..........",
+  "...ECYYYYYNNNNNYYYYYYYYYYYCYYYYEEE.......",
+  "..EECYYYYYYNNNYYYYYYYNNNYYYYYYYYYYYY.....",
+  "..ECYYYYYYYYYYYYYYYNNNNNNYYYYYYYYYYYYY...",
+  "..ECYYYYYYYYYYYYYYONNNNNNNYYYYYYYYCYYYCC.",
+  "..ECYYYYYYYYYYYYYYONNNNNNNYYYYYYYYYYCCCC.",
+  "..CCYYOAAYYYYYYYYYONNNNNNNNYYYYYYYYYYCCCE",
+  "..CCYOOAAYYYYYYYYYYNNNNNNNNYYYYYYYYYYCCCE",
+  ".ECYYOOAAYYYOOEYYYYNNNNNNNYYYYYYYYYYYCCCE",
+  ".ECYYOOCYYYOOEEYYYYYYNNNNYYYYYNNNYYYYCCCE",
+  ".ECYYOOCYYYOOEEYYYYYYYYYYYYYYONNNNYYYCCCE",
+  ".EYYOOECYYYOOCEYYYOYYYYYYYYYYONNNNNYYCCCE",
+  "EEYYOOEEYYYOA.EYYOOEEYYYYYYYYONNNNYYYCCE.",
+  "ECYYOOCEYYOOA.EYYOAEEYYYOYYYYYNNNNYYYCCE.",
+  "ECYYOO.EYYOOAEYYYOACEYYOOYYYYYYYYYYYCCCE.",
+  "ECYOOEEEYYOA.EYYYOAEYYYOEEYYYYYYYYYYCCCE.",
+  "CEYOOEEYYYOACEYYOOCEYYOOEEYYYYYYYYYYCCEE.",
+  ".EEEE.EYYYOACEYYOOEEYYOOEEYYYOOEYYYYCCE..",
+  "......EYYYOMMYYYOODEYYOOEEYYOOEEYYYCCCE..",
+  "....DGGYYYMMMYYYOMMEYYOO.EYYOOEEYYYCCC...",
+  "...GGGGGGGMMMYYOOMEYYOOEEYYYOODEYYYCCEE..",
+  ".DDGGGGGGGGGMYYOMMEYYOOMEYYYOMMYYYYCCE...",
+  ".GGGGGGGGMMMMMMMMMEYYOOMEYYOOMMYYYYCCEDD.",
+  "GGGGGGGGGGGGGGMMMMEYYOMMEYYOOMMYYYCCCEMMM",
+  "GGGGGGGGGGGGGGGGGMMAAAMMEYYOOMMYYYCCMMMMD",
+  "GGGGGGGGGGGGGGGGGGMMMGMMEYYOMMEYYYCCMMMD.",
+  "DDDDDDGGGGGGGGGGGGGGGGGMEYOOMMEYYYCCMMD..",
+  "......GGGGGGGGGGGGGGMMMMMMMMMMEYYYCEDD...",
+  "........DGGGGGGGGMMMMMDDDDDDDDEYYEEE.....",
+  "...........DDDDDDDDD...........EEE......."
+ ]
+}

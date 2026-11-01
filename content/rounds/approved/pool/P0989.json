@@ -1,0 +1,112 @@
+{
+ "code": "P0989",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Почтовый конверт с крыльями-листьями",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Багаж и навигация",
+ "direction": "Природа и технология",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой кремовый конверт с розовой печатью-сердцем летит на двух широких зелёных листьях вместо крыльев, короткая синяя ленточка снизу, без текста",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 43,
+ "h": 44,
+ "N": 868,
+ "colours": 8,
+ "volumes": {
+  "C": {
+   "cells": 324,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 194,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 127,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "N": {
+   "cells": 87,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "M": {
+   "cells": 71,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "B": {
+   "cells": 37,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "P": {
+   "cells": 25,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "R": {
+   "cells": 3,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....................................DDGG..",
+  "...................................DDGGGGD.",
+  ".................................DDGGGGGGD.",
+  "................................DGGGGGGGGG.",
+  "...............................DGGGGGGGGGG.",
+  "..............................DGGGGGGGGGGG.",
+  ".............................DGGGGGGGGGGGG.",
+  ".............................DDGGMGMMGGGGD.",
+  "..........................DDDCCDMMGMGGGGGD.",
+  "D.......................DDDCCCCDMMGMGGGGGM.",
+  "GDD..................DDDCCCCCCCCDMMGGGGGGM.",
+  "GGGGDDDD...........DDCCCCCCCCCCCDMMGGGGGMM.",
+  "GGGGGGGGDD......DDDCCCCCCCCCCCCCCDMMMMMMMD.",
+  "GGGGGGGGGGDD.DDDCCCCCCCCCCCCCCCCCDMMMMMGMD.",
+  "GGGGGGGGGGGDDCCCCCCCCCCCCCCCCCCCCDMMGGGGG..",
+  "DGGGGGGGGGDCCCCCCCCCCCCCCCCCCCCCCCMMGGGGD..",
+  "DGGGGGGGGDDDCCCCCCCCCCCCPPPCCCCCCCDMGGGG...",
+  "DDGGGGGGGMDCCCCCCCCCCRRRPPPCCCCCCCCDMMMD...",
+  ".DGGGGGGMMDCCCCCCCCCCPPPPPPCCCCCCCCMMDD....",
+  ".DGGGGGGGMMDCCCCCCCCCPPPPPPCCCCCCCCDD......",
+  ".DGGGGGGGGMDCCCCCCCCCPPPPPCCCCCCCCCD.......",
+  "..DGGGGGMMMDCCCCCCCCCCCCPPCCCCCCCCCCD......",
+  "...DDGGMMMMMDCCCCCCCCCCCCCCCCCCCCCCCD......",
+  "....DGGGGGMMDCCCCCCCCCCCCCCCCCCCCCCDD......",
+  "....DGGGGMMMMDCCCCCCCCCCCCCCCCCCDDD........",
+  ".....DDGMMMMMDCCCCCCCCCCCCCCCDDD...........",
+  ".......DDMMMMDCCCCCCCCCCCCCDDD.............",
+  ".........DDMMDDCCCCCCCCCDDDNNN.............",
+  "..............DCCCCCCCDDNNNNNN.....NNNNNN..",
+  "..............DCCCCCDD..NNNNNNN...NNNBBBNN.",
+  "...............DCDDD....NNNNNNNNNNNNNBBBNNN",
+  "...............DDD.......NNBBBNNNNNNNNNNNN.",
+  "..........................NBBBBBBNN....NNN.",
+  "...........................BBBBBBBBB....NN.",
+  "............................BBBBBBBB.......",
+  ".............................BBBBBNNN......",
+  "...............................NNNNNN......",
+  "................................NNNNNN.....",
+  "...................................NNN.....",
+  "...........................................",
+  "...........................................",
+  "...........................................",
+  "...........................................",
+  ".................................NNNN......"
+ ]
+}

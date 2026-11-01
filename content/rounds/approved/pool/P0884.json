@@ -1,0 +1,115 @@
+{
+ "code": "P0884",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Заварочное ситечко с садом",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Посуда и кухонные вещи",
+ "direction": "Миры внутри предметов",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Большое округлое металлическое чайное ситечко раскрыто на две половины, внутри зелёный холмик и один розовый цветок, крупная золотая цепочка служит обрамлением",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 43,
+ "h": 44,
+ "N": 1337,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 300,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 261,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 204,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 184,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 112,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 93,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "P": {
+   "cells": 79,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "K": {
+   "cells": 55,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "M": {
+   "cells": 49,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...............EEOEYY...EEEEEEC............",
+  "...............CEC.YYYYYYYYYYYYYYC.........",
+  "...............EEE.YYYYYYYYYYYYYYYY........",
+  "...........CCEEEEEYYYYYYYYYYYCYYYYYYY......",
+  "..........CCCOOEEOOOODOOOYYYYCCYYYYYYY.....",
+  "........EEEEEOOOOOODDDDDDDDYCCYYYYYYYYY....",
+  ".......EEEEEEO...ODDDDDDDDDDCCYYYYYYYOO....",
+  "......OOOOOE.....ODDDDDDDDDDDDYYYYYYYYOO...",
+  ".....OOCOO.......DDDDDDDDDDDDDDYYYYYYYOO...",
+  ".....OOOO........DDDDDDDDDDDDDDDYYYYYYYOO..",
+  "....YYYO..........DDDDDDDDDDDDDDDYYYYYYOO..",
+  "...EEEE...........DDDDDDDDDDDDDDDDYYYYYOO..",
+  "...EEEE............DDDDDDDDDDDDDDDDYYYOOOE.",
+  "...EYYY............OODDDDDDDDDDDDDDDYOOOOE.",
+  "..EEYE..............OODDDDDDDKDDDDDDYOOOOE.",
+  ".CYEEE.........KK....OOKKKKKKKKDDDDDDOOOOE.",
+  ".YYCEE........KKKK...COKKKKKKKDKKDDDDDOOOE.",
+  ".YYEE........PKPPPPPP..KKKKKKCDKKKDDDDOOOE.",
+  "..EEE......PPPPPPPPPPP.CDDDCCCCKDDDDDDOOOE.",
+  "..CCE.....KKKKPPPPPPPPP..DDDCCKKKKKDDDOOO..",
+  "..YEE.....PPPPPYYYPPPPP...CCCDKKKKKDDDOOO..",
+  ".YYYE.....PPPPPYYYPPPP.....CCDDDKKDDDDOOO..",
+  ".YYCEE.....PPPPPPPPPPPDGGG...EEEEDDDDOOO...",
+  "..YYEE.....KKPPPPPPPMGGGGGGG.CEEEOOOOOO....",
+  "..EEEC.....KKPPPPPPPMGGGGGGGGGEEEEEE.......",
+  ".EEEE.....GGPPPDPPPPMMGGGGGGGGGEEEEE.......",
+  ".EEEE....YGGGGMMMPMMMGGGGGGGGGMDOOOE.......",
+  ".OEEE..YYYDGGMMMMMMMGGGGGGGGGMMMDDYYE......",
+  ".OOEE..YYDDDGGGMMMMGGGGGGGGGGGGMDDDYE......",
+  "COOO...YYYDDDGGMMMGGGGGGGGGGGMMMMDYYEO.....",
+  "EE.O...EYYYDDMMMMGGGGGGGGMMMMMMDYYYOEOO....",
+  "EEEO...EOOYYYCCDDGGGMMMMMMDYYYYYOOOOEOOE...",
+  ".YOO...EOYYYYYCCYYCYCCCCYYYYCOOOOOOOEOOEE..",
+  ".YOO....OOYYYYCCYYYYYYYYYYYOOOOOOOOO.EEEEE.",
+  ".YOOO...COYYYYCCYYYYYYYYYYYYOOOOOOOC.EEEEE.",
+  "CYCOY....OOYYYCCYYYYYYYYYYYOOOOOOOO...OEEE.",
+  ".YOOY....OOOYYYYYYYYYYYYYYYOOOOOOO....OOEYE",
+  "..OOYYY...OOYYYYYYYYYYYYYOOOOOOOOO..YYOEEYE",
+  "...YYYYY...EOOYYYYYYYYOOOOOOOOOOO.YYYYYEEYE",
+  "...YYYOYOOEEEOOOOYYOYOOOOOOOOOOCCEEEYYYEEY.",
+  "...CYOOOOEEEEEEOOOOOOOOOOOOOOCCCCEEE.CCCC..",
+  "....COOOEEEEEEEEEOOOOOOOOOOCCCCCCEEEEOOC...",
+  ".......OEECCCCCCCCCEEEEEECCCCCCCCEEEOOO....",
+  "...............CCCCCCCCCCCCCC.....CCC......"
+ ]
+}

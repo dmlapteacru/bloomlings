@@ -1,0 +1,106 @@
+{
+ "code": "P1014",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Кресло-радуга из шарфа",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Мебель и уютные уголки",
+ "direction": "Предметные гибриды",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один широкий шарф из трёх крупных розовой синей и золотой полос свёрнут в низкое мягкое кресло, зелёная подушка в середине и две кремовые кисточки снизу",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 33,
+ "N": 963,
+ "colours": 9,
+ "volumes": {
+  "P": {
+   "cells": 294,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "N": {
+   "cells": 150,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 143,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 105,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 83,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "B": {
+   "cells": 59,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "D": {
+   "cells": 54,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "O": {
+   "cells": 43,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "R": {
+   "cells": 32,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....PPPBBBBBNNNNYYYYYPPPPP........",
+  "....PPPPPBBBNNNNNNYYYYPPPPP........",
+  "...PPPPPPPNNNNNNNNOOOOPDPPPP.......",
+  "..PPPPPPPPNNNNNNNNOODGGGDPPP.......",
+  "..PPPPPPPPDDDDNNNDGGGGGGDPPPPP.....",
+  ".PPPPBPPPPDGGGGGGGGGGGGGDPPPPPP....",
+  ".PPBBBBNNPDGGGGGGGGGGGGGGPPPYYYYY..",
+  ".PNBBBBNNPDGGGGGGGGGGGGGGPPYYYYBBB.",
+  ".NNBBBYYYYDGGGGGGGGGGGGGGDYYYYBBBBB",
+  "NNNNYYYYYYYYGGGGGGGGGGGGGDOYYBBBNNN",
+  "NNNNYYYYYYPPPPGGGGGGGGGGGGOONNBNNNP",
+  "NNNYYYYYPPPPPPPGGGGGGGGGGGDONNNNPPP",
+  "NNNYYYYPPPPPPPPPGGGGGDDDDPPPPPNPPPP",
+  "NNOOYYPPPPPPPPPPPDDDBYYYYYPPPPPPPPP",
+  "NNOOOYPPPPPPRPPPPBBBBBYYYYYPPPPPPPP",
+  "NNOOOOPPPPRRRRPPPDBBBBBYYYYYPPPPPPP",
+  ".NOOORPPPPRRPPPPPDBBBBBBYYYYPPPPPPP",
+  ".DOOORPPPPRRPPPPPDBBBBBBYYYYRPPPPP.",
+  "..OOORPPPPPPPPPPPNBBNNNNYYYYRPRPP..",
+  "..DOORPPPPPPPPPPPNBBNNNNYYOORRRPPP.",
+  "..NNOOPPPPDDDPPPNNNNNNNNOOOORCCPPP.",
+  "..NNNNPPPCCCCPPPNNNNNNNNOOOOCCCCD..",
+  "..NNNNPPPCCCCDDNNNNNNNNNONNNCCCCDD.",
+  "..NNNNNNNDDDCDPPPPPPPPPPPNNNDCCCCCC",
+  "..NNNNNNNCCCCCPPPPPPPPPPPNNNCCCCCCC",
+  "...NNNNCCCCCCCCPPPPPPPPPPPNCCCCCCCC",
+  "....NNCCCCCCCCCCDPPPPPPPPPNCCCCCCCC",
+  "......CCCCCCCCCCDPPPPPPRPNNCCCCCCCC",
+  "......CCCCCCCCCCDPPPRRRRRNNCCCCCCCC",
+  "......CCCCCCCCCCDPPRRRRRR..CCCCCCCC",
+  "......CCCCCCCCCC.............DDDD..",
+  ".......CCCCCCCC....................",
+  ".........DDDD......................"
+ ]
+}

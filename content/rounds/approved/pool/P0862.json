@@ -1,0 +1,113 @@
+{
+ "code": "P0862",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Яйцо с садовой калиткой",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Магические предметы",
+ "direction": "Миры через портал",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Огромное кремовое яйцо с розовыми пятнами открывается круглой зелёной калиткой, за ней крупный золотой одуванчик и синее небо, скорлупа остаётся узнаваемой",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 41,
+ "h": 42,
+ "N": 1329,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 422,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 270,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 182,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "B": {
+   "cells": 151,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "P": {
+   "cells": 91,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "Y": {
+   "cells": 91,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "L": {
+   "cells": 63,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "D": {
+   "cells": 40,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 19,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "......................EEEE...............",
+  "...................CCCCCCCCC.............",
+  ".................CCCCCCCCCCCC............",
+  "................CCCCCCCPPCCCCCC..........",
+  "..............CCCCCCCCCPPPCCCCCC.........",
+  ".............CCCCCCCCCPPPPCCCCCCC........",
+  "............CCCCCCCCCPPPPPCCCCCCC........",
+  "...........CCCCCCCCCCCPPPCCCCCCCCC.......",
+  "..........CCCCCCCCCCCCCCCCCCCPPPCCC......",
+  ".........CCPPCCCCCCCCCCCCCCCPPPPPCC......",
+  ".........CCPPCCCCMMCCCCCCCCCPPPPPPCC.....",
+  "......DGGDCCCCCMMMBBCCCCCCCCPPPPPPCCC....",
+  ".....GGGMMMDCCMMMBBBBCBBCCCCPPPPPPCCC....",
+  "....GGGMMMMDCCMMBBBBBBBBBCCCCPPPPPCCC....",
+  "...DGGMMMMMMDMMBBB.BBBBBBCCCCCPPPCCCCC...",
+  "...LLLMMMMMMDMMBB...BBBBBBCCCCCCCCCCCC...",
+  "..DLLLMMMMMMMMBB...BBBBBBBBBBCCCCCCCCCE..",
+  "..DLLLMMMMMMMMB..BBBBBBBBBBBBCCCCCCCCCE..",
+  "..LLLMMMMMMMMMBBBBBBBBYYYYYBBBCCCCCCCCE..",
+  ".DGLLMMMMMMMMMBBBBBBYYYYYYYYBBCCCCCCCCC..",
+  ".DGGLMMMMMMMEEBBBBBYYYYYYYYYYBCCCCPPPPC..",
+  ".GLLLMMMMMMMEEBBBBBYYYYYYYYYYBCCCPPPPPCE.",
+  ".GGGMMMMMMMMEEBBBBYYYYYYYYYYYBBCCPPPPPCE.",
+  ".GGGMYYYMMMMMMBBBBYYYYYYYYYYYBBCCPPPPPPE.",
+  ".GGGMYYYYMMMMMBBBBYYYYYYYYYYYBBCCCPPPPCE.",
+  ".GGGMMYYYMMMMMBBBBBYYYYYYYYYBBBCCCPPPPCE.",
+  ".GGGMMYYMMMMMMBDGBBBBYYDYYBBBBMMCCCCCCCE.",
+  ".GGGMMMMMMMMMMBBGGGBBBBBBBBBBGMMCCCCCCC..",
+  ".DGGGMMMMMMMMMBBGGGGBBBBGGBBGGMCCCCCCCC..",
+  ".DGGGMMMMMMMMMBBGGGGGGGBBGDGGMMCCCCCCCC..",
+  ".DGGGMMMMMMMMMBBGGGGGGGMMLMGGGDCCCCCCCC..",
+  "..GGGMMMMMMMMMGGGGGGGGMMMLMGGGCCCCCCCCC..",
+  "..DMGGMMMMMMMMMGGGGGGMMMMLMGGDCCCCCCCCC..",
+  "..DMMGMMMMMMMMMDGGGGGGGMMDDCCDCCPPPCCMMM.",
+  ".MMMMGGMMMMMMCCCCGGGGGGMDDCCCCCCPPPCMMMM.",
+  ".CMMGGGMMMMMDCCCCCCCCGGDDCCCCCCCPPCCMMMMM",
+  "MMMMMMMMMMMDDDCCCCCCCCDDCCCCCCCCMCCCMMMM.",
+  ".GGGGMMMMMDDDDCCCCCCCCDCCCCCCCCMMGGGGGGGG",
+  "GGGGGGMMMMMGGGCCCCCCCCCCCGCCCCCMMMGGGGGGG",
+  ".GGGGGGGGMMGGGGGLLLCCCCCGGLLLGGGMMGGGGGG.",
+  "...C.CGLLLLLLLLLLLLLLGGGGGLLLGGLLLLGG....",
+  ".............LLLLLLLLLLL.LLLL............"
+ ]
+}

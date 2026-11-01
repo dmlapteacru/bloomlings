@@ -1,0 +1,108 @@
+{
+ "code": "P0935",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Кубик с овощными гранями",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Игрушки и настольные игры",
+ "direction": "Предметные гибриды",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой поворотный кубик из девяти крупных овощных блоков, зелёная огуречная грань, золотая кукурузная грань и красная томатная грань, сверху два широких листа",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 33,
+ "h": 36,
+ "N": 1033,
+ "colours": 9,
+ "volumes": {
+  "R": {
+   "cells": 326,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "G": {
+   "cells": 215,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 212,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 106,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "L": {
+   "cells": 60,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "S": {
+   "cells": 35,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "M": {
+   "cells": 34,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "O": {
+   "cells": 27,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 18,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...................MMMMM.........",
+  "..........MMMM...MMGGGGGGG.......",
+  ".........MGGGGG..MGGGGGGGGMMM....",
+  ".........MGGGGGMMGGGGGGGGGGGM....",
+  ".........MMGGGGMGGGGGGGGGGGG.....",
+  "......DDGMMGGGGMGGGGGGGGGGDD.....",
+  "...DDGGGGGGMMMMGGMGGGGGGRRRRRRR..",
+  ".DDLLGGGGGGDDYYMMMDYYRRRRRRRRRRR.",
+  "DGGDLLLLGGDYYYYYYYYYYYRRRRRRRRRRR",
+  "DGGGGDDDYYYYYYOOOYYYYYYYRRRRRRRRR",
+  "DGGGGGDDDYYYYYCYYYYYYYYRRRRRRRRRR",
+  "DGCLLGDGGGDDYYYYYYYYRRRRRRRRRRRRR",
+  "DGLLLGDGGGGDDYYYYYYYRRRRRRRRRRRRR",
+  "DGLLLGDGCCGGYYYYYYYYRRRRRRRRRRRRR",
+  "DGLLCGDGCLGGYYYOYYYYRRRRRRRRRRRRR",
+  ".DGGGGDGLLLGYYYOYYYYRRRRRRRRRRRR.",
+  "DDDDGGDGLLCGDYYOYYYYRRRRRRRRRRRRR",
+  "DGGGGDDGCCGGYOOOOYYYRRRRRRRRRRRRR",
+  "DGGGGGDDGGGGYYYOYYYYRRRRRRRRRRRRR",
+  "DGCCLGDGDDGGYYYYYYYYRRRRRRRRRRRRR",
+  "DGLLLGGGGGDDDYYOYYYYRRRRRRRRRRRRR",
+  "DGLLLGDGGGGDDYYOYYYYRRRRRRRRRRRRR",
+  ".DLLLGDGCCGGYYYOYYYYRRRRRRRRRRRR.",
+  ".DDGGGDGLLLGYYYOYYYYRRRRRRRRRRRRR",
+  "DGGDDDDGLLLGYYYOYYYYRRRRRRDRRRRRR",
+  "DGGGGDDGLLCGYYYOYYYYRRRRRDDRRRRRR",
+  "DGLLGGDDGLGGYYYOYYYYRRRRRRRRRRRRR",
+  "DGCLLGDGGDGDYYYYYYYYRRRRRRRRRRRRR",
+  "DGLLLGDGGGDDYYYYYYYYRRRRRRRRRRRRR",
+  "DGLLCGDGLLGGDYYYYYYYRRRRRRRRRRRRR",
+  "SDDLGGDGCLGGYYYOYYYYRRRRRRRRRRRR.",
+  "SSSDDDDGLLCGYYYOYYYYRRRRRRRRRRSSS",
+  "..SSSDDGLLLGYYYOYYYYRRRRRRRSSSSS.",
+  "....SSSDDLGGYYYOYYYYRRRRSSSSSS...",
+  ".......DDDDDYYOOOYYYRRRSSSS......",
+  ".........SSSYYOOYYYYSSSS........."
+ ]
+}

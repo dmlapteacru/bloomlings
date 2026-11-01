@@ -1,0 +1,111 @@
+{
+ "code": "P0959",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Жёлудевый футляр для семечка",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Грибы и лесные находки",
+ "direction": "Миры внутри предметов",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой раскрытый жёлудь хранит маленькое зелёное семечко на кремовой подушке, коричневая ребристая шляпка откинута как крышка, короткая синяя ленточка на боку",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 38,
+ "N": 995,
+ "colours": 9,
+ "volumes": {
+  "E": {
+   "cells": 275,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 275,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 157,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 109,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "N": {
+   "cells": 67,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "G": {
+   "cells": 52,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "L": {
+   "cells": 30,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "B": {
+   "cells": 19,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "D": {
+   "cells": 11,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............EEEEEE................",
+  "..........AAAAAAEAAAAEE....AAA.....",
+  "........AAAAAEEEEAAAEEAAA.AAAAA....",
+  ".......OOOOAAOOOEEAAAAAAAAAAEE.....",
+  "......OOOOOOOOOOAAAAAAEEEAAEE......",
+  "......OOOEEEOOOOAAAAAAAEEEAAE......",
+  "......OOEEEEEEEOOOAAAAEEEEAAEE.....",
+  "......OOEEEEEEEEOOOAAAEAAEAAAEE....",
+  "......OOEEEEEEEEEEOOOAAAAAAAAEEE...",
+  ".......EEEEEEEEEEEEOOOAAAEEEAEEE...",
+  ".......EEAEEEEEEEEEEEOOAAAAEAAAEE..",
+  "........AAAEEAEEEEEEEEOOAAAEAAAEE..",
+  "........DAAAAAAEEEEEEEEOOAAEEEAAE..",
+  ".........DAAAAAAEEEEEEEEOOAAAEAAE..",
+  "..........EAAAAADGGEEEEEEOAAAAEEEE.",
+  ".........EEELLLLGGGEEEEEEEOAAEEEEE.",
+  ".....AAAAAALLLLLLGGGDEEEEEOOAEEEEE.",
+  "...AAAACCCLLLLLLLGGGDCCEEEEOAEEEEE.",
+  "..ECCCCCCCLLLLLLLGGGDCCCCEEOOEEEEE.",
+  ".OECCCCCCCLLGLLLGGGGDCCCCCEEOAAAEE.",
+  ".OECCCCCCGGGGLGGGGGGCCCCCCCEOOEEE..",
+  "EOECCCCCCGGGGGGGGGGDCCCCCCCEOOEED..",
+  "EOECCCCCCCCGGGGGGGGCCCCCCCCEEOEENN.",
+  "EOECCCCCCCCCGGGGGDCCCCCCCCCEEEENNBN",
+  "EAOCCCCCCCCCCCCCCCCCCCCCCNNNNNNNNBN",
+  "EAOOCCCCCCCCCCCCCCCCCCCCCNNNNNNNBBN",
+  ".AAOOOOCCCCCCCCCCCCCCCCCCNNBNNNNNNN",
+  ".AAAOOOOEEECCCCCCCCEEEAEENBBNNNNN..",
+  ".AAAOOOOOOOOOOOOOOOAAAAEEEEENNNNN..",
+  "..AAAOOOAAAAAAOOAAAAAAAEEEEDNNNBNN.",
+  "..AAAOOOAAAAAAAAAAAAAAEEEEENNBNBBN.",
+  "...AAAOOAAAAAAAAAAAAAAEEEEENBBNNNN.",
+  "...AAAOOOAAAAAAAAAAAAEEEEEEBBBNNNN.",
+  ".....AAOOAAAAAAAAAAAEEEEE.NBBB.....",
+  "......AAAAAAAAAAAAAEEEEE..NNNN.....",
+  ".......AAAAAAAAAAEEEEE.....NN......",
+  ".........AAAAAAEEEEE...............",
+  "..........AAAAEE..................."
+ ]
+}

@@ -1,0 +1,104 @@
+{
+ "code": "P1060",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Гордон Фримен",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Half-Life · Valve: Gordon Freeman from Half-Life: adult man with short swept brown hair, rectangular DARK glasses and distinctive small goatee, bulky ORANGE HEV suit with a dark gray neck collar; the thick RED crowbar held upright beside his shoulder. Large serious face and orange chest armor, no helmet, no text or tiny logos.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 31,
+ "h": 31,
+ "N": 961,
+ "colours": 9,
+ "volumes": {
+  "D": {
+   "cells": 347,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "B": {
+   "cells": 212,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "O": {
+   "cells": 147,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 98,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 87,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "R": {
+   "cells": 33,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "A": {
+   "cells": 26,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "K": {
+   "cells": 8,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "S": {
+   "cells": 3,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "BBBBBBBBBBBBBBDAAADEEEDDBBBBBBB",
+  "BBBBBBBBBBBBBAAAAAAEEEEEDDBBBBB",
+  "BBBBBBBBBBBDEAEEEEAAEEEEDADBBBB",
+  "BBBDDDBBBBBEEEEEEEDDEEEEAADBBBB",
+  "BBDDKKDBBBDEDADDEEEEEEEEEEDBBBB",
+  "BBEEKKKBBBDEEADCDCCCCCEEEEDBBBB",
+  "BDEEDDKDBBDDDACCDCCCCCCCCEEDBBB",
+  "BDEEBDKKBBDDEECCCCCCCCCCCEEBBBB",
+  "BRRDBBDDBBDDEECCCCCCCCCCCEEBBBB",
+  "BDRRBBBBBBDDDDDDDDDDCCCCCEDBBBB",
+  "BDRRBBBBBDDDDCDCDDCDDDDDDDBBBBB",
+  "BBRRDBBBBDCCCCDCCCCDCDDDDDBBBBB",
+  "BBRRDBBBBDCCACCDDDDDCDDCDDBBBBB",
+  "BBRRRBBBBBDCAACCCCCCCDDDDBBBBBB",
+  "BBDRRBBBDDDAAACCCCCCCCCCDBBBBBB",
+  "BBDRRDDDDDDCAACEEEEEECCDBBBBBBB",
+  "BBBRRDDDDDDCDDCECCCCECDDBBBBBBB",
+  "BBDRRRDDDDDCCDEECEECCCDDDDBBBBB",
+  "DODDRRDDDDDDDDDECEECEDDDDSBBBBB",
+  "DOODRRDDDDDDDDDEEEEEEDDDDSDBBBB",
+  "OOOORRDDDDDDDDDDDEEEDDDDDSDODBB",
+  "OOOORRDODDDDDDDDDDDDDDDDDDDOOOD",
+  "OODDRRROODDDDDDDDDDDDDDDDDDOOOO",
+  "ODDDDDDDDDDDDDDDDDDDDDDDDDDOOOO",
+  "DDDDDDDDDDODDDDOOOOOOOOOODOOOOO",
+  "DDDDDDDDDDOOODOOOOOOOOOOODOODOO",
+  "DDDDDDDDDDOOODOOOOOOOOOOOOODDDO",
+  "DDDDDDDDDDOOODOOOOOOOOOOOOODDDD",
+  "DDDDDDDDDDOODOOOOOOOOOOOOOOODDD",
+  "DDDDDDDDDDOODOOOOOOOOOOOOOOODDD",
+  "DDDDDDDDDDOOOOOOOOOOOOOOOODODDD"
+ ]
+}

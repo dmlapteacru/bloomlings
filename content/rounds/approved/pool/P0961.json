@@ -1,0 +1,115 @@
+{
+ "code": "P0961",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Гамак из банановой кожуры",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Мебель и уютные уголки",
+ "direction": "Кулинарная фантастика",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна широкая золотая банановая кожура стала гамаком на двух толстых зелёных опорах, внутри лежит одна розовая подушка, короткий цельный силуэт",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 44,
+ "h": 43,
+ "N": 1033,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 411,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 243,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 151,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "P": {
+   "cells": 116,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "D": {
+   "cells": 72,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 20,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 14,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 4,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 2,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........MMMM.............................",
+  "..........GGGGGD............................",
+  "....GG...GGGGGGD.................MMM.....GG.",
+  "...GGGG.GGGGGGD.................GGGGGG..GGGD",
+  "...DGGDDGGGGGGG.................DGGGGGDGGGGD",
+  "...DGGDDGMGGGG...................GGGGMMGGGGD",
+  "...DGGMMMMMMM....................DGGGMMMMMM.",
+  "....MMMMMMDD.......................MMMMMMMD.",
+  ".....MMMYYY..........................MGGM...",
+  ".....DGYYYY..........................GGGM...",
+  ".....DGYYYY..........................MMGG...",
+  ".....DGYYYYYY.......................MMMGG...",
+  ".....DGYYYYYYY.....................EYYYGG...",
+  ".....GGEYYYYYYY....................EYYYGG...",
+  ".....GGEYYYYYYYY...........PPPP...CEYYYGGD..",
+  ".....GGEYYYYYYYYYY.......PPPPPPPPEYYYYYGGD..",
+  ".....GGEYYYYYYYYYYEEE....PPPPPPPPEEYYYYGGG..",
+  ".....GGYYYYYYYYYYYYYYPPPPPPPPPPPPPEYYYYGGGD.",
+  "....GGGYYYYYYYYYYYYYYPPPPPPPPPPPPPYYYYYGGGD.",
+  "....DGMYYYYYYYYYYYYPPPPPPPPPPPPPPYYYYYYGGGD.",
+  "....GGMMYYYYYYYOOYPPPPPPPPPPPPPPYYYYYYYGGGD.",
+  "....GGMMYYYYYYYOOPPPPPPPPPPPPPPPYYYYYYYMGGD.",
+  "....GGMMYYYYYYYYYPPPPPPPPPPPPPYCCYYYYYYMGGD.",
+  "....GGMMYYYYYYYYYYPPPPPPPPPPYYYCYYYYYYMMMGG.",
+  "...DGGMMYYYYYYYYYYYEEEPPPPYYYYYYYYYYYYMMMGGD",
+  "...DGGMMDYYYYYYYYYYYYYYYYYYYYYYYYYYYYYDMMGGD",
+  "...DGGGMDCYYYYYYYYYYYYCCCYYYYYYYYYYYYYDMMGGD",
+  "...DGGGMDCYYYYYYYYYYYYYYYYYYYYYYYYYYY.DMGGGD",
+  "...DGGGMM..YYYYYYYYYYYYYYYYYYYYYYYYY..MMGGGD",
+  "...GGGGMM..YYYYYYYYYYYYYYYYYYYYYYYY...MMGGGD",
+  "...GGGGMM...CYYYYYYYYYYYYYYYYYYYYY...DMMGGGD",
+  ".MDDGGGMM..D..YYYYYYYYYYYYYYYYYYY...MDMMGGGD",
+  ".MDDGGGMMDMM....YYYYYYYYYYYYYYY.....MMMMGGGD",
+  ".MMMMGGGMMMM.....CCYYYYYYYEEEC......MMMMGGGM",
+  ".CMMMGGGMGMDMD....................MMDMMMGGGM",
+  "DDDMMGGGGGMMMM...................DMGDMGGGGGM",
+  "DGGGMGGGGGMMMD....................DGGMGGGGMM",
+  ".DGGMMGGGGMMM......................GGMGGGGMM",
+  "......GGG..............................GGG..",
+  "............................................",
+  "............................................",
+  "............................................",
+  "...................................AA......."
+ ]
+}

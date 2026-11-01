@@ -1,0 +1,108 @@
+{
+ "code": "P0923",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Кузнечик чинит музыкальную шкатулку",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Насекомые и маленькие существа",
+ "direction": "Обмен ролями",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один крупный зелёный кузнечик с большими глазами и согнутыми задними ногами держит золотой ключ у открытой розовой заводной шкатулки, внутри одно большое зубчатое колесо",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 37,
+ "h": 37,
+ "N": 1369,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 298,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 257,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "D": {
+   "cells": 221,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "P": {
+   "cells": 136,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "L": {
+   "cells": 132,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "Y": {
+   "cells": 122,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 96,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "R": {
+   "cells": 73,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "A": {
+   "cells": 34,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "MMMMMMMMMDMMMMMMMMMMMMMDGGMMMMMMMMMMM",
+  "MMMMGGMMMMMMMMMMMMMMMMMDDGGGMMMMMCCMM",
+  "MMMMGMMMMMMMMMMMMMMMMMMDDCCMMMMMCCCCM",
+  "MMCMMDMMMMMMMMMMMMMMMMMCCCCDDDDDMCCMM",
+  "CCCCMMMMMMMMMMMMMMMMMMDCCCCCDMMMMMMMM",
+  "CCCCCDGGGMMMMMMDDMMMMMMDCCCCMMMMMMMMM",
+  "CCCCCDDGGMMMMLDDDDMMMMMCCCCCMMMMMDMMM",
+  "CCCCMMDDDMMMDLDDDDMMGMMMDDDPDDYYMDMMM",
+  "MMMCMMMDDMMLLLLLDDMDGGGMDDPPPPYYPPPPP",
+  "MGMDMMMMDDLLLLLLLLDDGGDDDPPPCYYCPPPPP",
+  "GGGDDMMMDLLLLLLLLLDDDDMMDPRRRRRRRPPPP",
+  "GGMMMDDDDLLCCCLLLCCDDMMMMPRRRRRRRRRYP",
+  "DMMMMDDDDLCCDDLLLDDDDMMMMPRRRRRRRRRYP",
+  "DDGGGDDDDLCCDDLLLDDDDDMMMDRRRRRRRRRYP",
+  "MMGGDDDDDLLCDDLLLDDDDDMMMDPRRRRRRRRYP",
+  "MMMDDGGDDLLLLLLLLLDDYYYDDDPRRRRRRRRRY",
+  "MMDDDGGGDDLLLLLLLLDYYDYYDDPPRRRRRRRRY",
+  "MMLDDGGGGGGLLLLLLDDYYDYYDDDYRRRRRRRRY",
+  "MDLLDGDGGGLLGGDDDDYYYYYDDDYYYYYYPPPPY",
+  "DDLLLGDMGGLLLGDDLLYYYYDDDYYYYYYYYYPPY",
+  "DDLDLLLMGGGLLLLLLLYYYYYDDYYYYYYYYYYPP",
+  "DDLDLLLMGGLLLLDDYYDYDYYYYYYYYAYYYARRR",
+  "DDLGLLLLLLLGGDDDYYYDDDAYYYYYYAYYYARRR",
+  "CCGGGMLLLLLLGDDDYDDDDDAAAAYYAAYYYAAPP",
+  "CGGGGMLLLLLLGGDDDDDDPPPPPCCCAAYYCCPPP",
+  "MGGGMMMGLLLDDCCCCCCCPPPPPPPPPYYYYPPPP",
+  "MGLLGLLGGLDDCCGCCCCCPPPPPCPPPPPPPPPPP",
+  "MMLLGLLLGGDCCDGCCCCCPPPPCCCPPPPCPPCCC",
+  "MMLLGGGGDDDDCDGDDCCCPPCCCCCPPPPCPCCCC",
+  "CDDDGDDCDDDDDCGGGDCCPPPCCCCCCPPCPCCPP",
+  "CCCDGDCCCDDDCCDDDDCCYPPPPPCCPPPCPPPPP",
+  "CCGGGGCCCCCCCCCCCCCYYYPPPPPPPPPCPPPPP",
+  "CCDDDDCCCCCCCCCCCCCYYYYYYYPPPPYYAAAAA",
+  "CCCCCCCCCCCCCCCCCCCCCAAAACCCCYYYAAAAA",
+  "CCCCCCCCCCCCCCCCCCCCCCCCCCCAAAYYAACCC",
+  "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+  "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"
+ ]
+}

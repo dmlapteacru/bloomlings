@@ -1,0 +1,112 @@
+{
+ "code": "P0999",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Сливочная гантель",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Спорт и активные игры",
+ "direction": "Визуальные каламбуры",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна большая гантель состоит из двух розово-кремовых шариков мороженого на толстой золотой перекладине, синие круглые опоры под шарами, без персонажа",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 44,
+ "h": 39,
+ "N": 909,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 311,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 171,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "P": {
+   "cells": 141,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "R": {
+   "cells": 94,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "K": {
+   "cells": 77,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "O": {
+   "cells": 48,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 30,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "B": {
+   "cells": 26,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "D": {
+   "cells": 11,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..................................RRRRR.....",
+  ".........RRRRR.................CCCCCCCCKK...",
+  "......PPPPKKKKKK..............CCCCCCCCCKKP..",
+  "....PPPPPPPKKKKKKK..........RRPCCCCCCCCCKPP.",
+  "...PPPPKKPPKKKKKKCC.........RRPCCCCCCCCCKKPP",
+  "..PPPPKKKKPPKPKKCCC........RRPPCCCCCCCCCKKPP",
+  "..RRPPPPKKKKKPPPCCCC.......RRPPPPPCCCCCCCPPP",
+  ".RRRPPPPKKKKKKKPCCCC.......RRRPPPPPCCCCCCPPP",
+  ".RRRPPPPPPKKKKKPCCCC.......RRRPPPPPPCCCCCCPP",
+  ".RRRPPPPPPKKKKKCCCCCRYYYYYYYYYYPPPPPCCCCCCCC",
+  ".RRRPPPPPPPPPPPCCCCCRYYYYCCYYYYOPPPCCCCCCCCC",
+  ".RRRRPPPPPPPPCCCCCCCRYYYYYYYYYOORPPCCCCCCCCC",
+  ".RRRPPPPPPPCCCCCCCCCRYYYOOOOOOOORRPCCCCCCCCC",
+  "ORRRPPPPPPPCCCCCCCCCROOOOOOOOOORRRCCCCCCCCCC",
+  "ORRRRPPPPCCCCCCCCCCCOOOOOOOOOORRRCCCCCCCPPCC",
+  "ORRRRRPPPCCCCCCCCCCCOOOOOOOOOCRRCCCCCCCCPCCC",
+  "RRRRRRRRRCCCCCCCCCCCC.......CCCCCCCCCCCCCCCC",
+  ".RRRRRRCCCCCCCCKKKCCC.......CCCCCCCCCCCCCCC.",
+  "..CCCCCCCCCCCCKKKKCC.........CCCCCCCCCCCCD..",
+  "...CCCCCCCCCPPKKKKK...........DNNCCCNNNND...",
+  "...CCCCCCCCCCPKKKK.............NNNNNNNNND...",
+  "....DDDDCCCCNNKKD.............NNNNNNNBNNNN..",
+  ".....DNNNNNNNNNN..............NNNNNNNBBBBN..",
+  ".....DNNNNNNNNNNN.............NNNNBBBBBBNN..",
+  "....NNNNNNNNNNNNNN............NNNNNNNNNNNN..",
+  "....NNNNNNNNNNBBNN.............NNNNNNNNNN...",
+  "....NNNNBBBBBBBNNN..........................",
+  "....NNNNNNNNNNNNNN..........................",
+  "....NNNNNNNNNNNNN...........................",
+  ".......NNNNNNNN.............................",
+  "............................................",
+  "............................................",
+  "............................................",
+  "............................................",
+  "............................................",
+  "............................................",
+  "................................NNN.........",
+  "...............OOO.............NNNNNNNNN....",
+  ".............RRRRRR..OO.......NNNNNNBBBBBB.."
+ ]
+}

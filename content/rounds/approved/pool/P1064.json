@@ -1,0 +1,98 @@
+{
+ "code": "P1064",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Рэйман",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Rayman · Ubisoft: Rayman in his classic Ubisoft design: huge friendly cream face with a big rounded nose, bright swept ORANGE hair, PURPLE hoodie body with a WHITE circle on the chest and RED neck scarf, detached cream-gloved hands and large YELLOW shoes. Compact happy pose with hands close to his cheeks and shoes tucked beneath the torso; no visible arms, legs or neck connecting the floating parts. Keep his face very large and the disconnected silhouette clear.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 30,
+ "N": 900,
+ "colours": 8,
+ "volumes": {
+  "B": {
+   "cells": 340,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "C": {
+   "cells": 171,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 144,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 100,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "V": {
+   "cells": 47,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "O": {
+   "cells": 44,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "R": {
+   "cells": 30,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "S": {
+   "cells": 24,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "BBBBBBBBBBBBBBYYYYDDBBBBBBBBBB",
+  "BBBBBBBBBBBDBDYYYYYYYBBBBBBBBB",
+  "BBBBBBBBDYOOOYYOOOYYYYDBBBBBBB",
+  "BBBBBBBDYYYOOOYOOOODYYYDBBBBBB",
+  "BBBBBBDYYYOOOOYOOOOODDYDBBBBBB",
+  "BBBBBBYYYYOOOOOOOOBBDBDDBBBBBB",
+  "BBBBBDYDYOOOOOOODDBBBBBBBBBBBB",
+  "BBBBBDDOOOOYDDCCCDBBBBBBBBBBBB",
+  "BBBBBDBODDOYDCCCDCBBBDDDDBBBBB",
+  "BBBBBBBDBBOYCCDCDDDDCCCCCCBBBB",
+  "BBBBBBBBBBBYCCDCDDCCCCCCCCDBBB",
+  "BBBBBBBBBBBYYCDCDCCCCCCCCCDBBB",
+  "BBBBBBBBBBBCCCCCCCCCCCCCYYDBBB",
+  "BBBBBDDDBBDCCDCCCCCCCCYYYYDBBB",
+  "BBBDDCCCDBDCCDDCCCCYYYYYYDBBBB",
+  "BBDCCCCCCDBDCDRDDYYYYYYCDBBBBB",
+  "BBDCCCCCCDBBDCRRDDDDDDDDDDBBBB",
+  "BBCCCCCCCDBBDDCRDDDBBBDDCCDBBB",
+  "BBCCCCCCCDDRRRDDCDBBBDCCCCCDBB",
+  "BBDCCCCDDDDRRRRDRRDBBDCCCCCCBB",
+  "BBBDDDDBBDRRDRRRRRRDBDSSCCCCDB",
+  "BBBBDDBBBDRVVVVRRRRBBBSSCCCCDB",
+  "BBBBBBBBBBRDVVVCRRRBBBCSSSCCBB",
+  "BBBBDDDBBBBVVVCVVCVVBBBDSSSDBB",
+  "BBBYYYYCDBBVVCCVVCVBBBBBDDBBBB",
+  "BBYYYYYYCDDVVVCVVCVVBDDDYDBBBB",
+  "BDCCCCYYYYDVVVVCCVVDDCYYYYYBBB",
+  "BCCCCCCCYYYVVVVVVVDYCYYYYYYYBB",
+  "BCSSSSCCCYYDVVVVVVYYYYCCCCCCBB",
+  "BSSSSSSSCCYDDDVVDDYYCCCCSSSCBB"
+ ]
+}

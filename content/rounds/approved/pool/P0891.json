@@ -1,0 +1,110 @@
+{
+ "code": "P0891",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Качалка-арбузная долька",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Мебель и уютные уголки",
+ "direction": "Предметные гибриды",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Большая треугольная арбузная долька превращена в кресло-качалку, зелёная корка служит дугами опоры, розовое сиденье с тремя крупными тёмными семечками",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 44,
+ "h": 39,
+ "N": 1261,
+ "colours": 9,
+ "volumes": {
+  "M": {
+   "cells": 348,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "R": {
+   "cells": 346,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 234,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 106,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "P": {
+   "cells": 78,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "G": {
+   "cells": 72,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "E": {
+   "cells": 62,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 10,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 5,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...............................RRCCCCDD.....",
+  ".............................PPRRRRCCDD.....",
+  "...........................PPPPRRRRCCCMD....",
+  "........................PPPPPPRRRRRCCCMD....",
+  ".......................PPPPPRRRRRRRRCCMD....",
+  "....................PPPPPPRRRRRRRRRRCCMM....",
+  "..................PPPPPPRRRERRRRRRRRCCCM....",
+  "................PPPPPPRRRRREEEERRRRRCCCMD...",
+  ".....EEE.....PPPPPPPRRRRRRREEEEERRRRRCCMM...",
+  "...GGGCCCRRRRPPPPRRRRRRRRRRREEEERRRRRCCMD...",
+  "..DMMMMCCRRRRRRRRRRRRRRRRRRREEEERRRRRCCMM...",
+  "..MGMMMCCCRRRRRRRRRRRREERRRRRRRRRRRRRCCMD...",
+  "..MGMMMCCCRRRRRREERRRREEERRRRRRRRRRRRCCMD...",
+  "..MGMGMMCCRRRRRREEERRREEEERRRRRRRRRRCCCMD...",
+  "..MGMGMMCCCRRRRREEERRREEEEERRRRRRRRRCCCMD...",
+  "..MGMGGMMCCRRRREEEERRRREEERRRRRRRRRRCCCM....",
+  "..DGMGGMMCCCRRRREEERRRRREERRRRRRRRRRCCMM....",
+  "..DMMMGMMCCCCRRREEERRRRRRRRRRRRRRRRCCCMD....",
+  "...MMMGGMMCCCRRRRRRRRRRRRRRRRRRRRRRCCCMDDD..",
+  "...DMMGGMMCCCCRRRRRRRRRRRPPPPPPRRRRRCMMDGGD.",
+  "....MMMGGMCCCCCRRRRRRRPPPPPPPPPPRRRRMMDGGMD.",
+  "....DMMGGMMMCCCCRRRPPPPPPPPPPRRRRRRRMDMMMMM.",
+  ".....MMMMMMMMCCCCRRPPPPPPRRRRRRRRRRDMDMMMMD.",
+  "......MMMMMMMCCCCCCCCRRRRRRRRRRRRCDDDDMMMM..",
+  ".DD...DMMMMMMMMCCCCCCRRRRRRRRRCCCMMDDMMMMD..",
+  "GGGGD.OODMMMMMGGGCCCCRRRRRCCCCCCMMMDDMMMM...",
+  "GGMMMDOO.DMMMMMMMMGCCCCCCCCCCMMMMDDDDMMMD...",
+  "MMMMMMMM...DMMMDMGGMGMMCCMMMMMMMDGGGMMMM....",
+  "MMMMMMMD.....DMOOMMMGGMMMMMMMDDDGGGMMMMD...C",
+  ".MMMMMMMD......YOEDMDMMMMMDDDDDGGGMMMMD....C",
+  "..MMMMMMMMD....YOE......CCCDDGGGMMMMMD....CC",
+  "..DMMMMMMMDD..CYOE.CCCCCCDDGGGMMMMMMD.....CC",
+  "...MMMMMMMMMMMYYOEDDDDDGGGGGGMMMMMMDC.....CC",
+  ".....MMMMMMMMMMMMMGGGGGGGGMMMMMMMDDCCCCC...C",
+  "....CCDMMMMMMMMMMMMMMMMMMMMMMMMMDCCCCCCC..CC",
+  "..CCCCCCMMMMMMMMMMMMMMMMMMMMMMDCCCCCCCC...CC",
+  "..CCCCCCCDDDMMMMMMMMMMMMMMMDDCCCCCCCC.......",
+  "....CCCCCCCCDDDDMMMMMMMMDDCCCCCCC...........",
+  ".......CCCCCCCCCCDDDDDCCCCCCC..............."
+ ]
+}

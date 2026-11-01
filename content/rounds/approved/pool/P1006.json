@@ -1,0 +1,116 @@
+{
+ "code": "P1006",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Мягкая груша из четырёх блоков",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Фрукты и ягоды",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна крупная зелёная груша собрана из четырёх широких округлых мягких блоков, золотые крупные швы и один розовый бок, толстый коричневый черенок и синий лист",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 40,
+ "h": 44,
+ "N": 1121,
+ "colours": 9,
+ "volumes": {
+  "G": {
+   "cells": 305,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "L": {
+   "cells": 235,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "Y": {
+   "cells": 158,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "P": {
+   "cells": 125,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "N": {
+   "cells": 104,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 85,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "B": {
+   "cells": 55,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "E": {
+   "cells": 40,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 14,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....................EEE................",
+  ".....................EEEE...............",
+  "....................EEEEE..NNNNNN.......",
+  "....................EEEEENNNNBBBBBB.....",
+  "....................EEEENNNNNNNBBBBB....",
+  "....................EEEENNNNNNNNBBBBB...",
+  "....................EEE..NNNNNNNBBBBBB..",
+  ".................DDDEEE..NNNNNNNNBBBBB..",
+  "...............DDLLLEEEDDDNNNNNNNNBBBBN.",
+  "...............GGLLLDDDDGGDNNNNNBNBBBBN.",
+  "..............DGLLLLLLYYGGGNNNNNBBBBBBN.",
+  ".............DGGLLLLLLYYYLLDNNNNNBBNBBBN",
+  ".............DGLLLLLLLLYYLLDDNNNNNBNBBBN",
+  ".............DGLLLLLLLLYYLLGDNNNNNNNNBBN",
+  ".............GGLLLLLLLLEYLLGG..NNNNNNNBN",
+  ".............GGLLLLLLLLEYLLGG...NNNNNNBN",
+  ".............GGGLLLLLLLEYYGGGG......NNNN",
+  "............DGGGGLLLLLLLYYYYYYY.........",
+  "...........YYYGGGLLLLLLGYYYYYPPPP.......",
+  "Y.........DDYYYYGGGGGGGGYYYYPPPPPPP.....",
+  "Y........DGGYYYYYYYYGGGYYYPPPCCPPPPD....",
+  "YE.......GGGLLYYYYYYYYYYYPPPCCCCPPPP....",
+  "YE......DGGLLLLLLLYYYYYYYPPPCCCCPPPPD...",
+  "YE.....DGGGLLLLLLLLLLLYYYPPPPCCCPPPPP...",
+  "Y......GGGLLLLLLLLLLLLYYYPPPPPPPPPPPPD..",
+  "......DGGGLLLLLLLLLLLLYYYPPPPPPPPPPPPP..",
+  "......DGGLLLLLLLLLLLLLLYYPPPPPPPPPPPPPD.",
+  "......GGGLLLLLLLLLLLLLLYYPPPPPPPPPPPPPD.",
+  ".....DGGGGLLLLLLLLLLLLLYYPPPPPPPPPPPPPD.",
+  ".....DGGGGLLLLLLLLLLLLLGYPPPPPPPPPPPPP..",
+  ".....DGGGGGLLLLLLLLLLLLGYYPPYYPPPPPYYDD.",
+  ".....DGGGGGGLLLLLLLLLLLGYYYYYYYYYYYYYDDD",
+  ".....DGGGGGGGLLLLLLLLLYYYYYYYYYYYYYLGGGD",
+  "......GGGGGGGGGLLLLLGGYYYYYYYLLLLLLLGGGD",
+  "......DGGGGGGGGGGGGGGGYYYLLLLLLLLGGGGGGD",
+  "......DGGGGGGGGGGGGGGYYYGGLGGGGGGGGGGGDD",
+  ".......GGGGGGGGGGGGGGYYGGGLGGGGGGGGGGGD.",
+  ".......DGGGGGGGGGGGGYYYGGLLGGGGGGGGGGGD.",
+  "........GGGGGGGGGGGYYYGGGGGGGGGGGGGGGD..",
+  ".........GGGYYYYYYYYYYGGGGGGGGGGGGGGGD..",
+  "..........DDDYYYYGGYYYGGGGGGGGGGGGGGD...",
+  "...........DDDGGGGGGYGGGGGGGGGGGGDDD....",
+  ".............CDDDGGGGDDGGGGGGGGDDD......",
+  ".................DDD....DDDDDDD........."
+ ]
+}

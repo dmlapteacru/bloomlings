@@ -1,0 +1,115 @@
+{
+ "code": "P0931",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Перевёрнутый водопад в сапоге",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Одежда и аксессуары",
+ "direction": "Уютный сюрреализм",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Большой золотой резиновый сапог в разрезе, из синей лужицы внутри поднимается широкий синий водопад к розовому облаку над голенищем, толстые чёткие края сапога",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 44,
+ "h": 44,
+ "N": 1320,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 379,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 214,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 206,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "K": {
+   "cells": 198,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "S": {
+   "cells": 131,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "B": {
+   "cells": 93,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "O": {
+   "cells": 73,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 21,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 5,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "......................KK..KKKKKKKK..........",
+  "....................KKKKKKKCCKKKKKK.........",
+  "...................KKKKKKKKCKKKKKKKKKK......",
+  ".................KKKKKKKKKKKKKKKKKKKKKKK....",
+  "................KKKCKKKKKKKKKKKKKKKKKKKKK...",
+  "...............KKKKKKKKKKKKKKKKKKKKKKKKKKK..",
+  "...............KKKKKKKKKKKKKKKKKKKKKKKKKKK..",
+  "................KKKKKKKKKKKKKKKKKKKKKKKKKKK.",
+  ".................AAAAKKKKKKKKKKKKKKKKKKKAYYA",
+  ".................YYAAAAKNNNKKKKKKKKKNNAAAYYA",
+  ".................YYYYYAANNNNNBBBBBNNNYYYYYYA",
+  ".................YYYYYYAAANNNBBBBBNNNYYYYYY.",
+  ".................YYYCYYAAANNSBBSBBNNNYYOOOA.",
+  ".................YYYCYYAAAANSBSSSBNNAYOOOOA.",
+  "..................YYYYYAAANNSSSSSBNAAYYOOYA.",
+  "..................YYYYYAAANNSSSSSSNAAYYOOY..",
+  "..................YYYYYAAAAASSSBSSNAAYYOOY..",
+  "..................YYYYYYAAAASSBBSSNAAYOOOY..",
+  "..................YYYYYYAAAASSBBBSNAAYOOOA..",
+  "..................YYYYYYAAAASSBBBSNAAYOOYA..",
+  ".................YYYYYYYAAAASSSBBSNAAYYOYA..",
+  ".................YYYYYYYAAAASSSBSSNAAAYYYA..",
+  "................YYYCYYYYAAAASSSBSSNNAAYYYA..",
+  "...............YYYCCYYYAAAANSSSSSSNNAAYYYY..",
+  ".............YYYYCCYYYYAAANNSSSSSSNNAAYYYY..",
+  "........AAAYYYYYCCYYYYYNNNNNSSSSSSNNAAYYYY..",
+  ".....YYYYYYYYYYYCYYYYYNNNNNNSSSSSSNNNNYYYYA.",
+  "....YYYCYYYYYYYYYYYYYYNNNNNNSSSSSSNNNNNYOYA.",
+  "...YYCCCYYYYYYYYYYYYNNNNNN.SSSSSSSNNNNNYOOA.",
+  "..YYYCYYYYYYYYYYYYYNNNNSS..SSSSSSS.SNNNYYOY.",
+  ".AYYYYYYYYYYYYYYYNNNNSSSSSS..SSS..SSSNNNYOY.",
+  ".AYYYYYYYNNNNNNNNNNNNSSSSS..S.....SS.SSNYOY.",
+  ".AYYYYYNNNNNNNBNBBBBBBBBSS.SS...SSSSSSSYYOO.",
+  "AYYYYYYNNNBBBBBBBBBBBBBBBBNNNSSSSNNNNNNOOOO.",
+  "AYCYYYYNNNNBBBBBBBBBBBBBBBBBBBBSBBBBBDDOOOO.",
+  "AYYCYYYNNNNNNNNNBBBBBBBBBBBBBNNNNNNNDDDOOOO.",
+  "AYYYYYYNNNNNNNNNNNNNNNNNNNNNNNYYYYYYYOOOOOO.",
+  "AAAYYYYYYYNNNNNNNNNNNNNNNNNNYYYYYYYYYYYYOOO.",
+  ".AAAYYYYYYYYYYNNNNNNNNNNNYYYYYYYOYYYYYOOOOO.",
+  "..AAAAAYYYYYYYYYYYYYYYYYYOYYAAYYOOYYYYOOOAA.",
+  "...AAAAAAAYYYYYYYYYYYOOOOOAAAAAYOOYYYYOAAAA.",
+  ".....AAAAAAAAAAYYYYYYOOAAAA.AAAAAAAAAAAAAA..",
+  "........AAAAAAAAAAAAAAAAA.....AAAAAAAAAAA...",
+  "............AA.AAAAAAAAA...................."
+ ]
+}

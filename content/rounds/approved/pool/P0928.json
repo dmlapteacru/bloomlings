@@ -1,0 +1,111 @@
+{
+ "code": "P0928",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Браслет-парк аттракционов",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Одежда и аксессуары",
+ "direction": "Перевёрнутый масштаб",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один широкий раскрытый золотой браслет стал миниатюрным парком, на дуге три крупных розовых вагончика на синей дорожке, застёжка остаётся узнаваемой",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 44,
+ "h": 40,
+ "N": 1399,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 337,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 247,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "P": {
+   "cells": 214,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "O": {
+   "cells": 208,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "N": {
+   "cells": 114,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "M": {
+   "cells": 96,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "A": {
+   "cells": 85,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 54,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 44,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............................YY.............",
+  "..............AAYYYY........YYYYYY..........",
+  "...........AAAAAYOYOA.......YYYYYYA.........",
+  ".........YYYYYOAYOOOA.......YYYYYYAAA.......",
+  ".......YYYYOOOOAOOOOA.......YYAYYYYYYY......",
+  "......YYYOOOOOOAOOOOA..G....YYAAYYOOYYYY....",
+  "....YYYYYOOOOOOAOOOO.CGGD...YYYYYYOOOOYYY...",
+  "...CYYYYGGGOOOOAOOO..DGGG...CYYYYYOOOOOYYY..",
+  "...YYADGGGGGMM.......GGGGM....YYMGGOOOOOYY..",
+  "..YYAAGGGMGMMM......DGGGGMD.....MGGGMOOOYYY.",
+  ".YYYAMMGMMMMMMM....CGGGGMMM....MMGGGMMOOOYY.",
+  ".YYAAMMMDPPPPPDYYYYMGGGGGMM...GGGGGGMGMMOYYC",
+  "CYYAANDPPPPPPPPYYYYMGGGMMMMM.GGGGGGGGGMMAYYA",
+  "AYYNNNPPPPPPPPPPYYGMGGGMMMMMGGGGMMMGGGMMAAYA",
+  "AYYNNNPPPPPPPPPPPGGGGGGMMMMGGGGMMMMMMMMMAAYA",
+  "AYYNNNPPCNNPPPPPPPPPPPMMMMMGGGGPPPPPMMMMMYYA",
+  "AYYYNNPPCNNPPPPPPPPPPPPPPPGGGPPPPPPPPDMMMYYA",
+  "AYYYNNPPCNNCPPNNPPPPPPPPPPPAPPPPPPPPPPMMMYYA",
+  "AOYYNNDPPCCCPPNNPPPPPPPPPPPAPPPPPPPPPPMMDYYA",
+  "AOYYNNNPPPPPPPNPPPPPPPPPPPPAPPCPPPPNPPMDYYYA",
+  "AOOYYNYYYDPPPPDPPNNCNPPPPNPAPPCPNNNNPPDDYYOA",
+  "AOOOYDDYDDYYYNNPPCNCNNCPPNNAPPCPNPPPPPDDYYOA",
+  "AOOOYYDDDDYYYNNPPPCPNNCPPNNDNPCPNPPPDDDYYOOA",
+  "COOOOYYDMMMDDDNNPPPPPCPPPNNNNPCPPPPDDYYYYOOA",
+  ".OOOYYCYYMMMMMNYYYNPPPPPPNNNDDPPYYNNDYYYOOOC",
+  ".GOOYYYYCCCDMDDYYYNNNDCYNNNNNNNNYYDNYYYOOOO.",
+  "CGOOYYYYYCCYYDDDNNNDDDYYNNNNNNNNDDYYYOOOOOO.",
+  "GGGOYYYYYYYYCYYYNNNNDNNNNNDNNNNYYYYYOOOOOO..",
+  "GGGGYYYYYYYYYYCCCYYCNNNNNNNNNYYYYYOOOOOOOGG.",
+  ".GGGGOOYYYYYYYOOOOYYCCYYYYYYYYYYYYYOOOOOGGGG",
+  "..GGGGOYYYYYYYOOOOOOYYYYOOOOOOYYYYYOOOOGGGGG",
+  "..GGGGGGYYYYYYOOOOOYYYYYOOOOOOYYYOOOOOGGGGGG",
+  "..GGGGGGGGYYYOOOOOYYCYYYYAYYCYYOOOOOAAGGGGG.",
+  "...GGGGGGGGGOOOOOAYYYYOYYAYYYYOOOOOAAGGGGG..",
+  ".....GGGGGGGGGGOOAYOOYOOYAYYYOOOOOOGGGGGG...",
+  "......GGGGGGGGGGGAYOOOOOYAYYYOOOOOGGGGGGG...",
+  ".........GGGGGGGGGYYOOOYYAAAAAAGGGGGGGG.....",
+  ".............GGGGGYYYYYAGGGGGGGGGGGGG.......",
+  "...............GGGGGAAAAGGGGGGGGG...........",
+  "...................GGGGGG..................."
+ ]
+}

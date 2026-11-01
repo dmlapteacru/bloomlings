@@ -1,0 +1,111 @@
+{
+ "code": "P1001",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Водяная мельница из пуговицы",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Роботы и механизмы",
+ "direction": "Заводная сказка",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна большая золотая пуговица с четырьмя синими отверстиями стала широким водяным колесом на розовой опоре, одна толстая голубая струя падает на край колеса, компактная кремовая чаша внизу",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 40,
+ "h": 39,
+ "N": 1133,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 314,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 288,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 138,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "P": {
+   "cells": 119,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "B": {
+   "cells": 102,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "S": {
+   "cells": 78,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "A": {
+   "cells": 44,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "O": {
+   "cells": 37,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 13,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "......................SSSSSSSSSSSNNN....",
+  "......................SSSSSSNNNNNNNN....",
+  "..................B..NSBBSSNNNNNNNNN....",
+  "..................BB.NBBBBSNNNNNNNNN....",
+  "..................B..NNBBBBNNDNNNNNN....",
+  "................CCBBBNNBBBBNN...........",
+  "............NNNCCCBSSSBBBBNNN...........",
+  "..........DYYYYYYYYYSSSSBBNNN...........",
+  ".........DYYYYYYYYYYYSSSSSSSSD..........",
+  "........DYYYOOOYYYYYYSSSSSSSSDD.........",
+  ".......DYYYYYYYYYYYYYYYYYBBBBSS.........",
+  "......YYYYYYYYYNNNYYYYYYYYYYSSSB........",
+  "......YYYYYYYYYNNNYYYYYYYYYYOSBB...SS...",
+  "......YYOYYYYYYNNNYYYYYYYYOOOSBB..SSS...",
+  "......YYOYYYYYYNNNYYYYYYYYOOOBBBB.SSS...",
+  ".....YYYOYYYYYYYNYYYYYYYYYYOOOBBB.SBB...",
+  ".....YYYYYNNNYYYYYYYNNNYYYYOOOBBB.BBB...",
+  "....YYYYYNNNNNYYYOYNNNNYYYYOOOBBB..B....",
+  "..DPPYYYYNNNNNOOOOYNNNNNYYYOOOBBB.......",
+  "..PPPYYYYYNNNNYOOOYNNNNYYYYPPPPPB...SS..",
+  "..PPPYYYYYYNNYYYOYYYNNNYYYPPPPPPP..SSSS.",
+  "..PPPPYYYYYYYYYNNNYYYYYYYYPPPPPPP..SSSS.",
+  "..PPPPYYYYYYYYONNNYYYYYYYYPPPPPPP...SS..",
+  "..PPPPYYYYYYYYONNNNYYYYYYAPPPPPPPPP.....",
+  ".PPPPPPYYYYYYYONNNYYYYYYYAPPPPPPP.......",
+  ".PPPPPPYYYYYYYYNNYYYYYYYAAPPPPPPPCCC....",
+  ".PPPPPCCDYYYYYYYYYYYYYYYAAPPPPPPPCCCCC..",
+  ".CCCCCCCCDYYYYYYYYYYYYYAAPPPPPPPPCCCCCCA",
+  "CCCCCCNNNNNNYYYYYYYYYYYDBPPPPPPPSSSCCCCA",
+  "ACCCCBBBBBBNNDNNNNNNNNNNBPPPPPPSSSCCCCCA",
+  "ACCCCCBBBBBBBBBBBBBBBBBBBPPPPPBBBCCCCCCA",
+  "ACCCCCCCCCCCCBBBBBBBBBBBBCCCCCCCCCCCCCCA",
+  "ACCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.",
+  ".CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.",
+  ".CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.",
+  ".CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC..",
+  "..CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC...",
+  "......AAAAAACCCCCCCCCCCCCCCCCAAAA.......",
+  "............AAAAAAAAAAAAAAAAA..........."
+ ]
+}

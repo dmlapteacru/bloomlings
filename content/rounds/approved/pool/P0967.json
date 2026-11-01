@@ -1,0 +1,111 @@
+{
+ "code": "P0967",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Тропинка на спине расчёски",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Одежда и аксессуары",
+ "direction": "Перевёрнутый масштаб",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна большая деревянная расчёска лежит горизонтально, её широкая спинка превращена в золотую дорожку с двумя крупными зелёными кустами, синие зубцы похожи на опоры моста",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 44,
+ "h": 39,
+ "N": 1198,
+ "colours": 9,
+ "volumes": {
+  "A": {
+   "cells": 295,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 256,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "G": {
+   "cells": 151,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 143,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "Y": {
+   "cells": 133,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "B": {
+   "cells": 109,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "O": {
+   "cells": 77,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 29,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 5,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..........MMGGGMMM..........................",
+  "........GGGMGGGGGGM.........................",
+  "........GGGGGGGGGGMMM.......................",
+  "........GGGGGGCGGGMGGM......................",
+  "......MMMGGGCCCCCMGGGM............GGGG......",
+  "....GGGGGGGMCCCCCMGMMMGG.......GGGGGGGGG....",
+  "..YYYGGGGGGMMCCCMMMMMGGGD.....MGGGGGGGGGG...",
+  ".YYYYYGGMMMMMCMCMMMMMGMMD.....MGGGGGGGGGGG..",
+  ".YOYYYYMMMMMMMMMMMMMMMMMYYYDGGMGGGGGGGGGGGM.",
+  ".AOOYYYYYYMMMMMMMMMMMMYYYYYGGGGGGGCCGGGGGGM.",
+  ".AAAOOOOOYYYYYYMMYYYYYYYYYYGGGGGCCYYCCGGGMM.",
+  "AAAAAAOOOOOOYYYYYYYYYYYYYYMGGGGMMCYYCMMMMMD.",
+  "AAAAAAAAAAOOOOOYYYYYYYYYYYMGGGGMMCCCCMMMMGD.",
+  "AAAAAAAAAAAAAOOOOOYYYYYYYYMMMGMMMMMMMMMGGGGM",
+  "AAAAAAAAAAAAAAAAOOOOOYYYYYYYMMMMMMMMMMGGGGGM",
+  "AAAANNNNNAAAAAAAAAAOOOOOOYYYYYYMMMMMMMGGGMMM",
+  "AAAANNNNNNAAAAAAAAAAAAOOOOOYYYYYYMMMMMMMMMMM",
+  "AAAABBNNNNNNNNAAAAAAAAAAAOOOOOYYYYYYYYMMMYYY",
+  "AAAABBNNNBBNNNNNAAAAAAAAAAAOOOOOOYYYYYYYYYYY",
+  "AAAABBNNNBBNNBBNNNNNNNAAAAAAAAAOOOOOYYYYYYYY",
+  "AAAABBNNNBBNNBBNNNNNNNNAAAAAAAAAAAOOOOYYYYOO",
+  "AAAABBNNNBBNNBBNNNBNNNNNNAAAAAAAAAAAAOOOOOOA",
+  ".AAABBNNNBBNNBBNNNBNNNBBNNNNNAAAAAAAAAAAOAAA",
+  ".AAABBNNNBBNNBBNNNBNNNBBNNNNNNNAAAAAAAAAOAAA",
+  ".AAABBNNNBBNNBBNNNBNNNBBNNNBNNNNNNAAAAAAOAAA",
+  "..AABBNN.NBNNBBNNNBNNNBBNNBBNNNBNNNNAAAAOAAA",
+  ".....NNN.NBNNBBNNNBNNNBBNNNBNNNBBNNNAAAAOAAA",
+  ".........NNN.NBNNNBNNNBBNNBBNNNBBNNNAAAAAAAA",
+  "..........N..NBNNNBNNNBBNNBBNNNBBNNNAAAAAAAA",
+  ".............NNN..BNNNBBNNBBNNNBBNNNAAAAAAAA",
+  "..................NNN.NBNNNBNNNBBNNNAAAOAAAA",
+  "......................NBNNNBNNNBBNNNAAAOAAAA",
+  "......................NNN.NBNNNNBNN.AAAOAAAA",
+  "..........................NBNN.NBNN.AAAOAAAA",
+  "...........................NN..NBNN.AAAAAAA.",
+  "...............................NNN.AAAAAAAA.",
+  "...................................AAAAAAA..",
+  "...................................CAAAAA...",
+  ".....................................AA....."
+ ]
+}

@@ -1,0 +1,116 @@
+{
+ "code": "P1032",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Лупа с радугой в росинке",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Лаборатории и изобретения",
+ "direction": "Миры внутри предметов",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна большая золотая лупа на короткой розовой ручке показывает внутри синей круглой линзы одну огромную росинку с тремя широкими радужными полосами, кремовый обод и зелёная низкая подставка",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 42,
+ "h": 44,
+ "N": 1151,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 279,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "B": {
+   "cells": 266,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "G": {
+   "cells": 124,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "P": {
+   "cells": 115,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "O": {
+   "cells": 90,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "M": {
+   "cells": 89,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "S": {
+   "cells": 80,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 68,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 40,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....................CCCCCCOOOO...........",
+  "..................CCCCCCYYYYYYYYYY........",
+  ".................CCCYYYYYYYYYYYYYYY.......",
+  "................CCYYYYYYBBBBBBBYYYYYY.....",
+  "...............CCYYYYBBBBBBBBBBYYYYYY.....",
+  ".............CCCYYYBBBBBBBBBBBBBBBYYYY....",
+  ".............CCYYBBBB...BBBBBBBBBBBYYYY...",
+  "............CCYYBBBB....BBB.BBBBBBBYYYYY..",
+  "...........CYYYYBB.....BBBSSBBBBBBBBYYYY..",
+  "...........CCYYBBB....BBBSSSBBBBBBBBBYYYY.",
+  "...........CCYYBBB...BBBSSSSBBBBBBBBBYYYY.",
+  "..........OCYYBBBB.BBBBSSSSBBBBBBBBBBBYYY.",
+  "..........OCYYBB..BBBBSSSS..PPPBBBBBBBOYYY",
+  "..........OCYYBB..BBBBSSS...PPPPBBBBBBOYYO",
+  "..........OYYYBBBBBBBBCCC..PPPPPBBBBBBOYYO",
+  "..........OYYYBBBBBBBBCCPPPPPPYYYSBBBBOYYO",
+  "..........OYYYBBBBBBSYY.PPPYYYYYYSBBBBOYYO",
+  "..........OYYYBBBBBBSYY..PYYYYYYYSBBBSOYYO",
+  "..........OYYYBBBBBBSYP..YYYYYYYMSBBSSOYYO",
+  "...........YYYBBBBBBSYPPYYYYYMMMMSBBSSCYOO",
+  "...........YYYYBBBBBSPPPYYYMMMMMSSBSSSCYO.",
+  "...........YYYYBBBBBBPPYYYMMMMMSSSSSSSYYO.",
+  "............YYYYBBBBBSPYYYMMMBB.SSSSCCYYY.",
+  "............YYYYYBBBBSSSYMMBBB.SSSSSCYYYC.",
+  "...........YYYYYYYBBBBSSSSSBSSSBSSSCCYOO..",
+  "..........YYCCYYYYYBBBBBBSSSSSSBSSSCOOO...",
+  ".........YYYCYYYOYYYBBBBBBBBBBBBCCYYOOO...",
+  ".........YYYYYYOOOYYYYYYBBBBBBYYYYYOO.....",
+  ".......CCCPPPYOOOOOOYYYYYYYYYYYYYOOO......",
+  "......CCCCPPPYYYY.OOOOYYYYYYYYYOOOO.......",
+  "....CCCCPPPPPPYY....OOOOOOOOOOOOO.........",
+  "...PCCCPPPPPPPYY.....OOOOOOOOOO...........",
+  "..PP.CPPPPPPP.....G..G...DMMMD...MMM......",
+  ".PP...PPPPPP.....GGGGGGM.MMMMD.GGGGGM.....",
+  "PPP..PPPPPPP....GGGGGGGMDGGMMMGGGGGMM.....",
+  "PPP.PPPPPPP......GGGGGGMMGGMMGGGGGGMM.....",
+  "PPPPPPPPPP.......DGGGGGGMMGMDGGGGMMM......",
+  "PYPPPPPPPP.......DDMMMGMMMMMGGGMMMDD......",
+  ".YYOPPPPP.......DGGGDDDMMDDDDMMMDGGGGD....",
+  ".YYOOPPP.......DMGGGGGGGGGGGGGGGGGGGGM....",
+  "..OOOO.........DMGGGGGGGGGGGGGGMMMMMMM....",
+  "................MGGGGGGGGGGGGGGMMMMMMD....",
+  "................DGGGGGGGGGGGGGMMMMMMD.....",
+  "...................DDDDDDDDDDDDDDD........"
+ ]
+}

@@ -1,0 +1,109 @@
+{
+ "code": "P1000",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Горошина в шлеме каштана",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Маски и костюмы",
+ "direction": "Фольклорная фантазия",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна крупная зелёная горошина с добрыми глазами носит большой коричневый каштановый шлем с кремовым забралом, короткие розовые сапожки и широкий синий плащ",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 37,
+ "N": 1015,
+ "colours": 9,
+ "volumes": {
+  "N": {
+   "cells": 229,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 197,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 183,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 175,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "A": {
+   "cells": 93,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 64,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "P": {
+   "cells": 55,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "R": {
+   "cells": 10,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 9,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "......DAAD.......DDDDD..............",
+  ".....DAAAAD..DDAAAAAAAADD...........",
+  "....DEAEAAADDAAAAAAAAAADDCCC........",
+  "....DEEEEEEEAAAAAAACCCCCCCCCCC......",
+  ".....DEDEEEAAAAAAACCCCCCCCCCCCCD....",
+  "........DEAAAAAACCCCCCCCDDCCCDCC....",
+  ".......DAAAAAAACCCCCDDCCCDCCCDCCD...",
+  ".......EAAAAAACCCCCCCDCCCDDCCDDCC...",
+  "......EEAAAAACCCCCCCCDDCCDDCCCDCCC..",
+  ".....DEAAAAACCCCCDCCCCCCCCCCCCCCCC..",
+  ".....EEAAAAACCCCCCCCCCCCCCDDDDDDAA..",
+  "....DEEAAAEECCCCCCCCCDGGGGGDGGDDDA..",
+  "....DEEAAAECCCCCCCDDDGGGGGGGCGGDEE..",
+  "....DEEAAAECCCCCGGGGGGGGGGGCDCGDE...",
+  "....DEEEAAECCCDDGCCCDDGGGGGDDDCGD...",
+  "....DEEEEECCCDDGGCCCDDGGGGGDDDCGD...",
+  "....DEEEEECCCDGGGCCDDDGGGGGDDDCGD...",
+  "....DEEEEECCCGGGGCCDDDGGGGGGCCPPD...",
+  "....DEEEEECCDGGGGCCCDDGDDDDGGGPPD...",
+  ".....DEEECCCDGGGPPCCCGGDRDDGGGGGD...",
+  "......DECCDDDGGGPPPGGGGGRRGGGGGDD...",
+  "......DACDDDDGGGGPGGGGGGGGGGGGDNN...",
+  "......DAADNNNNNDGGGGGGGGGGGGGDNNNN..",
+  "......DDDNNNNNNNNDGGGGGGGDDNNNNNNN..",
+  "........DNNNNNNNNNNNNNNNDYYYNNNNN...",
+  ".......DNNNNNNNNNNNNNNNNYYYYNNNNN...",
+  ".....NNNNNNNNNNNNDNNNNNDDYYDDDNNND..",
+  "...NNNNNNNNNNNNDGGGGGGGGGDDDDNNNNN..",
+  "..NNNNNNNNNNNDGGGGGGGGGGGGGDNNNNNNN.",
+  ".NNNNNNNNNNNNDGGGGGGGGGGGGGDNNNNNNN.",
+  "NNNNNNNNNNNDDDGGGGGDDDDGGGGDNNNNNNNN",
+  "NNNNNNNNNNNNDPPPDGDNNNDGEEEPDNNNNNNN",
+  "NNNNNNNNNNNNDPPPPPDNNNDRPPPPDNNNNNNN",
+  ".NN..DNNNNNDPPPPPPNNNNDRRPPPPDNNNNN.",
+  "......NNNNDPPPPPPDNNNDDRRPPPPPDNN...",
+  ".......DDDDPPPPPPDD...DRRPPPPP......",
+  "...........DDDDD.......DDDDDDD......"
+ ]
+}

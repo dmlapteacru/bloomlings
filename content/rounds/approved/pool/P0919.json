@@ -1,0 +1,108 @@
+{
+ "code": "P0919",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Летучая мышь с ночной маской",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Лесные и горные животные",
+ "direction": "Театр эмоций",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна маленькая оригинальная фиолетовая летучая мышь висит вниз головой на короткой золотой перекладине, широкие крылья укутаны как одеяло, розовая маска для сна на лбу",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 37,
+ "h": 37,
+ "N": 1351,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 353,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "V": {
+   "cells": 289,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "N": {
+   "cells": 236,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 127,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "P": {
+   "cells": 110,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "Y": {
+   "cells": 76,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "M": {
+   "cells": 65,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "O": {
+   "cells": 59,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 36,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "CCCCCAAAAAAAAAAAAAAAAAAAAAAAAAAACCCCC",
+  "CCCCAAYYAAAAAAAVVAAAVAAAAAAAAYAACCCCC",
+  "CCCCAAYYYYYYYYYVVVVVVVYYYCAAAYYAACCCC",
+  "CCCCCCAAAAAAAAAVVDVDVDAAAAAAAYYCCCCCC",
+  "CCCCCCAAAANNAAAVVVVDVAAAANNNAACCCCCCC",
+  "COCCCCCCCNNNNNVVVVVVVVNNNNNNNCCCCCCCC",
+  "COCCCCCCNNNNNNVVVVVVVVNNNCCNNNCCCCCCC",
+  "COCCCCCCNNNNNVVVVVVVVVVNNCCNNNCCCCCCC",
+  "YYYCCCCNNCNNNVVVVVVVVVVNNNCCCNNCCCYYY",
+  "YYYCCCNNNCNNVVVVVVVVVVVVNNNNNNNNCCYYY",
+  "AOOOCNNNNNNNVVVVVVVVVVVVNNNNNNNNNNNOO",
+  "AOOONNNNNNNVVVVVVVVVVVVVVNNNNNNNNNOOA",
+  "AOOANNNCNNNVVVVVVVVVVVVVVDNNNNCNNNOOA",
+  "ACAANNCCNNVVVVVVVVVVVVVVVVNNNNCNNNCCA",
+  "CCCCNNNNNNVVVVVVVVVVVVVVVVVNNNNNNNCCA",
+  "CCCCNNNNNVVVVVVVVVVVPPVVVVVNNNNNNNCCC",
+  "CCCCNNNNNVVVVVVVPPPPPPPVVVVNNNNNNNCCC",
+  "CCCCNNNNNVVVVVPPPPPPPPPVVVVVNNNNNNCCC",
+  "CCCCNNNNNVVVVVPPPPPPPPPPVVVVNNNNNNCCC",
+  "CCCCCCCNVVDVVVPPPPVVVVVVVVDVNNNNNNCCC",
+  "CCCCCCCNVVNVVPPPPVPVVVVVVVNVNNNNNNCCC",
+  "CCCCCCCNVNNDVVVDVVPPVDCVVNNNNNNNNNCCC",
+  "CCCCCCCCVNNVVVCDDVVVDDDCVVVVDCCCNNCCC",
+  "CCCCCCCCVVDVVVCDDVVVDDCCVNNDCCCCAACCC",
+  "CPPPCCCACCDVVVCCDVVVVCCVVNCCCCCCACCCC",
+  "PPPPPPAACCPPPVVVVVVVVVVVVVCCCAAAAACCC",
+  "PPPPPPPAAAPPPPVVVVVVVVVPPVAAAAAAAACCC",
+  "PPPPPPPAAAPPPPVDNVVVVVPPPVAACCCCCMMMC",
+  "PPPCCCCCCDPPPVVNNNNNNVPPPVCCCCCDMMMMC",
+  "PPCCCCCCCDPPVVNNNNNNNVPPPVCCCCMMMMMMM",
+  "YYYCCCCCCCDDDCCNNNNNNNPPPDCCCMMMMMMMY",
+  "YYYYCCCCCCCCCCCPPPNPPCCDCCCCDMMMMMMMY",
+  "YYYYYCCCCCCCCCCCPPPPCCCCCCCCMMMMMMMMY",
+  "OOYYYCCCCCCCCCCCPPPPCCCCCCCDMMMMMMMMY",
+  "OOOYYYYYYYOOOYYYYCYOOOOOOOOMMMDMMMMMY",
+  "AAAAOOOOOOOOOYYYYYYYYOOOOOOMMMMMMMMYY",
+  "......OOOOOOO.....Y...OOOO.MM..MMM.YY"
+ ]
+}

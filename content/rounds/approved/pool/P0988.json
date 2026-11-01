@@ -1,0 +1,116 @@
+{
+ "code": "P0988",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Обруч с садовым рассветом",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Спорт и активные игры",
+ "direction": "Миры через портал",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой толстый розовый спортивный обруч стоит вертикально, внутри один золотой солнечный диск над зелёной грядкой, две широкие синие ленты закреплены снизу",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 41,
+ "h": 43,
+ "N": 905,
+ "colours": 9,
+ "volumes": {
+  "P": {
+   "cells": 248,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "Y": {
+   "cells": 204,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "N": {
+   "cells": 165,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 66,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "M": {
+   "cells": 56,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 52,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "B": {
+   "cells": 52,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "E": {
+   "cells": 45,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 17,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "................EEEPPPPPP................",
+  ".............PPPPPPPPPPPPPPP.............",
+  "............PPPPPPPPPPPPPPPPPP...........",
+  "..........PPPPPPPEEEEEEEPPPPPPPP.........",
+  ".........PPPPPPP....C....PPPPPPPP........",
+  "........PPPPPP.....YYY.....PPPPPPP.......",
+  ".......PPPPP.......YYY.......PPPPPP......",
+  "......PPPPP........YYY........DPPPP......",
+  "......PPPP..YYY......C....YYY..DPPPP.....",
+  ".....PPPPP..YYYY..EEEEE...YYY...PPPP.....",
+  "....PPPPP....YYCCYYYYYYYY.YY....PPPPP....",
+  "....PPPP.......CYYYYYYYYYY.......PPPP....",
+  "....PPPP.......YYCCYYYYYYYE.......PPPP...",
+  "....PPPP......CYYCYYYYYYYYE.......PPPP...",
+  "...EPPP...YYYCEYYYYYYYYYYYECYYY...EPPP...",
+  "...EPPE...YYY.EYYYYYYYYYYYY.YYYY..EPPP...",
+  "...EPPE...YYY.EYYYYYYYYYYYY.YYY...EPPP...",
+  "...EPPE........YYYYYYYYYYYY........PPP...",
+  "...EPPE........YYYYYYYYYYYC........PPP...",
+  "...EPPP........CYYYYYYYYYY........PPPP...",
+  "....PPPP.....YY.YYYYYYYEY.YY......PPPP...",
+  "....PPPP....YYYY..YYYEEE..YYY.....PPPP...",
+  "....PPPPD...YYY...........YYY....PPPP....",
+  "DDDDDPPPPGGD.......YYY.......CGGPPPPPDDDD",
+  "DGGGMPPPPGGGDDDD...YYY....DMDGGPPPPMGGGGD",
+  ".GGMMMPPPPMMDDGGD..YYY..GGGMDGGPPPPMGGGGD",
+  ".DGGGMDPPPPMMMMGGD......GGMMMMDPPPPMGGGD.",
+  "..DGMMMPPPNNNNMMGGD..DGDGMMDBBBNPPMMGGG..",
+  "...DMMMDNNNBBBNNGGMDDGGMMMNBBBBNNDMMMM...",
+  "....DMMMMNNBBNNNDMMDDGMMDNNNNBBNNMMMMD...",
+  ".....DDMMNBBBBNNYYYYYYYYYNNNNBBNNMMD.....",
+  ".......DDNNBNNNNDYYYYYYYYNNNNNNNNDD......",
+  "........NNNNNNNNDEEEEEEEDDNNNNNNN........",
+  "....NNN..NNNNNNND.DDDDDD.DNNNNNNN.N......",
+  ".NBBBNNNNNNNNNNN..........NNNNNNNNNBBNN..",
+  "NNBBBBNNNNNNNNN............NNNNNNNBBBBN..",
+  "NNNBBBBNNNNNNN..............NNNNNBBBBB...",
+  "..NNBBBNNNNNN................NNNNBBBN....",
+  "...NNNNNBBB....................NNNNNN....",
+  "...NN..............................NN....",
+  ".........................................",
+  ".........................................",
+  "..................CCC...................."
+ ]
+}

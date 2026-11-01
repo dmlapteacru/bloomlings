@@ -1,0 +1,110 @@
+{
+ "code": "P0950",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Тележка для одного облачного комка",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Профессии и увлечения",
+ "direction": "Перевёрнутый масштаб",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Маленькая широкая синяя двухколёсная тележка везёт один огромный кремовый комок хлопка с розовой лентой, золотые ручки и два крупных колеса ясно различимы",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 37,
+ "h": 38,
+ "N": 1027,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 448,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 187,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "N": {
+   "cells": 124,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "P": {
+   "cells": 114,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "R": {
+   "cells": 71,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 35,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 25,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 15,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "B": {
+   "cells": 8,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...............CCCC....C.............",
+  "..............CCCCCCCCCCCC...PPRR....",
+  "...........CCCCCCCCCCCCCCCC.PPPPRR...",
+  "..........CCCCCCCCCCCCCCCCCRPPPPRRR..",
+  ".........CCCCCCCCCCCRRRRCCRRPPPPPRR..",
+  ".........CCCCCCCCCCRPPPPPPPPPPPPPRR..",
+  "......CCCCCCCCCCCCCRPPPPPPPPPRRRRR...",
+  "......CCCCCCCCCCCCCRRPPPPPRRRRRRR....",
+  "....CCCCCCCCCCCCCCCRRRPPPPRRRRRRRR...",
+  "...CCCCCCCCCCCCCCPPRRRRPPPRRPCCPPPP..",
+  "...CCCCCCCCCCCCCPPPPRRRRPCRPPCCCPPPPR",
+  "..CCCCCCCCCCCCCCCPPPCCRRCCPPPPCCCPPRR",
+  "..CCCCCCCCCCCPPPCCCCCCCCCCPPPPRCCCP..",
+  ".ECCCCCCCCCCPPPPPCCCCCCCCCPPPPRCCCC..",
+  ".ECCCCCCCCCCPPPPPCCCCCCCCCPPCRRCCCCC.",
+  ".ECCCCCCCCCRPPPCCCCCCCCCCCCCCCCCCCCC.",
+  "..CCCCCCCCCRPPPCCCCCCCCCCCCCCCCCCCCCE",
+  "..CCCCCCCCCRPPCCCCCCCCCCCCCCCCCCCCCCE",
+  "EEEECCCCCCCPPPCCCCCCCCCCCCCCCCCCCCCCE",
+  "YYYYYYYCCCCPPPCCCCCCCCCCCCCCCCCCCCCCE",
+  "OOOOYYYNNCCRRRCCCCCCCCCCCCCCCCCCCCCC.",
+  ".EEEEYYNNNNNNNCCCCCCCCCCCCCCCCCCCCCN.",
+  ".....YYYNNNNBBBNNNNCCCCCCCCCCCCNNNNN.",
+  ".....YYYNNNNNNNNNNNNNNNCCCCNNNNNNNNN.",
+  "......YYYNNNNNNNNNNNNBBBNNNNNNNNNN...",
+  "......YYYDDDDDDDDNNNNNNBNNNNNNDDDD...",
+  ".......DDDDDDDDDDDNNNNNBNNNNNDDDDDD..",
+  "........DDDDDDDDDDDNNNNNNNNNDDDDDDD..",
+  ".......DDDDDDDDDDDDNNNNNNNNNDDDDDDDD.",
+  ".......DDDYYYODDDDDNNNNNNNNNOODDDDDD.",
+  ".......DDDYYYODDDDDNNNNNNYYYOODDDDDD.",
+  ".......DDDYYOODDDDDD....OOOOOODDDDDD.",
+  ".......DDDDOOODDDDD.....DDDDOODDDDD..",
+  "........DDDOODDDDDD......DDDDDDDDDD..",
+  "........DDDDDDDDDD........DDDDDDDD...",
+  ".........DDDDDDDDD.........DDDDD.....",
+  "...........DDDDD.....................",
+  "......................DDD............"
+ ]
+}

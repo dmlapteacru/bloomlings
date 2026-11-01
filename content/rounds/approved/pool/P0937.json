@@ -1,0 +1,116 @@
+{
+ "code": "P0937",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Кабачок на самокате",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Овощи и урожай",
+ "direction": "Ожившие вещи",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один округлый зелёный кабачок с весёлым лицом едет на большом золотом самокате с двумя синими колёсами, толстый черенок похож на причёску, компактная поза",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 42,
+ "h": 44,
+ "N": 1057,
+ "colours": 9,
+ "volumes": {
+  "G": {
+   "cells": 192,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 176,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "M": {
+   "cells": 150,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "N": {
+   "cells": 124,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 117,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "S": {
+   "cells": 105,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "L": {
+   "cells": 86,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "E": {
+   "cells": 74,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 33,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........................DDDDD............",
+  ".......................MMMGGGGMD..........",
+  "......................DMMMGGGGMMD.........",
+  "...................GGGGMMMGMGGGMD.........",
+  ".................MMGGGLGGGMMMDDD..........",
+  "................MMLLLLLLLGMMMD............",
+  "...............MMLLCLLLLCGGGMD............",
+  "...............MLLLCLLLLGGGMMM............",
+  "..............LLLLLLLLLLGGGMMMD...........",
+  ".............DGGGGLLLLLLGGLMMMD...........",
+  ".............DGCDLLLLLLDGGLMMMD...........",
+  "............DGGDDLLLLLCCGGLMMMD...........",
+  "............DGDDDLLLLDDDCLLGMM............",
+  "............DECDDLLLDDDDCGGGGM............",
+  "...........DDEECGEEEDDDCCGGGGMD...........",
+  "......MMMMDDGLLGGEEEECCCCGGGGMD...........",
+  ".....MMMMMDDGLGGGEEEEEEEEGGGGGG...........",
+  "....GGGGGDDDGLLGGGGGGGGEEGGGGGGD..........",
+  "....GGDDDYYYCEEEDDDMMMGGGGGGMMMDD.........",
+  "....CCCDDYYYYYYYDLLLGGGDGMGGMMMDD.........",
+  ".....CCCC.EEYYYYDLLLMMMMMMGGLMMMDD........",
+  "...........EYYMMDDDMMMMMMGGGLMMMDD........",
+  "..........CYYYMMMDDMMMMGGGGGLMMMLM........",
+  "..........CYYEMMMGGGGGGGGGGGGLMMLMD.......",
+  "..........YYYEDMMLGGGGGGGGGGGLMMLMD.......",
+  "..........YYYEDMMLGGGGGGGGGGGLMMMD........",
+  ".........YYYE.DMMLGGGGGGGGGGGMMMMD........",
+  ".........YYYE..DMMGGGGGGLGGGMMMMD.CYY.....",
+  "........YYYYE...DMMGGGGGLGGGMMMDDDYYYY....",
+  "........YYCYE....DDGGGGGLGGGDDDMMGGYYYE...",
+  ".......YYYYYE.....DDMMMMMMGDDDMMMGGDYYE...",
+  "......NNYYYYYY.....DMMDDDD....DDDDDYYYE...",
+  "....NNNNNYYYYYY....DMMMD.........N.YYY....",
+  "...NNNNNNYYYYYY...YYDMMD.......NNNNNN...SS",
+  "...NNNNNNCYDNYYYCEYYYYMEEEEEEENNNNNNN...S.",
+  "..NSSNNNYCYNNYYYEEYYYYEEYYYYYYYNNNNNN.....",
+  "..NSSNNYYYYNNYYYEEEEEEEYYYYYYYYYYYNNNN....",
+  "..NSNNYYYYYNNYYYYYYYYYYYYYYYYYYYYYNNNN....",
+  "..NNNNYYYYYNNNYYYYYYYYYYYYYYYEEEEENNN...SS",
+  "..NNNNNYYYYNN.EEEEEEEEEEEEECCNNNNNNNN.....",
+  "..NNNNNNYYNNNS.SSSSSSSSSSSSSSSNNNNNNSSSSS.",
+  ".SSNNNNNNNNNSSSSSSSSSSSSSSSSSSSNNNNSSSSS..",
+  "SSSSNNNNNNNSSSSSSSSSSSSSSSSSSSSSS.........",
+  "...SSSSSSSSSSSSSSSSSSS..SSS..............."
+ ]
+}

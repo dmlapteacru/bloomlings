@@ -1,0 +1,108 @@
+{
+ "code": "P1025",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Шмель в шляпе-подсолнухе",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Насекомые и маленькие существа",
+ "direction": "Уютный сюрреализм",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один оригинальный круглый золотисто-тёмный шмель с крупными глазами носит огромную шляпу из одного подсолнуха, кремовые короткие крылья и розовые маленькие лапки",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 38,
+ "h": 36,
+ "N": 1022,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 342,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 327,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 95,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 86,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 53,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "M": {
+   "cells": 51,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "P": {
+   "cells": 36,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "A": {
+   "cells": 21,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "R": {
+   "cells": 11,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........YY...YYY..EEE................",
+  "........EYYYYYYYYYYYYYYYYYY...........",
+  ".....EEEEYYYYYYYYYYYYYYYYYY...........",
+  "...EYYYYYYYYYEEEEEEEEEYYYYYEEEEE......",
+  "...EYYYYYYEAAAEAAAAEEEEEYYYYYYYYY.....",
+  "..EEYOOOOOEAAAEAAAAEEEEEEEYYYYYYY.....",
+  ".YYYYYYYOOEEAEAAAAAEEEEEEEYYYYYY......",
+  "YYYYYYYYYYYEEEEEAEEEEEEEEEEOOYYYYY....",
+  "OOOOYYYYYYYYEEEEEEEEEEEEEEEOYYYYYYYY..",
+  ".OOYYYYOYYYYYYYYYEEEEEEEEEOOOYYYYYYYY.",
+  "...OOOOOYYYYYYYYYYYYEEEEEYYYYYYYYOOOY.",
+  "..DMMMMYYYYYYYYYYYYYYYYYYYYYYYYYOOOO..",
+  ".DMMMMMYYOOOOEYYYYYYYYYYYYYYYYYYYY....",
+  "DMMMMMDEEEEEEEYYYYYEYYYYYYYYOYYYYYE...",
+  "MMMMMDEEEEEEEEEYOOOEMMOOYYYYOOOOYYE...",
+  "MMMMDEECCEEEEEEEEEEEEMMOOOYMMMOOOOE...",
+  "MMD.EEDDDCYYYYECCCEEEEEMMMMMMMM.CCC...",
+  "M...ECDDDCYYYYDDDCCEEEEEODMMMMMDCCCC..",
+  "...EEDDDDYYYYYDDDCCCEEEEOOODMMMMDCCCC.",
+  "...EEDDDDYYYYYDDDCCCEEEEEOODDDDMCCCCCC",
+  "...EYCDDYDDDDYDDDCCCEEEEEYYYEECCCCCCCC",
+  "...EYYYYYDDDYYDDDCCYEEEEEYYYEECCCCCCCC",
+  "...EEYYYYYYYYYYYCYYYEEEEEYYYEEECCCCCCC",
+  "...EEYYYYYYYYYYYYYYEEEEEYYYYEEECCCCCC.",
+  "...EEEYYYYYYYYYYYYEEEEEEYYYYEEECCCCC..",
+  "...PPPEYYYYYYYYYEEEEEEEEYYYEEEECCEE...",
+  "...PPPEEEEEEYEEEEPPEEEEYYYEEEEECCCE...",
+  "...PPEEEEEEEEEEEPPPPPEEYYOEEEEECCCC...",
+  "....PP.EEEEEEEEEPPPPEEOOOOEEEOEECCC...",
+  "........EEEEEEEEEPPPOOOOOEEEEOE.......",
+  ".........EEEEEEEEEEOOOOOEEEEOO........",
+  ".........EEEEEEEOOOOOOOEEEEOOO........",
+  ".........PPRREEOOOOOOORRREEE..........",
+  ".........PPRR..EEEEEEPPRRE............",
+  "..........PP.........PPRR.............",
+  "......................PP.............."
+ ]
+}

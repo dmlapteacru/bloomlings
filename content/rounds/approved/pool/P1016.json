@@ -1,0 +1,109 @@
+{
+ "code": "P1016",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Палитра с морковным водопадом",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Рисование и ремёсла",
+ "direction": "Кулинарная фантастика",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна широкая деревянная палитра содержит большой оранжевый морковный водопад в выемке, зелёная ботва на верхнем краю и один розовый мазок у нижнего конца",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 38,
+ "h": 37,
+ "N": 1093,
+ "colours": 9,
+ "volumes": {
+  "O": {
+   "cells": 637,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 191,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 69,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "P": {
+   "cells": 54,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "Y": {
+   "cells": 52,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "M": {
+   "cells": 38,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 28,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 14,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 10,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............EEEOOOAAGGGMMMMMMMMMMD..",
+  "............OOOOOOOOADGGGMMMMMMGGGGD..",
+  "..........OOOOOOOOAAADDOOMMMMMGGGGGGD.",
+  "........OOOOOOOOAAAAOOOOOOOMMMGGGGGGD.",
+  ".......OOOOOOOOOAAEEOOOOOOOOOGGGMMGGGD",
+  "......OOOOOOOOOOEEEOOOOOOOOOOOMMMMMMMD",
+  ".....OOOOOOOOOOOEEOOYOYYYOOOOODMMMDDD.",
+  "....OOOOOOOOOOOOOOOCYYYYYOOOOOEEMMDAE.",
+  "...AAOOOOAAAOOOOOOCCYYYYOOOOOOEAAAAAE.",
+  "..OOAAOAAAAAEOOOOOCYYCOYOOOOOOAAAAOOE.",
+  "..OOOOAAAEEEEOOOAYCYYCOOOOOOOOOOOAOOO.",
+  ".OOOOOAAA...EOOOAYYYYOOOOOOOOOOOOOOOO.",
+  ".OOOOOAA....EOOOAYYOYOOOAAAAOOOOOOOOO.",
+  "EOOOOOO.....OOOAOYOOYOOOAAOOOAAAOOOOO.",
+  "EOOOOOO...OOOOOAOYOYYOOOAOOOOOOOOOOOO.",
+  "EOOOOOOOOOOOOOOAOOOYYOOOAOOOAAAAAOOOE.",
+  "EOOOOOOOOOOOOOOAOOOYOOOOAOOOOOOOOOOEE.",
+  "EOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOEE.",
+  ".OOOOOOOOOOOOAAOOOOOOOOOEAAOOOOOOOOE..",
+  ".OAAOOOOOOOAAAAOOOOOOOOOEAAAOOOOOOAE..",
+  "..AAAOOOOOAAAAEOOOOOOOOOEEEEOOOOOAAE..",
+  "...AAOOOAAAAEEEOOOOOOOOOEEEEOOOOOAA...",
+  "....OOOAAAAOOOOOOOYOOOOOOOEEOOOOAA....",
+  "...OOOAAAOOOOOOOOYYOOOOOOOOEOOOOAA....",
+  "..OOOAAAOOYYOYYYOOOOOOOOOOOOOOOAA.....",
+  "..OOOAAOOOYYYOOOYYYOOOOOOOOOOOAAA.....",
+  "..OOAAAOOOOYYYYOOOOOOOOOOOOOOAAA......",
+  ".EOOOAPPPPPPOOOOOOOOOOOOOOOOAAA.......",
+  ".EOOOPCCPPPPPPPPOOOOOOOOOOOAAA........",
+  ".EOOOPPCPPPPPPPPPOOOOOOOOOAAA.........",
+  ".EOOOPPPPPPPPPPPPOOOOOOOAAAA..........",
+  ".EOOOOOOPPPPPPPPPOOOOOOAAAA...........",
+  "..AAOOOOPPPPPPPOOOOOOAAAAA............",
+  "..AAAAOOOOOOOOOOOOAAAAAA..............",
+  "...AAAAAAAAAAAAAAAAAAA................",
+  ".....AAAAAAAAAAAAEEE..................",
+  "........EEEEEEEE......................"
+ ]
+}

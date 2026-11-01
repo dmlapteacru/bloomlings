@@ -1,0 +1,109 @@
+{
+ "code": "P0883",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Мурашке достался огромный бант",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Насекомые и маленькие существа",
+ "direction": "Перевёрнутый масштаб",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один оригинальный маленький золотой муравей держит над головой гигантский розовый подарочный бант, крупные дружелюбные глаза, две ноги и четыре руки различимы",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 36,
+ "h": 38,
+ "N": 1367,
+ "colours": 9,
+ "volumes": {
+  "P": {
+   "cells": 418,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "N": {
+   "cells": 269,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "M": {
+   "cells": 179,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "S": {
+   "cells": 169,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "E": {
+   "cells": 120,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 109,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 69,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 24,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 10,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSPPPPPPPPSSSSSSSSSSPPPPPPPPSSSSS",
+  "SSSSSPPPPCPPPPSSSSSSSSPPPPCPPPPPSSSS",
+  "SSSSPPPPCCPPPPPSSSSSSPPPPPCCPPPPSSSS",
+  "SSSSPPPCCPPPPPPPSCCCPPPPPPPCPPPPSSSS",
+  "SSSPPPPPCPPPPPPPPCCCPPPPPPPPPPPPPSSS",
+  "SSSPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPSSS",
+  "GSSPPPPPPPPPPPPPPPPPPPPPPPPPPPPPSSMM",
+  "GGSPPPPPPPPPPPPPPPPPPPPPPPPPPPPPSSMM",
+  "MMMSPPPPPPPPPPPPEEPEEPPPPPPPEEESSMMM",
+  "MMMSSSPPPPPPPEEEESSSEYYYPPPPCCESMMMM",
+  "MMMSSPPPPPPPEEEEESSSESSYEEPCCPEMMMMM",
+  "MMMPPPPPPPEEESSSSSSEESSSEEECPPPPPPMM",
+  "MMPPPPPPPEEEESSSYYYYYSSSSEEPPPPPPPPM",
+  "GGPPPPPPPEEESSSYYYYYDDSSSEEPPPPPPPMM",
+  "GGGPPPPPPEEESSEYCDYYDDCSSYEMPPPPMMGG",
+  "MMGMMPPPPEEESSEY.DYYYDYYYYMMPPPPMMGG",
+  "MMMMMPPMMMEEEEEYCDYYYYYYYYMMMPPPMGGG",
+  "MMMMMPGGGGGGEEEYYYYYYYYMMMMMMMPPMGGG",
+  "MMSSMGGGGMGGGEEYYYYYEEEMMMMMGGGGMGMM",
+  "SSSSDMMMMMMMEEEEYYYYEEEEGGGGGGGMMMMM",
+  "SSSSSSMMMMMYYEEEYYYYYEEEEEGGMMMMMMMM",
+  "SSGSSSSMMYYYYEEYYYYYEEEEEEMMMMMMSSMM",
+  "MGGGSSSMMYYYYEEYYYYYEEDMMMMMMMSSSSSG",
+  "MMMMMMMMEYYYYYEYYYYMMMYMMMMMMSSSSSGG",
+  "GGGMMMMMEYYYYYEEEYMMMMYMMMMMGSSSSGGM",
+  "GGGGMPPPEYYYEEENEENNNNYEMMGGGMSSMMMM",
+  "GGGNNNPPPEEEEENNEENNNNYEEPPPMMMMMMMM",
+  "NNSNNNNNNEEEEEPNYYPPPPYYYPPPNNNNNMMM",
+  "NSSNNNNNNNEEPPPPYYPPPPPPPNNNNNNNNNNN",
+  "NNNNNNPPPPPPPPPPYYYPPPPPPPPNNNNNNNNN",
+  "NNNNNPPPPPPPPNNNNNNNNNPPPPPPNNNNNNNN",
+  "NNNNPPPPPNNNNNNNNNNNNNNPPPPPNNNNNNNN",
+  "NNNNPPPPNNNNNNSSSNNNNNNPPPPPNNNNNNNN",
+  "NNNNPPPPNNNNNNNNNNNNNNNPPPPPNNNNNNNN",
+  "NNNNPPPPNNNNNNNNNNNNNNNPPPPPNNNNNNNN",
+  "NNNNPPPPNNNNNNNNNNNNNNNPPPPPNNNNNNNN",
+  "NNNNPPPPNNNNNNNNNNNNNNNPPPPPNNNNNNNN",
+  "NNNNPPPPNNNNNNNNNNNNNNNPPPPPNNNNNNNN"
+ ]
+}

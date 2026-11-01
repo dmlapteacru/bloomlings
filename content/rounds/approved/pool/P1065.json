@@ -1,0 +1,99 @@
+{
+ "code": "P1065",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Морти",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Rick and Morty · Adult Swim: Morty Smith from Rick and Morty: exact rounded cartoon head, short BROWN hair, huge white oval eyes with small dark pupils, YELLOW T-shirt and blue pants partly visible; awkward worried open-mouth expression, one small thick green portal device held near his chest. Big head-and-torso chibi portrait, Morty alone, do NOT draw Rick or Pickle Rick.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 31,
+ "h": 31,
+ "N": 961,
+ "colours": 8,
+ "volumes": {
+  "S": {
+   "cells": 361,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 224,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 166,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 87,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 85,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "L": {
+   "cells": 16,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "K": {
+   "cells": 16,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "A": {
+   "cells": 6,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSSSSSSSSSDDEEEDSSSSSSSSSSSS",
+  "SSSSSSSSSSDDEEEEEEEEDDSSSSSSSSS",
+  "SSSSSSSSSDEEEEEEEEEEEEDSSSSSSSS",
+  "SSSSSSSSEEEEEEEEEEEEEEEDSSSSSSS",
+  "SSSSSSDEEEEEDDCCCCDDEEEESSSSSSS",
+  "SSSSSSEEEEEDCCCCCCCCCDEEDSSSSSS",
+  "SSSSSDEEEECCCCCCCCCCDCDEDSSSSSS",
+  "SSSSSDEEEDCCCDCCCCDDCCCDDSSSSSS",
+  "SSSSSEEEDCDDDCCCCCCDDDDDDSSSSSS",
+  "SSSSDEEECCDDDDDCCCDCCCCDDSSSSSS",
+  "SSSSEEEECCDCCCCDCDCCCDCDDSSSSSS",
+  "SSSSEEEDCDCCCCDDCDCCCCCDDSSSSSS",
+  "SSSSEEEDCDCCCCDDCCCCCCCDDDSSSSS",
+  "SSSSDEEDCDCCCCCDCCDCCCDCDCSSSSS",
+  "SSSSDEEDCCDCCCCDCCDDDDCCDCSSSSS",
+  "SSSSSEEDCCCDDDDCCDDCCCCCDDSSSSS",
+  "SSSSSDEDCCCCCCCCCCCCCCCCDSSSSSS",
+  "SSSSSSDCCCCCCCCCCCDDCCCCDSSSSSS",
+  "SSSSSSDCCCCCCCCDDDDCCCCDSSSSSSS",
+  "SSSSSSDCCCCCCCCCDDCCCCDSSSSSSSS",
+  "SSSSSSSDDDDCCCCCCCCCCDSSSLLLSSS",
+  "SSSSSSSSSSDDDCCCCCDDYYSSSLLLSSS",
+  "SSSSSSSSDYYYYYAAAADYYYDSLLLLSSS",
+  "SSSSSSSDYYYYYYYAADYYYYYDLLLLSSS",
+  "SSSSSSSYYYYYYYYYYYYYDDDCCLLKKDS",
+  "SSSSSSDYYYYYYYYYYYDDDKKKCCKKKSS",
+  "SSSSSSYYYYYYYYYYYDCCCDDKKKDDDSS",
+  "SSSSSDYYYYYYYYYYDCCCDDDKKKDDDDS",
+  "SSSSDYYYYYYYYYYDCCCCCDYDKKDSSSS",
+  "SSSSDDCCYYDYYYDCCCCCCDYYDSSSSSS",
+  "SSSSSCCCCDDYDCCCCCCCDDYDCSSSSSS"
+ ]
+}

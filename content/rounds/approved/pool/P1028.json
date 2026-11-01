@@ -1,0 +1,106 @@
+{
+ "code": "P1028",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Ледяной кубик с тёплым сердцем",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Магические предметы",
+ "direction": "Уютный сюрреализм",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой прозрачный синий кубик льда хранит крупное розовое сердце, кремовые широкие блики по краям и золотая маленькая вязаная подставка снизу, без капель и искр",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 33,
+ "h": 33,
+ "N": 912,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 248,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "P": {
+   "cells": 154,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "B": {
+   "cells": 139,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "Y": {
+   "cells": 110,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 105,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 95,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "R": {
+   "cells": 28,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "A": {
+   "cells": 18,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 15,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........SSSSBSSSSSSSSSSSSSS.....",
+  ".......CCCSBBBSSSSSSSSSSSSSSSS...",
+  ".....CCCSSSSSBSSSSSSSSSCCCCBBSS..",
+  "....CCCCSSSBBBSSSSSSSSCCCCBBSSS..",
+  "...CCCCCCCCCCSSSSSSSSCCCSSSSSSS..",
+  "...SSBBBBBBBBCCCCCCCSSSSSSSBBCC..",
+  "..NSCCCCBCBBBBBBBBBBSSCCCSSBBCC..",
+  "..NSCCCCCBBBBBBSSBSSSSSSCSBBBBS..",
+  "..NSCCCCPPPPPPPSSSSSSSSSCCBBBBS..",
+  "..NSCCCSPPPPPPPPPPPPPPSSCCBBBBS..",
+  "..NSCCSSPPCCPPPPPPCPPPPSSCBBBBS..",
+  "..NSBSSPPCCPPPPPPCCPPPPPSCBBBBS..",
+  "..NSBSSPPPPPPPPPPPPPPPPRSCBBBBS..",
+  "..NSBSSPPPPPPPPPPPPPPPPRSCBBBSS..",
+  "..NSBSSPPPPPPPPPPPPPPPPRSCBBSSS..",
+  "..NSSSSPPPPPPPPPPPPPPPRRSCBSSSS..",
+  "..NSBSSSPPPPPPPPPPPPRRRSSCBSSBS..",
+  "..NSBSSSPPPPPPPPPPPRRRRSSCSSBBS..",
+  "..NSBBSSSPPPPPPPPPRRRRBSSCBSBBS..",
+  "..NSBBBBBSPPPPPPPRRRSSBBBCBBBSSS.",
+  "..NSBBBSSSSPPPRRRRRSSSSSSCBBBSSAA",
+  ".YYSSBSSSSBBPPRRRSSSSSBBSCBBBBAAA",
+  "AYYSSSSSSBBBBPRSSSSSBBBBCCBBBOOOA",
+  "AYYYYSSSSSSBBBSSSSBBBBBCCCBBYOOOA",
+  "AYYYYYYYYYSSSSSSSSSSCCCCCCBYYOOAA",
+  ".YOOYYYYYYYYYYYYYBBBCCCCCCYYYOOOO",
+  ".OOOOOOYYYYYYYYYYYYYYYYYYYYYOOOO.",
+  ".OOOYYYYYYYOOOOYYOYYYYYYYYOOOOOO.",
+  "..OOYYYYYOYYOOOOOOOOOOOYYYOOOOO..",
+  "....YYYOOOYYYOYYYOOYOOOYYYOOOO...",
+  ".......OOOOOOOOYYOYYYYYYYYOOO....",
+  "...........OO.OYYOOOOOOOOOO......",
+  "...................AAA.AAA......."
+ ]
+}

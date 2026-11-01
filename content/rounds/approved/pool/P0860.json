@@ -1,0 +1,108 @@
+{
+ "code": "P0860",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Фабрика больших снежинок",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Лаборатории и изобретения",
+ "direction": "Заводная сказка",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Компактный розовый механический пресс выдавливает из синей пластины одну большую кремовую снежинку, золотой рычаг и широкая платформа хорошо видны",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 37,
+ "h": 37,
+ "N": 1367,
+ "colours": 9,
+ "volumes": {
+  "P": {
+   "cells": 455,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "C": {
+   "cells": 433,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 189,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "O": {
+   "cells": 107,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 69,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 51,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 28,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 18,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "K": {
+   "cells": 17,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+  "CCCCCCCCCPPPKKKKPEEECCCCCCCCCCCYYYYCC",
+  "CCCCCCCPPPPPPPKPPEYYYEEECCCCCCOYYCYOC",
+  "CCCCCCPKKKPPPPPPPPPOOOYYYYYYYEOOYYYOO",
+  "CCCCPPPPPKKPPPPPPPPPPOOYYCYYOEOOYYOOO",
+  "CCCCPPPPPPPPPPPPPPPPPOOYYYOOOEOOOOOOC",
+  "CCCPPPPPPPPPPPPCPPPPPOOYYYCCCCCOOOCCC",
+  "CCCPPPPPPPPPPCCCPCCPPPPPCCCCCCCCCCCCC",
+  "CCCPCCPPPPPPPPPCCPPPPKDDCCCCCCCCCCCCC",
+  "CCCPPPPPPPPPPCCCCCPPPKDDCCCCCCCCCCCCC",
+  "CCCPPPPPPPPPPCPCPCPPPKPPCCCCCCCCCCCCC",
+  "CCCPPPPPPPPPPPPCPPPPPKPPCCCCCCCCCCCCC",
+  "CCPPPPPPPPPPPPPPPPPPPPPPCCCCCCCCCCCCC",
+  "CPPPPPPPPPOOYOYYCYOOEPPPCCCCCCCCCCCCC",
+  "PPPPPPPPPDOOYOYYYYOOEPPPCC.CCCCCCCCCC",
+  "PPPPPPPPPPOOYOYYYYOOEPPPCCCCCCCCCCCCC",
+  "PPPPPPPPPPPPDDDCCDNNPPPPCCCCC.CCCCCCC",
+  "YYPPPPPPPPPPNNDCCDNNNNNNNCCCCCCCCCCCC",
+  "YYPPPPPPPNNNNNCCCCNNCNCCNNNCCCCCCCCCC",
+  "YOPPPPNNNNNNNNCCCCNNCCCCCNNNNCCCCCCCC",
+  "OOPPPPNNNNNCCCCCCCCCCCCCNNNNNNNCCCCCC",
+  "PPPPPPNNNNCCCCCCCCCCCCCCCCCCNNNNCCCCC",
+  "PPPPPPNNNNNCCCCCCCCCCCCCCCCCCNNNNNCCC",
+  "PPPPPPPNNNNCCCCCCCCCCCCCCCCNNNNNNNOOO",
+  "PPPPPPPPNNNNCCCCCCNNCCCCCCNNNNNNNNNNO",
+  "PPPPPPPPPNNNNCCCCCNNCCCCCNNNNNNNNNNNO",
+  "PPDDPPPPPPNNNCCCCCNCCCCCNNNNNNNNNNNNO",
+  "PPPPPPPPPPPNNNNNNNNCCNCCCNNNNNNNNPEOO",
+  "PPPPPPPPPPPPNNNNNNNNNNNNNNNNNNPPPPEOO",
+  "PPPPPPPPPPPPPNNNNNNNNNNNNNPPPPPPPPEOO",
+  "APPPPPPPPPPPPNNNNNNNNNPPPPPPPPPPPPEOO",
+  "AAAAPPPPPPPPPPNNNNNNPPPPPPPPPPPPPPEOO",
+  "OAAAAAPPPPPPPPPPPPPPPPPPPPPPPPPPAAAOO",
+  "OOOAAAAAPPPPPPPPPPPPPPPPPPPPDDDAAAOOO",
+  "AOOOOAAAADDPPPKPPPPPPPPPAAAAAAOOOOOOA",
+  "AAOOOOAAADDDPPKKPPPDAAAAAAAOOOOOOAAAA",
+  "AAAAOOOOAAADDDDDDAAAAAAOOOOOOOAAAAAAA"
+ ]
+}

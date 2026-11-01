@@ -1,0 +1,107 @@
+{
+ "code": "P1018",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Трёхцветный бумеранг с садом",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Спорт и активные игры",
+ "direction": "Миры внутри предметов",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой широкий бумеранг из синей золотой и розовой деревянных секций хранит в центральном изгибе один компактный зелёный куст с кремовым цветком",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 44,
+ "h": 34,
+ "N": 919,
+ "colours": 9,
+ "volumes": {
+  "P": {
+   "cells": 223,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "D": {
+   "cells": 165,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "N": {
+   "cells": 138,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "Y": {
+   "cells": 110,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 76,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "G": {
+   "cells": 74,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 53,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 40,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "O": {
+   "cells": 40,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...NNDDD....................................",
+  "..NNNDNNND..................................",
+  ".DNDDDDNNN..................................",
+  ".DNDNNNNNND.................................",
+  "NNDDNNNNDND.................................",
+  "NNDDNNNNDNNN............DDD.................",
+  "NNNDNNNNDNNN......DGGD.DGGG.................",
+  "NNDDNNNNDNYYD.....DGGGDGGGG............DDD..",
+  "DNNDDNNNYYYYD..DDDDGGGDCCCDDDD.......NNNNNN.",
+  ".NNDDNNYYYYYY.DGGGGGGCCCCCDDDDD.....NNDDDNNN",
+  ".NNNDYYYYYYYYDDGGGGGCCCCCCCCDDD....NNDDNNNNN",
+  ".NNNYYYYYYYYYDCDMMMDCCCYYCCCDD....NNDDNNNNNN",
+  ".NNYYYYYYYYYYDDGGGGDCCCYYCCCDMD..DNDDNNNNNNN",
+  "..NOYYYYYYYYDGGGGGGMDCCCCCCDMMMDDYYDNNNNNNNN",
+  "..DOYYYYYYPPPDGGGMMMMCCCCCCDMMMDYYYYNNNNNNNN",
+  "..DOOYYYYPPPPPDGGGGMMCCCDCCDMDDYCCYYYNNNNNND",
+  "...OOYYYPPPPPPGGGGGGMMMMMDDMMDYYCYYYYYNNNNN.",
+  "...DOOYPPPPPPDGGMMGGGMGMMMMMDYYYYYYYYYYNNNN.",
+  "...DOORPPPPPPDMMMGGGGGGGGGMMPPCYYYYYYOOONN..",
+  "....DORPPPPPPPDDDGGGGGGGDMMPPPPYYYYYOOOOND..",
+  ".....RRPPPPPPPPPDGDDDGGDDDPPPPPPYYYYOOOOO...",
+  ".....DRRPPPPPPPPPDDDDDDDDPPPPPPPYYYOOOOO....",
+  "......RRPPPPPPPPPPPDDDDPPPPPPPPPPPOOOOOO....",
+  "......DRRPPPPPPPPPPCCCPPPPPPPPPPPPROOOO.....",
+  ".......DRRPPPPPPPPPPPPPPPPPPPPPPPRROO.......",
+  "........DRRPPPPPPPPPPPPPPPPPPPPPRRRR........",
+  "........DRRRPPPPPPPPPPPPPPPPPRRRRRD.........",
+  ".........DRRRPPPPPPPPPPPPPPPPRRRRD..........",
+  "..........DRRRPPPPPPPPPPPPPPRRRRD...........",
+  "...........DRRRRPPPPPPPPPPRRRRDD............",
+  "............DRRRRRPPPPPPRRRRRD..............",
+  ".............DDRRRRPPRRRRRDDD...............",
+  "...............DDDRRRRRRDD..................",
+  "..................DDDDDD...................."
+ ]
+}

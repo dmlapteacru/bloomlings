@@ -1,0 +1,115 @@
+{
+ "code": "P1011",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Зубик в плаще из лепестка",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Волшебные существа",
+ "direction": "Театр эмоций",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один оригинальный улыбающийся кремовый зубик с крупными тёмными глазами носит широкий розовый плащ из лепестка и зелёные короткие сапожки, золотая круглая застёжка",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 42,
+ "h": 43,
+ "N": 1125,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 458,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 290,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "D": {
+   "cells": 102,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 94,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "E": {
+   "cells": 67,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "G": {
+   "cells": 46,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 29,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "Y": {
+   "cells": 24,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "K": {
+   "cells": 15,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..........CCCCCCCCCCCCCCCCCCCCCCCC........",
+  ".........CCCCCCCCCCCCCCCCCCCCCCCCCC.......",
+  "........CCCCCCCCCCCCCCCCCCCCCCCCCCC.......",
+  "........CCCCCCCCCCCCCCCCCCCCDDCCCCC.......",
+  ".......ECCCCCCCCCCCCCCCCCCCCCCDCCCCE......",
+  ".......ECCCCCCCCCDCCCCCCCCCCCCCCCCCE......",
+  ".......ECCCCCCCCCDCCCCCCCCCCCDDCCCCE......",
+  ".......ECCCCCCCCCCCCCCCCCCCCDDDCCCCE......",
+  ".......ECCCCCCCCCCDDCCCCCCCDDDDCDCCE......",
+  ".......ECCCCCCCCCDDDDCCCCCCDDDDCDCCE......",
+  ".......ECCCCCCCCDDCDDCCCCCCDDDDCCCCE......",
+  "........CCCCCCCCDCDDDDDCCCCCEEEDDCC.......",
+  "........CCCCCCCCDCDEDDDCCCCCCCCKKCCC......",
+  ".........ECCCCCCDDCEEECEEEEECCKKKCCPP.....",
+  ".........ECCCCCCCCCCCCCEREEECCCCCCPPP.....",
+  ".........ECCCCCCCKKKCCCCRRRECCCCPPPPP.....",
+  ".........PPPPPPCCKKKCCCCEEECCCCCPPPPP.....",
+  "........RRPPPPPPPCCCCCCCCCCCCCCPPPPRPP....",
+  "......PPPRRRRPPPPPPPPCCCCEEEPPPPPRRRPPP...",
+  ".....PPPPRRRRRPPPPPPPPRRYYYCYPPPPPPPPPPP..",
+  "...PPPPPPPPPPRRRPPPPPPRPYYYYYPPPPPPPPPPPP.",
+  ".PPPPPPPPPPPPPPPRRRRRRRPYYYYYPPPPPPPPPPPPP",
+  "PPPPPPPPPPPPPPPPPPPPPPPPYYYYCCPPKKPPPPPRPP",
+  "PPPPPPPPPPPPPPPPPPPPPPPCCCCCCCCCKKPPPPPRRR",
+  "RRRRPPPPPPPPPPPPPPPPPPCCCCCCCCCCCRRRPPPRRR",
+  ".RRPPPPPPPPPPPPPPPPPPCCCCCCCCCCCCRRREEERR.",
+  "..EPPPPPPPPPPEPPPPPCCCCCCCCCCCCCRRRRRREE..",
+  "..EPPPPPPPPPREEEEECCCCCRRCCCCCCCRRRRRR....",
+  "..EPPPPPPPPRRRRCCCCCCCRRRRCCCCCCRRRR......",
+  "...PPPPPPPRRRRDCCCCCCCRRRDDCCCCDRR........",
+  "....PPPPPPPRRDMDCCCCDERRRMMDDMMD..........",
+  ".....PPPP....DMGDDDDDEE..MMGGGMD..........",
+  ".......P.....DMGGGDDD...DMMGGMMD..........",
+  "...........DGGMGGGDD....DMMGGGGGD.........",
+  "...........GGGGGGGD.....DMMGGGGGG.........",
+  "...........GGGGGGGD.....DMMMGGGMM.........",
+  "...........DDDGGGG.......DDMMMMMD.........",
+  "............DDDDD.........................",
+  "..........................................",
+  "..........................................",
+  "..........................................",
+  "..............DEEEEEEEEEEP................",
+  "..........DDDDDDDDDYYYYYYPPPP............."
+ ]
+}

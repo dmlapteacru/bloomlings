@@ -1,0 +1,116 @@
+{
+ "code": "P0971",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Пружинная снежинка",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Времена года и погода",
+ "direction": "Заводная сказка",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна большая толстая синяя снежинка стоит на широкой золотой заводной пружине, кремовые кончики лучей и розовый круглый заводной ключ сбоку, без мелких искр",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 39,
+ "h": 44,
+ "N": 1021,
+ "colours": 9,
+ "volumes": {
+  "N": {
+   "cells": 230,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 206,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "B": {
+   "cells": 142,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "P": {
+   "cells": 126,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "Y": {
+   "cells": 83,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 79,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "S": {
+   "cells": 74,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "D": {
+   "cells": 49,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 32,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............CCC......................",
+  ".............CCCCC.....................",
+  "...........CCCCCCCC....................",
+  "..........NCCCCCCCCN...................",
+  "..........NCCCCCCCCN...................",
+  "..........NCCCCCCCBN...................",
+  ".....CC...NNBBSSBBBN...NNNSSS..........",
+  "..NNNCCC..NNBNSSNNNN..CCCCCCC..........",
+  ".CCCCCCBN..NNNSSNNN...BCCCCCCN.........",
+  "NCCCCCCBNNNBBNSSNBBNNNBCCCCCCN.........",
+  "NCCCCCCBNBNNBBSSBBNNBNBBCCCCCN.........",
+  "NCCCCCBBNBBNNBSSBNNBBNBBCCCCCN.........",
+  "NNCCCCBBBBBNNNSSNNNBBSBBBCCCCN.........",
+  ".NCCCBBBBBBNNNSSNNNBSSBBBBCCC..........",
+  ".NCCCNNBBBBSSNSSNBBBBSBNNNNNN..........",
+  ".NNNNNNBBBSSSSSSSSBBBBBBNNNNN..........",
+  "..NNNNNNNNNNSSSSSSNNNNNNNN.............",
+  "......NNNNNNSSSSSSNNNNNNN..............",
+  ".....NNBBNNBSSSSSSNNNBBNNNN............",
+  "..NNNNNBSSSBBNSSNSSSSBBBBBCC....PPPP...",
+  ".NCCBBBSSSSNNNBBNNNBSSSBCCCC...PPPPPPP.",
+  ".NCCCCSSSSBNNNBBNNNBBSBCCCCC..PPPPPPPP.",
+  ".NCCCCBBNBBNNNBBNNNBBNBCCCCCN.PPPPPPPPE",
+  "NCCCCCBBNBNNBBBBBBNNBNBCCCCCN.PPPP.PPPE",
+  "NCCCCCCBNNNNBBBBBBNNNNBCCCCCN.PPPPPPPPE",
+  "NCCCCCCBNNNNNBBBBNNNNNNNNNNNEEEPPPPPPP.",
+  "NNNNCCBNN.NNBBCBBBN...NNNOYYOPPPPPPPP..",
+  ".NNNNBBN..NCCCCCCBBCC...OOYYOPPPPPPP...",
+  "....NNNN..NCCCCCCCCOOOE.OOYOOPPPPPPP...",
+  ".........OODCCCCCCCDOOE..OOOOPPPPPPPPP.",
+  "........DOODDCCCNDDYYOE......PPPPPPPPP.",
+  "........DYYYCNNNNYYYOOE.......PPPP.PPPP",
+  "........DDYYYYYYYYYYEEE.......PPPPPPPP.",
+  "........DDODDEEEEDDDOOE.......PPPPPPPPP",
+  "........OOODDDDDDDDYYOE........PPPPPPP.",
+  ".......DOYYYYYYYYYYYOOE.........PPPPP..",
+  "........DYYYYYYYYOOOOOOO...............",
+  ".......DOODDYYEEEDDDOOOOO..............",
+  "......DYYODDOOOOODDDDDYYO..............",
+  "......DOYYCDDYYYYYYYYYYOO..............",
+  "......DOYYCCCCCCCYYOOOOOO..............",
+  "......DOYYYYYYYYYYOOOOOO...............",
+  ".......DDDYYYYYYYOOOOOO................",
+  "..........EEEEEEEEECC.................."
+ ]
+}

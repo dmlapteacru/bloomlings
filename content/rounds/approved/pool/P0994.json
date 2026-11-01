@@ -1,0 +1,107 @@
+{
+ "code": "P0994",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Пень с карамельной сердцевиной",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Деревья, листья и плоды",
+ "direction": "Кулинарная фантастика",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой коричневый пень в разрезе хранит толстую золотую карамельную спираль вместо годовых колец, два зелёных листа сбоку и одна розовая грибная шляпка у основания",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 34,
+ "N": 978,
+ "colours": 9,
+ "volumes": {
+  "A": {
+   "cells": 248,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 220,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 118,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 104,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "G": {
+   "cells": 100,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 87,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 50,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "M": {
+   "cells": 38,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "D": {
+   "cells": 13,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...............................MMM..",
+  "..................EEE........GGGGM..",
+  "..............DAAAAAAAAA....GGGGGM..",
+  ".MMM.......AAAAAYYYYYYYYYY.GGGGGGM..",
+  ".MGGG....AAAAYYYYYYYYYYYYAAAAGGGG...",
+  ".GGGGG..DAAAYYYYYOOOOOOOYYYAAAMMM...",
+  "GGGGGGDDAACYYYOOOOYYYYYOOOOAAAAD....",
+  "GGGGMGDAACYYYYOOYYYYYYYYYOOOCCAA....",
+  ".GGGMMAACCYYYOOYYYOOOOOYYYOOOCAA....",
+  ".DGGMMAACOYYYOOYYYOYYYOOYYYOOCCAE...",
+  "..DMMMAACOOYYOOOYYYYYYOOOYYOOCCAE...",
+  "..DMMDEACCOYYYOOOYYYYOOOYYYOOCCAE...",
+  ".GGGMEEAACOOYYYOOOOOOOOYYYOOOCCAE...",
+  ".GGGGEEEACCOOYYYYYYYYYYYYYOOOCAAE...",
+  "GGGGGEEEAACCOOOOYYYYYYYOOOOCCCAAE...",
+  "GGGGDEEEEAAACCOOOOOOOOOOOOCCAAAEE...",
+  ".G...EEEEAAAACCCCCOOOOCCCCAAAAEEE...",
+  ".....EEEEEAAEAAAACCCCCCAAAAAAAEEE...",
+  ".....EEEEAAAEAAAAAOOOOOAAAEAAAEEE...",
+  "....EEEEEAAAEAAAAEAAAAEAAAEAAAEEE...",
+  "....EEEEEAAAEAAAAEAAAAEAAAEAAAAEEE..",
+  "....EEEEEAAAAAAAAEAAAAEAAEEEEEEEEE..",
+  "...DEEEEEAAAAAAAAEAAAAEEPPCCPEEEEE..",
+  "...EEEEEEEAAAAAAAEAAAAEPPPCCPPEEEEE.",
+  "..EEAEEEEEAAAAAAAEAAAPPPPPPPPPCEEEE.",
+  ".EEAAEEEEAAAAAEAAEAAEPCCPPPPPPPEEEEE",
+  "DAAAEEEEAAAAEAEAAAAAEPCCPPPCCPPPPEEE",
+  "EAEEEEEAAAAAEAEAAAAAEPPPPPPCCPPPPMM.",
+  "EEMGEEEAAAAAEEEEAAEAEPPPPPCCCPPEEMMM",
+  ".MMGGGEAAAAAEEEEEAEAEEEECCCCCEEEEEMM",
+  "GGGGGGAAAAEEEGGEEAEAEEEECCCCCEEEEEM.",
+  "..GGGAAAAEEGGGGGGEEEEGGECCCCCEGGMMM.",
+  ".....AAAEEEGGGGGGEEEEGGGCCCCCGGG....",
+  "......................GGGCCCC......."
+ ]
+}

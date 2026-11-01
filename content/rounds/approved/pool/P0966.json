@@ -1,0 +1,110 @@
+{
+ "code": "P0966",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Лягушонок в сапогах-лотосах",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Морские и пресноводные обитатели",
+ "direction": "Уютный сюрреализм",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один улыбающийся зелёный лягушонок с большими глазами стоит в двух огромных розовых цветках лотоса как в сапогах, широкая кремовая округлая площадка под лапами",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 39,
+ "h": 38,
+ "N": 1139,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 401,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 333,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "G": {
+   "cells": 142,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 87,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "L": {
+   "cells": 86,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "M": {
+   "cells": 40,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "K": {
+   "cells": 33,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "E": {
+   "cells": 14,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 3,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........GGCCDDDGGGGGGGGC.DDCC.........",
+  ".........GGCCCDDGGGGLLGGDDDDCC.........",
+  ".........GGCDDDDDLLLLLLLDDDDCG.........",
+  ".........GGCDDDDDLLLLLLLLDDCGGG........",
+  "........GGGCDDDDLLLLLLLLELLLGGGD.......",
+  ".......GGGGGCCDCLDEEEEEEECLLCGGD.......",
+  ".......GGGGGLLLLCCEEPPEEECCCCCGD.......",
+  "......GGGGGCLLLCCCCPPPPECCCCCCG........",
+  ".......GGGGCCCCCCCCPPPPCCCCCCGG........",
+  ".......DGGGCCCCCCCCCCCCCCCCCCG.........",
+  "........GGGCCCCCCCCCCCCCCCCCCD.........",
+  "........DGGGCCCCCCCCCCCCCCCD...........",
+  ".....DD...GGGGCCCCCCCCCCCCC.DGGGD......",
+  "....GLLGDDGGGGGCCCCCCCCCCGGDGGGGG......",
+  "...GGLLGGGGLLGCCCCCCCCCCCGGGGGGGG......",
+  "...DGLGGGGLLLLCCCCCCCCCCGGLLGGGGD......",
+  "....GGGGGGLLLLCCCCCCCCCCGGLLLGGGD......",
+  "....DPPGDDLLLLCCCCCCCCCCDGLLLLDPPPP....",
+  "....PPPPDDLLLDPPPCCCDDPPPGLLLLGPPPPP...",
+  "..PPPPPPDLLLLDPPPPDDDPPPPGLLLGGPPPPPPP.",
+  "..PPPPPPDLLLLDPPPPP..PPPPPGGGGGKKPPPPP.",
+  ".PPPPPKKKKLLKKKPPPP..PPPPPKKGKKKPPPPPP.",
+  ".PPPPPPPKKKKKKKPPPPP.PPPPPKKKPPPPPPPPP.",
+  ".PPPPPPPKKKKKPPPPPPP.PPPPPPKKPPPPPPPPP.",
+  ".PPPPPPPPPPKPPPPPPPPPPPPPPPPKPPPPPPPPP.",
+  ".PPPPPPPPPPPPPPPPPPP.PPPPPPPPPPPPPPPPP.",
+  "..PPPPPPPPPPPPPPPPPCCCPPPPPPPPPPPPPPP..",
+  "..PPPPPPPPPPPPPPPPCCCCPPPPPPPPPPPPPPP..",
+  "..PPPPPPPPPPPPPPPCCCCCCDPPPPPPPPPPPDC..",
+  ".CCCDPPPPPPPPPPPDCCCCCCMMMPPPPPPPMMDCCC",
+  "ACCCMMMPPPPPPPMMMCCCCCCDMMMMMMMMMMMDCCC",
+  "ACCCCMMMMMMMMMMMCCCCCCCCDMMGGGGMMDCCCCC",
+  "ACCCCCDDMMMDDDDCCCCCCCCCCCCDDDDDCCCCCCC",
+  ".CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+  ".CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.",
+  "...CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC..",
+  "......CCCCCCCCCCCCCCCCCCCCCCCCCCCC.....",
+  "............CCCCCCCCCCCCCCC............"
+ ]
+}

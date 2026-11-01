@@ -1,0 +1,110 @@
+{
+ "code": "P0944",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Гранатовый трон",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Фрукты и ягоды",
+ "direction": "Миры внутри предметов",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один крупный раскрытый гранат стал круглым троном, розовые зёрна образуют широкую спинку, кремовое сиденье и зелёная бархатная подушка, коронка плода сохранена",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 37,
+ "h": 37,
+ "N": 990,
+ "colours": 9,
+ "volumes": {
+  "R": {
+   "cells": 540,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 208,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 89,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "K": {
+   "cells": 82,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "G": {
+   "cells": 30,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 16,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 12,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 9,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 4,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................RRR.YYY.RRR.........",
+  "..................RRRRRYYRR..........",
+  "..................RRRRRYYRR..........",
+  "..................RRRRRYRRR..........",
+  ".................CCCRRRCRRR..........",
+  "...............CCCCCCRCCRRRRR........",
+  "............CCCCCRRRCCCCCRRRRR.......",
+  "...........CCCCRRRRRCCRRRCCCRRRR.....",
+  "..........CCCRRRRRRRCCRRRRRCCRRRR....",
+  ".........CCCRRRRRRRRCRRRRRRRCCRRR....",
+  "........CCRRRRRRRRRRCRRRRRRRRCCRRR...",
+  "........CCRRRRRRRRRRCRRRRRRRRCCRRR...",
+  ".......RCCRRRRRRRRRRCRRRRRRRRRCCRRR..",
+  ".......RCRRRRRRRRRRRCRRRRRRRRRRCRRR..",
+  ".....RRRCRRRRRRRRRRRCRRRRRRRRRRCCRRR.",
+  "...CCCRRRRRRRRRRRRRRCRRRRRRRRRRCCRRR.",
+  "..RCCCRRRRRRRRRRRRRRCRRRRRRRRRRRCRRR.",
+  ".RRCCRRRRRRRRRRRRRCCCCRRRRRRRRCCCRRR.",
+  ".RRYYRRRRRRRRRRCCCCCCCCCRRRRRRCCCRRRE",
+  ".RRYRRRRRRRRRRCCCCCCCCCCCRRRRCCRRRRRE",
+  "ERRYRRRRRRRRCCCCCCCCCCCCCRRRRCCRRRRRE",
+  "ERRCCRRRRCCCCCCCCDDDCCCCRRRRCCRRRRRRE",
+  "ERRRRRRCCGGGGGGGGGGGGGGGRRRRCCRRRRRRE",
+  ".RRRCRCCDGGGGGMMGGMMMGGGGRRRCRRRRRRRE",
+  ".RRRCCCMGGGMMMMMMMMMMMMGMMMCCRRRRRRR.",
+  ".RRRRMMMMMMMMMMMMMMMMMMMMDCCCRRRRRRR.",
+  "..RRRRMMMMMMMMMMMMMMMMMMDCCCRRRRRRRR.",
+  "..RRRRMMMMMMMMMMMMMMMMMMCCCCRRRRRRRR.",
+  "...RRRRCCCDMMMMMMMMMMMMDCCCRRRRRRRR..",
+  "...RRRRRCCCCCCCDDDDDDDDCCCCRRRRRRR...",
+  "....RRRRRCCCCCCCCCCCCCCCCCRRRRRRR....",
+  "...KKRRRRRRRRCCCCCCRRRRCCRRRRRRKKKK..",
+  "..KKKKKRRRRRRORRRRRRRRRRRRRRRRRKKKKK.",
+  "...KKKKKKRKKOOORRCRRRRRRRRRKKKKKKKK..",
+  ".....KKKKKKKKKKKRRRRKKKKKKKKKKKKK....",
+  "..........KKKKKKKRRKKKKKKKKKKK.......",
+  "...............KKKKKKKK.............."
+ ]
+}

@@ -1,0 +1,111 @@
+{
+ "code": "P0930",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Авокадо-амфитеатр",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Фрукты и ягоды",
+ "direction": "Миры внутри предметов",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Большая половинка зелёного авокадо стала амфитеатром, три широких кремовых ступени вокруг круглой коричневой сцены-косточки, одна розовая театральная маска на сцене",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 42,
+ "h": 40,
+ "N": 1304,
+ "colours": 9,
+ "volumes": {
+  "M": {
+   "cells": 443,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "C": {
+   "cells": 331,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "L": {
+   "cells": 263,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "A": {
+   "cells": 114,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "R": {
+   "cells": 38,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "G": {
+   "cells": 31,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 31,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 29,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "P": {
+   "cells": 24,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........GG.............................",
+  "..........MGGM.............GG..GGM........",
+  ".........MMGGM............GGGMMGGM........",
+  "........MGGMMMMMMMM.......GGMMMGMM........",
+  "........MGGMMMLLLLLLLLLLMMMMMMMGMMM.......",
+  ".......MMMMLLLLLLLLLLLLLLLLLMMMGMMMMM.....",
+  ".......MMLLLLLLCCCCCCCCCCLLLLLMMMMGGM.....",
+  "......LLLLLLCCCCCCCCCCCCMMLLLLLLMGGMM.....",
+  "....LLLLLMMCCCCCCCCCCCCMMMMCLLLLLLMMMM....",
+  "...LLLLLMMMCCCCCCCCCCCCCCMMCCCCLLLLMMM....",
+  "...LLLLMMMMCCCCCCCCCCCCCCMMCCCCCLLLLMM....",
+  "..LLLLMMMMMMCCCCCCCCCCCCCMMCCCCCCCLLLL....",
+  "..LLLCCMMMMMMCCCCCCCCCCCCCCCCCCCCCCLLLL...",
+  ".LLLLCCCMMMMCCCCCRCCCCCCCCCCCCCCCCMMLLLL..",
+  ".LLMMCCCMMCCCCCCCRCCCCCCRRRRCCCCCMMMCLLL..",
+  "LLLMMCCCCCCCCCCCCRRRCPPPPPRRCCCCMMMMMLLLL.",
+  "LLLMMMCCCCCCCCCCCCCCCPPRPPRRCCCCMMMMMMLLL.",
+  "DLLMMMCCCCCCCCCCCCCCCPRRRRRCCCCCCCMMMMLLL.",
+  "DLLMMMMCCCCCCCCCCCCRPPPPPRRCCCCCCCCCMMLLLL",
+  "DLLMMMMCCCCCCCAAACCRRRRPRRAACCCCCCCCMMLLLL",
+  "DLLLMMMCCCCCCAAAACRRRRPPRRAAAACCCCCCMMCLLL",
+  "DMLLMMMCCCCCAAAAAAPPPPRRAAAAAAECCCCCCMLLLD",
+  "DMLLLMCCCCCEAAAAAAAPPRRAAAAAAEECCCCCCCLLLD",
+  "DMMLLLCCCCCEAAAAAAAAAAAAAAAAAEECCCCCCCLLLM",
+  ".MMMLLLCCCCEAAAAAAAAAAAAAAEEEEECCCCCCCLLMM",
+  ".MMMMLLLLCCEAAAAAAAAAAAAAAEEEEELCCCCCLLMMD",
+  ".DMMMMLLLLLEAAAAAAAAAAAAAAAEEELLLCCCLLMMM.",
+  "..MMMMMLLLLLLLAAAAAAAAAAAAEEELLLLCCLLMMMM.",
+  "..DMMMMMMLLLLLLLLLLAAAAEEELLLLLCLLLLMMMMD.",
+  "...MMMMMMMMLLLLLLLLLLLLLLLLLLLLLLLMMMMMM..",
+  "...DMMMGMMMMMMLLLLLLLLLLLLLLLLLMMMMMMMMM..",
+  "....MMMGGMMMMMMMMLLLLLLLLLLMMMMMMMMMMMM...",
+  "....DMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMD...",
+  ".....MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMD....",
+  "......MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMD.....",
+  ".......MMMMMMMMMMMMMMMMMMMMMMMMMMMM.......",
+  "........DMMMMMMMMMMMMMMMMMMMMMMMMD........",
+  "..........DMMMMMMMMMMMMMMMMMMMMM..........",
+  "............DDMMMMMMMMMMMMMMDD............",
+  "................DDDDMMMMMDD..............."
+ ]
+}

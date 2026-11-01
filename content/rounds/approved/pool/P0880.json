@@ -1,0 +1,110 @@
+{
+ "code": "P0880",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Саквояж с альпийским лугом",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Багаж и навигация",
+ "direction": "Миры внутри предметов",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Раскрытый коричневый дорожный саквояж хранит один зелёный холм и крупную белую ромашку, в подкладке крышки синяя гора, ручки и замок отчётливые",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 41,
+ "h": 39,
+ "N": 1352,
+ "colours": 9,
+ "volumes": {
+  "E": {
+   "cells": 455,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 231,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "B": {
+   "cells": 136,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "D": {
+   "cells": 104,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "N": {
+   "cells": 93,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 91,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 84,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 84,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "L": {
+   "cells": 74,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...AAAAAAAALLLLEEEEEEEEEEEEEELLEEEEE.....",
+  "..EAAAAEEEELLLLEEEEEEEBBBBBEELLEBEEEE....",
+  "..EAAABBBBBBBBBBBBBBBBBBBBBBBBBBBEEAE....",
+  "..EAAEBBBBBBBBBBBBBCBBBBBBBBBBBBBEEAE....",
+  "..EAAEBBBBBBBBBBBBCCCBBBBBBBBBBBBEEAE....",
+  "..EAAEBBBBBBBBBBBCCCCBBBBBBBBBBBBEEAE....",
+  "..EAABBBBBCBBBCBBNCCNNBNBBBCCBBBBEEAE....",
+  "..AAEBBBBCCNNCCNNNNNNNNNNCCCNNBBBEEAE....",
+  "..AAEBBBNNNNNNNNNNNNNNNNNNNNNNNNNEEAE....",
+  ".EEAEBBNNNNNNNNNNNNNNNNNNNDDNDNNEEAE.....",
+  ".EEAENNMNNNNNNNNNNNNNNNDNDDDMMDNEEAE.....",
+  ".EEAENNMDNDNNNNNDDLLLGDDDDDDMDDDEEAE.....",
+  ".EAAEDMMMMMMNDDLLLLLLGGGDDDDDDDDEEAE.....",
+  ".EAAEDDDDMDMDLLLLLLLLLGGGGCCCDDDEEEE.....",
+  ".EAADDDDDDDLLLGLLLLLGGGGGCCCCDDDEEEE.....",
+  "EEEADDDDDDLLLGGLLLLGGGCCCCCLLCCCCEE......",
+  "EEEADDDDGLLLLLLGLLGGGCCCCCLLLLCCCDAA.....",
+  ".EEEAAAGGGGMMLGGLGGGGCCCCCLLLAACCCAAA....",
+  ".EEEAAGGGGMMMGGGGGGGGGGDCCCAAACCCCMAEE...",
+  ".EEEADGGMMMMMMGGGGGGGGGCCCCCCCCCCCMMEE...",
+  ".EAAAAGGMMMMGMMGGGGGGGMCCCCCCCCCCCMMEEE..",
+  ".EEAAAAMMMMGGGDGGGMMGGMCCCDDCCCDDDMMMEEE.",
+  ".EEAAAADDDGGMGGGGMMMMGMMDDDDCCCDDMMMMDEE.",
+  ".EAAAAAADMMMMMMMMMMMMMMMMDDDDDDDDDDDEEEE.",
+  ".EEAAAAAAMMMDDMMDMMMMDMMEEEEAAAAAAAAAEEE.",
+  ".EEAAAAAAADDDDDDDDAEEEEAAAAAEAEEEEEEEEEE.",
+  "EEEAAAAAAAAAAAAAAAAEEEEEEEEEEEEEEEAAAEEE.",
+  "EEEAAAAAAEEEELLLEEEEEEEEEEEEEEEEEEAAAEEE.",
+  "EEEAAAAAAEEEELAAEEEEEEEEEEEEEEEEEEAAAEEE.",
+  "EEEEAAAAAEEEELAAEELLEEEEEEEEEEEEEEAAAEEE.",
+  ".EEEAAAAAEEEELAAEELLEEEEEEEEEAEEEEEEEEAAE",
+  "..EEEAAAAEEEEEAAEEEAAEEEEEEEEAAEEEEEEAAEE",
+  "..EEEAEAEEEEEEEEEEEAAEEEEEEEEAAEEEEEAAAEE",
+  "...EEEEAAEEEEEEEEEEAAAEEEAAAAAEEEEEEEEEEE",
+  "....EEAAAAAEEEEEEEEEAAAAAAAEAEEEEEEEEEEE.",
+  ".....EAAAAAAEEEEEEEEEEEEEEEEEEEEEE.......",
+  ".....EAAAAAEEEEEEEEEEEE..................",
+  "......AAAAEEEEEEEE.......................",
+  ".......EEEE.............................."
+ ]
+}

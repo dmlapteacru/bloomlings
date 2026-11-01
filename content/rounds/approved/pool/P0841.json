@@ -1,0 +1,110 @@
+{
+ "code": "P0841",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Горный хребет из мыла",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Камни, минералы и кристаллы",
+ "direction": "Предметные гибриды",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Три цветных округлых бруска мыла сложены в крупный горный хребет со снежными кремовыми вершинами, на переднем плане маленькая розовая мыльница",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 44,
+ "h": 39,
+ "N": 1214,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 330,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "K": {
+   "cells": 270,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "P": {
+   "cells": 268,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "M": {
+   "cells": 116,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 108,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "B": {
+   "cells": 88,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "S": {
+   "cells": 30,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "R": {
+   "cells": 3,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 1,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "......................CCC...................",
+  ".....................CCCCC..................",
+  "....................CCCCCC..................",
+  "..................CCCCCCCCC.................",
+  ".................CCCCCCCCCCC................",
+  "...............CCCCCCCCCCCCCC...............",
+  "..............CCCCCCCCCCCCCCC...............",
+  ".............CCCCCCCCCCCCCBCCC..............",
+  ".............BCCCCCCCCCCCCBBCBB.............",
+  "..........CCBBSSSCCCCCCCCBBBBBB...CC........",
+  "........CCCCCBBSSCCBSSBCCBBBBBBBCCCCC.......",
+  ".......CCCCCCCBBBCBBSBBBBBBBBBBDCCCCCC......",
+  ".....CCCCCCCCCCBBSSBSBSBBBBBBBCCCCCCCC......",
+  "....CCCCCCCCCCCCBSSSSSSBBBBBBCCCCCCCCCC.....",
+  "...CCCCCCCCCCCCCBBBSSSSBBBBCCCCCCCCCCCCC....",
+  "..CCCCCCCCCCCCCPPBBSSSSBBBCCCCCCCCCCCCCC....",
+  "..CCCKCCCCCCCCCPKKBBSSSBBCCCCCCCCCCCCCCCC...",
+  "..KKKKKCCCCCCCCKKKKBBBSBBCCCCCCCCCCCCCCCM...",
+  ".KKKKKKCCCKKKKKKKKKKBBBBCCCCGGGGCCCCCMCCMM..",
+  ".KKKKKKKCCKKKKKKKKKKBBBGGGGGGGGGGCCCMMMMMM..",
+  ".KKKKKKKKKKKKKKKKKKKKBBGGGCGGGGGGCCCMMMMMM..",
+  "PKKKKKKKKKKKKKKKKKKKKKMGGCGGGGGGGGGMMMMMMMM.",
+  "PPKKKKKKKKKKKKKKKKKKKPMGGCGGGGGGCGGCMMMMMMM.",
+  "PPKKKKKKKKKKKKKKKPPPPPMGGGGGGGGGGGGCMMMMMMM.",
+  "PKKKKKKKKKKKKKKKPPPPPPPMGGGGGGGGGGGCMMMMMMM.",
+  "PKKKKKKKKKKKKKKPPPPPPPPMGGGGGGGGGGGCMMMMMMM.",
+  "KKKKKKKKKKKKKKKPPPPPPPPMMGGGGGGGGGGCMMMMMMM.",
+  "KKKKKKKKKKKKKPPPPPPPPPPPMPPPGGGGGGGGCMMMMMMM",
+  "KKKKKKKKKKKKKKKPPPPPPPPKKKKKKKKKKGGGCMMMMMCM",
+  "KKKKKKKKKKPPPPPPPPPPPPPPPPPPPPPPKKGGGMMMMMMM",
+  "PKKKKPKKPPPPPPPPPPPPPPPPPPPPPPPKKKRMCMMMMMMM",
+  "PPPPPPKKKKKPPPPPPPPPPPPPPPPPPKKKPPRMGGGMMMM.",
+  "PPPPPPKKPKKKKKKKKKKKKKKKKKKKKKPPPPRMGGMMMMM.",
+  "...PPPKPPPPPPPPPPKKKKKKKKKKKPPPPPPMMGMMMM...",
+  ".....PKKPPPPPPPPPPPPPPPPPPPPPPPPPPMMMMCC....",
+  "......KKPPPPPPPPPPPPPPPPPPPPPPPPPCCCCC......",
+  ".......PPPPPPPPPPPPPPPPPPPPPPPPPCCCC........",
+  "...........PPPPPPPPPPPPPPPPPPCCCCC..........",
+  "...................PPPPPPPPPCCC............."
+ ]
+}

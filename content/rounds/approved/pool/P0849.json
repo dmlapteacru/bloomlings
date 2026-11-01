@@ -1,0 +1,106 @@
+{
+ "code": "P0849",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Кукурузный небоскрёб",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Дома и архитектура",
+ "direction": "Живая архитектура",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Крупный кукурузный початок превращён в башню с синими окнами между золотыми зёрнами, два зелёных листа обнимают основание, без окружающего города",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 35,
+ "h": 35,
+ "N": 1225,
+ "colours": 9,
+ "volumes": {
+  "B": {
+   "cells": 264,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "M": {
+   "cells": 235,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "Y": {
+   "cells": 207,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 151,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 135,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 88,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "S": {
+   "cells": 54,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "L": {
+   "cells": 52,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "N": {
+   "cells": 39,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "BBBBBBBBBBBBBBBBYYBBBBBBBBBBBBBBBBB",
+  "BBBBBBBBBBBBBBBYYYYBBBBBBBBBBBBBBBB",
+  "BBBBBBBBBBBBBBYYYYYYBBBBBBBBBBBBCCC",
+  "BBBBBBBBBBBBBYYYYYYYYBBBBBBBBBBCCCC",
+  "BBCCCBBBBBBBBYYYYYYYYBBBBBBBBBCCCCC",
+  "BCCCCCBBBBBBYYYYNCYYYYBBBBBBCCCCCCC",
+  "CCCCCCBBBBBBYYYCNNCYYYBBBBBBCCCCCCC",
+  "CCCCCCBBBBBBYYYCNNYYYYBBBBBCCCCCCCC",
+  "CCCCCCCCCBBBYYYCCCYYYYBBBBCCCSSSSSS",
+  "CCCCCCCCCCBYYYYYYYYYYYYBDBBSSSSSSSS",
+  "SSSSSSSSSBBYYYYYCYYYYYYBDGBBSBBBBBB",
+  "BBBBBBBBBBBYYYYCNNYYYYYBDGGBBBBBBBB",
+  "BBBBBBBBBBBYYYYNNNYYYYYMMMGBBBBBBBB",
+  "BBBBBBBDDDDYYYYCNNYYYYYDMMGBBBBBCCC",
+  "CCBBBBBDDDDYYYYYYYYYYCCYMMGGBBBCCCC",
+  "CCCBSSBBMMGGYYYYYYYYYNNYMMGGBCCCSSS",
+  "SSSSSSSBDMGGYYYYCCYYYNNYMLGGSSSSMMS",
+  "SSSSMSSBDMGGGYYYNNYYYCCYMLGGBBSMMMS",
+  "BSSMMMSSMGGGGYYNNNYYYYYYDLGDBBMMMMM",
+  "BBMMMMSMMGGGGYYNNNYYYYYYDLGDBBMMMMM",
+  "MMMMMMMMMGGGGYYYYYYYYYYYGMMDMMMDDDD",
+  "MDMMMMMMGGGGGGYYYYYYCNNGGMMDMMMDDDD",
+  "DDDDDMMDGGGGGGYYYYYYYNNGGMMDMMMDDDD",
+  "DDDDDDDDMMGGMGGYYYYYYNNGGMMDDMMDMMM",
+  "MMMMMMDDMMGDMGGYYYYYYCGGMMMGDDDDMMM",
+  "MMMMMGGGMMMMMGGYYYYYYGGMMMDGGGGLMMD",
+  "MMMMGGGGDMMMMMGYYNNNYGGMMMGGGGGLLLD",
+  "GGGGGMMMMMMMMMGYYNNNGGMMMLLLLMGMMLL",
+  "MMMMDMMMMMMMMMGYYNNNGGMMMMMMLMGMMGG",
+  "MMMMDDMMMMDDMMMGGCCCMMMMMMMMDMMMMGG",
+  "MDDMDDDMMMGGGGGGGMCCCCCCGGDDDDDMDMM",
+  "LLLMMMLLLLLLGMMMMMGGCCCCGLLLLGGDMMM",
+  "LLLMMMLLMMLLLLMMMGGGGCCCCGLLGGGGGGM",
+  "LGDDMMLDMMMMLGLLLLGGGCCCCGGLLLGMMMM",
+  "GGDDMDDDMMMMGGLLGGGGGCCCCCGGGLMMMMM"
+ ]
+}

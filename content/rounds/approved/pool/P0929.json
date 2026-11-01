@@ -1,0 +1,106 @@
+{
+ "code": "P0929",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Вафельная мельница для ягод",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Кафе и мастерские",
+ "direction": "Кулинарная фантастика",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Компактная золотая вафельная мельница с четырьмя широкими розовыми лопастями перемалывает одну большую синюю ягоду, внизу толстая струя розового варенья в кремовую чашу",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 35,
+ "h": 35,
+ "N": 1225,
+ "colours": 9,
+ "volumes": {
+  "P": {
+   "cells": 262,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "B": {
+   "cells": 227,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 166,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 145,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 101,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 92,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "M": {
+   "cells": 84,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "D": {
+   "cells": 83,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "G": {
+   "cells": 65,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "BBBBBBBBPPBBBBBNNNNBBBBBBBBBBBBBBBB",
+  "BBBBBBBPPPBBBBNNNDNNBBBBBBBBBBBBBBB",
+  "BBBBBBPPPPPPDDNNNNNNNYYBBBBPPBBBBBB",
+  "BBBBBBPPPPPPPNNNNNNNNYYYBBPPPPBBBBB",
+  "BBBBBBPPPPPPPNNNNNNNCYYBBPPPPPBBBBB",
+  "BBBBBBBPPPPPPPPOOOYYYYYDPPPPPPPBBBB",
+  "BBBBBBBBPPPPPPPOOOOYYYYPPPPPPPPBBBB",
+  "BBGBBBBBBBPPPPPOOYYYYYPPPPPPPPBBBBB",
+  "GGGGBBBBBBBPPPPOOOYYYYPPPPPBBBBBBBB",
+  "MMGGBBBBBBBBPPOOOOYYYYYPPPPBBBBBBBB",
+  "MMMMBBBBBBBBOOOOYYCYYYCPPBBBBBBBBBB",
+  "MMDMGGBGGGBBOOCCYYYYYCCBBBBBBBGGBBB",
+  "NNNNMGMMGMMOOOCCYYYYYCCBBBBBBBGGGGM",
+  "NNNNMMDMMMMOOOOOYYYYYCCBBMGGBBMMMMM",
+  "MNNMMNNNMMMOOOOOOOYYYCCMMMMGGMMMNNM",
+  "MMCMMNNNNMPPPPOOOCCYYCCPCMMMMMMNNNN",
+  "CCCCNNNNNPPPPPPPCYCOYPPPCCMMNNNNNNN",
+  "CCCCCNNNPPPPPPPPYYOOPPPPPPPNNNNNNNN",
+  "CCCCNNNPPPPPPOOOYOOOOPPPPPPNNNNNNNN",
+  "MDDDNNPPPPPPPCCOYOOOYPPPPPPPNNNNDGD",
+  "MMMMNNPPPPPPPCCOYPPPYYYPPPPPPNNDGGG",
+  "NNMMDDPPPPPOOCCOYPPPYCYYPPPPPPDDGGG",
+  "NNNMMMMPPPOOOCCYYPPPPCCYPPPPPDDMMGG",
+  "NNNNNDDDDDDOOCCYYPPPPCCYDPPPDDDDMDD",
+  "NNNNNDNDDDOOYYOOOOPPPYYYDDDDDDNNNMM",
+  "DDNNNNNDDDOOYYOOOOPPPYYYDDDDDNNNNNM",
+  "GGNNNNNDCCCCCCCOOPPPPCCCCCCDNNNNNND",
+  "GGGNNNDOOCCCCCCOOPPPPYYYOOCDDNNNNNN",
+  "GGGDDDDOOCCCCPPPPPPPPPPPPOOOCNNNNMM",
+  "GGDGGGDYYCCCCPPPPPPPPPPPPPPCCDDNDMM",
+  "DDDGGGYYYCCCCCCCPPPPPPPPCCCCCGGGGMM",
+  "NNNGGGYYCCCCNCCCCCCCCCCCCCCCDGGGGDM",
+  "NNNDDDOOCCCYNNNCCCCCCCBCCBBBDDGGGDM",
+  "NNNPPPOOCCCYYCNCBBBBBBBBBBBBDDDGGMM",
+  "DDPPPPPPCCCYYCCCCBCCBBCCBCCPPPPDMMM"
+ ]
+}

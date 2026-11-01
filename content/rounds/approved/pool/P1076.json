@@ -1,0 +1,100 @@
+{
+ "code": "P1076",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Феникс Райт",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Ace Attorney · Capcom: Phoenix Wright: adult lawyer with angular swept-back black spiky hair, blue suit jacket, white shirt and red tie. Large confident eyebrows and slightly smug smile, head-and-shoulders portrait.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 38,
+ "h": 38,
+ "N": 1002,
+ "colours": 7,
+ "volumes": {
+  "D": {
+   "cells": 371,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 318,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 258,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "R": {
+   "cells": 34,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "O": {
+   "cells": 14,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "K": {
+   "cells": 4,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "A": {
+   "cells": 3,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............DDDDDDDDDDDD............",
+  "..........DDDDDDDDDDDDDDDDDDD.........",
+  ".....DDDDDDDDDDDDDDDDDDDDDDDDDD.......",
+  "...DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD...",
+  ".....DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD..",
+  ".......DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD.",
+  ".......DDDDDDDDDDDDDDCCCCCDDDDDDDDDD..",
+  "....DDDDDDDDDDDDDDDDDDCCCCCCCDDDDDD...",
+  ".....DDDDDDDDDDDDDDDCCCCCCCCCCDDDD....",
+  ".......DDDDDDDDDDDDCCCDDCCCCCCCCDDD...",
+  ".....DDDDDDDDDCDDDDCCCCDDCCCCCCCDD....",
+  "......DDDDDDDCCCDDCCCDDDDDCCCCCCD.....",
+  "........DDDDCCCCDDCCCDDDDDDCCCDDD.....",
+  ".......DDDDDCCACDDCCCCDD.DCCCDDDD.....",
+  "........DDDDCCACDCCCCCCCCCCCCDDD......",
+  ".........DDDDCACCCCCCCCCCCCCCDCD......",
+  ".........DDDDDCCCCCCCCCCCCCCCCC.......",
+  "...........DDDCCCCCCCCCCCCCCCCC.......",
+  "...........DDCCCCCCCCCCCCCCCDCC.......",
+  "............DCCCCCCCCCCCCCCCCCC.......",
+  "............DCCCCCCCCCCCCCCCCC........",
+  "...........DCCCCCCCCCCCCCCCCC.........",
+  "..........DCCCCCCCCCCCCCCCCCC.........",
+  ".........NDCCCCCCOOCCCCCCCCC..........",
+  "........DNNNCCCCCCOOCCCCCCC...........",
+  ".......DNNNNCCCCCCOOODDDCCD...........",
+  "......DNNNNNNCCCCCCCOOODDD............",
+  "....DNNNNNNNNNCCCCCCCDDKKD............",
+  "..DNNNNNNNNNNNNCCCCCCCCCKDN...........",
+  "NNNNNNNNNNNNNNNCCCCCCRRRKDNND.........",
+  "NNNNNNNNNNNNNNNNCCCCCRRRRDNNNDD.......",
+  "NNNNNNNNDDDDNNNNDCCDDRRRRDDNNNNNND....",
+  "NNNNNNNNNNNDNNNNNNDDDDRRRDDNNNNNNNNDD.",
+  "NNNNNNNNNNNNNNNNNNDCCCRRRCCNNNODNNNNND",
+  "NNNNNNNNNNNNNNNNNNNCCCRRRCCDNOOONNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNCCRRRRCNNNDNNNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNCCRRRRRDNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNNCRRRRRCNNNNNNNNNN"
+ ]
+}

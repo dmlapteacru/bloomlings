@@ -1,0 +1,111 @@
+{
+ "code": "P1012",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Лавовая капля в форме цветка",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Времена года и погода",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна большая золотисто-оранжевая капля лавы превратилась в пятилистный цветок, толстый синий каменный обод и розовая округлая сердцевина, без дыма и искр",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 37,
+ "h": 39,
+ "N": 1141,
+ "colours": 9,
+ "volumes": {
+  "N": {
+   "cells": 360,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "O": {
+   "cells": 314,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 267,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "P": {
+   "cells": 72,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "D": {
+   "cells": 55,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "B": {
+   "cells": 30,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "A": {
+   "cells": 20,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 14,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 9,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "............NNOOOOOYYYYYY............",
+  "............NNOOOOOYYYYYYD...........",
+  ".......BBB.DNNOOOOOYYYYYYN..NN.......",
+  "......NBBBNNNOOOOOOYYYYYANNNNBB......",
+  ".....NNNNNNNNOOOOOOYYYYYANNNNNBB.....",
+  "....NNNNNNNNNOOOOOOYYYYYANNNNNBBB....",
+  ".YYDNYYYNNNNNOOOOOOYYYYYANNNNNEEEDYY.",
+  "YYYYYYYYYYYYYOOOOOOYOOYYANYYYYYYYYYYE",
+  "YOOYYYYYCYYYYOOOOOOOOOOYAYYYYYYYYYYYE",
+  "OOOOOYYYCYYYYOOOOOOOOOOOOOOYYYYYYYYOE",
+  "DOOOOOOYYYYYYYOOOPPPOOOOOOOYYYYYYYYOD",
+  "DOOOOYYYOYYOOOOCCCCCCOOOOOOYYYYYYYYOD",
+  "DOOOOOOOOOOOOOPPCCPPPPOOOOOOYYYYYYOOD",
+  "DNOOOOOOOOOOOOPPCCPPPPPOOOOOYYYYYOOOD",
+  "NNOOOOOOOOOOOPPPCCPPPPPPOOOOOYYYOOONN",
+  "DNNOOOOOOOOOOPPPPPPPPPPPOOOOYYYOOONND",
+  ".NNNOOOOOOOOOPPPPPPPPPPPOOOYOOOOONNND",
+  ".NNNNOOOOYYYYPPPPPPPPPPPYYYYOOOODNNN.",
+  ".NNNNNDYYYYOOOPPPPPPPPOOOOYYYYNNNNNN.",
+  ".NNNNNYYYYYOOOOOPPPPPPOOOOYYYYNNNNNND",
+  "DNNNNNYYYYYOOOOOOYOOOOOOOOYYYYYNNNNND",
+  "DNNNNNYYYYYYYYOOYYOOOOOOYOOYYYYNNNNND",
+  "NNNNNAYYYYYYYYYYYOOOOOOYYOOOYYYNNNNND",
+  "DNNNNAYYYYYYYYYYOOOOOOOOOOOOOYYANNNND",
+  ".NNNNAYYYYYYYYYOOODOOOOOOOOOOYYANNNN.",
+  ".NNNNYYYYYYYOOOODBBBDOOOOOYYYYYANNNN.",
+  ".DNNNDOOOOOOOODNBBBBBBDOOOOOOOONNNND.",
+  "..NNNNNNAAAADNNNBBNBBBBBDAAAANNNNNN..",
+  "..DNNNNNNNNNNNNNNNNNNNBNNNNNNNNNNND..",
+  "...NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN...",
+  "....NNNNNNNNNNNNNNNNNNNNNNNNNNNND....",
+  ".....DNNNNNNNNNNNNNNNNNNNNNNNNND.....",
+  ".......NNNNNNNNNNNNNNNNNNNNNNN.......",
+  ".............NNNNNNNNNNDDNDDD........",
+  "................DNDDDD...............",
+  ".....................................",
+  ".............................EEE.....",
+  "...............DDDNNNNNNNNNNNNYYYY...",
+  ".....DYYYDNNNNNNNNNNNNNNNNNNNNNYYYY.."
+ ]
+}

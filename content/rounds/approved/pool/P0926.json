@@ -1,0 +1,109 @@
+{
+ "code": "P0926",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Плотина из кубиков сахара",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Лаборатории и изобретения",
+ "direction": "Кулинарная фантастика",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Низкая полукруглая плотина из трёх крупных кремовых сахарных кубиков удерживает ярко-синий ручей, одна широкая золотая струя падает в маленькую розовую чашу без персонажей",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 41,
+ "h": 38,
+ "N": 1289,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 430,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "B": {
+   "cells": 271,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "G": {
+   "cells": 164,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "P": {
+   "cells": 153,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "N": {
+   "cells": 87,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "Y": {
+   "cells": 74,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "K": {
+   "cells": 56,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "M": {
+   "cells": 51,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "D": {
+   "cells": 3,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "......................BBBBBBBBB..........",
+  ".................BBBBBBBBBBBBBBBBB.......",
+  "............BBBBBBBBBBBBBBBBBBBBBBB......",
+  "........CCCBBBBBBBBBBBBBBBBBBBBBBBBB.....",
+  "......CCCCCCCDBBBBBBBBBBBBBBBBBBDDCCC....",
+  "...CCCCCCCCCCCCCBBBBBBBBBBBBBCCCCCCCCCC..",
+  "..CC.CCCCCCCCCCCCCCCCBBBBBBCCCCCCCCCCCCP.",
+  "..CCC....CCCCCCCCCCCCYYYYYCC.CCCCCCCCCCP.",
+  "..CCCCCCC.CCCCCCCCCCYYYYYYCCC..CCCCCCCCP.",
+  "..CCCCCCCCCCCC...CCYYYYYCCCCCCCCCCCCCCCP.",
+  "..CCCCCCCCCCCCCCC.YYCYYCCCCCCCCCCCCCCCCP.",
+  "..CCCCCCCCCCCCCCCCYYYCYC..CCCCCCCCCCCCCP.",
+  "..CCCCCCCCCCCCCCCCYYYYCCCCCCCCCCCCCCCCCP.",
+  "..CCCCCCCCCCCCCCCYYYYYCCCCCCCCCCCCCCCCCP.",
+  "..CCCCCCCCCCCCCCCYYYYYCCCCCCCCCCCCCCCCCP.",
+  ".GGGCCCCCCCCCCCCCYCYYYCCCCCCCCCCCCCCCCCP.",
+  ".GGGGMNNNNNNCCCCCYYYYCCCCCCCCCCCCCCCCCCP.",
+  "MGGGGMMNNNNNNCCCCYYYYCCCCCCCCCCCCCCCCCCC.",
+  "MGGGGMMNNNNNNNNNYYYYYCCCCCCCCCCCCCCGGGGGM",
+  "MGGMMGMMNNNBBBNNYYYYYNCCCCCCCNNCCCGGGGGGM",
+  "MMMMGGGGBBBBB.BNYYCYYNNNNCCCNNNNNNGGGGGGM",
+  "CMMGGGGGBBBBBBBBYYYYYNNNNNNNNNNNNNGGGGGGM",
+  ".MMGGGMMBBBBBBBBCYYYYNNNNNNNBNNNNNGGMMMM.",
+  ".GGGGGMMBBKKKKKB.YCCCKKKKKKBBBBBBBMMMMMM.",
+  ".GGGGGGGKKKKPPKC.CC.CKKPPKKKBBBBBBBBMMGM.",
+  "GGGGGGGKKKPPPPPCC..CCBBBPPPPPBBBBBBBMGGGM",
+  "GGGGGGPKPPPBBBBBBB.BBBBBBPPPPBBBBBBBGGGGM",
+  "CGGGGGPKPPPBBBBBBBBBBBBBBBPPPPBB.BBBMMGMM",
+  "..GGGGPPKKKKBBBBBBBBBBBBBKKKPPBBBBBBNMMM.",
+  "...GGGGPPPKKBBKKKKKKBBBKKKPPPPBBBBBBNN...",
+  "..GGGGGPPPPPKKKKKKKKKKKPPPPPPBBBBBBBBNN..",
+  "..GGGGGGPPPPPKPPPPPPPPPPPPPPPBBBBBBBBBBNN",
+  "..GGGGGGPPPPPPPPPPPPPPPPPPPPNNBBBBBBBBBNN",
+  ".....GGGGPPPPPPPPPPPPPPPPPPNNNNNBBBBBBBB.",
+  ".....GGGGGPPPPPPPPPPPPPPPPGGGGGNNNBNNN...",
+  "........GGGGPPPPPPPPPPPPGGGGGGG..........",
+  "...........CGGGGPPPPGGGGGGGGG............",
+  "..............GGGGGGG...................."
+ ]
+}

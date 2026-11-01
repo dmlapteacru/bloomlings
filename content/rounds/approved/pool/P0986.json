@@ -1,0 +1,114 @@
+{
+ "code": "P0986",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Карусель из ложек-мороженого",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Ярмарки и праздники",
+ "direction": "Перевёрнутый масштаб",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Три широкие золотые ложки с большими розовым синим и кремовым шариками мороженого образуют низкую карусель на зелёной круглой опоре, без людей и надписей",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 44,
+ "h": 42,
+ "N": 1013,
+ "colours": 9,
+ "volumes": {
+  "D": {
+   "cells": 170,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "M": {
+   "cells": 140,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "O": {
+   "cells": 121,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "P": {
+   "cells": 117,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "C": {
+   "cells": 108,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 107,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 105,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "B": {
+   "cells": 104,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 41,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "......................C.....................",
+  "...................DYYYY....................",
+  "..................DYCYYYD...................",
+  "..................DYCYYYYD..................",
+  "..................DYYYYOOD..................",
+  "..................DOOOOOO...................",
+  "...................OOOOOD...................",
+  "....................DDDD....................",
+  "....................DOOD....................",
+  "..................DOOOODD...................",
+  "..................YOOOOODD.........DDDD.....",
+  ".....PPPPPP......DYOOOOODD.......DDCCCDDD...",
+  "...DPPPPPPPP.....DYONNNDDDD.....DCCCCCCCDD..",
+  "...PPPPPPPPPD....DDBBBBBBDD....DCCCCCCCCCD..",
+  "..PPPPPPPPPPPD..DBBBBBBBBBDD..DCCCCCCCCCCCD.",
+  ".PPPPPPPPPPPPP.DBBBBBBBBBBBD..DCCCCCCCCCCCD.",
+  ".PPPPPPPPPPPPPBBBBBBBBBBBBBBDDCCCCCCCCCCCCD.",
+  "DPPPPPPPPPPPPPDBBBBBBBBBBBBBDCCCCCCCCCCCCCD.",
+  "DPPPPPPPPPPPPPBBBBBBBBBBBBBNNCCCCCCCCCCCCCD.",
+  "PPPPPPPPPPPPPBBBBBBBBBBBBBBNNCCCCCCCCCCCCCC.",
+  "YPPPPPPPPPPPPBBBBBBBBBBBBNNNNYCCCCCCCCCCCYYD",
+  "YYYYPPPPPYYYPNNBBBBBBBBBNNNNNYYYYYYOOOOYYYYD",
+  "DOYYYYYYYYYOOYNNNNBNNNNBBNNNNOOOOOOYYYYYYOO.",
+  "DOOYYOOOOOOOOYYYNNNNNNNNNNNYYOOOOOOOOYYYOOD.",
+  ".DOOYYOOOOOOOOOYYYYOOOOOYYYYOODDOOOOOYYYOD..",
+  "..DDYYOOOODD.DOOYYYYYYYYOOOOOD..DDOOOOYDD...",
+  ".....DDDD.....DOOYYYYYYYOOOOO.....DDDD......",
+  "...............DOYYYYYYYOOOD................",
+  ".................DDYYOOODD..................",
+  ".................CDDOOOMDD..................",
+  "............DDDMDMDMMMMMDDDDDDDD............",
+  "..........DDMMMMMMMMMMMMDMMMMMMMDD..........",
+  "........DGGGMMMMMMDMMMMMMDMMMMMMGGD.........",
+  ".......DGGGGMMMMMMDDMMMDDDMMMMMMGGGD........",
+  ".......MGGGGGMGMMMMDDDDDDMMMMMGGGGGMD.......",
+  ".......MGGGGGGGGGGMMMMMMMMGGGGGGGGGMD.......",
+  ".......MMMGGGGGGGGGGGGGGGGGGGGGGMMMMD.......",
+  ".......DMMGMMMGGGGGGGGGGGGGGMMMMMMMM........",
+  "........MMGMMMGGGGGGGGGGMMMMMMMMMMMD........",
+  ".........DDMMMGGGGGGGGGGMMMMMMMMDD..........",
+  "...........DDDGGMMMGGGMMMMMMMMDD............",
+  "..............DDDDDDDDDDDDDDDD.............."
+ ]
+}

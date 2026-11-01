@@ -1,0 +1,113 @@
+{
+ "code": "P0954",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Груша-свисток",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Фрукты и ягоды",
+ "direction": "Предметные гибриды",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна крупная золотая груша превратилась в округлый свисток с широким синим мундштуком сбоку, зелёный лист и одно большое круглое отверстие сохраняют узнаваемость плода",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 41,
+ "h": 40,
+ "N": 989,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 411,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 131,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "N": {
+   "cells": 131,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "G": {
+   "cells": 121,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "E": {
+   "cells": 76,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 46,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "B": {
+   "cells": 35,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "C": {
+   "cells": 24,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 14,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................AAE.....................",
+  ".......GGGGG....AAAEE....................",
+  ".....GGGGGGGGG..AAEE.....................",
+  "....GGGGGGGGGGDEAEE......................",
+  "...GGGGGGGGGGGGEAEC......................",
+  "..GGGGGGGGGGGGGEAEE......................",
+  ".GGGGGGGGGGGGYYEEEYYY....................",
+  ".GGGGGGGGGGGYYYEEEYYYY...................",
+  ".GGGGGGGGGGYYYYYYYYYYYY..................",
+  "GGGGGGGGGDYYYCCYYYYYOOYA.................",
+  "GGGGGGGGDCOYYCCYYYYYOOYA.................",
+  "GGGGGGG..AOYYYYYYYYYYOYA.................",
+  "GGGDD....AOYYYYYYYYYYYYY.................",
+  "GGG......AOYYYYYYYYYYYYYY................",
+  ".G.......YYYYYYYYYYYYYYYYA...............",
+  "........YYYYCCYYYYYYYYYYYAA..............",
+  "........YYYCCCYYYYYYGGYYYYYNNNNN.........",
+  ".......YYYYYCYYYYYYCGGGYYNNNNNNNNNNN.....",
+  "......YYYYYYYYYYYYYYYGGGNNNNDDNBBBBBNNN..",
+  ".....YYYYCYYYYYYYYYYYYYNBBBNDBBBBBBBBBBNN",
+  "....YYYYCCCYYYYYYYYYYYYNNNNNBBBBBBBBBBBNN",
+  "...AYYYCCCYYYYYYYYYYYYYNNNNNNNNBBBBBBNNNN",
+  "...AYYYYCYYOOEEEEYYYYYYNNNNNNNNNNNNNNNDDD",
+  "...AYYYYYYOOEEEEEEYYYYYNNNNNNNNNNNNNNDDDN",
+  "..AYYYYYYOOOEEEEEEEYYYYNNNNNNNNNNNNNNNNNN",
+  "..AYYYYYYOOEEEEEEEEYYYYYNNNNNNNNNNNNNNNN.",
+  "..AYYYYYYOOEEEEEEEEYYYYYNNNNNNNNNNNNNNN..",
+  "..AYYYYYYOOEEEEEEEEYYYYYYNNNNNOA.........",
+  "..AYYYYYYOOOEEEEEEEYYYYYYYOOOOOA.........",
+  "..AYYYYYYCOOEEEEEEYYYYYYYYOOOOOA.........",
+  "...AYYYYYYYOOOEEECYYYYYYYYOOOOAA.........",
+  "...AYYYYYYYYYYYCYYYYYYYYYYOOOOO..........",
+  "...AYYYYYYYYYYYYYYYYYYYYYOOOOOO..........",
+  "....YYYYYYYYYYYYYYYYYYYYOOOOOO...........",
+  "....YYYYYYYYYYYYYYYYYYOOOOOOOO...........",
+  ".....YYYYYYYYYYYYYYOOOOOOOOOO............",
+  "......YYYYYOOOOOOOOOOOOOOOOO.............",
+  ".......YYOOOOOOOOOOOOOOOOOO..............",
+  ".........OOOOOOOOOOOOOOOO................",
+  "............AAAAAAAAAA..................."
+ ]
+}
