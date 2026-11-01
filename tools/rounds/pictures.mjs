@@ -14,6 +14,10 @@
 //   the index with each code's state, free or in a round (read from content/rounds/levels/)
 // node tools/rounds/pictures.mjs tag <ids…> [--family …] [--direction …] [--device …] [--subject …] [--source …] [--reference …]
 //   set a picture's theme catalog tags (metadata only, the matrix stays)
+// node tools/rounds/pictures.mjs rights <ids…> --owner "<note>" | --clear   the owner confirmed the rights to a third-party
+//   universe or meme picture (theme catalog §4): rights 'owner' with the note and date, in the picture and the manifest; such a
+//   picture passes the franchise filters (lib.mjs franchiseBlocked: rounds.mjs, levels.mjs place, audit, export); --clear
+//   takes it back
 // node tools/rounds/pictures.mjs status [--free|--used]   approved pictures by code: free, or the level that uses them
 // node tools/rounds/pictures.mjs motifs [--status approved] [--max 3]   recurring motifs (fish, lighthouse, watering a
 //   flower …) in titles and subjects, main or secondary; a motif at --max or more is not drawn again unless the owner asks
@@ -42,7 +46,7 @@ const THEMES=JSON.parse(fs.readFileSync(new URL('./themes.json',import.meta.url)
 const FAMILIES=new Set([...THEMES.groups.flatMap(g=>g.families.map(f=>f.name)),...THEMES.internet.families]),DIRECTIONS=new Set(THEMES.directions.map(d=>d.name));
 const TAGS=['family','direction','device','subject','source','reference'];
 const tagsOf=(e,b={})=>Object.fromEntries(TAGS.map(k=>[k,e[k]??b[k]??null]).filter(([,v])=>v!==null));
-const entryOf=p=>({id:p.id,seq:p.seq,version:p.version,title:p.title,theme:p.theme,family:p.family||null,direction:p.direction||null,forLevel:p.forLevel,w:p.w,h:p.h,N:p.N,colours:p.colours,status:p.status,batch:p.batch,note:p.note||null,usedBy:p.usedBy||null});
+const entryOf=p=>({id:p.id,seq:p.seq,version:p.version,title:p.title,theme:p.theme,family:p.family||null,direction:p.direction||null,forLevel:p.forLevel,w:p.w,h:p.h,N:p.N,colours:p.colours,status:p.status,batch:p.batch,note:p.note||null,usedBy:p.usedBy||null,...(p.rights?{rights:p.rights,rightsNote:p.rightsNote||null,rightsAt:p.rightsAt||null}:{})});
 export function check(p){const issues=[],warn=[];const s=stageOf(p.forLevel),m=measure(p);
  if(!fitsStage(m,p.forLevel))issues.push(s.fixed?`уровень ${p.forLevel} требует ${s.fixed}: ${s.cells[0]} клеток, ${s.colours[0]} цв.`:`вне диапазона этапа L${p.forLevel}: ${s.cells.join('–')} клеток, ${s.colours.join('–')} цв.${s.compact?' (или компактная 200–399 / 3–6)':''}`);
  if(m.N>1400)issues.push('больше 1400 клеток — расширенный набор');if(m.colours>11)issues.push('больше 11 цветов — расширенный набор');
@@ -102,7 +106,7 @@ function publish(){const u=syncUsage(),m=manifest(),pics=m.pictures.filter(e=>e.
  const rows=[];
  for(const p of pics){const mm=measure(p),name=p.id,by=u[p.id]||null,dir=path.join(APPROVED,p.locked?'locked':'pool');
   const stages=p.locked?['L'+p.locked]:BANDS.filter(([,l])=>fitsStage(mm,l)||(stageOf(l).compact&&mm.N>=200&&mm.N<=399)).map(([b])=>b);
-  writeJSON(path.join(dir,name+'.json'),{code:p.id,state:by?'used':'free',usedBy:by,version:p.version,title:p.title,theme:p.theme,...tagsOf(p),locked:p.locked||null,stages,w:p.w,h:p.h,N:mm.N,colours:mm.colours,
+  writeJSON(path.join(dir,name+'.json'),{code:p.id,state:by?'used':'free',usedBy:by,version:p.version,title:p.title,theme:p.theme,...tagsOf(p),locked:p.locked||null,...(p.rights?{rights:p.rights,rightsNote:p.rightsNote||null}:{}),stages,w:p.w,h:p.h,N:mm.N,colours:mm.colours,
    volumes:Object.fromEntries(Object.entries(mm.volumes).sort((a,b)=>b[1]-a[1]).map(([c,v])=>[c,{cells:v,name:PALETTE[c].name,hex:PALETTE[c].color}])),approvedAt:p.decidedAt||null,rows:p.rows});
   fs.writeFileSync(path.join(dir,name+'.png'),picturePng(p));
   rows.push({key:(p.locked?0:1)+p.id,row:`| **${p.id}** | ${by?'в раунде '+by:'свободна'} | ${p.locked?'закреплена за L'+p.locked:'пул'} | [${p.title}](${p.locked?'locked':'pool'}/${name}.png) | ${p.family||'—'} | ${p.direction||'—'} | v${p.version} | ${p.w}×${p.h} | ${mm.N} | ${mm.colours} | ${stages.join(', ')||'—'} |`});}
@@ -151,6 +155,13 @@ else if(cmd==='status'){const u=publish()&&usage(),want=flag('--free')?'free':fl
 else if(cmd==='tag'){const ids=idsFrom(process.argv.slice(3).filter((a,i,all)=>!a.startsWith('--')&&!(all[i-1]||'').startsWith('--')));const m=manifest();
  for(const id of ids){const p=picture(id);if(!p)continue;for(const k of TAGS){const v=arg('--'+k);if(v!==null)p[k]=v;}writeJSON(path.join(PICTURES,id+'.json'),p);
   m.pictures=m.pictures.filter(x=>x.id!==id).concat([entryOf(p)]);console.log(id,TAGS.map(k=>p[k]?`${k}=${p[k]}`:'').filter(Boolean).join(' · '));}
+ saveManifest(m);publish();}
+else if(cmd==='rights'){const note=arg('--owner'),clear=flag('--clear');if(!clear&&!(note&&note.trim()))throw Error('rights: нужно --owner "<слова владельца>" или --clear');
+ const raw=process.argv.slice(3).filter((a,i,all)=>!a.startsWith('--')&&!(all[i-1]||'').startsWith('--owner'));if(!raw.some(a=>/^P?\d+$/.test(a)))throw Error('rights: нужны коды картинок (P0425 …)');
+ const ids=idsFrom(raw);const m=manifest();
+ for(const id of ids){const p=picture(id);if(!p)throw Error('нет '+id);
+  if(clear){delete p.rights;delete p.rightsNote;delete p.rightsAt;}else Object.assign(p,{rights:'owner',rightsNote:note.trim(),rightsAt:new Date().toISOString().slice(0,10)});
+  writeJSON(path.join(PICTURES,id+'.json'),p);m.pictures=m.pictures.filter(x=>x.id!==id).concat([entryOf(p)]);console.log(id,p.source||'—',clear?'права сняты':`права владельца: «${p.rightsNote}»`);}
  saveManifest(m);publish();}
 else if(cmd==='motifs'){const st=arg('--status','approved'),max=+arg('--max',3),pics=manifest().pictures.filter(e=>!st||st==='all'||e.status===st).map(e=>picture(e.id)).filter(Boolean);
  const hits={};for(const p of pics){const text=`${p.title} ${p.subject||''}`.toLowerCase();for(const m of motifsOf(p))(hits[m]=hits[m]||[]).push(p.id);}

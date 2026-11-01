@@ -88,7 +88,7 @@ test('builder doses: shares of N after the start reveal by class and role, 5–1
  assert.deepEqual(LV.doses('cells','Normal',12,false,600).cells,[30,60],'a small queue: the lead table');
  assert.match(LV.doses('links+hidden+cells','Hard',24,false,600).error,/не бывают на одном уровне/);
  assert.equal(L.recipeAllowed('hidden+cells'),false);assert.equal(L.recipeAllowed('links+cells'),true);
- assert.ok(L.SUPPORTED.has('cells'));assert.deepEqual(L.INTRO.find(([m])=>m==='cells'),['cells',51,53]);assert.deepEqual(L.INTRO.find(([m])=>m==='latch'),['latch',401,403]);
+ assert.ok(L.SUPPORTED.has('cells'));assert.deepEqual(L.INTRO.find(([m])=>m==='cells'),['cells',51,53]);assert.deepEqual(L.INTRO.find(([m])=>m==='latch'),['latch',61,63]);
  assert.equal(L.slotOf(51).intro,'cells');assert.equal(L.slotOf(52).allowed.includes('cells'),false);assert.equal(L.slotOf(54).allowed.includes('cells'),true);});
 
 test('builder candidates: the hidden cells lie off the start front, the dose holds, an introduction has 5–10',()=>{

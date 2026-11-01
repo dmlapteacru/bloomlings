@@ -37,9 +37,10 @@ next command, or to the end) are hashed together with SHA-256.
 | Event | Line |
 |---|---|
 | commit | `t commit pod=<p> slot=<s>` |
-| reveal | `t reveal pod=<p> mode=<depth\|sealed>` |
+| reveal | `t reveal pod=<p> mode=<depth\|sealed>` (the commit's time; a depth reveal of a pod exposed by a latch that a clear opened carries that clear's time) |
 | bridge | `t bridge cell=<c>` |
 | cellReveal | `t cellReveal cell=<c>` (hidden cells, rules 17 §8, 2026-11-01: right after the clear or bridge that revealed it, at that change's time; several in increasing cell order) |
+| latchOpen | `t latchOpen latch=<i>` (latch + acorn key, rules 17 §8, 2026-11-01: `i` indexes the level's `latches`; at the time of the change that opened it — a commit, after the commit and sealed-reveal lines, a clear, after that clear's cellReveal lines, or a bridge, after its cellReveal lines; several in increasing latch order; the depth reveals of the pods it exposes follow it at the same time, also when a clear opened it) |
 | depart | `t depart id=<j> pod=<p> cell=<c> arrive=<µs> clear=<µs> done=<µs> route=<len>` |
 | arrive | `t arrive id=<j>` |
 | clear | `t clear id=<j> cell=<c>` |
@@ -56,6 +57,8 @@ The reference's `signature(state)` string, extended with the timeline:
 - `steps` is `at:type:id-or-pod` joined by commas, in step order;
 - `now` is in µs;
 - columns appear only if a booster changed them, which never happens in fixtures.
+- latches add nothing: a latch is open exactly when its column's head has passed it, or stands at it with its key
+  cell reached from an entry, so it follows from `heads` and `board`.
 - hidden cells add nothing: which hidden cells are still unrevealed follows from the board (a hidden colour cell that is
   not a target), so the signature is the same as without them.
 

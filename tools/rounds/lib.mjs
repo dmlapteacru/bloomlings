@@ -23,6 +23,19 @@ export const picture=id=>readJSON(path.join(PICTURES,id+'.json'));
 export function usage(){const u={};if(!fs.existsSync(LEVELS))return u;
  for(const f of fs.readdirSync(LEVELS).filter(f=>/^L\d+\.json$/.test(f)).sort()){const L=readJSON(path.join(LEVELS,f));if(L&&L.picture)u[L.picture]=f.replace('.json','');}return u;}
 
+// a third-party universe or a meme is not for release without rights (theme catalog §4; the audit's mandatory rule), unless
+// the owner confirmed the rights for this picture: rights 'owner' (pictures.mjs rights <ids> --owner "<note>")
+export const FRANCHISE_SOURCES=new Set(['сторонняя вселенная','мем','интернет-мем/тренд']);
+export const franchiseBlocked=p=>!!p&&FRANCHISE_SOURCES.has(p.source)&&p.rights!=='owner';
+// the pack a picture came in (17 §11, the owner's second amendment of 2026-11-01: «картинки волны берутся из разных паков,
+// а не подряд по одному паку»): its `pack` field when set, else its batch; a batch that holds several themes (the
+// owner's combined packs-0268-0467: ten themed packs of 10–50) splits by theme, `<batch> · <theme>`
+export const packOf=p=>!p?null:p.pack||(p.theme&&p.batch&&p.theme!==p.batch&&/^packs?-/.test(p.batch)?`${p.batch} · ${p.theme}`:p.batch||p.theme||null);
+// items reordered so that consecutive ones come from different packs where possible: round robin over the packs, each
+// pack keeping its own order, the packs in the order of their first item
+export function interleaveByPack(items,keyOf){const groups=new Map();for(const x of items){const k=keyOf(x);if(!groups.has(k))groups.set(k,[]);groups.get(k).push(x);}
+ const out=[],qs=[...groups.values()];for(let i=0;out.length<items.length;i++)for(const q of qs)if(q[i]!==undefined)out.push(q[i]);return out;}
+
 // recurring motifs for the repeat guard (the owner, 2026-10-26: "не сильно повторяться, а то уже сколько рыб"): main or
 // secondary, matched in a picture's title and subject
 const E='(?![а-яё])';const re=x=>new RegExp(x.replace(/\$/g,E));
@@ -56,11 +69,12 @@ export function columnsFor(N){return N<700?[3]:N<1000?[3,4]:[4,5];}
 
 // ---- difficulty calendar (§5) and mechanic introductions (§9) ----
 export const classOf=n=>n%15===0?'Super Hard':n%5===0?'Hard':'Normal';
-// hidden cells ('cells') at 51/53 and latch + key at 401/403 (the owner's amendment of 2026-11-01, 17 §9)
-export const INTRO=[['hidden',6,8],['links',11,13],['bridge',16,18],['cells',51,53],['canal',101,103],['shutters',151,153],['repair',201,203],['bud',251,253],['seed',301,303],['well',351,353],['latch',401,403],['stacks',451,453]];
-export const MECH_RU={hidden:'скрытые поды',links:'связки',bridge:'мост Sprig',latch:'засов и жёлудь-ключ Twig',canal:'водный канал Drop',shutters:'деревянные створки Twig',repair:'ремонт пятого места Twig',bud:'закрытый бутон Bloom',seed:'семечко Bloom',well:'колодец Drop',cells:'скрытые клетки',stacks:'стопки одного материала'};
+// hidden cells ('cells') at 51/53 (the owner's amendment of 2026-11-01) and latch + acorn key ('latch') at 61/63 (the
+// owner's second amendment of 2026-11-01, wave plan v2: both new mechanics in the wave L51–L100; 17 §9)
+export const INTRO=[['hidden',6,8],['links',11,13],['bridge',16,18],['cells',51,53],['latch',61,63],['canal',101,103],['shutters',151,153],['repair',201,203],['bud',251,253],['seed',301,303],['well',351,353],['stacks',451,453]];
+export const MECH_RU={hidden:'скрытые поды',links:'связки',bridge:'мост Sprig',latch:'засов и ключ',canal:'водный канал Drop',shutters:'деревянные створки Twig',repair:'ремонт пятого места Twig',bud:'закрытый бутон Bloom',seed:'семечко Bloom',well:'колодец Drop',cells:'скрытые клетки',stacks:'стопки одного материала'};
 // what the round engine (tools/rounds/engine.mjs) really plays today; the rest waits for an engine change (§14)
-export const SUPPORTED=new Set(['hidden','links','bridge','cells']);
+export const SUPPORTED=new Set(['hidden','links','bridge','cells','latch']);
 // hidden pods and hidden cells are interchangeable unknowns and never on one level (17 §8, the owner, 2026-11-01)
 export const EXCLUSIVE=[['hidden','cells']];
 export const recipeAllowed=recipe=>{const t=(recipe||'none').split('+');return !EXCLUSIVE.some(g=>g.every(m=>t.includes(m)));};

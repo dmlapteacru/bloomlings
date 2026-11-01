@@ -24,6 +24,7 @@ node tools/rounds/pictures.mjs publish
 node tools/rounds/pictures.mjs status --free           # approved codes not yet used by a placed level
 node tools/rounds/pictures.mjs motifs                   # recurring motifs (fish, robots …): «ХВАТИТ» at 3+, not drawn again
 node tools/rounds/pictures.mjs reject 34 --note "too small details"
+node tools/rounds/pictures.mjs rights P0425 P0465 --owner "владелец 01.11.2026: взять в волну 51–100"   # a franchise picture the owner cleared
 node tools/rounds/pictures.mjs replace P0034 content/rounds/pictures/src/batch-0031-fix.mjs
 # levels (17 §3–§14)
 node tools/rounds/levels.mjs calendar 1 60
@@ -122,7 +123,8 @@ builds only each open position's planned recipe (`levels.mjs build --pairs cls:r
 place` accepts a candidate on a planned position only with that recipe and, for a bridge, that crossing side and bridge kind. Recipes:
 `none`, `links`, `hidden`, `bridge`, `links+hidden`, `hidden+links`, `bridge+links`, `bridge+hidden`, `hidden+bridge`,
 `links+bridge`, `links+bridge+hidden`, `bridge+links+hidden`, and with hidden cells `cells`, `links+cells`, `cells+links`,
-`bridge+cells`, `bridge+links+cells`, `bridge+cells+links` (never `hidden` and `cells` together); doses by §7 (the lead its range with the dose place cycle,
+`bridge+cells`, `bridge+links+cells`, `bridge+cells+links` (never `hidden` and `cells` together), and with the latch
+`latch`, `links+latch`, `latch+links`, `latch+cells`, `links+latch+cells`, `links+cells+latch` …; doses by §7 (the lead its range with the dose place cycle,
 an additional one its minimum admissible dose, three types the lead in its lower half).
 
 **Hidden cells** (17 §8 «Скрытые клетки», the owner's amendment of 2026-11-01; recipe and mechanic name `cells`,
@@ -168,7 +170,119 @@ an additional one its minimum admissible dose, three types the lead in its lower
 - *Audit.* Recipe and `hiddenCells` agree, every hidden cell is a colour cell, never with hidden pods, the dose after
   the start reveal for the class and role, an introduction 5–10; cells revealed at the start are a note.
 - *Pilot* (`tools/gameplay-pilot-v12`): an unrevealed hidden cell is a neutral grey cube with «?»; it reveals by the
-  engine's rule; the finished picture shows its colour; both introductions carry an explanation.
+  engine's rule; the finished picture shows its colour. No lesson or popup (the owner, 2026-11-01: the player sees the
+  «?» and the cells reveal by themselves).
+
+**Latch and key** (17 §8 «Twig Засов и жёлудь ключ», §9 as amended twice on 2026-11-01: introductions on 61 and 63;
+recipe and mechanic name `latch`, «засов и ключ»). The exact contract, which the C# port follows:
+
+- *Level data.* The round level's `definition.latches` (exported as the top-level `latches` of `round-level.v1`, next to
+  `tray`; `mechanics` then includes `"latch"`; an introduction's `introduction.mechanic` is `"latch"`):
+  `[{column, depth, key}, …]`. `column` is a tray column; `depth` is how many pods of that column stand before the latch
+  (0 = it starts on top); `key` is a cell index `y*w+x` of `rowsBottomFirst` (row 0 at the bottom, as hidden cells and
+  bridge choices) of an empty `'.'` cell of the board — never a wall, a strip or a bridge site, a colour cell or an
+  entry. Index `i` of the array is latch `i` of the events. A level without latches has no `latches` key.
+- *Validation* (`R.validate`): `latches` a non-empty array (`latches`); each column exists and its depth is an integer
+  `0 ≤ depth < column length`, so at least one pod stands behind it, and no two latches of one column share a depth
+  (`latch`); each key an empty non-entry cell, all keys different (`latch key`); then two cheap checks, only when the rest
+  is sound: `latchKeysBlocked` (below) finds no latch whose key can never be reached (`latch key unreachable`), and the
+  columns blocked at the start (a latch at depth 0 whose key the start board does not reach) are at most
+  `max(1, columns − 2)` (`latches block too many columns`).
+- *The cheap key check* (`R.latchKeysBlocked(level)`, a necessary condition: 17 §8 «ключ не должен требовать материал,
+  целиком запертый его же засовом», «несколько засовов не образуют неразрешимый цикл»). Start with every latch closed.
+  Repeat: in each column the first closed latch (smallest depth) hides every pod at or after its depth; a material all
+  of whose pods are hidden is blocked; flood from the entries over `'.'` cells, bridge-site cells and colour cells of
+  materials that are not blocked; every closed latch whose key is flooded opens. Stop when nothing opens. The latches
+  left closed are returned. (Optimistic: a material with any free pod counts as wholly clearable; the solver decides
+  the rest, and the builder and audit solve every level.)
+- *State.* `state.latched` (a byte per latch, 1 = closed; `null` on a level without latches) and `state.latchedLeft`
+  (how many ones). `blockAt(state, c)` = the depth of column `c`'s first closed latch, or ∞.
+- *Blocking.* A pod of column `c` at index `k ≥ blockAt(state, c)` is behind a closed latch: column `c` has no top pod
+  while `heads[c] = blockAt(state, c)` (`topPods` leaves the column out), so such a pod cannot be tapped (`not-exposed`),
+  is not revealed by the depth rule, and a group partner behind it is not exposed (`canTap`'s partner test also needs
+  `index < blockAt`). Everything else (slots, targeting, dispatch, release, status) is unchanged: a latch is no pod, has
+  no quota and takes no place. `blockedColumns(state)` lists the columns whose top is a closed latch.
+- *Opening rule* (`openLatches(state, events, at)`). A closed latch `i` opens at the first moment both hold: it is its
+  column's top (`heads[column] === depth`) and its key cell is reached by an open path from an entry — the same breadth
+  first search the targets use: `reach(state).distance[key] > 0` (the key is an open cell, so reached = in the searched
+  set). Latches are checked in increasing index; each one that opens is `{type:'latchOpen', latch:i}` (`at` added on
+  the timeline). Opening changes no reach, and a column's next latch stands at least one pod deeper, so one pass finds
+  every latch that opens. It is checked after every change that can make it true:
+  - `create`: before the start reveal of the tops (silently, no event: part of the start state; a latch at depth 0
+    whose key is already reached starts open);
+  - `rules.step` tap: after all the group's `commit` (and sealed `reveal`) events, then the depth `reveal`s of the
+    exposed tops (`revealTops`), then `settle`;
+  - `rules.step` bridge: after the `bridge` event and its `cellReveal`s, then `revealTops`, then `settle`;
+  - `settle`, each round: after the round's `clear` events and their `cellReveal`s, the `latchOpen`s, then (only when a
+    latch opened) the depth `reveal`s of the pods it exposed, then that round's `complete`s;
+  - timeline `commit`: after the commits / the bridge and its `cellReveal`s, in the commit's events with
+    `at` = the commit time, before the depth reveals of the commit;
+  - timeline `advance`: right after a single `clear` step and its `cellReveal`s, with `at` = that clear's time; the
+    pods a latch exposes then reveal by the depth rule right after it, `{type:'reveal', at, pod, mode:'depth', color}`.
+  The conformance log lines are `<µs> latchOpen latch=<i>` and, for such a reveal, `<µs> reveal pod=<p> mode=depth`
+  at the clear's time (`specs/006-round-levels-in-game/contracts/conformance-fixture.md`).
+- *Why the signature is unchanged.* Heads only grow and open cells never close, so `latched[i] = 0` exactly when
+  `heads[column] > depth`, or `heads[column] = depth` and the key is reached: a function of `heads` and the board.
+  `signature()` leaves it out, a restored timeline checkpoint recomputes it (`syncLatches`: passed latches open, the rest
+  closed, then the opening rule silently), and `view()` adds `latched` only on a level with latches. A level without
+  latches plays byte-identically (events, states, signatures, observations; `test/latch.test.mjs` and a replay of every
+  placed level against the previous engine).
+- *Rules of §8 the tools hold* (`measure.mjs latchCheck`, on the saved solution replayed patiently on the timeline):
+  depth by the measured class `LATCH_DEPTH` Normal 3–6, Hard 2–6, Super Hard 2–8 (the data `depth`, pods before it);
+  pods behind it 1–12, wanted 2–8 (a note); every latch opens on the saved solution, the last one before 80 % of W
+  (done work, `processedCells / W`); at most `latchLimit(columns) = max(1, columns − 2)` columns blocked at once on it
+  (3 columns: 1, 4: 2); over 30 random games the share that block more is a note. One latch per column at a time holds by
+  construction (a column's next latch stands deeper and only counts once the first opened); the builder puts at most one
+  in a column. Each latch/key pair is told apart by its numeral and tag colour in the pilot, keys are distinct cells.
+- *Dose* (§7 tables, counts of latch/key pairs): lead Normal 1, Hard 1–2, Super Hard 2–3; additional 1; three types the
+  lead in its lower half (Hard 1, Super Hard 2); a queue under 16 pods 1; an introduction (61, 63: Normal, alone, random
+  test 90–100 %) exactly 1.
+- *Builder* (`levels.mjs`). `keyHoles(board)`: the 4-connected areas of `'.'` cells the start board does not reach (open
+  cells only, sites closed) but clearing reaches without a bridge (finite access depth with every site a wall); each hole
+  with its depth (fewest colour cells to clear on the way) and its key cell (the cell nearest its centre). A picture
+  without a hole cannot take a latch. `pickLatches(board, tray, pods, want, cls, r, {intro})`: each latch in its own
+  column at a depth of the class range with 2–8 pods behind, never a hidden pod behind it (§7), its key in a hole of its
+  own; `latchTiming` plays the candidate's queue once without latches (patient, the launch with the most reachable work
+  now) and the pair (column, depth, hole) is chosen so the hole is reached a few launches after the latch comes on top
+  (`LATCH_WAIT`: an introduction 1–3, Normal 0–3, Hard 1–5, Super Hard 2–8), so the latch stands closed for a while;
+  a second latch on a three-column tray stands two or more pods deeper than the first; refused when `latchKeysBlocked`
+  finds a key unreachable. `evaluate` refuses an introduction without exactly one latch and any candidate whose
+  `latchCheck` fails for the measured class; `checks.latch` keeps it; bank candidates and placed levels carry `latches`
+  (the count). The placer prefers, on the first introduction, a latch that waits closed on top on the saved solution.
+  `rounds.mjs plan` counts the free pictures with a hole for the latch positions and orders more; `run` builds latch
+  recipes only on pictures with enough holes.
+- *Audit.* Recipe and `latches` agree, `R.validate`, an introduction has exactly one latch, the dose for class and role,
+  and every `latchCheck` problem (depth, pods behind, opening on the solution and before 80 % W, the column limit) is a
+  НЕТ; its notes are notes.
+- *Pilot* (`tools/gameplay-pilot-v12`): a closed latch is a wooden block in its column at its place among the pods (a
+  peek row behind, a full row on top) with an acorn padlock, its numeral (I, II, …) and tag colour; its acorn key lies
+  on the key cell with the same numeral and colour. On `latchOpen` the block leaves the column, the acorn pops (grows and
+  fades for 0.7 s) and the status line says the latch opened. The first introduction explains the latch, the second
+  reminds in one line.
+
+**Picture selection** (the owner, 2026-11-01).
+
+- *Pins.* `mechanics.json` may carry `pin: ['P0317', …]`: pictures the wave must use. `rounds.mjs plan` reserves each
+  for one fitting open position (stage; a non-bridge position for a picture without a strip; Hard and Super Hard a
+  strong picture; a latch recipe enough key holes): the pins with the fewest fitting positions first, a position costing
+  more when other pins fit it, it neighbours a pin of the same pack, it is an introduction, a strong picture would go to a
+  Normal, a picture with holes would miss a latch position, or another pin is within three levels. The table «Закреплённые
+  картинки» and `plan.json` `pins` (`{id, pack, positions, reserved, status, reason}`; status free, placed, used, blocked
+  with the reason: not approved, locked, a franchise without the owner's rights, no fitting position). `run` builds
+  candidates for every free pin on its reserved position. `levels.mjs place` keeps a pin off the positions before its
+  reserved one, prefers it strongly (score −3) wherever it passes the filters, exempts it from the pack rule, and lists
+  the pins still unused at the wave's end (console and `needs.json` `pins`).
+- *Packs.* `packOf(pic)`: the picture's `pack` field if set, else its `batch`; a combined batch of several themes
+  (`packs-…`, the owner's packs-0268-0467) splits by theme (`<batch> · <theme>`). `place` never puts two neighbouring
+  levels on one pack while another fitting candidate exists (hard), and costs a candidate 0.12 per level of the wave
+  already on its pack and 0.15 when the level two back is on it (soft); `run --per-position` interleaves its pictures by
+  pack; `plan` lists the free pool by pack.
+- *Rights.* A picture whose `source` is a third-party universe or a meme (`сторонняя вселенная`, `мем`,
+  `интернет-мем/тренд`) is kept out of rounds (`rounds.mjs`, `levels.mjs place`, the audit, the exporter) unless it
+  carries `rights: 'owner'` (`lib.mjs franchiseBlocked`), set by `pictures.mjs rights <ids> --owner "<the owner's
+  words>"` with `rightsNote` and `rightsAt`, in the picture and the manifest (`--clear` takes it back). Set for P0425 and
+  P0465 («владелец 01.11.2026: взять в волну 51–100»). The exporter still writes `round-picture.v1` `rights: "own"` (its
+  schema's only value).
 
 **Recolouring and accents** (17 §3 «кубики можно докрасить или перекрасить в более насыщенный материал», §6 «Акценты для
 давления на места», the owner, 2026-11-01). The exact contract, which the C# port follows:
@@ -203,11 +317,11 @@ an additional one its minimum admissible dose, three types the lead in its lower
 
 | File | What |
 |---|---|
-| `lib.mjs` | paths, manifest, palette, the rules' tables (stages, budgets, calendar, introductions, supported mechanics), board around a picture (recolouring, overlay, ring closure, anchors, crossing side), the generator's wall `wallOverlay`, the wave's mechanics plan (`planOf`, `fitsPlan`), PNG writer |
+| `lib.mjs` | paths, manifest, palette, the rules' tables (stages, budgets, calendar, introductions, supported mechanics), franchise rights (`franchiseBlocked`), picture packs (`packOf`, `interleaveByPack`), board around a picture (recolouring, overlay, ring closure, anchors, crossing side), the generator's wall `wallOverlay`, the wave's mechanics plan (`planOf`, `fitsPlan`), PNG writer |
 | `themes.json` | the theme catalog's 50 families, 24 directions and meme families (from `product/design/Bloomlings-picture-theme-catalog.md`), for the tag check |
 | `pictures.mjs` | sequential numbering, render, rules check, contact sheet, approve/reject/replace |
 | `engine.mjs`, `engine/` | the round engine, our own code grown from the pilot: rules, timeline, palette, clock with the §1 slot positions, the §8 link rule, boards up to 48×48, 4–5 places; the pilot v10 embeds the same files |
-| `measure.mjs` | saved solution (search + live replay), §5 random test with waiting and Wilson 100 → 400, hidden-pod fairness, §11 strategies, §10 rhythm, the bridge measures (`bridgeChoicesWin` with a fresh solver per bridge, `bridgeChoices`, `bridgeSingle`, `bridgeLoss`) |
+| `measure.mjs` | saved solution (search + live replay), §5 random test with waiting and Wilson 100 → 400, hidden-pod fairness, the latch rules on the saved solution (`latchCheck`), §11 strategies, §10 rhythm, the bridge measures (`bridgeChoicesWin` with a fresh solver per bridge, `bridgeChoices`, `bridgeSingle`, `bridgeLoss`) |
 | `rounds.mjs` | the wave runner: `plan` (positions and picture order), `run` (resumable, parallel build of what is open, checks, placement, audit, summary, the owner's sample pilot), `review` (owner results vs metrics, notes draft) |
 | `screen.mjs` | the screen of pictures before the contact sheet: §2 rules, strength, quick queue test, readability, similarity to approved, motifs |
 | `svg2cells.mjs`, `svg-palette.mjs` | flat SVG drafts in the palette → cell pictures sized to a target cell count, small patches folded |
@@ -220,7 +334,7 @@ an additional one its minimum admissible dose, three types the lead in its lower
 | `levels.mjs` | §3 pod split, candidates (queue by access depth, doses of §7; a scene's gate and lean; accents of §6), `evaluate` (the checks of one candidate, shared with the scene search), build → bank, calendar placement with the §11 variety rules and the plan's bridge kind, cards |
 | `bridge-scene.mjs` | split pictures (`splitOf`, `splitsFor`, `checkSplit`, `make --mode split`, `preview`) and the older bridge scenes: `scene` (a smaller picture behind a wall with two sites, strips and beds), `stripsOver`, `checkScene`, the search `make` → a draft picture module with the evidence |
 
-The engine plays hidden pods, linked pairs, the bridge and hidden cells. Latch + key (now 401/403), canal, shutters,
+The engine plays hidden pods, linked pairs, the bridge, hidden cells and the latch with its acorn key. Canal, shutters,
 repair, bud, seed, well and stacks need engine and pilot work first (`SUPPORTED` in `lib.mjs`). The search behind the saved
 solution assumes each action's work settles before the next. A search that runs out of budget means "not checked",
 never "impossible".

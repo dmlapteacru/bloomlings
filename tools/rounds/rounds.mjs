@@ -8,7 +8,8 @@
 //      (per level lead, additional, doses, bridge side and strip; shares per mechanic), then the order for what it needs:
 //      new strip pictures by crossing side and size stage, pool pictures for the rest (an overlay level takes a free
 //      pool picture with the generator's wall; a gap level a split of a free pool picture, bridge-scene.mjs make --mode
-//      split, listed with its command and suggested sources)
+//      split, listed with its command and suggested sources); the pinned pictures of mechanics.json `pin` reserved for fitting positions
+//      (plan.json pins), the free pool by picture pack, the pictures with a hole for the acorn key the latch positions need
 // node tools/rounds/rounds.mjs run <from> <to> [--jobs 4] [--candidates 64] [--no-build] [--no-sample] [--no-bridge] [--per-position N] [--all]
 //      dry placement on a copy; candidates only for what stays open (one process per picture, resumable: a combination
 //      already searched is skipped; under a mechanics plan only each position's planned recipe, on a wall of the planned
@@ -31,7 +32,7 @@
 //      the owner told us to move the wave into the game before playing its sample: the words are recorded as they were
 //      said, with no sample (sample [], results null); the phone check after publishing is then the first play
 import fs from 'node:fs';import path from 'node:path';import os from 'node:os';import {spawn,execFileSync} from 'node:child_process';
-import {root,ROUNDS,LEVELS,BANK,readJSON,writeJSON,lid,arg,flag,manifest,picture,measure,stageOf,fitsStage,sizeBin,slotOf,classOf,INTRO,MECH_RU,SUPPORTED,recipeAllowed,usage,motifsOf,boardOf,overlaid,bridgeSide,wallOverlay,mechanicsPlans,planOf,bridgeShowing} from './lib.mjs';
+import {franchiseBlocked,packOf,interleaveByPack,root,ROUNDS,LEVELS,BANK,readJSON,writeJSON,lid,arg,flag,manifest,picture,measure,stageOf,fitsStage,sizeBin,slotOf,classOf,INTRO,MECH_RU,SUPPORTED,recipeAllowed,usage,motifsOf,boardOf,overlaid,bridgeSide,wallOverlay,mechanicsPlans,planOf,bridgeShowing} from './lib.mjs';
 import {fitness} from './fitness.mjs';
 import {fingerprints,sameEngine} from './conformance.mjs';
 const cmd=process.argv[2],HERE=path.dirname(new URL(import.meta.url).pathname),NODE=process.execPath;
@@ -41,27 +42,61 @@ const QUALITY=readJSON(path.join(ROUNDS,'quality.json'),{pressure:{min:{}},sampl
 const pct=x=>x==null?'—':Math.round(x*100)+' %';
 const waveDir=(a,b)=>path.join(ROUNDS,'runs',`${lid(a)}-${lid(b)}`);
 const placedLevels=()=>{const o={};if(fs.existsSync(LEVELS))for(const f of fs.readdirSync(LEVELS).filter(f=>/^L\d+\.json$/.test(f))){const L=readJSON(path.join(LEVELS,f));o[L.level]=L;}return o;};
-const FRANCHISE=new Set(['сторонняя вселенная','мем','интернет-мем/тренд']);
-// a picture usable for rounds: approved, not locked to L1–3, not a franchise reference, not yet in a round
-function freePictures(){const u=usage();return manifest().pictures.filter(e=>e.status==='approved'&&!u[e.id]).map(e=>picture(e.id)).filter(p=>p&&!p.locked&&!FRANCHISE.has(p.source));}
+// a picture usable for rounds: approved, not locked to L1–3, not a franchise reference (unless the owner confirmed its
+// rights: rights 'owner', pictures.mjs rights), not yet in a round
+function freePictures(){const u=usage();return manifest().pictures.filter(e=>e.status==='approved'&&!u[e.id]).map(e=>picture(e.id)).filter(p=>p&&!p.locked&&!franchiseBlocked(p));}
+// latch + acorn key (17 §8): how many holes for a key a picture's board offers (levels.mjs keyHoles: empty cells closed in
+// by colour work, reached without a bridge)
+const holeCache=new Map(),holesOf=p=>{if(!holeCache.has(p.id)){let k=0;try{k=LV.keyHoles(boardOf(p)).length;}catch{k=0;}holeCache.set(p.id,k);}return holeCache.get(p.id);};
+// the latch/key pairs a planned recipe needs at least (levels.mjs doses: Super Hard lead 2, otherwise 1)
+const latchNeed=(recipe,cls,intro)=>recipe.split('+').includes('latch')?LV.doses(recipe,cls,24,!!intro,700).latch[0]:0;
+// a free picture fits a planned position: its stage; a bridge position only a picture with its own strip crossing that
+// side (strip new), other positions a picture without a strip; Hard and Super Hard a strong picture (3+ colours hidden at
+// the start); a latch recipe enough holes for its keys
+function fitsPosition(p,q){const pl=q.plan;if(!pl||q.level<=3||!p.fits.includes(q.level))return false;const bridge=pl.recipe.split('+').includes('bridge');
+ if(bridge?!(p.stream&&p.side===pl.bridgeSide&&(pl.strip||'new')==='new'):p.stream)return false;
+ if(q.cls!=='Normal'&&!p.strong3)return false;return holesOf(p.pic)>=latchNeed(pl.recipe,q.cls,q.intro);}
+// pinned pictures (mechanics.json `pin`, the owner): each reserved for one fitting open position of the wave, the pins with
+// the fewest fitting positions first; a position another pin also fits, a neighbour of a pin of the same pack, or (for a
+// strong picture) a Normal position costs a little. status: free (to build and place), placed (already in this wave),
+// used (in another level), blocked (not approved, locked, a franchise without the owner's rights, no fitting position)
+function reservePins(ids,open,pics,placed,a,b){const by=new Map(pics.map(p=>[p.id,p])),out=[];
+ for(const id of ids){const pic=picture(id),e={id,title:pic?.title||null,pack:pic?packOf(pic):null,positions:[],reserved:null,status:'free',reason:null};out.push(e);
+  if(!pic){Object.assign(e,{status:'blocked',reason:'нет картинки'});continue;}
+  const at=Object.values(placed).find(L=>L.picture===id);if(at){Object.assign(e,at.level>=a&&at.level<=b?{status:'placed',reserved:at.level}:{status:'used',reason:`уже в ${lid(at.level)}`});continue;}
+  if(pic.status!=='approved'){Object.assign(e,{status:'blocked',reason:`не утверждена (${pic.status})`});continue;}
+  if(pic.locked){Object.assign(e,{status:'blocked',reason:`закреплена за L${pic.locked}`});continue;}
+  if(franchiseBlocked(pic)){Object.assign(e,{status:'blocked',reason:`${pic.source} без подтверждённых прав (pictures.mjs rights ${id} --owner "…")`});continue;}
+  const p=by.get(id);e.positions=p?open.filter(q=>fitsPosition(p,q)).map(q=>q.level):[];
+  if(!e.positions.length)Object.assign(e,{status:'blocked',reason:'не подходит ни одной открытой позиции волны (этап, класс, рецепт, место для ключа)'});}
+ const taken=new Map();
+ for(const e of out.filter(e=>e.status==='free').sort((x,y)=>x.positions.length-y.positions.length||x.id.localeCompare(y.id))){
+  const p=by.get(e.id),strong=p.strong3,holes=holesOf(p.pic)>0,latchPos=n=>{const q=open.find(q=>q.level===n);return !!(q&&q.plan&&q.plan.recipe.split('+').includes('latch'));},anyLatch=e.positions.some(latchPos);
+  const hash=n=>((n*2654435761)^[...e.id].reduce((h,c)=>h*31+c.charCodeAt(0),7))>>>0;
+  const cost=n=>.1*out.filter(o=>o!==e&&o.status==='free'&&!o.reserved&&o.positions.includes(n)).length+([n-1,n+1].some(k=>taken.has(k)&&taken.get(k).pack===e.pack)?5:0)+(strong&&classOf(n)==='Normal'?.5:0)
+   +(holes&&anyLatch&&!latchPos(n)?1:0)+(slotOf(n).intro?.6:0)+[...taken.keys()].reduce((c,k)=>c+(Math.abs(k-n)<=3?.4:0),0)+(hash(n)%1000)/1e4;
+  const free=e.positions.filter(n=>!taken.has(n)).sort((x,y)=>cost(x)-cost(y)||x-y);
+  if(!free.length){Object.assign(e,{status:'blocked',reason:`подходящие позиции (${e.positions.map(n=>'L'+n).join(', ')}) заняты другими закреплёнными`});continue;}
+  e.reserved=free[0];taken.set(free[0],e);}
+ return out;}
 const weakOf=f=>f.hiddenColours<=1||f.visible>=6;
 const regularAt=(n,placed)=>classOf(n)==='Normal'&&n>3&&!slotOf(n).intro&&classOf(n-1)==='Normal';
 const run1=(args,env={})=>new Promise(res=>{const p=spawn(NODE,args,{cwd:root,env:{...process.env,...env},stdio:['ignore','pipe','pipe']});let out='';p.stdout.on('data',d=>out+=d);p.stderr.on('data',d=>out+=d);p.on('close',code=>res({code,out}));});
 
 // ---- plan ----
 // the mechanics breakdown (17 §13 step 1, amendment of 2026-10-28): the owner-approved content/rounds/runs/<wave>/mechanics.json
-const MRU={none:'без допов',links:'связки',hidden:'скрытые',bridge:'мост',cells:'скрытые клетки'},SIDE_RU={up:'вверх',left:'влево',right:'вправо',two:'две стороны'},STRIP_RU={new:'новая картинка с полосой',overlay:'стена поверх утверждённой',gap:'разделённая картинка (полоса в цвет фона)'};
+const MRU={none:'без допов',links:'связки',hidden:'скрытые',bridge:'мост',cells:'скрытые клетки',latch:'засов и ключ'},SIDE_RU={up:'вверх',left:'влево',right:'вправо',two:'две стороны'},STRIP_RU={new:'новая картинка с полосой',overlay:'стена поверх утверждённой',gap:'разделённая картинка (полоса в цвет фона)'};
 const pr=x=>+(x*100).toFixed(1),pctR=([a,b])=>a===b?`${pr(a)} %`:`${pr(a)}–${pr(b)} %`;
 // hidden cells (17 §8): shares of N, the cells still hidden after the start reveal (counted at N = 700)
 function doseText(recipe,cls){if(recipe==='none')return 'без допов';const d=LV.doses(recipe,cls,24,false,700),n=k=>d[k][0]===d[k][1]?d[k][0]:d[k].join('–');
- return LV.doseShares(recipe,cls).map(x=>x.choice?'мост: 1 выбор из 2 мест':x.m==='cells'?`${MRU[x.m]} ${x.role==='lead'?'':'доп. '}${pctR(x.range)} N (${n(x.m)} при N = 700)`:`${MRU[x.m]} ${x.role==='lead'?'':'доп. '}${pctR(x.range)} P (${n(x.m)} при P = 24)`).join('; ');}
+ return LV.doseShares(recipe,cls).map(x=>x.choice?'мост: 1 выбор из 2 мест':x.count?`${MRU[x.m]}${x.role==='lead'?'':' доп.'} ${x.count[0]===x.count[1]?x.count[0]:x.count.join('–')} ${x.count[1]===1?'пара':'пары'}`:x.m==='cells'?`${MRU[x.m]} ${x.role==='lead'?'':'доп. '}${pctR(x.range)} N (${n(x.m)} при N = 700)`:`${MRU[x.m]} ${x.role==='lead'?'':'доп. '}${pctR(x.range)} P (${n(x.m)} при P = 24)`).join('; ');}
 const stageKey=s=>s.fixed?'фикс.':`${s.cells[0]}–${s.cells[1]} клеток, ${s.colours[0]}–${s.colours[1]} цветов${s.compact?' (или компактная 200–399 / 3–6)':''}`;
 // the breakdown of the wave's planned levels: per level lead, additional, doses, bridge side and strip; shares per mechanic
 function breakdown(levels){if(!levels.length)return null;const n=levels.length,has=m=>levels.filter(l=>l.recipe.split('+').includes(m)),cnt={};
  const normal=levels.filter(l=>l.cls==='Normal'),types=k=>levels.filter(l=>(l.recipe==='none'?0:l.recipe.split('+').length)===k).length;
  for(const l of levels)if(l.bridgeSide)cnt[l.bridgeSide]=(cnt[l.bridgeSide]||0)+1;
  return {levels:levels.map(l=>({level:l.level,cls:l.cls,lead:l.lead||null,add:l.add||[],recipe:l.recipe,doses:doseText(l.recipe,l.cls),...(l.bridgeSide?{bridgeSide:l.bridgeSide,strip:l.strip||null}:{})})),
-  shares:Object.fromEntries(['bridge','links','hidden','cells'].map(m=>[m,{levels:has(m).length,share:Math.round(has(m).length/n*100)/100,lead:levels.filter(l=>l.lead===m).length}]).concat([['none',{levels:levels.filter(l=>l.recipe==='none').length,share:Math.round(levels.filter(l=>l.recipe==='none').length/n*100)/100}]])),
+  shares:Object.fromEntries(['bridge','links','hidden','cells','latch'].map(m=>[m,{levels:has(m).length,share:Math.round(has(m).length/n*100)/100,lead:levels.filter(l=>l.lead===m).length}]).concat([['none',{levels:levels.filter(l=>l.recipe==='none').length,share:Math.round(levels.filter(l=>l.recipe==='none').length/n*100)/100}]])),
   normalWithMechanic:[normal.filter(l=>l.recipe!=='none').length,normal.length],types:{one:types(1),two:types(2),three:types(3)},sides:cnt};}
 function plan(a,b){const placed=placedLevels(),positions=[],blockers=[],plans=mechanicsPlans();
  for(let n=a;n<=b;n++){const s=slotOf(n),st=stageOf(n),pl=planOf(n,plans);positions.push({level:n,cls:s.cls,intro:s.intro,allowed:s.allowed.filter(m=>SUPPORTED.has(m)),stage:st,placed:!!placed[n],picture:placed[n]?.picture||null,...(pl?{plan:pl}:{})});
@@ -69,7 +104,7 @@ function plan(a,b){const placed=placedLevels(),positions=[],blockers=[],plans=me
   // hidden pods and hidden cells never on one level (17 §8, the owner, 2026-11-01)
   if(pl&&!recipeAllowed(pl.recipe))blockers.push(`L${n}: рецепт плана ${pl.recipe} — скрытые поды и скрытые клетки не бывают на одном уровне (§8)`);}
  const mech=breakdown(positions.filter(p=>p.plan).map(p=>p.plan));
- const open=positions.filter(p=>!p.placed),pics=freePictures().map(p=>{const m=measure(p),f=fitness(p),board=boardOf(p);return {id:p.id,title:p.title,pic:p,N:m.N,colours:m.colours,bin:sizeBin(m.N),strong:f.hiddenColours>=3&&!weakOf(f),weak:weakOf(f),stream:!!board.hero,side:bridgeSide(board),family:p.family||null,motifs:motifsOf(p),fits:open.filter(q=>fitsStage(m,q.level)).map(q=>q.level)};});
+ const open=positions.filter(p=>!p.placed),pics=freePictures().map(p=>{const m=measure(p),f=fitness(p),board=boardOf(p);return {id:p.id,title:p.title,pic:p,N:m.N,colours:m.colours,bin:sizeBin(m.N),strong:f.hiddenColours>=3&&!weakOf(f),strong3:f.hiddenColours>=3,weak:weakOf(f),stream:!!board.hero,side:bridgeSide(board),family:p.family||null,motifs:motifsOf(p),fits:open.filter(q=>fitsStage(m,q.level)).map(q=>q.level)};});
  // under a mechanics plan: a bridge position of strip "new" needs a picture with its own strip crossing to the planned
  // side; an overlay position takes a free pool picture with the generator's wall; the rest take free pool pictures
  // a gap position (17 §8 «Одна цельная картинка», 2026-10-29) a split of one whole free pool picture
@@ -122,13 +157,21 @@ function plan(a,b){const placed=placedLevels(),positions=[],blockers=[],plans=me
   if(sources[0]){if(sources[0].family)firstFam.add(sources[0].family);for(const m of sources[0].motifs)firstMotif.add(m);}
   return {level:q.level,cls:q.cls,side,kind,recipe:q.plan.recipe,have,sources:sources.map(p=>p.id),command:`node tools/rounds/bridge-scene.mjs make --mode split --from ${sources.map(p=>p.id).join(',')||'P####'} --side ${side} --kind ${kind} --cls "${q.cls}" --recipe ${q.plan.recipe} --level ${q.level} --out content/rounds/pictures/src/split-${lid(q.level)}.mjs`};});
  const splitTotal=splits.filter(x=>!x.have).length;
- const out={range:[a,b],created:new Date().toISOString(),positions:positions.map(({plan:pl,...p})=>p),open:open.map(p=>p.level),blockers,...(mech?{mechanics:mech}:{}),need,supply:{pictures:have,strong:haveStrong,stream:haveStream,bank,...(mech?{overlay:ovSupply}:{})},
-  order:{total,strong,streams,byStage:orderByStage,sizeMix:Object.fromEntries(Object.entries(mix).map(([k,v])=>[k,Math.round(v*total)])),...(mech?{strips:strips.map(({levels,strongLevels,...e})=>({...e,levels})),scenes,sceneSources,splits}:{}),avoidMotifs:avoid,suggestFamilies:families}};
+ // latch positions (17 §8): the acorn key lies in an empty area closed in by work, so such a position needs a picture with
+ // one (levels.mjs keyHoles; a Super Hard lead two); order the rest
+ const latchOpen=open.filter(q=>q.plan&&q.plan.recipe.split('+').includes('latch')),latchPics=pics.filter(p=>!p.stream&&latchOpen.some(q=>fitsPosition(p,q)));
+ const latchOrder=Math.max(0,Math.ceil(1.75*latchOpen.length)-latchPics.length);
+ // packs (17 §11, 2026-11-01): the free pool by pack, so the wave can be spread over them (levels.mjs place)
+ const packs={};for(const p of pics.filter(p=>!p.stream&&p.fits.length)){const k=packOf(p.pic)||'—';packs[k]=(packs[k]||0)+1;}
+ // pinned pictures (mechanics.json `pin`): reserved positions, or why a pin cannot go into the wave
+ const wavePlan=plans.find(p=>p.wave[0]===a&&p.wave[1]===b)||plans.find(p=>a>=p.wave[0]&&a<=p.wave[1]),pins=wavePlan&&Array.isArray(wavePlan.pin)?reservePins(wavePlan.pin,open,pics,placed,a,b):[];
+ const out={range:[a,b],created:new Date().toISOString(),positions:positions.map(({plan:pl,...p})=>p),open:open.map(p=>p.level),blockers,...(mech?{mechanics:mech}:{}),need,supply:{pictures:have,strong:haveStrong,stream:haveStream,bank,packs,...(latchOpen.length?{latch:{positions:latchOpen.map(q=>q.level),pictures:latchPics.length}}:{}),...(mech?{overlay:ovSupply}:{})},...(pins.length?{pins}:{}),
+  order:{total,strong,streams,latch:latchOrder,byStage:orderByStage,sizeMix:Object.fromEntries(Object.entries(mix).map(([k,v])=>[k,Math.round(v*total)])),...(mech?{strips:strips.map(({levels,strongLevels,...e})=>({...e,levels})),scenes,sceneSources,splits}:{}),avoidMotifs:avoid,suggestFamilies:families}};
  const dir=waveDir(a,b);writeJSON(path.join(dir,'plan.json'),out);
  const mechMd=mech?['## Разбор допов','',`Утверждён владельцем (\`runs/${lid(a)}-${lid(b)}/mechanics.json\`, 17 §13 шаг 1). Расстановка берёт на позицию только кандидата с этим рецептом и, для моста, с этой стороной перехода. Дозы по §7: ведущая — свой диапазон (при трёх типах нижняя половина), дополнительная — минимум; место дозы по кругу §7.`,'',
   '| Ур. | Класс | Ведущая | Дополнительные | Дозы | Мост: сторона | Полоса |','|---|---|---|---|---|---|---|',
   ...mech.levels.map(l=>`| ${l.level} | ${l.cls} | ${l.lead?MRU[l.lead]:'—'} | ${l.add.map(m=>MRU[m]).join(', ')||'—'} | ${l.doses} | ${l.bridgeSide?SIDE_RU[l.bridgeSide]:''} | ${l.strip?STRIP_RU[l.strip]||l.strip:''} |`),'',
-  `- Доли: ${['bridge','links','hidden','cells'].map(m=>`${MRU[m]} — ${mech.shares[m].levels} (${Math.round(mech.shares[m].share*100)} %, ведущая в ${mech.shares[m].lead})`).join('; ')}; без допов — ${mech.shares.none.levels} (${Math.round(mech.shares.none.share*100)} %).`,
+  `- Доли: ${['bridge','links','hidden','cells','latch'].map(m=>`${MRU[m]} — ${mech.shares[m].levels} (${Math.round(mech.shares[m].share*100)} %, ведущая в ${mech.shares[m].lead})`).join('; ')}; без допов — ${mech.shares.none.levels} (${Math.round(mech.shares.none.share*100)} %).`,
   `- Normal с допом: ${mech.normalWithMechanic[0]} из ${mech.normalWithMechanic[1]}. Типов на уровне: один — ${mech.types.one}, два — ${mech.types.two}, три — ${mech.types.three}.`,
   `- Стороны мостов: ${Object.entries(mech.sides).map(([s,n])=>`${SIDE_RU[s]} — ${n}`).join('; ')||'—'}.`,'']:[];
  const md=[`# План волны L${a}–L${b}`,'',`Создан ${out.created.slice(0,16).replace('T',' ')}. Правила: 17 §13. Позиций ${positions.length}, открыто ${open.length}.`,'',
@@ -139,6 +182,10 @@ function plan(a,b){const placed=placedLevels(),positions=[],blockers=[],plans=me
   '','## Что уже есть','',`- Свободных утверждённых картинок под этапы волны: ${fitPics.length} (без полосы ${have}, из них сильных ${haveStrong}; с полосой ${haveStream}).`,
   `- Кандидаты в банке на свободных картинках: ${Object.entries(bank).map(([k,v])=>`${k} — ${v}`).join('; ')||'нет'}.`,
   `- Открытые позиции на картинках пула: Normal ${need.Normal}, Hard ${need.Hard}, Super Hard ${need['Super Hard']}, знакомства ${need.intro} (мост ${need.bridge}).`,
+  `- Паки свободного пула (17 §11: волна берёт картинки из разных паков, соседние уровни — из разных): ${Object.entries(packs).sort((x,y)=>y[1]-x[1]).map(([k,v])=>`${k} — ${v}`).join('; ')||'—'}.`,
+  ...(latchOpen.length?[`- Позиции с засовом: ${latchOpen.length} (L${latchOpen.map(q=>q.level).join(', L')}); свободных картинок с местом для ключа (пустая область внутри картинки, закрытая работой), подходящих им: ${latchPics.length}.`]:[]),
+  ...(pins.length?['','## Закреплённые картинки','','Владелец закрепил их за волной (`mechanics.json` `pin`): расстановка держит каждую для её позиции (\`levels.mjs place\`), сборка строит под неё кандидатов (\`rounds.mjs run\`).','','| Картинка | Пак | Подходит позициям | Резерв | Состояние |','|---|---|---|---|---|',
+   ...pins.map(e=>`| ${e.id} «${e.title||''}» | ${e.pack||'—'} | ${e.positions.map(n=>'L'+n).join(', ')||'—'} | ${e.reserved?'L'+e.reserved:'—'} | ${{free:'свободна',placed:'поставлена',used:'уже в раунде',blocked:'не встаёт'}[e.status]}${e.reason?': '+e.reason:''} |`),'']:[]),
   ...(mech&&Object.keys(ovSupply).length?[`- Стена поверх картинки пула (сколько свободных картинок её берут и подходят этапу; Hard/SH — сильные с ней): ${Object.entries(ovSupply).map(([k,v])=>`${k} — ${v}`).join('; ')}.`]:[]),
   '','## Заказ картинок','',total+strong+streams+stripTotal+splitTotal?(total?`- Картинки пула: **${total}** (ориентир 1,75 на позицию).`:'- Картинок пула хватает.'):'- Заказ не нужен: картинок хватает.',
   ...(total?[`- По этапам: ${Object.entries(orderByStage).map(([k,v])=>`${k} — ${v}`).join('; ')}.`,`- По размеру (§2, на 30: 6 / 15 / 9): ${Object.entries(out.order.sizeMix).map(([k,v])=>`${k} — ${v}`).join('; ')}.`]:[]),
@@ -151,6 +198,7 @@ function plan(a,b){const placed=placedLevels(),positions=[],blockers=[],plans=me
    ...splits.map(x=>`  - L${x.level} ${x.cls}, ${x.recipe}, переход ${SIDE_RU[x.side]}, ${x.kind==='better'?'оба выигрывают, один лучше на 10+':x.kind==='any'?'ровно один или оба (один лучше на 10+)':'решает ровно один'}${x.have?` — уже есть ${x.have}`:`${x.sources.length?'':' (подходящей свободной картинки пула нет)'}: \`${x.command}\``}`)]:[]),
   ...(stripTotal?[`- **Новые картинки с полосой и двумя местами моста: ${stripTotal}** (полоса — ручей, забор, стена; опора каждого места на ближнем берегу — цветная клетка; подходы из разных материалов; §8):`,
    ...strips.filter(e=>e.count).map(e=>`  - переход ${SIDE_RU[e.side]}${e.side==='two'?' (два места на разных полосах или в разные стороны)':''}, ${e.stage}: **${e.count}** для L${e.levels.join(', L')}${e.strong?`, из них сильных ${e.strong}`:''}${e.have?` (уже есть ${e.have})`:''}`)]:[]),
+  ...(latchOrder?[`- **Под засов: ${latchOrder}** картинок с пустой областью внутри (окно, кольцо, просвет между частями), закрытой цветной работой: там лежит жёлудь-ключ (17 §8).`]:[]),
   `- Не рисовать (мотив 3+ раз): ${avoid.join(', ')||'—'}.`,`- Реже всего в пуле семьи: ${families.join(', ')}.`,''].join('\n');
  fs.writeFileSync(path.join(dir,'plan.md'),md);console.log(md);return out;}
 const ovCache=new Map();const overlayOf=(p,side)=>{const k=p.id+'|'+side;if(!ovCache.has(k))ovCache.set(k,wallOverlay(p,side,1));return ovCache.get(k);};
@@ -176,25 +224,32 @@ async function runWave(a,b){const dir=waveDir(a,b),jobs=+arg('--jobs',Math.max(1
  // a position of the mechanics plan only its planned recipe: a bridge on a wall of the planned side over a free pool
  // picture (strip "overlay") or on a picture with its own strip crossing to that side (strip "new"). One build process
  // per picture (its bank file), with the exact class:recipe(@side) pairs
- if(needs.length&&!flag('--no-build')){const pics=freePictures().map(pc=>{const board=boardOf(pc);return {pc,m:measure(pc),f:fitness(pc),stream:!!board.hero,side:bridgeSide(board)};}),byPic=new Map();
+ // pinned pictures still free (plan.json pins, reservePins): candidates for their reserved position (or every position they fit)
+ const pinBuild=(p.pins||[]).filter(e=>e.status==='free');if(pinBuild.length)step('закреплённые картинки',{pins:pinBuild.map(e=>`${e.id}→${e.reserved?'L'+e.reserved:'—'}`)});
+ if((needs.length||pinBuild.length)&&!flag('--no-build')){const pics=freePictures().map(pc=>{const board=boardOf(pc);return {pc,m:measure(pc),f:fitness(pc),stream:!!board.hero,side:bridgeSide(board)};}),byPic=new Map();
   const add=(id,variant,cls,recipe)=>{let t=byPic.get(id);if(!t)byPic.set(id,t={id,variants:new Set(),pairs:new Set(),classes:new Set(),recipes:new Set()});t.variants.add(variant);t.pairs.add(`${cls}:${recipe}${variant==='none'?'':'@'+variant}`);t.classes.add(cls);t.recipes.add(recipe);};
   const strong=(x,f)=>x.cls==='Normal'||f.hiddenColours>=3;
   // --no-bridge leaves the planned bridge positions for later (they need scene pictures); --per-position N tries at most
   // N pictures per planned position (the strongest first for Hard and Super Hard, else spread by the level number)
   const perPos=+arg('--per-position','0'),noBridge=flag('--no-bridge');
   for(const x of needs.filter(x=>x.recipe)){const bridge=x.recipe.split('+').includes('bridge');if(bridge&&noBridge)continue;
-   let pool=pics;if(perPos>0){pool=pics.filter(q=>bridge?true:!q.stream&&fitsStage(q.m,x.level)&&strong(x,q.f));
+   // a latch recipe (17 §8) only on pictures with holes for its keys
+   const keys=latchNeed(x.recipe,x.cls,x.intro);
+   let pool=pics.filter(q=>holesOf(q.pc)>=keys);if(perPos>0){pool=pool.filter(q=>bridge?true:!q.stream&&fitsStage(q.m,x.level)&&strong(x,q.f));
     pool=x.cls==='Normal'?pool.map((q,k)=>({q,k:(k*7919+x.level*104729)%9973})).sort((u,v)=>u.k-v.k).map(u=>u.q):pool.slice().sort((u,v)=>v.f.hiddenColours-u.f.hiddenColours);
+    // spread over the packs (17 §11, 2026-11-01): consecutive pictures of the pool from different packs
+    pool=interleaveByPack(pool,q=>packOf(q.pc));
     if(!bridge)pool=pool.slice(0,perPos);}
    for(const {pc,m,f,stream,side} of pool){
     if(bridge&&x.strip==='overlay'){if(stream)continue;const ov=overlayOf(pc,x.bridgeSide);if(!ov)continue;const op=overlaid(pc,ov);if(!fitsStage(measure(op),x.level)||!strong(x,fitness(op)))continue;add(pc.id,x.bridgeSide,x.cls,x.recipe);}
     else{if(bridge?!(stream&&side===x.bridgeSide):stream)continue;if(bridge&&x.strip==='gap'&&!(pc.scene&&pc.scene.mode==='split'))continue;if(!fitsStage(m,x.level)||!strong(x,f))continue;add(pc.id,'none',x.cls,x.recipe);}}}
+  for(const e of pinBuild){const pc=pics.find(q=>q.pc.id===e.id);if(!pc)continue;for(const n of e.reserved?[e.reserved]:e.positions){const pl=planOf(n);if(pl)add(e.id,'none',pl.cls,pl.recipe);}}
   // positions without a plan: as before, every allowed recipe of the classes those positions need
   for(const {pc,m,f,stream} of pics){const mine=needs.filter(x=>!x.recipe&&fitsStage(m,x.level)&&strong(x,f)&&(x.intro!=='bridge'||stream));if(!mine.length)continue;
    const classes=[...new Set(mine.map(x=>x.cls))],allowed=new Set(mine.flatMap(x=>x.intro?[x.intro]:x.allowed));
-   const rec=[];for(const r of ['none','hidden','links','links+hidden','cells','links+cells',...(stream?['bridge','bridge+links']:[])])if(r.split('+').every(t=>t==='none'||allowed.has(t)))rec.push(r);
+   const rec=[];for(const r of ['none','hidden','links','links+hidden','cells','links+cells',...(holesOf(pc)?['latch','links+latch']:[]),...(stream?['bridge','bridge+links']:[])])if(r.split('+').every(t=>t==='none'||allowed.has(t)))rec.push(r);
    for(const r of rec.filter(r=>classes.includes('Normal')||(r!=='none')))for(const c of classes)add(pc.id,'none',c,r);}
-  const tasks=[...byPic.values()],noIntro=!needs.some(x=>x.intro);
+  const tasks=[...byPic.values()],noIntro=!needs.some(x=>x.intro)&&!pinBuild.some(e=>(e.reserved?[e.reserved]:e.positions).some(n=>slotOf(n).intro));
   step('сборка кандидатов',{pictures:tasks.length,jobs});let i=0,done=0;
   await Promise.all(Array.from({length:jobs},async()=>{while(i<tasks.length){const t=tasks[i++],ov=[...t.variants];
    const r=await run1([path.join(HERE,'levels.mjs'),'build',t.id,'--classes',[...t.classes].join(','),'--recipes',[...t.recipes].join(','),'--pairs',[...t.pairs].join(','),...(ov.some(v=>v!=='none')?['--overlay',ov.join(',')]:[]),...(noIntro?['--no-intro']:[]),'--candidates',arg('--candidates','64')]);
@@ -232,7 +287,7 @@ function summary(a,b,rows,needs,audit,sample,placed,minutes){const reg=rows.filt
  const lost=reg.filter(L=>{const s=L.strategies||{};return !s['most-now|left']&&!s['most-now|right'];}).length,itog=(audit.match(/Итог:[^\n]*/)||['Итог: —'])[0];
  return [`# Волна L${a}–L${b}`,'',`Прогон ${minutes.toFixed(0)} мин. ${itog}`,'',needs.length?`**Не заполнено ${needs.length}:** ${needs.map(x=>`L${x.level} ${x.cls}${x.intro?' ('+MECH_RU[x.intro]+')':''}`).join(', ')} → заказ картинок (\`rounds.mjs plan ${a} ${b}\`).`:'Все позиции заполнены.','',
   '| Ур. | Класс | Картинка | Механики | Бот | Стоят без работы | Вынужденных | Дебют + цвета | «По цветам» |','|---|---|---|---|---|---|---|---|---|',
-  ...rows.map(L=>{const k=L.checks||{},s=L.strategies||{};return `| ${L.level} | ${L.cls}${L.intro?' · знакомство':''} | ${L.picture} «${picture(L.picture)?.title||''}» | ${L.recipe}${L.linked?` (связанных ${L.linked})`:''}${L.hidden?` (скрытых ${L.hidden})`:''}${L.cells?` (скрытых клеток ${L.cells})`:''}${L.definition?.hero?` (мост ${SIDE_RU[bridgeSide(L.definition)]||''}${L.definition.overlay?', стена':''})`:''} | ${pct(L.random.share)} | ${k.pressure?.stuck??'—'} | ${pct(k.forced)} | ${k.opening?`${k.opening.first.wins}/${k.opening.first.openings} · ${pct(k.opening.three.share)}`:'—'} | ${!s['most-now|left']&&!s['most-now|right']?'проигрывает':'выигрывает'} |`;}),
+  ...rows.map(L=>{const k=L.checks||{},s=L.strategies||{};return `| ${L.level} | ${L.cls}${L.intro?' · знакомство':''} | ${L.picture} «${picture(L.picture)?.title||''}» | ${L.recipe}${L.linked?` (связанных ${L.linked})`:''}${L.hidden?` (скрытых ${L.hidden})`:''}${L.cells?` (скрытых клеток ${L.cells})`:''}${L.latches?` (засовов ${L.latches})`:''}${L.definition?.hero?` (мост ${SIDE_RU[bridgeSide(L.definition)]||''}${L.definition.overlay?', стена':''})`:''} | ${pct(L.random.share)} | ${k.pressure?.stuck??'—'} | ${pct(k.forced)} | ${k.opening?`${k.opening.first.wins}/${k.opening.first.openings} · ${pct(k.opening.three.share)}`:'—'} | ${!s['most-now|left']&&!s['most-now|right']?'проигрывает':'выигрывает'} |`;}),
   '','## Распределения','',`- Классы: ${cnt(L=>L.cls)}.`,`- Рецепты: ${cnt(L=>L.recipe)}.`,`- Размеры: ${cnt(L=>sizeBin(L.N))}.`,`- Медиана бота обычных Normal: ${pct(med)} (нужно 50–60 %); «по цветам» проигрывает ${lost} из ${reg.length}.`,
   `- Семьи: ${cnt(L=>picture(L.picture)?.family||'без тега')}.`,'',
   '## Выборка для владельца','',sample.length?`${sample.map(n=>'L'+n).join(', ')} — пилот \`content/rounds/runs/${lid(a)}-${lid(b)}/sample/index.html\`. После игры: \`node tools/rounds/rounds.mjs review <results.json>\`.`:'—','',

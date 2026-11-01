@@ -88,8 +88,9 @@ Pictures are not tied to levels (except the locked levels 1–3).
 
 - Every 15th level is Super Hard, other multiples of 5 are Hard, the rest Normal.
 - Mechanic introductions are two Normal levels each, alone, with a random-test target of 90–100 %: hidden pods 6/8,
-  links 11/13, Sprig bridge 16/18, hidden cells 51/53 (the owner's amendment of 2026-11-01), canal 101/103, shutters
-  151/153, repair 201/203, bud 251/253, seed 301/303, well 351/353, latch + acorn key 401/403, stacks 451/453.
+  links 11/13, Sprig bridge 16/18, hidden cells 51/53 (the owner's amendment of 2026-11-01), latch + acorn key 61/63
+  (the owner's second amendment of 2026-11-01, wave plan v2), canal 101/103, shutters 151/153, repair 201/203, bud
+  251/253, seed 301/303, well 351/353, stacks 451/453.
 - A type is not used before its first introduction, nor between its two introductions. From the third appearance it
   may combine with known types.
 - L1–L5 have no extras. L1 must have no losing choice; L2–L3 aim at 90–100 %.
@@ -100,8 +101,9 @@ Pictures are not tied to levels (except the locked levels 1–3).
 
 `tools/rounds/engine.mjs` is the pilot v9 engine (v8 base, slot positions of §1) with the §8 link rule.
 - **It plays:** hidden pods, linked pairs, Sprig's bridge, hidden cells (recipe `cells`; never on a level with hidden
-  pods; the data and event spec in `tools/rounds/README.md`).
-- **It does not play yet:** latch + acorn key, canal, shutters, repair, bud, seed, well, stacks
+  pods), the latch with its acorn key (recipe `latch`: a picture needs an empty area closed in by work for the key); the
+  data and event specs in `tools/rounds/README.md` («Hidden cells», «Latch and key»).
+- **It does not play yet:** canal, shutters, repair, bud, seed, well, stacks
   (`SUPPORTED` in `tools/rounds/lib.mjs`).
 
 The builder only uses supported types. For a position that needs an unsupported type, stop and tell the owner:

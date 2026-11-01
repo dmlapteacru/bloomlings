@@ -47,6 +47,11 @@ Before anything, read:
      position) and the picture order for what the plan needs: **the split pictures** for the gap positions (side, kind,
      class, recipe, suggested free sources and the `bridge-scene.mjs make --mode split` command each), the bridge scenes
      for the new-strip positions, pool pictures for the rest.
+   - Pictures the owner pins to the wave (`mechanics.json` `pin`): the plan reserves each for a fitting position (its
+     «Закреплённые картинки» table, `plan.json` `pins`), `run` builds candidates for them and `place` uses them there; a
+     third-party universe or meme picture needs the owner's rights first (`pictures.mjs rights <ids> --owner "<words>"`).
+     The wave spreads over the picture packs (17 §11, 2026-11-01: `place` never puts two neighbouring levels on one pack
+     while another candidate fits). Latch positions need pictures with an empty area closed in by work for the acorn key.
    - Tell the owner which positions the engine cannot fill yet (an introduction of an unsupported mechanic, 17 §14).
      They stay open and the rest of the wave runs; never fake one mechanic with another.
 2. **Split pictures** (17 §8 «Одна цельная картинка», the owner, 2026-10-29; the plan's `strip: gap`). For each split the

@@ -7,7 +7,9 @@
 // - boards up to 48×48 with the frame (pictures up to 1400 cells, §2);
 // - 4 or 5 places (§1; the repair of the fifth place, §8, is not played yet).
 // Mechanics it plays: hidden pods (reveal on reaching the top), linked groups, Sprig's bridge, hidden cells (a «?» cell
-// reveals when it gets an open neighbour reachable from an entry, 17 §8; rules.cjs revealCells). Others are listed in
+// reveals when it gets an open neighbour reachable from an entry, 17 §8; rules.cjs revealCells), the latch with its acorn
+// key (a column element that opens when it is on top and an open path reaches its key, 17 §8; rules.cjs openLatches;
+// tools/rounds/README.md «Latch and key»). Others are listed in
 // lib.mjs SUPPORTED and refused by the level builder until the engine plays them. The playable pilot
 // (tools/gameplay-pilot-v10) embeds these same files.
 import {createRequire} from 'node:module';

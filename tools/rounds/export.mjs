@@ -18,15 +18,14 @@
 //
 // --game: the game's current round content; a level whose definition changed against it gets definitionVersion + 1.
 import fs from 'node:fs';import path from 'node:path';import {spawnSync} from 'node:child_process';import {fileURLToPath,pathToFileURL} from 'node:url';
-import {root,ROUNDS,LEVELS,PICTURES,readJSON,lid,boardOf,INTRO,CODES} from './lib.mjs';
+import {root,ROUNDS,LEVELS,PICTURES,readJSON,lid,boardOf,INTRO,CODES,franchiseBlocked} from './lib.mjs';
 import {fingerprints,sameEngine,solutionFixture,randomFixture,ownerFixture,engineLevel,sha256} from './conformance.mjs';
 import {validate} from './schema.mjs';
 
 const HERE=path.dirname(fileURLToPath(import.meta.url));
 export const POLICY='17§5 extended: uniform over legal actions + wait before a state event';
 export const FIXTURE_POLICY='17§5 extended';
-const FRANCHISE=new Set(['сторонняя вселенная','мем','интернет-мем/тренд']);
-const MECHANICS=['hidden','links','bridge','cells'];
+const MECHANICS=['hidden','links','bridge','cells','latch'];
 // owner decisions behind a level's exception string (content/rounds/levels keeps them as a note); the rule names the
 // audit failure it excuses, matched on the audit's own wording
 export const OWNER_EXCEPTIONS={
@@ -65,7 +64,10 @@ export function levelV1(L,engine,definitionVersion=1){const d=L.definition,n=L.l
    ...(d.hiddenCells&&d.hiddenCells.length?{hiddenCells:[...d.hiddenCells].map(Number).sort((a,b)=>a-b)}:{})},
   capacity:d.capacity??5,
   pods:d.pods.map(p=>({code:p.color,count:p.count,...(p.mystery?{mystery:p.mystery}:{}),...(p.group?{group:p.group}:{})})),
-  tray:d.tray,mechanics:MECHANICS.filter(m=>recipe.includes(m)),...(ex?{exception:ex}:{}),engine};}
+  tray:d.tray,
+  // latch + acorn key (17 §8, 2026-11-01): {column, depth, key} each, key a cell index of the rows (bottom first, y*w+x)
+  ...(d.latches&&d.latches.length?{latches:d.latches.map(l=>({column:l.column,depth:l.depth,key:l.key}))}:{}),
+  mechanics:MECHANICS.filter(m=>recipe.includes(m)),...(ex?{exception:ex}:{}),engine};}
 export function pictureV1(pic){const tag=k=>typeof pic[k]==='string'&&pic[k]?{[k]:pic[k]}:{};
  return {format:'round-picture.v1',id:pic.id,version:pic.version,title:pic.title,...tag('family'),...tag('direction'),...tag('subject'),...tag('source'),
   w:pic.w,h:pic.h,rows:pic.rows,approval:{status:'approved',by:'owner',decidedAt:pic.decidedAt||pic.approvedAt||null},rights:'own'};}
@@ -81,7 +83,8 @@ export function entryChecks(from,to){const failures=[],levels={},pictures={};
   if(L.definition&&L.definition.hero&&!(Array.isArray(L.bridgeShown)&&L.bridgeShown.length===L.definition.hero.choices.length))
    failures.push(`${lid(n)}: which bridge sites it shows is not decided (node tools/rounds/rounds.mjs bridges ${from} ${to}; 17 §8 as amended on 2026-10-31)`);
   else{if(pic.status!=='approved')failures.push(`picture not approved: ${L.picture} of ${lid(n)} (${pic.status})`);
-   if(FRANCHISE.has(pic.source))failures.push(`picture is a franchise reference: ${L.picture} of ${lid(n)} (${pic.source})`);
+   // a franchise reference only with the owner's confirmed rights (rights 'owner', pictures.mjs rights)
+   if(franchiseBlocked(pic))failures.push(`picture is a franchise reference: ${L.picture} of ${lid(n)} (${pic.source})`);
    if(!Number.isInteger(pic.version)||pic.version<1)failures.push(`picture without a version: ${L.picture}`);
    let made=null;try{made=boardOf(pic,L.definition.overlay,L.definition.recolor);}catch(e){failures.push(`board of its picture: ${lid(n)} / ${L.picture}: ${e.message}`);}
    if(made&&made.rowsBottomFirst.join('\n')!==L.definition.rowsBottomFirst.join('\n'))failures.push(`board does not match its picture: ${lid(n)} / ${L.picture}`);
@@ -110,7 +113,7 @@ export function auditCheck(from,to,levels){const report=path.join(ROUNDS,`audit-
 
 // ---- the pilot's catalog hash (tools/gameplay-pilot-v12/build.mjs): did the owner play these very definitions? ----
 function pilotCatalogHash(levelsInOrder){return sha256(JSON.stringify(levelsInOrder.map(L=>{const d=L.definition;
- return {id:L.level,title:d.title,subject:L.picture,w:d.w,h:d.h,rowsBottomFirst:d.rowsBottomFirst,entries:d.entries,capacity:d.capacity,pods:d.pods,tray:d.tray,difficulty:L.cls,...(d.hero?{hero:d.hero}:{}),...(d.hiddenCells?{hiddenCells:d.hiddenCells}:{})};})));}
+ return {id:L.level,title:d.title,subject:L.picture,w:d.w,h:d.h,rowsBottomFirst:d.rowsBottomFirst,entries:d.entries,capacity:d.capacity,pods:d.pods,tray:d.tray,difficulty:L.cls,...(d.hero?{hero:d.hero}:{}),...(d.hiddenCells?{hiddenCells:d.hiddenCells}:{}),...(d.latches?{latches:d.latches}:{})};})));}
 
 // ---- export ----
 export async function exportWave(from,to,{out,ownerResults=[],game=path.join(root,'content/game/rounds'),log=console.log}={}){

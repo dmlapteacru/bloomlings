@@ -4,10 +4,10 @@
 // node tools/rounds/audit.mjs <from> <to> [--out <file.md>] [--json <file.json>] [--preview <folder>]
 //   --preview: a folder of L####.json for positions content/rounds/levels/ does not fill (draft pictures).
 import fs from 'node:fs';import path from 'node:path';
-import {LEVELS,CODES,readJSON,lid,arg,picture,measure,fitsStage,stageOf,budget,columnsFor,slotOf,SUPPORTED,FIXED_VOLUMES,motifsOf,boardOf,overlaid,recolorErrors} from './lib.mjs';
+import {franchiseBlocked,LEVELS,CODES,readJSON,lid,arg,picture,measure,fitsStage,stageOf,budget,columnsFor,slotOf,SUPPORTED,FIXED_VOLUMES,motifsOf,boardOf,overlaid,recolorErrors} from './lib.mjs';
 import {engine} from './engine.mjs';
 import {run} from '../level-stats/trace.mjs';
-import {cellsHiddenAtStart,bridgeChoicesWin,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,pressure,calmTest,calmFails,calmBorderline,trapLinks} from './measure.mjs';
+import {latchCheck,cellsHiddenAtStart,bridgeChoicesWin,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,pressure,calmTest,calmFails,calmBorderline,trapLinks} from './measure.mjs';
 import {INTRO,planOf,repeatWindow} from './lib.mjs';
 import {fitness} from './fitness.mjs';
 const from=+process.argv[2]||1,to=+process.argv[3]||20,preview=arg('--preview'),out=arg('--out');
@@ -35,7 +35,8 @@ for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
   if(opic){const m=measure(opic);if(!fitsStage(m,n))bad.push(`картинка вне диапазона этапа §2 (${m.N} кл., ${m.colours} цв.; ${JSON.stringify(stageOf(n))})`);
    const b=boardOf(pic,d.overlay,d.recolor);if(b.rowsBottomFirst.join('')!==d.rowsBottomFirst.join(''))bad.push(`поле уровня не совпадает с картинкой${d.recolor?' и её перекраской':''}`);}
   if((pic.locked||null)!==(n<=3?n:null))bad.push('закреплённая картинка не на своём уровне');
-  if(['сторонняя вселенная','мем'].includes(pic.source))bad.push('картинка по сторонней вселенной: не для выпуска без прав');}
+  // a third-party universe or a meme only with the owner's confirmed rights (rights 'owner', pictures.mjs rights)
+  if(franchiseBlocked(pic))bad.push('картинка по сторонней вселенной: не для выпуска без прав');}
  // balance (§3): work of each material on the board = the sum of its pods
  const work={};for(const ch of d.rowsBottomFirst.join(''))if(CODES.includes(ch))work[ch]=(work[ch]||0)+1;const W=Object.values(work).reduce((a,b)=>a+b,0);
  const sum={};for(const p of pods)sum[p.color]=(sum[p.color]||0)+p.count;
@@ -76,6 +77,14 @@ for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
    if(slot.intro==='cells'){if(k<5||k>10)bad.push(`знакомство: скрытых клеток после стартового раскрытия ${k}, нужно 5–10 (§9)`);}
    else if(types.includes('cells')){const dz=LV.doses(L.recipe,L.cls,P,false,W);if(dz.cells&&(k<dz.cells[0]||k>Math.max(dz.cells[0],dz.cells[1])))bad.push(`скрытых клеток после стартового раскрытия ${k} вне ${dz.cells.join('–')} для ${L.cls} (${types.filter(t=>t!=='bridge')[0]==='cells'?'ведущая':'дополнительная'}, §7, §8)`);}
    if(k<hc.length)soft.push(`скрытых клеток ${hc.length}, из них ${hc.length-k} раскрыты сразу на старте (в дозу не входят, §8)`);}}
+ // latch + acorn key (17 §8, §9, the owner, 2026-11-01): the recipe and the latches agree, an introduction has exactly one,
+ // the dose for class and role, and §8 on the saved solution replayed now (measure.mjs latchCheck: depth for the class,
+ // pods behind, every latch open and the last before 80 % W, the columns blocked at once)
+ {const ls=d.latches||[];if(types.includes('latch')!==(ls.length>0))bad.push('рецепт и засовы не совпадают');
+  if(ls.length){if(slot.intro==='latch'){if(ls.length!==1)bad.push(`знакомство: засовов ${ls.length}, нужен один с ключом (§9)`);}
+   else if(types.includes('latch')){const dz=LV.doses(L.recipe,L.cls,P,false,W);if(dz.latch&&(ls.length<dz.latch[0]||ls.length>Math.max(...dz.latch)))bad.push(`засовов ${ls.length} вне ${dz.latch.join('–')} для ${L.cls} (§7)`);}
+   const lc=await latchCheck(d,L.solution.route,L.cls);L._latch=lc;bad.push(...lc.problems);soft.push(...lc.notes);
+   if(ls.some(l=>d.tray[l.column]&&d.tray[l.column].slice(l.depth).some(p=>pods[p]&&pods[p].mystery)))soft.push('скрытый под за засовом (§7: в стартовых рецептах так не ставят)');}}
  if(L.cls!==slot.cls)bad.push(`класс ${L.cls}, календарь ждёт ${slot.cls} (§5)`);
  const secondIntro=!!slot.intro&&INTRO.some(([m,,b])=>m===slot.intro&&b===n);
  if(slot.intro){if(L.intro!==slot.intro||L.recipe!==slot.intro)bad.push(`знакомство с ${slot.intro}: рецепт ${L.recipe} (§9)`);

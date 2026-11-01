@@ -37,3 +37,11 @@
 .pod-top.just-revealed,.pod-behind.just-revealed{animation:reveal-glow 1.6s ease-out;}
 @keyframes reveal-glow{0%{box-shadow:0 0 0 0 rgba(255,236,140,.95);transform:scale(1.08);}40%{box-shadow:0 0 0 7px rgba(255,236,140,.7);transform:scale(1.04);}100%{box-shadow:0 0 0 0 rgba(255,236,140,0);transform:scale(1);}}
 @media (prefers-reduced-motion:reduce){.pod-top.just-revealed,.pod-behind.just-revealed{animation:none;outline:3px solid rgba(255,236,140,.95);}}
+/* latch + acorn key (17 §8, 2026-11-01): a wooden latch block in its column (a peek row behind, a full row on top) with an acorn padlock, its numeral and tag colour */
+.latch-block{position:relative;display:flex;align-items:center;justify-content:center;gap:6px;flex:0 0 var(--peek-height,20px);min-height:var(--peek-height,20px);height:var(--peek-height,20px);margin:3px 5px 0;border-radius:7px;border:1px solid #5b3a1a;border-bottom:3px solid #4a2f14;background:repeating-linear-gradient(90deg,#a8733f 0 9px,#9a6635 9px 11px),#a8733f;box-shadow:inset 0 2px 0 #ffffff40;color:#fff7e6;font-weight:900;font-size:10px;line-height:1;text-shadow:0 1px 1px #0007;z-index:2}
+.latch-block::before,.latch-block::after{content:'';position:absolute;top:50%;width:14%;height:4px;margin-top:-2px;background:#5b3a1a;border-radius:2px}.latch-block::before{left:6px}.latch-block::after{right:6px}
+.latch-block .latch-acorn{display:inline-flex;width:14px;height:14px}.latch-block .latch-acorn svg{width:100%;height:100%}
+.latch-block b{display:inline-block;min-width:16px;padding:0 3px;border-radius:5px;background:var(--tag);border:1px solid #fff9;text-align:center}
+.latch-block.latch-top{flex:0 0 55px;min-height:55px;height:55px;margin:0;border-radius:15px;border-bottom-width:5px;font-size:16px;gap:8px}
+.latch-block.latch-top .latch-acorn{width:30px;height:30px}.latch-block.latch-top::before,.latch-block.latch-top::after{height:7px;margin-top:-3px}
+@media(max-height:740px){.latch-block.latch-top{flex-basis:48px;min-height:48px;height:48px}}

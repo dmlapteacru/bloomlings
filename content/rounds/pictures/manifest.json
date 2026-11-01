@@ -7554,7 +7554,10 @@
    "status": "approved",
    "batch": "packs-0268-0467",
    "note": null,
-   "usedBy": null
+   "usedBy": null,
+   "rights": "owner",
+   "rightsNote": "владелец 01.11.2026: взять в волну 51–100",
+   "rightsAt": "2026-11-01"
   },
   {
    "id": "P0426",
@@ -8274,7 +8277,10 @@
    "status": "approved",
    "batch": "packs-0268-0467",
    "note": null,
-   "usedBy": null
+   "usedBy": null,
+   "rights": "owner",
+   "rightsNote": "владелец 01.11.2026: взять в волну 51–100",
+   "rightsAt": "2026-11-01"
   },
   {
    "id": "P0466",

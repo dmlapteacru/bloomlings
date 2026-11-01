@@ -203,7 +203,8 @@ export async function holdPod(level){const {R}=await engine(),s=R.create(level,l
 export async function hiddenMatters(level,route){const E=await engine(),{idle:R}=E,hid=level.pods.map((p,i)=>p.mystery?i:-1).filter(i=>i>=0);
  if(!hid.length||!route)return {ok:false,pods:[]};let s=R.create(level,level.capacity||5),launches=0;const at={},fresh={},out=[];
  const total=route.filter(a=>a.type!=='bridge').length;
- const tops=()=>level.tray.map((st,c)=>st[s.heads[c]]).filter(p=>p!==undefined);
+ // the column tops the player sees (a pod behind a closed latch is not one, 17 §8)
+ const tops=()=>R.topPods(s);
  const seen=()=>{for(const p of hid)if(s.revealed[p]&&at[p]===undefined){at[p]=launches;fresh[p]=!tops().some(q=>q!==p&&level.pods[q].color===level.pods[p].color);}};seen();
  for(const a of route){const st=R.step(s,a);if(!st.accepted)break;s=st.state;if(a.type!=='bridge'){const ps=a.pods||[a.pod];launches++;for(const p of ps)if(hid.includes(p)&&at[p]!==undefined)out.push({pod:p,revealAt:at[p],gap:launches-1-at[p],newColour:fresh[p]});}seen();}
  return {ok:out.some(x=>x.gap<=2&&x.newColour&&x.revealAt<total/2),pods:out};}
@@ -259,3 +260,42 @@ export async function pressure(level,games=30,seed=777){const E=await engine(),{
    const stuck=[...s.slots].filter(p=>p>=0&&s.remaining[p]>0&&!reach.has(s.meta.colours[p])).length;
    if(dt>0){total+=dt;if(free<=1)tight+=dt;idle+=stuck*dt;}t.advance(dt);}}
  return {stuck:total?Math.round(idle/total*100)/100:0,tight:total?Math.round(tight/total*100)/100:0};}
+
+// ---- latch + acorn key (17 §8 «Засов и жёлудь-ключ», the owner, 2026-11-01; README «Latch and key») ----
+// the depth of a latch (pods of its column before it) by class, and the pods behind it: wanted 2–8, at most 12
+export const LATCH_DEPTH={Normal:[3,6],Hard:[2,6],'Super Hard':[2,8]},LATCH_BEHIND={min:1,max:12,want:[2,8]};
+// at most this many columns blocked (a closed latch on top) at once: 3 columns 1, 4 columns 2, 5 columns 3
+export const latchLimit=cols=>Math.max(1,cols-2);
+// the saved solution replayed patiently on the timeline (each command once all earlier work has settled, as the proof):
+// when each latch opens (done work W as a share, the command after which, whether it stood closed on top first and for
+// how long), the most columns blocked at once; and over `games` random games (a launch as soon as one is possible,
+// uniform, as `pressure`) the share that ever block more columns than the limit (a note). problems are §8's mandatory
+// rules for the class `cls` (depth, pods behind, every latch opens on the solution, the last before 80 % W, the column
+// limit on the solution), notes its soft ones.
+export async function latchCheck(level,route,cls,{games=30,seed=4242}={}){const ls=level.latches||[];if(!ls.length)return null;const E=await engine(),{R,T}=E;
+ const W=level.pods.reduce((n,p)=>n+p.count,0),limit=latchLimit(level.tray.length),t=new T.Timeline(R.create(level,level.capacity||5));
+ const opened=ls.map((_,i)=>t.state.latched[i]?null:{atW:0,command:0,waitMs:0,atStart:true}),topAt=ls.map(()=>null);let maxBlocked=0,k=0;
+ const watch=events=>{for(const e of events)if(e.type==='latchOpen'&&!opened[e.latch])opened[e.latch]={atW:Math.round(t.processedCells/W*1000)/1000,command:k,waitMs:topAt[e.latch]===null?0:Math.round(t.now-topAt[e.latch])};
+  const blocked=R.blockedColumns(t.state);maxBlocked=Math.max(maxBlocked,blocked.length);
+  ls.forEach((l,i)=>{if(t.state.latched[i]&&blocked.includes(l.column)&&t.state.heads[l.column]===l.depth&&topAt[i]===null)topAt[i]=t.now;});};
+ watch([]);
+ const settle=()=>{while(t.pending){t.advance(Math.max(0,t.steps[0].at-t.now));watch(t.lastEvents);}};
+ for(const a of route||[]){settle();const r=t.commit(a);if(!r.accepted)break;k++;watch(r.events);watch(t.lastEvents);}
+ settle();
+ // random games: how often the columns blocked at once exceed the limit
+ let over=0;const r=rng(seed);
+ for(let g=0;g<games;g++){const u=new T.Timeline(R.create(level,level.capacity||5));let n=0,hit=R.blockedColumns(u.state).length>limit;
+  while(n++<100000&&u.state.status!=='Won'&&!hit){const m=R.legal(u.state).filter(a=>!u.check(a));if(m.length)u.commit(m[Math.floor(r()*m.length)]);else if(u.pending)u.advance(u.steps[0].at-u.now);else break;if(R.blockedColumns(u.state).length>limit)hit=true;}
+  if(hit)over++;}
+ const [lo,hi]=LATCH_DEPTH[cls]||LATCH_DEPTH.Normal,problems=[],notes=[];
+ const rows=ls.map((l,i)=>({latch:i,column:l.column,depth:l.depth,behind:level.tray[l.column].length-l.depth,key:l.key,...(opened[i]||{atW:null})}));
+ for(const x of rows){const tag=`засов ${x.latch+1} (колонка ${x.column+1})`;
+  if(x.depth<lo||x.depth>hi)problems.push(`${tag}: глубина ${x.depth} вне ${lo}–${hi} для ${cls} (§8)`);
+  if(x.behind<LATCH_BEHIND.min||x.behind>LATCH_BEHIND.max)problems.push(`${tag}: за ним подов ${x.behind}, нужно ${LATCH_BEHIND.min}–${LATCH_BEHIND.max} (§8)`);
+  else if(x.behind<LATCH_BEHIND.want[0]||x.behind>LATCH_BEHIND.want[1])notes.push(`${tag}: за ним подов ${x.behind} (желательно ${LATCH_BEHIND.want.join('–')}, §8)`);
+  if(x.atW===null)problems.push(`${tag}: не открылся на сохранённом решении (§8)`);
+  else if(x.atW>=.8)problems.push(`${tag}: открылся при ${Math.round(x.atW*100)} % W на сохранённом решении, нужно до 80 % (§8)`);}
+ if(maxBlocked>limit)problems.push(`на сохранённом решении засовы перекрыли сразу ${maxBlocked} колонки из ${level.tray.length} (не больше ${limit}, §8)`);
+ if(over)notes.push(`в ${over} из ${games} случайных партий засовы перекрывали больше ${limit} колонок сразу (§8)`);
+ const ats=rows.map(x=>x.atW).filter(x=>x!=null);
+ return {latches:rows,maxBlocked,limit,lastOpenAtW:ats.length?Math.max(...ats):null,waits:rows.some(x=>x.waitMs>0),randomOverLimit:Math.round(over/games*100)/100,ok:!problems.length,problems,notes};}

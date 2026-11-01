@@ -58,7 +58,7 @@
 //      (stripsOver) and searched like make; writes the passing pictures as an adapted copy, the evidence beside it.
 import {deltaE,deltaEHex} from './colour-distance.mjs';
 import fs from 'node:fs';import path from 'node:path';import {pathToFileURL} from 'node:url';
-import {siteChoice,CODES,PALETTE,measure,fitsStage,stageOf,boardOf,bridgeSide,BridgeAnchorError,picture,manifest,usage,arg,flag,columnsFor,root,DIR_RU,planOf,lid} from './lib.mjs';
+import {franchiseBlocked,siteChoice,CODES,PALETTE,measure,fitsStage,stageOf,boardOf,bridgeSide,BridgeAnchorError,picture,manifest,usage,arg,flag,columnsFor,root,DIR_RU,planOf,lid} from './lib.mjs';
 import {fitness} from './fitness.mjs';import {quickShare,bridgeSingle} from './measure.mjs';
 const saved=process.argv.slice(2);process.argv.splice(2,process.argv.length,'noop');const LV=await import('./levels.mjs');process.argv.splice(2,1,...saved);
 
@@ -551,7 +551,7 @@ else if(cmd==='preview'){const out=arg('--out');if(!out)throw Error('--out <па
   fs.writeFileSync(path.join(out,lid(n)+'.json'),JSON.stringify(L,null,1)+'\n');console.log(`${lid(n)} ← ${id} «${pic.title}» ${ev.params.cls} ${f.recipe}, бот ${Math.round(f.random.share*100)} %`);}}
 else if(cmd==='make'){const side=arg('--side'),kind=arg('--kind','single'),cls=arg('--cls','Normal'),recipes=arg('--recipe','bridge').split(','),level=+arg('--level',26),count=+arg('--count',1),out=arg('--out');
  if(!SIDES.includes(side))throw Error(`--side ${SIDES.join('|')}`);if(!['single','better','any'].includes(kind))throw Error('--kind single|better|any');if(!out&&!flag('--dry'))throw Error('--out <module.mjs> (или --dry)');
- const u=usage(),ids=flag('--free')?manifest().pictures.filter(e=>e.status==='approved'&&!u[e.id]).map(e=>picture(e.id)).filter(p=>p&&!p.locked&&!['сторонняя вселенная','мем'].includes(p.source)&&!/[#b]/.test(p.rows.join(''))&&measure(p).N>=200&&measure(p).N<=800).sort((a,b)=>measure(a).N-measure(b).N).map(p=>p.id):arg('--pictures','').split(',').filter(Boolean);
+ const u=usage(),ids=flag('--free')?manifest().pictures.filter(e=>e.status==='approved'&&!u[e.id]).map(e=>picture(e.id)).filter(p=>p&&!p.locked&&!franchiseBlocked(p)&&!/[#b]/.test(p.rows.join(''))&&measure(p).N>=200&&measure(p).N<=800).sort((a,b)=>measure(a).N-measure(b).N).map(p=>p.id):arg('--pictures','').split(',').filter(Boolean);
  const deadline=Date.now()+60000*+arg('--minutes',20),found=[],log=x=>console.log(x),evidence=[];
  for(const id of ids){if(found.length>=count||Date.now()>deadline)break;const p=sourceOf(id);
   const r=await search(p,{side,kind,cls,recipes,level,scenes:+arg('--scenes',40),candidates:+arg('--candidates',12),seed:+arg('--seed',1),deadline,log,opts:arg('--opts')?JSON.parse(arg('--opts')):null});

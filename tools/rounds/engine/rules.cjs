@@ -1,4 +1,4 @@
-/* The round engine rules (tools/rounds/engine.mjs, product/17_LEVEL_GENERATION_RULES.md): grown from the pilot rules below, changed for 17 §1/§2/§8; a bridge anchor is any orthogonal neighbour of its site (§8, 2026-10-28). */
+/* The round engine rules (tools/rounds/engine.mjs, product/17_LEVEL_GENERATION_RULES.md): grown from the pilot rules below, changed for 17 §1/§2/§8; a bridge anchor is any orthogonal neighbour of its site (§8, 2026-10-28); hidden cells and the latch with its acorn key (§8, 2026-11-01). */
 /* Pilot v9 (v8 rules; v8D widened the depth-mystery domain in validate, v9 has 16 colours, 4 per hero). Grid helpers and v5 settled reference rules (not the live v6 engine). Native exact-colour work and atomic admission, with explicit test
  * adapters: 3/4/5 places, pair co-reservation, reveal on reaching the top, bridge.
  * No DOM, timing or runtime randomness. Presentation is in timeline.cjs.
@@ -35,9 +35,62 @@
     // bottom first); hidden is their mask, or null on a level without hidden cells
     let hidden = null;
     if (level.hiddenCells && level.hiddenCells.length) { hidden = new Uint8Array(n); for (const i of level.hiddenCells) hidden[i] = 1; }
-    const result = { board, neighbours, colours, entries, entrySet, groups, hidden };
+    // latch + acorn key (17 §8 «Засов и жёлудь-ключ», the owner, 2026-11-01): level.latches lists {column, depth, key};
+    // latchCols[c] are the indices of column c's latches by increasing depth; null on a level without latches
+    let latches = null, latchCols = null;
+    if (level.latches && level.latches.length) {
+      latches = level.latches.map(l => ({ column: l.column, depth: l.depth, key: l.key }));
+      latchCols = level.tray.map((_, c) => latches.map((l, i) => l.column === c ? i : -1).filter(i => i >= 0).sort((a, b) => latches[a].depth - latches[b].depth || a - b));
+    }
+    const result = { board, neighbours, colours, entries, entrySet, groups, hidden, latches, latchCols };
     prepared.set(level, result);
     return result;
+  }
+
+  // Latch + acorn key (17 §8 «Засов и жёлудь-ключ», the owner, 2026-11-01). A latch is an element of its column's queue,
+  // not a pod: no quota, no place. It stands after the first `depth` pods of its column and blocks every pod behind it
+  // (they are not top, cannot be tapped, a partner behind it is not exposed, depth mysteries behind it stay hidden).
+  // state.latched[i] = 1 while latch i is closed (state.latched is null on a level without latches; state.latchedLeft
+  // counts the ones). A closed latch opens at the first moment it is its column's top (heads[column] === depth) and its
+  // key cell (an empty '.' cell of the board) is reachable from an entry, reach().distance[key] > 0: the same open path
+  // the targets use. Heads only grow and open cells never close, so latched is a function of heads and the board
+  // (latched[i] = 0 exactly when heads > depth, or heads === depth and the key is reached): the signature leaves it out.
+  // blockAt(state, c): the depth of column c's first closed latch (pods at that index and behind are latched), or Infinity
+  function blockAt(state,c) {
+    if (!state.latched) return Infinity;
+    for (const i of state.meta.latchCols[c]) if (state.latched[i]) return state.meta.latches[i].depth;
+    return Infinity;
+  }
+  // after every change that can make a latch open (a tap's commits; a round of clears, one clear on the timeline, a
+  // bridge, each after its cell reveals): every closed latch now top with its key reached opens, in increasing latch
+  // order, each as {type:'latchOpen', latch} (with `at` when the caller gives the model time). Opening changes no reach,
+  // and a column's next latch stands at least one pod deeper, so one pass finds all. Returns how many opened.
+  function openLatches(state,events,at) {
+    if (!state.latched || !state.latchedLeft) return 0;
+    const ls = state.meta.latches;let opened = 0, distance = null;
+    for (let i = 0; i < ls.length; i++) {
+      if (!state.latched[i] || state.heads[ls[i].column] !== ls[i].depth) continue;
+      distance = distance || reach(state).distance;
+      if (distance[ls[i].key] > 0) {
+        state.latched[i] = 0; state.latchedLeft--; opened++;
+        if (events) events.push(at === undefined ? { type: 'latchOpen', latch: i } : { type: 'latchOpen', at, latch: i });
+      }
+    }
+    return opened;
+  }
+  // latched recomputed from heads and the board (create, a restored checkpoint): a latch passed by its column's heads is
+  // open, the rest closed, then the opening rule (silent: part of that state)
+  function syncLatches(state) {
+    const ls = state.meta.latches;
+    if (!ls) { state.latched = null; state.latchedLeft = 0; return; }
+    state.latched = Uint8Array.from(ls, l => state.heads[l.column] > l.depth ? 0 : 1);
+    state.latchedLeft = state.latched.reduce((a, b) => a + b, 0);
+    openLatches(state, null);
+  }
+  // the columns whose top is a closed latch (17 §8: with 3 columns at most one at a time, with 4 at most two)
+  function blockedColumns(state) {
+    if (!state.latched || !state.latchedLeft) return [];
+    return state.level.tray.map((_, c) => c).filter(c => state.heads[c] === blockAt(state, c));
   }
 
   function revealTops(state,events) {
@@ -78,6 +131,8 @@
       remaining: Int16Array.from(level.pods, p => p.count),
       heads: new Int16Array(level.tray.length), slots: new Int16Array(capacity).fill(-1),
       ages: new Int16Array(level.pods.length), revealed: Uint8Array.from(level.pods,p=>p.mystery?0:1), serial: 0, bridge: -1, status: 'Playing', _reach: null };
+    // a latch on top at the start whose key is already reached opens silently (before the tops reveal)
+    syncLatches(state);
     revealTops(state);
     syncCells(state);
     state.status = status(state);
@@ -86,7 +141,7 @@
 
   function clone(state) {
     return { ...state, board: state.board.slice(), remaining: state.remaining.slice(),
-      heads: state.heads.slice(), slots: state.slots.slice(), ages: state.ages.slice(), revealed: state.revealed.slice(), veiled: state.veiled ? state.veiled.slice() : null, _reach: state._reach };
+      heads: state.heads.slice(), slots: state.slots.slice(), ages: state.ages.slice(), revealed: state.revealed.slice(), veiled: state.veiled ? state.veiled.slice() : null, latched: state.latched ? state.latched.slice() : null, _reach: state._reach };
   }
 
   function reach(state) {
@@ -134,6 +189,7 @@
   }
 
   function topPods(state) {
+    if (state.latched && state.latchedLeft) return state.level.tray.map((stack, c) => state.heads[c] < blockAt(state, c) ? stack[state.heads[c]] : undefined).filter(p => p !== undefined);
     return state.level.tray.map((stack, c) => stack[state.heads[c]]).filter(p => p !== undefined);
   }
 
@@ -154,7 +210,7 @@
     if(!Number.isInteger(pod)||pod<0||pod>=state.level.pods.length)return 'unknown-pod';
     const heads=topPods(state),group=state.meta.groups[pod];
     if(!heads.includes(pod))return 'not-exposed';
-    if(group.some(p=>!heads.includes(p)&&!state.level.tray.some((stack,c)=>{const at=stack.indexOf(p);return at>=state.heads[c]&&stack.slice(state.heads[c],at).every(q=>group.includes(q));})))return 'partner-not-exposed';
+    if(group.some(p=>!heads.includes(p)&&!state.level.tray.some((stack,c)=>{const at=stack.indexOf(p);return at>=state.heads[c]&&at<blockAt(state,c)&&stack.slice(state.heads[c],at).every(q=>group.includes(q));})))return 'partner-not-exposed';
     if(state.slots.filter(p=>p<0).length<group.length)return group.length>1?'pair-needs-two-slots':'no-slot';
     return null;
   }
@@ -194,6 +250,8 @@
       }
       state._reach = null;
       revealCells(state, events);
+      // latches whose key this round's clears reached (their pods behind then reveal by the depth rule)
+      if (openLatches(state, events)) revealTops(state, events);
       for(const pod of occupied)if(state.remaining[pod]===0&&state.slots.includes(pod)){
         const group=state.meta.groups[pod];
         if(group.some(p=>state.remaining[p]>0))continue;
@@ -216,11 +274,14 @@
         if(events)events.push({type:'commit',pod,slot});
         if(!next.revealed[pod]){next.revealed[pod]=1;if(events)events.push({type:'reveal',pod});}
       }
+      // a latch the tap brought to its column's top with its key already reached
+      openLatches(next, events);
     } else {
       const bridge = next.level.hero.choices[action.choice];
       next.board[bridge.cell] = OPEN; next.bridge = action.choice; next._reach = null;
       if (events) events.push({ type: 'bridge', cell: bridge.cell });
       revealCells(next, events);
+      openLatches(next, events);
     }
     revealTops(next,events);
     settle(next, events);
@@ -238,7 +299,7 @@
   function view(state){
     return {board:state.veiled?Array.from(state.board,(c,i)=>state.veiled[i]?HIDDEN:c):Array.from(state.board),heads:Array.from(state.heads),slots:Array.from(state.slots),remaining:Array.from(state.remaining),
       colours:state.level.pods.map((p,i)=>state.revealed[i]?p.color:null),groups:state.level.pods.map(p=>p.group||null),
-      bridge:state.bridge,status:state.status};
+      bridge:state.bridge,status:state.status,...(state.latched?{latched:Array.from(state.latched)}:{})};
   }
   function observation(state){return JSON.stringify(view(state));}
   function queueEmpty(state){return state.level.tray.every((s,c)=>state.heads[c]===s.length);}
@@ -283,11 +344,61 @@
       if (level.pods.some(p => p.mystery)) errors.push('hidden cells with hidden pods');
     }
     if ((level.entries || [Math.floor(level.w / 2)]).some(i => !Number.isInteger(i) || i < 0 || i >= n)) errors.push('entry');
+    // latch + acorn key (17 §8, 2026-11-01): each {column, depth, key}: an existing column, at least one pod behind it,
+    // distinct depths in one column, the key an empty board cell (not an entry), each key its own; then the cheap
+    // necessary check that every key can be reached at all (latchKeysBlocked)
+    if (level.latches !== undefined) {
+      const ls = level.latches, grid = level.rowsBottomFirst.join(''), entries = level.entries || [Math.floor(level.w / 2)];
+      if (!Array.isArray(ls) || !ls.length) errors.push('latches');
+      else {
+        let ok = true;
+        for (const l of ls) {
+          const stack = l && Number.isInteger(l.column) ? level.tray[l.column] : null;
+          if (!stack || !Number.isInteger(l.depth) || l.depth < 0 || l.depth >= stack.length) { errors.push('latch'); ok = false; continue; }
+          if (ls.some(o => o !== l && o.column === l.column && o.depth === l.depth)) { errors.push('latch'); ok = false; }
+          if (!Number.isInteger(l.key) || l.key < 0 || l.key >= n || grid[l.key] !== '.' || entries.includes(l.key) || ls.some(o => o !== l && o.key === l.key)) { errors.push('latch key'); ok = false; }
+        }
+        if (ok && errors.indexOf('tray partition') < 0 && errors.indexOf('grid') < 0) {
+          if (latchKeysBlocked(level).length) errors.push('latch key unreachable');
+          // at the start no more columns blocked than §8 allows (3 columns: 1, 4: 2, 5: 3)
+          else if (startBlocked(level) > Math.max(1, level.tray.length - 2)) errors.push('latches block too many columns');
+        }
+      }
+    }
     if (level.hero) for (const choice of level.hero.choices) {
       const grid = level.rowsBottomFirst.join('');
       if (!Number.isInteger(choice.cell) || !Number.isInteger(choice.anchor) || choice.cell < 0 || choice.cell >= n || choice.anchor < 0 || choice.anchor >= n || grid[choice.cell] !== '#' || !(Math.abs(choice.cell - choice.anchor) === level.w || (Math.abs(choice.cell - choice.anchor) === 1 && Math.floor(choice.cell / level.w) === Math.floor(choice.anchor / level.w)))) errors.push('bridge');
     }
     return errors;
+  }
+
+  // A cheap necessary check for latches (17 §8: a key never needs a material wholly locked behind its own latch, latches
+  // never form a cycle): starting with every latch closed, a material all of whose pods stand behind closed latches (at or
+  // after the depth of their column's first closed latch) is blocked and its cells are walls; every other colour cell
+  // counts as clearable, open cells and bridge sites as passable; each closed latch whose key that reaches is opened, until
+  // nothing changes. Returns the latches never opened (empty: the keys may all be reached; the solver decides the rest).
+  function latchKeysBlocked(level) {
+    const ls = level.latches || [], w = level.w, n = level.w * level.h, grid = level.rowsBottomFirst.join('');
+    const sites = new Set(level.hero ? level.hero.choices.map(c => c.cell) : []), entries = level.entries || [Math.floor(level.w / 2)];
+    const open = new Uint8Array(ls.length);
+    for (;;) {
+      const first = level.tray.map((_, c) => Math.min(Infinity, ...ls.filter((l, i) => !open[i] && l.column === c).map(l => l.depth)));
+      const free = new Set();level.tray.forEach((stack, c) => stack.forEach((p, k) => { if (k < first[c]) free.add(level.pods[p].color); }));
+      const pass = i => grid[i] === '.' || sites.has(i) || (CHANNELS.includes(grid[i]) && grid[i] !== '.' && grid[i] !== '#' && free.has(grid[i]));
+      const seen = new Uint8Array(n), q = [];
+      for (const e of entries) if (e >= 0 && e < n && pass(e) && !seen[e]) { seen[e] = 1; q.push(e); }
+      while (q.length) { const i = q.pop(), x = i % w;
+        for (const j of [i - w, i + w, x > 0 ? i - 1 : -1, x < w - 1 ? i + 1 : -1]) if (j >= 0 && j < n && !seen[j] && pass(j)) { seen[j] = 1; q.push(j); } }
+      let changed = false;
+      ls.forEach((l, i) => { if (!open[i] && seen[l.key]) { open[i] = 1; changed = true; } });
+      if (!changed) break;
+    }
+    return ls.map((_, i) => i).filter(i => !open[i]);
+  }
+  // the columns blocked at the start: a latch at depth 0 whose key the start board does not reach
+  function startBlocked(level) {
+    const s = { level, meta: prepare(level), board: prepare(level).board.slice(), _reach: null };
+    const d = reach(s).distance;return new Set((level.latches || []).filter(l => l.depth === 0 && !(d[l.key] > 0)).map(l => l.column)).size;
   }
 
   function assertAccounting(state,allowReturning=false) {
@@ -302,6 +413,6 @@
     return true;
   }
 
-  return { CHANNELS, CAPACITY, OPEN, WALL, HIDDEN, revealCells, syncCells, known, create, clone, reach, routeTo, bridgeChoices, topPods,
+  return { CHANNELS, CAPACITY, OPEN, WALL, HIDDEN, revealCells, syncCells, known, blockAt, openLatches, syncLatches, blockedColumns, latchKeysBlocked, create, clone, reach, routeTo, bridgeChoices, topPods,
     legal, check, canTap, compactSlots, step, signature, observation, view, queueEmpty, validate, assertAccounting, settle };
 });
