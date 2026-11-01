@@ -496,7 +496,8 @@ namespace Bloomlings.Playtest.Design
             RoundPicture? picture = null;
             try
             {
-                picture = Rounds.GetPicture(level);
+                // the level's finished picture: the approved one with its recolouring (rules 17 §3 and §6, 2026-11-01)
+                picture = Rounds.GetPicture(level).Recolored(level.Recolor);
             }
             catch (Exception error) when (error is ContentIntegrityException || error is KeyNotFoundException || error is InvalidOperationException)
             {
