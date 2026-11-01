@@ -24,18 +24,18 @@ export function crossValidate(rows,spec,folds=5,opts={}){const ids=[...new Set(r
 
 if(import.meta.url===new URL(process.argv[1],'file://'+process.cwd()+'/').href){
 const {rows,pics}=loadRows(),obs=rows.map(r=>r.q),out={rows:rows.length,pictures:new Set(rows.map(r=>r.pic)).size,models:{}},lines=[];
-lines.push(`# Калибровка: модель доли случайного теста`,'',`Строк ${rows.length}, картинок ${out.pictures}. Отклик — быстрая доля (60 партий политики §5).`,'');
+lines.push(`# Калибровка: модель доли случайного теста`,'',`Строк ${rows.length}, картинок ${out.pictures}. Отклик — быстрая доля (50 партий политики §5).`,'');
 // noise floor 1: the binomial noise of 60 games at the observed share
-const binom=[];{let s=12345;const r=()=>{s^=s<<13;s^=s>>>17;s^=s<<5;return(s>>>0)/4294967296;};for(const o of obs){let w=0;for(let i=0;i<60;i++)if(r()<o)w++;binom.push(Math.abs(w/60-o)*100);}}
+const binom=[];{let s=12345;const r=()=>{s^=s<<13;s^=s>>>17;s^=s<<5;return(s>>>0)/4294967296;};rows.forEach(rw=>{const o=rw.q,n=rw.games;let w=0;for(let i=0;i<n;i++)if(r()<o)w++;binom.push(Math.abs(w/n-o)*100);});}
 // noise floor 2: part C, three queue seeds at equal parameters (the spread a formula of the parameters cannot remove)
 const reps={};for(const r of rows.filter(r=>r.part==='C'))(reps[r.pic+'|'+r.t]=reps[r.pic+'|'+r.t]||[]).push(r.q);
 const repDev=[];for(const a of Object.values(reps))if(a.length>=2){const m=meanOf(a);for(const x of a)repDev.push(Math.abs(x-m)*100*Math.sqrt(a.length/(a.length-1)));}
 out.noise={binomial60:{medAbs:median(binom),p80Abs:q(binom,.8)},seedSpread:{groups:Object.keys(reps).length,medAbs:median(repDev),p80Abs:q(repDev,.8)}};
-lines.push('## Пол шума','',`- биномиальный шум 60 партий: медиана ${median(binom).toFixed(1)} п.п., 80-й перцентиль ${q(binom,.8).toFixed(1)} п.п.`,`- разброс между сидами очереди при одинаковых параметрах (часть C, ${Object.keys(reps).length} групп по 3): медиана ${median(repDev).toFixed(1)} п.п., 80-й перцентиль ${q(repDev,.8).toFixed(1)} п.п. — это предел любой формулы от параметров`,'');
+lines.push('## Пол шума','',`- биномиальный шум 50 партий: медиана ${median(binom).toFixed(1)} п.п., 80-й перцентиль ${q(binom,.8).toFixed(1)} п.п.`,`- разброс между сидами очереди при одинаковых параметрах (часть C, ${Object.keys(reps).length} групп по 3): медиана ${median(repDev).toFixed(1)} п.п., 80-й перцентиль ${q(repDev,.8).toFixed(1)} п.п. — это предел любой формулы от параметров`,'');
 lines.push('## Точность моделей','','| Модель | Членов | R² (в выборке) | R² (CV по картинкам) | Медиана |ошибки| CV, п.п. | 80-й перц. CV, п.п. | В полосе 5–95 %: медиана / 80-й, п.п. | Класс угадан (CV) |','|---|---:|---:|---:|---:|---:|---:|---:|');
 for(const spec of Object.keys(SPECS)){const m=fit(rows,spec),ins=metrics(obs,rows.map(r=>predict(m,r))),cvp=crossValidate(rows,spec),cv=metrics(obs,cvp);
  // residual spread on the logit scale (CV, rows with 3–57 wins), for the inverse's probability of landing in a zone
- const res=rows.map((r,i)=>[r,cvp[i]]).filter(([r])=>r.wins>=3&&r.wins<=57).map(([r,p])=>logit(Math.min(.99,Math.max(.01,r.q)))-logit(Math.min(.99,Math.max(.01,p))));
+ const res=rows.map((r,i)=>[r,cvp[i]]).filter(([r])=>r.wins>=3&&r.wins<=r.games-3).map(([r,p])=>logit(Math.min(.99,Math.max(.01,r.q)))-logit(Math.min(.99,Math.max(.01,p))));
  const sdL=Math.sqrt(meanOf(res.map(x=>x*x)));out.models[spec]={terms:m.names.length,insample:ins,cv,logitResidualSd:sdL};
  lines.push(`| ${spec} | ${m.names.length} | ${ins.R2.toFixed(2)} | ${cv.R2.toFixed(2)} | ${cv.medAbs.toFixed(1)} | ${cv.p80Abs.toFixed(1)} | ${cv.mid.medAbs.toFixed(1)} / ${cv.mid.p80Abs.toFixed(1)} (${cv.mid.n}) | ${Math.round(cv.classHit*100)} % |`);
  if(spec==='params'||spec==='structure')fs.writeFileSync(path.join(W,`model-${spec}.json`),JSON.stringify({...m,logitResidualSd:sdL,cv,fitted:new Date().toISOString(),rows:rows.length},null,1));}
@@ -57,7 +57,7 @@ const B=rows.filter(r=>r.part==='B'),base={};for(const r of B)if(r.overlay==='ba
 const groups={};for(const r of B){if(r.overlay==='base')continue;const b=base[r.pic+'|'+r.t];if(!b)continue;(groups[r.overlay]=groups[r.overlay]||[]).push([b,r]);}
 const cl=x=>Math.min(.98,Math.max(.02,x));
 lines.push('','## Влияние механик (часть B: та же очередь без механики и с ней)','',
- 'Пары, где база в полосе 5–95 % (иначе 60 партий не видят разницы). Δ — с механикой минус без, в процентных пунктах; Δlogit — по всем парам (доли обрезаны 2–98 %). «Стоят без работы» и вынужденные — по парам, где замерены оба.','',
+ 'Пары, где база в полосе 5–95 % (иначе 50 партий не видят разницы). Δ — с механикой минус без, в процентных пунктах; Δlogit — по всем парам (доли обрезаны 2–98 %). «Стоят без работы» и вынужденные — по парам, где замерены оба.','',
  '| Механика | пар | Δ доля, медиана (среднее ± 2 se) | Δ спокойно, медиана (среднее) | Δlogit доли | Δ «стоят без работы» | Δ вынужд. | жадная выигрывает: было → стало |','|---|---:|---:|---:|---:|---:|---:|---:|');
 out.effects={};
 const order=Object.keys(groups).sort();
