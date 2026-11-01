@@ -79,7 +79,27 @@ export function slotOf(n){const intro=INTRO.find(([,a,b])=>n===a||n===b);
 // overlay (optional, picture coordinates, x from the left, y from the top): {walls:[[x,y],…], sites:[[x,y],…]}; each wall
 // cell becomes '#', each site 'b' (a site must be listed as, or already be, a wall cell). A wall over a colour cell removes
 // that cell's work: N and W are counted on the board with the strip.
-export function overlaid(pic,overlay){if(!overlay)return pic;const pw=pic.rows[0].length,ph=pic.rows.length,rows=pic.rows.map(r=>[...r]);
+//
+// recolor (optional, picture coordinates like the overlay): [[x, y, code], …], each a colour cell of the approved picture
+// that this level paints another palette material (17 §3 «кубики можно докрасить или перекрасить», §6 «Акценты», the
+// owner, 2026-11-01). Never an empty cell or a strip, never its own colour, one entry per cell, applied before the overlay
+// (and never under its wall). N, W and the colours are counted on the recoloured board; the picture itself stays as
+// approved.
+export function recolorErrors(pic,recolor){const errs=[];if(recolor==null)return errs;if(!Array.isArray(recolor)||!recolor.length)return ['перекраска: нужен непустой список [x, y, код]'];
+ const pw=pic.rows[0].length,ph=pic.rows.length,seen=new Set();
+ for(const e of recolor){const t=JSON.stringify(e);
+  if(!Array.isArray(e)||e.length!==3||!Number.isInteger(e[0])||!Number.isInteger(e[1])||typeof e[2]!=='string'){errs.push(`перекраска ${t}: нужно [x, y, код]`);continue;}
+  const [x,y,c]=e;if(x<0||y<0||x>=pw||y>=ph){errs.push(`перекраска ${t} вне картинки ${pw}×${ph}`);continue;}
+  const was=pic.rows[y][x];if(!CODES.includes(was))errs.push(`перекраска ${t}: клетка картинки не цветная («${was}»)`);
+  if(c.length!==1||!CODES.includes(c))errs.push(`перекраска ${t}: «${c}» не материал палитры`);else if(c===was)errs.push(`перекраска ${t}: тот же цвет`);
+  if(seen.has(x+','+y))errs.push(`перекраска ${t}: клетка перекрашена дважды`);seen.add(x+','+y);}
+ return errs;}
+export function recolored(pic,recolor){if(!recolor||!recolor.length)return pic;const errs=recolorErrors(pic,recolor);if(errs.length)throw Error(errs[0]);
+ const rows=pic.rows.map(r=>[...r]);for(const [x,y,c] of recolor)rows[y][x]=c;const out=rows.map(r=>r.join(''));return {...pic,rows:out,...measure({rows:out})};}
+export function overlaid(pic,overlay,recolor=null){if(recolor&&recolor.length){const rc=new Set(recolor.map(e=>e[0]+','+e[1]));
+  for(const c of overlay?[...(overlay.walls||[]),...(overlay.sites||[])]:[])if(Array.isArray(c)&&rc.has(c[0]+','+c[1]))throw Error(`перекраска (${c[0]}, ${c[1]}) под стеной оверлея`);
+  pic=recolored(pic,recolor);}
+ if(!overlay)return pic;const pw=pic.rows[0].length,ph=pic.rows.length,rows=pic.rows.map(r=>[...r]);
  const at=(c,what)=>{if(!Array.isArray(c)||!Number.isInteger(c[0])||!Number.isInteger(c[1])||c[0]<0||c[1]<0||c[0]>=pw||c[1]>=ph)throw Error(`overlay: ${what} ${JSON.stringify(c)} вне картинки ${pw}×${ph}`);return c;};
  for(const c of overlay.walls||[]){const [x,y]=at(c,'стена');rows[y][x]='#';}
  for(const c of overlay.sites||[]){const [x,y]=at(c,'место моста');if(rows[y][x]!=='#'&&rows[y][x]!=='b')throw Error(`overlay: место моста ${JSON.stringify(c)} не на стене`);rows[y][x]='b';}
@@ -97,7 +117,7 @@ export const bridgeDir=(c,w)=>c.dir||(c.anchor===c.cell-w?'up':c.anchor===c.cell
 // at the top and the bottom, so the far part needs a bridge.
 // Anchor: for each site, its orthogonal neighbour reachable from the entry when all sites are still walls (colour cells
 // count as passable, they are cleared); exactly one, else BridgeAnchorError. Each choice: {cell, anchor, label, dir}.
-export function boardOf(pic,overlay=null){const p=overlaid(pic,overlay),pw=p.rows[0].length,ph=p.rows.length,w=pw+4,h=ph+4,mid=Math.floor(w/2);
+export function boardOf(pic,overlay=null,recolor=null){const p=overlaid(pic,overlay,recolor),pw=p.rows[0].length,ph=p.rows.length,w=pw+4,h=ph+4,mid=Math.floor(w/2);
  const g=Array.from({length:h},(_,y)=>Array.from({length:w},(_,x)=>x===0||y===0||x===w-1||y===h-1?'#':'.'));g[h-1][mid]='.';
  const sites=[];
  p.rows.forEach((r,y)=>{for(let x=0;x<pw;x++){const c=r[x];g[y+2][x+2]=c==='b'?'#':c;if(c==='b')sites.push([x,y]);
@@ -116,6 +136,8 @@ export function boardOf(pic,overlay=null){const p=overlaid(pic,overlay),pw=p.row
   for(const [x,y] of ws){add(x+2,y+2);if(x===0)add(1,y+2);if(x===pw-1)add(w-2,y+2);if(y===0)add(x+2,1);if(y===ph-1)add(x+2,h-2);}stone.sort((a,b)=>a-b);}
  return {w,h,rowsBottomFirst,entries:[mid],hero:choices.length?{id:'sprig-bridge',choices:choices.map(({cell,anchor,label,dir})=>({cell,anchor,label,dir}))}:undefined,
   ...(overlay?{overlay:{walls:overlay.walls.map(c=>[c[0],c[1]]),sites:overlay.sites.map(c=>[c[0],c[1]])},stone}:{}),
+  // the level's recolouring (picture coordinates), kept with the board so a level built on it stores it (definition.recolor)
+  ...(recolor&&recolor.length?{recolor:recolor.map(e=>[e[0],e[1],e[2]])}:{}),
   // a split picture (bridge-scene.mjs make --mode split, 17 §8 «Одна цельная картинка», 2026-10-29): its strip is a gap in
   // the board's surface colour, not water or stone (the level carries definition.strip = 'gap' for renderers)
   ...(p.scene&&p.scene.mode==='split'?{strip:'gap'}:{})};}
