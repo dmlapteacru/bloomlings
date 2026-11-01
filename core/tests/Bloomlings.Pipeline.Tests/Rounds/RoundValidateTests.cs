@@ -321,11 +321,11 @@ namespace Bloomlings.Pipeline.Tests.Rounds
 
             Assert.Multiple(() =>
             {
-                Assert.That(pairs, Has.Count.EqualTo(120), "16 materials give 120 pairs");
+                Assert.That(pairs, Has.Count.EqualTo(276), "24 materials give 276 pairs");
                 Assert.That(RoundReadability.Gate(pairs), Is.Empty);
                 Assert.That(pairs.Min(p => p.Normal), Is.GreaterThanOrEqualTo(10));
                 Assert.That(report["passes"]!.Value<bool>(), Is.True);
-                Assert.That(report["mergingSimulatedPairs"]!.Value<int>(), Is.EqualTo(11), "research R6: 11 pairs merge for colour-blind players");
+                Assert.That(report["mergingSimulatedPairs"]!.Value<int>(), Is.EqualTo(27), "research R6: 11 pairs of the 16 merge for colour-blind players, 27 of the 24 (2026-11-01)");
                 Assert.That(pairs.Single(p => p.A.Code == 'V' && p.B.Code == 'N').DeltaE[Readability.Vision.Protanopia], Is.LessThan(1), "Слива/Глубина 0.7 under protanopia");
             });
         }

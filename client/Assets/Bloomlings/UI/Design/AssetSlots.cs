@@ -277,8 +277,8 @@ namespace Bloomlings.Client.UI.Design
                 Shape("symbol." + expansion[i], "Variant symbol: " + expansionNames[i] + " (expansion)", new[] { 7, 8, 9 }, "Tiles; pods; slots; walkers", "tile; pod; slot; small", SizeClass.Icon, readability: true, priority: Later);
             }
 
-            // Spec 006 FR-047: the 16 round materials' symbols, shown only in the symbols mode (RoundLook.SymbolIds).
-            string[] materialNames = { "Leaf ♧", "Petal ✿", "Water ◆", "Amber ●", "Pearl ◇", "Earth ▰", "Plum ✦", "Sun ☀", "Pumpkin ▲", "Lime ✚", "Moss ♣", "Berry ♥", "Blush ❀", "Deep ▼", "Sky ○", "Bark ■" };
+            // Spec 006 FR-047: the 24 round materials' symbols, shown only in the symbols mode (RoundLook.SymbolIds).
+            string[] materialNames = { "Leaf ♧", "Petal ✿", "Water ◆", "Amber ●", "Pearl ◇", "Earth ▰", "Plum ✦", "Sun ☀", "Pumpkin ▲", "Lime ✚", "Moss ♣", "Berry ♥", "Blush ❀", "Deep ▼", "Sky ○", "Bark ■", "Mint ♠", "Olive ✕", "Fuchsia ★", "Lavender ☾", "Fog ☁", "Snow ❄", "Sand ⧗", "Coal ⬢" };
             for (int i = 0; i < RoundLook.SymbolIds.Count; i++)
             {
                 Shape(RoundLook.SymbolIds[i], "Round material symbol (symbols mode, spec 006 FR-047): " + materialNames[i], new[] { 7, 12, 13 }, "Round levels in the symbols mode: board cubes; pods; places", "cube; pod; place (in the tile's ink, with a thin halo)", SizeClass.Icon, readability: true);

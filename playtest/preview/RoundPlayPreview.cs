@@ -519,7 +519,7 @@ namespace Bloomlings.Playtest.Preview
 
         /// <summary>
         /// A <paramref name="side"/> × <paramref name="side"/> board, the frame included (48: the largest round board): the
-        /// wall, the open ring, a picture of the 16 materials in bands, the gate in the middle of the bottom, and pods of up
+        /// wall, the open ring, a picture of the 24 materials in bands, the gate in the middle of the bottom, and pods of up
         /// to 60 cubes in three columns, so the exact accounting holds.
         /// </summary>
         public static RoundLevel BigLevel(int side = 48)
@@ -574,7 +574,7 @@ namespace Bloomlings.Playtest.Preview
         }
 
         /// <summary>
-        /// Deep columns (FR-064): a 20 × 20 board (the frame included) of the 16 materials in bands, its pods of at most 8
+        /// Deep columns (FR-064): a 20 × 20 board (the frame included) of the first 16 materials in bands, its pods of at most 8
         /// cubes dealt over six columns, so each column holds five or six pods; the second pod of the first column is hidden.
         /// </summary>
         public static RoundLevel DeepLevel()

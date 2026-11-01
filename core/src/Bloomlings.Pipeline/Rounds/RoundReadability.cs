@@ -19,7 +19,7 @@ namespace Bloomlings.Pipeline.Rounds
 
     /// <summary>
     /// The readability gate of the round palette (spec 006 FR-047, research R6, T038), with the game's own colour math
-    /// (<see cref="ColorScience"/>): under normal vision every pair of the 16 normal colours must have CIEDE2000 ≥ 10. The
+    /// (<see cref="ColorScience"/>): under normal vision every pair of the 24 normal colours must have CIEDE2000 ≥ 10. The
     /// simulated protanopia, deuteranopia and tritanopia numbers are written to the report only: colour-blind players get
     /// the symbols mode, and levels need not avoid colour pairs.
     /// </summary>

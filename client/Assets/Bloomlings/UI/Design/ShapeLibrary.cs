@@ -421,9 +421,10 @@ namespace Bloomlings.Client.UI.Design
                 ["symbol.mist"] = (x, y) => Min(RoundedBox(x, y, 0f, 0.45f, 0.8f, 0.1f, 0.1f), RoundedBox(x, y, 0.1f, 0f, 0.7f, 0.1f, 0.1f), RoundedBox(x, y, -0.1f, -0.45f, 0.7f, 0.1f, 0.1f)),
                 ["symbol.bark"] = (x, y) => Max(RoundedBox(x, y, 0f, 0f, 0.6f, 0.85f, 0.15f), -Min(RoundedBox(x, y, -0.25f, 0f, 0.05f, 0.6f, 0.03f), RoundedBox(x, y, 0.2f, 0.1f, 0.05f, 0.5f, 0.03f))),
 
-                // ---- The 16 round materials' symbols (spec 006 FR-047: the symbols mode, off by default) ----
-                // In RoundMaterial's channel order: ♧ ✿ ◆ ● ◇ ▰ ✦ ☀ ▲ ✚ ♣ ♥ ❀ ▼ ○ ■ (RoundLook.SymbolIds). One hero's
-                // materials differ by silhouette or by fill (♣ and ♧, ◆ and ◇, ✿ and ❀).
+                // ---- The 24 round materials' symbols (spec 006 FR-047: the symbols mode, off by default) ----
+                // In RoundMaterial's channel order: ♧ ✿ ◆ ● ◇ ▰ ✦ ☀ ▲ ✚ ♣ ♥ ❀ ▼ ○ ■, then the owner's 8 of 2026-11-01
+                // ♠ ✕ ★ ☾ ☁ ❄ ⧗ ⬢ (RoundLook.SymbolIds). One hero's materials differ by silhouette or by fill (♣ and ♧,
+                // ◆ and ◇, ✿ and ❀).
                 ["symbol.material.leaf"] = (x, y) => MathF.Abs(Club(x, y)) - 0.075f,
                 ["symbol.material.petal"] = Flower,
                 ["symbol.material.water"] = (x, y) => Rhombus(x, y, 0.62f, 0.9f),
@@ -440,6 +441,14 @@ namespace Bloomlings.Client.UI.Design
                 ["symbol.material.deep"] = (x, y) => TriangleSdf(x, y, -0.76f, 0.6f, 0f, -0.74f, 0.76f, 0.6f) - 0.06f,
                 ["symbol.material.sky"] = (x, y) => MathF.Abs(Length(x, y) - 0.56f) - 0.12f,
                 ["symbol.material.bark"] = (x, y) => RoundedBox(x, y, 0f, 0f, 0.6f, 0.6f, 0.08f),
+                ["symbol.material.mint"] = Spade,
+                ["symbol.material.olive"] = Cross,
+                ["symbol.material.fuchsia"] = (x, y) => Star5(x, y + 0.06f, 0.9f, 0.4f) - 0.03f,
+                ["symbol.material.lavender"] = (x, y) => Max(Length(x, y) - 0.74f, -(Length(x - 0.36f, y - 0.2f) - 0.6f)),
+                ["symbol.material.fog"] = Cloud,
+                ["symbol.material.snow"] = Snowflake,
+                ["symbol.material.sand"] = Hourglass,
+                ["symbol.material.coal"] = (x, y) => Hexagon(y, x, 0.7f) - 0.04f,
 
                 // ---- Board tiles and overlays ----
                 ["tile.key"] = (x, y) => Min(
@@ -991,6 +1000,77 @@ namespace Bloomlings.Client.UI.Design
             Length(x + 0.34f, y + 0.04f) - 0.31f,
             Length(x - 0.34f, y + 0.04f) - 0.31f,
             TriangleSdf(x, y, -0.26f, -0.82f, 0.26f, -0.82f, 0f, -0.02f));
+
+        /// <summary>A spade (♠): the heart turned point up over a short flared stem.</summary>
+        private static float Spade(float x, float y) => Min(
+            Heart(x / 0.86f, -(y - 0.14f) / 0.86f) * 0.86f,
+            TriangleSdf(x, y, -0.28f, -0.86f, 0.28f, -0.86f, 0f, -0.2f));
+
+        /// <summary>A five-pointed star (★) of outer radius <paramref name="outer"/> and inner <paramref name="inner"/>, point up: ten triangles from its middle.</summary>
+        private static float Star5(float x, float y, float outer, float inner)
+        {
+            float d = float.MaxValue;
+            for (int i = 0; i < 5; i++)
+            {
+                float a = (MathF.PI / 2f) + (i * 2f * MathF.PI / 5f);
+                float ox = outer * MathF.Cos(a);
+                float oy = outer * MathF.Sin(a);
+                float l = a - (MathF.PI / 5f);
+                float r = a + (MathF.PI / 5f);
+                d = MathF.Min(d, TriangleSdf(x, y, 0f, 0f, inner * MathF.Cos(l), inner * MathF.Sin(l), ox, oy));
+                d = MathF.Min(d, TriangleSdf(x, y, 0f, 0f, ox, oy, inner * MathF.Cos(r), inner * MathF.Sin(r)));
+            }
+
+            return d;
+        }
+
+        /// <summary>A cloud (☁): three round puffs over a flat rounded base.</summary>
+        private static float Cloud(float x, float y) => Min(
+            Length(x + 0.42f, y + 0.1f) - 0.34f,
+            Length(x - 0.04f, y - 0.14f) - 0.46f,
+            Length(x - 0.5f, y + 0.08f) - 0.32f,
+            RoundedBox(x, y, 0.02f, -0.3f, 0.78f, 0.2f, 0.2f));
+
+        /// <summary>A snowflake (❄): six arms, each with a pair of short branches.</summary>
+        private static float Snowflake(float x, float y)
+        {
+            float d = float.MaxValue;
+            for (int i = 0; i < 6; i++)
+            {
+                float a = (MathF.PI / 2f) + (i * MathF.PI / 3f);
+                float c = MathF.Cos(a);
+                float s = MathF.Sin(a);
+                float u = (x * c) + (y * s);
+                float v = MathF.Abs((-x * s) + (y * c));
+                d = MathF.Min(d, Segment(u, v, 0f, 0f, 0.86f, 0f) - 0.1f);
+                d = MathF.Min(d, Segment(u, v, 0.5f, 0f, 0.72f, 0.22f) - 0.08f);
+            }
+
+            return d;
+        }
+
+        /// <summary>An hourglass (⧗): two triangles meeting point to point between a bar at the top and one at the bottom.</summary>
+        private static float Hourglass(float x, float y) => Min(
+            Min(TriangleSdf(x, y, -0.56f, 0.7f, 0.56f, 0.7f, 0f, 0f), TriangleSdf(x, y, -0.56f, -0.7f, 0f, 0f, 0.56f, -0.7f)) - 0.03f,
+            RoundedBox(x, y, 0f, 0f, 0.09f, 0.2f, 0.04f),
+            RoundedBox(x, y, 0f, 0.78f, 0.72f, 0.1f, 0.05f),
+            RoundedBox(x, y, 0f, -0.78f, 0.72f, 0.1f, 0.05f));
+
+        /// <summary>A regular hexagon of inner radius <paramref name="r"/> with flat sides across <paramref name="y"/> (exact).</summary>
+        private static float Hexagon(float x, float y, float r)
+        {
+            const float kx = -0.866025404f;
+            const float ky = 0.5f;
+            const float kz = 0.577350269f;
+            float px = MathF.Abs(x);
+            float py = MathF.Abs(y);
+            float dot = MathF.Min((kx * px) + (ky * py), 0f);
+            px -= 2f * dot * kx;
+            py -= 2f * dot * ky;
+            px -= MathF.Max(-kz * r, MathF.Min(kz * r, px));
+            py -= r;
+            return Length(px, py) * MathF.Sign(py);
+        }
 
         /// <summary>A heart (♥): two round lobes over a point, blended into one smooth outline.</summary>
         private static float Heart(float x, float y) => SmoothMin(

@@ -26,7 +26,7 @@ namespace Bloomlings.Client.UI.Design
     /// in the material's normal palette colour, with no variant icon.</description></item>
     /// <item><description>The symbols mode (a Settings switch, off by default; the save's <c>settings.symbols</c>) puts the
     /// material's symbol (<see cref="SymbolIds"/>, the shapes <c>symbol.material.*</c>) on cubes, pods and places, in the
-    /// tile's ink (<see cref="SymbolInk"/>), so colour-blind players can tell the 16 colours apart.</description></item>
+    /// tile's ink (<see cref="SymbolInk"/>), so colour-blind players can tell the 24 colours apart.</description></item>
     /// <item><description>Pods and places are the same soft cubes (<see cref="PodStyle"/>, <see cref="UiRaster.PodCube"/>); a
     /// waiting pod is only a little lighter (<see cref="WaitingColor"/>).</description></item>
     /// <item><description>A hidden pod that has just revealed glows for <see cref="RevealGlowSeconds"/>
@@ -78,7 +78,7 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// The symbol shape (a <see cref="ShapeLibrary"/> id and an asset slot) of each material, in
-        /// <see cref="RoundMaterial.Codes"/> order: ♧ ✿ ◆ ● ◇ ▰ ✦ ☀ ▲ ✚ ♣ ♥ ❀ ▼ ○ ■.
+        /// <see cref="RoundMaterial.Codes"/> order: ♧ ✿ ◆ ● ◇ ▰ ✦ ☀ ▲ ✚ ♣ ♥ ❀ ▼ ○ ■ ♠ ✕ ★ ☾ ☁ ❄ ⧗ ⬢ (the last 8 the owner's of 2026-11-01).
         /// </summary>
         public static IReadOnlyList<string> SymbolIds { get; } = new[]
         {
@@ -98,6 +98,14 @@ namespace Bloomlings.Client.UI.Design
             "symbol.material.deep",
             "symbol.material.sky",
             "symbol.material.bark",
+            "symbol.material.mint",
+            "symbol.material.olive",
+            "symbol.material.fuchsia",
+            "symbol.material.lavender",
+            "symbol.material.fog",
+            "symbol.material.snow",
+            "symbol.material.sand",
+            "symbol.material.coal",
         };
 
         private static readonly Rgba[] Colors = BuildColors();

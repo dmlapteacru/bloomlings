@@ -550,7 +550,7 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
-        public void TheSixteenSymbols_AreRegisteredShapes_AllDifferent()
+        public void TheRoundSymbols_AreRegisteredShapes_AllDifferent()
         {
             Assert.That(RoundLook.SymbolIds.Count, Is.EqualTo(RoundMaterial.Codes.Length));
             var masks = new List<byte[]>();

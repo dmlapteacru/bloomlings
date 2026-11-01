@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text.Json;
+using Bloomlings.Core.Rounds;
 using NUnit.Framework;
 
 namespace Bloomlings.Content.Tests
@@ -73,16 +74,16 @@ namespace Bloomlings.Content.Tests
             var paths = new HashSet<string>(entries.Select(e => e.Path), StringComparer.Ordinal);
             Assert.That(paths.Count, Is.EqualTo(entries.Count), "each file listed once");
 
-            // The 60 2D pictures are always generated: 11 characters × 4 (Wood shows the acorn since the owner removed the log
-            // on 2026-10-31) and the 16 round walkers in their materials' colours; the 9 generated 3D pictures are there, each
-            // the tool's or the owner's.
-            Assert.That(entries.Count(e => e.Path.StartsWith("2d/", StringComparison.Ordinal) && !e.Owner), Is.EqualTo(60));
-            Assert.That(entries.Count(e => e.Path.StartsWith("2d/walker-", StringComparison.Ordinal)), Is.EqualTo(16), "a round walker a material, in its colour");
+            // The 68 2D pictures are always generated: 11 characters × 4 (Wood shows the acorn since the owner removed the log
+            // on 2026-10-31) and the 24 round walkers in their materials' colours (the owner's 24 materials of 2026-11-01); the
+            // 9 generated 3D pictures are there, each the tool's or the owner's.
+            Assert.That(entries.Count(e => e.Path.StartsWith("2d/", StringComparison.Ordinal) && !e.Owner), Is.EqualTo(44 + RoundMaterial.All.Count));
+            Assert.That(entries.Count(e => e.Path.StartsWith("2d/walker-", StringComparison.Ordinal)), Is.EqualTo(RoundMaterial.All.Count), "a round walker a material, in its colour");
             Assert.That(paths.Where(p => p.StartsWith("2d/log-", StringComparison.Ordinal)), Is.Empty, "no log");
             Assert.That(entries.Where(e => e.Owner).Select(e => e.Path).Where(p => !p.StartsWith("3d/", StringComparison.Ordinal)), Is.Empty, "owner pictures are 3D heroes in 3d/");
             Assert.That(Set3D.Where(p => !paths.Contains(p)), Is.Empty);
             Assert.That(entries.Where(e => e.Path.StartsWith("3d/", StringComparison.Ordinal) && !e.Owner).Select(e => e.Path).Where(p => !Set3D.Contains(p)), Is.Empty, "the tool generates only the set");
-            Assert.That(entries.Count(e => !e.Owner || Set3D.Contains(e.Path)), Is.EqualTo(69));
+            Assert.That(entries.Count(e => !e.Owner || Set3D.Contains(e.Path)), Is.EqualTo(53 + RoundMaterial.All.Count));
             Assert.That(entries.All(e => e.Slot.StartsWith("char.v.", StringComparison.Ordinal) || e.Slot.StartsWith("char.hero3d.", StringComparison.Ordinal)), Is.True);
         }
 

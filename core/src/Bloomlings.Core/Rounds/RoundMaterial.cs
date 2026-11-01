@@ -5,15 +5,16 @@ using Bloomlings.Core.Variants;
 namespace Bloomlings.Core.Rounds
 {
     /// <summary>
-    /// One of the 16 materials of the round palette (spec 006 FR-004, research R6; the reference is
-    /// <c>tools/rounds/engine/palette.cjs</c>). A pod clears only cells of its own material; the four materials of one
-    /// hero are not interchangeable. <see cref="Index"/> is the channel index of the reference rules
-    /// (<c>CHANNELS = "GPBACDVYOLMRKNSE"</c>), the value a board cell holds.
+    /// One of the 24 materials of the round palette (spec 006 FR-004, research R6; the reference is
+    /// <c>tools/rounds/engine/palette.cjs</c>; 24 materials, 6 per hero, since the owner's amendment of 2026-11-01 to rules
+    /// 17 §3: the first 16 keep their codes, colours and places, the 8 new ones follow). A pod clears only cells of its own
+    /// material; the materials of one hero are not interchangeable. <see cref="Index"/> is the channel index of the reference
+    /// rules (<c>CHANNELS = "GPBACDVYOLMRKNSETUFHXWZJ"</c>), the value a board cell holds.
     /// </summary>
     public sealed class RoundMaterial
     {
         /// <summary>The material codes in channel order, the wire ids of round matrices and pods.</summary>
-        public const string Codes = "GPBACDVYOLMRKNSE";
+        public const string Codes = "GPBACDVYOLMRKNSETUFHXWZJ";
 
         private RoundMaterial(int index, string name, Family family, string colorHex, string accessibleHex, string symbol)
         {
@@ -44,7 +45,7 @@ namespace Bloomlings.Core.Rounds
         /// <summary>The symbol shown on cubes, pods and places in the symbols mode (FR-047).</summary>
         public string Symbol { get; }
 
-        /// <summary>The 16 materials in channel order.</summary>
+        /// <summary>The 24 materials in channel order.</summary>
         public static IReadOnlyList<RoundMaterial> All { get; } = new[]
         {
             new RoundMaterial(0, "Лист", Family.Sprig, "#6DBE45", "#009E73", "♧"),
@@ -63,6 +64,16 @@ namespace Bloomlings.Core.Rounds
             new RoundMaterial(13, "Глубина", Family.Drop, "#2C5AA8", "#2166AC", "▼"),
             new RoundMaterial(14, "Небо", Family.Drop, "#A8E2F5", "#D1E5F0", "○"),
             new RoundMaterial(15, "Кора", Family.Twig, "#6A3A1E", "#8C510A", "■"),
+
+            // The owner's 24 (2026-11-01): two more a hero, for character pictures (grey, white, black, skin) and saturation.
+            new RoundMaterial(16, "Мята", Family.Sprig, "#22A88C", "#5AB4AC", "♠"),
+            new RoundMaterial(17, "Олива", Family.Sprig, "#84892C", "#999933", "✕"),
+            new RoundMaterial(18, "Фуксия", Family.Bloom, "#C8329C", "#AA4499", "★"),
+            new RoundMaterial(19, "Лаванда", Family.Bloom, "#B39CE3", "#C2A5CF", "☾"),
+            new RoundMaterial(20, "Туман", Family.Drop, "#8E959D", "#7A7A7A", "☁"),
+            new RoundMaterial(21, "Снег", Family.Drop, "#FAFBFC", "#BDBDBD", "❄"),
+            new RoundMaterial(22, "Песок", Family.Twig, "#DFB48F", "#D8B365", "⧗"),
+            new RoundMaterial(23, "Уголь", Family.Twig, "#1F1F26", "#000000", "⬢"),
         };
 
         /// <summary>The channel index of a material code, or -1.</summary>

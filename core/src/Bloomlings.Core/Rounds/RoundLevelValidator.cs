@@ -22,7 +22,7 @@ namespace Bloomlings.Core.Rounds
         public const string Columns = "2–6 columns";
         public const string CapacityFive = "capacity 5";
         public const string PodCount = "pod count 1–60";
-        public const string PodMaterial = "pod material is one of the 16 codes";
+        public const string PodMaterial = "pod material is one of the 24 codes";
         public const string Accounting = "exact accounting: cells of each code equal the sum of counts";
         public const string Groups = "groups are pairs in different columns at equal start depth";
         public const string Hidden = "hidden pods are at most 6, never in a group";
