@@ -1,0 +1,469 @@
+{
+ "format": "bloomlings-wave-mechanics-1",
+ "wave": [
+  51,
+  100
+ ],
+ "approved": "2026-11-01",
+ "approvedBy": "owner",
+ "plan": "product/plans/wave-L51-L100-mechanics-plan-2026-11-01.md",
+ "note": "The owner's direction of 2026-11-01: links dominate, hidden cells (new, introduced on 51 and 53) next, hidden pods rare (5 of 50, never with hidden cells), bridges rarer: one Super Hard (75, two strips, exactly one wins) and two Hard (65, 85, both bridges winning, not in a row); three Normals without extras (59, 72, 86); accents (2–4-cube decorations whose pods come early or mid queue) on every Hard and Super Hard and on some Normals.",
+ "levels": [
+  {
+   "level": 51,
+   "cls": "Normal",
+   "lead": "cells",
+   "add": [],
+   "recipe": "cells",
+   "intro": {
+    "mechanic": "cells",
+    "second": false
+   }
+  },
+  {
+   "level": 52,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [],
+   "recipe": "links"
+  },
+  {
+   "level": 53,
+   "cls": "Normal",
+   "lead": "cells",
+   "add": [],
+   "recipe": "cells",
+   "intro": {
+    "mechanic": "cells",
+    "second": true
+   }
+  },
+  {
+   "level": 54,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells",
+   "accents": true
+  },
+  {
+   "level": 55,
+   "cls": "Hard",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells",
+   "accents": true
+  },
+  {
+   "level": 56,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [],
+   "recipe": "links"
+  },
+  {
+   "level": 57,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells"
+  },
+  {
+   "level": 58,
+   "cls": "Normal",
+   "lead": "cells",
+   "add": [
+    "links"
+   ],
+   "recipe": "cells+links"
+  },
+  {
+   "level": 59,
+   "cls": "Normal",
+   "lead": null,
+   "add": [],
+   "recipe": "none"
+  },
+  {
+   "level": 60,
+   "cls": "Super Hard",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells",
+   "accents": true
+  },
+  {
+   "level": 61,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells",
+   "accents": true
+  },
+  {
+   "level": 62,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "hidden"
+   ],
+   "recipe": "links+hidden"
+  },
+  {
+   "level": 63,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [],
+   "recipe": "links"
+  },
+  {
+   "level": 64,
+   "cls": "Normal",
+   "lead": "cells",
+   "add": [
+    "links"
+   ],
+   "recipe": "cells+links"
+  },
+  {
+   "level": 65,
+   "cls": "Hard",
+   "lead": "bridge",
+   "add": [
+    "links"
+   ],
+   "recipe": "bridge+links",
+   "bridgeSide": "up",
+   "strip": "gap",
+   "bridgeKind": "better",
+   "by": "hand",
+   "accents": true
+  },
+  {
+   "level": 66,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells"
+  },
+  {
+   "level": 67,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [],
+   "recipe": "links"
+  },
+  {
+   "level": 68,
+   "cls": "Normal",
+   "lead": "cells",
+   "add": [],
+   "recipe": "cells"
+  },
+  {
+   "level": 69,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells",
+   "accents": true
+  },
+  {
+   "level": 70,
+   "cls": "Hard",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells",
+   "accents": true
+  },
+  {
+   "level": 71,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "hidden"
+   ],
+   "recipe": "links+hidden"
+  },
+  {
+   "level": 72,
+   "cls": "Normal",
+   "lead": null,
+   "add": [],
+   "recipe": "none"
+  },
+  {
+   "level": 73,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells"
+  },
+  {
+   "level": 74,
+   "cls": "Normal",
+   "lead": "cells",
+   "add": [
+    "links"
+   ],
+   "recipe": "cells+links"
+  },
+  {
+   "level": 75,
+   "cls": "Super Hard",
+   "lead": "bridge",
+   "add": [
+    "links",
+    "cells"
+   ],
+   "recipe": "bridge+links+cells",
+   "bridgeSide": "two",
+   "strip": "gap",
+   "bridgeKind": "single",
+   "by": "hand",
+   "accents": true
+  },
+  {
+   "level": 76,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [],
+   "recipe": "links"
+  },
+  {
+   "level": 77,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells",
+   "accents": true
+  },
+  {
+   "level": 78,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "hidden"
+   ],
+   "recipe": "links+hidden"
+  },
+  {
+   "level": 79,
+   "cls": "Normal",
+   "lead": "cells",
+   "add": [
+    "links"
+   ],
+   "recipe": "cells+links"
+  },
+  {
+   "level": 80,
+   "cls": "Hard",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells",
+   "accents": true
+  },
+  {
+   "level": 81,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [],
+   "recipe": "links"
+  },
+  {
+   "level": 82,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells"
+  },
+  {
+   "level": 83,
+   "cls": "Normal",
+   "lead": "cells",
+   "add": [],
+   "recipe": "cells"
+  },
+  {
+   "level": 84,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells"
+  },
+  {
+   "level": 85,
+   "cls": "Hard",
+   "lead": "bridge",
+   "add": [
+    "links",
+    "cells"
+   ],
+   "recipe": "bridge+links+cells",
+   "bridgeSide": "left",
+   "strip": "gap",
+   "bridgeKind": "better",
+   "by": "hand",
+   "accents": true
+  },
+  {
+   "level": 86,
+   "cls": "Normal",
+   "lead": null,
+   "add": [],
+   "recipe": "none"
+  },
+  {
+   "level": 87,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells",
+   "accents": true
+  },
+  {
+   "level": 88,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "hidden"
+   ],
+   "recipe": "links+hidden"
+  },
+  {
+   "level": 89,
+   "cls": "Normal",
+   "lead": "cells",
+   "add": [
+    "links"
+   ],
+   "recipe": "cells+links"
+  },
+  {
+   "level": 90,
+   "cls": "Super Hard",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells",
+   "accents": true
+  },
+  {
+   "level": 91,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [],
+   "recipe": "links"
+  },
+  {
+   "level": 92,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells"
+  },
+  {
+   "level": 93,
+   "cls": "Normal",
+   "lead": "cells",
+   "add": [],
+   "recipe": "cells"
+  },
+  {
+   "level": 94,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells",
+   "accents": true
+  },
+  {
+   "level": 95,
+   "cls": "Hard",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells",
+   "accents": true
+  },
+  {
+   "level": 96,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "hidden"
+   ],
+   "recipe": "links+hidden"
+  },
+  {
+   "level": 97,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [],
+   "recipe": "links"
+  },
+  {
+   "level": 98,
+   "cls": "Normal",
+   "lead": "cells",
+   "add": [
+    "links"
+   ],
+   "recipe": "cells+links"
+  },
+  {
+   "level": 99,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells"
+  },
+  {
+   "level": 100,
+   "cls": "Hard",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells",
+   "accents": true
+  }
+ ]
+}

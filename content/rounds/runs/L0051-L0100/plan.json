@@ -1,0 +1,1885 @@
+{
+ "range": [
+  51,
+  100
+ ],
+ "created": "2026-11-01T12:46:46.013Z",
+ "positions": [
+  {
+   "level": 51,
+   "cls": "Normal",
+   "intro": "cells",
+   "allowed": [
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 52,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 53,
+   "cls": "Normal",
+   "intro": "cells",
+   "allowed": [
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 54,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 55,
+   "cls": "Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 56,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 57,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 58,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 59,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 60,
+   "cls": "Super Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1200
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 61,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 62,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 63,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 64,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 65,
+   "cls": "Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 66,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 67,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 68,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 69,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 70,
+   "cls": "Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 71,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 72,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 73,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 74,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 75,
+   "cls": "Super Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 76,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 77,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 78,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 79,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 80,
+   "cls": "Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 81,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 82,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 83,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 84,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 85,
+   "cls": "Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 86,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 87,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 88,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 89,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 90,
+   "cls": "Super Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 91,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 92,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 93,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 94,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 95,
+   "cls": "Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 96,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 97,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 98,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 99,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 100,
+   "cls": "Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells"
+   ],
+   "stage": {
+    "cells": [
+     550,
+     1400
+    ],
+    "colours": [
+     5,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  }
+ ],
+ "open": [
+  51,
+  52,
+  53,
+  54,
+  55,
+  56,
+  57,
+  58,
+  59,
+  60,
+  61,
+  62,
+  63,
+  64,
+  65,
+  66,
+  67,
+  68,
+  69,
+  70,
+  71,
+  72,
+  73,
+  74,
+  75,
+  76,
+  77,
+  78,
+  79,
+  80,
+  81,
+  82,
+  83,
+  84,
+  85,
+  86,
+  87,
+  88,
+  89,
+  90,
+  91,
+  92,
+  93,
+  94,
+  95,
+  96,
+  97,
+  98,
+  99,
+  100
+ ],
+ "blockers": [],
+ "mechanics": {
+  "levels": [
+   {
+    "level": 51,
+    "cls": "Normal",
+    "lead": "cells",
+    "add": [],
+    "recipe": "cells",
+    "doses": "скрытые клетки 5–10 % N (35–70 при N = 700)"
+   },
+   {
+    "level": 52,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [],
+    "recipe": "links",
+    "doses": "связки 10–30 % P (4–6 при P = 24)"
+   },
+   {
+    "level": 53,
+    "cls": "Normal",
+    "lead": "cells",
+    "add": [],
+    "recipe": "cells",
+    "doses": "скрытые клетки 5–10 % N (35–70 при N = 700)"
+   },
+   {
+    "level": 54,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 55,
+    "cls": "Hard",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 20–45 % P (6–10 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 56,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [],
+    "recipe": "links",
+    "doses": "связки 10–30 % P (4–6 при P = 24)"
+   },
+   {
+    "level": 57,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 58,
+    "cls": "Normal",
+    "lead": "cells",
+    "add": [
+     "links"
+    ],
+    "recipe": "cells+links",
+    "doses": "скрытые клетки 5–10 % N (35–70 при N = 700); связки доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 59,
+    "cls": "Normal",
+    "lead": null,
+    "add": [],
+    "recipe": "none",
+    "doses": "без допов"
+   },
+   {
+    "level": 60,
+    "cls": "Super Hard",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 35–60 % P (10–14 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 61,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 62,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "hidden"
+    ],
+    "recipe": "links+hidden",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 63,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [],
+    "recipe": "links",
+    "doses": "связки 10–30 % P (4–6 при P = 24)"
+   },
+   {
+    "level": 64,
+    "cls": "Normal",
+    "lead": "cells",
+    "add": [
+     "links"
+    ],
+    "recipe": "cells+links",
+    "doses": "скрытые клетки 5–10 % N (35–70 при N = 700); связки доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 65,
+    "cls": "Hard",
+    "lead": "bridge",
+    "add": [
+     "links"
+    ],
+    "recipe": "bridge+links",
+    "doses": "мост: 1 выбор из 2 мест; связки 20–45 % P (6–10 при P = 24)",
+    "bridgeSide": "up",
+    "strip": "gap"
+   },
+   {
+    "level": 66,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 67,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [],
+    "recipe": "links",
+    "doses": "связки 10–30 % P (4–6 при P = 24)"
+   },
+   {
+    "level": 68,
+    "cls": "Normal",
+    "lead": "cells",
+    "add": [],
+    "recipe": "cells",
+    "doses": "скрытые клетки 5–10 % N (35–70 при N = 700)"
+   },
+   {
+    "level": 69,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 70,
+    "cls": "Hard",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 20–45 % P (6–10 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 71,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "hidden"
+    ],
+    "recipe": "links+hidden",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 72,
+    "cls": "Normal",
+    "lead": null,
+    "add": [],
+    "recipe": "none",
+    "doses": "без допов"
+   },
+   {
+    "level": 73,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 74,
+    "cls": "Normal",
+    "lead": "cells",
+    "add": [
+     "links"
+    ],
+    "recipe": "cells+links",
+    "doses": "скрытые клетки 5–10 % N (35–70 при N = 700); связки доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 75,
+    "cls": "Super Hard",
+    "lead": "bridge",
+    "add": [
+     "links",
+     "cells"
+    ],
+    "recipe": "bridge+links+cells",
+    "doses": "мост: 1 выбор из 2 мест; связки 35–60 % P (10–14 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)",
+    "bridgeSide": "two",
+    "strip": "gap"
+   },
+   {
+    "level": 76,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [],
+    "recipe": "links",
+    "doses": "связки 10–30 % P (4–6 при P = 24)"
+   },
+   {
+    "level": 77,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 78,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "hidden"
+    ],
+    "recipe": "links+hidden",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 79,
+    "cls": "Normal",
+    "lead": "cells",
+    "add": [
+     "links"
+    ],
+    "recipe": "cells+links",
+    "doses": "скрытые клетки 5–10 % N (35–70 при N = 700); связки доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 80,
+    "cls": "Hard",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 20–45 % P (6–10 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 81,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [],
+    "recipe": "links",
+    "doses": "связки 10–30 % P (4–6 при P = 24)"
+   },
+   {
+    "level": 82,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 83,
+    "cls": "Normal",
+    "lead": "cells",
+    "add": [],
+    "recipe": "cells",
+    "doses": "скрытые клетки 5–10 % N (35–70 при N = 700)"
+   },
+   {
+    "level": 84,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 85,
+    "cls": "Hard",
+    "lead": "bridge",
+    "add": [
+     "links",
+     "cells"
+    ],
+    "recipe": "bridge+links+cells",
+    "doses": "мост: 1 выбор из 2 мест; связки 20–45 % P (6–10 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)",
+    "bridgeSide": "left",
+    "strip": "gap"
+   },
+   {
+    "level": 86,
+    "cls": "Normal",
+    "lead": null,
+    "add": [],
+    "recipe": "none",
+    "doses": "без допов"
+   },
+   {
+    "level": 87,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 88,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "hidden"
+    ],
+    "recipe": "links+hidden",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 89,
+    "cls": "Normal",
+    "lead": "cells",
+    "add": [
+     "links"
+    ],
+    "recipe": "cells+links",
+    "doses": "скрытые клетки 5–10 % N (35–70 при N = 700); связки доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 90,
+    "cls": "Super Hard",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 35–60 % P (10–14 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 91,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [],
+    "recipe": "links",
+    "doses": "связки 10–30 % P (4–6 при P = 24)"
+   },
+   {
+    "level": 92,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 93,
+    "cls": "Normal",
+    "lead": "cells",
+    "add": [],
+    "recipe": "cells",
+    "doses": "скрытые клетки 5–10 % N (35–70 при N = 700)"
+   },
+   {
+    "level": 94,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 95,
+    "cls": "Hard",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 20–45 % P (6–10 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 96,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "hidden"
+    ],
+    "recipe": "links+hidden",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 97,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [],
+    "recipe": "links",
+    "doses": "связки 10–30 % P (4–6 при P = 24)"
+   },
+   {
+    "level": 98,
+    "cls": "Normal",
+    "lead": "cells",
+    "add": [
+     "links"
+    ],
+    "recipe": "cells+links",
+    "doses": "скрытые клетки 5–10 % N (35–70 при N = 700); связки доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 99,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 100,
+    "cls": "Hard",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 20–45 % P (6–10 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   }
+  ],
+  "shares": {
+   "bridge": {
+    "levels": 3,
+    "share": 0.06,
+    "lead": 3
+   },
+   "links": {
+    "levels": 42,
+    "share": 0.84,
+    "lead": 33
+   },
+   "hidden": {
+    "levels": 5,
+    "share": 0.1,
+    "lead": 0
+   },
+   "cells": {
+    "levels": 33,
+    "share": 0.66,
+    "lead": 11
+   },
+   "none": {
+    "levels": 3,
+    "share": 0.06
+   }
+  },
+  "normalWithMechanic": [
+   37,
+   40
+  ],
+  "types": {
+   "one": 13,
+   "two": 32,
+   "three": 2
+  },
+  "sides": {
+   "up": 1,
+   "two": 1,
+   "left": 1
+  }
+ },
+ "need": {
+  "Normal": 38,
+  "Hard": 5,
+  "Super Hard": 2,
+  "intro": 2,
+  "bridge": 0
+ },
+ "supply": {
+  "pictures": 111,
+  "strong": 73,
+  "stream": 0,
+  "bank": {
+   "знакомство: hidden": 42,
+   "Normal": 354,
+   "знакомство: links": 38,
+   "Hard": 45,
+   "Super Hard": 24
+  },
+  "overlay": {}
+ },
+ "order": {
+  "total": 0,
+  "strong": 0,
+  "streams": 0,
+  "byStage": {},
+  "sizeMix": {
+   "200–499": 0,
+   "500–999": 0,
+   "1000–1400": 0
+  },
+  "strips": [],
+  "scenes": [],
+  "sceneSources": 37,
+  "splits": [
+   {
+    "level": 65,
+    "cls": "Hard",
+    "side": "up",
+    "kind": "better",
+    "recipe": "bridge+links",
+    "have": 0,
+    "sources": [
+     "P0011",
+     "P0014",
+     "P0025"
+    ],
+    "command": "node tools/rounds/bridge-scene.mjs make --mode split --from P0011,P0014,P0025 --side up --kind better --cls \"Hard\" --recipe bridge+links --level 65 --out content/rounds/pictures/src/split-L0065.mjs"
+   },
+   {
+    "level": 75,
+    "cls": "Super Hard",
+    "side": "two",
+    "kind": "single",
+    "recipe": "bridge+links+cells",
+    "have": 0,
+    "sources": [
+     "P0014",
+     "P0023",
+     "P0026"
+    ],
+    "command": "node tools/rounds/bridge-scene.mjs make --mode split --from P0014,P0023,P0026 --side two --kind single --cls \"Super Hard\" --recipe bridge+links+cells --level 75 --out content/rounds/pictures/src/split-L0075.mjs"
+   },
+   {
+    "level": 85,
+    "cls": "Hard",
+    "side": "left",
+    "kind": "better",
+    "recipe": "bridge+links+cells",
+    "have": 0,
+    "sources": [
+     "P0023",
+     "P0027",
+     "P0037"
+    ],
+    "command": "node tools/rounds/bridge-scene.mjs make --mode split --from P0023,P0027,P0037 --side left --kind better --cls \"Hard\" --recipe bridge+links+cells --level 85 --out content/rounds/pictures/src/split-L0085.mjs"
+   }
+  ],
+  "avoidMotifs": [
+   "ретро-техника (8)",
+   "лампы и фонари (5)",
+   "инструменты музыки (3)",
+   "книги (3)",
+   "рыбы (5)",
+   "подводный мир (6)",
+   "космонавты и ракеты (4)",
+   "полив цветка (4)",
+   "роботы (4)",
+   "чашки и кружки (4)",
+   "динозавры (3)",
+   "домики-сказки (4)",
+   "корабли и лодки (4)",
+   "привидения и духи (3)",
+   "печенье и выпечка (3)",
+   "кошки (5)"
+  ],
+  "suggestFamilies": [
+   "Герои и мир Bloomlings (0)",
+   "Магазины и витрины (1)",
+   "Водный транспорт (1)",
+   "Цветы и букеты (2)",
+   "Деревья, листья и плоды (2)",
+   "Камни, минералы и кристаллы (2)",
+   "Хлеб и выпечка (2)",
+   "Мебель и уютные уголки (2)",
+   "Кафе и мастерские (2)",
+   "Городские пространства (2)",
+   "Походы и отдых на природе (2)",
+   "Багаж и навигация (2)"
+  ]
+ }
+}
