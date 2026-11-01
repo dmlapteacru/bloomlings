@@ -26,199 +26,189 @@ export default {theme:'Герои мультфильмов', pictures:[
    <rect x="16" y="15" width="3" height="2" rx="0.7" fill="${C.D}"/>
    <rect x="15" y="18" width="5" height="1" fill="${C.D}"/><rect x="15" y="17" width="1" height="1" fill="${C.D}"/><rect x="19" y="17" width="1" height="1" fill="${C.D}"/>
   </svg>`},
- // 2 — Crocodile Gena: green crocodile in profile, black hat, red coat, white shirt with a bow tie; sky and a path
- {title:'Крокодил Гена', family:'Саванна и джунгли', subject:'крокодил Гена в шляпе и красном пальто с бабочкой',
-  source:U, reference:'Крокодил Гена и Чебурашка — Крокодил Гена', forLevel:61, cells:1216, colours:8,
+ // 2 — Mickey Mouse waving: black round ears, red shorts with two white buttons, yellow shoes, white gloves; sky and grass
+ {title:'Микки Маус', family:'Коллекционный хайп и маскоты', subject:'Микки Маус машет рукой: чёрные круглые уши, красные шорты с белыми пуговицами, жёлтые башмаки, белые перчатки',
+  source:U, reference:'Disney — Mickey Mouse', forLevel:61, cells:1216, colours:7,
   svg:`<svg viewBox="0 0 32 38" xmlns="http://www.w3.org/2000/svg">
-   <rect width="32" height="38" fill="${C.S}"/><rect y="34" width="32" height="4" fill="${C.A}"/>
-   <polygon points="9,24 3.6,28.4 2.2,33 6.4,33.4 10,30" fill="${C.G}"/>
-   <rect x="10" y="30" width="3" height="4" fill="${C.G}"/><rect x="17" y="30" width="3" height="4" fill="${C.G}"/>
-   <ellipse cx="11" cy="34" rx="3" ry="1.4" fill="${C.D}"/><ellipse cx="19.5" cy="34" rx="3" ry="1.4" fill="${C.D}"/>
-   <polygon points="10,17 20,17 22,19 23,31 7,31 8,19" fill="${C.R}"/>
-   <polygon points="11,17 19,17 15,25" fill="${C.C}"/>
-   <polygon points="12,17.2 15,18.6 18,17.2 18,20.2 15,18.8 12,20.2" fill="${C.D}"/>
-   <rect x="14" y="22" width="2" height="2" fill="${C.D}"/>
-   <polygon points="19,18 22,18 26,23 24,25.5 19,21" fill="${C.R}"/>
-   <circle cx="25.4" cy="24.4" r="1.8" fill="${C.G}"/>
-   <ellipse cx="14" cy="12" rx="6" ry="5.2" fill="${C.G}"/>
-   <rect x="13" y="9.5" width="16" height="6.5" rx="3" fill="${C.G}"/>
-   <rect x="15" y="14" width="13.4" height="2.2" rx="1" fill="${C.L}"/>
-   <rect x="15.5" y="13" width="12" height="1" fill="${C.D}"/>
-   <rect x="26" y="10" width="2" height="2" fill="${C.D}"/>
-   <circle cx="21" cy="9" r="3" fill="${C.G}"/><circle cx="21" cy="9" r="2.2" fill="${C.C}"/>
-   <rect x="21" y="8" width="2" height="2" fill="${C.D}"/>
-   <ellipse cx="12" cy="7.6" rx="6.6" ry="1.3" fill="${C.D}"/>
-   <rect x="7.5" y="1.5" width="9" height="6.5" rx="1.5" fill="${C.D}"/>
+   <rect width="32" height="38" fill="${C.S}"/><rect y="33" width="32" height="5" fill="${C.G}"/>
+   <circle cx="7.5" cy="6.5" r="5" fill="${C.D}"/><circle cx="24.5" cy="6.5" r="5" fill="${C.D}"/>
+   <polygon points="10,20 12.6,21.6 7.4,14.6 5,15.8" fill="${C.D}"/><circle cx="5" cy="13.6" r="2.6" fill="${C.C}"/>
+   <polygon points="21,20.5 25.5,23.6 24.2,25.6 20,22.8" fill="${C.D}"/><circle cx="25.6" cy="25.4" r="2.3" fill="${C.C}"/>
+   <rect x="12" y="29" width="2.6" height="4" fill="${C.D}"/><rect x="17.4" y="29" width="2.6" height="4" fill="${C.D}"/>
+   <ellipse cx="11.6" cy="33.6" rx="3.8" ry="1.9" fill="${C.Y}"/><ellipse cx="20.4" cy="33.6" rx="3.8" ry="1.9" fill="${C.Y}"/>
+   <ellipse cx="16" cy="23.5" rx="5.4" ry="4.6" fill="${C.D}"/>
+   <rect x="10.4" y="24.6" width="11.2" height="5.4" rx="1.6" fill="${C.R}"/>
+   <rect x="12.6" y="25.6" width="2" height="3" rx="0.8" fill="${C.C}"/><rect x="17.4" y="25.6" width="2" height="3" rx="0.8" fill="${C.C}"/>
+   <circle cx="16" cy="13" r="7.4" fill="${C.D}"/>
+   <ellipse cx="16" cy="16" rx="6" ry="4.4" fill="${C.C}"/>
+   <ellipse cx="13.4" cy="11.4" rx="2.6" ry="3.8" fill="${C.C}"/><ellipse cx="18.6" cy="11.4" rx="2.6" ry="3.8" fill="${C.C}"/>
+   <rect x="12.6" y="9.6" width="2" height="3" rx="0.8" fill="${C.D}"/><rect x="17.4" y="9.6" width="2" height="3" rx="0.8" fill="${C.D}"/>
+   <ellipse cx="16" cy="14.4" rx="2" ry="1.3" fill="${C.D}"/>
+   <path d="M11.4 16.2 L20.6 16.2 Q19.8 20.2 16 20.2 Q12.2 20.2 11.4 16.2 Z" fill="${C.D}"/>
+   <path d="M13.4 18.4 Q16 17.2 18.6 18.4 Q17.8 19.6 16 19.6 Q14.2 19.6 13.4 18.4 Z" fill="${C.R}"/>
   </svg>`},
- // 3 — the Wolf of «Nu, pogodi!»: grey wolf (slate), cream muzzle, striped shirt, bell-bottoms; no cigarette
- {title:'Волк из «Ну, погоди!»', family:'Лесные и горные животные', subject:'серый волк в полосатой тельняшке и брюках клёш, хитрая ухмылка',
-  source:U, reference:'Ну, погоди! — Волк', forLevel:61, cells:1280, colours:8,
-  svg:`<svg viewBox="0 0 32 40" xmlns="http://www.w3.org/2000/svg">
-   <rect width="32" height="40" fill="${C.S}"/><rect y="36" width="32" height="4" fill="${C.G}"/>
-   <polygon points="7.6,6 8.2,0.6 12.6,4.4" fill="${C.D}"/><polygon points="14,4 17.6,0.6 18.8,6.4" fill="${C.D}"/>
-   <polygon points="7.5,7.5 3.4,9.8 6,11 3.4,13.4 7.5,13.4" fill="${C.D}"/>
-   <ellipse cx="13" cy="8.6" rx="6.2" ry="5.8" fill="${C.D}"/>
-   <rect x="10.5" y="13" width="4.5" height="3" fill="${C.D}"/>
-   <rect x="15" y="9.6" width="12.6" height="5.4" rx="2.4" fill="${C.C}"/>
-   <rect x="13.4" y="11" width="4" height="4" fill="${C.C}"/>
-   <circle cx="26.6" cy="10.6" r="1.8" fill="${C.D}"/>
-   <rect x="16" y="12" width="10" height="1" fill="${C.D}"/>
-   <rect x="18" y="13" width="6" height="2" rx="0.6" fill="${C.R}"/>
-   <rect x="12" y="4" width="3" height="4" rx="1" fill="${C.C}"/><rect x="16" y="4" width="3" height="4" rx="1" fill="${C.C}"/>
-   <rect x="13" y="5" width="2" height="2" fill="${C.D}"/><rect x="17" y="5" width="2" height="2" fill="${C.D}"/>
-   <rect x="5.5" y="16" width="2.6" height="10" rx="1.2" fill="${C.D}"/><rect x="19" y="16" width="2.6" height="10" rx="1.2" fill="${C.D}"/>
-   <rect x="8" y="15" width="11" height="12" rx="1" fill="${C.C}"/>
-   <rect x="8" y="15" width="11" height="2" fill="${C.N}"/><rect x="8" y="19" width="11" height="2" fill="${C.N}"/><rect x="8" y="23" width="11" height="2" fill="${C.N}"/>
-   <rect x="5.5" y="15" width="3" height="2" fill="${C.N}"/><rect x="5.5" y="17" width="3" height="2" fill="${C.C}"/>
-   <rect x="18.5" y="15" width="3" height="2" fill="${C.N}"/><rect x="18.5" y="17" width="3" height="2" fill="${C.C}"/>
-   <rect x="8" y="27" width="11" height="1.6" fill="${C.E}"/>
-   <polygon points="8,28.5 13,28.5 12.6,31 13.8,36 6.2,36 8.4,31" fill="${C.B}"/>
-   <polygon points="14,28.5 19,28.5 18.6,31 20.8,36 13.2,36 14.4,31" fill="${C.B}"/>
-   <rect x="8" y="28.5" width="11" height="2" fill="${C.B}"/>
-   <ellipse cx="10" cy="36.4" rx="3.2" ry="1.3" fill="${C.D}"/><ellipse cx="17.4" cy="36.4" rx="3.2" ry="1.3" fill="${C.D}"/>
+ // 3 — Pikachu: yellow, long black-tipped ears, red cheeks, the lightning tail; sky and grass
+ {title:'Пикачу', family:'Игровая интернет-культура', subject:'жёлтый Пикачу с длинными ушами с чёрными кончиками, красными щёчками и хвостом-молнией',
+  source:U, reference:'Pokémon — Pikachu', forLevel:61, cells:896, colours:7,
+  svg:`<svg viewBox="0 0 28 32" xmlns="http://www.w3.org/2000/svg">
+   <rect width="28" height="32" fill="${C.S}"/><rect y="27" width="28" height="5" fill="${C.G}"/>
+   <polygon points="16,25 20,21.5 18.5,19.5 23,16 21.5,13.5 25.5,7 26.5,12 24.5,14.5 26,16.5 21.5,21.5 23,23.5 18,27" fill="${C.Y}"/>
+   <ellipse cx="7.6" cy="7" rx="2" ry="5.6" transform="rotate(-28 7.6 7)" fill="${C.D}"/>
+   <ellipse cx="18.4" cy="7" rx="2" ry="5.6" transform="rotate(28 18.4 7)" fill="${C.D}"/>
+   <ellipse cx="9" cy="9.6" rx="2" ry="5.6" transform="rotate(-28 9 9.6)" fill="${C.Y}"/>
+   <ellipse cx="17" cy="9.6" rx="2" ry="5.6" transform="rotate(28 17 9.6)" fill="${C.Y}"/>
+   <ellipse cx="13" cy="25.2" rx="5.8" ry="4.6" fill="${C.Y}"/><ellipse cx="7.6" cy="23" rx="1.4" ry="2.2" transform="rotate(30 7.6 23)" fill="${C.Y}"/><ellipse cx="18.4" cy="23" rx="1.4" ry="2.2" transform="rotate(-30 18.4 23)" fill="${C.Y}"/>
+   <ellipse cx="9.6" cy="29.2" rx="2.6" ry="1.4" fill="${C.Y}"/><ellipse cx="16.4" cy="29.2" rx="2.6" ry="1.4" fill="${C.Y}"/>
+   <ellipse cx="13" cy="15" rx="8" ry="6.6" fill="${C.Y}"/>
+   <rect x="8" y="13" width="3" height="3" rx="0.6" fill="${C.D}"/><rect x="15" y="13" width="3" height="3" rx="0.6" fill="${C.D}"/>
+   <polygon points="18.2,22.6 21.2,20.4 23.2,23 19.8,26" fill="${C.A}"/>
+   <rect x="5" y="16" width="3" height="3" rx="0.8" fill="${C.R}"/><rect x="18" y="16" width="3" height="3" rx="0.8" fill="${C.R}"/>
+   <rect x="11" y="17" width="4" height="1" fill="${C.D}"/><rect x="12" y="18" width="2" height="1" fill="${C.D}"/>
   </svg>`},
- // 4 — Leopold: kind orange-yellow cat, red bow tie, white collar; a bust against the sky
- {title:'Кот Леопольд', family:'Домашние животные', subject:'добрый рыжий Леопольд с красной бабочкой',
-  source:U, reference:'Приключения кота Леопольда — Леопольд', forLevel:61, cells:900, colours:7,
+ // 4 — Hello Kitty: white cat head with a black outline, red bow, no mouth, yellow nose; a pink ground, compact
+ {title:'Хеллоу Китти', family:'Домашние животные', subject:'белая кошечка Хеллоу Китти с красным бантом и жёлтым носиком, без рта',
+  source:U, reference:'Sanrio — Hello Kitty', forLevel:61, cells:396, colours:5,
+  svg:`<svg viewBox="0 0 22 18" xmlns="http://www.w3.org/2000/svg">
+   <rect width="22" height="18" fill="${C.P}"/>
+   <polygon points="2,10 3,2 9.5,5.5" fill="${C.D}"/><polygon points="20,10 19,2 12.5,5.5" fill="${C.D}"/>
+   <ellipse cx="11" cy="10.5" rx="9.6" ry="6.2" fill="${C.D}"/>
+   <polygon points="3.8,8.8 4.4,4.2 8,6.2" fill="${C.C}"/>
+   <ellipse cx="11" cy="10.5" rx="8.6" ry="5.2" fill="${C.C}"/>
+   <rect x="6" y="10" width="2" height="3" fill="${C.D}"/><rect x="14" y="10" width="2" height="3" fill="${C.D}"/>
+   <rect x="10" y="12" width="2" height="2" fill="${C.Y}"/>
+   <rect x="0" y="11" width="4" height="1" fill="${C.D}"/><rect x="0" y="13" width="4" height="1" fill="${C.D}"/>
+   <rect x="18" y="11" width="4" height="1" fill="${C.D}"/><rect x="18" y="13" width="4" height="1" fill="${C.D}"/>
+   <polygon points="11,0 16.5,2.6 22,0 22,8 16.5,5.4 11,8" fill="${C.D}"/>
+   <polygon points="12,1.6 16,3.4 16,4.6 12,6.4" fill="${C.R}"/><polygon points="21,1.6 17,3.4 17,4.6 21,6.4" fill="${C.R}"/>
+  </svg>`},
+ // 5 — Mario jumping: red cap with a plain white disc, moustache, blue overalls with yellow buttons, white gloves; sky and grass
+ {title:'Марио', family:'Игровая интернет-культура', subject:'Марио в красной кепке с белым кругом, с усами, в синем комбинезоне с жёлтыми пуговицами и белых перчатках',
+  source:U, reference:'Super Mario — Mario', forLevel:61, cells:1216, colours:9,
+  svg:`<svg viewBox="0 0 32 38" xmlns="http://www.w3.org/2000/svg">
+   <rect width="32" height="38" fill="${C.S}"/><rect y="33" width="32" height="5" fill="${C.G}"/>
+   <polygon points="9.6,18 12.4,19.6 8.4,11 5.6,12.2" fill="${C.R}"/><circle cx="6.6" cy="10" r="2.5" fill="${C.C}"/>
+   <rect x="21" y="18.6" width="3.2" height="7" rx="1.2" fill="${C.R}"/><circle cx="22.6" cy="26.4" r="2.3" fill="${C.C}"/>
+   <rect x="9.6" y="18" width="12.8" height="7" rx="2" fill="${C.R}"/>
+   <rect x="10.6" y="21.4" width="10.8" height="8.6" rx="1.6" fill="${C.N}"/>
+   <rect x="11.2" y="18" width="2.4" height="4" fill="${C.N}"/><rect x="18.4" y="18" width="2.4" height="4" fill="${C.N}"/>
+   <circle cx="12.4" cy="21.8" r="1.2" fill="${C.Y}"/><circle cx="19.6" cy="21.8" r="1.2" fill="${C.Y}"/>
+   <rect x="10.6" y="29" width="4.2" height="3" fill="${C.N}"/><rect x="17.2" y="29" width="4.2" height="3" fill="${C.N}"/>
+   <ellipse cx="12" cy="32.8" rx="3.4" ry="1.7" fill="${C.E}"/><ellipse cx="20" cy="32.8" rx="3.4" ry="1.7" fill="${C.E}"/>
+   <rect x="9.2" y="9.4" width="13.6" height="5" rx="2" fill="${C.E}"/>
+   <circle cx="9.8" cy="12.6" r="1.4" fill="${C.C}"/><circle cx="22.2" cy="12.6" r="1.4" fill="${C.C}"/>
+   <ellipse cx="16" cy="13" rx="5.6" ry="4.8" fill="${C.C}"/>
+   <rect x="12.6" y="9.6" width="2" height="3" rx="0.8" fill="${C.N}"/><rect x="17.4" y="9.6" width="2" height="3" rx="0.8" fill="${C.N}"/>
+   <polygon points="10.6,14.8 21.4,14.8 21.8,16.6 19.2,17.6 16,16.6 12.8,17.6 10.2,16.6" fill="${C.D}"/>
+   <ellipse cx="16" cy="13.8" rx="2.2" ry="1.7" fill="${C.K}"/>
+   <ellipse cx="16" cy="6.8" rx="6.4" ry="4.4" fill="${C.R}"/>
+   <rect x="9.4" y="7.4" width="15" height="2.4" rx="1" fill="${C.R}"/>
+   <circle cx="16" cy="5.6" r="2.3" fill="${C.C}"/>
+  </svg>`},
+ // 6 — Simba the cub on Pride Rock at sunrise: golden cub with a tuft on his head, the sun rising over the savanna
+ {title:'Симба на скале', family:'Саванна и джунгли', subject:'золотистый львёнок Симба с хохолком на голове сидит на краю скалы на рассвете',
+  source:U, reference:'The Lion King — Simba', forLevel:61, cells:1152, colours:8,
+  svg:`<svg viewBox="0 0 36 32" xmlns="http://www.w3.org/2000/svg">
+   <rect width="36" height="32" fill="${C.K}"/><rect y="18" width="36" height="6" fill="${C.O}"/>
+   <circle cx="7" cy="24" r="5.4" fill="${C.Y}"/><rect y="24" width="36" height="8" fill="${C.M}"/>
+   <polygon points="36,32 36,19.5 14.6,19.5 11.6,20.6 13,22.6 18,24 22,27 21,32" fill="${C.D}"/>
+   <path d="M28.4 17.6 Q33 17.6 32.4 12.4" fill="none" stroke="${C.Y}" stroke-width="2"/>
+   <circle cx="32.4" cy="11.4" r="1.7" fill="${C.E}"/>
+   <ellipse cx="24" cy="15.6" rx="5.2" ry="4.2" fill="${C.Y}"/>
+   <rect x="20" y="14" width="3" height="6" fill="${C.Y}"/><rect x="25" y="14" width="3" height="6" fill="${C.Y}"/>
+   <rect x="20" y="18" width="3" height="2" fill="${C.C}"/><rect x="25" y="18" width="3" height="2" fill="${C.C}"/>
+   <rect x="23" y="14" width="2" height="4" fill="${C.C}"/>
+   <circle cx="18.6" cy="4" r="2.1" fill="${C.Y}"/><circle cx="29.4" cy="4" r="2.1" fill="${C.Y}"/>
+   <rect x="18" y="3" width="2" height="2" fill="${C.A}"/><rect x="28" y="3" width="2" height="2" fill="${C.A}"/>
+   <circle cx="24" cy="8.6" r="6" fill="${C.Y}"/>
+   <ellipse cx="24" cy="12" rx="3.4" ry="2.4" fill="${C.C}"/>
+   <rect x="23" y="10" width="2" height="2" fill="${C.E}"/><rect x="22" y="13" width="4" height="1" fill="${C.E}"/>
+   <rect x="20" y="7" width="2" height="2" fill="${C.E}"/><rect x="26" y="7" width="2" height="2" fill="${C.E}"/>
+   <polygon points="21.4,3.6 22.4,0.8 24,2.4 25.6,0.8 26.6,3.6" fill="${C.A}"/>
+  </svg>`},
+ // 7 — Stitch: blue alien, huge ears, big black eyes, a wide grin; sunset sky and sand
+ {title:'Стич', family:'Космос', subject:'синий инопланетянин Стич с огромными ушами, большими чёрными глазами и широкой улыбкой',
+  source:U, reference:'Lilo & Stitch — Stitch', forLevel:61, cells:900, colours:9,
   svg:`<svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-   <rect width="30" height="30" fill="${C.S}"/>
-   <ellipse cx="15" cy="31" rx="11.5" ry="7" fill="${C.Y}"/>
-   <rect x="11" y="18" width="8" height="7" fill="${C.Y}"/>
-   <polygon points="10.5,22.5 15,26 19.5,22.5 19.5,25.5 15,29 10.5,25.5" fill="${C.C}"/>
-   <polygon points="9.5,21.6 15,24 20.5,21.6 20.5,26.6 15,24.4 9.5,26.6" fill="${C.R}"/>
-   <rect x="13.5" y="22.5" width="3" height="3" rx="0.6" fill="${C.R}"/>
-   <polygon points="5.5,9 6,1 12.5,4.8" fill="${C.Y}"/><polygon points="17.5,4.8 24,1 24.5,9" fill="${C.Y}"/>
-   <polygon points="6.8,8 7.2,2.6 11.2,5.2" fill="${C.K}"/><polygon points="18.8,5.2 22.8,2.6 23.2,8" fill="${C.K}"/>
-   <ellipse cx="15" cy="11.8" rx="10" ry="8.4" fill="${C.Y}"/>
-   <ellipse cx="15" cy="15" rx="11" ry="5.4" fill="${C.Y}"/>
-   <ellipse cx="15" cy="16.4" rx="5" ry="3.4" fill="${C.C}"/>
-   <ellipse cx="11" cy="10.4" rx="2.4" ry="2.6" fill="${C.C}"/><ellipse cx="19" cy="10.4" rx="2.4" ry="2.6" fill="${C.C}"/>
-   <rect x="10" y="9" width="2" height="3" fill="${C.D}"/><rect x="18" y="9" width="2" height="3" fill="${C.D}"/>
-   <rect x="13" y="13" width="4" height="2" rx="0.6" fill="${C.P}"/>
-   <rect x="14" y="15" width="2" height="1" fill="${C.D}"/><rect x="12" y="16" width="6" height="1" fill="${C.D}"/>
-   <rect x="12" y="15" width="1" height="1" fill="${C.D}"/><rect x="17" y="15" width="1" height="1" fill="${C.D}"/>
-   <rect x="2" y="14" width="6" height="1" fill="${C.D}"/><rect x="22" y="14" width="6" height="1" fill="${C.D}"/>
-   <rect x="2.5" y="16" width="5.5" height="1" fill="${C.D}"/><rect x="22" y="16" width="5.5" height="1" fill="${C.D}"/>
+   <rect width="30" height="30" fill="${C.O}"/><rect y="25" width="30" height="5" fill="${C.Y}"/>
+   <ellipse cx="6.4" cy="8.6" rx="3.2" ry="6" transform="rotate(-48 6.4 8.6)" fill="${C.B}"/>
+   <ellipse cx="23.6" cy="8.6" rx="3.2" ry="6" transform="rotate(48 23.6 8.6)" fill="${C.B}"/>
+   <ellipse cx="6.6" cy="8.8" rx="1.6" ry="4.4" transform="rotate(-48 6.6 8.8)" fill="${C.K}"/>
+   <ellipse cx="23.4" cy="8.8" rx="1.6" ry="4.4" transform="rotate(48 23.4 8.8)" fill="${C.K}"/>
+   <ellipse cx="11.6" cy="27" rx="2.4" ry="1.4" fill="${C.B}"/><ellipse cx="18.4" cy="27" rx="2.4" ry="1.4" fill="${C.B}"/>
+   <ellipse cx="8.4" cy="22.6" rx="1.7" ry="2.6" fill="${C.B}"/><ellipse cx="21.6" cy="22.6" rx="1.7" ry="2.6" fill="${C.B}"/>
+   <ellipse cx="15" cy="23.4" rx="5.4" ry="3.8" fill="${C.B}"/>
+   <ellipse cx="15" cy="24" rx="3" ry="2.6" fill="${C.S}"/>
+   <ellipse cx="15" cy="13" rx="9.2" ry="7.6" fill="${C.B}"/>
+   <ellipse cx="15" cy="7" rx="4" ry="2" fill="${C.N}"/>
+   <ellipse cx="15" cy="17.4" rx="6.4" ry="3.2" fill="${C.S}"/>
+   <ellipse cx="10.4" cy="11.8" rx="2.8" ry="3.4" fill="${C.D}"/><ellipse cx="19.6" cy="11.8" rx="2.8" ry="3.4" fill="${C.D}"/>
+   <rect x="9" y="10" width="2" height="2" fill="${C.C}"/><rect x="18.2" y="10" width="2" height="2" fill="${C.C}"/>
+   <ellipse cx="15" cy="13.8" rx="2.3" ry="1.5" fill="${C.N}"/>
+   <path d="M9 16.4 L21 16.4 Q20 20.6 15 20.6 Q10 20.6 9 16.4 Z" fill="${C.D}"/>
+   <rect x="10" y="16.4" width="10" height="1.4" fill="${C.C}"/>
+   <path d="M12.4 19.4 Q15 18.2 17.6 19.4 Q16.6 20.2 15 20.2 Q13.4 20.2 12.4 19.4 Z" fill="${C.P}"/>
   </svg>`},
- // 5 — Karlsson: round little man with red hair, propeller on his back, checked shirt, one strap; flying in the sky
- {title:'Карлсон с пропеллером', family:'Герои приключений', direction:'Невесомый мир', subject:'толстячок Карлсон с пропеллером за спиной, рыжий, в клетчатой рубашке, летит',
-  source:U, reference:'Малыш и Карлсон — Карлсон', forLevel:61, cells:900, colours:9,
+ // 8 — Peppa Pig with her side-profile head like a hairdryer, red dress, jumping in a muddy puddle on the green hill
+ {title:'Свинка Пеппа в луже', family:'Домашние животные', subject:'розовая свинка Пеппа в красном платье, голова в профиль, прыгает в грязную лужу',
+  source:U, reference:'Peppa Pig — Peppa Pig', forLevel:61, cells:900, colours:7,
   svg:`<svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-   <defs><pattern id="chk5" width="4" height="4" patternUnits="userSpaceOnUse"><rect width="4" height="4" fill="${C.B}"/><rect width="2" height="2" fill="${C.C}"/><rect x="2" y="2" width="2" height="2" fill="${C.C}"/></pattern></defs>
-   <rect width="30" height="30" fill="${C.S}"/>
-   <ellipse cx="4.5" cy="25.5" rx="3.2" ry="1.6" fill="${C.C}"/><ellipse cx="26" cy="10.5" rx="3" ry="1.5" fill="${C.C}"/>
-   <rect x="14" y="2.5" width="2" height="5" fill="${C.D}"/>
-   <polygon points="15,2.6 4.2,0.8 3.2,2.2 4.2,3.8" fill="${C.D}"/><polygon points="15,3.4 25.8,5.2 26.8,3.8 25.8,2.2" fill="${C.D}"/>
-   <circle cx="15" cy="3" r="1.6" fill="${C.D}"/>
-   <rect x="10" y="25" width="3.5" height="3" fill="${C.N}"/><rect x="16.5" y="25" width="3.5" height="3" fill="${C.N}"/>
-   <ellipse cx="11.4" cy="28.2" rx="2.4" ry="1.2" fill="${C.E}"/><ellipse cx="18.6" cy="28.2" rx="2.4" ry="1.2" fill="${C.E}"/>
-   <polygon points="9,15.5 3.6,17 3.6,19.8 9.4,19.4" fill="url(#chk5)"/><polygon points="21,15.5 26.4,17 26.4,19.8 20.6,19.4" fill="url(#chk5)"/>
-   <circle cx="3.6" cy="18.4" r="1.8" fill="${C.K}"/><circle cx="26.4" cy="18.4" r="1.8" fill="${C.K}"/>
-   <ellipse cx="15" cy="20" rx="7.8" ry="6.6" fill="url(#chk5)"/>
-   <path d="M7.3,22 L22.7,22 A7.8,6.6 0 0 1 7.3,22 Z" fill="${C.N}"/>
-   <polygon points="9.2,15.4 11.2,14.6 14.8,22.2 12.8,22.2" fill="${C.N}"/>
-   <rect x="17" y="23" width="3" height="3" rx="1" fill="${C.Y}"/>
-   <ellipse cx="15" cy="9.6" rx="6.4" ry="4.4" fill="${C.O}"/>
-   <polygon points="8.8,9.2 9.2,5.8 11.6,7 12.8,4.8 15,6.4 17.2,4.8 18.4,7 20.8,5.8 21.2,9.2" fill="${C.O}"/>
-   <ellipse cx="15" cy="12" rx="5" ry="4.4" fill="${C.K}"/>
-   <rect x="12" y="10" width="2" height="2" fill="${C.D}"/><rect x="16" y="10" width="2" height="2" fill="${C.D}"/>
-   <rect x="13" y="12" width="4" height="2" rx="0.9" fill="${C.P}"/>
-   <rect x="12" y="14" width="6" height="1" fill="${C.D}"/>
+   <rect width="30" height="30" fill="${C.S}"/><ellipse cx="15" cy="35" rx="24" ry="11" fill="${C.G}"/>
+   <ellipse cx="13" cy="28.4" rx="9" ry="1.6" fill="${C.A}"/>
+   <rect x="2" y="25" width="2" height="2" fill="${C.A}"/><rect x="23" y="24" width="2" height="2" fill="${C.A}"/><rect x="20" y="22" width="2" height="2" fill="${C.A}"/>
+   <polygon points="7.6,6 8,1 11.4,5" fill="${C.K}"/><polygon points="11,5 13,0.8 14.4,5.4" fill="${C.K}"/>
+   <ellipse cx="11.6" cy="10.4" rx="6.6" ry="5.6" fill="${C.K}"/>
+   <ellipse cx="19" cy="7.4" rx="6.4" ry="3.4" transform="rotate(-20 19 7.4)" fill="${C.K}"/>
+   <ellipse cx="24.6" cy="5.4" rx="1.8" ry="3.2" transform="rotate(-20 24.6 5.4)" fill="${C.P}"/>
+   <rect x="15" y="5" width="2" height="2" fill="${C.D}"/><rect x="19" y="4" width="2" height="2" fill="${C.D}"/>
+   <rect x="8" y="10" width="3" height="3" rx="1" fill="${C.P}"/>
+   <rect x="14" y="12" width="4" height="1" fill="${C.D}"/><rect x="18" y="11" width="2" height="1" fill="${C.D}"/>
+   <rect x="4" y="18" width="4" height="2" fill="${C.K}"/><rect x="3" y="16" width="2" height="3" fill="${C.K}"/>
+   <rect x="17" y="18" width="4" height="2" fill="${C.K}"/><rect x="20" y="16" width="2" height="3" fill="${C.K}"/>
+   <polygon points="9.4,16 15.6,16 19,25 6,25" fill="${C.R}"/>
+   <rect x="9" y="25" width="2" height="2" fill="${C.K}"/><rect x="14" y="25" width="2" height="2" fill="${C.K}"/>
+   <rect x="8" y="27" width="3" height="1" fill="${C.D}"/><rect x="14" y="27" width="3" height="1" fill="${C.D}"/>
   </svg>`},
- // 6 — the Hedgehog in the fog with his bundle on a stick; pale fog and dark grass
- {title:'Ёжик в тумане с узелком', family:'Лесные и горные животные', direction:'Уютная мистика', subject:'маленький ёжик с узелком на палочке идёт в тумане',
-  source:U, reference:'Ёжик в тумане — Ёжик', forLevel:61, cells:864, colours:7,
-  svg:`<svg viewBox="0 0 32 27" xmlns="http://www.w3.org/2000/svg">
-   <rect width="32" height="27" fill="${C.S}"/><rect y="23" width="32" height="4" fill="${C.M}"/>
-   <rect x="12" y="20" width="2.2" height="4" fill="${C.C}"/><rect x="17" y="20" width="2.2" height="4" fill="${C.C}"/>
-   <polygon points="6,19 2,17.5 4.8,15.5 1.8,12.5 6,12.2 4.6,8.6 8.6,9.4 9.2,5.8 12,8.4 13.6,5 15.6,8.4 18.2,6.4 18.6,10 22,10.6 20,14 21,20 7.5,21.5" fill="${C.E}"/>
-   <ellipse cx="13" cy="15.2" rx="7.6" ry="6" fill="${C.E}"/>
-   <ellipse cx="20" cy="15.5" rx="4.6" ry="4.4" fill="${C.C}"/>
-   <polygon points="21,12.5 29,15.4 21,18.6" fill="${C.C}"/>
-   <circle cx="28.6" cy="15.4" r="1.4" fill="${C.D}"/>
-   <rect x="20" y="12" width="2" height="3" rx="0.8" fill="${C.D}"/>
-   <polygon points="20.4,18.6 19,20 5.8,6.4 7.2,5" fill="${C.A}"/>
-   <ellipse cx="19.6" cy="19" rx="1.8" ry="1.4" fill="${C.C}"/>
-   <circle cx="6" cy="6" r="3.8" fill="${C.R}"/>
-   <polygon points="3.8,3 4.6,0.6 6.2,2.4 7.8,0.6 8.4,3" fill="${C.R}"/>
-   <rect x="3.5" y="4.5" width="2" height="2" fill="${C.C}"/><rect x="6.5" y="6.5" width="2" height="2" fill="${C.C}"/>
+ // 9 — Olaf: snowman with a carrot nose, twig arms and hair, one buck tooth; falling snow, compact
+ {title:'Олаф', family:'Времена года и погода', direction:'Ожившие вещи', subject:'снеговик Олаф с носом-морковкой, руками-веточками и одним большим зубом, идёт снег',
+  source:U, reference:'Frozen — Olaf', forLevel:61, cells:378, colours:5,
+  svg:`<svg viewBox="0 0 18 21" xmlns="http://www.w3.org/2000/svg">
+   <rect width="18" height="21" fill="${C.B}"/>
+   <rect x="6" y="0" width="1" height="3" fill="${C.E}"/><rect x="8" y="0" width="1" height="3" fill="${C.E}"/><rect x="10" y="0" width="1" height="3" fill="${C.E}"/>
+   <rect x="1" y="14" width="4" height="1" fill="${C.E}"/><rect x="1" y="12" width="1" height="2" fill="${C.E}"/>
+   <rect x="13" y="14" width="4" height="1" fill="${C.E}"/><rect x="16" y="12" width="1" height="2" fill="${C.E}"/>
+   <ellipse cx="9" cy="6.6" rx="5" ry="4" fill="${C.C}"/><ellipse cx="9" cy="9" rx="6" ry="3" fill="${C.C}"/>
+   <ellipse cx="9" cy="14.6" rx="3.6" ry="2" fill="${C.C}"/>
+   <ellipse cx="9" cy="18.8" rx="5" ry="2.2" fill="${C.C}"/>
+   <rect x="6" y="4" width="2" height="2" fill="${C.D}"/><rect x="10" y="4" width="2" height="2" fill="${C.D}"/>
+   <rect x="8" y="7" width="5" height="2" fill="${C.O}"/><rect x="13" y="7" width="2" height="1" fill="${C.O}"/>
+   <rect x="4" y="9" width="10" height="1" fill="${C.D}"/><rect x="5" y="10" width="8" height="1" fill="${C.D}"/><rect x="7" y="11" width="4" height="1" fill="${C.D}"/>
+   <rect x="8" y="9" width="2" height="2" fill="${C.C}"/>
+   <rect x="8" y="14" width="2" height="2" fill="${C.D}"/><rect x="8" y="18" width="2" height="2" fill="${C.D}"/>
+   <rect x="1" y="2" width="2" height="2" fill="${C.C}"/><rect x="15" y="2" width="2" height="2" fill="${C.C}"/><rect x="1" y="18" width="2" height="2" fill="${C.C}"/><rect x="15" y="17" width="2" height="2" fill="${C.C}"/>
   </svg>`},
- // 7 — Matroskin: striped cat in a cap, standing; compact, empty around
- {title:'Кот Матроскин', family:'Домашние животные', subject:'полосатый Матроскин в кепке, усатый и довольный',
-  source:U, reference:'Трое из Простоквашино — Кот Матроскин', forLevel:61, cells:380, colours:5,
-  svg:`<svg viewBox="0 0 20 28" xmlns="http://www.w3.org/2000/svg">
-   <defs><clipPath id="b7"><ellipse cx="10" cy="19.5" rx="5.6" ry="6"/></clipPath></defs>
-   <path d="M15,22 Q19.4,21 18.6,15 L16.6,15.4 Q17,19.4 14.6,20" fill="${C.C}"/>
-   <rect x="16.4" y="16.4" width="2.4" height="1" fill="${C.D}"/>
-   <rect x="6" y="23" width="3" height="4" rx="1" fill="${C.C}"/><rect x="11" y="23" width="3" height="4" rx="1" fill="${C.C}"/>
-   <ellipse cx="10" cy="19.5" rx="5.6" ry="6" fill="${C.C}"/>
-   <g clip-path="url(#b7)"><rect x="3" y="16" width="14" height="1" fill="${C.D}"/><rect x="3" y="19" width="14" height="1" fill="${C.D}"/><rect x="3" y="22" width="14" height="1" fill="${C.D}"/></g>
-   <polygon points="3.4,8 3.2,1.8 8,5" fill="${C.C}"/><polygon points="16.6,8 16.8,1.8 12,5" fill="${C.C}"/>
-   <ellipse cx="10" cy="10.2" rx="7" ry="5.6" fill="${C.C}"/>
-   <ellipse cx="10" cy="4.8" rx="5.6" ry="3" fill="${C.N}"/>
-   <rect x="3.6" y="5" width="12.8" height="2" rx="1" fill="${C.N}"/>
-   <rect x="6" y="8" width="3" height="3" fill="${C.G}"/><rect x="11" y="8" width="3" height="3" fill="${C.G}"/>
-   <rect x="7" y="8" width="1" height="3" fill="${C.D}"/><rect x="12" y="8" width="1" height="3" fill="${C.D}"/>
-   <rect x="8" y="11" width="4" height="2" rx="0.6" fill="${C.P}"/>
-   <rect x="8" y="14" width="4" height="1" fill="${C.D}"/><rect x="8" y="13" width="1" height="1" fill="${C.D}"/><rect x="11" y="13" width="1" height="1" fill="${C.D}"/>
-   <rect x="0.6" y="11" width="5" height="1" fill="${C.D}"/><rect x="14.4" y="11" width="5" height="1" fill="${C.D}"/>
-   <rect x="1" y="13" width="4.6" height="1" fill="${C.D}"/><rect x="14.4" y="13" width="4.6" height="1" fill="${C.D}"/>
-  </svg>`},
- // 8 — Luntik: purple, long ears, big eyes, a pink belly; compact, empty around
- {title:'Лунтик', family:'Космос', subject:'фиолетовый Лунтик с длинными ушами и большими глазами',
-  source:U, reference:'Лунтик и его друзья — Лунтик', forLevel:61, cells:375, colours:5,
-  svg:`<svg viewBox="0 0 20 31" xmlns="http://www.w3.org/2000/svg">
-   <ellipse cx="6" cy="7" rx="2.3" ry="6.5" fill="${C.V}" transform="rotate(-12 6 7)"/>
-   <ellipse cx="14" cy="7" rx="2.3" ry="6.5" fill="${C.V}" transform="rotate(12 14 7)"/>
-   <ellipse cx="6.2" cy="7.5" rx="1.1" ry="4.5" fill="${C.K}" transform="rotate(-12 6.2 7.5)"/>
-   <ellipse cx="13.8" cy="7.5" rx="1.1" ry="4.5" fill="${C.K}" transform="rotate(12 13.8 7.5)"/>
-   <ellipse cx="6.5" cy="28.8" rx="2.6" ry="1.5" fill="${C.V}"/><ellipse cx="13.5" cy="28.8" rx="2.6" ry="1.5" fill="${C.V}"/>
-   <ellipse cx="1.8" cy="21.5" rx="1.6" ry="2.4" fill="${C.V}"/><ellipse cx="18.2" cy="21.5" rx="1.6" ry="2.4" fill="${C.V}"/>
-   <circle cx="10" cy="20" r="8" fill="${C.V}"/>
-   <ellipse cx="10" cy="24.6" rx="4.6" ry="3" fill="${C.K}"/>
-   <ellipse cx="6.4" cy="16.8" rx="2.6" ry="3.2" fill="${C.C}"/><ellipse cx="13.6" cy="16.8" rx="2.6" ry="3.2" fill="${C.C}"/>
-   <ellipse cx="7" cy="17.2" rx="1.6" ry="2.1" fill="${C.D}"/><ellipse cx="13" cy="17.2" rx="1.6" ry="2.1" fill="${C.D}"/>
-   <rect x="8" y="20" width="4" height="1" fill="${C.D}"/>
-  </svg>`},
- // 9 — Krosh: round blue rabbit ball, long ears, buck teeth, wide grin; compact, empty around
- {title:'Крош', family:'Домашние животные', subject:'круглый голубой кролик Крош с длинными ушами и зубастой улыбкой',
-  source:U, reference:'Смешарики — Крош', forLevel:61, cells:360, colours:5,
-  svg:`<svg viewBox="0 0 24 28" xmlns="http://www.w3.org/2000/svg">
-   <ellipse cx="7.5" cy="7" rx="2.4" ry="6.6" fill="${C.B}" transform="rotate(-20 7.5 7)"/>
-   <ellipse cx="16.5" cy="7" rx="2.4" ry="6.6" fill="${C.B}" transform="rotate(20 16.5 7)"/>
-   <ellipse cx="7.6" cy="7.4" rx="1.1" ry="4.6" fill="${C.K}" transform="rotate(-20 7.6 7.4)"/>
-   <ellipse cx="16.4" cy="7.4" rx="1.1" ry="4.6" fill="${C.K}" transform="rotate(20 16.4 7.4)"/>
-   <ellipse cx="8" cy="26.5" rx="2.8" ry="1.4" fill="${C.B}"/><ellipse cx="16" cy="26.5" rx="2.8" ry="1.4" fill="${C.B}"/>
-   <circle cx="12" cy="18.5" r="8.2" fill="${C.B}"/>
-   <ellipse cx="9.6" cy="14.5" rx="2.2" ry="2.8" fill="${C.C}"/><ellipse cx="14.4" cy="14.5" rx="2.2" ry="2.8" fill="${C.C}"/>
-   <rect x="10" y="14" width="1.6" height="2.2" fill="${C.D}"/><rect x="12.4" y="14" width="1.6" height="2.2" fill="${C.D}"/>
-   <path d="M6.5,18.5 L17.5,18.5 Q17,24 12,24 Q7,24 6.5,18.5 Z" fill="${C.D}"/>
-   <path d="M8.5,21.4 Q12,19.6 15.5,21.4 Q14.6,23.2 12,23.2 Q9.4,23.2 8.5,21.4 Z" fill="${C.R}"/>
-   <rect x="10" y="18.5" width="1.8" height="2" fill="${C.C}"/><rect x="12.2" y="18.5" width="1.8" height="2" fill="${C.C}"/>
-  </svg>`},
- // 10 — Winnie the Pooh (Soyuzmultfilm) with a jar of honey; bark outline, sky and grass
- {title:'Винни-Пух с мёдом', family:'Лесные и горные животные', subject:'круглый коричневый Винни-Пух с широкой улыбкой обнимает банку мёда',
-  source:U, reference:'Винни-Пух (Союзмультфильм) — Винни-Пух', forLevel:61, cells:900, colours:8,
+ // 10 — Winnie the Pooh (Disney): golden bear cub in a short red shirt hugging a jar of honey; meadow
+ {title:'Винни-Пух с мёдом', family:'Лесные и горные животные', subject:'золотистый медвежонок Винни-Пух в короткой красной футболке обнимает банку мёда',
+  source:U, reference:'Winnie the Pooh (Disney) — Winnie the Pooh', forLevel:61, cells:900, colours:8,
   svg:`<svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
    <rect width="30" height="30" fill="${C.S}"/><rect y="25" width="30" height="5" fill="${C.G}"/>
-   <circle cx="7.3" cy="3.8" r="2.8" fill="${C.E}"/><circle cx="18.7" cy="3.8" r="2.8" fill="${C.E}"/>
-   <ellipse cx="13" cy="20" rx="7.8" ry="6.6" fill="${C.E}"/>
-   <ellipse cx="9" cy="26" rx="3" ry="1.8" fill="${C.E}"/><ellipse cx="17" cy="26" rx="3" ry="1.8" fill="${C.E}"/>
-   <circle cx="13" cy="9.5" r="7.4" fill="${C.E}"/>
-   <circle cx="7.3" cy="3.8" r="1.7" fill="${C.A}"/><circle cx="18.7" cy="3.8" r="1.7" fill="${C.A}"/>
-   <ellipse cx="13" cy="20" rx="6.7" ry="5.5" fill="${C.A}"/>
-   <circle cx="13" cy="9.5" r="6.4" fill="${C.A}"/>
-   <rect x="9" y="7" width="2" height="2" fill="${C.D}"/><rect x="15" y="7" width="2" height="2" fill="${C.D}"/>
-   <ellipse cx="13" cy="10.6" rx="1.8" ry="1.1" fill="${C.D}"/>
-   <path d="M8.4,12 L17.6,12 Q16.8,15.8 13,15.8 Q9.2,15.8 8.4,12 Z" fill="${C.D}"/>
-   <path d="M9.6,13 L16.4,13 Q15.8,14.9 13,14.9 Q10.2,14.9 9.6,13 Z" fill="${C.R}"/>
-   <ellipse cx="22.5" cy="20.5" rx="5.8" ry="5.6" fill="${C.E}"/>
-   <rect x="18.4" y="12.4" width="8.2" height="4.4" rx="1" fill="${C.E}"/>
-   <ellipse cx="22.5" cy="20.5" rx="4.8" ry="4.6" fill="${C.O}"/>
-   <rect x="19.6" y="15" width="5.8" height="2" fill="${C.O}"/>
-   <ellipse cx="22.5" cy="13" rx="3.5" ry="1.5" fill="${C.Y}"/>
-   <rect x="23" y="13" width="2" height="4.4" rx="0.8" fill="${C.Y}"/>
-   <circle cx="17.6" cy="20" r="2.2" fill="${C.E}"/><circle cx="17.6" cy="20" r="1.4" fill="${C.A}"/>
+   <circle cx="7.6" cy="4.2" r="2.4" fill="${C.Y}"/><circle cx="18.4" cy="4.2" r="2.4" fill="${C.Y}"/>
+   <circle cx="7.6" cy="4.2" r="1.2" fill="${C.O}"/><circle cx="18.4" cy="4.2" r="1.2" fill="${C.O}"/>
+   <ellipse cx="13" cy="20.6" rx="6.6" ry="5.6" fill="${C.Y}"/>
+   <ellipse cx="9.4" cy="26" rx="3" ry="1.8" fill="${C.Y}"/><ellipse cx="16.6" cy="26" rx="3" ry="1.8" fill="${C.Y}"/>
+   <rect x="6.4" y="13" width="13.2" height="5.6" rx="2" fill="${C.R}"/>
+   <rect x="4.6" y="13.6" width="3" height="3.6" rx="1" fill="${C.R}"/><rect x="18.4" y="13.6" width="3" height="3.6" rx="1" fill="${C.R}"/>
+   <ellipse cx="4.6" cy="19" rx="1.8" ry="2.6" fill="${C.Y}"/>
+   <ellipse cx="13" cy="8.6" rx="6.4" ry="5.4" fill="${C.Y}"/>
+   <rect x="9" y="6.6" width="2" height="2" fill="${C.D}"/><rect x="15" y="6.6" width="2" height="2" fill="${C.D}"/>
+   <ellipse cx="13" cy="10.2" rx="2" ry="1.3" fill="${C.D}"/>
+   <path d="M9.6 11.8 L16.4 11.8 Q15.8 14 13 14 Q10.2 14 9.6 11.8 Z" fill="${C.D}"/>
+   <rect x="10.6" y="11.8" width="4.8" height="1" fill="${C.Y}"/>
+   <ellipse cx="23" cy="21" rx="4.8" ry="4.6" fill="${C.A}"/>
+   <rect x="19.8" y="15.2" width="6.4" height="2.6" rx="0.8" fill="${C.A}"/>
+   <ellipse cx="23" cy="15.4" rx="3.6" ry="1.4" fill="${C.O}"/>
+   <rect x="23.4" y="15.4" width="2" height="4" rx="0.8" fill="${C.O}"/>
+   <rect x="20" y="20" width="6" height="3.4" rx="0.6" fill="${C.C}"/>
+   <ellipse cx="18.8" cy="21" rx="2" ry="2.4" fill="${C.Y}"/>
   </svg>`},
  // 11 — Masha: girl in a pink headscarf and pink dress, big green eyes, blond fringe; sky and grass
  {title:'Маша', family:'Герои приключений', subject:'девочка Маша в розовом платке и розовом сарафане, большие глаза',
@@ -405,22 +395,26 @@ export default {theme:'Герои мультфильмов', pictures:[
    <rect x="14" y="18" width="2" height="2" fill="${C.D}"/><rect x="18" y="18" width="2" height="2" fill="${C.D}"/>
    <path d="M14,22.6 L20,22.6 Q19.4,25 17,25 Q14.6,25 14,22.6 Z" fill="${C.D}"/>
   </svg>`},
- // 20 — Dug from «Up»: golden retriever with the red collar and its translator, tongue out; jungle green behind
- {title:'Даг с ошейником', family:'Домашние животные', subject:'золотистый ретривер Даг с красным говорящим ошейником, высунул язык',
-  source:U, reference:'Вверх — Dug', forLevel:61, cells:900, colours:8,
-  svg:`<svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
-   <rect width="30" height="30" fill="${C.G}"/>
-   <ellipse cx="15" cy="31" rx="10.5" ry="9.5" fill="${C.Y}"/>
-   <ellipse cx="15" cy="12" rx="8" ry="7.6" fill="${C.Y}"/>
-   <ellipse cx="7.4" cy="13.4" rx="2.8" ry="6" fill="${C.O}" transform="rotate(12 7.4 13.4)"/>
-   <ellipse cx="22.6" cy="13.4" rx="2.8" ry="6" fill="${C.O}" transform="rotate(-12 22.6 13.4)"/>
-   <ellipse cx="15" cy="16" rx="4.8" ry="3.6" fill="${C.C}"/>
-   <ellipse cx="15" cy="13.6" rx="2.1" ry="1.3" fill="${C.D}"/>
-   <rect x="12" y="16" width="6" height="1" fill="${C.D}"/>
-   <rect x="13" y="16.6" width="4" height="5" rx="1.5" fill="${C.P}"/>
-   <rect x="11" y="9" width="2" height="2" fill="${C.D}"/><rect x="17" y="9" width="2" height="2" fill="${C.D}"/>
-   <rect x="8" y="20.6" width="14" height="2.6" fill="${C.R}"/>
-   <rect x="13" y="18.4" width="4" height="2.4" rx="1" fill="${C.P}"/>
-   <circle cx="15" cy="24.6" r="2.4" fill="${C.S}"/>
+ // 20 — Po the Kung Fu Panda in a kung-fu stance: green-gold shorts, one fist forward and one raised; sunset sky and a wooden court
+ {title:'Кунг-фу Панда По', family:'Спорт и активные игры', subject:'панда По в зелёных шортах с золотым поясом в стойке кунг-фу',
+  source:U, reference:'Kung Fu Panda — Po', forLevel:61, cells:1216, colours:7,
+  svg:`<svg viewBox="0 0 38 32" xmlns="http://www.w3.org/2000/svg">
+   <rect width="38" height="32" fill="${C.O}"/><rect y="28" width="38" height="4" fill="${C.A}"/>
+   <circle cx="13.6" cy="3.6" r="2.4" fill="${C.D}"/><circle cx="24.4" cy="3.6" r="2.4" fill="${C.D}"/>
+   <polygon points="13.4,25 17.4,26.6 13.6,30.4 7.6,30.4 7.6,28.4" fill="${C.D}"/>
+   <polygon points="24.6,25 20.6,26.6 24.4,30.4 30.4,30.4 30.4,28.4" fill="${C.D}"/>
+   <rect x="5.4" y="14" width="8" height="3.6" rx="1.6" fill="${C.D}"/><circle cx="5.4" cy="15.8" r="2.4" fill="${C.D}"/>
+   <rect x="24.6" y="13.4" width="6.6" height="3.6" rx="1.6" fill="${C.D}"/><rect x="28" y="7" width="3.6" height="9" rx="1.6" fill="${C.D}"/><circle cx="29.8" cy="6.4" r="2.4" fill="${C.D}"/>
+   <ellipse cx="19" cy="16.4" rx="7.6" ry="3.8" fill="${C.D}"/>
+   <ellipse cx="19" cy="20.4" rx="6.4" ry="5.6" fill="${C.C}"/>
+   <rect x="12.4" y="22.4" width="13.2" height="5.4" rx="1.2" fill="${C.M}"/>
+   <rect x="12.4" y="22.4" width="13.2" height="1.6" fill="${C.Y}"/><rect x="17.6" y="22.4" width="2.8" height="3.6" fill="${C.Y}"/>
+   <circle cx="19" cy="8.6" r="6.6" fill="${C.C}"/>
+   <ellipse cx="16.4" cy="8.6" rx="2" ry="2.6" transform="rotate(25 16.4 8.6)" fill="${C.D}"/>
+   <ellipse cx="21.6" cy="8.6" rx="2" ry="2.6" transform="rotate(-25 21.6 8.6)" fill="${C.D}"/>
+   <rect x="16" y="8" width="1.6" height="1.6" fill="${C.C}"/><rect x="20.4" y="8" width="1.6" height="1.6" fill="${C.C}"/>
+   <ellipse cx="19" cy="11.2" rx="1.4" ry="1" fill="${C.D}"/>
+   <path d="M16.4 12.4 L21.6 12.4 Q21 14.6 19 14.6 Q17 14.6 16.4 12.4 Z" fill="${C.D}"/>
+   <rect x="18" y="13.2" width="2" height="1.2" fill="${C.P}"/>
   </svg>`},
 ]};

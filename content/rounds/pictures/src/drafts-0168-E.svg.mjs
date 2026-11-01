@@ -126,7 +126,7 @@ export default {theme:'Мемные и абсурдные герои', pictures:
    <ellipse cx="18.5" cy="10" rx="3.8" ry="5" fill="${C.D}"/><ellipse cx="18.5" cy="10.5" rx="2.2" ry="3.4" fill="${C.K}"/>
    <circle cx="23" cy="9.5" r="4.5" fill="${C.D}"/>
    ${line('M26 11 Q28.5 15 27.5 19.5 Q27.2 21.5 29 21.5',C.D,3)}
-   <polygon points="24,13 27,14.5 24,15" fill="${C.C}"/>
+   <polygon points="23.5,12.5 28,14.5 23.5,15.5" fill="${C.C}"/>
    <rect x="23" y="7" width="2" height="2" fill="${C.C}"/>
   </svg>`},
  // 7 — a chimp's head inside a peeled banana
@@ -136,7 +136,7 @@ export default {theme:'Мемные и абсурдные герои', pictures:
    <polygon points="4,13 16,13 15,21 12,25 8,25 5,21" fill="${C.Y}"/>
    <polygon points="3.5,12 6.5,14 3,22.5 0.5,21.5 1,15" fill="${C.Y}"/><polygon points="16.5,12 13.5,14 17,22.5 19.5,21.5 19,15" fill="${C.Y}"/>
    <polygon points="3.6,13.5 5.2,14.5 2.6,20.5 1.5,20" fill="${C.C}"/><polygon points="16.4,13.5 14.8,14.5 17.4,20.5 18.5,20" fill="${C.C}"/>
-   <rect x="8.5" y="24.5" width="3" height="2.5" fill="${C.A}"/>
+   <rect x="8.5" y="24" width="3" height="3" fill="${C.A}"/>
    <circle cx="3" cy="8" r="2.1" fill="${C.E}"/><circle cx="17" cy="8" r="2.1" fill="${C.E}"/>
    <circle cx="3.2" cy="8" r="1" fill="${C.K}"/><circle cx="16.8" cy="8" r="1" fill="${C.K}"/>
    <circle cx="10" cy="7.5" r="6.6" fill="${C.E}"/>
@@ -200,12 +200,12 @@ export default {theme:'Мемные и абсурдные герои', pictures:
    <circle cx="11" cy="10" r="8" fill="${C.O}"/>
    ${line('M2.2 9.5 A8.8 8.8 0 0 1 19.8 9.5',C.D,2)}
    <rect x="0.5" y="7" width="3.6" height="7" rx="1.2" fill="${C.D}"/><rect x="17.9" y="7" width="3.6" height="7" rx="1.2" fill="${C.D}"/>
-   <circle cx="8.2" cy="9" r="2.4" fill="${C.C}"/><circle cx="13.8" cy="9" r="2.4" fill="${C.C}"/>
-   <rect x="8" y="9" width="2" height="2" fill="${C.D}"/><rect x="13" y="9" width="2" height="2" fill="${C.D}"/>
-   <path d="M7.5 13.5 L14.5 13.5 Q14 16 11 16 Q8 16 7.5 13.5 Z" fill="${C.D}"/><rect x="9.5" y="15" width="3" height="1" fill="${C.R}"/>
+   <circle cx="7.6" cy="9" r="2.3" fill="${C.C}"/><circle cx="14.4" cy="9" r="2.3" fill="${C.C}"/>
+   <rect x="7" y="9" width="2" height="2" fill="${C.D}"/><rect x="13" y="9" width="2" height="2" fill="${C.D}"/>
+   <rect x="7" y="13" width="8" height="3" rx="1.4" fill="${C.D}"/><rect x="9" y="14.4" width="4" height="1.6" fill="${C.R}"/>
   </svg>`},
  // 12 — Doge: a Shiba Inu's face with the side-eye
- {title:'Доге', family:ANI, direction:'Театр эмоций', subject:'морда сиба-ину с косым взглядом на диване',
+ {title:'Доге', family:ANI, direction:'Театр эмоций', subject:'морда сиба-ину косится в сторону, сидя на диване',
   source:M, reference:'Doge — Kabosu', forLevel:61, cells:900, colours:7,
   svg:`<svg viewBox="0 0 30 30" xmlns="http://www.w3.org/2000/svg">
    <rect width="30" height="30" fill="${C.B}"/>
@@ -336,7 +336,7 @@ export default {theme:'Мемные и абсурдные герои', pictures:
    <rect x="19" y="17" width="5" height="1" fill="${C.D}"/><rect x="19" y="18" width="5" height="2" fill="${C.Y}"/><rect x="21" y="18" width="1" height="2" fill="${C.D}"/>
    <rect x="14" y="20" width="1" height="2" fill="${C.D}"/><rect x="19" y="20" width="1" height="2" fill="${C.D}"/>
    <rect x="11" y="15" width="3" height="1" fill="${C.C}"/><rect x="20" y="15" width="3" height="1" fill="${C.C}"/>
-   <polygon points="15,21 19,21 17,23" fill="${C.P}"/>
+   <rect x="15" y="20" width="4" height="2" fill="${C.P}"/><rect x="16" y="22" width="2" height="1" fill="${C.P}"/>
    <rect x="16.5" y="23" width="1" height="1" fill="${C.D}"/><rect x="14.5" y="24" width="5" height="1" fill="${C.D}"/>
   </svg>`},
  // 19 — our Twig calm at a table in a room on fire («This is fine»)
