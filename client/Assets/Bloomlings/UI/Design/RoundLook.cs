@@ -75,7 +75,7 @@ namespace Bloomlings.Client.UI.Design
         public const string KeySlot = "board.round.key";
 
         /// <summary>The acorn key's picture side in cells.</summary>
-        public const float KeyCellShare = 1.2f;
+        public const float KeyCellShare = 1.9f;
 
         /// <summary>The latch block's warm wood.</summary>
         public static readonly Rgba LatchWood = Rgba.FromHex("#A8733F");

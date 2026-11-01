@@ -103,12 +103,12 @@ namespace Bloomlings.Client.UI.Design
             Check(size, size);
             var pixels = new byte[size * size * 4];
             float s = size;
-            float unit = s * 0.36f;
-            float cx = s * 0.46f;
-            float cy = s * 0.47f;
-            float discR = s * 0.15f;
-            float discX = s * 0.76f;
-            float discY = s * 0.76f;
+            float unit = s * 0.43f;
+            float cx = s * 0.47f;
+            float cy = s * 0.45f;
+            float discR = s * 0.14f;
+            float discX = s * 0.79f;
+            float discY = s * 0.78f;
             for (int py = 0; py < size; py++)
             {
                 float y = py + 0.5f;
@@ -117,7 +117,7 @@ namespace Bloomlings.Client.UI.Design
                     float x = px + 0.5f;
 
                     // A soft shadow on the surface under the nut.
-                    float sh = Length((x - cx) / (s * 0.3f), (y - (s * 0.86f)) / (s * 0.07f));
+                    float sh = Length((x - cx) / (s * 0.32f), (y - (s * 0.9f)) / (s * 0.06f));
                     float shadow = 0.28f * Clamp01(1.2f - sh);
                     var c = new Color(Rgba.FromHex("#3B2A18"));
                     float alpha = shadow;

@@ -318,8 +318,10 @@ owner sees the same behaviour as in the playtest app.
   of the tube is in one member's colour and half in the other's. The tube is not drawn above or on top of the pods.
 - **FR-044**: When Auto starts, the whole HUD MUST disappear and leave the board. The normal speed-up control stays
   available until then.
-- **FR-045**: The first introduction of each mechanic (hidden pods, links, bridge, hidden cells since FR-066) MUST show its explanation popup. The
-  second introduction shows a short reminder. A hidden pod that has just revealed glows briefly.
+- **FR-045**: The first introduction of each mechanic with a card (hidden pods, links, bridge, the latch since FR-068) MUST show
+  its explanation popup. The second introduction shows a short reminder. Hidden cells (FR-066) have no popup at all (the
+  owner, 2026-11-01: the player sees the «?» and the cells reveal by themselves). A hidden pod that has just revealed glows
+  briefly.
 - **FR-046**: The class badge (Hard, Super Hard), the finished picture in the win screen and Collection, and the rewards
   by class MUST work for round levels as for today's levels.
 - **FR-047**: Every pair of the 24 round colours MUST pass the game's readability test under normal vision: the
@@ -380,8 +382,8 @@ owner sees the same behaviour as in the playtest app.
     its material unseen; it cannot be aimed at a cube still showing "?".
   - Look: an unrevealed hidden cell MUST be drawn as the board's oblique cube in the hidden pod's neutral grey with its
     white "?" marks (`tile.round.hidden`), its side face in the same grey; when its `cellReveal` plays it pops into its
-    material's cube (about 0.36 s). The walkers never go to it before. Its first meeting shows an explanation card and
-    its second a reminder, as the hidden pods' (FR-045).
+    material's cube (about 0.36 s). The walkers never go to it before. Its meetings on L51 and L53 show no card (the
+    owner's amendment of 2026-11-01; FR-045).
 
 - **FR-067** (a level's recolouring of its picture, rules 17 §3 and §6 «Акценты для давления на места», the owner's
   amendment of 2026-11-01; the reference contract is `tools/rounds/README.md` "Recolouring and accents"):
@@ -397,6 +399,37 @@ owner sees the same behaviour as in the playtest app.
   - Use: the round tools paint small accents (2–4 cubes in 1–3 clusters, 1–2 materials absent from the picture, their
     pods early or mid queue) and recolour cubes into richer materials where the picture gains; the approved picture
     stays as approved.
+
+- **FR-068** (latch + acorn key, rules 17 §8 «Засов и жёлудь-ключ», §9 as amended twice on 2026-11-01; the reference
+  contract is `tools/rounds/README.md` "Latch and key"):
+  - Data: a round level MAY list latches (the top-level `latches` of `round-level.v1`, `mechanics` then includes
+    `"latch"`): `[{column, depth, key}]`. `depth` is how many pods of that column stand before the latch (0: it starts on
+    top), `key` a cell `y*w+x` of `rowsBottomFirst` of an empty `.` cell, never a wall, strip, bridge site, material cell
+    or entry; index `i` is latch `i` of the events. Validation MUST refuse a missing column, a depth outside
+    `0 ≤ depth < column length` (a pod stands behind every latch), two latches at one depth of a column, a bad or shared
+    key, a key that can never be reached (`LatchKeysBlocked`: the cheap flood with every material wholly behind closed
+    latches blocked) and more than `max(1, columns − 2)` columns blocked at the start. Absent means none. The latch is
+    introduced on L61 and L63 (17 §9).
+  - Rules: a latch is no pod (no quota, no place). A pod of a column at or behind its first closed latch is no top pod:
+    it cannot be tapped (`not-exposed`), is not revealed by the depth rule, and a link partner behind it is not exposed.
+    A closed latch opens at the first moment it is its column's top and its key cell is reached by an open path from an
+    entry: silently at create, after a tap's commits, after a bridge's (and Bloom Burst's) cell reveals, and on the
+    timeline right after a clear's cell reveals at the clear's time; each is a `latchOpen` event (conformance line
+    `<µs> latchOpen latch=<i>`), several in increasing latch order, followed at the same time by the depth reveals of the
+    pods it exposed. The signature leaves the latches out (a function of heads and board) and a restored snapshot
+    recomputes them; a level without latches plays byte-identically. The solver and the random test enumerate only the
+    legal actions, which never include a held pod.
+  - Boosters: a latch is no pod, so no booster takes, moves or removes it; it opens only by its rule. Return puts a pod
+    back on top of its column, before a closed latch there; an open latch stays open (a restored snapshot keeps it).
+    Shuffle moves only the pods before each column's first closed latch. Bloom Burst may open the way to a key; the latch
+    then opens right after the burst's cell reveals.
+  - Look: the latch is a pod-sized oblique wooden block with an acorn padlock (`pod.round.latch`) standing in its column at
+    its place in the queue, the pods behind it below it; its acorn key (`board.round.key`) lies on its board cell; block
+    and key carry the same mark (a tag colour with 1–3 pips). When `latchOpen` plays the key pops and the block lifts out
+    of its column, then the pods behind slide up (contracts/presentation.md).
+  - Popup: its first meeting (L61) shows an explanation card (the latch in a column and the acorn key on the board: the
+    latch holds the column until the Bloomlings reach the acorn key, then it opens by itself); its second (L63) a short
+    reminder.
 
 **Transfer path**
 

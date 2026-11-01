@@ -50,8 +50,9 @@ Water/Dew, Wood/Acorn). The launch has 2500 sequential levels, with later expans
   Hard, other multiples of 5 Hard, the rest Normal. Leftovers stay in `content/rounds/bank/`; empty positions go to
   `content/rounds/needs.json` for new pictures. Tools: `tools/rounds/` (`pictures.mjs`, `levels.mjs`, `measure.mjs`,
   `engine.mjs`: pilot v9 rules with the §8 link rule). The behaviour of the 12 types is in the full catalog `product/design/Bloomlings-gameplay-mechanics.md`. Only mechanics the round engine plays may be used. Today these
-  are hidden pods, links, the Sprig bridge and hidden cells (`cells`, L51/L53; never with hidden pods); latch + key (now
-  L401) and later types need engine and pilot work first.
+  are hidden pods, links, the Sprig bridge, hidden cells (`cells`, introduced on L51/L53 without a popup; never with hidden
+  pods) and the latch with its acorn key (`latch`, `latches` of `round-level.v1`, introduced on L61/L63 with an
+  explanation popup and a reminder; spec 006 FR-068); later types need engine and pilot work first.
 - **Round levels in the game (spec 006, `specs/006-round-levels-in-game/`).** The game's rules are the round engine's,
   ported to `core/src/Bloomlings.Core/Rounds/` (`RoundTimeline` with integer µs model time, `RoundRules`,
   `RoundBoosters` in live time, `RoundEvents`, `RoundRandomPolicy`, `RoundSolver`, `RoundLevelValidator`); the JS

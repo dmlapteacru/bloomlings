@@ -29,7 +29,7 @@ Rules:
 | `rows` | matrix, top row first: material codes, `.` empty, `#` stream, `b` bridge site |
 | `w`, `h` | ≤ 44 each |
 | `approval` | `{status: "approved", decidedAt, by: "owner"}`; only approved pictures transfer |
-| `rights` | `own` for SVG drafts and hand matrices; franchise pictures are refused |
+| `rights` | `own` for SVG drafts and hand matrices; `owner` for a franchise or meme picture the owner took in by his own decision (2026-11-01, `pictures.mjs rights --owner`, e.g. P0425, P0465); other franchise pictures are refused |
 
 Validation:
 - the matrix is rectangular;
@@ -45,13 +45,14 @@ Validation:
 | `number` | the game position (1 …) |
 | `definitionVersion` | integer ≥ 1; bumps on any change after first publish |
 | `class` | Normal, Hard, Super Hard (calendar of 17 §5) |
-| `introduction` | none, hidden, links, bridge; plus `second: true` on the second meeting |
+| `introduction` | none, hidden, links, bridge, cells (L51/L53, no card), latch (L61/L63); plus `second: true` on the second meeting |
 | `picture` | `{id, version}` of an approved RoundPicture |
 | `board` | `{w, h, rowsBottomFirst, entries, hero?, overlay?}`: rows with the frame ring and wall, bottom first; `entries` cell indices (one gate, bottom middle); `hero.choices[] = {cell, anchor, label}` for the Sprig bridge; `overlay = {walls: [[x, y]…], sites: [[x, y]…]}` in picture coordinates (x from the left, y from the top): a strip laid over the picture (17 §8 "Где стоит мост", 2026-10-28), its walls `#`, its sites `b` |
 | `capacity` | 5 |
 | `pods[]` | `{code, count ≥ 1, mystery?: "depth", group?: "A".."Z…"}` |
 | `tray[]` | columns (2–6) of pod indices, top first |
-| `mechanics` | subset of hidden, links, bridge |
+| `latches?` | latch + acorn key (17 §8, 2026-11-01): `[{column, depth, key}]`, `depth` the pods of that column before the latch (at least one behind it), `key` an empty non-entry cell `y*w+x` of the rows; index `i` is latch `i` of `latchOpen`; absent means none |
+| `mechanics` | subset of hidden, links, bridge, cells, latch |
 | `exception?` | `{rule, reason, decidedBy, decidedAt}`, e.g. L18: rule "one deciding bridge from the second introduction", reason "owner kept both winning bridges" |
 | `engine` | reference fingerprints (rules, timeline, palette, clock) |
 
@@ -62,7 +63,8 @@ Validation (all must hold; reference `rules.cjs validate` plus 17):
 - groups are pairs in different columns at equal start depth;
 - hidden pods are at most 6, never in a group, never in the first row on an introduction;
 - bridge sites are walls with an orthogonal neighbour as anchor (`|cell − anchor| == w`, or `== 1` in the same row; 17 §8 as amended on 2026-10-28);
-- `mechanics` match the pods and hero;
+- latches: each column exists and its depth is `0 ≤ depth < column length`, one latch per depth of a column; each key an empty `.` non-entry cell, all keys different; no key can never be reached (`LatchKeysBlocked`); at most `max(1, columns − 2)` columns blocked at the start;
+- `mechanics` match the pods, hero, hidden cells and latches;
 - `class` matches the calendar;
 - introductions follow 17 §9;
 - the board is the picture's board (`boardOf`) with the overlay laid: every strip cell on the picture's edge closes the ring cell outward, each site's anchor is its one neighbour the entry reaches while every site is a wall, sites in reading order;
@@ -81,6 +83,8 @@ Validation (all must hold; reference `rules.cjs validate` plus 17):
 | `revealed[]` | per pod |
 | `bridge` | chosen site or none |
 | `status` | Playing, Won, Jammed, Stuck |
+| `veiled[]` | per cell: a hidden cell not revealed yet (null without hidden cells) |
+| `latched[]` | per latch: closed (null without latches); a pod at or behind its column's first closed latch is no top pod; recomputed from heads and board on restore |
 | `serial` | commit counter |
 
 ## RoundTimeline (runtime, rules only)
