@@ -9,7 +9,7 @@ const HERE=path.dirname(new URL(import.meta.url).pathname),ROOT=path.resolve(HER
 export function loadRows(){const pics=JSON.parse(fs.readFileSync(path.join(RAW,'pictures.json'),'utf8')),F=Object.fromEntries(pics.map(p=>[p.id,p.features])),rows=[];
  for(const f of fs.readdirSync(RAW).filter(f=>f.startsWith('rows-')))for(const l of fs.readFileSync(path.join(RAW,f),'utf8').split('\n'))if(l.trim()){const r=JSON.parse(l);if(!r.error&&F[r.pic])rows.push({...r,f:F[r.pic]});}
  return {rows,pics};}
-const q=(a,p)=>{const s=a.slice().sort((x,y)=>x-y);return s.length?s[Math.min(s.length-1,Math.floor(p*(s.length-1)+.5))]:null;};
+const q=(a,p)=>{const s=a.slice().sort((x,y)=>x-y);return s.length?s[Math.min(s.length-1,Math.floor(p*(s.length-1)+.5))]:NaN;};
 const median=a=>q(a,.5),meanOf=a=>a.reduce((x,y)=>x+y,0)/(a.length||1);
 const clsOf=p=>p>=.5?'N':p>=.2?'H':p>=.05?'SH':'<5';
 function metrics(obs,pred){const e=obs.map((o,i)=>Math.abs(o-pred[i])*100),m=meanOf(obs),sst=obs.reduce((s,o)=>s+(o-m)**2,0),sse=obs.reduce((s,o,i)=>s+(o-pred[i])**2,0);
@@ -33,11 +33,14 @@ const repDev=[];for(const a of Object.values(reps))if(a.length>=2){const m=meanO
 out.noise={binomial60:{medAbs:median(binom),p80Abs:q(binom,.8)},seedSpread:{groups:Object.keys(reps).length,medAbs:median(repDev),p80Abs:q(repDev,.8)}};
 lines.push('## Пол шума','',`- биномиальный шум 50 партий: медиана ${median(binom).toFixed(1)} п.п., 80-й перцентиль ${q(binom,.8).toFixed(1)} п.п.`,`- разброс между сидами очереди при одинаковых параметрах (часть C, ${Object.keys(reps).length} групп по 3): медиана ${median(repDev).toFixed(1)} п.п., 80-й перцентиль ${q(repDev,.8).toFixed(1)} п.п. — это предел любой формулы от параметров`,'');
 lines.push('## Точность моделей','','| Модель | Членов | R² (в выборке) | R² (CV по картинкам) | Медиана |ошибки| CV, п.п. | 80-й перц. CV, п.п. | В полосе 5–95 %: медиана / 80-й, п.п. | Класс угадан (CV) |','|---|---:|---:|---:|---:|---:|---:|---:|');
-for(const spec of Object.keys(SPECS)){const m=fit(rows,spec),ins=metrics(obs,rows.map(r=>predict(m,r))),cvp=crossValidate(rows,spec),cv=metrics(obs,cvp);
+// the ridge strength of each model chosen by its cross-validated binomial log loss
+const logloss=p=>-meanOf(rows.map((r,i)=>{const x=Math.min(1-1e-4,Math.max(1e-4,p[i]));return (r.wins*Math.log(x)+(r.games-r.wins)*Math.log(1-x))/r.games;}));
+for(const spec of Object.keys(SPECS)){let lam=1,bestLL=Infinity,cvp=null;for(const l of [.3,1,3,10,30,100]){const p=crossValidate(rows,spec,5,{lambda:l}),ll=logloss(p);if(ll<bestLL){bestLL=ll;lam=l;cvp=p;}}
+ const m={...fit(rows,spec,{lambda:lam}),lambda:lam},ins=metrics(obs,rows.map(r=>predict(m,r))),cv=metrics(obs,cvp);
  // residual spread on the logit scale (CV, rows with 3–57 wins), for the inverse's probability of landing in a zone
  const res=rows.map((r,i)=>[r,cvp[i]]).filter(([r])=>r.wins>=3&&r.wins<=r.games-3).map(([r,p])=>logit(Math.min(.99,Math.max(.01,r.q)))-logit(Math.min(.99,Math.max(.01,p))));
- const sdL=Math.sqrt(meanOf(res.map(x=>x*x)));out.models[spec]={terms:m.names.length,insample:ins,cv,logitResidualSd:sdL};
- lines.push(`| ${spec} | ${m.names.length} | ${ins.R2.toFixed(2)} | ${cv.R2.toFixed(2)} | ${cv.medAbs.toFixed(1)} | ${cv.p80Abs.toFixed(1)} | ${cv.mid.medAbs.toFixed(1)} / ${cv.mid.p80Abs.toFixed(1)} (${cv.mid.n}) | ${Math.round(cv.classHit*100)} % |`);
+ const sdL=Math.sqrt(meanOf(res.map(x=>x*x)));out.models[spec]={terms:m.names.length,lambda:lam,cvLogLoss:bestLL,insample:ins,cv,logitResidualSd:sdL};
+ lines.push(`| ${spec} (λ ${lam}) | ${m.names.length} | ${ins.R2.toFixed(2)} | ${cv.R2.toFixed(2)} | ${cv.medAbs.toFixed(1)} | ${cv.p80Abs.toFixed(1)} | ${cv.mid.medAbs.toFixed(1)} / ${cv.mid.p80Abs.toFixed(1)} (${cv.mid.n}) | ${Math.round(cv.classHit*100)} % |`);
  if(spec==='params'||spec==='structure')fs.writeFileSync(path.join(W,`model-${spec}.json`),JSON.stringify({...m,logitResidualSd:sdL,cv,fitted:new Date().toISOString(),rows:rows.length},null,1));}
 fs.copyFileSync(path.join(W,'model-params.json'),path.join(W,'model.json'));
 // the controllable model's main coefficients (raw units: change of the logit per unit)
@@ -52,6 +55,10 @@ for(const t of [...new Set(rows.filter(r=>r.part==='A').map(r=>r.t))].sort((a,b)
 lines.push('','## По силе картинки (часть A): медиана доли при t = 0 / ⅓ / ½ / ⅔ / 1','','| Картинки | n | t=0 | t=⅓ | t=½ | t=⅔ | t=1 |','|---|---:|---:|---:|---:|---:|---:|');
 for(const s of ['weak','mid','strong']){const ids=new Set(pics.filter(p=>p.strength===s).map(p=>p.id)),at=t=>{const a=rows.filter(r=>r.part==='A'&&ids.has(r.pic)&&Math.abs(r.t-t)<.01).map(r=>r.q);return a.length?Math.round(median(a)*100)+' %':'—';};
  lines.push(`| ${s} | ${ids.size} | ${at(0)} | ${at(2/6)} | ${at(.5)} | ${at(4/6)} | ${at(1)} |`);}
+// per picture: the share at each t (part A, median of the three pod counts) and the window of t that lands in each zone
+lines.push('','## По картинкам (часть A): медиана доли по трём P при каждом t','','| Картинка | сила | N | t=0 | ⅙ | ⅓ | ½ | ⅔ | ⅚ | 1 |','|---|---|---:|---:|---:|---:|---:|---:|---:|---:|');
+for(const p of pics){const cells=[0,1,2,3,4,5,6].map(i=>{const a=rows.filter(r=>r.part==='A'&&r.pic===p.id&&Math.abs(r.t-i/6)<.01).map(r=>r.q);return a.length?Math.round(median(a)*100):'—';});
+ lines.push(`| ${p.id} | ${p.strength} | ${p.features.N} | ${cells.join(' | ')} |`);}
 // ---- the mechanics' effects: part B, each overlay against the base queue it was laid on (same picture, t, seed) ----
 const B=rows.filter(r=>r.part==='B'),base={};for(const r of B)if(r.overlay==='base')base[r.pic+'|'+r.t]=r;
 const groups={};for(const r of B){if(r.overlay==='base')continue;const b=base[r.pic+'|'+r.t];if(!b)continue;(groups[r.overlay]=groups[r.overlay]||[]).push([b,r]);}
