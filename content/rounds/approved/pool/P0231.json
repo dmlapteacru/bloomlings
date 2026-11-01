@@ -1,0 +1,77 @@
+{
+ "code": "P0231",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Брокколи в тёмных очках",
+ "theme": "Смешные и абсурдные герои",
+ "family": "Овощи и урожай",
+ "direction": "Театр эмоций",
+ "subject": "брокколи с ухмылкой в крутых тёмных очках",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 22,
+ "h": 26,
+ "N": 371,
+ "colours": 5,
+ "volumes": {
+  "M": {
+   "cells": 162,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 107,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "L": {
+   "cells": 62,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "D": {
+   "cells": 32,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 8,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..........MM..........",
+  "........MMMMMM........",
+  ".......MMGGGGMM.......",
+  ".....MMMGGGGGGMM......",
+  "...MMMMGGGGGGGGMMMM...",
+  "..MMGMMGGMMMMGGMGGMM..",
+  ".MMGGMMMMMGGMMMMMGGMM.",
+  ".MGGMMMMMGGGGMMMMGGGM.",
+  ".MGGMGGMGGGGGGMGMMGGM.",
+  "MMGMMGGMGGGGGGMGGMMGMM",
+  "MMMMMGGMGGGGGGMGGMMMMM",
+  "MGMMMGGMMGGGGMMGGMMMGM",
+  "MGGMMGGGMMMMMMGGGMMGGM",
+  "MMGGMMGGGMMMMGGGMMGGMM",
+  ".MMGMMMMMMMMMMMMMMGMM.",
+  "..MMMMMMMMMMMMMMMMMM..",
+  "......LDDDDDDDDL......",
+  "......LDDDLLDDDL......",
+  "......LDDDLLDDDL......",
+  "......LLLLLLLLLL......",
+  "......LLLLLLLLDL......",
+  "......LLDCCCCDDL......",
+  "......LLDCCCCDLL......",
+  "......LLDDDDDDLL......",
+  "......LLLLLLLLLL......",
+  ".....LLLLLLLLLLLL....."
+ ]
+}

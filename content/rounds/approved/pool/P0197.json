@@ -1,0 +1,97 @@
+{
+ "code": "P0197",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Винни-Пух с мёдом",
+ "theme": "Герои мультфильмов",
+ "family": "Лесные и горные животные",
+ "subject": "золотистый медвежонок Винни-Пух в короткой красной футболке обнимает банку мёда",
+ "source": "сторонняя вселенная",
+ "reference": "Winnie the Pooh (Disney) — Winnie the Pooh",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 30,
+ "N": 900,
+ "colours": 8,
+ "volumes": {
+  "S": {
+   "cells": 366,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "Y": {
+   "cells": 231,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 120,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "R": {
+   "cells": 75,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "A": {
+   "cells": 41,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "O": {
+   "cells": 31,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 20,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 16,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSYYYSSSSSSSSYYYSSSSSSSSSS",
+  "SSSSSYYOYYSYYYYSYYOYYSSSSSSSSS",
+  "SSSSSYOOOYYYYYYYYOOOYSSSSSSSSS",
+  "SSSSSSYYYYYYYYYYYYYYSSSSSSSSSS",
+  "SSSSSSSYYYYYYYYYYYYSSSSSSSSSSS",
+  "SSSSSSSYYDDYYYYDDYYSSSSSSSSSSS",
+  "SSSSSSSYYDDYYYYDDYYSSSSSSSSSSS",
+  "SSSSSSSYYYYDDDDYYYYSSSSSSSSSSS",
+  "SSSSSSSYYYYDDDDYYYYSSSSSSSSSSS",
+  "SSSSSSSSYYYYYYYYYYSSSSSSSSSSSS",
+  "SSSSSSSSSYYYYYYYYSSSSSSSSSSSSS",
+  "SSSSSSSRRRRDDDDRRRRSSSSSSSSSSS",
+  "SSSSSRRRRRRRRRRRRRRROOOOOOSSSS",
+  "SSSSSRRRRRRRRRRRRRROOOOOOOOSSS",
+  "SSSSYRRRRRRRRRRRRRRRAOOOOOSSSS",
+  "SSSYYYYRRRRRRRRRRRRRAAAOOASSSS",
+  "SSSYYYYYRRRRRRRRRRYAAAAOOAASSS",
+  "SSSYYYYYYYYYYYYYYYYYAAAAAAAASS",
+  "SSSYYYYYYYYYYYYYYYYYYCCCCCAASS",
+  "SSSSYSYYYYYYYYYYYYYYYCCCCCAASS",
+  "SSSSSSSYYYYYYYYYYYYYCCCCCCAASS",
+  "SSSSSSSYYYYYYYYYYYYAAAAAAAASSS",
+  "SSSSSSSSYYYYYYYYYYYYAAAAAASSSS",
+  "GGGGGGGYYYYYYYYYYYYGGGAAGGGGGG",
+  "GGGGGGGYYYYYGGYYYYYGGGGGGGGGGG",
+  "GGGGGGGGYYYGGGGYYYGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+ ]
+}

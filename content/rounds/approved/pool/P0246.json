@@ -1,0 +1,88 @@
+{
+ "code": "P0246",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Хот-дог такса",
+ "theme": "Смешные и абсурдные герои",
+ "family": "Домашние животные",
+ "direction": "Визуальные каламбуры",
+ "subject": "такса-сосиска в булке с горчицей",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 26,
+ "N": 884,
+ "colours": 7,
+ "volumes": {
+  "S": {
+   "cells": 381,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "O": {
+   "cells": 157,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "G": {
+   "cells": 146,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "A": {
+   "cells": 135,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 40,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 17,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "D": {
+   "cells": 8,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SAASSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SAASSSSSSSSSSSSSSSSSSSSSSSAAAASSSS",
+  "SAASSSSSSSSSSSSSSSSSSSSSSAAAAAASSS",
+  "SAASSSSSSYSSSSYSSSSYSSSSAEEEADDASS",
+  "SSAASAAYYYYYYYYYYYYYYYAAAEEEADDADD",
+  "SSAAAAYYYAYYYYAYYYYAYYYAAEEEAAAADD",
+  "SSSAAAYYAAAYYAAAYYAAAYYAAEEEAAAAAA",
+  "SSSAAAAAAAAAAAAAAAAAAAAAAEEEAAAAAA",
+  "SSSAAAOOOOOOOOOOOOOOOOOOOOEEAASSSS",
+  "SSSSAOOOOOOOOOOOOOOOOOOOOOOOSSSSSS",
+  "SSSSOOOOOOOOOOOOOOOOOOOOOOOOSSSSSS",
+  "SSSSOOOOOOOOOOOOOOOOOOOOOOOOSSSSSS",
+  "SSSSOOOOOOOOOOOOOOOOOOOOOOOOSSSSSS",
+  "SSSSSOOOOOOOOOOOOOOOOOOOOOOSSSSSSS",
+  "SSSSSSOOOOOOOOOOOOOOOOOOOOSSSSSSSS",
+  "SSSSSSSAAAAAAASSSSSAAAAAAASSSSSSSS",
+  "GGGGGGGAAAGAAAGGGGGAAAGAAAGGGGGGGG",
+  "GGGGGGGAAAGAAAGGGGGAAAGAAAGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+ ]
+}

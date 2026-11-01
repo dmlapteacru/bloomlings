@@ -1,0 +1,71 @@
+{
+ "code": "P0205",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Безликий",
+ "theme": "Герои мультфильмов",
+ "family": "Маски и костюмы",
+ "direction": "Фольклорная фантазия",
+ "subject": "чёрный безликий в белой маске с фиолетовыми отметинами",
+ "source": "сторонняя вселенная",
+ "reference": "Унесённые призраками — Kaonashi (No-Face)",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 15,
+ "h": 29,
+ "N": 375,
+ "colours": 3,
+ "volumes": {
+  "D": {
+   "cells": 287,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 61,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "V": {
+   "cells": 27,
+   "name": "Слива",
+   "hex": "#7851A5"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "....DDDDDDD....",
+  "...DDDDDDDDD...",
+  "...DDDCCCDDD...",
+  "..DDDCCCCCDDD..",
+  "..DDVVCCCVDDD..",
+  "..DCVVCCCVVCDD.",
+  ".DDCVVCCCVVCDD.",
+  ".DDCVVCCCVVCDD.",
+  ".DDCDDCCCDDCDD.",
+  ".DDCDDCCCDDCDD.",
+  ".DDCVVCCCVVCDD.",
+  ".DDCVVCCCVVCDD.",
+  ".DDCVVCCCVVCDD.",
+  ".DDDCCCCCCCDDD.",
+  ".DDDDDDDDDDDDD.",
+  ".DDDDDCCCDDDDD.",
+  ".DDDDDDDDDDDDD.",
+  ".DDDDDDDDDDDDD.",
+  ".DDDDDDDDDDDDD.",
+  ".DDDDDDDDDDDDD.",
+  ".DDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDD"
+ ]
+}

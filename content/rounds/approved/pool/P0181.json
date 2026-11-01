@@ -1,0 +1,99 @@
+{
+ "code": "P0181",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Патрик Стар",
+ "theme": "Герои мультсериалов",
+ "family": "Морские и пресноводные обитатели",
+ "subject": "Патрик Стар, розовая морская звезда в зелёных шортах с фиолетовыми цветами",
+ "source": "сторонняя вселенная",
+ "reference": "Губка Боб Квадратные Штаны — Patrick Star",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 32,
+ "N": 960,
+ "colours": 8,
+ "volumes": {
+  "S": {
+   "cells": 392,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "P": {
+   "cells": 155,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "Y": {
+   "cells": 152,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 132,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "G": {
+   "cells": 80,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 25,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "V": {
+   "cells": 16,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "R": {
+   "cells": 8,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSSSSSSSSSSDDSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSDDSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSPPPSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSPPPSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSDPPPPDSSSSSSSSSSSS",
+  "SSSSSSSSSSSSDPPPPDSSSSSSSSSSSS",
+  "SSSSSSSSSSSDDDPPDDDSSSSSSSSSSS",
+  "SSSSSSSSSSSDCCPPCCDSSSSSSSSSSS",
+  "SSSSSSSSSSSCCCCCCCCSSSSSSSSSSS",
+  "SSSSSDDDDPPCCCCCCCCPPDDDDSSSSS",
+  "SDDDDPPPPPPCCDDCDDCPPPPPPDDDDS",
+  "SDDPPPPPPPPPCDDPDDPPPPPPPPPDDS",
+  "SSSDDPPPPPPPPPPPPPPPPPPPPDDSSS",
+  "SSSSDDPPPPPPPPPPPPPPPPPPDDSSSS",
+  "SSSSSSDDPPPDDDDDDDDPPPDDSSSSSS",
+  "SSSSSSSDDPPDDRRRRDDPPDDSSSSSSS",
+  "SSSSSSSSDPPPDRRRRDPPPDSSSSSSSS",
+  "SSSSSSSSDPPPPPPPPPPPPDSSSSSSSS",
+  "SSSSSSSDPPPPPPPPPPPPPPDSSSSSSS",
+  "SSSSSSSDGGGGGGGGGGGGGGDSSSSSSS",
+  "SSSSSSSDGGGGGGGGGVVGGGDSSSSSSS",
+  "SSSSSSSDGGVVGGGGGVVGGGDSSSSSSS",
+  "SSSSSSSDGGVVGGVVGGGGGGDSSSSSSS",
+  "SSSSSSDGGGGGGGVVGGGVVGGDSSSSSS",
+  "YYYYYYDGGGGGGGDDGGGVVGGDYYYYYY",
+  "YYYYYYDPGGGGGDDDDGGGGGPDYYYYYY",
+  "YYYYYYDPPPPDDYYYYDDPPPPDYYYYYY",
+  "YYYYYDDPPPDDYYYYYYDDPPPDDYYYYY",
+  "YYYYYDPPDDYYYYYYYYYYDDPPDYYYYY",
+  "YYYYYDPDDYYYYYYYYYYYYDDPDYYYYY",
+  "YYYYYDDYYYYYYYYYYYYYYYYDDYYYYY",
+  "YYYYYDYYYYYYYYYYYYYYYYYYDYYYYY"
+ ]
+}

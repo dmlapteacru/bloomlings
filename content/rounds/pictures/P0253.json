@@ -56,8 +56,10 @@
   "A": 42,
   "Y": 106
  },
- "status": "draft",
+ "status": "approved",
  "batch": "batch-0168-E",
  "createdAt": "2026-11-01",
- "history": []
+ "history": [],
+ "note": null,
+ "decidedAt": "2026-11-01"
 }

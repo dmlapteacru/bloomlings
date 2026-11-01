@@ -1,0 +1,95 @@
+{
+ "code": "P0184",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "ГИР в зелёном костюме",
+ "theme": "Герои мультсериалов",
+ "family": "Маски и костюмы",
+ "direction": "Визуальные каламбуры",
+ "subject": "ГИР в зелёном собачьем костюме с молнией, бирюзовые глаза, высунутый язык",
+ "source": "сторонняя вселенная",
+ "reference": "Захватчик Зим — GIR",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 32,
+ "N": 896,
+ "colours": 7,
+ "volumes": {
+  "K": {
+   "cells": 295,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "G": {
+   "cells": 240,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 193,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "V": {
+   "cells": 120,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "B": {
+   "cells": 24,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "R": {
+   "cells": 12,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 12,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "KKKKKKKKKKKKKKKKKKKKKKKKKKKK",
+  "KKKKKKKKKKKKKKKKKKKKKKKKKKKK",
+  "KKKKKKKKDDDDDDDDDDDDKKKKKKKK",
+  "KKKKKKKDDGGGGGGGGGGDDKKKKKKK",
+  "KKKKKKGGGGGGGGGGGGGGGKKKKKKK",
+  "KKKKDDGGGGGGGGGGGGGGGGDDKKKK",
+  "KKDDDDGGGDDDGGGGDDDGGGDDDDKK",
+  "KKDDDDDGDBBBDGGDBBBDGDDDDDKK",
+  "KKDDDDDGDBBBDGGDBBBDGDDDDDKK",
+  "KKDDDDDGDBBBDGGDBBBDGDDDDDKK",
+  "KDDDDDGGDBBBDGGDBBBDGGDDDDDK",
+  "KDDDDDGGGDDDGGGGDDDGGGGDDDDK",
+  "KDDDDGGGGGGGGGGGGGGGGGGDDDDK",
+  "KDDDDDGGGGDDDDDDDDGGGGDDDDDK",
+  "KKKKKDGGGGGGGRRRGGGGGGDKKKKK",
+  "KKKKKKDGGGGGGRRRGGGGGDKKKKKK",
+  "KKKKKDDGGGGGGRRRGGGGGDDKKKKK",
+  "KKKKKDGGGGGGGRRRGGGGGGDKKKKK",
+  "KKKKKDGGGGGGCCCCGGGGGGDKKKKK",
+  "KKKKKDGGGGGGCCCCGGGGGGDKKKKK",
+  "KKKKKDGGGGGGCCCCGGGGGGDKKKKK",
+  "KKKKKDDGDGGGGDDGGGGDGDDKKKKK",
+  "KKKKKKDDDGGGGDDGGGGDDDKKKKKK",
+  "KKKKKKKKDGGGGDDGGGGDKKKKKKKK",
+  "KKKKKKKKKDGGGDDGGGDKKKKKKKKK",
+  "KKKKKKKKKDGGGDDGGGDKKKKKKKKK",
+  "KKKKKKKKKDGGGDDGGGDKKKKKKKKK",
+  "VVVVVVVVVDGGGDDGGGDVVVVVVVVV",
+  "VVVVVVVVVDDDDDDDDDDVVVVVVVVV",
+  "VVVVVVVVVVVVVVVVVVVVVVVVVVVV",
+  "VVVVVVVVVVVVVVVVVVVVVVVVVVVV",
+  "VVVVVVVVVVVVVVVVVVVVVVVVVVVV"
+ ]
+}

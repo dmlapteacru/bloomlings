@@ -1,0 +1,79 @@
+{
+ "code": "P0176",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Твити",
+ "theme": "Герои мультсериалов",
+ "family": "Птицы",
+ "subject": "кенар Твити: жёлтый, огромная голова, голубые глаза",
+ "source": "сторонняя вселенная",
+ "reference": "Looney Tunes — Tweety",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 18,
+ "h": 28,
+ "N": 352,
+ "colours": 5,
+ "volumes": {
+  "Y": {
+   "cells": 242,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 44,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 41,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "B": {
+   "cells": 15,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "D": {
+   "cells": 10,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "......Y..Y........",
+  "......YY.YY.......",
+  ".....YYYYYYYY.....",
+  "....YYYYYYYYYYY...",
+  "...YYYYYYYYYYYYY..",
+  "..YYYYYYYYYYYYYYY.",
+  ".YYYYYYYYYYYYYYYY.",
+  "YYYYCCCCYYYCCCYYYY",
+  "YYYCCCCCYYCCCCCYYY",
+  "YYYCCCCCCYCCCCCYYY",
+  "YYYCCBBBCYCBBCCYYY",
+  "YYYCCBBBCYBBBCCYYY",
+  "YYYCCBDDYYBDDCCYYY",
+  "YYYYCBDDYYBDDDYYYY",
+  "YYYYYYYDOOYYYYYYYY",
+  ".YYYYYOOOOOOYYYYY.",
+  ".YYYYYOOOOOOYYYYY.",
+  "..YYYYYOOOOYYYYY..",
+  "...YYYYYYYYYYYY...",
+  ".....YYYYYYYY.....",
+  ".....YYYYYYYY.....",
+  "....YYYYYYYYYY....",
+  "....YYYYYYYYYY....",
+  "....YYYYYYYYYY....",
+  ".....YYYYYYYY.....",
+  "....OOOOYYYOOO....",
+  "....OOOO.YOOOOO...",
+  "....OOOO...OOO...."
+ ]
+}

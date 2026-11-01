@@ -1,0 +1,78 @@
+{
+ "code": "P0247",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Облако бегает в кроссовках",
+ "theme": "Смешные и абсурдные герои",
+ "family": "Времена года и погода",
+ "direction": "Ожившие вещи",
+ "subject": "облако с лицом бежит в красных кроссовках, позади капли дождя",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 22,
+ "N": 389,
+ "colours": 6,
+ "volumes": {
+  "C": {
+   "cells": 204,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "S": {
+   "cells": 95,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "R": {
+   "cells": 36,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 28,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "B": {
+   "cells": 18,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "K": {
+   "cells": 8,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...............SSSSSS.......",
+  ".............SSSCCCCSSS.....",
+  "..........SSSSCCCCCCCCS.....",
+  "BB......SSSSSSCCCCCCCCSS....",
+  "BB.....SSCCCCCCCCCCCCCCSSSS.",
+  "BB.....SCCCCCCCCCCCCCCCCCSSS",
+  "......SSCCCCCCCCCCCCCCCCCCCS",
+  ".....SSSCCCCCCCCCCCCCCCCCCCS",
+  ".BB.SSCCCCCCCCCCCCCCCCCCCCCS",
+  ".BB.SCCCCCCCCCDDCCCDDCCCCCCS",
+  ".BB.SCCCCCCCCCDDCCCDDCCCCCCS",
+  "....SCCCCCCCCCDDCCCDDCCCCCCS",
+  "....SCCCCCCCKKCCCCCCCCKKCSSS",
+  "BB..SSCCCCCCKKCCDDDCCCKKCSS.",
+  "BB...SSSSCCCCCCCDDDCCCCCSS..",
+  "BB.....SSSSSSSSSSSSSSSSSSS..",
+  ".........SSSDDSSSSSDDSSS....",
+  "...........DD.......DD......",
+  "..........DD.........RRRRRR.",
+  "......RRRRRR.........RRRRRR.",
+  "......RRRRRR.........RRRRRR.",
+  "......RRRRRR................"
+ ]
+}

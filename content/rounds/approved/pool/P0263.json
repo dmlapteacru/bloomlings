@@ -1,0 +1,90 @@
+{
+ "code": "P0263",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Енот Педро",
+ "theme": "Мемные и абсурдные герои",
+ "family": "Мемные животные и бытовые ситуации",
+ "direction": "Театр эмоций",
+ "subject": "енот кружится в танце, лапы вверх",
+ "source": "интернет-мем/тренд",
+ "reference": "мем Pedro — танцующий енот",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 32,
+ "N": 896,
+ "colours": 6,
+ "volumes": {
+  "V": {
+   "cells": 478,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "S": {
+   "cells": 188,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "N": {
+   "cells": 81,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 62,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 57,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 30,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "VVVVVVVVVVVVVVVVVVVVVVVVVVVV",
+  "VVVVVVVVVVVVVVVVVVVVVVVVVVVV",
+  "VVVVVVVVVSSVVVVVVSSVVVVVVVVV",
+  "VVVVVVVVVSSSVVVVSSSVVVVVVVVV",
+  "VVVVVVVVVSSSSSSSSSSVVVVVVVVV",
+  "VVVVVVVVVSSSSSSSSSSVVVDDVVVV",
+  "VVYYVVVVSSSSSSSSSSSSVVDDVVVV",
+  "VVYVVVVVDDDDDSSDDDDDVVSSVVVV",
+  "VVYVVVVVDDCCDCCDCCDDVSSSVVVV",
+  "VVYDDDVVSDCCDCCDCCDSVSSVVVVV",
+  "VVYVDSVVSSCCCCCCCCSSVSSVVVVV",
+  "VVYVSSVVVSSCCDDCCSSSSSSVVVVV",
+  "VVYVSSSVVVSSCDDCSSSSSSVVVVVV",
+  "VVYVVSSSVVVVSSSSSSSSSVVVVVVV",
+  "VVYYVSSSSSSSSSSSSSSSVVVVVVVV",
+  "VVYYVVVSSSSSSSSSSSSVVVVVVVVV",
+  "VVVYVVVVVVSSSCCSSSVVVVVVVVVV",
+  "VVVYYVVVVSSSCCCCSSSVVVVVVVVV",
+  "VVVVVVVVVSSCCCCCCSSVVVVVYYVV",
+  "VVVVVVVVVSSCCCCCCSSVVVVVVYVV",
+  "VVVVVVVVVSSCCCCCCSSVVVVVVYVV",
+  "VVVVVVVVDSSCCCCCCSSVVVVVVYVV",
+  "VVDDDSSSDDSSCCCCSSVVVVVVVYVV",
+  "VVDDDSSSDDSSSCCSSSVVVVVVVYVV",
+  "VVDDDSSSVVVSSSSSSSSSVVVVYYVV",
+  "VVVVVVVVVVVVSSVVVSSSVVVVYYVV",
+  "VVVVVVVVVVVVSSVVVVSSVVVYYVVV",
+  "VVVVVVVVVVVVSSVVVVDSDVVYVVVV",
+  "VVVVVVVVVVVDDDVVVVDDDVVVVVVV",
+  "NNNNNNNNNNNDDDNNNNNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+ ]
+}

@@ -1,0 +1,96 @@
+{
+ "code": "P0228",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Картошка-культурист с гантелей",
+ "theme": "Смешные и абсурдные герои",
+ "family": "Овощи и урожай",
+ "direction": "Обмен ролями",
+ "subject": "картошка с лицом, повязкой на лбу и накачанными руками качает гантель",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 29,
+ "N": 986,
+ "colours": 8,
+ "volumes": {
+  "S": {
+   "cells": 386,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "A": {
+   "cells": 232,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 141,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "V": {
+   "cells": 78,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "D": {
+   "cells": 47,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "N": {
+   "cells": 41,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 36,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 25,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "NNNSSSSSSSSSSNNNSSSSSSSSSSSSSSSSSS",
+  "NNNSSSSSSSSSSNNNSSSSSSSSSSSSSSSSSS",
+  "NNNSSSSSSSSSSNNNSSSSSSSSSSSSSSSSSS",
+  "NNNSSSAASSSSSNNNSSSSSSSSSSSSSSSSSS",
+  "NNNDDDAADDDDDNNNSSSSSSSSSSSSSSSSSS",
+  "NNNDDDAAADDDDNNNSEEEEESSSSSSSSSSSS",
+  "NNNSEAAAAESSSNNEEAAAAAEESSSSSSSSSS",
+  "SSSSEAAAAESSSSEERRRRRRREESSSEEEESS",
+  "SSSSEAAAAESSSEEERRRRRRRRESSEAAAAES",
+  "SSSSEAAAAESSSERRRRRRRRRRAESEAAAAES",
+  "SSSSEAAAAESSAAAAAAAAAAAAAEEEAAAAES",
+  "SSSSEAAAAESSAACCCCAACCCCAAEEAAAAES",
+  "SSSSEAAAAESEAACCCCAACCCCAAEEAAAAES",
+  "SSSSEAAAAESEAACCDDAADDCCAAEAAAAAES",
+  "SSSSEAAAAESEAACCDDAADDCCAAEAAAAAES",
+  "SSSSEAAAAAEEAAAAAAAAAAAAAAEAAAAAES",
+  "SSSSEAAAAAAEAAAAAAAAAAAAAAEAAAAAES",
+  "SSSSSAAAAAAEAAADDDDDDDDDAAEAAAAAES",
+  "SSSSSSSSAAAEAAADCCCDCCCDAAAAAAAAES",
+  "SSSSSSSSSSAAEEEDCCCDCCCDAAAAAAAAES",
+  "SSSSSSSSSSEEEEEDDDDDDDDDEAAAAAASSS",
+  "SSSSSSSSSSSSEEAAAAAAAAEEEAEEEEESSS",
+  "SSSSSSSSSSSSSEEAAAAAAAEEEESSSSSSSS",
+  "SSSSSSSSSSSSSSEEAAAAAEEESSSSSSSSSS",
+  "SSSSSSSSSSSSSSEEEEEEEEEESSSSSSSSSS",
+  "VVVVVVVVVVVVVEEEEEEEEEEEEVVVVVVVVV",
+  "VVVVVVVVVVVVVEEEEEEEEEEEEVVVVVVVVV",
+  "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV"
+ ]
+}

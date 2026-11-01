@@ -1,0 +1,100 @@
+{
+ "code": "P0203",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Реми в колпаке повара",
+ "theme": "Герои мультфильмов",
+ "family": "Профессии и увлечения",
+ "direction": "Обмен ролями",
+ "subject": "серо-голубой крысёнок Реми в белом поварском колпаке",
+ "source": "сторонняя вселенная",
+ "reference": "Рататуй — Remy",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 32,
+ "N": 896,
+ "colours": 8,
+ "volumes": {
+  "O": {
+   "cells": 450,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 119,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 102,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 78,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "S": {
+   "cells": 74,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "K": {
+   "cells": 53,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "D": {
+   "cells": 12,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "P": {
+   "cells": 8,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "OOOOOOOOOOOOOCCOOOOOOOOOOOOO",
+  "OOOOOOOOOOCCCCCCCCOOOOOOOOOO",
+  "OOOOOOOOOCCCCCCCCCCOOOOOOOOO",
+  "OOOOOOOOOCCCCCCCCCCOOOOOOOOO",
+  "OOOOOOOOOCCCCCCCCCCOOOOOOOOO",
+  "OOOOOOOOOCCCCCCCCCCOOOOOOOOO",
+  "OOOOOOOOOOCCCCCCCCOOOOOOOOOO",
+  "OOOONNNNNNCCCCCCCCNNNNNNOOOO",
+  "OOOONKKKNNNSSSSSSNNKKKNNOOOO",
+  "OOOOKKKKKNSSSSSSSSNKKKKNOOOO",
+  "OOOOKKKKNSSSSSSSSSSNKKKNOOOO",
+  "OOOONKKKNSSDDSSDDSSNKKNNOOOO",
+  "OOOONNNNNSSDDSSDDSSNNNNNOOOO",
+  "OOOOOONNNSSDDSSDDSSNNNOOOOOO",
+  "OOOOOOOOOSSSCCCCSSOOOOOOOOOO",
+  "OOOOOOOOOSSCCCCCCSOOOOOOOOOO",
+  "OOOOOOOOOOSCCCCCNOOOOOOOOOOO",
+  "OOOOOOOOOOONCCCCNOOOOOOOOOOO",
+  "OOOOOOOOOOONPPPPNOOOOOOOOOOO",
+  "OOOOOOOOOONNPPPPNNOOOOONNOOO",
+  "OOOOOOOOONNSSSSSSNNOOOONNOOO",
+  "OOOOOOOOKNSSSCCSSSNKOOONNOOO",
+  "OOOOOOOKKKSSCCCCSSKKKONNOOOO",
+  "OOOOOOOOKKSCCCCCCSKKNNNNOOOO",
+  "OOOOOOOOOOSCCCCCCSNNNOOOOOOO",
+  "OOOOOOOOOOSCCCCCCSNOOOOOOOOO",
+  "OOOOOOOOOOSCCCCCCOOOOOOOOOOO",
+  "OOOOOOOOOOKKCCCCKKOOOOOOOOOO",
+  "AAAAAAAAAKKKKKKKKKKAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+ ]
+}

@@ -1,0 +1,78 @@
+{
+ "code": "P0243",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Кактус в боксёрских перчатках",
+ "theme": "Смешные и абсурдные герои",
+ "family": "Спорт и активные игры",
+ "direction": "Обмен ролями",
+ "subject": "кактус с лицом в красных боксёрских перчатках, цветок на макушке",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 24,
+ "h": 22,
+ "N": 336,
+ "colours": 6,
+ "volumes": {
+  "G": {
+   "cells": 155,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "R": {
+   "cells": 63,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "M": {
+   "cells": 54,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "P": {
+   "cells": 22,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "D": {
+   "cells": 22,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 20,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........PPPP...........",
+  "..RRR....PPPP...........",
+  ".RRRRR..PPPPPP..........",
+  "RRRRRRRMMPPPPMM.........",
+  "RRRRRRRMGPPPPGMM........",
+  ".RRRRRRGGGGGGGGMM.......",
+  ".RRRRRGGGGGGGGGGM.......",
+  ".CCCCCGDDDGGDDDGM.......",
+  ".CCCCCGGGGGGGGGGM.......",
+  ".MGGGGGGDDGGDDGGMMRRRR..",
+  ".MGGGGGGDDGGDDGGMCCRRRR.",
+  ".MGGGGGGGGGGGGGGGCCRRRRR",
+  ".MGGGGGGGGGGGGGGGCCRRRRR",
+  ".MGGGGGGGDDDDGGGGCCRRRRR",
+  ".MMMMMGGGDDDDGGGMCCRRRR.",
+  "..MMMMGGGGGGGGGGMM.RRR..",
+  ".....MGGGGGGGGGGM.......",
+  ".....MGGGGGGGGGGM.......",
+  ".....MGGGGGGGGGGM.......",
+  ".....MMGGGGGGGGMM.......",
+  "......MMGGGGGGMM........",
+  ".......MMMMMMMM........."
+ ]
+}

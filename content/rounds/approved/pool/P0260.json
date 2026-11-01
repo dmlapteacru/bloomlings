@@ -1,0 +1,104 @@
+{
+ "code": "P0260",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Нян Кэт",
+ "theme": "Мемные и абсурдные герои",
+ "family": "Вирусные анимационные персонажи и мини-вселенные",
+ "direction": "Невесомый мир",
+ "subject": "кот с телом-печенькой с глазурью летит с радужным следом по ночному небу",
+ "source": "интернет-мем/тренд",
+ "reference": "Nyan Cat — Nyan Cat",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 44,
+ "h": 28,
+ "N": 1232,
+ "colours": 10,
+ "volumes": {
+  "N": {
+   "cells": 677,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "S": {
+   "cells": 131,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "P": {
+   "cells": 115,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "C": {
+   "cells": 109,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 48,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "O": {
+   "cells": 32,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "B": {
+   "cells": 32,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "V": {
+   "cells": 32,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "Y": {
+   "cells": 31,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 25,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNNNNNCNNNNNNNNNNNNNNNNNNN",
+  "NNNNCNNNNNNNNNNNNNNNNNNCCCNNNNNNNNNNNNNNNNNN",
+  "NNNCCCNNNNNNNNNNNNNNNNNNCNNNNNNNNNNNNNNNNCNN",
+  "NNNNCNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNCCCN",
+  "NNNNNNNNNNNNNNNNNNNCCCCCCCCCCCCCCCNNNNNNNCNN",
+  "NNNNNNNNNNNNNNNNNNCCCCCCCCCCCCCCCCCNNNNNNNNN",
+  "NNRRRRRNNNNNRRRRRNCCPPPPPPPPPPPPPCCNNNNNNNNN",
+  "NNRRRRRRRRRRRRRRRRCCPRRPPPRRPPSSPPCNNNSSNNNN",
+  "NNOOOOORRRRROOOOORCCPRRPPPRRPSSSSPCNNSSSNNNN",
+  "NNOOOOOOOOOOOOOOOOCCPPPPPPPPPSSSSSSSSSSSSNNN",
+  "NNYYYYYOOOOOYYYYYOCCPPPPPPPPPSSSSSSSSSSSSNNN",
+  "NNYYYYYYYYYYYYYYYYCCPPPPPPPPPSSSSSSSSSSSSNNN",
+  "NNGGGGGYYYYYGGSSSSCCPPPPPPPPPSSNNSSSSNNSSNNN",
+  "NNGGGGGGGGGGGGGSSSCCPPRRPPPPPSSNNSSSSNNSSNNN",
+  "NNBBBBBGGGGGBBBBBSCCPPRRPPPPPSSSSSSSSSSPSNNN",
+  "NNBBBBBBBBBBBBBBBBCCPPPPPPPPPSPPSSNNSSSPPNNN",
+  "NNVVVVVBBBBBVVVVVBCCPPPPPRRPPSPSNNNNNNSPSNNN",
+  "NNVVVVVVVVVVVVVVVVCCPPPPPRRPPSSSSSSSSSSSSNNN",
+  "NNNNNNNVVVVVNNNNNVCCCPPPPPPPPCSSSSSSSSSSNNNN",
+  "NNNNNNNNNNNNNNNNNNNCCCCCCCCCCCCCCCSNNNNNNNNN",
+  "NNNCNNNNNNNNNNNNNNNSSNNSSNNNNSSNNSSNNNNNNNNN",
+  "NNCCCNNNNNNNNNNNNNNSSNNSSNNNNSSNNSSNNNNNNNNN",
+  "NNNCNNNNNNNNCNNNNNNNNNNNNNNNNNNNNNNNNNNNCNNN",
+  "NNNNNNNNNNNCCCNNNNNNNNNNNNNNNNNNNNNNNNNCCCNN",
+  "NNNNNNNNNNNNCNNNNNNNNNNNNNNNNNNNNNNNNNNNCNNN",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+ ]
+}

@@ -1,0 +1,73 @@
+{
+ "code": "P0257",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Лабубу",
+ "theme": "Мемные и абсурдные герои",
+ "family": "Коллекционный хайп и маскоты",
+ "subject": "пушистый монстрик с заячьими ушами и зубастой улыбкой",
+ "source": "интернет-мем/тренд",
+ "reference": "Pop Mart, The Monsters — Labubu",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 16,
+ "h": 27,
+ "N": 321,
+ "colours": 4,
+ "volumes": {
+  "A": {
+   "cells": 198,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 66,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 35,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "K": {
+   "cells": 22,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..AAAA....AAAA..",
+  "..AKKA....AKKA..",
+  "..AKKA....AKKAA.",
+  "..AKKA....AKKAA.",
+  "..AKKA....AKKAA.",
+  "..AKKAAAAAAKKAA.",
+  "..AKAAAAAAAAKAA.",
+  "..AAAAAAAAAAAAA.",
+  ".AAAAAAAAAAAAAA.",
+  ".AAAAAACCAAAAAA.",
+  "AAAADDCCCCDDAAAA",
+  "AAADDDDCCCDDDAAA",
+  "AACCDDCCCCDDCCAA",
+  "AACCCCCCCCCCCCAA",
+  "AACCCCCCCCCCCCAA",
+  "AACCDCDCDCDCDCAA",
+  "AACDDDDDDDDDDCAA",
+  ".AADCDCDCDCDAAA.",
+  "..AACCCCCCCCAAA.",
+  "..AAAACCCCAAAA..",
+  "....AAAAAAAA....",
+  "....AAAAAAAA....",
+  "...AAAAAAAAAA...",
+  "...AAAAAAAAAA...",
+  "...AAAAAAAAAA...",
+  "....AAAAAAAA....",
+  ".....AAAAAA....."
+ ]
+}

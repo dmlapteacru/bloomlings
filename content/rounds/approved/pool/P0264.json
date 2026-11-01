@@ -1,0 +1,106 @@
+{
+ "code": "P0264",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Грустный хомяк",
+ "theme": "Мемные и абсурдные герои",
+ "family": "Мемные животные и бытовые ситуации",
+ "direction": "Театр эмоций",
+ "subject": "маленький хомяк с огромными блестящими глазами, полными слёз, смотрит на зрителя",
+ "source": "интернет-мем/тренд",
+ "reference": "Sad Hamster meme — sad hamster",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 34,
+ "N": 1156,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 487,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 162,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 160,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 144,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 87,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 65,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "K": {
+   "cells": 24,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "S": {
+   "cells": 15,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "P": {
+   "cells": 12,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
+  "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
+  "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
+  "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
+  "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
+  "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
+  "YYYYYYYYOOOYYYYYYYYYYYYYYOOOYYYYYY",
+  "YYYYYEOOOOOEYYYYYYYYYYEOOOOOEYYYYY",
+  "YYYYYEOOPPOEYYYYYYYYYYEOPPOOEYYYYY",
+  "YYYYYEOPPPOEEEEEEEEEEEEOPPPOEYYYYY",
+  "YYYYYEOOPEEEOOOOOOOOOOEEEPOOEYYYYY",
+  "YYYYYYEEEEOOOOOOOOOOOOOOEEEEYYYYYY",
+  "YYYYYYYEOOOOOOOOOOOOOOOOOOEYYYYYYY",
+  "YYYYYYOOOODDOOOOOOOOOODDOOOYYYYYYY",
+  "YYYYYEOOODDDDOOOOOOOODDDDOOOEYYYYY",
+  "YYYYEEOODCCDDDOOOOOODCCDDDOOEEYYYY",
+  "YYYYEOOODCCDDDOOOOOODDCDDDOOOEYYYY",
+  "YYYYEOODDDDDDDDCCCCDDDDDDDDOOEYYYY",
+  "YYYYEOOODDDDDDDCCCCCDDDDDDOOOEYYYY",
+  "YYYYEOOODDDDDDCCCCCCDDDDDDOOOOYYYY",
+  "YYYYEOOODDDDDCCCCCCCDDDDDDOOOEYYYY",
+  "YYYYEOOOSSSSSCCCCCCCCSSSSCOOOEYYYY",
+  "YYYYEOOSSCCCCCCCDDCCCCCCCCCOOEYYYY",
+  "YYYYEEOSSCCCCCCDDDDCCCCCCCCOEEYYYY",
+  "YYYYYEOSSCCCCCCCCCCCCCCCCCCOEYYYYY",
+  "YYYYYYYCCCCCCKKCCCCKKCCCCCCYYYYYYY",
+  "YYYYYYYCCCCCKKKKCCKKKKCCCCYYYYYYYY",
+  "YYYYYYYYCCCCKKKKCCKKKKCCCYYYYYYYYY",
+  "YYYYYYYYYCCCCKKCCCCKKCCCCYYYYYYYYY",
+  "AAAAAAAAAAAAACCCCCCCCCCAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+ ]
+}

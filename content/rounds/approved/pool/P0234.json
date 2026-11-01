@@ -1,0 +1,99 @@
+{
+ "code": "P0234",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Утка-детектив с лупой",
+ "theme": "Смешные и абсурдные герои",
+ "family": "Профессии и увлечения",
+ "direction": "Обмен ролями",
+ "subject": "утка в охотничьей шапке и плаще, огромный глаз в лупе",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 32,
+ "N": 960,
+ "colours": 8,
+ "volumes": {
+  "N": {
+   "cells": 495,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 182,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 73,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 68,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 45,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "O": {
+   "cells": 37,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "S": {
+   "cells": 32,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 28,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+  "NNNNNNNNNNNEEEENNNNNNNNNNNNNNN",
+  "NNNNNNNNNNNEEEENNNNNNNNNNNNNNN",
+  "NNNNNNNNNAAAAAAAANNNNNNNNNNNNN",
+  "NNNNNNNAAAAAAAAAAAANNNNNNNNNNN",
+  "NNNNNNAAAAAAAAAAAAAANNNNNNNNNN",
+  "NNNAAAAAAAAAAAAAAADDAAAANNNNNN",
+  "NNNAAAEEEEEEEEEEDDDDDDAANNNNNN",
+  "NNNNNNNYYYYYYYYSSSSSSSSNNNNNNN",
+  "NNNNNNNYYYYYYYDSSCCCCSSDNNNNNN",
+  "NNNNNNYYCCCYYYDSCCCCCCSDNNNNNN",
+  "NNNNNNYYCDDYYDDSCDDDCCSDDNNNNN",
+  "NNNNNNNYCDDYYDDSCDDDCCSDDNNNNN",
+  "NNNNNNNYYYYYYYDSCDDDCCSDNNNNNN",
+  "NNNNNOOOOOOOOODSSCCCCSSDNNNNNN",
+  "NNNNNOOOOOOOOOYSSSSSSSSNNNNNNN",
+  "NNNNNOOOOOOOOOYYDDDDDDEENNNNNN",
+  "NNNNNNNAAAYYYYYYAADDNNEEENNNNN",
+  "NNNNNNAAAAAYYYYAAAAANNEEENNNNN",
+  "NNNNNNAAAAAAYYYAAAAANNNYYYYNNN",
+  "NNNNNNAAAAAAYYAAAAAANNNYYYYNNN",
+  "NNNNNAAAAAAAAAAAAAAAANNYYYYNNN",
+  "NNNNEEEEEEEEEEEEEEEEEEEYYYYNNN",
+  "NNNNEEEEEEEEEEEEEEEEEEENEEENNN",
+  "NNNNAAAAAAAAAAAAAAAAAANNNEENNN",
+  "NNNNAAAAAAAAAAEEAAAAAANNNNNNNN",
+  "NNNNAAAAAAAAAAEEAAAAAANNNNNNNN",
+  "NNNAAAAAAAAAAAAAAAAAAAANNNNNNN",
+  "NNNNNNOOOOONNNOOOOONNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+ ]
+}

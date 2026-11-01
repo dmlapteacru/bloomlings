@@ -2918,7 +2918,7 @@
    "h": 32,
    "N": 960,
    "colours": 7,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-A",
    "note": null,
    "usedBy": null
@@ -2936,7 +2936,7 @@
    "h": 28,
    "N": 840,
    "colours": 6,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-A",
    "note": null,
    "usedBy": null
@@ -2954,7 +2954,7 @@
    "h": 38,
    "N": 1292,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-A",
    "note": null,
    "usedBy": null
@@ -2972,7 +2972,7 @@
    "h": 34,
    "N": 952,
    "colours": 6,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-A",
    "note": null,
    "usedBy": null
@@ -2990,7 +2990,7 @@
    "h": 32,
    "N": 960,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-A",
    "note": null,
    "usedBy": null
@@ -3008,7 +3008,7 @@
    "h": 34,
    "N": 952,
    "colours": 7,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-A",
    "note": null,
    "usedBy": null
@@ -3026,7 +3026,7 @@
    "h": 40,
    "N": 1280,
    "colours": 7,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-A",
    "note": null,
    "usedBy": null
@@ -3044,7 +3044,7 @@
    "h": 30,
    "N": 900,
    "colours": 7,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-A",
    "note": null,
    "usedBy": null
@@ -3062,7 +3062,7 @@
    "h": 28,
    "N": 352,
    "colours": 5,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-A",
    "note": null,
    "usedBy": null
@@ -3080,7 +3080,7 @@
    "h": 36,
    "N": 936,
    "colours": 6,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-A",
    "note": null,
    "usedBy": null
@@ -3098,7 +3098,7 @@
    "h": 17,
    "N": 347,
    "colours": 3,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-A",
    "note": null,
    "usedBy": null
@@ -3116,7 +3116,7 @@
    "h": 38,
    "N": 1292,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-A",
    "note": null,
    "usedBy": null
@@ -3134,7 +3134,7 @@
    "h": 23,
    "N": 356,
    "colours": 4,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-A",
    "note": null,
    "usedBy": null
@@ -3152,7 +3152,7 @@
    "h": 32,
    "N": 960,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-A",
    "note": null,
    "usedBy": null
@@ -3170,7 +3170,7 @@
    "h": 38,
    "N": 1292,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-A",
    "note": null,
    "usedBy": null
@@ -3188,7 +3188,7 @@
    "h": 30,
    "N": 1140,
    "colours": 7,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-A",
    "note": null,
    "usedBy": null
@@ -3206,7 +3206,7 @@
    "h": 32,
    "N": 896,
    "colours": 7,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-A",
    "note": null,
    "usedBy": null
@@ -3224,7 +3224,7 @@
    "h": 30,
    "N": 1140,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-A",
    "note": null,
    "usedBy": null
@@ -3242,7 +3242,7 @@
    "h": 26,
    "N": 346,
    "colours": 6,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-A",
    "note": null,
    "usedBy": null
@@ -3260,7 +3260,7 @@
    "h": 38,
    "N": 1292,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-A",
    "note": null,
    "usedBy": null
@@ -3278,7 +3278,7 @@
    "h": 28,
    "N": 980,
    "colours": 6,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-B",
    "note": null,
    "usedBy": null
@@ -3296,7 +3296,7 @@
    "h": 38,
    "N": 1216,
    "colours": 6,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-B",
    "note": null,
    "usedBy": null
@@ -3314,7 +3314,7 @@
    "h": 32,
    "N": 896,
    "colours": 6,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-B",
    "note": null,
    "usedBy": null
@@ -3332,7 +3332,7 @@
    "h": 18,
    "N": 396,
    "colours": 5,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-B",
    "note": null,
    "usedBy": null
@@ -3350,7 +3350,7 @@
    "h": 38,
    "N": 1216,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-B",
    "note": null,
    "usedBy": null
@@ -3368,7 +3368,7 @@
    "h": 32,
    "N": 1152,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-B",
    "note": null,
    "usedBy": null
@@ -3386,7 +3386,7 @@
    "h": 30,
    "N": 900,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-B",
    "note": null,
    "usedBy": null
@@ -3404,7 +3404,7 @@
    "h": 30,
    "N": 900,
    "colours": 7,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-B",
    "note": null,
    "usedBy": null
@@ -3422,7 +3422,7 @@
    "h": 21,
    "N": 378,
    "colours": 5,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-B",
    "note": null,
    "usedBy": null
@@ -3440,7 +3440,7 @@
    "h": 30,
    "N": 900,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-B",
    "note": null,
    "usedBy": null
@@ -3458,7 +3458,7 @@
    "h": 32,
    "N": 896,
    "colours": 7,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-B",
    "note": null,
    "usedBy": null
@@ -3476,7 +3476,7 @@
    "h": 32,
    "N": 896,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-B",
    "note": null,
    "usedBy": null
@@ -3494,7 +3494,7 @@
    "h": 36,
    "N": 1224,
    "colours": 7,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-B",
    "note": null,
    "usedBy": null
@@ -3512,7 +3512,7 @@
    "h": 42,
    "N": 1344,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-B",
    "note": null,
    "usedBy": null
@@ -3530,7 +3530,7 @@
    "h": 36,
    "N": 1224,
    "colours": 7,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-B",
    "note": null,
    "usedBy": null
@@ -3548,7 +3548,7 @@
    "h": 32,
    "N": 896,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-B",
    "note": null,
    "usedBy": null
@@ -3566,7 +3566,7 @@
    "h": 28,
    "N": 784,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-B",
    "note": null,
    "usedBy": null
@@ -3584,7 +3584,7 @@
    "h": 29,
    "N": 375,
    "colours": 3,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-B",
    "note": null,
    "usedBy": null
@@ -3602,7 +3602,7 @@
    "h": 34,
    "N": 1156,
    "colours": 7,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-B",
    "note": null,
    "usedBy": null
@@ -3620,7 +3620,7 @@
    "h": 32,
    "N": 1216,
    "colours": 6,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-B",
    "note": null,
    "usedBy": null
@@ -3638,7 +3638,7 @@
    "h": 35,
    "N": 1225,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-C",
    "note": null,
    "usedBy": null
@@ -3656,7 +3656,7 @@
    "h": 38,
    "N": 1216,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-C",
    "note": null,
    "usedBy": null
@@ -3674,7 +3674,7 @@
    "h": 32,
    "N": 896,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-C",
    "note": null,
    "usedBy": null
@@ -3692,7 +3692,7 @@
    "h": 32,
    "N": 1152,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-C",
    "note": null,
    "usedBy": null
@@ -3710,7 +3710,7 @@
    "h": 30,
    "N": 900,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-C",
    "note": null,
    "usedBy": null
@@ -3728,7 +3728,7 @@
    "h": 32,
    "N": 1216,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-C",
    "note": null,
    "usedBy": null
@@ -3746,7 +3746,7 @@
    "h": 32,
    "N": 896,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-C",
    "note": null,
    "usedBy": null
@@ -3764,7 +3764,7 @@
    "h": 38,
    "N": 1216,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-C",
    "note": null,
    "usedBy": null
@@ -3782,7 +3782,7 @@
    "h": 32,
    "N": 896,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-C",
    "note": null,
    "usedBy": null
@@ -3800,7 +3800,7 @@
    "h": 30,
    "N": 900,
    "colours": 7,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-C",
    "note": null,
    "usedBy": null
@@ -3818,7 +3818,7 @@
    "h": 32,
    "N": 1216,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-C",
    "note": null,
    "usedBy": null
@@ -3836,7 +3836,7 @@
    "h": 32,
    "N": 896,
    "colours": 7,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-C",
    "note": null,
    "usedBy": null
@@ -3854,7 +3854,7 @@
    "h": 21,
    "N": 378,
    "colours": 6,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-C",
    "note": null,
    "usedBy": null
@@ -3872,7 +3872,7 @@
    "h": 32,
    "N": 896,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-C",
    "note": null,
    "usedBy": null
@@ -3890,7 +3890,7 @@
    "h": 32,
    "N": 832,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-C",
    "note": null,
    "usedBy": null
@@ -3908,7 +3908,7 @@
    "h": 31,
    "N": 837,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-C",
    "note": null,
    "usedBy": null
@@ -3926,7 +3926,7 @@
    "h": 38,
    "N": 1216,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-C",
    "note": null,
    "usedBy": null
@@ -3944,7 +3944,7 @@
    "h": 24,
    "N": 384,
    "colours": 6,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-C",
    "note": null,
    "usedBy": null
@@ -3962,7 +3962,7 @@
    "h": 38,
    "N": 1216,
    "colours": 7,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-C",
    "note": null,
    "usedBy": null
@@ -3980,7 +3980,7 @@
    "h": 38,
    "N": 1216,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-C",
    "note": null,
    "usedBy": null
@@ -3998,7 +3998,7 @@
    "h": 29,
    "N": 986,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-D",
    "note": null,
    "usedBy": null
@@ -4016,7 +4016,7 @@
    "h": 32,
    "N": 960,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-D",
    "note": null,
    "usedBy": null
@@ -4034,7 +4034,7 @@
    "h": 32,
    "N": 1216,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-D",
    "note": null,
    "usedBy": null
@@ -4052,7 +4052,7 @@
    "h": 26,
    "N": 371,
    "colours": 5,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-D",
    "note": null,
    "usedBy": null
@@ -4070,9 +4070,9 @@
    "h": 20,
    "N": 384,
    "colours": 6,
-   "status": "draft",
+   "status": "rejected",
    "batch": "batch-0168-D",
-   "note": null,
+   "note": "владелец 01.11.2026: «232 можем исключить. Переделывать не надо»",
    "usedBy": null
   },
   {
@@ -4088,7 +4088,7 @@
    "h": 34,
    "N": 1224,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-D",
    "note": null,
    "usedBy": null
@@ -4106,7 +4106,7 @@
    "h": 32,
    "N": 960,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-D",
    "note": null,
    "usedBy": null
@@ -4124,7 +4124,7 @@
    "h": 30,
    "N": 900,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-D",
    "note": null,
    "usedBy": null
@@ -4142,7 +4142,7 @@
    "h": 32,
    "N": 896,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-D",
    "note": null,
    "usedBy": null
@@ -4160,7 +4160,7 @@
    "h": 28,
    "N": 896,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-D",
    "note": null,
    "usedBy": null
@@ -4178,7 +4178,7 @@
    "h": 31,
    "N": 1178,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-D",
    "note": null,
    "usedBy": null
@@ -4196,7 +4196,7 @@
    "h": 30,
    "N": 900,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-D",
    "note": null,
    "usedBy": null
@@ -4214,7 +4214,7 @@
    "h": 36,
    "N": 1224,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-D",
    "note": null,
    "usedBy": null
@@ -4232,7 +4232,7 @@
    "h": 38,
    "N": 1292,
    "colours": 7,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-D",
    "note": null,
    "usedBy": null
@@ -4250,7 +4250,7 @@
    "h": 32,
    "N": 960,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-D",
    "note": null,
    "usedBy": null
@@ -4268,7 +4268,7 @@
    "h": 22,
    "N": 336,
    "colours": 6,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-D",
    "note": null,
    "usedBy": null
@@ -4286,7 +4286,7 @@
    "h": 32,
    "N": 1152,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-D",
    "note": null,
    "usedBy": null
@@ -4304,7 +4304,7 @@
    "h": 28,
    "N": 896,
    "colours": 7,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-D",
    "note": null,
    "usedBy": null
@@ -4322,7 +4322,7 @@
    "h": 26,
    "N": 884,
    "colours": 7,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-D",
    "note": null,
    "usedBy": null
@@ -4340,7 +4340,7 @@
    "h": 22,
    "N": 389,
    "colours": 6,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-D",
    "note": null,
    "usedBy": null
@@ -4358,7 +4358,7 @@
    "h": 32,
    "N": 1280,
    "colours": 7,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-E",
    "note": null,
    "usedBy": null
@@ -4376,7 +4376,7 @@
    "h": 34,
    "N": 952,
    "colours": 6,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-E",
    "note": null,
    "usedBy": null
@@ -4394,7 +4394,7 @@
    "h": 34,
    "N": 952,
    "colours": 6,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-E",
    "note": null,
    "usedBy": null
@@ -4412,7 +4412,7 @@
    "h": 34,
    "N": 952,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-E",
    "note": null,
    "usedBy": null
@@ -4430,7 +4430,7 @@
    "h": 32,
    "N": 1280,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-E",
    "note": null,
    "usedBy": null
@@ -4448,7 +4448,7 @@
    "h": 30,
    "N": 900,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-E",
    "note": null,
    "usedBy": null
@@ -4466,7 +4466,7 @@
    "h": 26,
    "N": 324,
    "colours": 6,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-E",
    "note": null,
    "usedBy": null
@@ -4484,7 +4484,7 @@
    "h": 30,
    "N": 900,
    "colours": 6,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-E",
    "note": null,
    "usedBy": null
@@ -4502,7 +4502,7 @@
    "h": 32,
    "N": 896,
    "colours": 7,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-E",
    "note": null,
    "usedBy": null
@@ -4520,7 +4520,7 @@
    "h": 27,
    "N": 321,
    "colours": 4,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-E",
    "note": null,
    "usedBy": null
@@ -4538,7 +4538,7 @@
    "h": 23,
    "N": 359,
    "colours": 4,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-E",
    "note": null,
    "usedBy": null
@@ -4556,7 +4556,7 @@
    "h": 30,
    "N": 900,
    "colours": 6,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-E",
    "note": null,
    "usedBy": null
@@ -4574,7 +4574,7 @@
    "h": 28,
    "N": 1232,
    "colours": 10,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-E",
    "note": null,
    "usedBy": null
@@ -4592,7 +4592,7 @@
    "h": 34,
    "N": 1292,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-E",
    "note": null,
    "usedBy": null
@@ -4610,7 +4610,7 @@
    "h": 30,
    "N": 900,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-E",
    "note": null,
    "usedBy": null
@@ -4628,7 +4628,7 @@
    "h": 32,
    "N": 896,
    "colours": 6,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-E",
    "note": null,
    "usedBy": null
@@ -4646,7 +4646,7 @@
    "h": 34,
    "N": 1156,
    "colours": 9,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-E",
    "note": null,
    "usedBy": null
@@ -4664,7 +4664,7 @@
    "h": 36,
    "N": 1224,
    "colours": 7,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-E",
    "note": null,
    "usedBy": null
@@ -4682,7 +4682,7 @@
    "h": 30,
    "N": 900,
    "colours": 8,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-E",
    "note": null,
    "usedBy": null
@@ -4700,7 +4700,7 @@
    "h": 22,
    "N": 314,
    "colours": 4,
-   "status": "draft",
+   "status": "approved",
    "batch": "batch-0168-E",
    "note": null,
    "usedBy": null

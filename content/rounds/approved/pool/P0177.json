@@ -1,0 +1,94 @@
+{
+ "code": "P0177",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Мистер Мисикс",
+ "theme": "Герои мультсериалов",
+ "family": "Вирусные анимационные персонажи и мини-вселенные",
+ "direction": "Театр эмоций",
+ "subject": "Мистер Мисикс: высокий голубой, тонкие руки вверх, широко раскрытые глаза",
+ "source": "сторонняя вселенная",
+ "reference": "Рик и Морти — Mr. Meeseeks",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 26,
+ "h": 36,
+ "N": 936,
+ "colours": 6,
+ "volumes": {
+  "L": {
+   "cells": 395,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "B": {
+   "cells": 239,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "D": {
+   "cells": 152,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "M": {
+   "cells": 114,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "C": {
+   "cells": 24,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 12,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "LLLDDLLLLLLLLLLLLLLLLDDLLL",
+  "LLDDDDLLLLLLLLLLLLLLDDDDLL",
+  "LDDBBBLLLLLLLLLLLLLDDBBDDL",
+  "LDDBBBLLLLDDDDDDLLLDDBBBDL",
+  "LLDBBDLLLBBBBBBBLLLLDBBDLL",
+  "LLDBBDLLBBBBBBBBBLLLDBBDLL",
+  "LLDBBDDDBBBBBBBBBBDDDBBDLL",
+  "LLLDBBDDBCCCBBCCCBDDDBBDLL",
+  "LLLDBBDBCCCCCCCCCCBDBBDLLL",
+  "LLLDBBDBCCDDCCCDDCBDBBDLLL",
+  "LLLDBBDBBCDDBBCDDBBDBBDLLL",
+  "LLLDBBDBBBBBBBBBBBBDBBDLLL",
+  "LLLLBBBBBDDDDDDDDBBBBLLLLL",
+  "LLLLBBBBBDDDDDDDDBBBBLLLLL",
+  "LLLLLBBBDDRRRRRRDDBBLLLLLL",
+  "LLLLLBBBBDRRRRRRDBBBLLLLLL",
+  "LLLLLLDBBBBBBBBBBBBDLLLLLL",
+  "LLLLLLDDBBBBBBBBBBDDLLLLLL",
+  "LLLLLLLDBBBBBBBBBBDLLLLLLL",
+  "LLLLLLLLDBBBBBBBBDLLLLLLLL",
+  "LLLLLLLLDBBBBBBBBDLLLLLLLL",
+  "LLLLLLLLDBBBBBBBBDLLLLLLLL",
+  "LLLLLLLLDBBBBBBBBDLLLLLLLL",
+  "LLLLLLLLDBBBBBBBBDLLLLLLLL",
+  "LLLLLLLLDBBBBBBBBDLLLLLLLL",
+  "LLLLLLLLDBBBBBBBBDLLLLLLLL",
+  "LLLLLLLLDDBBBBBBDDLLLLLLLL",
+  "LLLLLLLLLDBBDDBBDLLLLLLLLL",
+  "LLLLLLLLLDBBDDBBDLLLLLLLLL",
+  "LLLLLLLLLDBBDDBBDLLLLLLLLL",
+  "LLLLLLLLLDBBDDBBDLLLLLLLLL",
+  "MMMMMMMMMDBBDDBBDMMMMMMMMM",
+  "MMMMMMMMMDDDDDDDDMMMMMMMMM",
+  "MMMMMMMMMMMMMMMMMMMMMMMMMM",
+  "MMMMMMMMMMMMMMMMMMMMMMMMMM",
+  "MMMMMMMMMMMMMMMMMMMMMMMMMM"
+ ]
+}

@@ -1,0 +1,92 @@
+{
+ "code": "P0175",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Таз",
+ "theme": "Герои мультсериалов",
+ "family": "Лесные и горные животные",
+ "subject": "Тасманийский дьявол Таз: бурое тело, огромная открытая пасть с зубами, светлое брюхо",
+ "source": "сторонняя вселенная",
+ "reference": "Looney Tunes — Taz",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 30,
+ "N": 900,
+ "colours": 7,
+ "volumes": {
+  "O": {
+   "cells": 392,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 158,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 126,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 105,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 56,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 51,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "P": {
+   "cells": 12,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO",
+  "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO",
+  "OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO",
+  "OOOOOOOEOOOOOOOOOOOOOOEOOOOOOO",
+  "OOOOOOOEEOOOOOEEOOOOOEEOOOOOOO",
+  "OOOOOOOEEEOOOOEEOOOOEEEOOOOOOO",
+  "OOOOOOOOEDDDDEEEEDDDDEOOOOOOOO",
+  "OOOOOOOOEECCDDEEDDCCEEOOOOOOOO",
+  "OOOOOOOOEECCDDEEDDDCEEOOOOOOOO",
+  "OOOOOOOOEECCDDEEDDDCEEOOOOOOOO",
+  "OOOOOOOEEEECCDDDDDDEEEEOOOOOOO",
+  "OOOOOOEEEEEEEDDDDEEEEEEEOOOOOO",
+  "OOOOOOEEEEECCCDDCCCEEEEEOOOOOO",
+  "OOOOOEEEECCDDDDDDDDCCEEEEOOOOO",
+  "OOOOOEECCCCCCRCCRCCCCCCEEOOOOO",
+  "OOOEEEECCCRCCRCCRCCRCCCEEEEOOO",
+  "OOOEEECDRRRRRRRRRRRRRRDCEEEOOO",
+  "OOOEEECDRRRRRRRRRRRRRRDCEEEOOO",
+  "OOOEEECDRRRRRPPPPRRRRRDCEEEOOO",
+  "OOOOEEECRRCCRPPPPRCCRCCEEEOOOO",
+  "OOOOEEECCCCCRPPPPRCCCCCEEEOOOO",
+  "OOOOOOOEECCDDDDDDDDCCEEOOOOOOO",
+  "OOOOOOOOECCCCCCCCCCCCEOOOOOOOO",
+  "OOOOOOOOOECCCCCCCCCCEOOOOOOOOO",
+  "OOOOOOOOOEECCCCCCCCEEOOOOOOOOO",
+  "YYYYYYYYEEEEEEYYEEEEEEYYYYYYYY",
+  "YYYYYYYYEEEEEEYYEEEEEEYYYYYYYY",
+  "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
+  "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
+  "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+ ]
+}

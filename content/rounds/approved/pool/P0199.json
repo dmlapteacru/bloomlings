@@ -1,0 +1,99 @@
+{
+ "code": "P0199",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Миньон",
+ "theme": "Герои мультфильмов",
+ "family": "Вирусные анимационные персонажи и мини-вселенные",
+ "subject": "жёлтый миньон-капсула с одним большим глазом в очках и в синем комбинезоне",
+ "source": "сторонняя вселенная",
+ "reference": "Гадкий я — Minion (Stuart)",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 32,
+ "N": 896,
+ "colours": 8,
+ "volumes": {
+  "K": {
+   "cells": 432,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "Y": {
+   "cells": 132,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 102,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "N": {
+   "cells": 96,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 70,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "S": {
+   "cells": 36,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 16,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 12,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "KKKKKKKKKKKKKKDKKKKKKKKKKKKK",
+  "KKKKKKKKKKKDKKDKDKKKKKKKKKKK",
+  "KKKKKKKKKKKDKKDKDKKKKKKKKKKK",
+  "KKKKKKKKKKKDYYDYDKKKKKKKKKKK",
+  "KKKKKKKKKKYYYYYYYYKKKKKKKKKK",
+  "KKKKKKKKKYYYYYYYYYYKKKKKKKKK",
+  "KKKKKKKKYYYYYSSYYYYYKKKKKKKK",
+  "KKKKKKKYYYYSSSSSSYYYYKKKKKKK",
+  "KKKKKKKYYYSSCCCCSSYYYKKKKKKK",
+  "KKKKKKKYYYSCAAAACSYYYKKKKKKK",
+  "KKKKKKKDDSSCADDACSSDDKKDDDKK",
+  "KKKKKKKDDSSCADDACSSDDKKDDDKK",
+  "KKKKKKKYYYSCAAAACSYYYKKDDDKK",
+  "KKKKKKKYYYSSCCCCSSYYYKKYYKKK",
+  "KKKKKKKYYYYSSSSSSYYYYKYYKKKK",
+  "KKKKKKKYNYYYYSSYYYYNYKYYKKKK",
+  "KKKKKKKYNNYDDDDDDYNNYYYKKKKK",
+  "KKKKKYYYYNNYDDDDYNNYYYKKKKKK",
+  "KKKKKYYYYNNYYYYYYNNYYKKKKKKK",
+  "KKKKKYYYYYNNNNNNNNYYYKKKKKKK",
+  "KKKKKYYYYYNNNNNNNNYYYKKKKKKK",
+  "KKKKKYYNNNNNNNNNNNNNNKKKKKKK",
+  "KKKKDDDNNNNNNNNNNNNNNKKKKKKK",
+  "KKKKDDDDNNNNNNNNNNNNKKKKKKKK",
+  "KKKKKDDKKNNNNNNNNNNKKKKKKKKK",
+  "KKKKKKKKKKNNNNNNNNKKKKKKKKKK",
+  "KKKKKKKKKKNNNNNNNNKKKKKKKKKK",
+  "KKKKKKKKKDDDDDDDDDDKKKKKKKKK",
+  "GGGGGGGGDDDDDGGDDDDDGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+ ]
+}

@@ -1,0 +1,102 @@
+{
+ "code": "P0212",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Поросёнок-строитель с кирпичом",
+ "theme": "Сказочные герои",
+ "family": "Фольклор и легенды",
+ "direction": "Обмен ролями",
+ "subject": "розовый поросёнок в строительной каске с кирпичом у кирпичной стенки",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 30,
+ "N": 900,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 354,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "G": {
+   "cells": 146,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "P": {
+   "cells": 108,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "Y": {
+   "cells": 68,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 64,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 62,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "N": {
+   "cells": 60,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 20,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "K": {
+   "cells": 18,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSYYYYYYSSSSSSSSSSSSSSS",
+  "SSSSSSSSYYYYYYYYSSSSSSSSSSSSSS",
+  "SSSSSSSYYYYYYYYYYSSSSSSSSSSSSS",
+  "SSSSSSSYYYYYYYYYYSSSSSSSSSSSSS",
+  "SSSSSSSYYYYYYYYYYSSSSSSSSSSSSS",
+  "SSSSSSYYYYYYYYYYYYSSSSSSSSSSSS",
+  "SSSSSSYYYYYYYYYYYYSSSSSSSSSSSS",
+  "SSSSSPPPPPPPPPPPPPPSSSSSSSSSSS",
+  "SSSSPPPPDDPPPPDDPPPPSSSSSSSSSS",
+  "SSSSPPPPDDPPPPDDPPPPSSSSSSSSSS",
+  "SSSSSSPPPKKKKKKPPPSSSSSSSSSSSS",
+  "SSSSSSPPPKDKKDKPPPSSSSSSSSSSSS",
+  "SSSSSSSPPKDKKDKPPSSCCCCCCCCCCS",
+  "SSSSSSSPPKDKKDKPPSSRRCRRRCRRRS",
+  "SSSSSSPPPPPPPPPPPPSRRCRRRCRRRS",
+  "SSSSSPPPPRRRRRRPPPPCCCCCCCCCCS",
+  "SSSSSPPPPPRRRRPPPPPRRRRCRRRCCS",
+  "SSSSSPNNPRRRRRRPNNPRRRRCRRRCCS",
+  "SSSSSPNNNNNNNNNNNNPCCCCCCCCCCS",
+  "SSSSSPNNNNNNNNNNNNPRRCRRRCRRRS",
+  "SSSSSSNNNNNNNNNNNNNRRCRRRCRRRS",
+  "SSSSSSNNNNNNNNNNNNNCCCCCCCCCCS",
+  "GGGGGGNNPPPNNNPPPNGCCCCCCCCCCG",
+  "GGGGGGGGPPPGGGPPPGGGGGGGGGGGGG",
+  "GGGGGGGGDDDGGGDDDGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+ ]
+}

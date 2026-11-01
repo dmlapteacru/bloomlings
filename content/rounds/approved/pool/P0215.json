@@ -1,0 +1,108 @@
+{
+ "code": "P0215",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Рапунцель в башне",
+ "theme": "Сказочные герои",
+ "family": "Фольклор и легенды",
+ "direction": "Фольклорная фантазия",
+ "subject": "девочка в окне высокой каменной башни, длинная золотая коса свисает до самой травы",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 32,
+ "h": 38,
+ "N": 1216,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 614,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "A": {
+   "cells": 213,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "G": {
+   "cells": 130,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "R": {
+   "cells": 90,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 85,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 38,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "K": {
+   "cells": 17,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "V": {
+   "cells": 17,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "O": {
+   "cells": 12,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSRRSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSRRRRSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSRRRRRRSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSRRRRRRRRSSSSSSSSSSSS",
+  "SSSSSSSSSSSRRRRRRRRRRSSSSSSSSSSS",
+  "SSSSSSSSSSRRRRRRRRRRRRSSSSSSSSSS",
+  "SSSSSSSSSRRRRRRRRRRRRRRSSSSSSSSS",
+  "SSSSSSSSRRRRRRRRRRRRRRRRSSSSSSSS",
+  "SSSSSSSRRRRRRRRRRRRRRRRRRSSSSSSS",
+  "SSSSSSSSAAAAAAAAAAAAAAAASSSSSSSS",
+  "SSSSSSSSAAADDDYYYYDDDAAASSSSSSSS",
+  "SSSSSSSSAADDDYYYYYYDDDAASSSSSSSS",
+  "SSSSSSSSAADDYYYYYYYYDDAASSSSSSSS",
+  "SSSSSSSSAADYYDDKKDDYYDAASSSSSSSS",
+  "SSSSSSSSAADYYDDKKDDYYDAASSSSSSSS",
+  "SSSSSSSSAADYYKKKKKKYYDAASSSSSSSS",
+  "SSSSSSSSAADYYYKKKKKYYDAASSSSSSSS",
+  "SSSSSSSSAADDYYYKKYYYDDAASSSSSSSS",
+  "SSSSSSSSAADVVVVVVVVVVDAASSSSSSSS",
+  "SSSSSSSSAAAVVVVVVVYYYAAASSSSSSSS",
+  "SSSSSSSSAAAAAAAAAAYYYAAASSSSSSSS",
+  "SSSSSSSSAAAAAAAAAAOOOAAASSSSSSSS",
+  "SSSSSSSSAAAAAAAAAAYYYAAASSSSSSSS",
+  "SSSSSSSSAAAAAAAAAAYYYAAASSSSSSSS",
+  "SSSSSSSSAAAAAAAAAAOOOAAASSSSSSSS",
+  "SSSSSSSSAAAAAAAAAAYYYAAASSSSSSSS",
+  "SSSSSSSSAAAAAAAAAAYYYAAASSSSSSSS",
+  "SSSSSSSSAAAAAAAAAAOOOAAASSSSSSSS",
+  "SSSSSSSSAAAAAAAAAAYYYAAASSSSSSSS",
+  "SSSSSSSSAAAAAAAAAAYYYAAASSSSSSSS",
+  "SSSSSSSSAAAAAAAAAAOOOAAASSSSSSSS",
+  "GGGGGGGGAAAAAAAAAAYYYYYYGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGYYYYYYYYGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGYYYYYYGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+ ]
+}

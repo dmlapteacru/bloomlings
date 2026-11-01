@@ -1,0 +1,99 @@
+{
+ "code": "P0172",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Цветик",
+ "theme": "Герои мультсериалов",
+ "family": "Герои приключений",
+ "subject": "Цветик из Суперкрошек: огромные глаза, длинные рыжие волосы, красный бант, розовое платье",
+ "source": "сторонняя вселенная",
+ "reference": "Суперкрошки — Blossom",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 32,
+ "N": 960,
+ "colours": 8,
+ "volumes": {
+  "N": {
+   "cells": 401,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 210,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "O": {
+   "cells": 98,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "K": {
+   "cells": 91,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "P": {
+   "cells": 84,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "R": {
+   "cells": 52,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 16,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 8,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "NNNNNNNDDNNNNNNNNNNNNDDNNNNNNN",
+  "NNNNNNNDRDDDDDDDDDDDDRDNNNNNNN",
+  "NNNNNNNDRRRRDRRRRDRRRRDNNNNNNN",
+  "NNNYYNNDRRRRRRRRRRRRRRDNNNNNNN",
+  "NNNYYNNDRRRRDRRRRDRRRRDNNNNNNN",
+  "NNNNNNDDRRRDDDDDDDDRRRDDNNYYNN",
+  "NNNNNDODRRROOOOOOOORRRDODNYYNN",
+  "NNNNDDODDKKKKKOOKKKKKDDODDNNNN",
+  "NNNNDOODDDDDDKKKKDDDDDDOODNNNN",
+  "NNNNDOODDPPPDDKKDDPPPDDOODNNNN",
+  "NNNNDOODCCPPPDKKDCCPPPDOODNNNN",
+  "NNNNDOODCCDDPDKKDCCDDPDOODNNNN",
+  "NNNNDOODPPDDPDKKDPPDDPDOODNNNN",
+  "NNNNDOODDPDDDDKKDDPDDDDOODNNNN",
+  "NNNNDOODDDDDDKKKKDDDDDOOODNNNN",
+  "NNNNDOOOKKKKKKKKKKKKKKOOODNNNN",
+  "NNNNDOOOOKKKKKDDDKKKKOOOODNNNN",
+  "NNNNDOOOOOOKKKKKKKKOOOOOODNNNN",
+  "NNNNDOOKKKOPPPPPPPPOKKKOODNNNN",
+  "NNNNDOOKKKPPPPPPPPPPKKKOODNNNN",
+  "NNNNDOOKKKDDDDDDDDDDKKKOODNNNN",
+  "NNNNDDOKKKPPPPPPPPPPKKKODDNNNN",
+  "NNYYNDOOOOPPPPPPPPPPOOOODNNNNN",
+  "NNYYNNOOOPPPPPPPPPPPPOONNNNNNN",
+  "NNNNNNNDDPPPPPPPPPPPPDDNNNNNNN",
+  "NNNNNNNNDDDDKKDDKKDDDDNNNNNNNN",
+  "NNNNNNNNNNDDKKDDKKDDNNNNNNYYNN",
+  "NNNNNNNNNNDDDDDDDDDDNNNNNNYYNN",
+  "NNNNNNNNNNDDDDDDDDDDNNNNNNNNNN",
+  "NNNNNNNNNNDDDDDDDDDDNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+ ]
+}

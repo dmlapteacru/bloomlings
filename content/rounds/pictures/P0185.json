@@ -57,8 +57,10 @@
   "R": 12,
   "M": 154
  },
- "status": "draft",
+ "status": "approved",
  "batch": "batch-0168-A",
  "createdAt": "2026-11-01",
- "history": []
+ "history": [],
+ "note": null,
+ "decidedAt": "2026-11-01"
 }

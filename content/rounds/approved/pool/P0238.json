@@ -1,0 +1,102 @@
+{
+ "code": "P0238",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Улитка-гонщик с турбиной",
+ "theme": "Смешные и абсурдные герои",
+ "family": "Насекомые и маленькие существа",
+ "direction": "Природа и технология",
+ "subject": "улитка в гоночных очках с реактивной турбиной на раковине мчится по трассе",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 38,
+ "h": 31,
+ "N": 1178,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 345,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "D": {
+   "cells": 330,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "L": {
+   "cells": 157,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "O": {
+   "cells": 147,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 93,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "N": {
+   "cells": 48,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "B": {
+   "cells": 21,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "Y": {
+   "cells": 19,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 18,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSNNNNNNNNNNNSSSSSSSSSSSSSSSSSSS",
+  "SSSSSDDNNNNNNNNNNNNSSSSSSLLSSSSSLLSSSS",
+  "SSSSSDDNNRRRRRRRRRRSSSSSLLLLSSSLLLLSSS",
+  "SSSSSDDNNNNNNNNNNNNSSSSSSLLSSSSSLLSSSS",
+  "SSSSSDDSNNNNNNNNNNNSSSSSSLLSSSSSLLSSSS",
+  "SSSSSSSSSOOOOOOOOOOOOSSSSSLLSSSLLLSSSS",
+  "SSSSSSSSOOOOOEEEEEEOOSSSSSLLSSSLLSSSSS",
+  "SSSSSSSOOOOOEEEEEEEEEEESSSLLSSSLLSSSSS",
+  "SSSSSSSOOOOEEOOOOOOEEEESSSLLLLLLLSSSSS",
+  "SSSSSSEOOOEEEOOOOOOOEEEESDDDDDDDDDDSSS",
+  "SSSSSSEOOOEEOOOOOOOOEEEEDDBBBBBBBDDSSS",
+  "SSSSSSEOOOEEOOOEOOOOOEEEDDBBBBBBBDDSSS",
+  "SSSSSSEOOOEEEOOEEOOOOEEEDDBBBBBBBDDSSS",
+  "SSSSSSEOOOOEEEEEEOOOOEEEDDDDDDDDDDDSSS",
+  "SSSSSSEOOOOOEEEEOOOOOEEESLLLLLLLLLSSSS",
+  "SSSSSSSOOOOOOOOOOOOOOEESSLLLLLLLLLSSSS",
+  "SSSSSSSOOOOOOOOOOOOOEEESSLLLDDDDLLSSSS",
+  "SSSSSLLLOOOOOOOOOOOEEELLLLLLLLLLLLSSSS",
+  "SSSSLLLLLOOOOOOOOOEEELLLLLLLLLLLLLSSSS",
+  "SSSSLLRRRROOOOOOOEEERRRRLLLLLLLLLLSSSS",
+  "SSSSLLLLLLLLEEEEEEELLLLLLLLLLLLLLSSSSS",
+  "SSSSSLLLLLLLLLLLLLLLLLLLLLLLLLLLSSSSSS",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "DDDYYYYYDDDDDYYYYYDDDDDYYYYYDDDDYYYYDD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+ ]
+}

@@ -1,0 +1,80 @@
+{
+ "code": "P0225",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Стойкий оловянный солдатик",
+ "theme": "Сказочные герои",
+ "family": "Игрушки и настольные игры",
+ "direction": "Ожившие вещи",
+ "subject": "оловянный солдатик на одной ноге в высоком кивере с ружьём",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 16,
+ "h": 24,
+ "N": 384,
+ "colours": 6,
+ "volumes": {
+  "S": {
+   "cells": 200,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "D": {
+   "cells": 60,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 56,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 30,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "K": {
+   "cells": 22,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "N": {
+   "cells": 16,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSDS",
+  "SSSSSDDDDDDSSSDS",
+  "SSSSSDDDDDDSSSDS",
+  "SSSSSDDYYDDSSSDS",
+  "SSSSSDDYYDDSSSDS",
+  "SSSSSDDDDDDSSSDS",
+  "SSSSDDDDDDDDSSDS",
+  "SSSSSKKKKKKSSSDS",
+  "SSSSSKKKKKKSSSDS",
+  "SSSSSKDDDDKSSSDS",
+  "SSRRRRRRRRRRRRDS",
+  "SSRRRRRRRRRRRRDS",
+  "SSRRRRRRRRRRRRDS",
+  "SSRRRRRRRRRRKKDS",
+  "SSRRYYYYYYYYKKDD",
+  "SSKKRRRRRRRRSSDD",
+  "SSKKSSNNNNSSSSDD",
+  "SSSSSSNNNNSSSSDD",
+  "SSSSSSNNNNSSSSSS",
+  "SSSSSSNNNNSSSSSS",
+  "SSSSSSYYYYSSSSSS",
+  "SSSSYYYYYYYYSSSS",
+  "SSSSSYYYYYYSSSSS"
+ ]
+}

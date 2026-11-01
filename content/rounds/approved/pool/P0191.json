@@ -1,0 +1,69 @@
+{
+ "code": "P0191",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Хеллоу Китти",
+ "theme": "Герои мультфильмов",
+ "family": "Домашние животные",
+ "subject": "белая кошечка Хеллоу Китти с красным бантом и жёлтым носиком, без рта",
+ "source": "сторонняя вселенная",
+ "reference": "Sanrio — Hello Kitty",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 22,
+ "h": 18,
+ "N": 396,
+ "colours": 5,
+ "volumes": {
+  "P": {
+   "cells": 135,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "C": {
+   "cells": 116,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 113,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 24,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 8,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "PPPPPPPPPPPDPPPPPPPPPD",
+  "PPPPPPPPPPPDDDPPPPPDDD",
+  "PPPDPPPPPPPDRRDDDDDRRD",
+  "PPPDDDPPPPPDRRRRDRRRRD",
+  "PPPDDDDDPDDDRRRRDRRRRD",
+  "PPPDCCCDDCCDRRDDDDDRRD",
+  "PPDDCCCCCCCDDDCCDDDDDD",
+  "PPDDCCCCCCCDCCCCCCDDPD",
+  "PPDCCCCCCCCCCCCCCCCDPP",
+  "PPDCCCCCCCCCCCCCCCCDPP",
+  "PDCCCCDDCCCCCCDDCCCCDP",
+  "DDDDCCDDCCCCCCDDCCDDDD",
+  "DDDCCCDDCYYYYCDDCCCDDD",
+  "DDDDCCCCCYYYYCCCCCDDDD",
+  "PPPPDDCCCCCCCCCCCPPPPP",
+  "PPPPPDDDDCCCCDDDDPPPPP",
+  "PPPPPPPPPDDDDPPPPPPPPP",
+  "PPPPPPPPPPPPPPPPPPPPPP"
+ ]
+}

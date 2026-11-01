@@ -1,0 +1,94 @@
+{
+ "code": "P0168",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Гамбол",
+ "theme": "Герои мультсериалов",
+ "family": "Домашние животные",
+ "subject": "Гамбол Уоттерсон, голубой мультяшный кот с огромными глазами и белой мордочкой",
+ "source": "сторонняя вселенная",
+ "reference": "Удивительный мир Гамбола — Gumball Watterson",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 32,
+ "N": 960,
+ "colours": 7,
+ "volumes": {
+  "Y": {
+   "cells": 303,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "B": {
+   "cells": 262,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "D": {
+   "cells": 183,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "A": {
+   "cells": 130,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 54,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 16,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "R": {
+   "cells": 12,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "YYYYYDDYYYYYYYYYYYYYYYYDDYYYYY",
+  "YYYYYDBBBYYYYYYYYYYYYYYBDYYYYY",
+  "YYYYYDBBBDDYYYYYYYYDDBBBDYYYYY",
+  "YYYYYDBBBBDDDDDDDDDDBBBBDYYYYY",
+  "YYYYYDBNNBBBBBBBBBBBBNNBDYYYYY",
+  "YYYYDBBNNNDDDBBBBDDDNNNBBDYYYY",
+  "YYYYDBBNNDCCCBBBCCCCDNNBBDYYYY",
+  "YYYYDBBNDDCCCCDDCCCCDDNBBDYYYY",
+  "YYYYDBBBDCCCCCDDCCCCCDBBBDYYYY",
+  "YYYYDBBBDCCCCCDDCCCCCDBBBDYYYY",
+  "YYYYDBBBDCCCDDDDDDCCCDBBBDYYYY",
+  "YYYYDBBBDCCCDDDDDDCCCDBBBDYYYY",
+  "YYYYDBBBBCCCCDBBDCCCBBBBBDYYYY",
+  "YYYYDBBBBBDDDBBBBDDDBBBBBDYYYY",
+  "YDDDDDBBBBBBBBBBBBBBBBBBDDDDDY",
+  "YYYYYDBBBBBBBBBBBBBBBBBBDYYYYY",
+  "YYDDDDDBBBBDDDDDDDDBBBBDDDDDYY",
+  "YYYYYYDDBBBDDRRRRDDBBBDDDBBDYY",
+  "YYYYYYYYDDBDDRRRRDDBDDYYDBBDYY",
+  "YYYYYYYYDBBDDRRRRDDBBDYYDBBDYY",
+  "YYYYYYYYDBBBBBBBBBBBBDYDBBDYYY",
+  "YYYYYYYYBBBBBBBBBBBBBBDDBBDYYY",
+  "YYYYYYYYBBBBBBBBBBBBBBDBBDDYYY",
+  "YYYYYYYYBBBBBBBBBBBBBBBBBDYYYY",
+  "YYYYYYYYBBBBBBBBBBBBBBBBBYYYYY",
+  "YYYYYYYYYDDBBBBBBBBDDDDYYYYYYY",
+  "YYYYYYYYYYDBBBDDBBBDYYYYYYYYYY",
+  "AAAAAAAAAADBBBDDBBBDAAAAAAAAAA",
+  "AAAAAAAAAADDDDDDDDDDAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+ ]
+}

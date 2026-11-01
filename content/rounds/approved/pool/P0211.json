@@ -1,0 +1,103 @@
+{
+ "code": "P0211",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Серый Волк в бабушкином чепце",
+ "theme": "Сказочные герои",
+ "family": "Лесные и горные животные",
+ "direction": "Обмен ролями",
+ "subject": "серый волк в кружевном чепце и ночной рубашке сидит в кровати",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 32,
+ "N": 1152,
+ "colours": 9,
+ "volumes": {
+  "K": {
+   "cells": 354,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "A": {
+   "cells": 173,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 169,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "D": {
+   "cells": 162,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 125,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 87,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 47,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "S": {
+   "cells": 23,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "Y": {
+   "cells": 12,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK",
+  "KKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKKK",
+  "KKKKKKKKKKKDDKKKKKDKKKKKKKKKKKKKKKKK",
+  "KKKKKKKKKKKDDDKKKDDKKKKKKKKKKKKKKKKK",
+  "KKKKKKKKKKCDDDPPDDDKKKKKKKKKKKKKKKKK",
+  "KKKEEEKKKCCCCCPPDDDDKKKKKKKKKKKKKKKK",
+  "KKEEEEEKCCCCCCCPPDDDKKKKKKKKKKKKKKKK",
+  "KKEEEEEKCCCCCCCPPDDDKKKKKKKKKKKKKKKK",
+  "KKEEEEECCCCCCCCPPYYDDDDKKKKKKKKKKKKK",
+  "KKEEEESSCCCCCCCPPYYDDDDDDDDKKKKKKKKK",
+  "KKEEEESPPCCCCCPPDDDDDDDDDDDDDDDDKKKK",
+  "KKEEEESPPPCCCPPPDDDDDDDDDDDDDDDDKKKK",
+  "KKEEEESSSPPPPPDDDDDDDDDDDDDDDDDDKKKK",
+  "KKEEEESSSSDDDDDDDDDDDCCCCCCCCKKKKKKK",
+  "KKEEEESSSDDDDDDDDDDDDDDDDDDDKKKKKKKK",
+  "KKEEEESSDDDDDDDDDDDPDDDDDDDKKKKKEEEK",
+  "KKEEEESDDDDDDDDDDPPPDDKKKKKKKKKEEEEK",
+  "KKEEEESSSPDDPPPPPPYYYYKKKKKKKKKEEEEK",
+  "KKEEEESSSPPPPPPPPPYYYYKKKKKKKKKEEEEK",
+  "KKEEEEECCCCCDDDCCCCCDDDDCCCCCCCCEEEK",
+  "KKEEEEECCCCCDDDCCCCCDDDDCCCCCCCCEEEK",
+  "KKEEEEERRRRRRRRRRRRRRRRRRRRRRRRREEEK",
+  "KKEEEEERRRRRRRRRRRRRRRRRRRRRRRRREEEK",
+  "KKEEEEERRRRRRRRRRRRRRRRRRRRRRRRREEEK",
+  "KKEEEEERRRRRRRRRRRRRRRRRRRRRRRRREEEK",
+  "KKEEEEERRRRRRRRRRRRRRRRRRRRRRRRREEEK",
+  "KKEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEK",
+  "AAAEEEAAAAAAAAAAAAAAAAAAAAAAAAAEEEEA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+ ]
+}

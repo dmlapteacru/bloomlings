@@ -1,0 +1,94 @@
+{
+ "code": "P0219",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Белоснежка с яблоком",
+ "theme": "Сказочные герои",
+ "family": "Фольклор и легенды",
+ "direction": "Фольклорная фантазия",
+ "subject": "девушка с чёрными волосами и красным бантом держит красное яблоко",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 32,
+ "N": 896,
+ "colours": 7,
+ "volumes": {
+  "S": {
+   "cells": 411,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "D": {
+   "cells": 165,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "V": {
+   "cells": 138,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "C": {
+   "cells": 91,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 71,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "G": {
+   "cells": 12,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "K": {
+   "cells": 8,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSRRRDDDDDDRRRRSSSSSSS",
+  "SSSSSSSSRRRRRRRRRRRRRSSSSSSS",
+  "SSSSSSSRRRRDDRRDDRRRRSSSSSSS",
+  "SSSSSSSDRDDDDDDDDDDRDSSSSSSS",
+  "SSSSSSDDDDDDDDDDDDDDDDSSSSSS",
+  "SSSSSSDDDDDDDDDDDDDDDDSSSSSS",
+  "SSSSSSDDDCCCCCCCCCCDDDSSSSSS",
+  "SSSSSSDDDCCCCCCCCCCDDDSSSSSS",
+  "SSSSSSDDDCCCCCCCCCCDDDDSSSSS",
+  "SSSSSSDDDCDDCCCCDDCDDDDSSSSS",
+  "SSSSSSDDDCDDCCCCDDCDDDDSSSSS",
+  "SSSSSSDDDKKCCCCCCKKDDDDSSSSS",
+  "SSSSSSDDDKKCCCCCCKKDDDDSSSSS",
+  "SSSSSSDDDDCCRRRRCCDDDDDSSSSS",
+  "SSSSSSDDDDDCCCCCCDDDDDDSSSSS",
+  "SSSSSSDDDDDDCCCCDDDDDDDSSSSS",
+  "SSSSSSDDDDDDCCCCDDDDDDGGGSSS",
+  "SSSSSSDDDDDDCCCCDDDDDGGGGSSS",
+  "SSSSSSSSSSSSCCCCSSSSGGGGSSSS",
+  "SSSSSSSSSSSSSSSSSSRRRGRSSSSS",
+  "SSSSSSSSSVVVVVVVVRRRRRRRSSSS",
+  "SSSSSSVVVVVVVVVVVRRRRRRRSSSS",
+  "SSSSSVVVVVVVVVVVVRRRRRRRSSSS",
+  "SSSSVVVVVVVVVVVVCCCRRRRRSSSS",
+  "SSSVVVVVVVVVVVVVCCCCRRRVVSSS",
+  "SSSVVVVVVVVVVVVVCCCCRRVVVSSS",
+  "SSSVVVVVVVVVVVVVVVVVVVVVVSSS",
+  "SSSVVVVVVVVVVVVVVVVVVVVVVSSS",
+  "SSSSVVVVVVVVVVVVVVVVVVVVSSSS"
+ ]
+}

@@ -1,0 +1,104 @@
+{
+ "code": "P0210",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Красная Шапочка с корзинкой",
+ "theme": "Сказочные герои",
+ "family": "Фольклор и легенды",
+ "direction": "Фольклорная фантазия",
+ "subject": "девочка в красном капюшоне с корзинкой на тропинке",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 32,
+ "N": 896,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 254,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "M": {
+   "cells": 133,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "R": {
+   "cells": 131,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "G": {
+   "cells": 128,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 125,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "K": {
+   "cells": 55,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "A": {
+   "cells": 34,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 20,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 16,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSRRRRRRSSSSSSSSSSSS",
+  "SSSSSSSSRRRRRRRRRRSSSSSSSSSS",
+  "SSSSSSSSRRRRRRRRRRSSSSSSSSSS",
+  "SSSSSSSRRYYYYYYYYRRSSSSSSSSS",
+  "SSSSSSSRRYYYYYYYYRRSSSSSSSSS",
+  "SSSSSSSRRKKKKKKKKRRSSSSSSSSS",
+  "SSSSSSSRRKDDKKDDKRRSSSSSMMMM",
+  "SSSSSSSRRKDDKKDDKRRSSSMMMMMM",
+  "MMMMMSSRRKKKKKKKKRRSSMMMMMMM",
+  "MMMMMMSSRKKKKKKKKRSSSMMMMMMM",
+  "MMMMMMMSRRKKKKKKRRSSMMMMMMMM",
+  "MMMMMMMMRRRRRRRRRRSSAMMMMMMM",
+  "MMMMMMMRRRCCCCCCRRRAAAMMMMMM",
+  "MMMMMMMRRRCCCCCCRRAAAAAMMMMM",
+  "MMMMMMMRRRCCCCCCRRCCCCCMMMMM",
+  "MMMMMMMKKRCCCCCCCKCCCCCMMMMM",
+  "MMMMMMRKKCCCCCCCKKKAAAAAMMMM",
+  "MMMMMGRRRCCCCCCCCKAAAAAAMMMM",
+  "GGGGGGRRRCCCCCCCCAAAAAAAGGGG",
+  "GGGGGGRRRCCCCCCCCAAAAAAAGGGG",
+  "GGGGGGRRRCCCCCCCCRRRGGGGGGGG",
+  "GGGGGRRRRRRRRRRRRRRRRGGGGGGG",
+  "GGGGGRRRRRRRRRRRRRRRRCCGGGGG",
+  "GGGGGGGGGGKKGGKKCCCCCCCCCGGG",
+  "GGGGGGGGGGKKGGKKCCCCCCCCCCGG",
+  "GGGGGGGGGDDDGGDDDCCCCCCCCCGG",
+  "GGGGGGGGGDDDGGDDDCCCCCCCCCGG",
+  "GGGGGGGGGGGGGGGCCCCCCCCCCCCG"
+ ]
+}

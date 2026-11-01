@@ -43,8 +43,10 @@
   "D": 14,
   "B": 48
  },
- "status": "draft",
+ "status": "rejected",
  "batch": "batch-0168-D",
  "createdAt": "2026-11-01",
- "history": []
+ "history": [],
+ "note": "владелец 01.11.2026: «232 можем исключить. Переделывать не надо»",
+ "decidedAt": "2026-11-01"
 }

@@ -1,0 +1,69 @@
+{
+ "code": "P0258",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Орен из Спрунки",
+ "theme": "Мемные и абсурдные герои",
+ "family": "Игровая интернет-культура",
+ "subject": "оранжевый круглый персонаж в больших наушниках",
+ "source": "интернет-мем/тренд",
+ "reference": "Sprunki — Oren",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 21,
+ "h": 23,
+ "N": 359,
+ "colours": 4,
+ "volumes": {
+  "O": {
+   "cells": 211,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 116,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 24,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 8,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "......DDDDDDDD.......",
+  "....DDDDDDDDDDDD.....",
+  "...DDDDOOOOOODDDD....",
+  "..DDDOOOOOOOOOODDD...",
+  "..DDOOOOOOOOOOOODD...",
+  ".DDOOOOOOOOOOOOOODD..",
+  ".DDOOOOOOOOOOOOOODD..",
+  "DDDOOCCCOOOOCCCOODDD.",
+  "DDDOCCCCCOOCCCCCODDD.",
+  "DDDOCCDDCOOCDDCCODDDD",
+  "DDDOOCDDOOOODDCOODDDD",
+  "DDDOOOOOOOOOOOOOODDDD",
+  "DDDOOOOOOOOOOOOOODDDD",
+  "DDDOOODDDDDDDDOOODDD.",
+  "...OOODDRRRRDDOOO....",
+  "....OODDRRRRDDOO.....",
+  "....OOOOOOOOOOOO.....",
+  "....OOOOOOOOOOOO.....",
+  "....OOOOOOOOOOOOO....",
+  "....OOOOOOOOOOOOO....",
+  "....OOOOOOOOOOOOO....",
+  "....OOOOOOOOOOOO.....",
+  "....OOOOOOOOOOOO....."
+ ]
+}

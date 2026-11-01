@@ -1,0 +1,82 @@
+{
+ "code": "P0186",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Космо",
+ "theme": "Герои мультсериалов",
+ "family": "Волшебные существа",
+ "subject": "фей Космо: зелёные волосы, корона, волшебная палочка со звездой, маленькие крылья",
+ "source": "сторонняя вселенная",
+ "reference": "Волшебные покровители — Cosmo",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 22,
+ "h": 26,
+ "N": 346,
+ "colours": 6,
+ "volumes": {
+  "K": {
+   "cells": 90,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "C": {
+   "cells": 81,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 64,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "S": {
+   "cells": 46,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "D": {
+   "cells": 36,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 29,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "........Y.YY.Y.....Y..",
+  "........YYYYYY.....Y..",
+  "............GGG.YYYYYY",
+  "........GGGGGGGGGYYYYY",
+  ".......GGGGGGGGGGGYYY.",
+  "......GGGGGGGGGGGGYYY.",
+  "......GGGGGGGGGGGG.D..",
+  ".....GGGGGGK..GGG.DD..",
+  ".....GG..KKKKKKG..DD..",
+  ".....GG.KKKKKKKK..DD..",
+  ".....GGKKKKKKKKKK.DD..",
+  "......GKKKKKKKKKK.DD..",
+  ".......KKDDKKDDKK.DD..",
+  ".......KKDDKKDDKK.DD..",
+  ".......KKKKKKKKKK.DD..",
+  "....SSSKKKKKKKKKKSDD..",
+  "..SSSSSSKKDDDDKKSSDDD.",
+  ".SSSSSSSCKKKKKKCSSDDSS",
+  "SSSSSSSCCCCCCCCCCKKKSS",
+  "SSSSSSSCCCCCCCCCCKKKKS",
+  ".SSSSSCCCCCCCCCCCKKKKS",
+  ".......CCCCCCCCCC.KK..",
+  ".......CCCCCCCCCC.....",
+  ".......CCCCCCCCCC.....",
+  ".......CCCCCCCCCC.....",
+  "........CCCCCCCC......"
+ ]
+}

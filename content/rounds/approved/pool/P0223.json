@@ -1,0 +1,103 @@
+{
+ "code": "P0223",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Дюймовочка в тюльпане",
+ "theme": "Сказочные герои",
+ "family": "Фольклор и легенды",
+ "direction": "Перевёрнутый масштаб",
+ "subject": "крошечная девочка сидит в раскрытом тюльпане",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 27,
+ "h": 31,
+ "N": 837,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 473,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "R": {
+   "cells": 109,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "P": {
+   "cells": 84,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "Y": {
+   "cells": 36,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 36,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "K": {
+   "cells": 32,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "M": {
+   "cells": 32,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "C": {
+   "cells": 27,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 8,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSPPPSSSSSSSSSSSS",
+  "SSSSSSSSSSSYYYYYSSSSSSSSSSS",
+  "SSSSSSSPPSYYYYYYYSSPSSSSSSS",
+  "SSSSSSPPPYYYYYYYYYPPPSSSSSS",
+  "SSSSSSPPPYYYYYYYYYPPPPSSSSS",
+  "SSSSSPPPPYKDDKDDKYPPPPSSSSS",
+  "SSSSSPPPPYKDDKDDKYPPPPSSSSS",
+  "SSSSSPPPPYKKKKKKKYPPPPSSSSS",
+  "SSSSSPPPPPKKKKKKPPPPPPSSSSS",
+  "SSSSSPPPPPPCCKCCPPPPPPSSSSS",
+  "SSSSSSPPPPCCCCCCCPPPPSSSSSS",
+  "SSSSSSPPPPCCCCCCCPPPPSSSSSS",
+  "SSSSSSPKKKCCCCCCCKKKPSSSSSS",
+  "SSSSSRRKKKCRRRRRCKKKRRSSSSS",
+  "SSSSSRRRRRRRRRRRRRRRRRSSSSS",
+  "SSSSSRRRRRRRRRRRRRRRRRSSSSS",
+  "SSSSSRRRRRRRRRRRRRRRRRSSSSS",
+  "SSSSSGRRRRRRRRRRRRRRRGSSSSS",
+  "SSSSSGGRRRRRRRRRRRRRRGSSSSS",
+  "SSSSSGGRRRRRRRRRRRRGGGSSSSS",
+  "SSSSSSGGMRRRRRRRRMMGGSSSSSS",
+  "SSSSSSSGMMMMMGGGMMMGSSSSSSS",
+  "SSSSSSSSMMMMGGGMMMSSSSSSSSS",
+  "SSSSSSSSSMMMMGGMMSSSSSSSSSS",
+  "SSSSSSSSSSMMMGGMSSSSSSSSSSS",
+  "SSSSSSSSSSMMMGGMSSSSSSSSSSS",
+  "SSSSSSSSSSSGGGGGSSSSSSSSSSS",
+  "SSSSSSSSSSSSGGGSSSSSSSSSSSS"
+ ]
+}

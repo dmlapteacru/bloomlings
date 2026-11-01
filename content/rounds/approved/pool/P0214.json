@@ -1,0 +1,99 @@
+{
+ "code": "P0214",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Питер Пэн",
+ "theme": "Сказочные герои",
+ "family": "Герои приключений",
+ "direction": "Невесомый мир",
+ "subject": "мальчик в зелёном костюме и остроконечной шапочке с красным пером парит над ночными крышами",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 32,
+ "N": 896,
+ "colours": 8,
+ "volumes": {
+  "V": {
+   "cells": 451,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "D": {
+   "cells": 154,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "G": {
+   "cells": 120,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 84,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "K": {
+   "cells": 34,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "A": {
+   "cells": 24,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "M": {
+   "cells": 19,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "R": {
+   "cells": 10,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "VVVVVVVVVVVVVVVVVVVVVVVVVVVV",
+  "VVVVVVVVRRRVVVGVVVVVVVVVVVVV",
+  "VVVVVVVVVRRRGGGGGGGGGVVVVVVV",
+  "VVVVVVVVVVRRRGGGGGGGVVVVVVVV",
+  "VVVVVVVVVYGRGGGGGGYVVVVVVVVV",
+  "VVVVVVVVYYGGGGGGGGYYVVVVVVVV",
+  "VVVVVVVYYYGGGGGGGGYYYVVVVVVV",
+  "VVVVVVVYYYKKKKKKKKYYYVVVVVVV",
+  "VVVVVVYYYYKKDDKDDKYYYYVVVVVV",
+  "VVVVVVYYYYKKDDKDDKYYYYVVVVVV",
+  "VVVVVVYYYYYKKKKKKYYYYYVVVVVV",
+  "VVVVVVYYYYYYKKKKYYYYYYVVVVVV",
+  "VVVVVVYYYYGGGGGGGGYYYYVVVVVV",
+  "VVVVVVYYYGGGGGGGGGGYYYVVVVVV",
+  "VVVVVVVYGGGGGGGGGGGGYVVVVVVV",
+  "VVVVVVGGGGGGGGGGGGGGGGVVVVVV",
+  "VVVVVVVGKKGGGGGGGGKKGVVVVVVV",
+  "VVVVVVVVKKAAAAAAAAKKVVVVVVVV",
+  "VVVVVVVVVGGGGGGGGGGVVVVVVVVV",
+  "VVVVVVVVVGGGGGGGGGGVVVVVVVVV",
+  "VVVVVVVVVGGMMGVMGVVVVVVVVVVV",
+  "VVVVVVVVVVVMMVVMMVVVVVVVVVVV",
+  "VVVVVVVVVVVMMVVMMVVVVVVVVVVV",
+  "VVVVVVVVVVVMMVVMMVVVVVVVVVVV",
+  "VVVDDVVVVVVMMVVMMVVVVVVDDVVV",
+  "VVDDDDVVVAAAAVVAAAAVVVDDDDVV",
+  "VDDDDDDVVAAAADDAAAAVVDDDDDDV",
+  "DDDDDDDDVVVDDDDDDVVVDDDDDDDD",
+  "DDYYDDDDVDDDDDDDDDDVDDDDYYDD",
+  "DDYYDDDDDDDDDYYDDDDDDDDDYYDD",
+  "DDDDDDDDDDDDDYYDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+ ]
+}

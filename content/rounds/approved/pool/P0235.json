@@ -1,0 +1,102 @@
+{
+ "code": "P0235",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Носок-путешественник с рюкзаком",
+ "theme": "Смешные и абсурдные герои",
+ "family": "Одежда и аксессуары",
+ "direction": "Ожившие вещи",
+ "subject": "полосатый носок с лицом, рюкзаком, шляпой и посохом",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 30,
+ "N": 900,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 360,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "G": {
+   "cells": 119,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "R": {
+   "cells": 95,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "E": {
+   "cells": 88,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 81,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 76,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "O": {
+   "cells": 37,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 29,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 15,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSNNNNNNNNNNNSSSSSSEESS",
+  "SSSSSSSSSNNNNNNNNNNNSSSSSSEESS",
+  "SSSSSSSSSNNNNNNNNNNNSSSSSSEESS",
+  "SSSSSSSSSSRRRRRRRRRSSSSSSSEESS",
+  "SSSYYYYYYYRRRRRRRRRSSSSSSSEESS",
+  "SSSYYYYYYYCCCCCCCCCSSSSSSSEESS",
+  "SSSYEEEEEECDDCCCDDDDDDDDDDEESS",
+  "SSSEEEEEEECDDCCCDDDDDDDDDDEESS",
+  "SSSEEEEEEECCCCCCCCCSSSSSSSEESS",
+  "SSSOEEEEEERRRRRRRRRSSSSSSSEESS",
+  "SSSOOOOOOORRRRRRRRRSSSSSSSEESS",
+  "SSSOOOOOOOCCCCCCCCCSSSSSSSEESS",
+  "SSSOOEEEEOCCDDDDDCCSSSSSSSEESS",
+  "SSSOOEEEEOCCCCCCCCCSSSSSSSEESS",
+  "SSSOOEEEEORRRRRRRRRSSSSSSSEESS",
+  "SSSOOOOOOORRRRRRRRRRCNNSSSEESS",
+  "SSSSOOOOOOCCCCCCCCRRCNNNSSEESS",
+  "SSSSSSSSSSCCCCCCCCRRCNNNNSEESS",
+  "SSSSSSSSSSRRRRRRRRRRCNNNNSEESS",
+  "SSSSSSSSSSRRRRRRRRRRCNNNNSEESS",
+  "SSSSSSSSSSNNNNCRRCRRCNNNNSEESS",
+  "SSSSSSSSSSNNNNCRRCRRCNNNNSEESS",
+  "SSSSSSSSSSSNNNCRRCRRCNNNSSEESS",
+  "SSSSSSSGGGGGNNCRRCRRCNNSSSEESS",
+  "SSGGGGGGGGGGGGGGGGGGGGGGGGEESS",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+ ]
+}

@@ -1,0 +1,92 @@
+{
+ "code": "P0250",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Тунг Тунг Тунг Сахур",
+ "theme": "Мемные и абсурдные герои",
+ "family": "AI-brainrot и абсурдные гибриды",
+ "direction": "Ожившие вещи",
+ "subject": "деревянное полено с лицом и бейсбольной битой ночью",
+ "source": "интернет-мем/тренд",
+ "reference": "brainrot — Tung Tung Tung Sahur",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 34,
+ "N": 952,
+ "colours": 6,
+ "volumes": {
+  "N": {
+   "cells": 467,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 170,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 113,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 109,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "D": {
+   "cells": 85,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 8,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNNNNNCCCN",
+  "NNYNNNNNNCCCCCCCCCCNNNNNCCCC",
+  "NNYYNNNNCCCAAAAAACCCNNNNCCCC",
+  "NNYYNNNNECCCCCCCCCCENNNCCCCN",
+  "NNNYYYNNEAAAACCAAAAENNNCCCCN",
+  "NNNNNNNNEAAAAAAAAAAENNNCCCCN",
+  "NNNNNNNNEAAAAAAAAAAENNNCCCCN",
+  "NNNNNNNNEACCCAACCCAENNNCCCCN",
+  "NNNNNNNNECCCCCCCCCCENNCCCCCN",
+  "NNNNNNNNECCDDCCCDDCENNNCCCNN",
+  "NNNNNNNNEACDDAACDDAENNNCCCNN",
+  "NNNNNNNNEAAAAAAAAAAENNNCCNNN",
+  "NNNNNNNNEAAAAAAAAAAENNNCCNNN",
+  "NNNNNNNEEAAAAAAAAAAEENCCNNNN",
+  "NNNNNNNEEAAAEEEEAAAEEECCNNNN",
+  "NNNNNNEEEAAAAAAAAAAEEECCNNNN",
+  "NNNNNNEEEAAAAAAAAAAENECCNNNN",
+  "NNNNNEENEAAAAAAAAAAENNCCNNNN",
+  "NNNNNEENEAAEAAAAAAAENNCCNNNN",
+  "NNNNEENNEAAEAAAAEAAENCCCNNNN",
+  "NNNNEENNEAAEAAAAEAAENNNNNNNN",
+  "NNNNNNNNEAAEAAAAEAAENNNNNNNN",
+  "NNNNNNNNEAAAAAAAEAAENNNNNNNN",
+  "NNNNNNNNEAAAAAAAAAAENNNNNNNN",
+  "NNNNNNNNEAAAAAAAAAAENNNNNNNN",
+  "NNNNNNNNNEEEEEEEEEENNNNNNNNN",
+  "NNNNNNNNNNNEENNNEENNNNNNNNNN",
+  "NNNNNNNNNNNEENNNEENNNNNNNNNN",
+  "NNNNNNNNNEEEENNEEEENNNNNNNNN",
+  "DDDDDDDDDEEEEDDDEEEDDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+ ]
+}

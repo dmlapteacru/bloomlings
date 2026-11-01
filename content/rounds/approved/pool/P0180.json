@@ -1,0 +1,69 @@
+{
+ "code": "P0180",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Кинг",
+ "theme": "Герои мультсериалов",
+ "family": "Волшебные существа",
+ "subject": "Кинг: маленький тёмный пушистик в белом черепе-маске с рожками",
+ "source": "сторонняя вселенная",
+ "reference": "Дом совы — King",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 20,
+ "h": 23,
+ "N": 356,
+ "colours": 4,
+ "volumes": {
+  "D": {
+   "cells": 183,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 86,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "V": {
+   "cells": 79,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "Y": {
+   "cells": 8,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..VVV..........VVV..",
+  "..VCCCC.VVVV.CCCCV..",
+  "...VCCCDDDDDDCCCV...",
+  "...VCCCDDDDDDCCCV...",
+  "...VDCDDCCCCDDCDV...",
+  "...VDDCCCCCCCCDDV...",
+  ".VVDDCCCCCCCCCCDDVV.",
+  "VVDDDCDDDCCDDDCDDDVV",
+  "VDDDDCDDDCCDDDCDDDDV",
+  ".VDDDCDYYCCYYDCDDDV.",
+  ".VVDDCDYYCCYYDCDDVV.",
+  "..VDDCCCCCCCCCCDDV..",
+  ".VVDDDCCCDDCCCDDDDD.",
+  ".VDDDDDCCDDCCDDDDDDV",
+  ".VVVDDDCCCCCCDDDVDDV",
+  "...VDDDDDDDDDDDDVDDV",
+  "...VDDDDDDDDDDDDVDDV",
+  "...VDDDDDDDDDDDDDDDV",
+  "....VDDDDDDDDDDDDDD.",
+  "....VDDDDDDDDDDDDD..",
+  "....VDDDVVVVDDDVV...",
+  "....VDDDVV.VDDDV....",
+  "....VVVVV..VVVVV...."
+ ]
+}

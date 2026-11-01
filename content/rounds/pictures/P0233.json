@@ -60,8 +60,10 @@
   "D": 33,
   "Y": 20
  },
- "status": "draft",
+ "status": "approved",
  "batch": "batch-0168-D",
  "createdAt": "2026-11-01",
- "history": []
+ "history": [],
+ "note": null,
+ "decidedAt": "2026-11-01"
 }
