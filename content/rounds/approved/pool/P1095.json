@@ -1,0 +1,92 @@
+{
+ "code": "P1095",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Керамический колокольчик с бантом",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Свет и домашний декор",
+ "direction": "Домашняя магия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One broad cream ceramic bell, blue upper band, oversized red bow on top and visible golden clapper beneath its wide mouth. Only three or four large decorative shapes, no fine pattern.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 27,
+ "h": 28,
+ "N": 580,
+ "colours": 7,
+ "volumes": {
+  "R": {
+   "cells": 218,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 189,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 75,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 50,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "Y": {
+   "cells": 26,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 12,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "B": {
+   "cells": 10,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".......RRR..........RRRR...",
+  ".....RRRRRR.......RRRRRRR..",
+  ".....RRRRRRR..RR..RRRRRRRR.",
+  "....RRRRRRRRRRRRRRRRRRRRRR.",
+  "....RRRRRRRRRRRRRRRRRRRRRR.",
+  "....RRRRRRRRRRRRRRRRRRRRRR.",
+  ".....RRRRRRRRRRRRRRRRRRRR..",
+  "....RRRRRRRCCCCCCRRRRRRRR..",
+  "...RRRRRRCCCCCCCCCRRRRRR...",
+  "..RRRRRRCCCCCCCCCCCRRRRRR..",
+  ".RRRRRRCCCCCCCCCCCCCRRRRRR.",
+  "RRRRRRRCCCBNNNNNNCCCRRRRRRR",
+  ".RRRRRRNBBBNNNNNNNNNCRRRRRR",
+  "..RRRRNNBBBNNNNNNNNNNRRRRRR",
+  "...RRNNBBBCNNNNNNNNNNNRRR..",
+  "...RNNCCCCCCCCCCCCNNNNRR...",
+  "....CCCCCCCCCCCCCCCCCNN....",
+  "...CCCCCCCCCCCCCCCCCCCN....",
+  "..CCCCCCCCCCCCCCCCCCCCC....",
+  ".CCCCCCCCCCCCCCCCCCCCCCC...",
+  "CCCCAAAAAAAOOOAAAAACCCCC...",
+  "CCCAAAAAAAYYYOOAAAAAACCCC..",
+  "CCAAAAAAAYYCYYOOAAAAAAACC..",
+  "CCCAAAAAAYCCYYYOAAAAAAACC..",
+  "..CCAAAAAYYYYYYOAAAAAAACC..",
+  "...CCCCAAYYYYYOAAAAACCCC...",
+  ".....CCCCYYYYOOACCCCCC.....",
+  "...........AAA............."
+ ]
+}

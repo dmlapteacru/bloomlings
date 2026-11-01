@@ -1,0 +1,95 @@
+{
+ "code": "P1106",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Жёлтая канатная кабинка",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Багаж и навигация",
+ "direction": "Доброе будущее",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One round yellow cable-car gondola hanging from a short thick dark overhead arm, huge blue window occupying upper half, orange lower panel and red small roof. No landscape or text.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 32,
+ "N": 604,
+ "colours": 7,
+ "volumes": {
+  "Y": {
+   "cells": 202,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 121,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "B": {
+   "cells": 93,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "D": {
+   "cells": 66,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "N": {
+   "cells": 57,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "R": {
+   "cells": 39,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "S": {
+   "cells": 26,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "DDD............DDD..........",
+  "DDDDDDDD......DDDDDDDDDDDDDD",
+  "...DDDDDDDDDDDDDDDDDDDDDDDDD",
+  "..............DDDD..........",
+  "...............DDD..........",
+  "...............DD...........",
+  ".............DDDD...........",
+  ".........RRRRRRRRRRR........",
+  "........RRRRRRRRRRRRR.......",
+  ".......RRRRRRRRRRRRRRR......",
+  "......YYYYYYYYYYYYYYYYY.....",
+  ".....YYYYYYYYYYYYYYYYYYY....",
+  "....YYYNNNYNNNNNNNNNNNYYY...",
+  "...YYYSSSSYNSSSSBBBBBNNYYY..",
+  "..YYYYSSSSYNSSSBBBBBBNNYYYY.",
+  "..YYYYSSBBYNSSSBBBBBBNNNYYY.",
+  ".OYYNSSBBBYNSSBBBBBBBBBNYYYO",
+  ".OYYNSSBBBYNBBBBBBBBBBBNYYYO",
+  ".OYYNBBBBBYNBBBBBBBBBBBNYYYO",
+  ".OYYNBBBBBYNBBBBBBBBBBBNYYYO",
+  ".OYYNBBBBBYNBBBBBBBBBBBNYYYO",
+  ".OYYNNNNNNYYNNNNNNNNNNNNYYYO",
+  ".OYYYYYYYYYYYYYYYYYYYYYYYYYO",
+  "..YYYOOOOOOOOOOOOYOOOOOOYYY.",
+  "..YYYOOOOOOOOOOOOYOOOOOOYYY.",
+  "...YYOOOOOOOOOOOOYOOOOOYYY..",
+  "...YYYOOOOOOOOOOOYOOOOOYYY..",
+  "....YYOOOOOOOOOOOYOOOOYYY...",
+  ".....YYYOOOOOOOOOYOOOYYYY...",
+  "......YYYYYYYYYYYYYYYYY.....",
+  ".......YYYYYYYYYYYYYYY......",
+  ".........OOOOOOOOOOO........"
+ ]
+}

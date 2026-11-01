@@ -1,0 +1,93 @@
+{
+ "code": "P1091",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Золотой дверной молоток-лев",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Свет и домашний декор",
+ "direction": "Фольклорная фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One chunky golden lion-face door knocker with round ears, broad mane and clearly visible dark eyes, holding a thick circular orange ring in its mouth. Compact symmetric silhouette, no door or scene.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 30,
+ "N": 611,
+ "colours": 7,
+ "volumes": {
+  "Y": {
+   "cells": 209,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 191,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "O": {
+   "cells": 130,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 41,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 14,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 14,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 12,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "............COOO............",
+  ".........AAOOOOOOOA.........",
+  ".......AAAOOOOOOAOAAA.......",
+  ".....YYAAAOOAAOAAOOAAAAA....",
+  "....YYYYYAAOAAOAAAAYYYYYY...",
+  "...YYYAYYAAYYAAYYYYYYYYYY...",
+  "..AYYAAAYYYYYYYYYYYYYAAAYA..",
+  "..AOYAAAYYYYYYYYYYYYAAAAOA..",
+  "..AOOAAAYYYYYYYYYYYYYAAOOA..",
+  "...AOOOYYYYYYYYYYYYYYOOOO...",
+  "..AAAAYYYCCYYYYYYYCYYYEEAA..",
+  ".AAAAAYYYDDDYYYYDDDCYYEAAAA.",
+  ".AAOOAYYCDDDYYYYDDDCYYEOOAA.",
+  "EAOOAAYYYCDYYYYYYDCYYYEAOOAE",
+  "EAOOAAYYYYYYEEEEEYYYYOAAAOAE",
+  "EAAAAAAOOYYYEEEEEYYYOOAAAAAE",
+  ".AAAOOAOOOYYYEEYYYYOOOOOAAA.",
+  ".AAOOAAOOOYYYYEYYYOOOAAOOAA.",
+  "..AOOAAAOOOEEEEEEEOOOAAAOA..",
+  "..AOAAAYOOEYYYYYYEOOYOAAAA..",
+  "..AAAAYYOEEYYYYYYEEOYOAAAA..",
+  "...AAAYYAAAYYYYYAAEOYOAAA...",
+  "....RRYYAAAAAAAAAAEOYOAA....",
+  ".....RYYYAAAAAAAAAEOYOA.....",
+  ".....ROYYAAAAAAAAAEOYOA.....",
+  "......OOYY.AAAAAACOOOO......",
+  "......OOYYYYCCCCYYOOOO......",
+  ".......OOOYYYYYYYYOOO.......",
+  "........OOOOOOOOOOOO........",
+  "..........RRRRRRRR.........."
+ ]
+}

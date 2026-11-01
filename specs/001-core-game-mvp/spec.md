@@ -56,7 +56,7 @@ a default or asks a question.
 | Boosters | Extra Slot (L3), Shuffle (L4), Pick Up (L6), Vacuum (L9) | Extra Slot (L3), Shuffle (L4), Return (L6), Bloom Burst (L9) |
 | Progression | Linear levels | Linear Level N (2500 at launch; later expansion); no map, no level groupings |
 | Hard levels | Hard / Super Hard; players report that some need boosters | Hard (from L5) / Super Hard (from L10); none need boosters |
-| Meta | Collection of finished pictures | Milestones, Leaderboard (L10), Wardrobe (L40), Daily Challenge (L50), Collection |
+| Meta | Collection of finished pictures | Milestones, Leaderboard (L10), Wardrobe (L44), Daily Challenge (L48), Collection |
 
 ## Clarifications
 
@@ -123,7 +123,7 @@ a default or asks a question.
   proposals Carriers, Wave and Gardener are dropped.
 - **Q: Where are they sold?**
   A: In the Store's new Animations tab, open with the Store (L12). Each style is a card with a live preview of it.
-  Buying opens at L40, with the Wardrobe: before that a card shows its price and a padlock, and a tap says from which
+  Buying opens at L40 (with the Wardrobe until it moved to L44 on 2026-11-01; the styles keep L40): before that a card shows its price and a padlock, and a tap says from which
   level. A bought style is chosen on its card, and the free card brings back the free pair.
 - **Q: Does a style change the pace?**
   A: No. Every style takes the same time for a tile: about 0.11 s for each cell from the entry plus 0.93 s, from the
@@ -452,8 +452,8 @@ the puzzle.
 - **Leaderboard** (L10): the player sees their rank by highest completed level.
 - **Milestones**: every 25 levels bring a bundle, every 50 a cosmetic or profile reward, every 100 a major
   milestone, and larger prestige rewards come at 250, 500, 1000 and so on.
-- **Wardrobe** (L40): cosmetic skins for Bloomlings.
-- **Daily Challenge** (L50, may be cut from launch): one optional puzzle a day with its own reward.
+- **Wardrobe** (L44; L40 before 2026-11-01): cosmetic skins for Bloomlings.
+- **Daily Challenge** (L48, L50 before 2026-11-01; may be cut from launch): one optional puzzle a day with its own reward.
 - **Collection**: every finished picture is stored and can be viewed.
 - **Background themes** rotate automatically by level band, for example daylight garden, pond, orchard and moonlit
   garden.
@@ -628,7 +628,7 @@ skin. Complete the daily challenge. Open the Collection.
 
 #### G. Store, ads and daily reward (doc 10)
 
-- **FR-051**: The Store MUST open fully at L12. It sells Petal packs, boosters, Remove Ads and an optional starter pack. Cosmetics join after the Wardrobe unlock. *(Amended on 2026-10-06 by the product owner: the Animations tab, which sells the board's clearing styles (FR-063 as amended, spec 005 FR-038), shows from L12 with live previews. Its styles can be bought from L40, as the other cosmetics. Amended again on 2026-10-06: every purchase, in the Store
+- **FR-051**: The Store MUST open fully at L12. It sells Petal packs, boosters, Remove Ads and an optional starter pack. Cosmetics join after the Wardrobe unlock. *(Amended on 2026-10-06 by the product owner: the Animations tab, which sells the board's clearing styles (FR-063 as amended, spec 005 FR-038), shows from L12 with live previews. Its styles can be bought from L40, as the other cosmetics (the Wardrobe moved to L44 on 2026-11-01; the styles keep L40). Amended again on 2026-10-06: every purchase, in the Store
 or anywhere else (a booster that buys its charge in a level, a profile avatar, the Remove Ads card), MUST first ask for
 confirmation on a card that names the item and its price; nothing is spent before its Buy and a cancel buys nothing.
 For real money the confirmation comes before the platform's purchase flow. Spec 005 FR-040.)*
@@ -668,7 +668,7 @@ For real money the confirmation comes before the platform's purchase flow. Spec 
 
   After about L500, new core mechanics MUST be rare.
 - **FR-062**: The Leaderboard MUST unlock at L10 and rank players globally by highest completed level. Ties are ordered by who completed that level first. Submissions MUST pass sanity checks: progress only moves forward, no impossible jumps, and the content version is compatible.
-- **FR-063**: Wardrobe MUST unlock at L40. It offers cosmetic skins, hats, trails and expressions with no gameplay effect. Cosmetics MUST NOT reduce tile or pod readability.
+- **FR-063**: Wardrobe MUST unlock at L44. It offers cosmetic skins, hats, trails and expressions with no gameplay effect. Cosmetics MUST NOT reduce tile or pod readability. *(Amended on 2026-11-01 by the product owner, the content-unlocks plan `product/plans/content-unlocks-plan-2026-11-01.md`: the Wardrobe unlocks at L44 instead of L40, with the cosmetic catalogue's first wave.)*
   *Amended 2026-10-05 (the owner):* the profile's avatar pictures (spec 005 FR-037) are profile cosmetics too: four
   free, ten bought once with Petals (300 / 600 / 1200), open from Level 1 on the profile page (not in the Wardrobe or
   the Store), shown only on the profile (Home's avatar, the page, the player's own leaderboard row), never on the
@@ -679,7 +679,7 @@ For real money the confirmation comes before the platform's purchase flow. Spec 
   level. Every style takes the same time per tile, so none changes the pace or an outcome.
   *Amended 2026-10-11 (the owner):* Blossom moves to the Store as a sixth bought style at the same price; Munchers is
   the only free style and plays on every level until a bought style is chosen (spec 005 FR-038 as amended).
-- **FR-064**: Daily Challenge SHOULD unlock at L50. It is one optional puzzle per day, the same for all players, with a separate reward, and it does not change Level N. If it is cut from launch, the roadmap MUST put another unlock at L50. *(Amended 2026-10-07, the owner.)* Each puzzle MUST show a picture of the Daily Challenge's own, which no other puzzle and no level shows; a subject comes back only after 60 days at least. Every puzzle MUST be on the biggest board, 22×28. Each week MUST have four Normal, two Hard and one Super Hard puzzle. Every puzzle MUST use only the mechanics unlocked by L50.
+- **FR-064**: Daily Challenge SHOULD unlock at L48 *(amended on 2026-11-01 by the product owner, the content-unlocks plan: L48 instead of L50; a Daily streak for consecutive daily wins is planned, not specified here)*. It is one optional puzzle per day, the same for all players, with a separate reward, and it does not change Level N. If it is cut from launch, the roadmap MUST put another unlock at L48. *(Amended 2026-10-07, the owner.)* Each puzzle MUST show a picture of the Daily Challenge's own, which no other puzzle and no level shows; a subject comes back only after 60 days at least. Every puzzle MUST be on the biggest board, 22×28. Each week MUST have four Normal, two Hard and one Super Hard puzzle. Every puzzle MUST use only the mechanics unlocked by the challenge's own unlock level (L50 when the legacy pool was generated, L48 since 2026-11-01; no mechanic unlocks between them).
 - **FR-065**: Every finished picture MUST be added to a Collection that the player can view. The Collection is never a level selector.
 - **FR-066**: Background themes MUST rotate automatically by level band. This is visual only; there are no navigable areas.
 

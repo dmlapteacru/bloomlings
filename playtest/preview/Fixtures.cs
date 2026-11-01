@@ -238,7 +238,7 @@ namespace Bloomlings.Playtest.Preview
             }
             yield return new Fixture(124,"twig-modular-win-panama","The Panama remains on Twig after a solved level",(p,data)=>
             {
-                var app=App(data);app.Meta.SkipTo(12);Expect(app.Meta.Wardrobe.Equip(Family.Twig,TwigV2Art.BucketId),"Panama equips before L40");
+                var app=App(data);app.Meta.SkipTo(12);Expect(app.Meta.Wardrobe.Equip(Family.Twig,TwigV2Art.BucketId),"Panama equips before L44");
                 Expect(app.Meta.Wardrobe.Equip(Family.Twig,TwigV2Art.GlassesId)&&app.Meta.Wardrobe.Equip(Family.Twig,TwigV2Art.ScarfId),"glasses and scarf equip independently");
                 Expect(app.Meta.Wardrobe.Equip(Family.Twig,TwigV2Art.CoatId),"autumn coat equips on victory celebrant");
                 app.LoadLevel(13);CloseDemo(app);Run(app,p,.1f);
@@ -1534,12 +1534,12 @@ namespace Bloomlings.Playtest.Preview
                     foreach(string id in new[]{look.Item2,look.Item3,look.Item4})Expect(app.Meta.Wardrobe.Equip(look.Item1,id),"Home outfit equips");
                 app.GoHome();Run(app,p,.4f);
             });
-            yield return new Fixture(223,"wardrobe-release-before-40","Wardrobe remains locked before Level 40",(p,data)=>
+            yield return new Fixture(223,"wardrobe-release-before-44","Wardrobe remains locked before Level 44",(p,data)=>
             {
-                var app=Progressed(App(data),content,38);CloseAll(app);app.OpenWardrobe();Run(app,p,.3f);
-                Expect(!app.Meta.Wardrobe.IsAvailable&&!app.Meta.Wardrobe.HasFreeHeroItems,"starter gear cannot bypass the L40 gate");
+                var app=Progressed(App(data),content,42);CloseAll(app);app.OpenWardrobe();Run(app,p,.3f);
+                Expect(!app.Meta.Wardrobe.IsAvailable&&!app.Meta.Wardrobe.HasFreeHeroItems,"starter gear cannot bypass the L44 gate");
             });
-            foreach(var sample in new[]{(224,40,Family.Sprig,CosmeticKind.Hat),(225,40,Family.Bloom,CosmeticKind.Clothes),(226,60,Family.Twig,CosmeticKind.Hat),(227,80,Family.Drop,CosmeticKind.Hat),(228,100,Family.Bloom,CosmeticKind.Hat)})
+            foreach(var sample in new[]{(224,44,Family.Sprig,CosmeticKind.Hat),(225,44,Family.Bloom,CosmeticKind.Clothes),(226,60,Family.Twig,CosmeticKind.Hat),(227,80,Family.Drop,CosmeticKind.Hat),(228,100,Family.Bloom,CosmeticKind.Hat)})
             {
                 var scene=sample;
                 yield return new Fixture(scene.Item1,"wardrobe-release-l"+scene.Item2+"-"+scene.Item3.ToString().ToLowerInvariant(),"Release assortment: starters, prices and level locks",(p,data)=>
@@ -1555,7 +1555,7 @@ namespace Bloomlings.Playtest.Preview
             }
             yield return new Fixture(229,"wardrobe-release-buy","Real card: try, cancel, buy, reload, re-tap",(p,data)=>
             {
-                var app=Progressed(App(data),content,39);CloseAll(app);app.OpenWardrobe();Run(app,p,.2f);
+                var app=Progressed(App(data),content,43);CloseAll(app);app.OpenWardrobe();Run(app,p,.2f);
                 var cards=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat,Family.Sprig).ToList();
                 int index=cards.FindIndex(c=>c.Item?.Id==SprigV2Art.CapId);var item=cards[index].Item!;
                 var r=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);Box cell=r.Cell(index);
@@ -1577,7 +1577,7 @@ namespace Bloomlings.Playtest.Preview
                 var scene=sample;
                 yield return new Fixture(scene.Item1,"settings-petals-"+(scene.Item2?"pause":"home"),"Petal controls persist without resetting progress or outfit",(p,data)=>
                 {
-                    var app=Progressed(App(data),content,39);CloseAll(app);
+                    var app=Progressed(App(data),content,43);CloseAll(app);
                     app.Meta.Wardrobe.Equip(Family.Sprig,SprigV2Art.RosetteId);
                     if(scene.Item2){app.LoadLevel(12);CloseDemo(app);Run(app,p,.1f);app.OpenOverlay(Overlay.Pause);}
                     app.OpenOverlay(Overlay.Settings);Run(app,p,.5f);
@@ -1599,7 +1599,7 @@ namespace Bloomlings.Playtest.Preview
             }
             yield return new Fixture(232,"wardrobe-release-locked-preview","Locked item can be tried on without purchase or saved changes",(p,data)=>
             {
-                var app=Progressed(App(data),content,39);CloseAll(app);app.OpenWardrobe();Run(app,p,.2f);
+                var app=Progressed(App(data),content,43);CloseAll(app);app.OpenWardrobe();Run(app,p,.2f);
                 var r=WardrobeShelfDesign.Page(p.Width,p.Height,p.Insets);var cards=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat,Family.Sprig).ToList();
                 int index=cards.FindIndex(c=>c.State==WardrobeItemState.LevelLocked);var item=cards[index].Item!;int petals=app.Meta.Economy.Petals;
                 Box cell=r.Cell(index);app.WardrobeBrowse.SetOffset(cell.Bottom-r.Area.Bottom+r.W*.025f,r.Maximum(cards.Count));Run(app,p,.1f);cell=cell.Offset(0,-app.WardrobeBrowse.Offset);
@@ -1728,7 +1728,7 @@ namespace Bloomlings.Playtest.Preview
             });
             yield return new Fixture(30, "wardrobe-locked", "Extra: locked Wardrobe (spec 005 FR-030)", (p, data) =>
             {
-                // Level 15: the Store, the Leaderboard and the Collection are open, the Wardrobe not yet (L40). The menu's
+                // Level 15: the Store, the Leaderboard and the Collection are open, the Wardrobe not yet (L44). The menu's
                 // Wardrobe opens the Wardrobe locked, saying its level; its Shop opens the open Store page over it, whose
                 // back returns here, and so does its Petals "+".
                 DesignApp app = Progressed(App(data), content, 14);
@@ -1736,9 +1736,9 @@ namespace Bloomlings.Playtest.Preview
                 Run(app, p, 0.1f);
                 Tap(p, NavTouch(p, app, NavPlace.Wardrobe));
                 Expect(app.Screen == Design.Screen.Wardrobe && !app.PlaceOpen(NavPlace.Wardrobe), "the locked Wardrobe place opens the Wardrobe");
-                Expect(app.UnlockLevel(NavPlace.Wardrobe) == 40, "the Wardrobe opens from the roadmap's level 40");
+                Expect(app.UnlockLevel(NavPlace.Wardrobe) == 44, "the Wardrobe opens from the roadmap's level 44");
                 Run(app, p, 0.1f);
-                Expect(Shows(p, "Available from level 40"), "the locked Wardrobe says its level");
+                Expect(Shows(p, "Available from level 44"), "the locked Wardrobe says its level");
                 Tap(p, NavTouch(p, app, NavPlace.Shop));
                 Expect(app.Screen == Design.Screen.Store && app.StoreReturn == Design.Screen.Wardrobe, "the locked Wardrobe's Shop opens the Store page over it");
                 Run(app, p, 0.1f);

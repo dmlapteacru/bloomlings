@@ -159,7 +159,7 @@ namespace Bloomlings.Client.Tests
             var daily = new DailyChallengeService(_save, clock, config, new CatalogService(WithDailyPool(3)), _economy, () => { });
             _save.Progression.HighestCompletedLevel = 60;
 
-            Assert.That(daily.IsAvailable, Is.False, "locked before L50");
+            Assert.That(daily.IsAvailable, Is.False, "locked before L48");
             _save.Unlocks.Flags[DailyChallengeService.UnlockId] = true;
             config.DailyChallenge = false;
             Assert.That(daily.IsAvailable, Is.False, "switched off by feature.dailyChallenge");

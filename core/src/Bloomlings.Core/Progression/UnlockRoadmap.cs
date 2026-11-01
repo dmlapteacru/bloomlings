@@ -105,7 +105,8 @@ namespace Bloomlings.Core.Progression
         /// <summary>
         /// The roadmap of the spec. Defaults: the Key unlocks at L8 (<c>mechanic.key</c>) and Stones at L11
         /// (<c>mechanic.stone</c>). If the Mystery Pod passes the fairness solver and takes L8, <c>mechanic.key</c> moves
-        /// to L14. Milestone rows are listed as systems so that the first one can be demonstrated.
+        /// to L14. Milestone rows are listed as systems so that the first one can be demonstrated. The Wardrobe opens at L44
+        /// and the Daily Challenge at L48 (the owner's content-unlocks plan of 2026-11-01; before: L40 and L50).
         /// </summary>
         public static UnlockRoadmap Default { get; } = new UnlockRoadmap(new[]
         {
@@ -130,9 +131,9 @@ namespace Bloomlings.Core.Progression
             new UnlockEntry(28, "mechanic.layered_tile", UnlockKind.Mechanic, 0, false),
             new UnlockEntry(32, "profile.five_variants", UnlockKind.Profile, 0, false),
             new UnlockEntry(35, "mechanic.gate", UnlockKind.Mechanic, 0, false),
-            new UnlockEntry(40, "system.wardrobe", UnlockKind.System, 0, false),
+            new UnlockEntry(44, "system.wardrobe", UnlockKind.System, 0, false),
             new UnlockEntry(45, "variant.pool_expansion_1", UnlockKind.Variant, 1, false),
-            new UnlockEntry(50, "system.daily_challenge", UnlockKind.System, 0, false),
+            new UnlockEntry(48, "system.daily_challenge", UnlockKind.System, 0, false),
             new UnlockEntry(60, "mechanic.fountain", UnlockKind.Mechanic, 0, false),
             new UnlockEntry(70, "profile.six_variants_hard", UnlockKind.Profile, 0, false),
             new UnlockEntry(75, "system.milestone_75", UnlockKind.System, 0, false),

@@ -127,7 +127,7 @@ namespace Bloomlings.Client.Tests
             int saves = 0;
             var wardrobe = new WardrobeService(save, Catalog, new BundledRemoteConfigService(), () => saves++);
 
-            Assert.That(wardrobe.IsAvailable, Is.False, "locked before L40");
+            Assert.That(wardrobe.IsAvailable, Is.False, "locked before L44");
             save.Unlocks.Flags[WardrobeService.UnlockId] = true;
             wardrobe.OnUnlock(WardrobeService.UnlockId);
             wardrobe.OnUnlock(WardrobeService.UnlockId);
@@ -207,7 +207,7 @@ namespace Bloomlings.Client.Tests
 
             Assert.That(wardrobe.TryBuy(spots.Id), Is.False, "the Wardrobe is not open yet");
             save.Unlocks.Flags[WardrobeService.UnlockId] = true;
-            save.Progression.HighestCompletedLevel=39;
+            save.Progression.HighestCompletedLevel=43;
             Assert.That(wardrobe.TryBuy("hat.leaf_cap"), Is.False, "milestone items are not sold");
             Assert.That(wardrobe.TryBuy(spots.Id), Is.True);
             Assert.That(economy.Petals, Is.EqualTo(10));

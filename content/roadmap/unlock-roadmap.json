@@ -129,7 +129,7 @@
     {
       "demoWithin": 0,
       "kind": "system",
-      "level": 40,
+      "level": 44,
       "unlockId": "system.wardrobe"
     },
     {
@@ -141,7 +141,7 @@
     {
       "demoWithin": 0,
       "kind": "system",
-      "level": 50,
+      "level": 48,
       "unlockId": "system.daily_challenge"
     },
     {

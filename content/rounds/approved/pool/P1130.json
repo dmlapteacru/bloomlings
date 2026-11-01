@@ -1,0 +1,89 @@
+{
+ "code": "P1130",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Баклажан с короной из листьев",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Овощи и урожай",
+ "direction": "Ожившие вещи",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One plump purple eggplant character with enormous green leafy crown, a cream belly highlight, two big dark eyes and small smile. Short rounded body, no limbs or background.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "61+"
+ ],
+ "w": 27,
+ "h": 32,
+ "N": 534,
+ "colours": 6,
+ "volumes": {
+  "V": {
+   "cells": 348,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "G": {
+   "cells": 117,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 30,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 20,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "M": {
+   "cells": 13,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "L": {
+   "cells": 6,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...................GG......",
+  "..................GGGG.....",
+  "..................GGGG.....",
+  "...............MMMGGGM.....",
+  ".............GGGGGGGMM.....",
+  "............GGGGGGGGGGG....",
+  "...........GGGGGLLGGGGGG...",
+  ".......MMMGGGGGGLLGGGGGGG..",
+  ".......MGGGGGGGGLGGGGGGGG..",
+  "........GGGGGVVGLGGGGGGGG..",
+  ".........VVVVVVGGGGGMGGGG..",
+  ".........VVVVVVVGGGMMGGGG..",
+  "........VVVVVVVVGGVVVGGGG..",
+  "......VVVVCCDVVVVVVVVVGGGG.",
+  ".....VVVVVCDDDVVVVCCVVVGGGG",
+  "....VVVVVVCDDDVVVDDCCVVVGG.",
+  "...VVCCVVVCDDDVVVDDDCVVV...",
+  "..VVCCCVVVVCCVVVVDDDCVVV...",
+  ".VVVCCVVVVVVVVVVVVCCVVVV...",
+  ".VVCCCVVVVVVVVDDVVVVVVVV...",
+  "VVVCCCVVVVVVVVVVVVVVVVVV...",
+  "VVVCCVVVVVVVVVVVVVVVVVVV...",
+  "VVVVVVVVVVVVVVVVVVVVVVV....",
+  "VVVVVVVVVVVVVVVVVVVVVVV....",
+  "VVVVVVVVVVVVVVVVVVVVVVV....",
+  ".VVVVVVVVVVVVVVVVVVVVV.....",
+  ".VVVVVVVVVVVVVVVVVVVVV.....",
+  "..VVVVVVVVVVVVVVVVVVV......",
+  "..VVVVVVVVVVVVVVVVVV.......",
+  "....VVVVVVVVVVVVVVV........",
+  ".....VVVVVVVVVVVV..........",
+  "........VVVVVV............."
+ ]
+}

@@ -1,0 +1,91 @@
+{
+ "code": "P1157",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Пучок лаванды с лентой",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Цветы и букеты",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "Three very large purple lavender flower heads with broad blocky florets, short thick green stems tied with ONE huge golden bow. Dense compact fan composition, no vase or tiny buds.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 31,
+ "h": 33,
+ "N": 644,
+ "colours": 6,
+ "volumes": {
+  "V": {
+   "cells": 330,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "Y": {
+   "cells": 174,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "M": {
+   "cells": 68,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "O": {
+   "cells": 34,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "G": {
+   "cells": 23,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 15,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............VV...............",
+  "............V.VVVV.............",
+  "...........VVVVVVVV............",
+  "...........VVVVVVVV............",
+  "..........VVVVVVVVVV...........",
+  "...VV.....VVVVVVVVVV.....VV.V..",
+  ".VVVVVVV...VVVVVVVVV....VVVVVV.",
+  "VVVVVVVV..VVVVVVVVVV..VVVVVVVVV",
+  ".VVVVVVV..VVVVVVVVVVV.VVVVVVVVV",
+  ".VVVVVVVVVVVVVVVVVVV..VVVVVVVV.",
+  "VVVVVVVVVVVVVVVVVVVV.VVVVVVVVVV",
+  "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV",
+  ".VVVVVVVVVVVVVVVVVV.VVVVVVVVVV.",
+  ".VVVVVVVVVVVMMVVVMMVVVVVVVVVV..",
+  ".VVVVVVVVVV.MMMVMM.VVVVVVVVVV..",
+  "..VVVVVVVVV..MMMM..MVVVVVVVV...",
+  "...VVVVVVVMM..MG...MMVVVVVV....",
+  "...VVVVVVMMM..MG..MMMMVVVVV....",
+  ".....VVVVCMMM.MG.CCCC.OOO......",
+  "....YYYYYYMMMMMGGYYYYYYYYY.....",
+  "....YYYYYYYYYYYYYYYYYYYYYY.....",
+  "....YYYYYYYYYYYYYYYYYYYYYY.....",
+  "....YYYYYYYYYYYYYYYYYYYYYY.....",
+  "....YYOOOOOOOYYYYYYYYOOOYY.....",
+  "....OOOOOOOYYYYYYYYYOOOOOO.....",
+  ".....OOOYYYYMMMMMYYYYYOOO......",
+  "......OYYYYYMMGMMMYYYYYOC......",
+  "....YYYYYYCCMGGMGMCYYYYYYY.....",
+  "...YYYYYYYCMMGGMGMCCYYYYYYY....",
+  "....YYYYYY.MMGGMGMM.YYYYYY.....",
+  ".....CYYYC.MMGMMGMM..YYYC......",
+  "......YYY..MMGM.GGM..YYY.......",
+  ".......Y.....G..GG....Y........"
+ ]
+}

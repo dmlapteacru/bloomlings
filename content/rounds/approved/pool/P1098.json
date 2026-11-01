@@ -1,0 +1,86 @@
+{
+ "code": "P1098",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Ракушка-веер с жемчужиной",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Камни, минералы и кристаллы",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One open pink scallop shell, upper half a large fan with five broad ribs, lower shell cream and purple holding one very large round gold pearl. Clearly inside the shell, no ocean scene.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 23,
+ "h": 25,
+ "N": 424,
+ "colours": 7,
+ "volumes": {
+  "P": {
+   "cells": 186,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "V": {
+   "cells": 86,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "C": {
+   "cells": 61,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "K": {
+   "cells": 37,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "O": {
+   "cells": 26,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 25,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 3,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..........PPP..........",
+  "......K..KKKKK..K......",
+  "....PPKKPPPPPPPKKK.....",
+  "....PKKPPPPPPPPKPKK....",
+  "...KPPPPPPPPPPPPPKKK...",
+  ".KKKPPPPPPPPPPPPPPPKKK.",
+  ".KKPPPPPPPPPPPPPPPPPKK.",
+  "PKPPPPPPPPPPPPPPPPPPPKP",
+  "PKPPPPPPPPPPPPPPPPPPPPP",
+  "PPKPPPPPPPPPPPPPPPPPPPP",
+  ".PKKPPPPPPPPPPPPPPPPPP.",
+  "..PPPPPPPOOOOOPPPPPPP..",
+  "...PPPPPPCCYYYOPPPPP...",
+  "....PPPOYCCCYYOOPPP....",
+  ".....PPOYCCYYYOOPP.....",
+  "..CCCCCOYYYYYYOACCCCC..",
+  ".CCCCCCOYYYYYOOACCCCCCC",
+  ".CCCCCCOYYYYOOOACCCCCCC",
+  ".VVVCCCCCOOOOOCCCCCVVV.",
+  ".VVVVVVVCCCCCCCCVVVVVV.",
+  "..VVVVVVVVVVVVVVVVVVV..",
+  "...VVVVVVVVVVVVVVVVV...",
+  "....VVVVVVVVVVVVVVV....",
+  "......VVVVVVVVVVV......",
+  ".........VVVVV........."
+ ]
+}

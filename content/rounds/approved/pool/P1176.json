@@ -1,0 +1,94 @@
+{
+ "code": "P1176",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Голубая прогулочная коляска",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Багаж и навигация",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One chunky blue baby carriage side view, huge rounded cream-and-pink hood, broad enclosed gold basket base and two very large dark wheels. Short thick curved handle, no baby or background.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 31,
+ "N": 627,
+ "colours": 7,
+ "volumes": {
+  "D": {
+   "cells": 198,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 147,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 110,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "K": {
+   "cells": 89,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "N": {
+   "cells": 39,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "P": {
+   "cells": 23,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "O": {
+   "cells": 21,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..........PPPPP...............",
+  ".......CCCKKKKKCC.............",
+  ".....CCCCKKKKKKCC.............",
+  "....CCCCCCKKKKKCC.............",
+  "...CCCCCCCCKKKKCC.............",
+  "..KCCCCCCCCKKKKCC........NNNNN",
+  "..KKKCCCCCCCKKKCC.......NNNNNN",
+  "..KKKKCCCCCCKKKCC......NNNNNN.",
+  ".KKKKKKKCCCCCKKCP......NNN....",
+  ".KKKKKKKKCCCCKKCP.....NNN.....",
+  "PKKKKKKKKKKCCKKCP.....NNN.....",
+  "PKKKKKKKKKKKCCKC......NNN.....",
+  "PCCCCKKKKKKKKCCCPPPPPPNNNCC...",
+  "CCCCCCCCCCCCCCCCPPPPPPCCCCC...",
+  ".OOOOCCCCCCCCCCCCCCCCCCCCCO...",
+  ".OYYYYYYYOOOOOOOOOOOOYYYYYO...",
+  ".OYYYYYYYYYYYYYYYYYYYYYYYYO...",
+  "..YYYYYYYYYYYYYYYYYYYYYYYY....",
+  "..YYYYYYYYYYYYYYYYYYYYYYY.....",
+  "...YYDDDDYYYYYYYYYYDDDDDD.....",
+  "...DDDDDDDDYYYYYYDDDDDDDD.....",
+  "..DDDDDDDDDDYYYYYDDDDDDDDD....",
+  "..DDDDDCDDDDYYYYDDDDDCDDDD....",
+  ".DDDDCCCCDDDDNNDDDDDCDCDDDD...",
+  ".DDDDCDDCDDDDNNNDDDCDDDCDDD...",
+  ".DDDDCDDCDDDDNNDDDDCDDDCDDD...",
+  ".DDDDCCCCDDDD...DDDDCCCDDDD...",
+  "..DDDDDDDDDD....DDDDDDDDDD....",
+  "...DDDDDDDDD.....DDDDDDDDD....",
+  "...DDDDDDDD......DDDDDDDD.....",
+  ".....DDDD..........DDDD......."
+ ]
+}

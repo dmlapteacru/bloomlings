@@ -79,19 +79,19 @@ namespace Bloomlings.Client.UI.Screens
     /// front), each idling and taking turns to react, reacting at once to a tap, with petals drifting over them once
     /// Settings switches them on (off by default since 2026-10-05), in the blurred garden (FR-036); without
     /// the picture, the drawn diorama (the stone ring, the lotus fountain and the four still heroes), where the player's
-    /// hero (<see cref="ProfileAvatar.HeroFamily"/>) stands at the left front. Once the Wardrobe is open (L40) each hero
+    /// hero (<see cref="ProfileAvatar.HeroFamily"/>) stands at the left front. Once the Wardrobe is open (L44) each hero
     /// wears its outfit.</description></item>
     /// <item><description>The promo scenes under the header (spec 005 FR-032, FR-036, <see cref="HomePromoView"/>): No Ads
     /// at the left until Remove Ads is owned (a tap opens the Remove Ads card), the Daily Reward at the right once unlocked
     /// (L7; a tap opens its card, and it calls for attention only while today's reward waits), each the owner's animated
     /// layers on a flowered stand with its label on the wooden plaque, on a cream plate with soft shadows.</description></item>
-    /// <item><description>The Daily Challenge (the sun, with a green check when done today, L50) as a small cream round
+    /// <item><description>The Daily Challenge (the sun, with a green check when done today, L48) as a small cream round
     /// side button at the right under the Daily scene, once unlocked.</description></item>
     /// <item><description>Under Play, the milestone teaser "N levels to reward" with the pink gift on a parchment pill, and
     /// the optional free-booster ad offer as a cream "Free" pill beside it.</description></item>
     /// <item><description>The bottom menu (spec 005 FR-030, <see cref="BottomNavView"/>): the wooden bar with its five
     /// places always shown (the Shop, the Wardrobe, Home, the Leaderboard and the Collection; the Shop open from L12, the
-    /// Wardrobe from L40, the Leaderboard from L10, the Collection once a picture is won, a locked one with a padlock
+    /// Wardrobe from L44, the Leaderboard from L10, the Collection once a picture is won, a locked one with a padlock
     /// badge), Home in the raised medallion. It replaced Home's Store, Wardrobe (the profile avatar) and Collection side
     /// buttons and the rank pill (the owner's requests of 2026-10-04).</description></item>
     /// </list>

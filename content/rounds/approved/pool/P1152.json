@@ -1,0 +1,92 @@
+{
+ "code": "P1152",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Листовой трон для жёлтого жука",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Насекомые и маленькие существа",
+ "direction": "Перевёрнутый масштаб",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One small but broad golden beetle sits at center of ONE enormous dark-green leaf folded into a throne-like seat. Two big clear eyes, red small head crest, foreground leaf edge overlaps lower body. No extra vegetation.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 31,
+ "h": 29,
+ "N": 689,
+ "colours": 7,
+ "volumes": {
+  "M": {
+   "cells": 399,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 106,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 50,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 47,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 37,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "O": {
+   "cells": 31,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 19,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...............MMM.............",
+  ".............GGGGGG............",
+  "..........MMMGGMMGGG...........",
+  "........MMGGGMMMMMMMMM.........",
+  ".....MMMMMMMMMMMMMMMMMGGG......",
+  "....GGGMMMMMMMMMMMMMMGGGGG.....",
+  "...GGMMMMMMMMMMMMMMMMGMMMMM....",
+  "..MGMMMMMMMMMMMAMMMMMMMMMMM....",
+  "..MMMMMMMMMMMAAAAAMMMMMMMMMM...",
+  "..MMMMMMMMMMMAAAAAMMMMMMMMMM...",
+  ".MMMMMMMMMCCDCAAACCCMMMMMMMMG..",
+  ".GMMMMMMMMCDDDYYYDDDCMMMMMMMGG.",
+  "MGMMMMMMMMCDDDYYYCDDCMMMMMGGGG.",
+  "MGMMMMMMMMCCCCYYYCCCCDMMMMGMMGM",
+  "MGMMMMMMOAAAAAAAAAAAAAMMMMMMMGM",
+  "MGMMMMMOOAAYYYYYYYYYAAMMMMMMMMM",
+  "MMMMMMMODAYYYYYYYYYYYDDMMMMMMGM",
+  "MMMMMMMOOAYOYYYAYYYOYAAMMMMMMGM",
+  "MGGMDMDOOYYOYYYAYYYOOAAAAMMMMG.",
+  ".MGGGGDDODOOOYYAYYOOOAAAMMMMDG.",
+  ".MMMMGGGGGGDOOOAYOOOODDGGGGGGG.",
+  "..MMMMGMMGGGGOOAOOGGGGGGGGMMGG.",
+  "...MMMMMMMMMGGGDGGGGGMMMGMMMGD.",
+  "...MMMMMMMMMMMGGGGGMMMMMMMMMM..",
+  "....MMMMMMMDGGGMMMGMMMMMMMMMD..",
+  "....DMMDMMMGGMMMMMMMMMMMMMMM...",
+  ".....MMMMDGGMMMMMMMMMMMMMM.....",
+  ".......MMMGMMMMMMMMMMMMDM......",
+  "........DMMMMMMMMDMMDD........."
+ ]
+}

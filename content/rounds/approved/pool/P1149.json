@@ -1,0 +1,77 @@
+{
+ "code": "P1149",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Сложенный веер с кисточкой",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Одежда и аксессуары",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One half-open traditional hand fan, broad cream panels with three large red petal shapes, thick brown base and one short purple tassel tucked at its side. Compact shell-like silhouette, no tiny ribs.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 30,
+ "h": 26,
+ "N": 484,
+ "colours": 5,
+ "volumes": {
+  "C": {
+   "cells": 232,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 97,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "A": {
+   "cells": 55,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "V": {
+   "cells": 51,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "E": {
+   "cells": 49,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............AAAC.............",
+  "..........CCCCCCCCAAA.........",
+  "........CCCCCCCCCCCCCC........",
+  "......CCCCCCCCCRCCCCCCCC......",
+  ".....CCCCCCCCCRRRCCCCCCCCC....",
+  "...AACCCCCCCCRRRRCCCCCCCCCC...",
+  "...ACCCCCCCCRRRRRCCCCCCCCCC...",
+  "..CCCCCCCCCRRRRRRRCCCCCCCCCC..",
+  ".CCCRRCCCCCCRRRRRRCCCCCRRRCCC.",
+  ".CCCRRRRRCCCRRRRRRCCCRRRRRCCC.",
+  "ACCCRRRRRCCCCRRRRCCCRRRRRRCCCA",
+  "ACCCRRRRRRCCCCRRCCCCRRRRRRCCCA",
+  "ACCCRRRRRRCCCCCCCCCCRRRRRRCCCA",
+  "AACCCRRRRRCCCEAAECCCRRRRCCCCAA",
+  "..CCCCCCCCCEAEAAEAECCCCCCCCC..",
+  "....CCCCCCEEAEAAEAEECCCCVV....",
+  "......CCCCEEAEAAAAEAACCVVV....",
+  "........EEEEAAAEEEAAAA..VVV...",
+  ".........EEEEEEEEEEE....VVV...",
+  "...........EEEEEEE......VVVV..",
+  ".............EEEE.......VVVVV.",
+  "............AAAAAA.....VVVVVV.",
+  "............AAAAAA....VVVVVVV.",
+  ".............EEEE....VVVVVVVV.",
+  "......................VVVVVV..",
+  ".......................VVVV..."
+ ]
+}

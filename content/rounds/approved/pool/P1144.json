@@ -1,0 +1,84 @@
+{
+ "code": "P1144",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Красная питахайя в разрезе",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Фрукты и ягоды",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One dragon-fruit half with bright red skin and six broad green pointed leaf scales, cream-white oval flesh and only five big dark seed clusters. Thick simple form, no plate or dotted noise.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 25,
+ "h": 28,
+ "N": 494,
+ "colours": 6,
+ "volumes": {
+  "R": {
+   "cells": 196,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 165,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 69,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 29,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "D": {
+   "cells": 23,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "L": {
+   "cells": 12,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........GG............",
+  "...........GGG...........",
+  "...........GGR...........",
+  "..........MGRRR..........",
+  "......GG.MMGRRR....GGG...",
+  ".....GGG.RRRRRRRRRGGGM...",
+  ".....GGGRRRRRCCRRRRGGM...",
+  "....MGGGRRRCCCCCCCRRMM...",
+  "...MMRGGRRCCCCCCCCCRRR...",
+  "...MRRGRRCCCCCCDDCCCRR...",
+  "...RRRRRRCCCCCCDDDCCRR...",
+  "...RRRRRRCCCCCCCCCCCCRRGG",
+  "GG.RRRRRRCCDDCCCCCCCCRRGG",
+  "GGGRRRRRCCCDDCCCCCCCCCRGG",
+  "MGGGRRRRCCCCCCCCCDDCCCRRR",
+  "MGGGGRRRCCCCCCCCCDDCCCRR.",
+  "MMGGGGRRRCCCCDCCCCCCCCRR.",
+  ".MGRRGGRRCCCDDDCCCCCCCRR.",
+  ".MRRRRRRRCCCCDCCCCDCCCRR.",
+  "..RRRRRRRRCCCCCCCDDDCCRR.",
+  "..RRRRRRRRRCCCCCCCDCCCRRR",
+  "...RRRRRLLRRCCCCCCCCCRRGG",
+  ".MGGRRRRLLRRRCCCCCCCRRRGG",
+  ".MMGGRRRLLLLRRRCCCCRRRMM.",
+  "..MMGGRRRLLLLRRRRRRRRRMM.",
+  "....MMMRRRRGGGRRRRRRR....",
+  "........RRRRRRRRRRRR.....",
+  "..........RRRRRRR........"
+ ]
+}

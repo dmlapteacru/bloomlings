@@ -1,0 +1,90 @@
+{
+ "code": "P1092",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Серебряный дирижабль с красным хвостом",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Воздушный транспорт",
+ "direction": "Ретрофутуристические приключения",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One oval cream-and-blue airship seen from the side, red tail fins, small gold gondola under its middle and dark blue front window. Thick compact shapes, no sky rectangle or tiny ropes.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 27,
+ "N": 674,
+ "colours": 7,
+ "volumes": {
+  "C": {
+   "cells": 248,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "B": {
+   "cells": 192,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "R": {
+   "cells": 94,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "N": {
+   "cells": 59,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 44,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 22,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 15,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..................BBBBBBB..........",
+  "...............BBBCCCCCCCBBB.......",
+  "..RRRRRR.....CCCCCCCCCCCCCCCCC.....",
+  "..RRRRRRR..CCCCCCCCCCCCCCCCCCCC....",
+  "..RRRRRRRCCCCCCCCCCCCBBBCCCCCCCC...",
+  "..RRRRRRCCCCCCCCBBBBBBBBBBBBCCCCC..",
+  "...RRRRCCCCCBBBBBBBBBBBBBBBBNDDCC..",
+  "...RRRDCCCBBBBBBBBBBBBBBBBBNNNNNCB.",
+  "....RCCCBBBBBBBBBBBBBBBBBBBNNNNNBB.",
+  "...RCCBBBBBBBCCCCCCCCCCCCCNNNNNNDBB",
+  "RRRRRBBBBBCCCCCCCCCCCCCCCCDNNNNNNBB",
+  "RRRRRRRCCCCCCCCCCCCCCCCCCCDNNNNNNBB",
+  "RRRRRRRCCCCCCCCCCCCCCCCCCCDNNNNNNBB",
+  "RRRRRRRCCCCCCCCCCCCCCCCCCCDNNNNNBBB",
+  "..RRRCCCCCCCCCCCCCCCCCCCCCDNNNNNBB.",
+  "....RBBBCCCCCCCCCCCCCCCCCCCBNNBBBB.",
+  "...RRBBBBBCCCCCCCCCCCCCCBBBBBBBBB..",
+  "...RRRBBBBBBBBBBBBBBBBBBBBBBBBBB...",
+  "..RRRRRRCBBBBBBBBBBBBBBBBBBBBBC....",
+  "..RRRRRRRCCCBBBBBBBBBBBBBBBCCC.....",
+  "..RRRRRR...CCCAAAAAAAAAAACCC.......",
+  "..RRRRR......AAYYYYYYYAAAAA........",
+  ".............AAYNNYNNYNNAAA........",
+  ".............AAYNNYNNYNNAAA........",
+  ".............AAYYYYYYYYYAAC........",
+  "..............AAAAAAAAAAAA.........",
+  ".................DDDDDD............"
+ ]
+}

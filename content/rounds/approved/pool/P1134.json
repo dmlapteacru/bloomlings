@@ -1,0 +1,90 @@
+{
+ "code": "P1134",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Авокадо с сердечком-косточкой",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Фрукты и ягоды",
+ "direction": "Ожившие вещи",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One half avocado with thick dark-green outer peel, pale lime flesh and ONE enormous golden-brown HEART-SHAPED pit. Two small dark eyes above the pit and cheerful smile, no arms or plate.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "61+"
+ ],
+ "w": 25,
+ "h": 28,
+ "N": 517,
+ "colours": 7,
+ "volumes": {
+  "L": {
+   "cells": 195,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "M": {
+   "cells": 73,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "D": {
+   "cells": 67,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "O": {
+   "cells": 67,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 58,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "G": {
+   "cells": 54,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 3,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "............DDDD.........",
+  ".........DDGGGGGGD.......",
+  "........DGGGLLLLGGG......",
+  ".......DDLLLLLLLLLLD.....",
+  ".......LLLLLLLLLLLLL.....",
+  "......DLLLDDLLLLLLLLD....",
+  ".....DMLLLDDLLLLDDLLM....",
+  ".....MMLLLDLLLLLDDLLMD...",
+  "....MMLLLLLLDDDLLLLLMD...",
+  "...MMLLLLLLLLLLLLLLLMDD..",
+  "..DMLLLLLLLLLLLLLLLLLGG..",
+  "..MMLLLOOOOLLLLLLLLLLGGD.",
+  ".DMLLLOOOCOOOOOOOALLLGGM.",
+  ".MMLLLOOCCOOOOOOOAAALLGM.",
+  ".MGGLAOOOOOOOOOOOAAALLGM.",
+  "DMGLLAAOOOOOOOOOOAAALLGMD",
+  "DMGLLAAOOOOOOOOOAAAALLGMD",
+  "DMGLLLAAOOOOOOOAAAALLLGMD",
+  "DMGGLLAAAOOOOOAAAALLLGGMD",
+  ".MGGLLLAAAOOAAAAALLLLGMDD",
+  ".DMGLLLLAAAAAAAALLLLLGMM.",
+  ".DMMGLLLLAAAAAAALLLLMMMD.",
+  "..DMGGLLLLAAALLLLLLMMMD..",
+  "..DMMGGLLLLLLLLLLGGMMMD..",
+  "...DMMMMMLLLLLGGGGMMMD...",
+  "....DMMMMGGGGGGMMMMDD....",
+  "......DDMMMMMMMMMDD......",
+  ".........DDDDDDDD........"
+ ]
+}

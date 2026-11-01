@@ -57,7 +57,7 @@ namespace Bloomlings.Client.UI.Design
 
     /// <summary>
     /// A locked page of the bottom menu (spec 005 FR-030, contracts/look.md §6.7: the Store page before L12, the Wardrobe
-    /// before L40, the Leaderboard before L10, the Collection before its first picture), both builds: the page header
+    /// before L44, the Leaderboard before L10, the Collection before its first picture), both builds: the page header
     /// (<see cref="Header"/>: back, the page's banner, the Petals pill), the page's panel (<see cref="Panel"/>, the Store
     /// page's: from under the header row to the bottom of the screen) and, in it, the notice's area (<see cref="Notice"/>,
     /// where the Store page's list would be: above the bottom menu's top, <see cref="NavTop"/>), laid out by

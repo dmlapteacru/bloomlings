@@ -18,8 +18,8 @@ Before these steps, the automated checks must pass (see [quickstart.md](../quick
 - [ ] With the dev row (+10), the features appear as they unlock (FR-017):
   - L10: the rank row;
   - L12: the "+" on the Petals pill;
-  - L40: the hero, Wardrobe and the avatar;
-  - L50: the Daily Challenge card;
+  - L44: the hero, Wardrobe and the avatar (L40 before 2026-11-01);
+  - L48: the Daily Challenge card (L50 before 2026-11-01);
   - L7: the Daily Reward popup opens once a day.
 - [ ] The gameplay screen matches frames 7–9 on the phone:
   - the top bar, the badge and the board;

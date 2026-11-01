@@ -1,0 +1,88 @@
+{
+ "code": "P1114",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Половинка папайи",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Фрукты и ягоды",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One papaya sliced lengthwise, orange outer skin, cream border, bright pink-orange flesh and one large oval dark seed cavity with five broad gold seeds. One simple green leaf by the top, no plate.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 27,
+ "h": 27,
+ "N": 485,
+ "colours": 7,
+ "volumes": {
+  "O": {
+   "cells": 114,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 104,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 98,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "E": {
+   "cells": 86,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "M": {
+   "cells": 61,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "A": {
+   "cells": 21,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 1,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..................MM.......",
+  ".................MMMMMM....",
+  "..............OOOYYMMMMMM..",
+  "............OOYYYYYYMMMMM..",
+  "...........OOOOORROYMMMMMM.",
+  "........RRRRRROOROOYOMMMMM.",
+  "......RRRRRRRROOOOOYOMMMMMM",
+  ".....RRRRRRRREEEOOOYOAMMMMM",
+  "....RRRRRREEEEEEOOOYOAMMMMM",
+  "...YRRRRREEEEYYEOOYYOAMMMMM",
+  "..YYRRRREEEEEYYEOOYYOAMMMMM",
+  "..YYRRREEYYEEEEEORYYOA.MMMM",
+  ".YYRRRREEYYEEEEERRYYOO...M.",
+  ".YYRRREEEEEEYYECRRYYOO.....",
+  "OYRRRREEYEEEYEERRYYYOO.....",
+  "OYRRREEYYEEEEEOOOYYYOO.....",
+  "OYRRREEEEEEEEERROYYOOA.....",
+  "OYRRREEEYEEEEERROYYOOA.....",
+  "OYYRREEYYEEEOORYYYOOOA.....",
+  "OYYRRREEEEEOORRYYYOOO......",
+  ".YYRRREEEERRROOYYOOOO......",
+  ".YYYRRRRRRROOOYYOOOO.......",
+  "..YYYYYRRROOYYYOOOO........",
+  "..AAYYYYYYYYYOOOOOO........",
+  "...AAYYYYYOOOOOOOO.........",
+  "....AAOOOOOOOOOO...........",
+  "......AAAAAAA.............."
+ ]
+}

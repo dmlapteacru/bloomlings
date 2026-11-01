@@ -54,8 +54,8 @@ Current anchors:
 - L6 Return
 - L9 Bloom Burst
 - L10 Leaderboard
-- L40 Wardrobe/Skins
-- L50 Daily Challenge candidate
+- L44 Wardrobe/Skins (L40 until the owner's amendment of 2026-11-01, `13_UNLOCK_AND_MILESTONE_ROADMAP.md`)
+- L48 Daily Challenge candidate (L50 until 2026-11-01)
 - L100 major milestone
 
 After ~L500, the game relies primarily on:

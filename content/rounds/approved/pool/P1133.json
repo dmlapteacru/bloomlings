@@ -1,0 +1,82 @@
+{
+ "code": "P1133",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Улыбчивый сурикат",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Саванна и джунгли",
+ "direction": "Театр эмоций",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "Close-up friendly tan meerkat head and upper torso, small rounded ears, huge dark eye patches with cream eye whites, cream muzzle and two short paws pressed to its chest. Large face, no desert scene.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 25,
+ "h": 26,
+ "N": 458,
+ "colours": 6,
+ "volumes": {
+  "C": {
+   "cells": 148,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 144,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 116,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 22,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 17,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 11,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..........EEE.O..........",
+  ".........OOOOOOOO........",
+  ".......OOOOOOOOOOOE......",
+  "......OOOOOOOOOCCCEE.....",
+  ".....CCCCCOOOOCCEEEEE....",
+  "....EECEECCOOCCEEEEEEAA..",
+  "..EEEEEEEECCOCCECCEEEAAE.",
+  ".EEEEEECCEECCCCEDDCEEAEEE",
+  ".EEEEECCDDECCCCDDECDEEEEE",
+  "EEEEEECCDDECCCCDEECEEEEEE",
+  "EEEEEECCDEECEECCECCEEYYE.",
+  "EEEYEEECEECEEEECCEEEEYYE.",
+  ".EEYYEEEECCCEECCCCCCYYY..",
+  "..EYYYECCCCCCECCCCCCYEY..",
+  "...YYYYCCCCCCECCCCCCEE...",
+  "...YYYCCCCCCCCCCCCCEE....",
+  "....OOOOCCCCCCCCCOOE.....",
+  "......OOOOCCCCCCOOOE.....",
+  ".......OOOCCCCCCCOOE.....",
+  "......OOOOCCCCCCCOOO.....",
+  "......OOOOCCCCCCEAOOO....",
+  ".....OOOOAAAACCEEAAOOO...",
+  ".....OOOOAAEEECEEAAOOO...",
+  "....OOOOOAEEECCEEEOOOO...",
+  "....OOOOOOEEECCCEOOOOOO..",
+  "....OOOOOOOCCCCCCOOOOOO.."
+ ]
+}

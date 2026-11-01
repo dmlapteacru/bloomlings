@@ -1,0 +1,87 @@
+{
+ "code": "P1088",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Изумрудный жук с золотой спинкой",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Насекомые и маленькие существа",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One very large emerald beetle seen from above, oval green wing cases, a broad gold central stripe, dark head and six short thick legs. Two large cream eye glints, no leaf or scenery.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 26,
+ "h": 26,
+ "N": 449,
+ "colours": 7,
+ "volumes": {
+  "D": {
+   "cells": 183,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "G": {
+   "cells": 138,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 83,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "Y": {
+   "cells": 16,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 14,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "L": {
+   "cells": 13,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "C": {
+   "cells": 2,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....DD..DD....DD..DD.....",
+  ".....DD...D....D...DD.....",
+  "......DD..DDDDDD..DD......",
+  ".......DDDDMMMDDDDD.......",
+  "DD......DCDDDDDDCD......D.",
+  "DDD....DDDDDDDDDDDD....DDD",
+  ".DDDD..DDDDDDDDDDDD..DDDD.",
+  "...DDD..DMMOOOOMMD..DDD...",
+  "...DDDDGGMMMYYMMMMGDDDD...",
+  "....DDGGGGGGYYMGGMGGDD....",
+  ".....DGGGLGGYYGGGGGGD.....",
+  "...DDGGGLLGGLLGGGGGGGDD...",
+  "..DDDGMLLGGGLLGGGGGMGDDD..",
+  "..DDDGMGGGGGLLGGGGGMGDDD..",
+  ".DD.DGMGGGGGLLGGGGGMGD.DD.",
+  "DDD.DGMGGGGGYYGGGGGMGD.DDD",
+  "DD..DGMMGGGGYYGGGGGMGD.DDD",
+  "DD..DGMMGGGGYYGGGGGMGD..DD",
+  "...DDGMMGGGGYYMGGGMMGDD...",
+  "...DDGGMGGGGYYMGGGMMMDD...",
+  "..DDDGGMMGGGOOMGGMMMMDDD..",
+  "..DD..GMMGGGOOMGMMMM..DD..",
+  "..DDD.GMMMMGOOGGMMMM.DDD..",
+  "...DD..MMMMMOOMMMMM..DD...",
+  "...DD...MMMMOOMMMD...DD...",
+  "....D.....MMD.MM.....D...."
+ ]
+}

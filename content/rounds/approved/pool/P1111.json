@@ -1,0 +1,84 @@
+{
+ "code": "P1111",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Дубовый лист с жёлудевым узлом",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Грибы и лесные находки",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One enormous orange oak leaf diagonally with a dark central vein, ONE small but broad golden acorn tucked against its lower corner. The leaf is the main silhouette, no tree or basket.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 31,
+ "N": 635,
+ "colours": 5,
+ "volumes": {
+  "O": {
+   "cells": 520,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 40,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 39,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 34,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 2,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........................OOO..",
+  "....................OOOOOOOOO.",
+  ".............OOO...OOOOOOOOOOO",
+  "............OOOOO.OOOOOOOOOOOO",
+  "............OOOOO.OOOOOOOOOOOO",
+  "............OOOOOOOOOOOOOOOOO.",
+  "............OOOOOOOOOOOOOOOOO.",
+  ".......OO...OOOOOOOOOOOOOOOO..",
+  ".....OOOOO..OOOOOOOOOOOOOOOOO.",
+  ".....OOOOOO.OOOOOOOOOOOOOOOOO.",
+  ".....OOOOOOOOOOOOOOOOOOOOOOOO.",
+  ".....OOOOOOOOOOOOOOOOOOOOOOOO.",
+  ".....OOOOOOOOOOOOOOOOOOOOOOO..",
+  ".....OOOOOOOOOOOOOOOOOOOO.....",
+  "...O..OOOOOOOOOOOOOOOOOOOOO...",
+  ".OOOO.OOOOOOOOEOOOOOOOOOOOOO..",
+  ".OOOOOOOOOOOOEEOOOOOOOOOOOOO..",
+  "OOOOOOOOOOOOEEOOOOOOOOOOOOOO..",
+  "OOOOOOOOOOOEEOOOOOOOOOEEOOO...",
+  "OOOOOOOOOOEEOOOOOOOOOEEECC....",
+  ".OOOOOOOOEEOOOOOOOOOOAAAAA....",
+  ".OOOOOOOEEOOOOOOOOOOAAAAAAA...",
+  "..OOOOOEEOOOOOOOOOAAAAAAAAA...",
+  "..OOOOEEOOOOOOOOOOAAAYYOOOA...",
+  "..OOOEEOOOOOOOOOOOAAYYYYOOOA..",
+  "..OOEEOOOOOOOOOOOOYYYYYYYOOA..",
+  "..EEEOOOOOOOOOO....YYYYYYOOA..",
+  ".EEEEOOOOOOOOOO....YYYYYYYYA..",
+  "EEEE....OOOOOOO.....YYYYYYY...",
+  ".EE.......OOOO.......YYYYYY...",
+  ".......................AAA...."
+ ]
+}

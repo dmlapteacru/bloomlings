@@ -1,0 +1,88 @@
+{
+ "code": "P1170",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Гороховый стручок с тремя горошинами",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Овощи и урожай",
+ "direction": "Ожившие вещи",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One chunky open green pea pod curved like a boat, three very large lime round peas sitting INSIDE and overlapped by the lower pod lip, each with two small dark eyes. Purple flower at one end, no water or scene.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 29,
+ "N": 552,
+ "colours": 6,
+ "volumes": {
+  "M": {
+   "cells": 184,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "L": {
+   "cells": 181,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "D": {
+   "cells": 97,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "V": {
+   "cells": 66,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "G": {
+   "cells": 21,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 3,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....VVV..........................",
+  "....VVVVV.........................",
+  "...VVVVVV.........................",
+  ".VVVVVVVVVV.......................",
+  ".VVVVVYVVVVV......................",
+  ".VVVVVYYVVVVM.....................",
+  "..VVVVVVVVVMMMM...................",
+  "..MMVVVVVVMMMMMM..................",
+  ".GGMVVVVVMMMGMMMM.................",
+  "MGGMDVVVDDDDGGMMM.................",
+  "MGMGDDDDLLLLDMDMD.................",
+  "MMMGDDDLLLLLLMMM..................",
+  "..MGDDLLLLLLLLDMMMMM..............",
+  "..MGDDLLDLLDLLDDMDDMMMMMMMM.......",
+  "..MMGLLDDLLDLLLLLLLDDDGGGGGG......",
+  "..MMGDLLLLLLLLLLLLLLDDDDDDDDD.....",
+  "..DMGLLLLLLLLLLLLLLLLDDLLLLLDD....",
+  "..DMMLLDLLLLLLLDLLDLLLLLLLLLLDD...",
+  "...MMMLLDDDDLLLDLLDLLLLLLLLLLDDDD.",
+  "...DMMMMMLLDDLLLLLLLDLLDLLDDLDDDMM",
+  "....MMMMMMLLLDLLLLLLDLLDLLLLLDDMMM",
+  "....DMMMMMMMLLLLDLLLDLLLLLLLLLLMM.",
+  ".....MMMMMMMMMLLLLLDDDLLLDDLLLMMD.",
+  "......MMMMMMMMMMMLLLLLLLLLLLMMMD..",
+  ".......MMMMMMMMMMMMMMLLLLMMMMMM...",
+  "........MMMMMMMMMMMMMMMMMMMMMD....",
+  "..........MMMMMMMMMMMMMMMMMMD.....",
+  "............DMMMMMMMMMMMMMD.......",
+  "..................DDDDD..........."
+ ]
+}

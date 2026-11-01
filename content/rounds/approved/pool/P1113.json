@@ -1,0 +1,84 @@
+{
+ "code": "P1113",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Морская свинка в шарфике",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Домашние животные",
+ "direction": "Театр эмоций",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One very plump brown-and-cream guinea pig head and short shoulders, tiny round ears, huge dark eyes, pink nose and a wide green scarf at the bottom. Large face, no background.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 23,
+ "h": 23,
+ "N": 428,
+ "colours": 7,
+ "volumes": {
+  "C": {
+   "cells": 141,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 83,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "M": {
+   "cells": 68,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "O": {
+   "cells": 51,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "G": {
+   "cells": 50,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 18,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "P": {
+   "cells": 17,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........CCCCC.........",
+  "....AAAACCCCCCCA.PP....",
+  "...AAAAAOOCCCCCAAPPP...",
+  "...APPAAOOCCCCCAAPPP...",
+  "...APAAOOOCCCCCAAAAA...",
+  "...AAAOOOOCCCCCAAAAA...",
+  "..AAACCDOOCCCCCDCAAAA..",
+  "..AAOCDDDOCCCCDDDCOAA..",
+  ".AAOOCDDDOCCCCDDDCOOAA.",
+  ".AAOOCDDCCCCCCCDDCOOAA.",
+  ".AAOOOOOCCCCCCCCOOOOAA.",
+  ".AAOOOCCCCCCCCCCCOOOAA.",
+  ".AAOOCCCCCCCCCCCCCOOAA.",
+  ".AAOCCCCCCPPPCCCCCCOAA.",
+  ".AMMCCCCCCPPPCCCCCCGGG.",
+  ".MMMGCCCCCCCCCCCCMMGGGG",
+  ".MMMGGGMMMCMMMMMGGMMGG.",
+  ".MMGGGMGGGGGGMGGGGMMMM.",
+  "AAAGGGMGGGGGMMMGGGMGMMM",
+  "AAAAAMMMGGGGGMMMMMGGGMM",
+  "AAAAOOOCCMMMMCMMMMGGMM.",
+  "..AAOOCCCCCCCCMMMMMMMM.",
+  "..............MMM..M..."
+ ]
+}

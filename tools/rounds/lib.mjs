@@ -55,7 +55,9 @@ export function measure(pic){const vol={};let n=0;for(const r of pic.rows)for(co
 export function stageOf(level){
  if(level===1)return {cells:[181,181],colours:[3,3],fixed:'объёмы §4'};if(level===2)return {cells:[240,240],colours:[4,4],fixed:'объёмы §4'};if(level===3)return {cells:[281,281],colours:[6,6],fixed:'объёмы §4'};
  // colours raised by the owner's amendment of 2026-10-27: up to 9 on L4–9, 10 later (11 the rare exception)
- if(level<=9)return {cells:[500,600],colours:[4,9]};if(level<=24)return {cells:[550,1000],colours:[4,10]};if(level<=60)return {cells:[550,1200],colours:[5,10],compact:true};return {cells:[550,1400],colours:[5,10],compact:true};}
+ if(level<=9)return {cells:[500,600],colours:[4,9]};if(level<=24)return {cells:[550,1000],colours:[4,10]};if(level<=50)return {cells:[550,1200],colours:[5,10],compact:true};
+ // from L51 the owner's wave size mix (17 §2, 2026-11-01: 30 × 800–1200, 10 × 700–900, 5 × 400–700, 5 × 1200–1500 a wave of 50)
+ return {cells:[400,1500],colours:[4,10],compact:true};}
 export function fitsStage(m,level){const s=stageOf(level),wide=c=>c===11;
  if(s.fixed)return m.N===s.cells[0]&&m.colours===s.colours[0];
  if(s.compact&&m.N>=200&&m.N<=399)return (m.colours>=3&&m.colours<=6)||wide(m.colours);

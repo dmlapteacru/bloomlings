@@ -1,0 +1,92 @@
+{
+ "code": "P1116",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Красный подъёмник с платформой",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Наземный транспорт",
+ "direction": "Доброе будущее",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One compact red scissor-lift vehicle seen from side, thick gold crossed lifting arms, blue raised platform and two large dark wheels. Broad simple geometry, no tiny rails or person.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 29,
+ "N": 613,
+ "colours": 7,
+ "volumes": {
+  "R": {
+   "cells": 169,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 145,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 137,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "B": {
+   "cells": 80,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 58,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 21,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 3,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...BBNNNNBBBNNNNBNNNBBBBNNNN..",
+  "..NBBBBBBBBBBBBBBBBBBBBBBBBNN.",
+  "..NBBBBBBBBBBBBBBBBBBBBBBBNNN.",
+  "..NBBBBBBBBBBBBBBBBBBBBBBBNNN.",
+  "..NNNNNNNNNNNNNNNNNNNNNNNNNN..",
+  "....NNYYYYNN......YYYYYYNN....",
+  "......YYYYYYYY..YYYYYYYY......",
+  "........YYYYYYYYYYYYYY........",
+  "..........YYYYYDYYYY..........",
+  "..........CYYYDDYYYC..........",
+  ".........YYYYYYYYYYYY.........",
+  ".......YYYYYYY..YYYYYYY.......",
+  "......YYYYYYY.....YYYYYY......",
+  "......YDDYYY......YYYDDY......",
+  "......OOOYYYYY..YYYYYYYY......",
+  "..RRRRR.RRYYYYYYYYYYYY........",
+  ".RRRRRRRRRYYYYYDYYYRRRRRRRR...",
+  ".RRRRRRRRRRRRYDDYRRRRRRRRRRR..",
+  ".RRRRRRRRRRRRRRRRRRRRRRRRRRRR.",
+  "RRRRRDDDRRRRRRRRRRRRRRDDDDRRR.",
+  "RRRDDDDDDDRRRRRRRRRRDDDDDDDRRR",
+  "RRDDDDDDDDRRRRRRRRRRDDDDDDDDRR",
+  "RRDDDDCDDDDRRRRRRRRDDDDCDDDDRR",
+  "RRDDDCCCDDDRRRRRRRRDDDCCCDDDDR",
+  "RRDDDCCCDDDRRRRRRRRDDDCCCCDDDR",
+  ".DDDDCCDDDDRRRRRRRRDDDDCCDDDD.",
+  "..DDDDDDDDD........DDDDDDDDD..",
+  "...DDDDDDD..........DDDDDDD...",
+  "....DDDDD.............DDDD...."
+ ]
+}

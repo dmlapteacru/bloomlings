@@ -1,0 +1,77 @@
+{
+ "code": "P1128",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Шмель с большим цветочным воротником",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Насекомые и маленькие существа",
+ "direction": "Театр эмоций",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One chunky golden bumblebee facing viewer, two broad dark body bands, large cream wings, big round dark eyes and ONE thick pink flower-petal collar below its head. No scene or tiny pollen.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 26,
+ "h": 26,
+ "N": 435,
+ "colours": 5,
+ "volumes": {
+  "C": {
+   "cells": 124,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 107,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 105,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "P": {
+   "cells": 71,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "S": {
+   "cells": 28,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "........DD.......D........",
+  "........DD......DDD.......",
+  "..CCCC...DD....DD....CCC..",
+  ".CCCCCC...D....D...CCCCCC.",
+  ".CCSSCCC..DDDDDD..CCCSSCC.",
+  "CCCSSCCCYYYDYYYYYCCCCSSCCC",
+  "CCCCSSCCYYYYYYYYYYCCSSCCCC",
+  "CCCCCSCCYYDYYYYYYYCCSCCCCC",
+  "CCCCCCCYYDDDYYYDDYYCCCCCC.",
+  ".CCSSCDYYDDDYYDDDYYDCSSCC.",
+  "..CCSPPYYDDYYYYDDYYPPSCCC.",
+  "...CPPPPYYYYDDYYYYPPPPCC..",
+  "...CPPPPPYYYYYYYPPPPPPP...",
+  "..CCCPPPPPPPPPPPPPPPPPCC..",
+  ".CCCSSPPPPPPPPPPPPPPSSCCC.",
+  ".CCSSDDPPPPPPPPPPPPDDSSCC.",
+  "..CCCDDYDDDPPPPDDDYDDCCCC.",
+  "..CCCDDYYDDDDDDDDYYDDCCC..",
+  "......DYYYYYDDYYYYYD......",
+  "......DDYYYYYYYYYYDD......",
+  ".......DDDDYYYYDDDD.......",
+  ".......DDDDDDDDDDDD.......",
+  "........YYYDDDDYYY........",
+  ".........YYYYYYYY.........",
+  "...........DDDD...........",
+  "............DD............"
+ ]
+}

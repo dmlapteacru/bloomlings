@@ -23,7 +23,7 @@ namespace Bloomlings.Playtest.Design
     /// banner with ivy and the Petals pill, whose "+" says the Petal packs are offline, over the Wardrobe's
     /// garden;</description></item>
     /// <item><description>a parchment panel to the bottom of the screen with the Shop / Cosmetics tabs (the cosmetics
-    /// after L40);</description></item>
+    /// after L44, with the Wardrobe);</description></item>
     /// <item><description>the Shop: a row per booster with its tile and count badge, its name and a cost pill (a tap asks
     /// to buy it for Petals), then the real-money rows, unavailable in the playtest;</description></item>
     /// <item><description>the Cosmetics: the four family tabs over the lighter panel, the outfit cards of the chosen
@@ -72,7 +72,7 @@ namespace Bloomlings.Playtest.Design
                 return;
             }
 
-            // The tabs: the Shop, the Cosmetics once the Wardrobe opens (L40), and the Animations (the clearing styles'
+            // The tabs: the Shop, the Cosmetics once the Wardrobe opens (L44), and the Animations (the clearing styles'
             // previews show from the Store's unlock; spec 005 FR-038).
             // Hero equipment belongs only to Wardrobe.
             var tabs = new List<string> { "store.tab_shop" };

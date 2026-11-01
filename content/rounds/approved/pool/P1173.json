@@ -1,0 +1,74 @@
+{
+ "code": "P1173",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Красная панда с большими щёчками",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Лесные и горные животные",
+ "direction": "Театр эмоций",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One adorable close-up red panda head and shoulders, broad cream cheek markings, dark eyes with cream whites, rounded orange ears and huge fluffy ringed tail curling tightly beside its face. No clothes or background.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 25,
+ "h": 23,
+ "N": 449,
+ "colours": 5,
+ "volumes": {
+  "O": {
+   "cells": 157,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 107,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 103,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 62,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 20,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................CC......",
+  "...C...........CCCCC.....",
+  "..CCCC...OOOO.CCCECCA....",
+  ".CCCCCCOOOOOOOOCEEECA....",
+  "ACCEEEOOOOOOOOOOOECCA....",
+  "ACCEEOOOOOOOOOOOOOCC.....",
+  "ACCEOOOOOOOOOOCOOOOCC....",
+  ".CCCOOOCCOOOOOOOOOOOAA...",
+  ".CCOOOOOOOOOOOCCOCCOAAA..",
+  "CCOOOOOCCOOOOODDCCCCOOOO.",
+  "CCOOCCOCDDOCCDDDCCCCCOOO.",
+  "EEOCCCOCDDCDDCDCAACCCAAA.",
+  "EEOCCAACCCCDDCCCAACOOAAAE",
+  "EEOCCAAACCDDDDCCAAAOOOOAE",
+  ".EEECCAACCCDDCCOOAAAAOOOE",
+  ".EEEEEAACCCCCAAOOOOAAAOOE",
+  ".EEEEEEEEEEEOAAAOOOOAAOOE",
+  ".EEEEEEEEEEOOOAAAOOOAAEO.",
+  "..EEEEEEEEEOOOAAAOOOAEEE.",
+  "..EEEEEEEEEOOOAAAAOOOEE..",
+  "...EEEEEEEEOOOOAEEOOEE...",
+  ".....EEEEEEEOOOEEEOOE....",
+  ".............OEEEEE......"
+ ]
+}

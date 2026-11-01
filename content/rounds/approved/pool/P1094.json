@@ -1,0 +1,91 @@
+{
+ "code": "P1094",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Леденец в форме петушка",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Десерты и сладости",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One amber-gold rooster-shaped hard candy on a short thick cream stick, big red comb, curved tail and one clear dark eye. Bold recognizable rooster profile, no wrapper or background.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "61+"
+ ],
+ "w": 28,
+ "h": 34,
+ "N": 510,
+ "colours": 6,
+ "volumes": {
+  "O": {
+   "cells": 262,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 131,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 67,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 38,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 8,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "A": {
+   "cells": 4,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "........R...................",
+  "....RRRRRRR.................",
+  "..RRRRRRRRRRR...............",
+  "..RRRRRRRRRRR........OOO....",
+  "..RRRRRRRRRRR.....CCCCYYYY..",
+  "..RRYYYYYRRR.....OCCCYYYYYY.",
+  "..YYYDDYYYY.....OOCOOOOOYYY.",
+  "OOYYYDDDYYY.....OYYOOOOOOYY.",
+  "OOOYYDDDYYY....OOYOOYYYOOOYO",
+  "..OOYYYYYYYY...OOOOCCYYYYOYO",
+  ".RRRYYYYYYOO...OOOYYYOOYYYOO",
+  ".RRRRYYYYYOOO..OOYYOOOOOYYO.",
+  "RRRRRYYCYOOOOOOOOYOOOCOOOYO.",
+  "RRRROOYCOOOOOOOOYYOOOOOYOOO.",
+  "RRRROOYYOOOOCOOOOYOOYYOYYOO.",
+  "..ROOCYOOYOOOCCCOOYOOYOOYOO.",
+  "..OYOCYOOYOOOOOOOOYOAOOOYOO.",
+  "..OYOYYOOYYOOOOOOOYOAOOOYOO.",
+  "..OYOYYOOOYYYOOOOOYOAOOOYO..",
+  "...OOYYOOOOOYYOOOOOOA.OOOO..",
+  "...OOOYYOOOOOOOOOOOO..OOOO..",
+  "....OOOOOOOOOOOOOOO...OOO...",
+  ".....OOOOOOOOOOOOO..........",
+  ".......OOOOOYOOOO...........",
+  ".........OOOYYOO............",
+  "..........OOYYOO............",
+  "...........OOOO.............",
+  "............CCO.............",
+  "............CCC.............",
+  ".............CCC............",
+  ".............CCC............",
+  ".............CCC............",
+  ".............CCC............",
+  "..............CC............"
+ ]
+}

@@ -14,7 +14,7 @@ namespace Bloomlings.Client.Meta.DailyChallenge
     /// <summary>
     /// The Daily Challenge (FR-064, research R19, T144): one optional puzzle per UTC day, the same for every player. The
     /// puzzles come from the daily pack that <c>publish</c> writes; the UTC date maps to a pool index by whole days
-    /// since 2026-01-01, modulo the pool size, so every device picks the same puzzle offline. It unlocks at L50
+    /// since 2026-01-01, modulo the pool size, so every device picks the same puzzle offline. It unlocks at L48
     /// (<c>system.daily_challenge</c>) behind the remote flag <c>feature.dailyChallenge</c>, pays its own reward once per
     /// day, and never changes Level N. Engine-free.
     /// With round levels (spec 006 FR-063) it is switched off (<see cref="SwitchedOff"/>) until it has round levels of its

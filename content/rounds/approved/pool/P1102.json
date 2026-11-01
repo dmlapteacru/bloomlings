@@ -1,0 +1,95 @@
+{
+ "code": "P1102",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Щит с большим клевером",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Фигуры, знаки и эмблемы",
+ "direction": "Фольклорная фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One broad medieval blue shield with a thick golden rim, a single huge bright green four-leaf clover in the center and a small red gem at the bottom. Clear flat emblem, no weapons or text.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 32,
+ "N": 653,
+ "colours": 7,
+ "volumes": {
+  "Y": {
+   "cells": 205,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "N": {
+   "cells": 184,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "G": {
+   "cells": 114,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "L": {
+   "cells": 90,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "O": {
+   "cells": 53,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 4,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 3,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............YY.............",
+  "...........YYYYYY...........",
+  "..........YYYYYYYYY.........",
+  ".....OOOYYYYYYYYYYYYOOO.....",
+  ".OOOOYYYYYNNNYYNNYYYYYYOOOO.",
+  "OYYYYYYYNNNNNNNNNNNNYYYYYYYO",
+  "OYYOYNNNNNNNNNNNNNNNNNNYYYYO",
+  "OYOONNNNLLGGGNNNLLLNNNNNYYYO",
+  "OYYNNNNNLGGGGNNLLLLLGNNNNYYO",
+  "OYYNNNLLLGGGGGLLLLLGGGNNNYYO",
+  "OYYNNNLLLLGGGGLLLLGGGGNNNYYO",
+  "OYYNNNLLLLLGGGLLLGGGGGNNNYYO",
+  "OYYNNNLLLLLLGGLLGGGGGGNNNYYO",
+  "OYYNNNNLLLLLGGGGGGGGGNNNNYYO",
+  ".YYNNNNNDGGGGLLGGGGDNNNNNYY.",
+  ".YYNNNNLLLLLGGLGGGGGGNNNNYY.",
+  ".YYYNNLLLLLGGGLLGGGGGGNNYYO.",
+  "..YYNNLLLLGGGGLLLLGGGGNNYYO.",
+  "..YYNNLLLGGGGGLLLLGGGGNNYYO.",
+  "..YYYNLLGGGGGGGLLLLGGGNYYY..",
+  "..YYYNNNGGGGGNDLLLLGGNNYYY..",
+  "...YYNNNGGGGNNDNLLGGNNNYY...",
+  "...YYYNNNNNNNNNNNNNNNNYYY...",
+  "....YYYNNNNNOOONNNNNNYYYY...",
+  "....YYYYNNNNOOOONNNNYYYY....",
+  ".....YYYNNNNOOOONNNYYYY.....",
+  "......YYYYNNOOOONNYYYY......",
+  ".......YYYYYYYYYNYYYY.......",
+  "........YYYYYYYYYYYY........",
+  ".........YYYYYYYYYY.........",
+  "...........YYYYYY...........",
+  "............CCC............."
+ ]
+}

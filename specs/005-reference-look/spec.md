@@ -179,7 +179,7 @@ add a bottom menu. You will find the icons in the zip. On the picture you will f
   Drawn from the kit's wood and leaves (`UiRaster.NavBar`, `NavMedallion`), the owner's five icons on it (pictures.md
   D9–D13), in both builds (FR-030, contracts/look.md §6.7).
 - Q: Which places, in which order? → A: Shop, Wardrobe, Home, Leaderboard, Collection. A place shows only once its
-  feature is unlocked (a player never sees the button of a locked feature): the Shop from L12, the Wardrobe from L40,
+  feature is unlocked (a player never sees the button of a locked feature): the Shop from L12, the Wardrobe from L44 (L40 before 2026-11-01),
   the Leaderboard from L10, the Collection once a picture is won; Home always. The shown places keep their order and
   share the bar's width evenly, so early on Home stands alone. (Changed the same day by the owner's last question
   below: all five places always show, a locked one with a padlock.)
@@ -215,7 +215,7 @@ add a bottom menu. You will find the icons in the zip. On the picture you will f
 - Q (the owner, the same day): "The menu's places must always be visible. But if some things are available only from a
   level, then on entering the menu's place the page must say that it is only available after reaching level N." → A:
   The five places always show, in their order and sharing the plank as five, from Level 1 (`BottomNav.Order`; which
-  are open is `BottomNav.IsOpen`, as the places showed before: Home always, the Shop from L12, the Wardrobe from L40,
+  are open is `BottomNav.IsOpen`, as the places showed before: Home always, the Shop from L12, the Wardrobe from L44 (L40 before 2026-11-01),
   the Leaderboard from L10, the Collection with its first picture). A locked place keeps the owner's icon, unchanged
   and still tappable, with a small padlock badge at its lower right (the outfit cards' cream badge with the brown
   padlock, 0.34 of the icon, inside the plank's band; the raised place never has one). A tap on it opens its page or
@@ -367,7 +367,7 @@ The owner: "Can we make the screens' names (for example Wardrobe) sit in the mid
 The owner sent `bloomlings_daily_noads_anim_assets_fixed.zip` (separate layers for "two Home-screen animated promo
 buttons", Daily and No Ads, with an animation guide) and asked whether it all made sense; previews were made as GIFs
 before any code, and three rounds of the owner's notes shaped them.
-- Q: Which Daily? → A: The Daily Reward (spec 001 FR-055, from L7), not the Daily Challenge (L50), whose round button
+- Q: Which Daily? → A: The Daily Reward (spec 001 FR-055, from L7), not the Daily Challenge (L48; L50 before 2026-11-01), whose round button
   moves under the Daily scene.
 - Q: The album looks like the Collection's menu icon (a purple album with a flower)? → A: "Ignore it for now, leave it
   as it is."
@@ -1283,7 +1283,7 @@ inventory.
   about `0.03W` over the plank's top, its icon a little larger than the plank's). The menu's top stays `0.17W` above
   the safe bottom. The places, left to right, are Shop, Wardrobe, Home, Leaderboard
   and Collection; all five MUST always show, sharing the bar's width evenly (the owner's request of 2026-10-04). A place
-  is open once its feature is unlocked (the Shop from L12, the Wardrobe from L40, the Leaderboard from L10, the
+  is open once its feature is unlocked (the Shop from L12, the Wardrobe from L44 (L40 before 2026-11-01), the Leaderboard from L10, the
   Collection once a picture is won; Home always); a locked place MUST keep the owner's icon, unchanged and tappable,
   with a small padlock badge at its lower right inside the plank's band (about 0.34 of the icon; never on the
   medallion's place). A tap on the Shop opens the Store page, on the Wardrobe the Wardrobe, on Home returns to Home, on

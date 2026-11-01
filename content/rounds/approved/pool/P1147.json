@@ -1,0 +1,91 @@
+{
+ "code": "P1147",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Лист гинкго веером",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Деревья, листья и плоды",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One enormous golden ginkgo leaf with a clear fan-shaped scalloped outline, orange broad central veins and one short thick green stem, one smaller lime leaf tucked behind. No background.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 33,
+ "h": 33,
+ "N": 675,
+ "colours": 6,
+ "volumes": {
+  "Y": {
+   "cells": 337,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 148,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "L": {
+   "cells": 123,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "G": {
+   "cells": 35,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 27,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "C": {
+   "cells": 5,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............OOOO...............",
+  "...........OOOYYYYOO.............",
+  "........OOOYYYYYYYYO.............",
+  "......OOYYOYYYYYYYYO..OOOO.......",
+  ".....OOYYYYYYYYYYYYOCOYYYYY......",
+  "....OYYYYYYOYYYYYYYYOOYYYYYO.....",
+  "...OOYYYYYYOYYYYOYYYOYYYYYYOO....",
+  "..YYYYYYYYYOYYYYOYYYOYYYYYYYYY...",
+  ".OYYYYYYYYYYOYYYOYYYYYYYYYYYYYO..",
+  "OOYYYYYYYYYYOYYYOYYYYYYYYYYYYYO..",
+  "OYYYYYYYYYYYOYYYOYYYYYYYYYYYYYO..",
+  "OYYYYYYYYOYYOOYYYYYYYYYYYYYYYYYO.",
+  "OOYYYYYYYOOYOOYYYYYYOYYYYOOOYYYO.",
+  ".OOOYYYYYYOYYOYOYYYOOYYOOOYYYYYO.",
+  "....OOOYYYYYYOYOYYOOYYOOYYYYYYYYO",
+  "......OOYYYYYOYOYYOOOOYYYYYYYYYYO",
+  "........YYYYYOOOYOOOOYYYYYYYYYYYO",
+  ".........OOYOOOOOOOYYYYYYYYYYYYOO",
+  "..........OYOOOOOOYYYYOOOOOOOOOO.",
+  "...........YYOOOOYYYOOOC.CCC.....",
+  "...........YYOOOYYLLLLGGGGGG.....",
+  "............YYOOLLLLLLLLLLLLL....",
+  "............YYYLLLLLLLLLLLLLLL...",
+  "............MYYLLLLLLLLLLLLLLL...",
+  "...........MMMY.LLLLLLLLLLLLLLL..",
+  "...........MMM...LLLLLLLLLLLLLLL.",
+  "...........MMM....GLLLLLLLLLLLLL.",
+  "..........MMM.....GGLLLLLLLLLLLL.",
+  ".........MMMM......GLLLLLLLLLLLL.",
+  "........MMMM......GGGGGGGGGLLLLL.",
+  ".......MMGMM......GGG.....GGLLLL.",
+  ".......MGGM.......GG........GGG..",
+  "........GG........G.............."
+ ]
+}

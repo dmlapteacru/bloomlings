@@ -1148,8 +1148,8 @@ with Extra Slot.
 
 - the Leaderboard from L10;
 - milestones;
-- the Wardrobe from L40;
-- the Daily Challenge from L50, behind a flag;
+- the Wardrobe from L40 (L44 since the owner's plan of 2026-11-01);
+- the Daily Challenge from L50, behind a flag (L48 since 2026-11-01);
 - the Collection;
 - theme rotation;
 - identity and cloud save.

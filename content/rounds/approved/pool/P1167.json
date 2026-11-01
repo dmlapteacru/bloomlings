@@ -1,0 +1,94 @@
+{
+ "code": "P1167",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Кустик розмарина в каменной чаше",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Деревья, листья и плоды",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One broad low cream stone planter containing a dense compact fan of five thick green rosemary branches, each with only four LARGE leaf clusters. One gold rim and blue shadow side, no tiny needles or scene.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 31,
+ "N": 670,
+ "colours": 7,
+ "volumes": {
+  "M": {
+   "cells": 212,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 145,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 98,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 90,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 69,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "S": {
+   "cells": 38,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "N": {
+   "cells": 18,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................M..............",
+  "...............MMM..............",
+  "...............MMM..............",
+  ".............MMMMMMM............",
+  "........GG...MMMMMMM...CC.......",
+  "......MMGG...CMMGMM....GC.M.....",
+  "......MMGM.M.MMGGMMM...GDMM.....",
+  "......MMMMGM.MMMGMGGMMMGMMM.....",
+  ".....GGGMMGM.MMMGDGG.GGMMM......",
+  "......GGGMGM.CMMMMD..MGDDGG.CMM.",
+  ".MMMG..GGGMMMMMMMMD.MMGGGGCMMMM.",
+  ".MMMGM..MGMMMMMGMMM.MMMGGD.MGMMM",
+  "MMMMGMCMMMMMMMMGGMMM.MGGDMMMGMMM",
+  "MGGMMMGGMMMMMDMGGDGGMMGDMMMMGGG.",
+  ".GGGMMGGMMMMMCMMGGGMMDMMMMMGGD..",
+  "..MMMMGGMGDMMGDMGGDMMMMMMGDDDGG.",
+  "...MMMGMMGDDMGGDMGDGGDDDDGDGGGG.",
+  "..MMMGGGMGGGDDGGMMDGGDDGDGGGDD..",
+  "..MMMDDGGGGDDDDGGMGGDMDGGDDD....",
+  "....DDGDMGGDMGDDGGGDDMMGGDGDD...",
+  "...YYDGGMMGMMGGDGGDMMMMGGGGDDC..",
+  "..YYYDDDDMGGDDGGGGMMDDMDDDDYYY..",
+  "..YYYYYYYDDDDDDDDDDDDDDDYYYYYY..",
+  "..YYYYYYYYYYYYYYYYYYYYYYYYYYYN..",
+  "..YCCCYYYYYYYYYYYYYYYYYYYYSSSN..",
+  "...CCCCCCCCCCCCCCCCCCCCCCCSSSN..",
+  "...CCCCCCCCCCCCCCCCCCCCCCSSSS...",
+  "...CCCCCCCCCCCCCCCCCCCCCSSSS....",
+  "....CCCCCCCCCCCCCCCCCCCSSSS.....",
+  "......SSSSSSSSSSSSSSSSSSSS......",
+  "........NNNNNNNNNNNNNNN........."
+ ]
+}

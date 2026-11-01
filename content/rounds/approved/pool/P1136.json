@@ -1,0 +1,90 @@
+{
+ "code": "P1136",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Снегоход с красными лыжами",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Наземный транспорт",
+ "direction": "Доброе будущее",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One compact blue toy snowmobile seen from side, large cream windscreen, two thick red curved front skis and one dark rear track. Gold seat, no rider or snowy scenery.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 27,
+ "N": 603,
+ "colours": 7,
+ "volumes": {
+  "D": {
+   "cells": 210,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "N": {
+   "cells": 122,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "B": {
+   "cells": 65,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "Y": {
+   "cells": 62,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 61,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "S": {
+   "cells": 44,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 39,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............SDDD...................",
+  "............DSSSSD..................",
+  "...........DD.CCSD..................",
+  "..........SS..CCSDD.................",
+  "..........S..CCCSDDDDDD.............",
+  ".........CC.CCCSSDDDDDDD.....DDDD...",
+  "........DC.CCCSSSDDD.DD....YYYYYYD..",
+  ".......CC.CCCSSSSDD......YYYYYYYYD..",
+  ".......CCCCCSSSSNNND....YYYYYYYYYD..",
+  "......BBSSSSNNNNBBBBDYYYYYYYYYYYYD..",
+  ".....BBBBBBBBBBBBBBNNNYYYYYYYYYYY...",
+  "....BSSSBBBBBBBBBNNNNNYYYYYYYYYDDD..",
+  "...NBSSBBBBBBBBNNNNSNNNYYYYYDDNNNNN.",
+  "...NBBBBBBBBBNNNNSSSNNNNYYDDDDNNNNN.",
+  "...NBBBBBBBNNNSSSSSNNNNNNBBBNNNNNNN.",
+  "...NNNBNNNNNNNBSSNNNNNNNNNNNNNNDDD..",
+  "....DNNNNDDBBBBNNNNNNNNNNNNDDDDDDDD.",
+  ".....DDDDDDDBNNNNNNNNNNDDDDDDDDDDDD.",
+  ".RR...DDDDDDDNNNNNNNNNDDDDDDDDDDCCDD",
+  "RRRR..DDDDDDDDDDDNNNNDDDCDDCCCDDDCDD",
+  "RRRRRDDDD...DDDDDDDDDDDDCCDCDCDDDDDD",
+  ".RRRRRDDRRRRDDDD..DDDDDDCCDDDDDDDDD.",
+  "..RRRRRDRRRRDDDD.DDDDDDDDDDDDDDDDD..",
+  "...DDDDDRRRRDDDRRRRRDD.DDDD.........",
+  "........RRRRRRRRRRRRR...............",
+  ".........RRRRRRRRRRD................",
+  "..........DDDDD....................."
+ ]
+}

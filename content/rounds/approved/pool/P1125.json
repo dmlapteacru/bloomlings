@@ -1,0 +1,102 @@
+{
+ "code": "P1125",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Толстый воздушный змей",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Игрушки и настольные игры",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One broad diamond-shaped kite divided into four large cream, red, blue and gold panels, a short thick curved tail with two large green bows. All pieces close together, no sky rectangle or lettering.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 37,
+ "h": 38,
+ "N": 570,
+ "colours": 7,
+ "volumes": {
+  "R": {
+   "cells": 124,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 115,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 104,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 99,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "B": {
+   "cells": 65,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 62,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 1,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............CC......................",
+  "............YYY......................",
+  "............YYRR.....................",
+  "...........CCCRRRR...................",
+  "..........CCCCRRRRR..................",
+  ".........CCCCCRRRRRRR................",
+  "........CCCCCCRRRRRRRR...............",
+  ".......CCCCCCCRRRRRRRRRR.............",
+  "......CCCCCCCCRRRRRRRRRRR............",
+  ".....CCCCCCCCCCRRRRRRRRRRRR..........",
+  "....CCCCCCCCCCCRRRRRRRRRRRRRR........",
+  "....CCCCCCCCCCCRRRRRRRRRRRRRR........",
+  "...CCCCCCCCCCCCRRRRRRRYYYYRRR........",
+  "..CCCCCCCCCNNNNRRRYYYYYYYYR..........",
+  "YYCCCCCCNNNNBBNNYYYYYYYYYY...........",
+  "YYYNNNNBBBBBBBNNYYYYYYYYYY...........",
+  ".NNNBBBBBBBBBBNNYYYYYYYYY............",
+  "...NNNBBBBBBBBBNYYYYYYYYY............",
+  "....NNBBBBBBBBBNYYYYYYYY.............",
+  ".....NNNBBBBBBBNYYYYYYYY.............",
+  "......NNNBBBBBBNYYYYYYY..............",
+  "........NNBBBBBNYYYYYYC..............",
+  ".........NNBBBBNNYYYYR....GG.........",
+  "..........NNNBBBNYYYYR....GGG........",
+  "...........NNNBBNYYYYRR..GGGGG.......",
+  "............NNBNNYYYCRRRCGGGGG.......",
+  ".............NNNNDYY...RGGGGGGG......",
+  "..............NNNYY...GGGGGGGG.......",
+  "................YYY.GGGGGGG..........",
+  "................YYY.GGGGGRR.....GGG..",
+  ".................Y..GGGGG.RR...GGGGC.",
+  "....................GGGGG..RR..GGGGG.",
+  ".....................GGG....RRGGGGGG.",
+  "...........................GGGGGGGGG.",
+  "..........................GGGGGGGC...",
+  "..........................GGGGGGGRR..",
+  "..........................GGGGG..RRRR",
+  "............................GGG....R."
+ ]
+}

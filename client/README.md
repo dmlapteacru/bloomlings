@@ -255,8 +255,8 @@ Check in the Editor (the client check covers the logic, not the look):
   locked one with the padlock badge (`UiKit.LockBadge`) at its icon's lower right; each place opens its page straight
   from any page (the Store page, the Wardrobe, Home, the Leaderboard page, the Collection page; every place a page, the
   owner's request of the same day), the others hiding, a locked one its page locked with "Available from level N"
-  (`LockedNoticeView`; the preview's frames 29–31: L12, L40, L10, and 2 for the Collection) and no `store_open` for the
-  locked Store page; the medallion's place takes no tap, and a place pressed squashes like a tile. The L10, L12 and L40
+  (`LockedNoticeView`; the preview's frames 29–31: L12, L44, L10, and 2 for the Collection) and no `store_open` for the
+  locked Store page; the medallion's place takes no tap, and a place pressed squashes like a tile. The L10, L12 and L44
   Home demos point at the Leaderboard, Shop and Wardrobe places.
 - The Leaderboard and Collection pages (`LeaderboardScreen`, `CollectionScreen`; `contracts/look.md` §6.8, §6.9, laid
   out from `ScreenLayout.ReferenceLeaderboard` and `ReferenceCollection`): they should line up with the Store page

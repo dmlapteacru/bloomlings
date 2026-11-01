@@ -90,7 +90,7 @@ namespace Bloomlings.Pipeline.Validation
         /// <summary>
         /// The Level N whose unlocks every level is checked against (mechanics, variants, layers below a top, a locked
         /// slot), instead of each level's own number; null uses the level's. The Daily Challenge pool, numbered by pool
-        /// index, plays with the unlocks of the challenge's own unlock level (L50).
+        /// index, plays with the unlocks of the challenge's own unlock level (L48 since 2026-11-01).
         /// </summary>
         public int? RulesLevel { get; set; }
 

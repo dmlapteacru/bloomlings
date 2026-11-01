@@ -1,0 +1,97 @@
+{
+ "code": "P1090",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Весёлый росток в луковице",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Овощи и урожай",
+ "direction": "Ожившие вещи",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One golden onion with a small friendly face, two large dark eyes and smile, three broad bright green shoots rising from the top and a short cream root fringe. Large plump body, no pot.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "61+"
+ ],
+ "w": 25,
+ "h": 35,
+ "N": 541,
+ "colours": 7,
+ "volumes": {
+  "O": {
+   "cells": 191,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 189,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 67,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 36,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 23,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "M": {
+   "cells": 21,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "A": {
+   "cells": 14,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "........GG...............",
+  "........GGG......MM......",
+  "...GGG..MGGC...GGGM......",
+  "....GGG.MMGG..GGGG.......",
+  "....GGGG.MGGM.GGGG.......",
+  ".....GGGMMGGMMGGG........",
+  "......GGGMMGGMGGG........",
+  ".......GGGMGGMGG.........",
+  ".......GGGMGGMGG.........",
+  "........GGMGGMOO.........",
+  "........GOYYYOOO.........",
+  "........OOYOOOOOO........",
+  ".......OOYYOOOOOOOO......",
+  "......OOYYYYOYYOYOOOO....",
+  "....OOYYYYYYYYYYYYOOOO...",
+  "...OOYYYCCYYYYYYYYYOOOO..",
+  "...OOYYCCYYYYYYYYYYYOOO..",
+  "..OOYYCCYYYYYYYYYYYYYOOO.",
+  ".OOYYYCYYYYYYYYYYYDDYOOO.",
+  ".OOYYYYYYYYYYYYYYDCDYYOO.",
+  ".OOYYYYYDDDYYYYYYDDDYYOOA",
+  "OOYYYYYYDDDYYYYYYDDDYYOOA",
+  "OOYYYYYYDDDYYYYYYYDYOOOOA",
+  "OOOYYYYYDDDYYYYYAYYYOOOOA",
+  ".OOYYYYOOYYYYAAAAYYYOOOOA",
+  ".OOOOOOOOOYYYYAYYYYYYOOO.",
+  ".OOOOOOOOYYYYYYOYYOOOOOO.",
+  "..OOOOOYYYYOYYYOYOOOOOOO.",
+  "..OOOOOOOOYOOYOOOOOOOO...",
+  "...OOOOOOOOOOOOOOOOOOO...",
+  "....OOOOOOOOOOOOOOOO.....",
+  "......OOOOOAACCCCC.......",
+  "........CCCCACCCCC.......",
+  "..........CCCCCCCCC......",
+  "............CCCC........."
+ ]
+}

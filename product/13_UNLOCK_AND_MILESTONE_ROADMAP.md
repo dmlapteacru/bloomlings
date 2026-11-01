@@ -3,6 +3,10 @@
 **Launch revision 2026-10-15:** the first release contains 2500 sequential levels. Long-run guidance and milestones beyond 2500 describe future content updates, not required launch content.
 **Status:** LOCKED (2026-09-29)
 **Owner amendment · 2026-10-26:** the **mechanic** unlock levels below are replaced by [`17_LEVEL_GENERATION_RULES.md`](17_LEVEL_GENERATION_RULES.md) §9 for new rounds; booster, store, meta and reward unlocks stay as written.
+**Owner amendment · 2026-11-01 (content unlocks):** the Wardrobe moves L40 → **L44** and the Daily Challenge L50 → **L48**;
+new planned features: Album scenes L27, Photo studio L60 (proposed), Master challenges L81, the Daily streak with the
+Daily Challenge at L48 and a per-player access level for each calendar event. See the amendment block at the end and
+[`plans/content-unlocks-plan-2026-11-01.md`](plans/content-unlocks-plan-2026-11-01.md).
 
 This document defines **what the player unlocks as the global level number increases**.
 
@@ -137,6 +141,14 @@ Reward:
 
 No new navigation.
 
+## Level 27 — Album Scenes (planned, not implemented; owner 2026-11-01)
+Unlock:
+- the first album scene: one whole illustration with 3–5 elements, each revealed by winning its matching campaign
+  picture; earlier matching wins count at once;
+- a one-time chest for a finished scene.
+
+Not a level selector and no new currency. The Collection keeps showing won pictures before L27.
+
 ---
 
 # C. Levels 26–50 — Bloomlings identity expands
@@ -154,24 +166,30 @@ This is a major Bloomlings-specific mechanic.
 Unlock:
 - themed large route blocker.
 
-## Level 40 — Wardrobe / Skins
+## Level 44 — Wardrobe / Skins
 Unlock:
 - Bloomling cosmetic skins;
-- simple wardrobe/store cosmetic surface.
+- simple wardrobe/store cosmetic surface;
+- the catalogue's first wave (55 of the 89 current items can be chosen; later waves stay at L60/L80/L100).
 
-This is our chosen Level 40 system milestone.
+This is our chosen system milestone (L40 until the owner's amendment of 2026-11-01).
 
-It is intentionally not asserted as a copy of an unverified Colony Flow Level 40 feature.
+It is intentionally not asserted as a copy of an unverified Colony Flow feature level. The Store's clearing styles
+(Animations tab) keep their own L40.
 
 ## Level 45 — Additional Target Variant
 Introduce another same-family variant into normal generator pool.
 
-## Level 50 — Daily Challenge
-Unlock:
+## Level 48 — Daily Challenge + Daily streak
+Unlock (L50 until the owner's amendment of 2026-11-01):
 - one optional daily puzzle;
 - separate reward;
-- does not affect main Level N.
+- does not affect main Level N;
+- planned, not implemented: the Daily streak, a small bonus for consecutive daily wins (proposed every 7 wins, then a
+  new cycle; length not final); a missed day only ends the current streak; and a calendar of 365 prepared daily
+  puzzles (date → stable puzzle id).
 
+## Level 50 — Milestone Reward
 Milestone reward:
 - cosmetic or booster bundle.
 
@@ -183,6 +201,10 @@ Milestone reward:
 Unlock:
 - first environmental Bloomlings-specific mechanic.
 
+Also at L60: the Wardrobe catalogue's second wave (69 of 89) and, proposed (planned, not implemented, not explicitly
+confirmed by the owner), the **Photo studio**: a postcard of a hero in owned gear on a background from finished album
+scenes and an owned frame, saved or shared by the player's own action; no second lock.
+
 ## Level 70 — 6-Variant Hard Levels
 Hard/Super Hard profiles may use 6 active variants.
 
@@ -193,6 +215,13 @@ Reward:
 ## Level 80 — Locked Waiting Slot
 Unlock:
 - selected levels can temporarily reduce usable Buffer capacity.
+
+Also at L80: the Wardrobe catalogue's third wave (84 of 89).
+
+## Level 81 — Master Challenges (planned, not implemented; owner 2026-11-01)
+Unlock:
+- a permanent archive of 5 author-checked hard puzzles (first release), free retries, one reward and a master mark
+  for the first win of each; no album, streak or purchase needed; Level N never changes.
 
 ## Level 90 — Mystery Tile or equivalent
 Only ship if fairness tests pass.
@@ -382,7 +411,9 @@ The exact Hard/Super Hard cadence should be irregular enough not to feel mechani
 - Whether Daily Challenge ships at launch.
 - Exact Hard/Super Hard cadence.
 - Exact leaderboard scope: global only vs weekly/global.
-- Exact cosmetic unlock at Level 40.
+- Exact cosmetic unlock at Level 44 (Level 40 before 2026-11-01).
+- Daily streak length (7 proposed) and its bonus; album, challenge and event reward budgets.
+- Photo studio at L60: proposed, not yet explicitly confirmed by the owner.
 - Which target variants enter at Levels 45/200/etc.
 
 ## Owner amendment · 2026-10-26 — level generation rules
@@ -396,3 +427,37 @@ The roadmap entries for Key (L14), Locked Source Pod (L16), Connected Pair (L18)
 like no longer set mechanic levels for new rounds. Layered tiles, Fountain, Chest, Statue and Stones are not in the
 approved set of 12 types (`04_MECHANIC_CATALOG.md`). Hard from L5 and Super Hard from L10 become the calendar of 17
 §5: L5 and L10 are Hard, L15 is the first Super Hard.
+
+## Owner amendment · 2026-11-01 — content unlocks
+
+The owner's content-unlocks plan (revision 4,
+[`plans/content-unlocks-plan-2026-11-01.md`](plans/content-unlocks-plan-2026-11-01.md)) added to the roadmap at the
+owner's request. Thresholds are the **reached current level** (L44: L43 is completed and L44 can be started). The
+round mechanics' calendar of 17 §9 is unchanged.
+
+| Level | Feature | Status |
+|---|---|---|
+| L7 | Daily Reward | Kept; implemented |
+| L10 | Leaderboard | Kept; implemented |
+| L12 | Store | Kept; implemented |
+| L25, L50, L75, L100 … | Milestone rewards | Kept as configured (`content/roadmap/milestones.json`) |
+| L27 | **Album scenes** | New; owner-confirmed; not implemented (documents only) |
+| L40 | Store clearing styles (Animations tab) | Unchanged; a different feature from the Wardrobe |
+| **L44** | **Wardrobe** (was L40) and its first catalogue wave (55 of 89) | Owner-confirmed; implemented in `content/roadmap/unlock-roadmap.json` and the cosmetic catalogue |
+| **L48** | **Daily Challenge** (was L50) | Owner-confirmed; implemented in the runtime roadmap (the challenge itself stays switched off with round levels, spec 006 FR-063) |
+| L48 | **Daily streak**: a bonus for consecutive daily wins (proposed every 7, length not final) | Planned; not implemented |
+| L60 | Wardrobe wave 2 (69 of 89) | Kept; implemented |
+| L60 | **Photo studio** | Proposed in the plan, not explicitly confirmed; not implemented |
+| L80 | Wardrobe wave 3 (84 of 89) | Kept; implemented |
+| L81 | **Master challenges** (5 strong puzzles first) | New; owner-confirmed; not implemented |
+| L100 | Wardrobe wave 4 (all 89), next scenes and challenges | Kept / content plan |
+| L150+ (guide only) | Hero errands | Deferred; no fixed level |
+| Per player, per event | **Calendar event access**: at the first entry while an event is active, `eventUnlockLevel = max(30, L₀ + 7)`, stored once per player and event release, never recomputed | New; owner-confirmed; not implemented |
+
+Rejected or deferred: secret search (rejected), hero errands (deferred, L150+ only a guide), outfit collections (last,
+optional, no level), an Endless Stash with paid barriers (no), a Pass (not now), expeditions as a second shell (no).
+The fixed event access at L15 of an earlier revision is cancelled.
+
+Existing saves keep unlock flags they already earned: a player who reached L40–L43 before this change keeps the
+Wardrobe (earned flags are never removed); one at L48–L49 gets the Daily Challenge flag at the next launch
+(`ProgressionService.Initialize` raises every unlock up to the current level).

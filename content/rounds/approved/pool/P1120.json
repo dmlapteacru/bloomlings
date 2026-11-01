@@ -1,0 +1,90 @@
+{
+ "code": "P1120",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Спелый перец в очках",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Овощи и урожай",
+ "direction": "Ожившие вещи",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One plump red bell pepper character, large three-lobed silhouette, chunky green stem, oversized square cream sunglasses with dark blue lenses and a small confident smile. No arms, legs or other props.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 27,
+ "h": 31,
+ "N": 574,
+ "colours": 6,
+ "volumes": {
+  "R": {
+   "cells": 350,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 86,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 75,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "G": {
+   "cells": 37,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 16,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "M": {
+   "cells": 10,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............MMM..........",
+  ".............GGGGG.........",
+  "............GGGGGG.........",
+  "...........MGGGGGG.........",
+  "...........MGGGGG..........",
+  "...........MGGGM...........",
+  "......RRR..GGGGM.RRR.......",
+  "....RRRRRRRGGGGMRRRRRRR....",
+  "...RRRRRRRRGGGGMRRRRRRRR...",
+  "..RRRRRRRRRRRRRRRRRRRRRRR..",
+  "..RRRRRRRRRRRRRRRRRRRRRRRR.",
+  ".RRRRRRRRRRRRRRRRRRRRRRRRR.",
+  ".RRCCCCCCCCRRRRRRCCCCCCCRR.",
+  "RRCCCDDDDDCCRRRRCCDDDDCCCRR",
+  "RCCCNNNNNNNCCCCCCCNNNNNDCCR",
+  "RCCCNNNNNNNCCCCCC.NNNNNNCCR",
+  "RRCCNNNNNNNCCRRCCNNNNNNNCRR",
+  ".RCCNNNNNNNCRRRCCNNNNNNNCR.",
+  ".RCCNNNNNNNCRRRCCNNNNNNCCR.",
+  ".RRCCNNNNNCRRRRRCCNNNNDCRR.",
+  "..RRCCCCCCRRRRRRRCCCCCCRRR.",
+  "..RRRRRRRRRRDRDDRRRRRRRRR..",
+  "..RRRRRRRRRRRDDRRRRRRRRRR..",
+  "..RRRRRRRRRRRRRRRRRRRRRRR..",
+  "...RRRRRRRRRRRRRRRRRRRRR...",
+  "...RRRRRRRRRRRRRRRRRRRRR...",
+  "...RRRRRRRRRRRRRRRRRRRRR...",
+  "....RRRRRRRRRRRRRRRRRRR....",
+  ".....RRRRRRRRRRRRRRRRR.....",
+  "......RRRRRRRRRRRRRRR......",
+  "...........RRRRR..........."
+ ]
+}

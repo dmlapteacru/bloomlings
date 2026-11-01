@@ -1,0 +1,87 @@
+{
+ "code": "P1175",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Игрушечный крокодил-гармошка",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Игрушки и настольные игры",
+ "direction": "Заводная сказка",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One compact green wooden pull-along crocodile toy, huge friendly long snout, cream teeth and gold hinged accordion-like body in THREE broad sections, two red wheels. Large eye, no strings or scenery.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 23,
+ "N": 567,
+ "colours": 7,
+ "volumes": {
+  "M": {
+   "cells": 156,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "R": {
+   "cells": 123,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "G": {
+   "cells": 78,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 70,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 60,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "O": {
+   "cells": 57,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 23,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............MMM...................",
+  "............GGGGGG...............G.",
+  "..GGGGG....GGGCCGG............GGGGM",
+  ".GGGGGGG..MGGDCCGMM.....Y....GGGGGM",
+  "MGGGGDGGGMMGGDDCCMMOOOOYYY.GGGGGGGM",
+  "MGGGDDGGGGGGGDDCCMMOYYOYYYYYYGGGGMM",
+  "MMMMMMGGGGGGGDDCCMMMYYOOYYYYYYYGMM.",
+  ".MMMMMGGMMMMMCCCMMMMYYYOYYYYYYYMMM.",
+  ".DMMMMGGMMMMMMMMMMMMDYYOOYYOOYYOMMD",
+  "..MCCDMMMMMMMMDMMMMMOYYOOYYOOYYOMMM",
+  "..DCCDCDDDCDDDMMMMMMOYYOOYYOOYYOMMM",
+  "...MMMCCMCCMMMMMMMMMOYYOOYYOOYYOMM.",
+  "...MMMMMMMMMMMMMMMMDOYYOOYYOOYYMMM.",
+  "....MMMMMMMMMMMMMMMOOYYOOYYOORRRR..",
+  ".....MMMMMMMMMMRRRROYYYOOYYRRRRRRR.",
+  ".......DMMMMMMRRRRRRROOOOORRRRRRRRR",
+  "........ORDDDRRRRRRRRDDDDDRRRRRDRRR",
+  "........ORDDDRRRRDDRRDDDDDDRRRDDDRR",
+  "........ORRDDRRRRDDRRDDDDDDRRRRDRRR",
+  ".........RRRRRRRRDRRR.....RRRRRRRR.",
+  "..........OOORRRRRRRR......RRRRRRR.",
+  "..............RRRRRR........RRRR...",
+  "...............RRRR................"
+ ]
+}

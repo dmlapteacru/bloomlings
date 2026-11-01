@@ -1,0 +1,88 @@
+{
+ "code": "P1171",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Щиток с мордочкой дракона",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Фигуры, знаки и эмблемы",
+ "direction": "Фольклорная фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One broad cream oval heraldic shield with thick gold rim, centered enormous RED friendly dragon head emblem with two short purple horns, large dark eye and broad snout. No text or background.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 26,
+ "h": 30,
+ "N": 623,
+ "colours": 6,
+ "volumes": {
+  "R": {
+   "cells": 212,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 177,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 156,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "V": {
+   "cells": 40,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "A": {
+   "cells": 31,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 7,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..........CAAAAA..........",
+  ".......YYYYYYYYYYYYYY.....",
+  ".....YYYYYYYYYYYYYYYYY....",
+  "..CYYYYYCCCCCCCCCCYYYYYY..",
+  "AAYYYYCCCCVCCCVVVCCCCYYYYA",
+  "AYYYCCCCCCVVVCCVVVCCCCCYYA",
+  "AYCCCCVVCCVVVVCVVVCCCCCCYA",
+  "AYCCCCVVVVCVRRRVVVVCCCCCYA",
+  "AYCCCCCVVVVRRRRRRVVCCCCCYA",
+  "AYCCCCCVVVVRRRRRRRRRCCCCYA",
+  "AYCCRRCCVVRRRRRRRRRRCCCCYA",
+  "AYCCRRRRRRRRRCCCRRRRCCCCYA",
+  "AYCCCRRRRRRRCCDDRRRRCCCCYA",
+  "AYCCRRRRRRRRCCDDRRRRRCCCYA",
+  "AYCRRRRRRRRRRCDDRRRRRRRCYA",
+  "AYCCRRRRRRRRRRCRRRRRRRRCYA",
+  ".YYCCRRRRRRRRRRRRRRRRRRCYA",
+  ".YYCRRRRRRRRRRDRRRRRRRRYY.",
+  ".YYCRRRRRRRRRRRRRRRRRRRYY.",
+  ".YYYCCRRRRRCCRRRRRRRRRCYY.",
+  "..YYCCRRRRCCCRCCRRRRRCYYY.",
+  "..YYYCRRRRRRRRRCCCCRCCYY..",
+  "...YYCCRRRRCCCCRCCCCCYYY..",
+  "...YYYCCRRRCCCRRRCCCYYY...",
+  "....YYYCRRRRRCCCRCCYYY....",
+  ".....YYYYRRRCCCCCYYYY.....",
+  "......YYYYYRCCCYYYYY......",
+  "........YYYYYYYYYYC.......",
+  ".........YYYYYYYY.........",
+  "............YY............"
+ ]
+}

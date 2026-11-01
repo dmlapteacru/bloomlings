@@ -1,0 +1,94 @@
+{
+ "code": "P1121",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Маленькая арка из цветных камней",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Фигуры, знаки и эмблемы",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One chunky freestanding arch made of seven broad red, gold, green and blue stone blocks, wide cream-lit EMPTY opening, two thick brown square feet. No landscape or tiny texture.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 31,
+ "N": 622,
+ "colours": 7,
+ "volumes": {
+  "R": {
+   "cells": 133,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "G": {
+   "cells": 129,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 124,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 101,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 68,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "B": {
+   "cells": 66,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "C": {
+   "cells": 1,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............AAAAAAAA.............",
+  "............CYYYYYYYYY............",
+  "...........YYYYYYYYYYYY...........",
+  ".......RRRRRYYYYYYYYYYBBBBB.......",
+  "......RRRRRRYYYYYYYYYYBBBBBBB.....",
+  ".....RRRRRRRRYYYYYYYYYBBBBBBB.....",
+  "....RRRRRRRRRYYYYYYYYBBBBBBBBB....",
+  "....RRRRRRRRRYYYYYYYYBBBBBBBBBB...",
+  "....RRRRRRRRRYYYYYYYYBBBBBBBBBB...",
+  "...RRRRRRRRRRRAAAAA..BBBBBBBBBB...",
+  "..GGGGGRRRRRR.........BBBBBGGGGG..",
+  "..GGGGGGGRRR...........BBGGGGGGGG.",
+  ".GGGGGGGGGG............BGGGGGGGGG.",
+  ".GGGGGGGGGG.............GGGGGGGGG.",
+  ".GGGGGGGGGG.............GGGGGGGGG.",
+  ".GGGGGGGGGG.............GGGGGGGGG.",
+  ".GGGGGGGGGG.............GGGGGGGGG.",
+  "..GGGGGGGG..............GRRRRRRR..",
+  "..YYYYYYYY..............RRRRRRRR..",
+  ".AYYYYYYYYA.............RRRRRRRRR.",
+  ".AYYYYYYYYA.............RRRRRRRRR.",
+  ".AYYYYYYYYA.............RRRRRRRRR.",
+  ".AYYYYYYYYA.............RRRRRRRRR.",
+  ".AYYYYYYYYY.............RRRRRRRRR.",
+  ".EEEEEEYAEE............EERRRRRRRE.",
+  "EAAAAAAAAEEE...........EAAAAAAAAEE",
+  "EAAAAAAAAEEE...........AAAAAAAAEEE",
+  "EAAAAAAAAEEE...........AAAAAAAAEEE",
+  "EAAAAAAAAEEE...........AAAAAAAAEEE",
+  "EAAAAAAAEEEE...........AAAAAAAEEEE",
+  ".EEEEEEEEEE............EEEEEEEEEE."
+ ]
+}

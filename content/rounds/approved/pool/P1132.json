@@ -1,0 +1,96 @@
+{
+ "code": "P1132",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Карнавальный головной убор с перьями",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Маски и костюмы",
+ "direction": "Фольклорная фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One broad purple carnival headdress, cream curved headband and three ENORMOUS upright red, blue and green feathers each outlined with gold. Compact fan-shaped silhouette, no face or background.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 33,
+ "h": 33,
+ "N": 687,
+ "colours": 7,
+ "volumes": {
+  "Y": {
+   "cells": 153,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 138,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "G": {
+   "cells": 101,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 86,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "B": {
+   "cells": 73,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "C": {
+   "cells": 70,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "V": {
+   "cells": 66,
+   "name": "Слива",
+   "hex": "#7851A5"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "................Y................",
+  "..............YYYYY..............",
+  ".............DYYRYYY.............",
+  "............YYYRRRYY.............",
+  "............YYRRRRRYY............",
+  "...........DYCRRRRRRRR...........",
+  "...........YYYRRRRRRRR...........",
+  "DDDD......DYRRRRRRRRRYD......DDDD",
+  "DYYYYYY...DYRRRRRRRRRYD...YYYYYYD",
+  "DYBBBYYY..DYRRRRRRRRRYD..YYYGGGYD",
+  "DYVVBBBYYDYYYRRRRRRRYYYYYYGGGGGYD",
+  ".YVVVBBBYDYYRRRRRRRRRYYYYGGGGGGY.",
+  "YYYBVBBBYYYYRRRRRRRRRYYYGGGGGGYYD",
+  "DYBBBVBBBBYYRRRRRRRRRYYGGGGGGGGYD",
+  "YYBBBVVBBBYYRRRRRRRRRYYGGGGGGGGYD",
+  "YYYBBBVBBBDYRRRRRRRRRYGGGGGGGGYYD",
+  ".DYBBBBBBBBYYRRRRRRRYYGGGGGGGGYD.",
+  ".DDBBBBBVBBDYRRRRRRRYGGGGGGGGGDD.",
+  ".DYBBBBBVBBDYRRRRRRRGGGGGGGGGYYD.",
+  "..YYBBBBVVBBYRRRRRRYYGGGGGGGGYY..",
+  "..YYBBBBBVBBDDRRRRRYYGGGGGGGGYY..",
+  "...DBBBBBVVBDDRRCYYYDGGGGGGGYY...",
+  "...DVVVVVVVDDDYCYYYDDDGGGGYYYY...",
+  ".....VVVDDVVVVYYYYYVVVVDGGGG.....",
+  "......DDVVVVVVYYYYVVVVVVVDD......",
+  "......DVVVCCCCCCYYCCCCCVVVD......",
+  ".....DVVCCCCCCCCCCCCCCCCCVVD.....",
+  ".....VVCCCCCCDDDDDDDCCCCCCVVD....",
+  "....DVCCCCCCC.......DCCCCCCVD....",
+  "....DVCCCD.............DCCCVD....",
+  "....DCCC.................DCCD....",
+  ".....DCD..................CD.....",
+  "......C...................D......"
+ ]
+}

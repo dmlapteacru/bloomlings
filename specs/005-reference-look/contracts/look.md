@@ -1287,7 +1287,7 @@ always show, from Level 1 (the owner's request of 2026-10-04: "The menu's places
 things are available only from a level, then on entering the menu's place the page must say that it is only available
 after reaching level N."), keeping their order and sharing the span evenly. A place is open once its feature is
 unlocked (`BottomNav.IsOpen(place, HomeLook)`): the Shop with `HomeLook.Store` (L12), the Wardrobe with
-`HomeLook.Wardrobe` (L40), the Leaderboard with `HomeLook.Rank` (L10), the Collection with `HomeLook.Collection` (a
+`HomeLook.Wardrobe` (L44; L40 before 2026-11-01), the Leaderboard with `HomeLook.Rank` (L10), the Collection with `HomeLook.Collection` (a
 picture won, so from L2); Home always. `BottomNav.UnlockLevel(place, levelOf)` is the level a locked place names: the
 build's own roadmap (`UnlockRoadmap.LevelOf` of `HomeLook.StoreUnlock`, `WardrobeUnlock`, `LeaderboardUnlock`: 12, 40,
 10; the playtest's `PlaytestMeta.Progression.Roadmap`, Unity's `ProgressionService.Roadmap` in `HomeController`), the
@@ -1331,7 +1331,7 @@ badge squashes with its icon when pressed. A locked place's page shows the locke
 | Screen when locked | What it shows |
 |---|---|
 | Store page (before L12) | its garden, header (back, "Store" banner, the Petals pill without its "+": the Store it would open is this one) and parchment panel (`ScreenLayout.LockedPage`: the §6.6 layout without tabs and status line), the notice in `Notice` (the list's box) instead of the tabs, rows, page arrows and offline line; the bottom menu with the Shop raised; back as usual; no `store_open` (Unity), it is not a Store visit |
-| Wardrobe (before L40) | its garden and header (back, "Wardrobe" banner, the Petals pill, its "+" opening the Store page once open), the page's lighter panel (`parchment.top` to `cream.top` with a `cream.line` outline, radius 26 units, `Kit.Panel`) in `LockedPage.Panel`, the notice in `Notice`, instead of the hero, name card, tabs, cards and footer; the bottom menu with the Wardrobe raised |
+| Wardrobe (before L44; L40 before 2026-11-01) | its garden and header (back, "Wardrobe" banner, the Petals pill, its "+" opening the Store page once open), the page's lighter panel (`parchment.top` to `cream.top` with a `cream.line` outline, radius 26 units, `Kit.Panel`) in `LockedPage.Panel`, the notice in `Notice`, instead of the hero, name card, tabs, cards and footer; the bottom menu with the Wardrobe raised |
 | Leaderboard page (before L10) | its garden, header (back, "Leaderboard" banner, the Petals pill, its "+" opening the Store page once open) and parchment panel (`ScreenLayout.LockedPage`, §6.8), the notice in `Notice` (the page's area) instead of the rows, the status line and Refresh; the bottom menu with the Leaderboard raised (a locked card until the owner's request of 2026-10-04: every place a page) |
 | Collection page (before its first picture) | the same, "Collection", instead of the count, the pictures and the page arrows (§6.9; the playtest also opens it from Level 2 while it is empty: its dev row's skips collect no pictures) |
 

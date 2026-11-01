@@ -332,10 +332,10 @@ meta.CompleteLevel(26, DifficultyClass.Normal, 0, level26, factPicture, evidence
 Check(meta.Collection.Count == 1 && meta.Collection.Entries[0].LevelNumber == 26, "a won picture joins the Collection");
 Check(Achievements.Of(meta.Save).First(s => s.Def.Id == "natural_talent").Value == 1,
     "the playtest persists achievement evidence with the new win");
-meta.SkipTo(40);
-Check(meta.Wardrobe.IsAvailable, "the Wardrobe opens at L40");
+meta.SkipTo(44);
+Check(meta.Wardrobe.IsAvailable, "the Wardrobe opens at L44");
 var reloaded = new PlaytestMeta(temp);
-Check(!reloaded.FirstLaunch && reloaded.CurrentLevel == 41 && reloaded.Economy.Petals == meta.Economy.Petals && reloaded.Collection.Count == 1, "progress survives a restart");
+Check(!reloaded.FirstLaunch && reloaded.CurrentLevel == 45 && reloaded.Economy.Petals == meta.Economy.Petals && reloaded.Collection.Count == 1, "progress survives a restart");
 Check(reloaded.Wardrobe.Profile.Badge?.Id == "badge.achievement.first_bloom", "the selected achievement badge survives a restart");
 Check(Achievements.Of(reloaded.Save).First(s => s.Def.Id == "natural_talent").Value == 1,
     "achievement progress survives a restart");

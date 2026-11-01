@@ -122,7 +122,8 @@ namespace Bloomlings.Generator
         /// <summary>
         /// The Level N whose unlocks apply to every level generated (mechanics and their combinations, layers below a top,
         /// the advanced Hard pressure), instead of each level's own number; null uses the level's. The Daily Challenge pool,
-        /// whose numbers are pool indexes, plays as at its unlock (<c>system.daily_challenge</c>, L50).
+        /// whose numbers are pool indexes, plays as at its unlock (<c>system.daily_challenge</c>, L48 since 2026-11-01; the legacy pool in
+        /// <c>content/daily/</c> was generated at L50).
         /// </summary>
         public int? RulesLevel { get; set; }
 

@@ -1,0 +1,89 @@
+{
+ "code": "P1137",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Лист кувшинки с розовым бутоном",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Цветы и букеты",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One enormous round green water-lily pad with a clear triangular notch, a large closed pink lily bud tucked on its upper edge, thick cream central vein. No surrounding pond or tiny droplets.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 31,
+ "h": 31,
+ "N": 674,
+ "colours": 6,
+ "volumes": {
+  "G": {
+   "cells": 412,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 79,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "P": {
+   "cells": 71,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "D": {
+   "cells": 49,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "K": {
+   "cells": 35,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "L": {
+   "cells": 28,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".......................K.......",
+  "...................PP.KKK......",
+  "..................PPPKKKKK.....",
+  ".................PPPKKKKKKPP...",
+  "................PPPKKKKKKPPPP..",
+  "................PPPKKKKPKKPPP..",
+  "........DDGGGGGDPPPKKKPPPKPPP..",
+  ".......DGGGGGGGMPPPKKPPPPKPPPP.",
+  "....DGGGGGGGGGMMPPGGPPPPPKPPGP.",
+  "...DGGGGGGGGGGMMMMGGPPPPPPPPGD.",
+  "...GGGGGGGGGGGGGMMGGMPPPPDGMGG.",
+  "..GGGGGGGGGGGGGGMMGGMPPPGGGMG..",
+  ".DGGGGGGGGGGGGGGGMMGMPPGGGMMD..",
+  ".DGGGGGGGGGGGGGGGGMMMMMGGMMMM..",
+  ".MGGGGGGGGGGGGGGGGGMMMMMMMMMMD.",
+  "DMGGGGGGGGGGGGGGLGGGGGGGGGGGGM.",
+  "DMGGGGGGGGGGGGLLLGGGGGGGGGGGGMD",
+  "DMGGGGGGGGGGGGLLLGGGGGGGGGGGGMD",
+  "DMGGGGGGGGGGGGGGLLLGGGGGGGGGGGD",
+  "DMGGGGGGGGGGGGGGGLLLLLGGGGGGGMD",
+  ".DGGGGGGGGGGGGGGGLLMMLGGGGGGGMD",
+  ".DGGGGGGGGGGGGGGGGLMMMGGGGGGGM.",
+  ".DGGGGGGGGGGGGGGGGLLDDGGGGGGGD.",
+  "..GGGGGGGGGGGGGGGGLLD..GGGGGG..",
+  "..DGGGGGGGGGGGGGGGGLLD..DMMMD..",
+  "...DGGGGGGGGGGGGGGGLLD...DMD...",
+  "....DMMGGGGGGGGGGGGGLGD........",
+  ".....DMMGGGGGGGGGGGGGGM........",
+  ".......DGGGGGGGGGGGGGMM........",
+  ".........DMMMMMMMMMMMM.........",
+  "............DDDDDDD............"
+ ]
+}

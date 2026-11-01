@@ -1,0 +1,73 @@
+{
+ "code": "P1169",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Широкий шерстяной шарф узлом",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Одежда и аксессуары",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One thick red scarf tied in a large loose knot, two broad ends tucked close, cream horizontal stripes and short gold fringes. No person or knitted microtexture, strong compact silhouette.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 27,
+ "h": 27,
+ "N": 485,
+ "colours": 4,
+ "volumes": {
+  "R": {
+   "cells": 325,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 81,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 55,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 24,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........RRR...............",
+  "......RRRRRRRRRRRRR........",
+  ".....RRRRRRRRRRRRRRRR......",
+  "....RRRRRRRRRRRRRRRRRRR....",
+  "...RRRRCCRRRRRRRRRRRRRR....",
+  "...RRRCCCRRRRRRRRRRRRRRR...",
+  "...RRRCCRRRRRRRRRRCCRRRR...",
+  "...RRCCRRRRRRRRRRRCCCRRR...",
+  "...RRCCRRRRCCRRRRRRCCRRR...",
+  "...RRCCRRRRCCCRRRRRRCCRR...",
+  "....RCRRRRRRRCCRRRRRCCR....",
+  ".....RRRRRRRRCCCRRRRCR.....",
+  "......RRRRRRRRCCRRRRRRR....",
+  ".....RRRRRRRRRCCRRRRRRRR...",
+  "....RRRRRRRRRRCRRRRRRRRR...",
+  "....CCCRRRRRRRRRRRRRCCCCR..",
+  "...RCCCCCCRRRRRRRRCCCCCCR..",
+  "...RRRCCCCCCR..RRCCCCRRRR..",
+  "..RRRRRRRCCCC..RCCCRRRRRR..",
+  "..RRRRRRRRRCR..CCCRRRRRRRR.",
+  ".YYRRRRRRRRRR...RRRRRRYYYAA",
+  "YYYYYRRRRRRR....RRRRYYYYYAA",
+  "YYAYYYYYRRRR.....RYYYYYYYA.",
+  ".AAYYYYYYYYA.....YYYYYAA...",
+  "....YYYAYYYA.....YYAYAA....",
+  "......AAYAYA.....YYAA......",
+  ".........AA................"
+ ]
+}

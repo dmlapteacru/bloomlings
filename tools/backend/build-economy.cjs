@@ -20,9 +20,13 @@ for (const [,name,tier] of avatars) cosmetics['avatar.'+name] = {price:tier==='F
 const clearSource = fs.readFileSync(path.join(root,'client/Assets/Bloomlings/UI/Design/ClearStyles.cs'),'utf8');
 const bought = clearSource.match(/IReadOnlyList<ClearStyle> Bought[^]*?new\[\][^]*?\{([^]*?)\};/);
 if (!bought) throw Error('Clearing table shape changed');
+// The bought clearing styles open at their own level (ClearStyles.BuyFromLevel, L40), not with the Wardrobe (L44 since
+// the owner's content-unlocks plan of 2026-11-01).
+const clearFrom = Number(clearSource.match(/public const int BuyFromLevel = (\d+);/)?.[1]);
+if (!Number.isSafeInteger(clearFrom) || clearFrom < 1) throw Error('Clearing BuyFromLevel changed');
 for (const name of [...bought[1].matchAll(/ClearStyle\.([A-Za-z]+)/g)].map(m=>m[1])) {
   const tier = name==='Blossom'?'Intro':['Fireworks','Parade'].includes(name)?'Premium':'';
-  cosmetics['clear.'+name.toLowerCase()]={price:value('economy.price.clearing'+tier),free:false,minLevel:level('system.wardrobe')};
+  cosmetics['clear.'+name.toLowerCase()]={price:value('economy.price.clearing'+tier),free:false,minLevel:clearFrom};
 }
 cosmetics['clear.munchers']={price:0,free:true,minLevel:1};
 const challengeSource=fs.readFileSync(path.join(root,'client/Assets/Bloomlings/Meta/DailyChallenge/DailyChallengeRules.cs'),'utf8');

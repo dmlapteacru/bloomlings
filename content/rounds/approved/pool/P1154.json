@@ -1,0 +1,74 @@
+{
+ "code": "P1154",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Две дольки розового грейпфрута",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Фрукты и ягоды",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "Two thick grapefruit wedges overlapping in a compact fan, golden peel, broad cream rind and red-pink flesh divided into three or four large segments each. One dark-orange shadow edge, no leaves or plate.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "61+"
+ ],
+ "w": 27,
+ "h": 27,
+ "N": 519,
+ "colours": 4,
+ "volumes": {
+  "R": {
+   "cells": 216,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 141,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 83,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 79,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...................CC......",
+  ".................RCCCC.....",
+  "..............RRRRRCCY.....",
+  "............RRRRRRRCCYO....",
+  ".........RRRRRRRRRRCCYO....",
+  "......RRRRRRRRRRRRCCCCO....",
+  "...CCRRRRRRRRRRRRRRRCCO....",
+  ".YYCCRRRRRRRRRRRRRRRCYO....",
+  "OYYCCRRRRRRRRRRCRRRRCYO....",
+  "OYYYCCRRRCRRRRRCRRRCCYCCCC.",
+  "OYYYCCCCCRRRRRRRCRCCCRRCCCO",
+  "OOYYYCCCRRRRRRRCCRRRRRRCCCO",
+  "OOOYYYCCCCRRRRRCCRRRRRRCCCO",
+  ".OOOYYCCCCRRRRRRCRRRCRRCCCO",
+  ".OOOOCCCRRRRRRCRRRRRRRCCCCO",
+  "..OOOYCCRRRRRRRRRRRRRRRCCYO",
+  "...OYYCCCRRRRCRRRRRRRRRCCYO",
+  "...OYYYCCRRRRRRRRRCRRRRCCYO",
+  "...OYYYYCCRRCRRRRRCRRRCCCYO",
+  "...OYYYYCCCCRRRRRRRCRCCCYY.",
+  "....OYYYYCCCCRRRRRRCCCCYYY.",
+  "....OOYYYYYCCCCRRRCCCCYYY..",
+  ".....OOYYYYYCCCCCCCCCYYO...",
+  ".....OOOOYYOYYYCCCYYYYOO...",
+  ".......OOOOOOOOYYYYOOO.....",
+  "........OOOOOOOOOOOOO......",
+  "..........OOOOOOOOO........"
+ ]
+}

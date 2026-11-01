@@ -1,0 +1,92 @@
+{
+ "code": "P1099",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Зелёный бадминтонный волан",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Спорт и активные игры",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One oversized badminton shuttlecock angled diagonally, cream cork base with red band and a broad cone of five large green-and-blue feathers, stepped edges and large separated segments.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "61+"
+ ],
+ "w": 30,
+ "h": 30,
+ "N": 502,
+ "colours": 7,
+ "volumes": {
+  "C": {
+   "cells": 156,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 130,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "B": {
+   "cells": 105,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "S": {
+   "cells": 54,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "R": {
+   "cells": 34,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "M": {
+   "cells": 20,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "D": {
+   "cells": 3,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...............GGG............",
+  "..............GGGG............",
+  ".............GGGGGG.SS........",
+  "............GGGGGGGSSSB.......",
+  "............GGGGGGSSSBBB......",
+  "...........GGGGGSSSSBBBB......",
+  "...........GGGGGSSSBBBBB......",
+  "...........GGGGSSSBBBBBB......",
+  "..........GGGGGSSSBBBBBBGGGG..",
+  "..........GGGGSSSBBBBBGGGGGG..",
+  ".........GGGGSSSBBBBBGGGGGGG..",
+  ".........GGGGSSBBBBBGGGGGGG...",
+  ".........CCCDSBBBBBDGGGGGGG...",
+  "........CCCCCSBBBBGGGGGGGGG...",
+  "........CCCCCCBBGGGGGGGGGGBBB.",
+  ".......CCBBCCCCCGGGGGGGGSSSSSB",
+  ".......CCBCCCCCCGGGGGGDSSSSBBB",
+  "......RCCCCCCCCCGGGGSSSSSBBBBB",
+  ".....RRRRCCCCCCCCGSSSSSBBBBBB.",
+  "....RRRRRRCCCCBBCCSSSBBBBBBBB.",
+  "...CCCRRRRRCCBBBCCSBBBBBBBBM..",
+  "..CCCCCRRRRCBBCCCCBBBBBMMMMM..",
+  ".CCCCCCCRRRRCCCCCCBBMMMGGGGM..",
+  "CCCCCCCCCRRRCCBBBCCMMMMMMMM...",
+  "CCCCCCCCCRRRCCCCCCCMM.........",
+  "CCCCCCCCCCRRCCCCC.............",
+  "CCCCCCCCCCRR..................",
+  ".CCCCCCCCC....................",
+  "..CCCCCCC.....................",
+  "...CCCC......................."
+ ]
+}

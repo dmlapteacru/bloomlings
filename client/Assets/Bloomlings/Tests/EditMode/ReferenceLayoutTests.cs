@@ -777,7 +777,7 @@ namespace Bloomlings.Client.Tests
         /// <summary>
         /// The places a player sees (spec 005 FR-030; the owner's request of 2026-10-04: "the menu's places must always be
         /// visible"): all five always, in their order; Home always open and each other place once its feature unlocks
-        /// (<see cref="BottomNav.IsOpen"/>); a locked place's level from the build's roadmap (the Shop 12, the Wardrobe 40,
+        /// (<see cref="BottomNav.IsOpen"/>); a locked place's level from the build's roadmap (the Shop 12, the Wardrobe 44,
         /// the Leaderboard 10 in <see cref="UnlockRoadmap.Default"/>) or the Collection's 2; and on every phone each place's
         /// padlock badge (0.34 of its icon) on its icon's lower right, inside the plank's band and clear of the medallion.
         /// </summary>
@@ -803,7 +803,7 @@ namespace Bloomlings.Client.Tests
             // From which level a locked place is available: the roadmap's unlocks, the Collection's first picture, Home's 1.
             Func<string, int?> roadmap = UnlockRoadmap.Default.LevelOf;
             Assert.That(BottomNav.UnlockLevel(NavPlace.Shop, roadmap), Is.EqualTo(12));
-            Assert.That(BottomNav.UnlockLevel(NavPlace.Wardrobe, roadmap), Is.EqualTo(40));
+            Assert.That(BottomNav.UnlockLevel(NavPlace.Wardrobe, roadmap), Is.EqualTo(44));
             Assert.That(BottomNav.UnlockLevel(NavPlace.Leaderboard, roadmap), Is.EqualTo(10));
             Assert.That(BottomNav.UnlockLevel(NavPlace.Collection, roadmap), Is.EqualTo(2).And.EqualTo(BottomNav.CollectionLevel));
             Assert.That(BottomNav.UnlockLevel(NavPlace.Home, roadmap), Is.EqualTo(1));

@@ -1,0 +1,99 @@
+{
+ "code": "P1105",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Разноцветная вертушка на палочке",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Игрушки и настольные игры",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One large four-blade pinwheel with broad folded red, blue, gold and green blades, a round cream hub and a short thick brown handle. Distinct simple silhouette, no motion lines.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 35,
+ "N": 566,
+ "colours": 7,
+ "volumes": {
+  "G": {
+   "cells": 136,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "N": {
+   "cells": 122,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "R": {
+   "cells": 113,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 70,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 54,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "O": {
+   "cells": 51,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 20,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".......................N....",
+  "......................NNN...",
+  "..RRRRRRRRRRR........NNNNN..",
+  ".RRRRRRRRRRRRR......NNNNNN..",
+  ".RRRRRRRRRRRRRR....NNNNNNNN.",
+  "..RRRRRRRRRRRRRR..NNNNNNNNN.",
+  "...RRRRRRRRRRRRRRNNNNNNNNNN.",
+  "....RRRRRRRRRRRRRNNNNNNNNNN.",
+  ".....RRRRRRRRRRRRNNNNNNNNNN.",
+  "......RRRRRRRRRRRNNNNNNNNNN.",
+  ".......OOORRRRRRNNNNNNNNNN..",
+  ".....YYYYYYRRRRRNNNNNNNNNN..",
+  "....YYYYYYYYCCCCNNNNNNNNN...",
+  "...YYYYYYYYYCCCCCNNNNNNNN...",
+  "..YYYYYYYYYYCCCCCNNNNNNN....",
+  ".YYYYYYYOOOCCCCCGNNNNNN.....",
+  "OYYYYYOOOOOGGGGGGGGGG.......",
+  "OYYYYYOOOOOGGGGGGGGGG.......",
+  "OYYYYOOOOOGGGGGGGGGGGG......",
+  "OYYYYOOOOOGGGGGGGGGGGGG.....",
+  "OYYYOOOOOAGGGGGGGGGGGGGG....",
+  "OYYYOOOO.AGGGGGGGGGGGGGGG...",
+  ".YYYOOO..AAAGGGGGGGGGGGGGG..",
+  ".YYOOO..AAAAGGGGGGGGGGGGGGG.",
+  "..YOO...AAAA.GGGGGGGGGGGGGGG",
+  "..OO....AAAA...GGGGGGGGGGG..",
+  ".......AAAA......GGGGGG.....",
+  ".......AAAA.................",
+  ".......AAAA.................",
+  "......AAAAA.................",
+  "......AAAA..................",
+  "......AAAA..................",
+  ".....AAAAC..................",
+  ".....AAAA...................",
+  ".....AAAA..................."
+ ]
+}

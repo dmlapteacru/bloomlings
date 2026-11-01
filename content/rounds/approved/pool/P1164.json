@@ -1,0 +1,86 @@
+{
+ "code": "P1164",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Фиолетовая слива с золотым срезом",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Фрукты и ягоды",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One oval purple plum with a large golden cutaway half showing a broad dark brown pit, two big green leaves above and one pale-blue side highlight. No plate or face.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 24,
+ "h": 25,
+ "N": 493,
+ "colours": 7,
+ "volumes": {
+  "V": {
+   "cells": 203,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "Y": {
+   "cells": 120,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 61,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 50,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "A": {
+   "cells": 29,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 23,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "B": {
+   "cells": 7,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....GGGG..E............",
+  "...GGGGGGMMEE..MGGGGG...",
+  "..GGGGMMMMMEE.MMMMGGGG..",
+  ".GGGGGGMMMMEE.MMMGGGGGG.",
+  ".GGGGGGMMM.EE.MMMGGGMGG.",
+  "MGGGGGVVVVVE...MMMGGMMGM",
+  "MGGGVVVVVVVVVV...MMMMMGM",
+  "MGGGVVVVVVVVVVV.Y..MMMMM",
+  "MM.VVBVVVVVVVVYYYYY...MM",
+  "..VVBBVVVVVVYYYYYYYYY...",
+  ".VVBBVVVVVVYYYYAYYYYY...",
+  ".VVBBVVVVVVYYYYAAAYYYY..",
+  ".VVVVVVVVVYYYYEAAAAYYYY.",
+  "VVVVVVVVVVYYYYEAAAAYYYY.",
+  "VVVVVVVVVVYYYYEAAAAAYYYV",
+  "VVVVVVVVVVYYYYEAAAAAYYYV",
+  "VVVVVVVVVVYYYYYEAAAAYYYV",
+  "VVVVVVVVVVVYYYYEEAAAYYYV",
+  "VVVVVVVVVVVYYYYYEEEEYYYV",
+  ".VVVVVVVVVVVYYYYYYEEYYYV",
+  ".VVVVVVVVVVVVYYYYYYYYYY.",
+  "..VVVVVVVVVVVVYYYYYYYYY.",
+  "...VVVVVVVVVVVVYYYYYYY..",
+  "....VVVVV...VVVVVVVVV...",
+  "..............VVVVV....."
+ ]
+}

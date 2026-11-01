@@ -1,0 +1,78 @@
+{
+ "code": "P1138",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Богомол в молитвенной позе",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Насекомые и маленькие существа",
+ "direction": "Театр эмоций",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One cute chunky green praying mantis facing viewer, enormous triangular head with two large cream eyes and black pupils, two thick folded forelegs, short broad body and dark-green wings. No thin legs or scene.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 27,
+ "h": 27,
+ "N": 443,
+ "colours": 5,
+ "volumes": {
+  "G": {
+   "cells": 142,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 107,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "M": {
+   "cells": 91,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "L": {
+   "cells": 60,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "C": {
+   "cells": 43,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....MM.............CC.....",
+  "......MM...........CC......",
+  "........MM.......MM........",
+  ".........MM.....MM.........",
+  ".....DDDDDMDDDDDMDDDDD.....",
+  "....DCCCCCGGLLLLGGCCCCD....",
+  "....DCCCCCGGLLLGGCCCCCD....",
+  "....DCCDDDGGGLGGGDDDCCD....",
+  "....DCCDDDGGGLGGGDDDCCD....",
+  ".....CCDDDGGGGGGGDDDCC.....",
+  ".....DCCCCGGGGGGGCCCCD.....",
+  ".......DGGGGGGGGGGGG.......",
+  "........DGGGGGGGGGD........",
+  "......DD..DGGGGGD..DL......",
+  ".....LLGG..DGGGD..LLLD.....",
+  "....DLGGG.DMGGGGD.GGGLM....",
+  "...DMLGGGGMMLGLLMDGGGLMD...",
+  "...MMLGGGGMMLLLMMGGGGLMMD..",
+  "..DMMLGGGGMMLLLMMGGGGLMMM..",
+  ".DMMMLGGMGMMLLLMGGGDGLMMMD.",
+  ".MMMMDGGMGGLLLLGGGMDGLMMMM.",
+  ".MMMMDGGMGGGLLLGGGMGGLMMMMD",
+  "DMMMMDGGMMGGLLLGGMMLLDMMMMD",
+  "DMMD.DDDDMGGLLLGGGDLDDDMMMD",
+  ".D...DDDDMGDLLLDGGLLDDM..D.",
+  "...DDD..DGG.....GGD..MMM...",
+  "...DDD...D.......D....DDD.."
+ ]
+}

@@ -1,0 +1,84 @@
+{
+ "code": "P1168",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Рогатая жабка в листовом капюшоне",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Волшебные существа",
+ "direction": "Фольклорная фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One friendly squat round purple forest toad, two large cream eyes, broad smile, and a thick green leaf hood with two pointed upper corners. Gold belly, no thin limbs, no scenery.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 23,
+ "h": 23,
+ "N": 434,
+ "colours": 7,
+ "volumes": {
+  "V": {
+   "cells": 193,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "Y": {
+   "cells": 64,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 56,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 50,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "D": {
+   "cells": 48,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 20,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 3,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "....GG............MM...",
+  "...GGGGG...MMMM.GGMM...",
+  "...GGGGGGGGGMMMMGGGM...",
+  "....GGGGGGGGMMMMGGMMM..",
+  "....MMGGGGGDDMMMMMMMM..",
+  "...MMGGGGGDDDMMMMMMMM..",
+  "..GGGGGGVVVVVVVMMMVVV..",
+  "..GGGGGCCCVVVVVVCCCDDD.",
+  ".GGGGDVCDDVVVVVCDCCDDD.",
+  ".DDDDVVCDDVVVVVDDDCDDDM",
+  "MDDDDVVCDDVVVVVCDCCVDDM",
+  "MDDDVVVCCVVVVVVVCCVVDDM",
+  "MDDDVVVVVVVVVVVVVVVVDDM",
+  ".DDVVVVVVVVVVVVVVVVVVV.",
+  "..VVVVVVYYYYYYYYYVVVV..",
+  "..VVVVVYYYYYYYYYYVVVVV.",
+  ".VVVVVVYYYYYYYYYYYVVVVV",
+  ".VVVVVVYYYYYYYYYYYVVVVV",
+  ".VVVVVVVYYYYYYYYYVVVVVV",
+  "..VVVVVVYYYYYYYYVVVVVV.",
+  "..VVVVVVVYYYYYYVVVVVVVV",
+  ".VVVVVVVVVVOOOVVVVVVVVV",
+  "......VVVV.....VVVV...."
+ ]
+}

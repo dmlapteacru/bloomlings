@@ -36,7 +36,7 @@ namespace Bloomlings.Client.App.Home
     /// and account linking), the Store (from L12), the Daily Reward popup (from L7), the optional free-booster ad, Home's
     /// promo scenes (spec 005 FR-032, FR-033: No Ads, opening the <see cref="RemoveAdsCard"/> at every level until Remove
     /// Ads is owned, and the Daily Reward's, opening its popup once unlocked), and
-    /// the long-run features (US7): the leaderboard rank (L10), the Wardrobe (L40), the Daily Challenge (L50), the
+    /// the long-run features (US7): the leaderboard rank (L10), the Wardrobe (L44), the Daily Challenge (L48), the
     /// Collection, the milestone teaser and the band's background theme. Home and its four pages (the Store, the Wardrobe,
     /// the Leaderboard and the Collection; every place a page since the owner's request of 2026-10-04) each show the
     /// bottom menu (spec 005 FR-030), whose places this controller navigates (<c>Navigate</c>): all five always show, a

@@ -1,0 +1,88 @@
+{
+ "code": "P1110",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Солнечный значок с улыбкой",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Времена года и погода",
+ "direction": "Театр эмоций",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One cheerful golden sun face with eight short broad triangular orange rays, huge cream cheeks, two clear dark eyes and broad smile. Compact near-circular silhouette, no clouds or background.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "61+"
+ ],
+ "w": 31,
+ "h": 31,
+ "N": 547,
+ "colours": 6,
+ "volumes": {
+  "O": {
+   "cells": 230,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 230,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 24,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 24,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 20,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "P": {
+   "cells": 19,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...............OO..............",
+  "..............OOOO.............",
+  ".............OOOOO.............",
+  ".............OOOOO.............",
+  "............OOOOOOO............",
+  "....OOOOO...OOOOOOOO..OOOOO....",
+  "....OOOOOOOOYYYYYYYOOOOOOOO....",
+  "....OOOOOOYYYYYYYYYYYOOOOOO....",
+  ".....OOOOYYYYYYYYYYYYYOOOO.....",
+  ".....OOOYYYYYYYYYYYYYYYYOO.....",
+  "......OYYYYYYYYYYYYYYYYYOO.....",
+  ".....OOYYYCCYYYYYYYCCYYYYO.....",
+  "....OOYYYCCDCYYYYYCDCCYYYOOO...",
+  "..OOOOYYYCDDDCYYYYDDDCCYYYOOO..",
+  "OOOOOOYYYCDDDDYYYYDDDCCYYYOOOOO",
+  "OOOOOOYYYCDDDYYYYYDDDCCYYYOOOOO",
+  "OOOOOOYYPCCDDYYYYYYDCCPPYYOOOOO",
+  "..OOOOYPPPYYYYYYYYYYYPPPPYOOOO.",
+  "...OOOYPPPYYYRRRRRRYYPPPYOOO...",
+  ".....OYYPYYYYRRRRRRYYYPPYO.....",
+  ".....OOYYYYYYRRRRRYYYYYYYO.....",
+  ".....OOYYYYYYYRRRYYYYYYYOO.....",
+  ".....OOOYYYYYYYYYYYYYYYOOOO....",
+  ".....OOOOYYYYYYYYYYYYYOOOOO....",
+  "....OOOOOOOYYYYYYYYYYOOOOOO....",
+  "....OOOOOO.OOYYYYYOO..OOOOO....",
+  "....OOO.....OOOOOOO.....OOO....",
+  ".............OOOOOO............",
+  ".............OOOOO.............",
+  "..............OOOO.............",
+  "...............OO.............."
+ ]
+}

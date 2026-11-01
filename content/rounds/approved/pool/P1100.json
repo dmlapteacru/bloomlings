@@ -1,0 +1,89 @@
+{
+ "code": "P1100",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Тёплая грелка с сердцем",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Мебель и уютные уголки",
+ "direction": "Домашняя магия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One rounded red hot-water bottle with a thick gold stopper, blue fabric cover edge and a large cream heart centered on it. Compact familiar silhouette, no face, no lettering.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 25,
+ "h": 30,
+ "N": 558,
+ "colours": 6,
+ "volumes": {
+  "R": {
+   "cells": 242,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "N": {
+   "cells": 195,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 67,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 24,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 23,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 7,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........OOOOOOO.........",
+  "........YYYYYYYOO........",
+  "........YYYYYYYYO........",
+  "........YOOYOOOOO........",
+  "........YOOYOOOOO........",
+  ".......NNAAAAAAAN........",
+  "......NNNNYYYYNNNNNN.....",
+  ".....NNNNNNNNNNNNNNNN....",
+  "....NNNNRNNNNNNNRNNNN....",
+  "...NNNRRRRRRRRRRRRRNNN...",
+  "...NNRRRRRRRRRRRRRRRNNN..",
+  "..NNNRRRRRRRRRRRRRRRNNN..",
+  "..NNRRRRRRRRRRRRRRRRRNN..",
+  "..NNRRRRRRRRRRRRRRRRRNN..",
+  ".NNNRRRRCCCRRRCCCRRRRNNN.",
+  ".NNNRRRCCCCCCCCCCCRRRNNN.",
+  ".NNRRRRCCCCCCCCCCCRRRRNN.",
+  ".NNRRRRCCCCCCCCCCCRRRRNN.",
+  "NNNRRRRRCCCCCCCCCRRRRRNNN",
+  "NNNRRRRRRCCCCCCCRRRRRRNNN",
+  "NNNRRRRRRCCCCCCCRRRRRRNNN",
+  "NNNRRRRRRRCCCCRRRRRRRRNNN",
+  "NNNRRRRRRRRRCRRRRRRRRRNNN",
+  "NNNRRRRRRRRRRRRRRRRRRRNNN",
+  ".NNNRRRRRRRRRRRRRRRRRNNN.",
+  ".NNNNRRRRRRRRRRRRRRRNNNN.",
+  "..NNNNRRRRRRRRRRRRNNNNN..",
+  "...NNNNNNNNNNNNNNNNNNN...",
+  "....NNNNNNNNNNNNNNNNN....",
+  ".......NNNNNNNNNNN......."
+ ]
+}

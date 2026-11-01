@@ -1,0 +1,75 @@
+{
+ "code": "P1089",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Красная варежка со снежинкой",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Одежда и аксессуары",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One oversized red mitten angled diagonally, cream knitted cuff and one LARGE blue six-armed snowflake motif centered on its back. Simple clear thumb, only broad flat areas, no yarn texture.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 28,
+ "h": 29,
+ "N": 498,
+ "colours": 4,
+ "volumes": {
+  "R": {
+   "cells": 290,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 111,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "B": {
+   "cells": 84,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "A": {
+   "cells": 13,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............RRRR..........",
+  "...........RRRRRRRRRR.......",
+  "..........RRRRRRRRRRRR......",
+  ".........RRRRRRRRRRRRR......",
+  "........RRRRRRRBBRRRRRR.....",
+  ".......RRRRRRRBBBBRRRRR.....",
+  ".......RRBRBRRRBBRRRRRRR....",
+  "......RRRBBBRBBBRRRRRRRR....",
+  ".....RRRRRBBRRBBBRBBBRRR....",
+  ".....RRRRBBBBRBBRRBBBRRR....",
+  ".....RRRRRRRBBBBBBBBBRR.....",
+  "....RRRRBBRRBBBBRRRRRRRRRRR.",
+  "....RRRRRBBBBBBBBRBRRRRRRRRR",
+  "....RRRBBBBRRBBRBBBRRRRRRRRR",
+  "....RRRRRRBRRBBRRBBBRRRRRRRR",
+  "...RRRRRRRRBBBBRRBRBRRRRRRR.",
+  "...RRRRRRRRRBBBBRRRRRRRRRRR.",
+  "..CCCRRRRRRRBBRRRRRRRRRRRR..",
+  ".CCCCCCCRRRRRRRRRRRRRRRRR...",
+  ".CCCCCCCCCRRRRRRRRRRRRR.....",
+  ".CCCCCCCCCCCRRRRRRRRRR......",
+  "CCCCCCCCCCCCCCRRRRR.........",
+  "CCCCCCCCCCCCCCCRRR..........",
+  ".CCCCCCCCCCCCCCCR...........",
+  "..AAACCCCCCCCCCCC...........",
+  "....AAACCCCCCCCCC...........",
+  ".....AAAACCCCCCC............",
+  "........AAACCCCC............",
+  "...........CCC.............."
+ ]
+}

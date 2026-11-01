@@ -1,5 +1,5 @@
 {
-  "version": "economy-1-8660ce6477a42ce3",
+  "version": "economy-1-ebffff4c9c465545",
   "maxLevel": 2500,
   "cosmetics": {
     "frame.wood_ring": {
@@ -30,92 +30,92 @@
     "frame.daisy": {
       "price": 0,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "badge.sprout": {
       "price": 0,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "frame.ivy": {
       "price": 0,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "frame.silver_vine": {
       "price": 0,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "marker.silver_leaf": {
       "price": 0,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "frame.silver_bloom": {
       "price": 0,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "badge.golden_leaf": {
       "price": 0,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "badge.golden_bloom": {
       "price": 0,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "marker.crown": {
       "price": 0,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "frame.aurora": {
       "price": 0,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "frame.bramble": {
       "price": 350,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "badge.watering_can": {
       "price": 300,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.sprig_daisy": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "glasses.sprig_round": {
       "price": 0,
       "free": true,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.twig_panama": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.twig_hair": {
       "price": 0,
       "free": true,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.twig_hat_hair": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.twig_beret": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.twig_earmuffs": {
       "price": 1200,
@@ -130,12 +130,12 @@
     "glasses.twig_round": {
       "price": 0,
       "free": true,
-      "minLevel": 40
+      "minLevel": 44
     },
     "scarf.twig_knit": {
       "price": 350,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "clothes.twig_jacket": {
       "price": 1500,
@@ -150,27 +150,27 @@
     "clothes.twig_overalls": {
       "price": 0,
       "free": true,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.sprig_rosette": {
       "price": 0,
       "free": true,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.sprig_swirl": {
       "price": 350,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.sprig_panama": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.sprig_beret": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.sprig_earmuffs": {
       "price": 1200,
@@ -185,7 +185,7 @@
     "scarf.sprig_knit": {
       "price": 350,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "clothes.sprig_jacket": {
       "price": 1500,
@@ -200,17 +200,17 @@
     "clothes.sprig_overalls": {
       "price": 0,
       "free": true,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.bloom_bob": {
       "price": 0,
       "free": true,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.bloom_peach": {
       "price": 350,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.bloom_rose": {
       "price": 2500,
@@ -220,17 +220,17 @@
     "hat.bloom_panama": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.bloom_cap": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.bloom_beret": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.bloom_earmuffs": {
       "price": 1200,
@@ -245,7 +245,7 @@
     "glasses.bloom_round": {
       "price": 0,
       "free": true,
-      "minLevel": 40
+      "minLevel": 44
     },
     "scarf.bloom_knit": {
       "price": 500,
@@ -255,7 +255,7 @@
     "scarf.bloom_stripe": {
       "price": 250,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "clothes.bloom_jacket": {
       "price": 1500,
@@ -270,37 +270,37 @@
     "clothes.bloom_overalls": {
       "price": 0,
       "free": true,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.drop_side_wave": {
       "price": 0,
       "free": true,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.drop_twin_ripples": {
       "price": 350,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.drop_whirlpool": {
       "price": 350,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.drop_panama": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.drop_cap": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.drop_beret": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.drop_earmuffs": {
       "price": 1200,
@@ -315,7 +315,7 @@
     "glasses.drop_round": {
       "price": 0,
       "free": true,
-      "minLevel": 40
+      "minLevel": 44
     },
     "scarf.drop_knit": {
       "price": 500,
@@ -325,7 +325,7 @@
     "scarf.drop_stripe": {
       "price": 250,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "clothes.drop_jacket": {
       "price": 1500,
@@ -340,32 +340,32 @@
     "glasses.sprig_square": {
       "price": 350,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "glasses.bloom_heart": {
       "price": 450,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "glasses.twig_octagon": {
       "price": 450,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "clothes.drop_overalls": {
       "price": 0,
       "free": true,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.bloom_boater": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.bloom_bucket_green": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.bloom_crown": {
       "price": 3500,
@@ -375,7 +375,7 @@
     "clothes.bloom_dress_purple": {
       "price": 1000,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.bloom_flower_hat": {
       "price": 850,
@@ -390,17 +390,17 @@
     "hat.bloom_nightcap": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.bloom_summer_panama": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "clothes.bloom_top_flower": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.sprig_bowler": {
       "price": 850,
@@ -420,7 +420,7 @@
     "hat.sprig_sprout": {
       "price": 350,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.sprig_headscarf": {
       "price": 850,
@@ -430,22 +430,22 @@
     "hat.sprig_nightcap": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "clothes.sprig_explorer_vest": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "clothes.twig_explorer_vest": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.sprig_boater": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.twig_pinecone": {
       "price": 2500,
@@ -465,17 +465,17 @@
     "hat.twig_nightcap": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "clothes.twig_explorer_shirt": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.twig_boater": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.twig_bowler": {
       "price": 850,
@@ -490,12 +490,12 @@
     "hat.drop_nightcap": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "clothes.drop_sailor_top": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.drop_shell": {
       "price": 2500,
@@ -505,7 +505,7 @@
     "hat.drop_sailor_hat": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.drop_headscarf": {
       "price": 850,
@@ -515,7 +515,7 @@
     "clothes.drop_mint_shirt": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.drop_explorer": {
       "price": 850,
@@ -525,12 +525,12 @@
     "hat.drop_boater": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "hat.drop_rain_hat": {
       "price": 650,
       "free": false,
-      "minLevel": 40
+      "minLevel": 44
     },
     "avatar.sprig_default": {
       "price": 0,
@@ -669,7 +669,7 @@
     "dropEvery": 10
   },
   "challenge": {
-    "minLevel": 50,
+    "minLevel": 48,
     "petals": 50
   },
   "daily": {

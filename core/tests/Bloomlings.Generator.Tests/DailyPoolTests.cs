@@ -155,7 +155,7 @@ namespace Bloomlings.Generator.Tests
         public void TheDailyPool_IsAYearOfNewPicturesOnTheBiggestBoard()
         {
             // The owner, 2026-10-07: every day a new picture of a subject the levels never show, on the biggest board, with
-            // small cells, Normal, Hard or Super Hard by the week; it plays with the unlocks of its own unlock, L50.
+            // small cells, Normal, Hard or Super Hard by the week; it plays with the unlocks of its own unlock (L50 then, L48 since 2026-11-01).
             GenerationProfile profile = ProfileLoader.ReadFile(Path.Combine(RepoRoot, "content", "profiles", "daily.json"));
             Assert.That((profile.BoardWidth.Min, profile.BoardWidth.Max, profile.BoardHeight.Min, profile.BoardHeight.Max), Is.EqualTo((22, 22, 28, 28)));
             Assert.That(BandGuidelines.BigBoard.Allows(22, 28), Is.True);

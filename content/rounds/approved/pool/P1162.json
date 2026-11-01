@@ -1,0 +1,96 @@
+{
+ "code": "P1162",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Карусельная лошадка на полумесяце",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Игрушки и настольные игры",
+ "direction": "Уютный сюрреализм",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One compact cream rocking-horse toy with gold mane, blue saddle and red bridle, supported by a thick purple crescent-shaped rocker. Large clear horse head and body, short thick legs, no scenery.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 33,
+ "h": 33,
+ "N": 670,
+ "colours": 7,
+ "volumes": {
+  "C": {
+   "cells": 248,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "V": {
+   "cells": 174,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "Y": {
+   "cells": 78,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 49,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "N": {
+   "cells": 47,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "R": {
+   "cells": 37,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 37,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....O..CC.......................",
+  ".....OOOCCCC.....................",
+  "....OOOOCCCYYY...................",
+  "..YYYOOCCCCYYYY..................",
+  "..YYOOCCCCRRYYY..................",
+  "..YOOCCCCCRROOYY.................",
+  "...CCCCCCCRCCOYY.................",
+  "..CCCCDDCRRCCOOYY................",
+  "..RCCCDDCRCCCCOYY................",
+  ".CRRRCCCRRCCCCOYY........OOOO....",
+  "CCCCRRRRRCCCCCOOO.......YYYYYY...",
+  "CCCCCRRRCCCCCCOOONNNNNNNYYYOYYY..",
+  "CCCCCRRCCCCCCCCYYNNNNNNNNOOOOYY..",
+  ".CCCCC..CCCCCCRYYNNNNNNYCCOOOYY..",
+  "..CCC...CCCCCRRYYNNNNNNYCCOOOYY..",
+  "........RRRRRRCYYNNNNNNYCCCDOYYY.",
+  "........RRRRCCCYYYNNNNYCCCCDOYYYY",
+  "........CCCCCCCCNYYNNYYCCCCDOOYYY",
+  "........CCCCCCCCNNYYYYYCCCCDDOOO.",
+  ".......CCCCCCCCCCCCNNCCCCCCD.....",
+  ".......CCCCCCCCCCCCNNCCCCCCC.....",
+  "......CCCCCCCCCCCCCNCCCCCCCC.....",
+  ".VVVVVCCCCCCCCCC.....CCCCCCCVVVV.",
+  ".VVVVVCCCCCCCCC......CCCCCCCVVVVV",
+  ".VVVVVDDDCCCCC........DDCCCDDVVVV",
+  ".VVVVVVDDDCCCC........DDDDDDVVVV.",
+  "..VVVVVVDDDDD.......VVVVVDDDVVVV.",
+  "...VVVVVVVDDDV....VVVVVVVVVVVVV..",
+  "....VVVVVVVVVVVVVVVVVVVVVVVVVV...",
+  ".....VVVVVVVVVVVVVVVVVVVVVVVV....",
+  "......VVVVVVVVVVVVVVVVVVVVVV.....",
+  "........VVVVVVVVVVVVVVVVV........",
+  "...........VVVVVVVVVVV..........."
+ ]
+}

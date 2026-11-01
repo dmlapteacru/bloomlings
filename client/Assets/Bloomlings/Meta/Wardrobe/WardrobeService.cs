@@ -46,7 +46,7 @@ namespace Bloomlings.Client.Meta.Wardrobe
     }
 
     /// <summary>
-    /// The Wardrobe (FR-063, T143): unlocked at L40 (<c>system.wardrobe</c>) behind the remote flag
+    /// The Wardrobe (FR-063, T143): unlocked at L44 (<c>system.wardrobe</c>; L40 before the owner's plan of 2026-11-01) behind the remote flag
     /// <c>feature.wardrobe</c>. Each family (Sprig, Bloom, Drop, Twig) wears at most one owned skin, hat, trail and
     /// expression, and the profile shows one owned frame, badge and marker (by default the newest of each), stored in
     /// the save's <c>cosmetics.equipped</c> slots. Items with a price can be bought with Petals once the Wardrobe is open

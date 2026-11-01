@@ -1,0 +1,90 @@
+{
+ "code": "P1096",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Оранжевый дорожный каток",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Наземный транспорт",
+ "direction": "Доброе будущее",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One cheerful orange road roller toy in side view, huge wide blue-gray front cylinder, one large rear dark wheel, cream cab roof and big turquoise window. Compact readable construction-machine silhouette.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 27,
+ "N": 628,
+ "colours": 7,
+ "volumes": {
+  "D": {
+   "cells": 203,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "O": {
+   "cells": 149,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "N": {
+   "cells": 100,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "S": {
+   "cells": 79,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "B": {
+   "cells": 61,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "C": {
+   "cells": 33,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 3,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............CCCCCCCCCCCC.......",
+  "............CCCCCCCCCCCCCC......",
+  "............CCCDDDDCCDDDCC......",
+  ".............DDDDDDODDDDD.......",
+  ".............DSSSBDODSSBD.......",
+  "............DDSSSBBODSBBD.......",
+  "............DDSSBBBODSBBD.......",
+  "............DSSSBBBODBBBD.OO....",
+  "...........DDSSBBBBODBBBDOOO....",
+  "...........DSSSBBBBODBBBOOOOO...",
+  "......OOOOOOOOOBBBBOOOOOOOOOOO..",
+  "....NNDDDONONDOOOOOOOOOOOOOOOOO.",
+  "...NNNNNNNNNNDSDDOOOOOOOOODDOOO.",
+  "..BBBBBBBBBNSSSSDOOOOOOOOOOOOOO.",
+  ".NBBBBBBBBBSSSSSSDOOOOOODDDDDOO.",
+  "NNBBBBBBBBDSSSSSSDDOOOODDDDDDDD.",
+  "NNNNNNNNNNDSSSSSSDDOOODDDDDDDDD.",
+  "DNNNNNNNNDSSSSOOOOOOODDDDDDDDDDD",
+  "DNNNNNNNNDSSSOOOOOOOOEDDDDDOODDD",
+  "DNNNNNNNNDSSSOOOOOOOOEDDDDDOOODD",
+  "DNNNNNNNNDSSSOOOOOOOOEDDDDDOOODD",
+  "DNNNNNNNNDSSSOOOOOOOODDDDDDOOODD",
+  ".DNNNNNNNDSSSSNNNNDDDDDDDDDOODDD",
+  ".DNNNNNNNNDSSSSSSDD.DDDDDDDDDDD.",
+  "..DNNNNNNNDSSSSSSD...DDDDDDDDDD.",
+  "...DDNNNNNNDSSSSDD...DDDDDDDDD..",
+  "....DDDDDDDDDDDD.......DDDDDD..."
+ ]
+}

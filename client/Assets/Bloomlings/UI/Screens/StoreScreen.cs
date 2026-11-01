@@ -57,7 +57,7 @@ namespace Bloomlings.Client.UI.Screens
     /// The Store of the design board's frame 17 (spec 002 FR-025; FR-051, T133): the Petals balance pill, then one
     /// row per item with its icon, its name and its price (the Petal symbol for Petal prices). Open from L12, it sells
     /// boosters for Petals and previews the planned money packs without purchase actions. Cosmetics for Petals join on
-    /// their own tab after the Wardrobe unlock (L40). The money offers await platform products; everything for Petals works. Nothing in
+    /// their own tab after the Wardrobe unlock (L44). The money offers await platform products; everything for Petals works. Nothing in
     /// a level ever requires it (FR-056).
     /// <para>
     /// The approved garden Shop uses a fixed header, cream segmented tabs and bottom menu. Only the content scrolls

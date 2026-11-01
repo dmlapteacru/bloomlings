@@ -32,25 +32,25 @@ namespace Bloomlings.Client.Tests
         private void Reach(int level)
         {
             _save.Progression.HighestCompletedLevel=level-1;
-            _save.Unlocks.Flags[WardrobeService.UnlockId]=level>=40;
+            _save.Unlocks.Flags[WardrobeService.UnlockId]=level>=44;
         }
         private CosmeticItem Item(string id){Assert.That(Catalog.TryGet(id,out var item),Is.True,id);return item!;}
         private WardrobeShelfItem[] Shelf()=>WardrobeService.Families.SelectMany(f=>CosmeticCatalog.WornKinds.SelectMany(k=>WardrobeShelfCatalog.Build(_wardrobe,k,f))).Where(c=>c.Item!=null).ToArray();
-        [TestCase(40,55)][TestCase(59,55)][TestCase(60,69)][TestCase(79,69)][TestCase(80,84)][TestCase(99,84)][TestCase(100,89)]
+        [TestCase(44,55)][TestCase(59,55)][TestCase(60,69)][TestCase(79,69)][TestCase(80,84)][TestCase(99,84)][TestCase(100,89)]
         public void FourUnlockStages_HavePlentyOfChoicesFromTheStart(int level,int available)
         {
             Reach(level);
             var shelf=Shelf();
             Assert.That(shelf.Length,Is.EqualTo(89));
             Assert.That(shelf.Count(c=>c.State!=WardrobeItemState.LevelLocked),Is.EqualTo(available));
-            Assert.That(shelf.Select(c=>c.Item!.UnlockLevel).Distinct().OrderBy(x=>x),Is.EqualTo(new[]{40,60,80,100}));
+            Assert.That(shelf.Select(c=>c.Item!.UnlockLevel).Distinct().OrderBy(x=>x),Is.EqualTo(new[]{44,60,80,100}));
             Assert.That(shelf.Any(c=>c.Item!.Retired||c.Item.DefaultLook||!HeroGearArt.CanPreview(c.Item)),Is.False);
             Assert.That(shelf.Count(c=>c.Item!.Free),Is.EqualTo(12));
             foreach(var family in WardrobeService.Families)
             {
                 var starters=shelf.Where(c=>c.Item!.ForFamily==family&&c.Item.Free).ToArray();
                 Assert.That(starters.Select(c=>c.Item!.Kind).OrderBy(x=>x),Is.EqualTo(new[]{CosmeticKind.Hat,CosmeticKind.Glasses,CosmeticKind.Clothes}.OrderBy(x=>x)));
-                Assert.That(shelf.Count(c=>c.Item!.ForFamily==family&&c.Item.UnlockLevel==40),Is.GreaterThanOrEqualTo(12));
+                Assert.That(shelf.Count(c=>c.Item!.ForFamily==family&&c.Item.UnlockLevel==44),Is.GreaterThanOrEqualTo(12));
             }
             Assert.That(shelf.Where(c=>!c.Item!.Free).All(c=>c.Item!.Price>=250&&c.Item.Price<=3500),Is.True);
         }
@@ -67,9 +67,9 @@ namespace Bloomlings.Client.Tests
             Assert.That(shelf.Count(c=>!c.Item!.Free&&c.Item.Price<=650),Is.GreaterThanOrEqualTo(35),"many everyday choices remain reachable");
         }
         [Test]
-        public void BeforeForty_StarterGearDoesNotBypassWardrobeGate()
+        public void BeforeFortyFour_StarterGearDoesNotBypassWardrobeGate()
         {
-            Reach(39);
+            Reach(43);
             Assert.That(_wardrobe.IsAvailable||_wardrobe.HasFreeHeroItems,Is.False);
             Assert.That(_wardrobe.ShopItems,Is.Empty);
             Assert.That(_wardrobe.Equip(Family.Twig,TwigV2Art.HairId),Is.False);
@@ -94,14 +94,14 @@ namespace Bloomlings.Client.Tests
             Assert.That(_wardrobe.TryBuy(coat.Id),Is.True);
             Assert.That(_economy.Petals,Is.EqualTo(2000-coat.Price));
             Assert.That(_wardrobe.Equip(Family.Sprig,coat.Id),Is.True);
-            Reach(40);
+            Reach(44);
             Assert.That(_wardrobe.IsLevelLocked(coat),Is.False,"owned items stay usable when testing earlier levels");
             Assert.That(_wardrobe.OutfitOf(Family.Sprig).Clothes?.Id,Is.EqualTo(coat.Id));
         }
         [Test]
         public void AffordablePurchase_IsAtomic_ChargesOnce_AndSurvivesReload()
         {
-            Reach(40);var cap=Item(SprigV2Art.CapId);
+            Reach(44);var cap=Item(SprigV2Art.CapId);
             _economy.AdjustPetalsForTesting(cap.Price-1);
             Assert.That(_wardrobe.TryBuy(cap.Id),Is.False);
             Assert.That(_save.Cosmetics.Owned,Does.Not.Contain(cap.Id));
@@ -124,7 +124,7 @@ namespace Bloomlings.Client.Tests
         [Test]
         public void FormerTrialSave_KeepsOnlyActuallyEquippedPaidItems_WithoutCharging()
         {
-            Reach(40);
+            Reach(44);
             _save.Cosmetics.Equipped["bloom.hat"]="hat.bloom_crown";
             _save.Cosmetics.Equipped["twig.hat"]="hat.twig_flower_cap";
             _save.Cosmetics.Owned.Add("skin.spots");
@@ -169,7 +169,7 @@ namespace Bloomlings.Client.Tests
         [Test]
         public void TesterPetals_ClampPersistNotifyAndLeaveProgressAndInventoryAlone()
         {
-            Reach(40);_wardrobe.Equip(Family.Twig,TwigV2Art.HairId);
+            Reach(44);_wardrobe.Equip(Family.Twig,TwigV2Art.HairId);
             string gear=string.Join("|",_save.Cosmetics.Equipped.Values);
             int writesBefore=_writes,notifications=0;_economy.Changed+=()=>notifications++;
             _economy.AdjustPetalsForTesting(-100);
@@ -185,7 +185,7 @@ namespace Bloomlings.Client.Tests
             _economy.AdjustPetalsForTesting(int.MinValue);
             Assert.That(_economy.Petals,Is.Zero);
             Assert.That((_writes-writesBefore,notifications),Is.EqualTo((5,5)));
-            Assert.That(_save.Progression.CurrentLevel,Is.EqualTo(40));
+            Assert.That(_save.Progression.CurrentLevel,Is.EqualTo(44));
             Assert.That(string.Join("|",_save.Cosmetics.Equipped.Values),Is.EqualTo(gear));
             Assert.That(SaveSerializer.Read(SaveSerializer.Write(_save)).Wallet.Petals,Is.Zero);
         }

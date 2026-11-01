@@ -1,0 +1,80 @@
+{
+ "code": "P1108",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Синий краб с большими клешнями",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Морские и пресноводные обитатели",
+ "direction": "Театр эмоций",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One cute large blue crab facing viewer, wide rounded shell, two enormous red-orange claws held close to cheeks and two big cream eyes on short stalks. Six short thick legs, no ocean background.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 28,
+ "h": 24,
+ "N": 453,
+ "colours": 6,
+ "volumes": {
+  "N": {
+   "cells": 162,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "R": {
+   "cells": 101,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "B": {
+   "cells": 97,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "C": {
+   "cells": 40,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 33,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 20,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "........NNN......NNN........",
+  ".......CCCCC....CCCCC.......",
+  "......NCCDCC....CCDCCN......",
+  "......NCDDDCC...CDDDCN......",
+  "......NCDDDCC..CCDDDCN......",
+  "......NCDDDC....NDDDCN......",
+  "...RRR.CCCCN....NCCCC.RRR...",
+  "..ROOR..NNNNNBBNNNNN..RORR..",
+  ".RROOR.NNNBBBBBBBBNNN.ROORR.",
+  ".RROORROOBBBBBBBBBBOORRRORR.",
+  ".RROORROORBBBBBBBBBOORROORR.",
+  ".RRROROOORBBBBBBBBBOORRORRR.",
+  ".RRRRRROORBBNNBBBBBOORRRRRR.",
+  ".RRRRRRRRBBBBNNBBBBRRRRRRRR.",
+  "..RRRRRRRBBBBBBBBBBRRRRRRR..",
+  "..RRRRRRBBBBBBBBBBNNRRRRRN..",
+  ".NNNNRNNBBNBBBBBBNNBBNRNNNN.",
+  "NNNNNNNNBBNNBBBBNNBBNNNNNNNN",
+  "NNN.NNNNNBBNNBBNNBBNNNNN.NNN",
+  "NN.NNNNNNNNNNNNNNNNNNNNNN.NN",
+  "...NNN.NNNNNNNNNNNNNN.NNN...",
+  "...NN..NNN........NNN..NN...",
+  "....N..NN..........NNN.NN...",
+  ".......NN..........NN......."
+ ]
+}

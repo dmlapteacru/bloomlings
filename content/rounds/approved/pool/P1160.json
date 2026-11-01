@@ -1,0 +1,74 @@
+{
+ "code": "P1160",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Кочан красной капусты",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Овощи и урожай",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One cut red-cabbage half, large round purple silhouette with three thick cream curved nested bands showing the layered interior, two broad green leaves beneath. No thin veins, no basket or plate.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "61+"
+ ],
+ "w": 27,
+ "h": 26,
+ "N": 567,
+ "colours": 4,
+ "volumes": {
+  "V": {
+   "cells": 279,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "C": {
+   "cells": 162,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 76,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 50,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "............VVVVVV.........",
+  ".........VVVVVVVVVVV.......",
+  ".......VVVVVVVVVVVVVVV.....",
+  "......VVVVVVVVVVVVCVVVV....",
+  ".....VVVVVVVVVVVVVVVCVVV...",
+  "....VVVVVVVVCCCCVVVVVCVV...",
+  "...VVVVVVVVCCVCCCCVVVCCVV..",
+  "...VVVCVVVCCVVVVVCCVVVCVV..",
+  "..VVVCVVVCCVVVVVVVCCVVCCVV.",
+  "..VVVCVVCVVVCCCCVVVCVVVCVV.",
+  "..VVVCVCCVVCVVVCCVVCCVVCVV.",
+  ".VVVCCVCVVCVVVVVCCVVCVVCVVV",
+  ".VVVVCVCVVCVCCCVVCVCCVVCVVV",
+  ".VVVVCCCVCCVCVVCVCVCCVCCVVV",
+  "MMVVVCCVVVCVVCVVCCVCCCCVVVV",
+  "MGGVVVCCVVCVVCCVCCCCCCCVVVV",
+  "MGGGVVVCCCCCCCCCCCCCCCVVVV.",
+  ".MMGGVVVVCCCCCCCCCCCCVVVVV.",
+  ".MMMGGVVVVCCCCCCCCCCVVVVVGG",
+  ".MMMGGGGVVVCCCCCCCCVVVVGGGG",
+  ".MMMGGGGGGVVCCCCCCVVVVGGGM.",
+  "..MMGGGMGGVVCCCCCVVVVGGGMM.",
+  "..MMMMGMMGGVCCCCCGGGGGMMM..",
+  "...MMMMMMMGMCCCCGGMGMMMMM..",
+  "....MMMMMMMMMMMGGMMMMMMM...",
+  ".......MMMMMMMMMMMMMM......"
+ ]
+}

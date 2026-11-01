@@ -89,7 +89,7 @@ Required:
 - rewarded recovery;
 - interstitial infrastructure;
 - Remove Ads;
-- cosmetics/wardrobe if Level 40 roadmap remains locked.
+- cosmetics/wardrobe if the Level 44 roadmap entry remains locked (Level 40 before the owner's amendment of 2026-11-01).
 
 Daily Challenge is desired but can be cut if scope pressure requires; roadmap must then substitute Level 50 unlock.
 

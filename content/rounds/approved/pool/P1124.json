@@ -1,0 +1,77 @@
+{
+ "code": "P1124",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Мандарин с отогнутой кожурой",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Фрукты и ягоды",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One round peeled mandarin seen three-quarter, bright gold fruit segments inside four broad orange skin flaps curling down around it, one green leaf above. Compact fruit silhouette, no dish or dots.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 27,
+ "h": 26,
+ "N": 498,
+ "colours": 5,
+ "volumes": {
+  "O": {
+   "cells": 251,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 109,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 70,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 48,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 20,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..................MMMM.....",
+  "..............M.GGGGGGGG...",
+  "..............MMGGGGGGGGG..",
+  "..............MMMGGGGGGGGG.",
+  "..............MM.GGGGGGGGG.",
+  "..........YYYMMYOOGGGGGGGG.",
+  "........YYYYYMMYOOOCCGGGGGM",
+  ".......CCCYYOOOYYYCCC...MMM",
+  "......CCYYYCCYCCYYYYCC.....",
+  ".....YYYYYCCYYYYCYYYYCY....",
+  "....OCYYYYCYYYYYCYYYYYY....",
+  "..OOOYYCYYYYYYYYYCYYYYYCC..",
+  ".OCOYYYYOCYCYYYYYCOYYYYOCO.",
+  ".OCOOOYYOCYYYYYYYCOOYOOOCO.",
+  "OOCCCOOYOYYYYOYYYYOOOOOOCO.",
+  "OOOOCCCOOYYYOOYYYYOOOOCCOOO",
+  "OOOOOOCCOYOOOOOOOOCCCCOOOOO",
+  "OOOOOOOCOOOOOOOOCCCOOOOOOOO",
+  ".OOOOOOCCOOOOOOCCOOOOOOOOOO",
+  ".OOOOOOOCOOOOOOCOOOOOOOOOO.",
+  ".OOOOOOOCOOOOOCCOOOOOOOOOO.",
+  "..OOOOOOOCOOOOCOOOOOOOOOOO.",
+  "..OOOOOOOOCCOOCOOOOOOOOOO..",
+  "...OOOOOOOOOOCOOOOO.OOOO...",
+  "....OOOOOO..OOOOOO..OOOO...",
+  "......OOOO..........OOO...."
+ ]
+}

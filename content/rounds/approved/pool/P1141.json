@@ -1,0 +1,98 @@
+{
+ "code": "P1141",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Королевская печать с рубином",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Фигуры, знаки и эмблемы",
+ "direction": "Фольклорная фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One chunky golden signet seal, short broad handle with huge red oval ruby, a wide round blue base and cream rim. Solid clean flat areas, no writing, no heraldic micro-pattern.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 26,
+ "h": 34,
+ "N": 599,
+ "colours": 7,
+ "volumes": {
+  "Y": {
+   "cells": 122,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "N": {
+   "cells": 115,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "R": {
+   "cells": 98,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 86,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 64,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "O": {
+   "cells": 61,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 53,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........CEEEE............",
+  "........YYYYYYYYY.........",
+  "......YYYRRRRRYYYY........",
+  ".....YYYRR..RRRRRYY.......",
+  "....YYYRR...RRRRRRYY......",
+  "...EYYYRRRRRRRRRRRYYY.....",
+  "...EYYYRRRRRRRRRRRRYY.....",
+  "...EYYYRRRRRRRRRRRRYYY....",
+  "...EYYCCRRRRRRRRRRRRYY....",
+  "...EOYYCRRRRRRRRRRRRYYE...",
+  "....OOYYCRRRRRRRRRRRYYE...",
+  ".....OOYYCCRRRRRRRRYYYE...",
+  "......OOYYCYYYEEEEEYYEE...",
+  ".......OOYYYCYYYYYYYYY....",
+  "........OOYYYOYYYYOOO.....",
+  "........DYYYYOOOOOOOO.....",
+  ".........YYYOOOOOOO.......",
+  "........DYYYOOOOOOD.......",
+  ".......DNDYYYOOOODDD......",
+  ".....DDNNYYYYOOOODNNND....",
+  "...DNNNNYYYYYOOOEONNNNN...",
+  "..DDNNNNYYYCYOOEEODNNNDN..",
+  ".DNDNNNNYCCCEEEOOONNNNDND.",
+  ".DNDNNNNYYCCYYYOOONNNNDND.",
+  "DCNNDDNNNYYYYOOOONNNNDNNNE",
+  "DCNNNDDNNNNNDDDDNNNDDDNNCE",
+  "DCCNNNNDDDNNNNNNDDDDNNNCEE",
+  "DCCCNNNNNNDDDDDDNNNNNNCEEE",
+  ".CCCCCNNNNNNNNNNNNNNCCEEE.",
+  "..CCCCCCCNNNNNNNNCCCCEEED.",
+  "..DCCCCCCCCCCCCCCCCEEEED..",
+  "...DDDCCCCCCCCCCCCCEEED...",
+  ".....CDCCCCCCCCCCCCCD.....",
+  ".........EEEEEEEED........"
+ ]
+}

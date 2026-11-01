@@ -11,7 +11,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The Store page (open from L12; before it, the page says so).</summary>
         Shop,
 
-        /// <summary>The Wardrobe page (open from L40; before it, the page says so).</summary>
+        /// <summary>The Wardrobe page (open from L44; before it, the page says so).</summary>
         Wardrobe,
 
         /// <summary>Home, always open.</summary>
@@ -110,7 +110,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>
         /// The level from which <paramref name="place"/> is available, as its locked page says: the roadmap's level
         /// of the feature's unlock (<paramref name="levelOf"/>, the build's own roadmap, <c>UnlockRoadmap.LevelOf</c>): the
-        /// Shop's <see cref="HomeLook.StoreUnlock"/> (L12), the Wardrobe's <see cref="HomeLook.WardrobeUnlock"/> (L40),
+        /// Shop's <see cref="HomeLook.StoreUnlock"/> (L12), the Wardrobe's <see cref="HomeLook.WardrobeUnlock"/> (L44),
         /// the Leaderboard's <see cref="HomeLook.LeaderboardUnlock"/> (L10); the Collection from
         /// <see cref="CollectionLevel"/>; Home from Level 1. An unlock the roadmap does not list counts from Level 1.
         /// </summary>

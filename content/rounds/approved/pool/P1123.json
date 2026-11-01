@@ -1,0 +1,79 @@
+{
+ "code": "P1123",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Енотовидная собака с яблоком",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Лесные и горные животные",
+ "direction": "Театр эмоций",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "Large tan raccoon-dog portrait, broad dark eye mask and round furry cheeks, two paws hold one big RED apple right below the chin. Clear cream eye whites and dark pupils, short round ears.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 23,
+ "h": 23,
+ "N": 438,
+ "colours": 6,
+ "volumes": {
+  "A": {
+   "cells": 140,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 95,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 86,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 61,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "E": {
+   "cells": 52,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "G": {
+   "cells": 4,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "....AA...........CC....",
+  "...ACAAA...AAA..ACCC...",
+  "..AADDAAAAAAAAAAAADDA..",
+  "..ADDDAAAAAAAAAAADDDA..",
+  "..AADAACCAAAAACCAADAA..",
+  "...AAACCCCAAACCCCCAA...",
+  "..AAACCDDDCAACDDCCAAA..",
+  ".AAACCDDDDCAADDDDDCCAA.",
+  ".AACCDDCDDAAADDCDDDCAA.",
+  "ACCCDDDCDDCDCDDDDDDCCCA",
+  "ACCDDDDCDCDDDCDCDDDDCCA",
+  "ACCDDDDDDCDDDCDDDDDDCCA",
+  ".CCCDDDDCCCDDCCDDDDDCA.",
+  ".AAACCCCCRCEECCCCCCCAA.",
+  "..AAAAARRRREGGGGCAAAA..",
+  "..AAAAARRRRERRRRRAAAA..",
+  "..AACCERRRRRRRRRRCCAAA.",
+  ".AACCEEERRRRRRREEECCAA.",
+  ".AACEEEEERRRRRREEEECCA.",
+  ".ACCEEEEERRRRREEEEEECA.",
+  ".AAAEEEEERRRRRREEEEEAA.",
+  ".AAAEEEERRRRRRREEEEAAA.",
+  "...AAE...RRRRRR..EEAA.."
+ ]
+}
