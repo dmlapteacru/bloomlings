@@ -1,0 +1,274 @@
+{
+ "level": 72,
+ "cls": "Normal",
+ "intro": null,
+ "breather": true,
+ "picture": "P0341",
+ "candidate": "P0341-Nnone-br-0",
+ "recipe": "none",
+ "N": 375,
+ "W": 375,
+ "colours": 6,
+ "P": 13,
+ "columns": 3,
+ "linked": 0,
+ "hidden": 0,
+ "random": {
+  "runs": 100,
+  "wins": 100,
+  "share": 1,
+  "wilson95": [
+   0.963,
+   1
+  ],
+  "cls": "Normal",
+  "borderline": false,
+  "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+  "seedBase": 1
+ },
+ "solution": {
+  "route": [
+   {
+    "type": "tap",
+    "pod": 3
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 7
+   },
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 11
+   },
+   {
+    "type": "tap",
+    "pod": 2
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 4
+   },
+   {
+    "type": "tap",
+    "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 12
+   },
+   {
+    "type": "tap",
+    "pod": 10
+   },
+   {
+    "type": "tap",
+    "pod": 9
+   },
+   {
+    "type": "tap",
+    "pod": 0
+   }
+  ],
+  "forks": 0,
+  "singleSafe": 0,
+  "unknown": 0,
+  "fast": {
+   "status": "won",
+   "seconds": 38.2
+  }
+ },
+ "fairness": {
+  "fair": true,
+  "checked": 0
+ },
+ "strategies": {},
+ "rhythm": {
+  "segments": [
+   {
+    "from": 0,
+    "to": 20,
+    "meanFree": 4.33,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   },
+   {
+    "from": 20,
+    "to": 40,
+    "meanFree": 4.31,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   },
+   {
+    "from": 40,
+    "to": 60,
+    "meanFree": 4.15,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   },
+   {
+    "from": 60,
+    "to": 80,
+    "meanFree": 4.35,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   },
+   {
+    "from": 80,
+    "to": 100,
+    "meanFree": 4.38,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   }
+  ],
+  "launchesAfter80": 2,
+  "lastLaunchAtW": 87,
+  "seconds": 177.9
+ },
+ "dosePos": null,
+ "checks": {
+  "breather": true,
+  "forced": 0.16,
+  "opening": null,
+  "hold": null,
+  "greedyLoses": null,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "traps": {
+   "links": 0,
+   "traps": 0,
+   "top": 0
+  }
+ },
+ "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+ "definition": {
+  "id": 72,
+  "title": "Заводная дискета",
+  "subject": "P0341",
+  "w": 25,
+  "h": 24,
+  "rowsBottomFirst": [
+   "############.############",
+   "#.......................#",
+   "#.NNNNNNNNNNNNNNNNN.....#",
+   "#.VVVVVVVVVVVVVVVVVN....#",
+   "#.VVVVCCCCCCCCCVVVVN....#",
+   "#.VVVCBBBBBBBCCCVVVN....#",
+   "#.VVVCCCCCCCCCCCVVVN....#",
+   "#.VVVCCCCCCCCCCCVVVN....#",
+   "#.VVVCCBBBBBBBCCVVVN.YY.#",
+   "#.VVVCCCCCCCCCCCVVVNYYY.#",
+   "#.VVVVCCCCCCCCCVVVVNYYY.#",
+   "#.VVVVVVVVVVVVVVVVVNYY..#",
+   "#.VVVVVVVVVVVVVVVVYYYY..#",
+   "#.VVVVVVVVVVVVVVVVVNYYY.#",
+   "#.VVVVVVVVVVVVVVVVVNYYY.#",
+   "#.VVVVVVVVVVVVVVVVVNYYY.#",
+   "#.VVVVSSSSSSSSSVVVVN.Y..#",
+   "#.VVVVSSSSNNNSSVVVVN....#",
+   "#.VVVVSSSSNNNSSVVVVN....#",
+   "#.VVVVSSSSNNNSSVVVV.....#",
+   "#.VVVVSSSSNNNSSVVV......#",
+   "#.VVVVSSSSSSSSSVV.......#",
+   "#.......................#",
+   "#########################"
+  ],
+  "entries": [
+   12
+  ],
+  "capacity": 5,
+  "pods": [
+   {
+    "color": "V",
+    "count": 48
+   },
+   {
+    "color": "V",
+    "count": 48
+   },
+   {
+    "color": "V",
+    "count": 48
+   },
+   {
+    "color": "V",
+    "count": 48
+   },
+   {
+    "color": "S",
+    "count": 21
+   },
+   {
+    "color": "S",
+    "count": 21
+   },
+   {
+    "color": "N",
+    "count": 22
+   },
+   {
+    "color": "N",
+    "count": 22
+   },
+   {
+    "color": "Y",
+    "count": 12
+   },
+   {
+    "color": "Y",
+    "count": 12
+   },
+   {
+    "color": "C",
+    "count": 30
+   },
+   {
+    "color": "C",
+    "count": 29
+   },
+   {
+    "color": "B",
+    "count": 14
+   }
+  ],
+  "tray": [
+   [
+    3,
+    5,
+    7,
+    6
+   ],
+   [
+    11,
+    2,
+    1,
+    4,
+    8
+   ],
+   [
+    12,
+    10,
+    9,
+    0
+   ]
+  ],
+  "recipe": "none",
+  "difficulty": "Normal"
+ }
+}

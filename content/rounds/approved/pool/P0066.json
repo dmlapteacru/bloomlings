@@ -1,7 +1,7 @@
 {
  "code": "P0066",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0086",
  "version": 1,
  "title": "Круассан",
  "theme": "batch-0061",

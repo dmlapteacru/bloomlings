@@ -1,5 +1,5 @@
 {
- "updated": "2026-10-31",
+ "updated": "2026-11-02",
  "needs": [
   {
    "level": 18,
@@ -19,6 +19,74 @@
     ]
    },
    "placedException": "L0018 placed with the owner's exception (2026-10-27, both bridges win); replace when a picture with one deciding bridge exists"
+  },
+  {
+   "level": 78,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "recipe": "links+hidden"
+  },
+  {
+   "level": 82,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "recipe": "cells+links"
+  }
+ ],
+ "pins": [
+  {
+   "id": "P0326",
+   "wave": [
+    51,
+    100
+   ],
+   "reserved": 97,
+   "reason": "нет прошедшего кандидата на подходящей позиции"
+  },
+  {
+   "id": "P0391",
+   "wave": [
+    51,
+    100
+   ],
+   "reserved": 80,
+   "reason": "нет прошедшего кандидата на подходящей позиции"
   }
  ]
 }

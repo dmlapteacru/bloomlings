@@ -1,7 +1,7 @@
 {
  "code": "P0371",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0099",
  "version": 1,
  "title": "Телевизор с бумажным водопадом",
  "theme": "Ретрофутуризм",

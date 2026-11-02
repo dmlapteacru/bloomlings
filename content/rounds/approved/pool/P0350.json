@@ -1,7 +1,7 @@
 {
  "code": "P0350",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0096",
  "version": 1,
  "title": "Граммофон с ледяным рупором",
  "theme": "Музыка",

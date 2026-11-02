@@ -1,7 +1,7 @@
 {
  "code": "P0246",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0088",
  "version": 1,
  "title": "Хот-дог такса",
  "theme": "Смешные и абсурдные герои",

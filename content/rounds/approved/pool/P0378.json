@@ -1,7 +1,7 @@
 {
  "code": "P0378",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0084",
  "version": 1,
  "title": "Мастерская ключей в навесном замке",
  "theme": "Миниатюрные мастерские",

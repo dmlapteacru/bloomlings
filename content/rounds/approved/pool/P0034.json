@@ -1,7 +1,7 @@
 {
  "code": "P0034",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0063",
  "version": 1,
  "title": "Планета-пончик",
  "theme": "batch-0011",

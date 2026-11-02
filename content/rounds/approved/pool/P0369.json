@@ -1,7 +1,7 @@
 {
  "code": "P0369",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0094",
  "version": 1,
  "title": "Прокат луж",
  "theme": "Необычные магазины",

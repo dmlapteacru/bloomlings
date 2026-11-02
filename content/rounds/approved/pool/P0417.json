@@ -1,7 +1,7 @@
 {
  "code": "P0417",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0098",
  "version": 1,
  "title": "Каменная арка со шторой из снега",
  "theme": "Уютная мистика",
