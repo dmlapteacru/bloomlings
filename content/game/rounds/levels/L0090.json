@@ -1,0 +1,347 @@
+{
+ "format": "round-level.v1",
+ "number": 90,
+ "definitionVersion": 1,
+ "class": "Super Hard",
+ "picture": {
+  "id": "P0337",
+  "version": 1
+ },
+ "board": {
+  "w": 45,
+  "h": 46,
+  "rowsBottomFirst": [
+   "######################.######################",
+   "#...........................................#",
+   "#......................EEEEEEE..............#",
+   "#....EE.............EEEYYYYYYEEE............#",
+   "#....EEE..........EEEYYYYYYYYYYYEE..........#",
+   "#....EEE.........EEYYYYYYYYYYYYYYEE.........#",
+   "#....EEE........EEYYYYYYYYOYYYYYYYYY........#",
+   "#.....EE.......EEYYYYYOOOOOOOOOYYYYYY.......#",
+   "#.....EE......EEYYYYOOOOOOOOOOOOYYYYYY......#",
+   "#.....EEEMMMMMEYYYYOOOOOOOOOOOOOOYYYYYE.....#",
+   "#.....EEMMMMMMMMYYOOOOOOOOAAAOOOOOYYYYEE....#",
+   "#.....EEEMMMMMMMYYOOOOOOOOAAAOOOOOOYYYYE....#",
+   "#.....EEEMMMMMMMMOOOOOOOOOAAAOOOOOOOYYYEE...#",
+   "#.....EEEMMMMMMFMOOOOOOOOOAAAOOOOOOOYYYYE...#",
+   "#......EE.MMMMFFMMSSSSSSSSAAASSSSSSSSYYYE...#",
+   "#.GGG..EE..MMMMFMMSSSSSSSSAAASSSSSSSSYYYYE..#",
+   "#.GGGGGGG..MMMMMMMSSSSSSSSAAASSSSSSSSYYYYE..#",
+   "#.GGGGGGGGGYYYYSSSSSSSSSSSAAASSSSSSSSSYYYE..#",
+   "#.GGGGGGGGGGYYYSSSSSSSSSSSAAASSSSSSSSSYYYE..#",
+   "#.GGGGGGGGGGYYSSSSSSSSSSSSAAASSSSSSSSSYYYEE.#",
+   "#.GGGGGGGGGGGYSSSSSSSSSSSSAAASSSSSSSSSYYYYE.#",
+   "#..GGGGGGGGGGYSSSSSSSSSSSSAAASSSSSSSSSYYYYE.#",
+   "#..GGGGGGGGGGYSSSSSSSSSSSAAAASSSSSSSSSYYYYE.#",
+   "#...GGGGGGGGGYSSSSSSSSSSAAAAASSSSSSSSSYYYYE.#",
+   "#....GGGGGGGGYSRRRRRSSSAAAAAASSSSSSSSSYYYYE.#",
+   "#.......GGGGGYSRRRRRRRRAAAAAAASSSSSSSSYYYEE.#",
+   "#.......EEEYYYSRRRRRRRRRAAAOOOOSSSSSSSYYYEE.#",
+   "#.......EEEYYYYRRRRRRRRRRAAOOOOOOOSSSSYYYE..#",
+   "#........EEYYYYRRRRRRRRRRRAOOOOOOOOOSSYYYE..#",
+   "#..........EYYYRRRRRRRRRRRAOOOOOOOOOOYYYYE..#",
+   "#..........EYYYYRRRRRRRRRRAOOOOOOOOOOYYYEE..#",
+   "#..........EYYYYSRRRRRRRRRAAOOOOOOOOOYYYE...#",
+   "#...........EYYYSSRRRRRRRRRROOOOOOOOYYYYE...#",
+   "#...........EYYYYSSRRRRRRRRRRROOOOOOYYYEE...#",
+   "#...........EEYYYYSSSRRRRRRRRRROOOOYYYYE....#",
+   "#............EYYYYSSSSSRRRRRRRROOOYYYYE.....#",
+   "#.............EYYYYSSSSRRRRRRRRRYYYYYEE.....#",
+   "#.............EEYYYYYSSSRRRRRRRRYYYYYE......#",
+   "#..............EEYYYYYSSSRRRRRYYYYYYY.......#",
+   "#...............EEYYYYYYYYYYYYYYYYYY........#",
+   "#................EEYYYYYYYYYYYYYYEE.........#",
+   "#..................EEYYYYYYYYYYYEE..........#",
+   "#...................EEEEYYYYYEEE............#",
+   "#......................EEEEEE...............#",
+   "#...........................................#",
+   "#############################################"
+  ],
+  "entries": [
+   22
+  ],
+  "recolor": [
+   [
+    13,
+    28,
+    "F"
+   ],
+   [
+    12,
+    29,
+    "F"
+   ],
+   [
+    13,
+    29,
+    "F"
+   ],
+   [
+    13,
+    30,
+    "F"
+   ]
+  ],
+  "hiddenCells": [
+   870,
+   871,
+   872,
+   873,
+   915,
+   916,
+   917,
+   918,
+   960,
+   961,
+   962,
+   963,
+   1005,
+   1006,
+   1007,
+   1008,
+   1013,
+   1014,
+   1015,
+   1016,
+   1017,
+   1050,
+   1051,
+   1052,
+   1053,
+   1058,
+   1059,
+   1060,
+   1061,
+   1062,
+   1096,
+   1103,
+   1104,
+   1105,
+   1106,
+   1107,
+   1148,
+   1149,
+   1150,
+   1151,
+   1152,
+   1380,
+   1381,
+   1382,
+   1383,
+   1425,
+   1426,
+   1427,
+   1428,
+   1470,
+   1471,
+   1472,
+   1473,
+   1515,
+   1516,
+   1517,
+   1518,
+   1560,
+   1561,
+   1562,
+   1563
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "E",
+   "count": 48
+  },
+  {
+   "code": "E",
+   "count": 48,
+   "group": "A"
+  },
+  {
+   "code": "E",
+   "count": 47
+  },
+  {
+   "code": "Y",
+   "count": 51,
+   "group": "B"
+  },
+  {
+   "code": "Y",
+   "count": 51
+  },
+  {
+   "code": "Y",
+   "count": 51,
+   "group": "F"
+  },
+  {
+   "code": "Y",
+   "count": 51
+  },
+  {
+   "code": "Y",
+   "count": 51
+  },
+  {
+   "code": "Y",
+   "count": 50
+  },
+  {
+   "code": "S",
+   "count": 50,
+   "group": "F"
+  },
+  {
+   "code": "S",
+   "count": 50
+  },
+  {
+   "code": "S",
+   "count": 50,
+   "group": "G"
+  },
+  {
+   "code": "S",
+   "count": 50
+  },
+  {
+   "code": "S",
+   "count": 49,
+   "group": "A"
+  },
+  {
+   "code": "R",
+   "count": 45
+  },
+  {
+   "code": "R",
+   "count": 45
+  },
+  {
+   "code": "R",
+   "count": 44,
+   "group": "C"
+  },
+  {
+   "code": "O",
+   "count": 42
+  },
+  {
+   "code": "O",
+   "count": 41,
+   "group": "E"
+  },
+  {
+   "code": "O",
+   "count": 41,
+   "group": "G"
+  },
+  {
+   "code": "O",
+   "count": 41,
+   "group": "D"
+  },
+  {
+   "code": "A",
+   "count": 23
+  },
+  {
+   "code": "A",
+   "count": 23,
+   "group": "D"
+  },
+  {
+   "code": "A",
+   "count": 22,
+   "group": "B"
+  },
+  {
+   "code": "G",
+   "count": 31
+  },
+  {
+   "code": "G",
+   "count": 31,
+   "group": "C"
+  },
+  {
+   "code": "G",
+   "count": 30,
+   "group": "E"
+  },
+  {
+   "code": "M",
+   "count": 27
+  },
+  {
+   "code": "M",
+   "count": 27
+  },
+  {
+   "code": "F",
+   "count": 4
+  }
+ ],
+ "tray": [
+  [
+   12,
+   11,
+   10,
+   7,
+   17,
+   24
+  ],
+  [
+   13,
+   15,
+   18,
+   6,
+   4,
+   27
+  ],
+  [
+   1,
+   19,
+   26,
+   25,
+   5,
+   23
+  ],
+  [
+   22,
+   21,
+   8,
+   16,
+   9,
+   3
+  ],
+  [
+   20,
+   29,
+   14,
+   28,
+   2,
+   0
+  ]
+ ],
+ "latches": [
+  {
+   "column": 0,
+   "depth": 2,
+   "key": 684
+  }
+ ],
+ "mechanics": [
+  "links",
+  "cells",
+  "latch"
+ ],
+ "engine": {
+  "rules": "335db27e3443dd1e0e7a25739b2d9bcede2eaee38d04c5f3021aa9a8b5173a18",
+  "timeline": "1d0d15678f80d655abea67993cb489d47a7c70b9fe020c6a56491f5ffb291fca",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

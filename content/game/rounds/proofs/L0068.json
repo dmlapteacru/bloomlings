@@ -1,0 +1,213 @@
+{
+ "format": "round-proof.v1",
+ "number": 68,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 16775000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 55275000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 121375000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 217250000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 237425000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 266750000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 286100000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 303200000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 326075000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 345975000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 384800000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 405175000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 424675000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 445175000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 453175000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 472975000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 491200000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 500250000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 511075000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 400,
+  "wins": 230,
+  "share": 0.575,
+  "wilson95": [
+   0.526,
+   0.623
+  ],
+  "classOfShare": "Normal",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.19,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": true,
+  "hiddenMatters": {
+   "ok": true,
+   "pods": [
+    {
+     "pod": 8,
+     "revealAt": 6,
+     "gap": 0,
+     "newColour": true
+    },
+    {
+     "pod": 12,
+     "revealAt": 13,
+     "gap": 4,
+     "newColour": true
+    }
+   ]
+  },
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.37,
+   "tight": 0.95
+  },
+  "calm": {
+   "runs": 400,
+   "wins": 219,
+   "share": 0.548,
+   "wilson95": [
+    0.499,
+    0.596
+   ],
+   "borderline": true,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 3,
+   "traps": 3,
+   "top": 2
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "F",
+     "name": "Фуксия",
+     "from": "C",
+     "cells": 10,
+     "clusters": 3,
+     "pods": [
+      {
+       "pod": 20,
+       "count": 10,
+       "row": 1
+      }
+     ]
+    }
+   ],
+   "cells": 10,
+   "pressure": {
+    "with": 1.37,
+    "without": 0.64
+   }
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0051-L0100.md",
+  "notes": [
+   "спокойная игра 55 % на границе по Wilson — решение человека (§5)",
+   "опасных развилок 3 (ориентир 0–2, §5)",
+   "последний запуск при 94 % W (ориентир 80–92 %, §10)"
+  ]
+ },
+ "engine": {
+  "rules": "335db27e3443dd1e0e7a25739b2d9bcede2eaee38d04c5f3021aa9a8b5173a18",
+  "timeline": "1d0d15678f80d655abea67993cb489d47a7c70b9fe020c6a56491f5ffb291fca",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

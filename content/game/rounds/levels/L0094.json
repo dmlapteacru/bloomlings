@@ -1,0 +1,301 @@
+{
+ "format": "round-level.v1",
+ "number": 94,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0369",
+  "version": 1
+ },
+ "board": {
+  "w": 35,
+  "h": 36,
+  "rowsBottomFirst": [
+   "#################.#################",
+   "#.................................#",
+   "#..........BB..........BB.........#",
+   "#..AAAAAAAABBAAAAAAAAAABBAAAAAAA..#",
+   "#..AAAAAAAABBAAAAAAAAAABBAAAAAAA..#",
+   "#..AAAAAAAABBAAAAAAAAAABBAAAAAAA..#",
+   "#..AAAAAAAAAAAAAAAAAAAAAAAAAAAAA..#",
+   "#..ECCCCCCCCCCCCCCCCCCCCCCCCCCCE..#",
+   "#..ECCCCCCCCCCCCCCCCCCCCCCCCCCCE..#",
+   "#..ECCYYYYYYYYYYYYYYYYYYYYYYYCCE..#",
+   "#..ECCYYYYYYYYYYYYYYYYYYYYYYYCCE..#",
+   "#..ECCCNNNNNNNNNNNNNNNNNNNNNNCCE..#",
+   "#..ECCNNNBBBBBBBBBBBBBBBBBBNNCCE..#",
+   "#..ECCNNNNBBBBBBBBNNBBBBBBNNNCCE..#",
+   "#..ECCNNNNNNBBBBNNNNNNNNNNNNNCCE..#",
+   "#..ECCCNNNNNNNNNNNNNNNNNNNNNNCCE..#",
+   "#..ECCYYYYYYYYYYYYYYYYYYYYYYYYCE..#",
+   "#..ECCYYYYYYYYYYYYYYYYYYYYYYYCCE..#",
+   "#..ECCNNNBBBBBBBBNNNBBBBBBNNNCCE..#",
+   "#..ECCNNBBBBBBBBBNNBBBBBBBBNNCCE..#",
+   "#..ECCNNNBBBBBBBBNNNBBBBBBNNNCCE..#",
+   "#..ECCCNNNNNNNNNNNNNNNNNNNNNNCCE..#",
+   "#..ECCCCCCCCCCCCCCCCCCCCCCCCCCCE..#",
+   "#..ECCCCCCCCCCCCCCCCCCCCCCCCCCCE..#",
+   "#..ECCCCCCCGGGGGCCCCCCCCCCGGGGGE..#",
+   "#..ECCCCCCCGGGGGGCCCCCCCCCGGGGGE..#",
+   "#..ECCCCCCCGGGGGCCCCCCCCCCGHGGGE..#",
+   "#.GGGGGGGGGGGGGGGGGGGGGGGGGHGGGGG.#",
+   "#..GGGGHHHGGGGGHHHGGGGGGGGGHGGGG..#",
+   "#..GGGGGGGGGGGGGHGGGGGGGGGGGGGGG..#",
+   "#...GGGGGGGGGGGGGGGGGGGGGGGGGGG...#",
+   "#...GGGGGGGGGGGGGGGGGGGGGGGGGGG...#",
+   "#....GGGGGGGGGGGGGGGGGGGGGGGGG....#",
+   "#....GGGGGGGGGGGGGGGGGGGGGGGGG....#",
+   "#.................................#",
+   "###################################"
+  ],
+  "entries": [
+   17
+  ],
+  "recolor": [
+   [
+    14,
+    4,
+    "H"
+   ],
+   [
+    5,
+    5,
+    "H"
+   ],
+   [
+    6,
+    5,
+    "H"
+   ],
+   [
+    7,
+    5,
+    "H"
+   ],
+   [
+    13,
+    5,
+    "H"
+   ],
+   [
+    14,
+    5,
+    "H"
+   ],
+   [
+    15,
+    5,
+    "H"
+   ],
+   [
+    25,
+    5,
+    "H"
+   ],
+   [
+    25,
+    6,
+    "H"
+   ],
+   [
+    25,
+    7,
+    "H"
+   ]
+  ],
+  "hiddenCells": [
+   299,
+   300,
+   301,
+   325,
+   326,
+   327,
+   333,
+   334,
+   335,
+   336,
+   359,
+   360,
+   361,
+   362,
+   368,
+   369,
+   370,
+   371,
+   394,
+   395,
+   396,
+   397,
+   403,
+   404,
+   405,
+   406,
+   429,
+   430,
+   431,
+   432,
+   856,
+   857,
+   858,
+   891,
+   892,
+   893,
+   894,
+   926,
+   927,
+   928,
+   929,
+   961,
+   962,
+   963,
+   964
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "G",
+   "count": 43,
+   "group": "B"
+  },
+  {
+   "code": "G",
+   "count": 43
+  },
+  {
+   "code": "G",
+   "count": 43
+  },
+  {
+   "code": "G",
+   "count": 43
+  },
+  {
+   "code": "G",
+   "count": 42
+  },
+  {
+   "code": "H",
+   "count": 10
+  },
+  {
+   "code": "E",
+   "count": 20,
+   "group": "B"
+  },
+  {
+   "code": "E",
+   "count": 20
+  },
+  {
+   "code": "C",
+   "count": 53
+  },
+  {
+   "code": "C",
+   "count": 53,
+   "group": "C"
+  },
+  {
+   "code": "C",
+   "count": 53
+  },
+  {
+   "code": "C",
+   "count": 53
+  },
+  {
+   "code": "N",
+   "count": 41,
+   "group": "C"
+  },
+  {
+   "code": "N",
+   "count": 41
+  },
+  {
+   "code": "N",
+   "count": 41
+  },
+  {
+   "code": "B",
+   "count": 33
+  },
+  {
+   "code": "B",
+   "count": 32
+  },
+  {
+   "code": "B",
+   "count": 32,
+   "group": "A"
+  },
+  {
+   "code": "Y",
+   "count": 31
+  },
+  {
+   "code": "Y",
+   "count": 31
+  },
+  {
+   "code": "Y",
+   "count": 31,
+   "group": "A"
+  },
+  {
+   "code": "A",
+   "count": 35
+  },
+  {
+   "code": "A",
+   "count": 35
+  },
+  {
+   "code": "A",
+   "count": 34
+  }
+ ],
+ "tray": [
+  [
+   20,
+   4,
+   13,
+   15,
+   7,
+   1,
+   8,
+   3
+  ],
+  [
+   17,
+   16,
+   2,
+   5,
+   22,
+   12,
+   23,
+   0
+  ],
+  [
+   11,
+   14,
+   10,
+   19,
+   18,
+   9,
+   21,
+   6
+  ]
+ ],
+ "mechanics": [
+  "links",
+  "cells"
+ ],
+ "engine": {
+  "rules": "335db27e3443dd1e0e7a25739b2d9bcede2eaee38d04c5f3021aa9a8b5173a18",
+  "timeline": "1d0d15678f80d655abea67993cb489d47a7c70b9fe020c6a56491f5ffb291fca",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

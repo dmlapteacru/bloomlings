@@ -1,0 +1,265 @@
+{
+ "format": "round-level.v1",
+ "number": 66,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0317",
+  "version": 1
+ },
+ "board": {
+  "w": 37,
+  "h": 40,
+  "rowsBottomFirst": [
+   "##################.##################",
+   "#...................................#",
+   "#.......AAA.........................#",
+   "#.......AAA........EEE.GG...........#",
+   "#.......AAA.......GGGEEGGEE.........#",
+   "#.......AAA......EGGGGEGGGE.........#",
+   "#.......AAA......EGGGGEGGGE.........#",
+   "#.......AAA......EGGGGEGGGEE........#",
+   "#...EEEEAAAEEEE.EGGGGGEGGGGE........#",
+   "#..NNNNNNNNNNNNEEGHHGGEGGGGGE.......#",
+   "#.ENNNNNGGGNNNNEGGHGGGEGHGGGE.......#",
+   "#.ENNNGGGGGGNNNESGGGGGEGHHGGE.......#",
+   "#.ENNNGGGGGGGNNSSGGGGGEGHGGGE.......#",
+   "#.ENNNGGGGGGGSSSSGGGGGEGGGGEE.......#",
+   "#.ENNNGGHHGGGNNNNEGGGEEEGGEE.Y......#",
+   "#.ENNNGGGGGGGNNNNEEEE..EEEYEEYYY....#",
+   "#.ENNNNGGGGGNNNNNE.....EYYYEYYYYE...#",
+   "#.ENNNNNNGNNNNNNNE.....EYYYEYYYYE...#",
+   "#.ENNNNNNNNNNNNNNE....EEYYYEYYYYE...#",
+   "#.ENNNNYYYYYNNNNNE....EYYYYEYYYYYY..#",
+   "#.ENNNYYYYYYYNNNNE...EYYYYYEYYYYYY..#",
+   "#.ENNNYYYYYYYNSSSSSS.EYYYYYEYYYYYYY.#",
+   "#.ENNNYYYYYYYSSSSS...EYYYYYEYYYYYYY.#",
+   "#.ENNNYYYYYYYNNNNE...EYYYYYEYYYYYY..#",
+   "#.ENNNYYYYYYNNNNNE...EYYYYYEYYYYYY..#",
+   "#.ENNNNNYYYNNNNNNE...EEEYYEEEYYYY...#",
+   "#.ENNNNNNNNNNNNNNE..EEREEEEEEEEE....#",
+   "#.ENNNNRRRRNNNNNNE.ERRREERRRE.......#",
+   "#.ENNNRRRRRRNNNNNE.ERRREERRRE.......#",
+   "#.ENNNRRRRRRRNNNNE.ERRREERRRE.......#",
+   "#.ENNNRRRRRRRSSSSSRRRRREERRRRR......#",
+   "#.ENNNRRRRRRRNNNNERRRRREERRRRRE.....#",
+   "#.ENNNRRRRRRNNNNNERRRRREERRRRRE.....#",
+   "#.ENNNNRRRRNNNNNNERRRRREERRRRRE.....#",
+   "#.ENNNNNNNNNNNNNEERRRRREERRRRRE.....#",
+   "#..NNNNNNNNNNNNNE.ERRRREERRRRE......#",
+   "#...EEEEEEEEEEEE..EERRREERRREE......#",
+   "#..................EEEE..EEEE.......#",
+   "#...................................#",
+   "#####################################"
+  ],
+  "entries": [
+   18
+  ],
+  "recolor": [
+   [
+    6,
+    23,
+    "H"
+   ],
+   [
+    7,
+    23,
+    "H"
+   ],
+   [
+    22,
+    25,
+    "H"
+   ],
+   [
+    22,
+    26,
+    "H"
+   ],
+   [
+    23,
+    26,
+    "H"
+   ],
+   [
+    16,
+    27,
+    "H"
+   ],
+   [
+    22,
+    27,
+    "H"
+   ],
+   [
+    16,
+    28,
+    "H"
+   ],
+   [
+    17,
+    28,
+    "H"
+   ]
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "E",
+   "count": 40
+  },
+  {
+   "code": "E",
+   "count": 39
+  },
+  {
+   "code": "E",
+   "count": 39
+  },
+  {
+   "code": "E",
+   "count": 39
+  },
+  {
+   "code": "E",
+   "count": 39,
+   "group": "B"
+  },
+  {
+   "code": "R",
+   "count": 42
+  },
+  {
+   "code": "R",
+   "count": 41
+  },
+  {
+   "code": "R",
+   "count": 41
+  },
+  {
+   "code": "N",
+   "count": 46
+  },
+  {
+   "code": "N",
+   "count": 46
+  },
+  {
+   "code": "N",
+   "count": 45
+  },
+  {
+   "code": "N",
+   "count": 45,
+   "group": "C"
+  },
+  {
+   "code": "N",
+   "count": 45
+  },
+  {
+   "code": "S",
+   "count": 12
+  },
+  {
+   "code": "S",
+   "count": 11,
+   "group": "A"
+  },
+  {
+   "code": "Y",
+   "count": 47
+  },
+  {
+   "code": "Y",
+   "count": 47
+  },
+  {
+   "code": "Y",
+   "count": 47,
+   "group": "A"
+  },
+  {
+   "code": "G",
+   "count": 42
+  },
+  {
+   "code": "G",
+   "count": 42
+  },
+  {
+   "code": "G",
+   "count": 42,
+   "group": "C"
+  },
+  {
+   "code": "H",
+   "count": 5
+  },
+  {
+   "code": "H",
+   "count": 4,
+   "group": "B"
+  },
+  {
+   "code": "A",
+   "count": 11
+  },
+  {
+   "code": "A",
+   "count": 10
+  }
+ ],
+ "tray": [
+  [
+   14,
+   7,
+   4,
+   19,
+   6,
+   9,
+   8,
+   2
+  ],
+  [
+   17,
+   20,
+   16,
+   13,
+   21,
+   18,
+   24,
+   0
+  ],
+  [
+   12,
+   11,
+   22,
+   3,
+   10,
+   5,
+   15,
+   1,
+   23
+  ]
+ ],
+ "latches": [
+  {
+   "column": 0,
+   "depth": 6,
+   "key": 759
+  }
+ ],
+ "mechanics": [
+  "links",
+  "latch"
+ ],
+ "engine": {
+  "rules": "335db27e3443dd1e0e7a25739b2d9bcede2eaee38d04c5f3021aa9a8b5173a18",
+  "timeline": "1d0d15678f80d655abea67993cb489d47a7c70b9fe020c6a56491f5ffb291fca",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

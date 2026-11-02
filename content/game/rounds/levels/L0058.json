@@ -1,0 +1,304 @@
+{
+ "format": "round-level.v1",
+ "number": 58,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0266",
+  "version": 1
+ },
+ "board": {
+  "w": 34,
+  "h": 34,
+  "rowsBottomFirst": [
+   "#################.################",
+   "#................................#",
+   "#.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.#",
+   "#.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.#",
+   "#.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.#",
+   "#.RYYYREERRCCCCCCCCCCCCCCEEYYYYR.#",
+   "#.RYYYREERRCCCCCCCCCCCCCCEEYYYYR.#",
+   "#.RYYRREERRCCCCCCCCFFCCCCEEYYYYR.#",
+   "#.RYYRREERCCCCCCCCCCCCCCCEEYYYYR.#",
+   "#.RYEEEEEEEEEEEEEEEEEEEEEEEEEEYR.#",
+   "#.RYEEEEEEOOOEEEEEEEEOOOEEEEEERR.#",
+   "#.RYYRRRRROOOOOOOOOOOOOOCRYYRRRR.#",
+   "#.RRRRCRRCOOOOOOOOOOOOOOCRYYRRRC.#",
+   "#.RRRRCRRCCEOOCCCCCCOOECCRYYRRRC.#",
+   "#.CRRRCRRCCECCCDDDDCCCECCCRRCRRC.#",
+   "#.CRRCCCCCCECCCCCCCCCCECCCRRCRRC.#",
+   "#.CRRCCCCCCECCDDCCDDCCECCCRRCCCC.#",
+   "#.CRRCFFCCCECCDDCCDDCCECCCRRCCCC.#",
+   "#.CRRCCFCCCECCCCCCCCCCECCCRRCCCC.#",
+   "#.CCCCCCCCCOOOOOOOOOOOOCCCRRCCCC.#",
+   "#.CCCCCCCCOOOOOOOOOOOOOOCCCCCCCC.#",
+   "#.CCCCCCCCEOOOOOOOOOOOOECCCCCCCC.#",
+   "#.CCCCCCCCEOOOOOOOOOOOOECFCCCCCC.#",
+   "#.CCCCCCCCEOOOOOOOOOOOOECFFCCCCC.#",
+   "#.CCCCCCCCCOOOOOOOOOOOCCCFCCCCCC.#",
+   "#.CCCCCCCCCCOOOOEEOOOOCCCCCCCCCC.#",
+   "#.CCCCCCCCCCCCEEEEGGGGCCCCCCCCCC.#",
+   "#.DDDDCDDDDCDDDDEEGGGGGDDDCDDDDC.#",
+   "#.DDDDCDDDDCDDDDDDDDDDDDDDCDDDDC.#",
+   "#.DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD.#",
+   "#.DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD.#",
+   "#.DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD.#",
+   "#................................#",
+   "##################################"
+  ],
+  "entries": [
+   17
+  ],
+  "recolor": [
+   [
+    23,
+    7,
+    "F"
+   ],
+   [
+    23,
+    8,
+    "F"
+   ],
+   [
+    24,
+    8,
+    "F"
+   ],
+   [
+    23,
+    9,
+    "F"
+   ],
+   [
+    5,
+    13,
+    "F"
+   ],
+   [
+    4,
+    14,
+    "F"
+   ],
+   [
+    5,
+    14,
+    "F"
+   ],
+   [
+    17,
+    24,
+    "F"
+   ],
+   [
+    18,
+    24,
+    "F"
+   ]
+  ],
+  "hiddenCells": [
+   517,
+   518,
+   519,
+   520,
+   550,
+   551,
+   552,
+   553,
+   554,
+   586,
+   587,
+   588,
+   620,
+   621,
+   622,
+   626,
+   627,
+   658,
+   659,
+   660,
+   661,
+   662,
+   663,
+   664,
+   692,
+   693,
+   694,
+   695,
+   696,
+   697,
+   698,
+   726,
+   727,
+   728,
+   729,
+   730,
+   731,
+   732,
+   760,
+   761,
+   762,
+   763,
+   764,
+   765,
+   766
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "D",
+   "count": 49
+  },
+  {
+   "code": "D",
+   "count": 49
+  },
+  {
+   "code": "D",
+   "count": 49,
+   "group": "C"
+  },
+  {
+   "code": "C",
+   "count": 53,
+   "group": "B"
+  },
+  {
+   "code": "C",
+   "count": 53
+  },
+  {
+   "code": "C",
+   "count": 53
+  },
+  {
+   "code": "C",
+   "count": 52,
+   "group": "A"
+  },
+  {
+   "code": "C",
+   "count": 52
+  },
+  {
+   "code": "C",
+   "count": 52
+  },
+  {
+   "code": "E",
+   "count": 30
+  },
+  {
+   "code": "E",
+   "count": 29,
+   "group": "A"
+  },
+  {
+   "code": "E",
+   "count": 29
+  },
+  {
+   "code": "G",
+   "count": 9
+  },
+  {
+   "code": "O",
+   "count": 40
+  },
+  {
+   "code": "O",
+   "count": 40
+  },
+  {
+   "code": "O",
+   "count": 39
+  },
+  {
+   "code": "F",
+   "count": 5
+  },
+  {
+   "code": "F",
+   "count": 4
+  },
+  {
+   "code": "R",
+   "count": 29,
+   "group": "B"
+  },
+  {
+   "code": "R",
+   "count": 29
+  },
+  {
+   "code": "R",
+   "count": 28
+  },
+  {
+   "code": "Y",
+   "count": 19
+  },
+  {
+   "code": "Y",
+   "count": 18,
+   "group": "C"
+  },
+  {
+   "code": "A",
+   "count": 30
+  },
+  {
+   "code": "A",
+   "count": 30
+  },
+  {
+   "code": "A",
+   "count": 30
+  }
+ ],
+ "tray": [
+  [
+   6,
+   7,
+   14,
+   12,
+   2,
+   4,
+   3,
+   23,
+   19
+  ],
+  [
+   10,
+   13,
+   20,
+   24,
+   22,
+   0,
+   18,
+   1
+  ],
+  [
+   15,
+   8,
+   11,
+   16,
+   17,
+   25,
+   21,
+   9,
+   5
+  ]
+ ],
+ "mechanics": [
+  "links",
+  "cells"
+ ],
+ "engine": {
+  "rules": "335db27e3443dd1e0e7a25739b2d9bcede2eaee38d04c5f3021aa9a8b5173a18",
+  "timeline": "1d0d15678f80d655abea67993cb489d47a7c70b9fe020c6a56491f5ffb291fca",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}
