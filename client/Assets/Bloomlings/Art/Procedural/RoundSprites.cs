@@ -161,9 +161,7 @@ namespace Bloomlings.Client.Art
         /// <summary>The link tube's picture (<see cref="UiRaster.LinkTube"/>) of <paramref name="shape"/>'s colours at a pixel size.</summary>
         public static Sprite LinkTube(LinkTubeShape shape, int width, int height)
         {
-            Rgba start = shape.StartColor;
-            Rgba end = shape.EndColor;
-            return ProceduralSprites.Picture(shape.PictureKey, Math.Max(1, width), Math.Max(1, height), (w, h) => UiRaster.LinkTube(w, h, start, end));
+            return ProceduralSprites.Picture(shape.PictureKey, Math.Max(1, width), Math.Max(1, height), shape.Picture);
         }
     }
 }

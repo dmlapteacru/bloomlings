@@ -206,7 +206,15 @@ namespace Bloomlings.Client.UI.Design
         /// <paramref name="right"/>, a cream coupling ring where the halves meet, and at each end a collar a little wider than
         /// the hose in its own half's colour, where it plugs into the pod.
         /// </summary>
-        public static byte[] LinkTube(int width, int height, Rgba left, Rgba right)
+        public static byte[] LinkTube(int width, int height, Rgba left, Rgba right) => LinkTube(width, height, left, right, true, true, true);
+
+        /// <summary>
+        /// The link tube (<see cref="LinkTube(int, int, Rgba, Rgba)"/>) with its parts chosen: the collar at its left end
+        /// (<paramref name="leftCollar"/>), at its right end (<paramref name="rightCollar"/>) and the coupling ring in its middle
+        /// (<paramref name="coupling"/>); a routed tube's pieces (<c>LinkTube.HiddenRoute</c>) leave out the ring and the collars
+        /// where they meet, their round ends overlapping at the corners.
+        /// </summary>
+        public static byte[] LinkTube(int width, int height, Rgba left, Rgba right, bool leftCollar, bool rightCollar, bool coupling)
         {
             Check(width, height);
             var pixels = new byte[width * height * 4];
@@ -230,17 +238,17 @@ namespace Bloomlings.Client.UI.Design
                     // The hose, the collars at its ends and the coupling ring in its middle.
                     float body = RoundRect(x, y, 0f, cy - hose, w, cy + hose, hose);
                     float ends = Math.Min(
-                        RoundRect(x, y, 0f, cy - collar, collarLength, cy + collar, collar * 0.5f),
-                        RoundRect(x, y, w - collarLength, cy - collar, w, cy + collar, collar * 0.5f));
-                    float coupling = RoundRect(x, y, (w - ring) / 2f, cy - collar, (w + ring) / 2f, cy + collar, collar * 0.4f);
-                    float shape = Math.Min(body, Math.Min(ends, coupling));
+                        leftCollar ? RoundRect(x, y, 0f, cy - collar, collarLength, cy + collar, collar * 0.5f) : float.MaxValue,
+                        rightCollar ? RoundRect(x, y, w - collarLength, cy - collar, w, cy + collar, collar * 0.5f) : float.MaxValue);
+                    float ringShape = coupling ? RoundRect(x, y, (w - ring) / 2f, cy - collar, (w + ring) / 2f, cy + collar, collar * 0.4f) : float.MaxValue;
+                    float shape = Math.Min(body, Math.Min(ends, ringShape));
                     float cover = Coverage(shape);
                     if (cover <= 0f)
                     {
                         continue;
                     }
 
-                    bool isCoupling = coupling <= Math.Min(body, ends) + 0.5f && coupling < 0.5f;
+                    bool isCoupling = ringShape <= Math.Min(body, ends) + 0.5f && ringShape < 0.5f;
                     bool isCollar = !isCoupling && ends < 0.5f && ends <= body + 0.5f;
                     float half = isCoupling || isCollar ? collar : hose;
                     Rgba face = isCoupling ? C.CreamFace : isCollar ? color.Darken(0.12f) : color;

@@ -13,8 +13,8 @@ namespace Bloomlings.Playtest.Preview
     /// <summary>
     /// <c>--link-stills &lt;rounds dir&gt; &lt;out dir&gt; [level] [tag]</c>: the owner's phone report of 2026-11-02 (L54) for review, on
     /// a rounds folder with <c>published/</c> and <c>proofs/</c>: the level at its start, the same after a tap on a top pod
-    /// whose link partner waits deeper than the rows show (the hidden partner's link marks and the pulse,
-    /// <see cref="RoundAnimator.LinkMarks"/>), and a frame with walkers under way (with a close-up of the board) on that level
+    /// whose link partner waits deeper than the rows show (the routed tube to the hidden partner and its pulse,
+    /// <see cref="RoundAnimator.LinkMarks"/>, <see cref="LinkTube.HiddenRoute"/>), and a frame with walkers under way (with a close-up of the board) on that level
     /// and on Level 1 (big cubes), so the walkers' size on small cubes (<see cref="ClearStyles.SmallCubeBoost"/>) can be
     /// compared; <c>tag</c> names the walker stills (e.g. <c>before</c> / <c>after</c>). Review material only.
     /// </summary>
@@ -69,54 +69,86 @@ namespace Bloomlings.Playtest.Preview
 
                 string L(int n) => "L" + n.ToString("00", CultureInfo.InvariantCulture);
                 RoundLevelScreen s;
-                // ---- The level at its start, then a tap on a top pod whose partner is hidden ----
+                // ---- The level at its start, then the two kinds of routed tube to a hidden partner, each before and after a tap ----
                 s = Open(level);
                 Save(L(level) + "-start", painter.Png());
                 RoundPainter.LayoutCache cache = RoundPainter.Layout(painter, s, true, false);
                 var marks = new List<RoundLinkMark>();
-                int tapped = -1;
-                bool TopStub()
+                var saved = new HashSet<string>();
+                Box tray = new Box(0f, cache.Regions.Columns[0].Top - 40f, 1080f, 2424f);
+
+                // A top pod whose partner waits deeper than the rows: its route plugs into the partner's place on screen
+                // ("into-place") or runs down out of it ("down"), the latter across a column when it can.
+                string? Kind(out int pod)
                 {
+                    pod = -1;
+                    if (s.Animator.Busy || s.Play.Timeline.Pending)
+                    {
+                        return null;
+                    }
+
                     s.Animator.LinkMarks(cache.Regions.PodRows, marks);
-                    tapped = -1;
                     foreach (RoundLinkMark mark in marks)
                     {
-                        if (mark.Kind == RoundLinkMarkKind.Stub && s.Animator.DepthOf(mark.Pod) == 0 && !s.Animator.Busy)
+                        if (s.Animator.DepthOf(mark.Pod) != 0)
                         {
-                            tapped = mark.Pod;
-                            return true;
+                            continue;
+                        }
+
+                        LinkRoute route = LinkTube.HiddenRoute(cache.Regions, mark, LinkTube.PlaceOf(cache.Regions, mark.ShownColumn, 0));
+                        string kind = route.Connected ? "into-place" : Math.Abs(mark.Column - mark.ShownColumn) > 1 ? "down-across" : "down";
+                        if (!saved.Contains(kind))
+                        {
+                            pod = mark.Pod;
+                            return kind;
                         }
                     }
 
-                    return false;
+                    return null;
                 }
 
-                // The saved solution until a top pod's partner waits deeper than the rows show (as on the owner's phone).
-                var levelProof = RoundJson.ReadProof(File.ReadAllText(Path.Combine(roundsDir, "proofs", "L" + level.ToString("0000", CultureInfo.InvariantCulture) + ".json")));
-                if (!TopStub())
+                void Shoot(string kind, int pod)
                 {
-                    LatchStills.Play(s, levelProof, Frame, TopStub);
+                    saved.Add(kind);
+                    for (int i = 0; i < 20; i++)
+                    {
+                        Frame(1f / 30f);
+                    }
+
+                    Save(L(level) + "-tube-" + kind, painter.Png());
+                    s.Tap(pod);
+                    var frames = new List<byte[]>();
+                    for (int i = 0; i < 36; i++)
+                    {
+                        Frame(1f / 30f);
+                        if (i == 4 || i == 9 || i == 17)
+                        {
+                            frames.Add(painter.Png());
+                        }
+                    }
+
+                    Save(L(level) + "-tube-" + kind + "-tap", frames[1]);
+                    LatchStills.Strip(frames.ToArray(), new[] { tray }, Path.Combine(outDir, L(level) + "-tube-" + kind + "-tap-strip.png"), 0.5f);
+                    Console.WriteLine(L(level) + ": tube " + kind + ", tapped pod " + pod);
                 }
 
-                // Else a player's own order (seeded random taps on accepted top pods) until that happens.
-                for (int seed = 1; seed <= 40 && tapped < 0; seed++)
+                // A player's own order (seeded random taps on accepted top pods) until each kind has been seen.
+                for (int seed = 1; seed <= 60 && saved.Count < 3; seed++)
                 {
                     s = Open(level);
                     cache = RoundPainter.Layout(painter, s, true, false);
                     var random = new Random(seed);
-                    for (int step = 0; step < 60 && tapped < 0 && !s.Won; step++)
+                    for (int step = 0; step < 60 && !s.Won && saved.Count < 3; step++)
                     {
                         for (float t = 0f; t < 20f && (s.Play.Timeline.Pending || s.Animator.Busy); t += 1f / 30f)
                         {
                             Frame(1f / 30f);
-                            if (TopStub())
-                            {
-                                break;
-                            }
                         }
 
-                        if (TopStub())
+                        string? kind = Kind(out int pod);
+                        if (kind != null)
                         {
+                            Shoot(kind, pod);
                             break;
                         }
 
@@ -140,34 +172,7 @@ namespace Bloomlings.Playtest.Preview
                     }
                 }
 
-                if (tapped >= 0)
-                {
-                    for (int i = 0; i < 20; i++)
-                    {
-                        Frame(1f / 30f);
-                    }
-
-                    Save(L(level) + "-hidden-partner-marks", painter.Png());
-                }
-
-                Console.WriteLine("Link marks on " + L(level) + ": " + marks.Count + (tapped >= 0 ? ", tapping pod " + tapped : ", no top pod with a hidden partner"));
-                if (tapped >= 0)
-                {
-                    s.Tap(tapped);
-                    var frames = new List<byte[]>();
-                    for (int i = 0; i < 36; i++)
-                    {
-                        Frame(1f / 30f);
-                        if (i == 4 || i == 9 || i == 17)
-                        {
-                            frames.Add(painter.Png());
-                        }
-                    }
-
-                    Save(L(level) + "-tap-hidden-partner", frames[1]);
-                    Box tray = new Box(0f, cache.Regions.Columns[0].Top - 40f, 1080f, Math.Min(2424f, cache.Regions.PodRow.Bottom + 140f));
-                    LatchStills.Strip(frames.ToArray(), new[] { tray }, Path.Combine(outDir, L(level) + "-tap-pulse-strip.png"), 0.6f);
-                }
+                Console.WriteLine(L(level) + ": routed tubes shown: " + string.Join(", ", saved));
 
                 // ---- Walkers under way: this level and Level 1 (big cubes) ----
                 foreach (int n in new[] { level, 1 })

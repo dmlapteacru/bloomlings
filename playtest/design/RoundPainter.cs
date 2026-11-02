@@ -52,7 +52,7 @@ namespace Bloomlings.Playtest.Design
             public readonly HashSet<int> Locked = new HashSet<int>();
             public Box?[] FrameOf = Array.Empty<Box?>();
 
-            /// <summary>The marks of linked pods whose partner waits deeper than the rows show, this frame (RoundAnimator.LinkMarks).</summary>
+            /// <summary>The linked pairs whose partner waits deeper than the rows show, this frame (RoundAnimator.LinkMarks): their routed tubes.</summary>
             public readonly List<RoundLinkMark> Marks = new List<RoundLinkMark>();
             public readonly bool[] Reachable = new bool[RoundMaterial.Codes.Length];
         }
@@ -829,16 +829,18 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
-            // A partner deeper than the rows show (the owner's report of 2026-11-02): the stub out of the shown pod, under the pods
-            // too; its badge and the badge under the partner column's last shown pod after the pods.
+            // A partner deeper than the rows show (the owner's report and review of 2026-11-02): a routed tube out of the shown
+            // pod, down the gap beside it to the partner's place in the layout, or out of the screen; under the pods too.
             a.LinkMarks(r.PodRows, cache.Marks);
             foreach (RoundLinkMark mark in cache.Marks)
             {
-                Rgba color = RoundLook.ColorOf(mark.Material);
-                if (mark.Kind == RoundLinkMarkKind.Stub && cache.FrameOf[mark.Pod].HasValue)
+                if (cache.FrameOf[mark.Pod].HasValue && mark.Column < r.Columns.Count && mark.ShownColumn < r.Columns.Count)
                 {
                     p.Mark(LinkTube.MarkSlot);
-                    Kit.LinkTubeStepped(p, LinkTube.Stub(cache.FrameOf[mark.Pod]!.Value, color, mark.ToRight));
+                    foreach (LinkTubeShape piece in LinkTube.HiddenRoute(r, mark, cache.FrameOf[mark.Pod]!.Value).Pieces)
+                    {
+                        Kit.LinkTubePicture(p, piece);
+                    }
                 }
             }
 
@@ -915,33 +917,15 @@ namespace Bloomlings.Playtest.Design
                 Kit.LatchOverlay(p, frame, a.LatchPips(latch), a.LatchOpenSince(latch));
             }
 
-            // The hidden partners' link badges: on each stub's end and under the partner's column.
-            foreach (RoundLinkMark mark in cache.Marks)
-            {
-                Rgba color = RoundLook.ColorOf(mark.Material);
-                if (mark.Kind == RoundLinkMarkKind.Stub && cache.FrameOf[mark.Pod].HasValue)
-                {
-                    PodPainter.LinkBadge(p, LinkTube.StubBadge(cache.FrameOf[mark.Pod]!.Value, mark.ToRight), color);
-                }
-                else if (mark.Kind == RoundLinkMarkKind.Waiting && mark.Column < r.Columns.Count)
-                {
-                    p.Mark(LinkTube.MarkSlot);
-                    PodPainter.LinkBadge(p, LinkTube.WaitingBadge(LastShown(r, mark.Column), mark.Order, mark.Of), color);
-                }
-            }
-
             Hint(p, s, cache);
         }
-
-        /// <summary>The cube of column <paramref name="column"/>'s last shown row, where a hidden link partner's badge stands under.</summary>
-        private static Box LastShown(ReferenceGameplayRegions r, int column) => PodChip.Cube(r.Pod(column, r.PodRows - 1)).Frame;
 
         /// <summary>The tray motion's key of a latch block (pods use <see cref="RoundLevelScreen.KeyOf"/>).</summary>
         private static string LatchKey(int latch) => "latch:" + latch.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
         /// <summary>
-        /// The pulse round the link partner a refused tap waits for, or, while it waits deeper than the rows show, round its
-        /// link badge under its column's last shown pod (<see cref="RoundLinkMarkKind.Waiting"/>, where the queue goes on).
+        /// The pulse round the link partner a refused tap waits for, or, while it waits deeper than the rows show, along the
+        /// routed tube to it (<see cref="LinkTube.HiddenRoute"/>) and round its place when the tube reaches it on screen.
         /// </summary>
         private static void Hint(IPainter p, RoundLevelScreen s, LayoutCache cache)
         {
@@ -972,16 +956,26 @@ namespace Bloomlings.Playtest.Design
                 {
                     ring = cache.FrameOf[member]!.Value;
                 }
-                else if (WaitingMark(cache.Marks, member) is RoundLinkMark mark && mark.Column < r.Columns.Count)
+                else if (RouteTo(cache.Marks, member) is RoundLinkMark mark && cache.FrameOf[mark.Pod].HasValue && mark.Column < r.Columns.Count && mark.ShownColumn < r.Columns.Count)
                 {
-                    // Hidden deeper than the rows show: its badge under the column pulses, round and a little bigger.
-                    Box badge = LinkTube.WaitingBadge(LastShown(r, mark.Column), mark.Order, mark.Of);
+                    // Hidden deeper than the rows show: the routed tube glows along its length, and round the partner's place
+                    // when it reaches it on screen.
+                    LinkRoute route = LinkTube.HiddenRoute(r, mark, cache.FrameOf[mark.Pod]!.Value);
                     color = RoundLook.ColorOf(mark.Material);
-                    float swell = badge.Height * 0.18f * k;
-                    PodPainter.LinkBadge(p, badge.Inset(-swell), color);
-                    float g = badge.Height * (0.12f + (0.22f * k));
-                    p.StrokeCircle(badge.CenterX, badge.CenterY, (badge.Height / 2f) + g, p.U(4f) * (0.6f + (0.4f * k)), color.WithAlpha(0.35f + (0.65f * k)));
-                    continue;
+                    float width = p.U(4f) * (0.6f + (0.4f * k));
+                    foreach (LinkTubeShape piece in route.Pieces)
+                    {
+                        float g = piece.Thickness * (0.1f + (0.3f * k));
+                        Box glow = piece.AxisBox.Inset(-g);
+                        p.StrokeRound(glow, Math.Min(glow.Width, glow.Height) / 2f, width, color.WithAlpha(0.35f + (0.65f * k)));
+                    }
+
+                    if (!route.Connected)
+                    {
+                        continue;
+                    }
+
+                    ring = LinkTube.PlaceOf(r, mark.Column, mark.Row);
                 }
                 else if (a.ColumnOf(member) >= 0 && a.ColumnOf(member) < r.Columns.Count)
                 {
@@ -997,12 +991,12 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        /// <summary>The waiting badge that stands for hidden pod <paramref name="pod"/> this frame, or null.</summary>
-        private static RoundLinkMark? WaitingMark(List<RoundLinkMark> marks, int pod)
+        /// <summary>The routed tube's mark that leads to hidden pod <paramref name="pod"/> this frame, or null.</summary>
+        private static RoundLinkMark? RouteTo(List<RoundLinkMark> marks, int pod)
         {
             foreach (RoundLinkMark mark in marks)
             {
-                if (mark.Kind == RoundLinkMarkKind.Waiting && mark.Pod == pod)
+                if (mark.Partner == pod)
                 {
                     return mark;
                 }

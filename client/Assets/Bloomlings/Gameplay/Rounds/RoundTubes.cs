@@ -24,8 +24,12 @@ namespace Bloomlings.Client.Gameplay.Rounds
             return image;
         }
 
-        /// <summary>Shows <paramref name="tube"/> (in the parent's top-down canvas units) on <paramref name="image"/>.</summary>
-        public static void Show(Image image, LinkTubeShape tube)
+        /// <summary>
+        /// Shows <paramref name="tube"/> (in the parent's top-down canvas units) on <paramref name="image"/>; a routed tube's piece
+        /// (<see cref="LinkTube.HiddenRoute"/>) keeps its exact length (<paramref name="stepped"/> false), its round ends meeting
+        /// the next piece's at the corners.
+        /// </summary>
+        public static void Show(Image image, LinkTubeShape tube, bool stepped = true)
         {
             float ppu = Mathf.Max(0.0001f, UiKit.PixelsPerUnit);
             float lengthPx = tube.Length * ppu;
@@ -35,7 +39,7 @@ namespace Bloomlings.Client.Gameplay.Rounds
                 return;
             }
 
-            int steppedPx = Mathf.Max(8, Mathf.CeilToInt(lengthPx / 8f) * 8);
+            int steppedPx = stepped ? Mathf.Max(8, Mathf.CeilToInt(lengthPx / 8f) * 8) : Mathf.Max(1, Mathf.RoundToInt(lengthPx));
             int thicknessPx = Mathf.Max(4, Mathf.RoundToInt(tube.Thickness * ppu));
             (float mx, float my) = tube.Middle;
             var box = Box.FromCenter(mx, my, steppedPx / ppu, thicknessPx / ppu);

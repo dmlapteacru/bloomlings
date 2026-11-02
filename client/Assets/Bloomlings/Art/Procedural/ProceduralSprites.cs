@@ -384,9 +384,7 @@ namespace Bloomlings.Client.Art
         /// <summary>A link tube's picture (<c>pod.link.tube</c>, <see cref="UiRaster.LinkTube"/>), to show turned by <see cref="LinkTubeShape.Degrees"/>.</summary>
         public static Sprite LinkTube(LinkTubeShape tube, int width, int height)
         {
-            Rgba start = tube.StartColor;
-            Rgba end = tube.EndColor;
-            return Picture(tube.PictureKey, width, height, (w, h) => UiRaster.LinkTube(w, h, start, end));
+            return Picture(tube.PictureKey, width, height, tube.Picture);
         }
 
         private static string StyleKey(TileStyle style) => style == TileStyle.Board ? "board" : style == TileStyle.Mosaic ? "mosaic" : style == TileStyle.MosaicIcon ? "mosaic-icon" : style == TileStyle.Flat ? "flat" : "sticker";

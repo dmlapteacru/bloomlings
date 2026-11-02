@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Bloomlings.Client.UI.Design
 {
@@ -10,14 +11,37 @@ namespace Bloomlings.Client.UI.Design
     /// </summary>
     public readonly struct LinkTubeShape
     {
-        public LinkTubeShape((float X, float Y) start, Rgba startColor, (float X, float Y) end, Rgba endColor, float thickness)
+        public LinkTubeShape((float X, float Y) start, Rgba startColor, (float X, float Y) end, Rgba endColor, float thickness,
+            bool startCollar = true, bool endCollar = true, bool coupling = true)
         {
             Start = start;
             StartColor = startColor;
             End = end;
             EndColor = endColor;
             Thickness = thickness;
+            StartCollar = startCollar;
+            EndCollar = endCollar;
+            Coupling = coupling;
         }
+
+        /// <summary>Whether the picture has its collar at <see cref="Start"/> (a plug into a pod or a place); a route's inner piece has none.</summary>
+        public bool StartCollar { get; }
+
+        /// <summary>Whether the picture has its collar at <see cref="End"/>.</summary>
+        public bool EndCollar { get; }
+
+        /// <summary>Whether the picture has the cream coupling ring in its middle (a whole tube); a route's pieces have none.</summary>
+        public bool Coupling { get; }
+
+        /// <summary>A copy of this shape between other ends (the same colours, thickness and parts).</summary>
+        public LinkTubeShape WithEnds((float X, float Y) start, (float X, float Y) end) =>
+            new LinkTubeShape(start, StartColor, end, EndColor, Thickness, StartCollar, EndCollar, Coupling);
+
+        /// <summary>
+        /// The box the shape covers on screen when it lies level or upright (a route's pieces): <see cref="Box"/>, turned a
+        /// quarter when upright.
+        /// </summary>
+        public Box AxisBox => Math.Abs(Math.Abs(Degrees) - 90f) < 1f ? Box.FromCenter(Middle.X, Middle.Y, Thickness, Math.Max(1f, Length)) : Box;
 
         /// <summary>The left end, where the tube plugs into the first pod's front.</summary>
         public (float X, float Y) Start { get; }
@@ -52,7 +76,32 @@ namespace Bloomlings.Client.UI.Design
         public Rgba ColorAt(float t) => t < 0.5f ? StartColor : EndColor;
 
         /// <summary>The picture's cache key (its colours; the size comes with the box).</summary>
-        public string PictureKey => LinkTube.Slot + "/" + StartColor.Hex + "/" + EndColor.Hex;
+        public string PictureKey => LinkTube.Slot + "/" + StartColor.Hex + "/" + EndColor.Hex
+            + (StartCollar && EndCollar && Coupling ? string.Empty : "/" + (StartCollar ? "s" : "-") + (EndCollar ? "e" : "-") + (Coupling ? "c" : "-"));
+
+        /// <summary>The tube's picture at <paramref name="width"/> × <paramref name="height"/> pixels (<see cref="UiRaster.LinkTube"/> with its parts).</summary>
+        public byte[] Picture(int width, int height) => UiRaster.LinkTube(width, height, StartColor, EndColor, StartCollar, EndCollar, Coupling);
+    }
+
+    /// <summary>
+    /// A routed link tube (<see cref="LinkTube.HiddenRoute"/>) to a partner the tray does not show: its level and upright
+    /// <see cref="Pieces"/> in drawing order; <see cref="Connected"/> when it plugs into the partner's place in the layout,
+    /// else it runs down out of the screen; <see cref="End"/> is where it plugs in or leaves the screen.
+    /// </summary>
+    public readonly struct LinkRoute
+    {
+        public LinkRoute(IReadOnlyList<LinkTubeShape> pieces, bool connected, (float X, float Y) end)
+        {
+            Pieces = pieces;
+            Connected = connected;
+            End = end;
+        }
+
+        public IReadOnlyList<LinkTubeShape> Pieces { get; }
+
+        public bool Connected { get; }
+
+        public (float X, float Y) End { get; }
     }
 
     /// <summary>
@@ -153,58 +202,113 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The tube between two linked pods in the columns, attached to their frames (<see cref="PodChip.Frame"/>).</summary>
         public static LinkTubeShape BetweenPods(PodChip a, Rgba colorA, PodChip b, Rgba colorB) => Between(a.Frame, colorA, b.Frame, colorB);
 
-        // ---- A partner deeper than the rows show (the owner's phone report of 2026-11-02, L54; RoundAnimator.LinkMarks) ----
+        // ---- A partner deeper than the rows show (the owner's review of 2026-11-02, L54; RoundAnimator.LinkMarks) ----
 
-        /// <summary>The hidden partner's marks' asset slot (<see cref="RoundLinkMark"/>: the tube's stub and the link badge).</summary>
+        /// <summary>The routed tube's asset slot (<see cref="HiddenRoute"/>): a tube to a link partner the tray does not show.</summary>
         public const string MarkSlot = "pod.link.away";
 
-        /// <summary>How far a stub reaches out of its pod cube's side, to the badge's middle, as a share of the cube's side.</summary>
-        public const float StubShare = 0.4f;
-
-        /// <summary>The link badge picture's side (<see cref="UiRaster.LinkBadge"/>) on a stub's end and under a column, as a share of the cube's side.</summary>
-        public const float MarkBadgeShare = 0.4f;
-
         /// <summary>
-        /// How far below the last shown pod cube's bottom a waiting badge's middle stands, as a share of the cube's side (its
-        /// upper part over the cube's front, the rest in the bottom margin).
+        /// The tube to a link partner deeper than the rows show (the owner, 2026-11-02: "if there is a layout behind the screen,
+        /// the link must really link them; if there is nothing there, the tube must still be there and go down"), never across a
+        /// shown pod: out of the shown pod cube <paramref name="shown"/> at a tube's height on its side towards the partner, level
+        /// into the gap beside it at <paramref name="gapX"/>, and down that gap;
+        /// <list type="bullet">
+        /// <item><description>when the partner's place in the layout <paramref name="place"/> (its row under the shown ones,
+        /// <see cref="ReferenceGameplayRegions.Pod"/>) is on the screen (its tube height above <paramref name="bottom"/>, the
+        /// screen's bottom edge): down to that height and level into the place's side (<see cref="LinkRoute.Connected"/>);</description></item>
+        /// <item><description>else down to <paramref name="under"/> (under the shown rows), level under the rows to the gap beside
+        /// the partner's column at <paramref name="partnerGapX"/> and down out of the screen.</description></item>
+        /// </list>
+        /// Several routes in one gap lie a lane apart (<paramref name="lane"/> of <paramref name="lanes"/>). Its pieces have round
+        /// ends that overlap at the corners and a collar only where they plug into a pod or a place, all in the shown pod's
+        /// <paramref name="color"/>; draw them before the pods, like a tube.
         /// </summary>
-        public const float WaitingDropShare = 0.1f;
-
-        /// <summary>
-        /// The stub of a linked pod whose partner is hidden (<see cref="RoundLinkMarkKind.Stub"/>): the tube's picture, plugged into
-        /// the middle of <paramref name="cube"/>'s front face like a tube (<see cref="BetweenCubes"/>) on its side towards the
-        /// partner's column (<paramref name="toRight"/>), reaching <see cref="StubShare"/> of a cube out into the gap between the
-        /// columns, all in the pod's <paramref name="color"/>; draw it before the pods like a tube.
-        /// </summary>
-        public static LinkTubeShape Stub(Box cube, Rgba color, bool toRight)
+        public static LinkRoute HiddenRoute(Box shown, Box place, float gapX, float partnerGapX, float under, float bottom, Rgba color, int lane = 0, int lanes = 1)
         {
-            float side = Math.Min(cube.Width, cube.Height);
-            (float X, float Y) start = Anchor(cube, toRight, CubeFrontShare);
-            float reach = (side * StubShare) + (cube.Height * TuckShare);
-            (float X, float Y) end = (start.X + (toRight ? reach : -reach), start.Y);
+            float side = Math.Min(shown.Width, shown.Height);
             float thickness = Math.Max(1f, side * CubeThicknessShare);
-            return toRight ? new LinkTubeShape(start, color, end, color, thickness) : new LinkTubeShape(end, color, start, color, thickness);
-        }
+            bool toRight = place.CenterX > shown.CenterX;
+            float dir = toRight ? 1f : -1f;
+            float offset = (lane - ((Math.Max(1, lanes) - 1) / 2f)) * thickness * 0.95f;
+            float x = gapX + offset;
+            float round = thickness * 0.36f;
+            (float X, float Y) start = Anchor(shown, toRight, CubeFrontShare);
+            float placeY = FrontY(place, CubeFrontShare);
+            var pieces = new List<LinkTubeShape>(4)
+            {
+                Level(start, x + (dir * round), color, thickness, startCollar: true, endCollar: false),
+            };
 
-        /// <summary>The link badge on a stub's end (<see cref="Stub"/>): <see cref="MarkBadgeShare"/> of a cube round the stub's outer end.</summary>
-        public static Box StubBadge(Box cube, bool toRight)
-        {
-            float side = Math.Min(cube.Width, cube.Height);
-            float x = toRight ? cube.Right + (side * StubShare) : cube.Left - (side * StubShare);
-            return Box.FromCenter(x, FrontY(cube, CubeFrontShare), side * MarkBadgeShare, side * MarkBadgeShare);
+            if (placeY - (thickness / 2f) < bottom)
+            {
+                (float X, float Y) end = Anchor(place, !toRight, CubeFrontShare);
+                pieces.Add(new LinkTubeShape((x, start.Y - round), color, (x, placeY + round), color, thickness, false, false, false));
+                pieces.Add(Level((x - (dir * round), placeY), end.X, color, thickness, startCollar: false, endCollar: true));
+                return new LinkRoute(pieces, true, end);
+            }
+
+            float y = under - (dir * offset);
+            float x2 = partnerGapX + offset;
+            float off = bottom + thickness;
+            if (Math.Abs(x2 - x) < 0.5f)
+            {
+                pieces.Add(new LinkTubeShape((x, start.Y - round), color, (x, off), color, thickness, false, false, false));
+                return new LinkRoute(pieces, false, (x, off));
+            }
+
+            pieces.Add(new LinkTubeShape((x, start.Y - round), color, (x, y + round), color, thickness, false, false, false));
+            pieces.Add(Level((x - (dir * round), y), x2 + (dir * round), color, thickness, startCollar: false, endCollar: false));
+            pieces.Add(new LinkTubeShape((x2, y - round), color, (x2, off), color, thickness, false, false, false));
+            return new LinkRoute(pieces, false, (x2, off));
         }
 
         /// <summary>
-        /// The link badge for a hidden partner in its column (<see cref="RoundLinkMarkKind.Waiting"/>) under the column's last
-        /// shown pod cube <paramref name="last"/>, <see cref="WaitingDropShare"/> below its bottom; several groups' badges
-        /// (<paramref name="order"/> of <paramref name="of"/>) side by side, centred.
+        /// The middle of the gap between column <paramref name="column"/> and its neighbour on the right (<paramref name="toRight"/>)
+        /// or on the left, in <paramref name="regions"/>' columns.
         /// </summary>
-        public static Box WaitingBadge(Box last, int order = 0, int of = 1)
+        public static float GapX(ReferenceGameplayRegions regions, int column, bool toRight)
         {
-            float side = Math.Min(last.Width, last.Height);
-            float size = side * MarkBadgeShare;
-            float x = last.CenterX + ((order - ((Math.Max(1, of) - 1) / 2f)) * size * 1.05f);
-            return Box.FromCenter(x, last.Bottom + (side * WaitingDropShare), size, size);
+            Box here = regions.Columns[column];
+            int next = column + (toRight ? 1 : -1);
+            if (next < 0 || next >= regions.Columns.Count)
+            {
+                return toRight ? here.Right + (here.Width * RoundScreenLook.ColumnGap / 2f) : here.Left - (here.Width * RoundScreenLook.ColumnGap / 2f);
+            }
+
+            Box there = regions.Columns[next];
+            return toRight ? (here.Right + there.Left) / 2f : (there.Right + here.Left) / 2f;
+        }
+
+        /// <summary>
+        /// Where column <paramref name="column"/>'s row <paramref name="row"/> stands as a pod cube, also under the shown rows: the
+        /// layout's next rows one pitch after another (<see cref="ReferenceGameplayRegions.Pod"/>).
+        /// </summary>
+        public static Box PlaceOf(ReferenceGameplayRegions regions, int column, int row) => PodChip.Cube(regions.Pod(column, row)).Frame;
+
+        /// <summary>
+        /// The routed tube of link mark <paramref name="mark"/> (<see cref="RoundAnimator.LinkMarks"/>) from the shown pod's
+        /// cube <paramref name="shown"/> in <paramref name="regions"/>: its bottom the screen's (<see cref="ReferenceGameplayRegions.Tray"/>),
+        /// its run under the rows at the first hidden row's tube height, kept under the shown rows and on the screen where it can be.
+        /// </summary>
+        public static LinkRoute HiddenRoute(ReferenceGameplayRegions regions, RoundLinkMark mark, Box shown)
+        {
+            float bottom = regions.Tray.Bottom;
+            float thickness = Math.Min(shown.Width, shown.Height) * CubeThicknessShare;
+            float lastBottom = PlaceOf(regions, mark.Column, regions.PodRows - 1).Bottom;
+            float firstHidden = FrontY(PlaceOf(regions, mark.Column, regions.PodRows), CubeFrontShare);
+            float under = Math.Max(lastBottom + thickness, Math.Min(firstHidden, bottom - thickness));
+            return HiddenRoute(shown, PlaceOf(regions, mark.Column, mark.Row), GapX(regions, mark.ShownColumn, mark.ToRight), GapX(regions, mark.Column, !mark.ToRight),
+                under, bottom, RoundLook.ColorOf(mark.Material), mark.Lane, mark.Lanes);
+        }
+
+        private static LinkTubeShape Level((float X, float Y) from, float toX, Rgba color, float thickness, bool startCollar, bool endCollar)
+        {
+            // The picture's start is its left end.
+            bool forward = toX >= from.X;
+            var to = (toX, from.Y);
+            return forward
+                ? new LinkTubeShape(from, color, to, color, thickness, startCollar, endCollar, false)
+                : new LinkTubeShape(to, color, from, color, thickness, endCollar, startCollar, false);
         }
     }
 }

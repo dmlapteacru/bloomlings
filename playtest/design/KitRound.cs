@@ -145,9 +145,7 @@ namespace Bloomlings.Playtest.Design
                 p.PushRotate(tube.Degrees, box.CenterX, box.CenterY);
             }
 
-            Rgba start = tube.StartColor;
-            Rgba end = tube.EndColor;
-            p.Picture(tube.PictureKey, box, (w, h) => UiRaster.LinkTube(w, h, start, end));
+            p.Picture(tube.PictureKey, box, tube.Picture);
             if (turned)
             {
                 p.PopTransform();
@@ -361,7 +359,7 @@ namespace Bloomlings.Playtest.Design
             (float mx, float my) = tube.Middle;
             float dx = (tube.End.X - tube.Start.X) * k;
             float dy = (tube.End.Y - tube.Start.Y) * k;
-            LinkTubePicture(p, new LinkTubeShape((mx - dx, my - dy), tube.StartColor, (mx + dx, my + dy), tube.EndColor, (float)Math.Round(tube.Thickness)));
+            LinkTubePicture(p, new LinkTubeShape((mx - dx, my - dy), tube.StartColor, (mx + dx, my + dy), tube.EndColor, (float)Math.Round(tube.Thickness), tube.StartCollar, tube.EndCollar, tube.Coupling));
         }
 
         /// <summary>
