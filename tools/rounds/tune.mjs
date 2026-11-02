@@ -165,7 +165,7 @@ export async function tuneJob({pic,cls,recipe,slot=null,intro=false,want=1,wantL
   // (wantLoss keeps going for a level "most work now" loses, up to four accepted)
   if(accepted.length>=want&&(!wantLoss||accepted.length>=Math.max(want,4)||accepted.some(x=>x.e.checks.greedyLoses)))break;
   stats.attempts++;const cs=columnsFor(m.N),cols=mem.cols&&cs.includes(mem.cols)&&k%3!==2?mem.cols:cs[k%cs.length],cseed=seed*1000003+k*7919+['Normal','Hard','Super Hard'].indexOf(cls)*31+(intro?17:0);
-  const pos=recipe==='none'||intro||breather?null:trapMode?1:LV.DOSE_CYCLE[k%LV.DOSE_CYCLE.length];
+  const pos=recipe==='none'||intro||breather?null:trapMode?1:LV.DOSE_CYCLE[k%LV.DOSE_CYCLE.length],rc=recipe;
   // accents (17 §6), as levels.mjs build: this attempt paints 1–2 accent materials (the level's recolouring); never on a breather
   const av=breather?null:LV.accentVariant(pic,null,m,null,cls,intro,k,accentMode,cseed,no,maxColours),cm=av?av.m:m,cboard=av?av.board:board,cpods=av?av.pods:base.pods;
   // the links dose (the lead its dose place, an additional one its minimum, a breather the lead's minimum)
@@ -201,10 +201,10 @@ export async function tuneJob({pic,cls,recipe,slot=null,intro=false,want=1,wantL
   log(`#${k} кол ${cols} связ ${linkWant} замеры ${steps.map(s=>`t ${s.t}: ${Math.round(s.q*100)} %`).join(', ')}${links&&links.forced!=null?` · вынужд. ${Math.round(links.forced*100)} %`:''}`);
   if(q<lo-.15||q>hi+.15){no('быстрая оценка вне зоны после поправок');continue;}
   // the class is set by the queue and its links: now the information overlays, without re-tuning
-  const info=addInfo(level,recipe,cls,{intro,pos,r:rnd(cseed^0x9e37)});if(info.error){no(info.error);continue;}level=info.level;
+  const info=addInfo(level,rc,cls,{intro,pos,r:rnd(cseed^0x9e37)});if(info.error){no(info.error);continue;}level=info.level;
   stats.evaluated++;const e=await LV.evaluate(level,{m:cm,cls,intro,fixed:null,breather});if(e.reason){no('evaluate: '+e.reason);log(`   evaluate: ${e.reason}`);continue;}
   if(av)e.checks.accents=await LV.accentCheck(level,pic,av.accents,e.checks.pressure||null);
-  stats.passed++;const x={k,t,cols,pos:posUsed,steps,level,m:cm,e,acc:av,recipe,links:links&&{pairs:links.pairs.length,traps:links.pairs.filter(p=>p.trap).length,forced:links.forced,greedy:links.greedy},seconds:(Date.now()-t0)/1000};banked.push(x);
+  stats.passed++;const x={k,t,cols,pos:posUsed,steps,level,m:cm,e,acc:av,recipe:rc,links:links&&{pairs:links.pairs.length,traps:links.pairs.filter(p=>p.trap).length,forced:links.forced,greedy:links.greedy},seconds:(Date.now()-t0)/1000};banked.push(x);
   const why=slotProblems(e,level,cls,slot,pic,breather?planRecipe:null),inZone=e.random.share>=lo&&e.random.share<=hi;
   if(why.length){no('расстановка: '+why[0]);log(`   отказ расстановки: ${why.join('; ')}`);continue;}
   if(!inZone){no('вне зоны позиции (проходит фильтры)');log(`   проходит, но вне зоны: ${e.random.share}`);continue;}
@@ -212,6 +212,6 @@ export async function tuneJob({pic,cls,recipe,slot=null,intro=false,want=1,wantL
  // a breather that stays above its zone even with the reverse order (a small picture without a mechanic): the first
  // fitting layout nearest the zone is taken (17 §5: built from the first fitting layout; the placer weighs the zone)
  if(breather&&!accepted.length){const dist=x=>{const s=x.e.random.share;return s<lo?lo-s:s>hi?s-hi:0;};
-  const near=banked.filter(x=>x.e.random.cls==='Normal'&&!slotProblems(x.e,x.level,cls,slot,pic,planRecipe).length).sort((u,v)=>dist(u)-dist(v)||Math.abs(u.e.random.share-aim)-Math.abs(v.e.random.share-aim))[0];
+  const near=banked.filter(x=>x.e.random.cls==='Normal'&&!slotProblems(x.e,x.level,cls,slot,pic,planRecipe).length).sort((u,v)=>dist(u)-dist(v)||(u.recipe!==planRecipe)-(v.recipe!==planRecipe)||Math.abs(u.e.random.share-aim)-Math.abs(v.e.random.share-aim))[0];
   if(near){near.zoneMiss=true;accepted.push(near);stats.accepted++;log(`   ПРИНЯТ (ближе всего к зоне передышки): ${near.e.random.share}`);}}
  mem.offset=r2(offset);save();return {banked,accepted,stats,memory:mem,seconds:(Date.now()-t0)/1000};}

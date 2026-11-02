@@ -3,7 +3,10 @@
 // coordinates, applied before the overlay, the refusals), the board ↔ picture identity with it, the export and the
 // schema, an accent candidate on a free picture (clusters deep inside one-colour areas, a material absent from the
 // picture, its pods early or mid queue, the twin without accents), the audit. Writes only to temporary copies.
-import test from 'node:test';import assert from 'node:assert/strict';
+import test from 'node:test';import {after} from 'node:test';
+// every sandbox under the system's temp folder is deleted when this file's tests end (and on exit): nothing is left behind
+const TMP=[],tmpDir=p=>{const d=fs.mkdtempSync(path.join(os.tmpdir(),p));TMP.push(d);return d;},rmTmp=()=>{for(const d of TMP.splice(0))fs.rmSync(d,{recursive:true,force:true});};after(rmTmp);process.on('exit',rmTmp);
+import assert from 'node:assert/strict';
 import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import {spawnSync} from 'node:child_process';import {fileURLToPath} from 'node:url';
 
 const HERE=path.dirname(fileURLToPath(import.meta.url)),TOOLS=path.dirname(HERE),ROOT=path.resolve(TOOLS,'../..');
@@ -94,7 +97,7 @@ test('accent attempts: auto = every Hard and Super Hard attempt, every third reg
  assert.equal(LV.accentWanted('off','Hard',false,null,0),false);assert.equal(LV.accentWanted('on','Normal',false,null,0),true);});
 
 // the audit on a sandbox copy: a valid recolouring (rows and pods follow it), a bad entry, rows that ignore it
-function sandbox(){const dir=fs.mkdtempSync(path.join(os.tmpdir(),'rounds-recolor-'));
+function sandbox(){const dir=tmpDir('rounds-recolor-');
  for(const p of ['levels','pictures'])fs.cpSync(path.join(ROOT,'content/rounds',p),path.join(dir,p),{recursive:true});
  fs.copyFileSync(path.join(ROOT,'content/rounds/quality.json'),path.join(dir,'quality.json'));return dir;}
 const audit=(dir,a,b)=>{const j=path.join(dir,'audit.json');spawnSync(process.execPath,[path.join(TOOLS,'audit.mjs'),String(a),String(b),'--json',j],{cwd:ROOT,env:{...process.env,ROUNDS_DIR:dir},encoding:'utf8',maxBuffer:1<<26});return readJSON(j);};

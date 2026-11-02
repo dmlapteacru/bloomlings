@@ -57,9 +57,14 @@ Before anything, read:
      mix per 50 (30 × 800–1200, 10 × 700–900, 5 × 400–700, 5 × 1200–1500), the bands spread evenly (never three of one in a
      row), pins on their positions, breathers (`breather: true` in `mechanics.json`, 17 §5 «Передышка») on the small
      pictures, Hard and Super Hard on pictures with more colours hidden at the start, a two-type recipe only on a picture
-     with 16+ pods, neighbours from different packs, families and motifs not repeated; `relaxed` marks a rule given up
-     because no picture was left (tell the owner). The assignment is kept between runs while its picture is free
-     (`--reassign` draws anew). Show the owner the table with the mechanics breakdown. Bridge positions stay by hand
+     with 16+ pods (a small picture only on a light recipe: it becomes a breather), neighbours from different packs, a
+     theme family and a motif at most twice in the wave and never within 10 levels of another appearance (17 §11 as
+     amended on 2026-11-02), at most two pictures of 10+ colours in any 20 levels counted without accent colours (§2);
+     `relaxed` marks a soft rule given up (pack, band) because no picture was left (tell the owner). The assignment is
+     kept between runs while its picture is free and keeps those rules (`--reassign` draws anew). After a rule change
+     on a wave already built, `run … --rebuild auto` takes back only what the rules no longer accept (repeats on another
+     picture, breathers out of 75–90 %, regular Normals that keep a 20-level median out of 50–60 % or «по цветам» short)
+     and builds it again (`runs/<wave>/rebuild.json`; tools/rounds/README.md «The rebuild of a built wave»). Show the owner the table with the mechanics breakdown. Bridge positions stay by hand
      (step 5) and are listed.
    - Tell the owner which positions the engine cannot fill yet (an introduction of an unsupported mechanic, 17 §14).
      They stay open and the rest of the wave runs; never fake one mechanic with another.

@@ -178,7 +178,8 @@ const placedAt=k=>k>=from&&k<=to?levels[k]:readJSON(path.join(LEVELS,lid(k)+'.js
  const near=new Set(),waves=new Set();
  for(let n=from;n<=to;n++){const a=levels[n];if(!a)continue;const ka=keys(a);
   for(let k=Math.max(1,n-REPEAT_GAP+1);k<n;k++){const b=placedAt(k);if(!b)continue;for(const [kind,key] of keys(b))if(ka.some(([k2,v])=>k2===kind&&v===key)){const t=`L${k} и L${n}: ${kind} «${key}» ближе ${REPEAT_GAP} уровней (§11, 02.11)`;if(!near.has(t)){near.add(t);seq.push(t);}}}
-  const [w0,w1]=repeatWindow(n);for(const [kind,key] of ka){const same=[];for(let k=Math.max(1,w0+REPEAT_GAP);k<=w1;k++){const b=placedAt(k);if(b&&keys(b).some(([k2,v])=>k2===kind&&v===key))same.push(k);}
+  // (the appearances in the wave counted inside the audited range: the audit of a whole wave counts the wave)
+  const [w0,w1]=repeatWindow(n);for(const [kind,key] of ka){const same=[];for(let k=Math.max(1,w0+REPEAT_GAP,from);k<=Math.min(w1,to);k++){const b=placedAt(k);if(b&&keys(b).some(([k2,v])=>k2===kind&&v===key))same.push(k);}
    const t=`${kind} «${key}» ${same.length} раза в волне: L${same.join(', L')} (§11, 02.11: не больше ${REPEAT_PER_WAVE})`;if(same.length>REPEAT_PER_WAVE&&!waves.has(t)){waves.add(t);seq.push(t);}}}}
 // §2: at most two pictures of 10+ colours in any 20 consecutive levels, the pictures' own colours (an accent colour of §6
 // does not count, the owner, 2026-11-02)

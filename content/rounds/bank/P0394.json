@@ -1,0 +1,16 @@
+{
+ "picture": "P0394",
+ "candidates": [],
+ "rejected": [],
+ "searched": [],
+ "tune": {
+  "Normal|links+cells|regular": {
+   "trap": true,
+   "t": 0.88,
+   "cols": 3,
+   "offset": -1.42,
+   "quick": 0.5,
+   "at": "2026-11-02"
+  }
+ }
+}

@@ -2,7 +2,10 @@
 // (order, events, the timeline's times, the view, a restored checkpoint, validation), identity for levels without hidden
 // cells and for the targeting of levels with them, the builder's doses and choice of cells, the audit's rules. Writes only
 // to temporary copies of content/rounds.
-import test from 'node:test';import assert from 'node:assert/strict';
+import test from 'node:test';import {after} from 'node:test';
+// every sandbox under the system's temp folder is deleted when this file's tests end (and on exit): nothing is left behind
+const TMP=[],tmpDir=p=>{const d=fs.mkdtempSync(path.join(os.tmpdir(),p));TMP.push(d);return d;},rmTmp=()=>{for(const d of TMP.splice(0))fs.rmSync(d,{recursive:true,force:true});};after(rmTmp);process.on('exit',rmTmp);
+import assert from 'node:assert/strict';
 import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import {spawnSync} from 'node:child_process';import {fileURLToPath} from 'node:url';
 
 const HERE=path.dirname(fileURLToPath(import.meta.url)),TOOLS=path.dirname(HERE),ROOT=path.resolve(TOOLS,'../..');
@@ -104,7 +107,7 @@ test('builder candidates: the hidden cells lie off the start front, the dose hol
  assert.match(LV.candidate(p,b,base.pods,3,'cells+hidden','Normal',1,false,.5).error||'',/не бывают на одном уровне/);});
 
 // the audit on a sandbox copy: a level given hidden cells next to its hidden pods, and a regular Normal given too few
-function sandbox(){const dir=fs.mkdtempSync(path.join(os.tmpdir(),'rounds-cells-'));
+function sandbox(){const dir=tmpDir('rounds-cells-');
  for(const p of ['levels','pictures'])fs.cpSync(path.join(ROOT,'content/rounds',p),path.join(dir,p),{recursive:true});
  fs.copyFileSync(path.join(ROOT,'content/rounds/quality.json'),path.join(dir,'quality.json'));return dir;}
 const audit=(dir,a,b)=>{const j=path.join(dir,'audit.json');spawnSync(process.execPath,[path.join(TOOLS,'audit.mjs'),String(a),String(b),'--json',j],{cwd:ROOT,env:{...process.env,ROUNDS_DIR:dir},encoding:'utf8',maxBuffer:1<<26});return readJSON(j);};

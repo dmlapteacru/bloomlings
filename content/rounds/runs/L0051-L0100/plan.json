@@ -3,7 +3,7 @@
   51,
   100
  ],
- "created": "2026-11-02T08:33:46.333Z",
+ "created": "2026-11-02T09:40:03.861Z",
  "positions": [
   {
    "level": 51,
@@ -23,8 +23,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0997"
   },
   {
    "level": 52,
@@ -67,8 +67,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0410"
   },
   {
    "level": 54,
@@ -115,8 +115,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0425"
   },
   {
    "level": 56,
@@ -139,8 +139,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P1023"
   },
   {
    "level": 57,
@@ -235,8 +235,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0223"
   },
   {
    "level": 61,
@@ -256,8 +256,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0916"
   },
   {
    "level": 62,
@@ -301,8 +301,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0034"
   },
   {
    "level": 64,
@@ -326,8 +326,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0315"
   },
   {
    "level": 65,
@@ -376,8 +376,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0317"
   },
   {
    "level": 67,
@@ -476,8 +476,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0268"
   },
   {
    "level": 71,
@@ -501,8 +501,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0013"
   },
   {
    "level": 72,
@@ -551,8 +551,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0936"
   },
   {
    "level": 74,
@@ -626,8 +626,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P1092"
   },
   {
    "level": 77,
@@ -726,8 +726,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0931"
   },
   {
    "level": 81,
@@ -751,8 +751,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0363"
   },
   {
    "level": 82,
@@ -801,8 +801,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0412"
   },
   {
    "level": 84,
@@ -876,8 +876,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0066"
   },
   {
    "level": 87,
@@ -901,8 +901,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0400"
   },
   {
    "level": 88,
@@ -926,8 +926,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0246"
   },
   {
    "level": 89,
@@ -976,8 +976,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0337"
   },
   {
    "level": 91,
@@ -1001,8 +1001,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0974"
   },
   {
    "level": 92,
@@ -1051,8 +1051,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P1003"
   },
   {
    "level": 94,
@@ -1076,8 +1076,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0369"
   },
   {
    "level": 95,
@@ -1101,8 +1101,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0334"
   },
   {
    "level": 96,
@@ -1201,8 +1201,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0371"
   },
   {
    "level": 100,
@@ -1226,61 +1226,35 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0955"
   }
  ],
  "open": [
-  51,
   52,
-  53,
   54,
-  55,
-  56,
   57,
   58,
   59,
-  60,
-  61,
   62,
-  63,
-  64,
   65,
-  66,
   67,
   68,
   69,
-  70,
-  71,
   72,
-  73,
   74,
   75,
-  76,
   77,
   78,
   79,
-  80,
-  81,
   82,
-  83,
   84,
   85,
-  86,
-  87,
-  88,
   89,
-  90,
-  91,
   92,
-  93,
-  94,
-  95,
   96,
   97,
-  98,
-  99,
-  100
+  98
  ],
  "blockers": [],
  "mechanics": {
@@ -1360,10 +1334,10 @@
    {
     "level": 59,
     "cls": "Normal",
-    "lead": null,
+    "lead": "hidden",
     "add": [],
-    "recipe": "none",
-    "doses": "без допов"
+    "recipe": "hidden",
+    "doses": "скрытые 5–15 % P (2–3 при P = 24)"
    },
    {
     "level": 60,
@@ -1386,10 +1360,10 @@
    {
     "level": 62,
     "cls": "Normal",
-    "lead": "links",
+    "lead": "cells",
     "add": [],
-    "recipe": "links",
-    "doses": "связки 10–30 % P (4–6 при P = 24)"
+    "recipe": "cells",
+    "doses": "скрытые клетки 5–10 % N (35–70 при N = 700)"
    },
    {
     "level": 63,
@@ -1484,10 +1458,10 @@
    {
     "level": 72,
     "cls": "Normal",
-    "lead": null,
+    "lead": "hidden",
     "add": [],
-    "recipe": "none",
-    "doses": "без допов"
+    "recipe": "hidden",
+    "doses": "скрытые 5–15 % P (2–3 при P = 24)"
    },
    {
     "level": 73,
@@ -1776,19 +1750,19 @@
     "lead": 3
    },
    "links": {
-    "levels": 41,
-    "share": 0.82,
-    "lead": 29
+    "levels": 40,
+    "share": 0.8,
+    "lead": 28
    },
    "hidden": {
-    "levels": 5,
-    "share": 0.1,
-    "lead": 0
+    "levels": 7,
+    "share": 0.14,
+    "lead": 2
    },
    "cells": {
-    "levels": 23,
-    "share": 0.46,
-    "lead": 8
+    "levels": 24,
+    "share": 0.48,
+    "lead": 9
    },
    "latch": {
     "levels": 16,
@@ -1796,16 +1770,16 @@
     "lead": 7
    },
    "none": {
-    "levels": 3,
-    "share": 0.06
+    "levels": 1,
+    "share": 0.02
    }
   },
   "normalWithMechanic": [
-   37,
+   39,
    40
   ],
   "types": {
-   "one": 11,
+   "one": 13,
    "two": 31,
    "three": 5
   },
@@ -1816,70 +1790,57 @@
   }
  },
  "need": {
-  "Normal": 36,
-  "Hard": 5,
-  "Super Hard": 2,
-  "intro": 4,
+  "Normal": 21,
+  "Hard": 0,
+  "Super Hard": 0,
+  "intro": 0,
   "bridge": 0
  },
  "supply": {
-  "pictures": 560,
-  "strong": 218,
+  "pictures": 534,
+  "strong": 204,
   "stream": 3,
   "bank": {
-   "знакомство: hidden": 40,
-   "Normal": 405,
-   "знакомство: cells": 24,
-   "знакомство: links": 36,
-   "знакомство: latch": 8,
-   "Hard": 43,
-   "Super Hard": 22
+   "знакомство: hidden": 38,
+   "Normal": 432,
+   "знакомство: cells": 22,
+   "знакомство: links": 34,
+   "Hard": 42,
+   "Super Hard": 22,
+   "знакомство: latch": 6
   },
   "packs": {
    "owner-0004-0008": 1,
    "owner-0010": 1,
    "batch-0011-env": 9,
-   "batch-0011": 26,
-   "batch-0061": 30,
-   "batch-0168-C": 20,
-   "batch-0168-D": 19,
+   "batch-0011": 24,
+   "batch-0061": 29,
+   "batch-0168-C": 19,
+   "batch-0168-D": 18,
    "batch-0168-E": 2,
-   "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01": 50,
+   "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01": 47,
    "packs-0268-0467 · Миниатюрные мастерские": 10,
-   "packs-0268-0467 · Необычные магазины": 10,
-   "packs-0268-0467 · Музыка": 10,
-   "packs-0268-0467 · Ретрофутуризм": 10,
-   "packs-0268-0467 · Праздники и карнавал": 10,
-   "packs-0268-0467 · Доисторические находки": 10,
-   "packs-0268-0467 · Невозможная архитектура": 10,
+   "packs-0268-0467 · Необычные магазины": 9,
+   "packs-0268-0467 · Музыка": 8,
+   "packs-0268-0467 · Ретрофутуризм": 9,
+   "packs-0268-0467 · Праздники и карнавал": 9,
+   "packs-0268-0467 · Доисторические находки": 9,
+   "packs-0268-0467 · Невозможная архитектура": 9,
    "packs-0268-0467 · Путешествия и походы": 10,
    "packs-0268-0467 · Обмен свойствами предметов": 10,
-   "packs-0268-0467 · Уютная мистика": 10,
-   "packs-0268-0467 · Новые версии знакомых героев": 1,
+   "packs-0268-0467 · Уютная мистика": 9,
    "packs-0268-0467 · Новые герои игр": 1,
-   "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01": 200,
-   "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02": 100
+   "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01": 192,
+   "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02": 99
   },
   "latch": {
    "positions": [
-    61,
-    63,
-    66,
     69,
-    70,
-    73,
     77,
-    80,
-    81,
     84,
-    89,
-    90,
-    93,
-    95,
-    99,
-    100
+    89
    ],
-   "pictures": 164
+   "pictures": 148
   },
   "overlay": {}
  },
@@ -1888,91 +1849,18 @@
    "id": "P0317",
    "title": "Светофор-бабочкарий",
    "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
-   "positions": [
-    51,
-    52,
-    53,
-    54,
-    56,
-    57,
-    58,
-    59,
-    61,
-    62,
-    63,
-    64,
-    66,
-    67,
-    68,
-    69,
-    71,
-    72,
-    73,
-    74,
-    76,
-    77,
-    78,
-    79,
-    81,
-    82,
-    83,
-    84,
-    86,
-    87,
-    88,
-    89,
-    91,
-    92,
-    93,
-    94,
-    96,
-    97,
-    98,
-    99
-   ],
+   "positions": [],
    "reserved": 66,
-   "status": "free",
+   "status": "placed",
    "reason": null
   },
   {
    "id": "P0425",
    "title": "ВАЛЛ-И — маленький сад",
    "pack": "packs-0268-0467 · Новые версии знакомых героев",
-   "positions": [
-    51,
-    52,
-    53,
-    54,
-    55,
-    56,
-    57,
-    58,
-    59,
-    60,
-    62,
-    64,
-    67,
-    68,
-    71,
-    72,
-    74,
-    76,
-    78,
-    79,
-    82,
-    83,
-    86,
-    87,
-    88,
-    91,
-    92,
-    94,
-    96,
-    97,
-    98
-   ],
+   "positions": [],
    "reserved": 55,
-   "status": "free",
+   "status": "placed",
    "reason": null
   },
   {
@@ -1980,18 +1868,11 @@
    "title": "Рыцарь — гвоздь",
    "pack": "packs-0268-0467 · Новые герои игр",
    "positions": [
-    51,
     52,
-    53,
-    56,
     59,
     62,
     72,
-    74,
-    76,
-    83,
-    86,
-    91
+    74
    ],
    "reserved": 62,
    "status": "free",
@@ -2002,18 +1883,11 @@
    "title": "Заводная дискета",
    "pack": "packs-0268-0467 · Ретрофутуризм",
    "positions": [
-    51,
     52,
-    53,
-    56,
     59,
     62,
     72,
-    74,
-    76,
-    83,
-    86,
-    91
+    74
    ],
    "reserved": 72,
    "status": "free",
@@ -2023,57 +1897,9 @@
    "id": "P0337",
    "title": "Зеркало отражает другую осень",
    "pack": "packs-0268-0467 · Уютная мистика",
-   "positions": [
-    51,
-    52,
-    53,
-    54,
-    55,
-    56,
-    57,
-    58,
-    59,
-    60,
-    61,
-    62,
-    63,
-    64,
-    66,
-    67,
-    68,
-    69,
-    70,
-    71,
-    72,
-    73,
-    74,
-    76,
-    77,
-    78,
-    79,
-    80,
-    81,
-    82,
-    83,
-    84,
-    86,
-    87,
-    88,
-    89,
-    90,
-    91,
-    92,
-    93,
-    94,
-    95,
-    96,
-    97,
-    98,
-    99,
-    100
-   ],
+   "positions": [],
    "reserved": 90,
-   "status": "free",
+   "status": "placed",
    "reason": null
   },
   {
@@ -2081,37 +1907,25 @@
    "title": "Мягкий дорожный конус",
    "pack": "packs-0268-0467 · Обмен свойствами предметов",
    "positions": [
-    51,
     52,
-    53,
     54,
-    56,
     57,
     58,
     59,
     62,
-    64,
     67,
     68,
-    71,
     72,
     74,
-    76,
     78,
     79,
     82,
-    83,
-    86,
-    87,
-    88,
-    91,
     92,
-    94,
     96,
     97,
     98
    ],
-   "reserved": 97,
+   "reserved": 67,
    "status": "free",
    "reason": null
   },
@@ -2120,55 +1934,29 @@
    "title": "Кассета — американские горки",
    "pack": "packs-0268-0467 · Ретрофутуризм",
    "positions": [
-    51,
     52,
-    53,
     54,
-    55,
-    56,
     57,
     58,
     59,
-    60,
-    61,
     62,
-    63,
-    64,
-    66,
     67,
     68,
     69,
-    70,
-    71,
     72,
-    73,
     74,
-    76,
     77,
     78,
     79,
-    80,
-    81,
     82,
-    83,
     84,
-    86,
-    87,
-    88,
     89,
-    90,
-    91,
     92,
-    93,
-    94,
-    95,
     96,
     97,
-    98,
-    99,
-    100
+    98
    ],
-   "reserved": 80,
+   "reserved": 77,
    "status": "free",
    "reason": null
   }
@@ -2186,7 +1974,8 @@
    "band": "800–1200",
    "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
    "hidden": 2,
-   "P": 24
+   "P": 24,
+   "placed": true
   },
   {
    "level": 52,
@@ -2194,13 +1983,18 @@
    "intro": null,
    "recipe": "links",
    "slot": "regular",
-   "picture": "P0071",
-   "title": "Плюшевый мишка",
-   "N": 812,
+   "picture": "P0304",
+   "title": "Ступеньки из падающих домино",
+   "N": 861,
    "band": "700–900",
-   "pack": "batch-0061",
+   "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
    "hidden": 3,
-   "P": 24
+   "P": 24,
+   "swappedFrom": "P0071",
+   "swaps": 1,
+   "tried": [
+    "P0071"
+   ]
   },
   {
    "level": 53,
@@ -2214,7 +2008,8 @@
    "band": "800–1200",
    "pack": "packs-0268-0467 · Музыка",
    "hidden": 2,
-   "P": 26
+   "P": 26,
+   "placed": true
   },
   {
    "level": 54,
@@ -2222,24 +2017,17 @@
    "intro": null,
    "recipe": "links+cells",
    "slot": "regular",
-   "picture": "P1030",
-   "title": "Свёкла с карманом для цветка",
-   "N": 1044,
+   "picture": "P0394",
+   "title": "Мельница с лопастями-письмами",
+   "N": 879,
    "band": "800–1200",
-   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
-   "hidden": 4,
-   "P": 30,
-   "wantLoss": true,
-   "swappedFrom": "P0403",
+   "pack": "packs-0268-0467 · Невозможная архитектура",
+   "hidden": 3,
+   "P": 26,
    "tried": [
-    "P0035",
-    "P0403"
+    "P0959"
    ],
-   "relaxed": [
-    "family",
-    "motif",
-    "colours"
-   ]
+   "wantLoss": true
   },
   {
    "level": 55,
@@ -2256,7 +2044,8 @@
    "P": 30,
    "pin": true,
    "pinRetry": true,
-   "maxColours": 10
+   "maxColours": 10,
+   "placed": true
   },
   {
    "level": 56,
@@ -2270,7 +2059,8 @@
    "band": "800–1200",
    "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
    "hidden": 2,
-   "P": 25
+   "P": 25,
+   "placed": true
   },
   {
    "level": 57,
@@ -2278,13 +2068,18 @@
    "intro": null,
    "recipe": "cells+links",
    "slot": "regular",
-   "picture": "P0329",
-   "title": "Лавка запасных радуг",
-   "N": 889,
+   "picture": "P0291",
+   "title": "Гроза под стеклянным колпаком тарелки",
+   "N": 863,
    "band": "700–900",
-   "pack": "packs-0268-0467 · Необычные магазины",
-   "hidden": 4,
-   "P": 24
+   "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
+   "hidden": 2,
+   "P": 25,
+   "swappedFrom": "P0329",
+   "swaps": 1,
+   "tried": [
+    "P0329"
+   ]
   },
   {
    "level": 58,
@@ -2305,7 +2100,7 @@
    "level": 59,
    "cls": "Normal",
    "intro": null,
-   "recipe": "none",
+   "recipe": "hidden",
    "slot": "breather",
    "picture": "P0358",
    "title": "Кузница в колокольчике",
@@ -2327,7 +2122,8 @@
    "band": "800–1200",
    "pack": "batch-0168-C",
    "hidden": 7,
-   "P": 25
+   "P": 25,
+   "placed": true
   },
   {
    "level": 61,
@@ -2341,13 +2137,14 @@
    "band": "1200–1500",
    "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
    "hidden": 1,
-   "P": 31
+   "P": 31,
+   "placed": true
   },
   {
    "level": 62,
    "cls": "Normal",
    "intro": null,
-   "recipe": "links",
+   "recipe": "cells",
    "slot": "breather",
    "picture": "P0465",
    "title": "Рыцарь — гвоздь",
@@ -2370,7 +2167,8 @@
    "band": "800–1200",
    "pack": "batch-0011",
    "hidden": 1,
-   "P": 24
+   "P": 24,
+   "placed": true
   },
   {
    "level": 64,
@@ -2384,7 +2182,8 @@
    "band": "700–900",
    "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
    "hidden": 2,
-   "P": 24
+   "P": 24,
+   "placed": true
   },
   {
    "level": 66,
@@ -2399,7 +2198,8 @@
    "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
    "hidden": 1,
    "P": 24,
-   "pin": true
+   "pin": true,
+   "placed": true
   },
   {
    "level": 67,
@@ -2407,14 +2207,16 @@
    "intro": null,
    "recipe": "cells+links",
    "slot": "regular",
-   "picture": "P0044",
-   "title": "Пингвин на коньках",
-   "N": 1155,
+   "picture": "P0326",
+   "title": "Мягкий дорожный конус",
+   "N": 873,
    "band": "800–1200",
-   "pack": "batch-0011-env",
-   "hidden": 4,
-   "P": 30,
-   "wantLoss": true
+   "pack": "packs-0268-0467 · Обмен свойствами предметов",
+   "hidden": 2,
+   "P": 24,
+   "pin": true,
+   "wantLoss": true,
+   "pinRetry": true
   },
   {
    "level": 68,
@@ -2422,13 +2224,18 @@
    "intro": null,
    "recipe": "links+hidden",
    "slot": "regular",
-   "picture": "P0292",
-   "title": "Молочный пакет льёт Млечный Путь",
-   "N": 895,
+   "picture": "P0020",
+   "title": "Робот поливает цветок",
+   "N": 786,
    "band": "700–900",
-   "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
-   "hidden": 4,
-   "P": 24
+   "pack": "batch-0011",
+   "hidden": 2,
+   "P": 24,
+   "swappedFrom": "P0292",
+   "swaps": 1,
+   "tried": [
+    "P0292"
+   ]
   },
   {
    "level": 69,
@@ -2457,7 +2264,8 @@
    "band": "800–1200",
    "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
    "hidden": 7,
-   "P": 24
+   "P": 24,
+   "placed": true
   },
   {
    "level": 71,
@@ -2471,13 +2279,14 @@
    "band": "700–900",
    "pack": "batch-0011",
    "hidden": 2,
-   "P": 24
+   "P": 24,
+   "placed": true
   },
   {
    "level": 72,
    "cls": "Normal",
    "intro": null,
-   "recipe": "none",
+   "recipe": "hidden",
    "slot": "breather",
    "picture": "P0341",
    "title": "Заводная дискета",
@@ -2500,7 +2309,8 @@
    "band": "800–1200",
    "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
    "hidden": 2,
-   "P": 30
+   "P": 30,
+   "placed": true
   },
   {
    "level": 74,
@@ -2529,7 +2339,8 @@
    "band": "400–700",
    "pack": "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02",
    "hidden": 2,
-   "P": 19
+   "P": 19,
+   "placed": true
   },
   {
    "level": 77,
@@ -2537,13 +2348,14 @@
    "intro": null,
    "recipe": "latch+links",
    "slot": "regular",
-   "picture": "P0971",
-   "title": "Пружинная снежинка",
-   "N": 1021,
-   "band": "800–1200",
-   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
-   "hidden": 1,
-   "P": 30
+   "picture": "P0391",
+   "title": "Кассета — американские горки",
+   "N": 1236,
+   "band": "1200–1500",
+   "pack": "packs-0268-0467 · Ретрофутуризм",
+   "hidden": 4,
+   "P": 30,
+   "pin": true
   },
   {
    "level": 78,
@@ -2573,15 +2385,10 @@
    "pack": "batch-0011",
    "hidden": 2,
    "P": 24,
-   "relaxed": [
-    "family",
-    "motif",
-    "colours"
-   ],
-   "swappedFrom": "P0415",
    "tried": [
     "P0415"
-   ]
+   ],
+   "wantLoss": true
   },
   {
    "level": 80,
@@ -2600,11 +2407,7 @@
    "tried": [
     "P0391"
    ],
-   "relaxed": [
-    "family",
-    "motif",
-    "colours"
-   ]
+   "placed": true
   },
   {
    "level": 81,
@@ -2619,11 +2422,7 @@
    "pack": "packs-0268-0467 · Доисторические находки",
    "hidden": 0,
    "P": 26,
-   "relaxed": [
-    "family",
-    "motif",
-    "colours"
-   ]
+   "placed": true
   },
   {
    "level": 82,
@@ -2631,18 +2430,16 @@
    "intro": null,
    "recipe": "cells+links",
    "slot": "regular",
-   "picture": "P0077",
-   "title": "Подводная лодка",
-   "N": 1088,
-   "band": "800–1200",
-   "pack": "batch-0061",
-   "hidden": 6,
-   "P": 30,
-   "relaxed": [
-    "motif",
-    "colours"
-   ],
-   "wantLoss": true
+   "picture": "P0011",
+   "title": "Кит",
+   "N": 896,
+   "band": "700–900",
+   "pack": "batch-0011-env",
+   "hidden": 3,
+   "P": 24,
+   "tried": [
+    "P0077"
+   ]
   },
   {
    "level": 83,
@@ -2657,11 +2454,7 @@
    "pack": "packs-0268-0467 · Праздники и карнавал",
    "hidden": 4,
    "P": 24,
-   "relaxed": [
-    "family",
-    "motif",
-    "colours"
-   ]
+   "placed": true
   },
   {
    "level": 84,
@@ -2676,11 +2469,6 @@
    "pack": "packs-0268-0467 · Миниатюрные мастерские",
    "hidden": 4,
    "P": 24,
-   "relaxed": [
-    "family",
-    "motif",
-    "colours"
-   ],
    "wantLoss": true
   },
   {
@@ -2695,7 +2483,8 @@
    "band": "400–700",
    "pack": "batch-0061",
    "hidden": 4,
-   "P": 12
+   "P": 12,
+   "placed": true
   },
   {
    "level": 87,
@@ -2710,15 +2499,11 @@
    "pack": "packs-0268-0467 · Музыка",
    "hidden": 4,
    "P": 30,
-   "relaxed": [
-    "family",
-    "motif",
-    "colours"
-   ],
    "swappedFrom": "P0354",
    "tried": [
     "P0354"
-   ]
+   ],
+   "placed": true
   },
   {
    "level": 88,
@@ -2733,12 +2518,8 @@
    "pack": "batch-0168-D",
    "hidden": 3,
    "P": 24,
-   "relaxed": [
-    "family",
-    "motif",
-    "colours"
-   ],
-   "wantLoss": true
+   "wantLoss": true,
+   "placed": true
   },
   {
    "level": 89,
@@ -2753,11 +2534,7 @@
    "pack": "packs-0268-0467 · Путешествия и походы",
    "hidden": 6,
    "P": 30,
-   "relaxed": [
-    "family",
-    "motif",
-    "colours"
-   ]
+   "wantLoss": true
   },
   {
    "level": 90,
@@ -2772,7 +2549,8 @@
    "pack": "packs-0268-0467 · Уютная мистика",
    "hidden": 4,
    "P": 30,
-   "pin": true
+   "pin": true,
+   "placed": true
   },
   {
    "level": 91,
@@ -2787,15 +2565,11 @@
    "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
    "hidden": 3,
    "P": 27,
-   "relaxed": [
-    "family",
-    "motif",
-    "colours"
-   ],
    "swappedFrom": "P0406",
    "tried": [
     "P0406"
-   ]
+   ],
+   "placed": true
   },
   {
    "level": 92,
@@ -2803,19 +2577,13 @@
    "intro": null,
    "recipe": "cells+links",
    "slot": "regular",
-   "picture": "P0014",
-   "title": "Маяк на скале",
-   "N": 945,
+   "picture": "P0333",
+   "title": "Бивень мамонта с ледником внутри",
+   "N": 918,
    "band": "800–1200",
-   "pack": "batch-0011-env",
+   "pack": "packs-0268-0467 · Доисторические находки",
    "hidden": 4,
-   "P": 26,
-   "relaxed": [
-    "family",
-    "motif",
-    "colours"
-   ],
-   "wantLoss": true
+   "P": 24
   },
   {
    "level": 93,
@@ -2830,15 +2598,11 @@
    "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
    "hidden": 3,
    "P": 24,
-   "relaxed": [
-    "family",
-    "motif",
-    "colours"
-   ],
    "swappedFrom": "P0362",
    "tried": [
     "P0362"
-   ]
+   ],
+   "placed": true
   },
   {
    "level": 94,
@@ -2853,12 +2617,8 @@
    "pack": "packs-0268-0467 · Необычные магазины",
    "hidden": 3,
    "P": 24,
-   "relaxed": [
-    "family",
-    "motif",
-    "colours"
-   ],
-   "wantLoss": true
+   "wantLoss": true,
+   "placed": true
   },
   {
    "level": 95,
@@ -2873,11 +2633,7 @@
    "pack": "packs-0268-0467 · Невозможная архитектура",
    "hidden": 7,
    "P": 26,
-   "relaxed": [
-    "family",
-    "motif",
-    "colours"
-   ]
+   "placed": true
   },
   {
    "level": 96,
@@ -2885,18 +2641,13 @@
    "intro": null,
    "recipe": "links+hidden",
    "slot": "after-hard",
-   "picture": "P0350",
-   "title": "Граммофон с ледяным рупором",
-   "N": 939,
+   "picture": "P0382",
+   "title": "Карнавальная маска с днём и ночью",
+   "N": 985,
    "band": "800–1200",
-   "pack": "packs-0268-0467 · Музыка",
-   "hidden": 1,
-   "P": 25,
-   "relaxed": [
-    "family",
-    "motif",
-    "colours"
-   ]
+   "pack": "packs-0268-0467 · Праздники и карнавал",
+   "hidden": 2,
+   "P": 27
   },
   {
    "level": 97,
@@ -2911,16 +2662,11 @@
    "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
    "hidden": 4,
    "P": 24,
-   "swappedFrom": "P1008",
    "tried": [
     "P0326",
     "P1008"
    ],
-   "relaxed": [
-    "family",
-    "motif",
-    "colours"
-   ]
+   "wantLoss": true
   },
   {
    "level": 98,
@@ -2928,18 +2674,13 @@
    "intro": null,
    "recipe": "links+hidden",
    "slot": "regular",
-   "picture": "P0417",
-   "title": "Каменная арка со шторой из снега",
-   "N": 908,
+   "picture": "P1032",
+   "title": "Лупа с радугой в росинке",
+   "N": 1151,
    "band": "800–1200",
-   "pack": "packs-0268-0467 · Уютная мистика",
-   "hidden": 4,
-   "P": 25,
-   "relaxed": [
-    "family",
-    "motif",
-    "colours"
-   ],
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
+   "hidden": 2,
+   "P": 30,
    "wantLoss": true
   },
   {
@@ -2955,11 +2696,7 @@
    "pack": "packs-0268-0467 · Ретрофутуризм",
    "hidden": 4,
    "P": 24,
-   "relaxed": [
-    "family",
-    "motif",
-    "colours"
-   ]
+   "placed": true
   },
   {
    "level": 100,
@@ -2974,19 +2711,15 @@
    "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
    "hidden": 4,
    "P": 30,
-   "relaxed": [
-    "family",
-    "motif",
-    "colours"
-   ]
+   "placed": true
   }
  ],
  "assignMissing": [],
  "assignQuota": {
-  "800–1200": 28,
-  "700–900": 9,
-  "400–700": 5,
-  "1200–1500": 5
+  "800–1200": 13,
+  "700–900": 4,
+  "400–700": 2,
+  "1200–1500": 2
  },
  "hand": [
   65,
@@ -3006,7 +2739,7 @@
   },
   "strips": [],
   "scenes": [],
-  "sceneSources": 172,
+  "sceneSources": 169,
   "splits": [
    {
     "level": 65,

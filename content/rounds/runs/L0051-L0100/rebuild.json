@@ -1,0 +1,292 @@
+{
+ "tag": "2026-11-02b",
+ "levels": [
+  {
+   "level": 52,
+   "tag": "2026-11-02b",
+   "why": [
+    "медиана L51–L70 65 % вне 50–60 % (бот 74 %)"
+   ],
+   "reassign": false,
+   "at": "2026-11-02",
+   "from": {
+    "picture": "P0071",
+    "candidate": "P0071-Nlinks-19",
+    "share": 0.74,
+    "recipe": "links"
+   }
+  },
+  {
+   "level": 54,
+   "tag": "2026-11-02b",
+   "why": [
+    "семейство «Овощи и урожай» ближе 10 уровней (L46, L54)"
+   ],
+   "reassign": true,
+   "at": "2026-11-02",
+   "from": {
+    "picture": "P1030",
+    "candidate": "P1030-Nlinks+cells-8",
+    "share": 0.63,
+    "recipe": "links+cells"
+   }
+  },
+  {
+   "level": 57,
+   "tag": "2026-11-02b",
+   "why": [
+    "медиана L53–L72 62 % вне 50–60 % (бот 69 %)"
+   ],
+   "reassign": false,
+   "at": "2026-11-02",
+   "from": {
+    "picture": "P0329",
+    "candidate": "P0329-Ncells+links-3",
+    "share": 0.69,
+    "recipe": "cells+links"
+   }
+  },
+  {
+   "level": 58,
+   "tag": "2026-11-02b",
+   "why": [
+    "медиана L51–L70 69 % вне 50–60 % (бот 75 %)"
+   ],
+   "reassign": false,
+   "at": "2026-11-02",
+   "from": {
+    "picture": "P0266",
+    "candidate": "P0266-Nlinks+cells-6",
+    "share": 0.75,
+    "recipe": "links+cells"
+   }
+  },
+  {
+   "level": 59,
+   "tag": "2026-11-02b",
+   "why": [
+    "передышка 100 % вне 75–90 %",
+    "передышка: рецепт none, по плану hidden"
+   ],
+   "reassign": false,
+   "at": "2026-11-02",
+   "from": {
+    "picture": "P0358",
+    "candidate": "P0358-Nnone-br-0",
+    "share": 1,
+    "recipe": "none"
+   }
+  },
+  {
+   "level": 62,
+   "tag": "2026-11-02b",
+   "why": [
+    "передышка 100 % вне 75–90 %"
+   ],
+   "reassign": false,
+   "at": "2026-11-02",
+   "from": {
+    "picture": "P0465",
+    "candidate": "P0465-Nlinks-br-0",
+    "share": 1,
+    "recipe": "links"
+   }
+  },
+  {
+   "level": 67,
+   "tag": "2026-11-02b",
+   "why": [
+    "медиана L51–L70 69 % вне 50–60 % (бот 84 %)"
+   ],
+   "reassign": false,
+   "at": "2026-11-02",
+   "from": {
+    "picture": "P0044",
+    "candidate": "P0044-Ncells+links-2",
+    "share": 0.84,
+    "recipe": "cells+links"
+   }
+  },
+  {
+   "level": 68,
+   "tag": "2026-11-02b",
+   "why": [
+    "медиана L58–L77 62 % вне 50–60 % (бот 69 %)"
+   ],
+   "reassign": false,
+   "at": "2026-11-02",
+   "from": {
+    "picture": "P0292",
+    "candidate": "P0292-Nlinks+hidden-2",
+    "share": 0.69,
+    "recipe": "links+hidden"
+   }
+  },
+  {
+   "level": 69,
+   "tag": "2026-11-02b",
+   "why": [
+    "медиана L68–L87 67 % вне 50–60 % (бот 68 %)"
+   ],
+   "reassign": false,
+   "at": "2026-11-02",
+   "from": {
+    "picture": "P0947",
+    "candidate": "P0947-Nlatch+links-7",
+    "share": 0.68,
+    "recipe": "latch+links"
+   }
+  },
+  {
+   "level": 72,
+   "tag": "2026-11-02b",
+   "why": [
+    "передышка 100 % вне 75–90 %",
+    "передышка: рецепт none, по плану hidden"
+   ],
+   "reassign": false,
+   "at": "2026-11-02",
+   "from": {
+    "picture": "P0341",
+    "candidate": "P0341-Nnone-br-0",
+    "share": 1,
+    "recipe": "none"
+   }
+  },
+  {
+   "level": 74,
+   "tag": "2026-11-02b",
+   "why": [
+    "медиана L55–L74 62 % вне 50–60 % (бот 75 %)"
+   ],
+   "reassign": false,
+   "at": "2026-11-02",
+   "from": {
+    "picture": "P0087",
+    "candidate": "P0087-Ncells-a-4",
+    "share": 0.75,
+    "recipe": "cells"
+   }
+  },
+  {
+   "level": 77,
+   "tag": "2026-11-02b",
+   "why": [
+    "медиана L59–L78 61 % вне 50–60 % (бот 69 %)"
+   ],
+   "reassign": false,
+   "at": "2026-11-02",
+   "from": {
+    "picture": "P0971",
+    "candidate": "P0971-Nlatch+links-11",
+    "share": 0.69,
+    "recipe": "latch+links"
+   }
+  },
+  {
+   "level": 79,
+   "tag": "2026-11-02b",
+   "why": [
+    "медиана L64–L83 61 % вне 50–60 % (бот 74 %)"
+   ],
+   "reassign": false,
+   "at": "2026-11-02",
+   "from": {
+    "picture": "P0039",
+    "candidate": "P0039-Nlinks+cells-a-1",
+    "share": 0.74,
+    "recipe": "links+cells"
+   }
+  },
+  {
+   "level": 84,
+   "tag": "2026-11-02b",
+   "why": [
+    "медиана L68–L87 61 % вне 50–60 % (бот 68 %)"
+   ],
+   "reassign": false,
+   "at": "2026-11-02",
+   "from": {
+    "picture": "P0378",
+    "candidate": "P0378-Nlatch+cells-2",
+    "share": 0.68,
+    "recipe": "latch+cells"
+   }
+  },
+  {
+   "level": 89,
+   "tag": "2026-11-02b",
+   "why": [
+    "«по цветам» проигрывает 4 из 12 (нужно около 6)"
+   ],
+   "reassign": false,
+   "at": "2026-11-02",
+   "from": {
+    "picture": "P0385",
+    "candidate": "P0385-Nlatch+links-0",
+    "share": 0.76,
+    "recipe": "latch+links"
+   }
+  },
+  {
+   "level": 92,
+   "tag": "2026-11-02b",
+   "why": [
+    "семейство «Дома и архитектура» ближе 10 уровней (L92, L95)"
+   ],
+   "reassign": true,
+   "at": "2026-11-02",
+   "from": {
+    "picture": "P0014",
+    "candidate": "P0014-Ncells+links-a-22",
+    "share": 0.605,
+    "recipe": "cells+links"
+   }
+  },
+  {
+   "level": 96,
+   "tag": "2026-11-02b",
+   "why": [
+    "семейство «Музыка» третий раз в волне (L53, L87, L96)"
+   ],
+   "reassign": true,
+   "at": "2026-11-02",
+   "from": {
+    "picture": "P0350",
+    "candidate": "P0350-Nlinks+hidden-3",
+    "share": 0.83,
+    "recipe": "links+hidden"
+   }
+  },
+  {
+   "level": 97,
+   "tag": "2026-11-02b",
+   "why": [
+    "«по цветам» проигрывает 5 из 12 (нужно около 6)"
+   ],
+   "reassign": false,
+   "at": "2026-11-02",
+   "from": {
+    "picture": "P0281",
+    "candidate": "P0281-Ncells+links-2",
+    "share": 0.75,
+    "recipe": "cells+links"
+   }
+  },
+  {
+   "level": 98,
+   "tag": "2026-11-02b",
+   "why": [
+    "семейство «Свет и домашний декор» ближе 10 уровней (L90, L98)"
+   ],
+   "reassign": true,
+   "at": "2026-11-02",
+   "from": {
+    "picture": "P0417",
+    "candidate": "P0417-Nlinks+hidden-5",
+    "share": 0.62,
+    "recipe": "links+hidden"
+   }
+  }
+ ]
+}

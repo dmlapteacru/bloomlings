@@ -1,7 +1,7 @@
 {
  "code": "P0329",
- "state": "used",
- "usedBy": "L0057",
+ "state": "free",
+ "usedBy": null,
  "version": 1,
  "title": "Лавка запасных радуг",
  "theme": "Необычные магазины",

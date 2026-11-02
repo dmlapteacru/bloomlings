@@ -1,7 +1,7 @@
 {
  "code": "P0087",
- "state": "used",
- "usedBy": "L0074",
+ "state": "free",
+ "usedBy": null,
  "version": 1,
  "title": "Водолаз",
  "theme": "batch-0061",

@@ -1,7 +1,7 @@
 {
  "code": "P0039",
- "state": "used",
- "usedBy": "L0079",
+ "state": "free",
+ "usedBy": null,
  "version": 1,
  "title": "Привидение с чашкой",
  "theme": "batch-0011",

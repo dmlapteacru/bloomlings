@@ -1,7 +1,10 @@
 // node --test tools/rounds/test/ — the exporter of spec 006 (T013): entry-check refusals, the written formats, the
 // conformance reference (event lines, signature, random policy) and the transfer log. Runs on a copy of content/rounds
 // (ROUNDS_DIR), never on the repository's own content.
-import test from 'node:test';import assert from 'node:assert/strict';
+import test from 'node:test';import {after} from 'node:test';
+// every sandbox under the system's temp folder is deleted when this file's tests end (and on exit): nothing is left behind
+const TMP=[],tmpDir=p=>{const d=fs.mkdtempSync(path.join(os.tmpdir(),p));TMP.push(d);return d;},rmTmp=()=>{for(const d of TMP.splice(0))fs.rmSync(d,{recursive:true,force:true});};after(rmTmp);process.on('exit',rmTmp);
+import assert from 'node:assert/strict';
 import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import {spawnSync} from 'node:child_process';import {fileURLToPath} from 'node:url';
 
 const HERE=path.dirname(fileURLToPath(import.meta.url)),TOOLS=path.dirname(HERE),ROOT=path.resolve(TOOLS,'../..');
@@ -18,7 +21,7 @@ const level=n=>readJSON(path.join(ROOT,'content/rounds/levels',`L${String(n).pad
 // a fresh copy of what the exporter reads, and the owner's pilot results as if played on the current engine (the
 // sandbox's results.json: the engine changes between pilots, e.g. the sideways bridge anchor of 2026-10-28, while these
 // tests are about the exporter; refusing another engine is tested on its own below)
-function sandbox(){const dir=fs.mkdtempSync(path.join(os.tmpdir(),'rounds-export-'));
+function sandbox(){const dir=tmpDir('rounds-export-');
  for(const p of ['levels','pictures'])fs.cpSync(path.join(ROOT,'content/rounds',p),path.join(dir,p),{recursive:true});
  fs.copyFileSync(path.join(ROOT,'content/rounds/quality.json'),path.join(dir,'quality.json'));
  const res=readJSON(path.join(ROOT,RESULTS)),fp=C.fingerprints();Object.assign(res,{rulesHash:fp.rules,timelineHash:fp.timeline,paletteHash:fp.palette,clockHash:fp.clock});

@@ -58,8 +58,10 @@ random / steered blend; bridge levels and L1–3 keep it):
   `--want-loss`, `--minutes m`, `--intro`.
 
 **Breathers** (17 §5 «Передышка», the owner, 2026-11-02; principle 18): a Normal on a picture up to ~550 cells or a
-position the wave plan marks `breather: true`. Zone 75–95 %, zero or one light mechanic (no trap link), built from the
-access order with the first fitting layout, and only the mandatory checks (solver proof, exact work, pod balance, §3
+position the wave plan marks `breather: true`. Zone 75–90 % (the owner, 2026-11-02), zero or one light mechanic: the
+plan's hidden pods or hidden cells by default (never both), sometimes none, and one plain link pair (no trap) in their
+place when the share stays above 90 % even reversed (hidden information does not move the bot test); a miss after that
+is the nearest layout with a soft audit note. Built from the access order with the first fitting layout, and only the mandatory checks (solver proof, exact work, pod balance, §3
 budget, class by the random test; no calm test, opening test, «по цветам», holding pod, pressure or accents). The level
 carries `breather: true`; placement and audit keep it out of the Normal median and the «по цветам» quota.
 
@@ -204,7 +206,8 @@ the supported three.
    - Accepted candidates go to `content/rounds/bank/P####.json` with all measures. A picture whose pods cannot fit
      §3 is recorded with its reason.
    - **The owner's amendment of 2026-10-27** (17 §2, §5, §7): Normal candidates blend the queue lightly so a regular
-     Normal lands in 50–75 % (median 50–60 %); lead doses follow the cycle 50/80/40/70/100/60 % of the range
+     Normal lands in 50–75 % (median 50–60 %; since the owner's decisions of 2026-11-02 the tuning accepts a regular
+     Normal in 50–65 % aiming at 56 %, and the placer weighs how it moves the wave's 20-level median windows); lead doses follow the cycle 50/80/40/70/100/60 % of the range
      (`DOSE_CYCLE`, recorded as `dosePos`); Hard and Super Hard candidates that the greedy strategies win ("most work now";
      for Super Hard also "release a place fastest") are refused. `place` requires a mechanic on Hard (except L5), a lead and
      an additional one on Super Hard, a mechanic in two of three regular Normals, 3+ hidden colours for Hard / Super Hard
@@ -242,9 +245,12 @@ the supported three.
    - A position of an approved wave plan (`content/rounds/runs/<wave>/mechanics.json`) takes only a candidate with its
      planned recipe and, for a bridge, its planned crossing side and bridge kind; an open one is listed in `needs.json`
      with the recipe, side and strip it needs.
-   - It keeps the §11 variety rules (no lead mechanic or identical recipe more than 2 levels in a row), at most 2
-     pictures with 10–11 colours in any 20, and prefers the class's preferred zone (75–95 % for the first Normal after
-     a Hard or Super Hard) and the size mix per 30.
+   - It keeps the §11 variety rules (no lead mechanic or identical recipe more than 2 levels in a row; a theme family or
+     a motif at most twice in the wave and not within 10 levels, 2026-11-02), at most 2 pictures of 10+ colours in any 20
+     (the pictures' own colours: an accent colour does not count, 2026-11-02), and prefers the class's preferred zone
+     (75–95 % for the first Normal after a Hard or Super Hard, 75–90 % for a breather, 56 % for a regular Normal with the
+     20-level median windows in 50–60 %), a level «по цветам» loses while the wave is short of about one in two from L25,
+     and the size mix per 30.
    - It writes `content/rounds/levels/L####.json`: the definition in the pilot format plus the card data. It marks
      the picture used and lists empty positions in `content/rounds/needs.json`.
 5. **Look at the result** (17 §13.9).

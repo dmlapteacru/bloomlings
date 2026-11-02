@@ -3,7 +3,10 @@
 // bank, so that exactly one bridge wins. Composition (closed far side, anchors, sides, sizes), strips laid over a drawn
 // strip picture, the per-bridge solver verdicts (a fresh solver memo for each bridge), the placement by the plan's
 // bridgeKind and the plan's scene order. Writes only to temporary copies of content/rounds.
-import test from 'node:test';import assert from 'node:assert/strict';
+import test from 'node:test';import {after} from 'node:test';
+// every sandbox under the system's temp folder is deleted when this file's tests end (and on exit): nothing is left behind
+const TMP=[],tmpDir=p=>{const d=fs.mkdtempSync(path.join(os.tmpdir(),p));TMP.push(d);return d;},rmTmp=()=>{for(const d of TMP.splice(0))fs.rmSync(d,{recursive:true,force:true});};after(rmTmp);process.on('exit',rmTmp);
+import assert from 'node:assert/strict';
 import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import {spawnSync} from 'node:child_process';import {fileURLToPath,pathToFileURL} from 'node:url';
 
 const HERE=path.dirname(fileURLToPath(import.meta.url)),TOOLS=path.dirname(HERE),ROOT=path.resolve(TOOLS,'../..');
@@ -81,7 +84,7 @@ test('placement by the plan\'s bridgeKind: single wants exactly one winning brid
  assert.equal(o.intended,BS.choiceOf(sc,b,sc.win));assert.equal(o.gate,7);assert.deepEqual(LV.sceneOpts({},b,24,3,0),{});});
 
 test('the wave plan lists the bridge scenes (strip new) and the split pictures (strip gap) to make, with the commands',()=>{
- const dir=fs.mkdtempSync(path.join(os.tmpdir(),'rounds-scenes-'));fs.cpSync(path.join(ROOT,'content/rounds'),dir,{recursive:true,filter:s=>!s.includes(`${path.sep}approved${path.sep}`)&&!s.includes(`${path.sep}bank${path.sep}`)});
+ const dir=tmpDir('rounds-scenes-');fs.cpSync(path.join(ROOT,'content/rounds'),dir,{recursive:true,filter:s=>!s.includes(`${path.sep}approved${path.sep}`)&&!s.includes(`${path.sep}bank${path.sep}`)});
  const r=spawnSync(process.execPath,[path.join(TOOLS,'rounds.mjs'),'plan','21','50'],{cwd:ROOT,env:{...process.env,ROUNDS_DIR:dir},encoding:'utf8',maxBuffer:1<<26});assert.equal(r.status,0,r.stderr);
  const plan=readJSON(path.join(dir,'runs/L0021-L0050/plan.json')),levels=readJSON(path.join(dir,'runs/L0021-L0050/mechanics.json')).levels,placed=new Set(plan.positions.filter(p=>p.placed).map(p=>p.level));
  const mech=levels.filter(l=>l.bridgeSide&&l.strip==='new'&&!placed.has(l.level)),gap=levels.filter(l=>l.bridgeSide&&l.strip==='gap'&&!placed.has(l.level));

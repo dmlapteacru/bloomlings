@@ -3,7 +3,10 @@
 // validation), identity for levels without latches, the builder (doses, key holes, an introduction), the §8 checks on the
 // saved solution and the audit, the export and conformance lines; and the picture selection of 2026-11-01 (pins, packs,
 // the owner's rights). Writes only to temporary copies of content/rounds.
-import test from 'node:test';import assert from 'node:assert/strict';
+import test from 'node:test';import {after} from 'node:test';
+// every sandbox under the system's temp folder is deleted when this file's tests end (and on exit): nothing is left behind
+const TMP=[],tmpDir=p=>{const d=fs.mkdtempSync(path.join(os.tmpdir(),p));TMP.push(d);return d;},rmTmp=()=>{for(const d of TMP.splice(0))fs.rmSync(d,{recursive:true,force:true});};after(rmTmp);process.on('exit',rmTmp);
+import assert from 'node:assert/strict';
 import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import {spawnSync} from 'node:child_process';import {fileURLToPath} from 'node:url';
 
 const HERE=path.dirname(fileURLToPath(import.meta.url)),TOOLS=path.dirname(HERE),ROOT=path.resolve(TOOLS,'../..');
@@ -126,7 +129,7 @@ test('latchCheck: depth by class, pods behind, every latch opens on the saved so
  const y=await M.latchCheck(lt.level,lr.slice(0,1),'Super Hard',{games:4});assert.match(y.problems.join(' | '),/не открылся на сохранённом решении/);});
 
 // the audit on a sandbox copy
-function sandbox(parts=['levels','pictures']){const dir=fs.mkdtempSync(path.join(os.tmpdir(),'rounds-latch-'));
+function sandbox(parts=['levels','pictures']){const dir=tmpDir('rounds-latch-');
  for(const p of parts)fs.cpSync(path.join(ROOT,'content/rounds',p),path.join(dir,p),{recursive:true});
  fs.copyFileSync(path.join(ROOT,'content/rounds/quality.json'),path.join(dir,'quality.json'));return dir;}
 const node=(dir,args)=>spawnSync(process.execPath,args,{cwd:ROOT,env:{...process.env,ROUNDS_DIR:dir},encoding:'utf8',maxBuffer:1<<26});
@@ -167,15 +170,19 @@ test('picture selection: packs, the pack rule, interleaving; pins reserved by th
  // the plan on a sandbox: every pin of the wave L51–L100 reserved on its own fitting position
  const dir=sandbox(['levels','pictures','runs']),r=node(dir,[path.join(TOOLS,'rounds.mjs'),'plan','51','100']);assert.equal(r.status,0,r.stderr);
  const plan=readJSON(path.join(dir,'runs/L0051-L0100/plan.json')),pins=plan.pins;assert.deepEqual(pins.map(x=>x.id),readJSON(path.join(ROOT,'content/rounds/runs/L0051-L0100/mechanics.json')).pin);
- for(const x of pins){assert.equal(x.status,'free',`${x.id}: ${x.reason}`);assert.ok(x.positions.includes(x.reserved));}
+ // (a pin already placed in the wave is reported placed on its level; the others free on a fitting position)
+ for(const x of pins){assert.ok(['free','placed'].includes(x.status),`${x.id}: ${x.reason}`);if(x.status==='free')assert.ok(x.positions.includes(x.reserved));else assert.ok(x.reserved>=51&&x.reserved<=100);}
  assert.equal(new Set(pins.map(x=>x.reserved)).size,pins.length,'distinct positions');
  const latchPos=new Set(readJSON(path.join(dir,'runs/L0051-L0100/mechanics.json')).levels.filter(l=>l.recipe.split('+').includes('latch')).map(l=>l.level));
  // (a latch needs a column deep enough for its depth and the pods behind it, wave.mjs latchFits: a pin with too few pods,
  // e.g. P0465 with 10, takes a position without one)
  const latchable=x=>{const m=L.measure(L.picture(x.id)),b=LV.splitPods(m.volumes,m.N,null);return !b.error&&W.latchFits('latch','Normal',b.pods.length,m.N<1000?3:4);};
- assert.ok(pins.filter(x=>LV.keyHoles(L.boardOf(L.picture(x.id))).length&&latchable(x)).every(x=>latchPos.has(x.reserved)),'a pin with key holes and pods for a latch goes to a latch position');
- assert.match(r.stdout,/## Закреплённые картинки/);assert.match(r.stdout,/Паки свободного пула/);assert.match(r.stdout,/Позиции с засовом: 16/);
+ assert.ok(pins.filter(x=>x.status==='free'&&x.positions.some(n=>latchPos.has(n))&&LV.keyHoles(L.boardOf(L.picture(x.id))).length&&latchable(x)).every(x=>latchPos.has(x.reserved)),'a pin with key holes and pods for a latch goes to a latch position');
+ assert.match(r.stdout,/## Закреплённые картинки/);assert.match(r.stdout,/Паки свободного пула/);// (the latch positions are listed while some are open)
+ if([...latchPos].some(n=>!fs.existsSync(path.join(dir,'levels',L.lid(n)+'.json'))))assert.match(r.stdout,/Позиции с засовом: \d+/);
  // without the rights a franchise pin is blocked with the reason; the rights command records them (and --clear takes them back)
+ // (P0425 is placed on L55 in the content: taken off in the sandbox, so its pin is judged on its rights)
+ fs.rmSync(path.join(dir,'levels','L0055.json'),{force:true});
  assert.equal(node(dir,[path.join(TOOLS,'pictures.mjs'),'rights','P0425','--clear']).status,0);
  node(dir,[path.join(TOOLS,'rounds.mjs'),'plan','51','100']);const p2=readJSON(path.join(dir,'runs/L0051-L0100/plan.json')).pins.find(x=>x.id==='P0425');
  assert.equal(p2.status,'blocked');assert.match(p2.reason,/без подтверждённых прав/);

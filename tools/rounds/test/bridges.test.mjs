@@ -2,7 +2,10 @@
 // board of a picture with or without the generator's wall (boardOf: ring closure, anchors, crossing sides), the engine's
 // anchor rule, wallOverlay, the doses of two- and three-type recipes and the wave plan's placement filter. Writes only to
 // temporary copies of content/rounds.
-import test from 'node:test';import assert from 'node:assert/strict';
+import test from 'node:test';import {after} from 'node:test';
+// every sandbox under the system's temp folder is deleted when this file's tests end (and on exit): nothing is left behind
+const TMP=[],tmpDir=p=>{const d=fs.mkdtempSync(path.join(os.tmpdir(),p));TMP.push(d);return d;},rmTmp=()=>{for(const d of TMP.splice(0))fs.rmSync(d,{recursive:true,force:true});};after(rmTmp);process.on('exit',rmTmp);
+import assert from 'node:assert/strict';
 import fs from 'node:fs';import os from 'node:os';import path from 'node:path';import {spawnSync} from 'node:child_process';import {fileURLToPath} from 'node:url';
 
 const HERE=path.dirname(fileURLToPath(import.meta.url)),TOOLS=path.dirname(HERE),ROOT=path.resolve(TOOLS,'../..');
@@ -22,7 +25,7 @@ function reach(b,built=[]){const {w,h}=b,g=b.rowsBottomFirst.join(''),open=new S
 const idx=(b,x,y)=>(b.h-1-y)*b.w+x;// board top-first (x, y) → bottom-first index
 
 test('boardOf keeps the boards of every placed level byte-identical, and the bridge cells and anchors of L16 and L18',()=>{
- for(const lv of placed){const b=L.boardOf(L.picture(lv.picture),lv.definition.overlay);
+ for(const lv of placed){const b=L.boardOf(L.picture(lv.picture),lv.definition.overlay,lv.definition.recolor);
   assert.equal(b.rowsBottomFirst.join('\n'),lv.definition.rowsBottomFirst.join('\n'),`L${lv.level}`);assert.deepEqual(b.entries,lv.definition.entries);
   if(lv.definition.hero)assert.deepEqual(b.hero.choices.map(c=>[c.cell,c.anchor,c.dir]),lv.definition.hero.choices.map(c=>[c.cell,c.anchor,c.dir||'up']),`L${lv.level} bridges`);}
  // every approved picture with a strip: the full-width stream closes the ring on both sides, as before
@@ -129,7 +132,7 @@ test('the mechanics plan: planOf reads the approved mechanics.json, fitsPlan wan
  assert.ok(L.fitsPlan({recipe:'links'},{recipe:'links'}));assert.ok(L.fitsPlan({recipe:'links'},null));});
 
 test('placement under the plan takes only the planned recipe, the open positions say what they need, and a hand position is left to adopt',()=>{
- const dir=fs.mkdtempSync(path.join(os.tmpdir(),'rounds-plan-'));fs.cpSync(path.join(ROOT,'content/rounds'),dir,{recursive:true,filter:s=>!s.includes(`${path.sep}approved${path.sep}`)});
+ const dir=tmpDir('rounds-plan-');fs.cpSync(path.join(ROOT,'content/rounds'),dir,{recursive:true,filter:s=>!s.includes(`${path.sep}approved${path.sep}`)});
  const r=spawnSync(process.execPath,[path.join(TOOLS,'levels.mjs'),'place','21','30'],{cwd:ROOT,env:{...process.env,ROUNDS_DIR:dir},encoding:'utf8',maxBuffer:1<<26});assert.equal(r.status,0,r.stderr);
  const plans=readJSON(path.join(dir,'runs/L0021-L0050/mechanics.json')).levels;
  for(let n=21;n<=30;n++){const f=path.join(dir,'levels',`L${String(n).padStart(4,'0')}.json`),want=plans.find(x=>x.level===n);

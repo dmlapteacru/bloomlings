@@ -1,7 +1,7 @@
 {
  "code": "P0341",
- "state": "used",
- "usedBy": "L0072",
+ "state": "free",
+ "usedBy": null,
  "version": 1,
  "title": "Заводная дискета",
  "theme": "Ретрофутуризм",

@@ -113,11 +113,13 @@ function pictureFirst(a,b,open,pics,pins,placed){const pool=pfPool(pics),dir=wav
  const keep=new Map();for(const x of ((prev&&prev.assign)||[]).slice().sort((u,v)=>u.level-v.level)){if(!positions.some(q=>q.level===x.level)||!poolIds.has(x.picture)||pinned.has(x.level)||[...pinned.values()].includes(x.picture)||reassign.has(x.level))continue;
   const e=ent(x.picture);if(repeatClash(e,x.level,live,[a,b])||wideClash(x.level,e.colours,live))continue;keep.set(x.level,x);live.push({level:x.level,...e});}
  for(const [n,x] of keep)pinned.set(n,x.picture);
- const r=assignPictures(positions.map(posOfQ),pool,{pinned,before,picOf,waveStart:a,waveEnd:b});
+ // a position the rebuild sends to another picture keeps its size band (as a replacement does)
+ const prevBand=new Map(((prev&&prev.assign)||[]).map(x=>[x.level,x.band]));
+ const r=assignPictures(positions.map(q=>({...posOfQ(q),...(reassign.has(q.level)&&prevBand.get(q.level)?{band:prevBand.get(q.level)}:{})})),pool,{pinned,before,picOf,waveStart:a,waveEnd:b});
  const byId=new Map(pool.map(p=>[p.id,p]));
  const assign=r.assign.map(x=>{const q=positions.find(q=>q.level===x.level),p=byId.get(x.picture),old=keep.get(x.level),slot=slotOfPos(q,p.N),was=((prev&&prev.assign)||[]).find(y=>y.level===x.level);
   const tried=old?old.tried:was&&was.picture!==x.picture?[...(was.tried||[]),was.picture]:null;
-  return {level:x.level,cls:q.cls,intro:q.intro||null,recipe:q.plan.recipe,slot,picture:x.picture,title:p.title,N:p.N,band:old?old.band:x.band,pack:p.pack,hidden:p.hidden,P:p.P,...(pins.some(e=>e.id===x.picture)?{pin:true}:{}),...(x.relaxed||old?.relaxed?{relaxed:x.relaxed||old.relaxed}:{}),...(tried&&tried.length?{tried}:{})};});
+  return {level:x.level,cls:q.cls,intro:q.intro||null,recipe:q.plan.recipe,slot,picture:x.picture,title:p.title,N:p.N,band:old?old.band:x.band,pack:p.pack,hidden:p.hidden,P:p.P,...(pins.some(e=>e.id===x.picture)?{pin:true}:{}),...((r=>r.length?{relaxed:r}:{})((x.relaxed||old?.relaxed||[]).filter(k=>k==='band'||k==='pack'))),...(tried&&tried.length?{tried}:{})};});
  // «по цветам» (17 §5): "most work now" loses about one in three regular Normals on L4–24 and one in two from L25; the
  // regular positions still to build look for a level it loses (--want-loss) as many as the wave's placed regular Normals
  // leave short of that, spread evenly over them
@@ -125,7 +127,10 @@ function pictureFirst(a,b,open,pics,pins,placed){const pool=pfPool(pics),dir=wav
  for(const part of [[4,24,1/3],[25,1e9,1/2]]){const open=assign.filter(x=>x.slot==='regular'&&x.level>=part[0]&&x.level<=part[1]),placedP=regs.filter(x=>x.level>=part[0]&&x.level<=part[1]);if(!open.length)continue;
   const short=Math.max(0,Math.round(part[2]*(placedP.length+open.length))-placedP.filter(x=>x.lost).length),k=Math.min(open.length,short);
   open.forEach((x,i)=>{if(Math.floor((i+1)*k/open.length)>Math.floor(i*k/open.length))x.wantLoss=true;});}
- return {assign,missing:r.missing,quota:r.quota,hand};}
+ // the earlier plan's entries of the positions placed since stay in plan.json (the whole wave's assignment is kept: a
+ // rebuild that takes a level back finds its picture there), marked placed
+ const carried=((prev&&prev.assign)||[]).filter(x=>!assign.some(y=>y.level===x.level)&&placed[x.level]&&placed[x.level].picture===x.picture).map(({relaxed,...x})=>{const r=(relaxed||[]).filter(k=>k==='band'||k==='pack');return {...x,...(r.length?{relaxed:r}:{}),placed:true};});
+ return {assign:[...assign,...carried].sort((u,v)=>u.level-v.level),missing:r.missing,quota:r.quota,hand};}
 function pfMd(pf){const cnt={};for(const x of pf.assign)cnt[x.band]=(cnt[x.band]||0)+1;const SL={regular:'обычный',breather:'передышка','after-hard':'после Hard',intro:'знакомство',Hard:'Hard','Super Hard':'Super Hard'};
  return ['','## Картинки волны (сначала картинка)','',`Принцип владельца 17 (01–02.11.2026): каждая позиция без моста получает одну картинку свободного пула заранее; \`rounds.mjs run\` строит ровно эту картинку × класс × рецепт (\`levels.mjs build\` с настройкой очереди, tune.mjs), при неудаче берёт замену той же размерной полосы. Размеры (17 §2, на ${pf.assign.length+pf.missing.length} позиций): ${SIZE_MIX.map(b=>`${b.band} — ${cnt[b.band]||0} из ${pf.quota[b.band]}`).join('; ')}. Вручную (мосты): ${pf.hand.length?pf.hand.map(n=>'L'+n).join(', '):'—'}.`,'',
   '| Ур. | Класс | Позиция | Рецепт | Картинка | Клеток | Полоса | Пак | Скрыто цветов | Подов | Замечание |','|---|---|---|---|---|---|---|---|---|---|---|',
@@ -278,6 +283,8 @@ const lostOf=L=>{const s=L.strategies||{};return !s['most-now|left']&&!s['most-n
 function rebuildStep(a,b,step){const dir=waveDir(a,b),f=path.join(dir,'rebuild.json'),reb=readJSON(f,{tag:GEN,levels:[]}),placed=placedLevels(),wp=mechanicsPlans().find(p=>p.wave[0]===a&&p.wave[1]===b),v=String(arg('--rebuild'));
  const info=L=>{const p=picture(L.picture);return {family:(p&&p.family)||null,motifs:p?motifsOf(p):[],colours:p?measure(p).colours:0};};
  let S;if(v==='auto'){const lv=Object.values(placed).filter(L=>L.level>=a&&L.level<=b).map(L=>({level:L.level,cls:L.cls,intro:!!L.intro,breather:!!L.breather,regular:regularAt(L.level,placed),share:L.random.share,lost:lostOf(L),recipe:L.recipe||'none',gen:L.gen||null,hand:!!L.hand,pinned:!!(wp&&(wp.pin||[]).includes(L.picture)),...info(L)}));
+  // the levels a rebuild already took back and not yet placed count as sent back: at the aim and losing «по цветам»
+  for(const x of reb.levels)if(x.tag===GEN&&!x.done&&!placed[x.level]&&x.level>=a&&x.level<=b)lv.push({level:x.level,cls:classOf(x.level),intro:false,breather:false,regular:regularAt(x.level,placed)&&!(((wp&&wp.levels)||[]).find(l=>l.level===x.level)||{}).breather,share:MEDIAN.aim,lost:true,recipe:'none',gen:GEN,hand:false,pinned:false,family:null,motifs:[],colours:0});
   const context=Object.values(placed).filter(L=>L.level>=a-20&&L.level<a).map(L=>({level:L.level,...info(L)})),planMap=new Map(((wp&&wp.levels)||[]).map(l=>[l.level,{recipe:l.recipe,breather:!!l.breather}]));
   S=rebuildSet(lv,{from:a,to:b,context,plan:planMap,done:new Set(reb.levels.filter(x=>x.done&&x.tag===GEN).map(x=>x.level))});}
  else S=v.split(',').map(Number).filter(n=>n>=a&&n<=b).map(n=>({level:n,why:['по списку'],reassign:false}));
@@ -303,8 +310,12 @@ async function runWave(a,b){const dir=waveDir(a,b),jobs=+arg('--jobs',Math.max(1
  // gap positions take approved split pictures (bridge-scene.mjs make --mode split); those without one stay open until made
  const noSplit=(p.order.splits||[]).filter(x=>!x.have);if(noSplit.length)step('контурные картинки с мостом ещё не сделаны и не утверждены (17 §8)',{levels:noSplit.map(x=>x.level)});
  // 1. what the bank fills already: a placement on a copy of content/rounds (with the waves' mechanics plans)
- const dry=async()=>{const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'rounds-dry-'));fs.cpSync(ROUNDS,tmp,{recursive:true,filter:s=>!s.includes(`${path.sep}runs${path.sep}`)||s.endsWith(`${path.sep}mechanics.json`)||s.endsWith(`${path.sep}plan.json`)||fs.statSync(s).isDirectory()});
-  await run1([path.join(HERE,'levels.mjs'),'place',String(a),String(b)],{ROUNDS_DIR:tmp,...(held.length?{ROUNDS_HOLD_OPEN:held.join(',')}:{})});const needs=(readJSON(path.join(tmp,'needs.json'),{needs:[]}).needs||[]).filter(x=>x.level>=a&&x.level<=b);fs.rmSync(tmp,{recursive:true,force:true});return needs;};
+ // (a light copy: no approved/ sheet, no Daily pictures, of runs/ only the plans; the placement skips the publish of
+ // approved/ there, ROUNDS_NO_PUBLISH; the copy is deleted whatever happens)
+ const dry=async()=>{const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'rounds-dry-')),skip=['approved','daily-2027'].map(d=>path.join(ROUNDS,d));
+  try{fs.cpSync(ROUNDS,tmp,{recursive:true,filter:s=>!skip.some(d=>s===d||s.startsWith(d+path.sep))&&(!s.includes(`${path.sep}runs${path.sep}`)||s.endsWith(`${path.sep}mechanics.json`)||s.endsWith(`${path.sep}plan.json`)||s.endsWith(`${path.sep}rebuild.json`)||fs.statSync(s).isDirectory())});
+   await run1([path.join(HERE,'levels.mjs'),'place',String(a),String(b)],{ROUNDS_DIR:tmp,ROUNDS_NO_PUBLISH:'1',...(held.length?{ROUNDS_HOLD_OPEN:held.join(',')}:{})});return (readJSON(path.join(tmp,'needs.json'),{needs:[]}).needs||[]).filter(x=>x.level>=a&&x.level<=b);}
+  finally{fs.rmSync(tmp,{recursive:true,force:true});}};
  let needs=await dry();step('пробная расстановка',{open:needs.map(x=>x.level)});
  // picture-first (plan.json assign; --sweep: the old path below, every free picture for every open position)
  const pfMode=!!(p.assign&&p.assign.length)&&!flag('--sweep');let timing=null;
