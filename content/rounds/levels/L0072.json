@@ -178,6 +178,11 @@
    "links": 0,
    "traps": 0,
    "top": 0
+  },
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.6,
+   "tight": 0.86
   }
  },
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",

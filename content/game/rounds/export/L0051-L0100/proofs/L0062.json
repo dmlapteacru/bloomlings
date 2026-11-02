@@ -123,6 +123,11 @@
    "links": 0,
    "traps": 0,
    "top": 0
+  },
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 0.72,
+   "tight": 0.84
   }
  },
  "audit": {

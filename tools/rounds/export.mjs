@@ -3,7 +3,7 @@
 // reference engine; the game side (core/src/Bloomlings.Pipeline `rounds import / validate`) only reads what this writes.
 //
 // node tools/rounds/export.mjs <from> <to> --out content/game/rounds/export/L####-L####
-//      [--owner-results product/playtests/<pilot>/results.json]... [--game content/game/rounds]
+//      [--owner-results product/playtests/<pilot>/results.json]... [--game content/game/rounds] [--repack]
 //
 // Entry checks (each failure named, exit 1, nothing written):
 //   every position from–to placed (content/rounds/levels/); every picture approved and not a franchise reference; a level's
@@ -118,12 +118,28 @@ function pilotCatalogHash(levelsInOrder){return sha256(JSON.stringify(levelsInOr
  return {id:L.level,title:d.title,subject:L.picture,w:d.w,h:d.h,rowsBottomFirst:d.rowsBottomFirst,entries:d.entries,capacity:d.capacity,pods:d.pods,tray:d.tray,difficulty:L.cls,...(d.hero?{hero:d.hero}:{}),...(d.hiddenCells?{hiddenCells:d.hiddenCells}:{}),...(d.latches?{latches:d.latches}:{})};})));}
 
 // ---- export ----
-export async function exportWave(from,to,{out,ownerResults=[],game=path.join(root,'content/game/rounds'),log=console.log}={}){
+// --repack (the owner, 2026-11-02: «не перегенерировать… записать какое-то исключение»): an already transferred wave,
+// unchanged, packed again for a newer reference engine (the engine's fingerprints are one per fixture set). The levels are
+// not rebuilt and not re-audited against rules made after their transfer: the audit results of their current proofs
+// are carried over; everything is still replayed on the current engine (any changed outcome is refused, as always), the
+// owner's results need an engine-equivalence record, and the packed levels and pictures must equal the previous
+// export's byte for byte (engine fields aside).
+function repackAudit(from,to,game){const failures=[],results={},t=(fs.existsSync(path.join(game,'transfers.jsonl'))?fs.readFileSync(path.join(game,'transfers.jsonl'),'utf8').trim().split('\n').filter(Boolean).map(l=>JSON.parse(l)):[]).find(x=>x.wave&&x.wave[0]===from&&x.wave[1]===to);
+ if(!t||!t.exportedAt||!t.validatedAt)return {failures:[`repack: L${from}–L${to} was never transferred (no exported + validated record in transfers.jsonl)`]};
+ let report=null;for(let n=from;n<=to;n++){const pr=readJSON(path.join(game,'proofs',`${lid(n)}.json`));if(!pr||!pr.audit){failures.push(`repack: no proof with an audit for ${lid(n)} in ${rel(game)}`);continue;}results[n]=pr.audit;report=report||pr.audit.report;}
+ return {failures,results,report};}
+function stripEngine(o){if(Array.isArray(o))return o.map(stripEngine);if(o&&typeof o==='object'){const r={};for(const k of Object.keys(o))if(k!=='engine')r[k]=stripEngine(o[k]);return r;}return o;}
+function repackSame(from,to,out,game){const prev=path.join(game,'export',`${lid(from)}-${lid(to)}`),diffs=[];
+ for(const d of ['levels','pictures']){const a=path.join(prev,d),b=path.join(out,d);if(!fs.existsSync(a)){diffs.push(`repack: no previous export ${rel(a)}`);continue;}
+  const names=new Set([...fs.readdirSync(a),...fs.readdirSync(b)]);for(const f of names){const x=readJSON(path.join(a,f)),y=readJSON(path.join(b,f));
+   if(!x||!y||JSON.stringify(stripEngine(x))!==JSON.stringify(stripEngine(y)))diffs.push(`repack: ${d}/${f} differs from the previous export`);}}
+ return diffs;}
+export async function exportWave(from,to,{out,ownerResults=[],game=path.join(root,'content/game/rounds'),log=console.log,repack=false}={}){
  if(!(Number.isInteger(from)&&Number.isInteger(to)&&from>=1&&to>=from))return {ok:false,failures:['usage: export.mjs <from> <to> --out <dir>']};
  if(!out)return {ok:false,failures:['--out <dir> is required']};
  const owner=[];for(const f of ownerResults){const res=readJSON(path.resolve(root,f));if(!res||!Array.isArray(res.attempts))return {ok:false,failures:[`owner results unreadable: ${f}`]};owner.push({file:path.resolve(root,f),res});}
  const entry=entryChecks(from,to);if(entry.failures.length)return {ok:false,failures:entry.failures};
- log(`audit ${from}–${to} …`);const audit=auditCheck(from,to,entry.levels);if(audit.failures.length)return {ok:false,failures:audit.failures};
+ log(repack?`repack ${from}–${to}: audit carried over from the transferred proofs`:`audit ${from}–${to} …`);const audit=repack?repackAudit(from,to,game):auditCheck(from,to,entry.levels);if(audit.failures.length)return {ok:false,failures:audit.failures};
  const engine=fingerprints(),errors=[],dirs=['levels','pictures','proofs','conformance'];
  for(const d of dirs)fs.rmSync(path.join(out,d),{recursive:true,force:true});
  // the owner's results: same engine, same definitions as the pilot played
@@ -198,7 +214,9 @@ export function fixtureShape(f){const e=[],sig=/^sha256:[0-9a-f]{64}$/,int=x=>Nu
 if(process.argv[1]&&import.meta.url===pathToFileURL(path.resolve(process.argv[1])).href){
  const a=process.argv.slice(2),opt=k=>{const i=a.indexOf(k);return i>=0?a[i+1]:null;},all=k=>a.flatMap((x,i)=>x===k&&a[i+1]?[a[i+1]]:[]);
  const from=+a[0],to=+a[1],out=opt('--out')?path.resolve(opt('--out')):null;
- const r=await exportWave(from,to,{out,ownerResults:all('--owner-results'),game:opt('--game')?path.resolve(opt('--game')):undefined});
+ const game=opt('--game')?path.resolve(opt('--game')):path.join(root,'content/game/rounds'),repack=a.includes('--repack');
+ const r=await exportWave(from,to,{out,ownerResults:all('--owner-results'),game,repack});
+ if(repack&&!r.failures.length){const d=repackSame(from,to,out,game);if(d.length){console.error(`export ${from}–${to} --repack refused:`);for(const x of d)console.error(`- ${x}`);process.exit(1);}console.log('repack: levels and pictures equal the previous export (engine fields aside)');}
  if(r.failures.length){console.error(`export ${from}–${to} refused:`);for(const f of r.failures)console.error(`- ${f}`);process.exit(1);}
  const m=r.manifest;console.log(`→ ${rel(out)}: ${m.counts.levels} levels, ${m.counts.pictures} pictures, ${m.counts.proofs} proofs, ${m.counts.conformance} fixtures (${m.counts.randomGames} random games, ${m.counts.ownerAttempts} owner attempts)`);
  if(r.errors.length){console.error(`fixture errors (${r.errors.length}):`);for(const e of r.errors)console.error(`- ${e}`);process.exit(1);}}

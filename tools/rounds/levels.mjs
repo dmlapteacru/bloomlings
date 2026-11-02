@@ -473,7 +473,7 @@ async function evaluateBreather(level,{m,tick=()=>{}}){const W=m.N,types=(level.
  const lc=level.latches?await latchCheck(level,sol.route,'Normal'):null;if(lc&&!lc.ok)return {reason:'засов: '+lc.problems[0]};
  const fair=level.pods.some(p=>p.mystery)?await fairness(level,sol.route):level.hiddenCells?await cellFairness(level,sol.route):{fair:true,checked:0};if(!fair.fair)return {reason:level.hiddenCells?'честность скрытых клеток не подтверждена':'честность скрытых не подтверждена'};
  return {random:rt,solution:{route:sol.route,forks:sol.decisions.forks,singleSafe:sol.decisions.single,unknown:sol.decisions.unknown,fast:sol.fast},fairness:fair,strategies:{},rhythm:rhythm(sol.trace,W),
-  checks:{breather:true,forced:await forcedShare(level),opening:null,hold:null,greedyLoses:null,hiddenMatters:null,bridgeKind:null,traps:{links:traps.length,traps:0,top:0},...(lc?{latch:lc}:{})}};}
+  checks:{breather:true,forced:await forcedShare(level),opening:null,hold:null,greedyLoses:null,hiddenMatters:null,bridgeKind:null,bridgeSingle:null,pressure:await pressure(level,QUALITY.pressure.games),traps:{links:traps.length,traps:0,top:0},...(lc?{latch:lc}:{})}};}
 
 // a bridge scene (bridge-scene.mjs, a picture whose record carries scene.win): the queue leans to the winning site and
 // the gate of the other strip stands deep (candidate opts), one of the last three rows of the tray by attempt
