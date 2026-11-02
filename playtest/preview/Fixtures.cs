@@ -2421,7 +2421,7 @@ namespace Bloomlings.Playtest.Preview
                 Tap(p, r.Chest);
                 Expect(app.AlbumTipOpen, "a tap on the dimmed chest opens its tooltip");
                 Run(app, p, 0.3f);
-                Expect(p.Slots.Contains("ui.album.chest.tip") && Shows(p, "Open every object to get it") && Shows(p, "200 Petals") && !Shows(p, "Claim"), "the filling chest's tooltip shows the contents and how it opens, no Claim");
+                Expect(p.Slots.Contains("ui.album.chest.tip") && Shows(p, "200") && !Shows(p, "Open every object to get it") && !Shows(p, "Claim"), "the filling chest's tooltip shows the prizes and their amounts only, no Claim");
                 Tap(p, r.Chest);
                 Expect(!app.AlbumTipOpen, "a second tap on the chest closes the tooltip");
                 Run(app, p, 0.1f);
@@ -2558,7 +2558,7 @@ namespace Bloomlings.Playtest.Preview
                 Tap(p, r.Chest);
                 Run(app, p, 0.5f);
                 Expect(app.AlbumTipOpen && p.Slots.Contains("ui.album.chest.tip"), "a tap on the ready chest opens its tooltip");
-                Expect(Shows(p, "Scene chest") && Shows(p, "200 Petals") && Shows(p, "1 Return") && Shows(p, "1 Extra Slot") && Shows(p, "Claim"), "the tooltip lists 200 Petals, one Return and one Extra Slot with Claim");
+                Expect(Shows(p, "200") && Shows(p, "×1") && !Shows(p, "Scene chest") && !Shows(p, "200 Petals") && Shows(p, "Claim"), "the tooltip shows the prizes as icons with only their amounts (200, ×1, ×1) and Claim, no words");
                 AlbumChestTipRegions t = AlbumLook.ChestTip(r, claim: true);
                 Expect(t.Bubble.Left >= r.Safe.Left && t.Bubble.Right <= r.Safe.Right && t.Bubble.Bottom <= r.Chest.Top, "the tooltip stays on the screen, above the chest");
             });

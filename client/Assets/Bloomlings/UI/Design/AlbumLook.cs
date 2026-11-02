@@ -125,9 +125,10 @@ namespace Bloomlings.Client.UI.Design
     /// <summary>
     /// The chest's tooltip (spec 007 FR-012, the owner's change of 2026-11-02): the guides' parchment bubble (the popups' card
     /// frame with a turned-square tail, <see cref="TailX"/> on its bottom edge pointing at the chest) above the chest: the
-    /// title (<see cref="Title"/>), one row a content (<see cref="Icons"/>, <see cref="Texts"/>: the Petals lotus and
-    /// "200 Petals", the Return booster and "1 Return", the Extra Slot booster and "1 Extra Slot") and the footer
-    /// (<see cref="Footer"/>: the green Claim when the chest is ready, else a line). Engine-free.
+    /// prizes side by side as big icons (<see cref="Icons"/>: the Petals lotus, the Return booster, the Extra Slot booster)
+    /// with only their amounts under them (<see cref="Texts"/>: "200", "×1", "×1"; no title, no words, the owner of
+    /// 2026-11-02) and the footer (<see cref="Footer"/>: the green Claim when the chest is ready, the check ball once
+    /// claimed, else nothing). Engine-free.
     /// </summary>
     public sealed record AlbumChestTipRegions(Box Bubble, float TailX, float Tail, Box Title, IReadOnlyList<Box> Icons, IReadOnlyList<Box> Texts, Box Footer, Box FooterIcon);
 
@@ -233,42 +234,47 @@ namespace Bloomlings.Client.UI.Design
             claimed ? AlbumChestState.Claimed : complete ? AlbumChestState.Ready : AlbumChestState.Filling;
 
         /// <summary>
-        /// The chest's tooltip over <paramref name="r"/>'s chest, in shares of W: 0.6 W wide, its right edge 0.17 W right of
-        /// the chest's middle (inside the safe area), its bottom 0.035 W over the chest's top with the tail between; padding
-        /// 0.045 W; the title 0.07 W; three rows 0.085 W (the icon 0.078 W); the footer 0.115 W (the green Claim, 0.42 W) when
-        /// <paramref name="claim"/>, else a line 0.06 W.
+        /// The chest's tooltip over <paramref name="r"/>'s chest, in shares of W (the owner, 2026-11-02: «призы крупнее, без
+        /// текста, только крупные иконки и цифры»): no title and no lines of text — the three prizes side by side as big icons
+        /// (0.15 W, 0.045 W apart) with their amounts under them (0.07 W); the bubble 0.63 W wide, its right edge 0.17 W right
+        /// of the chest's middle (inside the safe area), its bottom 0.035 W over the chest's top with the tail between; padding
+        /// 0.04 W; under the prizes the green Claim (0.42 W × 0.115 W) when <paramref name="claim"/>, the check ball (0.07 W)
+        /// when <paramref name="claimed"/>, else nothing. <see cref="AlbumChestTipRegions.Title"/> is empty.
         /// </summary>
-        public static AlbumChestTipRegions ChestTip(AlbumRegions r, bool claim)
+        public static AlbumChestTipRegions ChestTip(AlbumRegions r, bool claim, bool claimed = false)
         {
             float w = r.W;
-            float pad = 0.045f * w;
-            float titleH = 0.07f * w;
-            float rowH = 0.085f * w;
-            float footerH = claim ? 0.115f * w : 0.06f * w;
-            float height = pad + titleH + (0.012f * w) + (3f * rowH) + (0.018f * w) + footerH + pad;
-            float bubbleWidth = 0.6f * w;
+            float pad = 0.04f * w;
+            float icon = 0.15f * w;
+            float gap = 0.045f * w;
+            float numH = 0.07f * w;
+            float footerH = claim ? 0.115f * w : claimed ? 0.07f * w : 0f;
+            float footerGap = footerH > 0f ? 0.02f * w : 0f;
+            float height = pad + icon + (0.008f * w) + numH + footerGap + footerH + pad;
+            float bubbleWidth = (2f * pad) + (3f * icon) + (2f * gap) + (0.02f * w);
             float right = Math.Min(r.Safe.Right - (0.02f * w), r.Chest.CenterX + (0.17f * w));
             float tail = 0.045f * w;
             float bottom = r.Chest.Top + (0.01f * w) - tail;
             var bubble = new Box(right - bubbleWidth, bottom - height, right, bottom);
             float tailX = Math.Max(bubble.Left + (0.08f * w), Math.Min(bubble.Right - (0.08f * w), r.Chest.CenterX));
-            var title = new Box(bubble.Left + pad, bubble.Top + pad, bubble.Right - pad, bubble.Top + pad + titleH);
+            var title = new Box(bubble.Left, bubble.Top, bubble.Left, bubble.Top);
             var icons = new Box[3];
             var texts = new Box[3];
-            float y = title.Bottom + (0.012f * w);
-            float icon = 0.078f * w;
+            float rowWidth = (3f * icon) + (2f * gap);
+            float x = bubble.CenterX - (rowWidth / 2f);
+            float top = bubble.Top + pad;
             for (int i = 0; i < 3; i++)
             {
-                icons[i] = Box.FromCenter(bubble.Left + pad + (0.02f * w) + (icon / 2f), y + (rowH / 2f), icon, icon);
-                texts[i] = new Box(icons[i].Right + (0.03f * w), y, bubble.Right - pad, y + rowH);
-                y += rowH;
+                icons[i] = new Box(x, top, x + icon, top + icon);
+                texts[i] = new Box(x - (gap / 2f), icons[i].Bottom + (0.008f * w), x + icon + (gap / 2f), icons[i].Bottom + (0.008f * w) + numH);
+                x += icon + gap;
             }
 
-            y += 0.018f * w;
+            float y = texts[0].Bottom + footerGap;
             Box footer = claim
                 ? Box.FromCenter(bubble.CenterX, y + (footerH / 2f), 0.42f * w, footerH)
-                : new Box(bubble.Left + pad + (0.07f * w), y, bubble.Right - pad, y + footerH);
-            Box footerIcon = Box.FromCenter(bubble.Left + pad + (0.03f * w), y + (footerH / 2f), 0.055f * w, 0.055f * w);
+                : new Box(bubble.CenterX, y, bubble.CenterX, y + footerH);
+            Box footerIcon = Box.FromCenter(bubble.CenterX, y + (footerH / 2f), footerH, footerH);
             return new AlbumChestTipRegions(bubble, tailX, tail, title, icons, texts, footer, footerIcon);
         }
 

@@ -66,7 +66,7 @@ little chest we give the player. When you tap the chest, a small tooltip pops up
 
 Under the medallions a progress bar fills with the opened objects ("1 / 4" on it; its fill grows as a reveal comes back to
 colour) and runs into the scene chest (the owner's picture) at its right end. While the scene fills, the chest stays in full colour (the owner, 2026-11-02: always active, no Claim yet)
-and a tap shows its tooltip: the contents and "Open every object to get it". At 4 / 4 the card wears the green check, the
+and a tap shows its tooltip: the prizes as big icons with only their amounts (200, ×1, ×1; no title, no words — the owner, 2026-11-02), without Claim. At 4 / 4 the card wears the green check, the
 caption says "Scene complete" and the chest glows and hops gently; a tap opens the tooltip with the contents and a green
 Claim (a gift: no purchase confirmation). After the claim the tooltip and the caption read "Reward claimed" and the chest
 wears the check ball; the card stays to look at; the claim is restored from the save and never paid twice (also across a

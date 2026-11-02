@@ -376,7 +376,7 @@ namespace Bloomlings.Playtest.Design
             // The swipe registered again over the tap-outside target, so the tooltip never blocks it (a turn closes the tooltip).
             p.Scroll(new Box(r.Safe.Left, r.Ribbon.Bottom, r.Safe.Right, r.Strip.Top), previous, next);
             bool claim = state == AlbumChestState.Ready;
-            AlbumChestTipRegions t = AlbumLook.ChestTip(r, claim);
+            AlbumChestTipRegions t = AlbumLook.ChestTip(r, claim, state == AlbumChestState.Claimed);
             float pop = AlbumLook.TipPop(app.AlbumTipSince);
             p.PushTransform(0f, 0f, pop, t.TailX, t.Bubble.Bottom + (t.Tail / 2f));
             Box b = t.Bubble;
@@ -387,14 +387,14 @@ namespace Bloomlings.Playtest.Design
             p.PopTransform();
             Kit.CardFrame(p, b);
             p.Hit(b, () => { });
-            ProfileGamePainter.Label(p, t.Title, PlaytestText.T("album.chest.title"), ProfileGameDesign.Name, heightShare: .9f);
+            // The prizes as big icons with only their amounts (the owner, 2026-11-02: no words).
             AlbumChest chest = album.Chest;
             Kit.Petal(p, t.Icons[0]);
-            ProfileGamePainter.Label(p, t.Texts[0], PlaytestText.F("album.chest.petals", NumberText.Group(chest.Petals)), ProfileGameDesign.Item, left: true, heightShare: .74f);
+            ProfileGamePainter.Label(p, t.Texts[0], NumberText.Group(chest.Petals), ProfileGameDesign.Name, heightShare: .95f);
             Kit.BoosterIcon(p, "return", t.Icons[1]);
-            ProfileGamePainter.Label(p, t.Texts[1], PlaytestText.F("album.chest.booster", chest.Return, PlaytestText.T("booster.return")), ProfileGameDesign.Item, left: true, heightShare: .74f);
+            ProfileGamePainter.Label(p, t.Texts[1], PlaytestText.F("album.chest.count", chest.Return), ProfileGameDesign.Name, heightShare: .95f);
             Kit.BoosterIcon(p, "extra_slot", t.Icons[2]);
-            ProfileGamePainter.Label(p, t.Texts[2], PlaytestText.F("album.chest.booster", chest.ExtraSlot, PlaytestText.T("booster.extra_slot")), ProfileGameDesign.Item, left: true, heightShare: .74f);
+            ProfileGamePainter.Label(p, t.Texts[2], PlaytestText.F("album.chest.count", chest.ExtraSlot), ProfileGameDesign.Name, heightShare: .95f);
             switch (state)
             {
                 case AlbumChestState.Ready:
@@ -402,12 +402,6 @@ namespace Bloomlings.Playtest.Design
                     break;
                 case AlbumChestState.Claimed:
                     Kit.CheckBadge(p, t.FooterIcon.CenterX, t.FooterIcon.CenterY, t.FooterIcon.Width);
-                    ProfileGamePainter.Label(p, t.Footer, PlaytestText.T("album.reward_claimed"), ProfileGameDesign.Info, left: true, heightShare: .8f);
-                    break;
-                default:
-                    p.Mark("ui.lock");
-                    p.Shape("ui.lock", t.FooterIcon, C.InkBrownSoft);
-                    ProfileGamePainter.Label(p, t.Footer, PlaytestText.T("album.chest.locked"), ProfileGameDesign.Info, left: true, heightShare: .8f);
                     break;
             }
 

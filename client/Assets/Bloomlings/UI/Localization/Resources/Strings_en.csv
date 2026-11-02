@@ -212,6 +212,7 @@ album.reward_claimed,Reward claimed
 album.chest.title,Scene chest
 album.chest.petals,{0} Petals
 album.chest.booster,{0} {1}
+album.chest.count,×{0}
 album.chest.locked,Open every object to get it
 album.scene.forest,Forest Glade
 album.scene.airmail,Air Mail Garden

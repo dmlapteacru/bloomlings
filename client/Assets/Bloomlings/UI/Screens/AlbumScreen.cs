@@ -524,8 +524,8 @@ namespace Bloomlings.Client.UI.Screens
             _tipIcons[2] = UiKit.BoosterIcon("ExtraSlot", _tip, "extra_slot");
             for (int i = 0; i < 3; i++)
             {
-                _tipTexts[i] = MetaShelfView.Label("Text" + i, _tip, string.Empty, ProfileGameDesign.Item);
-                _tipTexts[i].alignment = TextAlignmentOptions.Left;
+                _tipTexts[i] = MetaShelfView.Label("Text" + i, _tip, string.Empty, ProfileGameDesign.Name);
+                _tipTexts[i].alignment = TextAlignmentOptions.Center;
             }
 
             _tipClaim = UiKit.PrimaryButton("Claim", _tip, Loc.T("album.claim"), Claim, ProfileGameDesign.Action);
@@ -555,7 +555,7 @@ namespace Bloomlings.Client.UI.Screens
         private void ShowTip()
         {
             AlbumChestState state = _chestState;
-            AlbumChestTipRegions t = AlbumLook.ChestTip(_r, state == AlbumChestState.Ready);
+            AlbumChestTipRegions t = AlbumLook.ChestTip(_r, state == AlbumChestState.Ready, state == AlbumChestState.Claimed);
             _tip.gameObject.SetActive(true);
             _tip.SetAsLastSibling();
             _sheet.SetAsLastSibling();
@@ -564,9 +564,11 @@ namespace Bloomlings.Client.UI.Screens
             _tipTail.transform.localEulerAngles = new Vector3(0f, 0f, 45f);
             UiKit.PlaceScreen(_tipTitle.rectTransform, t.Title);
             AlbumChest chest = _album.Chest;
-            _tipTexts[0].text = Loc.F("album.chest.petals", NumberText.Group(chest.Petals));
-            _tipTexts[1].text = Loc.F("album.chest.booster", chest.Return, Loc.T("booster.return"));
-            _tipTexts[2].text = Loc.F("album.chest.booster", chest.ExtraSlot, Loc.T("booster.extra_slot"));
+            // The prizes as big icons with only their amounts (the owner, 2026-11-02: no words).
+            _tipTitle.gameObject.SetActive(false);
+            _tipTexts[0].text = NumberText.Group(chest.Petals);
+            _tipTexts[1].text = Loc.F("album.chest.count", chest.Return);
+            _tipTexts[2].text = Loc.F("album.chest.count", chest.ExtraSlot);
             for (int i = 0; i < 3; i++)
             {
                 UiKit.PlaceScreen(_tipIcons[i].rectTransform, t.Icons[i]);
@@ -575,8 +577,8 @@ namespace Bloomlings.Client.UI.Screens
 
             _tipClaim.gameObject.SetActive(state == AlbumChestState.Ready);
             _tipClaim.interactable = _album.CanPay;
-            _tipFooter.gameObject.SetActive(state != AlbumChestState.Ready);
-            _tipLock.gameObject.SetActive(state == AlbumChestState.Filling);
+            _tipFooter.gameObject.SetActive(false);
+            _tipLock.gameObject.SetActive(false);
             _tipCheck.gameObject.SetActive(state == AlbumChestState.Claimed);
             UiKit.PlaceScreen((RectTransform)_tipClaim.transform, t.Footer);
             UiKit.PlaceScreen(_tipFooter.rectTransform, t.Footer);
