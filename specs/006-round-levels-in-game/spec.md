@@ -423,19 +423,24 @@ owner sees the same behaviour as in the playtest app.
     back on top of its column, before a closed latch there; an open latch stays open (a restored snapshot keeps it).
     Shuffle moves only the pods before each column's first closed latch. Bloom Burst may open the way to a key; the latch
     then opens right after the burst's cell reveals.
-  - Look (the owner's look of 2026-11-01, as Colony Flow's: "a big key on the board and a lock, the key in the colour of
-    the pod it opens"; the acorn tied to the pod itself as our acorn hero locking it): the latch is drawn on the pod it
-    holds (the pod right behind it), in that pod's place, so the column shows one item where it holds one pod: the pod's
-    cube and number a little darker (a hidden pod keeps its "?"), a brass padlock (`pod.round.padlock`) on its top's
-    right and our acorn hero (the Acorn variant's 2D character, the walkers' art untinted) sitting on the corner hugging
-    it, as if he had locked the pod himself. Its key (`board.round.key`) is an ordinary big key (about 2.4 cells long,
-    over the cubes round its cell, volumetric as the cubes, breathing up and down) in the colour of the pod its latch holds
-    (brass for a hidden pod). Only when two latches of a level hold pods of one colour do their padlock and key carry 1–3
-    white pips to tell them apart. When `latchOpen` plays the key lifts off and fades, the padlock springs open and drops,
-    the acorn hops off and the pod is the column's top pod, taking taps from the event on (contracts/presentation.md).
-    Presentation only: rules, events and timing are unchanged.
-  - Popup: its first meeting (L61) shows an explanation card ("The lock": the padlocked pod with the acorn and its key in
-    the pod's colour on a patch of the board; "A padlocked pod waits in its column", "It opens when the Bloomlings reach
+  - Look (the owner's look of 2026-11-02, replacing that of 2026-11-01: "Twig hero 100%"; the key upright on its tip, not
+    touching the board, turning; the key flies to the lock): while a latch is closed the pod it holds (the pod right behind
+    it) is not drawn at all; in its place stands our Twig hero (the owner's modular Twig V2 frames in the player's equipped
+    Twig outfit, stock Twig without one; pre-rendered flat 2D frames, constitution VII as amended to v1.3.0), his feet on a
+    soft contact shadow at the place's bottom, his head a little over it, holding in front of his belly a padlock
+    (`pod.round.padlock`) whose body is the colour of that pod (brass for a hidden pod, and for a latch with no pod of its
+    own), his hands over its sides; in rows 2 and 3 he is lightened as the waiting pods. Its key (`board.round.key`) is an
+    ordinary big key in the same colour standing upright on its tip over its cell (bow up, about 2.4 cells tall and at
+    least 0.13 of the board surface's width, kept on the surface, over the cubes round it), hovering a little over the cell
+    with a soft oval shadow on it, bobbing and turning round its own upright axis (a flat 2D squash, never thinner than
+    12 %, its back half darker, about 1.8 s a turn). Only when two latches of a level hold pods of one colour do their
+    padlock and key carry 1–3 white pips to tell them apart. When `latchOpen` plays (the latch is then its column's top and
+    its key reached) the key lifts off, turns faster and flies on a gentle arc into the padlock's keyhole, shrinking to its
+    scale; it turns a quarter there with a click ring, the shackle springs open, the padlock drops and fades and Twig steps
+    aside and fades, over 0.9 s of display time; the pod is drawn behind him and is the column's top pod, taking taps from
+    the event on (contracts/presentation.md). Presentation only: rules, events and timing are unchanged.
+  - Popup: its first meeting (L61) shows an explanation card ("The lock": Twig holding the padlock in the pod's place and the
+    upright key in the pod's colour on a patch of the board, looping the key's flight and the opening; "A padlocked pod waits in its column", "It opens when the Bloomlings reach
     the key of its color on the board"); its second (L63) a short reminder.
 
 **Transfer path**

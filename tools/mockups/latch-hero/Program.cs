@@ -378,7 +378,7 @@ internal static class Mock
         float shBar = s * 0.07f;
         float shCy = (s * 0.45f) - lift;
         float legBottom = bt + (s * 0.04f) - lift;
-        Rgba nut = RoundLook.AcornNut;
+        Rgba nut = Rgba.FromHex("#C07A3A");
         float armW = s * 0.06f;
         (float X, float Y)[] armA = { (s * 0.17f, s * 0.05f), (s * 0.2f, s * 0.3f), (s * 0.33f, s * 0.44f) };
         (float X, float Y)[] armB = { (s * 0.83f, s * 0.05f), (s * 0.8f, s * 0.3f), (s * 0.67f, s * 0.44f) };
@@ -458,7 +458,7 @@ internal static class Mock
                         float limb = Math.Min(d, hand);
                         if (limb - line < 0.5f)
                         {
-                            Over(ref c, ref a, RoundLook.AcornInk, Coverage(limb - line));
+                            Over(ref c, ref a, Rgba.FromHex("#3F2810"), Coverage(limb - line));
                             float lit = Clamp01(0.5f - ((y - arm[2].Y) / (s * 0.3f)));
                             Over(ref c, ref a, nut.Darken(0.1f).Mix(nut.Lighten(0.2f), lit), Coverage(limb));
                         }
