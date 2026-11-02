@@ -641,22 +641,113 @@ namespace Bloomlings.Client.Tests
         [Test]
         public void ThePadlockAndTheKey_AreDeterministicPictures_InTheHeldPodsColour()
         {
-            byte[] a = UiRaster.Padlock(64, 0, false, true);
-            Assert.That(a, Is.EqualTo(UiRaster.Padlock(64, 0, false, true)), "deterministic");
+            Rgba blue = RoundLook.ColorOf(2);
+            byte[] a = UiRaster.Padlock(64, blue, 0, false);
+            Assert.That(a, Is.EqualTo(UiRaster.Padlock(64, blue, 0, false)), "deterministic");
             Assert.That(a.Length, Is.EqualTo(64 * 64 * 4));
             Assert.That(a.Where((b, i) => i % 4 == 3).Count(x => x > 200), Is.GreaterThan(64 * 64 / 5), "a padlock");
-            Assert.That(UiRaster.Padlock(64, 2, false, true), Is.Not.EqualTo(a), "pips tell two latches of one colour apart");
-            Assert.That(UiRaster.Padlock(64, 0, true, false), Is.Not.EqualTo(a), "the open padlock");
-            Rgba blue = RoundLook.ColorOf(2);
-            byte[] key = UiRaster.RoundKey(96, 76, blue, 0);
-            Assert.That(key, Is.EqualTo(UiRaster.RoundKey(96, 76, blue, 0)));
-            Assert.That(key.Where((b, i) => i % 4 == 3).Count(x => x > 200), Is.GreaterThan(96 * 76 / 10), "a big key");
-            Assert.That(key.Where((b, i) => i % 4 == 3).Count(x => x == 0), Is.GreaterThan(96 * 76 / 4), "the board shows round it");
-            Assert.That(UiRaster.RoundKey(96, 76, RoundLook.ColorOf(0), 0), Is.Not.EqualTo(key), "another pod's colour, another key");
-            Assert.That(UiRaster.RoundKeyKey(blue, 1), Is.Not.EqualTo(UiRaster.RoundKeyKey(blue, 0)));
+            Assert.That(UiRaster.Padlock(64, blue, 2, false), Is.Not.EqualTo(a), "pips tell two latches of one colour apart");
+            Assert.That(UiRaster.Padlock(64, blue, 0, true), Is.Not.EqualTo(a), "the open padlock");
+            Assert.That(UiRaster.Padlock(64, RoundLook.ColorOf(0), 0, false), Is.Not.EqualTo(a), "its body in the held pod's colour");
+            Assert.That(UiRaster.PadlockKey(blue, 0, false), Is.Not.EqualTo(UiRaster.PadlockKey(RoundLook.ColorOf(0), 0, false)));
+            Assert.That(UiRaster.PadlockKey(blue, 0, false), Does.StartWith(RoundLook.PadlockSlot));
+
+            int w = 66;
+            int h = 118;
+            byte[] key = UiRaster.UprightKey(w, h, blue, 0);
+            Assert.That(key, Is.EqualTo(UiRaster.UprightKey(w, h, blue, 0)));
+            Assert.That(key.Where((b, i) => i % 4 == 3).Count(x => x > 200), Is.GreaterThan(w * h / 10), "a big key");
+            Assert.That(key.Where((b, i) => i % 4 == 3).Count(x => x == 0), Is.GreaterThan(w * h / 4), "the board shows round it");
+            Assert.That(UiRaster.UprightKey(w, h, RoundLook.ColorOf(0), 0), Is.Not.EqualTo(key), "another pod's colour, another key");
+            Assert.That(UiRaster.UprightKeyKey(blue, 1), Is.Not.EqualTo(UiRaster.UprightKeyKey(blue, 0)));
+            Assert.That(UiRaster.UprightKeyKey(RoundLook.KeyBack(blue), 0), Is.Not.EqualTo(UiRaster.UprightKeyKey(blue, 0)), "its back half darker");
+
+            // standing upright: the bow (the widest part) in the top half, the tip at the bottom
+            int Row(int y) => Enumerable.Range(0, w).Count(x => key[(((y * w) + x) * 4) + 3] > 128);
+            int widest = Enumerable.Range(0, h).OrderByDescending(Row).First();
+            Assert.That(widest, Is.LessThan(h / 2), "the bow is up");
+            Assert.That(Row((int)(h * 0.5f) + (int)(RoundLook.KeyTipShare * h / RoundLook.KeyBoxHeight) - 2), Is.GreaterThan(0), "the tip near the bottom");
             Assert.That(RoundLook.KeyMetal(-1), Is.EqualTo(RoundLook.KeyBrass), "a hidden pod's key is brass");
-            Assert.That(UiRaster.PodCubeKey('G', false, RoundPodLook.Locked, false), Is.Not.EqualTo(UiRaster.PodCubeKey('G', false, RoundPodLook.Placed, false)));
+            byte[] shadow = UiRaster.SoftOval(40, 16);
+            Assert.That(shadow.Where((b, i) => i % 4 == 3).Max(), Is.LessThanOrEqualTo((int)Math.Ceiling(RoundLook.ShadowAlpha * 255f)), "a soft shadow");
             Assert.That(AssetSlots.All.Select(slot => slot.Id), Does.Contain(RoundLook.PadlockSlot).And.Contain(RoundLook.KeySlot));
+        }
+
+        [Test]
+        public void TheKey_StandsOverItsCell_Hovering_AndTurns()
+        {
+            var cell = new Box(100f, 200f, 120f, 217.6f);
+            Box box = RoundLook.KeyBox(cell);
+            float len = RoundLook.KeyLength(cell);
+            Assert.That(len, Is.EqualTo(cell.Width * RoundLook.KeyLengthCells).Within(1e-3f));
+            Assert.That(box.Height, Is.GreaterThan(box.Width * 1.5f), "upright");
+            Assert.That(box.CenterX, Is.EqualTo(cell.CenterX).Within(1e-3f));
+            float tip = box.CenterY + (len * RoundLook.KeyTipShare);
+            Assert.That(tip, Is.LessThan(cell.CenterY), "its tip hovers over the cell: it never touches the board");
+            Assert.That(cell.CenterY - tip, Is.EqualTo(cell.Width * RoundLook.KeyHoverCells).Within(1e-3f));
+            Assert.That(RoundLook.KeyShadow(cell).CenterY, Is.EqualTo(cell.CenterY).Within(1e-3f), "its shadow on the cell");
+            var surface = new Box(0f, 0f, 400f, 400f);
+            Assert.That(RoundLook.KeyLength(cell, surface), Is.EqualTo(400f * RoundLook.KeyBoardShare).Within(1e-3f), "big on a board of small cubes");
+            Box edge = RoundLook.KeyBox(new Box(380f, 10f, 400f, 27.6f), surface);
+            Assert.That(edge.Right, Is.LessThanOrEqualTo(surface.Right + (RoundLook.KeyLength(cell, surface) * 0.07f)), "kept on the surface");
+
+            for (float turns = 0f; turns < 2f; turns += 0.01f)
+            {
+                (float sx, bool back) = RoundLook.KeySpin(turns);
+                Assert.That(Math.Abs(sx), Is.GreaterThanOrEqualTo(RoundLook.KeyMinWidth), "never thinner than its edge");
+                Assert.That(Math.Abs(sx), Is.LessThanOrEqualTo(1f));
+                Assert.That(back, Is.EqualTo(sx < 0f), "the back half mirrored");
+            }
+
+            Assert.That(RoundLook.KeySpin(0f), Is.EqualTo((1f, false)));
+            Assert.That(RoundLook.KeySpin(0.5f).Back, Is.True);
+            Assert.That(RoundLook.KeySpinSeconds, Is.InRange(1.5f, 2.1f));
+        }
+
+        [Test]
+        public void TheOpeningKey_FliesFromItsCell_IntoTheKeyhole()
+        {
+            var from = new Box(500f, 600f, 560f, 708f);
+            var place = new Box(300f, 1500f, 420f, 1620f);
+            Box padlock = RoundLook.HeroLock(RoundLook.HeroCell(place));
+            Box to = RoundLook.KeyInHole(padlock, 0);
+            (Box start, float sx0, bool _, float a0) = RoundLook.KeyFlight(0f, from, to, 0.3f);
+            Assert.That(start.CenterX, Is.EqualTo(from.CenterX).Within(0.5f), "starts at the key");
+            Assert.That(start.CenterY, Is.EqualTo(from.CenterY).Within(0.5f));
+            Assert.That(a0, Is.EqualTo(1f));
+            (Box end, float sx, bool back, float a1) = RoundLook.KeyFlight(RoundLook.KeyFlightSeconds, from, to, 0.3f);
+            Assert.That((end.CenterX, end.CenterY, end.Height), Is.EqualTo((to.CenterX, to.CenterY, to.Height)), "ends in the keyhole at its scale");
+            Assert.That((sx, back), Is.EqualTo((1f, false)), "facing us as it goes in");
+            (float kx, float ky) = RoundLook.Keyhole(padlock, 0);
+            float tipY = to.CenterY + (to.Height / RoundLook.KeyBoxHeight * RoundLook.KeyTipShare);
+            Assert.That(Math.Abs(tipY - ky), Is.LessThan(padlock.Width * 0.1f), "its tip in the hole");
+            Assert.That(to.CenterX, Is.EqualTo(kx).Within(1e-3f));
+            float mid = RoundLook.KeyFlight(RoundLook.KeyFlightSeconds / 2f, from, to, 0.3f).Box.CenterY;
+            Assert.That(mid, Is.LessThan(from.CenterY + ((to.CenterY - from.CenterY) / 2f)), "on an arc, lifted");
+            Assert.That(RoundLook.KeyFlight(RoundLook.LatchOpenSeconds, from, to, 0.3f).Alpha, Is.EqualTo(0f), "gone when the opening ends");
+            Assert.That(RoundLook.KeyFlight(-1f, from, to, 0.3f).Box, Is.EqualTo(from), "closed, at rest");
+        }
+
+        [Test]
+        public void TheHero_StandsInThePlace_HoldingThePadlock()
+        {
+            var place = new Box(300f, 1500f, 420f, 1620f);
+            Box cell = RoundLook.HeroCell(place);
+            Assert.That(cell.Width / cell.Height, Is.EqualTo((float)HeroMotion.CellWidth / HeroMotion.CellHeight).Within(1e-3f), "the hero's own cell");
+            float feet = cell.Top + (cell.Height * HeroMotion.FootLine);
+            Assert.That(feet, Is.LessThanOrEqualTo(place.Bottom).And.GreaterThan(place.Bottom - (place.Height * 0.1f)), "feet at the place's bottom");
+            Assert.That(cell.CenterX, Is.EqualTo(place.CenterX).Within(1e-3f));
+            Box padlock = RoundLook.HeroLock(cell);
+            Assert.That(padlock.Left, Is.GreaterThan(place.Left).And.LessThan(place.CenterX));
+            Assert.That(padlock.Right, Is.LessThan(place.Right));
+            (Box left, Box right) = RoundLook.HeroHands(cell);
+            float bodyLeft = padlock.Left + (padlock.Width * 0.24f);
+            float bodyRight = padlock.Left + (padlock.Width * 0.76f);
+            Assert.That(left.Right, Is.GreaterThan(bodyLeft), "his hands over the padlock's sides");
+            Assert.That(right.Left, Is.LessThan(bodyRight));
+            Assert.That(left.CenterY, Is.InRange(padlock.Top + (padlock.Width * 0.53f), padlock.Bottom), "at the padlock's body");
+            Assert.That(RoundLook.HeroSide(0, 4), Is.EqualTo(-1));
+            Assert.That(RoundLook.HeroSide(3, 4), Is.EqualTo(1));
         }
 
         [Test]

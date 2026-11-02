@@ -192,10 +192,11 @@ namespace Bloomlings.Client.UI.Design
         public const long CellRevealUs = 360_000;
 
         /// <summary>
-        /// How long a latch's opening plays (display µs; <c>RoundLook.LatchOpenSeconds</c>): the key lifts off its cell and fades,
-        /// the padlock springs open and drops and the acorn hero hops off the pod, which takes taps from the event on.
+        /// How long a latch's opening plays (display µs; <c>RoundLook.LatchOpenSeconds</c>; the owner's look of 2026-11-02): the key
+        /// flies from its cell to the padlock's keyhole and turns, the shackle springs open, the padlock drops and the Twig hero
+        /// steps aside from the pod, which takes taps from the event on. Presentation only.
         /// </summary>
-        public const long LatchOpenUs = 520_000;
+        public const long LatchOpenUs = 900_000;
 
         /// <summary>A cell's clear moment when it was cleared before the animator started (a restored attempt): no animation.</summary>
         public const long Before = long.MinValue / 4;

@@ -27,16 +27,19 @@ namespace Bloomlings.Client.UI.Design
         Bridge,
 
         /// <summary>
-        /// The locked pod with its padlock and our acorn hero (<see cref="RoundLook.LatchParts"/>) beside a patch of the board
-        /// with its key in the pod's colour between cubes (<see cref="UiRaster.RoundKey"/>; 17 §8, laid out by
-        /// <see cref="RoundIntroLatch"/>); in a loop the key lifts away and the pod opens.
+        /// Our Twig hero holding the padlock in the held pod's colour in the pod's place (<see cref="RoundLook.HeroCell"/>) beside
+        /// a patch of the board with its key standing upright and turning over its cell between cubes
+        /// (<see cref="UiRaster.UprightKey"/>; 17 §8, the owner's look of 2026-11-02, laid out by <see cref="RoundIntroLatch"/>); in
+        /// a loop (<see cref="RoundIntroLatch.Since"/>) the key flies to the keyhole, the padlock opens and Twig steps aside from
+        /// the pod.
         /// </summary>
         Latch,
     }
 
     /// <summary>
-    /// The latch card's picture (<see cref="RoundIntroPicture.Latch"/>), the same in both builds: the locked pod at the left,
-    /// a patch of the board at the right with cubes round an empty cell and the key on it, in the pod's colour.
+    /// The latch card's picture (<see cref="RoundIntroPicture.Latch"/>), the same in both builds: the held pod's place at the
+    /// left with our Twig hero and his padlock in it, a patch of the board at the right with cubes round an empty cell in its
+    /// bottom row and the upright key over it, in the pod's colour.
     /// </summary>
     public sealed class RoundIntroLatch
     {
@@ -45,6 +48,18 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>The locked pod's number.</summary>
         public const int Count = 9;
+
+        /// <summary>One loop of the card's picture, in seconds: the latch closed for <see cref="ClosedSeconds"/>, then its opening and a pause.</summary>
+        public const float LoopSeconds = 3f;
+
+        /// <summary>How long the loop shows the latch closed, the key turning over its cell.</summary>
+        public const float ClosedSeconds = 1.5f;
+
+        /// <summary>
+        /// Seconds since the loop's opening began at <paramref name="seconds"/> of the card (negative while closed): the
+        /// <c>since</c> of <see cref="RoundLook.KeyFlight"/>, <see cref="RoundLook.PadlockOpen"/> and <see cref="RoundLook.HeroStep"/>.
+        /// </summary>
+        public static float Since(float seconds) => (seconds % LoopSeconds) - ClosedSeconds;
 
         private RoundIntroLatch(Box pod, Box patch, float cell, IReadOnlyList<(Box Cube, int Material)> cubes, Box keyCell)
         {
@@ -55,7 +70,7 @@ namespace Bloomlings.Client.UI.Design
             KeyCell = keyCell;
         }
 
-        /// <summary>The locked pod's place (its cube is <see cref="PodChip.Cube"/> of it).</summary>
+        /// <summary>The held pod's place (the hero's is <see cref="RoundLook.HeroCell"/> of it, the pod's cube <see cref="PodChip.Cube"/>).</summary>
         public Box Pod { get; }
 
         /// <summary>The patch of board surface.</summary>
@@ -70,18 +85,24 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The key's empty cell (its top face's box).</summary>
         public Box KeyCell { get; }
 
+        /// <summary>The upright key's picture box over <see cref="KeyCell"/> (<see cref="RoundLook.KeyBox"/>).</summary>
+        public Box KeyBox => RoundLook.KeyBox(KeyCell);
+
+        /// <summary>The padlock's square in the hero's hands (<see cref="RoundLook.HeroLock"/>).</summary>
+        public Box Lock => RoundLook.HeroLock(RoundLook.HeroCell(Pod));
+
         /// <summary>The picture laid out in <paramref name="area"/>.</summary>
         public static RoundIntroLatch In(Box area)
         {
             float h = area.Height;
             float pw = h * 0.7f;
             var pod = Box.FromCenter(area.Left + (area.Width * 0.25f), area.CenterY + (h * 0.12f), pw, pw);
-            float cell = Math.Min(h * 0.24f, area.Width * 0.11f);
+            float cell = Math.Min(h * 0.2f, area.Width * 0.1f);
             float row = cell * RoundBoardLayout.RowShare;
             const int cols = 5;
             const int rows = 3;
             float px = area.Left + (area.Width * 0.66f);
-            var patch = Box.FromCenter(px, area.CenterY, (cols * cell) + (cell * 0.5f), (rows * row) + (cell * RoundBoardLayout.FrontShare) + (cell * 0.5f));
+            var patch = Box.FromCenter(px, area.CenterY + (h * 0.12f), (cols * cell) + (cell * 0.5f), (rows * row) + (cell * RoundBoardLayout.FrontShare) + (cell * 0.5f));
             float left = patch.CenterX - (cols * cell / 2f);
             float top = patch.Top + (cell * 0.25f);
             var cubes = new List<(Box, int)>();
@@ -92,14 +113,14 @@ namespace Bloomlings.Client.UI.Design
                 for (int x = 0; x < cols; x++)
                 {
                     var box = new Box(left + (x * cell), top + (y * row), left + ((x + 1) * cell), top + ((y + 1) * row));
-                    if (y == 1 && x == 2)
+                    if (y == rows - 1 && x == 2)
                     {
                         key = box;
                         continue;
                     }
 
-                    // the middle row's cubes either side of the key are cleared: the way the Bloomlings came
-                    if (y == 1 && (x == 1 || x == 0))
+                    // the bottom row's cubes left of the key are cleared: the way the Bloomlings came
+                    if (y == rows - 1 && (x == 1 || x == 0))
                     {
                         continue;
                     }

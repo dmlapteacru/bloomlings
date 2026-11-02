@@ -320,11 +320,29 @@ namespace Bloomlings.Client.Tests
             Assert.That(play.Animator.LatchShown(0), Is.False, "the opening has ended");
             Assert.That(play.Status, Is.EqualTo(RoundStatus.Won));
             Assert.That(play.Animator.ShowsRulesState(play.Timeline, out string difference), Is.True, difference);
-            Assert.That(RoundLook.KeyOpen(RoundLook.LatchOpenSeconds).Alpha, Is.EqualTo(0f));
-            Assert.That(RoundLook.KeyOpen(-1f), Is.EqualTo((0f, 1f, 1f)));
             Assert.That(RoundLook.PadlockOpen(-1f), Is.EqualTo((false, 0f, 1f, 1f)));
             Assert.That(RoundLook.PadlockOpen(RoundLook.LatchOpenSeconds).Alpha, Is.EqualTo(0f));
-            Assert.That(RoundLook.AcornHop(RoundLook.LatchOpenSeconds).Alpha, Is.EqualTo(0f));
+            Assert.That(RoundLook.HeroStep(-1f, 1), Is.EqualTo((0f, 0f, 1f)));
+            Assert.That(RoundLook.HeroStep(RoundLook.LatchOpenSeconds, 1).Alpha, Is.EqualTo(0f));
+        }
+
+        [Test]
+        public void TheOpening_FitsItsDisplayTime_InOrder()
+        {
+            // presentation only (the owner's look of 2026-11-02): the key flies, turns and clicks, the shackle opens, the padlock
+            // drops and the hero steps aside, all within the opening the animator plays
+            Assert.That(RoundAnimator.LatchOpenUs, Is.EqualTo(900_000));
+            Assert.That(RoundLook.LatchOpenSeconds, Is.EqualTo(0.9f).Within(1e-6f));
+            Assert.That(RoundLook.KeyFlightSeconds + RoundLook.KeyTurnSeconds + RoundLook.KeyFadeSeconds, Is.LessThan(RoundLook.LatchOpenSeconds));
+            Assert.That(RoundLook.KeyFlightSeconds, Is.LessThan(RoundLook.ShackleOpenAt));
+            Assert.That(RoundLook.ShackleOpenAt, Is.LessThan(RoundLook.PadlockDropAt));
+            Assert.That(RoundLook.HeroLeaveAt, Is.GreaterThan(RoundLook.KeyFlightSeconds).And.LessThan(RoundLook.LatchOpenSeconds));
+            Assert.That(RoundLook.PadlockOpen(RoundLook.ShackleOpenAt - 0.01f).Open, Is.False);
+            Assert.That(RoundLook.PadlockOpen(RoundLook.ShackleOpenAt).Open, Is.True);
+            Assert.That(RoundLook.HeroStep(RoundLook.HeroLeaveAt - 0.01f, -1), Is.EqualTo((0f, 0f, 1f)), "Twig holds still until the padlock opens");
+            Assert.That(RoundLook.HeroStep(0.8f, -1).X, Is.LessThan(0f), "steps aside to his side");
+            Assert.That(RoundLook.KeyClick(RoundLook.ShackleOpenAt).Alpha, Is.GreaterThan(0f));
+            Assert.That(RoundLook.KeyClick(0.2f).Alpha, Is.EqualTo(0f));
         }
 
         [Test]

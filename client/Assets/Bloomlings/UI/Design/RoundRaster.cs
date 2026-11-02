@@ -369,8 +369,7 @@ namespace Bloomlings.Client.UI.Design
         /// tap) in a white outline (<see cref="RoundScreenLook.PodRingShare"/>) with a base of
         /// <see cref="RoundScreenLook.CubeDepthShare"/>; a waiting one (rows 2 and 3) a little lighter
         /// (<see cref="RoundLook.WaitingColor"/>) with a flatter base (<see cref="RoundScreenLook.WaitingDepthShare"/>); one in
-        /// a place as the top row's without the outline; the pod a closed latch holds (<see cref="RoundPodLook.Locked"/>) as a
-        /// placed one, a little darker. Its number is text the hosts centre on its top
+        /// a place as the top row's without the outline. Its number is text the hosts centre on its top
         /// (<see cref="PodChip.Cube"/>); in the symbols mode the material's symbol <paramref name="symbolId"/> stands small in
         /// the top's upper left. A hidden pod (<paramref name="hidden"/>) is the neutral mystery cube with its white "?".
         /// </summary>
@@ -383,11 +382,6 @@ namespace Bloomlings.Client.UI.Design
             float m = ring;
             // A hidden pod is the neutral dark "?" cube in every row (the owner, 2026-10-31, as the reference game's).
             Rgba col = hidden ? RoundLook.HiddenPodColor : look == RoundPodLook.Waiting ? RoundLook.WaitingColor(color) : color;
-            if (look == RoundPodLook.Locked)
-            {
-                col = col.Darken(RoundLook.LockedDarken);
-            }
-
             float front = look == RoundPodLook.Waiting ? RoundScreenLook.WaitingDepthShare : RoundScreenLook.CubeDepthShare;
             float bevel = s * RoundScreenLook.BoardBevelShare * 0.8f;
             float topBottom = (s - m) - ((s - (2f * m)) * front);
