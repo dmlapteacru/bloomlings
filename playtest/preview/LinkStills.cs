@@ -13,8 +13,8 @@ namespace Bloomlings.Playtest.Preview
     /// <summary>
     /// <c>--link-stills &lt;rounds dir&gt; &lt;out dir&gt; [level] [tag]</c>: the owner's phone report of 2026-11-02 (L54) for review, on
     /// a rounds folder with <c>published/</c> and <c>proofs/</c>: the level at its start, the same after a tap on a top pod
-    /// whose link partner waits deeper than the rows show (the routed tube to the hidden partner and its pulse,
-    /// <see cref="RoundAnimator.LinkMarks"/>, <see cref="LinkTube.HiddenRoute"/>), and a frame with walkers under way (with a close-up of the board) on that level
+    /// whose link partner waits deeper than the rows show (the straight tube towards the hidden partner and its pulse,
+    /// <see cref="RoundAnimator.LinkMarks"/>, <see cref="LinkTube.HiddenTube"/>), and a frame with walkers under way (with a close-up of the board) on that level
     /// and on Level 1 (big cubes), so the walkers' size on small cubes (<see cref="ClearStyles.SmallCubeBoost"/>) can be
     /// compared; <c>tag</c> names the walker stills (e.g. <c>before</c> / <c>after</c>). Review material only.
     /// </summary>
@@ -69,7 +69,7 @@ namespace Bloomlings.Playtest.Preview
 
                 string L(int n) => "L" + n.ToString("00", CultureInfo.InvariantCulture);
                 RoundLevelScreen s;
-                // ---- The level at its start, then the two kinds of routed tube to a hidden partner, each before and after a tap ----
+                // ---- The level at its start, then a hidden partner's tube (next column and across one), each before and after a tap ----
                 s = Open(level);
                 Save(L(level) + "-start", painter.Png());
                 RoundPainter.LayoutCache cache = RoundPainter.Layout(painter, s, true, false);
@@ -77,8 +77,7 @@ namespace Bloomlings.Playtest.Preview
                 var saved = new HashSet<string>();
                 Box tray = new Box(0f, cache.Regions.Columns[0].Top - 40f, 1080f, 2424f);
 
-                // A top pod whose partner waits deeper than the rows: its route plugs into the partner's place on screen
-                // ("into-place") or runs down out of it ("down"), the latter across a column when it can.
+                // A top pod whose partner waits deeper than the rows, in the next column ("next") or across one ("across").
                 string? Kind(out int pod)
                 {
                     pod = -1;
@@ -95,8 +94,7 @@ namespace Bloomlings.Playtest.Preview
                             continue;
                         }
 
-                        LinkRoute route = LinkTube.HiddenRoute(cache.Regions, mark, LinkTube.PlaceOf(cache.Regions, mark.ShownColumn, 0));
-                        string kind = route.Connected ? "into-place" : Math.Abs(mark.Column - mark.ShownColumn) > 1 ? "down-across" : "down";
+                        string kind = Math.Abs(mark.Column - mark.ShownColumn) > 1 ? "across" : "next";
                         if (!saved.Contains(kind))
                         {
                             pod = mark.Pod;
@@ -133,12 +131,12 @@ namespace Bloomlings.Playtest.Preview
                 }
 
                 // A player's own order (seeded random taps on accepted top pods) until each kind has been seen.
-                for (int seed = 1; seed <= 60 && saved.Count < 3; seed++)
+                for (int seed = 1; seed <= 60 && saved.Count < 2; seed++)
                 {
                     s = Open(level);
                     cache = RoundPainter.Layout(painter, s, true, false);
                     var random = new Random(seed);
-                    for (int step = 0; step < 60 && !s.Won && saved.Count < 3; step++)
+                    for (int step = 0; step < 60 && !s.Won && saved.Count < 2; step++)
                     {
                         for (float t = 0f; t < 20f && (s.Play.Timeline.Pending || s.Animator.Busy); t += 1f / 30f)
                         {
@@ -172,7 +170,7 @@ namespace Bloomlings.Playtest.Preview
                     }
                 }
 
-                Console.WriteLine(L(level) + ": routed tubes shown: " + string.Join(", ", saved));
+                Console.WriteLine(L(level) + ": hidden partners' tubes shown: " + string.Join(", ", saved));
 
                 // ---- Walkers under way: this level and Level 1 (big cubes) ----
                 foreach (int n in new[] { level, 1 })

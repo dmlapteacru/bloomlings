@@ -16,9 +16,9 @@ namespace Bloomlings.Client.Gameplay.Tray
     /// three pods as soft cubes one after another, never under each other, the top pod the only one that takes the tap and
     /// nothing for the rest (no "+N"); a pod's cube in its material's colour with its count, the waiting ones only a little
     /// lighter, a hidden pod's "?" cube until it reveals and its glow then (FR-045); the link tubes on linked cubes' front
-    /// faces, under the pods (FR-043), and for a partner deeper than the rows show a routed tube down the gap beside the pod to
-    /// the partner's place, or out of the screen (<see cref="RoundAnimator.LinkMarks"/>, <see cref="LinkTube.HiddenRoute"/>);
-    /// and the pulse round the partner a refused tap waits for (along that tube while it is hidden). The pods slide up a row
+    /// faces, under the pods (FR-043), and for a partner deeper than the rows show one straight tube to the bottom edge of its
+    /// column's last shown row (<see cref="RoundAnimator.LinkMarks"/>, <see cref="LinkTube.HiddenTube"/>); and the pulse round
+    /// the partner a refused tap waits for (along that tube and at its end while it is hidden). The pods slide up a row
     /// when the top one leaves. A latch (17 §8, FR-068; the owner's look of 2026-11-01) is drawn on the pod it holds: that pod
     /// a little darker with a padlock and our acorn hero hugging it; when it opens the padlock springs open and drops, the
     /// acorn hops off and the pod takes taps.
@@ -32,8 +32,8 @@ namespace Bloomlings.Client.Gameplay.Tray
         private readonly Dictionary<int, Box> _roundFrames = new Dictionary<int, Box>();
         private readonly List<Image> _roundHints = new List<Image>();
 
-        // A link partner deeper than the rows show (the owner's report and review of 2026-11-02): the pairs and their routed tubes'
-        // pieces under the pods.
+        // A link partner deeper than the rows show (the owner's reviews of 2026-11-02): the pairs and their straight tubes under
+        // the pods.
         private readonly List<RoundLinkMark> _roundMarks = new List<RoundLinkMark>();
         private readonly List<Image> _roundRoutes = new List<Image>();
         private readonly HashSet<Image> _roundHintRound = new HashSet<Image>();
@@ -306,26 +306,23 @@ namespace Bloomlings.Client.Gameplay.Tray
                 _roundTubes[i].gameObject.SetActive(false);
             }
 
-            // A partner deeper than the rows show (the owner's report and review of 2026-11-02, LinkTube.MarkSlot): a routed tube
-            // out of the shown pod, down the gap beside it to the partner's place in the layout, or out of the screen; under the pods.
+            // A partner deeper than the rows show (the owner's reviews of 2026-11-02, LinkTube.MarkSlot): one straight tube from the
+            // shown pod to the bottom edge of the partner column's last shown row, under the pods.
             a.LinkMarks(grid.PodRows, _roundMarks);
             int pieces = 0;
             foreach (RoundLinkMark mark in _roundMarks)
             {
-                if (!_roundFrames.TryGetValue(mark.Pod, out Box shown) || mark.Column >= grid.Columns.Count || mark.ShownColumn >= grid.Columns.Count)
+                if (!_roundFrames.TryGetValue(mark.Pod, out Box shown) || mark.Column >= grid.Columns.Count)
                 {
                     continue;
                 }
 
-                foreach (LinkTubeShape piece in LinkTube.HiddenRoute(grid, mark, shown).Pieces)
+                if (pieces == _roundRoutes.Count)
                 {
-                    if (pieces == _roundRoutes.Count)
-                    {
-                        _roundRoutes.Add(RoundTubes.Create("LinkRoute", _roundBack!));
-                    }
-
-                    RoundTubes.Show(_roundRoutes[pieces++], piece, stepped: false);
+                    _roundRoutes.Add(RoundTubes.Create("LinkAway", _roundBack!));
                 }
+
+                RoundTubes.Show(_roundRoutes[pieces++], LinkTube.HiddenTube(grid, mark, shown), stepped: false);
             }
 
             for (int i = pieces; i < _roundRoutes.Count; i++)
@@ -370,8 +367,8 @@ namespace Bloomlings.Client.Gameplay.Tray
                 parts.Ring.gameObject.SetActive(true);
             }
 
-            // The pulse round the partner a refused tap waits for, or, while it waits deeper than the rows show, along the routed
-            // tube to it and round its place when the tube reaches it on screen (FR-008; the owner's review of 2026-11-02).
+            // The pulse round the partner a refused tap waits for, or, while it waits deeper than the rows show, along the straight
+            // tube towards it and at its open end (FR-008; the owner's reviews of 2026-11-02).
             int hints = 0;
             float k = core.LinkPulse;
             if (k > 0f && core.LinkHint.HasValue)
@@ -391,24 +388,17 @@ namespace Bloomlings.Client.Gameplay.Tray
                     {
                         ring = frame;
                     }
-                    else if (RouteTo(member, out RoundLinkMark mark) && _roundFrames.TryGetValue(mark.Pod, out Box shown) && mark.Column < grid.Columns.Count && mark.ShownColumn < grid.Columns.Count)
+                    else if (RouteTo(member, out RoundLinkMark mark) && _roundFrames.TryGetValue(mark.Pod, out Box shown) && mark.Column < grid.Columns.Count)
                     {
-                        // Hidden deeper than the rows show: the routed tube glows along its length, and round the partner's
-                        // place when it reaches it on screen.
-                        LinkRoute route = LinkTube.HiddenRoute(grid, mark, shown);
+                        // Hidden deeper than the rows show: its tube glows along its length and a ring pulses at its open end.
+                        LinkTubeShape tube = LinkTube.HiddenTube(grid, mark, shown);
                         color = RoundLook.ColorOf(mark.Material);
-                        foreach (LinkTubeShape piece in route.Pieces)
-                        {
-                            float g = piece.Thickness * (0.1f + (0.3f * k));
-                            ShowHint(ref hints, piece.AxisBox.Inset(-g), color, k, round: true);
-                        }
-
-                        if (!route.Connected)
-                        {
-                            continue;
-                        }
-
-                        ring = LinkTube.PlaceOf(grid, mark.Column, mark.Row);
+                        float g = tube.Thickness * (0.1f + (0.3f * k));
+                        ShowHint(ref hints, tube.Box.Inset(-g), color, k, round: true, degrees: tube.Degrees);
+                        (float ex, float ey) = LinkTube.OpenEnd(tube);
+                        float r = tube.Thickness * (0.7f + (0.6f * k));
+                        ShowHint(ref hints, Box.FromCenter(ex, ey, 2f * r, 2f * r), color, k, round: true);
+                        continue;
                     }
                     else if (a.ColumnOf(member) >= 0 && a.ColumnOf(member) < grid.Columns.Count)
                     {
@@ -430,7 +420,7 @@ namespace Bloomlings.Client.Gameplay.Tray
             }
         }
 
-        /// <summary>The routed tube's pair (<see cref="RoundAnimator.LinkMarks"/>) that leads to hidden pod <paramref name="pod"/> this frame.</summary>
+        /// <summary>The hidden tube's pair (<see cref="RoundAnimator.LinkMarks"/>) that leads to hidden pod <paramref name="pod"/> this frame.</summary>
         private bool RouteTo(int pod, out RoundLinkMark found)
         {
             foreach (RoundLinkMark mark in _roundMarks)
@@ -448,9 +438,10 @@ namespace Bloomlings.Client.Gameplay.Tray
 
         /// <summary>
         /// One pulse ring of the refused tap's hint at <paramref name="box"/> in <paramref name="color"/> at strength
-        /// <paramref name="k"/>: a pod's rounded square, or a routed tube's piece's stadium (<paramref name="round"/>).
+        /// <paramref name="k"/>: a pod's rounded square, or a stadium round a tube turned by <paramref name="degrees"/> or a
+        /// ring at its end (<paramref name="round"/>).
         /// </summary>
-        private void ShowHint(ref int hints, Box box, Rgba color, float k, bool round)
+        private void ShowHint(ref int hints, Box box, Rgba color, float k, bool round, float degrees = 0f)
         {
             if (hints == _roundHints.Count)
             {
@@ -463,6 +454,7 @@ namespace Bloomlings.Client.Gameplay.Tray
             Image hint = _roundHints[hints++];
             if (round) _roundHintRound.Add(hint); else _roundHintRound.Remove(hint);
             BoxLayout.Place(hint.rectTransform, box);
+            hint.rectTransform.localEulerAngles = new Vector3(0f, 0f, -degrees);
             hint.color = UiTheme.Of(color.WithAlpha(0.35f + (0.65f * k)));
             hint.gameObject.SetActive(true);
             hint.transform.SetAsLastSibling();

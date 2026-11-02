@@ -1440,23 +1440,22 @@ namespace Bloomlings.Playtest
                 }
             }
 
-            // A linked pod deeper than the three rows (the owner's report and review of 2026-11-02): a line from the shown pod
-            // down beside it to the bottom, and its group's "∞" under the partner's column.
+            // A linked pod deeper than the three rows (the owner's report and reviews of 2026-11-02): a straight line from the
+            // shown pod to the bottom of the partner column's last row, under the pods' "∞" label.
             var marks = new List<Bloomlings.Client.UI.Design.RoundLinkMark>();
             a.LinkMarks(visible, marks);
             foreach (Bloomlings.Client.UI.Design.RoundLinkMark mark in marks)
             {
                 float fromX = area.Left + (columnWidth * (mark.ShownColumn + 0.5f)) + ((mark.ToRight ? 1f : -1f) * size / 2f);
-                float gapX = area.Left + (columnWidth * (mark.ShownColumn + (mark.ToRight ? 1f : 0f)));
                 float fromY = area.Top + (a.RowOf(mark.Pod) * size * (1f + gap)) + (size * 0.7f);
-                float bottom = area.Top + (visible * size * (1f + gap));
+                float toX = area.Left + (columnWidth * (mark.Column + 0.5f));
+                float toY = area.Top + ((visible - 1) * size * (1f + gap)) + size;
                 _paint.SetStyle(Paint.Style.Stroke);
                 _paint.StrokeWidth = size * 0.12f;
                 _paint.Color = MaterialColor(level.Pods[mark.Pod].Code);
-                canvas.DrawLine(fromX, fromY, gapX, fromY, _paint);
-                canvas.DrawLine(gapX, fromY, gapX, bottom, _paint);
+                canvas.DrawLine(fromX, fromY, toX, toY, _paint);
                 _paint.SetStyle(Paint.Style.Fill);
-                Text(canvas, "∞" + level.Pods[mark.Partner].Group, area.Left + (columnWidth * (mark.Column + 0.5f)), bottom - (size * 0.02f), size * 0.22f, EntryColor);
+                Text(canvas, "∞" + level.Pods[mark.Partner].Group, toX, toY + (size * 0.14f), size * 0.22f, EntryColor);
             }
         }
         }

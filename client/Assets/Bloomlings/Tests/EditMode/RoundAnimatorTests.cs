@@ -368,10 +368,10 @@ namespace Bloomlings.Client.Tests
                 new IReadOnlyList<int>[] { new[] { 0 }, new[] { 2, 3, 4, 1 } });
 
         [Test]
-        public void APartnerDeeperThanTheRows_GetsARoutedTube_ThenTheNormalTubeReplacesIt()
+        public void APartnerDeeperThanTheRows_GetsATubeToItsColumn_ThenTheNormalTubeReplacesIt()
         {
-            // the owner's phone report of 2026-11-02 (L54): "it says there is a link, but I can't see it"; the review: the tube
-            // must link them really, or go down
+            // the owner's phone report of 2026-11-02 (L54): "it says there is a link, but I can't see it"; the reviews: a straight
+            // tube under the other pods to the edge of the bottom row
             var play = new RoundPlay(DeepPartner(false));
             RoundAnimator a = play.Animator;
             var marks = new List<RoundLinkMark>();
@@ -379,19 +379,18 @@ namespace Bloomlings.Client.Tests
             Assert.That(a.Tubes(3), Is.Empty, "no pod-to-pod tube to a pod the tray does not show");
             a.LinkMarks(3, marks);
             RoundLinkMark mark = marks.Single();
-            Assert.That((mark.Pod, mark.ShownColumn, mark.Partner, mark.Column, mark.Row, mark.ToRight, mark.Gap), Is.EqualTo((0, 0, 1, 1, 3, true, 0)));
+            Assert.That((mark.Pod, mark.ShownColumn, mark.Partner, mark.Column, mark.Row, mark.ToRight), Is.EqualTo((0, 0, 1, 1, 3, true)));
             Assert.That(mark.Material, Is.EqualTo(RoundMaterial.IndexOf('G')), "in the shown pod's colour, never the hidden one's");
-            Assert.That((mark.Lane, mark.Lanes), Is.EqualTo((0, 1)));
 
             // the tap waits for the hidden partner
             Assert.That(play.Check(RoundAction.Tap(0)), Is.EqualTo(RoundRefusal.PartnerNotExposed));
 
-            // four rows shown: the normal tube and no route
+            // four rows shown: the normal tube and no mark
             Assert.That(a.Tubes(4).Single().Place, Is.EqualTo(RoundTubePlace.Columns));
             a.LinkMarks(4, marks);
             Assert.That(marks, Is.Empty);
 
-            // the top pod of column 1 leaves: the partner comes into the third row, the normal tube replaces the route
+            // the top pod of column 1 leaves: the partner comes into the third row, the normal tube replaces the hidden one
             play.Commit(RoundAction.Tap(2));
             Assert.That(a.RowOf(1), Is.EqualTo(2));
             RoundTube tube = a.Tubes(3).Single();
@@ -401,105 +400,58 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
-        public void TwoHiddenPartnersInOneColumn_EachGetsItsRoute_InItsGroupsColour()
+        public void TwoHiddenPartnersInOneColumn_EachGetsItsTube_InItsGroupsColour()
         {
             var play = new RoundPlay(DeepPartner(true));
             var marks = new List<RoundLinkMark>();
             play.Animator.LinkMarks(3, marks);
-            Assert.That(marks.Select(m => (m.Pod, m.Partner, m.Column, m.Row, m.ToRight, m.Gap, m.Material, m.Lanes)), Is.EqualTo(new[]
+            Assert.That(marks.Select(m => (m.Pod, m.Partner, m.Column, m.Row, m.ToRight, m.Material)), Is.EqualTo(new[]
             {
-                (0, 1, 1, 3, true, 0, RoundMaterial.IndexOf('G'), 1),
-                (6, 5, 1, 4, false, 1, RoundMaterial.IndexOf('P'), 1),
+                (0, 1, 1, 3, true, RoundMaterial.IndexOf('G')),
+                (6, 5, 1, 4, false, RoundMaterial.IndexOf('P')),
             }));
         }
 
         [Test]
-        public void TheRoutedTube_RunsDownTheGap_IntoThePartnersPlace_OrOutOfTheScreen()
+        public void TheHiddenPartnersTube_IsStraight_FromThePodToTheBottomEdgeOfItsColumn()
         {
             var shown = new Box(100f, 200f, 200f, 300f);
-            float gapX = 235f;
+            var last = new Box(270f, 440f, 370f, 540f);
             Rgba red = RoundLook.ColorOf(RoundMaterial.IndexOf('G'));
-            float thickness = 100f * LinkTube.CubeThicknessShare;
+            LinkTubeShape tube = LinkTube.HiddenTube(shown, last, red);
+            Assert.That(tube.Start.X, Is.LessThan(shown.Right), "plugged in under the shown cube's edge");
+            Assert.That(tube.Start.Y, Is.EqualTo(LinkTube.FrontY(shown, LinkTube.CubeFrontShare)).Within(1e-3), "at a tube's height");
+            Assert.That(tube.End, Is.EqualTo((last.CenterX, last.Bottom)), "the middle of the last shown row's bottom edge");
+            Assert.That(LinkTube.OpenEnd(tube), Is.EqualTo(tube.End));
+            Assert.That(tube.Degrees, Is.GreaterThan(0f).And.LessThan(90f), "slanted down to the other column");
+            Assert.That(tube.StartCollar && !tube.EndCollar && !tube.Coupling, Is.True, "a collar at the pod only, an open end");
+            Assert.That(tube.StartColor.Equals(red) && tube.EndColor.Equals(red), Is.True);
+            Assert.That(tube.Thickness, Is.EqualTo(100f * LinkTube.CubeThicknessShare).Within(1e-3));
 
-            // the place in the layout on screen: three pieces, plugged into both cubes
-            var place = new Box(270f, 560f, 370f, 660f);
-            LinkRoute route = LinkTube.HiddenRoute(shown, place, gapX, gapX, 420f, 800f, red);
-            Assert.That(route.Connected, Is.True);
-            Assert.That(route.Pieces.Count, Is.EqualTo(3));
-            LinkTubeShape out0 = route.Pieces[0];
-            LinkTubeShape down = route.Pieces[1];
-            LinkTubeShape into = route.Pieces[2];
-            Assert.That(out0.Start.X, Is.LessThan(shown.Right), "plugged in under the shown cube's edge");
-            Assert.That(out0.Start.Y, Is.EqualTo(LinkTube.FrontY(shown, LinkTube.CubeFrontShare)).Within(1e-3), "at a tube's height");
-            Assert.That(out0.StartCollar && !out0.EndCollar && !out0.Coupling, Is.True);
-            Assert.That(Math.Abs(down.Degrees), Is.EqualTo(90f).Within(0.01f), "upright down the gap");
-            Assert.That(down.Start.X, Is.EqualTo(gapX).Within(1e-3));
-            Assert.That(down.AxisBox.Left, Is.GreaterThan(shown.Right), "the gap: clear of the shown column");
-            Assert.That(down.AxisBox.Right, Is.LessThan(place.Left), "and of the partner's");
-            Assert.That(!down.StartCollar && !down.EndCollar && !down.Coupling, Is.True);
-            Assert.That(into.End.X, Is.GreaterThan(place.Left), "plugged into the place");
-            Assert.That(into.End.Y, Is.EqualTo(LinkTube.FrontY(place, LinkTube.CubeFrontShare)).Within(1e-3));
-            Assert.That(into.EndCollar && !into.StartCollar, Is.True);
-            Assert.That(route.End, Is.EqualTo(into.End));
-            Assert.That(route.Pieces.All(piece => piece.StartColor.Equals(red) && piece.EndColor.Equals(red) && Math.Abs(piece.Thickness - thickness) < 1e-3), Is.True);
+            // to the left: the collar stays at the pod's end (the picture's right end)
+            LinkTubeShape left = LinkTube.HiddenTube(new Box(270f, 200f, 370f, 300f), new Box(100f, 440f, 200f, 540f), red);
+            Assert.That(left.Start, Is.EqualTo((150f, 540f)));
+            Assert.That(left.End.X, Is.GreaterThan(270f));
+            Assert.That(!left.StartCollar && left.EndCollar, Is.True);
+            Assert.That(LinkTube.OpenEnd(left), Is.EqualTo(left.Start));
 
-            // the corners: each piece's round end centred on the corner
-            float round = thickness * 0.36f;
-            Assert.That(out0.End.X - round, Is.EqualTo(gapX).Within(1e-3));
-            Assert.That(down.Start.Y + round, Is.EqualTo(out0.Start.Y).Within(1e-3));
-            Assert.That(down.End.Y - round, Is.EqualTo(into.Start.Y).Within(1e-3));
-            Assert.That(into.Start.X + round, Is.EqualTo(gapX).Within(1e-3));
-
-            // the place below the screen, the partner's column next door: the tube runs down the gap out of the screen
-            var deep = new Box(270f, 960f, 370f, 1060f);
-            LinkRoute off = LinkTube.HiddenRoute(shown, deep, gapX, gapX, 420f, 800f, red);
-            Assert.That(off.Connected, Is.False);
-            Assert.That(off.Pieces.Count, Is.EqualTo(2));
-            Assert.That(off.Pieces[1].End.Y, Is.GreaterThan(800f), "past the screen's bottom edge");
-            Assert.That(off.Pieces[1].EndCollar, Is.False);
-
-            // a column between: down the gap beside the shown pod, level under the rows to the gap beside the partner's column,
-            // then down out of the screen
-            var far = new Box(440f, 960f, 540f, 1060f);
-            LinkRoute across = LinkTube.HiddenRoute(shown, far, gapX, 405f, 420f, 800f, red);
-            Assert.That(across.Connected, Is.False);
-            Assert.That(across.Pieces.Count, Is.EqualTo(4));
-            Assert.That(across.Pieces[2].Start.Y, Is.EqualTo(420f).Within(1e-3), "level under the rows");
-            Assert.That(across.Pieces[3].Start.X, Is.EqualTo(405f).Within(1e-3), "down the gap beside the partner's column");
-            Assert.That(across.Pieces[3].End.Y, Is.GreaterThan(800f));
-            Assert.That(across.End.X, Is.EqualTo(405f).Within(1e-3));
-
-            // to the left: mirrored
-            LinkRoute left = LinkTube.HiddenRoute(new Box(270f, 200f, 370f, 300f), new Box(100f, 560f, 200f, 660f), gapX, gapX, 420f, 800f, red);
-            Assert.That(left.Connected, Is.True);
-            Assert.That(left.End.X, Is.LessThan(200f));
-            Assert.That(left.Pieces[1].Start.X, Is.EqualTo(gapX).Within(1e-3));
-
-            // two routes in one gap lie side by side
-            float x0 = LinkTube.HiddenRoute(shown, deep, gapX, gapX, 420f, 800f, red, 0, 2).Pieces[1].Start.X;
-            float x1 = LinkTube.HiddenRoute(shown, deep, gapX, gapX, 420f, 800f, red, 1, 2).Pieces[1].Start.X;
-            Assert.That(x1 - x0, Is.GreaterThanOrEqualTo(thickness * 0.9f));
-            Assert.That((x0 + x1) / 2f, Is.EqualTo(gapX).Within(1e-3));
-
-            // the pieces' pictures: no coupling ring, collars only at the plugs
-            Assert.That(into.PictureKey, Is.Not.EqualTo(LinkTube.BetweenCubes(shown, red, place, red).PictureKey));
-            Assert.That(UiRaster.LinkTube(80, 24, red, red, false, false, false), Is.Not.EqualTo(UiRaster.LinkTube(80, 24, red, red)));
+            Assert.That(tube.PictureKey, Is.Not.EqualTo(LinkTube.BetweenCubes(shown, red, last, red).PictureKey));
+            Assert.That(UiRaster.LinkTube(80, 24, red, red, true, false, false), Is.Not.EqualTo(UiRaster.LinkTube(80, 24, red, red)));
             Assert.That(AssetSlots.Has(LinkTube.MarkSlot), Is.True);
         }
 
         [Test]
-        public void OnTheRoundScreen_ThePartnersRoute_LeavesTheTrayDownTheGap()
+        public void OnTheRoundScreen_TheHiddenPartnersTube_EndsAtTheBottomOfItsColumnsThirdRow()
         {
             var play = new RoundPlay(DeepPartner(false));
             ReferenceGameplayRegions r = ScreenLayout.RoundGameplay(1080f, 2424f, new Insets(110f, 63f), 2, 5);
             var marks = new List<RoundLinkMark>();
             play.Animator.LinkMarks(r.PodRows, marks);
-            RoundLinkMark mark = marks.Single();
-            Box shown = LinkTube.PlaceOf(r, 0, 0);
-            LinkRoute route = LinkTube.HiddenRoute(r, mark, shown);
-            float x = route.Pieces[1].Start.X;
-            Assert.That(x, Is.GreaterThan(r.Columns[0].Right).And.LessThan(r.Columns[1].Left), "down the gap between the columns");
-            Assert.That(route.Pieces[1].AxisBox.Bottom, Is.GreaterThan(r.Pod(1, r.PodRows - 1).Bottom), "below the shown rows");
+            LinkTubeShape tube = LinkTube.HiddenTube(r, marks.Single(), LinkTube.CubeOf(r, 0, 0));
+            Box third = LinkTube.CubeOf(r, 1, r.PodRows - 1);
+            Assert.That(LinkTube.OpenEnd(tube).X, Is.EqualTo(third.CenterX).Within(1e-3));
+            Assert.That(LinkTube.OpenEnd(tube).Y, Is.EqualTo(third.Bottom).Within(1e-3), "never further down, never off the screen");
+            Assert.That(Math.Max(tube.Start.Y, tube.End.Y), Is.LessThan(r.Tray.Bottom));
         }
 
         [Test]

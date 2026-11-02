@@ -211,8 +211,8 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>
         /// The link tube (<see cref="LinkTube(int, int, Rgba, Rgba)"/>) with its parts chosen: the collar at its left end
         /// (<paramref name="leftCollar"/>), at its right end (<paramref name="rightCollar"/>) and the coupling ring in its middle
-        /// (<paramref name="coupling"/>); a routed tube's pieces (<c>LinkTube.HiddenRoute</c>) leave out the ring and the collars
-        /// where they meet, their round ends overlapping at the corners.
+        /// (<paramref name="coupling"/>); a hidden partner's tube (<c>LinkTube.HiddenTube</c>) leaves out the ring and the collar at
+        /// its open end, which stays round.
         /// </summary>
         public static byte[] LinkTube(int width, int height, Rgba left, Rgba right, bool leftCollar, bool rightCollar, bool coupling)
         {

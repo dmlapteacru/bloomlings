@@ -25,9 +25,9 @@ namespace Bloomlings.Client.Gameplay.Rounds
         }
 
         /// <summary>
-        /// Shows <paramref name="tube"/> (in the parent's top-down canvas units) on <paramref name="image"/>; a routed tube's piece
-        /// (<see cref="LinkTube.HiddenRoute"/>) keeps its exact length (<paramref name="stepped"/> false), its round ends meeting
-        /// the next piece's at the corners.
+        /// Shows <paramref name="tube"/> (in the parent's top-down canvas units) on <paramref name="image"/>; a hidden partner's tube
+        /// (<see cref="LinkTube.HiddenTube"/>) keeps its exact length (<paramref name="stepped"/> false), its open end on the
+        /// bottom edge of the partner column's last shown row.
         /// </summary>
         public static void Show(Image image, LinkTubeShape tube, bool stepped = true)
         {

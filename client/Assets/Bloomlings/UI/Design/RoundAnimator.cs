@@ -110,18 +110,17 @@ namespace Bloomlings.Client.UI.Design
 
     /// <summary>
     /// A linked pair whose partner waits deeper than the tray shows (the owner's phone report of 2026-11-02, L54: "it says there
-    /// is a link, but I can't see it", and the owner's review of the same day: "if there is a layout behind the screen, the link
-    /// must really link them; if there is nothing there, the tube must still be there and go down"; spec 006 FR-043,
-    /// contracts/presentation.md): the shown pod <see cref="Pod"/> in <see cref="ShownColumn"/>, its hidden partner
-    /// <see cref="Partner"/> at row <see cref="Row"/> of <see cref="Column"/>. Hosts draw a routed tube
-    /// (<see cref="LinkTube.HiddenRoute"/>) out of the shown pod, down the gap beside it (<see cref="Lane"/> of
-    /// <see cref="Lanes"/> there) to the partner's place, or out of the screen; in <see cref="Material"/>'s colour (the shown
-    /// pod's: the player never learns a hidden pod's colour from it). When the partner comes into the shown rows the normal
-    /// tube (<see cref="RoundAnimator.Tubes"/>) replaces it. Presentation only.
+    /// is a link, but I can't see it", and the owner's reviews of the same day: "a straight tube, just under the other pods ...
+    /// not behind the phone, to the edge of the bottom row of pods"; spec 006 FR-043, contracts/presentation.md): the shown pod
+    /// <see cref="Pod"/> in <see cref="ShownColumn"/>, its hidden partner <see cref="Partner"/> at row <see cref="Row"/> of
+    /// <see cref="Column"/>. Hosts draw one straight tube (<see cref="LinkTube.HiddenTube"/>) under the pods from the shown pod
+    /// to the bottom edge of the partner column's last shown row, in <see cref="Material"/>'s colour (the shown pod's: the
+    /// player never learns a hidden pod's colour from it). When the partner comes into the shown rows the normal tube
+    /// (<see cref="RoundAnimator.Tubes"/>) replaces it. Presentation only.
     /// </summary>
     public readonly struct RoundLinkMark
     {
-        public RoundLinkMark(int pod, int shownColumn, int partner, int column, int row, int material, int lane, int lanes)
+        public RoundLinkMark(int pod, int shownColumn, int partner, int column, int row, int material)
         {
             Pod = pod;
             ShownColumn = shownColumn;
@@ -129,8 +128,6 @@ namespace Bloomlings.Client.UI.Design
             Column = column;
             Row = row;
             Material = material;
-            Lane = lane;
-            Lanes = lanes;
         }
 
         /// <summary>The shown pod.</summary>
@@ -153,15 +150,6 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>Whether the partner's column is to the right of the shown pod's.</summary>
         public bool ToRight => Column > ShownColumn;
-
-        /// <summary>The route's lane in its gap (the gap beside the shown pod towards the partner), so routes there lie side by side.</summary>
-        public int Lane { get; }
-
-        /// <summary>How many routes run down that gap.</summary>
-        public int Lanes { get; }
-
-        /// <summary>The gap the route runs down: the one right of column <c>n</c> is <c>n</c>.</summary>
-        public int Gap => ToRight ? ShownColumn : ShownColumn - 1;
     }
 
     /// <summary>
@@ -176,7 +164,7 @@ namespace Bloomlings.Client.UI.Design
     /// <item><description>the places and the columns as the rules hold them, with when each pod took its place, when a
     /// finished pod left one (its puff) and when a hidden pod revealed (its glow, FR-045);</description></item>
     /// <item><description>the link tubes between linked pods in the columns and in the places (FR-043), and the pairs whose
-    /// partner waits deeper than the rows show, for a routed tube (<see cref="LinkMarks"/>);</description></item>
+    /// partner waits deeper than the rows show, for a straight tube to that column (<see cref="LinkMarks"/>);</description></item>
     /// <item><description>the latches (17 §8 «Засов и жёлудь-ключ», FR-068): each closed until its <c>latchOpen</c> moment, and
     /// that moment for its opening; the columns' queues with the latches at their places on the pods they hold
     /// (<see cref="ColumnItems"/>); each key's colour and the pips that tell latches of one colour apart.</description></item>
@@ -860,10 +848,9 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// The linked pairs whose partner waits deeper than the <paramref name="shownRows"/> rows the tray shows, into
-        /// <paramref name="into"/> (cleared; the owner's phone report and review of 2026-11-02): each pair waiting in two columns,
-        /// one member shown and the other not, once, in group order, each with its lane in the gap its route runs down
-        /// (<see cref="RoundLinkMark.Lane"/>, routes nearer the top first). A pair both shown has its tube (<see cref="Tubes"/>)
-        /// and no mark; a pair both hidden, or in the places, none.
+        /// <paramref name="into"/> (cleared; the owner's phone report and reviews of 2026-11-02): each pair waiting in two
+        /// columns, one member shown and the other not, once, in group order. A pair both shown has its tube
+        /// (<see cref="Tubes"/>) and no mark; a pair both hidden, or in the places, none.
         /// </summary>
         public void LinkMarks(int shownRows, List<RoundLinkMark> into)
         {
@@ -902,34 +889,10 @@ namespace Bloomlings.Client.UI.Design
 
                     int shown = aShown ? a : b;
                     int hidden = aShown ? b : a;
-                    into.Add(new RoundLinkMark(shown, _columnOf[shown], hidden, _columnOf[hidden], _rowOf[hidden], _prepared.Colours[shown], 0, 1));
+                    into.Add(new RoundLinkMark(shown, _columnOf[shown], hidden, _columnOf[hidden], _rowOf[hidden], _prepared.Colours[shown]));
                 }
-            }
-
-            // The lanes, left to right: routes down one gap side by side, the one leaving a higher pod farther from its column
-            // (so a lower pod's route leaves under it without crossing it).
-            for (int i = 0; i < into.Count; i++)
-            {
-                int lane = 0;
-                int lanes = 0;
-                int key = LaneKey(into[i]);
-                for (int j = 0; j < into.Count; j++)
-                {
-                    if (into[j].Gap == into[i].Gap)
-                    {
-                        lanes++;
-                        int other = LaneKey(into[j]);
-                        lane += other < key || (other == key && j < i) ? 1 : 0;
-                    }
-                }
-
-                RoundLinkMark mark = into[i];
-                into[i] = new RoundLinkMark(mark.Pod, mark.ShownColumn, mark.Partner, mark.Column, mark.Row, mark.Material, lane, lanes);
             }
         }
-
-        // A route's place left to right in its gap: rightward routes from the lowest pod first, leftward ones from the highest.
-        private int LaneKey(RoundLinkMark mark) => mark.ToRight ? -_rowOf[mark.Pod] : _rowOf[mark.Pod];
 
         /// <summary>Each waiting pod's drawn row (<see cref="ColumnItems"/>), -1 for the others.</summary>
         private void FillRows()
