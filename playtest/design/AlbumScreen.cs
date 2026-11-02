@@ -318,8 +318,8 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The scene chest (<c>ui.album.chest</c>, the owner's picture) over the bar's end: dimmed while the scene fills (its
-        /// grey copy under the colour at <see cref="AlbumLook.ChestFillingColour"/>), in colour with a soft glow, a breath and
+        /// The scene chest (<c>ui.album.chest</c>, the owner's picture) over the bar's end: always in full colour (the owner, 2026-11-02: «Сундук не серый… всегда активный»; while the scene fills its tooltip
+        /// shows the contents without Claim), with a soft glow, a breath and
         /// a gentle hop when ready, in colour with the green check ball once claimed. A tap toggles its tooltip.
         /// </summary>
         public static void Chest(IPainter p, AlbumRegions r, AlbumChestState state, float seconds, Action? tap)
@@ -342,13 +342,6 @@ namespace Bloomlings.Playtest.Design
             if (!p.HasSprite(name))
             {
                 p.FillRound(box.Inset(box.Width * .15f), box.Width * .12f, C.WoodDarkTop);
-            }
-            else if (state == AlbumChestState.Filling)
-            {
-                p.Sprite(name + PainterBase.GreySuffix, box);
-                p.PushAlpha(AlbumLook.ChestFillingColour);
-                p.Sprite(name, box);
-                p.PopAlpha();
             }
             else
             {

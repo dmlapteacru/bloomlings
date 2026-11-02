@@ -108,7 +108,7 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   first tap, the blocked entry, the kept charge, Return's slot, Bloom Burst's tiles; the profile 39–41: the page, the
   edit card's avatars, its name and frames; and the Store's Animations 42–43: the clearing styles' live previews, then
   their padlocks before L40; the lotus iris 44–47: the splash opening on Level 1, then the win's Next closing, closed
-  on "Level 13" and opening; the Scene Album 271–276: 1 / 4 with the dimmed chest, a locked object's sheet, 4 / 4 with the glowing chest, claimed, locked before L27, the chest's tooltip) to PNG in `playtest/preview/out/` (gitignored; a fixture's frames are only recorded and its
+  on "Level 13" and opening; the Scene Album 271–276: 1 / 4 with the chest in colour, a locked object's sheet, 4 / 4 with the glowing chest, claimed, locked before L27, the chest's tooltip) to PNG in `playtest/preview/out/` (gitignored; a fixture's frames are only recorded and its
   last one rasterized, `SkiaPainter.Flush`, so the whole board takes a few minutes) and checks
   slots, touch targets and the safe area; `-- --inventory` regenerates `specs/002-ux-design-board/asset-inventory.md`
   from the asset slot registry. `DOTNET_TieredCompilation=0 dotnet run -c Release --project playtest/preview -- --perf`
@@ -394,7 +394,7 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   code, retroactive, scenes shown 30 levels ahead, opening on news / last viewed incomplete / nearest incomplete, the
   one-time chest without a purchase confirmation, the save's optional `album` section with its own version). Since the
   owner's change of 2026-11-02 the medallions sit over a progress bar ("1 / 4" on it, the fill growing with the reveals)
-  that runs into the scene chest (the owner's picture `Album/chest.png`, slot `ui.album.chest`): dimmed while the scene
+  that runs into the scene chest (the owner's picture `Album/chest.png`, slot `ui.album.chest`): always in colour (the owner, 2026-11-02) while the scene
   fills, glowing and hopping when complete, the check ball once claimed; a tap opens its tooltip (the guides' parchment
   bubble) with the contents and, when ready, the green Claim; the chest is one grant of `AlbumService.Chest` (Remote Config
   `economy.album.chest.petals` / `.return` / `.slot`, 200 + 1 + 1; the old `economy.album.sceneReward` is gone). Layout

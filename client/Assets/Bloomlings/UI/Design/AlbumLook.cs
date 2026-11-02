@@ -112,7 +112,7 @@ namespace Bloomlings.Client.UI.Design
     /// <summary>The chest's three states (spec 007 FR-012): the scene still filling, complete with the chest waiting, claimed.</summary>
     public enum AlbumChestState
     {
-        /// <summary>The scene is not complete: the chest dimmed (partly grey), its tooltip says how it opens.</summary>
+        /// <summary>The scene is not complete: the chest in full colour like always (the owner, 2026-11-02), its tooltip shows the contents and how it opens, without Claim.</summary>
         Filling,
 
         /// <summary>Complete and not claimed: the chest in colour, glowing and bouncing gently; its tooltip offers Claim.</summary>
@@ -179,9 +179,6 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>The scene's corner radius inside the frame, in reference units.</summary>
         public const float SceneRadiusUnits = 22f;
-
-        /// <summary>The chest's dim while its scene fills: its colour picture at this alpha over its grey copy.</summary>
-        public const float ChestFillingColour = 0.4f;
 
         /// <summary>How long the ready chest waits between its gentle hops, and one hop's length, in seconds.</summary>
         public const float ChestHopEvery = 2.4f;

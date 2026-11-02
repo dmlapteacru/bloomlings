@@ -19,7 +19,7 @@ namespace Bloomlings.Client.UI.Screens
     /// name plate, one big vertical card (the owner's layers in the popups' wooden card frame, locked objects grey at 82 %,
     /// new reveals coming back to colour) with its neighbours' edges, the existing raised ‹ › buttons and a horizontal swipe
     /// turning one card with a snap (no cycling), the medallions, the progress bar filling with the reveals and the scene
-    /// chest at its end (the owner's change of 2026-11-02: dimmed while the scene fills, glowing and hopping when complete,
+    /// chest at its end (the owner's change of 2026-11-02: always in colour, glowing and hopping when complete,
     /// the check once claimed; a tap opens its tooltip with the contents and, when ready, the green Claim), and the object sheet from the bottom (the colour preview, the name, "Unlocks after Level N",
     /// "Next level: M" and "Continue playing", or "Level N completed"; closed by its ×, a swipe down or a tap outside; the
     /// card shrinks over it where it would cover the object). A tap picks an object by its layer's alpha
@@ -312,9 +312,8 @@ namespace Bloomlings.Client.UI.Screens
         private void ShowChest(AlbumSceneView view)
         {
             _chestState = AlbumLook.ChestState(view.Complete, view.RewardClaimed);
-            bool filling = _chestState == AlbumChestState.Filling;
-            _chestGrey.gameObject.SetActive(filling && _chestGrey.texture != null);
-            _chestColour.color = new Color(1f, 1f, 1f, filling ? AlbumLook.ChestFillingColour : 1f);
+            _chestGrey.gameObject.SetActive(false); // always in colour (the owner, 2026-11-02)
+            _chestColour.color = Color.white;
             _chestCheck.gameObject.SetActive(_chestState == AlbumChestState.Claimed);
             foreach (Image glow in _chestGlow)
             {

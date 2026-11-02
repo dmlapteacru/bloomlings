@@ -65,7 +65,7 @@ little chest we give the player. When you tap the chest, a small tooltip pops up
 200 Petals, one Return booster and one new-slot booster. Everything should look like a chest.»
 
 Under the medallions a progress bar fills with the opened objects ("1 / 4" on it; its fill grows as a reveal comes back to
-colour) and runs into the scene chest (the owner's picture) at its right end. While the scene fills, the chest is dimmed
+colour) and runs into the scene chest (the owner's picture) at its right end. While the scene fills, the chest stays in full colour (the owner, 2026-11-02: always active, no Claim yet)
 and a tap shows its tooltip: the contents and "Open every object to get it". At 4 / 4 the card wears the green check, the
 caption says "Scene complete" and the chest glows and hops gently; a tap opens the tooltip with the contents and a green
 Claim (a gift: no purchase confirmation). After the claim the tooltip and the caption read "Reward claimed" and the chest
@@ -107,7 +107,7 @@ cloud merge). The tooltip closes on a tap outside or a second tap on the chest a
   `economy.album.chest.slot` 1, after the owner's example; it was `economy.album.sceneReward`, 50 Petals), claimed once
   through the economy service in one grant, no purchase confirmation. The chest (the owner's picture `Album/chest.png`)
   stands at the right end of a progress bar under the medallions (a groove pressed into the strip, the green fill growing
-  with the reveals, "n / 4" on it): dimmed while the scene fills, glowing and hopping gently when ready, with the check
+  with the reveals, "n / 4" on it): in full colour while the scene fills (no Claim), glowing and hopping gently when ready, with the check
   ball once claimed. A tap on it toggles a tooltip above it (the guides' parchment bubble) listing the contents with the
   Petals lotus and the booster icons, and the green Claim when ready, "Reward claimed" after, else how it opens; a tap
   outside closes it; a swipe still turns the card. The old reward strip is gone; "Scene complete" stays as the caption.
@@ -120,7 +120,7 @@ cloud merge). The tooltip closes on a tap outside or a second tap on the chest a
 
 ## Success Criteria
 
-- Preview frames 271–276 render and their checks pass (1 / 4 with grey objects and the dimmed chest, a locked object's
+- Preview frames 271–276 render and their checks pass (1 / 4 with grey objects and the chest in colour, a locked object's
   sheet, 4 / 4 with the glowing chest, after the claim, the locked place before L27, the chest's tooltip with Claim).
 - The engine-free tests (`AlbumServiceTests`) cover the binding, the retroactive count, the order rule, the reward once,
   the save section and its migration.
