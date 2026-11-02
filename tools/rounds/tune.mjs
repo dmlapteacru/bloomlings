@@ -151,7 +151,7 @@ export async function tuneJob({pic,cls,recipe,slot=null,intro=false,want=1,wantL
  const m=measure(pic),board=boardOf(pic),f=pictureFeatures(pic),base=LV.splitPods(m.volumes,m.N,null),types=recipe==='none'?[]:recipe.split('+');
  const stats={attempts:0,quick:0,corrections:0,linkChecks:0,evaluated:0,passed:0,accepted:0,reasons:{}},no=k=>{stats.reasons[k]=(stats.reasons[k]||0)+1;};
  if(base.error){no(base.error);return {banked:[],accepted:[],stats,memory};}
- const mem=memory;const banked=[],accepted=[];let offset=mem.offset||0,nOff=mem.offset!=null?2:0,tooEasy=0,tooHard=0,trapMode=!!mem.trap;
+ const mem=memory;const banked=[],accepted=[];let offset=mem.offset||0,nOff=mem.offset!=null?2:0,tooEasy=0,tooHard=0,landed=false,trapMode=!!mem.trap;
  for(let k=0;k<Math.min(64,attempts)&&(Date.now()-t0)<minutes*60000;k++){
   // (wantLoss keeps going for a level "most work now" loses, up to four accepted)
   if(accepted.length>=want&&(!wantLoss||accepted.length>=Math.max(want,4)||accepted.some(x=>x.e.checks.greedyLoses)))break;
@@ -174,17 +174,18 @@ export async function tuneJob({pic,cls,recipe,slot=null,intro=false,want=1,wantL
   let easy=null,hard=null,q=null,level=null,links=null;const steps=[];
   for(let step=0;step<=5;step++){const b=await make(t);if(b.error){no(b.error);level=null;break;}level=b.level;links=b.links||null;q=await M.quickShare(level,40,11);stats.quick++;
    const etaP=MD.eta(model,rowOf(f,{...p,t})),etaO=MD.logit(clamp(q,.025,.975));steps.push({t,q});offset=(offset*nOff+(etaO-etaP))/(nOff+1);nOff=Math.min(nOff+1,4);
-   if(q>=lo&&q<=hi){mem.t=t;mem.cols=cols;mem.offset=r2(offset);mem.quick=q;mem.at=new Date().toISOString().slice(0,10);break;}if(step===5)break;
+   if(q>=lo&&q<=hi){landed=true;mem.t=t;mem.cols=cols;mem.offset=r2(offset);mem.quick=q;mem.at=new Date().toISOString().slice(0,10);break;}if(step===5)break;
    if(q>hi&&(!easy||t>easy.t))easy={t,q};if(q<lo&&(!hard||t<hard.t))hard={t,q};
    const nt=nextT({t,q,aim,slope:slopeT(f,{...p,t},model),easy,hard});if(nt===t||steps.some(s=>s.t===nt))break;t=nt;stats.corrections++;}
   save();
   // a picture that stays above the zone even with the reverse order (t ≈ 1), or below it with the access order (t ≈ 0),
-  // in three attempts cannot reach this class: stop early (the runner swaps the picture)
+  // in three attempts (six on Hard and Super Hard, whose queues vary more) and never landed in the zone cannot reach this
+  // class: stop early (the runner swaps the picture)
   if(!(q>=lo&&q<=hi)){if(steps.some(s=>s.t>=.98&&s.q>hi))tooEasy++;if(steps.some(s=>s.t<=.02&&s.q<lo))tooHard++;}
   // a Normal with links whose queue stays above the zone even reversed: the links are the difficulty knob (the calibration:
   // trap links at 30 % cost about 32 points), so the next attempts take them in the Hard style at the top of the dose range
   if(tooEasy>=1&&!trapMode&&cls==='Normal'&&!breather&&!intro&&types.includes('links')&&(slot==='regular'||slot==='after-hard')){trapMode=true;mem.trap=true;tooEasy=0;no('связки ловушками: очередь сама остаётся выше зоны');}
-  if(tooEasy>=3||tooHard>=3){no(tooEasy>=3?'картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)':'картинка слишком трудная для зоны: ниже даже в порядке доступа (t = 0)');break;}
+  const stopAt=cls==='Normal'?3:6;if(!landed&&(tooEasy>=stopAt||tooHard>=stopAt)){no(tooEasy>=stopAt?'картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)':'картинка слишком трудная для зоны: ниже даже в порядке доступа (t = 0)');break;}
   if(!level)continue;
   log(`#${k} кол ${cols} связ ${linkWant} замеры ${steps.map(s=>`t ${s.t}: ${Math.round(s.q*100)} %`).join(', ')}${links&&links.forced!=null?` · вынужд. ${Math.round(links.forced*100)} %`:''}`);
   if(q<lo-.15||q>hi+.15){no('быстрая оценка вне зоны после поправок');continue;}

@@ -75,7 +75,11 @@ breathers and a picture-first wave. `levels.mjs build` runs it for every non-bri
   `tune["cls|recipe|slot"] = {t, cols, offset, quick}`; the next job starts there (± 0.03).
 - **≤ 5 quick tests** per attempt (40 games of the §5 random policy each): Newton steps on `t` with the model's slope until
   both sides of the zone were seen, then bisection inside the bracket (`nextT`). Only a queue that measured in the zone
-  (± 15 points) goes on.
+  (± 15 points) goes on. A picture that never landed in the zone and stays above it even reversed (`t` ≈ 1), or below it
+  in the access order (`t` ≈ 0), in three attempts (six on Hard and Super Hard) stops the job early, so the runner swaps it.
+  A regular Normal with links whose queue alone stays above the zone even reversed takes its links in the Hard style (a
+  trap pair first, against the greedy strategy) at the top of its dose range from then on (`bank.tune` `trap`; the
+  calibration: trap links cost about 32 points).
 - **Links one pair at a time** (`chooseLinks`, every class but an introduction; the candidate is built with
   `noLinks`): pairs of two columns at one start depth (the engine's rule), never a hidden pod or one behind a latch.
   Heuristics (lower is better): Normal near access keys, Hard and Super Hard a pod useful now with a later one and a trap
@@ -97,7 +101,8 @@ breathers and a picture-first wave. `levels.mjs build` runs it for every non-bri
 - **Breathers** (17 §5 «Передышка», the owner, 2026-11-02): a Normal on a picture up to ~550 cells (`BREATHER_N`) or a
   position the wave plan marks `breather: true` (`mechanics.json`). Zone 75–95 %, zero or one light mechanic (no trap
   link, the lead's minimum dose), no holding pod, no accents; built from the access order (`t` from 0) and accepted at the
-  first fitting layout. `evaluate(…, {breather: true})` runs only the mandatory checks (validation, balance, solution,
+  first fitting layout; a small picture that stays above 95 % even reversed takes the fitting layout nearest the zone
+  (`zoneMiss`, the audit notes it). `evaluate(…, {breather: true})` runs only the mandatory checks (validation, balance, solution,
   random test class Normal, doses, latch rules, fairness; forced is recorded, not required). The placer and the audit
   keep breathers out of the Normal median, the «по цветам» quota, the holding-pod, calm, forced and pressure rules, give
   them the 75–95 % zone and refuse one with two mechanics or a trap link (`breather: true` on the level).
@@ -106,14 +111,20 @@ breathers and a picture-first wave. `levels.mjs build` runs it for every non-bri
   mix per 50 (30 × 800–1200, 10 × 700–900, 5 × 400–700, 5 × 1200–1500, scaled), each free position the band furthest
   behind its even share and never three of one band in a row, pins on their reserved positions, breathers the small
   band (the smallest pictures up to ~550 cells first), Hard and Super Hard pictures with 3+ colours hidden at the start
-  (more first), a two-type recipe 16+ pods (§7; `reservePins` checks this too), latch recipes key holes, neighbours from
+  (more first), a regular Normal 2–4 colours hidden at the start (a weaker picture stays near 100 % with any queue), a
+  two-type recipe 16+ pods (§7; `reservePins` checks this too), latch recipes key holes and pods enough for a latch's
+  depth and the pods behind it (`latchFits`), neighbours from
   different packs, a theme family once in the wave and not in the 20 levels before it, a motif not within 10 levels, at
   most two pictures of 10+ colours in 20. When no picture is left the rules relax from the end (colours, motif, family,
   pack, band), recorded as `relaxed`; the placer then skips the relaxed family / motif rule for that position (the audit
   still reports it). An earlier assignment is kept while its picture is free (`--reassign` draws anew). `run` builds
   each assigned position (`levels.mjs build <P> --pairs cls:recipe --slot … --want 1 --minutes …`, default minutes by
   slot: regular 8, after-hard 6, breather 3, intro 6, Hard / Super Hard 15) in `--jobs` processes; a picture with no level
-  in the zone is swapped for a free picture of the same band (`wave.mjs replacement`, at most `--swaps 2`), never a sweep.
+  in the zone is swapped for a free picture of the same band (`wave.mjs replacement`, at most `--swaps 2`), never a sweep;
+  a pinned picture is first built once more (`--fresh`) with its accents free of the colour window below, and only then
+  swapped (the placer lists the pins left unused). The placer allows at most two levels of 10+ colours in any 20, and
+  accents add a colour, so the runner passes `--max-colours 9` (accents never take the level to 10) where the levels
+  around already hold two (placed, or assigned with 10, or 9 on a Hard / Super Hard).
   `levels.mjs place` gives an assigned position only its picture and keeps assigned pictures off other positions. Bridge
   and hand positions are skipped and listed. `--sweep` keeps the old full sweep; `--limit N` builds the first N positions.
 - **Validation** (`calib/plan.mjs gen2`, `gen2-report` → `content/work/gen2/validation.md`): the calibration's eight jobs.

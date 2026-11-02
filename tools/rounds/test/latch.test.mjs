@@ -11,7 +11,7 @@ const L=await import('../lib.mjs');
 const {engine}=await import('../engine.mjs');const E=await engine(),{R,T,idle}=E;
 const M=await import('../measure.mjs');
 process.argv.splice(2,0,'noop');const LV=await import('../levels.mjs');process.argv.splice(2,1);
-const C=await import('../conformance.mjs');const X=await import('../export.mjs');const {validate}=await import('../schema.mjs');
+const W=await import('../wave.mjs');const C=await import('../conformance.mjs');const X=await import('../export.mjs');const {validate}=await import('../schema.mjs');
 const readJSON=f=>JSON.parse(fs.readFileSync(f,'utf8'));
 const placed=n=>readJSON(path.join(ROOT,'content/rounds/levels',`L${String(n).padStart(4,'0')}.json`));
 
@@ -170,7 +170,10 @@ test('picture selection: packs, the pack rule, interleaving; pins reserved by th
  for(const x of pins){assert.equal(x.status,'free',`${x.id}: ${x.reason}`);assert.ok(x.positions.includes(x.reserved));}
  assert.equal(new Set(pins.map(x=>x.reserved)).size,pins.length,'distinct positions');
  const latchPos=new Set(readJSON(path.join(dir,'runs/L0051-L0100/mechanics.json')).levels.filter(l=>l.recipe.split('+').includes('latch')).map(l=>l.level));
- assert.ok(pins.filter(x=>LV.keyHoles(L.boardOf(L.picture(x.id))).length).every(x=>latchPos.has(x.reserved)),'a pin with key holes goes to a latch position');
+ // (a latch needs a column deep enough for its depth and the pods behind it, wave.mjs latchFits: a pin with too few pods,
+ // e.g. P0465 with 10, takes a position without one)
+ const latchable=x=>{const m=L.measure(L.picture(x.id)),b=LV.splitPods(m.volumes,m.N,null);return !b.error&&W.latchFits('latch','Normal',b.pods.length,m.N<1000?3:4);};
+ assert.ok(pins.filter(x=>LV.keyHoles(L.boardOf(L.picture(x.id))).length&&latchable(x)).every(x=>latchPos.has(x.reserved)),'a pin with key holes and pods for a latch goes to a latch position');
  assert.match(r.stdout,/## Закреплённые картинки/);assert.match(r.stdout,/Паки свободного пула/);assert.match(r.stdout,/Позиции с засовом: 16/);
  // without the rights a franchise pin is blocked with the reason; the rights command records them (and --clear takes them back)
  assert.equal(node(dir,[path.join(TOOLS,'pictures.mjs'),'rights','P0425','--clear']).status,0);

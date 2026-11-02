@@ -333,22 +333,24 @@ async function buildPictureFirst(a,b,p,dir,jobs,step,needs){const open=new Set(n
  const inBank=x=>{const bk=readJSON(path.join(BANK,x.picture+'.json'),{candidates:[]});return bk.candidates.filter(c=>c.cls===x.cls&&c.recipe===x.recipe&&!!c.intro===!!x.intro&&(c.inZone||c.inZone===undefined)).length;};
  // the placer's window of §2 (at most two levels of 10+ colours in any 20): where the levels around (placed, or assigned
  // with 10+ colours, or 9 on a Hard / Super Hard that takes accents) already hold two, accents keep this level at 9
- const colOf=id=>{const q=picture(id);return q?measure(q).colours:0;},maxCol=x=>{const pl=placedLevels(),near=k=>k!==x.level&&Math.abs(k-x.level)<20;
+ const colOf=id=>{const q=picture(id);return q?measure(q).colours:0;},maxCol=x=>{if(x.maxColours)return x.maxColours;const pl=placedLevels(),near=k=>k!==x.level&&Math.abs(k-x.level)<20;
   const n=Object.values(pl).filter(L=>near(L.level)&&L.colours>=10).length+p.assign.filter(y=>near(y.level)&&!pl[y.level]&&(colOf(y.picture)>=10||(y.cls!=='Normal'&&colOf(y.picture)===9))).length;return n>=2?9:10;};
- const one=async x=>{const t0=Date.now(),args=[path.join(HERE,'levels.mjs'),'build',x.picture,'--classes',x.cls,'--recipes',x.recipe,'--pairs',`${x.cls}:${x.recipe}`,'--slot',x.slot,'--want','1',...(x.wantLoss?['--want-loss']:[]),'--max-colours',String(maxCol(x)),
+ const one=async x=>{const t0=Date.now(),args=[path.join(HERE,'levels.mjs'),'build',x.picture,'--classes',x.cls,'--recipes',x.recipe,'--pairs',`${x.cls}:${x.recipe}`,'--slot',x.slot,'--want','1',...(x.wantLoss?['--want-loss']:[]),'--max-colours',String(maxCol(x)),...(x.pinRetry?['--fresh']:[]),
    '--minutes',String(arg('--minutes')||PF_MIN[x.slot]||8),x.intro?'--intro':'--no-intro','--candidates',arg('--candidates','64')];
   const r=await run1(args);fs.appendFileSync(path.join(dir,'build',x.picture+'.log'),r.out);const m=/@@tune (.*)/.exec(r.out),res=m?JSON.parse(m[1]):null;
   return {level:x.level,picture:x.picture,cls:x.cls,slot:x.slot,recipe:x.recipe,seconds:Math.round((Date.now()-t0)/1000),accepted:res?res.accepted:inBank(x),attempts:res?.attempts??null,quick:res?.quick??null,evaluated:res?.evaluated??null,first:res?.first??null,share:res?.share??null,skipped:!res,reasons:res?res.reasons:null};};
  const used=()=>new Set([...p.assign.map(x=>x.picture),...Object.values(placedLevels()).map(L=>L.picture)]),timing=[],queue=todo.slice();
  const before=Object.values(placed).filter(L=>L.level>=a-20&&L.level<=b).map(L=>({level:L.level,picture:L.picture,colours:L.colours})),picOf=id=>{const q=picture(id);return q?{id,family:q.family||null,motifs:motifsOf(q),pack:packOf(q),colours:measure(q).colours}:{id};};
- await Promise.all(Array.from({length:jobs},async()=>{while(queue.length){const x=queue.shift(),t=await one(x);timing.push({...t,...(x.swappedFrom?{swappedFrom:x.swappedFrom}:{})});console.log(`  L${x.level} ${x.picture} ${x.cls}/${x.slot}: принято ${t.accepted} за ${t.seconds} с`);
+ await Promise.all(Array.from({length:jobs},async()=>{while(queue.length){const x=queue.shift(),t=await one(x);timing.push({...t,seq:timing.length,...(x.swappedFrom?{swappedFrom:x.swappedFrom}:{}),...(x.pinRetry?{pinRetry:true}:{})});console.log(`  L${x.level} ${x.picture} ${x.cls}/${x.slot}: принято ${t.accepted} за ${t.seconds} с`);
   if(t.accepted||(x.tried||[]).length>=swaps)continue;
+  // a pinned picture (the owner's) is not given up at once: once more with the accents free of the 10-colour window
+  if(x.pin&&!x.pinRetry&&maxCol(x)<10){x.pinRetry=true;x.maxColours=10;step(`L${x.level}: закреплённая ${x.picture} — ещё раз с акцентами до 10 цветов`);queue.push(x);continue;}
   // the fallback: a free picture of the same size band that fits the position (the plan's rules), then build it
   const q=p.positions.find(y=>y.level===x.level),pl=planOf(x.level),rp=PF_POOL&&replacement({level:x.level,cls:x.cls,intro:!!x.intro,recipe:x.recipe,breather:!!(pl&&pl.breather),accents:!!(pl&&pl.accents),latchNeed:latchNeed(x.recipe,x.cls,x.intro)},x.band,PF_POOL,{used:used(),tried:[...(x.tried||[]),x.picture],before:[...Object.values(placedLevels()).filter(L=>L.level>=a-20&&L.level<=b).map(L=>({level:L.level,picture:L.picture,colours:L.colours})),...p.assign.filter(y=>y.level!==x.level&&!placedLevels()[y.level]).map(y=>({level:y.level,picture:y.picture}))],picOf,waveStart:a});
   if(!rp){step(`L${x.level}: замены той же полосы ${x.band} нет`);continue;}
-  const e=PF_POOL.find(z=>z.id===rp.picture);x.swappedFrom=x.picture;x.tried=[...(x.tried||[]),x.picture];Object.assign(x,{picture:rp.picture,title:e.title,N:e.N,pack:e.pack,hidden:e.hidden,P:e.P,slot:slotOfPos({...q,plan:pl},e.N)});if(rp.relaxed)x.relaxed=rp.relaxed;else delete x.relaxed;
+  const e=PF_POOL.find(z=>z.id===rp.picture);if(x.pin){delete x.pin;delete x.pinRetry;delete x.maxColours;}x.swappedFrom=x.picture;x.tried=[...(x.tried||[]),x.picture];Object.assign(x,{picture:rp.picture,title:e.title,N:e.N,pack:e.pack,hidden:e.hidden,P:e.P,slot:slotOfPos({...q,plan:pl},e.N)});if(rp.relaxed)x.relaxed=rp.relaxed;else delete x.relaxed;
   writeJSON(path.join(dir,'plan.json'),p);step(`L${x.level}: ${x.swappedFrom} не дала уровня класса — замена ${x.picture} (${x.band})`);queue.push(x);}}));
- timing.sort((u,v)=>u.level-v.level||(u.swappedFrom?1:-1));writeJSON(path.join(dir,'timing.json'),timing);writeJSON(path.join(dir,'plan.json'),p);
+ timing.sort((u,v)=>u.level-v.level||u.seq-v.seq);writeJSON(path.join(dir,'timing.json'),timing);writeJSON(path.join(dir,'plan.json'),p);
  step('сборка готова',{built:timing.length,accepted:timing.filter(t=>t.accepted).length,seconds:timing.reduce((s,t)=>s+t.seconds,0)});return timing;}
 
 // the owner's sample (quality.json "sample"): every Super Hard, two Hard, every introduction, two random regular Normals
@@ -371,7 +373,7 @@ function summary(a,b,rows,needs,audit,sample,placed,minutes,timing=null,hand=[])
   `- Семьи: ${cnt(L=>picture(L.picture)?.family||'без тега')}.`,'',
   '## Выборка для владельца','',sample.length?`${sample.map(n=>'L'+n).join(', ')} — пилот \`content/rounds/runs/${lid(a)}-${lid(b)}/sample/index.html\`. После игры: \`node tools/rounds/rounds.mjs review <results.json>\`.`:'—','',
   ...(timing?['## Сборка по позициям (сначала картинка)','',`Вручную (мосты): ${hand.length?hand.map(n=>'L'+n).join(', '):'—'}.`,'','| Ур. | Класс · позиция | Рецепт | Картинка | Секунд | Попыток | Быстрых замеров | Полных | Принято | Первый, с | Доля |','|---|---|---|---|---|---|---|---|---|---|---|',
-   ...timing.map(x=>`| ${x.level} | ${x.cls} · ${x.slot} | ${x.recipe} | ${x.picture}${x.swappedFrom?` (замена ${x.swappedFrom})`:''} | ${x.seconds} | ${x.attempts??'—'} | ${x.quick??'—'} | ${x.evaluated??'—'} | ${x.accepted}${x.skipped?' (из банка)':''} | ${x.first??'—'} | ${pct(x.share)} |`),'']:[]),
+   ...timing.map(x=>`| ${x.level} | ${x.cls} · ${x.slot} | ${x.recipe} | ${x.picture}${x.swappedFrom?` (замена ${x.swappedFrom})`:''}${x.pinRetry?' (закреплена, повтор)':''} | ${x.seconds} | ${x.attempts??'—'} | ${x.quick??'—'} | ${x.evaluated??'—'} | ${x.accepted}${x.skipped?' (из банка)':''} | ${x.first??'—'} | ${pct(x.share)} |`),'']:[]),
   `Проверка правил: [audit.md](audit.md). Лог расстановки: place.log, сборки: build/.`,''].join('\n');}
 
 // ---- review ----
