@@ -2,9 +2,12 @@ using System;
 using System.Collections.Generic;
 using Bloomlings.Client.Art;
 using Bloomlings.Client.Gameplay.Rounds;
+using Bloomlings.Client.Gameplay.Tray;
+using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Client.UI.Localization;
 using Bloomlings.Core.Rounds;
+using Bloomlings.Core.Variants;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -31,6 +34,9 @@ namespace Bloomlings.Client.UI.Tutorial
         private TextMeshProUGUI _probe = null!;
 
         public bool IsOpen => _card != null && _card.activeSelf;
+
+        /// <summary>The player's equipped outfit of a family (the wardrobe's): the latch card's Twig hero wears his (stock while null).</summary>
+        public Func<Family, Outfit>? OutfitOf { get; set; }
 
         public static RoundIntroCardView Create(Transform parent)
         {
@@ -63,7 +69,7 @@ namespace Bloomlings.Client.UI.Tutorial
             _card = view.Root;
             Box body = view.Regions.Body;
             float y = body.Top + (10f * u);
-            Picture(view.Body, card.Picture, new Box(body.Left, y, body.Right, y + ((PictureUnits - 20f) * u)), body);
+            Picture(view.Body, card.Picture, new Box(body.Left, y, body.Right, y + ((PictureUnits - 20f) * u)), body, OutfitOf?.Invoke(Family.Twig));
             y += PictureUnits * u;
             foreach ((string text, bool first) in lines)
             {
@@ -92,7 +98,7 @@ namespace Bloomlings.Client.UI.Tutorial
         }
 
         /// <summary>The card's picture in <paramref name="area"/> (screen pixels) of the body whose screen box is <paramref name="body"/>.</summary>
-        private static void Picture(RectTransform parent, RoundIntroPicture picture, Box area, Box body)
+        private static void Picture(RectTransform parent, RoundIntroPicture picture, Box area, Box body, Outfit? outfit)
         {
             RectTransform holder = UiKit.PlaceBox(UiFactory.CreateRect("Picture", parent), area, body);
 
@@ -124,32 +130,11 @@ namespace Bloomlings.Client.UI.Tutorial
 
                 case RoundIntroPicture.Latch:
                 {
-                    // The locked pod with its padlock and our acorn hero, and its key in the pod's colour on a patch of the board
-                    // between cubes (17 §8, FR-068; the playtest's IntroPicture, RoundIntroLatch).
+                    // Our Twig hero holding the padlock in the pod's colour in the pod's place, and the key upright and turning
+                    // over its cell on a patch of the board between cubes (17 §8, FR-068; the owner's look of 2026-11-02; the
+                    // playtest's IntroPicture, RoundIntroLatch): in a loop the key flies to the keyhole, the padlock opens and
+                    // Twig steps aside from the pod (LatchIntroLoop).
                     RoundIntroLatch look = RoundIntroLatch.In(local);
-                    GridPodView locked = UiKit.GridPod("Pod", holder);
-                    BoxLayout.Place((RectTransform)locked.transform, look.Pod);
-                    locked.ShowRound(RoundIntroLatch.Material, RoundIntroLatch.Count, PodLook.Locked, false, false);
-                    Box frame = PodChip.Cube(look.Pod).Frame;
-                    (Box acornBox, Box lockBox) = RoundLook.LatchParts(frame);
-                    Image acorn = UiFactory.CreateImage("Acorn", holder, null, Color.white);
-                    acorn.raycastTarget = false;
-                    BoxLayout.Place(acorn.rectTransform, acornBox);
-                    Sprite? hero = CharacterSprites.Get(CharacterArt.Picture2D("acorn", CharacterMood.Happy));
-                    if (hero != null)
-                    {
-                        acorn.sprite = hero;
-                        acorn.preserveAspect = true;
-                    }
-                    else
-                    {
-                        PictureFit.On(acorn, (w, ph) => RoundSprites.AcornFigure(Mathf.Min(w, ph)));
-                    }
-
-                    Image padlock = UiFactory.CreateImage("Padlock", holder, null, Color.white);
-                    padlock.raycastTarget = false;
-                    BoxLayout.Place(padlock.rectTransform, lockBox);
-                    PictureFit.On(padlock, (w, ph) => RoundSprites.Padlock(0, false, Mathf.Min(w, ph)));
                     Image surface = UiFactory.CreateImage("Surface", holder, null, Color.white);
                     surface.raycastTarget = false;
                     BoxLayout.Place(surface.rectTransform, look.Patch);
@@ -163,10 +148,10 @@ namespace Bloomlings.Client.UI.Tutorial
                         PictureFit.On(cube, (w, ph) => RoundSprites.BoardCube(material, false, w, ph));
                     }
 
-                    Image key = UiFactory.CreateImage("Key", holder, null, Color.white);
-                    key.raycastTarget = false;
-                    BoxLayout.Place(key.rectTransform, RoundLook.KeyBox(look.KeyCell));
-                    PictureFit.On(key, (w, ph) => RoundSprites.RoundKey(RoundIntroLatch.Material, 0, w, ph));
+                    GridPodView pod = UiKit.GridPod("Pod", holder);
+                    BoxLayout.Place((RectTransform)pod.transform, look.Pod);
+                    pod.ShowRound(RoundIntroLatch.Material, RoundIntroLatch.Count, PodLook.Exposed, false, false);
+                    holder.gameObject.AddComponent<LatchIntroLoop>().Build(holder, look, pod.gameObject, outfit);
                     break;
                 }
 
@@ -232,6 +217,95 @@ namespace Bloomlings.Client.UI.Tutorial
             GridPodView pod = UiKit.GridPod("Pod", holder);
             BoxLayout.Place((RectTransform)pod.transform, box);
             pod.ShowRound(material, count, PodLook.Exposed, false, false);
+        }
+    }
+
+    /// <summary>
+    /// The latch card's loop (<see cref="RoundIntroLatch.Since"/>; the playtest's <c>IntroPicture</c>): closed, the key turning
+    /// over its cell on its shadow and the pod hidden behind Twig; then the key's flight into the keyhole with its click, the
+    /// padlock opening and dropping and Twig stepping aside from the pod, in the card's own unscaled time.
+    /// </summary>
+    public sealed class LatchIntroLoop : MonoBehaviour
+    {
+        private RoundIntroLatch _look = null!;
+        private GameObject _pod = null!;
+        private LatchHeroView _hero = null!;
+        private Image _shadow = null!;
+        private Image _key = null!;
+        private Image _ring = null!;
+        private Outfit? _outfit;
+        private bool? _back;
+        private float _start;
+
+        public void Build(RectTransform holder, RoundIntroLatch look, GameObject pod, Outfit? outfit)
+        {
+            _look = look;
+            _pod = pod;
+            _outfit = outfit;
+            _start = Time.unscaledTime;
+            _shadow = UiFactory.CreateImage("KeyShadow", holder, null, Color.white);
+            _shadow.raycastTarget = false;
+            BoxLayout.Place(_shadow.rectTransform, RoundLook.KeyShadow(look.KeyCell));
+            PictureFit.On(_shadow, (w, h) => RoundSprites.SoftOval(w, h));
+            _hero = LatchHeroView.Create(holder);
+            _ring = UiFactory.CreateImage("KeyClick", holder, ProceduralSprites.Ring, Color.white);
+            _ring.raycastTarget = false;
+            _key = UiFactory.CreateImage("Key", holder, null, Color.white);
+            _key.raycastTarget = false;
+            Tick();
+        }
+
+        private void Update() => Tick();
+
+        private void Tick()
+        {
+            if (_look == null)
+            {
+                return;
+            }
+
+            float seconds = Time.unscaledTime - _start;
+            float t = RoundIntroLatch.Since(seconds);
+            Rgba metal = RoundLook.KeyMetal(RoundIntroLatch.Material);
+            _pod.SetActive(t >= 0f);
+            if (t < RoundLook.LatchOpenSeconds)
+            {
+                _hero.Show(_look.Pod, _outfit, metal, 0, t, -1, false);
+            }
+            else
+            {
+                _hero.Hide();
+            }
+
+            Box rest = _look.KeyBox;
+            float rise = t < 0f ? RoundLook.KeyBob(seconds) : 0f;
+            _shadow.gameObject.SetActive(t < 0f);
+            float k = RoundLook.KeyShadowScale(rise);
+            _shadow.rectTransform.localScale = new Vector3(k, k, 1f);
+            (Box box, float sx, bool back, float alpha) = t < 0f
+                ? (rest.Offset(0f, -rise * _look.KeyCell.Width), RoundLook.KeySpin(RoundLook.KeyTurns(seconds)).ScaleX, RoundLook.KeySpin(RoundLook.KeyTurns(seconds)).Back, 1f)
+                : RoundLook.KeyFlight(t, rest, RoundLook.KeyInHole(_look.Lock, 0), RoundLook.KeyTurns(seconds - t));
+            if (_back != back)
+            {
+                _back = back;
+                Rgba m = back ? RoundLook.KeyBack(metal) : metal;
+                PictureFit.On(_key, (w, h) => RoundSprites.UprightKey(m, 0, w, h));
+            }
+
+            BoxLayout.Place(_key.rectTransform, Box.FromCenter(box.CenterX, box.CenterY, rest.Width, rest.Height));
+            float scale = box.Height / Mathf.Max(0.0001f, rest.Height);
+            _key.rectTransform.localScale = new Vector3(sx * scale, scale, 1f);
+            _key.color = new Color(1f, 1f, 1f, alpha);
+            _key.gameObject.SetActive(alpha > 0f);
+            (float radius, float ringAlpha) = RoundLook.KeyClick(t);
+            _ring.gameObject.SetActive(ringAlpha > 0f);
+            if (ringAlpha > 0f)
+            {
+                (float kx, float ky) = RoundLook.Keyhole(_look.Lock, 0);
+                float r = radius * _look.Lock.Width;
+                BoxLayout.Place(_ring.rectTransform, Box.FromCenter(kx, ky, 2f * r, 2f * r));
+                _ring.color = UiTheme.Of(C.GardenGlow.WithAlpha(ringAlpha));
+            }
         }
     }
 }

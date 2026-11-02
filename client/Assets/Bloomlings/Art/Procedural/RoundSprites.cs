@@ -130,32 +130,30 @@ namespace Bloomlings.Client.Art
         }
 
         /// <summary>
-        /// A latch's padlock (17 §8, spec 006 FR-068; <c>pod.round.padlock</c>; the playtest's <c>Kit.LatchOverlay</c>) with
-        /// <paramref name="pips"/>, closed with the acorn hero's arms round it or open (<see cref="UiRaster.Padlock"/>).
+        /// A latch's padlock (17 §8, spec 006 FR-068; <c>pod.round.padlock</c>; the playtest's <c>Kit.LatchHero</c>) with its body
+        /// in <paramref name="body"/> (<see cref="RoundLook.KeyMetal"/>) and <paramref name="pips"/>, closed or open
+        /// (<see cref="UiRaster.Padlock"/>).
         /// </summary>
-        public static Sprite Padlock(int pips, bool open, int size)
+        public static Sprite Padlock(Rgba body, int pips, bool open, int size)
         {
             int s = Math.Max(1, size);
-            bool arms = !open;
-            return ProceduralSprites.Picture(UiRaster.PadlockKey(pips, open, arms), s, s, (w, h) => UiRaster.Padlock(Math.Min(w, h), pips, open, arms));
-        }
-
-        /// <summary>The drawn acorn, the acorn hero's stand-in while his picture is missing (<see cref="UiRaster.AcornFigure"/>).</summary>
-        public static Sprite AcornFigure(int size)
-        {
-            int s = Math.Max(1, size);
-            return ProceduralSprites.Picture(UiRaster.AcornFigureKey, s, s, (w, h) => UiRaster.AcornFigure(Math.Min(w, h)));
+            return ProceduralSprites.Picture(UiRaster.PadlockKey(body, pips, open), s, s, (w, h) => UiRaster.Padlock(Math.Min(w, h), body, pips, open));
         }
 
         /// <summary>
-        /// A latch's key (<c>board.round.key</c>; the playtest's <c>Kit.RoundKey</c>, <see cref="UiRaster.RoundKey"/>): the big
-        /// ordinary key in the held pod's colour (<paramref name="material"/>, -1 brass) with <paramref name="pips"/>, at a
-        /// pixel size of <see cref="RoundLook.KeyBox"/>.
+        /// A latch's key standing upright (<c>board.round.key</c>; the playtest's <c>Kit.UprightKey</c>,
+        /// <see cref="UiRaster.UprightKey"/>) in <paramref name="metal"/> (the held pod's colour, or its back's darker metal)
+        /// with <paramref name="pips"/>, at a pixel size of <see cref="RoundLook.KeyBox"/>.
         /// </summary>
-        public static Sprite RoundKey(int material, int pips, int width, int height)
+        public static Sprite UprightKey(Rgba metal, int pips, int width, int height)
         {
-            Rgba metal = RoundLook.KeyMetal(material);
-            return ProceduralSprites.Picture(UiRaster.RoundKeyKey(metal, pips), Math.Max(1, width), Math.Max(1, height), (w, h) => UiRaster.RoundKey(w, h, metal, pips));
+            return ProceduralSprites.Picture(UiRaster.UprightKeyKey(metal, pips), Math.Max(1, width), Math.Max(1, height), (w, h) => UiRaster.UprightKey(w, h, metal, pips));
+        }
+
+        /// <summary>The soft oval contact shadow (<see cref="UiRaster.SoftOval"/>) under the key's tip and the hero's feet.</summary>
+        public static Sprite SoftOval(int width, int height)
+        {
+            return ProceduralSprites.Picture(UiRaster.SoftOvalKey, Math.Max(1, width), Math.Max(1, height), (w, h) => UiRaster.SoftOval(w, h));
         }
 
         /// <summary>The link tube's picture (<see cref="UiRaster.LinkTube"/>) of <paramref name="shape"/>'s colours at a pixel size.</summary>

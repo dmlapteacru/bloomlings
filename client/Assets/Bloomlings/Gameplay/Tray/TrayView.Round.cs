@@ -19,9 +19,10 @@ namespace Bloomlings.Client.Gameplay.Tray
     /// faces, under the pods (FR-043), and for a partner deeper than the rows show one straight tube to the bottom edge of its
     /// column's last shown row (<see cref="RoundAnimator.LinkMarks"/>, <see cref="LinkTube.HiddenTube"/>); and the pulse round
     /// the partner a refused tap waits for (along that tube and at its end while it is hidden). The pods slide up a row
-    /// when the top one leaves. A latch (17 §8, FR-068; the owner's look of 2026-11-01) is drawn on the pod it holds: that pod
-    /// a little darker with a padlock and our acorn hero hugging it; when it opens the padlock springs open and drops, the
-    /// acorn hops off and the pod takes taps.
+    /// when the top one leaves. A closed latch (17 §8, FR-068; the owner's look of 2026-11-02) hides the pod it holds: in its
+    /// place stands our Twig hero in the player's outfit holding a padlock in that pod's colour (<see cref="LatchHeroView"/>);
+    /// when it opens the key flies into the padlock (<c>RoundFlightsView</c>), the shackle springs open and the padlock drops,
+    /// Twig steps aside from the pod, which takes taps from the event on.
     /// </summary>
     public sealed partial class TrayView
     {
@@ -42,10 +43,20 @@ namespace Bloomlings.Client.Gameplay.Tray
         private ReferenceGameplayRegions? _roundGrid;
         private readonly Dictionary<int, (bool Empty, int Rows)> _roundColumns = new Dictionary<int, (bool, int)>();
 
-        // Latch + key (17 §8): a column's queue items, each latch's padlock, acorn and plate, and which of them show this frame.
+        // Latch + key (17 §8): a column's queue items, each latch's hero, which of them show this frame and their padlocks.
         private readonly List<RoundQueueItem> _roundItems = new List<RoundQueueItem>();
-        private readonly Dictionary<int, LatchViews> _roundLatches = new Dictionary<int, LatchViews>();
+        private readonly Dictionary<int, LatchHeroView> _roundLatches = new Dictionary<int, LatchHeroView>();
         private readonly HashSet<int> _roundLatchShown = new HashSet<int>();
+        private readonly Dictionary<int, Box> _roundLatchLocks = new Dictionary<int, Box>();
+
+        /// <summary>The player's equipped outfit of a family (the wardrobe's); the latch's Twig hero wears his (stock Twig while null).</summary>
+        public System.Func<Bloomlings.Core.Variants.Family, Bloomlings.Client.Meta.Wardrobe.Outfit>? OutfitOf { get; set; }
+
+        /// <summary>
+        /// The padlock box of latch <paramref name="latch"/> in the tray area's top-down canvas units while its hero is shown (the
+        /// opening key's flight ends in its keyhole), else null.
+        /// </summary>
+        public Box? RoundLatchLock(int latch) => _roundLatchLocks.TryGetValue(latch, out Box box) ? box : (Box?)null;
 
         /// <summary>A shown round pod's tile box in the tray area's top-down canvas units (its flight to a place starts there).</summary>
         public Box? RoundTileBox(int pod) =>
@@ -72,6 +83,8 @@ namespace Bloomlings.Client.Gameplay.Tray
             int columns = Mathf.Min(a.ColumnCount, grid.Columns.Count);
             _roundShown.Clear();
             _roundLatchShown.Clear();
+            _roundLatchLocks.Clear();
+            Bloomlings.Client.Meta.Wardrobe.Outfit? outfit = OutfitOf?.Invoke(Bloomlings.Core.Variants.Family.Twig);
             if (force)
             {
                 _roundColumns.Clear();
@@ -118,19 +131,28 @@ namespace Bloomlings.Client.Gameplay.Tray
                     int depth = item.Row;
                     if (item.IsLatch)
                     {
-                        ShowLatch(item.Id, grid.Pod(s, depth), a.LatchOpenSince(item.Id), a.LatchPips(item.Id), a.LatchClosed(item.Id) && !item.Holds);
+                        Box place = grid.Pod(s, depth);
+                        Rgba body = item.Holds ? RoundLook.KeyMetal(a.KeyMaterial(item.Id)) : RoundLook.KeyBrass;
+                        ShowLatch(item.Id).Show(place, outfit, body, a.LatchPips(item.Id), a.LatchOpenSince(item.Id), RoundLook.HeroSide(s, columns), depth > 0);
                         _roundLatchShown.Add(item.Id);
+                        _roundLatchLocks[item.Id] = RoundLook.HeroLock(RoundLook.HeroCell(place));
                         continue;
                     }
 
                     int pod = item.Id;
+                    bool held = a.HeldBehind(_roundItems, k);
+                    bool locked = held && k > 0 && _roundItems[k - 1].IsLatch && _roundItems[k - 1].Holds && a.LatchClosed(_roundItems[k - 1].Id);
+                    if (locked)
+                    {
+                        // the pod a closed latch holds is not drawn: its hero stands in its place (FR-068, 2026-11-02)
+                        continue;
+                    }
+
                     PodView view = Get(Key(pod));
                     bool wasShown = view.IsShown;
                     int material = a.Revealed(pod) ? a.MaterialOf(pod) : -1;
-                    bool held = a.HeldBehind(_roundItems, k);
                     bool exposed = item.Depth == 0 && !held;
-                    bool locked = held && k > 0 && _roundItems[k - 1].IsLatch && _roundItems[k - 1].Holds && a.LatchClosed(_roundItems[k - 1].Id);
-                    view.ShowRound(pod, material, a.Remaining(pod), interactive && exposed, !exposed && !locked, symbols, RoundSide(grid, s), locked);
+                    view.ShowRound(pod, material, a.Remaining(pod), interactive && exposed, !exposed, symbols, RoundSide(grid, s));
                     Box box = grid.Pod(s, depth);
                     bool moved = !_roundPlaced.TryGetValue(pod, out (int Stack, int Depth, Box Box) placed) || placed.Stack != s || placed.Depth != depth;
                     if (force || moved || !wasShown)
@@ -174,82 +196,32 @@ namespace Bloomlings.Client.Gameplay.Tray
                 }
             }
 
-            foreach (KeyValuePair<int, LatchViews> latch in _roundLatches)
+            foreach (KeyValuePair<int, LatchHeroView> latch in _roundLatches)
             {
-                latch.Value.Root.gameObject.SetActive(_roundLatchShown.Contains(latch.Key));
+                if (!_roundLatchShown.Contains(latch.Key))
+                {
+                    latch.Value.Hide();
+                }
+                else
+                {
+                    // over every pod (its head over the row above; while it opens, in front of the pod it held)
+                    latch.Value.Root.SetSiblingIndex(_roundFront!.GetSiblingIndex());
+                }
             }
 
             SyncRoundOverlays(core, grid);
         }
 
-        /// <summary>A latch's pictures over its row: the plate (no pod of its own behind it), the acorn hero and the padlock.</summary>
-        private sealed class LatchViews
+        /// <summary>Latch <paramref name="latch"/>'s hero view (made on first use), over the pods.</summary>
+        private LatchHeroView ShowLatch(int latch)
         {
-            public RectTransform Root = null!;
-            public Image Plate = null!;
-            public Image Acorn = null!;
-            public Image Padlock = null!;
-            public bool? Open;
-        }
-
-        /// <summary>
-        /// A latch (17 §8, FR-068; the playtest's <c>Kit.LatchOverlay</c>) on its row's pod box <paramref name="row"/>: our acorn
-        /// hero sitting on the held pod's top right hugging the padlock (<see cref="RoundLook.LatchParts"/>,
-        /// <see cref="RoundSprites.Padlock"/> with <paramref name="pips"/>), over a dim empty plate when no pod of its own stands
-        /// behind it (<paramref name="plate"/>); while it opens (<paramref name="since"/> ≥ 0) the padlock springs open and drops
-        /// (<see cref="RoundLook.PadlockOpen"/>) and the acorn hops off (<see cref="RoundLook.AcornHop"/>).
-        /// </summary>
-        private void ShowLatch(int latch, Box row, float since, int pips, bool plate)
-        {
-            Box frame = PodChip.Cube(row).Frame;
-            float s = Mathf.Min(frame.Width, frame.Height);
-            if (!_roundLatches.TryGetValue(latch, out LatchViews? views))
+            if (!_roundLatches.TryGetValue(latch, out LatchHeroView? view))
             {
-                RectTransform root = UiFactory.Stretch(UiFactory.CreateRect("Latch", _area));
-                Image plateImage = UiKit.RoundRect("Plate", root, UiTheme.Of(C.InkBrown.WithAlpha(0.25f)), b => Mathf.Min(b.Width, b.Height) * 0.22f);
-                plateImage.raycastTarget = false;
-                Image acorn = UiFactory.CreateImage("Acorn", root, null, Color.white);
-                acorn.raycastTarget = false;
-                Sprite? hero = Bloomlings.Client.Art.CharacterSprites.Get(CharacterArt.Picture2D("acorn", CharacterMood.Happy));
-                if (hero != null)
-                {
-                    acorn.sprite = hero;
-                    acorn.preserveAspect = true;
-                }
-                else
-                {
-                    PictureFit.On(acorn, (w, h) => Bloomlings.Client.Art.RoundSprites.AcornFigure(Mathf.Min(w, h)));
-                }
-
-                Image padlock = UiFactory.CreateImage("Padlock", root, null, Color.white);
-                padlock.raycastTarget = false;
-                views = new LatchViews { Root = root, Plate = plateImage, Acorn = acorn, Padlock = padlock };
-                _roundLatches[latch] = views;
+                view = LatchHeroView.Create(_area);
+                _roundLatches[latch] = view;
             }
 
-            views.Plate.gameObject.SetActive(plate);
-            if (plate)
-            {
-                BoxLayout.Place(views.Plate.rectTransform, frame.Inset(s * 0.06f));
-            }
-
-            (Box acornBox, Box lockBox) = RoundLook.LatchParts(frame);
-            (float hx, float hy, float ha) = RoundLook.AcornHop(since);
-            BoxLayout.Place(views.Acorn.rectTransform, acornBox.Offset(hx * s, -hy * s));
-            views.Acorn.color = new Color(1f, 1f, 1f, ha);
-            (bool open, float drop, float scale, float alpha) = RoundLook.PadlockOpen(since);
-            if (views.Open != open)
-            {
-                views.Open = open;
-                int marks = pips;
-                PictureFit.On(views.Padlock, (w, h) => Bloomlings.Client.Art.RoundSprites.Padlock(marks, open, Mathf.Min(w, h)));
-            }
-
-            BoxLayout.Place(views.Padlock.rectTransform, lockBox.Offset(0f, drop * s));
-            views.Padlock.rectTransform.localScale = new Vector3(scale, scale, 1f);
-            views.Padlock.color = new Color(1f, 1f, 1f, alpha);
-            views.Root.gameObject.SetActive(true);
-            views.Root.SetSiblingIndex(_roundFront!.GetSiblingIndex());
+            return view;
         }
 
         /// <summary>Forgets where the round pods stood (a restart puts the whole tray back at once).</summary>
@@ -257,9 +229,9 @@ namespace Bloomlings.Client.Gameplay.Tray
         {
             _roundPlaced.Clear();
             _roundColumns.Clear();
-            foreach (LatchViews latch in _roundLatches.Values)
+            foreach (LatchHeroView latch in _roundLatches.Values)
             {
-                latch.Root.gameObject.SetActive(false);
+                latch.Hide();
             }
 
             foreach (PodView view in _pods.Values)

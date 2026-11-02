@@ -211,12 +211,17 @@ namespace Bloomlings.Client.Gameplay.Rounds
             {
                 _win.OutfitOf = wardrobe.OutfitOf;
                 _milestoneCard.OutfitOf = wardrobe.OutfitOf;
+                _tray.OutfitOf = wardrobe.OutfitOf;
             }
 
             _jam = JamScreen.Create(_root, RestartFromJam, OnRecovery, _hud.TopBar);
             _pause = PauseScreen.Create(_root, ClosePause, RestartFromPause, Leave, OpenSettings);
             _banner = DifficultyBanner.Create(_root);
             _intro = RoundIntroCardView.Create(_root);
+            if (wardrobe != null)
+            {
+                _intro.OutfitOf = wardrobe.OutfitOf;
+            }
             _guide = GuideOverlay.Create(_root);
 
             // Let the canvas scaler size the layout before the board measures its area.
@@ -379,6 +384,27 @@ namespace Bloomlings.Client.Gameplay.Rounds
             _places.Show(core, _placeCells);
             _tray.ShowRound(core, _podGrid!, core.HudLive && !core.Targeting.HasValue);
             _flights.Show(core, _placeTiles, _launch);
+            _flights.ShowKeys(core, _board.KeyRestBox, LatchLockScreenBox);
+        }
+
+        /// <summary>
+        /// Latch <paramref name="latch"/>'s padlock box in screen pixels (the opening key's flight ends in its keyhole): where its
+        /// hero holds it in the tray, else in the column's top place.
+        /// </summary>
+        private Box? LatchLockScreenBox(int latch)
+        {
+            ReferenceGameplayRegions? hud = _hud.Regions;
+            RoundLevelCore? core = _core;
+            if (hud == null || core == null || _podGrid == null)
+            {
+                return null;
+            }
+
+            int column = Math.Min(core.Round.Latches[latch].Column, _podGrid.Columns.Count - 1);
+            Box b = _tray.RoundLatchLock(latch) ?? RoundLook.HeroLock(RoundLook.HeroCell(_podGrid.Pod(column, 0)));
+            float ppu = UiKit.PixelsPerUnit;
+            Box row = hud.PodRow;
+            return new Box(row.Left + (b.Left * ppu), row.Top + (b.Top * ppu), row.Left + (b.Right * ppu), row.Top + (b.Bottom * ppu));
         }
 
         /// <summary>Where a pod's tiles go in its place (the plate's tile), in cell units of the grid; null when in none.</summary>

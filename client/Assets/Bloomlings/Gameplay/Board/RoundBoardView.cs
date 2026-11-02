@@ -67,8 +67,12 @@ namespace Bloomlings.Client.Gameplay.Board
         private const sbyte VeiledCube = 100;
         private Image?[] _veils = Array.Empty<Image?>();
 
-        // Latch + key (17 §8 «Засов и жёлудь-ключ», FR-068): each latch's acorn key on its board cell.
+        // Latch + key (17 §8, FR-068; the owner's look of 2026-11-02): each latch's upright key over its board cell, its shadow,
+        // its metal and pips, and which face it shows (its back half is drawn darker).
         private readonly List<Image> _keys = new List<Image>();
+        private readonly List<Image> _keyShadows = new List<Image>();
+        private readonly List<(Rgba Metal, int Pips)> _keyLooks = new List<(Rgba, int)>();
+        private readonly List<bool?> _keyBacks = new List<bool?>();
         private bool _symbols;
         private bool _bursting;
 
@@ -130,6 +134,9 @@ namespace Bloomlings.Client.Gameplay.Board
 
             _arches.Clear();
             _keys.Clear();
+            _keyShadows.Clear();
+            _keyLooks.Clear();
+            _keyBacks.Clear();
             _sites.Clear();
             _pieces.Clear();
             _banks.Clear();
@@ -218,16 +225,19 @@ namespace Bloomlings.Client.Gameplay.Board
                 _pieces.Add((image, piece));
             }
 
-            // The keys on their empty cells, over the cubes and under the bridges (17 §8, FR-068): each a big key in the colour
-            // of the pod its latch holds.
+            // The keys over their empty cells, over the cubes and under the bridges (17 §8, FR-068; the owner's look of
+            // 2026-11-02): each a big key in the colour of the pod its latch holds, standing upright over its soft shadow.
             for (int i = 0; i < level.Latches.Count; i++)
             {
+                Image shadow = UiFactory.CreateImage("KeyShadow", _decor, null, Color.white);
+                shadow.raycastTarget = false;
+                PictureFit.On(shadow, (w, h) => RoundSprites.SoftOval(w, h));
+                _keyShadows.Add(shadow);
                 Image key = UiFactory.CreateImage("Key", _decor, null, Color.white);
                 key.raycastTarget = false;
-                int material = RoundAnimator.KeyMaterial(level, i);
-                int pips = RoundAnimator.LatchPipsOf(level, i);
-                PictureFit.On(key, (w, h) => RoundSprites.RoundKey(material, pips, w, h));
                 _keys.Add(key);
+                _keyLooks.Add((RoundLook.KeyMetal(RoundAnimator.KeyMaterial(level, i)), RoundAnimator.LatchPipsOf(level, i)));
+                _keyBacks.Add(null);
             }
 
             foreach (RoundBridgeSite site in layout.Bridges)
@@ -398,31 +408,56 @@ namespace Bloomlings.Client.Gameplay.Board
         }
 
         /// <summary>
-        /// Each closed latch's key on its cell (<see cref="RoundLook.KeyBox"/>, <see cref="RoundLook.KeyLengthCells"/> long over the
-        /// cubes round it), breathing up and down (<see cref="RoundLook.KeyBob"/>); when its latch opens it lifts off and fades
-        /// (<see cref="RoundLook.KeyOpen"/>).
+        /// Each closed latch's key over its cell (<see cref="RoundLook.KeyBox"/>, standing upright, its tip hovering over its soft
+        /// shadow, <see cref="RoundLook.KeyShadow"/>), bobbing (<see cref="RoundLook.KeyBob"/>) and turning round its upright axis
+        /// (<see cref="RoundLook.KeySpin"/>: the picture squashed, mirrored and darker on its back half). An opening latch's key
+        /// flies to its padlock over the tray (<c>RoundFlightsView.ShowKeys</c>), so it leaves the board at the event.
         /// </summary>
         private void SyncKeys(RoundAnimator a, RoundBoardLayout layout)
         {
             for (int i = 0; i < _keys.Count && i < a.LatchCount; i++)
             {
                 Image key = _keys[i];
-                bool shown = a.LatchShown(i);
+                Image shadow = _keyShadows[i];
+                bool shown = a.LatchClosed(i);
                 key.gameObject.SetActive(shown);
+                shadow.gameObject.SetActive(shown);
                 if (!shown)
                 {
                     continue;
                 }
 
-                float since = a.LatchOpenSince(i);
+                float seconds = KeySeconds(a.Now / 1_000_000f, i);
                 Box cell = layout.CellBox(a.Level.Latches[i].Key);
-                (float lift, float scale, float alpha) = RoundLook.KeyOpen(since);
-                lift += RoundLook.KeyBob((a.Now / 1_000_000f) + (i * 0.4f));
-                PlaceInGrid(key.rectTransform, RoundLook.KeyBox(cell, layout.Surface).Offset(0f, -lift * cell.Width));
-                key.rectTransform.localScale = new Vector3(scale, scale, 1f);
-                key.color = new Color(1f, 1f, 1f, alpha);
+                float rise = RoundLook.KeyBob(seconds);
+                PlaceInGrid(shadow.rectTransform, RoundLook.KeyShadow(cell, layout.Surface));
+                float k = RoundLook.KeyShadowScale(rise);
+                shadow.rectTransform.localScale = new Vector3(k, k, 1f);
+                (float sx, bool back) = RoundLook.KeySpin(RoundLook.KeyTurns(seconds));
+                ShowKeyFace(i, back);
+                PlaceInGrid(key.rectTransform, RoundLook.KeyBox(cell, layout.Surface).Offset(0f, -rise * cell.Width));
+                key.rectTransform.localScale = new Vector3(sx, 1f, 1f);
             }
         }
+
+        /// <summary>A latch's key's own clock in seconds (its bob and turn), a little apart from the others' (the playtest's <c>RoundPainter.KeySeconds</c>).</summary>
+        public static float KeySeconds(float seconds, int latch) => seconds + (latch * 0.4f);
+
+        private void ShowKeyFace(int latch, bool back)
+        {
+            if (_keyBacks[latch] == back)
+            {
+                return;
+            }
+
+            _keyBacks[latch] = back;
+            (Rgba metal, int pips) = _keyLooks[latch];
+            Rgba m = back ? RoundLook.KeyBack(metal) : metal;
+            PictureFit.On(_keys[latch], (w, h) => RoundSprites.UprightKey(m, pips, w, h));
+        }
+
+        /// <summary>The key picture box at rest over <paramref name="cell"/>, in screen pixels (an opening key's flight starts there), or null.</summary>
+        public Box? KeyRestBox(int cell) => _layout == null ? (Box?)null : RoundLook.KeyBox(_layout.CellBox(cell), _layout.Surface);
 
         /// <summary>
         /// A hidden cell's reveal pop (<paramref name="since"/> seconds after its cellReveal, or -1 once it ended): the cube
