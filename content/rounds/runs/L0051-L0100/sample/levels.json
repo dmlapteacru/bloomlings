@@ -599,6 +599,157 @@
    ]
   },
   {
+   "id": 59,
+   "title": "Солнечный значок с улыбкой",
+   "subject": "P1110",
+   "w": 35,
+   "h": 35,
+   "rowsBottomFirst": [
+    "#################.#################",
+    "#.................................#",
+    "#................OO...............#",
+    "#...............OOOO..............#",
+    "#..............OOOOO..............#",
+    "#..............OOOOOO.............#",
+    "#.....OOO.....OOOOOOO.....OOO.....#",
+    "#.....OOOOOO.OOYYYYYOO..OOOOO.....#",
+    "#.....OOOOOOOYYYYYYYYYYOOOOOO.....#",
+    "#......OOOOYYYYYYYYYYYYYOOOOO.....#",
+    "#......OOOYYYYYYYYYYYYYYYOOOO.....#",
+    "#......OOYYYYYYYRRRYYYYYYYOO......#",
+    "#......OOYYYYYYRRRRRYYYYYYYO......#",
+    "#......OYYPYYYYRRRRRRYYYPPYO......#",
+    "#....OOOYPPPYYYRRRRRRYYPPPYOOO....#",
+    "#...OOOOYPPPYYYYYYYYYYYPPPPYOOOO..#",
+    "#.OOOOOOYYPCCDDYYYYYYDCCPPYYOOOOO.#",
+    "#.OOOOOOYYYCDDDYYYYYDDDCCYYYOOOOO.#",
+    "#.OOOOOOYYYCDDDDYYYYDDDCCYYYOOOOO.#",
+    "#...OOOOYYYCDDDCYYYYDDDCCYYYOOO...#",
+    "#.....OOYYYCCDCYYYYYCDCCYYYOOO....#",
+    "#......OOYYYCCYYYYYYYCCYYYYO......#",
+    "#.......OYYYYYYYYYYYYYYYYYOO......#",
+    "#......OOOYYYYYYYYYYYYYYYYOO......#",
+    "#......OOOOYYYYYYYYYYYYYOOOO......#",
+    "#.....OOOOOOYYYYYYYYYYYOOOOOO.....#",
+    "#.....OOOOOOOOYYYYYYYOOOOOOOO.....#",
+    "#.....OOOOO...OOOOOOOO..OOOOO.....#",
+    "#.............OOOOOOO.............#",
+    "#..............OOOOO..............#",
+    "#..............OOOOO..............#",
+    "#...............OOOO..............#",
+    "#................OO...............#",
+    "#.................................#",
+    "###################################"
+   ],
+   "entries": [
+    17
+   ],
+   "capacity": 5,
+   "pods": [
+    {
+     "color": "O",
+     "count": 39
+    },
+    {
+     "color": "O",
+     "count": 39
+    },
+    {
+     "color": "O",
+     "count": 38
+    },
+    {
+     "color": "O",
+     "count": 38
+    },
+    {
+     "color": "O",
+     "count": 38,
+     "mystery": "depth"
+    },
+    {
+     "color": "O",
+     "count": 38
+    },
+    {
+     "color": "Y",
+     "count": 46
+    },
+    {
+     "color": "Y",
+     "count": 46
+    },
+    {
+     "color": "Y",
+     "count": 46
+    },
+    {
+     "color": "Y",
+     "count": 46,
+     "mystery": "depth"
+    },
+    {
+     "color": "Y",
+     "count": 46
+    },
+    {
+     "color": "C",
+     "count": 12
+    },
+    {
+     "color": "C",
+     "count": 12
+    },
+    {
+     "color": "D",
+     "count": 12
+    },
+    {
+     "color": "D",
+     "count": 12
+    },
+    {
+     "color": "P",
+     "count": 19
+    },
+    {
+     "color": "R",
+     "count": 10
+    },
+    {
+     "color": "R",
+     "count": 10
+    }
+   ],
+   "tray": [
+    [
+     17,
+     13,
+     9,
+     5,
+     3,
+     0
+    ],
+    [
+     10,
+     12,
+     11,
+     7,
+     4,
+     2
+    ],
+    [
+     14,
+     16,
+     15,
+     8,
+     6,
+     1
+    ]
+   ],
+   "difficulty": "Normal"
+  },
+  {
    "id": 60,
    "title": "Дюймовочка в тюльпане",
    "subject": "P0223",
@@ -1071,6 +1222,203 @@
      "depth": 5,
      "key": 743
     }
+   ]
+  },
+  {
+   "id": 62,
+   "title": "Весёлый росток в луковице",
+   "subject": "P1090",
+   "w": 29,
+   "h": 39,
+   "rowsBottomFirst": [
+    "##############.##############",
+    "#...........................#",
+    "#.............CCCC..........#",
+    "#...........CCCCCCCCC.......#",
+    "#.........CCCCACCCCC........#",
+    "#.......OOOOOAACCCCC........#",
+    "#.....OOOOOOOOOOOOOOOO......#",
+    "#....OOOOOOOOOOOOOOOOOOO....#",
+    "#...OOOOOOOOYOOYOOOOOOOO....#",
+    "#...OOOOOYYYYOYYYOYOOOOOOO..#",
+    "#..OOOOOOOOYYYYYYOYYOOOOOO..#",
+    "#..OOOOOOOOOYYYYAYYYYYYOOO..#",
+    "#..OOYYYYOOYYYYAAAAYYYOOOOA.#",
+    "#.OOOYYYYYDDDYYYYYAYYYOOOOA.#",
+    "#.OOYYYYYYDDDYYYYYYYDYOOOOA.#",
+    "#.OOYYYYYYDDDYYYYYYDDDYYOOA.#",
+    "#..OOYYYYYDDDYYYYYYDDDYYOOA.#",
+    "#..OOYYYYYYYYYYYYYYDCDYYOO..#",
+    "#..OOYYYCYYYYYYYYYYYDDYOOO..#",
+    "#...OOYYCCYYYYYYYYYYYYYOOO..#",
+    "#....OOYYCCYYYYYYYYYYYOOO...#",
+    "#....OOYYYCCYYYYYYYYYOOOO...#",
+    "#.....OOYYYYYYYYYYYYOOOO....#",
+    "#.......OOYYYYOYYOYOOOO.....#",
+    "#........OOYYOOOOOOOO.......#",
+    "#.........OOYOOOOOO.........#",
+    "#.........GOYYYOOO..........#",
+    "#.........GGMGGMOO..........#",
+    "#........GGGMGGMGG..........#",
+    "#........GGGMGGMGG..........#",
+    "#.......GGGMMGGMGGG.........#",
+    "#......GGGMMGGMMGGG.........#",
+    "#.....GGGG.MGGM.GGGG........#",
+    "#.....GGG.MMGG..GGGG........#",
+    "#....GGG..MGGC...GGGM.......#",
+    "#.........GGG......MM.......#",
+    "#.........GG................#",
+    "#...........................#",
+    "#############################"
+   ],
+   "entries": [
+    14
+   ],
+   "capacity": 5,
+   "pods": [
+    {
+     "color": "G",
+     "count": 23
+    },
+    {
+     "color": "G",
+     "count": 22
+    },
+    {
+     "color": "G",
+     "count": 22
+    },
+    {
+     "color": "M",
+     "count": 11
+    },
+    {
+     "color": "M",
+     "count": 10
+    },
+    {
+     "color": "C",
+     "count": 18
+    },
+    {
+     "color": "C",
+     "count": 18
+    },
+    {
+     "color": "O",
+     "count": 48
+    },
+    {
+     "color": "O",
+     "count": 48
+    },
+    {
+     "color": "O",
+     "count": 48
+    },
+    {
+     "color": "O",
+     "count": 47
+    },
+    {
+     "color": "Y",
+     "count": 48
+    },
+    {
+     "color": "Y",
+     "count": 47
+    },
+    {
+     "color": "Y",
+     "count": 47
+    },
+    {
+     "color": "Y",
+     "count": 47
+    },
+    {
+     "color": "D",
+     "count": 12
+    },
+    {
+     "color": "D",
+     "count": 11
+    },
+    {
+     "color": "A",
+     "count": 14
+    }
+   ],
+   "tray": [
+    [
+     13,
+     10,
+     6,
+     2,
+     8,
+     5
+    ],
+    [
+     14,
+     12,
+     17,
+     9,
+     1,
+     16
+    ],
+    [
+     0,
+     15,
+     11,
+     4,
+     3,
+     7
+    ]
+   ],
+   "difficulty": "Normal",
+   "hiddenCells": [
+    214,
+    215,
+    216,
+    217,
+    243,
+    244,
+    245,
+    246,
+    272,
+    273,
+    274,
+    275,
+    303,
+    304,
+    420,
+    421,
+    422,
+    423,
+    449,
+    450,
+    451,
+    452,
+    479,
+    480,
+    481,
+    508,
+    509,
+    510,
+    594,
+    595,
+    596,
+    597,
+    598,
+    623,
+    624,
+    625,
+    626,
+    627,
+    653,
+    654,
+    655,
+    656
    ]
   },
   {
@@ -1551,6 +1899,158 @@
      }
     ]
    }
+  },
+  {
+   "id": 72,
+   "title": "Баклажан с короной из листьев",
+   "subject": "P1130",
+   "w": 31,
+   "h": 36,
+   "rowsBottomFirst": [
+    "###############.###############",
+    "#.............................#",
+    "#.........VVVVVV..............#",
+    "#......VVVVVVVVVVVV...........#",
+    "#.....VVVVVVVVVVVVVVV.........#",
+    "#...VVVVVVVVVVVVVVVVVV........#",
+    "#...VVVVVVVVVVVVVVVVVVV.......#",
+    "#..VVVVVVVVVVVVVVVVVVVVV......#",
+    "#..VVVVVVVVVVVVVVVVVVVVV......#",
+    "#.VVVVVVVVVVVVVVVVVVVVVVV.....#",
+    "#.VVVVVVVVVVVVVVVVVVVVVVV.....#",
+    "#.VVVVVVVVVVVVVVVVVVVVVVV.....#",
+    "#.VVVCCVVVVVVVVVVVVVVVVVVV....#",
+    "#.VVVCCCVVVVVVVVVVVVVVVVVV....#",
+    "#..VVCCCVVVVVVVVDDVVVVVVVV....#",
+    "#..VVVCCVVVVVVVVVVVVCCVVVV....#",
+    "#...VVCCCVVVVCCVVVVDDDCVVV....#",
+    "#....VVCCVVVCDDDVVVDDDCVVV....#",
+    "#.....VVVVVVCDDDVVVDDCCVVVGG..#",
+    "#......VVVVVCDDDVVVVCCVVVGGGG.#",
+    "#.......VVVVCCDVVVVVVVVVGGGG..#",
+    "#.........VVVVVVVVGGVVVGGGG...#",
+    "#..........VVVVVVVGGGMMGGGG...#",
+    "#..........VVVVVVGGGGGMGGGG...#",
+    "#.........GGGGGVVGLGGGGGGGG...#",
+    "#........MGGGGGGGGLGGGGGGGG...#",
+    "#........MMMGGGGGGLLGGGGGGG...#",
+    "#............GGGGGLLGGGGGG....#",
+    "#.............GGGGGGGGGGG.....#",
+    "#..............GGGGGGGMM......#",
+    "#................MMMGGGM......#",
+    "#...................GGGG......#",
+    "#...................GGGG......#",
+    "#....................GG.......#",
+    "#.............................#",
+    "###############################"
+   ],
+   "entries": [
+    15
+   ],
+   "capacity": 5,
+   "pods": [
+    {
+     "color": "G",
+     "count": 39
+    },
+    {
+     "color": "G",
+     "count": 39,
+     "mystery": "depth"
+    },
+    {
+     "color": "G",
+     "count": 39
+    },
+    {
+     "color": "M",
+     "count": 13
+    },
+    {
+     "color": "L",
+     "count": 6
+    },
+    {
+     "color": "V",
+     "count": 39
+    },
+    {
+     "color": "V",
+     "count": 39
+    },
+    {
+     "color": "V",
+     "count": 39
+    },
+    {
+     "color": "V",
+     "count": 39
+    },
+    {
+     "color": "V",
+     "count": 39
+    },
+    {
+     "color": "V",
+     "count": 39
+    },
+    {
+     "color": "V",
+     "count": 38
+    },
+    {
+     "color": "V",
+     "count": 38,
+     "mystery": "depth"
+    },
+    {
+     "color": "V",
+     "count": 38
+    },
+    {
+     "color": "C",
+     "count": 15
+    },
+    {
+     "color": "C",
+     "count": 15
+    },
+    {
+     "color": "D",
+     "count": 10
+    },
+    {
+     "color": "D",
+     "count": 10
+    }
+   ],
+   "tray": [
+    [
+     7,
+     14,
+     1,
+     6,
+     9,
+     2
+    ],
+    [
+     3,
+     0,
+     16,
+     15,
+     12,
+     13
+    ],
+    [
+     5,
+     10,
+     4,
+     8,
+     11,
+     17
+    ]
+   ],
+   "difficulty": "Normal"
   },
   {
    "id": 75,
@@ -3501,6 +4001,28 @@
    "draft": false
   },
   {
+   "level": 59,
+   "bridgeKind": null,
+   "bridgeSide": null,
+   "overlay": false,
+   "gap": false,
+   "cls": "Normal",
+   "intro": null,
+   "picture": "P1110",
+   "recipe": "hidden",
+   "N": 547,
+   "colours": 6,
+   "P": 18,
+   "columns": 3,
+   "linked": 0,
+   "hidden": 2,
+   "random": 0.76,
+   "runs": 100,
+   "borderline": false,
+   "seconds": 237.2,
+   "draft": false
+  },
+  {
    "level": 60,
    "bridgeKind": null,
    "bridgeSide": null,
@@ -3547,6 +4069,29 @@
    "draft": false
   },
   {
+   "level": 62,
+   "bridgeKind": null,
+   "bridgeSide": null,
+   "overlay": false,
+   "gap": false,
+   "cls": "Normal",
+   "intro": null,
+   "picture": "P1090",
+   "recipe": "cells",
+   "N": 541,
+   "colours": 7,
+   "P": 18,
+   "columns": 3,
+   "linked": 0,
+   "hidden": 0,
+   "cells": 42,
+   "random": 0.75,
+   "runs": 100,
+   "borderline": false,
+   "seconds": 293.2,
+   "draft": false
+  },
+  {
    "level": 63,
    "bridgeKind": null,
    "bridgeSide": null,
@@ -3589,6 +4134,28 @@
    "runs": 100,
    "borderline": false,
    "seconds": 562.9,
+   "draft": false
+  },
+  {
+   "level": 72,
+   "bridgeKind": null,
+   "bridgeSide": null,
+   "overlay": false,
+   "gap": false,
+   "cls": "Normal",
+   "intro": null,
+   "picture": "P1130",
+   "recipe": "hidden",
+   "N": 534,
+   "colours": 6,
+   "P": 18,
+   "columns": 3,
+   "linked": 0,
+   "hidden": 2,
+   "random": 0.81,
+   "runs": 100,
+   "borderline": false,
+   "seconds": 249,
    "draft": false
   },
   {
@@ -3760,7 +4327,7 @@
   "75": true,
   "85": true
  },
- "hash": "cd9e59c08bda8b2d4ed9c695c39e732e9bf9686daf1f77e4cdf14d4733d12ada",
+ "hash": "a0f9c01659036a094aa15cf65f75435910c004a1450be4a8b20e3ec47781129f",
  "rulesHash": "335db27e3443dd1e0e7a25739b2d9bcede2eaee38d04c5f3021aa9a8b5173a18",
  "timelineHash": "1d0d15678f80d655abea67993cb489d47a7c70b9fe020c6a56491f5ffb291fca",
  "paletteHash": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",

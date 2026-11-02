@@ -3,23 +3,25 @@
  "cls": "Normal",
  "intro": null,
  "breather": true,
- "picture": "P0465",
- "candidate": "P0465-Nlinks-br-0",
- "recipe": "links",
- "N": 373,
- "W": 373,
- "colours": 4,
- "P": 10,
+ "gen": "2026-11-02c",
+ "picture": "P1090",
+ "candidate": "P1090-Ncells-g1102c-br-0",
+ "recipe": "cells",
+ "N": 541,
+ "W": 541,
+ "colours": 7,
+ "P": 18,
  "columns": 3,
- "linked": 2,
+ "linked": 0,
  "hidden": 0,
+ "cells": 42,
  "random": {
   "runs": 100,
-  "wins": 100,
-  "share": 1,
+  "wins": 75,
+  "share": 0.75,
   "wilson95": [
-   0.963,
-   1
+   0.657,
+   0.825
   ],
   "cls": "Normal",
   "borderline": false,
@@ -30,11 +32,63 @@
   "route": [
    {
     "type": "tap",
+    "pod": 13
+   },
+   {
+    "type": "tap",
+    "pod": 10
+   },
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 2
+   },
+   {
+    "type": "tap",
+    "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 14
+   },
+   {
+    "type": "tap",
+    "pod": 12
+   },
+   {
+    "type": "tap",
+    "pod": 17
+   },
+   {
+    "type": "tap",
     "pod": 9
    },
    {
     "type": "tap",
     "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 16
+   },
+   {
+    "type": "tap",
+    "pod": 0
+   },
+   {
+    "type": "tap",
+    "pod": 15
+   },
+   {
+    "type": "tap",
+    "pod": 11
    },
    {
     "type": "tap",
@@ -46,23 +100,7 @@
    },
    {
     "type": "tap",
-    "pod": 2
-   },
-   {
-    "type": "tap",
     "pod": 7
-   },
-   {
-    "type": "tap",
-    "pod": 5
-   },
-   {
-    "type": "tap",
-    "pod": 8
-   },
-   {
-    "type": "tap",
-    "pod": 0
    }
   ],
   "forks": 0,
@@ -70,12 +108,15 @@
   "unknown": 0,
   "fast": {
    "status": "won",
-   "seconds": 33.9
+   "seconds": 53
   }
  },
  "fairness": {
+  "checked": 12,
+  "unfair": 0,
+  "unknown": 0,
   "fair": true,
-  "checked": 0
+  "note": "перестановки материалов двух скрытых клеток разного цвета"
  },
  "strategies": {},
  "rhythm": {
@@ -83,59 +124,59 @@
    {
     "from": 0,
     "to": 20,
-    "meanFree": 4.09,
-    "minFree": 4,
+    "meanFree": 3.85,
+    "minFree": 3,
     "fullShare": 0,
-    "maxWaiting": 0
+    "maxWaiting": 1
    },
    {
     "from": 20,
     "to": 40,
-    "meanFree": 4.25,
-    "minFree": 4,
+    "meanFree": 4.12,
+    "minFree": 3,
     "fullShare": 0,
-    "maxWaiting": 0
+    "maxWaiting": 1
    },
    {
     "from": 40,
     "to": 60,
-    "meanFree": 4.32,
-    "minFree": 4,
+    "meanFree": 3.36,
+    "minFree": 3,
     "fullShare": 0,
-    "maxWaiting": 0
+    "maxWaiting": 1
    },
    {
     "from": 60,
     "to": 80,
-    "meanFree": 4.34,
+    "meanFree": 3.43,
     "minFree": 3,
     "fullShare": 0,
-    "maxWaiting": 0
+    "maxWaiting": 1
    },
    {
     "from": 80,
     "to": 100,
-    "meanFree": 3.7,
-    "minFree": 3,
+    "meanFree": 4.47,
+    "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
    }
   ],
-  "launchesAfter80": 0,
-  "lastLaunchAtW": 80,
-  "seconds": 126.1
+  "launchesAfter80": 3,
+  "lastLaunchAtW": 91,
+  "seconds": 293.2
  },
- "dosePos": 0.5,
+ "dosePos": null,
  "checks": {
   "breather": true,
-  "forced": 0.29,
+  "forced": 0.12,
   "opening": null,
   "hold": null,
   "greedyLoses": null,
   "hiddenMatters": null,
   "bridgeKind": null,
   "traps": {
-   "links": 1,
+   "links": 0,
    "traps": 0,
    "top": 0
   }
@@ -143,109 +184,200 @@
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
  "definition": {
   "id": 62,
-  "title": "Рыцарь — гвоздь",
-  "subject": "P0465",
-  "w": 26,
-  "h": 30,
+  "title": "Весёлый росток в луковице",
+  "subject": "P1090",
+  "w": 29,
+  "h": 39,
   "rowsBottomFirst": [
-   "#############.############",
-   "#........................#",
-   "#......D.......D.........#",
-   "#......DD...DD.D.........#",
-   "#...DDDNDD.NNDD..........#",
-   "#...DNDNDNNNNNDDDD.......#",
-   "#...DNNNNNNNNNNNND.CC....#",
-   "#....NNNNNNNNNNNNDDCCC...#",
-   "#....NNNNNNNNNNNCCCCSD...#",
-   "#....NNNNNNNNNNNCCSSSD...#",
-   "#.....NDDDCCCDDD..DSSD...#",
-   "#.....CCCCCCCCCCC.DSSS...#",
-   "#....CCCCCCCCCCCCDDSSSD..#",
-   "#...DCCCCCCCCCCCCDDSSSD..#",
-   "#...DCCCDDCCCCDDCCDSSSD..#",
-   "#...DCCDDDCCCDDDCCDDSSS..#",
-   "#...DCCDDDCCCDDDCCDDSSS..#",
-   "#...DCCDDDCCCDDDCCD.SSSD.#",
-   "#...DCCCDCCCCCDCCCD.SSSD.#",
-   "#...DCCCCCCCCCCCCCD.DSSD.#",
-   "#..CCCCCCCCCCCCCCCCDDSSS.#",
-   "#..CCCCCCCCCCCCCCCCCDSSS.#",
-   "#.DCCCDDDDDDDDDCCCCCDDSD.#",
-   "#.DCCC.........CCCCC..DD.#",
-   "#.DCC...........CCCC.....#",
-   "#.DCC............DCC.....#",
-   "#.DC.............DC......#",
-   "#..C.............DD......#",
-   "#........................#",
-   "##########################"
+   "##############.##############",
+   "#...........................#",
+   "#.............CCCC..........#",
+   "#...........CCCCCCCCC.......#",
+   "#.........CCCCACCCCC........#",
+   "#.......OOOOOAACCCCC........#",
+   "#.....OOOOOOOOOOOOOOOO......#",
+   "#....OOOOOOOOOOOOOOOOOOO....#",
+   "#...OOOOOOOOYOOYOOOOOOOO....#",
+   "#...OOOOOYYYYOYYYOYOOOOOOO..#",
+   "#..OOOOOOOOYYYYYYOYYOOOOOO..#",
+   "#..OOOOOOOOOYYYYAYYYYYYOOO..#",
+   "#..OOYYYYOOYYYYAAAAYYYOOOOA.#",
+   "#.OOOYYYYYDDDYYYYYAYYYOOOOA.#",
+   "#.OOYYYYYYDDDYYYYYYYDYOOOOA.#",
+   "#.OOYYYYYYDDDYYYYYYDDDYYOOA.#",
+   "#..OOYYYYYDDDYYYYYYDDDYYOOA.#",
+   "#..OOYYYYYYYYYYYYYYDCDYYOO..#",
+   "#..OOYYYCYYYYYYYYYYYDDYOOO..#",
+   "#...OOYYCCYYYYYYYYYYYYYOOO..#",
+   "#....OOYYCCYYYYYYYYYYYOOO...#",
+   "#....OOYYYCCYYYYYYYYYOOOO...#",
+   "#.....OOYYYYYYYYYYYYOOOO....#",
+   "#.......OOYYYYOYYOYOOOO.....#",
+   "#........OOYYOOOOOOOO.......#",
+   "#.........OOYOOOOOO.........#",
+   "#.........GOYYYOOO..........#",
+   "#.........GGMGGMOO..........#",
+   "#........GGGMGGMGG..........#",
+   "#........GGGMGGMGG..........#",
+   "#.......GGGMMGGMGGG.........#",
+   "#......GGGMMGGMMGGG.........#",
+   "#.....GGGG.MGGM.GGGG........#",
+   "#.....GGG.MMGG..GGGG........#",
+   "#....GGG..MGGC...GGGM.......#",
+   "#.........GGG......MM.......#",
+   "#.........GG................#",
+   "#...........................#",
+   "#############################"
   ],
   "entries": [
-   13
+   14
   ],
   "capacity": 5,
   "pods": [
    {
-    "color": "C",
-    "count": 55,
-    "group": "A"
+    "color": "G",
+    "count": 23
+   },
+   {
+    "color": "G",
+    "count": 22
+   },
+   {
+    "color": "G",
+    "count": 22
+   },
+   {
+    "color": "M",
+    "count": 11
+   },
+   {
+    "color": "M",
+    "count": 10
    },
    {
     "color": "C",
-    "count": 55
+    "count": 18
    },
    {
     "color": "C",
-    "count": 55
+    "count": 18
+   },
+   {
+    "color": "O",
+    "count": 48
+   },
+   {
+    "color": "O",
+    "count": 48
+   },
+   {
+    "color": "O",
+    "count": 48
+   },
+   {
+    "color": "O",
+    "count": 47
+   },
+   {
+    "color": "Y",
+    "count": 48
+   },
+   {
+    "color": "Y",
+    "count": 47
+   },
+   {
+    "color": "Y",
+    "count": 47
+   },
+   {
+    "color": "Y",
+    "count": 47
    },
    {
     "color": "D",
-    "count": 38
+    "count": 12
    },
    {
     "color": "D",
-    "count": 37
+    "count": 11
    },
    {
-    "color": "D",
-    "count": 37
-   },
-   {
-    "color": "S",
-    "count": 20,
-    "group": "A"
-   },
-   {
-    "color": "S",
-    "count": 19
-   },
-   {
-    "color": "N",
-    "count": 29
-   },
-   {
-    "color": "N",
-    "count": 28
+    "color": "A",
+    "count": 14
    }
   ],
   "tray": [
    [
+    13,
+    10,
+    6,
+    2,
+    8,
+    5
+   ],
+   [
+    14,
+    12,
+    17,
     9,
     1,
+    16
+   ],
+   [
+    0,
+    15,
+    11,
     4,
-    3
-   ],
-   [
-    2,
-    7,
-    6
-   ],
-   [
-    5,
-    8,
-    0
+    3,
+    7
    ]
   ],
-  "recipe": "links",
+  "recipe": "cells",
+  "hiddenCells": [
+   214,
+   215,
+   216,
+   217,
+   243,
+   244,
+   245,
+   246,
+   272,
+   273,
+   274,
+   275,
+   303,
+   304,
+   420,
+   421,
+   422,
+   423,
+   449,
+   450,
+   451,
+   452,
+   479,
+   480,
+   481,
+   508,
+   509,
+   510,
+   594,
+   595,
+   596,
+   597,
+   598,
+   623,
+   624,
+   625,
+   626,
+   627,
+   653,
+   654,
+   655,
+   656
+  ],
   "difficulty": "Normal"
  }
 }

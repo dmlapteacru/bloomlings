@@ -1,7 +1,7 @@
 {
  "code": "P1110",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0059",
  "version": 1,
  "title": "Солнечный значок с улыбкой",
  "theme": "100 простых читаемых картинок — 2026-11-02",

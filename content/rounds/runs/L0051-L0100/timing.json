@@ -1,22 +1,19 @@
 [
  {
-  "level": 96,
-  "picture": "P0031",
+  "level": 62,
+  "picture": "P1090",
   "cls": "Normal",
-  "slot": "after-hard",
-  "recipe": "links+hidden",
-  "seconds": 87,
+  "slot": "breather",
+  "recipe": "cells",
+  "seconds": 1,
   "accepted": 1,
-  "attempts": 14,
-  "quick": 41,
-  "evaluated": 14,
-  "first": 87,
-  "share": 0.86,
+  "attempts": 1,
+  "quick": 4,
+  "evaluated": 1,
+  "first": 1,
+  "share": 0.75,
   "skipped": false,
-  "reasons": {
-   "связки ловушками: очередь сама остаётся выше зоны": 1,
-   "evaluate: не тот класс по быстрой оценке": 13
-  },
+  "reasons": {},
   "seq": 0
  }
 ]

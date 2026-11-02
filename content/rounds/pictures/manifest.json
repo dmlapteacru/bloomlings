@@ -6044,8 +6044,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "packs-0268-0467",
-   "note": null,
-   "usedBy": "L0072"
+   "note": null
   },
   {
    "id": "P0342",
@@ -6349,8 +6348,7 @@
    "colours": 5,
    "status": "approved",
    "batch": "packs-0268-0467",
-   "note": null,
-   "usedBy": "L0059"
+   "note": null
   },
   {
    "id": "P0359",
@@ -6942,8 +6940,7 @@
    "colours": 8,
    "status": "approved",
    "batch": "packs-0268-0467",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P0392",
@@ -8279,8 +8276,7 @@
    "note": null,
    "rights": "owner",
    "rightsNote": "владелец 01.11.2026: взять в волну 51–100",
-   "rightsAt": "2026-11-01",
-   "usedBy": "L0062"
+   "rightsAt": "2026-11-01"
   },
   {
    "id": "P0466",
@@ -13012,7 +13008,7 @@
    "status": "approved",
    "batch": "packs-1083-1182",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0062"
   },
   {
    "id": "P1091",
@@ -13372,7 +13368,7 @@
    "status": "approved",
    "batch": "packs-1083-1182",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0059"
   },
   {
    "id": "P1111",
@@ -13461,8 +13457,7 @@
    "colours": 7,
    "status": "approved",
    "batch": "packs-1083-1182",
-   "note": null,
-   "usedBy": null
+   "note": null
   },
   {
    "id": "P1116",
@@ -13732,7 +13727,7 @@
    "status": "approved",
    "batch": "packs-1083-1182",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0072"
   },
   {
    "id": "P1131",

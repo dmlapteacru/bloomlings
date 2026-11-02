@@ -1,0 +1,33 @@
+{
+ "picture": "P1130",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|hidden||tune|breather|2026-11-02c",
+   "tune": {
+    "slot": "breather",
+    "t": 0.43,
+    "attempts": 1,
+    "quick": 4,
+    "evaluated": 1,
+    "seconds": 1
+   },
+   "tried": 1,
+   "found": 1,
+   "reasons": {}
+  }
+ ],
+ "tune": {
+  "Normal|hidden|breather": {
+   "t": 0.43,
+   "cols": 3,
+   "offset": -5.45,
+   "quick": 0.825,
+   "at": "2026-11-02"
+  }
+ },
+ "placed": [
+  "P1130-Nhidden-g1102c-br-0"
+ ]
+}
