@@ -1458,7 +1458,6 @@ namespace Bloomlings.Playtest
                 Text(canvas, "∞" + level.Pods[mark.Partner].Group, toX, toY + (size * 0.14f), size * 0.22f, EntryColor);
             }
         }
-        }
 
         // A padlock glyph over a pod's top right corner (17 §8): a brass body with a keyhole under a grey shackle, its pips below.
         private void PadlockGlyph(Canvas canvas, RectF rect, float size, int pips)
