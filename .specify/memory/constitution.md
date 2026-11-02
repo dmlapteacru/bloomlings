@@ -141,8 +141,8 @@ Rationale: A long-run, relaxing puzzle keeps players through trust, not pressure
   Navigation screens keep their flat layouts.
 - Pre-rendered 3D illustrations, shown as flat pictures, MAY appear on meta screens: Home, the win and milestone
   screens, the Wardrobe and the profile. Inside a level they MUST NOT appear, with one exception: a hero's pre-rendered
-  flat frames MAY stand in a level as a figure of a mechanic, such as Twig holding the latch's padlock in the place of
-  the pod it holds (the product owner, 2026-11-02). They are flat pictures in the plane like the rest of the level,
+  flat frames MAY stand in a level as a figure of a mechanic, such as the hero of the held pod's colour holding the
+  latch's padlock in that pod's place (the product owner, 2026-11-02). They are flat pictures in the plane like the rest of the level,
   never a 3D scene, model or camera, and they never cover the board.
 - Gameplay uses one-tap input: the player taps pods and never taps target cells.
 - States are shown visually, with minimal text.

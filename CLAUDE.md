@@ -478,5 +478,5 @@ no pay-to-win), simplicity/offline-first and the workflow gates.
   tilted viewpoint, as in Colony Flow (foreshortened tops, front faces where the cell in front is empty, side faces by
   the column's position; constitution 1.2.0, the owner, 2026-10-28); the rules keep a flat grid. Pre-rendered 3D
   illustrations may appear as flat pictures on meta screens (Home, win and milestone, Wardrobe, profile); inside a level
-  only a hero's flat frames as a mechanic's figure, such as Twig holding the latch's padlock in the held pod's place
+  only a hero's flat frames as a mechanic's figure, such as the hero of the held pod's colour holding the latch's padlock
   (constitution 1.3.0, the owner, 2026-11-02), never over the board.
