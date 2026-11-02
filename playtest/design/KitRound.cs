@@ -1,7 +1,9 @@
 using System;
 using System.Collections.Generic;
+using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Rounds;
+using Bloomlings.Core.Variants;
 using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
 
 namespace Bloomlings.Playtest.Design
@@ -386,81 +388,134 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The pod a closed latch holds (17 §8, spec 006 FR-068; the owner's look of 2026-11-01) in <paramref name="chip"/>: its
-        /// cube as a placed one a little darker (<see cref="RoundPodLook.Locked"/>, no white outline: it takes no tap) with its
-        /// number a little clear, or the hidden pod's neutral "?" cube (<paramref name="material"/> null) with no number. The
-        /// latch's padlock and acorn hero go over it (<see cref="LatchOverlay"/>).
+        /// A closed latch's hero (17 §8, spec 006 FR-068; the owner's look of 2026-11-02, "Twig hero 100%",
+        /// <c>pod.round.padlock</c>) in the pod's place <paramref name="place"/>, where the pod it holds is not drawn: our Twig
+        /// hero in <paramref name="outfit"/> (the owner's modular V2 frames, <see cref="Visuals.Hero"/>; stock Twig for null)
+        /// standing on a soft contact shadow (<see cref="RoundLook.HeroCell"/>, <see cref="RoundLook.HeroShadow"/>), holding the
+        /// padlock in front of his belly (<see cref="RoundLook.HeroLock"/>, its body <paramref name="body"/>, <paramref name="pips"/>),
+        /// his hands drawn again over its sides (<see cref="RoundLook.HeroHands"/>); in rows 2 and 3 (<paramref name="waiting"/>)
+        /// lightened as the waiting pods. While it opens (<paramref name="since"/> ≥ 0) the shackle springs open and the padlock
+        /// drops (<see cref="RoundLook.PadlockOpen"/>) and he steps aside toward <paramref name="side"/> and fades
+        /// (<see cref="RoundLook.HeroStep"/>), the pod behind him.
         /// </summary>
-        public static void LockedPod(IPainter p, PodChip chip, RoundMaterial? material, int count, bool symbolsMode)
+        public static void LatchHero(IPainter p, Box place, Outfit? outfit, Rgba body, int pips, float since, int side, bool waiting)
         {
-            PodCubePicture(p, chip.Frame, material, RoundPodLook.Locked, symbolsMode);
-            if (material != null)
-            {
-                p.PushAlpha(RoundLook.LockedCountAlpha);
-                CubeCount(p, chip.Count, count, false);
-                p.PopAlpha();
-            }
-        }
-
-        /// <summary>
-        /// A latch's padlock with our acorn hero on the held pod's cube <paramref name="frame"/> (<c>pod.round.padlock</c>,
-        /// <see cref="RoundLook.LatchParts"/>): the acorn (the variant's 2D character <c>2d/acorn-happy</c>, the drawn acorn
-        /// while it is missing) sitting on the top's right corner, hugging the brass padlock with <paramref name="pips"/>.
-        /// <paramref name="since"/> ≥ 0 plays the opening: the shackle springs open and the padlock drops and fades
-        /// (<see cref="RoundLook.PadlockOpen"/>) while the acorn hops off (<see cref="RoundLook.AcornHop"/>).
-        /// </summary>
-        public static void LatchOverlay(IPainter p, Box frame, int pips, float since)
-        {
-            float s = Math.Min(frame.Width, frame.Height);
-            (Box acorn, Box padlock) = RoundLook.LatchParts(frame);
-            (float hx, float hy, float ha) = RoundLook.AcornHop(since);
+            p.Mark(RoundLook.PadlockSlot);
+            Box cell = RoundLook.HeroCell(place);
+            (float hx, float hy, float ha) = RoundLook.HeroStep(since, side);
+            Box hero = cell.Offset(hx * place.Width, -hy * place.Height);
+            float veil = waiting ? RoundLook.HeroWaitingVeil : 0f;
             if (ha > 0f)
             {
                 p.PushAlpha(ha);
-                AcornHero(p, acorn.Offset(hx * s, -hy * s));
+                p.Picture(UiRaster.SoftOvalKey, RoundLook.HeroShadow(hero), (w, h) => UiRaster.SoftOval(w, h));
+                TwigHero(p, hero, outfit, veil);
                 p.PopAlpha();
             }
 
+            Box padlock = RoundLook.HeroLock(cell);
+            float s = padlock.Width;
             (bool open, float drop, float scale, float alpha) = RoundLook.PadlockOpen(since);
             if (alpha > 0f)
             {
-                p.Mark(RoundLook.PadlockSlot);
+                Rgba face = waiting ? RoundLook.WaitingColor(body) : body;
                 p.PushAlpha(alpha);
                 p.PushTransform(0f, drop * s, scale, padlock.CenterX, padlock.CenterY);
-                bool arms = !open;
-                p.Picture(UiRaster.PadlockKey(pips, open, arms), padlock, (w, h) => UiRaster.Padlock(Math.Min(w, h), pips, open, arms));
+                p.Picture(UiRaster.PadlockKey(face, pips, open), padlock, (w, h) => UiRaster.Padlock(Math.Min(w, h), face, pips, open));
                 p.PopTransform();
+                p.PopAlpha();
+            }
+
+            if (ha > 0f && since < RoundLook.PadlockDropAt)
+            {
+                // his hands over the padlock's sides: the hero again, clipped to a disc round each hand
+                (Box left, Box right) = RoundLook.HeroHands(hero);
+                p.PushAlpha(ha);
+                foreach (Box hand in new[] { left, right })
+                {
+                    p.PushClipRound(hand, hand.Width / 2f);
+                    TwigHero(p, hero, outfit, veil);
+                    p.PopClip();
+                }
+
                 p.PopAlpha();
             }
         }
 
-        /// <summary>Our acorn hero in <paramref name="box"/>: the Acorn variant's 2D character, happy, or the drawn acorn while it is missing.</summary>
-        public static void AcornHero(IPainter p, Box box)
+        /// <summary>
+        /// Our Twig hero in his cell <paramref name="cell"/> in <paramref name="outfit"/> (<see cref="Visuals.Hero"/>), then
+        /// <paramref name="veil"/> of white over his base layer (the waiting rows' lightening).
+        /// </summary>
+        private static void TwigHero(IPainter p, Box cell, Outfit? outfit, float veil)
         {
-            p.Mark(CharacterArt.Slot2D("acorn"));
-            string name = CharacterArt.Picture2D("acorn", CharacterMood.Happy);
-            if (p.HasSprite(name))
+            Visuals.Hero(p, cell, Family.Twig, outfit);
+            HeroFrame? layer = HeroGearArt.Layer(Family.Twig, HeroGearArt.DisplayOutfit(outfit), 0);
+            if (veil > 0f && layer.HasValue)
             {
-                p.Sprite(name, box);
-                return;
+                string name = PainterBase.HeroMotionPrefix + layer.Value.Name;
+                if (p.HasSprite(name))
+                {
+                    p.SpriteTint(name, HeroMotion.PictureBox(cell, layer.Value), Rgba.White.WithAlpha(veil));
+                }
             }
-
-            p.Picture(UiRaster.AcornFigureKey, box, (w, h) => UiRaster.AcornFigure(Math.Min(w, h)));
         }
 
         /// <summary>
-        /// A latch's key (<c>board.round.key</c>) on its cell <paramref name="cell"/>: the big ordinary key in
-        /// <paramref name="metal"/> (<see cref="RoundLook.KeyMetal"/>) with <paramref name="pips"/>, <see cref="RoundLook.KeyBox"/>,
-        /// raised by <paramref name="lift"/> cells and scaled by <paramref name="scale"/> (its bob and its opening), at least
-        /// <see cref="RoundLook.KeyBoardShare"/> of the board <paramref name="surface"/> and kept on it.
+        /// A latch's key (<c>board.round.key</c>) standing upright in its picture box <paramref name="box"/>
+        /// (<see cref="RoundLook.KeyBox"/>), in <paramref name="metal"/> with <paramref name="pips"/>, turned to
+        /// <paramref name="scaleX"/> (<see cref="RoundLook.KeySpin"/>: squashed about its upright axis, mirrored on its back half,
+        /// which is drawn in the darker <see cref="RoundLook.KeyBack"/>).
         /// </summary>
-        public static void RoundKey(IPainter p, Box cell, Rgba metal, int pips, float lift = 0f, float scale = 1f, Box? surface = null)
+        public static void UprightKey(IPainter p, Box box, Rgba metal, int pips, float scaleX, bool back)
         {
             p.Mark(RoundLook.KeySlot);
-            Box box = RoundLook.KeyBox(cell, surface);
-            p.PushTransform(0f, -lift * cell.Width, scale, box.CenterX, box.CenterY);
-            p.Picture(UiRaster.RoundKeyKey(metal, pips), box, (w, h) => UiRaster.RoundKey(w, h, metal, pips));
+            Rgba m = back ? RoundLook.KeyBack(metal) : metal;
+            p.PushSquash(scaleX, 1f, box.CenterX, box.CenterY);
+            p.Picture(UiRaster.UprightKeyKey(m, pips), box, (w, h) => UiRaster.UprightKey(w, h, m, pips));
             p.PopTransform();
+        }
+
+        /// <summary>
+        /// A closed latch's key over its cell <paramref name="cell"/> on the board surface <paramref name="surface"/> at
+        /// <paramref name="seconds"/> of display time: its soft shadow on the cell, the key upright over it hovering, bobbing
+        /// (<see cref="RoundLook.KeyBob"/>) and turning (<see cref="RoundLook.KeyTurns"/>).
+        /// </summary>
+        public static void WaitingKey(IPainter p, Box cell, Box? surface, Rgba metal, int pips, float seconds)
+        {
+            float rise = RoundLook.KeyBob(seconds);
+            Box shadow = RoundLook.KeyShadow(cell, surface);
+            p.PushTransform(0f, 0f, RoundLook.KeyShadowScale(rise), shadow.CenterX, shadow.CenterY);
+            p.Picture(UiRaster.SoftOvalKey, shadow, (w, h) => UiRaster.SoftOval(w, h));
+            p.PopTransform();
+            (float sx, bool back) = RoundLook.KeySpin(RoundLook.KeyTurns(seconds));
+            UprightKey(p, RoundLook.KeyBox(cell, surface).Offset(0f, -rise * cell.Width), metal, pips, sx, back);
+        }
+
+        /// <summary>
+        /// An opening latch's key <paramref name="since"/> seconds after its <c>latchOpen</c> (<see cref="RoundLook.KeyFlight"/>):
+        /// from its rest box on the board <paramref name="from"/> into the keyhole of the padlock <paramref name="padlock"/>
+        /// (its turn <paramref name="turns"/> when the opening began), then its quarter turn and the click's ring
+        /// (<see cref="RoundLook.KeyClick"/>). The picture keeps <paramref name="from"/>'s size, moved and scaled.
+        /// </summary>
+        public static void FlyingKey(IPainter p, Box from, Box padlock, Rgba metal, int pips, float since, float turns)
+        {
+            Box to = RoundLook.KeyInHole(padlock, pips);
+            (Box box, float sx, bool back, float alpha) = RoundLook.KeyFlight(since, from, to, turns);
+            if (alpha > 0f)
+            {
+                p.PushAlpha(alpha);
+                p.PushTransform(box.CenterX - from.CenterX, box.CenterY - from.CenterY, box.Height / Math.Max(1f, from.Height), from.CenterX, from.CenterY);
+                UprightKey(p, from, metal, pips, sx, back);
+                p.PopTransform();
+                p.PopAlpha();
+            }
+
+            (float ring, float ringAlpha) = RoundLook.KeyClick(since);
+            if (ringAlpha > 0f)
+            {
+                (float kx, float ky) = RoundLook.Keyhole(padlock, pips);
+                p.StrokeCircle(kx, ky, ring * padlock.Width, Math.Max(1.5f, padlock.Width * 0.05f), C.GardenGlow.WithAlpha(ringAlpha));
+            }
         }
 
         private static T[] MakeWall<T>(Func<int, T> make)

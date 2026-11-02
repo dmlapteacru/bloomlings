@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services.Feedback;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Client.UI.Design;
@@ -86,6 +87,9 @@ namespace Bloomlings.Playtest.Design
         public ClearStyle Style { get; set; }
 
         public PlaytestMeta Meta => _app.Meta;
+
+        /// <summary>The player's equipped Twig outfit: the latch's hero wears it (spec 006 FR-068, the owner's look of 2026-11-02).</summary>
+        public Outfit? TwigOutfit => Meta.Wardrobe.OutfitOf(Family.Twig);
 
         public DesignApp App => _app;
 

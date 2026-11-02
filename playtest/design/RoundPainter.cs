@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.Services.Save;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Core.Definitions;
@@ -46,10 +47,13 @@ namespace Bloomlings.Playtest.Design
 
             // Latch + key (17 §8): a column's queue items and the latch blocks to draw this frame.
             public readonly List<RoundQueueItem> Items = new List<RoundQueueItem>();
-            public readonly List<(int Latch, bool Holds, int Row, Box Drawn)> Latches = new List<(int, bool, int, Box)>();
+            public readonly List<(int Latch, int Column, bool Holds, int Row, Box Drawn)> Latches = new List<(int, int, bool, int, Box)>();
 
-            /// <summary>The pods drawn locked this frame (each under the closed latch that holds it, FR-068).</summary>
+            /// <summary>The pods a closed latch hides this frame (its hero stands in their place, FR-068).</summary>
             public readonly HashSet<int> Locked = new HashSet<int>();
+
+            /// <summary>Each shown latch's padlock box this frame (the opening key flies to its keyhole).</summary>
+            public readonly Dictionary<int, Box> LatchLocks = new Dictionary<int, Box>();
             public Box?[] FrameOf = Array.Empty<Box?>();
 
             /// <summary>The linked pairs whose partner waits deeper than the rows show, this frame (RoundAnimator.LinkMarks): their straight tubes.</summary>
@@ -160,6 +164,7 @@ namespace Bloomlings.Playtest.Design
 
                 Columns(p, s, cache);
                 Flights(p, s, cache);
+                KeyFlights(p, s, cache);
                 p.PopAlpha();
             }
 
@@ -380,20 +385,15 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
-            // The keys (17 §8, FR-068; the owner's look of 2026-11-01): each closed latch's big key in its held pod's colour on
-            // its empty cell, over the cubes round it, breathing up and down; when the latch opens it lifts off and fades.
+            // The keys (17 §8, FR-068; the owner's look of 2026-11-02): each closed latch's big key in its held pod's colour
+            // standing upright over its empty cell, hovering over its soft shadow, bobbing and turning, over the cubes round it.
+            // An opening latch's key flies to its padlock over the tray (KeyFlights).
             for (int latch = 0; latch < a.LatchCount; latch++)
             {
-                if (!a.LatchShown(latch))
+                if (a.LatchClosed(latch))
                 {
-                    continue;
+                    Kit.WaitingKey(p, board.CellBox(a.Level.Latches[latch].Key), board.Surface, RoundLook.KeyMetal(a.KeyMaterial(latch)), a.LatchPips(latch), KeySeconds(s.ShowSeconds, latch));
                 }
-
-                float since = a.LatchOpenSince(latch);
-                (float lift, float scale, float alpha) = RoundLook.KeyOpen(since);
-                p.PushAlpha(alpha);
-                Kit.RoundKey(p, board.CellBox(a.Level.Latches[latch].Key), RoundLook.KeyMetal(a.KeyMaterial(latch)), a.LatchPips(latch), lift + RoundLook.KeyBob(s.ShowSeconds + (latch * 0.4f)), scale, board.Surface);
-                p.PopAlpha();
             }
 
             // The bridges over the cubes (17 §8 as amended on 2026-10-31): the built one; a site that can be built, whole,
@@ -761,9 +761,10 @@ namespace Bloomlings.Playtest.Design
             }
 
             bool swirl = s.LastBooster.HasValue && s.LastBooster.Value.Kind == BoosterKind.Shuffle && s.Play.ClockUs - s.LastBooster.Value.At < 450_000;
-            List<(int Latch, bool Holds, int Row, Box Drawn)> latches = cache.Latches;
+            List<(int Latch, int Column, bool Holds, int Row, Box Drawn)> latches = cache.Latches;
             latches.Clear();
             cache.Locked.Clear();
+            cache.LatchLocks.Clear();
             for (int st = 0; st < columns; st++)
             {
                 int waiting = a.Waiting(st);
@@ -787,14 +788,14 @@ namespace Bloomlings.Playtest.Design
                     {
                         if (shown)
                         {
-                            latches.Add((item.Id, item.Holds, row, slide.Box));
+                            latches.Add((item.Id, st, item.Holds, row, slide.Box));
                         }
 
                         continue;
                     }
 
-                    // A pod behind a closed latch is no top pod and takes no tap: the one the latch holds is drawn locked (a
-                    // little darker, under its padlock), the ones behind it as waiting ones.
+                    // A pod behind a closed latch is no top pod and takes no tap: the one the latch holds is not drawn at all (the
+                    // latch's hero stands in its place, FR-068; its tubes still end there), the ones behind it as waiting ones.
                     int pod = item.Id;
                     bool held = a.HeldBehind(cache.Items, k);
                     bool locked = held && k > 0 && cache.Items[k - 1].IsLatch && cache.Items[k - 1].Holds && a.LatchClosed(cache.Items[k - 1].Id);
@@ -802,6 +803,12 @@ namespace Bloomlings.Playtest.Design
                     if (locked)
                     {
                         cache.Locked.Add(pod);
+                        if (shown)
+                        {
+                            cache.FrameOf[pod] = PodChip.Cube(slide.Box).Frame;
+                        }
+
+                        continue;
                     }
                     bool entering = slide.Moving && !r.Shows(slide.FromDepth);
                     if (!shown && !slide.Moving)
@@ -869,8 +876,7 @@ namespace Bloomlings.Playtest.Design
                     p.PushAlpha(fade);
                 }
 
-                bool locked = cache.Locked.Contains(pod);
-                PodChip chip = PodChip.Cube(layout, depth > 0 && !locked);
+                PodChip chip = PodChip.Cube(layout, depth > 0);
                 float glow = s.RevealGlow(pod);
                 if (glow > 0f)
                 {
@@ -883,14 +889,7 @@ namespace Bloomlings.Playtest.Design
                 p.PushSquash(drawn.Width / Math.Max(1f, layout.Width), drawn.Height / Math.Max(1f, layout.Height), layout.Left, layout.Top);
                 Kit.Squash(p, layout, press, tile: true);
                 RoundMaterial? material = a.Revealed(pod) ? RoundMaterial.All[a.MaterialOf(pod)] : null;
-                if (locked)
-                {
-                    Kit.LockedPod(p, chip, material, a.Remaining(pod), s.Symbols);
-                }
-                else
-                {
-                    Kit.RoundPod(p, chip, material, a.Remaining(pod), look, depth > 0, s.Symbols);
-                }
+                Kit.RoundPod(p, chip, material, a.Remaining(pod), look, depth > 0, s.Symbols);
                 p.PopTransform();
                 p.PopTransform();
                 p.PopTransform();
@@ -900,22 +899,47 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
-            // The latches (FR-068; the owner's look of 2026-11-01): each on the pod it holds, a padlock with our acorn hero
-            // hugging it; a closed latch with no pod of its own behind it on a dim empty plate. Opening, the padlock springs
-            // open and drops and the acorn hops off.
-            foreach ((int latch, bool holds, int row, Box drawn) in latches)
+            // The latches (FR-068; the owner's look of 2026-11-02): in the place of the pod each holds (not drawn while it is
+            // closed), our Twig hero in the player's outfit holding a padlock in that pod's colour (brass when the latch holds no
+            // pod of its own); lightened in rows 2 and 3. Opening, the padlock springs open and drops and he steps aside from
+            // the pod, drawn behind him.
+            Outfit? outfit = s.TwigOutfit;
+            foreach ((int latch, int st, bool holds, int row, Box drawn) in latches)
             {
-                Box frame = PodChip.Cube(drawn).Frame;
-                if (a.LatchClosed(latch) && !holds)
-                {
-                    PodPainter.EmptyColumn(p, drawn);
-                }
-
-                Kit.LatchOverlay(p, frame, a.LatchPips(latch), a.LatchOpenSince(latch));
+                Rgba body = holds ? RoundLook.KeyMetal(a.KeyMaterial(latch)) : RoundLook.KeyBrass;
+                Kit.LatchHero(p, drawn, outfit, body, a.LatchPips(latch), a.LatchOpenSince(latch), RoundLook.HeroSide(st, columns), row > 0);
+                cache.LatchLocks[latch] = RoundLook.HeroLock(RoundLook.HeroCell(drawn));
             }
 
             Hint(p, s, cache);
         }
+
+        /// <summary>
+        /// The opening latches' keys (FR-068; the owner's look of 2026-11-02), over the tray: each flies from its cell on the board
+        /// to its padlock's keyhole in the hero's hands, turns there and the shackle springs open (<see cref="Kit.FlyingKey"/>).
+        /// </summary>
+        private static void KeyFlights(IPainter p, RoundLevelScreen s, LayoutCache cache)
+        {
+            RoundAnimator a = s.Animator;
+            RoundBoardLayout board = cache.Board;
+            for (int latch = 0; latch < a.LatchCount; latch++)
+            {
+                float since = a.LatchOpenSince(latch);
+                if (since < 0f)
+                {
+                    continue;
+                }
+
+                RoundLatch l = a.Level.Latches[latch];
+                Box padlock = cache.LatchLocks.TryGetValue(latch, out Box shown) ? shown : RoundLook.HeroLock(RoundLook.HeroCell(cache.Regions.Pod(Math.Min(l.Column, cache.Regions.Columns.Count - 1), 0)));
+                Box cell = board.CellBox(l.Key);
+                float turns = RoundLook.KeyTurns(KeySeconds(s.ShowSeconds - since, latch));
+                Kit.FlyingKey(p, RoundLook.KeyBox(cell, board.Surface), padlock, RoundLook.KeyMetal(a.KeyMaterial(latch)), a.LatchPips(latch), since, turns);
+            }
+        }
+
+        /// <summary>A latch's key's own clock (its bob and turn), a little apart from the others'.</summary>
+        private static float KeySeconds(float seconds, int latch) => seconds + (latch * 0.4f);
 
         /// <summary>The tray motion's key of a latch block (pods use <see cref="RoundLevelScreen.KeyOf"/>).</summary>
         private static string LatchKey(int latch) => "latch:" + latch.ToString(System.Globalization.CultureInfo.InvariantCulture);
@@ -1077,7 +1101,7 @@ namespace Bloomlings.Playtest.Design
             float content = pictureUnits + (lines.Count * lineUnits) + buttonUnits + 40f;
             CardRegions r = Kit.Card(p, content, PlaytestText.T(card.TitleKey), null, Kit.Pop(since));
             float y = r.Body.Top + p.U(10f);
-            IntroPicture(p, card.Picture, new Box(r.Body.Left, y, r.Body.Right, y + p.U(pictureUnits - 20f)), since);
+            IntroPicture(p, card.Picture, new Box(r.Body.Left, y, r.Body.Right, y + p.U(pictureUnits - 20f)), since, s.TwigOutfit);
             y += p.U(pictureUnits);
             foreach ((string text, bool first) in lines)
             {
@@ -1092,8 +1116,11 @@ namespace Bloomlings.Playtest.Design
             p.PopTransform();
         }
 
-        /// <summary>The introduction card's picture, made of the level's own pieces (pods, tube, water, plank, cubes).</summary>
-        private static void IntroPicture(IPainter p, RoundIntroPicture picture, Box area, float since)
+        /// <summary>
+        /// The introduction card's picture, made of the level's own pieces (pods, tube, water, plank, cubes; the latch's Twig hero
+        /// in <paramref name="outfit"/>).
+        /// </summary>
+        private static void IntroPicture(IPainter p, RoundIntroPicture picture, Box area, float since, Outfit? outfit)
         {
             float h = area.Height;
             float podW = h * 0.62f;
@@ -1114,34 +1141,36 @@ namespace Bloomlings.Playtest.Design
 
                 case RoundIntroPicture.Latch:
                 {
-                    // The locked pod with its padlock and our acorn hero, and its key in the pod's colour on a patch of the board
-                    // between cubes (17 §8, FR-068): in a loop the key lifts away, the padlock springs open and the acorn hops off.
-                    float t = (since % 2.6f) - 1.4f;
+                    // Our Twig hero holding the padlock in the pod's colour in the pod's place, and the key upright and turning
+                    // over its cell on a patch of the board between cubes (17 §8, FR-068; the owner's look of 2026-11-02): in a
+                    // loop the key flies to the keyhole, the padlock opens and Twig steps aside from the pod.
+                    float t = RoundIntroLatch.Since(since);
                     RoundIntroLatch look = RoundIntroLatch.In(area);
                     RoundMaterial material = RoundMaterial.All[RoundIntroLatch.Material];
-                    PodChip chip = PodChip.Cube(look.Pod);
-                    if (t < 0f)
-                    {
-                        Kit.LockedPod(p, chip, material, RoundIntroLatch.Count, false);
-                    }
-                    else
-                    {
-                        Kit.RoundPod(p, chip, material, RoundIntroLatch.Count, PodLook.Exposed, false, false);
-                    }
-
-                    Kit.LatchOverlay(p, chip.Frame, 0, t < 0f ? -1f : t);
+                    Rgba metal = RoundLook.KeyMetal(RoundIntroLatch.Material);
                     Kit.BoardSurface(p, look.Patch, look.Cell * 0.3f);
                     foreach ((Box cube, int m) in look.Cubes)
                     {
                         Kit.BoardCube(p, cube, RoundMaterial.All[m], false);
                     }
 
-                    (float lift, float scale, float alpha) = RoundLook.KeyOpen(t < 0f ? -1f : t);
-                    if (alpha > 0f)
+                    if (t < 0f)
                     {
-                        p.PushAlpha(alpha);
-                        Kit.RoundKey(p, look.KeyCell, RoundLook.KeyMetal(RoundIntroLatch.Material), 0, lift + RoundLook.KeyBob(since), scale);
-                        p.PopAlpha();
+                        Kit.WaitingKey(p, look.KeyCell, null, metal, 0, since);
+                    }
+                    else
+                    {
+                        Kit.RoundPod(p, PodChip.Cube(look.Pod), material, RoundIntroLatch.Count, PodLook.Exposed, false, false);
+                    }
+
+                    if (t < RoundLook.LatchOpenSeconds)
+                    {
+                        Kit.LatchHero(p, look.Pod, outfit, metal, 0, t, -1, false);
+                    }
+
+                    if (t >= 0f)
+                    {
+                        Kit.FlyingKey(p, look.KeyBox, look.Lock, metal, 0, t, RoundLook.KeyTurns(since - t));
                     }
 
                     break;
