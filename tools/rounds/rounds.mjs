@@ -120,7 +120,9 @@ function pfMd(pf){const cnt={};for(const x of pf.assign)cnt[x.band]=(cnt[x.band]
 const weakOf=f=>f.hiddenColours<=1||f.visible>=6;
 // (a breather, 17 §5 «Передышка», is no regular Normal)
 const regularAt=(n,placed)=>classOf(n)==='Normal'&&n>3&&!slotOf(n).intro&&classOf(n-1)==='Normal'&&!(placed&&placed[n]&&placed[n].breather);
-const run1=(args,env={})=>new Promise(res=>{const p=spawn(NODE,args,{cwd:root,env:{...process.env,...env},stdio:['ignore','pipe','pipe']});let out='';p.stdout.on('data',d=>out+=d);p.stderr.on('data',d=>out+=d);p.on('close',code=>res({code,out}));});
+// each child process plays its games on worker threads (perf/README.md); with --jobs N children the cores are shared out
+const childThreads=()=>process.env.ROUNDS_THREADS??String(Math.max(1,Math.floor((os.cpus().length-1)/Math.max(1,+arg('--jobs',1)||1))));
+const run1=(args,env={})=>new Promise(res=>{const p=spawn(NODE,args,{cwd:root,env:{...process.env,ROUNDS_THREADS:childThreads(),...env},stdio:['ignore','pipe','pipe']});let out='';p.stdout.on('data',d=>out+=d);p.stderr.on('data',d=>out+=d);p.on('close',code=>res({code,out}));});
 
 // ---- plan ----
 // the mechanics breakdown (17 §13 step 1, amendment of 2026-10-28): the owner-approved content/rounds/runs/<wave>/mechanics.json

@@ -57,6 +57,8 @@ node --test tools/rounds/test/*.test.mjs
 
 `ROUNDS_DIR=<folder>` points every command at another content folder, for trial runs.
 
+**Speed** (2026-11-02): the measures play on a verified fast twin of the reference engine and on worker threads, byte-identical to the reference (`perf/README.md`: how it is verified, `ROUNDS_ENGINE=reference`, `ROUNDS_THREADS`, early stopping for screening only).
+
 ## The generator (2026-11-02)
 
 The owner approved one generator (2026-11-02): today's builder plus the calibration's queue tuning (`calib/README.md`),
