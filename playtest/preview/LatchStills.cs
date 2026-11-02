@@ -158,7 +158,10 @@ namespace Bloomlings.Playtest.Preview
                 frames.AddRange(before);
                 if (before.Count > 0)
                 {
-                    Save("latch-closed-on-top", before[before.Count - 1]);
+                    // the closed latch's hero in its column and its key over the board, at phone scale and close up
+                    Save("latch-closed-in-rows", before[before.Count - 1]);
+                    var heroArea = new Box(column.Left - (column.Width * 0.3f), cache.Regions.Pod(latch.Column, 0).Top - (column.Width * 0.45f), column.Right + (column.Width * 0.3f), cache.Regions.Pod(latch.Column, 2).Bottom + (column.Width * 0.1f));
+                    Strip(before.ToArray(), new[] { keyArea, heroArea }, Path.Combine(outDir, "latch-closed-in-rows-closeup.png"), 1.4f);
                 }
 
                 frames.Add(painter.Png());

@@ -288,6 +288,9 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The key's flight from its cell to the keyhole, from the latch's opening on, in seconds.</summary>
         public const float KeyFlightSeconds = 0.48f;
 
+        /// <summary>The narrowest the flying key is drawn (its turn faster than the eye), so it reads all the way.</summary>
+        public const float KeyFlightMinWidth = 0.3f;
+
         /// <summary>The key's quarter turn in the keyhole after it arrives, in seconds.</summary>
         public const float KeyTurnSeconds = 0.1f;
 
@@ -328,12 +331,15 @@ namespace Bloomlings.Client.UI.Design
                 float arc = Math.Max(from.Height * 0.3f, dist * 0.16f);
                 float x = from.CenterX + ((to.CenterX - from.CenterX) * e);
                 float y = from.CenterY + ((to.CenterY - from.CenterY) * e) - (arc * lift);
+                // big for most of the way, shrinking to the keyhole's scale as it comes in
+                float shrink = q * q;
                 float grow = 1f + (0.1f * (float)Math.Sin(Math.PI * Math.Min(1f, q * 2f)));
-                float w = (from.Width + ((to.Width - from.Width) * e)) * grow;
-                float h = (from.Height + ((to.Height - from.Height) * e)) * grow;
+                float w = (from.Width + ((to.Width - from.Width) * shrink)) * grow;
+                float h = (from.Height + ((to.Height - from.Height) * shrink)) * grow;
                 float end = (float)Math.Floor(turns) + 2f;
                 float spun = turns + ((end - turns) * (1f - ((1f - q) * (1f - q))));
                 (float sx, bool back) = KeySpin(spun);
+                sx = Math.Sign(sx) * Math.Max(KeyFlightMinWidth, Math.Abs(sx));
                 return (Box.FromCenter(x, y, w, h), sx, back, 1f);
             }
 
