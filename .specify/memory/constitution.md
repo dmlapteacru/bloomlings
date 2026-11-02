@@ -139,8 +139,11 @@ Rationale: A long-run, relaxing puzzle keeps players through trust, not pressure
   and side faces whose width follows the column's position (left of centre shows the left side, right of centre the
   right side). The board stays a flat grid of cells for the rules, and hit areas follow the drawn top faces.
   Navigation screens keep their flat layouts.
-- Pre-rendered 3D illustrations, shown as flat pictures, MAY appear on meta screens only: Home, the win and milestone
-  screens, the Wardrobe and the profile. They MUST NOT appear inside a level.
+- Pre-rendered 3D illustrations, shown as flat pictures, MAY appear on meta screens: Home, the win and milestone
+  screens, the Wardrobe and the profile. Inside a level they MUST NOT appear, with one exception: a hero's pre-rendered
+  flat frames MAY stand in a level as a figure of a mechanic, such as Twig holding the latch's padlock in the place of
+  the pod it holds (the product owner, 2026-11-02). They are flat pictures in the plane like the rest of the level,
+  never a 3D scene, model or camera, and they never cover the board.
 - Gameplay uses one-tap input: the player taps pods and never taps target cells.
 - States are shown visually, with minimal text.
 - The product MUST NOT add a level map, a level chooser, garden areas, a room builder or navigation overhead.
@@ -241,4 +244,4 @@ existing content migrates.
 
 Non-compliant changes MUST NOT be merged.
 
-**Version**: 1.2.0 | **Ratified**: 2026-09-29 | **Last Amended**: 2026-10-28
+**Version**: 1.3.0 | **Ratified**: 2026-09-29 | **Last Amended**: 2026-11-02
