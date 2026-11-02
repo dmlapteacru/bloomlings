@@ -11,6 +11,7 @@ export function loadRows(){const pics=JSON.parse(fs.readFileSync(path.join(RAW,'
  return {rows,pics};}
 const q=(a,p)=>{const s=a.slice().sort((x,y)=>x-y);return s.length?s[Math.min(s.length-1,Math.floor(p*(s.length-1)+.5))]:NaN;};
 const median=a=>q(a,.5),meanOf=a=>a.reduce((x,y)=>x+y,0)/(a.length||1);
+const cl=x=>Math.min(.98,Math.max(.02,x));
 const clsOf=p=>p>=.5?'N':p>=.2?'H':p>=.05?'SH':'<5';
 function metrics(obs,pred){const e=obs.map((o,i)=>Math.abs(o-pred[i])*100),m=meanOf(obs),sst=obs.reduce((s,o)=>s+(o-m)**2,0),sse=obs.reduce((s,o,i)=>s+(o-pred[i])**2,0);
  const cl=obs.filter((o,i)=>clsOf(o)===clsOf(pred[i])).length/obs.length;
@@ -30,7 +31,7 @@ const binom=[];{let s=12345;const r=()=>{s^=s<<13;s^=s>>>17;s^=s<<5;return(s>>>0
 // noise floor 2: part C, three queue seeds at equal parameters (the spread a formula of the parameters cannot remove)
 const reps={};for(const r of rows.filter(r=>r.part==='C'))(reps[r.pic+'|'+r.t]=reps[r.pic+'|'+r.t]||[]).push(r.q);
 const repDev=[];for(const a of Object.values(reps))if(a.length>=2){const m=meanOf(a);for(const x of a)repDev.push(Math.abs(x-m)*100*Math.sqrt(a.length/(a.length-1)));}
-out.noise={binomial60:{medAbs:median(binom),p80Abs:q(binom,.8)},seedSpread:{groups:Object.keys(reps).length,medAbs:median(repDev),p80Abs:q(repDev,.8)}};
+out.noise={binomial50:{medAbs:median(binom),p80Abs:q(binom,.8)},seedSpread:{groups:Object.keys(reps).length,medAbs:median(repDev),p80Abs:q(repDev,.8)}};
 lines.push('## Пол шума','',`- биномиальный шум 50 партий: медиана ${median(binom).toFixed(1)} п.п., 80-й перцентиль ${q(binom,.8).toFixed(1)} п.п.`,`- разброс между сидами очереди при одинаковых параметрах (часть C, ${Object.keys(reps).length} групп по 3): медиана ${median(repDev).toFixed(1)} п.п., 80-й перцентиль ${q(repDev,.8).toFixed(1)} п.п. — это предел любой формулы от параметров`,'');
 lines.push('## Точность моделей','','| Модель | Членов | R² (в выборке) | R² (CV по картинкам) | Медиана |ошибки| CV, п.п. | 80-й перц. CV, п.п. | В полосе 5–95 %: медиана / 80-й, п.п. | Класс угадан (CV) |','|---|---:|---:|---:|---:|---:|---:|---:|');
 // the ridge strength of each model chosen by its cross-validated binomial log loss
@@ -45,6 +46,20 @@ for(const spec of Object.keys(SPECS)){let lam=1,bestLL=Infinity,cvp=null;for(con
 fs.copyFileSync(path.join(W,'model-params.json'),path.join(W,'model.json'));
 // the controllable model's main coefficients (raw units: change of the logit per unit)
 const mp=JSON.parse(fs.readFileSync(path.join(W,'model-params.json'),'utf8'));
+// the seed spread inside the band where a class is decided (groups whose mean share is 5–95 %)
+{const dev=[];for(const a of Object.values(reps)){const m=meanOf(a);if(a.length<2||m<.05||m>.95)continue;for(const x of a)dev.push(Math.abs(x-m)*100*Math.sqrt(a.length/(a.length-1)));}
+ out.noise.seedSpreadBand={n:dev.length,medAbs:median(dev),p80Abs:q(dev,.8)};
+ lines.push('',`Разброс между сидами в полосе 5–95 % (${dev.length} строк): медиана ${median(dev).toFixed(1)} п.п., 80-й перцентиль ${q(dev,.8).toFixed(1)} п.п.`);}
+// formula + measurements: the params model trained without the picture (CV), then a per-picture logit offset learned
+// from k measured configurations of that picture (k = 1, 2, 3, the first ones of its part B base rows and part A at
+// t = 5/6), predicting the picture's other rows in the band 5–95 %
+{const cvp=crossValidate(rows,'params',5,{lambda:out.models.params.lambda}),byPic={};rows.forEach((r,i)=>(byPic[r.pic]=byPic[r.pic]||[]).push(i));
+ lines.push('','## Формула плюс замеры (модель params без этой картинки + поправка logit по k замерам на ней)','','| k замеров | строк | медиана |ошибки|, п.п. | 80-й перц., п.п. | класс угадан |','|---:|---:|---:|---:|---:|');out.withMeasurements={};
+ for(const k of [0,1,2,3]){const e=[],hit=[];for(const [pic,ix] of Object.entries(byPic)){const cal=ix.filter(i=>rows[i].part==='B'&&rows[i].overlay==='base').concat(ix.filter(i=>rows[i].part==='A'&&Math.abs(rows[i].t-5/6)<.01)).slice(0,k);
+   const off=cal.length?meanOf(cal.map(i=>logit(cl(rows[i].q))-logit(cl(cvp[i])))):0;
+   for(const i of ix){if(cal.includes(i))continue;const o=rows[i].q;if(o<.05||o>.95)continue;const p=sigmoid(logit(cl(cvp[i]))+off);e.push(Math.abs(o-p)*100);hit.push(clsOf(o)===clsOf(p));}}
+  out.withMeasurements[k]={n:e.length,medAbs:median(e),p80Abs:q(e,.8),classHit:hit.filter(Boolean).length/hit.length};
+  lines.push(`| ${k} | ${e.length} | ${median(e).toFixed(1)} | ${q(e,.8).toFixed(1)} | ${Math.round(hit.filter(Boolean).length/hit.length*100)} % |`);}}
 lines.push('','## Коэффициенты модели params (стандартизованные, изменение logit на 1 σ признака), крупнейшие','','| Член | β (σ) |','|---|---:|');
 mp.names.map((n,j)=>[n,mp.beta[j+1]]).sort((a,b)=>Math.abs(b[1])-Math.abs(a[1])).slice(0,20).forEach(([n,b])=>lines.push(`| ${n} | ${b.toFixed(2)} |`));
 // share against t, pooled (part A): how steep the blend is
@@ -62,7 +77,6 @@ for(const p of pics){const cells=[0,1,2,3,4,5,6].map(i=>{const a=rows.filter(r=>
 // ---- the mechanics' effects: part B, each overlay against the base queue it was laid on (same picture, t, seed) ----
 const B=rows.filter(r=>r.part==='B'),base={};for(const r of B)if(r.overlay==='base')base[r.pic+'|'+r.t]=r;
 const groups={};for(const r of B){if(r.overlay==='base')continue;const b=base[r.pic+'|'+r.t];if(!b)continue;(groups[r.overlay]=groups[r.overlay]||[]).push([b,r]);}
-const cl=x=>Math.min(.98,Math.max(.02,x));
 lines.push('','## Влияние механик (часть B: та же очередь без механики и с ней)','',
  'Пары, где база в полосе 5–95 % (иначе 50 партий не видят разницы). Δ — с механикой минус без, в процентных пунктах; Δlogit — по всем парам (доли обрезаны 2–98 %). «Стоят без работы» и вынужденные — по парам, где замерены оба.','',
  '| Механика | пар | Δ доля, медиана (среднее ± 2 se) | Δ спокойно, медиана (среднее) | Δlogit доли | Δ «стоят без работы» | Δ вынужд. | жадная выигрывает: было → стало |','|---|---:|---:|---:|---:|---:|---:|---:|');

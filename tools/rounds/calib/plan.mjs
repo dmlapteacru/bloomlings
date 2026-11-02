@@ -1,6 +1,7 @@
 // The formula-driven builder (README.md here): plan(picture, class, recipe) → queue parameters predicted by the fitted
 // share model (content/work/calib/model.json) to land in the class zone; a short correction loop on the quick share
-// (≤ 3 Newton steps on the blend t, with the model's slope); for Hard and Super Hard the route-first prototype's mechanic
+// (≤ 5 quick measurements: Newton steps on the blend t with the model's slope, then bisection once both sides of the zone
+// were seen; a picture keeps the pods, columns and t of its last attempt that measured in the zone); for Hard and Super Hard the route-first prototype's mechanic
 // step (links chosen one pair at a time so that "most work now" gets least far, a trap pair first); then the full
 // levels.mjs evaluate and the placer's filters of the slot, as today.
 //
@@ -77,20 +78,27 @@ function placerFilters(e,level,cls,slot,pic){const k=e.checks||{},why=[];
 // ---- the builder ----
 export async function formulaBuild(picId,cls,recipe,{slot=cls==='Normal'?'regular':'hard',minutes=15,want=1,seed=1,model=loadModel(),log=()=>{}}={}){
  const pic=L.picture(picId),t0=Date.now(),stats={attempts:0,quick:0,corrections:0,mechStep:0,screened:0,evaluated:0,passed:0,accepted:0,reasons:{}},no=k=>{stats.reasons[k]=(stats.reasons[k]||0)+1;};
- const accepted=[],passedOut=[],trace=[];let offset=0,nOff=0;const [lo,hi,aim]=zoneOf(cls,slot);
- for(let k=0;(Date.now()-t0)<minutes*60000&&accepted.length<want;k++){stats.attempts++;const pl=plan(pic,cls,recipe,{slot,model,attempt:k,offset});if(!pl){no('план: нет допустимых доз');break;}
+ const accepted=[],passedOut=[],trace=[];let offset=0,nOff=0,good=null;const [lo,hi,aim]=zoneOf(cls,slot);
+ for(let k=0;(Date.now()-t0)<minutes*60000&&accepted.length<want;k++){stats.attempts++;const pl=plan(pic,cls,recipe,{slot,model,attempt:k,offset,fixed:good?{Plev:good.Plev,cols:good.cols}:{}});if(!pl){no('план: нет допустимых доз');break;}
   const ctx=Q.context(pic,{accents:pl.p.accents,seed:seed*31+k});let p={...pl.p,seed:seed*1000003+k*7919,latchClass:cls},q=null,level=null,steps=[];
   const make=()=>{const b=Q.build(ctx,p);if(b.error)return b;let lv=b.level;
    // Hard / Super Hard: the links chosen against the greedy strategies (the route-first mechanic step)
    if(cls!=='Normal'&&p.links>0){const g=greedyLinks(ctx,lv,p.links,cls,Q.rnd(p.seed^0x77));if(g){lv=g;stats.mechStep++;}}
    return {level:lv};};
-  // the correction loop: measure, then a Newton step on t with the model's slope (≤ 3), the offset learned per picture
-  for(let step=0;step<=3;step++){const b=make();if(b.error){no(b.error);level=null;break;}level=b.level;q=await M.quickShare(level,40,11);stats.quick++;
+  // a picture remembers where it landed: once an attempt measured in the zone, the next ones keep its pods and columns
+  // and start from its t (± 0.03), since the share is a cliff in t whose place the picture features only roughly know
+  if(good){p={...p,t:Math.max(0,Math.min(1,Math.round((good.t+(Q.rnd(p.seed)()-.5)*.06)*100)/100))};}
+  // the correction loop (≤ 5 quick measurements): a Newton step on t with the model's slope until both sides of the zone
+  // have been seen, then bisection inside that bracket (interpolated on the logit, kept in its middle 20–80 %)
+  let tEasy=null,tHard=null,qEasy=null,qHard=null;
+  for(let step=0;step<=5;step++){const b=make();if(b.error){no(b.error);level=null;break;}level=b.level;q=await M.quickShare(level,40,11);stats.quick++;
    const etaP=MD.eta(model,rowOf(pl.f,p)),etaO=MD.logit(Math.min(.975,Math.max(.025,q)));steps.push({t:p.t,pred:Math.round(MD.sigmoid(etaP+offset)*100)/100,q});
    offset=(offset*nOff+(etaO-etaP))/(nOff+1);nOff=Math.min(nOff+1,4);
-   if(q>=lo&&q<=hi)break;if(step===3)break;
-   const sl=Math.min(-.5,slopeT(model,pl.f,p));let dt=(MD.logit(aim)-etaO)/sl;dt=Math.max(-.35,Math.min(.35,dt));
-   const nt=Math.max(0,Math.min(1,Math.round((p.t+dt)*100)/100));if(nt===p.t)break;p={...p,t:nt};stats.corrections++;}
+   if(q>=lo&&q<=hi){good={t:p.t,Plev:p.Plev,cols:p.cols};break;}if(step===5)break;
+   if(q>hi&&(tEasy===null||p.t>tEasy)){tEasy=p.t;qEasy=q;}if(q<lo&&(tHard===null||p.t<tHard)){tHard=p.t;qHard=q;}
+   let nt;if(tEasy!==null&&tHard!==null&&tEasy<tHard){const eA=MD.logit(Math.min(.98,Math.max(.02,qEasy))),eB=MD.logit(Math.min(.98,Math.max(.02,qHard))),f=Math.min(.8,Math.max(.2,(MD.logit(aim)-eA)/(eB-eA)));nt=tEasy+f*(tHard-tEasy);}
+   else{const sl=Math.min(-.5,slopeT(model,pl.f,p));let dt=(MD.logit(aim)-etaO)/sl;dt=Math.max(-.35,Math.min(.35,dt));nt=p.t+dt;}
+   nt=Math.max(0,Math.min(1,Math.round(nt*100)/100));if(nt===p.t||steps.some(s=>s.t===nt))break;p={...p,t:nt};stats.corrections++;}
   if(!level)continue;trace.push({k,plan:{t:pl.p.t,P:pl.p.P,cols:pl.p.cols,sigma:pl.p.sigma,links:pl.p.links,hidden:pl.p.hidden,pred:Math.round(pl.pred*100)/100,pin:Math.round(pl.pin*100)/100},steps});
   log(`#${k} план t ${pl.p.t} P ${pl.p.P} кол ${pl.p.cols} σ ${pl.p.sigma} связ ${pl.p.links} скр ${pl.p.hidden} → прогноз ${Math.round(pl.pred*100)} % (в зоне ${Math.round(pl.pin*100)} %); замеры ${steps.map(s=>`t ${s.t}: ${Math.round(s.q*100)} %`).join(', ')}`);
   if(q<lo-.15||q>hi+.15){no('быстрая оценка вне зоны после поправок');continue;}
@@ -154,9 +162,9 @@ else if(cmd==='report'){const lines=[],prev=path.join(W,'preview');fs.mkdirSync(
   const oldT=old?`сегодняшний сборщик: ${old.searched?old.searched.tried:'?'} канд. за ${Math.round(old.seconds)} с, в зоне и проходят ${old.accepted}${old.accepted?`, ${Math.round(old.seconds/old.accepted)} с/ур.`:''}`:'сегодняшний сборщик: замера нет';
   lines.push(row(`${j.label} ${j.pic} · размещён`,placed,oldT));
   if(pro){const b=pro.accepted[0];lines.push(row(`${j.label} · route-first`,b&&{...b,cls:b.cls},`${pro.stats.bases} основ, ${pro.stats.evaluated} полных, принято ${pro.accepted.length} за ${Math.round(pro.seconds)} с${b?`, первый ${Math.round(b.at)} с`:''}`));}
-  const b=me&&me.accepted[0];const tm=me?`${me.stats.attempts} попыток, ${me.stats.evaluated} полных, ${b?`принят на попытке ${b.attempt??(me.stats.attempts)} за ${Math.round(b.at)} с`:`не принят за ${Math.round(me.seconds)} с`}`:'не запускался';
+  const b=me&&me.accepted[0];const kOf=x=>+x.candidate.split('-').pop()+1,tm=me?`${me.stats.attempts} попыток, ${me.stats.evaluated} полных; принято ${me.accepted.length} за ${Math.round(me.seconds)} с${me.accepted.length?` → ${Math.round(me.seconds/me.accepted.length)} с/ур.; первый на попытке ${kOf(b)} за ${Math.round(b.at)} с`:''}`:'не запускался';
   lines.push(row(`${j.label} · формула`,b,tm));
-  summary.push({job:j,formula:me?{seconds:me.seconds,stats:me.stats,first:b?b.at:null,attemptsToFirst:b?me.trace.findIndex(t=>t.k===(+b.candidate.split('-').pop()))+1:null,share:b?b.random.share:null}:null,old:old?{seconds:old.seconds,tried:old.searched&&old.searched.tried,accepted:old.accepted}:null,proto:pro?{seconds:pro.seconds,first:pro.accepted[0]?pro.accepted[0].at:null,accepted:pro.accepted.length}:null});
+  summary.push({job:j,formula:me?{seconds:me.seconds,stats:me.stats,first:b?b.at:null,attemptsToFirst:b?+b.candidate.split('-').pop()+1:null,perAccepted:me.accepted.length?me.seconds/me.accepted.length:null,accepted:me.accepted.length,share:b?b.random.share:null}:null,old:old?{seconds:old.seconds,tried:old.searched&&old.searched.tried,accepted:old.accepted}:null,proto:pro?{seconds:pro.seconds,first:pro.accepted[0]?pro.accepted[0].at:null,accepted:pro.accepted.length}:null});
   const put=(X,tag)=>{if(!X)return;fs.writeFileSync(path.join(prev,`L${n}.json`),JSON.stringify({...X,level:n,candidate:(X.candidate||'')+'-'+tag,definition:{...X.definition,id:n,title:`${X.definition.title} · ${j.label} ${tag}`}}));levelsUsed.push(n);};
   put(placed,'сегодня');n++;put(b,'формула');n++;}
  fs.writeFileSync(path.join(W,'validation.md'),lines.join('\n')+'\n');fs.writeFileSync(path.join(W,'validation.json'),JSON.stringify(summary,null,1));console.log(lines.join('\n'));console.log('preview levels',levelsUsed.join(','));}
