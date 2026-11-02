@@ -108,6 +108,62 @@ namespace Bloomlings.Client.UI.Design
         public RoundTubePlace Place { get; }
     }
 
+    /// <summary>Which of a hidden link partner's two marks (<see cref="RoundLinkMark"/>).</summary>
+    public enum RoundLinkMarkKind
+    {
+        /// <summary>On the shown pod: a short tube stub sticking out towards the partner's column, ending in the link badge.</summary>
+        Stub,
+
+        /// <summary>In the partner's column, under its last shown pod (where the hidden partner waits): the link badge.</summary>
+        Waiting,
+    }
+
+    /// <summary>
+    /// A mark of a linked pod whose partner waits deeper than the tray shows (the owner's phone report of 2026-11-02, L54: "it
+    /// says there is a link, but I can't see it"; spec 006 FR-043, contracts/presentation.md): the tube is drawn only between
+    /// two shown pods, so the shown one carries a <see cref="RoundLinkMarkKind.Stub"/> towards <see cref="Column"/> and that
+    /// column a <see cref="RoundLinkMarkKind.Waiting"/> badge under its last shown pod, both in <see cref="Material"/>'s colour
+    /// (the shown pod's: the player never learns a hidden pod's colour from it). When the partner comes into the shown rows the
+    /// tube replaces both. Presentation only.
+    /// </summary>
+    public readonly struct RoundLinkMark
+    {
+        public RoundLinkMark(RoundLinkMarkKind kind, int pod, int partner, int column, int material, bool toRight, int order, int of)
+        {
+            Kind = kind;
+            Pod = pod;
+            Partner = partner;
+            Column = column;
+            Material = material;
+            ToRight = toRight;
+            Order = order;
+            Of = of;
+        }
+
+        public RoundLinkMarkKind Kind { get; }
+
+        /// <summary>A stub's shown pod, or the hidden pod a waiting badge stands for.</summary>
+        public int Pod { get; }
+
+        /// <summary>A stub's hidden partner, or the shown pod whose colour a waiting badge wears.</summary>
+        public int Partner { get; }
+
+        /// <summary>The hidden pod's column: where a stub points, where a waiting badge stands.</summary>
+        public int Column { get; }
+
+        /// <summary>The mark's colour (<see cref="RoundMaterial.Index"/>): the shown pod's material.</summary>
+        public int Material { get; }
+
+        /// <summary>A stub points right (the partner's column is to the right), else left; a waiting badge: false.</summary>
+        public bool ToRight { get; }
+
+        /// <summary>A waiting badge's place among its column's waiting badges (0 for a stub).</summary>
+        public int Order { get; }
+
+        /// <summary>How many waiting badges its column shows (1 for a stub).</summary>
+        public int Of { get; }
+    }
+
     /// <summary>
     /// What a round level shows each frame (spec 006 T043, research R8, contracts/presentation.md), shared by both builds:
     /// it reads the live timeline's events and state, never changes them, and keeps for the painters
@@ -119,7 +175,8 @@ namespace Bloomlings.Client.UI.Design
     /// <c>return</c>, with its route and its four times;</description></item>
     /// <item><description>the places and the columns as the rules hold them, with when each pod took its place, when a
     /// finished pod left one (its puff) and when a hidden pod revealed (its glow, FR-045);</description></item>
-    /// <item><description>the link tubes between linked pods in the columns and in the places (FR-043);</description></item>
+    /// <item><description>the link tubes between linked pods in the columns and in the places (FR-043), and the marks of a
+    /// linked pod whose partner waits deeper than the rows show (<see cref="LinkMarks"/>);</description></item>
     /// <item><description>the latches (17 §8 «Засов и жёлудь-ключ», FR-068): each closed until its <c>latchOpen</c> moment, and
     /// that moment for its opening; the columns' queues with the latches at their places on the pods they hold
     /// (<see cref="ColumnItems"/>); each key's colour and the pips that tell latches of one colour apart.</description></item>
@@ -193,6 +250,8 @@ namespace Bloomlings.Client.UI.Design
         private readonly int[] _columnOf;
         private readonly int[] _depthOf;
         private readonly List<RoundTube> _tubes = new List<RoundTube>();
+        private readonly int[] _rowOf;
+        private readonly List<RoundQueueItem> _rowItems = new List<RoundQueueItem>();
         private int[] _slots = Array.Empty<int>();
         private (int Pod, long At)[] _leaving = Array.Empty<(int, long)>();
         private int[][] _columns = Array.Empty<int[]>();
@@ -221,6 +280,7 @@ namespace Bloomlings.Client.UI.Design
             _placeOf = new int[pods];
             _columnOf = new int[pods];
             _depthOf = new int[pods];
+            _rowOf = new int[pods];
         }
 
         public RoundLevel Level { get; }
@@ -748,18 +808,26 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// The link tubes to draw now (FR-043): each linked pair whose members both stand in the places, or both wait in the
-        /// columns within the <paramref name="shownRows"/> rows the tray shows. The list is reused between calls.
+        /// columns within the <paramref name="shownRows"/> rows the tray shows (<see cref="RowOf"/>: a latch with a row of its own
+        /// counts). The list is reused between calls.
         /// </summary>
         public IReadOnlyList<RoundTube> Tubes(int shownRows)
         {
             _tubes.Clear();
             int[][] groups = _prepared.Groups;
+            bool rows = false;
             for (int p = 0; p < groups.Length; p++)
             {
                 int[] group = groups[p];
                 if (group.Length < 2 || group[0] != p)
                 {
                     continue;
+                }
+
+                if (!rows)
+                {
+                    FillRows();
+                    rows = true;
                 }
 
                 for (int m = 1; m < group.Length; m++)
@@ -770,7 +838,7 @@ namespace Bloomlings.Client.UI.Design
                     {
                         _tubes.Add(new RoundTube(a, b, RoundTubePlace.Places));
                     }
-                    else if (_depthOf[a] >= 0 && _depthOf[b] >= 0 && _depthOf[a] < shownRows && _depthOf[b] < shownRows)
+                    else if (_rowOf[a] >= 0 && _rowOf[b] >= 0 && _rowOf[a] < shownRows && _rowOf[b] < shownRows)
                     {
                         _tubes.Add(new RoundTube(a, b, RoundTubePlace.Columns));
                     }
@@ -778,6 +846,130 @@ namespace Bloomlings.Client.UI.Design
             }
 
             return _tubes;
+        }
+
+        /// <summary>
+        /// The row a waiting pod is drawn in (<see cref="ColumnItems"/>: its depth plus the latches before it that take a row of
+        /// their own), or -1 for a pod not waiting in a column.
+        /// </summary>
+        public int RowOf(int pod)
+        {
+            FillRows();
+            return _rowOf[pod];
+        }
+
+        /// <summary>
+        /// The marks of the linked pods whose partner waits deeper than the <paramref name="shownRows"/> rows the tray shows,
+        /// into <paramref name="into"/> (cleared; the owner's phone report of 2026-11-02): for each linked pair waiting in two
+        /// columns, one shown and one not, a <see cref="RoundLinkMarkKind.Stub"/> on the shown pod towards the hidden one's
+        /// column (one a side per pod) and a <see cref="RoundLinkMarkKind.Waiting"/> badge for the hidden pod in its column
+        /// (one per hidden pod, in the colour of its first shown partner; a column's badges numbered by
+        /// <see cref="RoundLinkMark.Order"/> of <see cref="RoundLinkMark.Of"/>). A pair both shown has its tube
+        /// (<see cref="Tubes"/>) and no mark; a pair both hidden, or in the places, none. Stubs come first, then the waiting
+        /// badges.
+        /// </summary>
+        public void LinkMarks(int shownRows, List<RoundLinkMark> into)
+        {
+            into.Clear();
+            int[][] groups = _prepared.Groups;
+            bool rows = false;
+            int stubs = 0;
+            for (int p = 0; p < groups.Length; p++)
+            {
+                int[] group = groups[p];
+                if (group.Length < 2 || group[0] != p)
+                {
+                    continue;
+                }
+
+                if (!rows)
+                {
+                    FillRows();
+                    rows = true;
+                }
+
+                for (int m = 1; m < group.Length; m++)
+                {
+                    int a = group[m - 1];
+                    int b = group[m];
+                    if (_rowOf[a] < 0 || _rowOf[b] < 0 || _columnOf[a] == _columnOf[b])
+                    {
+                        continue;
+                    }
+
+                    bool aShown = _rowOf[a] < shownRows;
+                    bool bShown = _rowOf[b] < shownRows;
+                    if (aShown == bShown)
+                    {
+                        continue;
+                    }
+
+                    int shown = aShown ? a : b;
+                    int hidden = aShown ? b : a;
+                    int column = _columnOf[hidden];
+                    bool toRight = column > _columnOf[shown];
+                    bool listed = false;
+                    for (int i = 0; i < stubs; i++)
+                    {
+                        listed |= into[i].Pod == shown && into[i].ToRight == toRight;
+                    }
+
+                    if (!listed)
+                    {
+                        into.Insert(stubs++, new RoundLinkMark(RoundLinkMarkKind.Stub, shown, hidden, column, _prepared.Colours[shown], toRight, 0, 1));
+                    }
+
+                    bool waiting = false;
+                    for (int i = stubs; i < into.Count; i++)
+                    {
+                        waiting |= into[i].Pod == hidden;
+                    }
+
+                    if (!waiting)
+                    {
+                        into.Add(new RoundLinkMark(RoundLinkMarkKind.Waiting, hidden, shown, column, _prepared.Colours[shown], false, 0, 1));
+                    }
+                }
+            }
+
+            // Number each column's waiting badges, so several groups' badges stand side by side.
+            for (int i = stubs; i < into.Count; i++)
+            {
+                int order = 0;
+                int of = 0;
+                for (int j = stubs; j < into.Count; j++)
+                {
+                    if (into[j].Column == into[i].Column)
+                    {
+                        order += j < i ? 1 : 0;
+                        of++;
+                    }
+                }
+
+                RoundLinkMark mark = into[i];
+                into[i] = new RoundLinkMark(mark.Kind, mark.Pod, mark.Partner, mark.Column, mark.Material, false, order, of);
+            }
+        }
+
+        /// <summary>Each waiting pod's drawn row (<see cref="ColumnItems"/>), -1 for the others.</summary>
+        private void FillRows()
+        {
+            for (int p = 0; p < _rowOf.Length; p++)
+            {
+                _rowOf[p] = -1;
+            }
+
+            for (int c = 0; c < _columns.Length; c++)
+            {
+                ColumnItems(c, 0, _rowItems);
+                foreach (RoundQueueItem item in _rowItems)
+                {
+                    if (!item.IsLatch)
+                    {
+                        _rowOf[item.Id] = item.Row;
+                    }
+                }
+            }
         }
 
         /// <summary>

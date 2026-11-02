@@ -1,0 +1,200 @@
+using System;
+using System.Collections.Generic;
+using System.Globalization;
+using System.IO;
+using Bloomlings.Client.UI.Design;
+using Bloomlings.Content.Packs;
+using Bloomlings.Content.Rounds;
+using Bloomlings.Core.Rounds;
+using Bloomlings.Playtest.Design;
+
+namespace Bloomlings.Playtest.Preview
+{
+    /// <summary>
+    /// <c>--link-stills &lt;rounds dir&gt; &lt;out dir&gt; [level] [tag]</c>: the owner's phone report of 2026-11-02 (L54) for review, on
+    /// a rounds folder with <c>published/</c> and <c>proofs/</c>: the level at its start, the same after a tap on a top pod
+    /// whose link partner waits deeper than the rows show (the hidden partner's link marks and the pulse,
+    /// <see cref="RoundAnimator.LinkMarks"/>), and a frame with walkers under way (with a close-up of the board) on that level
+    /// and on Level 1 (big cubes), so the walkers' size on small cubes (<see cref="ClearStyles.SmallCubeBoost"/>) can be
+    /// compared; <c>tag</c> names the walker stills (e.g. <c>before</c> / <c>after</c>). Review material only.
+    /// </summary>
+    public static class LinkStills
+    {
+        public static int Write(string roundsDir, string outDir, int level, string tag)
+        {
+            string folder = Path.Combine(roundsDir, "published");
+            RoundContentSet rounds = RoundContentSet.Read(path =>
+            {
+                string file = Path.Combine(folder, path);
+                return File.Exists(file) ? File.ReadAllBytes(file) : null;
+            });
+            var empty = new ContentSet(0, 0, Array.Empty<Bloomlings.Core.Definitions.LevelDefinition>(), Array.Empty<Bloomlings.Core.Definitions.BasePicture>());
+            string data = Path.Combine(Path.GetTempPath(), "bloomlings-link-stills-" + Guid.NewGuid().ToString("N"));
+            Directory.CreateDirectory(outDir);
+            try
+            {
+                using var painter = new SkiaPainter(1080, 2424, new Insets(110, 63));
+                var app = new DesignApp(data, empty, new Silence(), false, rounds: rounds);
+                void Frame(float dt)
+                {
+                    painter.Now += dt;
+                    painter.BeginFrame();
+                    app.Draw(painter, dt);
+                }
+
+                void Save(string name, byte[] png) => File.WriteAllBytes(Path.Combine(outDir, name + ".png"), png);
+
+                RoundLevelScreen Open(int n)
+                {
+                    app.LoadLevel(n);
+                    RoundLevelScreen screen = app.Round!;
+                    screen.SkipGuide();
+                    for (int i = 0; i < 30; i++)
+                    {
+                        Frame(1f / 30f);
+                    }
+
+                    if (screen.Intro != null)
+                    {
+                        screen.CloseIntro();
+                    }
+
+                    for (int i = 0; i < 30; i++)
+                    {
+                        Frame(1f / 30f);
+                    }
+
+                    return screen;
+                }
+
+                string L(int n) => "L" + n.ToString("00", CultureInfo.InvariantCulture);
+                RoundLevelScreen s;
+                // ---- The level at its start, then a tap on a top pod whose partner is hidden ----
+                s = Open(level);
+                Save(L(level) + "-start", painter.Png());
+                RoundPainter.LayoutCache cache = RoundPainter.Layout(painter, s, true, false);
+                var marks = new List<RoundLinkMark>();
+                int tapped = -1;
+                bool TopStub()
+                {
+                    s.Animator.LinkMarks(cache.Regions.PodRows, marks);
+                    tapped = -1;
+                    foreach (RoundLinkMark mark in marks)
+                    {
+                        if (mark.Kind == RoundLinkMarkKind.Stub && s.Animator.DepthOf(mark.Pod) == 0 && !s.Animator.Busy)
+                        {
+                            tapped = mark.Pod;
+                            return true;
+                        }
+                    }
+
+                    return false;
+                }
+
+                // The saved solution until a top pod's partner waits deeper than the rows show (as on the owner's phone).
+                var levelProof = RoundJson.ReadProof(File.ReadAllText(Path.Combine(roundsDir, "proofs", "L" + level.ToString("0000", CultureInfo.InvariantCulture) + ".json")));
+                if (!TopStub())
+                {
+                    LatchStills.Play(s, levelProof, Frame, TopStub);
+                }
+
+                // Else a player's own order (seeded random taps on accepted top pods) until that happens.
+                for (int seed = 1; seed <= 40 && tapped < 0; seed++)
+                {
+                    s = Open(level);
+                    cache = RoundPainter.Layout(painter, s, true, false);
+                    var random = new Random(seed);
+                    for (int step = 0; step < 60 && tapped < 0 && !s.Won; step++)
+                    {
+                        for (float t = 0f; t < 20f && (s.Play.Timeline.Pending || s.Animator.Busy); t += 1f / 30f)
+                        {
+                            Frame(1f / 30f);
+                            if (TopStub())
+                            {
+                                break;
+                            }
+                        }
+
+                        if (TopStub())
+                        {
+                            break;
+                        }
+
+                        var choices = new List<int>();
+                        for (int c = 0; c < s.Animator.ColumnCount; c++)
+                        {
+                            int top = s.Animator.At(c, 0);
+                            if (top >= 0 && s.Play.Check(RoundAction.Tap(top)) == RoundRefusal.None)
+                            {
+                                choices.Add(top);
+                            }
+                        }
+
+                        if (choices.Count == 0)
+                        {
+                            break;
+                        }
+
+                        s.Tap(choices[random.Next(choices.Count)]);
+                        Frame(1f / 30f);
+                    }
+                }
+
+                if (tapped >= 0)
+                {
+                    for (int i = 0; i < 20; i++)
+                    {
+                        Frame(1f / 30f);
+                    }
+
+                    Save(L(level) + "-hidden-partner-marks", painter.Png());
+                }
+
+                Console.WriteLine("Link marks on " + L(level) + ": " + marks.Count + (tapped >= 0 ? ", tapping pod " + tapped : ", no top pod with a hidden partner"));
+                if (tapped >= 0)
+                {
+                    s.Tap(tapped);
+                    var frames = new List<byte[]>();
+                    for (int i = 0; i < 36; i++)
+                    {
+                        Frame(1f / 30f);
+                        if (i == 4 || i == 9 || i == 17)
+                        {
+                            frames.Add(painter.Png());
+                        }
+                    }
+
+                    Save(L(level) + "-tap-hidden-partner", frames[1]);
+                    Box tray = new Box(0f, cache.Regions.Columns[0].Top - 40f, 1080f, Math.Min(2424f, cache.Regions.PodRow.Bottom + 140f));
+                    LatchStills.Strip(frames.ToArray(), new[] { tray }, Path.Combine(outDir, L(level) + "-tap-pulse-strip.png"), 0.6f);
+                }
+
+                // ---- Walkers under way: this level and Level 1 (big cubes) ----
+                foreach (int n in new[] { level, 1 })
+                {
+                    s = Open(n);
+                    RoundPainter.LayoutCache layout = RoundPainter.Layout(painter, s, true, false);
+                    var proof = RoundJson.ReadProof(File.ReadAllText(Path.Combine(roundsDir, "proofs", "L" + n.ToString("0000", CultureInfo.InvariantCulture) + ".json")));
+                    int seen = 0;
+                    LatchStills.Play(s, proof, Frame, () => s.Animator.ShownWalkers.Count >= 6 && ++seen >= 20);
+                    byte[] png = painter.Png();
+                    Save(L(n) + "-walkers-" + tag, png);
+                    Box surface = layout.Board.Surface;
+                    Box zoom = Box.FromCenter(surface.CenterX, surface.CenterY, surface.Width, surface.Height);
+                    LatchStills.Strip(new[] { png }, new[] { zoom }, Path.Combine(outDir, L(n) + "-walkers-" + tag + "-board.png"), 1f);
+                    Console.WriteLine(L(n) + ": " + s.Animator.ShownWalkers.Count + " walkers, " + (surface.Width / layout.Board.Cell).ToString("0.0", CultureInfo.InvariantCulture) + " cubes across");
+                }
+
+                Console.WriteLine("Link stills in " + outDir);
+                return 0;
+            }
+            finally
+            {
+                if (Directory.Exists(data))
+                {
+                    Directory.Delete(data, true);
+                }
+            }
+        }
+    }
+}

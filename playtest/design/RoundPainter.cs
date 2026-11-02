@@ -51,6 +51,9 @@ namespace Bloomlings.Playtest.Design
             /// <summary>The pods drawn locked this frame (each under the closed latch that holds it, FR-068).</summary>
             public readonly HashSet<int> Locked = new HashSet<int>();
             public Box?[] FrameOf = Array.Empty<Box?>();
+
+            /// <summary>The marks of linked pods whose partner waits deeper than the rows show, this frame (RoundAnimator.LinkMarks).</summary>
+            public readonly List<RoundLinkMark> Marks = new List<RoundLinkMark>();
             public readonly bool[] Reachable = new bool[RoundMaterial.Codes.Length];
         }
 
@@ -826,6 +829,19 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
+            // A partner deeper than the rows show (the owner's report of 2026-11-02): the stub out of the shown pod, under the pods
+            // too; its badge and the badge under the partner column's last shown pod after the pods.
+            a.LinkMarks(r.PodRows, cache.Marks);
+            foreach (RoundLinkMark mark in cache.Marks)
+            {
+                Rgba color = RoundLook.ColorOf(mark.Material);
+                if (mark.Kind == RoundLinkMarkKind.Stub && cache.FrameOf[mark.Pod].HasValue)
+                {
+                    p.Mark(LinkTube.MarkSlot);
+                    Kit.LinkTubeStepped(p, LinkTube.Stub(cache.FrameOf[mark.Pod]!.Value, color, mark.ToRight));
+                }
+            }
+
             for (int st = 0; st < columns; st++)
             {
                 if (a.Waiting(st) == 0)
@@ -899,15 +915,33 @@ namespace Bloomlings.Playtest.Design
                 Kit.LatchOverlay(p, frame, a.LatchPips(latch), a.LatchOpenSince(latch));
             }
 
+            // The hidden partners' link badges: on each stub's end and under the partner's column.
+            foreach (RoundLinkMark mark in cache.Marks)
+            {
+                Rgba color = RoundLook.ColorOf(mark.Material);
+                if (mark.Kind == RoundLinkMarkKind.Stub && cache.FrameOf[mark.Pod].HasValue)
+                {
+                    PodPainter.LinkBadge(p, LinkTube.StubBadge(cache.FrameOf[mark.Pod]!.Value, mark.ToRight), color);
+                }
+                else if (mark.Kind == RoundLinkMarkKind.Waiting && mark.Column < r.Columns.Count)
+                {
+                    p.Mark(LinkTube.MarkSlot);
+                    PodPainter.LinkBadge(p, LinkTube.WaitingBadge(LastShown(r, mark.Column), mark.Order, mark.Of), color);
+                }
+            }
+
             Hint(p, s, cache);
         }
+
+        /// <summary>The cube of column <paramref name="column"/>'s last shown row, where a hidden link partner's badge stands under.</summary>
+        private static Box LastShown(ReferenceGameplayRegions r, int column) => PodChip.Cube(r.Pod(column, r.PodRows - 1)).Frame;
 
         /// <summary>The tray motion's key of a latch block (pods use <see cref="RoundLevelScreen.KeyOf"/>).</summary>
         private static string LatchKey(int latch) => "latch:" + latch.ToString(System.Globalization.CultureInfo.InvariantCulture);
 
         /// <summary>
         /// The pulse round the link partner a refused tap waits for, or, while it waits deeper than the rows show, round its
-        /// column's last shown pod (where the queue goes on).
+        /// link badge under its column's last shown pod (<see cref="RoundLinkMarkKind.Waiting"/>, where the queue goes on).
         /// </summary>
         private static void Hint(IPainter p, RoundLevelScreen s, LayoutCache cache)
         {
@@ -933,9 +967,21 @@ namespace Bloomlings.Playtest.Design
                 }
 
                 Box ring;
+                Rgba color = RoundLook.ColorOf(a.MaterialOf(member));
                 if (cache.FrameOf[member].HasValue)
                 {
                     ring = cache.FrameOf[member]!.Value;
+                }
+                else if (WaitingMark(cache.Marks, member) is RoundLinkMark mark && mark.Column < r.Columns.Count)
+                {
+                    // Hidden deeper than the rows show: its badge under the column pulses, round and a little bigger.
+                    Box badge = LinkTube.WaitingBadge(LastShown(r, mark.Column), mark.Order, mark.Of);
+                    color = RoundLook.ColorOf(mark.Material);
+                    float swell = badge.Height * 0.18f * k;
+                    PodPainter.LinkBadge(p, badge.Inset(-swell), color);
+                    float g = badge.Height * (0.12f + (0.22f * k));
+                    p.StrokeCircle(badge.CenterX, badge.CenterY, (badge.Height / 2f) + g, p.U(4f) * (0.6f + (0.4f * k)), color.WithAlpha(0.35f + (0.65f * k)));
+                    continue;
                 }
                 else if (a.ColumnOf(member) >= 0 && a.ColumnOf(member) < r.Columns.Count)
                 {
@@ -946,10 +992,23 @@ namespace Bloomlings.Playtest.Design
                     continue;
                 }
 
-                Rgba color = RoundLook.ColorOf(a.MaterialOf(member));
                 float grow = ring.Height * (0.06f + (0.1f * k));
                 p.StrokeRound(ring.Inset(-grow), (ring.Height * 0.22f) + grow, p.U(5f) * (0.6f + (0.4f * k)), color.WithAlpha(0.35f + (0.65f * k)));
             }
+        }
+
+        /// <summary>The waiting badge that stands for hidden pod <paramref name="pod"/> this frame, or null.</summary>
+        private static RoundLinkMark? WaitingMark(List<RoundLinkMark> marks, int pod)
+        {
+            foreach (RoundLinkMark mark in marks)
+            {
+                if (mark.Kind == RoundLinkMarkKind.Waiting && mark.Pod == pod)
+                {
+                    return mark;
+                }
+            }
+
+            return null;
         }
 
         // ---- The boosters ----

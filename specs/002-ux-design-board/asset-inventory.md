@@ -32,7 +32,7 @@ How to read the columns:
 | Variant symbols | 32 | 4 | 36 |
 | Board tiles and overlays | 35 | 8 | 43 |
 | Specials | 7 | 0 | 7 |
-| Pods and slots | 20 | 0 | 20 |
+| Pods and slots | 21 | 0 | 21 |
 | Booster icons | 11 | 0 | 11 |
 | UI kit | 111 | 0 | 111 |
 | Materials | 3 | 0 | 3 |
@@ -42,7 +42,7 @@ How to read the columns:
 | Visual effects | 12 | 5 | 17 |
 | Typography | 3 | 0 | 3 |
 | Audio | 11 | 3 | 14 |
-| **All** | **307** | **40** | **347** |
+| **All** | **308** | **40** | **348** |
 
 ## Brand
 
@@ -227,6 +227,7 @@ the fallback when a picture is missing.
 | `pod.state.mystery` | Mystery pod | 12 | Tray; slots | hidden; revealing | Small | yes | Launch | the lilac mystery tile with a white ? (`tile.mystery`) and its count; it flips over to the variant tile in its slot |
 | `pod.link` | Connected pods link | 12 | Tray | pair; triple | Small | yes | Launch | a teal bar with a white rim and a light streak, riveted to each wooden frame of members side by side; on every member the link badge (UiRaster.LinkBadge: a white chain of two woven links on a disc of the group's color in the count badge's white ring) over its frame's top right corner, a smaller one at the "+N" disc of a column hiding a member, and a ring of the group's color pulsing round the partner after a tap that waits for it (spec 005 FR-043) |
 | `pod.link.tube` | Link tube of a round level's linked pods (spec 006 FR-043) | 7, 12, 13 | Round levels: the columns and the places | pair in the columns (level or slanted); pair in the places | Small | yes | Launch | UiRaster.LinkTube: a round glossy hose plugged into each pod's front low on its facing side (LinkTube), its half nearer each pod in that pod's colour, a cream coupling ring in the middle and a collar at each end, 0.3 of a pod cube thick (twice the old, the owner, 2026-10-31); drawn under the pods, never over them |
+| `pod.link.away` | Hidden link partner's marks on a round level (spec 006 FR-043; the owner's phone report of 2026-11-02) | 7, 12, 13 | Round levels: the columns | stub on the shown pod; badge under the partner's column; pulse | Small | yes | Launch | a linked pod whose partner waits deeper than the three shown rows: a short stub of the link tube (UiRaster.LinkTube, all in the pod's colour) out of its side towards the partner's column ending in the link badge (UiRaster.LinkBadge), and the same badge under the partner column's last shown pod, where it waits; a refused tap pulses that badge; the tube replaces both once the partner is shown (LinkTube.Stub, WaitingBadge; RoundAnimator.LinkMarks) |
 | `pod.reveal.glow` | Reveal glow of a round level's hidden pod (spec 006 FR-045) | 7, 12 | Round levels: the columns | rising; fading (about 1.6 s) | Small | yes | Launch | soft rings of `garden.glow` round the pod's frame and a bright outline, rising over 0.18 s and fading by 1.6 s (RoundLook.RevealGlow) |
 | `pod.cube` | Round level's pod as a cube (spec 006 FR-064, the owner's pods of 2026-10-28) | 7, 12 | Round levels: the columns (exactly three rows, one after another, no "+N") | top (takes the tap); waiting (rows 2 and 3, a little lighter); pressed (sunk); hidden (the neutral "?" cube) | Small | yes | Launch | UiRaster.PodCube: the board's soft cube (UiRaster.Cube) in the material's colour with no frame or box round it, a waiting pod's lightened RoundScreenLook.InactiveLighten toward white, the symbol on its top in the symbols mode, the white count in a dark outline on its top (PodChip.Cube); a hidden pod is `tile.mystery` with its white "?" |
 | `pod.cube.side` | Side face of a round level's cube (constitution 1.2.0 VII, the owner's "with side faces" of 2026-10-28) | 7, 12 | Round levels: the board's cubes (pods and places have none since the owner's note of 2026-10-31) | left (lighter) or right; five widths a side; only beside an empty neighbour | Small | yes | Launch | UiRaster.SideFace: a strip on the cube's outer side, its width by the column's distance from the centre (RoundLook.SideStep, at most RoundScreenLook.SideShare of the cube), a shade between the top and the front, the left side a little lighter |

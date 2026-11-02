@@ -41,6 +41,7 @@ string? shape = null;
 bool perf = false;
 bool roundsPreview = false;
 (string Rounds, string Out)? latchStills = null;
+(string Rounds, string Out, int Level, string Tag)? linkStills = null;
 (int Level, float Seconds, string Out, string? Style)? clearVideo = null;
 string? roundsFolder = null;
 string? csv = null;
@@ -64,6 +65,26 @@ for (int i = 0; i < args.Length; i++)
         // --latch-stills <rounds dir> <out dir>: the latch's look for the owner's review (LatchStills)
         latchStills = (Path.GetFullPath(args[i + 1]), Path.GetFullPath(args[i + 2]));
         i += 2;
+    }
+    else if (args[i] == "--link-stills" && i + 2 < args.Length)
+    {
+        // --link-stills <rounds dir> <out dir> [level] [tag]: the hidden link partner's marks and the walkers' size (LinkStills)
+        int linkLevel = 54;
+        string linkTag = "now";
+        int used = 2;
+        if (i + 3 < args.Length && int.TryParse(args[i + 3], System.Globalization.NumberStyles.Integer, System.Globalization.CultureInfo.InvariantCulture, out int parsed))
+        {
+            linkLevel = parsed;
+            used = 3;
+            if (i + 4 < args.Length && !args[i + 4].StartsWith("--", StringComparison.Ordinal))
+            {
+                linkTag = args[i + 4];
+                used = 4;
+            }
+        }
+
+        linkStills = (Path.GetFullPath(args[i + 1]), Path.GetFullPath(args[i + 2]), linkLevel, linkTag);
+        i += used;
     }
     else if (args[i] == "--rounds")
     {
@@ -210,6 +231,11 @@ if (sounds)
 if (roundsPreview)
 {
     return RoundsPreview.Write(root, outDir, roundsFolder);
+}
+
+if (linkStills != null)
+{
+    return LinkStills.Write(linkStills.Value.Rounds, linkStills.Value.Out, linkStills.Value.Level, linkStills.Value.Tag);
 }
 
 if (latchStills != null)

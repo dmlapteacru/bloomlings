@@ -1439,6 +1439,21 @@ namespace Bloomlings.Playtest
                     }
                 }
             }
+
+            // A linked pod deeper than the three rows (the owner's report of 2026-11-02): its group's "∞" under its column.
+            var marks = new List<Bloomlings.Client.UI.Design.RoundLinkMark>();
+            a.LinkMarks(visible, marks);
+            foreach (Bloomlings.Client.UI.Design.RoundLinkMark mark in marks)
+            {
+                if (mark.Kind != Bloomlings.Client.UI.Design.RoundLinkMarkKind.Waiting)
+                {
+                    continue;
+                }
+
+                float cx = area.Left + (columnWidth * (mark.Column + 0.5f)) + ((mark.Order - ((mark.Of - 1) / 2f)) * size * 0.4f);
+                float y = area.Top + (visible * size * (1f + gap)) - (size * 0.02f);
+                Text(canvas, "∞" + level.Pods[mark.Pod].Group, cx, y, size * 0.22f, EntryColor);
+            }
         }
 
         // A padlock glyph over a pod's top right corner (17 §8): a brass body with a keyhole under a grey shackle, its pips below.

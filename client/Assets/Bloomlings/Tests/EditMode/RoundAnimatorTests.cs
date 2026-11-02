@@ -83,17 +83,41 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
-        public void TheWalkerSize_Is1Point4CubesOnBigCubes_And1Point6OnSmallOnes()
+        public void TheWalkerBody_Is1Point4CubesOnBigCubes_And1Point6OnSmallOnes()
         {
             // the owner, 2026-10-31: "1.6 when the cubes get small, 1.4 on big ones"
-            Assert.That(ClearStyles.WalkerCubes(10f), Is.EqualTo(1.4f).Within(1e-5f));
-            Assert.That(ClearStyles.WalkerCubes(ClearStyles.BigCubesAcross), Is.EqualTo(1.4f).Within(1e-5f));
-            Assert.That(ClearStyles.WalkerCubes((ClearStyles.BigCubesAcross + ClearStyles.SmallCubesAcross) / 2f), Is.EqualTo(1.5f).Within(1e-5f));
-            Assert.That(ClearStyles.WalkerCubes(ClearStyles.SmallCubesAcross), Is.EqualTo(1.6f).Within(1e-5f));
-            Assert.That(ClearStyles.WalkerCubes(60f), Is.EqualTo(1.6f).Within(1e-5f));
+            Assert.That(ClearStyles.WalkerBodyCubes(10f), Is.EqualTo(1.4f).Within(1e-5f));
+            Assert.That(ClearStyles.WalkerBodyCubes(ClearStyles.BigCubesAcross), Is.EqualTo(1.4f).Within(1e-5f));
+            Assert.That(ClearStyles.WalkerBodyCubes((ClearStyles.BigCubesAcross + ClearStyles.SmallCubesAcross) / 2f), Is.EqualTo(1.5f).Within(1e-5f));
+            Assert.That(ClearStyles.WalkerBodyCubes(ClearStyles.SmallCubesAcross), Is.EqualTo(1.6f).Within(1e-5f));
+            Assert.That(ClearStyles.WalkerBodyCubes(60f), Is.EqualTo(1.6f).Within(1e-5f));
+        }
+
+        [Test]
+        public void OnSmallCubes_TheWalkersAreOneAndAHalfTimesBigger_AndBigCubesKeepTheirSize()
+        {
+            // the owner's phone report of 2026-11-02 (L54): "the heroes on such small cubes should be bigger, about one and a half times"
+            Assert.That(ClearStyles.SmallCubeBoost(ClearStyles.BigCubesAcross), Is.EqualTo(1f).Within(1e-5f), "L1's big cubes");
+            Assert.That(ClearStyles.SmallCubeBoost(ClearStyles.BoostFromCubesAcross), Is.EqualTo(1f).Within(1e-5f));
+            Assert.That(ClearStyles.SmallCubeBoost(29f), Is.EqualTo(1.25f).Within(1e-5f), "linear in between");
+            Assert.That(ClearStyles.SmallCubeBoost(ClearStyles.BoostFullCubesAcross), Is.EqualTo(1.5f).Within(1e-5f));
+            Assert.That(ClearStyles.SmallCubeBoost(37f), Is.EqualTo(1.5f).Within(1e-5f), "L54's 37 cubes across");
+            Assert.That(ClearStyles.SmallCubeBoost(60f), Is.EqualTo(1.5f).Within(1e-5f));
+
+            Assert.That(ClearStyles.WalkerCubes(ClearStyles.BigCubesAcross), Is.EqualTo(1.4f).Within(1e-5f), "big cubes unchanged");
+            Assert.That(ClearStyles.WalkerCubes(37f), Is.EqualTo(ClearStyles.WalkerBodyCubes(37f) * 1.5f).Within(1e-5f));
+            Assert.That(ClearStyles.WalkerCubes(ClearStyles.SmallCubesAcross), Is.EqualTo(2.4f).Within(1e-5f));
+            for (float across = 10f; across < 60f; across += 0.5f)
+            {
+                Assert.That(ClearStyles.WalkerCubes(across + 0.5f), Is.GreaterThanOrEqualTo(ClearStyles.WalkerCubes(across)), "never smaller on smaller cubes");
+            }
+
+            // one rule for every style and both builds: the live walk carries it
             var points = new List<(float X, float Y)> { (3f, 4f), (3f, 3f) };
             ClearWalk walk = ClearWalk.Live(points, 0, VariantId.Leaf, 0f, 1f, 1.1f, 1.5f, null, ClearStyles.SmallCubesAcross);
-            Assert.That(walk.LiveScale * ClearLook.WalkerSize, Is.EqualTo(1.6f).Within(1e-5f));
+            Assert.That(walk.LiveScale * ClearLook.WalkerSize, Is.EqualTo(2.4f).Within(1e-5f));
+            ClearWalk big = ClearWalk.Live(points, 0, VariantId.Leaf, 0f, 1f, 1.1f, 1.5f, null, ClearStyles.BigCubesAcross);
+            Assert.That(big.LiveScale * ClearLook.WalkerSize, Is.EqualTo(1.4f).Within(1e-5f));
         }
 
         [Test]
@@ -329,6 +353,99 @@ namespace Bloomlings.Client.Tests
             RoundTube places = play.Animator.Tubes(3).Single();
             Assert.That(places.Place, Is.EqualTo(RoundTubePlace.Places));
             Assert.That(play.Animator.PlaceOf(0) >= 0 && play.Animator.PlaceOf(1) >= 0, Is.True, "one tap launches the pair");
+        }
+
+        // G pod 0 on top of column 0 linked to P pod 1 fourth in column 1 (deeper than three rows), and, in the two-group
+        // version, P pod 6 on top of column 2 linked to P pod 5 fifth in column 1.
+        private static RoundLevel DeepPartner(bool twoGroups) => twoGroups
+            ? new RoundLevel(5, 11, 5,
+                new[] { "#####.#####", "#.........#", "#.GGGGPPP.#", "#.........#", "###########" },
+                new[] { new RoundPod('G', 1, group: "A"), new RoundPod('P', 1, group: "A"), new RoundPod('G', 1), new RoundPod('G', 1), new RoundPod('G', 1), new RoundPod('P', 1, group: "B"), new RoundPod('P', 1, group: "B") },
+                new IReadOnlyList<int>[] { new[] { 0 }, new[] { 2, 3, 4, 1, 5 }, new[] { 6 } })
+            : new RoundLevel(5, 9, 5,
+                new[] { "####.####", "#.......#", "#.GGGGP.#", "#.......#", "#########" },
+                new[] { new RoundPod('G', 1, group: "A"), new RoundPod('P', 1, group: "A"), new RoundPod('G', 1), new RoundPod('G', 1), new RoundPod('G', 1) },
+                new IReadOnlyList<int>[] { new[] { 0 }, new[] { 2, 3, 4, 1 } });
+
+        [Test]
+        public void APartnerDeeperThanTheRows_GivesAStubAndAColumnBadge_ThenTheTubeReplacesThem()
+        {
+            // the owner's phone report of 2026-11-02 (L54): "it says there is a link, but I can't see it"
+            var play = new RoundPlay(DeepPartner(false));
+            RoundAnimator a = play.Animator;
+            var marks = new List<RoundLinkMark>();
+            Assert.That(a.RowOf(1), Is.EqualTo(3));
+            Assert.That(a.Tubes(3), Is.Empty, "no tube to a pod the tray does not show");
+            a.LinkMarks(3, marks);
+            Assert.That(marks.Select(m => (m.Kind, m.Pod, m.Partner, m.Column, m.ToRight)), Is.EqualTo(new[]
+            {
+                (RoundLinkMarkKind.Stub, 0, 1, 1, true),
+                (RoundLinkMarkKind.Waiting, 1, 0, 1, false),
+            }));
+            Assert.That(marks.All(m => m.Material == RoundMaterial.IndexOf('G')), Is.True, "both in the shown pod's colour, never the hidden one's");
+            Assert.That((marks[1].Order, marks[1].Of), Is.EqualTo((0, 1)));
+
+            // the tap waits for the hidden partner
+            Assert.That(play.Check(RoundAction.Tap(0)), Is.EqualTo(RoundRefusal.PartnerNotExposed));
+
+            // four rows shown: the tube and no mark
+            Assert.That(a.Tubes(4).Single().Place, Is.EqualTo(RoundTubePlace.Columns));
+            a.LinkMarks(4, marks);
+            Assert.That(marks, Is.Empty);
+
+            // the top pod of column 1 leaves: the partner comes into the third row, the tube replaces both marks
+            play.Commit(RoundAction.Tap(2));
+            Assert.That(a.RowOf(1), Is.EqualTo(2));
+            RoundTube tube = a.Tubes(3).Single();
+            Assert.That((tube.First, tube.Second, tube.Place), Is.EqualTo((0, 1, RoundTubePlace.Columns)));
+            a.LinkMarks(3, marks);
+            Assert.That(marks, Is.Empty);
+        }
+
+        [Test]
+        public void TwoHiddenPartnersInOneColumn_StandSideBySide_EachInItsGroupsColour()
+        {
+            var play = new RoundPlay(DeepPartner(true));
+            var marks = new List<RoundLinkMark>();
+            play.Animator.LinkMarks(3, marks);
+            Assert.That(marks.Select(m => (m.Kind, m.Pod, m.Column, m.ToRight, m.Material, m.Order, m.Of)), Is.EqualTo(new[]
+            {
+                (RoundLinkMarkKind.Stub, 0, 1, true, RoundMaterial.IndexOf('G'), 0, 1),
+                (RoundLinkMarkKind.Stub, 6, 1, false, RoundMaterial.IndexOf('P'), 0, 1),
+                (RoundLinkMarkKind.Waiting, 1, 1, false, RoundMaterial.IndexOf('G'), 0, 2),
+                (RoundLinkMarkKind.Waiting, 5, 1, false, RoundMaterial.IndexOf('P'), 1, 2),
+            }));
+        }
+
+        [Test]
+        public void TheHiddenPartnersMarks_SitOnTheCubesSide_InTheGap_AndUnderTheColumn()
+        {
+            var cube = new Box(100f, 200f, 200f, 300f);
+            Rgba red = RoundLook.ColorOf(RoundMaterial.IndexOf('G'));
+            LinkTubeShape right = LinkTube.Stub(cube, red, true);
+            Assert.That(right.Start.X, Is.LessThan(cube.Right), "plugged in under the cube's edge");
+            Assert.That(right.End.X, Is.EqualTo(cube.Right + (100f * LinkTube.StubShare)).Within(1e-3));
+            Assert.That(right.Start.Y, Is.EqualTo(LinkTube.FrontY(cube, LinkTube.CubeFrontShare)).Within(1e-3), "at the tube's height");
+            Assert.That(right.Thickness, Is.EqualTo(100f * LinkTube.CubeThicknessShare).Within(1e-3));
+            Assert.That(right.StartColor, Is.EqualTo(red));
+            Assert.That(right.EndColor, Is.EqualTo(red));
+            LinkTubeShape left = LinkTube.Stub(cube, red, false);
+            Assert.That(left.Start.X, Is.EqualTo(cube.Left - (100f * LinkTube.StubShare)).Within(1e-3));
+            Assert.That(left.End.X, Is.GreaterThan(cube.Left));
+
+            Box badge = LinkTube.StubBadge(cube, true);
+            Assert.That(badge.CenterX, Is.EqualTo(right.End.X).Within(1e-3), "the badge on the stub's end");
+            Assert.That(badge.Right, Is.LessThan(cube.Right + (100f * RoundScreenLook.ColumnGap)), "clear of the next column");
+            Assert.That(badge.Width, Is.EqualTo(100f * LinkTube.MarkBadgeShare).Within(1e-3));
+
+            Box under = LinkTube.WaitingBadge(cube);
+            Assert.That(under.CenterX, Is.EqualTo(cube.CenterX).Within(1e-3));
+            Assert.That(under.CenterY, Is.GreaterThan(cube.Bottom), "under the last shown cube");
+            Box first = LinkTube.WaitingBadge(cube, 0, 2);
+            Box second = LinkTube.WaitingBadge(cube, 1, 2);
+            Assert.That(first.Right, Is.LessThanOrEqualTo(second.Left), "side by side");
+            Assert.That((first.CenterX + second.CenterX) / 2f, Is.EqualTo(cube.CenterX).Within(1e-3), "centred");
+            Assert.That(AssetSlots.Has(LinkTube.MarkSlot), Is.True);
         }
 
         [Test]

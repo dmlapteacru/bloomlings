@@ -16,7 +16,9 @@ namespace Bloomlings.Client.Gameplay.Tray
     /// three pods as soft cubes one after another, never under each other, the top pod the only one that takes the tap and
     /// nothing for the rest (no "+N"); a pod's cube in its material's colour with its count, the waiting ones only a little
     /// lighter, a hidden pod's "?" cube until it reveals and its glow then (FR-045); the link tubes on linked cubes' front
-    /// faces, under the pods (FR-043); and the pulse round the partner a refused tap waits for. The pods slide up a row
+    /// faces, under the pods (FR-043), and for a partner deeper than the rows show a stub towards its column with a link badge
+    /// and a badge under that column (<see cref="RoundAnimator.LinkMarks"/>); and the pulse round the partner a refused tap
+    /// waits for (round that badge while it is hidden). The pods slide up a row
     /// when the top one leaves. A latch (17 §8, FR-068; the owner's look of 2026-11-01) is drawn on the pod it holds: that pod
     /// a little darker with a padlock and our acorn hero hugging it; when it opens the padlock springs open and drops, the
     /// acorn hops off and the pod takes taps.
@@ -29,6 +31,13 @@ namespace Bloomlings.Client.Gameplay.Tray
         private readonly Dictionary<int, (Image Fill, Image Ring)> _roundGlows = new Dictionary<int, (Image, Image)>();
         private readonly Dictionary<int, Box> _roundFrames = new Dictionary<int, Box>();
         private readonly List<Image> _roundHints = new List<Image>();
+
+        // A link partner deeper than the rows show (the owner's report of 2026-11-02): the marks, the stubs under the pods and the
+        // badges over them, with the colour each badge shows.
+        private readonly List<RoundLinkMark> _roundMarks = new List<RoundLinkMark>();
+        private readonly List<Image> _roundStubs = new List<Image>();
+        private readonly HashSet<Image> _roundHintRound = new HashSet<Image>();
+        private readonly List<(Image Badge, string Color)> _roundMarkBadges = new List<(Image, string)>();
         private RectTransform? _roundBack;
         private RectTransform? _roundFront;
         private ReferenceGameplayRegions? _roundGrid;
@@ -298,6 +307,66 @@ namespace Bloomlings.Client.Gameplay.Tray
                 _roundTubes[i].gameObject.SetActive(false);
             }
 
+            // A partner deeper than the rows show (the owner's report of 2026-11-02, LinkTube.MarkSlot): a stub out of the shown
+            // pod towards the partner's column under the pods, a link badge on its end and one under the partner column's last
+            // shown pod over them.
+            a.LinkMarks(grid.PodRows, _roundMarks);
+            int stubs = 0;
+            int badges = 0;
+            foreach (RoundLinkMark mark in _roundMarks)
+            {
+                Rgba color = RoundLook.ColorOf(mark.Material);
+                Box badgeBox;
+                if (mark.Kind == RoundLinkMarkKind.Stub && _roundFrames.TryGetValue(mark.Pod, out Box shown))
+                {
+                    if (stubs == _roundStubs.Count)
+                    {
+                        _roundStubs.Add(RoundTubes.Create("LinkStub", _roundBack!));
+                    }
+
+                    RoundTubes.Show(_roundStubs[stubs++], LinkTube.Stub(shown, color, mark.ToRight));
+                    badgeBox = LinkTube.StubBadge(shown, mark.ToRight);
+                }
+                else if (mark.Kind == RoundLinkMarkKind.Waiting && mark.Column < grid.Columns.Count)
+                {
+                    badgeBox = LinkTube.WaitingBadge(LastShown(grid, mark.Column), mark.Order, mark.Of);
+                }
+                else
+                {
+                    continue;
+                }
+
+                if (badges == _roundMarkBadges.Count)
+                {
+                    Image created = UiKit.LinkBadge("LinkAway", _area, color);
+                    created.raycastTarget = false;
+                    _roundMarkBadges.Add((created, color.Hex));
+                }
+
+                (Image badge, string shownColor) = _roundMarkBadges[badges];
+                if (shownColor != color.Hex)
+                {
+                    UiKit.SetLinkBadge(badge, color);
+                    _roundMarkBadges[badges] = (badge, color.Hex);
+                }
+
+                badges++;
+                BoxLayout.Place(badge.rectTransform, badgeBox);
+                badge.rectTransform.localScale = Vector3.one;
+                badge.gameObject.SetActive(true);
+                badge.transform.SetSiblingIndex(_roundFront!.GetSiblingIndex());
+            }
+
+            for (int i = stubs; i < _roundStubs.Count; i++)
+            {
+                _roundStubs[i].gameObject.SetActive(false);
+            }
+
+            for (int i = badges; i < _roundMarkBadges.Count; i++)
+            {
+                _roundMarkBadges[i].Badge.gameObject.SetActive(false);
+            }
+
             // The reveal glow behind a pod that has just revealed (FR-045).
             foreach (KeyValuePair<int, (Image Fill, Image Ring)> glow in _roundGlows)
             {
@@ -335,8 +404,8 @@ namespace Bloomlings.Client.Gameplay.Tray
                 parts.Ring.gameObject.SetActive(true);
             }
 
-            // The pulse round the partner a refused tap waits for, or, while it waits deeper than the rows show, round its
-            // column's last shown pod (FR-008).
+            // The pulse round the partner a refused tap waits for, or, while it waits deeper than the rows show, round its link
+            // badge under its column's last shown pod (FR-008; the owner's report of 2026-11-02).
             int hints = 0;
             float k = core.LinkPulse;
             if (k > 0f && core.LinkHint.HasValue)
@@ -350,9 +419,22 @@ namespace Bloomlings.Client.Gameplay.Tray
                     }
 
                     Box ring;
+                    bool round = false;
+                    Rgba color = RoundLook.ColorOf(a.MaterialOf(member));
                     if (_roundFrames.TryGetValue(member, out Box frame))
                     {
                         ring = frame;
+                    }
+                    else if (WaitingMark(member, out RoundLinkMark mark, out int index) && mark.Column < grid.Columns.Count)
+                    {
+                        // Hidden deeper than the rows show: its badge under the column swells, a ring pulsing round it.
+                        Box badge = LinkTube.WaitingBadge(LastShown(grid, mark.Column), mark.Order, mark.Of);
+                        float swell = 1f + (0.36f * k);
+                        _roundMarkBadges[index].Badge.rectTransform.localScale = new Vector3(swell, swell, 1f);
+                        color = RoundLook.ColorOf(mark.Material);
+                        float g = badge.Height * (0.12f + (0.22f * k));
+                        ring = badge.Inset(-g);
+                        round = true;
                     }
                     else if (a.ColumnOf(member) >= 0 && a.ColumnOf(member) < grid.Columns.Count)
                     {
@@ -365,15 +447,16 @@ namespace Bloomlings.Client.Gameplay.Tray
 
                     if (hints == _roundHints.Count)
                     {
-                        Image created = UiKit.RoundRing("LinkPulse", _roundFront!, Color.white, b => b.Height * 0.24f, _ => UiKit.Units(4f));
+                        Image created = null!;
+                        created = UiKit.RoundRing("LinkPulse", _roundFront!, Color.white, b => b.Height * (_roundHintRound.Contains(created) ? 0.5f : 0.24f), _ => UiKit.Units(4f));
                         created.raycastTarget = false;
                         _roundHints.Add(created);
                     }
 
                     Image hint = _roundHints[hints++];
-                    float grow = ring.Height * (0.06f + (0.1f * k));
+                    if (round) _roundHintRound.Add(hint); else _roundHintRound.Remove(hint);
+                    float grow = round ? 0f : ring.Height * (0.06f + (0.1f * k));
                     BoxLayout.Place(hint.rectTransform, ring.Inset(-grow));
-                    Rgba color = RoundLook.ColorOf(a.MaterialOf(member));
                     hint.color = UiTheme.Of(color.WithAlpha(0.35f + (0.65f * k)));
                     hint.gameObject.SetActive(true);
                     hint.transform.SetAsLastSibling();
@@ -385,6 +468,32 @@ namespace Bloomlings.Client.Gameplay.Tray
                 _roundHints[i].gameObject.SetActive(false);
             }
         }
+
+        /// <summary>
+        /// The waiting badge (<see cref="RoundLinkMarkKind.Waiting"/>) standing for hidden pod <paramref name="pod"/> this frame and
+        /// its index among the shown mark badges.
+        /// </summary>
+        private bool WaitingMark(int pod, out RoundLinkMark found, out int index)
+        {
+            index = 0;
+            foreach (RoundLinkMark mark in _roundMarks)
+            {
+                bool drawn = mark.Kind == RoundLinkMarkKind.Waiting || _roundFrames.ContainsKey(mark.Pod);
+                if (mark.Kind == RoundLinkMarkKind.Waiting && mark.Pod == pod && index < _roundMarkBadges.Count)
+                {
+                    found = mark;
+                    return true;
+                }
+
+                index += drawn ? 1 : 0;
+            }
+
+            found = default;
+            return false;
+        }
+
+        /// <summary>The cube of column <paramref name="stack"/>'s last shown row, where a hidden link partner's badge stands under.</summary>
+        private static Box LastShown(ReferenceGameplayRegions grid, int stack) => PodChip.Cube(grid.Pod(stack, grid.PodRows - 1)).Frame;
 
         private static string Key(int pod) => pod.ToString(CultureInfo.InvariantCulture);
 

@@ -268,7 +268,7 @@ namespace Bloomlings.Playtest.Preview
         }
 
         // The saved solution as a patient player (each command once the work settled), until done() holds after a frame.
-        private static bool Play(RoundLevelScreen s, RoundProof proof, Action<float> frame, Func<bool> done)
+        internal static bool Play(RoundLevelScreen s, RoundProof proof, Action<float> frame, Func<bool> done)
         {
             IReadOnlyList<RoundCommand> commands = proof.Solution.Commands;
             for (int c = 0; c <= commands.Count; c++)
@@ -300,7 +300,7 @@ namespace Bloomlings.Playtest.Preview
         }
 
         // Crops each area out of each frame and lays them out: a row per area, a column per frame, scaled by zoom.
-        private static void Strip(byte[][] frames, Box[] areas, string into, float zoom)
+        internal static void Strip(byte[][] frames, Box[] areas, string into, float zoom)
         {
             var bitmaps = new List<SKBitmap>();
             try

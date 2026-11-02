@@ -133,8 +133,48 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The most cubes across the board's box (a 48-wide board's 46 columns): the smallest cubes.</summary>
         public const float SmallCubesAcross = 46f;
 
-        /// <summary>A round walker's size in cubes when <paramref name="cubesAcross"/> cubes span the board's box.</summary>
-        public static float WalkerCubes(float cubesAcross)
+        /// <summary>
+        /// How much bigger a round walker is drawn on small cubes (the owner's phone report of 2026-11-02, L54: "the heroes on
+        /// such small cubes should be bigger, about one and a half times"): <see cref="SmallCubeBoost"/> is this from
+        /// <see cref="BoostFullCubesAcross"/> cubes across the board's box on.
+        /// </summary>
+        public const float SmallCubeWalkerBoost = 1.5f;
+
+        /// <summary>
+        /// Up to this many cubes across the board's box a walker keeps its size (<see cref="SmallCubeBoost"/> 1): the big cubes
+        /// of the first levels (L1 about 19 across, L2 20, L3 23).
+        /// </summary>
+        public const float BoostFromCubesAcross = 24f;
+
+        /// <summary>
+        /// From this many cubes across the board's box on a walker is <see cref="SmallCubeWalkerBoost"/> bigger (L54's 39-wide
+        /// board shows 37 across); in between the boost grows linearly.
+        /// </summary>
+        public const float BoostFullCubesAcross = 34f;
+
+        /// <summary>
+        /// The factor a round walker's size takes on small cubes (presentation only): 1 up to <see cref="BoostFromCubesAcross"/>
+        /// cubes across the board's box, <see cref="SmallCubeWalkerBoost"/> from <see cref="BoostFullCubesAcross"/> on, linear
+        /// in between. One rule for every clearing style and both builds (<see cref="WalkerCubes"/>, <c>ClearWalk.Live</c>);
+        /// the Store's previews draw no live walks and keep their look.
+        /// </summary>
+        public static float SmallCubeBoost(float cubesAcross)
+        {
+            float k = Math.Max(0f, Math.Min(1f, (cubesAcross - BoostFromCubesAcross) / (BoostFullCubesAcross - BoostFromCubesAcross)));
+            return 1f + ((SmallCubeWalkerBoost - 1f) * k);
+        }
+
+        /// <summary>
+        /// A round walker's size in cubes when <paramref name="cubesAcross"/> cubes span the board's box: its body size
+        /// (<see cref="WalkerCubesBig"/> to <see cref="WalkerCubesSmall"/>) times the small cubes' boost (<see cref="SmallCubeBoost"/>).
+        /// </summary>
+        public static float WalkerCubes(float cubesAcross) => WalkerBodyCubes(cubesAcross) * SmallCubeBoost(cubesAcross);
+
+        /// <summary>
+        /// A round walker's body size in cubes before the small cubes' boost: <see cref="WalkerCubesBig"/> on the biggest cubes,
+        /// <see cref="WalkerCubesSmall"/> on the smallest, linear in between.
+        /// </summary>
+        public static float WalkerBodyCubes(float cubesAcross)
         {
             float k = Math.Max(0f, Math.Min(1f, (cubesAcross - BigCubesAcross) / (SmallCubesAcross - BigCubesAcross)));
             return WalkerCubesBig + ((WalkerCubesSmall - WalkerCubesBig) * k);

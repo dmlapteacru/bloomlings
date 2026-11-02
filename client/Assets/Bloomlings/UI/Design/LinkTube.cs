@@ -152,5 +152,59 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>The tube between two linked pods in the columns, attached to their frames (<see cref="PodChip.Frame"/>).</summary>
         public static LinkTubeShape BetweenPods(PodChip a, Rgba colorA, PodChip b, Rgba colorB) => Between(a.Frame, colorA, b.Frame, colorB);
+
+        // ---- A partner deeper than the rows show (the owner's phone report of 2026-11-02, L54; RoundAnimator.LinkMarks) ----
+
+        /// <summary>The hidden partner's marks' asset slot (<see cref="RoundLinkMark"/>: the tube's stub and the link badge).</summary>
+        public const string MarkSlot = "pod.link.away";
+
+        /// <summary>How far a stub reaches out of its pod cube's side, to the badge's middle, as a share of the cube's side.</summary>
+        public const float StubShare = 0.4f;
+
+        /// <summary>The link badge picture's side (<see cref="UiRaster.LinkBadge"/>) on a stub's end and under a column, as a share of the cube's side.</summary>
+        public const float MarkBadgeShare = 0.4f;
+
+        /// <summary>
+        /// How far below the last shown pod cube's bottom a waiting badge's middle stands, as a share of the cube's side (its
+        /// upper part over the cube's front, the rest in the bottom margin).
+        /// </summary>
+        public const float WaitingDropShare = 0.1f;
+
+        /// <summary>
+        /// The stub of a linked pod whose partner is hidden (<see cref="RoundLinkMarkKind.Stub"/>): the tube's picture, plugged into
+        /// the middle of <paramref name="cube"/>'s front face like a tube (<see cref="BetweenCubes"/>) on its side towards the
+        /// partner's column (<paramref name="toRight"/>), reaching <see cref="StubShare"/> of a cube out into the gap between the
+        /// columns, all in the pod's <paramref name="color"/>; draw it before the pods like a tube.
+        /// </summary>
+        public static LinkTubeShape Stub(Box cube, Rgba color, bool toRight)
+        {
+            float side = Math.Min(cube.Width, cube.Height);
+            (float X, float Y) start = Anchor(cube, toRight, CubeFrontShare);
+            float reach = (side * StubShare) + (cube.Height * TuckShare);
+            (float X, float Y) end = (start.X + (toRight ? reach : -reach), start.Y);
+            float thickness = Math.Max(1f, side * CubeThicknessShare);
+            return toRight ? new LinkTubeShape(start, color, end, color, thickness) : new LinkTubeShape(end, color, start, color, thickness);
+        }
+
+        /// <summary>The link badge on a stub's end (<see cref="Stub"/>): <see cref="MarkBadgeShare"/> of a cube round the stub's outer end.</summary>
+        public static Box StubBadge(Box cube, bool toRight)
+        {
+            float side = Math.Min(cube.Width, cube.Height);
+            float x = toRight ? cube.Right + (side * StubShare) : cube.Left - (side * StubShare);
+            return Box.FromCenter(x, FrontY(cube, CubeFrontShare), side * MarkBadgeShare, side * MarkBadgeShare);
+        }
+
+        /// <summary>
+        /// The link badge for a hidden partner in its column (<see cref="RoundLinkMarkKind.Waiting"/>) under the column's last
+        /// shown pod cube <paramref name="last"/>, <see cref="WaitingDropShare"/> below its bottom; several groups' badges
+        /// (<paramref name="order"/> of <paramref name="of"/>) side by side, centred.
+        /// </summary>
+        public static Box WaitingBadge(Box last, int order = 0, int of = 1)
+        {
+            float side = Math.Min(last.Width, last.Height);
+            float size = side * MarkBadgeShare;
+            float x = last.CenterX + ((order - ((Math.Max(1, of) - 1) / 2f)) * size * 1.05f);
+            return Box.FromCenter(x, last.Bottom + (side * WaitingDropShare), size, size);
+        }
     }
 }
