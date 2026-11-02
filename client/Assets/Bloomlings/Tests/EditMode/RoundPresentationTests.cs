@@ -7,6 +7,7 @@ using Bloomlings.Client.UI.Design;
 using Bloomlings.Client.UI.Localization;
 using Bloomlings.Core.Definitions;
 using Bloomlings.Core.Rounds;
+using Bloomlings.Core.Variants;
 using NUnit.Framework;
 using UnityEngine;
 
@@ -737,15 +738,25 @@ namespace Bloomlings.Client.Tests
             float feet = cell.Top + (cell.Height * HeroMotion.FootLine);
             Assert.That(feet, Is.LessThanOrEqualTo(place.Bottom).And.GreaterThan(place.Bottom - (place.Height * 0.1f)), "feet at the place's bottom");
             Assert.That(cell.CenterX, Is.EqualTo(place.CenterX).Within(1e-3f));
-            Box padlock = RoundLook.HeroLock(cell);
-            Assert.That(padlock.Left, Is.GreaterThan(place.Left).And.LessThan(place.CenterX));
-            Assert.That(padlock.Right, Is.LessThan(place.Right));
-            (Box left, Box right) = RoundLook.HeroHands(cell);
-            float bodyLeft = padlock.Left + (padlock.Width * 0.24f);
-            float bodyRight = padlock.Left + (padlock.Width * 0.76f);
-            Assert.That(left.Right, Is.GreaterThan(bodyLeft), "his hands over the padlock's sides");
-            Assert.That(right.Left, Is.LessThan(bodyRight));
-            Assert.That(left.CenterY, Is.InRange(padlock.Top + (padlock.Width * 0.53f), padlock.Bottom), "at the padlock's body");
+            foreach (Family family in new[] { Family.Sprig, Family.Bloom, Family.Drop, Family.Twig })
+            {
+                Box padlock = RoundLook.HeroLock(cell, family);
+                Assert.That(padlock.Left, Is.GreaterThan(place.Left).And.LessThan(place.CenterX), family.ToString());
+                Assert.That(padlock.Right, Is.LessThan(place.Right));
+                (Box left, Box right) = RoundLook.HeroHands(cell, family);
+                float bodyLeft = padlock.Left + (padlock.Width * 0.24f);
+                float bodyRight = padlock.Left + (padlock.Width * 0.76f);
+                Assert.That(left.Right, Is.GreaterThan(bodyLeft), family + ": his hands over the padlock's sides");
+                Assert.That(right.Left, Is.LessThan(bodyRight));
+                Assert.That(left.CenterY, Is.InRange(padlock.Top + (padlock.Width * 0.53f), padlock.Bottom), family + ": at the padlock's body");
+            }
+
+            // the hero of the held pod's colour; Twig for a hidden pod and for a latch with no pod of its own
+            Assert.That(RoundLook.LatchFamily(RoundMaterial.IndexOf('G')), Is.EqualTo(RoundMaterial.Of('G').Family));
+            Assert.That(Enumerable.Range(0, RoundMaterial.All.Count).Select(m => RoundLook.LatchFamily(m)).Distinct().Count(), Is.EqualTo(4), "all four heroes");
+            Assert.That(RoundLook.LatchFamily(-1), Is.EqualTo(Family.Twig));
+            Assert.That(RoundLook.LatchFamily(2, holds: false), Is.EqualTo(Family.Twig));
+            Assert.That(RoundIntroLatch.Hero, Is.EqualTo(RoundMaterial.All[RoundIntroLatch.Material].Family));
             Assert.That(RoundLook.HeroSide(0, 4), Is.EqualTo(-1));
             Assert.That(RoundLook.HeroSide(3, 4), Is.EqualTo(1));
         }

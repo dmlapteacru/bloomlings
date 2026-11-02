@@ -900,15 +900,16 @@ namespace Bloomlings.Playtest.Design
             }
 
             // The latches (FR-068; the owner's look of 2026-11-02): in the place of the pod each holds (not drawn while it is
-            // closed), our Twig hero in the player's outfit holding a padlock in that pod's colour (brass when the latch holds no
-            // pod of its own); lightened in rows 2 and 3. Opening, the padlock springs open and drops and he steps aside from
-            // the pod, drawn behind him.
-            Outfit? outfit = s.TwigOutfit;
+            // closed), the hero of that pod's colour (Twig for a hidden pod) in the player's outfit for his family, holding a
+            // padlock in that colour (Twig with a brass one when the latch holds no pod of its own); lightened in rows 2 and 3.
+            // Opening, the padlock springs open and drops and he steps aside from the pod, drawn behind him.
             foreach ((int latch, int st, bool holds, int row, Box drawn) in latches)
             {
-                Rgba body = holds ? RoundLook.KeyMetal(a.KeyMaterial(latch)) : RoundLook.KeyBrass;
-                Kit.LatchHero(p, drawn, outfit, body, a.LatchPips(latch), a.LatchOpenSince(latch), RoundLook.HeroSide(st, columns), row > 0);
-                cache.LatchLocks[latch] = RoundLook.HeroLock(RoundLook.HeroCell(drawn));
+                int material = a.KeyMaterial(latch);
+                Family family = RoundLook.LatchFamily(material, holds);
+                Rgba body = holds ? RoundLook.KeyMetal(material) : RoundLook.KeyBrass;
+                Kit.LatchHero(p, drawn, family, s.OutfitOf(family), body, a.LatchPips(latch), a.LatchOpenSince(latch), RoundLook.HeroSide(st, columns), row > 0);
+                cache.LatchLocks[latch] = RoundLook.HeroLock(RoundLook.HeroCell(drawn), family);
             }
 
             Hint(p, s, cache);
@@ -931,7 +932,7 @@ namespace Bloomlings.Playtest.Design
                 }
 
                 RoundLatch l = a.Level.Latches[latch];
-                Box padlock = cache.LatchLocks.TryGetValue(latch, out Box shown) ? shown : RoundLook.HeroLock(RoundLook.HeroCell(cache.Regions.Pod(Math.Min(l.Column, cache.Regions.Columns.Count - 1), 0)));
+                Box padlock = cache.LatchLocks.TryGetValue(latch, out Box shown) ? shown : RoundLook.HeroLock(RoundLook.HeroCell(cache.Regions.Pod(Math.Min(l.Column, cache.Regions.Columns.Count - 1), 0)), RoundLook.LatchFamily(a.KeyMaterial(latch)));
                 Box cell = board.CellBox(l.Key);
                 float turns = RoundLook.KeyTurns(KeySeconds(s.ShowSeconds - since, latch));
                 Kit.FlyingKey(p, RoundLook.KeyBox(cell, board.Surface), padlock, RoundLook.KeyMetal(a.KeyMaterial(latch)), a.LatchPips(latch), since, turns);
@@ -1101,7 +1102,7 @@ namespace Bloomlings.Playtest.Design
             float content = pictureUnits + (lines.Count * lineUnits) + buttonUnits + 40f;
             CardRegions r = Kit.Card(p, content, PlaytestText.T(card.TitleKey), null, Kit.Pop(since));
             float y = r.Body.Top + p.U(10f);
-            IntroPicture(p, card.Picture, new Box(r.Body.Left, y, r.Body.Right, y + p.U(pictureUnits - 20f)), since, s.TwigOutfit);
+            IntroPicture(p, card.Picture, new Box(r.Body.Left, y, r.Body.Right, y + p.U(pictureUnits - 20f)), since, s.OutfitOf(RoundIntroLatch.Hero));
             y += p.U(pictureUnits);
             foreach ((string text, bool first) in lines)
             {
@@ -1117,8 +1118,8 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// The introduction card's picture, made of the level's own pieces (pods, tube, water, plank, cubes; the latch's Twig hero
-        /// in <paramref name="outfit"/>).
+        /// The introduction card's picture, made of the level's own pieces (pods, tube, water, plank, cubes; the latch's hero
+        /// <see cref="RoundIntroLatch.Hero"/> in <paramref name="outfit"/>).
         /// </summary>
         private static void IntroPicture(IPainter p, RoundIntroPicture picture, Box area, float since, Outfit? outfit)
         {
@@ -1141,9 +1142,9 @@ namespace Bloomlings.Playtest.Design
 
                 case RoundIntroPicture.Latch:
                 {
-                    // Our Twig hero holding the padlock in the pod's colour in the pod's place, and the key upright and turning
-                    // over its cell on a patch of the board between cubes (17 §8, FR-068; the owner's look of 2026-11-02): in a
-                    // loop the key flies to the keyhole, the padlock opens and Twig steps aside from the pod.
+                    // The hero of the pod's colour holding the padlock in that colour in the pod's place, and the key upright and
+                    // turning over its cell on a patch of the board between cubes (17 §8, FR-068; the owner's look of 2026-11-02):
+                    // in a loop the key flies to the keyhole, the padlock opens and the hero steps aside from the pod.
                     float t = RoundIntroLatch.Since(since);
                     RoundIntroLatch look = RoundIntroLatch.In(area);
                     RoundMaterial material = RoundMaterial.All[RoundIntroLatch.Material];
@@ -1165,7 +1166,7 @@ namespace Bloomlings.Playtest.Design
 
                     if (t < RoundLook.LatchOpenSeconds)
                     {
-                        Kit.LatchHero(p, look.Pod, outfit, metal, 0, t, -1, false);
+                        Kit.LatchHero(p, look.Pod, RoundIntroLatch.Hero, outfit, metal, 0, t, -1, false);
                     }
 
                     if (t >= 0f)

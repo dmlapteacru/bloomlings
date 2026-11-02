@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
+using System.Linq;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Content.Packs;
@@ -258,14 +259,14 @@ namespace Bloomlings.Playtest.Preview
             }
         }
 
-        // The pieces large on the board's surface: the hero holding padlocks of three colours, a hidden pod's brass one, one
-        // with pips, one in a waiting row and one in an outfit; the opening's frames with the key flying in from the right; and
+        // The pieces large on the board's surface: each of the four heroes holding a padlock of his colour, Twig with a hidden
+        // pod's brass one, one with pips, one in a waiting row and one in an outfit; the opening's frames with the key flying in from the right; and
         // the upright key turning (a frame every eighth of a turn) over a few cubes, in a few colours.
         private static void Parts(string into, DesignApp app)
         {
-            using var painter = new SkiaPainter(1500, 1700, new Insets(0, 0));
+            using var painter = new SkiaPainter(1500, 1900, new Insets(0, 0));
             painter.BeginFrame();
-            Kit.BoardSurface(painter, new Box(0f, 0f, 1500f, 1700f), 0f);
+            Kit.BoardSurface(painter, new Box(0f, 0f, 1500f, 1900f), 0f);
             float pod = 170f;
             Outfit? stock = null;
             CosmeticCatalog catalog = app.Meta.Wardrobe.Catalog;
@@ -274,31 +275,40 @@ namespace Bloomlings.Playtest.Preview
             catalog.TryGet(TwigV2Art.ScarfId, out CosmeticItem? scarf);
             var dressed = new Outfit(null, hat, null, null, Scarf: scarf, Clothes: jacket);
 
-            (int Material, int Pips, bool Waiting, bool Dressed)[] heroes = { (2, 0, false, false), (5, 0, false, false), (0, 2, false, false), (-1, 0, false, false), (21, 0, true, false), (8, 0, false, true) };
-            for (int i = 0; i < heroes.Length; i++)
+            // the four heroes, each holding a padlock of his colour (the first row: leaf, petal, water, amber; then a hidden pod's
+            // brass one on Twig and one with pips), then another colour of each family (Sprig's in a waiting row, Twig dressed)
+            var heroes = new List<(int Material, int Pips, bool Waiting, bool Dressed)> { (0, 0, false, false), (1, 0, false, false), (2, 0, false, false), (3, 0, false, false), (-1, 0, false, false), (5, 2, false, false) };
+            foreach (Family family in new[] { Family.Sprig, Family.Bloom, Family.Drop, Family.Twig })
             {
-                var place = new Box(40f + (i * 240f), 110f, 40f + (i * 240f) + pod, 110f + pod);
-                painter.StrokeRound(place, 12f, 2f, Rgba.White.WithAlpha(0.5f));
-                (int m, int pips, bool waiting, bool dressedUp) = heroes[i];
-                Kit.LatchHero(painter, place, dressedUp ? dressed : stock, RoundLook.KeyMetal(m), pips, -1f, 1, waiting);
+                RoundMaterial other = RoundMaterial.All.Last(m => m.Family == family && m.Index > 3);
+                heroes.Add((other.Index, 0, family == Family.Sprig, family == Family.Twig));
             }
 
-            // the opening at 0, 0.16, 0.32, 0.48, 0.56, 0.62, 0.72, 0.85 s; the pod behind the hero from the event on
+            for (int i = 0; i < heroes.Count; i++)
+            {
+                var place = new Box(40f + ((i % 6) * 240f), 110f + ((i / 6) * 260f), 40f + ((i % 6) * 240f) + pod, 110f + ((i / 6) * 260f) + pod);
+                painter.StrokeRound(place, 12f, 2f, Rgba.White.WithAlpha(0.5f));
+                (int m, int pips, bool waiting, bool dressedUp) = heroes[i];
+                Family family = RoundLook.LatchFamily(m);
+                Kit.LatchHero(painter, place, family, dressedUp ? dressed : stock, RoundLook.KeyMetal(m), pips, -1f, 1, waiting);
+            }
+
+            // the opening at 0, 0.16, 0.32, 0.48, 0.56, 0.62, 0.72, 0.85 s (Drop's, water); the pod behind the hero from the event on
             float[] times = { 0f, 0.16f, 0.32f, 0.48f, 0.56f, 0.62f, 0.72f, 0.85f };
             for (int i = 0; i < times.Length; i++)
             {
-                var place = new Box(30f + (i * 180f), 560f, 30f + (i * 180f) + 130f, 560f + 130f);
+                var place = new Box(30f + (i * 180f), 760f, 30f + (i * 180f) + 130f, 760f + 130f);
                 Kit.RoundPod(painter, PodChip.Cube(place), RoundMaterial.All[2], 28, PodLook.Exposed, false, false);
-                Kit.LatchHero(painter, place, stock, RoundLook.KeyMetal(2), 0, times[i], 1, false);
-                var keyCell = new Box(place.Left + 60f, 900f, place.Left + 100f, 935f);
-                Kit.FlyingKey(painter, RoundLook.KeyBox(keyCell), RoundLook.HeroLock(RoundLook.HeroCell(place)), RoundLook.KeyMetal(2), 0, times[i], 0f);
+                Kit.LatchHero(painter, place, Family.Drop, stock, RoundLook.KeyMetal(2), 0, times[i], 1, false);
+                var keyCell = new Box(place.Left + 60f, 1100f, place.Left + 100f, 1135f);
+                Kit.FlyingKey(painter, RoundLook.KeyBox(keyCell), RoundLook.HeroLock(RoundLook.HeroCell(place), Family.Drop), RoundLook.KeyMetal(2), 0, times[i], 0f);
             }
 
             float cell = 52f;
             int[] keys = { 2, 5, -1 };
             for (int row = 0; row < keys.Length; row++)
             {
-                float y = 1180f + (row * 175f);
+                float y = 1380f + (row * 175f);
                 for (int i = 0; i < 8; i++)
                 {
                     float x = 30f + (i * 182f);

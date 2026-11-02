@@ -401,7 +401,7 @@ namespace Bloomlings.Client.Gameplay.Rounds
             }
 
             int column = Math.Min(core.Round.Latches[latch].Column, _podGrid.Columns.Count - 1);
-            Box b = _tray.RoundLatchLock(latch) ?? RoundLook.HeroLock(RoundLook.HeroCell(_podGrid.Pod(column, 0)));
+            Box b = _tray.RoundLatchLock(latch) ?? RoundLook.HeroLock(RoundLook.HeroCell(_podGrid.Pod(column, 0)), RoundLook.LatchFamily(core.Animator.KeyMaterial(latch)));
             float ppu = UiKit.PixelsPerUnit;
             Box row = hud.PodRow;
             return new Box(row.Left + (b.Left * ppu), row.Top + (b.Top * ppu), row.Left + (b.Right * ppu), row.Top + (b.Bottom * ppu));

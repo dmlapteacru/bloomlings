@@ -35,7 +35,7 @@ namespace Bloomlings.Client.UI.Tutorial
 
         public bool IsOpen => _card != null && _card.activeSelf;
 
-        /// <summary>The player's equipped outfit of a family (the wardrobe's): the latch card's Twig hero wears his (stock while null).</summary>
+        /// <summary>The player's equipped outfit of a family (the wardrobe's): the latch card's hero wears his family's (stock while null).</summary>
         public Func<Family, Outfit>? OutfitOf { get; set; }
 
         public static RoundIntroCardView Create(Transform parent)
@@ -69,7 +69,7 @@ namespace Bloomlings.Client.UI.Tutorial
             _card = view.Root;
             Box body = view.Regions.Body;
             float y = body.Top + (10f * u);
-            Picture(view.Body, card.Picture, new Box(body.Left, y, body.Right, y + ((PictureUnits - 20f) * u)), body, OutfitOf?.Invoke(Family.Twig));
+            Picture(view.Body, card.Picture, new Box(body.Left, y, body.Right, y + ((PictureUnits - 20f) * u)), body, OutfitOf?.Invoke(RoundIntroLatch.Hero));
             y += PictureUnits * u;
             foreach ((string text, bool first) in lines)
             {
@@ -130,10 +130,10 @@ namespace Bloomlings.Client.UI.Tutorial
 
                 case RoundIntroPicture.Latch:
                 {
-                    // Our Twig hero holding the padlock in the pod's colour in the pod's place, and the key upright and turning
-                    // over its cell on a patch of the board between cubes (17 §8, FR-068; the owner's look of 2026-11-02; the
-                    // playtest's IntroPicture, RoundIntroLatch): in a loop the key flies to the keyhole, the padlock opens and
-                    // Twig steps aside from the pod (LatchIntroLoop).
+                    // The hero of the pod's colour holding the padlock in that colour in the pod's place, and the key upright and
+                    // turning over its cell on a patch of the board between cubes (17 §8, FR-068; the owner's look of 2026-11-02;
+                    // the playtest's IntroPicture, RoundIntroLatch): in a loop the key flies to the keyhole, the padlock opens and
+                    // the hero steps aside from the pod (LatchIntroLoop).
                     RoundIntroLatch look = RoundIntroLatch.In(local);
                     Image surface = UiFactory.CreateImage("Surface", holder, null, Color.white);
                     surface.raycastTarget = false;
@@ -222,8 +222,8 @@ namespace Bloomlings.Client.UI.Tutorial
 
     /// <summary>
     /// The latch card's loop (<see cref="RoundIntroLatch.Since"/>; the playtest's <c>IntroPicture</c>): closed, the key turning
-    /// over its cell on its shadow and the pod hidden behind Twig; then the key's flight into the keyhole with its click, the
-    /// padlock opening and dropping and Twig stepping aside from the pod, in the card's own unscaled time.
+    /// over its cell on its shadow and the pod hidden behind its hero; then the key's flight into the keyhole with its click, the
+    /// padlock opening and dropping and the hero stepping aside from the pod, in the card's own unscaled time.
     /// </summary>
     public sealed class LatchIntroLoop : MonoBehaviour
     {
@@ -270,7 +270,7 @@ namespace Bloomlings.Client.UI.Tutorial
             _pod.SetActive(t >= 0f);
             if (t < RoundLook.LatchOpenSeconds)
             {
-                _hero.Show(_look.Pod, _outfit, metal, 0, t, -1, false);
+                _hero.Show(_look.Pod, RoundIntroLatch.Hero, _outfit, metal, 0, t, -1, false);
             }
             else
             {

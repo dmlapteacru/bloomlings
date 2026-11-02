@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Bloomlings.Core.Rounds;
+using Bloomlings.Core.Variants;
 
 namespace Bloomlings.Client.UI.Design
 {
@@ -27,10 +28,10 @@ namespace Bloomlings.Client.UI.Design
         Bridge,
 
         /// <summary>
-        /// Our Twig hero holding the padlock in the held pod's colour in the pod's place (<see cref="RoundLook.HeroCell"/>) beside
+        /// The hero of the held pod's colour holding the padlock in that colour in the pod's place (<see cref="RoundLook.HeroCell"/>) beside
         /// a patch of the board with its key standing upright and turning over its cell between cubes
         /// (<see cref="UiRaster.UprightKey"/>; 17 §8, the owner's look of 2026-11-02, laid out by <see cref="RoundIntroLatch"/>); in
-        /// a loop (<see cref="RoundIntroLatch.Since"/>) the key flies to the keyhole, the padlock opens and Twig steps aside from
+        /// a loop (<see cref="RoundIntroLatch.Since"/>) the key flies to the keyhole, the padlock opens and the hero steps aside from
         /// the pod.
         /// </summary>
         Latch,
@@ -38,7 +39,7 @@ namespace Bloomlings.Client.UI.Design
 
     /// <summary>
     /// The latch card's picture (<see cref="RoundIntroPicture.Latch"/>), the same in both builds: the held pod's place at the
-    /// left with our Twig hero and his padlock in it, a patch of the board at the right with cubes round an empty cell in its
+    /// left with the hero of its colour and his padlock in it, a patch of the board at the right with cubes round an empty cell in its
     /// bottom row and the upright key over it, in the pod's colour.
     /// </summary>
     public sealed class RoundIntroLatch
@@ -88,8 +89,11 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The upright key's picture box over <see cref="KeyCell"/> (<see cref="RoundLook.KeyBox"/>).</summary>
         public Box KeyBox => RoundLook.KeyBox(KeyCell);
 
+        /// <summary>The hero of the pod's colour holding its padlock (<see cref="RoundLook.LatchFamily"/>).</summary>
+        public static Family Hero => RoundLook.LatchFamily(Material);
+
         /// <summary>The padlock's square in the hero's hands (<see cref="RoundLook.HeroLock"/>).</summary>
-        public Box Lock => RoundLook.HeroLock(RoundLook.HeroCell(Pod));
+        public Box Lock => RoundLook.HeroLock(RoundLook.HeroCell(Pod), Hero);
 
         /// <summary>The picture laid out in <paramref name="area"/>.</summary>
         public static RoundIntroLatch In(Box area)

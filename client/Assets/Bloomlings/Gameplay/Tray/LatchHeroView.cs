@@ -10,9 +10,10 @@ using UnityEngine.UI;
 namespace Bloomlings.Client.Gameplay.Tray
 {
     /// <summary>
-    /// A latch's hero (17 §8, spec 006 FR-068; the owner's look of 2026-11-02, "Twig hero 100%"; the playtest's
-    /// <c>Kit.LatchHero</c>): in the place of the pod the latch holds, our Twig hero in the player's outfit (the owner's modular
-    /// V2 frames, <see cref="HeroGearView"/>; stock Twig without one) on a soft contact shadow, holding the padlock in the held
+    /// A latch's hero (17 §8, spec 006 FR-068; the owner's look of 2026-11-02; the playtest's <c>Kit.LatchHero</c>): in the
+    /// place of the pod the latch holds, the hero of that pod's colour (<see cref="RoundLook.LatchFamily"/>; Twig for a hidden
+    /// pod) in the player's outfit for his family (the owner's modular V2 frames, <see cref="HeroGearView"/>; stock without
+    /// one) on a soft contact shadow, holding the padlock in the held
     /// pod's colour in front of his belly, his hands drawn again over its sides (the hero's layers in a disc mask round each
     /// hand, <see cref="RoundLook.HeroHands"/>), lightened in rows 2 and 3 (a white veil masked by his base layer); opening, the
     /// padlock springs open and drops (<see cref="RoundLook.PadlockOpen"/>) and he steps aside and fades
@@ -29,6 +30,7 @@ namespace Bloomlings.Client.Gameplay.Tray
         private readonly Image _padlock;
         private readonly Hand[] _hands = new Hand[2];
         private Outfit? _worn;
+        private Family _family;
         private bool _dressed;
         private string? _padlockKey;
 
@@ -50,7 +52,7 @@ namespace Bloomlings.Client.Gameplay.Tray
             _shadow = UiFactory.CreateImage("Shadow", body, null, Color.white);
             _shadow.raycastTarget = false;
             PictureFit.On(_shadow, (w, h) => RoundSprites.SoftOval(w, h));
-            _cell = UiFactory.CreateRect("Twig", body);
+            _cell = UiFactory.CreateRect("Hero", body);
             _gear = HeroGearView.Create(_cell);
             _veil = Veil(_cell);
             _padlock = UiFactory.CreateImage("Padlock", _root, null, Color.white);
@@ -62,7 +64,7 @@ namespace Bloomlings.Client.Gameplay.Tray
                 mask.gameObject.AddComponent<Mask>().showMaskGraphic = false;
                 CanvasGroup group = mask.gameObject.AddComponent<CanvasGroup>();
                 group.blocksRaycasts = false;
-                RectTransform cell = UiFactory.CreateRect("Twig", mask.transform);
+                RectTransform cell = UiFactory.CreateRect("Hero", mask.transform);
                 _hands[i] = new Hand { Mask = mask, Group = group, Cell = cell, Gear = HeroGearView.Create(cell), Veil = Veil(cell) };
             }
         }
@@ -72,18 +74,19 @@ namespace Bloomlings.Client.Gameplay.Tray
         public RectTransform Root => _root;
 
         /// <summary>
-        /// Shows the hero in the pod's place <paramref name="place"/> (the parent's top-down canvas units) in
-        /// <paramref name="outfit"/>, holding a padlock of <paramref name="body"/> with <paramref name="pips"/>,
+        /// Shows <paramref name="family"/>'s hero in the pod's place <paramref name="place"/> (the parent's top-down canvas units)
+        /// in <paramref name="outfit"/>, holding a padlock of <paramref name="body"/> with <paramref name="pips"/>,
         /// <paramref name="since"/> seconds after the latch opened (-1: closed), stepping toward <paramref name="side"/>;
         /// <paramref name="waiting"/> in rows 2 and 3.
         /// </summary>
-        public void Show(Box place, Outfit? outfit, Rgba body, int pips, float since, int side, bool waiting)
+        public void Show(Box place, Family family, Outfit? outfit, Rgba body, int pips, float since, int side, bool waiting)
         {
-            if (!_dressed || !Equals(_worn, outfit))
+            if (!_dressed || _family != family || !Equals(_worn, outfit))
             {
                 _dressed = true;
+                _family = family;
                 _worn = outfit;
-                Dress(outfit);
+                Dress(family, outfit);
             }
 
             Box cell = RoundLook.HeroCell(place);
@@ -96,7 +99,7 @@ namespace Bloomlings.Client.Gameplay.Tray
             BoxLayout.Place(_cell, hero);
             Veil(_veil, veil);
 
-            Box padlock = RoundLook.HeroLock(cell);
+            Box padlock = RoundLook.HeroLock(cell, family);
             (bool open, float drop, float scale, float alpha) = RoundLook.PadlockOpen(since);
             Rgba face = waiting ? RoundLook.WaitingColor(body) : body;
             string key = UiRaster.PadlockKey(face, pips, open);
@@ -111,7 +114,7 @@ namespace Bloomlings.Client.Gameplay.Tray
             _padlock.color = new Color(1f, 1f, 1f, alpha);
             _padlock.gameObject.SetActive(alpha > 0f);
 
-            (Box left, Box right) = RoundLook.HeroHands(hero);
+            (Box left, Box right) = RoundLook.HeroHands(hero, family);
             bool hold = ha > 0f && since < RoundLook.PadlockDropAt;
             for (int i = 0; i < _hands.Length; i++)
             {
@@ -134,16 +137,16 @@ namespace Bloomlings.Client.Gameplay.Tray
 
         public void Hide() => _root.gameObject.SetActive(false);
 
-        private void Dress(Outfit? outfit)
+        private void Dress(Family family, Outfit? outfit)
         {
-            _gear.Wear(Family.Twig, outfit);
+            _gear.Wear(family, outfit);
             foreach (Hand hand in _hands)
             {
-                hand.Gear.Wear(Family.Twig, outfit);
+                hand.Gear.Wear(family, outfit);
             }
 
             // the veils follow his base layer's picture and box in the cell
-            HeroFrame? layer = HeroGearArt.Layer(Family.Twig, HeroGearArt.DisplayOutfit(outfit), 0);
+            HeroFrame? layer = HeroGearArt.Layer(family, HeroGearArt.DisplayOutfit(outfit), 0);
             Sprite? picture = layer.HasValue ? HeroGearView.Picture(layer.Value.Name) : null;
             foreach (Image mask in new[] { _veil.Mask, _hands[0].Veil.Mask, _hands[1].Veil.Mask })
             {

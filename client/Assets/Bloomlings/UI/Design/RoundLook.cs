@@ -33,8 +33,9 @@ namespace Bloomlings.Client.UI.Design
     /// (<see cref="RevealGlow"/>).</description></item>
     /// <item><description>A hidden cell (17 §8 «Скрытые клетки») is the neutral "?" cube (<see cref="HiddenCellSlot"/>) until
     /// it reveals, then pops into its material (<see cref="CellRevealScale"/>, <see cref="CellRevealVeil"/>).</description></item>
-    /// <item><description>A latch (17 §8, FR-068; the owner's look of 2026-11-02, "Twig hero 100%") hides the pod it holds:
-    /// in its place stands our Twig hero in the player's outfit holding a padlock in that pod's colour (<see cref="PadlockSlot"/>,
+    /// <item><description>A latch (17 §8, FR-068; the owner's look of 2026-11-02) hides the pod it holds: in its place stands
+    /// the hero of that pod's colour (<see cref="LatchFamily"/>; Twig for a hidden pod) in the player's outfit holding a padlock
+    /// in that colour (<see cref="PadlockSlot"/>,
     /// <see cref="HeroCell"/>, <see cref="HeroLock"/>, <see cref="HeroHands"/>); its key (<see cref="KeySlot"/>) is an ordinary
     /// big key in that pod's colour standing upright on its tip over its board cell, hovering, bobbing and turning
     /// (<see cref="KeyBox"/>, <see cref="KeySpin"/>, <see cref="KeyMetal"/>). When it opens the key flies to the keyhole and
@@ -65,10 +66,11 @@ namespace Bloomlings.Client.UI.Design
         public const string HiddenCellSlot = "tile.round.hidden";
 
         /// <summary>
-        /// The latch's asset slot (rules 17 §8, spec 006 FR-068; the owner's look of 2026-11-02, "Twig hero 100%"): while a latch is
+        /// The latch's asset slot (rules 17 §8, spec 006 FR-068; the owner's look of 2026-11-02, the hero of the held pod's colour): while a latch is
         /// closed the pod it holds (the pod right behind it in its column, <see cref="RoundAnimator.HeldPod"/>) is not drawn at
-        /// all; in its place stands our Twig hero, the owner's modular Twig V2 frames in the player's equipped outfit
-        /// (<see cref="HeroGearArt.Layer"/>, stock Twig when none; <see cref="HeroCell"/>), holding in front of his belly a
+        /// all; in its place stands the hero of that pod's colour (<see cref="LatchFamily"/>: Sprig, Bloom, Drop or Twig; Twig for
+        /// a hidden pod), the owner's modular V2 frames in the player's equipped outfit for that family
+        /// (<see cref="HeroGearArt.Layer"/>, stock when none; <see cref="HeroCell"/>), holding in front of his belly a
         /// padlock whose body is the held pod's colour (<see cref="UiRaster.Padlock"/>, <see cref="KeyMetal"/>; brass for a
         /// hidden pod or a latch with no pod of its own; <see cref="HeroLock"/>), his hands over its sides
         /// (<see cref="HeroHands"/>: the hero's own layers again, clipped to two discs), a soft contact shadow under his feet
@@ -204,18 +206,34 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>How far over the place's bottom the hero's feet stand, in place heights.</summary>
         public const float HeroFootShare = 0.04f;
 
-        /// <summary>The padlock's side in the hero's cell, in cell pixels (the owner's mock of 2026-11-02, padlock in front of his belly).</summary>
-        public const float HeroLockPixels = 250f;
-
-        /// <summary>The padlock square's top in the hero's cell, in cell pixels: its body over his belly and legs, the shackle under his chin.</summary>
-        public const float HeroLockTopPixels = 230f;
-
-        /// <summary>His hands' middles in the cell, in cell pixels (the V2 frames' rest pose), and their discs' radius.</summary>
-        public const float HeroHandX = 138f;
-
-        public const float HeroHandY = 378f;
-
+        /// <summary>His hands' discs' radius in the hero's cell, in cell pixels.</summary>
         public const float HeroHandRadius = 34f;
+
+        /// <summary>How far over his hands the padlock's body starts, in cell pixels (the body over his belly, his hands on its sides).</summary>
+        public const float HeroLockOverHands = 16f;
+
+        /// <summary>
+        /// The hero holding a latch's padlock (the owner, 2026-11-02: the latch is a general mechanic, so its hero is the one whose
+        /// colour is in the key and the padlock): the family of the held pod's material <paramref name="material"/>
+        /// (<see cref="RoundMaterial.Family"/>), Twig for a hidden pod (-1) and for a latch with no pod of its own
+        /// (<paramref name="holds"/> false).
+        /// </summary>
+        public static Family LatchFamily(int material, bool holds = true) =>
+            holds && material >= 0 ? RoundMaterial.All[material].Family : Family.Twig;
+
+        /// <summary>
+        /// How a family's modular V2 hero holds the padlock in his 448 × 504 cell (cell pixels), measured on each family's bald
+        /// base frame in its rest pose (the bodies differ a little: Bloom and Drop are slimmer, their hands lower): the middle of his
+        /// left hand (the right one mirrored about the cell's middle) and the padlock's side, about 2.2 of his torso's width, so
+        /// its body spans his torso and his hands come over its sides (the owner's mock of 2026-11-02 for Twig: a 250 px padlock).
+        /// </summary>
+        public static (float HandX, float HandY, float LockSide) HeroFit(Family family) => family switch
+        {
+            Family.Sprig => (141f, 388f, 237f),
+            Family.Bloom => (144f, 388f, 228f),
+            Family.Drop => (147f, 392f, 224f),
+            _ => (138f, 378f, 250f),
+        };
 
         /// <summary>How far toward white the hero is drawn in rows 2 and 3, as the waiting pods (<see cref="RoundScreenLook.InactiveLighten"/>).</summary>
         public const float HeroWaitingVeil = RoundScreenLook.InactiveLighten;
@@ -233,27 +251,34 @@ namespace Bloomlings.Client.UI.Design
             return new Box(place.CenterX - (w / 2f), top, place.CenterX + (w / 2f), top + h);
         }
 
-        /// <summary>The padlock's square in the hero's cell <paramref name="cell"/> (<see cref="HeroLockPixels"/>, <see cref="HeroLockTopPixels"/>).</summary>
-        public static Box HeroLock(Box cell)
+        /// <summary>
+        /// The padlock's square in the cell <paramref name="cell"/> of <paramref name="family"/>'s hero (<see cref="HeroFit"/>): its
+        /// side <c>LockSide</c>, centred on him, its body (from 0.53 of the side down, <see cref="UiRaster.Padlock"/>) starting
+        /// <see cref="HeroLockOverHands"/> over his hands, the shackle under his chin.
+        /// </summary>
+        public static Box HeroLock(Box cell, Family family = Family.Twig)
         {
-            float k = cell.Width / HeroMotion.CellWidth;
-            float s = HeroLockPixels * k;
-            float top = cell.Top + (HeroLockTopPixels * cell.Height / HeroMotion.CellHeight);
+            (float _, float handY, float side) = HeroFit(family);
+            float kx = cell.Width / HeroMotion.CellWidth;
+            float ky = cell.Height / HeroMotion.CellHeight;
+            float s = side * kx;
+            float top = cell.Top + ((handY - HeroLockOverHands - (0.53f * side)) * ky);
             return new Box(cell.CenterX - (s / 2f), top, cell.CenterX + (s / 2f), top + s);
         }
 
         /// <summary>
-        /// His two hands' discs in the cell <paramref name="cell"/> (squares; the hosts clip the hero's layers to the disc in each
-        /// and draw them again over the padlock's sides, so he holds it).
+        /// His two hands' discs in the cell <paramref name="cell"/> of <paramref name="family"/>'s hero (squares; the hosts clip the
+        /// hero's layers to the disc in each and draw them again over the padlock's sides, so he holds it).
         /// </summary>
-        public static (Box Left, Box Right) HeroHands(Box cell)
+        public static (Box Left, Box Right) HeroHands(Box cell, Family family = Family.Twig)
         {
+            (float handX, float handY, float _) = HeroFit(family);
             float kx = cell.Width / HeroMotion.CellWidth;
             float ky = cell.Height / HeroMotion.CellHeight;
             float r = HeroHandRadius * kx;
-            float y = cell.Top + (HeroHandY * ky);
-            float l = cell.Left + (HeroHandX * kx);
-            float rx = cell.Left + ((HeroMotion.CellWidth - HeroHandX) * kx);
+            float y = cell.Top + (handY * ky);
+            float l = cell.Left + (handX * kx);
+            float rx = cell.Left + ((HeroMotion.CellWidth - handX) * kx);
             return (Box.FromCenter(l, y, 2f * r, 2f * r), Box.FromCenter(rx, y, 2f * r, 2f * r));
         }
 

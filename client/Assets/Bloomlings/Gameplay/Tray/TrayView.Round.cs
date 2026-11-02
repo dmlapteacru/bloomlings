@@ -20,9 +20,9 @@ namespace Bloomlings.Client.Gameplay.Tray
     /// column's last shown row (<see cref="RoundAnimator.LinkMarks"/>, <see cref="LinkTube.HiddenTube"/>); and the pulse round
     /// the partner a refused tap waits for (along that tube and at its end while it is hidden). The pods slide up a row
     /// when the top one leaves. A closed latch (17 §8, FR-068; the owner's look of 2026-11-02) hides the pod it holds: in its
-    /// place stands our Twig hero in the player's outfit holding a padlock in that pod's colour (<see cref="LatchHeroView"/>);
-    /// when it opens the key flies into the padlock (<c>RoundFlightsView</c>), the shackle springs open and the padlock drops,
-    /// Twig steps aside from the pod, which takes taps from the event on.
+    /// place stands the hero of that pod's colour (Twig for a hidden pod) in the player's outfit holding a padlock in that colour
+    /// (<see cref="LatchHeroView"/>); when it opens the key flies into the padlock (<c>RoundFlightsView</c>), the shackle springs
+    /// open and the padlock drops, the hero steps aside from the pod, which takes taps from the event on.
     /// </summary>
     public sealed partial class TrayView
     {
@@ -49,7 +49,7 @@ namespace Bloomlings.Client.Gameplay.Tray
         private readonly HashSet<int> _roundLatchShown = new HashSet<int>();
         private readonly Dictionary<int, Box> _roundLatchLocks = new Dictionary<int, Box>();
 
-        /// <summary>The player's equipped outfit of a family (the wardrobe's); the latch's Twig hero wears his (stock Twig while null).</summary>
+        /// <summary>The player's equipped outfit of a family (the wardrobe's); a latch's hero wears his family's (stock while null).</summary>
         public System.Func<Bloomlings.Core.Variants.Family, Bloomlings.Client.Meta.Wardrobe.Outfit>? OutfitOf { get; set; }
 
         /// <summary>
@@ -84,7 +84,6 @@ namespace Bloomlings.Client.Gameplay.Tray
             _roundShown.Clear();
             _roundLatchShown.Clear();
             _roundLatchLocks.Clear();
-            Bloomlings.Client.Meta.Wardrobe.Outfit? outfit = OutfitOf?.Invoke(Bloomlings.Core.Variants.Family.Twig);
             if (force)
             {
                 _roundColumns.Clear();
@@ -132,10 +131,12 @@ namespace Bloomlings.Client.Gameplay.Tray
                     if (item.IsLatch)
                     {
                         Box place = grid.Pod(s, depth);
-                        Rgba body = item.Holds ? RoundLook.KeyMetal(a.KeyMaterial(item.Id)) : RoundLook.KeyBrass;
-                        ShowLatch(item.Id).Show(place, outfit, body, a.LatchPips(item.Id), a.LatchOpenSince(item.Id), RoundLook.HeroSide(s, columns), depth > 0);
+                        int keyMaterial = a.KeyMaterial(item.Id);
+                        Bloomlings.Core.Variants.Family family = RoundLook.LatchFamily(keyMaterial, item.Holds);
+                        Rgba body = item.Holds ? RoundLook.KeyMetal(keyMaterial) : RoundLook.KeyBrass;
+                        ShowLatch(item.Id).Show(place, family, OutfitOf?.Invoke(family), body, a.LatchPips(item.Id), a.LatchOpenSince(item.Id), RoundLook.HeroSide(s, columns), depth > 0);
                         _roundLatchShown.Add(item.Id);
-                        _roundLatchLocks[item.Id] = RoundLook.HeroLock(RoundLook.HeroCell(place));
+                        _roundLatchLocks[item.Id] = RoundLook.HeroLock(RoundLook.HeroCell(place), family);
                         continue;
                     }
 

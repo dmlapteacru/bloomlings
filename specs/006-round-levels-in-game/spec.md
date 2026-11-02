@@ -423,23 +423,25 @@ owner sees the same behaviour as in the playtest app.
     back on top of its column, before a closed latch there; an open latch stays open (a restored snapshot keeps it).
     Shuffle moves only the pods before each column's first closed latch. Bloom Burst may open the way to a key; the latch
     then opens right after the burst's cell reveals.
-  - Look (the owner's look of 2026-11-02, replacing that of 2026-11-01: "Twig hero 100%"; the key upright on its tip, not
+  - Look (the owner's look of 2026-11-02, replacing that of 2026-11-01: our hero holds the lock, "Twig hero 100%", and as the
+    latch is a general mechanic it is the hero whose colour is in the key and the padlock; the key upright on its tip, not
     touching the board, turning; the key flies to the lock): while a latch is closed the pod it holds (the pod right behind
-    it) is not drawn at all; in its place stands our Twig hero (the owner's modular Twig V2 frames in the player's equipped
-    Twig outfit, stock Twig without one; pre-rendered flat 2D frames, constitution VII as amended to v1.3.0), his feet on a
-    soft contact shadow at the place's bottom, his head a little over it, holding in front of his belly a padlock
-    (`pod.round.padlock`) whose body is the colour of that pod (brass for a hidden pod, and for a latch with no pod of its
-    own), his hands over its sides; in rows 2 and 3 he is lightened as the waiting pods. Its key (`board.round.key`) is an
+    it) is not drawn at all; in its place stands the hero of the held pod's colour (the family of its material: Sprig, Bloom,
+    Drop or Twig; Twig for a hidden pod and for a latch with no pod of its own), the owner's modular V2 frames in the player's
+    equipped outfit for that family (stock without one; pre-rendered flat 2D frames, constitution VII as amended to v1.3.0),
+    his feet on a soft contact shadow at the place's bottom, his head a little over it, holding in front of his belly a
+    padlock (`pod.round.padlock`) whose body is the colour of that pod (brass for a hidden pod, and for a latch with no pod
+    of its own), his hands over its sides (fitted to each family's frames); in rows 2 and 3 he is lightened as the waiting pods. Its key (`board.round.key`) is an
     ordinary big key in the same colour standing upright on its tip over its cell (bow up, about 2.4 cells tall and at
     least 0.13 of the board surface's width, kept on the surface, over the cubes round it), hovering a little over the cell
     with a soft oval shadow on it, bobbing and turning round its own upright axis (a flat 2D squash, never thinner than
     12 %, its back half darker, about 1.8 s a turn). Only when two latches of a level hold pods of one colour do their
     padlock and key carry 1–3 white pips to tell them apart. When `latchOpen` plays (the latch is then its column's top and
     its key reached) the key lifts off, turns faster and flies on a gentle arc into the padlock's keyhole, shrinking to its
-    scale; it turns a quarter there with a click ring, the shackle springs open, the padlock drops and fades and Twig steps
-    aside and fades, over 0.9 s of display time; the pod is drawn behind him and is the column's top pod, taking taps from
+    scale; it turns a quarter there with a click ring, the shackle springs open, the padlock drops and fades and the hero
+    steps aside and fades, over 0.9 s of display time; the pod is drawn behind him and is the column's top pod, taking taps from
     the event on (contracts/presentation.md). Presentation only: rules, events and timing are unchanged.
-  - Popup: its first meeting (L61) shows an explanation card ("The lock": Twig holding the padlock in the pod's place and the
+  - Popup: its first meeting (L61) shows an explanation card ("The lock": the hero of the pod's colour holding the padlock in the pod's place and the
     upright key in the pod's colour on a patch of the board, looping the key's flight and the opening; "A padlocked pod waits in its column", "It opens when the Bloomlings reach
     the key of its color on the board"); its second (L63) a short reminder.
 

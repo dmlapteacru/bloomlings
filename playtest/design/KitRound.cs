@@ -388,9 +388,10 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// A closed latch's hero (17 §8, spec 006 FR-068; the owner's look of 2026-11-02, "Twig hero 100%",
-        /// <c>pod.round.padlock</c>) in the pod's place <paramref name="place"/>, where the pod it holds is not drawn: our Twig
-        /// hero in <paramref name="outfit"/> (the owner's modular V2 frames, <see cref="Visuals.Hero"/>; stock Twig for null)
+        /// A closed latch's hero (17 §8, spec 006 FR-068; the owner's look of 2026-11-02, <c>pod.round.padlock</c>) in the pod's
+        /// place <paramref name="place"/>, where the pod it holds is not drawn: the hero of that pod's colour
+        /// <paramref name="family"/> (<see cref="RoundLook.LatchFamily"/>; Twig for a hidden pod) in <paramref name="outfit"/> (the
+        /// owner's modular V2 frames, <see cref="Visuals.Hero"/>; stock for null)
         /// standing on a soft contact shadow (<see cref="RoundLook.HeroCell"/>, <see cref="RoundLook.HeroShadow"/>), holding the
         /// padlock in front of his belly (<see cref="RoundLook.HeroLock"/>, its body <paramref name="body"/>, <paramref name="pips"/>),
         /// his hands drawn again over its sides (<see cref="RoundLook.HeroHands"/>); in rows 2 and 3 (<paramref name="waiting"/>)
@@ -398,7 +399,7 @@ namespace Bloomlings.Playtest.Design
         /// drops (<see cref="RoundLook.PadlockOpen"/>) and he steps aside toward <paramref name="side"/> and fades
         /// (<see cref="RoundLook.HeroStep"/>), the pod behind him.
         /// </summary>
-        public static void LatchHero(IPainter p, Box place, Outfit? outfit, Rgba body, int pips, float since, int side, bool waiting)
+        public static void LatchHero(IPainter p, Box place, Family family, Outfit? outfit, Rgba body, int pips, float since, int side, bool waiting)
         {
             p.Mark(RoundLook.PadlockSlot);
             Box cell = RoundLook.HeroCell(place);
@@ -409,11 +410,11 @@ namespace Bloomlings.Playtest.Design
             {
                 p.PushAlpha(ha);
                 p.Picture(UiRaster.SoftOvalKey, RoundLook.HeroShadow(hero), (w, h) => UiRaster.SoftOval(w, h));
-                TwigHero(p, hero, outfit, veil);
+                LatchFigure(p, hero, family, outfit, veil);
                 p.PopAlpha();
             }
 
-            Box padlock = RoundLook.HeroLock(cell);
+            Box padlock = RoundLook.HeroLock(cell, family);
             float s = padlock.Width;
             (bool open, float drop, float scale, float alpha) = RoundLook.PadlockOpen(since);
             if (alpha > 0f)
@@ -429,12 +430,12 @@ namespace Bloomlings.Playtest.Design
             if (ha > 0f && since < RoundLook.PadlockDropAt)
             {
                 // his hands over the padlock's sides: the hero again, clipped to a disc round each hand
-                (Box left, Box right) = RoundLook.HeroHands(hero);
+                (Box left, Box right) = RoundLook.HeroHands(hero, family);
                 p.PushAlpha(ha);
                 foreach (Box hand in new[] { left, right })
                 {
                     p.PushClipRound(hand, hand.Width / 2f);
-                    TwigHero(p, hero, outfit, veil);
+                    LatchFigure(p, hero, family, outfit, veil);
                     p.PopClip();
                 }
 
@@ -443,13 +444,13 @@ namespace Bloomlings.Playtest.Design
         }
 
         /// <summary>
-        /// Our Twig hero in his cell <paramref name="cell"/> in <paramref name="outfit"/> (<see cref="Visuals.Hero"/>), then
-        /// <paramref name="veil"/> of white over his base layer (the waiting rows' lightening).
+        /// <paramref name="family"/>'s hero in his cell <paramref name="cell"/> in <paramref name="outfit"/> (<see cref="Visuals.Hero"/>),
+        /// then <paramref name="veil"/> of white over his base layer (the waiting rows' lightening).
         /// </summary>
-        private static void TwigHero(IPainter p, Box cell, Outfit? outfit, float veil)
+        private static void LatchFigure(IPainter p, Box cell, Family family, Outfit? outfit, float veil)
         {
-            Visuals.Hero(p, cell, Family.Twig, outfit);
-            HeroFrame? layer = HeroGearArt.Layer(Family.Twig, HeroGearArt.DisplayOutfit(outfit), 0);
+            Visuals.Hero(p, cell, family, outfit);
+            HeroFrame? layer = HeroGearArt.Layer(family, HeroGearArt.DisplayOutfit(outfit), 0);
             if (veil > 0f && layer.HasValue)
             {
                 string name = PainterBase.HeroMotionPrefix + layer.Value.Name;
