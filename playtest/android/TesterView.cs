@@ -1305,8 +1305,10 @@ namespace Bloomlings.Playtest
                 int key = level.Latches[latch].Key;
                 float kx = ox + (((key % w) + 0.5f) * cell);
                 float ky = oy + ((h - 1 - (key / w) + 0.5f) * cell);
-                Bloomlings.Client.UI.Design.Rgba metal = Bloomlings.Client.UI.Design.RoundLook.KeyMetal(a.KeyMaterial(latch));
-                KeyGlyph(canvas, kx, ky, cell, Color.Argb(255, metal.R, metal.G, metal.B), a.LatchPips(latch));
+                // The key in its held pod's colour, brass for a hidden pod (RoundLook.KeyMetal, which the tester does not link).
+                int keyMaterial = a.KeyMaterial(latch);
+                Color metal = keyMaterial < 0 ? Color.ParseColor("#D9A23A") : Color.ParseColor(RoundMaterial.All[keyMaterial].ColorHex);
+                KeyGlyph(canvas, kx, ky, cell, metal, a.LatchPips(latch));
             }
 
             // The walkers: a dot of their material where the timeline puts each courier now.
