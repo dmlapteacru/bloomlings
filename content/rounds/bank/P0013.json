@@ -17096,5 +17096,15 @@
    }
   }
  ],
- "placed": []
+ "placed": [],
+ "tune": {
+  "Normal|links+cells|after-hard": {
+   "trap": true,
+   "t": 0.99,
+   "cols": 4,
+   "offset": -2.23,
+   "quick": 0.925,
+   "at": "2026-11-02"
+  }
+ }
 }

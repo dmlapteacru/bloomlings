@@ -2222,14 +2222,23 @@
    "intro": null,
    "recipe": "links+cells",
    "slot": "regular",
-   "picture": "P0035",
-   "title": "Остров в облаках",
-   "N": 1153,
+   "picture": "P0403",
+   "title": "Метеорит с древним папоротником",
+   "N": 865,
    "band": "800–1200",
-   "pack": "batch-0011",
-   "hidden": 2,
-   "P": 30,
-   "wantLoss": true
+   "pack": "packs-0268-0467 · Доисторические находки",
+   "hidden": 4,
+   "P": 24,
+   "wantLoss": true,
+   "swappedFrom": "P0035",
+   "tried": [
+    "P0035"
+   ],
+   "relaxed": [
+    "family",
+    "motif",
+    "colours"
+   ]
   },
   {
    "level": 55,

@@ -1,0 +1,11 @@
+{
+ "picture": "P0936",
+ "candidates": [],
+ "rejected": [],
+ "searched": [],
+ "tune": {
+  "Normal|links+latch|regular": {
+   "trap": true
+  }
+ }
+}

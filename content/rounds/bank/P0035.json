@@ -14,9 +14,30 @@
    "reasons": {
     "не тот класс по быстрой оценке": 64
    }
+  },
+  {
+   "combo": "Normal|links+cells||tune",
+   "tune": {
+    "slot": "regular",
+    "t": null,
+    "attempts": 4,
+    "quick": 8,
+    "evaluated": 0,
+    "seconds": 31
+   },
+   "tried": 4,
+   "found": 0,
+   "reasons": {
+    "связки ловушками: очередь сама остаётся выше зоны": 1,
+    "быстрая оценка вне зоны после поправок": 3,
+    "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
+   }
   }
  ],
  "tune": {
-  "Normal|links+cells|regular": {}
+  "Normal|links+cells|regular": {
+   "trap": true,
+   "offset": 1.4
+  }
  }
 }
