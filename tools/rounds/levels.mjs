@@ -34,7 +34,7 @@
 import fs from 'node:fs';import path from 'node:path';
 import {franchiseBlocked,packOf,waveRange,siteChoice,ROUNDS,PICTURES,LEVELS,BANK,CODES,PALETTE,manifest,saveManifest,picture,readJSON,writeJSON,lid,pid,arg,flag,measure,stageOf,fitsStage,sizeBin,budget,columnsFor,classOf,slotOf,INTRO,MECH_RU,SUPPORTED,recipeAllowed,boardOf,usage,motifsOf,overlaid,bridgeSide,wallOverlay,planOf,fitsPlan,mechanicsPlans} from './lib.mjs';import {execFileSync} from 'node:child_process';
 import {fitness} from './fitness.mjs';import {deltaE,labOf} from './colour-distance.mjs';
-import {tuneJob} from './tune.mjs';
+import {tuneJob,ZONES} from './tune.mjs';
 import {GEN,breatherRecipeOk,BREATHER_ZONE,repeatClash,wideClash,medianPenalty,greedyQuota,MEDIAN} from './wave.mjs';
 import {latchCheck,LATCH_DEPTH,LATCH_BEHIND,cellsHiddenAtStart,cellFairness,randomTest,quickShare,solve,fairness,strategies,rhythm,bridgeChoicesWin,bridgeChoices,greedy,greedyBeaten,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,bridgeLoss,pressure,calmTest,calmFails,calmBorderline,trapLinks} from './measure.mjs';
 // layer B of 17 §13: the bounds of the metrics of interest (content/rounds/quality.json)
@@ -733,6 +733,10 @@ async function place(from,to){const placed={};for(const f of fs.existsSync(LEVEL
   // a regular Normal aims at the middle of 50–60 % itself (MEDIAN.aim), not just anywhere in the zone
   const aim=slot.cls==='Normal'&&!slot.intro&&!afterHard?MEDIAN.aim:null;
   // layer B soft preference (quality.json pressure.prefer, 2026-11-01): more pods without work is better, up to a cap
+  // the tuning zone of a regular Normal (tune.mjs ZONES.regular, 50–65 %): a candidate outside it only as a fallback; the
+  // dry placement of rounds.mjs run (ROUNDS_DRY) leaves the position open instead, so it is built
+  const RZ=ZONES.regular,outZone=c=>regularSlot&&!brOf(c)&&!(c.random.share>=RZ[0]-1e-9&&c.random.share<=RZ[1]+1e-9);
+  if(process.env.ROUNDS_DRY)ok=ok.filter(c=>!outZone(c));
   const pPref=QUALITY.pressure.prefer,prefer=c=>pPref&&!slot.intro&&c.checks&&c.checks.pressure?-pPref.weight*Math.min(c.checks.pressure.stuck,pPref.cap)/pPref.cap:0;
   // packs spread over the wave (soft): each level of the wave already from the candidate's pack, and the same pack two
   // levels back, cost a little; a pinned picture is strongly preferred (it must be used); the first latch introduction
@@ -740,7 +744,7 @@ async function place(from,to){const placed={};for(const f of fs.existsSync(LEVEL
   const w0=waveOf(n),packUse={};for(const L of Object.values(placed))if(w0&&L.level>=w0.wave[0]&&L.level<=w0.wave[1]){const k=packOf(picture(L.picture));packUse[k]=(packUse[k]||0)+1;}
   const packScore=c=>{const k=packOf(picture(c.picture));return .12*(packUse[k]||0)+(packAt(n-2)===k?.15:0);};
   const pinScore=c=>pinned(c)?-3:0,latchScore=c=>slot.intro==='latch'&&!INTRO.some(([m,,b])=>m==='latch'&&b===n)&&c.checks&&c.checks.latch&&c.checks.latch.waits?-.2:0;
-  const score=c=>{const s=c.random.share,br=brOf(c),z=br?BREATHER_ZONE:zone,a=br?null:aim;return 4*medPen(c)+pinScore(c)+packScore(c)+latchScore(c)+(br?0:prefer(c))+doseScore(c)+normalScore(c)+scarce(c)+(c.random.borderline?1:0)+(calmBorderline(c.cls,c.checks.calm)?.5:0)+(a!==null?2*Math.abs(s-a):s>=z[0]&&s<=z[1]?0:Math.min(Math.abs(s-z[0]),Math.abs(s-z[1])))+(bins.filter(b=>b===sizeBin(c.N)).length>=want[sizeBin(c.N)]?.3:0);};
+  const score=c=>{const s=c.random.share,br=brOf(c),z=br?BREATHER_ZONE:zone,a=br?null:aim;return 4*medPen(c)+(outZone(c)?1.5:0)+pinScore(c)+packScore(c)+latchScore(c)+(br?0:prefer(c))+doseScore(c)+normalScore(c)+scarce(c)+(c.random.borderline?1:0)+(calmBorderline(c.cls,c.checks.calm)?.5:0)+(a!==null?2*Math.abs(s-a):s>=z[0]&&s<=z[1]?0:Math.min(Math.abs(s-z[0]),Math.abs(s-z[1])))+(bins.filter(b=>b===sizeBin(c.N)).length>=want[sizeBin(c.N)]?.3:0);};
   if(QUALITY.pressure.mode==='hard')for(let i=ok.length-1;i>=0;i--)if(pressureLow(ok[i]))ok.splice(i,1);
   ok.sort((a,b)=>score(a)-score(b));
   // --pick n:id takes that candidate at position n when it passes every filter above (a sequence rule of §5 that the

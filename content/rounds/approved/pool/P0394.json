@@ -1,7 +1,7 @@
 {
  "code": "P0394",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0054",
  "version": 1,
  "title": "Мельница с лопастями-письмами",
  "theme": "Невозможная архитектура",

@@ -1,0 +1,524 @@
+{
+ "level": 92,
+ "cls": "Normal",
+ "intro": null,
+ "gen": "2026-11-02c",
+ "picture": "P0333",
+ "candidate": "P0333-Ncells+links-g1102c-0",
+ "recipe": "cells+links",
+ "N": 918,
+ "W": 918,
+ "colours": 7,
+ "P": 24,
+ "columns": 3,
+ "linked": 2,
+ "hidden": 0,
+ "cells": 91,
+ "random": {
+  "runs": 400,
+  "wins": 230,
+  "share": 0.575,
+  "wilson95": [
+   0.526,
+   0.623
+  ],
+  "cls": "Normal",
+  "borderline": false,
+  "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+  "seedBase": 1
+ },
+ "solution": {
+  "route": [
+   {
+    "type": "tap",
+    "pod": 0
+   },
+   {
+    "type": "tap",
+    "pod": 12
+   },
+   {
+    "type": "tap",
+    "pod": 16
+   },
+   {
+    "type": "tap",
+    "pod": 11
+   },
+   {
+    "type": "tap",
+    "pod": 15
+   },
+   {
+    "type": "tap",
+    "pod": 7
+   },
+   {
+    "type": "tap",
+    "pod": 22
+   },
+   {
+    "type": "tap",
+    "pod": 14
+   },
+   {
+    "type": "tap",
+    "pod": 18
+   },
+   {
+    "type": "tap",
+    "pod": 17
+   },
+   {
+    "type": "tap",
+    "pod": 20
+   },
+   {
+    "type": "tap",
+    "pod": 10
+   },
+   {
+    "type": "tap",
+    "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 4
+   },
+   {
+    "type": "tap",
+    "pod": 2
+   },
+   {
+    "type": "tap",
+    "pod": 21
+   },
+   {
+    "type": "tap",
+    "pod": 13
+   },
+   {
+    "type": "tap",
+    "pod": 23
+   },
+   {
+    "type": "tap",
+    "pod": 9
+   },
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 3
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   }
+  ],
+  "forks": 0,
+  "singleSafe": 0,
+  "unknown": 0,
+  "fast": {
+   "status": "won",
+   "seconds": 113.7
+  }
+ },
+ "fairness": {
+  "checked": 12,
+  "unfair": 0,
+  "unknown": 0,
+  "fair": true,
+  "note": "перестановки материалов двух скрытых клеток разного цвета"
+ },
+ "strategies": {
+  "left-to-right|left": true,
+  "left-to-right|right": true,
+  "right-to-left|left": true,
+  "right-to-left|right": true,
+  "top-down|left": true,
+  "top-down|right": true,
+  "bottom-up|left": true,
+  "bottom-up|right": true,
+  "diagonal|left": true,
+  "diagonal|right": true,
+  "small-first|left": true,
+  "small-first|right": true,
+  "most-now|left": true,
+  "most-now|right": true,
+  "fast-release|left": true,
+  "fast-release|right": true
+ },
+ "rhythm": {
+  "segments": [
+   {
+    "from": 0,
+    "to": 20,
+    "meanFree": 2.93,
+    "minFree": 2,
+    "fullShare": 0,
+    "maxWaiting": 1
+   },
+   {
+    "from": 20,
+    "to": 40,
+    "meanFree": 3.69,
+    "minFree": 3,
+    "fullShare": 0,
+    "maxWaiting": 1
+   },
+   {
+    "from": 40,
+    "to": 60,
+    "meanFree": 4.29,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   },
+   {
+    "from": 60,
+    "to": 80,
+    "meanFree": 4.29,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   },
+   {
+    "from": 80,
+    "to": 100,
+    "meanFree": 4.4,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   }
+  ],
+  "launchesAfter80": 3,
+  "lastLaunchAtW": 95,
+  "seconds": 478.2
+ },
+ "dosePos": 1,
+ "checks": {
+  "forced": 0.11,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": false,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.05,
+   "tight": 0.87
+  },
+  "calm": {
+   "runs": 200,
+   "wins": 124,
+   "share": 0.62,
+   "wilson95": [
+    0.551,
+    0.684
+   ],
+   "borderline": false,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 1,
+   "traps": 1,
+   "top": 1
+  }
+ },
+ "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+ "definition": {
+  "id": 92,
+  "title": "Бивень мамонта с ледником внутри",
+  "subject": "P0333",
+  "w": 45,
+  "h": 47,
+  "rowsBottomFirst": [
+   "######################.######################",
+   "#...........................................#",
+   "#.............................GGGG..........#",
+   "#............EEEEEEEEEEEEE....GGGGGG........#",
+   "#.........EEEECCCCCCCCCCCEEEEEGGGGGGG.......#",
+   "#.......CCCCCCCCCCCCCCCCCCCCCEGGGGGGGG......#",
+   "#.....CCCCCCCCCCCCCCCCCCCCCCCCGGGGGGGG......#",
+   "#....CCCCCCCCCCCCCCCCCCNCCCCCCCGGGGGGGG.....#",
+   "#...CCCCCCCCCCCCCCNNNNNNNNNNNCCGGGGGGGG.....#",
+   "#..ECCCCCCCCCCCNNNNNNNNNNNNNNNCCCGGGGGG.....#",
+   "#.EECCCCCCCCCCNNNNNNNNNNNNNNNNNNCCCGGG......#",
+   "#.ECCCAAACCBBBBBBBBBBBBBBCCCCCCCCCCCCC......#",
+   "#.ECCAAAABBBBBBBBBBBBBBCCCCCCCCCCCCCCCC.....#",
+   "#.EAAAACBBBBBBBBBBBBCCCCCCCCCCCCCCCCCCC.....#",
+   "#.EAAACCBBBBBBBBBBBBCCCCCCCCCCCCCCCCCCCE....#",
+   "#.EECCCCBBBBBBBBBBBCCCCCCCCCCCCCCCCCCCCE....#",
+   "#.EECCCCBBBBBBBBBBCCCCCCCEECCCCCCCCCCCCEE...#",
+   "#.EECCCCSBBBBBBBBCCCCCEEEEEEEECCCCCCCCCCE...#",
+   "#..ECCCCSBBBBBBBBCCCCC........CCCCCCCCCCE...#",
+   "#..ECCCCSSCCBBBBCCCCC...........EECCCCCCCE..#",
+   "#..ECCCCSSCCCBBBCCCC.............EECCCCCCE..#",
+   "#..ECCCCAAACCCCCCCCC..............EECCCCCE..#",
+   "#..ECCCAAAACCCCCCCE.................CCCCCE..#",
+   "#..ECCAAASSSCCCCCCE..................CCCCE..#",
+   "#..EECAACSSSCCCCCCE...................CCCCE.#",
+   "#...ECCCCSSSSCCCCCE....................CCCE.#",
+   "#...ECCCCSSSSCCCCEE.....................CCE.#",
+   "#...ECCCCSSSSSCCCEE......................EE.#",
+   "#...EECCCCSSSSCCCEE.........................#",
+   "#....ECCCCSSSSCCCE..........................#",
+   "#....ECCCCSSSSCCCE..........................#",
+   "#....EECCCCSSSCCCEE.........................#",
+   "#.....ECCCCSSSCCCEE.........................#",
+   "#.....EECCCCSSCCCCE.........................#",
+   "#......ECCCCCSCCCCE.........................#",
+   "#......EECCCCCCCCCE.........................#",
+   "#.......ECCCCCCCCCE.........................#",
+   "#........CCCCCCCCCE.........................#",
+   "#.........ECCCCCCCEE........................#",
+   "#.........EECCCCCCCE........................#",
+   "#...........CCCCCCCE........................#",
+   "#............EECCCCE........................#",
+   "#.............EECCCEE.......................#",
+   "#...............EEEEE.......................#",
+   "#..................E........................#",
+   "#...........................................#",
+   "#############################################"
+  ],
+  "entries": [
+   22
+  ],
+  "capacity": 5,
+  "pods": [
+   {
+    "color": "E",
+    "count": 45,
+    "group": "A"
+   },
+   {
+    "color": "E",
+    "count": 44
+   },
+   {
+    "color": "E",
+    "count": 44
+   },
+   {
+    "color": "C",
+    "count": 52
+   },
+   {
+    "color": "C",
+    "count": 52
+   },
+   {
+    "color": "C",
+    "count": 52
+   },
+   {
+    "color": "C",
+    "count": 52
+   },
+   {
+    "color": "C",
+    "count": 51
+   },
+   {
+    "color": "C",
+    "count": 51
+   },
+   {
+    "color": "C",
+    "count": 51
+   },
+   {
+    "color": "C",
+    "count": 51
+   },
+   {
+    "color": "C",
+    "count": 51
+   },
+   {
+    "color": "C",
+    "count": 51
+   },
+   {
+    "color": "S",
+    "count": 23
+   },
+   {
+    "color": "S",
+    "count": 23
+   },
+   {
+    "color": "A",
+    "count": 13
+   },
+   {
+    "color": "A",
+    "count": 13
+   },
+   {
+    "color": "B",
+    "count": 32
+   },
+   {
+    "color": "B",
+    "count": 32
+   },
+   {
+    "color": "B",
+    "count": 32,
+    "group": "A"
+   },
+   {
+    "color": "N",
+    "count": 23
+   },
+   {
+    "color": "N",
+    "count": 22
+   },
+   {
+    "color": "G",
+    "count": 29
+   },
+   {
+    "color": "G",
+    "count": 29
+   }
+  ],
+  "tray": [
+   [
+    19,
+    12,
+    16,
+    11,
+    15,
+    7,
+    22,
+    14
+   ],
+   [
+    18,
+    17,
+    20,
+    10,
+    8,
+    5,
+    4,
+    2
+   ],
+   [
+    0,
+    21,
+    13,
+    23,
+    9,
+    6,
+    3,
+    1
+   ]
+  ],
+  "recipe": "cells+links",
+  "hiddenCells": [
+   366,
+   367,
+   410,
+   411,
+   412,
+   413,
+   414,
+   415,
+   416,
+   455,
+   456,
+   457,
+   458,
+   459,
+   460,
+   461,
+   500,
+   501,
+   502,
+   503,
+   504,
+   505,
+   506,
+   545,
+   546,
+   547,
+   548,
+   549,
+   550,
+   551,
+   571,
+   572,
+   573,
+   574,
+   575,
+   576,
+   616,
+   617,
+   618,
+   619,
+   620,
+   621,
+   661,
+   662,
+   663,
+   664,
+   665,
+   666,
+   706,
+   707,
+   708,
+   709,
+   710,
+   711,
+   751,
+   752,
+   753,
+   754,
+   755,
+   756,
+   1131,
+   1132,
+   1133,
+   1134,
+   1135,
+   1136,
+   1175,
+   1176,
+   1177,
+   1178,
+   1179,
+   1180,
+   1181,
+   1221,
+   1222,
+   1223,
+   1224,
+   1225,
+   1226,
+   1266,
+   1267,
+   1268,
+   1269,
+   1270,
+   1271,
+   1311,
+   1312,
+   1313,
+   1314,
+   1315,
+   1316
+  ],
+  "difficulty": "Normal"
+ }
+}

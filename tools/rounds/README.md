@@ -71,7 +71,7 @@ breathers and a picture-first wave. `levels.mjs build` runs it for every non-bri
   `--slot` for a Normal, a picture of up to 550 cells is a breather by default). Its zone: a regular Normal 50–65 % aiming
   at 56 % (the owner, 2026-11-02: the middle of the median's 50–60 %, not anywhere in 50–75 %), the first Normal after a
   Hard 75–95 %, a breather 75–90 %, an introduction 90–100 %, Hard 20–50 % (aim 33 %), Super Hard 5–20 % (aim 12 %). A
-  tuned combination carries the generator's revision (`wave.mjs GEN`, today `2026-11-02b`) in `bank.searched`, so a new
+  tuned combination carries the generator's revision (`wave.mjs GEN`, today `2026-11-02c`) in `bank.searched`, so a new
   revision searches it again; banked candidates and placed levels carry it as `gen`.
 - **Plan from the model.** `calib/model.json` (the calibration's logistic share model, copied from
   `content/work/calib/model.json`; refit with `calib/fit.mjs` and copy again) gives the blend `t` of `candidate` (0 = the
@@ -137,7 +137,9 @@ breathers and a picture-first wave. `levels.mjs build` runs it for every non-bri
   `--swaps 2` in a run), never a sweep; a pinned picture is first built once more afresh (`--fresh --seed 2`), and only
   then swapped (the placer lists the pins left unused). Accents keep the stage's palette of 10 colours (`--max-colours`
   stays for a hand build; the runner no longer lowers it).
-  The placer weighs a regular Normal by how far it moves the wave's 20-level windows out of the median's 50–60 %
+  The placer takes a regular Normal outside the tuning zone 50–65 % (`REGULAR_ZONE`) only as a fallback (+1.5), and the
+  dry placement leaves such a position open (`ROUNDS_DRY`) so it is built. It weighs a regular Normal by how far it moves
+  the wave's 20-level windows out of the median's 50–60 %
   (`medianPenalty`, weight 4) and by its distance to the aim 56 %, and prefers a level «по цветам» loses while the wave is
   short of the quota (`greedyQuota`: 0.6, 0.2 more for each further level short, at most 1.2). The audit checks the median
   in every 20-level window of the range (`medianWindows`, at least 5 regular Normals; a breather, an introduction and the
@@ -147,10 +149,12 @@ breathers and a picture-first wave. `levels.mjs build` runs it for every non-bri
   cheaper level of a clash, on another picture: `reassign`; never a pin or a hand level), breathers out of 75–90 % or off
   their light recipe, regular Normals while a 20-level window's median is out of 50–60 % (the furthest share first, a
   level sent back counted at the aim), then while «по цветам» is short (a level sent back counted as losing it). Levels
-  built under the current `GEN` stay. Each is taken off (`levels.mjs unplace`: the old candidate stays in the bank as a
+  built under the current `GEN` stay, and so does a level a rebuild already placed, unless it went in as a regular Normal
+  outside its tuning zone (a fallback); a breather already at one plain link pair or its nearest layout stays. Each is taken off (`levels.mjs unplace`: the old candidate stays in the bank as a
   fallback) and recorded in `runs/<wave>/rebuild.json` (why, from, later to); the dry placement holds them open
   (`ROUNDS_HOLD_OPEN`), so they are built again, and the placement chooses among old and new candidates. Resumable: a
   recorded level not yet placed stays held, one placed again is `done`.
+  Run it again after a pass to take what is still out (each pass is short: only the levels sent back are built).
 - **Temporary copies**: the dry placement copies `content/rounds` without `approved/`, `daily-2027/` and the runs' logs,
   skips the publish there (`ROUNDS_NO_PUBLISH`) and deletes the copy in a `finally`; every test sandbox deletes itself
   (`node:test` `after`).

@@ -39,7 +39,7 @@ import fs from 'node:fs';import path from 'node:path';import os from 'node:os';i
 import {franchiseBlocked,packOf,interleaveByPack,root,ROUNDS,LEVELS,BANK,readJSON,writeJSON,lid,arg,flag,manifest,picture,measure,stageOf,fitsStage,sizeBin,slotOf,classOf,INTRO,MECH_RU,SUPPORTED,recipeAllowed,usage,motifsOf,boardOf,overlaid,bridgeSide,wallOverlay,mechanicsPlans,planOf,bridgeShowing} from './lib.mjs';
 import {fitness} from './fitness.mjs';
 import {fingerprints,sameEngine} from './conformance.mjs';
-import {assignPictures,replacement,bandsOf,bandCounts,isBreather,recipeFitsPods,latchFits,SIZE_MIX,BREATHER_N,BREATHER_ZONE,GEN,repeatClash,wideClash,rebuildSet,medianWindows,median,greedyQuota,MEDIAN} from './wave.mjs';
+import {assignPictures,replacement,bandsOf,bandCounts,isBreather,recipeFitsPods,latchFits,SIZE_MIX,BREATHER_N,BREATHER_ZONE,REGULAR_ZONE,GEN,repeatClash,wideClash,rebuildSet,medianWindows,median,greedyQuota,MEDIAN} from './wave.mjs';
 const cmd=process.argv[2],HERE=path.dirname(new URL(import.meta.url).pathname),NODE=process.execPath;
 process.argv.splice(2,0,'noop');const LV=await import('./levels.mjs');const BS=await import('./bridge-scene.mjs');process.argv.splice(2,1);
 const PILOT=path.join(root,'tools/gameplay-pilot-v12/build.mjs');
@@ -86,8 +86,12 @@ function reservePins(ids,open,pics,placed,a,b,prev=new Map()){const by=new Map(p
   const hash=n=>((n*2654435761)^[...e.id].reduce((h,c)=>h*31+c.charCodeAt(0),7))>>>0;
   const cost=n=>(prev.get(e.id)===n?-100:0)+.1*out.filter(o=>o!==e&&o.status==='free'&&!o.reserved&&o.positions.includes(n)).length+([n-1,n+1].some(k=>taken.has(k)&&taken.get(k).pack===e.pack)?5:0)+(strong&&classOf(n)==='Normal'?.5:0)
    +(holes&&anyLatch&&!latchPos(n)?1:0)+(slotOf(n).intro?.6:0)+[...taken.keys()].reduce((c,k)=>c+(Math.abs(k-n)<=3?.4:0),0)+(hash(n)%1000)/1e4;
-  const free=e.positions.filter(n=>!taken.has(n)).sort((x,y)=>cost(x)-cost(y)||x-y);
-  if(!free.length){Object.assign(e,{status:'blocked',reason:`подходящие позиции (${e.positions.map(n=>'L'+n).join(', ')}) заняты другими закреплёнными`});continue;}
+  // the hard rules of the assignment (families and motifs twice a wave 10 apart, the 10+ colour window) against the placed
+  // levels and the pins reserved before it
+  const pc=picture(e.id),pe={family:pc.family||null,motifs:motifsOf(pc),colours:measure(pc).colours},live=[...Object.values(placed).filter(L=>L.level>=a-20&&L.level<=b).map(L=>{const q=picture(L.picture);return {level:L.level,family:(q&&q.family)||null,motifs:q?motifsOf(q):[],colours:q?measure(q).colours:0};}),
+   ...[...taken].map(([k,o])=>{const q=picture(o.id);return {level:k,family:(q&&q.family)||null,motifs:q?motifsOf(q):[],colours:q?measure(q).colours:0};})];
+  const free=e.positions.filter(n=>!taken.has(n)&&!repeatClash(pe,n,live,[a,b])&&!wideClash(n,pe.colours,live)).sort((x,y)=>cost(x)-cost(y)||x-y);
+  if(!free.length){Object.assign(e,{status:'blocked',reason:`подходящие позиции (${e.positions.map(n=>'L'+n).join(', ')}) заняты другими закреплёнными или нарушили бы повтор семейства, мотива или окно 10+ цветов`});continue;}
   e.reserved=free[0];taken.set(free[0],e);}
  return out;}
 // ---- picture-first (wave.mjs) ----
@@ -282,13 +286,14 @@ const ovCache=new Map();const overlayOf=(p,side)=>{const k=p.id+'|'+side;if(!ovC
 const lostOf=L=>{const s=L.strategies||{};return !s['most-now|left']&&!s['most-now|right'];};
 function rebuildStep(a,b,step){const dir=waveDir(a,b),f=path.join(dir,'rebuild.json'),reb=readJSON(f,{tag:GEN,levels:[]}),placed=placedLevels(),wp=mechanicsPlans().find(p=>p.wave[0]===a&&p.wave[1]===b),v=String(arg('--rebuild'));
  const info=L=>{const p=picture(L.picture);return {family:(p&&p.family)||null,motifs:p?motifsOf(p):[],colours:p?measure(p).colours:0};};
- let S;if(v==='auto'){const lv=Object.values(placed).filter(L=>L.level>=a&&L.level<=b).map(L=>({level:L.level,cls:L.cls,intro:!!L.intro,breather:!!L.breather,regular:regularAt(L.level,placed),share:L.random.share,lost:lostOf(L),recipe:L.recipe||'none',gen:L.gen||null,hand:!!L.hand,pinned:!!(wp&&(wp.pin||[]).includes(L.picture)),...info(L)}));
+ let S;if(v==='auto'){const lv=Object.values(placed).filter(L=>L.level>=a&&L.level<=b).map(L=>({level:L.level,cls:L.cls,intro:!!L.intro,breather:!!L.breather,zoneMiss:!!L.zoneMiss,regular:regularAt(L.level,placed),share:L.random.share,lost:lostOf(L),recipe:L.recipe||'none',gen:L.gen||null,hand:!!L.hand,pinned:!!(wp&&(wp.pin||[]).includes(L.picture)),...info(L)}));
   // the levels a rebuild already took back and not yet placed count as sent back: at the aim and losing «по цветам»
   for(const x of reb.levels)if(x.tag===GEN&&!x.done&&!placed[x.level]&&x.level>=a&&x.level<=b)lv.push({level:x.level,cls:classOf(x.level),intro:false,breather:false,regular:regularAt(x.level,placed)&&!(((wp&&wp.levels)||[]).find(l=>l.level===x.level)||{}).breather,share:MEDIAN.aim,lost:true,recipe:'none',gen:GEN,hand:false,pinned:false,family:null,motifs:[],colours:0});
   const context=Object.values(placed).filter(L=>L.level>=a-20&&L.level<a).map(L=>({level:L.level,...info(L)})),planMap=new Map(((wp&&wp.levels)||[]).map(l=>[l.level,{recipe:l.recipe,breather:!!l.breather}]));
-  S=rebuildSet(lv,{from:a,to:b,context,plan:planMap,done:new Set(reb.levels.filter(x=>x.done&&x.tag===GEN).map(x=>x.level))});}
+  // (a level a rebuild placed is left alone, unless it was placed as a regular Normal outside its tuning zone: a fallback)
+  S=rebuildSet(lv,{from:a,to:b,context,plan:planMap,done:new Set(reb.levels.filter(x=>x.done&&x.tag===GEN&&!(x.to&&regularAt(x.level,placed)&&!(x.to.share>=REGULAR_ZONE[0]&&x.to.share<=REGULAR_ZONE[1]))).map(x=>x.level))});}
  else S=v.split(',').map(Number).filter(n=>n>=a&&n<=b).map(n=>({level:n,why:['по списку'],reassign:false}));
- const take=[];for(const x of S){const L=placed[x.level],old=reb.levels.find(y=>y.level===x.level&&y.tag===GEN);if(old&&old.done)continue;
+ const take=[];for(const x of S){const L=placed[x.level],old=reb.levels.find(y=>y.level===x.level&&y.tag===GEN);if(old&&old.done&&v!=='auto')continue;if(old)old.done=false;
   const e={level:x.level,tag:GEN,why:x.why,reassign:!!x.reassign,at:new Date().toISOString().slice(0,10),...(L?{from:{picture:L.picture,candidate:L.candidate,share:L.random.share,recipe:L.recipe}}:{})};
   if(old)Object.assign(old,e,{from:old.from||e.from});else reb.levels.push(e);if(L)take.push(x.level);}
  reb.tag=GEN;reb.levels.sort((u,v)=>u.level-v.level);writeJSON(f,reb);
@@ -296,7 +301,7 @@ function rebuildStep(a,b,step){const dir=waveDir(a,b),f=path.join(dir,'rebuild.j
  step('пересборка по решениям 02.11.2026',{levels:S.map(x=>`L${x.level}${x.reassign?' (другая картинка)':''}: ${x.why.join('; ')}`),taken:take});}
 // after the placement: a recorded level placed again is done (its new candidate, or the old one when nothing new fits)
 function rebuildDone(a,b){const f=path.join(waveDir(a,b),'rebuild.json'),reb=readJSON(f,null);if(!reb)return;const placed=placedLevels();
- for(const x of reb.levels){const L=placed[x.level];if(L&&!x.done&&x.tag===GEN){x.done=true;x.to={picture:L.picture,candidate:L.candidate,share:L.random.share,recipe:L.recipe,lost:lostOf(L),gen:L.gen||null};}}writeJSON(f,reb);}
+ for(const x of reb.levels){const L=placed[x.level];if(L&&!x.done){x.done=true;x.to={picture:L.picture,candidate:L.candidate,share:L.random.share,recipe:L.recipe,lost:lostOf(L),gen:L.gen||null};}}writeJSON(f,reb);}
 
 // ---- run ----
 async function runWave(a,b){const dir=waveDir(a,b),jobs=+arg('--jobs',Math.max(1,Math.min(4,os.cpus().length))),t0=Date.now();fs.mkdirSync(path.join(dir,'build'),{recursive:true});
@@ -314,7 +319,7 @@ async function runWave(a,b){const dir=waveDir(a,b),jobs=+arg('--jobs',Math.max(1
  // approved/ there, ROUNDS_NO_PUBLISH; the copy is deleted whatever happens)
  const dry=async()=>{const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'rounds-dry-')),skip=['approved','daily-2027'].map(d=>path.join(ROUNDS,d));
   try{fs.cpSync(ROUNDS,tmp,{recursive:true,filter:s=>!skip.some(d=>s===d||s.startsWith(d+path.sep))&&(!s.includes(`${path.sep}runs${path.sep}`)||s.endsWith(`${path.sep}mechanics.json`)||s.endsWith(`${path.sep}plan.json`)||s.endsWith(`${path.sep}rebuild.json`)||fs.statSync(s).isDirectory())});
-   await run1([path.join(HERE,'levels.mjs'),'place',String(a),String(b)],{ROUNDS_DIR:tmp,ROUNDS_NO_PUBLISH:'1',...(held.length?{ROUNDS_HOLD_OPEN:held.join(',')}:{})});return (readJSON(path.join(tmp,'needs.json'),{needs:[]}).needs||[]).filter(x=>x.level>=a&&x.level<=b);}
+   await run1([path.join(HERE,'levels.mjs'),'place',String(a),String(b)],{ROUNDS_DIR:tmp,ROUNDS_NO_PUBLISH:'1',ROUNDS_DRY:'1',...(held.length?{ROUNDS_HOLD_OPEN:held.join(',')}:{})});return (readJSON(path.join(tmp,'needs.json'),{needs:[]}).needs||[]).filter(x=>x.level>=a&&x.level<=b);}
   finally{fs.rmSync(tmp,{recursive:true,force:true});}};
  let needs=await dry();step('пробная расстановка',{open:needs.map(x=>x.level)});
  // picture-first (plan.json assign; --sweep: the old path below, every free picture for every open position)

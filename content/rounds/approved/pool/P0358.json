@@ -1,7 +1,7 @@
 {
  "code": "P0358",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0059",
  "version": 1,
  "title": "Кузница в колокольчике",
  "theme": "Миниатюрные мастерские",

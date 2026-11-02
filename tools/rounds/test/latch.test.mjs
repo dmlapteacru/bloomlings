@@ -171,8 +171,9 @@ test('picture selection: packs, the pack rule, interleaving; pins reserved by th
  const dir=sandbox(['levels','pictures','runs']),r=node(dir,[path.join(TOOLS,'rounds.mjs'),'plan','51','100']);assert.equal(r.status,0,r.stderr);
  const plan=readJSON(path.join(dir,'runs/L0051-L0100/plan.json')),pins=plan.pins;assert.deepEqual(pins.map(x=>x.id),readJSON(path.join(ROOT,'content/rounds/runs/L0051-L0100/mechanics.json')).pin);
  // (a pin already placed in the wave is reported placed on its level; the others free on a fitting position)
- for(const x of pins){assert.ok(['free','placed'].includes(x.status),`${x.id}: ${x.reason}`);if(x.status==='free')assert.ok(x.positions.includes(x.reserved));else assert.ok(x.reserved>=51&&x.reserved<=100);}
- assert.equal(new Set(pins.map(x=>x.reserved)).size,pins.length,'distinct positions');
+ // (or blocked when no open position is left or its only open ones would break the repeat or colour rules: the content decides)
+ for(const x of pins){assert.ok(['free','placed'].includes(x.status)||(x.status==='blocked'&&/повтор семейства|ни одной открытой позиции/.test(x.reason)),`${x.id}: ${x.reason}`);if(x.status==='free')assert.ok(x.positions.includes(x.reserved));else if(x.status==='placed')assert.ok(x.reserved>=51&&x.reserved<=100);}
+ {const r=pins.filter(x=>x.reserved).map(x=>x.reserved);assert.equal(new Set(r).size,r.length,'distinct positions');}
  const latchPos=new Set(readJSON(path.join(dir,'runs/L0051-L0100/mechanics.json')).levels.filter(l=>l.recipe.split('+').includes('latch')).map(l=>l.level));
  // (a latch needs a column deep enough for its depth and the pods behind it, wave.mjs latchFits: a pin with too few pods,
  // e.g. P0465 with 10, takes a position without one)

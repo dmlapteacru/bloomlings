@@ -1,0 +1,33 @@
+{
+ "picture": "P0382",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|links+hidden||tune|after-hard|2026-11-02b",
+   "tune": {
+    "slot": "after-hard",
+    "t": 1,
+    "attempts": 1,
+    "quick": 3,
+    "evaluated": 1,
+    "seconds": 4
+   },
+   "tried": 1,
+   "found": 1,
+   "reasons": {}
+  }
+ ],
+ "tune": {
+  "Normal|links+hidden|after-hard": {
+   "t": 1,
+   "cols": 3,
+   "offset": -0.8,
+   "quick": 0.775,
+   "at": "2026-11-02"
+  }
+ },
+ "placed": [
+  "P0382-Nlinks+hidden-g1102b-0"
+ ]
+}

@@ -1,0 +1,33 @@
+{
+ "picture": "P1029",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|latch+links||tune|2026-11-02c",
+   "tune": {
+    "slot": "regular",
+    "t": 0.58,
+    "attempts": 1,
+    "quick": 5,
+    "evaluated": 1,
+    "seconds": 5
+   },
+   "tried": 1,
+   "found": 1,
+   "reasons": {}
+  }
+ ],
+ "tune": {
+  "Normal|latch+links|regular": {
+   "t": 0.58,
+   "cols": 3,
+   "offset": -3.8,
+   "quick": 0.575,
+   "at": "2026-11-02"
+  }
+ },
+ "placed": [
+  "P1029-Nlatch+links-g1102c-0"
+ ]
+}

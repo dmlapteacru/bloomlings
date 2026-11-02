@@ -1,7 +1,7 @@
 {
  "code": "P0333",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0092",
  "version": 1,
  "title": "Бивень мамонта с ледником внутри",
  "theme": "Доисторические находки",

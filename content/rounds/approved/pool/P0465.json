@@ -1,7 +1,7 @@
 {
  "code": "P0465",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0062",
  "version": 1,
  "title": "Рыцарь — гвоздь",
  "theme": "Новые герои игр",

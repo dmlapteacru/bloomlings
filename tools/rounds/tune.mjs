@@ -24,7 +24,7 @@ import * as M from './measure.mjs';
 import {engine} from './engine.mjs';
 import {STRATEGIES} from '../level-stats/strategies.mjs';
 import {pictureFeatures,access} from './calib/queue.mjs';
-import {breatherRecipeOk} from './wave.mjs';
+import {breatherRecipeOk,REGULAR_ZONE} from './wave.mjs';
 import fs from 'node:fs';
 
 export const rnd=seed=>{let s=seed>>>0||1;return()=>{s^=s<<13;s^=s>>>17;s^=s<<5;return(s>>>0)/4294967296;};};
@@ -32,7 +32,7 @@ export const rnd=seed=>{let s=seed>>>0||1;return()=>{s^=s<<13;s^=s>>>17;s^=s<<5;
 // 2026-11-02: the median of any 20 levels in 50–60 %, so a regular Normal is accepted near the middle, not anywhere in
 // 50–75 %), the first Normal after a Hard 75–95 %, a breather 75–90 % (17 §5 «Передышка», the owner, 2026-11-02), an
 // introduction 90–100 %, Hard 20–50 % (preferred 25–40 %), Super Hard 5–20 % (preferred 7–15 %)
-export const ZONES={regular:[.5,.65,.56],'after-hard':[.75,.95,.85],breather:[.75,.9,.82],intro:[.9,1,.97],Hard:[.2,.5,.33],'Super Hard':[.05,.2,.12]};
+export const ZONES={regular:[...REGULAR_ZONE,.56],'after-hard':[.75,.95,.85],breather:[.75,.9,.82],intro:[.9,1,.97],Hard:[.2,.5,.33],'Super Hard':[.05,.2,.12]};
 export const zoneFor=(cls,slot)=>cls==='Normal'?ZONES[slot]||ZONES.regular:ZONES[cls];
 // the class's queue noise (levels.mjs candidate's default sigma)
 export const SIGMA={Normal:.06,Hard:.16,'Super Hard':.26};

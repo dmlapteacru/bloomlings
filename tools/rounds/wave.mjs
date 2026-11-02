@@ -25,10 +25,11 @@ export const recipeFitsPods=(recipe,P)=>P>=16||(recipe||'none').split('+').filte
 export const LATCH_MIN={Normal:3,Hard:2,'Super Hard':2};
 export const latchFits=(recipe,cls,P,cols=3)=>!(recipe||'none').split('+').includes('latch')||P>=cols*(LATCH_MIN[cls]+2);
 // the generator's revision (README «The generator»): banked candidates and placed levels carry it as `gen`; the wave's
-// rebuild (rebuildSet) leaves levels built under it alone. 2026-11-02b: the owner's decisions of 2026-11-02 (families
+// rebuild (rebuildSet) leaves levels built under it alone. 2026-11-02c: the placer keeps a regular Normal in the tuning
+// zone 50–65 % (out of it only as a fallback; the dry placement leaves such a position open to build). 2026-11-02b: the owner's decisions of 2026-11-02 (families
 // twice a wave 10 apart, breathers 75–90 % with one light mechanic, accents outside the 10+ window, the regular Normal
 // aimed at the middle of its zone)
-export const GEN='2026-11-02b';
+export const GEN='2026-11-02c';
 // a breather's light mechanics (17 §5 «Передышка», the owner, 2026-11-02): hidden pods or hidden cells by default (never
 // both), one plain link pair when the share stays above the zone; a recipe of at most one of them
 export const LIGHT=['hidden','cells','links'];
@@ -61,6 +62,8 @@ export const median=v=>{if(!v.length)return null;const a=[...v].sort((x,y)=>x-y)
 // Normals is 50–60 %. regs: [{level, share}]; the windows [s, s+19] inside from–to (the whole range when shorter) holding
 // at least `min` regular Normals. Returns every window with its median and whether it is out of range.
 export const MEDIAN={lo:.5,hi:.6,aim:.56,span:20,min:5};
+// the tuning zone of a regular Normal (tune.mjs ZONES.regular; the placer takes a candidate outside it only as a fallback)
+export const REGULAR_ZONE=[.5,.65];
 export function medianWindows(regs,from,to,{lo=MEDIAN.lo,hi=MEDIAN.hi,span=MEDIAN.span,min=MEDIAN.min}={}){const out=[];
  for(let s=from;s<=Math.max(from,to-span+1);s++){const e=Math.min(to,s+span-1),v=regs.filter(r=>r.level>=s&&r.level<=e).map(r=>r.share);if(v.length<min)continue;const m=median(v);out.push({from:s,to:e,n:v.length,median:m,out:m<lo-1e-9||m>hi+1e-9});}
  return out;}
@@ -98,7 +101,8 @@ export function rebuildSet(levels,{from,to,context=[],plan=new Map(),done=new Se
     if(free(L)&&!L.pinned)ws.push(L);if(ws.length){hit={L:ws.sort((u,v)=>cost(u)-cost(v))[0],why:'третья картинка на 10+ цветов в 20 уровнях (§2)'};break;}}}
   if(!hit)break;add(hit.L,hit.why,true);}
  // 2. breathers
- for(const L of levels){if(!L.breather||!free(L))continue;const pl=plan.get(L.level)||{},why=[];
+ // (a breather already at its last fallback, one plain link pair or the generator's nearest layout, stays)
+ for(const L of levels){if(!L.breather||!free(L)||L.zoneMiss||L.recipe==='links')continue;const pl=plan.get(L.level)||{},why=[];
   if(!(L.share>=BREATHER_ZONE[0]-1e-9&&L.share<=BREATHER_ZONE[1]+1e-9))why.push(`передышка ${Math.round(L.share*100)} % вне 75–90 %`);
   if(!breatherRecipeOk(L.recipe,pl.recipe??null))why.push(`передышка: рецепт ${L.recipe}, по плану ${pl.recipe??'—'}`);
   for(const w of why)add(L,w);}

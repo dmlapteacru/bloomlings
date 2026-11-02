@@ -1,7 +1,7 @@
 {
  "code": "P0382",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0096",
  "version": 1,
  "title": "Карнавальная маска с днём и ночью",
  "theme": "Праздники и карнавал",

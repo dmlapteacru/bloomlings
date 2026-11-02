@@ -19,54 +19,6 @@
     ]
    },
    "placedException": "L0018 placed with the owner's exception (2026-10-27, both bridges win); replace when a picture with one deciding bridge exists"
-  },
-  {
-   "level": 78,
-   "cls": "Normal",
-   "intro": null,
-   "allowed": [
-    "hidden",
-    "links",
-    "bridge",
-    "cells",
-    "latch"
-   ],
-   "stage": {
-    "cells": [
-     400,
-     1500
-    ],
-    "colours": [
-     4,
-     10
-    ],
-    "compact": true
-   },
-   "recipe": "links+hidden"
-  },
-  {
-   "level": 82,
-   "cls": "Normal",
-   "intro": null,
-   "allowed": [
-    "hidden",
-    "links",
-    "bridge",
-    "cells",
-    "latch"
-   ],
-   "stage": {
-    "cells": [
-     400,
-     1500
-    ],
-    "colours": [
-     4,
-     10
-    ],
-    "compact": true
-   },
-   "recipe": "cells+links"
   }
  ],
  "pins": [
@@ -76,7 +28,7 @@
     51,
     100
    ],
-   "reserved": 97,
+   "reserved": 57,
    "reason": "нет прошедшего кандидата на подходящей позиции"
   },
   {
@@ -85,7 +37,7 @@
     51,
     100
    ],
-   "reserved": 80,
+   "reserved": null,
    "reason": "нет прошедшего кандидата на подходящей позиции"
   }
  ]

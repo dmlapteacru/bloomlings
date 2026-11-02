@@ -4862,11 +4862,53 @@
     "быстрая оценка вне зоны после поправок": 3,
     "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
    }
+  },
+  {
+   "combo": "Normal|cells||tune|2026-11-02b",
+   "tune": {
+    "slot": "regular",
+    "t": null,
+    "attempts": 3,
+    "quick": 3,
+    "evaluated": 0,
+    "seconds": 1
+   },
+   "tried": 3,
+   "found": 0,
+   "reasons": {
+    "быстрая оценка вне зоны после поправок": 2,
+    "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
+   }
+  },
+  {
+   "combo": "Normal|links+hidden||tune|2026-11-02c",
+   "tune": {
+    "slot": "regular",
+    "t": null,
+    "attempts": 4,
+    "quick": 4,
+    "evaluated": 0,
+    "seconds": 7
+   },
+   "tried": 4,
+   "found": 0,
+   "reasons": {
+    "связки ловушками: очередь сама остаётся выше зоны": 1,
+    "быстрая оценка вне зоны после поправок": 3,
+    "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
+   }
   }
  ],
  "placed": [],
  "tune": {
   "Normal|links|regular": {
+   "trap": true,
+   "offset": 2.11
+  },
+  "Normal|cells|regular": {
+   "offset": 0.82
+  },
+  "Normal|links+hidden|regular": {
    "trap": true,
    "offset": 2.11
   }
