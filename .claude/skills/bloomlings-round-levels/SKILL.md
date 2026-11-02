@@ -28,18 +28,40 @@ Read 17 §1, §3, §5–§8, §10, §11 and §14 before building, and the sectio
 
 ## In a wave (the owner's decisions of 2026-10-27, 17 §13)
 
-Build and placement run by script: `node tools/rounds/rounds.mjs run <from> <to> --jobs 4` (skill
-`bloomlings-round-wave` leads the whole wave). It runs, in order:
+Build and placement run by script: `node tools/rounds/rounds.mjs run <from> <to> --jobs 3` (skill
+`bloomlings-round-wave` leads the whole wave). The wave is **picture-first** (the owner's principle 17): `rounds.mjs plan`
+gives each non-bridge position one picture (`plan.json` `assign`). `run` runs, in order:
 - a dry placement on a copy;
-- `levels.mjs build` only for the free pictures and the classes and recipes the open positions need (one process per
-  picture; resumable, a searched combination is skipped);
-- `levels.mjs checks`;
+- `levels.mjs build` of exactly each open position's picture × class × recipe (one process per position, `--slot` and
+  the minutes by slot; a picture that brings no level in the zone is swapped for a free picture of the same size band,
+  at most twice — never a sweep of the pool; `--sweep` keeps the old path of every free picture);
+- (`levels.mjs checks` only on the `--sweep` path);
 - `levels.mjs place`;
 - `audit.mjs`;
 - the summary and the owner's sample pilot.
 
 The commands below remain the building blocks. Use them directly only to debug or to do a targeted rebuild
 (`build --fresh --seed N`).
+
+**The generator (the owner, 2026-11-02; `tools/rounds/README.md` «The generator (2026-11-02)»).** `levels.mjs build`
+builds every non-bridge level of a free picture with the queue tuning of `tools/rounds/tune.mjs` (`--legacy`: the old
+random / steered blend; bridge levels and L1–3 keep it):
+- the calibration's share model (`tools/rounds/calib/model.json`) plans the blend `t` of the queue for the class zone,
+  then at most five quick tests (40 games) correct it — Newton steps, then bisection once both sides were seen; the
+  picture remembers the `t` that landed (`bank/<P####>.json` `tune`);
+- links are chosen one pair at a time: Hard and Super Hard against the greedy strategy with a trap pair first, every class
+  under the forced-decision limit of §5 (≤ 35 %: a pair that pushes it over is refused), short holds, no two links
+  blocking the same columns at once, spread along the queue;
+- hidden pods and hidden cells are information overlays (the calibration: no effect on any §5 test): added by the recipe's
+  dose after the class is set, never re-tuned;
+- `evaluate` and the placer's filters of the slot decide; options `--slot regular|after-hard|breather`, `--want n`,
+  `--want-loss`, `--minutes m`, `--intro`.
+
+**Breathers** (17 §5 «Передышка», the owner, 2026-11-02; principle 18): a Normal on a picture up to ~550 cells or a
+position the wave plan marks `breather: true`. Zone 75–95 %, zero or one light mechanic (no trap link), built from the
+access order with the first fitting layout, and only the mandatory checks (solver proof, exact work, pod balance, §3
+budget, class by the random test; no calm test, opening test, «по цветам», holding pod, pressure or accents). The level
+carries `breather: true`; placement and audit keep it out of the Normal median and the «по цветам» quota.
 
 **What the generator builds** (17 §13 «Кто строит уровни», the owner, 2026-10-30): Normal levels and the Hard levels that
 pass every check and your look. Every Super Hard, every bridge level and a Hard the generator does not manage are built

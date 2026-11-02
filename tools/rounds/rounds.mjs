@@ -10,6 +10,10 @@
 //      pool picture with the generator's wall; a gap level a split of a free pool picture, bridge-scene.mjs make --mode
 //      split, listed with its command and suggested sources); the pinned pictures of mechanics.json `pin` reserved for fitting positions
 //      (plan.json pins), the free pool by picture pack, the pictures with a hole for the acorn key the latch positions need
+// node tools/rounds/rounds.mjs plan <from> <to> [--reassign]: under a mechanics plan also the picture-first assignment (wave.mjs; the owner's
+//      principle 17): one free picture per open non-bridge position by the size mix, spread evenly → plan.json assign
+// node tools/rounds/rounds.mjs run <from> <to> [--jobs 3] [--limit N] [--minutes M] [--swaps 2] [--sweep]: picture-first, each assigned
+//      position builds exactly its picture × class × recipe (a failed picture swapped within its size band); --sweep the old path below
 // node tools/rounds/rounds.mjs run <from> <to> [--jobs 4] [--candidates 64] [--no-build] [--no-sample] [--no-bridge] [--per-position N] [--all]
 //      dry placement on a copy; candidates only for what stays open (one process per picture, resumable: a combination
 //      already searched is skipped; under a mechanics plan only each position's planned recipe, on a wall of the planned
@@ -35,6 +39,7 @@ import fs from 'node:fs';import path from 'node:path';import os from 'node:os';i
 import {franchiseBlocked,packOf,interleaveByPack,root,ROUNDS,LEVELS,BANK,readJSON,writeJSON,lid,arg,flag,manifest,picture,measure,stageOf,fitsStage,sizeBin,slotOf,classOf,INTRO,MECH_RU,SUPPORTED,recipeAllowed,usage,motifsOf,boardOf,overlaid,bridgeSide,wallOverlay,mechanicsPlans,planOf,bridgeShowing} from './lib.mjs';
 import {fitness} from './fitness.mjs';
 import {fingerprints,sameEngine} from './conformance.mjs';
+import {assignPictures,replacement,bandsOf,bandCounts,isBreather,recipeFitsPods,latchFits,SIZE_MIX,BREATHER_N} from './wave.mjs';
 const cmd=process.argv[2],HERE=path.dirname(new URL(import.meta.url).pathname),NODE=process.execPath;
 process.argv.splice(2,0,'noop');const LV=await import('./levels.mjs');const BS=await import('./bridge-scene.mjs');process.argv.splice(2,1);
 const PILOT=path.join(root,'tools/gameplay-pilot-v12/build.mjs');
@@ -55,7 +60,11 @@ const latchNeed=(recipe,cls,intro)=>recipe.split('+').includes('latch')?LV.doses
 // the start); a latch recipe enough holes for its keys
 function fitsPosition(p,q){const pl=q.plan;if(!pl||q.level<=3||!p.fits.includes(q.level))return false;const bridge=pl.recipe.split('+').includes('bridge');
  if(bridge?!(p.stream&&p.side===pl.bridgeSide&&(pl.strip||'new')==='new'):p.stream)return false;
- if(q.cls!=='Normal'&&!p.strong3)return false;return holesOf(p.pic)>=latchNeed(pl.recipe,q.cls,q.intro);}
+ if(q.cls!=='Normal'&&!p.strong3)return false;
+ // a queue under 16 pods takes one mechanic type only (17 §7, levels.mjs dosesOk): a two-type recipe needs a picture with 16+ pods
+ if(!recipeFitsPods(pl.recipe,podsOf(p.pic)))return false;if(!latchFits(pl.recipe,q.cls,podsOf(p.pic),p.N<1000?3:4))return false;return holesOf(p.pic)>=latchNeed(pl.recipe,q.cls,q.intro);}
+// the pods of a picture by §3 (levels.mjs splitPods; 0 when its volumes do not split)
+const podCache=new Map(),podsOf=p=>{if(!podCache.has(p.id)){const m=measure(p),b=LV.splitPods(m.volumes,m.N,null);podCache.set(p.id,b.error?0:b.pods.length);}return podCache.get(p.id);};
 // pinned pictures (mechanics.json `pin`, the owner): each reserved for one fitting open position of the wave, the pins with
 // the fewest fitting positions first; a position another pin also fits, a neighbour of a pin of the same pack, or (for a
 // strong picture) a Normal position costs a little. status: free (to build and place), placed (already in this wave),
@@ -79,8 +88,38 @@ function reservePins(ids,open,pics,placed,a,b){const by=new Map(pics.map(p=>[p.i
   if(!free.length){Object.assign(e,{status:'blocked',reason:`подходящие позиции (${e.positions.map(n=>'L'+n).join(', ')}) заняты другими закреплёнными`});continue;}
   e.reserved=free[0];taken.set(free[0],e);}
  return out;}
+// ---- picture-first (wave.mjs) ----
+// the slot of an assigned position: an introduction, Hard / Super Hard, a breather (17 §5: the plan's mark or a picture up
+// to ~550 cells), the first Normal after a Hard or Super Hard, else a regular Normal; every second regular Normal (every
+// third before L25) also looks for a level "most work now" loses (17 §5 «по цветам»)
+const slotOfPos=(q,N)=>q.intro?'intro':q.cls!=='Normal'?q.cls:isBreather({...q,breather:!!(q.plan&&q.plan.breather)},N)?'breather':classOf(q.level-1)!=='Normal'?'after-hard':'regular';
+// the free pool as wave.mjs reads it (no strip; the stage of each open position it fits)
+let PF_POOL=null;const pfPool=pics=>PF_POOL||(PF_POOL=pics.filter(p=>!p.stream&&p.fits.length).map(p=>({id:p.id,title:p.title,N:p.N,colours:p.colours,pack:packOf(p.pic)||'—',hidden:fitness(p.pic).hiddenColours,weak:p.weak,holes:holesOf(p.pic),P:podsOf(p.pic),family:p.family,motifs:p.motifs,fits:new Set(p.fits)})));
+const posOfQ=q=>({level:q.level,cls:q.cls,intro:!!q.intro,recipe:q.plan.recipe,breather:!!q.plan.breather,accents:!!q.plan.accents,after:q.cls==='Normal'&&classOf(q.level-1)!=='Normal',latchNeed:latchNeed(q.plan.recipe,q.cls,q.intro)});
+const isHandPos=q=>!q.plan||q.plan.by==='hand'||!!q.plan.bridgeSide||q.plan.recipe.split('+').includes('bridge');
+function pictureFirst(a,b,open,pics,pins,placed){const pool=pfPool(pics),dir=waveDir(a,b),prev=flag('--reassign')?null:readJSON(path.join(dir,'plan.json'),null);
+ const positions=open.filter(q=>q.level>3&&!isHandPos(q)),hand=open.filter(q=>q.level>3&&isHandPos(q)).map(q=>q.level),poolIds=new Set(pool.map(p=>p.id));
+ const pinned=new Map(pins.filter(e=>e.status==='free'&&e.reserved).map(e=>[e.reserved,e.id]));
+ // the earlier assignment, kept while its picture is still free (resumable runs): treated like a pin
+ const keep=new Map();for(const x of (prev&&prev.assign)||[])if(positions.some(q=>q.level===x.level)&&poolIds.has(x.picture)&&!pinned.has(x.level))keep.set(x.level,x);
+ for(const [n,x] of keep)pinned.set(n,x.picture);
+ const before=Object.values(placed).filter(L=>L.level>=a-20&&L.level<=b).map(L=>({level:L.level,picture:L.picture,colours:L.colours}));
+ const picOf=id=>{const p=picture(id);return p?{id,family:p.family||null,motifs:motifsOf(p),pack:packOf(p),colours:measure(p).colours}:{id};};
+ const r=assignPictures(positions.map(posOfQ),pool,{pinned,before,picOf,waveStart:a});
+ const byId=new Map(pool.map(p=>[p.id,p]));let k=0;const regular=[];
+ const assign=r.assign.map(x=>{const q=positions.find(q=>q.level===x.level),p=byId.get(x.picture),old=keep.get(x.level),slot=slotOfPos(q,p.N);
+  if(slot==='regular')regular.push(x.level);
+  return {level:x.level,cls:q.cls,intro:q.intro||null,recipe:q.plan.recipe,slot,picture:x.picture,title:p.title,N:p.N,band:old?old.band:x.band,pack:p.pack,hidden:p.hidden,P:p.P,...(pins.some(e=>e.id===x.picture)?{pin:true}:{}),...(x.relaxed||old?.relaxed?{relaxed:x.relaxed||old.relaxed}:{}),...(old&&old.tried?{tried:old.tried}:{})};});
+ for(const x of assign)if(x.slot==='regular'){k++;if(k%(x.level<25?3:2)===0)x.wantLoss=true;}
+ return {assign,missing:r.missing,quota:r.quota,hand};}
+function pfMd(pf){const cnt={};for(const x of pf.assign)cnt[x.band]=(cnt[x.band]||0)+1;const SL={regular:'обычный',breather:'передышка','after-hard':'после Hard',intro:'знакомство',Hard:'Hard','Super Hard':'Super Hard'};
+ return ['','## Картинки волны (сначала картинка)','',`Принцип владельца 17 (01–02.11.2026): каждая позиция без моста получает одну картинку свободного пула заранее; \`rounds.mjs run\` строит ровно эту картинку × класс × рецепт (\`levels.mjs build\` с настройкой очереди, tune.mjs), при неудаче берёт замену той же размерной полосы. Размеры (17 §2, на ${pf.assign.length+pf.missing.length} позиций): ${SIZE_MIX.map(b=>`${b.band} — ${cnt[b.band]||0} из ${pf.quota[b.band]}`).join('; ')}. Вручную (мосты): ${pf.hand.length?pf.hand.map(n=>'L'+n).join(', '):'—'}.`,'',
+  '| Ур. | Класс | Позиция | Рецепт | Картинка | Клеток | Полоса | Пак | Скрыто цветов | Подов | Замечание |','|---|---|---|---|---|---|---|---|---|---|---|',
+  ...pf.assign.map(x=>`| ${x.level} | ${x.cls} | ${SL[x.slot]||x.slot}${x.wantLoss?', «по цветам» проигрывает':''} | ${x.recipe} | ${x.picture} «${x.title||''}»${x.pin?' (закреплена)':''} | ${x.N} | ${x.band} | ${x.pack} | ${x.hidden} | ${x.P} | ${[x.relaxed?`ослаблено: ${x.relaxed.join(', ')}`:'',x.tried?`замена после ${x.tried.join(', ')}`:''].filter(Boolean).join('; ')} |`),
+  ...(pf.missing.length?['',`Без картинки: ${pf.missing.map(x=>`L${x.level} (${x.band}: ${x.reason})`).join('; ')}.`]:[]),''];}
 const weakOf=f=>f.hiddenColours<=1||f.visible>=6;
-const regularAt=(n,placed)=>classOf(n)==='Normal'&&n>3&&!slotOf(n).intro&&classOf(n-1)==='Normal';
+// (a breather, 17 §5 «Передышка», is no regular Normal)
+const regularAt=(n,placed)=>classOf(n)==='Normal'&&n>3&&!slotOf(n).intro&&classOf(n-1)==='Normal'&&!(placed&&placed[n]&&placed[n].breather);
 const run1=(args,env={})=>new Promise(res=>{const p=spawn(NODE,args,{cwd:root,env:{...process.env,...env},stdio:['ignore','pipe','pipe']});let out='';p.stdout.on('data',d=>out+=d);p.stderr.on('data',d=>out+=d);p.on('close',code=>res({code,out}));});
 
 // ---- plan ----
@@ -165,7 +204,13 @@ function plan(a,b){const placed=placedLevels(),positions=[],blockers=[],plans=me
  const packs={};for(const p of pics.filter(p=>!p.stream&&p.fits.length)){const k=packOf(p.pic)||'—';packs[k]=(packs[k]||0)+1;}
  // pinned pictures (mechanics.json `pin`): reserved positions, or why a pin cannot go into the wave
  const wavePlan=plans.find(p=>p.wave[0]===a&&p.wave[1]===b)||plans.find(p=>a>=p.wave[0]&&a<=p.wave[1]),pins=wavePlan&&Array.isArray(wavePlan.pin)?reservePins(wavePlan.pin,open,pics,placed,a,b):[];
- const out={range:[a,b],created:new Date().toISOString(),positions:positions.map(({plan:pl,...p})=>p),open:open.map(p=>p.level),blockers,...(mech?{mechanics:mech}:{}),need,supply:{pictures:have,strong:haveStrong,stream:haveStream,bank,packs,...(latchOpen.length?{latch:{positions:latchOpen.map(q=>q.level),pictures:latchPics.length}}:{}),...(mech?{overlay:ovSupply}:{})},...(pins.length?{pins}:{}),
+ // picture-first (the owner's principle 17, 17 §2 «Размеры на волну 50», 2026-11-01/02): each open non-bridge position of a
+ // planned wave gets ONE picture from the free pool by the size mix, spread evenly, packs interleaved, pins kept,
+ // Hard / Super Hard the pictures with more colours hidden at the start, breathers the small ones (wave.mjs
+ // assignPictures); an earlier plan's assignment is kept while its picture is still free (--reassign draws it anew).
+ // Bridge and hand positions are skipped and reported.
+ const pf=mech?pictureFirst(a,b,open,pics,pins,placed):null;
+ const out={range:[a,b],created:new Date().toISOString(),positions:positions.map(({plan:pl,...p})=>p),open:open.map(p=>p.level),blockers,...(mech?{mechanics:mech}:{}),need,supply:{pictures:have,strong:haveStrong,stream:haveStream,bank,packs,...(latchOpen.length?{latch:{positions:latchOpen.map(q=>q.level),pictures:latchPics.length}}:{}),...(mech?{overlay:ovSupply}:{})},...(pins.length?{pins}:{}),...(pf?{assign:pf.assign,assignMissing:pf.missing,assignQuota:pf.quota,hand:pf.hand}:{}),
   order:{total,strong,streams,latch:latchOrder,byStage:orderByStage,sizeMix:Object.fromEntries(Object.entries(mix).map(([k,v])=>[k,Math.round(v*total)])),...(mech?{strips:strips.map(({levels,strongLevels,...e})=>({...e,levels})),scenes,sceneSources,splits}:{}),avoidMotifs:avoid,suggestFamilies:families}};
  const dir=waveDir(a,b);writeJSON(path.join(dir,'plan.json'),out);
  const mechMd=mech?['## Разбор допов','',`Утверждён владельцем (\`runs/${lid(a)}-${lid(b)}/mechanics.json\`, 17 §13 шаг 1). Расстановка берёт на позицию только кандидата с этим рецептом и, для моста, с этой стороной перехода. Дозы по §7: ведущая — свой диапазон (при трёх типах нижняя половина), дополнительная — минимум; место дозы по кругу §7.`,'',
@@ -186,6 +231,7 @@ function plan(a,b){const placed=placedLevels(),positions=[],blockers=[],plans=me
   ...(latchOpen.length?[`- Позиции с засовом: ${latchOpen.length} (L${latchOpen.map(q=>q.level).join(', L')}); свободных картинок с местом для ключа (пустая область внутри картинки, закрытая работой), подходящих им: ${latchPics.length}.`]:[]),
   ...(pins.length?['','## Закреплённые картинки','','Владелец закрепил их за волной (`mechanics.json` `pin`): расстановка держит каждую для её позиции (\`levels.mjs place\`), сборка строит под неё кандидатов (\`rounds.mjs run\`).','','| Картинка | Пак | Подходит позициям | Резерв | Состояние |','|---|---|---|---|---|',
    ...pins.map(e=>`| ${e.id} «${e.title||''}» | ${e.pack||'—'} | ${e.positions.map(n=>'L'+n).join(', ')||'—'} | ${e.reserved?'L'+e.reserved:'—'} | ${{free:'свободна',placed:'поставлена',used:'уже в раунде',blocked:'не встаёт'}[e.status]}${e.reason?': '+e.reason:''} |`),'']:[]),
+  ...(pf?pfMd(pf):[]),
   ...(mech&&Object.keys(ovSupply).length?[`- Стена поверх картинки пула (сколько свободных картинок её берут и подходят этапу; Hard/SH — сильные с ней): ${Object.entries(ovSupply).map(([k,v])=>`${k} — ${v}`).join('; ')}.`]:[]),
   '','## Заказ картинок','',total+strong+streams+stripTotal+splitTotal?(total?`- Картинки пула: **${total}** (ориентир 1,75 на позицию).`:'- Картинок пула хватает.'):'- Заказ не нужен: картинок хватает.',
   ...(total?[`- По этапам: ${Object.entries(orderByStage).map(([k,v])=>`${k} — ${v}`).join('; ')}.`,`- По размеру (§2, на 30: 6 / 15 / 9): ${Object.entries(out.order.sizeMix).map(([k,v])=>`${k} — ${v}`).join('; ')}.`]:[]),
@@ -213,9 +259,12 @@ async function runWave(a,b){const dir=waveDir(a,b),jobs=+arg('--jobs',Math.max(1
  // gap positions take approved split pictures (bridge-scene.mjs make --mode split); those without one stay open until made
  const noSplit=(p.order.splits||[]).filter(x=>!x.have);if(noSplit.length)step('контурные картинки с мостом ещё не сделаны и не утверждены (17 §8)',{levels:noSplit.map(x=>x.level)});
  // 1. what the bank fills already: a placement on a copy of content/rounds (with the waves' mechanics plans)
- const dry=async()=>{const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'rounds-dry-'));fs.cpSync(ROUNDS,tmp,{recursive:true,filter:s=>!s.includes(`${path.sep}runs${path.sep}`)||s.endsWith(`${path.sep}mechanics.json`)||fs.statSync(s).isDirectory()});
+ const dry=async()=>{const tmp=fs.mkdtempSync(path.join(os.tmpdir(),'rounds-dry-'));fs.cpSync(ROUNDS,tmp,{recursive:true,filter:s=>!s.includes(`${path.sep}runs${path.sep}`)||s.endsWith(`${path.sep}mechanics.json`)||s.endsWith(`${path.sep}plan.json`)||fs.statSync(s).isDirectory()});
   await run1([path.join(HERE,'levels.mjs'),'place',String(a),String(b)],{ROUNDS_DIR:tmp});const needs=(readJSON(path.join(tmp,'needs.json'),{needs:[]}).needs||[]).filter(x=>x.level>=a&&x.level<=b);fs.rmSync(tmp,{recursive:true,force:true});return needs;};
  let needs=await dry();step('пробная расстановка',{open:needs.map(x=>x.level)});
+ // picture-first (plan.json assign; --sweep: the old path below, every free picture for every open position)
+ const pfMode=!!(p.assign&&p.assign.length)&&!flag('--sweep');let timing=null;
+ if(pfMode&&!flag('--no-build'))timing=await buildPictureFirst(a,b,p,dir,jobs,step,needs);
  // --all: candidates for every planned position, not only the open ones (when the wave's sequence checks fail on what
  // the bank already holds, e.g. the Normal median or the greedy quota, fresh candidates give the placement a choice)
  if(flag('--all')){const plan=readJSON(path.join(dir,'mechanics.json'),null);if(plan)for(const e of plan.levels){if(e.level<a||e.level>b||needs.some(x=>x.level===e.level))continue;
@@ -226,7 +275,7 @@ async function runWave(a,b){const dir=waveDir(a,b),jobs=+arg('--jobs',Math.max(1
  // per picture (its bank file), with the exact class:recipe(@side) pairs
  // pinned pictures still free (plan.json pins, reservePins): candidates for their reserved position (or every position they fit)
  const pinBuild=(p.pins||[]).filter(e=>e.status==='free');if(pinBuild.length)step('закреплённые картинки',{pins:pinBuild.map(e=>`${e.id}→${e.reserved?'L'+e.reserved:'—'}`)});
- if((needs.length||pinBuild.length)&&!flag('--no-build')){const pics=freePictures().map(pc=>{const board=boardOf(pc);return {pc,m:measure(pc),f:fitness(pc),stream:!!board.hero,side:bridgeSide(board)};}),byPic=new Map();
+ if(!pfMode&&(needs.length||pinBuild.length)&&!flag('--no-build')){const pics=freePictures().map(pc=>{const board=boardOf(pc);return {pc,m:measure(pc),f:fitness(pc),stream:!!board.hero,side:bridgeSide(board)};}),byPic=new Map();
   const add=(id,variant,cls,recipe)=>{let t=byPic.get(id);if(!t)byPic.set(id,t={id,variants:new Set(),pairs:new Set(),classes:new Set(),recipes:new Set()});t.variants.add(variant);t.pairs.add(`${cls}:${recipe}${variant==='none'?'':'@'+variant}`);t.classes.add(cls);t.recipes.add(recipe);};
   const strong=(x,f)=>x.cls==='Normal'||f.hiddenColours>=3;
   // --no-bridge leaves the planned bridge positions for later (they need scene pictures); --per-position N tries at most
@@ -256,7 +305,7 @@ async function runWave(a,b){const dir=waveDir(a,b),jobs=+arg('--jobs',Math.max(1
    fs.writeFileSync(path.join(dir,'build',t.id+'.log'),r.out);done++;if(done%5===0||done===tasks.length)console.log(`  собрано ${done}/${tasks.length}`);}}));
   step('сборка готова');}
  // 3. checks missing on older candidates, then 4. the placement
- await Promise.all(Array.from({length:jobs},(_,k)=>run1([path.join(HERE,'levels.mjs'),'checks','--shard',`${k}/${jobs}`])));step('проверки кандидатов');
+ if(!pfMode){await Promise.all(Array.from({length:jobs},(_,k)=>run1([path.join(HERE,'levels.mjs'),'checks','--shard',`${k}/${jobs}`])));step('проверки кандидатов');}
  const pl=await run1([path.join(HERE,'levels.mjs'),'place',String(a),String(b)]);fs.writeFileSync(path.join(dir,'place.log'),pl.out);
  needs=(readJSON(path.join(ROUNDS,'needs.json'),{needs:[]}).needs||[]).filter(x=>x.level>=a&&x.level<=b);step('расстановка',{open:needs.map(x=>x.level)});
  // which bridge sites each bridge level shows from its start (17 §8 as amended on 2026-10-31)
@@ -268,9 +317,39 @@ async function runWave(a,b){const dir=waveDir(a,b),jobs=+arg('--jobs',Math.max(1
  const placed=placedLevels(),rows=[];for(let n=a;n<=b;n++)if(placed[n])rows.push(placed[n]);
  const sample=flag('--no-sample')?[]:pickSample(rows,placed);
  if(sample.length){const r=await run1([PILOT,'--levels',sample.join(','),'--out',path.join(dir,'sample'),'--name',`wave-${a}-${b}`]);fs.writeFileSync(path.join(dir,'sample.log'),r.out);step('выборка',{levels:sample});}
- fs.writeFileSync(path.join(dir,'summary.md'),summary(a,b,rows,needs,au.out,sample,placed,(Date.now()-t0)/60000));
+ fs.writeFileSync(path.join(dir,'summary.md'),summary(a,b,rows,needs,au.out,sample,placed,(Date.now()-t0)/60000,timing,p.hand||[]));
  step('готово',{minutes:Math.round((Date.now()-t0)/60000)});console.log(fs.readFileSync(path.join(dir,'summary.md'),'utf8'));
  return needs.length||failed?1:0;}
+
+// ---- picture-first build (the owner's principle 17): each assigned position builds exactly its picture × class × recipe
+// (levels.mjs build with the generator's tuning, one process per position, --jobs in parallel); a picture that brings no
+// level in the zone within its budget is swapped for a free picture of the same size band (wave.mjs replacement, at
+// most --swaps 2 times; never a sweep of the pool) and that one is built. --limit N builds only the first N open
+// positions; --minutes M the budget per position (default by slot). Returns the timing per position (timing.json).
+const PF_MIN={regular:8,'after-hard':6,breather:3,intro:6,Hard:15,'Super Hard':15};
+async function buildPictureFirst(a,b,p,dir,jobs,step,needs){const open=new Set(needs.map(x=>x.level)),limit=+arg('--limit',0),swaps=+arg('--swaps',2),placed=placedLevels();
+ let todo=p.assign.filter(x=>open.has(x.level));if(limit)todo=todo.slice(0,limit);
+ step('сначала картинка: сборка по позициям',{positions:todo.map(x=>`L${x.level} ${x.picture}`),hand:p.hand||[],jobs});
+ const inBank=x=>{const bk=readJSON(path.join(BANK,x.picture+'.json'),{candidates:[]});return bk.candidates.filter(c=>c.cls===x.cls&&c.recipe===x.recipe&&!!c.intro===!!x.intro&&(c.inZone||c.inZone===undefined)).length;};
+ // the placer's window of §2 (at most two levels of 10+ colours in any 20): where the levels around (placed, or assigned
+ // with 10+ colours, or 9 on a Hard / Super Hard that takes accents) already hold two, accents keep this level at 9
+ const colOf=id=>{const q=picture(id);return q?measure(q).colours:0;},maxCol=x=>{const pl=placedLevels(),near=k=>k!==x.level&&Math.abs(k-x.level)<20;
+  const n=Object.values(pl).filter(L=>near(L.level)&&L.colours>=10).length+p.assign.filter(y=>near(y.level)&&!pl[y.level]&&(colOf(y.picture)>=10||(y.cls!=='Normal'&&colOf(y.picture)===9))).length;return n>=2?9:10;};
+ const one=async x=>{const t0=Date.now(),args=[path.join(HERE,'levels.mjs'),'build',x.picture,'--classes',x.cls,'--recipes',x.recipe,'--pairs',`${x.cls}:${x.recipe}`,'--slot',x.slot,'--want','1',...(x.wantLoss?['--want-loss']:[]),'--max-colours',String(maxCol(x)),
+   '--minutes',String(arg('--minutes')||PF_MIN[x.slot]||8),x.intro?'--intro':'--no-intro','--candidates',arg('--candidates','64')];
+  const r=await run1(args);fs.appendFileSync(path.join(dir,'build',x.picture+'.log'),r.out);const m=/@@tune (.*)/.exec(r.out),res=m?JSON.parse(m[1]):null;
+  return {level:x.level,picture:x.picture,cls:x.cls,slot:x.slot,recipe:x.recipe,seconds:Math.round((Date.now()-t0)/1000),accepted:res?res.accepted:inBank(x),attempts:res?.attempts??null,quick:res?.quick??null,evaluated:res?.evaluated??null,first:res?.first??null,share:res?.share??null,skipped:!res,reasons:res?res.reasons:null};};
+ const used=()=>new Set([...p.assign.map(x=>x.picture),...Object.values(placedLevels()).map(L=>L.picture)]),timing=[],queue=todo.slice();
+ const before=Object.values(placed).filter(L=>L.level>=a-20&&L.level<=b).map(L=>({level:L.level,picture:L.picture,colours:L.colours})),picOf=id=>{const q=picture(id);return q?{id,family:q.family||null,motifs:motifsOf(q),pack:packOf(q),colours:measure(q).colours}:{id};};
+ await Promise.all(Array.from({length:jobs},async()=>{while(queue.length){const x=queue.shift(),t=await one(x);timing.push({...t,...(x.swappedFrom?{swappedFrom:x.swappedFrom}:{})});console.log(`  L${x.level} ${x.picture} ${x.cls}/${x.slot}: принято ${t.accepted} за ${t.seconds} с`);
+  if(t.accepted||(x.tried||[]).length>=swaps)continue;
+  // the fallback: a free picture of the same size band that fits the position (the plan's rules), then build it
+  const q=p.positions.find(y=>y.level===x.level),pl=planOf(x.level),rp=PF_POOL&&replacement({level:x.level,cls:x.cls,intro:!!x.intro,recipe:x.recipe,breather:!!(pl&&pl.breather),accents:!!(pl&&pl.accents),latchNeed:latchNeed(x.recipe,x.cls,x.intro)},x.band,PF_POOL,{used:used(),tried:[...(x.tried||[]),x.picture],before:[...Object.values(placedLevels()).filter(L=>L.level>=a-20&&L.level<=b).map(L=>({level:L.level,picture:L.picture,colours:L.colours})),...p.assign.filter(y=>y.level!==x.level&&!placedLevels()[y.level]).map(y=>({level:y.level,picture:y.picture}))],picOf,waveStart:a});
+  if(!rp){step(`L${x.level}: замены той же полосы ${x.band} нет`);continue;}
+  const e=PF_POOL.find(z=>z.id===rp.picture);x.swappedFrom=x.picture;x.tried=[...(x.tried||[]),x.picture];Object.assign(x,{picture:rp.picture,title:e.title,N:e.N,pack:e.pack,hidden:e.hidden,P:e.P,slot:slotOfPos({...q,plan:pl},e.N)});if(rp.relaxed)x.relaxed=rp.relaxed;else delete x.relaxed;
+  writeJSON(path.join(dir,'plan.json'),p);step(`L${x.level}: ${x.swappedFrom} не дала уровня класса — замена ${x.picture} (${x.band})`);queue.push(x);}}));
+ timing.sort((u,v)=>u.level-v.level||(u.swappedFrom?1:-1));writeJSON(path.join(dir,'timing.json'),timing);writeJSON(path.join(dir,'plan.json'),p);
+ step('сборка готова',{built:timing.length,accepted:timing.filter(t=>t.accepted).length,seconds:timing.reduce((s,t)=>s+t.seconds,0)});return timing;}
 
 // the owner's sample (quality.json "sample"): every Super Hard, two Hard, every introduction, two random regular Normals
 // and the two levels closest to a bound of the metrics (outliers); a fixed seed so a rerun picks the same
@@ -282,15 +361,17 @@ function pickSample(rows,placed){const S=QUALITY.sample||{},out=new Set(),rnd=((
  rows.filter(L=>!L.intro&&!out.has(L.level)&&(L.cls!=='Normal'||regularAt(L.level,placed))).sort((x,y)=>margin(x)-margin(y)).slice(0,S.outliers??2).forEach(L=>out.add(L.level));
  return [...out].sort((x,y)=>x-y);}
 
-function summary(a,b,rows,needs,audit,sample,placed,minutes){const reg=rows.filter(L=>regularAt(L.level,placed)),v=reg.map(L=>L.random.share).sort((x,y)=>x-y),med=v.length?v[Math.floor((v.length-1)/2)]:null;
+function summary(a,b,rows,needs,audit,sample,placed,minutes,timing=null,hand=[]){const reg=rows.filter(L=>regularAt(L.level,placed)),v=reg.map(L=>L.random.share).sort((x,y)=>x-y),med=v.length?v[Math.floor((v.length-1)/2)]:null;
  const cnt=f=>{const o={};for(const L of rows){const k=f(L);o[k]=(o[k]||0)+1;}return Object.entries(o).map(([k,n])=>`${k} — ${n}`).join('; ');};
  const lost=reg.filter(L=>{const s=L.strategies||{};return !s['most-now|left']&&!s['most-now|right'];}).length,itog=(audit.match(/Итог:[^\n]*/)||['Итог: —'])[0];
  return [`# Волна L${a}–L${b}`,'',`Прогон ${minutes.toFixed(0)} мин. ${itog}`,'',needs.length?`**Не заполнено ${needs.length}:** ${needs.map(x=>`L${x.level} ${x.cls}${x.intro?' ('+MECH_RU[x.intro]+')':''}`).join(', ')} → заказ картинок (\`rounds.mjs plan ${a} ${b}\`).`:'Все позиции заполнены.','',
   '| Ур. | Класс | Картинка | Механики | Бот | Стоят без работы | Вынужденных | Дебют + цвета | «По цветам» |','|---|---|---|---|---|---|---|---|---|',
-  ...rows.map(L=>{const k=L.checks||{},s=L.strategies||{};return `| ${L.level} | ${L.cls}${L.intro?' · знакомство':''} | ${L.picture} «${picture(L.picture)?.title||''}» | ${L.recipe}${L.linked?` (связанных ${L.linked})`:''}${L.hidden?` (скрытых ${L.hidden})`:''}${L.cells?` (скрытых клеток ${L.cells})`:''}${L.latches?` (засовов ${L.latches})`:''}${L.definition?.hero?` (мост ${SIDE_RU[bridgeSide(L.definition)]||''}${L.definition.overlay?', стена':''})`:''} | ${pct(L.random.share)} | ${k.pressure?.stuck??'—'} | ${pct(k.forced)} | ${k.opening?`${k.opening.first.wins}/${k.opening.first.openings} · ${pct(k.opening.three.share)}`:'—'} | ${!s['most-now|left']&&!s['most-now|right']?'проигрывает':'выигрывает'} |`;}),
+  ...rows.map(L=>{const k=L.checks||{},s=L.strategies||{};return `| ${L.level} | ${L.cls}${L.intro?' · знакомство':''}${L.breather?' · передышка':''} | ${L.picture} «${picture(L.picture)?.title||''}» | ${L.recipe}${L.linked?` (связанных ${L.linked})`:''}${L.hidden?` (скрытых ${L.hidden})`:''}${L.cells?` (скрытых клеток ${L.cells})`:''}${L.latches?` (засовов ${L.latches})`:''}${L.definition?.hero?` (мост ${SIDE_RU[bridgeSide(L.definition)]||''}${L.definition.overlay?', стена':''})`:''} | ${pct(L.random.share)} | ${k.pressure?.stuck??'—'} | ${pct(k.forced)} | ${k.opening?`${k.opening.first.wins}/${k.opening.first.openings} · ${pct(k.opening.three.share)}`:'—'} | ${!s['most-now|left']&&!s['most-now|right']?'проигрывает':'выигрывает'} |`;}),
   '','## Распределения','',`- Классы: ${cnt(L=>L.cls)}.`,`- Рецепты: ${cnt(L=>L.recipe)}.`,`- Размеры: ${cnt(L=>sizeBin(L.N))}.`,`- Медиана бота обычных Normal: ${pct(med)} (нужно 50–60 %); «по цветам» проигрывает ${lost} из ${reg.length}.`,
   `- Семьи: ${cnt(L=>picture(L.picture)?.family||'без тега')}.`,'',
   '## Выборка для владельца','',sample.length?`${sample.map(n=>'L'+n).join(', ')} — пилот \`content/rounds/runs/${lid(a)}-${lid(b)}/sample/index.html\`. После игры: \`node tools/rounds/rounds.mjs review <results.json>\`.`:'—','',
+  ...(timing?['## Сборка по позициям (сначала картинка)','',`Вручную (мосты): ${hand.length?hand.map(n=>'L'+n).join(', '):'—'}.`,'','| Ур. | Класс · позиция | Рецепт | Картинка | Секунд | Попыток | Быстрых замеров | Полных | Принято | Первый, с | Доля |','|---|---|---|---|---|---|---|---|---|---|---|',
+   ...timing.map(x=>`| ${x.level} | ${x.cls} · ${x.slot} | ${x.recipe} | ${x.picture}${x.swappedFrom?` (замена ${x.swappedFrom})`:''} | ${x.seconds} | ${x.attempts??'—'} | ${x.quick??'—'} | ${x.evaluated??'—'} | ${x.accepted}${x.skipped?' (из банка)':''} | ${x.first??'—'} | ${pct(x.share)} |`),'']:[]),
   `Проверка правил: [audit.md](audit.md). Лог расстановки: place.log, сборки: build/.`,''].join('\n');}
 
 // ---- review ----

@@ -8,6 +8,9 @@
 //      picture's own board] [--pairs Normal:links,Hard:bridge+links@up: only these class:recipe(@overlay side) pairs]
 //      [--no-intro] [--accents auto|on|off: accents of 17 §6 (2026-11-01) painted as the level's recolouring, auto = every
 //      Hard and Super Hard attempt and every third regular Normal attempt]
+//      [--slot regular|after-hard|breather] [--want n] [--want-loss] [--minutes m] [--intro] [--max-colours n] [--legacy]: every non-bridge level of a
+//      free picture is built by the generator's tuning (tune.mjs, README «The generator (2026-11-02)»): the model's blend, ≤ 5
+//      quick tests, links under the forced limit, hidden pods / cells after the class; --legacy the old random blend
 //      candidates for each picture, recipe and class: balance → queue → saved solution → random test → bank. Recipes put
 //      the lead first (17 §7): none, links, hidden, bridge, links+hidden, hidden+links, bridge+links, bridge+hidden,
 //      hidden+bridge, links+bridge, links+bridge+hidden, bridge+links+hidden; hidden cells (17 §8, 2026-11-01) as 'cells':
@@ -31,6 +34,7 @@
 import fs from 'node:fs';import path from 'node:path';
 import {franchiseBlocked,packOf,repeatWindow,siteChoice,ROUNDS,PICTURES,LEVELS,BANK,CODES,PALETTE,manifest,saveManifest,picture,readJSON,writeJSON,lid,pid,arg,flag,measure,stageOf,fitsStage,sizeBin,budget,columnsFor,classOf,slotOf,INTRO,MECH_RU,SUPPORTED,recipeAllowed,boardOf,usage,motifsOf,overlaid,bridgeSide,wallOverlay,planOf,fitsPlan,mechanicsPlans} from './lib.mjs';import {execFileSync} from 'node:child_process';
 import {fitness} from './fitness.mjs';import {deltaE,labOf} from './colour-distance.mjs';
+import {tuneJob} from './tune.mjs';
 import {latchCheck,LATCH_DEPTH,LATCH_BEHIND,cellsHiddenAtStart,cellFairness,randomTest,quickShare,solve,fairness,strategies,rhythm,bridgeChoicesWin,bridgeChoices,greedy,greedyBeaten,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,bridgeLoss,pressure,calmTest,calmFails,calmBorderline,trapLinks} from './measure.mjs';
 // layer B of 17 §13: the bounds of the metrics of interest (content/rounds/quality.json)
 const QUALITY=readJSON(path.join(ROUNDS,'quality.json'),{pressure:{min:{},games:30,mode:'soft'}});import {engine,rulesSync} from './engine.mjs';import {createRequire as _cr} from 'node:module';
@@ -141,7 +145,8 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null,opt
  for(const p of pods){const z=Math.sqrt(-2*Math.log(r()+1e-9))*Math.cos(2*Math.PI*r());p.order=p.key-lean*Math.max(0,(p.keyO??p.key)-p.key)+sigma*z;}
  // Normal blends a little towards the reverse access order too, so its random test lands in 50–75 % (§5, median 50–60 %)
  // (a bridge level leans to its intended bridge instead; a split search, bridge-scene.mjs, may still steer it with opts.t)
- if(cls==='Normal'&&!intro&&(!lean||opts.t!=null)){const t0=r(),t=opts.t??t0;for(const p of pods)p.order=(1-t)*p.order+t*(1-p.key);}
+ // (the generator's tuning, tune.mjs, gives t for every Normal, an introduction and a breather too)
+ if(cls==='Normal'&&(!intro||opts.t!=null)&&(!lean||opts.t!=null)){const t0=r(),t=opts.t??t0;for(const p of pods)p.order=(1-t)*p.order+t*(1-p.key);}
  // harder classes (§6.1): the queue is blended between the access order and its reverse by t, drawn per candidate, so
  // outer colours move deeper and inner ones come earlier and wait in places; a careless tap jams the places. The
  // measured class decides where a candidate may go (§5), the saved solution proves it stays winnable.
@@ -182,17 +187,21 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null,opt
   if(best!==undefined){const c=Math.floor(r()*cols),[bc,bi]=(()=>{for(let k=0;k<cols;k++){const j=tray[k].indexOf(best);if(j>=0)return [k,j];}})();[tray[c][0],tray[bc][bi]]=[tray[bc][bi],tray[c][0]];}}
  // §6 (the owner's second amendment of 2026-10-27): a Normal keeps a pod of a deep colour (no reachable cell at the
  // start) in the first two rows, so it holds a place until its work opens; the shallowest deep pod moves up to row 2
- if(cls==='Normal'&&!intro&&!pic.locked&&!tray.some(st=>st.slice(0,2).some(p=>!frontier.has(pods[p].color)))){
+ // (opts.noHold: a breather or the first Normal after a Hard, 17 §5, needs none)
+ if(cls==='Normal'&&!intro&&!opts.noHold&&!pic.locked&&!tray.some(st=>st.slice(0,2).some(p=>!frontier.has(pods[p].color)))){
   const deep=[];tray.forEach((st,c)=>st.forEach((p,row)=>{if(row>=2&&!frontier.has(pods[p].color))deep.push([c,row]);}));deep.sort((a,b)=>pods[tray[a[0]][a[1]]].key-pods[tray[b[0]][b[1]]].key);
   const cs=[...Array(cols).keys()].filter(c=>tray[c].length>=2);if(deep.length&&cs.length){const [dc,dr]=deep[0],c=cs[Math.floor(r()*cs.length)];[tray[c][1],tray[dc][dr]]=[tray[dc][dr],tray[c][1]];}}
  const types=recipe==='none'?[]:recipe.split('+'),dz=doses(recipe,cls,pods.length,intro,[...g].filter(ch=>CODES.includes(ch)).length);if(dz.error)return {error:dz.error};
- if(types.includes('links')){const want=pos===null||intro?dz.links[0]+2*Math.floor(r()*((dz.links[1]-dz.links[0])/2+1)):dz.links[0]+2*Math.round(pos*(dz.links[1]-dz.links[0])/2),pairs=[];const used=new Set();
+ // opts.noLinks: the generator chooses the links itself, one pair at a time (tune.mjs chooseLinks)
+ if(types.includes('links')&&!opts.noLinks){const want=pos===null||intro?dz.links[0]+2*Math.floor(r()*((dz.links[1]-dz.links[0])/2+1)):dz.links[0]+2*Math.round(pos*(dz.links[1]-dz.links[0])/2),pairs=[];const used=new Set();
   // pairs of neighbouring columns at the same depth; harder classes prefer a useful-now pod with a later one (§6.3)
   const opts=[];for(let c=0;c+1<cols;c++)for(let row=0;row<Math.min(tray[c].length,tray[c+1].length);row++)opts.push([tray[c][row],tray[c+1][row],row]);
   opts.sort((x,y)=>(cls==='Normal'?Math.abs(pods[x[0]].key-pods[x[1]].key)-Math.abs(pods[y[0]].key-pods[y[1]].key):Math.abs(pods[y[0]].key-pods[y[1]].key)-Math.abs(pods[x[0]].key-pods[x[1]].key))+(r()-.5)*.2);
   for(const [a,b,row] of opts){if(pairs.length*2>=want)break;if(used.has(a)||used.has(b)||(intro&&row<1))continue;used.add(a);used.add(b);pairs.push([a,b]);}
   if(pairs.length*2<want)return {error:'не хватило пар соседних подов для дозы связок'};pairs.forEach(([a,b],i)=>{const gname=String.fromCharCode(65+i%26)+(i>=26?String(Math.floor(i/26)):'');pods[a].group=gname;pods[b].group=gname;});}
- if(types.includes('hidden')){const want=pos===null||intro||types[0]!=='hidden'?dz.hidden[0]+Math.floor(r()*(dz.hidden[1]-dz.hidden[0]+1)):dz.hidden[0]+Math.round(pos*(dz.hidden[1]-dz.hidden[0]));
+ // opts.noInfo: hidden pods and hidden cells come after the class is set (tune.mjs addInfo; the calibration: they change
+ // none of the §5 tests)
+ if(types.includes('hidden')&&!opts.noInfo){const want=pos===null||intro||types[0]!=='hidden'?dz.hidden[0]+Math.floor(r()*(dz.hidden[1]-dz.hidden[0]+1)):dz.hidden[0]+Math.round(pos*(dz.hidden[1]-dz.hidden[0]));
   // from the second row down, never in a group (the engine reveals a pod on reaching the top only)
   let opts=tray.flatMap(st=>st.map((p,row)=>[p,row])).filter(([p,row])=>row>=1&&!pods[p].group).sort(()=>r()-.5);
   // an introduction puts its first hidden pod in the second row, to reveal within the first launches (§8)
@@ -200,7 +209,7 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null,opt
   if(opts.length<want)return {error:'не хватило подов для скрытых'};opts.slice(0,want).forEach(([p])=>pods[p].mystery='depth');}
  // hidden cells (17 §8, 2026-11-01): the lead its dose place, an additional one its minimum, an introduction 5–10
  let hiddenCells=null;
- if(types.includes('cells')){const [a,b]=dz.cells,lead0=types.filter(m=>m!=='bridge')[0]==='cells',want=pos===null||intro||!lead0?a+Math.floor(r()*(b-a+1)):a+Math.round(pos*(b-a));
+ if(types.includes('cells')&&!opts.noInfo){const [a,b]=dz.cells,lead0=types.filter(m=>m!=='bridge')[0]==='cells',want=pos===null||intro||!lead0?a+Math.floor(r()*(b-a+1)):a+Math.round(pos*(b-a));
   // never a recoloured cell (an accent must be seen to read as the reason its pod waits)
   const avoid=new Set((board.recolor||[]).map(([x,y])=>(board.h-1-(y+2))*board.w+x+2));
   hiddenCells=pickHiddenCells(board,want,r,{intro,avoid});if(!hiddenCells)return {error:'не хватило глубоких клеток для скрытых клеток'};}
@@ -375,7 +384,7 @@ const rowOfPod=(level,i)=>{for(const st of level.tray){const k=st.indexOf(i);if(
 // other comes later through materials and places, not at the choice: bridgeLoss), 'better' (not an introduction: both
 // win, one 10+ points better by the random test) or 'any' (single or better). The owner, 2026-10-28 (second decision):
 // Normal any, Hard half single and half better, Super Hard single.
-export async function evaluate(level,{m,cls,intro=false,fixed=null,kind=null,tick=()=>{}}){const W=m.N,recipe=level.recipe||'none';
+export async function evaluate(level,{m,cls,intro=false,fixed=null,kind=null,breather=false,tick=()=>{}}){const W=m.N,recipe=level.recipe||'none';
  const errs=checkPods(level.pods,m.volumes);if(errs.length)return {reason:'баланс'};
  {const {R}=await engine(),ve=R.validate(level);if(ve&&ve.length)return {reason:'движок отклоняет: '+ve[0]};}
  // hidden cells (17 §8, §9): never with hidden pods; an introduction has 5–10 cells still hidden after the start reveal
@@ -384,6 +393,8 @@ export async function evaluate(level,{m,cls,intro=false,fixed=null,kind=null,tic
  // latch + key (17 §9): an introduction has exactly one latch with its key
  if(intro&&recipe==='latch'&&(level.latches||[]).length!==1)return {reason:`знакомство: засовов ${(level.latches||[]).length}, нужен один с ключом (§9)`};
  if(level.hero){const {R}=await engine();if(R.bridgeChoices(R.create(level,level.capacity||5)).length)return {reason:'мост доступен сразу — нужен расчищенный подход (§8)'};}
+ // a breather (17 §5 «Передышка», the owner, 2026-11-02): the mandatory checks only
+ if(breather)return evaluateBreather(level,{m,tick});
  // a bridge introduction may be the second one, where one bridge only wins: its target is the Normal zone (§9)
  // a bridge level's class is its best bridge's (17 §5, the owner, 2026-10-30): the quick estimate takes the better bridge
  const q=level.hero?Math.max(...await Promise.all(level.hero.choices.map((_,i)=>quickShare(level,40,11,i)))):await quickShare(level,40);tick('быстрая оценка '+q);const target=intro&&recipe==='bridge'?[.5,1]:intro?[.9,1]:fixed===1?[1,1]:fixed?[.9,1]:{Normal:[.5,.75],Hard:[.2,.5],'Super Hard':[.05,.2]}[cls];
@@ -441,6 +452,26 @@ export async function evaluate(level,{m,cls,intro=false,fixed=null,kind=null,tic
  return {random:rt,...(rtAll?{randomAll:rtAll}:{}),solution:{route:sol.route,forks:sol.decisions.forks,singleSafe:sol.decisions.single,unknown:sol.decisions.unknown,fast:sol.fast},fairness:fair,strategies:st,rhythm:rh,...(bc?{bridge:bc}:{}),
   checks:{forced,opening,hold,greedyLoses,hiddenMatters:hm,bridgeKind,bridgeSingle:bs,...(bl?{bridgeLoss:bl}:{}),pressure:await pressure(level,QUALITY.pressure.games),calm,traps:{links:traps.length,traps:trapN,top:traps.filter(x=>x.trap&&x.row<=2).length},...(lc?{latch:lc}:{})}};}
 
+// A breather (17 §5 «Передышка», the owner, 2026-11-02: «некоторые играются как "передышка", особенно те что < 500–550
+// клеток»): a Normal on a picture up to ~550 cells (BREATHER_N) or a position the wave plan marks `breather`. Zero or one
+// light mechanic (no trap link), its zone 75–95 %, and only the mandatory checks of layer A: the engine's validation and
+// the exact balance (evaluate's start), the saved solution, the doses, the class by the random test (Normal), the §8
+// rules of a latch on the solution and the fairness of hidden information. No calm test, opening test, «по цветам»,
+// holding pod, pressure or accents; forced decisions are recorded, not required. Not in the Normal median nor the
+// «по цветам» quota (levels.mjs place, audit.mjs).
+export const BREATHER_N=550;
+async function evaluateBreather(level,{m,tick=()=>{}}){const W=m.N,types=(level.recipe||'none')==='none'?[]:level.recipe.split('+');
+ if(types.length>1)return {reason:'передышка: не больше одной механики (§5)'};
+ const traps=trapLinks(level),trapN=traps.filter(x=>x.trap).length;if(trapN)return {reason:'передышка: связка-ловушка (§5)'};
+ const q=await quickShare(level,40);tick('быстрая оценка '+q);if(q<.6)return {reason:'не тот класс по быстрой оценке',quick:q};
+ const sol=await solve(level);tick('решение '+sol.win);if(sol.win!==true||sol.replay!=='won')return {reason:sol.win===null?'решение не найдено за бюджет (не проверено)':'нет решения'};
+ const rt=await randomTest(level);tick('случайный тест '+rt.share);if(rt.cls!=='Normal')return {reason:'передышка: случайный тест ниже 50 % (§5)'};
+ const dErr=dosesOk(level,'Normal');if(dErr)return {reason:'дозы не подходят: '+dErr};
+ const lc=level.latches?await latchCheck(level,sol.route,'Normal'):null;if(lc&&!lc.ok)return {reason:'засов: '+lc.problems[0]};
+ const fair=level.pods.some(p=>p.mystery)?await fairness(level,sol.route):level.hiddenCells?await cellFairness(level,sol.route):{fair:true,checked:0};if(!fair.fair)return {reason:level.hiddenCells?'честность скрытых клеток не подтверждена':'честность скрытых не подтверждена'};
+ return {random:rt,solution:{route:sol.route,forks:sol.decisions.forks,singleSafe:sol.decisions.single,unknown:sol.decisions.unknown,fast:sol.fast},fairness:fair,strategies:{},rhythm:rhythm(sol.trace,W),
+  checks:{breather:true,forced:await forcedShare(level),opening:null,hold:null,greedyLoses:null,hiddenMatters:null,bridgeKind:null,traps:{links:traps.length,traps:0,top:0},...(lc?{latch:lc}:{})}};}
+
 // a bridge scene (bridge-scene.mjs, a picture whose record carries scene.win): the queue leans to the winning site and
 // the gate of the other strip stands deep (candidate opts), one of the last three rows of the tray by attempt
 // (a split picture, bridge-scene.mjs make --mode split: its scene.win is the bridge its search leaned to; planned
@@ -461,6 +492,16 @@ export async function accentCheck(level,pic,accents,withP=null){const twin=accen
  return {materials:accents.map(a=>({code:a.code,name:PALETTE[a.code].name,from:a.from,cells:a.cells,clusters:a.clusters.length,
    pods:level.pods.map((p,i)=>p.color===a.code?i:-1).filter(i=>i>=0).map(i=>({pod:i,count:level.pods[i].count,row:rowOfPod(level,i)}))})),
   cells:accents.reduce((s,a)=>s+a.cells,0),pressure:{with:w.stuck,without:wo?wo.stuck:null}};}
+// One attempt's accents (17 §6, the owner, 2026-11-01), shared by build and the generator's tuning (tune.mjs): when the
+// attempt wants them (accentWanted), 1–2 accent materials painted over the picture (the level's recolouring) and the pods
+// of the recoloured board; null when the attempt wants none or the picture has no room (the reason counted by no)
+// maxColours: the colours the level may reach (the runner gives 9 where 20 levels around already hold two of 10+ colours, the
+// placer's §2 window)
+export function accentVariant(pic,overlay,m,fixed,cls,intro,k,mode,cseed,no=()=>{},maxColours=10){if(!accentWanted(mode,cls,intro,fixed,k))return null;
+ const ar=rnd(cseed^0x2545f491),room=(m.N<400?6:Math.min(10,maxColours))-m.colours,a=room>0?pickAccents(pic,overlay,ar,{materials:room>=2&&m.colours<=7&&ar()<.4?2:1}):null;
+ if(!a){no(room>0?'акценты: нет места в картинке (строим без них)':'акценты: цветов уже предел (строим без них)');return null;}
+ const am=measure(overlaid(pic,overlay,a.recolor)),ab=splitPods(am.volumes,am.N,fixed);if(ab.error){no('акценты: '+ab.error+' (строим без них)');return null;}
+ let ps=accentPods(ab.pods,a.accents,ar);if(ps.length>budget(am.N)[1])ps=ab.pods;return {accents:a.accents,recolor:a.recolor,m:am,pods:ps,board:boardOf(pic,overlay,a.recolor)};}
 async function build(ids){const accentMode=arg('--accents','auto');if(!['auto','on','off'].includes(accentMode))throw Error('--accents: auto, on или off');const classes=(arg('--classes','Normal,Hard,Super Hard')).split(','),seed0=+arg('--seed',+(process.env.ROUNDS_SEED||1)),sides=arg('--overlay')?arg('--overlay').split(','):null;
  if(sides&&sides.some(x=>x!=='none'&&!SIDES.includes(x)))throw Error(`--overlay: стороны none, ${SIDES.join(', ')}`);
  // --pairs (rounds.mjs run under a mechanics plan): only the planned class:recipe pairs, @side for a wall's side
@@ -478,11 +519,16 @@ async function build(ids){const accentMode=arg('--accents','auto');if(!['auto','
   // a board with a strip takes bridge recipes only (its far part needs a bridge), a board without one no bridge recipe
   const all=(arg('--recipes')||(fixed?'none':hasBridge?'bridge,bridge+links':'none,links,hidden,links+hidden')).split(','),recipes=all.filter(x=>x.split('+').every(t=>t==='none'||SUPPORTED.has(t))&&recipeAllowed(x)&&x.split('+').includes('bridge')===hasBridge);
   for(const cls of fixed?['Normal']:classes)for(const recipe of recipes){if(fixed&&recipe!=='none')continue;if(pairs&&!pairs.has(`${cls}:${recipe}${v.overlay?'@'+v.side:''}`))continue;
-   for(const intro of recipe!=='none'&&!recipe.includes('+')&&cls==='Normal'&&!flag('--no-intro')?[false,true]:[false]){
+   for(const intro of recipe!=='none'&&!recipe.includes('+')&&cls==='Normal'&&!flag('--no-intro')?(flag('--intro')?[true]:[false,true]):[false]){
     // resumable: a combination already searched (bank.searched) is skipped; the bank is saved after each one
     // ROUNDS_FRESH=1 (or --fresh) searches again; ROUNDS_FRESH=<tag> searches again once per tag (a resumable re-search)
     const fresh=process.env.ROUNDS_FRESH,runTag=fresh&&fresh!=='1'?fresh:null;
-    const combo=`${cls}|${recipe}|${intro?'intro':''}${v.overlay?'|'+v.side:''}`;bank.searched=bank.searched||[];if(runTag?bank.searched.some(x=>x.combo===combo&&x.tag===runTag):!flag('--fresh')&&!fresh&&bank.searched.some(x=>x.combo===combo)){console.log(id,tag,cls.padEnd(10),recipe.padEnd(13),intro?'знакомство':'','уже искали — пропуск');continue;}
+    // the generator's tuning (tune.mjs, the owner, 2026-11-02) builds every non-bridge level of a free picture; --legacy keeps
+    // the random / steered blend below. A Normal's slot (--slot regular | after-hard | breather) sets its zone; a picture
+    // of up to BREATHER_N cells is a breather (17 §5 «Передышка»)
+    const tuned=!fixed&&!recipe.includes('bridge')&&!v.overlay&&!flag('--legacy'),slot=intro?'intro':cls!=='Normal'?cls:arg('--slot')||(m.N<=BREATHER_N?'breather':'regular');
+    const combo=`${cls}|${recipe}|${intro?'intro':''}${v.overlay?'|'+v.side:''}${tuned?'|tune'+(cls==='Normal'&&!intro&&slot!=='regular'?'|'+slot:''):''}`;bank.searched=bank.searched||[];if(runTag?bank.searched.some(x=>x.combo===combo&&x.tag===runTag):!flag('--fresh')&&!fresh&&bank.searched.some(x=>x.combo===combo)){console.log(id,tag,cls.padEnd(10),recipe.padEnd(13),intro?'знакомство':'','уже искали — пропуск');continue;}
+    if(tuned){await buildTuned({pic,id,cls,recipe,intro,slot,bank,bankFile,combo,runTag,seed0,accentMode,budgetN});continue;}
     let tried=0,found=0,foundLoss=0;const reasons={};
     // a regular Normal steers its blend t towards the reverse access order (candidate opts.t) by the shares measured on
     // this picture and recipe so far, aiming at the middle of the median band (17 §5: Normal 50–75 %, median 50–60 %).
@@ -500,13 +546,7 @@ async function build(ids){const accentMode=arg('--accents','auto');if(!['auto','
      const blend=steer?Math.min(1,Math.max(0,steer.t+(rnd(cseed^0x5bd1e995)()-.5)*.12)):null;
      // accents (17 §6, the owner, 2026-11-01): this attempt paints 1–2 accent materials over the picture (the level's
      // recolouring) and puts their pods early or mid queue; a picture without room for them is built without
-     let acc=null,cm=m,cboard=board,cpods=base.pods;
-     if(accentWanted(accentMode,cls,intro,fixed,k)){const ar=rnd(cseed^0x2545f491),room=(m.N<400?6:10)-m.colours;
-      const a=room>0?pickAccents(pic,v.overlay,ar,{materials:room>=2&&m.colours<=7&&ar()<.4?2:1}):null;
-      if(!a)no(room>0?'акценты: нет места в картинке (строим без них)':'акценты: цветов уже предел (строим без них)');
-      else{const am=measure(overlaid(pic,v.overlay,a.recolor)),ab=splitPods(am.volumes,am.N,fixed);
-       if(ab.error)no('акценты: '+ab.error+' (строим без них)');
-       else{let ps=accentPods(ab.pods,a.accents,ar);if(ps.length>budget(am.N)[1])ps=ab.pods;acc=a;cm=am;cpods=ps;cboard=boardOf(pic,v.overlay,a.recolor);}}}
+     const av=accentVariant(pic,v.overlay,m,fixed,cls,intro,k,accentMode,cseed,no),acc=av,cm=av?av.m:m,cboard=av?av.board:board,cpods=av?av.pods:base.pods;
      const c=candidate(pic,cboard,cpods,cols,recipe,cls,cseed,intro,pos,{...sceneOpts(pic,cboard,cpods.length,cols,k),...(blend!==null?{t:blend}:{}),...(acc?{accents:acc.accents.map(x=>x.code)}:{})});
      if(c.error){reasons[c.error]=(reasons[c.error]||0)+1;continue;}
      let quick=null;const trace=process.env.ROUNDS_TRACE?(l=>console.error(`  ${id} ${cls} ${recipe} #${k}${blend!==null?' t '+blend.toFixed(2):''} ${l} ${((Date.now()-t0)/1000).toFixed(1)} s`)):()=>{},t0=Date.now();
@@ -524,6 +564,23 @@ async function build(ids){const accentMode=arg('--accents','auto');if(!['auto','
     bank.searched.push({combo,...(runTag?{tag:runTag}:{}),...(steer?{steer:{t:Math.round(steer.t*1000)/1000,aim:steer.aim}}:{}),tried,found,reasons});writeJSON(bankFile,bank);}}}
   writeJSON(bankFile,bank);}}
 
+// one picture × class × recipe × slot by the generator's tuning (tune.mjs): plan from the model, ≤ 5 quick tests on the blend
+// t (Newton, then bisection), links one pair at a time under the forced limit, hidden pods / cells after the class is set,
+// evaluate and the slot's filters. The picture remembers the t that landed (bank.tune). --want n levels in the zone that
+// pass the slot's filters (default 2), --want-loss also one that "most work now" loses (17 §5), --minutes m a time
+// budget on top of --candidates (17 §13.5). The last console line is `@@tune {json}` for rounds.mjs run.
+async function buildTuned({pic,id,cls,recipe,intro,slot,bank,bankFile,combo,runTag,seed0,accentMode,budgetN}){
+ const want=+arg('--want',2),wantLoss=flag('--want-loss')&&slot==='regular',minutes=+arg('--minutes',Infinity),key=`${cls}|${recipe}|${slot}`;
+ bank.tune=bank.tune||{};const memory=bank.tune[key]=bank.tune[key]||{};const trace=process.env.ROUNDS_TRACE?l=>console.error(`  ${id} ${cls} ${recipe} ${slot} ${l}`):()=>{};
+ const res=await tuneJob({pic,cls,recipe,slot,intro,want,wantLoss,attempts:budgetN,minutes,memory,seed:seed0,accentMode,maxColours:+arg('--max-colours',10),save:()=>writeJSON(bankFile,bank),log:trace});
+ for(const x of res.banked){const lv=x.level,e=x.e,inZone=res.accepted.includes(x)&&!x.zoneMiss;
+  bank.candidates.push({id:`${id}-${cls[0]}${recipe}${runTag?'-'+runTag:''}${x.acc?'-a':''}${slot==='breather'?'-br':''}-${x.k}${intro?'-intro':''}`,picture:id,requested:cls,cls:e.random.cls,intro,recipe,level:lv,N:x.m.N,W:x.m.N,colours:x.m.colours,P:lv.pods.length,columns:lv.tray.length,
+   linked:lv.pods.filter(p=>p.group).length,hidden:lv.pods.filter(p=>p.mystery).length,...(lv.hiddenCells?{cells:cellsHiddenAtStart(lv)}:{}),...(lv.latches?{latches:lv.latches.length}:{}),...(slot==='breather'?{breather:true}:{}),slot,inZone,...(x.zoneMiss?{zoneMiss:true}:{}),
+   random:e.random,solution:e.solution,fairness:e.fairness,strategies:e.strategies,rhythm:e.rhythm,dosePos:x.pos,blend:x.t,tune:{steps:x.steps,...(x.links?{links:x.links}:{}),seconds:Math.round(x.seconds)},checks:e.checks,engine:'tools/rounds/engine.mjs (pilot v9 + §8 link rule)',seed:seed0,attempt:x.k});}
+ const st=res.stats;console.log(id,cls.padEnd(10),recipe.padEnd(13),slot,`принято ${res.accepted.length} из ${st.attempts} попыток (в банк ${res.banked.length}) за ${Math.round(res.seconds)} с`,JSON.stringify(st.reasons));
+ bank.searched.push({combo,...(runTag?{tag:runTag}:{}),tune:{slot,t:memory.t??null,attempts:st.attempts,quick:st.quick,evaluated:st.evaluated,seconds:Math.round(res.seconds)},tried:st.attempts,found:res.accepted.length,reasons:st.reasons});writeJSON(bankFile,bank);
+ console.log('@@tune '+JSON.stringify({picture:id,cls,recipe,slot,accepted:res.accepted.length,banked:res.banked.length,attempts:st.attempts,quick:st.quick,evaluated:st.evaluated,seconds:Math.round(res.seconds),first:res.accepted[0]?Math.round(res.accepted[0].seconds):null,share:res.accepted[0]?res.accepted[0].e.random.share:null,reasons:st.reasons}));}
+
 // ---- place: calendar positions from the bank, with the variety rules of §11 and the windows of §2/§13 ----
 const typesOf=c=>(c.recipe||'none')==='none'?[]:c.recipe.split('+');
 // §7 as amended on 2026-10-27: Super Hard a lead and an additional mechanic once two types are open, Hard a mechanic
@@ -532,7 +589,8 @@ function recipeOk(c,n,slot,needMech){const t=typesOf(c).length;if(slot.intro)ret
  if(slot.cls==='Super Hard')return t>=Math.min(2,slot.allowed.length);if(slot.cls==='Hard')return n===5||!slot.allowed.length||t>=1;return !needMech||t>=1;}
 // §5 (the owner's second amendment of 2026-10-27): a Hard or Super Hard passes "opening + colours" (which includes the
 // greedy strategies losing from the start); every level from L4 offers a single launch in at most 35 % of decisions
-function greedyOk(c,n){const k=c.checks||{};if(n>=4&&!(k.forced<=.35))return false;if(c.cls==='Normal')return true;return !!(k.opening&&k.opening.ok);}
+// a breather (17 §5 «Передышка»): forced decisions are not required
+function greedyOk(c,n,br=false){const k=c.checks||{};if(br)return c.cls==='Normal';if(n>=4&&!(k.forced<=.35))return false;if(c.cls==='Normal')return true;return !!(k.opening&&k.opening.ok);}
 // §8, §9: the bridge introductions (first: both bridges win, one clearly better; second: exactly one wins), every later
 // bridge level the wave plan's bridgeKind (single: exactly one wins and the loss with the other comes later; better: both
 // win, one 10+ points better; any: either of the two), single without a plan; a hidden-pod introduction needs a hidden pod that matters
@@ -554,7 +612,8 @@ const fitCache={};const fitOf=c=>{const ov=c.overlay||(c.level||c.definition||{}
 function fitOk(c,n){if(n<=3)return true;const f=fitOf(c),weak=f.hiddenColours<=1||f.visible>=6;
  if(c.cls!=='Normal')return f.hiddenColours>=3;return !weak||typesOf(c).length>=1;}
 // a regular Normal for the median of §5: not L1–3, not an introduction, not the first Normal after a Hard or Super Hard
-function regularNormal(L,placed){const p=placed[L.level-1];return L.cls==='Normal'&&L.level>3&&!L.intro&&!(p&&p.cls!=='Normal');}
+// (a breather, 17 §5 «Передышка», is not in the median nor in the «по цветам» quota)
+function regularNormal(L,placed){const p=placed[L.level-1];return L.cls==='Normal'&&L.level>3&&!L.intro&&!L.breather&&!(p&&p.cls!=='Normal');}
 const lead=c=>(c.recipe||'none').split('+')[0];
 export function reservedFamily(id,n){const w=mechanicsPlans().find(p=>n>=p.wave[0]&&n<=p.wave[1]);return !!(w&&(w.bridgeFamilies||[]).includes(picture(id).family));}
 export function repeats(id,n,placed){const p=picture(id),[lo,hi]=repeatWindow(n),mo=motifsOf(p);
@@ -572,7 +631,11 @@ async function place(from,to){const placed={};for(const f of fs.existsSync(LEVEL
  // reserved one, takes its reserved position (or, if it has no passing candidate there, the next position it fits)
  // with a strong preference, and is exempt from the pack rule below. Those left unused are reported.
  const waveOf=n=>plans.find(p=>n>=p.wave[0]&&n<=p.wave[1])||null,reservedOf=new Map();
- for(const p of plans){const pj=readJSON(path.join(ROUNDS,'runs',`${lid(p.wave[0])}-${lid(p.wave[1])}`,'plan.json'));for(const x of (pj&&pj.pins)||[])if(x.reserved)reservedOf.set(x.id,x.reserved);}
+ // the picture-first wave (rounds.mjs plan, the owner's principle 17): plan.json `assign` gives a position ONE picture;
+ // such a position takes only that picture (or its recorded replacement), the others never take an assigned picture
+ const assignOf=new Map(),assignedPics=new Set();
+ for(const p of plans){const pj=readJSON(path.join(ROUNDS,'runs',`${lid(p.wave[0])}-${lid(p.wave[1])}`,'plan.json'));for(const x of (pj&&pj.pins)||[])if(x.reserved)reservedOf.set(x.id,x.reserved);
+  for(const x of (pj&&pj.assign)||[])if(x.picture){assignOf.set(x.level,x);assignedPics.add(x.picture);}}
  const pinsOf=n=>{const w=waveOf(n);return new Set(w&&Array.isArray(w.pin)?w.pin:[]);};
  for(let n=from;n<=to;n++){if(placed[n])continue;const slot=slotOf(n),prev=[placed[n-1],placed[n-2]].filter(Boolean);
   // an approved mechanics plan (17 §13 step 1, amendment of 2026-10-28) fixes the position's recipe and bridge side
@@ -584,7 +647,12 @@ async function place(from,to){const placed={};for(const f of fs.existsSync(LEVEL
   const lastRegular=Object.values(placed).filter(L=>L.level<n&&L.cls==='Normal'&&!L.intro&&slotOf(L.level).allowed.length).sort((a,b)=>b.level-a.level).slice(0,2);
   const needMech=!plan&&slot.cls==='Normal'&&!slot.intro&&slot.allowed.length>0&&!(lastRegular.length===2&&lastRegular.every(L=>(L.recipe||'none')!=='none'));
   const regularSlot=slot.cls==='Normal'&&n>3&&!slot.intro&&!(placed[n-1]&&placed[n-1].cls!=='Normal');
+  // a breather (17 §5 «Передышка», 2026-11-02): a Normal on a picture up to BREATHER_N cells or a position the plan marks
+  // breather; its zone 75–95 %, zero or one mechanic without a trap link, only the mandatory checks
+  const brOf=c=>slot.cls==='Normal'&&!slot.intro&&n>3&&(!!(plan&&plan.breather)||c.N<=BREATHER_N),asg=assignOf.get(n)||null,relaxed=new Set((asg&&asg.relaxed)||[]);
   let ok=pool.filter(c=>!usedPic.has(c.picture)&&c.cls===slot.cls&&fitsStage({N:c.N,colours:c.colours},n)
+   &&(asg?c.picture===asg.picture:!assignedPics.has(c.picture))
+   &&!(c.breather&&!brOf(c))&&!(brOf(c)&&(typesOf(c).length>1||(c.checks&&c.checks.traps&&c.checks.traps.traps)))
    &&(slot.intro?(c.intro&&c.recipe===slot.intro):!c.intro&&(c.recipe==='none'||c.recipe.split('+').every(t=>slot.allowed.includes(t))))
    &&((picture(c.picture).locked||null)===(n<=3?n:null))
    // a third-party universe or a meme is not for release without rights (the audit's mandatory rule, theme catalog §4),
@@ -597,26 +665,26 @@ async function place(from,to){const placed={};for(const f of fs.existsSync(LEVEL
    &&!(prev.length===2&&!slot.intro&&lead(c)!=='none'&&lead(c)!=='links'&&prev.every(L=>!L.intro&&lead(L)===lead(c)))
    &&!(prev.length===2&&!slot.intro&&c.recipe!=='links+hidden'&&prev.every(L=>!L.intro&&L.recipe===c.recipe&&c.recipe!=='none'))
    // picture repeats (the owner, 2026-10-29): family and motif once per wave and not in the 20 levels before it
-   &&!repeats(c.picture,n,placed)
+   &&(relaxed.has('family')||!repeats(c.picture,n,placed))
    // the wave plan keeps some families for its bridge levels (bridgeFamilies): other positions leave them
    &&!(plan&&!plan.bridgeSide&&reservedFamily(c.picture,n))
    &&!(c.colours>=10&&window.filter(L=>L.colours>=10).length>=2)
    // motif variety (the owner, 2026-10-26): a motif at most once in any 10 levels
-   &&!motifsOf(picture(c.picture)).some(m=>Object.values(placed).some(L=>Math.abs(L.level-n)<10&&motifsOf(picture(L.picture)).includes(m)))
+   &&(relaxed.has('motif')||!motifsOf(picture(c.picture)).some(m=>Object.values(placed).some(L=>Math.abs(L.level-n)<10&&motifsOf(picture(L.picture)).includes(m))))
    // the owner's amendment of 2026-10-27: recipes by class (§7), greedy strategies (§5), picture fitness (§2)
-   &&recipeOk(c,n,slot,needMech)&&greedyOk(c,n)&&fitOk(c,n)&&mechOk(c,n,slot,plan)
+   &&recipeOk(c,n,slot,needMech)&&greedyOk(c,n,brOf(c))&&fitOk(c,n)&&mechOk(c,n,slot,plan)
    // §6: a regular Normal holds a place with a deep-colour pod in its first two rows
    // (a bridge level's task is the bridge choice; a gap split can leave no colour off the start front, so a bridge
    // level does not need the holding pod, 2026-10-29)
-   &&!(regularSlot&&!c.recipe.includes('bridge')&&!(c.checks&&c.checks.hold))
+   &&!(regularSlot&&!brOf(c)&&!c.recipe.includes('bridge')&&!(c.checks&&c.checks.hold))
    &&fitsPlan(c,plan));
   // §5 calm test and §8 trap links (the owner's amendment of 2026-10-31), measured for the candidates that passed the other
   // filters when the bank has them not yet (kept in the bank): a Hard ≤ 50 %, a Super Hard ≤ 25 %, a regular Normal ≥ 50 %
   // calm; a Hard or Super Hard with links has a trap link. Hand positions are adopted, not placed
-  for(const c of ok)if(!c.checks.calm||!c.checks.traps){const lv=c.level;if(!c.checks.calm)c.checks.calm=await calmTest(lv,c.random&&c.random.bridge!=null?{bridge:c.random.bridge}:{});
+  for(const c of ok)if((!c.checks.calm&&!brOf(c))||!c.checks.traps){const lv=c.level;if(!c.checks.calm&&!brOf(c))c.checks.calm=await calmTest(lv,c.random&&c.random.bridge!=null?{bridge:c.random.bridge}:{});
    if(!c.checks.traps){const t=trapLinks(lv);c.checks.traps={links:t.length,traps:t.filter(x=>x.trap).length,top:t.filter(x=>x.trap&&x.row<=2).length};}
    const b=banks.find(b=>b.picture===c.picture);if(b)writeJSON(path.join(BANK,b.picture+'.json'),b);}
-  ok=ok.filter(c=>!calmFails(c.cls,c.checks.calm,regularSlot)&&!(c.cls!=='Normal'&&c.checks.traps.links&&!c.checks.traps.traps));
+  ok=ok.filter(c=>(brOf(c)||!calmFails(c.cls,c.checks.calm,regularSlot))&&!(c.cls!=='Normal'&&c.checks.traps.links&&!c.checks.traps.traps));
   // packs (17 §11, the owner's second amendment of 2026-11-01): no two neighbouring levels from one pack (lib.mjs packOf)
   // while another fitting candidate exists; a pinned picture is exempt
   const pins=pinsOf(n),pinned=c=>pins.has(c.picture),packAt=k=>placed[k]?packOf(picture(placed[k].picture)):null,near=new Set([packAt(n-1),packAt(n+1)].filter(Boolean));
@@ -641,8 +709,8 @@ async function place(from,to){const placed={};for(const f of fs.existsSync(LEVEL
   const regs=Object.values(placed).filter(L=>regularNormal(L,placed)),lostN=regs.filter(greedyLost).length,q=n<25?1/3:1/2,needLoss=regularSlot&&lostN<Math.round(q*(regs.length+1));
   // layer B (17 §13, quality.json): pods without work at least the class's bound; soft: a preference, hard: a filter
   const pMin=slot.intro?null:regularSlot?QUALITY.pressure.min.regularNormal:slot.cls!=='Normal'?QUALITY.pressure.min[slot.cls]:null;
-  const pressureLow=c=>pMin!=null&&!(c.checks&&c.checks.pressure&&c.checks.pressure.stuck>=pMin);
-  const normalScore=c=>introScore(c)+(pressureLow(c)?.5:0)+(slot.cls!=='Normal'||slot.intro?0:(c.random.share>=.95&&high>=1?.6:0)+(!needMech&&c.recipe!=='none'?.2:0)+(needLoss&&!greedyLost(c)?.6:0));
+  const pressureLow=c=>pMin!=null&&!brOf(c)&&!(c.checks&&c.checks.pressure&&c.checks.pressure.stuck>=pMin);
+  const normalScore=c=>introScore(c)+(pressureLow(c)?.5:0)+(slot.cls!=='Normal'||slot.intro||brOf(c)?0:(c.random.share>=.95&&high>=1?.6:0)+(!needMech&&c.recipe!=='none'?.2:0)+(needLoss&&!greedyLost(c)?.6:0));
   // a regular Normal aims at 55 % itself (not just anywhere in the zone), so the median lands in 50–60 %
   const aim=slot.cls==='Normal'&&!slot.intro&&!afterHard?(medN>.6?.52:medN<.5?.58:.55):null;
   // layer B soft preference (quality.json pressure.prefer, 2026-11-01): more pods without work is better, up to a cap
@@ -653,7 +721,7 @@ async function place(from,to){const placed={};for(const f of fs.existsSync(LEVEL
   const w0=waveOf(n),packUse={};for(const L of Object.values(placed))if(w0&&L.level>=w0.wave[0]&&L.level<=w0.wave[1]){const k=packOf(picture(L.picture));packUse[k]=(packUse[k]||0)+1;}
   const packScore=c=>{const k=packOf(picture(c.picture));return .12*(packUse[k]||0)+(packAt(n-2)===k?.15:0);};
   const pinScore=c=>pinned(c)?-3:0,latchScore=c=>slot.intro==='latch'&&!INTRO.some(([m,,b])=>m==='latch'&&b===n)&&c.checks&&c.checks.latch&&c.checks.latch.waits?-.2:0;
-  const score=c=>{const s=c.random.share;return pinScore(c)+packScore(c)+latchScore(c)+prefer(c)+doseScore(c)+normalScore(c)+scarce(c)+(c.random.borderline?1:0)+(calmBorderline(c.cls,c.checks.calm)?.5:0)+(aim!==null?2*Math.abs(s-aim):s>=zone[0]&&s<=zone[1]?0:Math.min(Math.abs(s-zone[0]),Math.abs(s-zone[1])))+(bins.filter(b=>b===sizeBin(c.N)).length>=want[sizeBin(c.N)]?.3:0);};
+  const score=c=>{const s=c.random.share,br=brOf(c),z=br?[.75,.95]:zone,a=br?null:aim;return pinScore(c)+packScore(c)+latchScore(c)+(br?0:prefer(c))+doseScore(c)+normalScore(c)+scarce(c)+(c.random.borderline?1:0)+(calmBorderline(c.cls,c.checks.calm)?.5:0)+(a!==null?2*Math.abs(s-a):s>=z[0]&&s<=z[1]?0:Math.min(Math.abs(s-z[0]),Math.abs(s-z[1])))+(bins.filter(b=>b===sizeBin(c.N)).length>=want[sizeBin(c.N)]?.3:0);};
   if(QUALITY.pressure.mode==='hard')for(let i=ok.length-1;i>=0;i--)if(pressureLow(ok[i]))ok.splice(i,1);
   ok.sort((a,b)=>score(a)-score(b));
   // --pick n:id takes that candidate at position n when it passes every filter above (a sequence rule of §5 that the
@@ -662,7 +730,7 @@ async function place(from,to){const placed={};for(const f of fs.existsSync(LEVEL
   const c=pick?ok.find(x=>x.id===pick):ok[0];
   if(process.env.ROUNDS_TRACE)console.error(lid(n),'кандидатов',ok.length,ok.slice(0,6).map(c=>`${c.picture} ${c.recipe} ${Math.round(c.random.share*100)}% поз ${c.dosePos??'—'} балл ${score(c).toFixed(2)}`).join(' | '));
   if(!c){needs.push({level:n,cls:slot.cls,intro:slot.intro,allowed:slot.allowed,stage:stageOf(n),...(plan?{recipe:plan.recipe,...(plan.bridgeSide?{bridgeSide:plan.bridgeSide,strip:plan.strip||null,bridgeKind:plan.bridgeKind||'single'}:{})}:{})});continue;}
-  const L={level:n,cls:slot.cls,intro:slot.intro,picture:c.picture,candidate:c.id,recipe:c.recipe,N:c.N,W:c.W,colours:c.colours,P:c.P,columns:c.columns,linked:c.linked,hidden:c.hidden,...(c.cells!=null?{cells:c.cells}:{}),...(c.latches!=null?{latches:c.latches}:{}),random:c.random,...(c.randomAll?{randomAll:c.randomAll}:{}),solution:c.solution,fairness:c.fairness,strategies:c.strategies,rhythm:c.rhythm,dosePos:c.dosePos??null,...(c.bridge?{bridge:c.bridge,bridgeSide:c.bridgeSide??bridgeSide(c.level)}:{}),checks:c.checks,engine:c.engine,definition:{...c.level,id:n,difficulty:slot.cls}};
+  const L={level:n,cls:slot.cls,intro:slot.intro,...(brOf(c)?{breather:true}:{}),picture:c.picture,candidate:c.id,recipe:c.recipe,N:c.N,W:c.W,colours:c.colours,P:c.P,columns:c.columns,linked:c.linked,hidden:c.hidden,...(c.cells!=null?{cells:c.cells}:{}),...(c.latches!=null?{latches:c.latches}:{}),random:c.random,...(c.randomAll?{randomAll:c.randomAll}:{}),solution:c.solution,fairness:c.fairness,strategies:c.strategies,rhythm:c.rhythm,dosePos:c.dosePos??null,...(c.bridge?{bridge:c.bridge,bridgeSide:c.bridgeSide??bridgeSide(c.level)}:{}),checks:c.checks,engine:c.engine,definition:{...c.level,id:n,difficulty:slot.cls}};
   writeJSON(path.join(LEVELS,lid(n)+'.json'),L);placed[n]=L;usedPic.add(c.picture);
   const e=m.pictures.find(p=>p.id===c.picture);if(e)e.usedBy=lid(n);const pf=path.join(PICTURES,c.picture+'.json'),pj=readJSON(pf);pj.usedBy=lid(n);writeJSON(pf,pj);
   for(const b of banks)if(b.picture===c.picture){b.candidates=b.candidates.filter(x=>x.id!==c.id);b.placed=(b.placed||[]).concat([c.id]);writeJSON(path.join(BANK,b.picture+'.json'),b);}

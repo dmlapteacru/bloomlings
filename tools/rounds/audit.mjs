@@ -110,13 +110,19 @@ for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
  // holding a place in a regular Normal (§5, §6)
  if(L.cls!=='Normal'){const o=await openingTest(d,L.cls);if(o.first.wins)bad.push(`дебют + цвета: жадная выигрывает после ${o.first.wins} из ${o.first.openings} первых запусков (§5)`);
   if(o.three.share>.35)bad.push(`дебют + цвета: после трёх запусков выигрывает ${Math.round(o.three.share*100)} % > 35 % (§5)`);L._opening=o;}
- if(n>=4){const f=await forcedShare(d);if(f>.35)bad.push(`вынужденных решений ${Math.round(f*100)} % > 35 % (§5)`);L._forced=f;}
- const prevL=levels[n-1]||readJSON(path.join(LEVELS,lid(n-1)+'.json'));L._regular=L.cls==='Normal'&&n>3&&!L.intro&&!(prevL&&prevL.cls!=='Normal');
+ // a breather (17 §5 «Передышка», 2026-11-02): a Normal on a picture up to ~550 cells or a position the wave plan marks;
+ // zero or one mechanic without a trap link, zone 75–95 %, only the mandatory checks (no forced, calm, holding pod, pressure)
+ const br=!!L.breather;if(br){const pl=planOf(n);if(L.cls!=='Normal'||slot.intro||n<=3)bad.push('передышка не на обычной позиции Normal (§5)');
+  if(!(W<=LV.BREATHER_N||(pl&&pl.breather)))bad.push(`передышка на картинке ${W} клеток без пометки плана (§5: до ~${LV.BREATHER_N})`);
+  if(types.length>1)bad.push(`передышка: механик ${types.length}, допустимо не больше одной (§5)`);if(trapLinks(d).some(x=>x.trap))bad.push('передышка: связка-ловушка (§5)');
+  if(L.random.share<.75||L.random.share>.95)soft.push(`передышка: случайный тест ${Math.round(L.random.share*100)} % вне 75–95 % (§5)`);}
+ if(n>=4){const f=await forcedShare(d);if(f>.35&&!br)bad.push(`вынужденных решений ${Math.round(f*100)} % > 35 % (§5)`);L._forced=f;}
+ const prevL=levels[n-1]||readJSON(path.join(LEVELS,lid(n-1)+'.json'));L._regular=L.cls==='Normal'&&n>3&&!L.intro&&!br&&!(prevL&&prevL.cls!=='Normal');
  if(L._regular&&!(L.recipe||'').includes('bridge')&&!(await holdPod(d)))bad.push('обычный Normal без пода, держащего место (§6)');
  // §5 the calm test and §8 trap links (the owner's amendment of 2026-10-31): with the board settled before every tap a Hard
  // wins at most 50 %, a Super Hard at most 25 %, a regular Normal at least 50 % (the class's best bridge); a Hard or Super
  // Hard with links has a group with a member whose material is hidden at the start
- if(!slot.intro&&n>3){const calm=await calmTest(d,L.random&&L.random.bridge!=null?{bridge:L.random.bridge}:{});L._calm=calm.share;const cf=calmFails(L.cls,calm,L._regular),ex=L.exception&&typeof L.exception==='object'&&/calm/i.test(L.exception.rule||'')?L.exception:null;
+ if(!slot.intro&&n>3&&!br){const calm=await calmTest(d,L.random&&L.random.bridge!=null?{bridge:L.random.bridge}:{});L._calm=calm.share;const cf=calmFails(L.cls,calm,L._regular),ex=L.exception&&typeof L.exception==='object'&&/calm/i.test(L.exception.rule||'')?L.exception:null;
   // an owner's exception to the calm rule (the level's exception field) turns the failure into a note
   if(cf&&ex)soft.push(`исключение владельца от ${ex.decidedAt}: ${cf}`);else if(cf)bad.push(cf);else if(calmBorderline(L.cls,calm)&&(L.cls!=='Normal'||L._regular))soft.push(`спокойная игра ${Math.round(calm.share*100)} % на границе по Wilson — решение человека (§5)`);
   const tl=trapLinks(d);if((L.cls==='Hard'||L.cls==='Super Hard')&&tl.length&&!tl.some(x=>x.trap))bad.push('нет связки-ловушки: у каждой связки материалы открыты с самого начала (§8)');}
@@ -144,12 +150,12 @@ for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
  if(n>3){const a=L.rhythm.launchesAfter80,lim=L.cls==='Super Hard'?6:4;if(a<1||a>lim)soft.push(`после 80 % W запусков ${a} (ориентир 1–${lim}, §10)`);if(L.rhythm.lastLaunchAtW<80||L.rhythm.lastLaunchAtW>92)soft.push(`последний запуск при ${L.rhythm.lastLaunchAtW} % W (ориентир 80–92 %, §10)`);}
  const won=Object.values(L.strategies).filter(Boolean).length,tot=Object.keys(L.strategies).length;if(L.cls!=='Normal'&&won===tot)soft.push('все простые стратегии выигрывают Hard/Super Hard (§11)');
  const tband=W<400?[20,60]:W<700?[40,100]:W<1000?[70,160]:[100,210],fast=L.solution.fast?.seconds;if(fast&&(fast<tband[0]||fast>tband[1]))soft.push(`время быстрых нажатий ${fast} с (ориентир ${tband.join('–')} с, §12)`);
- if(L.cls==='Normal'&&sh>.95)soft.push(`Normal ${Math.round(sh*100)} % — выше предпочтительной зоны 60–90 % (§5)`);
+ if(L.cls==='Normal'&&sh>.95&&!br)soft.push(`Normal ${Math.round(sh*100)} % — выше предпочтительной зоны 60–90 % (§5)`);
  rows.push({n,L,bad,soft});}
 // sequence rules (§11, motif rule of the owner): lead mechanic and recipe at most 2 in a row, motifs once in 10, 10–11 colours
 const seq=[],lead=L=>typesOf(L)[0]||null;
 // §5 Normal median 50–60 % over the regular Normals (not L1–3, not introductions, not the first Normal after a Hard / Super Hard)
-{const reg=[];for(let n=Math.max(4,from);n<=to;n++){const L=levels[n],p=prevOf(n);if(L&&L.cls==='Normal'&&!L.intro&&!(p&&p.cls!=='Normal'))reg.push(L);}
+{const reg=[];for(let n=Math.max(4,from);n<=to;n++){const L=levels[n],p=prevOf(n);if(L&&L.cls==='Normal'&&!L.intro&&!L.breather&&!(p&&p.cls!=='Normal'))reg.push(L);}
  if(reg.length>=3){const v=reg.map(L=>L.random.share).sort((a,b)=>a-b),med=v[Math.floor((v.length-1)/2)];if(med<.5||med>.6)seq.push(`медиана обычных Normal ${Math.round(med*100)} % вне 50–60 % (§5)`);
   for(let i=0;i<reg.length;i++){const win=reg.filter(L=>L.level>reg[i].level-10&&L.level<=reg[i].level&&L.random.share>=.95);if(win.length>1){seq.push(`Normal на 95–100 % больше одного на десять: ${win.map(L=>'L'+L.level).join(', ')} (§5)`);break;}}}
  // §5 (second amendment): "most work now" loses about one in three regular Normals on L4–24, one in two from L25

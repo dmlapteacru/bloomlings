@@ -233,6 +233,10 @@ Then the mechanics follow:
 On the validation set, this already finds Hard where today's builder finds none, about as fast as route-first, and finds
 Normals in the zone sooner.
 
+**Done on 2026-11-02** (the owner approved one generator): steps 1–3 below are in `levels.mjs build` through
+`tools/rounds/tune.mjs` (README «The generator (2026-11-02)» in `tools/rounds/`); the model is copied to `calib/model.json`;
+`plan.mjs gen2` / `gen2-report` rerun this validation with it (`content/work/gen2/validation.md`).
+
 Next steps, in order of value:
 1. **Port the correction loop into `levels.mjs build`.** Today a regular Normal steers `t` with a shrinking step (`ROUNDS_STEER`), and Hard and Super Hard draw `t` uniformly. Replace both with the bracket bisection and the per-picture memory, plus greedy-chosen trap links on Hard. The candidate code and `evaluate` stay as they are.
 2. **Make the link chooser respect the forced share.** Links lift the median forced share to 34 %, and 46 % of queues with links break the 35 % limit. This was the main reason Hard attempts died (L40: 19 of 43; L25: 16 of 39). Prefer pairs whose partners do not leave a single launch available.

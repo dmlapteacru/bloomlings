@@ -152,6 +152,26 @@ else if(cmd==='today'){const {spawnSync}=await import('node:child_process');fs.m
   const searched=(bank.searched||[]).filter(s=>s.tag==='calib').at(-1)||null;
   fs.writeFileSync(path.join(OUT,j.label+'-today.json'),JSON.stringify({job:j,seconds,searched,candidates:rows,passed:rows.filter(x=>!x.why.length).length,accepted:rows.filter(x=>!x.why.length&&x.zone).length,stdout:r.stdout},null,1));
   console.log(j.label,'сегодняшний сборщик',Math.round(seconds),'с',(r.stdout||'').trim().split('\n').at(-1),'в зоне и проходят',rows.filter(x=>!x.why.length&&x.zone).length);}}
+// the generator of 2026-11-02 (tune.mjs tuneJob: model plan, ≤ 5 quick tests, forced-aware links, information overlays
+// after the class) on the same jobs, want 2 in 15 minutes each; a Normal picture of up to 550 cells is a breather (17 §5)
+//   ROUNDS_DIR=content/work/gen2/rounds-copy node tools/rounds/calib/plan.mjs gen2 [label…]   → content/work/gen2/validation/<label>.json
+//   node tools/rounds/calib/plan.mjs gen2-report                                               → content/work/gen2/validation.md
+else if(cmd==='gen2'){const T=await import('../tune.mjs'),G=path.join(ROOT,'content/work/gen2/validation');fs.mkdirSync(G,{recursive:true});
+ for(const j of JOBS.filter(j=>ARGV.length<2||ARGV.slice(1).includes(j.label))){const pic=L.picture(j.pic),N=L.measure(pic).N,slot=j.cls==='Normal'?(N<=550?'breather':'regular'):j.cls;console.log('==',j.label,j.pic,j.cls,j.recipe,slot);
+  const res=await T.tuneJob({pic,cls:j.cls,recipe:j.recipe,slot,want:+opt('--want',2),minutes:+opt('--minutes',process.env.CALIB_MINUTES||15),memory:{},log:s=>console.log(j.label,s)});
+  const one=x=>({...asPlaced({level:x.level,e:x.e,m:x.m,id:`${j.pic}-gen2-${x.k}`,params:{t:x.t,cols:x.cols,pos:x.pos,links:x.links}},0,j.cls,j.pic),at:x.seconds,attempt:x.k,steps:x.steps});
+  fs.writeFileSync(path.join(G,j.label+'.json'),JSON.stringify({job:{...j,slot},seconds:res.seconds,stats:res.stats,accepted:res.accepted.map(one),banked:res.banked.filter(x=>!res.accepted.includes(x)).map(one)},null,1));
+  console.log(j.label,'итог',Math.round(res.seconds),'с',JSON.stringify(res.stats));}}
+else if(cmd==='gen2-report'){const G=path.join(ROOT,'content/work/gen2/validation'),pct=x=>x==null?'—':Math.round(x*100)+' %',rows=[];
+ rows.push('| Job | Today | Route-first | Formula (calib) | **Generator 2026-11-02** | Checks of the first accepted level (generator) |','|---|---|---|---|---|---|');
+ const cal=L.readJSON(path.join(W,'validation.json'),[]);
+ for(const j of JOBS){const g=L.readJSON(path.join(G,j.label+'.json')),c=cal.find(x=>x.job.label===j.label)||{};
+  const old=c.old?`${c.old.accepted||0} of ${c.old.tried??'?'} in ${Math.round(c.old.seconds)} s`:'—',pro=c.proto?`${c.proto.accepted} in ${Math.round(c.proto.seconds)} s${c.proto.first?`, first ${Math.round(c.proto.first)} s`:''}`:'—',fo=c.formula?`${c.formula.accepted} in ${Math.round(c.formula.seconds)} s${c.formula.first?`, first ${Math.round(c.formula.first)} s (attempt ${c.formula.attemptsToFirst})`:''}`:'—';
+  const a=g&&g.accepted[0],k=a&&a.checks||{},st=a&&a.strategies||{};
+  const gen=g?`${g.accepted.length} in ${Math.round(g.seconds)} s${g.accepted.length?` → ${Math.round(g.seconds/g.accepted.length)} s/level; first ${Math.round(a.at)} s (attempt ${a.attempt+1}); ${g.stats.attempts} attempts, ${g.stats.quick} quick tests, ${g.stats.evaluated} full`:`; ${g.stats.attempts} attempts, ${g.stats.evaluated} full`}`:'not run';
+  const chk=a?`${a.cls}${g.job.slot==='breather'?' (breather)':''} ${pct(a.random.share)} (${pct(a.random.wilson95[0])}–${pct(a.random.wilson95[1])}, ${a.random.runs}); calm ${pct(k.calm&&k.calm.share)}; forced ${pct(k.forced)}; opening ${k.opening?`${k.opening.first.wins}/${k.opening.first.openings}, ${pct(k.opening.three.share)}`:'—'}; ${Object.keys(st).length?(!st['most-now|left']&&!st['most-now|right']?'greedy loses':'greedy wins'):'—'}; pressure ${k.pressure?k.pressure.stuck:'—'}; ${a.P} pods / ${a.columns} cols; links ${a.linked} (traps ${k.traps?k.traps.traps:'—'}/${k.traps?k.traps.links:'—'}); hidden ${a.hidden||0}${a.cells?`, cells ${a.cells}`:''}${k.accents?`; accents ${k.accents.cells}`:''}`:(g?Object.entries(g.stats.reasons).sort((x,y)=>y[1]-x[1]).slice(0,3).map(([r,n])=>`${r} ×${n}`).join('; '):'');
+  rows.push(`| ${j.label} ${j.pic} ${j.cls} ${j.recipe} | ${old} | ${pro} | ${fo} | ${gen} | ${chk} |`);}
+ fs.writeFileSync(path.join(ROOT,'content/work/gen2/validation.md'),rows.join('\n')+'\n');console.log(rows.join('\n'));}
 else if(cmd==='report'){const lines=[],prev=path.join(W,'preview');fs.mkdirSync(prev,{recursive:true});let n=1101;const levelsUsed=[];
  const pct=x=>x==null?'—':Math.round(x*100)+' %';
  const row=(src,X,time)=>{if(!X)return `| ${src} | нет уровня | | | | | | | | | | ${time} |`;const k=X.checks||{},st=X.strategies||{},won=Object.values(st).filter(Boolean).length;

@@ -1,46 +1,51 @@
 // Checks of a candidate level on the round engine (product/17_LEVEL_GENERATION_RULES.md §1, §5, §8, §10, §11):
 // the saved solution (search, then replay on the live timeline), the extended random test with waiting and the
 // Wilson interval, the simple strategies, the fairness of hidden pods, the rhythm by fifths of done work.
-import {engine,rulesSync} from './engine.mjs';
+import {rulesSync} from './engine.mjs';
 import {solver} from '../level-stats/solve.mjs';
 import {run} from '../level-stats/trace.mjs';
 import {STRATEGIES,rng} from '../level-stats/strategies.mjs';
-
-const isStateEvent=e=>e.type!=='return'&&e.type!=='arrive';
-// one game of the extended random policy (§5): before each choice the events of the moment are processed; the bot
-// picks uniformly among all legal actions (a pod, a whole group, each bridge place) and, when a state-changing event
-// is scheduled, one extra option: wait until that event. With no action and a scheduled event, time moves on by itself.
-export function randomGame(E,level,seed,keep=null){const {R,T}=E,t=new T.Timeline(R.create(level,level.capacity||5)),r=rng(seed);let guard=0;
- const settleNow=()=>{while(t.pending&&t.steps[0].at<=t.now+1e-7)t.advance(0);};
- const waitEvent=()=>{while(t.pending){const e=t.steps[0];t.advance(Math.max(0,e.at-t.now));if(isStateEvent(e))break;}settleNow();};
- while(guard++<200000){settleNow();if(t.state.status==='Won')return true;
-  const moves=R.legal(t.state).filter(a=>!t.check(a)&&(!keep||keep(a))),canWait=t.steps.some(isStateEvent);
-  if(!moves.length){if(t.pending){waitEvent();continue;}return false;}
-  const k=Math.floor(r()*(moves.length+(canWait?1:0)));
-  if(k===moves.length){waitEvent();continue;}
-  t.commit(moves[k]);}
- return false;}
+// speed (tools/rounds/perf/README.md, the owner, 2026-11-02): the games run on the fast twin of the reference engine
+// (perf/engines.mjs, the same games byte for byte) and the independent games of a test on worker threads (perf/pool.mjs,
+// ROUNDS_THREADS), put back in index order, so every result is the one the reference gives in one thread
+import {engine} from './perf/engines.mjs';
+import {games} from './perf/pool.mjs';
+import {isStateEvent,asap,greedyFrom} from './perf/games.mjs';
+// one game of the extended random policy (§5; perf/games.mjs): before each choice the events of the moment are processed;
+// the bot picks uniformly among all legal actions (a pod, a whole group, each bridge place) and, when a state-changing
+// event is scheduled, one extra option: wait until that event. With no action and a scheduled event, time moves on by itself.
+export {randomGame} from './perf/games.mjs';
+export {engine};
 export function wilson(w,n,z=1.96){if(!n)return [0,1];const p=w/n,d=1+z*z/n,c=p+z*z/(2*n),h=z*Math.sqrt(p*(1-p)/n+z*z/(4*n*n));return [Math.max(0,(c-h)/d),Math.min(1,(c+h)/d)];}
 export const classOfShare=p=>p>=.5?'Normal':p>=.2?'Hard':p>=.05?'Super Hard':'too hard';
 // 100 games; widened to 400 in total when the 95 % Wilson interval crosses a class border (§5)
 // bridge: the class of a bridge level is measured with its best bridge only (17 §5, the owner, 2026-10-30: the bridge adds
 // a choice, not difficulty; a player who loses with the wrong one takes the right one after the free retry)
-export async function randomTest(level,{seed=1,first=100,max=400,bridge=null}={}){const E=await engine();let wins=0,n=0;
- const keep=bridge===null?null:a=>a.type!=='bridge'||a.choice===bridge;
- const play=k=>{for(let i=0;i<k;i++){if(randomGame(E,level,seed*7919+n*104729+1,keep))wins++;n++;}};
- play(first);let ci=wilson(wins,n);const crosses=([a,b])=>[.05,.2,.5].some(x=>a<x&&b>=x);
- if(crosses(ci)&&max>first){play(max-first);ci=wilson(wins,n);}
- return {runs:n,wins,share:Math.round(wins/n*1000)/1000,wilson95:ci.map(x=>Math.round(x*1000)/1000),cls:classOfShare(wins/n),borderline:crosses(ci),protocol:'§5 extended: uniform over legal actions + wait before a scheduled event, ×1',seedBase:seed,...(bridge===null?{}:{bridge})};}
+// early (the owner, 2026-11-02; off by default): the sequential test stops at the first checkpoint (every `step` games
+// from `min`, and at `first` and `max`) where the Wilson interval crosses no class border (and, with `zone` [lo, hi], neither
+// of the zone's ends); runs, wins, share and class are those of the games played. Such a result is NOT a §5 result: the
+// game's proofs accept 100 or 400 runs only (round-proof.schema.json, RoundSetValidator), so a placed level needs the full
+// test. ROUNDS_RANDOM_EARLY=1 turns it on for every call that does not say full: true.
+const CLASS_BORDERS=[.05,.2,.5];
+export const crossesAny=(borders,[a,b])=>borders.some(x=>a<x&&b>=x);
+export async function randomTest(level,{seed=1,first=100,max=400,bridge=null,early=null,full=false,step=20,min=40,zone=null}={}){
+ const keep=bridge===null?{}:{bridge},seq=!full&&(early??process.env.ROUNDS_RANDOM_EARLY==='1');
+ const crosses=ci=>crossesAny(CLASS_BORDERS,ci),p={seed,bridge};let res;
+ if(!seq){res=await games('random',level,p,{count:max>first?max:first,checkpoints:[first],stop:r=>!crosses(wilson(r.filter(Boolean).length,r.length))});
+  if(max<=first)res=res.slice(0,first);}
+ else{const borders=zone?[...CLASS_BORDERS,...zone]:CLASS_BORDERS,points=new Set([first,max]);for(let n=min;n<max;n+=step)points.add(n);
+  res=await games('random',level,p,{count:Math.max(first,max),checkpoints:[...points].filter(n=>n<=Math.max(first,max)).sort((a,b)=>a-b),stop:r=>!crossesAny(borders,wilson(r.filter(Boolean).length,r.length))});}
+ const n=res.length,wins=res.filter(Boolean).length,ci=wilson(wins,n);
+ return {runs:n,wins,share:Math.round(wins/n*1000)/1000,wilson95:ci.map(x=>Math.round(x*1000)/1000),cls:classOfShare(wins/n),borderline:crosses(ci),protocol:'§5 extended: uniform over legal actions + wait before a scheduled event, ×1',seedBase:seed,...keep,...(seq?{early:{step,min,...(zone?{zone}:{})}}:{})};}
 // the calm test (17 §5, the owner's amendment of 2026-10-31, after the Colony Flow patterns): the same choices as the random
 // test (a pod, a whole group, the best bridge of a bridge level), but before every one the board plays until nothing more
 // changes (the idle engine), so only the order of the choices counts, never the tempo. Hard ≤ 50 %, Super Hard ≤ 25 %,
 // a regular Normal ≥ 50 % (CF's exact models: Hard 25–27 %, Super Hard 12–16 %, Normal 68–100 %).
-export async function calmTest(level,{first=200,max=400,seed=3,bridge=null,borders=[.25,.5]}={}){const {R,idle:I}=await engine();let wins=0,n=0;
- const play=k=>{for(let i=0;i<k;i++){const r=rng(seed*7919+n*104729+5);let s=R.create(level,level.capacity||5),g=0;
-  while(s.status==='Playing'&&g++<5000){const mv=R.legal(s).filter(a=>bridge===null||a.type!=='bridge'||a.choice===bridge);if(!mv.length)break;const x=I.step(s,mv[Math.floor(r()*mv.length)]);if(!x.accepted)break;s=x.state;}
-  if(s.status==='Won')wins++;n++;}};
+export async function calmTest(level,{first=200,max=400,seed=3,bridge=null,borders=[.25,.5]}={}){
  // 200 games, widened to 400 when the 95 % Wilson interval crosses a threshold of the calm rule (as the class test does)
- const crosses=([a,b])=>borders.some(x=>a<x&&b>=x);play(first);let ci=wilson(wins,n);if(crosses(ci)&&max>first){play(max-first);ci=wilson(wins,n);}
+ const crosses=([a,b])=>borders.some(x=>a<x&&b>=x);
+ const res=(await games('calm',level,{seed,bridge},{count:max>first?max:first,checkpoints:[first],stop:r=>!crosses(wilson(r.filter(Boolean).length,r.length))})).slice(0,max>first?max:first);
+ const n=res.length,wins=res.filter(Boolean).length,ci=wilson(wins,n);
  return {runs:n,wins,share:Math.round(wins/n*1000)/1000,wilson95:ci.map(x=>Math.round(x*1000)/1000),borderline:crosses(ci),protocol:'§5 calm: uniform over legal actions, the board settled before each',seedBase:seed,...(bridge!==null?{bridge}:{})};}
 // the calm rule of a class (17 §5): null when it holds, else the reason. A result whose Wilson interval still crosses the
 // class's own threshold after 400 games (Super Hard 25 %, Hard and Normal 50 %) is borderline: it holds, as a borderline
@@ -64,7 +69,7 @@ export function trapLinks(level){const {w,h,rowsBottomFirst:rows,entries}=level,
  const rowOf=i=>{for(const st of level.tray){const r=st.indexOf(i);if(r>=0)return r+1;}return null;};
  return [...groups].map(([group,m])=>({group,trap:m.some(i=>(minD[level.pods[i].color]??0)>0),row:Math.min(...m.map(rowOf))}));}
 // a quick estimate for screening candidates before the full test
-export async function quickShare(level,games=40,seed=11,bridge=null){const E=await engine(),keep=bridge===null?null:a=>a.type!=='bridge'||a.choice===bridge;let w=0;for(let i=0;i<games;i++)if(randomGame(E,level,seed*31+i*977,keep))w++;return w/games;}
+export async function quickShare(level,count=40,seed=11,bridge=null){return (await games('quick',level,{seed,bridge},{count})).filter(Boolean).length/count;}
 
 // the saved winning solution: full-information search on the patient model, replayed on the live timeline (§1, §13.7)
 export async function solve(level,budget=200000){const E=await engine(),S=solver(E,budget),cap=level.capacity||5;
@@ -147,8 +152,9 @@ export async function bridgeChoicesWin(level){const E=await engine(),out=[];
 // the bridge as a choice (the owner, 2026-10-27: "надо выбрать, какой мост открывать"): for each bridge, whether it keeps a
 // winning continuation and the random test's share when only that bridge may be built; gap = best share − worst share
 // (win: each bridge's solver verdict when already known)
-export async function bridgeChoices(level,games=60,seed=5,known=null){const E=await engine(),win=known||(await bridgeChoicesWin(level)).each,each=[];
- for(let i=0;i<win.length;i++){let w=0;for(let g=0;g<games;g++)if(randomGame(E,level,seed*7919+g*104729+i,a=>a.type!=='bridge'||a.choice===i))w++;each.push({label:level.hero.choices[i].label,win:win[i],share:Math.round(w/games*100)/100});}
+export async function bridgeChoices(level,n=60,seed=5,known=null){const win=known||(await bridgeChoicesWin(level)).each,each=[];
+ const shares=await Promise.all(win.map((_,i)=>games('choice',level,{seed,choice:i},{count:n})));
+ for(let i=0;i<win.length;i++){const w=shares[i].filter(Boolean).length;each.push({label:level.hero.choices[i].label,win:win[i],share:Math.round(w/n*100)/100});}
  const sh=each.map(x=>x.share);return {each,gap:Math.round((Math.max(...sh)-Math.min(...sh))*100)/100,better:sh.indexOf(Math.max(...sh))};}
 
 // the greedy strategies of 17 §5 (the owner's amendment of 2026-10-27): "most work now" must lose a Hard, and with
@@ -166,22 +172,15 @@ export const greedyBeaten=(g,cls)=>cls==='Hard'?!g['most-now|left']&&!g['most-no
 // "opening + colours" (§5): every opening of k first actions, each taken as soon as one is possible, then the greedy
 // strategies; Hard: "most work now", Super Hard: also "release a place fastest", at both hero choices. No 1-action
 // opening may win; after 3-action openings at most 35 % may win. Distinct action sequences are counted once.
-const asap=(T,t)=>{let g=0;while(g++<100000){if(t.state.status==='Won')return [];const m=E0.R.legal(t.state).filter(a=>!t.check(a));if(m.length)return m;if(!t.pending)return [];t.advance(t.steps[0].at-t.now);}return [];};
-let E0=null;
-function greedyFrom(E,level,opening,k,side){const {R,T}=E,pol=STRATEGIES[k].make(1,E),t=new T.Timeline(R.create(level,level.capacity||5));
- for(const a of opening){const m=asap(T,t),x=m.find(y=>JSON.stringify(y)===a);if(!x)return false;t.commit(x);}
- let g=0;while(g++<100000){if(t.state.status==='Won')return true;const m=R.legal(t.state).filter(a=>!t.check(a));
-  if(m.length){const br=m.filter(a=>a.type==='bridge');const a=br.length?(side==='left'?br[0]:br.at(-1)):pol(t,m);if(!a||t.check(a)){if(t.pending){t.advance(t.steps[0].at-t.now);continue;}break;}t.commit(a);continue;}
-  if(!t.pending)break;t.advance(t.steps[0].at-t.now);}
- return t.state.status==='Won';}
-export async function openingTest(level,cls,{depth=3,limit=0.35}={}){const E=await engine(),{R,T}=E;E0=E;
+export async function openingTest(level,cls,{depth=3,limit=0.35}={}){const E=await engine(),{R,T}=E;
  const strats=cls==='Super Hard'?['most-now','fast-release']:['most-now'],sides=level.hero?['left','right']:['left'];
- const wins=seq=>strats.some(k=>sides.some(s=>greedyFrom(E,level,seq,k,s)));
+ // the openings are played on the game workers (perf/games.mjs openingWins), counted in order
+ const wins=async list=>(await games('opening',level,{openings:list,strats,sides},{count:list.length})).filter(Boolean).length;
  // all distinct openings of exactly k actions (shorter ones when the game ends earlier)
  const openings=k=>{let out=[[]];for(let j=0;j<k;j++){const nx=[];for(const s of out){const t=new T.Timeline(R.create(level,level.capacity||5));let ok=true;
-   for(const a of s){const m=asap(T,t),x=m.find(y=>JSON.stringify(y)===a);if(!x){ok=false;break;}t.commit(x);}
-   const m=ok?asap(T,t):[];if(!m.length){nx.push(s);continue;}for(const a of m)nx.push([...s,JSON.stringify(a)]);}out=nx;}return out;};
- const o1=openings(1),w1=o1.filter(wins).length,o3=openings(depth),w3=o3.filter(wins).length;
+   for(const a of s){const m=asap(E,t),x=m.find(y=>JSON.stringify(y)===a);if(!x){ok=false;break;}t.commit(x);}
+   const m=ok?asap(E,t):[];if(!m.length){nx.push(s);continue;}for(const a of m)nx.push([...s,JSON.stringify(a)]);}out=nx;}return out;};
+ const o1=openings(1),w1=await wins(o1),o3=openings(depth),w3=await wins(o3);
  return {first:{openings:o1.length,wins:w1},three:{openings:o3.length,wins:w3,share:Math.round(w3/o3.length*100)/100},ok:w1===0&&w3/o3.length<=limit,strategies:strats};}
 
 // forced decisions (§5): along random games (a launch as soon as one is possible), the share of decisions where exactly
@@ -215,17 +214,8 @@ export async function hiddenMatters(level,route){const E=await engine(),{idle:R}
 // (§5, policy 'random': uniform over legal actions plus waiting before a scheduled event; the coordinator's decision of
 // 2026-10-30, 17 §8 "в части партий случайного теста"). policy 'tap' is the older measure (launch whenever possible,
 // no waiting), kept for comparison: on a Super Hard queue its games jam before either approach is cleared
-export async function bridgeSingle(level,games=60,seed=3,known=null,{policy='random'}={}){const E=await engine(),{R,T}=E,win=known||(await bridgeChoicesWin(level)).each,seen=win.map(()=>0);
- for(let g=0;g<games;g++){const t=new T.Timeline(R.create(level,level.capacity||5)),r=rng(seed*977+g);let k=0;
-  if(policy==='tap'){while(k++<100000&&t.state.status!=='Won'){const m=R.legal(t.state).filter(a=>!t.check(a));const br=m.filter(a=>a.type==='bridge');br.forEach(a=>seen[a.choice]++);
-   if(br.length||t.state.bridge>=0)break;if(m.length){t.commit(m[Math.floor(r()*m.length)]);continue;}if(!t.pending)break;t.advance(t.steps[0].at-t.now);}continue;}
-  const settleNow=()=>{while(t.pending&&t.steps[0].at<=t.now+1e-7)t.advance(0);};
-  const waitEvent=()=>{while(t.pending){const e=t.steps[0];t.advance(Math.max(0,e.at-t.now));if(isStateEvent(e))break;}settleNow();};
-  while(k++<200000){settleNow();if(t.state.status==='Won')break;
-   const moves=R.legal(t.state).filter(a=>!t.check(a)),br=moves.filter(a=>a.type==='bridge');br.forEach(a=>seen[a.choice]++);
-   if(br.length||t.state.bridge>=0)break;
-   const canWait=t.steps.some(isStateEvent);if(!moves.length){if(t.pending){waitEvent();continue;}break;}
-   const j=Math.floor(r()*(moves.length+(canWait?1:0)));if(j===moves.length){waitEvent();continue;}t.commit(moves[j]);}}
+export async function bridgeSingle(level,count=60,seed=3,known=null,{policy='random'}={}){const win=known||(await bridgeChoicesWin(level)).each,seen=win.map(()=>0);
+ for(const offered of await games('single',level,{seed,policy},{count}))for(const c of offered)seen[c]++;
  const wins=win.filter(x=>x===true).length,loses=win.filter(x=>x===false).length;
  return {each:win,offered:seen,policy,ok:wins===1&&loses===win.length-1&&seen.every(x=>x>0)};}
 
@@ -236,19 +226,13 @@ export async function bridgeSingle(level,games=60,seed=3,known=null,{policy='ran
 // bridge). ok: some game builds it, and at least half of them launch at least `min` pods after the choice (the random
 // policy taps whenever it can, so most bridges are built with full places; the launches after show whether the places
 // still turn over for a while)
-export async function bridgeLoss(level,choice,{games=120,seed=9,min=1,restricted=false}={}){const E=await engine(),{R,T}=E,after=[],forced=[];let won=0;
- for(let g=0;g<games;g++){const t=new T.Timeline(R.create(level,level.capacity||5)),r=rng(seed*7919+g*104729+1);let k=0,built=false,free=false,n=0;
-  const settleNow=()=>{while(t.pending&&t.steps[0].at<=t.now+1e-7)t.advance(0);};
-  const waitEvent=()=>{while(t.pending){const e=t.steps[0];t.advance(Math.max(0,e.at-t.now));if(isStateEvent(e))break;}settleNow();};
-  while(k++<200000){settleNow();if(t.state.status==='Won'){if(built)won++;break;}
-   const moves=R.legal(t.state).filter(a=>!t.check(a)&&(!restricted||a.type!=='bridge'||a.choice===choice)),canWait=t.steps.some(isStateEvent);
-   if(!moves.length){if(t.pending){waitEvent();continue;}break;}
-   const j=Math.floor(r()*(moves.length+(canWait?1:0)));if(j===moves.length){waitEvent();continue;}
-   const a=moves[j];if(a.type==='bridge'){if(a.choice===choice){built=true;free=moves.length>1;}}else if(built)n++;t.commit(a);}
-  if(built)(free?after:forced).push(n);}
+export async function bridgeLoss(level,choice,{games:count=120,seed=9,min=1,restricted=false}={}){const after=[],forced=[];let won=0;
+ for(const [built,free,n,w] of await games('loss',level,{seed,choice,restricted},{count})){if(w)won++;if(built)(free?after:forced).push(n);}
  const all=[...after,...forced].sort((a,b)=>a-b),median=all.length?all[Math.floor((all.length-1)/2)]:null;
- return {choice,games,built:after.length+forced.length,chosen:after.length,forced:forced.length,won,medianLaunchesAfter:median,instant:all.length?Math.round(all.filter(x=>x===0).length/all.length*100)/100:null,ok:all.length>0&&median>=min};}
+ return {choice,games:count,built:after.length+forced.length,chosen:after.length,forced:forced.length,won,medianLaunchesAfter:median,instant:all.length?Math.round(all.filter(x=>x===0).length/all.length*100)/100:null,ok:all.length>0&&median>=min};}
 
+// the colours with a reachable target cell (the fast twin keeps the targets by colour: the same set without the sorted list)
+const reachColours=(R,s)=>{if(!R.targetsByColour)return new Set(R.reach(s).targets.map(i=>s.board[i]));const out=new Set();R.targetsByColour(s).forEach((l,c)=>{if(l&&l.length)out.add(c);});return out;};
 // slot pressure (layer B of 17 §13, content/rounds/quality.json; the owner's note to v12 L9: full places with cells still
 // deep in the picture make a round interesting): along random games (a launch as soon as one is possible, uniform among
 // launches, else the next event), time-weighted, the mean number of placed pods whose colour has no reachable cell
@@ -256,7 +240,7 @@ export async function bridgeLoss(level,choice,{games=120,seed=9,min=1,restricted
 export async function pressure(level,games=30,seed=777){const E=await engine(),{R,T}=E,r=rng(seed);let tight=0,idle=0,total=0;
  for(let g=0;g<games;g++){const t=new T.Timeline(R.create(level,level.capacity||5));let k=0;
   while(k++<100000&&t.state.status!=='Won'){const m=R.legal(t.state).filter(a=>!t.check(a));if(m.length){t.commit(m[Math.floor(r()*m.length)]);continue;}if(!t.pending)break;
-   const dt=t.steps[0].at-t.now,s=t.state,free=[...s.slots].filter(x=>x<0).length,reach=new Set(R.reach(s).targets.map(i=>s.board[i]));
+   const dt=t.steps[0].at-t.now,s=t.state,free=[...s.slots].filter(x=>x<0).length,reach=reachColours(R,s);
    const stuck=[...s.slots].filter(p=>p>=0&&s.remaining[p]>0&&!reach.has(s.meta.colours[p])).length;
    if(dt>0){total+=dt;if(free<=1)tight+=dt;idle+=stuck*dt;}t.advance(dt);}}
  return {stuck:total?Math.round(idle/total*100)/100:0,tight:total?Math.round(tight/total*100)/100:0};}

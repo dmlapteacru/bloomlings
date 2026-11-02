@@ -6,8 +6,10 @@ Tools of the skills `bloomlings-round-wave`, `bloomlings-round-pictures` and `bl
 
 ```sh
 # a wave (17 §13): plan → pictures → run → the owner's sample → review
-node tools/rounds/rounds.mjs plan 21 70                  # mechanics breakdown (runs/…/mechanics.json), positions, supply, picture order → runs/L0021-L0070/plan.md
-node tools/rounds/rounds.mjs run 21 70 --jobs 4          # dry place, build what is open, checks, place, audit, summary, sample pilot
+node tools/rounds/rounds.mjs plan 51 100                 # mechanics breakdown, positions, ONE picture per non-bridge position (picture-first), supply, order → runs/L0051-L0100/plan.{md,json}
+node tools/rounds/rounds.mjs run 51 100 --jobs 3         # dry place, build each position's picture × class × recipe (swap on failure), place, audit, summary, sample pilot
+node tools/rounds/rounds.mjs run 51 100 --limit 10       # only the first 10 open positions (timing per position: runs/…/timing.json)
+node tools/rounds/rounds.mjs run 21 70 --sweep           # the old path: every free picture for every open position
 node tools/rounds/rounds.mjs review results.json         # owner's ratings next to the metrics → content/rounds/reports/
 node tools/rounds/rounds.mjs bridges 21 50                # which bridge sites each bridge level shows from its start (17 §8, 2026-10-31)
 # pictures from SVG drafts and the screen before the sheet (17 §13)
@@ -31,6 +33,8 @@ node tools/rounds/levels.mjs calendar 1 60
 node tools/rounds/levels.mjs build --approved --candidates 64
 node tools/rounds/levels.mjs build P0012 --overlay up,left --recipes bridge,bridge+links --classes Normal --no-intro   # on the generator's wall
 node tools/rounds/levels.mjs build P0042 --classes Hard --recipes links --accents on   # accents (17 §6): auto (default) | on | off
+node tools/rounds/levels.mjs build P0165 --classes Hard --recipes links+hidden --pairs Hard:links+hidden --want 1 --minutes 15   # the generator (tune.mjs)
+node tools/rounds/levels.mjs build P0341 --classes Normal --recipes none --slot breather --want 1   # a breather (17 §5)
 node tools/rounds/levels.mjs bank
 node tools/rounds/levels.mjs place 1 30
 # split pictures (17 §8 «Одна цельная картинка», 2026-10-29): one whole free pool picture split by an inserted neutral strip,
@@ -52,6 +56,67 @@ node --test tools/rounds/test/*.test.mjs
 ```
 
 `ROUNDS_DIR=<folder>` points every command at another content folder, for trial runs.
+
+## The generator (2026-11-02)
+
+The owner approved one generator (2026-11-02): today's builder plus the calibration's queue tuning (`calib/README.md`),
+links chosen against the greedy strategy and under the forced-decision limit, information overlays after the class,
+breathers and a picture-first wave. `levels.mjs build` runs it for every non-bridge level of a free picture
+(`tune.mjs tuneJob`); `--legacy` keeps the old random / steered blend, bridge levels and L1–3 keep it too.
+
+- **One job** = one picture × class × recipe × slot (`regular`, `after-hard`, `breather`, `intro`, `Hard`, `Super Hard`;
+  `--slot` for a Normal, a picture of up to 550 cells is a breather by default). Its zone: a regular Normal 50–75 % aiming
+  at 58 %, the first Normal after a Hard and a breather 75–95 %, an introduction 90–100 %, Hard 20–50 % (aim 33 %), Super
+  Hard 5–20 % (aim 12 %).
+- **Plan from the model.** `calib/model.json` (the calibration's logistic share model, copied from
+  `content/work/calib/model.json`; refit with `calib/fit.mjs` and copy again) gives the blend `t` of `candidate` (0 = the
+  access order, 1 = its reverse) that lands the zone with the highest probability for the picture's features, the
+  columns, the class's noise, the pods and the link dose. A picture remembers where it landed: `bank/<P####>.json`
+  `tune["cls|recipe|slot"] = {t, cols, offset, quick}`; the next job starts there (± 0.03).
+- **≤ 5 quick tests** per attempt (40 games of the §5 random policy each): Newton steps on `t` with the model's slope until
+  both sides of the zone were seen, then bisection inside the bracket (`nextT`). Only a queue that measured in the zone
+  (± 15 points) goes on.
+- **Links one pair at a time** (`chooseLinks`, every class but an introduction; the candidate is built with
+  `noLinks`): pairs of two columns at one start depth (the engine's rule), never a hidden pod or one behind a latch.
+  Heuristics (lower is better): Normal near access keys, Hard and Super Hard a pod useful now with a later one and a trap
+  pair first (17 §8); short holds (partners reach the top at about the same time in a reference greedy game,
+  `latchTiming`); a pair that leaves at most one column free at a moment costs (`maxBlocked`); a row next to a pair
+  already chosen costs (links spread along the queue). Hard and Super Hard try the best five by how far "most work now"
+  (and "release fastest") gets (`greedyReach`, least far first). Every class takes the first pair that keeps the forced
+  share (`measure.mjs forcedShare`, 10 games) at most 35 %, up to 12 pairs tried; at the end the full 30 games of
+  `evaluate` must hold too (else the choice is redone with 30 games per pair). When the dose place of 17 §7 cannot hold
+  the limit on that queue, the lead's minimum dose is used (recorded as dose place 0; the placer weighs the place softly).
+- **Hidden pods and hidden cells after the class** (`addInfo`, the candidate built with `noInfo`): the calibration found
+  that they change none of the §5 tests, so they are added by the recipe's dose once the queue measured in the zone, with
+  no re-tuning; their fairness is still checked by `evaluate`.
+- **Acceptance**: `evaluate` (all checks; a breather the mandatory ones only, below) and the placer's filters of the slot
+  (`slotProblems`: class, forced, opening, latch, picture fitness, holding pod, calm rule, trap link), then the zone.
+  `--want n` levels (default 2), `--want-loss` also one that "most work now" loses (17 §5), `--minutes m` on top of the
+  64 candidates of §13.5. Every candidate that passes `evaluate` goes to the bank (with `inZone`, `slot`, `blend`, `tune`);
+  the build prints `@@tune {json}` for the runner.
+- **Breathers** (17 §5 «Передышка», the owner, 2026-11-02): a Normal on a picture up to ~550 cells (`BREATHER_N`) or a
+  position the wave plan marks `breather: true` (`mechanics.json`). Zone 75–95 %, zero or one light mechanic (no trap
+  link, the lead's minimum dose), no holding pod, no accents; built from the access order (`t` from 0) and accepted at the
+  first fitting layout. `evaluate(…, {breather: true})` runs only the mandatory checks (validation, balance, solution,
+  random test class Normal, doses, latch rules, fairness; forced is recorded, not required). The placer and the audit
+  keep breathers out of the Normal median, the «по цветам» quota, the holding-pod, calm, forced and pressure rules, give
+  them the 75–95 % zone and refuse one with two mechanics or a trap link (`breather: true` on the level).
+- **Picture-first wave** (the owner's principle 17): `rounds.mjs plan` gives each open non-bridge, non-hand position of a
+  planned wave one free picture (`plan.json` `assign`, the table «Картинки волны»; `wave.mjs assignPictures`): the size
+  mix per 50 (30 × 800–1200, 10 × 700–900, 5 × 400–700, 5 × 1200–1500, scaled), each free position the band furthest
+  behind its even share and never three of one band in a row, pins on their reserved positions, breathers the small
+  band (the smallest pictures up to ~550 cells first), Hard and Super Hard pictures with 3+ colours hidden at the start
+  (more first), a two-type recipe 16+ pods (§7; `reservePins` checks this too), latch recipes key holes, neighbours from
+  different packs, a theme family once in the wave and not in the 20 levels before it, a motif not within 10 levels, at
+  most two pictures of 10+ colours in 20. When no picture is left the rules relax from the end (colours, motif, family,
+  pack, band), recorded as `relaxed`; the placer then skips the relaxed family / motif rule for that position (the audit
+  still reports it). An earlier assignment is kept while its picture is free (`--reassign` draws anew). `run` builds
+  each assigned position (`levels.mjs build <P> --pairs cls:recipe --slot … --want 1 --minutes …`, default minutes by
+  slot: regular 8, after-hard 6, breather 3, intro 6, Hard / Super Hard 15) in `--jobs` processes; a picture with no level
+  in the zone is swapped for a free picture of the same band (`wave.mjs replacement`, at most `--swaps 2`), never a sweep.
+  `levels.mjs place` gives an assigned position only its picture and keeps assigned pictures off other positions. Bridge
+  and hand positions are skipped and listed. `--sweep` keeps the old full sweep; `--limit N` builds the first N positions.
+- **Validation** (`calib/plan.mjs gen2`, `gen2-report` → `content/work/gen2/validation.md`): the calibration's eight jobs.
 
 **Bridges on any strip** (17 §8 "Где стоит мост", amendment of 2026-10-28). A picture's `#` strip may run in any
 direction; `b` marks a bridge site on it. `boardOf(pic, overlay?)` builds the board: each `#`/`b` cell on the picture's
@@ -331,6 +396,8 @@ recipe and mechanic name `latch`, «засов и ключ»). The exact contrac
 | `conformance.mjs` | the reference side of the conformance gate: canonical event log, extended signature, the §5 random policy game by game, owner attempts at whole µs; engine fingerprints |
 | `schema.mjs` | a dependency-free checker for the keywords the round schemas use |
 | `transfer-log.mjs` | `content/game/rounds/transfers.jsonl`: exported → validated → published → confirmed |
+| `tune.mjs` | the generator's queue tuning (2026-11-02): model plan, ≤ 5 quick tests on the blend, forced-aware link chooser, information overlays after the class, the slot's filters (`tuneJob`) |
+| `wave.mjs` | the picture-first wave: size mix, even spread, packs, pins, breathers, replacements (pure functions) |
 | `levels.mjs` | §3 pod split, candidates (queue by access depth, doses of §7; a scene's gate and lean; accents of §6), `evaluate` (the checks of one candidate, shared with the scene search), build → bank, calendar placement with the §11 variety rules and the plan's bridge kind, cards |
 | `bridge-scene.mjs` | split pictures (`splitOf`, `splitsFor`, `checkSplit`, `make --mode split`, `preview`) and the older bridge scenes: `scene` (a smaller picture behind a wall with two sites, strips and beds), `stripsOver`, `checkScene`, the search `make` → a draft picture module with the evidence |
 

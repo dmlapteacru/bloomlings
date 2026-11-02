@@ -52,6 +52,15 @@ Before anything, read:
      third-party universe or meme picture needs the owner's rights first (`pictures.mjs rights <ids> --owner "<words>"`).
      The wave spreads over the picture packs (17 §11, 2026-11-01: `place` never puts two neighbouring levels on one pack
      while another candidate fits). Latch positions need pictures with an empty area closed in by work for the acorn key.
+   - **Picture-first** (the owner's principle 17, 17 §2, 2026-11-01/02): with a mechanics plan, `plan` also gives each open
+     position without a bridge ONE picture from the free pool (the table «Картинки волны», `plan.json` `assign`): the size
+     mix per 50 (30 × 800–1200, 10 × 700–900, 5 × 400–700, 5 × 1200–1500), the bands spread evenly (never three of one in a
+     row), pins on their positions, breathers (`breather: true` in `mechanics.json`, 17 §5 «Передышка») on the small
+     pictures, Hard and Super Hard on pictures with more colours hidden at the start, a two-type recipe only on a picture
+     with 16+ pods, neighbours from different packs, families and motifs not repeated; `relaxed` marks a rule given up
+     because no picture was left (tell the owner). The assignment is kept between runs while its picture is free
+     (`--reassign` draws anew). Show the owner the table with the mechanics breakdown. Bridge positions stay by hand
+     (step 5) and are listed.
    - Tell the owner which positions the engine cannot fill yet (an introduction of an unsupported mechanic, 17 §14).
      They stay open and the rest of the wave runs; never fake one mechanic with another.
 2. **Split pictures** (17 §8 «Одна цельная картинка», the owner, 2026-10-29; the plan's `strip: gap`). **Retired on 2026-11-01** (the owner: «У нас плохо получается когда они идут вразрез… Вокруг объекта получалось лучше»; 17 §8 «Только контур, без разреза»): every bridge level is a contour picture drawn for it (the subject outlined from its own meaning, two sites on the contour, scripts like `content/rounds/experiments/contour-bridges-51/`), and its queue is searched by hand; the split below is kept only for the record.  For each split the
@@ -77,11 +86,16 @@ Before anything, read:
    - Special pictures are hand matrices.
    - Everything passes `screen.mjs`, then goes on a numbered contact sheet.
    - The owner approves every picture. Wait for the decision, never approve on the owner's behalf.
-4. **Build and place.** Run `node tools/rounds/rounds.mjs run <from> <to> --jobs 4` in the background.
+4. **Build and place.** Run `node tools/rounds/rounds.mjs run <from> <to> --jobs 3` in the background.
    - It is resumable: run it again after an interruption.
    - It does, in order:
      - a dry placement;
-     - candidates for open positions only (under the mechanics plan only each position's planned recipe: on the
+     - picture-first: each open assigned position builds exactly its picture × class × recipe with the generator
+       (`tools/rounds/tune.mjs`: the model's blend, ≤ 5 quick tests, links under the forced limit, hidden pods / cells
+       after the class; README «The generator (2026-11-02)»); a picture with no level in the zone is swapped for one of
+       the same size band (at most twice); the time per position goes to `runs/<wave>/timing.json` and the summary;
+       `--limit N` builds only the first N positions, `--minutes M` sets the budget per position;
+     - (`--sweep`, the old path:) candidates for open positions only (under the mechanics plan only each position's planned recipe: on the
        generator's wall of the planned side for an overlay position, on an approved scene or strip picture of that side
        for a new-strip one; a scene's record carries the winning site, and the builder keeps its gate deep);
      - missing checks;

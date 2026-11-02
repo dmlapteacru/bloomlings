@@ -99,7 +99,8 @@
    "cls": "Normal",
    "lead": null,
    "add": [],
-   "recipe": "none"
+   "recipe": "none",
+   "breather": true
   },
   {
    "level": 60,
@@ -225,7 +226,8 @@
    "cls": "Normal",
    "lead": null,
    "add": [],
-   "recipe": "none"
+   "recipe": "none",
+   "breather": true
   },
   {
    "level": 73,
@@ -358,7 +360,8 @@
    "cls": "Normal",
    "lead": null,
    "add": [],
-   "recipe": "none"
+   "recipe": "none",
+   "breather": true
   },
   {
    "level": 87,
