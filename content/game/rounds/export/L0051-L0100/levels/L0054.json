@@ -1,0 +1,262 @@
+{
+ "format": "round-level.v1",
+ "number": 54,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0394",
+  "version": 1
+ },
+ "board": {
+  "w": 39,
+  "h": 40,
+  "rowsBottomFirst": [
+   "###################.###################",
+   "#.....................................#",
+   "#........EEEEEEEEEEEEEEEEEEEEEE.......#",
+   "#........EYYYYYYYYYYYYYYYYYYYYE.......#",
+   "#........EYYYYYYYYYYYYYYYYYYYYE.......#",
+   "#........EYYYYYYEEECCEEEYYYYYYE.......#",
+   "#.........YYYYYEBBBCCBBBYYYYYYE.......#",
+   "#.........YYYYYEBBBCCBBBYYYYYN........#",
+   "#.NNNNNNNNNNNNNECCCCCCCCNNNNNNNNNNNNN.#",
+   "#.NCCCCCCCCCCCNECCCCCCCCNCCCCCCCCCCCN.#",
+   "#.NCCCCCPPCCCCNEBBBCCBBBNCCCCCPCCCCCN.#",
+   "#.NCCCCPPPCCCCNEBBBCCBBBNCCCCPPPCCCCN.#",
+   "#.NCCCAAPPCCCCNYEEECCEEENCCCAAPAACCCN.#",
+   "#.NCCAACCCCCCCNYYYYYYYYYNCCAACCCAACCN.#",
+   "#.NCAACCCCCCCCNYYYYYYYYYNCCCCCCCCCCCN.#",
+   "#.NCCCCCCCCCCCNYYYYYYYYYNCCCCCCCCCCCN.#",
+   "#.NNNNNNNNNNNNNYYYYYYYYYNNNNNNNNNNNNN.#",
+   "#............AAAYYYYYYYYAAAA..........#",
+   "#............EAAAYYYYYYAAAA...........#",
+   "#............EYAAAYYYYAAAYE...........#",
+   "#............EYYAAOOOOAAYYE...........#",
+   "#............EYYYOOOOOOYYYE...........#",
+   "#.............EYYOOOOOOYYE............#",
+   "#.............EYYOOOOOOYYE............#",
+   "#.............EYAAOOOOAAYE............#",
+   "#............AAAAAAOOAAAAAA...........#",
+   "#.............AAAARRRRAAAA............#",
+   "#............AAAARRRRRRAAAA...........#",
+   "#...NNNNNNNNNAAARRRRRRRRAAANNNNNNNNN..#",
+   "#.NCCCCCCCCCCCN.RRRRRRRRNCCCCCCCCCCCN.#",
+   "#.NCCCCCCCCCCCN..RRRRRR.NCCCCCCCCCCCN.#",
+   "#.NCCCCCPPCCCCN...RRRR..NCCCCPPCCCCCN.#",
+   "#.NCCCCPPPCCCCN....RR...NCCCCPPPCCCCN.#",
+   "#.NCCCAAPCCCCCN....RR...NCCCAAPAACCCN.#",
+   "#.NCCAACCCCCCCN.........NCCAACCCAACCN.#",
+   "#.NCCCCCCCCCCCN.........NCCCCCCCCCCCN.#",
+   "#.NCCCCCCCCCCCN.........NCCCCCCCCCCCN.#",
+   "#.NNNNNNNNNNNNN.........NNNNNNNNNNNNN.#",
+   "#.....................................#",
+   "#######################################"
+  ],
+  "entries": [
+   19
+  ],
+  "hiddenCells": [
+   444,
+   445,
+   446,
+   447,
+   448,
+   452,
+   453,
+   454,
+   455,
+   456,
+   483,
+   484,
+   485,
+   486,
+   487,
+   491,
+   492,
+   493,
+   494,
+   495,
+   522,
+   523,
+   524,
+   525,
+   526,
+   530,
+   531,
+   532,
+   533,
+   837,
+   838,
+   839,
+   840,
+   876,
+   877,
+   878,
+   879,
+   915,
+   916,
+   917,
+   918,
+   955,
+   956,
+   957
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "N",
+   "count": 53
+  },
+  {
+   "code": "N",
+   "count": 52,
+   "group": "C"
+  },
+  {
+   "code": "N",
+   "count": 52
+  },
+  {
+   "code": "C",
+   "count": 52
+  },
+  {
+   "code": "C",
+   "count": 52
+  },
+  {
+   "code": "C",
+   "count": 51
+  },
+  {
+   "code": "C",
+   "count": 51
+  },
+  {
+   "code": "C",
+   "count": 51
+  },
+  {
+   "code": "C",
+   "count": 51,
+   "group": "A"
+  },
+  {
+   "code": "A",
+   "count": 30
+  },
+  {
+   "code": "A",
+   "count": 29
+  },
+  {
+   "code": "A",
+   "count": 29
+  },
+  {
+   "code": "P",
+   "count": 12
+  },
+  {
+   "code": "P",
+   "count": 12,
+   "group": "B"
+  },
+  {
+   "code": "R",
+   "count": 20,
+   "group": "C"
+  },
+  {
+   "code": "R",
+   "count": 20
+  },
+  {
+   "code": "O",
+   "count": 14,
+   "group": "B"
+  },
+  {
+   "code": "O",
+   "count": 14
+  },
+  {
+   "code": "E",
+   "count": 20
+  },
+  {
+   "code": "E",
+   "count": 20
+  },
+  {
+   "code": "E",
+   "count": 20
+  },
+  {
+   "code": "Y",
+   "count": 50
+  },
+  {
+   "code": "Y",
+   "count": 50
+  },
+  {
+   "code": "Y",
+   "count": 50
+  },
+  {
+   "code": "B",
+   "count": 12
+  },
+  {
+   "code": "B",
+   "count": 12,
+   "group": "A"
+  }
+ ],
+ "tray": [
+  [
+   25,
+   17,
+   11,
+   12,
+   10,
+   6,
+   3,
+   14,
+   18
+  ],
+  [
+   8,
+   20,
+   13,
+   7,
+   2,
+   5,
+   4,
+   0,
+   19
+  ],
+  [
+   23,
+   24,
+   16,
+   15,
+   22,
+   21,
+   9,
+   1
+  ]
+ ],
+ "mechanics": [
+  "links",
+  "cells"
+ ],
+ "engine": {
+  "rules": "335db27e3443dd1e0e7a25739b2d9bcede2eaee38d04c5f3021aa9a8b5173a18",
+  "timeline": "1d0d15678f80d655abea67993cb489d47a7c70b9fe020c6a56491f5ffb291fca",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

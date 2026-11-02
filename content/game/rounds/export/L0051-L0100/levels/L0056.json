@@ -1,0 +1,214 @@
+{
+ "format": "round-level.v1",
+ "number": 56,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P1023",
+  "version": 1
+ },
+ "board": {
+  "w": 41,
+  "h": 42,
+  "rowsBottomFirst": [
+   "####################.####################",
+   "#.......................................#",
+   "#...............EEEEEE....DDD...........#",
+   "#.......................................#",
+   "#........NNNNNNNN.......NNNNNN..........#",
+   "#.......NNNNNNNNNN.....NNNNNNNNNN.......#",
+   "#.......NNNNNNNNNN.....NNNNNNNNNNN......#",
+   "#.......NDDNNNNNNN.....NNNNNNNNNNNN.....#",
+   "#........DDDDNNNNN.....NNNNNNNNNNND.....#",
+   "#.........NNNNNNNNDDDDDNNNNNNNNNNN......#",
+   "#..........NNNNNNNGGGGGNNNNNNNNNN.......#",
+   "#..........DNNNNDGGGGGGGDNNNNN..........#",
+   "#.........DGGGGGGLLLLLGGGGGNND..........#",
+   "#........DGGGLLLLLLLLLLLGGGGGGD.........#",
+   "#.......DGGLLLLLLLLLLLLLLLGGGGGD........#",
+   "#...PP..GGLLLLLLLLLLLLLLLLLGGGGG........#",
+   "#.EPPPPGGLLLPPPLLLLLLLLLLLLLGGGGD..P....#",
+   "#.EPPPPGGLLLPPPLLLLDDDDLLLLLLLGGDDPPPP..#",
+   "#.EPPPPLLLLLLPCCLLLDDDDLLLPPPLGGGPPPPPE.#",
+   "#..PPPPLLLLLLCCDDLLDDDDLLLPPPLLGGPPPPPE.#",
+   "#..DDDDLLLLLCCDDDDLLLLLCDDPPLLLGGPPPPPE.#",
+   "#.....DLLLLLCCCDDDLLLLCDDDDLLLGGGDPPPP..#",
+   "#....EELLLLLCCDDDDLLLLCCDDDLLGGGGD.PP...#",
+   "#....EEDLLLLLCCDDLLLLLCDDDLLLGGGGEE.....#",
+   "#....EOOGGGLLCCCLLLLLLCCDDLGGGGGGEE.....#",
+   "#.....OOGGGGLLLLLLLLLLCCCGGGGGOOOOE.....#",
+   "#......OOOOGLLLLLLLLLLLLGGGGOOOOOO......#",
+   "#......YYYYYGGGGLLLLLLLGGGYYYYYOO.......#",
+   "#.......EYYYOOGGGGLLGGGGYYYYYYYOO.......#",
+   "#......EEYYYYOOGGGGGGGOYYYYYYYYO........#",
+   "#.....OOOOYYYYYYYGGGOOOYYYYYYOOOO.......#",
+   "#.....OOYYYYYYYYYOOOOOYYYYYYYOOOOO......#",
+   "#.....YYYYYYYYYYYYYYYYYYYYYYYYYYOOY.....#",
+   "#.....YYYYYYYYYYYYCYCYYYYYYYYYYYYYY.....#",
+   "#......EEEYYYYYYYYCCCYYYYYYYYYYYYY......#",
+   "#..........EEEEYYYYYYYYYOYEEEE..........#",
+   "#..............YYYCYYYYOO...............#",
+   "#...............YYCCYYYOO...............#",
+   "#................YCCYYOO................#",
+   "#.................YYYYOO................#",
+   "#.......................................#",
+   "#########################################"
+  ],
+  "entries": [
+   20
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "Y",
+   "count": 55
+  },
+  {
+   "code": "Y",
+   "count": 55
+  },
+  {
+   "code": "Y",
+   "count": 55
+  },
+  {
+   "code": "O",
+   "count": 21
+  },
+  {
+   "code": "O",
+   "count": 21
+  },
+  {
+   "code": "O",
+   "count": 20
+  },
+  {
+   "code": "C",
+   "count": 18,
+   "group": "C"
+  },
+  {
+   "code": "C",
+   "count": 18,
+   "group": "B"
+  },
+  {
+   "code": "E",
+   "count": 18
+  },
+  {
+   "code": "E",
+   "count": 18
+  },
+  {
+   "code": "G",
+   "count": 41
+  },
+  {
+   "code": "G",
+   "count": 41,
+   "group": "C"
+  },
+  {
+   "code": "G",
+   "count": 40
+  },
+  {
+   "code": "L",
+   "count": 49
+  },
+  {
+   "code": "L",
+   "count": 48
+  },
+  {
+   "code": "L",
+   "count": 48,
+   "group": "A"
+  },
+  {
+   "code": "L",
+   "count": 48,
+   "group": "A"
+  },
+  {
+   "code": "D",
+   "count": 26
+  },
+  {
+   "code": "D",
+   "count": 25
+  },
+  {
+   "code": "D",
+   "count": 25,
+   "group": "B"
+  },
+  {
+   "code": "P",
+   "count": 30
+  },
+  {
+   "code": "P",
+   "count": 29
+  },
+  {
+   "code": "N",
+   "count": 46
+  },
+  {
+   "code": "N",
+   "count": 46
+  },
+  {
+   "code": "N",
+   "count": 46
+  }
+ ],
+ "tray": [
+  [
+   15,
+   14,
+   2,
+   10,
+   23,
+   17
+  ],
+  [
+   16,
+   5,
+   6,
+   24,
+   22,
+   3
+  ],
+  [
+   7,
+   18,
+   21,
+   13,
+   0,
+   20
+  ],
+  [
+   19,
+   12,
+   11,
+   1,
+   4,
+   9,
+   8
+  ]
+ ],
+ "mechanics": [
+  "links"
+ ],
+ "engine": {
+  "rules": "335db27e3443dd1e0e7a25739b2d9bcede2eaee38d04c5f3021aa9a8b5173a18",
+  "timeline": "1d0d15678f80d655abea67993cb489d47a7c70b9fe020c6a56491f5ffb291fca",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

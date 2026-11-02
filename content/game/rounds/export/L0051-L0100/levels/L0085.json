@@ -1,0 +1,295 @@
+{
+ "format": "round-level.v1",
+ "number": 85,
+ "definitionVersion": 1,
+ "class": "Hard",
+ "picture": {
+  "id": "P0469",
+  "version": 2
+ },
+ "board": {
+  "w": 38,
+  "h": 33,
+  "rowsBottomFirst": [
+   "###################.##################",
+   "#....................................#",
+   "#.GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG.#",
+   "#.GGGGGGGGGGGGGGGGGGGGGGGG#GGGGGGGGG.#",
+   "#.GGGGGG####GGG####GGGGG##J##GGGGGGG.#",
+   "#.GSSSS#JJJJ#S#JJJJ#SSS#JJJJJ#SSSSSS.#",
+   "#.SSSS#JJJYJJ#JJJYJJ#SS#JJJJJJ#SSSSS.#",
+   "#.SS##SJJYYJJSJJYYJJS##JJJYYJJS#SSDD.#",
+   "#.S#NNNNJJJJJNNJJJJJNNNNJJYJJJNN#DDD.#",
+   "#.S#NNNNJJJJNNNJJJJNNNNNJJJJJNNN#DDD.#",
+   "#.S#NNNNNNNNNNNNNNNNNNNNNJJJNNNN#DDD.#",
+   "#.S#NNNRRRYYRRRYRRRYYRRRRRRRRRRR#SDD.#",
+   "#.S#NNNRRRYYRRRYRRRYYRRRRRRRRRRR#SSS.#",
+   "#.S#NNNRRRYYRRRYRRRYYRRRRRRRRRRR#SSS.#",
+   "#.S#NNNRRRYYRRRYRRRYYRRRRRRRRRRR#SSS.#",
+   "#.S#NNNRRRYYRRRYRRRYYRRRRRRRRRRR#SSS.#",
+   "#.S#NYYRRRYYRRRYRRRYYRNNNNNNNNNN#SSS.#",
+   "#.S#NYYRRRYYRRRYRRRYYRNNNNNNNNNN#SSS.#",
+   "#.S#NNNRRRYYRRRYYYYYYRNNYYYYYYNN#ZZZ.#",
+   "#.SS##RRRRNNNRRYFFYYYRNNYYYYYYNN#ZZZ.#",
+   "#.SSSS###SNNNS#YYYY##SNNYYYYYYNN#ZZZ.#",
+   "#.SSSSSSS#NNN#S####SS#NNYYYYYYNN#ZZZ.#",
+   "#.SSSSSSS#NNN#SSSSSSS#NNYYYYYYNN#ZZZ.#",
+   "#.SSSSSS#NNNNN#SSSSSS#NNNNNNNNNN#SSS.#",
+   "#.SSSSSS#NNNNN#SSSSSS#DDDDDDDDDD#SSS.#",
+   "#.SSSSSSS#####SSSSSSS#DDDDDDDDDD#SSS.#",
+   "#.SSSSSSSSSWWWSSSSSSSS##########SSSS.#",
+   "#.SSSSSSWWWWWWWSWSSSSSSSSSSSSSSSSSSS.#",
+   "#.SSSSSWWWWWWWWWWWSSSSSSSSSSSSSSSSSS.#",
+   "#.SSSSSWWWSWWWSWWWSSSSSSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSWSSWWWSSSSSSSSSSSSSSSSSS.#",
+   "#....................................#",
+   "######################################"
+  ],
+  "entries": [
+   19
+  ],
+  "hero": {
+   "id": "sprig-bridge",
+   "choices": [
+    {
+     "cell": 830,
+     "anchor": 831,
+     "label": "Мостик влево сверху",
+     "shown": false
+    },
+    {
+     "cell": 450,
+     "anchor": 451,
+     "label": "Мостик влево снизу",
+     "shown": false
+    }
+   ]
+  },
+  "recolor": [
+   [
+    14,
+    11,
+    "F"
+   ],
+   [
+    15,
+    11,
+    "F"
+   ]
+  ],
+  "hiddenCells": [
+   805,
+   806,
+   812,
+   817,
+   818,
+   843,
+   844,
+   850,
+   851,
+   852,
+   853,
+   854,
+   855,
+   856,
+   881,
+   889,
+   890,
+   891,
+   892,
+   893,
+   894,
+   927,
+   928,
+   929,
+   930,
+   931,
+   932,
+   965,
+   966,
+   967,
+   968,
+   969,
+   970,
+   1003,
+   1004,
+   1005,
+   1006,
+   1007,
+   1008,
+   1041,
+   1042,
+   1043,
+   1044,
+   1045,
+   1046
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "D",
+   "count": 17,
+   "group": "A"
+  },
+  {
+   "code": "D",
+   "count": 16,
+   "group": "A"
+  },
+  {
+   "code": "S",
+   "count": 38,
+   "group": "B"
+  },
+  {
+   "code": "G",
+   "count": 44,
+   "group": "B"
+  },
+  {
+   "code": "Z",
+   "count": 15,
+   "group": "C"
+  },
+  {
+   "code": "N",
+   "count": 36,
+   "group": "C"
+  },
+  {
+   "code": "N",
+   "count": 36
+  },
+  {
+   "code": "N",
+   "count": 36
+  },
+  {
+   "code": "N",
+   "count": 36
+  },
+  {
+   "code": "J",
+   "count": 24
+  },
+  {
+   "code": "R",
+   "count": 45
+  },
+  {
+   "code": "R",
+   "count": 44
+  },
+  {
+   "code": "J",
+   "count": 25
+  },
+  {
+   "code": "Y",
+   "count": 47
+  },
+  {
+   "code": "Y",
+   "count": 47
+  },
+  {
+   "code": "F",
+   "count": 2
+  },
+  {
+   "code": "J",
+   "count": 25
+  },
+  {
+   "code": "R",
+   "count": 45,
+   "group": "D"
+  },
+  {
+   "code": "S",
+   "count": 38,
+   "group": "D"
+  },
+  {
+   "code": "S",
+   "count": 39
+  },
+  {
+   "code": "S",
+   "count": 38
+  },
+  {
+   "code": "S",
+   "count": 39
+  },
+  {
+   "code": "S",
+   "count": 38
+  },
+  {
+   "code": "G",
+   "count": 45
+  },
+  {
+   "code": "S",
+   "count": 38
+  },
+  {
+   "code": "W",
+   "count": 18
+  },
+  {
+   "code": "W",
+   "count": 17
+  }
+ ],
+ "tray": [
+  [
+   0,
+   4,
+   8,
+   12,
+   16,
+   20,
+   24
+  ],
+  [
+   1,
+   5,
+   9,
+   13,
+   17,
+   21,
+   25
+  ],
+  [
+   2,
+   6,
+   10,
+   14,
+   18,
+   22,
+   26
+  ],
+  [
+   3,
+   7,
+   11,
+   15,
+   19,
+   23
+  ]
+ ],
+ "mechanics": [
+  "links",
+  "bridge",
+  "cells"
+ ],
+ "engine": {
+  "rules": "335db27e3443dd1e0e7a25739b2d9bcede2eaee38d04c5f3021aa9a8b5173a18",
+  "timeline": "1d0d15678f80d655abea67993cb489d47a7c70b9fe020c6a56491f5ffb291fca",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}
