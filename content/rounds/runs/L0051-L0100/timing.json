@@ -1,85 +1,22 @@
 [
  {
-  "level": 57,
-  "picture": "P0326",
+  "level": 96,
+  "picture": "P0031",
   "cls": "Normal",
-  "slot": "regular",
-  "recipe": "cells+links",
-  "seconds": 0,
-  "accepted": 0,
-  "attempts": null,
-  "quick": null,
-  "evaluated": null,
-  "first": null,
-  "share": null,
-  "skipped": true,
-  "reasons": null,
+  "slot": "after-hard",
+  "recipe": "links+hidden",
+  "seconds": 87,
+  "accepted": 1,
+  "attempts": 14,
+  "quick": 41,
+  "evaluated": 14,
+  "first": 87,
+  "share": 0.86,
+  "skipped": false,
+  "reasons": {
+   "связки ловушками: очередь сама остаётся выше зоны": 1,
+   "evaluate: не тот класс по быстрой оценке": 13
+  },
   "seq": 0
- },
- {
-  "level": 57,
-  "picture": "P0326",
-  "cls": "Normal",
-  "slot": "regular",
-  "recipe": "cells+links",
-  "seconds": 4,
-  "accepted": 0,
-  "attempts": 3,
-  "quick": 3,
-  "evaluated": 0,
-  "first": null,
-  "share": null,
-  "skipped": false,
-  "reasons": {
-   "быстрая оценка вне зоны после поправок": 2,
-   "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
-  },
-  "seq": 1,
-  "pinRetry": true
- },
- {
-  "level": 57,
-  "picture": "P0316",
-  "cls": "Normal",
-  "slot": "regular",
-  "recipe": "cells+links",
-  "seconds": 51,
-  "accepted": 4,
-  "attempts": 13,
-  "quick": 44,
-  "evaluated": 13,
-  "first": 9,
-  "share": 0.65,
-  "skipped": false,
-  "reasons": {
-   "расстановка: спокойная игра: Normal выигрывается в 40 % (не меньше 50 %, §5)": 1,
-   "вне зоны позиции (проходит фильтры)": 3,
-   "расстановка: спокойная игра: Normal выигрывается в 29 % (не меньше 50 %, §5)": 1,
-   "evaluate: жадная стратегия выигрывает измеренный класс (§5)": 3,
-   "расстановка: спокойная игра: Normal выигрывается в 39 % (не меньше 50 %, §5)": 1
-  },
-  "seq": 2,
-  "swappedFrom": "P0326"
- },
- {
-  "level": 73,
-  "picture": "P0936",
-  "cls": "Normal",
-  "slot": "regular",
-  "recipe": "links+latch",
-  "seconds": 176,
-  "accepted": 3,
-  "attempts": 11,
-  "quick": 39,
-  "evaluated": 5,
-  "first": 48,
-  "share": 0.61,
-  "skipped": false,
-  "reasons": {
-   "быстрая оценка вне зоны после поправок": 6,
-   "связки: доза снижена до минимума (вынужденные решения)": 3,
-   "evaluate: дебют + цвета: больше 35 % после трёх запусков (§5)": 2
-  },
-  "seq": 3
  }
 ]

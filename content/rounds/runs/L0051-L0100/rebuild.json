@@ -700,6 +700,30 @@
    }
   },
   {
+   "level": 96,
+   "tag": "2026-11-02c",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-02",
+   "from": {
+    "picture": "P0382",
+    "candidate": "P0382-Nlinks+hidden-g1102b-0",
+    "share": 0.8,
+    "recipe": "links+hidden"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0031",
+    "candidate": "P0031-Nlinks+hidden-w2-9",
+    "share": 0.95,
+    "recipe": "links+hidden",
+    "lost": false,
+    "gen": null
+   }
+  },
+  {
    "level": 97,
    "tag": "2026-11-02b",
    "why": [

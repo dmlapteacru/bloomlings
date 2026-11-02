@@ -1,7 +1,7 @@
 {
  "code": "P0468",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0065",
  "version": 4,
  "title": "Снежный шар с ёлкой",
  "theme": "bridge-contour",

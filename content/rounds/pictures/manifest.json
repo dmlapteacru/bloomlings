@@ -544,7 +544,8 @@
    "colours": 8,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null
+   "note": null,
+   "usedBy": "L0096"
   },
   {
    "id": "P0032",
@@ -6780,8 +6781,7 @@
    "colours": 9,
    "status": "approved",
    "batch": "packs-0268-0467",
-   "note": null,
-   "usedBy": "L0096"
+   "note": null
   },
   {
    "id": "P0383",
@@ -8334,7 +8334,7 @@
    "status": "approved",
    "batch": "batch-0468-contour-bridges",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0065"
   },
   {
    "id": "P0469",
@@ -8352,7 +8352,7 @@
    "status": "approved",
    "batch": "batch-0468-contour-bridges",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0085"
   },
   {
    "id": "P0470",
@@ -8370,7 +8370,7 @@
    "status": "approved",
    "batch": "batch-0468-contour-bridges",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0075"
   },
   {
    "id": "P0833",

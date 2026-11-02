@@ -1,7 +1,7 @@
 {
  "code": "P0470",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0075",
  "version": 3,
  "title": "Улитка с домиком",
  "theme": "bridge-contour",

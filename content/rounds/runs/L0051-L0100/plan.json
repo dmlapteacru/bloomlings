@@ -3,7 +3,7 @@
   51,
   100
  ],
- "created": "2026-11-02T10:21:30.691Z",
+ "created": "2026-11-02T10:29:50.758Z",
  "positions": [
   {
    "level": 51,
@@ -163,8 +163,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0316"
   },
   {
    "level": 58,
@@ -351,8 +351,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0468"
   },
   {
    "level": 66,
@@ -551,8 +551,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0936"
   },
   {
    "level": 74,
@@ -601,8 +601,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0470"
   },
   {
    "level": 76,
@@ -851,8 +851,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0469"
   },
   {
    "level": 86,
@@ -1126,8 +1126,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0382"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 97,
@@ -1231,11 +1231,7 @@
   }
  ],
  "open": [
-  57,
-  65,
-  73,
-  75,
-  85
+  96
  ],
  "blockers": [],
  "mechanics": {
@@ -1771,16 +1767,16 @@
   }
  },
  "need": {
-  "Normal": 2,
+  "Normal": 1,
   "Hard": 0,
   "Super Hard": 0,
   "intro": 0,
   "bridge": 0
  },
  "supply": {
-  "pictures": 515,
+  "pictures": 514,
   "strong": 194,
-  "stream": 3,
+  "stream": 0,
   "bank": {
    "знакомство: hidden": 34,
    "Normal": 431,
@@ -1799,25 +1795,19 @@
    "batch-0168-C": 19,
    "batch-0168-D": 18,
    "batch-0168-E": 1,
-   "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01": 45,
+   "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01": 44,
    "packs-0268-0467 · Миниатюрные мастерские": 8,
    "packs-0268-0467 · Необычные магазины": 8,
    "packs-0268-0467 · Музыка": 8,
    "packs-0268-0467 · Ретрофутуризм": 8,
-   "packs-0268-0467 · Праздники и карнавал": 8,
+   "packs-0268-0467 · Праздники и карнавал": 9,
    "packs-0268-0467 · Доисторические находки": 8,
    "packs-0268-0467 · Невозможная архитектура": 8,
    "packs-0268-0467 · Путешествия и походы": 9,
    "packs-0268-0467 · Обмен свойствами предметов": 10,
    "packs-0268-0467 · Уютная мистика": 9,
-   "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01": 188,
+   "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01": 187,
    "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02": 99
-  },
-  "latch": {
-   "positions": [
-    73
-   ],
-   "pictures": 142
   },
   "overlay": {}
  },
@@ -1872,23 +1862,22 @@
    "title": "Мягкий дорожный конус",
    "pack": "packs-0268-0467 · Обмен свойствами предметов",
    "positions": [
-    57
+    96
    ],
-   "reserved": 57,
-   "status": "free",
-   "reason": null
+   "reserved": null,
+   "status": "blocked",
+   "reason": "подходящие позиции (L96) заняты другими закреплёнными или нарушили бы повтор семейства, мотива или окно 10+ цветов"
   },
   {
    "id": "P0391",
    "title": "Кассета — американские горки",
    "pack": "packs-0268-0467 · Ретрофутуризм",
    "positions": [
-    57,
-    73
+    96
    ],
    "reserved": null,
    "status": "blocked",
-   "reason": "подходящие позиции (L57, L73) заняты другими закреплёнными или нарушили бы повтор семейства, мотива или окно 10+ цветов"
+   "reason": "подходящие позиции (L96) заняты другими закреплёнными или нарушили бы повтор семейства, мотива или окно 10+ цветов"
   }
  ],
  "assign": [
@@ -2013,7 +2002,8 @@
    ],
    "wantLoss": true,
    "swappedFrom": "P0326",
-   "swaps": 1
+   "swaps": 1,
+   "placed": true
   },
   {
    "level": 58,
@@ -2257,7 +2247,8 @@
    "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
    "hidden": 2,
    "P": 30,
-   "wantLoss": true
+   "wantLoss": true,
+   "placed": true
   },
   {
    "level": 74,
@@ -2620,14 +2611,16 @@
    "intro": null,
    "recipe": "links+hidden",
    "slot": "after-hard",
-   "picture": "P0382",
-   "title": "Карнавальная маска с днём и ночью",
-   "N": 985,
+   "picture": "P0031",
+   "title": "Велосипед с корзиной цветов",
+   "N": 820,
    "band": "800–1200",
-   "pack": "packs-0268-0467 · Праздники и карнавал",
-   "hidden": 2,
-   "P": 27,
-   "placed": true
+   "pack": "batch-0011",
+   "hidden": 0,
+   "P": 24,
+   "tried": [
+    "P0382"
+   ]
   },
   {
    "level": 97,
@@ -2705,15 +2698,11 @@
  "assignMissing": [],
  "assignQuota": {
   "800–1200": 1,
-  "700–900": 1,
+  "700–900": 0,
   "400–700": 0,
   "1200–1500": 0
  },
- "hand": [
-  65,
-  75,
-  85
- ],
+ "hand": [],
  "order": {
   "total": 0,
   "strong": 0,
@@ -2728,50 +2717,7 @@
   "strips": [],
   "scenes": [],
   "sceneSources": 165,
-  "splits": [
-   {
-    "level": 65,
-    "cls": "Hard",
-    "side": "up",
-    "kind": "better",
-    "recipe": "bridge+links",
-    "have": 0,
-    "sources": [
-     "P0011",
-     "P0014",
-     "P0025"
-    ],
-    "command": "node tools/rounds/bridge-scene.mjs make --mode split --from P0011,P0014,P0025 --side up --kind better --cls \"Hard\" --recipe bridge+links --level 65 --out content/rounds/pictures/src/split-L0065.mjs"
-   },
-   {
-    "level": 75,
-    "cls": "Super Hard",
-    "side": "two",
-    "kind": "single",
-    "recipe": "bridge+links+cells",
-    "have": 0,
-    "sources": [
-     "P0014",
-     "P0023",
-     "P0026"
-    ],
-    "command": "node tools/rounds/bridge-scene.mjs make --mode split --from P0014,P0023,P0026 --side two --kind single --cls \"Super Hard\" --recipe bridge+links+cells --level 75 --out content/rounds/pictures/src/split-L0075.mjs"
-   },
-   {
-    "level": 85,
-    "cls": "Hard",
-    "side": "left",
-    "kind": "better",
-    "recipe": "bridge+links+cells",
-    "have": 0,
-    "sources": [
-     "P0023",
-     "P0027",
-     "P0037"
-    ],
-    "command": "node tools/rounds/bridge-scene.mjs make --mode split --from P0023,P0027,P0037 --side left --kind better --cls \"Hard\" --recipe bridge+links+cells --level 85 --out content/rounds/pictures/src/split-L0085.mjs"
-   }
-  ],
+  "splits": [],
   "avoidMotifs": [
    "ретро-техника (10)",
    "лампы и фонари (5)",
