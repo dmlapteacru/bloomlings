@@ -3,7 +3,7 @@
   51,
   100
  ],
- "created": "2026-11-01T18:18:40.329Z",
+ "created": "2026-11-02T08:33:46.333Z",
  "positions": [
   {
    "level": 51,
@@ -14,11 +14,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1200
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -37,11 +37,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1200
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -58,11 +58,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1200
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -82,11 +82,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1200
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -106,11 +106,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1200
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -130,11 +130,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1200
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -154,11 +154,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1200
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -178,11 +178,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1200
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -202,11 +202,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1200
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -226,11 +226,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1200
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -247,11 +247,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -271,11 +271,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -292,11 +292,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -317,11 +317,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -342,11 +342,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -367,11 +367,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -392,11 +392,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -417,11 +417,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -442,11 +442,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -467,11 +467,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -492,11 +492,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -517,11 +517,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -542,11 +542,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -567,11 +567,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -592,11 +592,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -617,11 +617,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -642,11 +642,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -667,11 +667,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -692,11 +692,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -717,11 +717,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -742,11 +742,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -767,11 +767,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -792,11 +792,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -817,11 +817,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -842,11 +842,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -867,11 +867,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -892,11 +892,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -917,11 +917,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -942,11 +942,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -967,11 +967,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -992,11 +992,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -1017,11 +1017,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -1042,11 +1042,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -1067,11 +1067,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -1092,11 +1092,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -1117,11 +1117,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -1142,11 +1142,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -1167,11 +1167,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -1192,11 +1192,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -1217,11 +1217,11 @@
    ],
    "stage": {
     "cells": [
-     550,
-     1400
+     400,
+     1500
     ],
     "colours": [
-     5,
+     4,
      10
     ],
     "compact": true
@@ -1823,8 +1823,8 @@
   "bridge": 0
  },
  "supply": {
-  "pictures": 260,
-  "strong": 166,
+  "pictures": 560,
+  "strong": 218,
   "stream": 3,
   "bank": {
    "знакомство: hidden": 40,
@@ -1833,7 +1833,7 @@
    "знакомство: links": 36,
    "знакомство: latch": 8,
    "Hard": 43,
-   "Super Hard": 21
+   "Super Hard": 22
   },
   "packs": {
    "owner-0004-0008": 1,
@@ -1856,7 +1856,9 @@
    "packs-0268-0467 · Обмен свойствами предметов": 10,
    "packs-0268-0467 · Уютная мистика": 10,
    "packs-0268-0467 · Новые версии знакомых героев": 1,
-   "packs-0268-0467 · Новые герои игр": 1
+   "packs-0268-0467 · Новые герои игр": 1,
+   "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01": 200,
+   "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02": 100
   },
   "latch": {
    "positions": [
@@ -1877,7 +1879,7 @@
     99,
     100
    ],
-   "pictures": 53
+   "pictures": 164
   },
   "overlay": {}
  },
@@ -1937,6 +1939,16 @@
    "title": "ВАЛЛ-И — маленький сад",
    "pack": "packs-0268-0467 · Новые версии знакомых героев",
    "positions": [
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
     62,
     64,
     67,
@@ -1959,7 +1971,7 @@
     97,
     98
    ],
-   "reserved": 82,
+   "reserved": 55,
    "status": "free",
    "reason": null
   },
@@ -1971,45 +1983,17 @@
     51,
     52,
     53,
-    54,
     56,
-    57,
-    58,
     59,
-    61,
     62,
-    63,
-    64,
-    66,
-    67,
-    68,
-    69,
-    71,
     72,
-    73,
     74,
     76,
-    77,
-    78,
-    79,
-    81,
-    82,
     83,
-    84,
     86,
-    87,
-    88,
-    89,
-    91,
-    92,
-    93,
-    94,
-    96,
-    97,
-    98,
-    99
+    91
    ],
-   "reserved": 77,
+   "reserved": 62,
    "status": "free",
    "reason": null
   },
@@ -2021,34 +2005,17 @@
     51,
     52,
     53,
-    54,
     56,
-    57,
-    58,
     59,
     62,
-    64,
-    67,
-    68,
-    71,
     72,
     74,
     76,
-    78,
-    79,
-    82,
     83,
     86,
-    87,
-    88,
-    91,
-    92,
-    94,
-    96,
-    97,
-    98
+    91
    ],
-   "reserved": 54,
+   "reserved": 72,
    "status": "free",
    "reason": null
   },
@@ -2057,6 +2024,16 @@
    "title": "Зеркало отражает другую осень",
    "pack": "packs-0268-0467 · Уютная мистика",
    "positions": [
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
     61,
     62,
     63,
@@ -2095,7 +2072,7 @@
     99,
     100
    ],
-   "reserved": 95,
+   "reserved": 90,
    "status": "free",
    "reason": null
   },
@@ -2134,7 +2111,7 @@
     97,
     98
    ],
-   "reserved": 59,
+   "reserved": 97,
    "status": "free",
    "reason": null
   },
@@ -2143,6 +2120,16 @@
    "title": "Кассета — американские горки",
    "pack": "packs-0268-0467 · Ретрофутуризм",
    "positions": [
+    51,
+    52,
+    53,
+    54,
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
     61,
     62,
     63,
@@ -2181,10 +2168,785 @@
     99,
     100
    ],
-   "reserved": 70,
+   "reserved": 80,
    "status": "free",
    "reason": null
   }
+ ],
+ "assign": [
+  {
+   "level": 51,
+   "cls": "Normal",
+   "intro": "cells",
+   "recipe": "cells",
+   "slot": "intro",
+   "picture": "P0997",
+   "title": "Садовый совок держит маленький закат",
+   "N": 921,
+   "band": "800–1200",
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
+   "hidden": 2,
+   "P": 24
+  },
+  {
+   "level": 52,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links",
+   "slot": "regular",
+   "picture": "P0071",
+   "title": "Плюшевый мишка",
+   "N": 812,
+   "band": "700–900",
+   "pack": "batch-0061",
+   "hidden": 3,
+   "P": 24
+  },
+  {
+   "level": 53,
+   "cls": "Normal",
+   "intro": "cells",
+   "recipe": "cells",
+   "slot": "intro",
+   "picture": "P0410",
+   "title": "Саксофон выпускает осень",
+   "N": 891,
+   "band": "800–1200",
+   "pack": "packs-0268-0467 · Музыка",
+   "hidden": 2,
+   "P": 26
+  },
+  {
+   "level": 54,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+cells",
+   "slot": "regular",
+   "picture": "P0035",
+   "title": "Остров в облаках",
+   "N": 1153,
+   "band": "800–1200",
+   "pack": "batch-0011",
+   "hidden": 2,
+   "P": 30,
+   "wantLoss": true
+  },
+  {
+   "level": 55,
+   "cls": "Hard",
+   "intro": null,
+   "recipe": "links+cells",
+   "slot": "Hard",
+   "picture": "P0425",
+   "title": "ВАЛЛ-И — маленький сад",
+   "N": 1242,
+   "band": "1200–1500",
+   "pack": "packs-0268-0467 · Новые версии знакомых героев",
+   "hidden": 5,
+   "P": 30,
+   "pin": true
+  },
+  {
+   "level": 56,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links",
+   "slot": "after-hard",
+   "picture": "P1023",
+   "title": "Лайм в шапке из песочных форм",
+   "N": 887,
+   "band": "800–1200",
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
+   "hidden": 2,
+   "P": 25
+  },
+  {
+   "level": 57,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "cells+links",
+   "slot": "regular",
+   "picture": "P0329",
+   "title": "Лавка запасных радуг",
+   "N": 889,
+   "band": "700–900",
+   "pack": "packs-0268-0467 · Необычные магазины",
+   "hidden": 4,
+   "P": 24
+  },
+  {
+   "level": 58,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+cells",
+   "slot": "regular",
+   "picture": "P0266",
+   "title": "Twig: «Всё нормально»",
+   "N": 900,
+   "band": "800–1200",
+   "pack": "batch-0168-E",
+   "hidden": 4,
+   "P": 24,
+   "wantLoss": true
+  },
+  {
+   "level": 59,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "none",
+   "slot": "breather",
+   "picture": "P0358",
+   "title": "Кузница в колокольчике",
+   "N": 377,
+   "band": "400–700",
+   "pack": "packs-0268-0467 · Миниатюрные мастерские",
+   "hidden": 2,
+   "P": 12
+  },
+  {
+   "level": 60,
+   "cls": "Super Hard",
+   "intro": null,
+   "recipe": "links+cells",
+   "slot": "Super Hard",
+   "picture": "P0223",
+   "title": "Дюймовочка в тюльпане",
+   "N": 837,
+   "band": "800–1200",
+   "pack": "batch-0168-C",
+   "hidden": 7,
+   "P": 25
+  },
+  {
+   "level": 61,
+   "cls": "Normal",
+   "intro": "latch",
+   "recipe": "latch",
+   "slot": "intro",
+   "picture": "P0916",
+   "title": "Маленький трубкозуб-привратник",
+   "N": 1333,
+   "band": "1200–1500",
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
+   "hidden": 1,
+   "P": 31
+  },
+  {
+   "level": 62,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links",
+   "slot": "breather",
+   "picture": "P0465",
+   "title": "Рыцарь — гвоздь",
+   "N": 373,
+   "band": "400–700",
+   "pack": "packs-0268-0467 · Новые герои игр",
+   "hidden": 0,
+   "P": 10,
+   "pin": true
+  },
+  {
+   "level": 63,
+   "cls": "Normal",
+   "intro": "latch",
+   "recipe": "latch",
+   "slot": "intro",
+   "picture": "P0034",
+   "title": "Планета-пончик",
+   "N": 911,
+   "band": "800–1200",
+   "pack": "batch-0011",
+   "hidden": 1,
+   "P": 24
+  },
+  {
+   "level": 64,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+cells",
+   "slot": "regular",
+   "picture": "P0315",
+   "title": "Носки с разными сезонами",
+   "N": 898,
+   "band": "700–900",
+   "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
+   "hidden": 2,
+   "P": 24
+  },
+  {
+   "level": 66,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+latch",
+   "slot": "after-hard",
+   "picture": "P0317",
+   "title": "Светофор-бабочкарий",
+   "N": 867,
+   "band": "800–1200",
+   "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
+   "hidden": 1,
+   "P": 24,
+   "pin": true
+  },
+  {
+   "level": 67,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "cells+links",
+   "slot": "regular",
+   "picture": "P0044",
+   "title": "Пингвин на коньках",
+   "N": 1155,
+   "band": "800–1200",
+   "pack": "batch-0011-env",
+   "hidden": 4,
+   "P": 30,
+   "wantLoss": true
+  },
+  {
+   "level": 68,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+hidden",
+   "slot": "regular",
+   "picture": "P0292",
+   "title": "Молочный пакет льёт Млечный Путь",
+   "N": 895,
+   "band": "700–900",
+   "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
+   "hidden": 4,
+   "P": 24
+  },
+  {
+   "level": 69,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "latch+links",
+   "slot": "regular",
+   "picture": "P0947",
+   "title": "Сырная расчёска",
+   "N": 1170,
+   "band": "800–1200",
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
+   "hidden": 3,
+   "P": 30,
+   "wantLoss": true
+  },
+  {
+   "level": 70,
+   "cls": "Hard",
+   "intro": null,
+   "recipe": "links+latch",
+   "slot": "Hard",
+   "picture": "P0268",
+   "title": "Водопад в песочных часах",
+   "N": 892,
+   "band": "800–1200",
+   "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
+   "hidden": 7,
+   "P": 24
+  },
+  {
+   "level": 71,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+cells",
+   "slot": "after-hard",
+   "picture": "P0013",
+   "title": "Лиса-почтальон",
+   "N": 750,
+   "band": "700–900",
+   "pack": "batch-0011",
+   "hidden": 2,
+   "P": 24
+  },
+  {
+   "level": 72,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "none",
+   "slot": "breather",
+   "picture": "P0341",
+   "title": "Заводная дискета",
+   "N": 375,
+   "band": "400–700",
+   "pack": "packs-0268-0467 · Ретрофутуризм",
+   "hidden": 2,
+   "P": 13,
+   "pin": true
+  },
+  {
+   "level": 73,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+latch",
+   "slot": "regular",
+   "picture": "P0936",
+   "title": "Бабочка из цветной бумаги",
+   "N": 1128,
+   "band": "800–1200",
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
+   "hidden": 2,
+   "P": 30
+  },
+  {
+   "level": 74,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "cells",
+   "slot": "regular",
+   "picture": "P0087",
+   "title": "Водолаз",
+   "N": 1056,
+   "band": "800–1200",
+   "pack": "batch-0061",
+   "hidden": 3,
+   "P": 30,
+   "wantLoss": true
+  },
+  {
+   "level": 76,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links",
+   "slot": "after-hard",
+   "picture": "P1092",
+   "title": "Серебряный дирижабль с красным хвостом",
+   "N": 674,
+   "band": "400–700",
+   "pack": "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02",
+   "hidden": 2,
+   "P": 19
+  },
+  {
+   "level": 77,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "latch+links",
+   "slot": "regular",
+   "picture": "P0971",
+   "title": "Пружинная снежинка",
+   "N": 1021,
+   "band": "800–1200",
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
+   "hidden": 1,
+   "P": 30
+  },
+  {
+   "level": 78,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+hidden",
+   "slot": "regular",
+   "picture": "P0068",
+   "title": "Уютная книжная полка",
+   "N": 1016,
+   "band": "800–1200",
+   "pack": "batch-0061",
+   "hidden": 5,
+   "P": 30,
+   "wantLoss": true
+  },
+  {
+   "level": 79,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+cells",
+   "slot": "regular",
+   "picture": "P0415",
+   "title": "Походные ботинки на гусеницах",
+   "N": 881,
+   "band": "700–900",
+   "pack": "packs-0268-0467 · Путешествия и походы",
+   "hidden": 3,
+   "P": 24,
+   "relaxed": [
+    "family",
+    "motif",
+    "colours"
+   ]
+  },
+  {
+   "level": 80,
+   "cls": "Hard",
+   "intro": null,
+   "recipe": "links+cells+latch",
+   "slot": "Hard",
+   "picture": "P0391",
+   "title": "Кассета — американские горки",
+   "N": 1236,
+   "band": "1200–1500",
+   "pack": "packs-0268-0467 · Ретрофутуризм",
+   "hidden": 4,
+   "P": 30,
+   "pin": true
+  },
+  {
+   "level": 81,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+latch",
+   "slot": "after-hard",
+   "picture": "P0363",
+   "title": "Папоротник из каменных пластин",
+   "N": 840,
+   "band": "800–1200",
+   "pack": "packs-0268-0467 · Доисторические находки",
+   "hidden": 0,
+   "P": 26,
+   "relaxed": [
+    "family",
+    "motif",
+    "colours"
+   ]
+  },
+  {
+   "level": 82,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "cells+links",
+   "slot": "regular",
+   "picture": "P0077",
+   "title": "Подводная лодка",
+   "N": 1088,
+   "band": "800–1200",
+   "pack": "batch-0061",
+   "hidden": 6,
+   "P": 30,
+   "relaxed": [
+    "motif",
+    "colours"
+   ],
+   "wantLoss": true
+  },
+  {
+   "level": 83,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links",
+   "slot": "regular",
+   "picture": "P0412",
+   "title": "Гирлянда из маленьких дверей",
+   "N": 870,
+   "band": "700–900",
+   "pack": "packs-0268-0467 · Праздники и карнавал",
+   "hidden": 4,
+   "P": 24,
+   "relaxed": [
+    "family",
+    "motif",
+    "colours"
+   ]
+  },
+  {
+   "level": 84,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "latch+cells",
+   "slot": "regular",
+   "picture": "P0378",
+   "title": "Мастерская ключей в навесном замке",
+   "N": 881,
+   "band": "800–1200",
+   "pack": "packs-0268-0467 · Миниатюрные мастерские",
+   "hidden": 4,
+   "P": 24,
+   "relaxed": [
+    "family",
+    "motif",
+    "colours"
+   ],
+   "wantLoss": true
+  },
+  {
+   "level": 86,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "none",
+   "slot": "breather",
+   "picture": "P0066",
+   "title": "Круассан",
+   "N": 378,
+   "band": "400–700",
+   "pack": "batch-0061",
+   "hidden": 4,
+   "P": 12
+  },
+  {
+   "level": 87,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+cells",
+   "slot": "regular",
+   "picture": "P0354",
+   "title": "Башня, сшитая из лоскутов",
+   "N": 880,
+   "band": "800–1200",
+   "pack": "packs-0268-0467 · Невозможная архитектура",
+   "hidden": 4,
+   "P": 24,
+   "relaxed": [
+    "family",
+    "motif",
+    "colours"
+   ]
+  },
+  {
+   "level": 88,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+hidden",
+   "slot": "regular",
+   "picture": "P0246",
+   "title": "Хот-дог такса",
+   "N": 884,
+   "band": "800–1200",
+   "pack": "batch-0168-D",
+   "hidden": 3,
+   "P": 24,
+   "relaxed": [
+    "family",
+    "motif",
+    "colours"
+   ],
+   "wantLoss": true
+  },
+  {
+   "level": 89,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "latch+links",
+   "slot": "regular",
+   "picture": "P0385",
+   "title": "Рюкзак с пикниковым садом",
+   "N": 1215,
+   "band": "1200–1500",
+   "pack": "packs-0268-0467 · Путешествия и походы",
+   "hidden": 6,
+   "P": 30,
+   "relaxed": [
+    "family",
+    "motif",
+    "colours"
+   ]
+  },
+  {
+   "level": 90,
+   "cls": "Super Hard",
+   "intro": null,
+   "recipe": "links+latch+cells",
+   "slot": "Super Hard",
+   "picture": "P0337",
+   "title": "Зеркало отражает другую осень",
+   "N": 1214,
+   "band": "1200–1500",
+   "pack": "packs-0268-0467 · Уютная мистика",
+   "hidden": 4,
+   "P": 30,
+   "pin": true
+  },
+  {
+   "level": 91,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links",
+   "slot": "after-hard",
+   "picture": "P0406",
+   "title": "Бумажная швейная машинка",
+   "N": 894,
+   "band": "800–1200",
+   "pack": "packs-0268-0467 · Обмен свойствами предметов",
+   "hidden": 0,
+   "P": 24,
+   "relaxed": [
+    "family",
+    "motif",
+    "colours"
+   ]
+  },
+  {
+   "level": 92,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "cells+links",
+   "slot": "regular",
+   "picture": "P0014",
+   "title": "Маяк на скале",
+   "N": 945,
+   "band": "800–1200",
+   "pack": "batch-0011-env",
+   "hidden": 4,
+   "P": 26,
+   "relaxed": [
+    "family",
+    "motif",
+    "colours"
+   ],
+   "wantLoss": true
+  },
+  {
+   "level": 93,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+latch",
+   "slot": "regular",
+   "picture": "P0362",
+   "title": "Воздушный змей — праздничная скатерть",
+   "N": 752,
+   "band": "700–900",
+   "pack": "packs-0268-0467 · Праздники и карнавал",
+   "hidden": 2,
+   "P": 24,
+   "relaxed": [
+    "family",
+    "motif",
+    "colours"
+   ]
+  },
+  {
+   "level": 94,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+cells",
+   "slot": "regular",
+   "picture": "P0369",
+   "title": "Прокат луж",
+   "N": 893,
+   "band": "800–1200",
+   "pack": "packs-0268-0467 · Необычные магазины",
+   "hidden": 3,
+   "P": 24,
+   "relaxed": [
+    "family",
+    "motif",
+    "colours"
+   ],
+   "wantLoss": true
+  },
+  {
+   "level": 95,
+   "cls": "Hard",
+   "intro": null,
+   "recipe": "links+latch",
+   "slot": "Hard",
+   "picture": "P0334",
+   "title": "Библиотека на винтовой лестнице",
+   "N": 869,
+   "band": "800–1200",
+   "pack": "packs-0268-0467 · Невозможная архитектура",
+   "hidden": 7,
+   "P": 26,
+   "relaxed": [
+    "family",
+    "motif",
+    "colours"
+   ]
+  },
+  {
+   "level": 96,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+hidden",
+   "slot": "after-hard",
+   "picture": "P0350",
+   "title": "Граммофон с ледяным рупором",
+   "N": 939,
+   "band": "800–1200",
+   "pack": "packs-0268-0467 · Музыка",
+   "hidden": 1,
+   "P": 25,
+   "relaxed": [
+    "family",
+    "motif",
+    "colours"
+   ]
+  },
+  {
+   "level": 97,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "cells+links",
+   "slot": "regular",
+   "picture": "P0326",
+   "title": "Мягкий дорожный конус",
+   "N": 873,
+   "band": "700–900",
+   "pack": "packs-0268-0467 · Обмен свойствами предметов",
+   "hidden": 2,
+   "P": 24,
+   "pin": true
+  },
+  {
+   "level": 98,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+hidden",
+   "slot": "regular",
+   "picture": "P0417",
+   "title": "Каменная арка со шторой из снега",
+   "N": 908,
+   "band": "800–1200",
+   "pack": "packs-0268-0467 · Уютная мистика",
+   "hidden": 4,
+   "P": 25,
+   "relaxed": [
+    "family",
+    "motif",
+    "colours"
+   ],
+   "wantLoss": true
+  },
+  {
+   "level": 99,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "latch+links",
+   "slot": "regular",
+   "picture": "P0371",
+   "title": "Телевизор с бумажным водопадом",
+   "N": 877,
+   "band": "700–900",
+   "pack": "packs-0268-0467 · Ретрофутуризм",
+   "hidden": 4,
+   "P": 24,
+   "relaxed": [
+    "family",
+    "motif",
+    "colours"
+   ]
+  },
+  {
+   "level": 100,
+   "cls": "Hard",
+   "intro": null,
+   "recipe": "links+latch+cells",
+   "slot": "Hard",
+   "picture": "P0955",
+   "title": "Защитный комбинезон для ростка",
+   "N": 1025,
+   "band": "800–1200",
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
+   "hidden": 4,
+   "P": 30,
+   "relaxed": [
+    "family",
+    "motif",
+    "colours"
+   ]
+  }
+ ],
+ "assignMissing": [],
+ "assignQuota": {
+  "800–1200": 28,
+  "700–900": 9,
+  "400–700": 5,
+  "1200–1500": 5
+ },
+ "hand": [
+  65,
+  75,
+  85
  ],
  "order": {
   "total": 0,
@@ -2199,7 +2961,7 @@
   },
   "strips": [],
   "scenes": [],
-  "sceneSources": 72,
+  "sceneSources": 172,
   "splits": [
    {
     "level": 65,
@@ -2247,38 +3009,43 @@
   "avoidMotifs": [
    "ретро-техника (10)",
    "лампы и фонари (5)",
-   "инструменты музыки (5)",
+   "сундуки (3)",
+   "инструменты музыки (6)",
+   "драконы (3)",
    "книги (5)",
-   "рыбы (7)",
+   "рыбы (9)",
    "подводный мир (6)",
-   "космонавты и ракеты (6)",
+   "космонавты и ракеты (7)",
+   "облака с лицом (3)",
    "полив цветка (4)",
    "роботы (4)",
    "цветок в горшке (3)",
+   "совы (3)",
    "чашки и кружки (5)",
    "динозавры (5)",
-   "домики-сказки (9)",
+   "домики-сказки (11)",
    "корабли и лодки (4)",
+   "торты и пончики (3)",
    "привидения и духи (3)",
    "печенье и выпечка (4)",
-   "зонты (6)",
-   "собаки (4)",
+   "зонты (9)",
+   "собаки (12)",
    "кошки (9)",
-   "воздушные шары (3)"
+   "воздушные шары (4)"
   ],
   "suggestFamilies": [
    "Герои и мир Bloomlings (0)",
    "Водный транспорт (1)",
-   "Цветы и букеты (2)",
    "Хлеб и выпечка (2)",
    "Подводные экспедиции (2)",
    "Сказочные жилища (2)",
-   "Грибы и лесные находки (3)",
-   "Камни, минералы и кристаллы (3)",
-   "Мебель и уютные уголки (4)",
-   "Городские пространства (4)",
-   "Воздушный транспорт (4)",
-   "Рисование и ремёсла (4)"
+   "Книги, учёба и открытия (4)",
+   "Воздушный транспорт (6)",
+   "Городские пространства (7)",
+   "Грибы и лесные находки (8)",
+   "Камни, минералы и кристаллы (8)",
+   "Космос (8)",
+   "Цветы и букеты (10)"
   ]
  }
 }
