@@ -10,6 +10,7 @@ import {run} from '../level-stats/trace.mjs';
 import {latchCheck,cellsHiddenAtStart,bridgeChoicesWin,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,pressure,calmTest,calmFails,calmBorderline,trapLinks} from './measure.mjs';
 import {INTRO,planOf,repeatWindow} from './lib.mjs';
 import {fitness} from './fitness.mjs';
+import {breatherRecipeOk,BREATHER_ZONE,repeatClash,REPEAT_GAP,REPEAT_PER_WAVE,medianWindows,median,greedyQuota} from './wave.mjs';
 const from=+process.argv[2]||1,to=+process.argv[3]||20,preview=arg('--preview'),out=arg('--out');
 // the builder's doses (levels.mjs; 'noop' keeps its command line quiet), for the hidden-cell dose of 17 §8
 process.argv.splice(2,0,'noop');const LV=await import('./levels.mjs');process.argv.splice(2,1);
@@ -110,14 +111,17 @@ for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
  // holding a place in a regular Normal (§5, §6)
  if(L.cls!=='Normal'){const o=await openingTest(d,L.cls);if(o.first.wins)bad.push(`дебют + цвета: жадная выигрывает после ${o.first.wins} из ${o.first.openings} первых запусков (§5)`);
   if(o.three.share>.35)bad.push(`дебют + цвета: после трёх запусков выигрывает ${Math.round(o.three.share*100)} % > 35 % (§5)`);L._opening=o;}
- // a breather (17 §5 «Передышка», 2026-11-02): a Normal on a picture up to ~550 cells or a position the wave plan marks;
- // zero or one mechanic without a trap link, zone 75–95 %, only the mandatory checks (no forced, calm, holding pod, pressure)
+ // a breather (17 §5 «Передышка», the owner, 2026-11-02): a Normal on a picture up to ~550 cells or a position the wave plan
+ // marks; zero or one light mechanic (hidden pods or hidden cells, or one plain link pair) without a trap link, zone 75–90 %
+ // (a miss is the generator's nearest layout: a note), only the mandatory checks (no forced, calm, holding pod, pressure)
  const br=!!L.breather;if(br){const pl=planOf(n);if(L.cls!=='Normal'||slot.intro||n<=3)bad.push('передышка не на обычной позиции Normal (§5)');
   if(!(W<=LV.BREATHER_N||(pl&&pl.breather)))bad.push(`передышка на картинке ${W} клеток без пометки плана (§5: до ~${LV.BREATHER_N})`);
-  if(types.length>1)bad.push(`передышка: механик ${types.length}, допустимо не больше одной (§5)`);if(trapLinks(d).some(x=>x.trap))bad.push('передышка: связка-ловушка (§5)');
-  if(L.random.share<.75||L.random.share>.95)soft.push(`передышка: случайный тест ${Math.round(L.random.share*100)} % вне 75–95 % (§5)`);}
+  if(types.length>1)bad.push(`передышка: механик ${types.length}, допустимо не больше одной (§5)`);else if(!breatherRecipeOk(L.recipe||'none'))bad.push(`передышка: механика ${L.recipe} не лёгкая (§5: скрытые поды, скрытые клетки или одна обычная связка)`);
+  if(trapLinks(d).some(x=>x.trap))bad.push('передышка: связка-ловушка (§5)');if(groups.length>1)bad.push(`передышка: связок ${groups.length}, лёгкая механика — одна пара (§5)`);
+  if(pl&&!breatherRecipeOk(L.recipe||'none',pl.recipe))soft.push(`передышка: рецепт ${L.recipe}, по плану ${pl.recipe} (§5)`);
+  if(L.random.share<BREATHER_ZONE[0]||L.random.share>BREATHER_ZONE[1])soft.push(`передышка: случайный тест ${Math.round(L.random.share*100)} % вне 75–90 % — ближайшая раскладка (§5)`);}
  if(n>=4){const f=await forcedShare(d);if(f>.35&&!br)bad.push(`вынужденных решений ${Math.round(f*100)} % > 35 % (§5)`);L._forced=f;}
- const prevL=levels[n-1]||readJSON(path.join(LEVELS,lid(n-1)+'.json'));L._regular=L.cls==='Normal'&&n>3&&!L.intro&&!br&&!(prevL&&prevL.cls!=='Normal');
+ const prevL=levels[n-1]||readJSON(path.join(LEVELS,lid(n-1)+'.json'));L._regular=L.cls==='Normal'&&n>3&&!L.intro&&!br&&!(prevL?prevL.cls!=='Normal':slotOf(n-1).cls!=='Normal');
  if(L._regular&&!(L.recipe||'').includes('bridge')&&!(await holdPod(d)))bad.push('обычный Normal без пода, держащего место (§6)');
  // §5 the calm test and §8 trap links (the owner's amendment of 2026-10-31): with the board settled before every tap a Hard
  // wins at most 50 %, a Super Hard at most 25 %, a regular Normal at least 50 % (the class's best bridge); a Hard or Super
@@ -154,21 +158,33 @@ for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
  rows.push({n,L,bad,soft});}
 // sequence rules (§11, motif rule of the owner): lead mechanic and recipe at most 2 in a row, motifs once in 10, 10–11 colours
 const seq=[],lead=L=>typesOf(L)[0]||null;
-// §5 Normal median 50–60 % over the regular Normals (not L1–3, not introductions, not the first Normal after a Hard / Super Hard)
-{const reg=[];for(let n=Math.max(4,from);n<=to;n++){const L=levels[n],p=prevOf(n);if(L&&L.cls==='Normal'&&!L.intro&&!L.breather&&!(p&&p.cls!=='Normal'))reg.push(L);}
- if(reg.length>=3){const v=reg.map(L=>L.random.share).sort((a,b)=>a-b),med=v[Math.floor((v.length-1)/2)];if(med<.5||med>.6)seq.push(`медиана обычных Normal ${Math.round(med*100)} % вне 50–60 % (§5)`);
+// §5 Normal median 50–60 % in any 20 consecutive levels over the regular Normals (not L1–3, not introductions, not the first
+// Normal after a Hard / Super Hard, not a breather): every 20-level window of the range with at least 5 of them
+// (wave.mjs medianWindows; the whole range when it is shorter)
+{const reg=[];for(let n=Math.max(4,from);n<=to;n++){const L=levels[n],p=prevOf(n);if(L&&L.cls==='Normal'&&!L.intro&&!L.breather&&!(p&&p.cls!=='Normal')&&!(!p&&slotOf(n-1).cls!=='Normal'))reg.push(L);}
+ if(reg.length>=3){const ws=medianWindows(reg.map(L=>({level:L.level,share:L.random.share})),Math.max(4,from),to,{min:Math.min(5,reg.length)}),bw=ws.filter(w=>w.out);
+  if(bw.length){const runs=[];for(const w of bw){const r=runs.at(-1);if(r&&w.from===r.last+1){r.last=w.from;r.to=w.to;r.med.push(w.median);}else runs.push({from:w.from,last:w.from,to:w.to,med:[w.median]});}
+   seq.push(`медиана обычных Normal вне 50–60 % в окнах по 20 уровней: ${runs.map(r=>`L${r.from}–L${r.to} (${Math.round(Math.min(...r.med)*100)}–${Math.round(Math.max(...r.med)*100)} %)`).join(', ')}; по диапазону ${Math.round(median(reg.map(L=>L.random.share))*100)} % (§5)`);}
   for(let i=0;i<reg.length;i++){const win=reg.filter(L=>L.level>reg[i].level-10&&L.level<=reg[i].level&&L.random.share>=.95);if(win.length>1){seq.push(`Normal на 95–100 % больше одного на десять: ${win.map(L=>'L'+L.level).join(', ')} (§5)`);break;}}}
  // §5 (second amendment): "most work now" loses about one in three regular Normals on L4–24, one in two from L25
  const lost=L=>{const s=L.strategies||{};return !s['most-now|left']&&!s['most-now|right'];};
- for(const [a,b,q] of [[4,24,1/3],[25,1e9,1/2]]){const r=reg.filter(L=>L.level>=a&&L.level<=b);if(r.length>=3){const k=r.filter(lost).length;if(k<Math.floor(q*r.length))seq.push(`«больше работы сейчас» проигрывает ${k} из ${r.length} обычных Normal L${Math.max(a,from)}–${Math.min(b,to)}, нужно не меньше ${Math.floor(q*r.length)} (§5)`);}}}
+ for(const g of greedyQuota(reg.map(L=>({level:L.level,lost:lost(L)})),from,to))if(g.count>=3&&g.lost<g.need)seq.push(`«больше работы сейчас» проигрывает ${g.lost} из ${g.count} обычных Normal L${g.from}–${g.to}, нужно не меньше ${g.need} (§5)`);}
 for(let n=from+2;n<=to;n++){const a=levels[n-2],b=levels[n-1],c=levels[n];if(!a||!b||!c)continue;
  if(lead(c)&&lead(c)!=='links'&&lead(a)===lead(b)&&lead(b)===lead(c)&&!slotOf(n).intro&&!a.intro&&!b.intro)seq.push(`L${n-2}–L${n}: одна ведущая механика ${lead(c)} 3 раза подряд (§11)`);}
-for(let n=from;n<=to;n++)for(let k=n+1;k<=Math.min(to,n+9);k++){const a=levels[n],b=levels[k];if(!a||!b)continue;const both=motifsOf(picture(a.picture)).filter(m=>motifsOf(picture(b.picture)).includes(m));if(both.length)seq.push(`L${n} и L${k}: мотив «${both.join(', ')}» ближе 10 уровней`);}
 const placedAt=k=>k>=from&&k<=to?levels[k]:readJSON(path.join(LEVELS,lid(k)+'.json'));
-// picture repeats (the owner, 2026-10-29): a theme family or a motif once per wave and not in the 20 levels before it
-for(let n=from;n<=to;n++){const a=levels[n];if(!a)continue;const [lo,hi]=repeatWindow(n),pa=picture(a.picture);for(let k=Math.max(1,lo);k<n;k++){const b=placedAt(k);if(!b||k>hi)continue;const pb=picture(b.picture);
- if(pa.family&&pb.family===pa.family)seq.push(`L${k} и L${n}: одно семейство тем «${pa.family}» (§11, 29.10)`);else{const m=motifsOf(pa).filter(x=>motifsOf(pb).includes(x));if(m.length&&n-k>=10)seq.push(`L${k} и L${n}: мотив «${m.join(', ')}» в одной волне (§11, 29.10)`);}}}
-const wide=Object.values(levels).filter(L=>L&&L.colours>=10).length;if(wide>2)seq.push(`картинок с 10–11 цветами ${wide} > 2 в 20 (§2)`);
+// picture repeats (17 §11 as amended by the owner on 2026-11-02): a theme family, and a motif, at most twice in a wave and not
+// within 10 levels of another appearance (wave.mjs repeatClash); the levels just before the range count for the distance
+{const keys=L=>{const p=picture(L.picture);return [...(p&&p.family?[['семейство тем',p.family]]:[]),...(p?motifsOf(p):[]).map(m=>['мотив',m])];};
+ const near=new Set(),waves=new Set();
+ for(let n=from;n<=to;n++){const a=levels[n];if(!a)continue;const ka=keys(a);
+  for(let k=Math.max(1,n-REPEAT_GAP+1);k<n;k++){const b=placedAt(k);if(!b)continue;for(const [kind,key] of keys(b))if(ka.some(([k2,v])=>k2===kind&&v===key)){const t=`L${k} и L${n}: ${kind} «${key}» ближе ${REPEAT_GAP} уровней (§11, 02.11)`;if(!near.has(t)){near.add(t);seq.push(t);}}}
+  const [w0,w1]=repeatWindow(n);for(const [kind,key] of ka){const same=[];for(let k=Math.max(1,w0+REPEAT_GAP);k<=w1;k++){const b=placedAt(k);if(b&&keys(b).some(([k2,v])=>k2===kind&&v===key))same.push(k);}
+   const t=`${kind} «${key}» ${same.length} раза в волне: L${same.join(', L')} (§11, 02.11: не больше ${REPEAT_PER_WAVE})`;if(same.length>REPEAT_PER_WAVE&&!waves.has(t)){waves.add(t);seq.push(t);}}}}
+// §2: at most two pictures of 10+ colours in any 20 consecutive levels, the pictures' own colours (an accent colour of §6
+// does not count, the owner, 2026-11-02)
+{const own=k=>{const L=placedAt(k),p=L&&picture(L.picture);return p?measure(p).colours:0;},wide=[];for(let k=Math.max(1,from-19);k<=to;k++)if(own(k)>=10)wide.push(k);
+ const hit=[];for(let s0=from-19;s0<=to;s0++){const w=wide.filter(k=>k>=s0&&k<s0+20);if(w.length>2&&w.some(k=>k>=from))hit.push(w.join(','));}
+ for(const w of [...new Set(hit)])seq.push(`картинок на 10+ цветов (без акцентов) ${w.split(',').length} в 20 уровнях: L${w.split(',').join(', L')} (§2)`);}
 const pics=Object.values(levels).filter(Boolean).map(L=>L.picture);if(new Set(pics).size!==pics.length)seq.push('одна картинка на двух уровнях');
 // report
 const lines=[`# Проверка уровней ${from}–${to} по правилам 17`,'',`| Уровень | Класс | Картинка | Вынужденных | «По цветам» | Дебют + цвета (1 / 3 запуска) | Стоят без работы | Спокойно | Обязательные правила | Замечания (мягкие ориентиры) |`,'|---|---|---|---|---|---|---|---|---|---|'];

@@ -12,7 +12,8 @@
 //     forced share over it is refused; short holds (partners reach the top at about the same time), no two links blocking
 //     the same columns at once, links spread along the queue.
 //  4. Information overlays after the class is set (the calibration: hidden pods and hidden cells change none of the §5
-//     tests): hidden pods or hidden cells by the recipe's dose, no re-tuning.
+//     tests): hidden pods or hidden cells by the recipe's dose, no re-tuning. A breather (17 §5 «Передышка», the owner,
+//     2026-11-02) whose queue stays above its zone even reversed takes one plain link pair in place of its light mechanic.
 //  5. levels.mjs evaluate (the full checks; a breather only the mandatory ones, 17 §5 «Передышка») and the placer's
 //     filters of the slot.
 import {CODES,columnsFor,measure,overlaid,boardOf} from './lib.mjs';
@@ -23,13 +24,15 @@ import * as M from './measure.mjs';
 import {engine} from './engine.mjs';
 import {STRATEGIES} from '../level-stats/strategies.mjs';
 import {pictureFeatures,access} from './calib/queue.mjs';
+import {breatherRecipeOk} from './wave.mjs';
 import fs from 'node:fs';
 
 export const rnd=seed=>{let s=seed>>>0||1;return()=>{s^=s<<13;s^=s>>>17;s^=s<<5;return(s>>>0)/4294967296;};};
-// the zones a job aims at (17 §5): a regular Normal 50–75 % aiming at 58 % (the median 50–60 %), the first Normal after a
-// Hard 75–95 %, a breather 75–95 % (17 §5 «Передышка», 2026-11-02), an introduction 90–100 %, Hard 20–50 % (preferred
-// 25–40 %), Super Hard 5–20 % (preferred 7–15 %)
-export const ZONES={regular:[.5,.75,.58],'after-hard':[.75,.95,.85],breather:[.75,.95,.85],intro:[.9,1,.97],Hard:[.2,.5,.33],'Super Hard':[.05,.2,.12]};
+// the zones a job aims at (17 §5): a regular Normal 50–65 % aiming at 56 %, the middle of the median's 50–60 % (the owner,
+// 2026-11-02: the median of any 20 levels in 50–60 %, so a regular Normal is accepted near the middle, not anywhere in
+// 50–75 %), the first Normal after a Hard 75–95 %, a breather 75–90 % (17 §5 «Передышка», the owner, 2026-11-02), an
+// introduction 90–100 %, Hard 20–50 % (preferred 25–40 %), Super Hard 5–20 % (preferred 7–15 %)
+export const ZONES={regular:[.5,.65,.56],'after-hard':[.75,.95,.85],breather:[.75,.9,.82],intro:[.9,1,.97],Hard:[.2,.5,.33],'Super Hard':[.05,.2,.12]};
 export const zoneFor=(cls,slot)=>cls==='Normal'?ZONES[slot]||ZONES.regular:ZONES[cls];
 // the class's queue noise (levels.mjs candidate's default sigma)
 export const SIGMA={Normal:.06,Hard:.16,'Super Hard':.26};
@@ -130,9 +133,11 @@ export function addInfo(level,recipe,cls,{intro=false,pos=null,r=rnd(1)}={}){con
 
 // ---- the placer's filters of a slot (levels.mjs place: greedyOk, mechOk, fitOk, the holding pod, the calm rule, trap
 // links), so a job stops on a level the placer will take ----
-export function slotProblems(e,level,cls,slot,pic){const k=e.checks||{},why=[],types=(level.recipe||'none')==='none'?0:level.recipe.split('+').length;
+// planRecipe (a breather): the plan's recipe, which the breather keeps or replaces by one plain link pair
+export function slotProblems(e,level,cls,slot,pic,planRecipe=null){const k=e.checks||{},why=[],types=(level.recipe||'none')==='none'?0:level.recipe.split('+').length;
  if(e.random.cls!==cls)why.push(`класс ${e.random.cls}`);
- if(slot==='breather'){if(types>1)why.push('передышка: больше одной механики');if(k.traps&&k.traps.traps)why.push('передышка: связка-ловушка');return why;}
+ if(slot==='breather'){if(types>1)why.push('передышка: больше одной механики');else if(!breatherRecipeOk(level.recipe||'none',planRecipe))why.push('передышка: механика не лёгкая или не по плану');
+  if(k.traps&&k.traps.traps)why.push('передышка: связка-ловушка');if(level.pods.filter(p=>p.group).length>2)why.push('передышка: больше одной связки');return why;}
  if(!(k.forced<=.35))why.push('вынужденных > 35 %');if(cls!=='Normal'&&!(k.opening&&k.opening.ok))why.push('дебют + цвета');if(k.latch&&!k.latch.ok)why.push('засов');
  if(slot!=='intro'){const f=fitness(overlaid(pic,level.overlay||null)),weak=f.hiddenColours<=1||f.visible>=6;
   if(cls!=='Normal'&&f.hiddenColours<3)why.push('картинка слабая для Hard');if(cls==='Normal'&&weak&&!types)why.push('слабая картинка без допа');}
@@ -147,11 +152,15 @@ export function slotProblems(e,level,cls,slot,pic){const k=e.checks||{},why=[],t
 // banked = every candidate that passed evaluate (any measured class, for the bank), accepted = those in the zone that
 // pass the slot's filters.
 export async function tuneJob({pic,cls,recipe,slot=null,intro=false,want=1,wantLoss=false,attempts=64,minutes=Infinity,memory={},seed=1,accentMode='auto',maxColours=10,save=()=>{},log=()=>{},model=loadModel()}){
- slot=slot||(intro?'intro':cls==='Normal'?'regular':cls);const zone=zoneFor(cls,slot),[lo,hi,aim]=zone,t0=Date.now(),breather=slot==='breather';
- const m=measure(pic),board=boardOf(pic),f=pictureFeatures(pic),base=LV.splitPods(m.volumes,m.N,null),types=recipe==='none'?[]:recipe.split('+');
+ slot=slot||(intro?'intro':cls==='Normal'?'regular':cls);const zone=zoneFor(cls,slot),[lo,hi,aim]=zone,t0=Date.now(),breather=slot==='breather',planRecipe=recipe;
+ const m=measure(pic),board=boardOf(pic),f=pictureFeatures(pic),base=LV.splitPods(m.volumes,m.N,null);let types=recipe==='none'?[]:recipe.split('+');
+ // a breather whose share stays above its zone with hidden information alone (or none) takes one plain link pair instead
+ // (17 §5 «Передышка», the owner, 2026-11-02: hidden pods and cells do not move the bot test); the picture remembers it
+ const toPair=()=>{recipe='links';types=['links'];mem.pair=true;};
  const stats={attempts:0,quick:0,corrections:0,linkChecks:0,evaluated:0,passed:0,accepted:0,reasons:{}},no=k=>{stats.reasons[k]=(stats.reasons[k]||0)+1;};
  if(base.error){no(base.error);return {banked:[],accepted:[],stats,memory};}
  const mem=memory;const banked=[],accepted=[];let offset=mem.offset||0,nOff=mem.offset!=null?2:0,tooEasy=0,tooHard=0,landed=false,trapMode=!!mem.trap;
+ if(breather&&mem.pair&&!types.includes('links'))toPair();
  for(let k=0;k<Math.min(64,attempts)&&(Date.now()-t0)<minutes*60000;k++){
   // (wantLoss keeps going for a level "most work now" loses, up to four accepted)
   if(accepted.length>=want&&(!wantLoss||accepted.length>=Math.max(want,4)||accepted.some(x=>x.e.checks.greedyLoses)))break;
@@ -160,7 +169,7 @@ export async function tuneJob({pic,cls,recipe,slot=null,intro=false,want=1,wantL
   // accents (17 §6), as levels.mjs build: this attempt paints 1–2 accent materials (the level's recolouring); never on a breather
   const av=breather?null:LV.accentVariant(pic,null,m,null,cls,intro,k,accentMode,cseed,no,maxColours),cm=av?av.m:m,cboard=av?av.board:board,cpods=av?av.pods:base.pods;
   // the links dose (the lead its dose place, an additional one its minimum, a breather the lead's minimum)
-  const dz=LV.doses(recipe,cls,cpods.length,intro,cm.N);if(dz.error){no(dz.error);break;}
+  const dz=LV.doses(recipe,cls,cpods.length,intro,cm.N,{breather});if(dz.error){no(dz.error);break;}
   let linkWant=types.includes('links')?(breather||pos===null?dz.links[0]:dz.links[0]+2*Math.round(pos*(dz.links[1]-dz.links[0])/2)):0,posUsed=pos;
   const p={sigma:SIGMA[cls],cols,P:cpods.length,hold:slot==='regular'?1:0,links:linkWant,trap:cls!=='Normal'||trapMode,latch:types.includes('latch')?dz.latch[0]:0,accents:!!av};
   // the start t: the picture's memory (± 0.03), else the model's plan; a breather starts from the access order (t = 0)
@@ -185,6 +194,8 @@ export async function tuneJob({pic,cls,recipe,slot=null,intro=false,want=1,wantL
   // a Normal with links whose queue stays above the zone even reversed: the links are the difficulty knob (the calibration:
   // trap links at 30 % cost about 32 points), so the next attempts take them in the Hard style at the top of the dose range
   if(tooEasy>=1&&!trapMode&&cls==='Normal'&&!breather&&!intro&&types.includes('links')&&(slot==='regular'||slot==='after-hard')){trapMode=true;mem.trap=true;tooEasy=0;no('связки ловушками: очередь сама остаётся выше зоны');}
+  // a breather with hidden information (or none) above its zone even reversed: one plain link pair from the next attempt
+  if(tooEasy>=1&&breather&&!types.includes('links')){toPair();tooEasy=0;no('передышка: одна обычная связка вместо скрытых (доля выше зоны)');}
   const stopAt=cls==='Normal'?3:6;if(!landed&&(tooEasy>=stopAt||tooHard>=stopAt)){no(tooEasy>=stopAt?'картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)':'картинка слишком трудная для зоны: ниже даже в порядке доступа (t = 0)');break;}
   if(!level)continue;
   log(`#${k} кол ${cols} связ ${linkWant} замеры ${steps.map(s=>`t ${s.t}: ${Math.round(s.q*100)} %`).join(', ')}${links&&links.forced!=null?` · вынужд. ${Math.round(links.forced*100)} %`:''}`);
@@ -193,13 +204,14 @@ export async function tuneJob({pic,cls,recipe,slot=null,intro=false,want=1,wantL
   const info=addInfo(level,recipe,cls,{intro,pos,r:rnd(cseed^0x9e37)});if(info.error){no(info.error);continue;}level=info.level;
   stats.evaluated++;const e=await LV.evaluate(level,{m:cm,cls,intro,fixed:null,breather});if(e.reason){no('evaluate: '+e.reason);log(`   evaluate: ${e.reason}`);continue;}
   if(av)e.checks.accents=await LV.accentCheck(level,pic,av.accents,e.checks.pressure||null);
-  stats.passed++;const x={k,t,cols,pos:posUsed,steps,level,m:cm,e,acc:av,links:links&&{pairs:links.pairs.length,traps:links.pairs.filter(p=>p.trap).length,forced:links.forced,greedy:links.greedy},seconds:(Date.now()-t0)/1000};banked.push(x);
-  const why=slotProblems(e,level,cls,slot,pic),inZone=e.random.share>=lo&&e.random.share<=hi;
+  stats.passed++;const x={k,t,cols,pos:posUsed,steps,level,m:cm,e,acc:av,recipe,links:links&&{pairs:links.pairs.length,traps:links.pairs.filter(p=>p.trap).length,forced:links.forced,greedy:links.greedy},seconds:(Date.now()-t0)/1000};banked.push(x);
+  const why=slotProblems(e,level,cls,slot,pic,breather?planRecipe:null),inZone=e.random.share>=lo&&e.random.share<=hi;
   if(why.length){no('расстановка: '+why[0]);log(`   отказ расстановки: ${why.join('; ')}`);continue;}
   if(!inZone){no('вне зоны позиции (проходит фильтры)');log(`   проходит, но вне зоны: ${e.random.share}`);continue;}
   stats.accepted++;accepted.push(x);log(`   ПРИНЯТ: ${e.random.share} за ${((Date.now()-t0)/1000).toFixed(0)} с (попытка ${k+1})`);}
  // a breather that stays above its zone even with the reverse order (a small picture without a mechanic): the first
  // fitting layout nearest the zone is taken (17 §5: built from the first fitting layout; the placer weighs the zone)
- if(breather&&!accepted.length){const near=banked.filter(x=>x.e.random.cls==='Normal'&&x.e.random.share>=lo&&!slotProblems(x.e,x.level,cls,slot,pic).length).sort((u,v)=>Math.abs(u.e.random.share-aim)-Math.abs(v.e.random.share-aim))[0];
+ if(breather&&!accepted.length){const dist=x=>{const s=x.e.random.share;return s<lo?lo-s:s>hi?s-hi:0;};
+  const near=banked.filter(x=>x.e.random.cls==='Normal'&&!slotProblems(x.e,x.level,cls,slot,pic,planRecipe).length).sort((u,v)=>dist(u)-dist(v)||Math.abs(u.e.random.share-aim)-Math.abs(v.e.random.share-aim))[0];
   if(near){near.zoneMiss=true;accepted.push(near);stats.accepted++;log(`   ПРИНЯТ (ближе всего к зоне передышки): ${near.e.random.share}`);}}
  mem.offset=r2(offset);save();return {banked,accepted,stats,memory:mem,seconds:(Date.now()-t0)/1000};}

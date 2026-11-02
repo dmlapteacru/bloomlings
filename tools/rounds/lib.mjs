@@ -223,9 +223,12 @@ export function wallOverlay(pic,side,seed=1){const rows=pic.rows,pw=rows[0].leng
 // neutral strip in the board's colour, bridge-scene.mjs make --mode split). Only an approved plan counts.
 export function mechanicsPlans(){const dir=path.join(ROUNDS,'runs');if(!fs.existsSync(dir))return [];
  return fs.readdirSync(dir).sort().map(d=>readJSON(path.join(dir,d,'mechanics.json'))).filter(p=>p&&p.approved&&Array.isArray(p.wave)&&Array.isArray(p.levels));}
-// picture repeats (the owner, 2026-10-29): a theme family, and a motif, at most once in a wave and not in the 20 levels
-// before it; the levels a picture at n is compared with (a level outside any wave plan: the 20 levels on either side)
-export function repeatWindow(n,plans=mechanicsPlans()){for(const p of plans)if(n>=p.wave[0]&&n<=p.wave[1])return [p.wave[0]-20,p.wave[1]];return [n-20,n+20];}
+// picture repeats (17 §11 as amended by the owner on 2026-11-02; wave.mjs repeatClash): a theme family, and a motif, at most
+// twice in a wave and not within 10 levels of another appearance. waveRange: the wave a level belongs to (its mechanics
+// plan's, else the block of 50 it falls in: L51–L100, L101–L150 …); repeatWindow: the levels a picture at n is compared
+// with (the wave and the 10 levels before it)
+export function waveRange(n,plans=mechanicsPlans()){for(const p of plans)if(n>=p.wave[0]&&n<=p.wave[1])return [p.wave[0],p.wave[1]];const a=Math.floor((n-1)/50)*50+1;return [a,a+49];}
+export function repeatWindow(n,plans=mechanicsPlans()){const [a,b]=waveRange(n,plans);return [a-10,b];}
 export function planOf(n,plans=mechanicsPlans()){for(const p of plans)if(n>=p.wave[0]&&n<=p.wave[1])return p.levels.find(l=>l.level===n)||null;return null;}
 // a candidate fits a planned position: the same recipe and, for a bridge, the planned crossing side
 // (a gap position, 17 §8 «Одна цельная картинка» of 2026-10-29: only a level on a split picture, definition.strip 'gap')

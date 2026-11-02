@@ -24,6 +24,95 @@ export const recipeFitsPods=(recipe,P)=>P>=16||(recipe||'none').split('+').filte
 // least 2 pods behind (levels.mjs pickLatches): its column needs that many pods, so the queue at least cols × that
 export const LATCH_MIN={Normal:3,Hard:2,'Super Hard':2};
 export const latchFits=(recipe,cls,P,cols=3)=>!(recipe||'none').split('+').includes('latch')||P>=cols*(LATCH_MIN[cls]+2);
+// the generator's revision (README «The generator»): banked candidates and placed levels carry it as `gen`; the wave's
+// rebuild (rebuildSet) leaves levels built under it alone. 2026-11-02b: the owner's decisions of 2026-11-02 (families
+// twice a wave 10 apart, breathers 75–90 % with one light mechanic, accents outside the 10+ window, the regular Normal
+// aimed at the middle of its zone)
+export const GEN='2026-11-02b';
+// a breather's light mechanics (17 §5 «Передышка», the owner, 2026-11-02): hidden pods or hidden cells by default (never
+// both), one plain link pair when the share stays above the zone; a recipe of at most one of them
+export const LIGHT=['hidden','cells','links'];
+// may a breather carry this recipe? planRecipe (the wave plan's): the same recipe, or one plain link pair in place of a
+// light mechanic (or of none) when hidden information alone cannot bring the share into the zone
+export function breatherRecipeOk(recipe,planRecipe=null){const t=typesOf(recipe);if(t.length>1||t.some(x=>!LIGHT.includes(x)))return false;
+ if(planRecipe==null||recipe===(planRecipe||'none'))return true;const pt=typesOf(planRecipe);return recipe==='links'&&pt.length<=1&&pt.every(x=>LIGHT.includes(x));}
+// the breather's zone of the random test (17 §5, the owner, 2026-11-02; was 75–95 %)
+export const BREATHER_ZONE=[.75,.9];
+
+// ---- sequence rules shared by the planner, the placer and the audit ----
+// picture repeats (17 §11 as amended by the owner on 2026-11-02, «Семейства — согласен»): a theme family, and a motif, at
+// most twice in a wave and never closer than 10 levels to another appearance (was: once a wave and not in the 20 levels
+// before it). p: {family, motifs}; entries: [{level, family, motifs}] of the other levels (placed or assigned), the wave's
+// and the levels just before it; range: [first, last] level of the wave. Returns the first rule broken, else null.
+export const REPEAT_GAP=10,REPEAT_PER_WAVE=2;
+export function repeatClash(p,n,entries,range){const keys=[...(p&&p.family?[['family',p.family]]:[]),...((p&&p.motifs)||[]).map(m=>['motif',m])];
+ for(const [kind,key] of keys){const same=entries.filter(e=>e.level!==n&&(kind==='family'?e.family===key:(e.motifs||[]).includes(key)));
+  const near=same.filter(e=>Math.abs(e.level-n)<REPEAT_GAP);if(near.length)return {kind,key,rule:'near',with:near.map(e=>e.level)};
+  const inWave=same.filter(e=>e.level>=range[0]&&e.level<=range[1]);if(inWave.length>=REPEAT_PER_WAVE)return {kind,key,rule:'wave',with:inWave.map(e=>e.level)};}
+ return null;}
+// the 10+ colour window (17 §2): at most two pictures of 10+ colours in any 20 consecutive levels. The picture's own colours
+// count; an accent colour of §6 (2–4 recoloured cubes) does not (the owner, 2026-11-02, «окно — вариант а»). colours: the
+// picture at n; others: [{level, colours}] (the pictures' own). True when n would break the window.
+export function wideClash(n,colours,others,{limit=2,span=20}={}){if(!(colours>=10))return false;const w=others.filter(e=>e.level!==n&&e.colours>=10).map(e=>e.level);
+ for(let s=n-span+1;s<=n;s++)if(w.filter(k=>k>=s&&k<s+span).length>=limit)return true;return false;}
+// the median of a list (the mean of the two middle values for an even count)
+export const median=v=>{if(!v.length)return null;const a=[...v].sort((x,y)=>x-y),k=a.length>>1;return a.length%2?a[k]:(a[k-1]+a[k])/2;};
+// §5 the Normal median (amendment of 2026-10-27): in any 20 consecutive levels the median random-test share of the regular
+// Normals is 50–60 %. regs: [{level, share}]; the windows [s, s+19] inside from–to (the whole range when shorter) holding
+// at least `min` regular Normals. Returns every window with its median and whether it is out of range.
+export const MEDIAN={lo:.5,hi:.6,aim:.56,span:20,min:5};
+export function medianWindows(regs,from,to,{lo=MEDIAN.lo,hi=MEDIAN.hi,span=MEDIAN.span,min=MEDIAN.min}={}){const out=[];
+ for(let s=from;s<=Math.max(from,to-span+1);s++){const e=Math.min(to,s+span-1),v=regs.filter(r=>r.level>=s&&r.level<=e).map(r=>r.share);if(v.length<min)continue;const m=median(v);out.push({from:s,to:e,n:v.length,median:m,out:m<lo-1e-9||m>hi+1e-9});}
+ return out;}
+// the placer's preference: how far the windows of the wave that hold n move out of 50–60 % with this share at n (the
+// largest distance, 0 when every window stays in range)
+export function medianPenalty(n,share,regs,range,opts={}){const all=[...regs.filter(r=>r.level!==n),{level:n,share}],span=opts.span||MEDIAN.span;
+ const ws=medianWindows(all,Math.max(range[0],n-span+1),Math.min(range[1],n+span-1),opts).filter(w=>n>=w.from&&n<=w.to);
+ return ws.reduce((d,w)=>Math.max(d,w.median>(opts.hi??MEDIAN.hi)?w.median-(opts.hi??MEDIAN.hi):w.median<(opts.lo??MEDIAN.lo)?(opts.lo??MEDIAN.lo)-w.median:0),0);}
+// §5 «по цветам» (second amendment of 2026-10-27): "most work now" loses about one in three regular Normals on L4–24 and one
+// in two from L25. regs: [{level, lost}]; returns per part {from, to, count, lost, need} (need = the audit's floor)
+export function greedyQuota(regs,from,to){return [[4,24,1/3],[25,1e9,1/2]].map(([a,b,q])=>{const r=regs.filter(x=>x.level>=Math.max(a,from)&&x.level<=Math.min(b,to));
+ return {from:Math.max(a,from),to:Math.min(b,to),q,count:r.length,lost:r.filter(x=>x.lost).length,need:Math.floor(q*r.length),target:Math.round(q*r.length)};}).filter(x=>x.count);}
+
+// Which placed levels of a wave the owner's decisions of 2026-11-02 send back to the generator (rounds.mjs run --rebuild
+// auto). levels: [{level, cls, intro, breather, regular, share, lost, recipe, gen, hand, pinned, family, motifs, colours}]
+// of the wave (colours: the picture's own); context: [{level, family, motifs, colours}] of the levels before the wave;
+// plan: level → {recipe, breather}; done: levels a rebuild already placed (left alone). A level built under GEN, a hand
+// level and (for the repeat and colour rules) a pinned picture stay. In this order:
+//  1. picture repeats (family or motif twice a wave, 10 levels apart) and the 10+ colour window: the later, cheaper level of
+//     a clash is rebuilt on another picture (reassign; Normal before Hard before Super Hard);
+//  2. breathers out of 75–90 %, with a recipe off the plan, or with two mechanics;
+//  3. regular Normals while a 20-level window's median is out of 50–60 % (the furthest share first; a rebuilt level counts
+//     at the tuning's aim);
+//  4. regular Normals while «по цветам» loses fewer than about every second from L25 (a rebuilt level counts as one that
+//     loses: it is built with --want-loss), those «по цветам» wins with the share furthest from the aim first.
+// Returns [{level, why, reassign}].
+export function rebuildSet(levels,{from,to,context=[],plan=new Map(),done=new Set()}={}){const S=new Map(),by=new Map(levels.map(L=>[L.level,L]));
+ const free=L=>L&&!L.hand&&L.gen!==GEN&&!done.has(L.level),add=(L,why,reassign=false)=>{const x=S.get(L.level);if(x){x.why.push(why);x.reassign=x.reassign||reassign;}else S.set(L.level,{level:L.level,why:[why],reassign});};
+ const cost=L=>(L.cls==='Normal'?0:L.cls==='Hard'?10:20)+(L.breather?1:0)-L.level/1000;
+ // 1. repeats and the colour window, against the levels before the wave and the wave's levels not yet sent back
+ for(let guard=0;guard<200;guard++){let hit=null;const live=[...context,...levels.filter(L=>!(S.get(L.level)||{}).reassign)];
+  for(const L of levels){if((S.get(L.level)||{}).reassign)continue;const c=repeatClash(L,L.level,live,[from,to]);
+   if(c){const pool=[L,...c.with.map(k=>by.get(k))].filter(x=>x&&free(x)&&!x.pinned);if(pool.length){hit={L:pool.sort((u,v)=>cost(u)-cost(v))[0],why:`${c.kind==='family'?'семейство':'мотив'} «${c.key}» ${c.rule==='near'?'ближе 10 уровней':'третий раз в волне'} (L${[L.level,...c.with].sort((u,v)=>u-v).join(', L')})`};break;}}
+   if(wideClash(L.level,L.colours,live)){const ws=live.filter(e=>e.colours>=10&&Math.abs(e.level-L.level)<20).map(e=>by.get(e.level)).filter(x=>x&&free(x)&&!x.pinned);
+    if(free(L)&&!L.pinned)ws.push(L);if(ws.length){hit={L:ws.sort((u,v)=>cost(u)-cost(v))[0],why:'третья картинка на 10+ цветов в 20 уровнях (§2)'};break;}}}
+  if(!hit)break;add(hit.L,hit.why,true);}
+ // 2. breathers
+ for(const L of levels){if(!L.breather||!free(L))continue;const pl=plan.get(L.level)||{},why=[];
+  if(!(L.share>=BREATHER_ZONE[0]-1e-9&&L.share<=BREATHER_ZONE[1]+1e-9))why.push(`передышка ${Math.round(L.share*100)} % вне 75–90 %`);
+  if(!breatherRecipeOk(L.recipe,pl.recipe??null))why.push(`передышка: рецепт ${L.recipe}, по плану ${pl.recipe??'—'}`);
+  for(const w of why)add(L,w);}
+ // 3. the median windows (a level sent back counts at the aim)
+ const regs=()=>levels.filter(L=>L.regular).map(L=>({level:L.level,share:S.has(L.level)?MEDIAN.aim:L.share}));
+ for(let guard=0;guard<100;guard++){const bad=medianWindows(regs(),from,to).find(w=>w.out);if(!bad)break;const high=bad.median>MEDIAN.hi;
+  const pick=levels.filter(L=>L.regular&&!S.has(L.level)&&free(L)&&L.level>=bad.from&&L.level<=bad.to&&(high?L.share>MEDIAN.hi:L.share<MEDIAN.lo)).sort((u,v)=>high?v.share-u.share:u.share-v.share)[0];
+  if(!pick)break;add(pick,`медиана L${bad.from}–L${bad.to} ${Math.round(bad.median*100)} % вне 50–60 % (бот ${Math.round(pick.share*100)} %)`);}
+ // 4. the «по цветам» quota (a level sent back is built to lose it)
+ for(let guard=0;guard<100;guard++){const q=greedyQuota(levels.filter(L=>L.regular).map(L=>({level:L.level,lost:S.has(L.level)||L.lost})),from,to).find(x=>x.lost<x.target);if(!q)break;
+  const pick=levels.filter(L=>L.regular&&!S.has(L.level)&&free(L)&&!L.lost&&L.level>=q.from&&L.level<=q.to).sort((u,v)=>Math.abs(v.share-MEDIAN.aim)-Math.abs(u.share-MEDIAN.aim))[0];
+  if(!pick)break;add(pick,`«по цветам» проигрывает ${q.lost} из ${q.count} (нужно около ${q.target})`);}
+ return [...S.values()].sort((u,v)=>u.level-v.level);}
+
 const hash=(s,n)=>(([...s].reduce((h,c)=>(h*31+c.charCodeAt(0))>>>0,7)^Math.imul(n,2654435761))>>>0)/4294967296;
 const typesOf=r=>(r||'none')==='none'?[]:r.split('+');
 
@@ -35,23 +124,25 @@ const typesOf=r=>(r||'none')==='none'?[]:r.split('+');
 export function eligible(p,q){if(!p.fits.has(q.level))return false;const t=typesOf(q.recipe);
  if(q.cls!=='Normal'&&p.hidden<3)return false;if(q.cls==='Normal'&&!q.intro&&p.weak&&!t.length)return false;
  if(!recipeFitsPods(q.recipe,p.P))return false;if((q.latchNeed||0)>(p.holes||0))return false;if(!latchFits(q.recipe,q.cls,p.P,p.N<1000?3:4))return false;
- if(!q.breather&&q.cls==='Normal'&&!q.intro&&p.N<=BREATHER_N&&t.length>1)return false;
- if(q.breather&&t.length>1)return false;return true;}
+ // a small picture on a Normal position makes it a breather (17 §5): only a light recipe (none, hidden pods, hidden cells,
+ // a link pair) fits it
+ if(!q.breather&&q.cls==='Normal'&&!q.intro&&q.level>3&&p.N<=BREATHER_N&&!breatherRecipeOk(q.recipe))return false;
+ if(q.breather&&!breatherRecipeOk(q.recipe))return false;return true;}
 
 // The assignment. positions: the wave's open non-bridge positions in level order; pool: the free pictures (above);
-// pinned: Map level → picture id (the pins reserved by rounds.mjs reservePins: kept on their positions); context:
-// {before: [{level, picture}] placed levels before and in the wave, picOf(id) → pool entry or a picture record with
-// family / motifs / pack / colours}. Rules, hard first and relaxed in this order only when no picture is left: the band
-// of the size mix spread evenly (each free position takes the band furthest behind its even share; never three in a
-// row of one band while another has quota), neighbours from different packs (17 §11), a theme family once in the wave
-// and not in the 20 levels before it, a motif not within 10 levels (§11, 29.10), at most 2 pictures of 10+ colours in
-// any 20 levels (§2). Scores: Hard / Super Hard more colours hidden at the start first; a strong picture costs a
+// pinned: Map level → picture id (the pins reserved by rounds.mjs reservePins, and earlier assignments kept: kept on their
+// positions); context: {before: [{level, picture}] placed levels before and in the wave, picOf(id) → pool entry or a
+// picture record with family / motifs / pack / colours (the picture's own)}. Hard rules (never relaxed): a theme family
+// and a motif at most twice in the wave and not within 10 levels of another appearance (17 §11 as amended on 2026-11-02),
+// at most two pictures of 10+ colours in any 20 levels (§2; the picture's own colours, accents do not count). Soft rules,
+// relaxed in this order only when no picture is left: neighbours from different packs (17 §11), then the band of the size
+// mix spread evenly (each free position takes the band furthest behind its even share; never three in a row of one band
+// while another has quota). Scores: Hard / Super Hard more colours hidden at the start first; a strong picture costs a
 // little on a Normal; an introduction prefers a weak picture; a breather the smallest picture up to ~550 cells (another
-// Normal avoids one: it would become a breather); a pack
-// already used in the wave costs a little. Returns {assign: [{level, picture, band, N, relaxed}], missing: [{level, reason}]}.
-// waveStart: the wave's first level (a family is not repeated from 20 levels before it, 17 §11); before entries may carry
-// the placed level's colours (with its accents)
-export function assignPictures(positions,pool,{pinned=new Map(),before=[],picOf=null,seed=1,waveStart=null}={}){
+// Normal avoids one: it would become a breather); a pack already used in the wave costs a little. Returns {assign:
+// [{level, picture, band, N, relaxed}], missing: [{level, reason}]}.
+// waveStart, waveEnd: the wave's first and last level (the repeat rule counts appearances in the wave)
+export function assignPictures(positions,pool,{pinned=new Map(),before=[],picOf=null,seed=1,waveStart=null,waveEnd=null}={}){
  const byId=new Map(pool.map(p=>[p.id,p])),info=id=>byId.get(id)||(picOf&&picOf(id))||{id},used=new Set(before.map(x=>x.picture)),at=new Map(before.map(x=>[x.level,x.picture]));
  const out=new Map(),bandAt=new Map(),n=positions.length,quota=bandCounts(n),count=Object.fromEntries(SIZE_MIX.map(b=>[b.band,0]));
  const bandFor=(N,prefer)=>{const bs=bandsOf(N);return bs.find(b=>b===prefer)||bs.find(b=>count[b]<quota[b])||bs[0]||SIZE_MIX[0].band;};
@@ -74,27 +165,24 @@ export function assignPictures(positions,pool,{pinned=new Map(),before=[],picOf=
     if(makesRun(a-2)||makesRun(j-2)){bandAt.set(seq[a],A);bandAt.set(seq[j],B);}else done=true;}if(done)break;}}
  // the pictures, position by position, in level order
  const packUse={};for(const x of out.values()){const k=info(x.picture).pack;packUse[k]=(packUse[k]||0)+1;}
- const lo=waveStart??Math.min(...positions.map(q=>q.level),Infinity),missing=[],colAt=new Map(before.filter(x=>x.colours!=null).map(x=>[x.level,x.colours]));
- // a picture that may take accents (Hard, Super Hard, a position the plan marks accents) gains a colour: 9 counts as 10
- const effCol=(p,q)=>(p.colours||0)+((q.cls!=='Normal'||q.accents)&&(p.colours||0)===9?1:0);
- const famIn=(fam,n,from)=>fam&&[...at.entries()].some(([k,id])=>k!==n&&k>=from&&info(id).family===fam);
- const motifNear=(ms,n)=>ms&&ms.length&&[...at.entries()].some(([k,id])=>k!==n&&Math.abs(k-n)<10&&(info(id).motifs||[]).some(m=>ms.includes(m)));
- const wideNear=(n)=>[...at.entries()].filter(([k,id])=>k!==n&&Math.abs(k-n)<20&&(colAt.get(k)??(info(id).colours||0))>=10).length;
- for(const q of positions){if(out.has(q.level))continue;const band=bandAt.get(q.level),nb=[at.get(q.level-1),at.get(q.level+1)].filter(Boolean).map(id=>info(id).pack);
-  const base=pool.filter(p=>!used.has(p.id)&&eligible(p,q));
-  const rules=[p=>bandsOf(p.N).includes(band),p=>!nb.includes(p.pack),p=>!famIn(p.family,q.level,lo-20),p=>!motifNear(p.motifs,q.level),p=>!(effCol(p,q)>=10&&wideNear(q.level)>=2)];
-  // relax from the end: the 10-colour window, then motifs, families, packs; the band last
-  const names=['band','pack','family','motif','colours'];let cand=[],relaxed=[];for(let k=rules.length;k>=0&&!cand.length;k--){cand=base.filter(p=>rules.slice(0,k).every(f=>f(p)));relaxed=names.slice(k);}
-  if(!cand.length){missing.push({level:q.level,band,reason:'нет свободной картинки, которая подходит позиции (этап, класс, рецепт, место для ключа)'});continue;}
+ const lo=waveStart??Math.min(...positions.map(q=>q.level),Infinity),hi=waveEnd??Math.max(lo+49,...positions.map(q=>q.level)),missing=[];
+ const entries=()=>[...at.entries()].map(([k,id])=>{const p=info(id);return {level:k,family:p.family||null,motifs:p.motifs||[],colours:p.colours||0};});
+ for(const q of positions){if(out.has(q.level))continue;const band=bandAt.get(q.level),nb=[at.get(q.level-1),at.get(q.level+1)].filter(Boolean).map(id=>info(id).pack),es=entries();
+  // the hard rules: repeats (families, motifs) and the 10+ colour window
+  const base=pool.filter(p=>!used.has(p.id)&&eligible(p,q)&&!repeatClash(p,q.level,es,[lo,hi])&&!wideClash(q.level,p.colours||0,es));
+  const rules=[p=>bandsOf(p.N).includes(band),p=>!nb.includes(p.pack)];
+  // relax from the end: packs, then the band
+  const names=['band','pack'];let cand=[],relaxed=[];for(let k=rules.length;k>=0&&!cand.length;k--){cand=base.filter(p=>rules.slice(0,k).every(f=>f(p)));relaxed=names.slice(k);}
+  if(!cand.length){missing.push({level:q.level,band,reason:'нет свободной картинки, которая подходит позиции (этап, класс, рецепт, место для ключа, повторы семейств и мотивов, окно 10+ цветов)'});continue;}
   // a regular Normal aims at 50–75 %: the calibration's weak pictures (0–1 colours hidden at the start) stay near 100 % with
   // any queue, so it prefers 2–4 hidden; the first Normal after a Hard (75–95 %), a breather and an introduction the weaker
   const fit=p=>q.cls!=='Normal'?-p.hidden:q.intro||q.breather||q.after?(p.hidden>=3?.5:0):p.hidden<2?(2-p.hidden)*.4:p.hidden>4?(p.hidden-4)*.2:0;
   const score=p=>fit(p)+(q.intro?(p.weak?-.3:0):0)+(q.breather?(p.N<=BREATHER_N?p.N/2000:1+p.N/2000):q.cls==='Normal'&&!q.intro&&p.N<=BREATHER_N?1:0)+.12*(packUse[p.pack]||0)+hash(p.id,q.level+seed)*.05;
-  const p=cand.sort((a,b)=>score(a)-score(b))[0];out.set(q.level,{level:q.level,picture:p.id,band,N:p.N,...(relaxed.length?{relaxed}:{})});used.add(p.id);at.set(q.level,p.id);colAt.set(q.level,effCol(p,q));packUse[p.pack]=(packUse[p.pack]||0)+1;}
+  const p=cand.sort((a,b)=>score(a)-score(b))[0];out.set(q.level,{level:q.level,picture:p.id,band,N:p.N,...(relaxed.length?{relaxed}:{})});used.add(p.id);at.set(q.level,p.id);packUse[p.pack]=(packUse[p.pack]||0)+1;}
  return {assign:positions.filter(q=>out.has(q.level)).map(q=>out.get(q.level)),missing,quota};}
 
 // A replacement for a position whose picture failed its class after the tuning budget: the best free picture of the same
 // band that fits it (never a sweep of the pool), with the same rules as the assignment; tried = the pictures already tried.
-export function replacement(q,band,pool,{used=new Set(),tried=[],before=[],picOf=null,seed=1,waveStart=null}={}){
- const skip=new Set([...used,...tried]),r=assignPictures([{...q,band}],pool.filter(p=>!skip.has(p.id)&&bandsOf(p.N).includes(band)),{before,picOf,seed:seed+tried.length,waveStart});
+export function replacement(q,band,pool,{used=new Set(),tried=[],before=[],picOf=null,seed=1,waveStart=null,waveEnd=null}={}){
+ const skip=new Set([...used,...tried]),r=assignPictures([{...q,band}],pool.filter(p=>!skip.has(p.id)&&bandsOf(p.N).includes(band)),{before,picOf,seed:seed+tried.length,waveStart,waveEnd});
  return r.assign[0]||null;}

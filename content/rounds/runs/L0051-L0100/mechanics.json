@@ -7,7 +7,7 @@
  "approved": "2026-11-01",
  "approvedBy": "owner",
  "plan": "product/plans/wave-L51-L100-mechanics-plan-v2-2026-11-01.md",
- "note": "The owner's plan v2 of 2026-11-01 («Утверждаю, внедряй»): both new mechanics in this wave — hidden cells introduced on 51 and 53 with no information popup, latch with acorn key introduced on 61 (popup) and 63 (reminder); links lead (41), hidden cells 23, latch 16, hidden pods 5 (never with hidden cells), bridges 65 and 85 (Hard, both win) and 75 (Super Hard, exactly one wins); three types from 80 on Hard and Super Hard; breathers 59, 72, 86; accents on every Hard and Super Hard and seven Normals. Pictures pinned by the owner: P0317, P0425, P0465, P0341, P0337, P0326, P0391; pictures taken from different packs rather than in pack order.",
+ "note": "The owner's plan v2 of 2026-11-01 («Утверждаю, внедряй»): both new mechanics in this wave — hidden cells introduced on 51 and 53 with no information popup, latch with acorn key introduced on 61 (popup) and 63 (reminder); links lead (41), hidden cells 23, latch 16, hidden pods 5 (never with hidden cells), bridges 65 and 85 (Hard, both win) and 75 (Super Hard, exactly one wins); three types from 80 on Hard and Super Hard; breathers 59, 72, 86; accents on every Hard and Super Hard and seven Normals. Pictures pinned by the owner: P0317, P0425, P0465, P0341, P0337, P0326, P0391; pictures taken from different packs rather than in pack order. Breathers (the owner, 2026-11-02, 17 §5): 75–90 % with one light mechanic — 59 hidden pods, 62 hidden cells, 72 hidden pods (one plain link pair instead when the share stays above 90 %), 86 without mechanics.",
  "pin": [
   "P0317",
   "P0425",
@@ -97,10 +97,11 @@
   {
    "level": 59,
    "cls": "Normal",
-   "lead": null,
+   "lead": "hidden",
    "add": [],
-   "recipe": "none",
-   "breather": true
+   "recipe": "hidden",
+   "breather": true,
+   "breatherLight": "2026-11-02"
   },
   {
    "level": 60,
@@ -126,9 +127,11 @@
   {
    "level": 62,
    "cls": "Normal",
-   "lead": "links",
+   "lead": "cells",
    "add": [],
-   "recipe": "links"
+   "recipe": "cells",
+   "breather": true,
+   "breatherLight": "2026-11-02"
   },
   {
    "level": 63,
@@ -224,10 +227,11 @@
   {
    "level": 72,
    "cls": "Normal",
-   "lead": null,
+   "lead": "hidden",
    "add": [],
-   "recipe": "none",
-   "breather": true
+   "recipe": "hidden",
+   "breather": true,
+   "breatherLight": "2026-11-02"
   },
   {
    "level": 73,
