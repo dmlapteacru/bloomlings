@@ -4,8 +4,8 @@ using System.Collections.Generic;
 namespace Bloomlings.Client.UI.Design
 {
     /// <summary>
-    /// The Scene Album page's regions (spec 007-scene-album, the owner's UX and mockup of 2026-11-02), both builds, screen
-    /// pixels with y down:
+    /// The Scene Album page's regions (spec 007-scene-album, the owner's UX and mockup of 2026-11-02; the progress bar and
+    /// the chest of the owner's change of the same day), both builds, screen pixels with y down:
     /// <list type="bullet">
     /// <item><description><see cref="Header"/>: the pages' header row (back, the "Scene Album" wooden sign, the Petals pill).</description></item>
     /// <item><description><see cref="Ribbon"/>: the scene's name on the cream name plate.</description></item>
@@ -13,10 +13,11 @@ namespace Bloomlings.Client.UI.Design
     /// scene contain-fitted (never cropped); the neighbours stand <see cref="Step"/> to each side, their edges showing.</description></item>
     /// <item><description><see cref="Previous"/>, <see cref="Next"/>: the raised ‹ › buttons over the neighbours' edges, on
     /// the scene's middle.</description></item>
-    /// <item><description><see cref="Strip"/>: the progress strip under the card, the objects' medallions
-    /// (<see cref="Medallion"/>) at its left and the count lines at its right (<see cref="CountLine"/>,
-    /// <see cref="StatusLine"/>, <see cref="SceneLine"/>).</description></item>
-    /// <item><description><see cref="Reward"/>: the finished scene's reward strip, above the bottom menu.</description></item>
+    /// <item><description><see cref="Strip"/>: the progress strip under the card, above the bottom menu: the objects'
+    /// medallions in a row (<see cref="Medallion"/>), under them the progress bar (<see cref="Bar"/>, its fill
+    /// <see cref="BarFill"/>, "1 / 4" on it) running into the chest at its right end (<see cref="Chest"/>, over the bar's
+    /// end), and a caption row under the bar ("Scene complete" or "Reward claimed" at <see cref="StatusLine"/>, "Scene 2 / N"
+    /// at <see cref="SceneLine"/>).</description></item>
     /// </list>
     /// Engine-free.
     /// </summary>
@@ -31,33 +32,52 @@ namespace Bloomlings.Client.UI.Design
         Box Previous,
         Box Next,
         Box Strip,
-        Box CountLine,
+        Box Bar,
+        Box Chest,
         Box StatusLine,
         Box SceneLine,
-        Box Reward,
         float NavTop,
         float TouchMin)
     {
+        /// <summary>The medallion row's middle, 0.088 W under the strip's top.</summary>
+        public float MedallionY => Strip.Top + (W * 0.088f);
+
         /// <summary>
-        /// Medallion <paramref name="index"/> of <paramref name="count"/>: a disc of up to 0.135 W at the strip's left, the
-        /// discs evenly spaced over 0.62 W.
+        /// Medallion <paramref name="index"/> of <paramref name="count"/>: a disc of up to 0.13 W in the strip's row left of
+        /// the chest, the discs evenly spaced.
         /// </summary>
         public Box Medallion(int index, int count)
         {
-            float span = W * 0.62f;
-            float cell = span / Math.Max(1, count);
-            float side = Math.Min(W * 0.135f, cell - (W * 0.015f));
-            float x = Strip.Left + (W * 0.03f) + (cell * (index + 0.5f));
-            return Box.FromCenter(x, Strip.CenterY, side, side);
+            (float left, float cell) = MedallionColumns(count);
+            float side = Math.Min(W * 0.13f, cell - (W * 0.015f));
+            return Box.FromCenter(left + (cell * (index + 0.5f)), MedallionY, side, side);
         }
 
-        /// <summary>Medallion <paramref name="index"/>'s touch box: its whole column of the strip, at least the touch minimum.</summary>
+        /// <summary>Medallion <paramref name="index"/>'s touch box: its whole column of the row above the bar, at least the touch minimum.</summary>
         public Box MedallionTouch(int index, int count)
         {
-            float cell = (W * 0.62f) / Math.Max(1, count);
-            float left = Strip.Left + (W * 0.03f) + (cell * index);
-            Box column = new Box(left, Strip.Top, left + cell, Strip.Bottom);
+            (float left, float cell) = MedallionColumns(count);
+            var column = new Box(left + (cell * index), Strip.Top, left + (cell * (index + 1)), Bar.Top - (W * 0.008f));
             return Box.FromCenter(column.CenterX, column.CenterY, Math.Max(column.Width, TouchMin), Math.Max(column.Height, TouchMin));
+        }
+
+        /// <summary>The chest's touch box: the chest, at least the touch minimum.</summary>
+        public Box ChestTouch => Box.FromCenter(Chest.CenterX, Chest.CenterY, Math.Max(Chest.Width, TouchMin), Math.Max(Chest.Height, TouchMin));
+
+        /// <summary>
+        /// The bar's fill at <paramref name="share"/> (0 empty, 1 full) inside <see cref="Bar"/>'s pressed-in track: inset by
+        /// 0.16 of the bar's height, never narrower than it is tall (a round pill), null when empty.
+        /// </summary>
+        public Box? BarFill(float share)
+        {
+            if (share <= 0f)
+            {
+                return null;
+            }
+
+            Box inner = Bar.Inset(Bar.Height * 0.16f);
+            float width = Math.Max(inner.Height, inner.Width * Math.Min(1f, share));
+            return new Box(inner.Left, inner.Top, inner.Left + width, inner.Bottom);
         }
 
         /// <summary>The card <paramref name="offset"/> places from the centre one (−1 the previous, +1 the next), shifted by <paramref name="slide"/> pixels.</summary>
@@ -66,11 +86,11 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The scene <paramref name="offset"/> places from the centre one, shifted by <paramref name="slide"/> pixels.</summary>
         public Box SceneAt(int offset, float slide = 0f) => Scene.Offset((offset * Step) + slide, 0f);
 
-        /// <summary>The reward strip's green Claim button at its right (0.48 of the strip wide).</summary>
-        public Box ClaimButton => new Box(Reward.Right - (Reward.Width * 0.48f), Reward.Top + (Reward.Height * 0.14f), Reward.Right - (Reward.Height * 0.2f), Reward.Bottom - (Reward.Height * 0.14f));
-
         /// <summary>The green check badge of a complete scene, over the card's top-right corner (0.09 W).</summary>
         public Box CompleteBadge(Box card) => Box.FromCenter(card.Right - (W * 0.035f), card.Top + (W * 0.035f), W * 0.09f, W * 0.09f);
+
+        /// <summary>The claimed chest's check ball over its bottom-right (0.075 W).</summary>
+        public Box ChestCheck => Box.FromCenter(Chest.Right - (W * 0.03f), Chest.Bottom - (W * 0.035f), W * 0.075f, W * 0.075f);
 
         /// <summary>The menu's "!" over an icon's upper right (<see cref="BottomNav.LockBox"/>'s size, mirrored up).</summary>
         public static Box NewsBadge(Box icon)
@@ -80,7 +100,36 @@ namespace Bloomlings.Client.UI.Design
             float inset = side * BottomNav.LockInsetShare;
             return new Box(icon.Right - inset - badge, icon.Top + inset, icon.Right - inset, icon.Top + inset + badge);
         }
+
+        private (float Left, float Cell) MedallionColumns(int count)
+        {
+            float left = Strip.Left + (W * 0.03f);
+            float right = Chest.Left - (W * 0.01f);
+            return (left, (right - left) / Math.Max(1, count));
+        }
     }
+
+    /// <summary>The chest's three states (spec 007 FR-012): the scene still filling, complete with the chest waiting, claimed.</summary>
+    public enum AlbumChestState
+    {
+        /// <summary>The scene is not complete: the chest dimmed (partly grey), its tooltip says how it opens.</summary>
+        Filling,
+
+        /// <summary>Complete and not claimed: the chest in colour, glowing and bouncing gently; its tooltip offers Claim.</summary>
+        Ready,
+
+        /// <summary>Claimed: the chest in colour with the check ball; its tooltip says "Reward claimed".</summary>
+        Claimed,
+    }
+
+    /// <summary>
+    /// The chest's tooltip (spec 007 FR-012, the owner's change of 2026-11-02): the guides' parchment bubble (the popups' card
+    /// frame with a turned-square tail, <see cref="TailX"/> on its bottom edge pointing at the chest) above the chest: the
+    /// title (<see cref="Title"/>), one row a content (<see cref="Icons"/>, <see cref="Texts"/>: the Petals lotus and
+    /// "200 Petals", the Return booster and "1 Return", the Extra Slot booster and "1 Extra Slot") and the footer
+    /// (<see cref="Footer"/>: the green Claim when the chest is ready, else a line). Engine-free.
+    /// </summary>
+    public sealed record AlbumChestTipRegions(Box Bubble, float TailX, float Tail, Box Title, IReadOnlyList<Box> Icons, IReadOnlyList<Box> Texts, Box Footer, Box FooterIcon);
 
     /// <summary>
     /// The Scene Album's object sheet (spec 007 FR-009, FR-010; the mockup's middle state): a bottom sheet about a third of
@@ -131,10 +180,22 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The scene's corner radius inside the frame, in reference units.</summary>
         public const float SceneRadiusUnits = 22f;
 
+        /// <summary>The chest's dim while its scene fills: its colour picture at this alpha over its grey copy.</summary>
+        public const float ChestFillingColour = 0.4f;
+
+        /// <summary>How long the ready chest waits between its gentle hops, and one hop's length, in seconds.</summary>
+        public const float ChestHopEvery = 2.4f;
+
+        public const float ChestHopSeconds = 0.45f;
+
+        /// <summary>The chest's tooltip's pop, in seconds.</summary>
+        public const float TipSeconds = 0.16f;
+
         /// <summary>
         /// The page for a scene canvas of <paramref name="canvasWidth"/> × <paramref name="canvasHeight"/> (every scene of the
         /// pack shares one), in shares of the safe width W: the pages' header row; the name plate 0.66 W × 0.1 W under it;
-        /// above the bottom menu the reward strip 0.86 W × 0.12 W, over it the progress strip 0.92 W × 0.17 W; the card
+        /// above the bottom menu the progress strip 0.92 W × 0.3 W (the medallion row, under it the bar 0.062 W high from
+        /// 0.04 W in to the chest's middle, the chest 0.215 W over its right end, the caption row under the bar); the card
         /// between the name plate and the strip, the scene contain-fitted at most 0.78 W wide, the frame
         /// <see cref="FrameUnits"/> round it; the neighbours a card's width and 0.05 W to each side; the ‹ › buttons 0.115 W
         /// (at least the touch minimum) 0.075 W in from the safe sides, on the scene's middle.
@@ -149,8 +210,12 @@ namespace Bloomlings.Client.UI.Design
             float cx = safe.CenterX;
             var ribbon = new Box(cx - (0.33f * w), store.Header.Row.Bottom + (0.012f * w), cx + (0.33f * w), store.Header.Row.Bottom + (0.112f * w));
             float navTop = store.NavTop;
-            var reward = new Box(cx - (0.43f * w), navTop - (0.02f * w) - (0.12f * w), cx + (0.43f * w), navTop - (0.02f * w));
-            var strip = new Box(cx - (0.46f * w), reward.Top - (0.018f * w) - (0.17f * w), cx + (0.46f * w), reward.Top - (0.018f * w));
+            var strip = new Box(cx - (0.46f * w), navTop - (0.02f * w) - (0.3f * w), cx + (0.46f * w), navTop - (0.02f * w));
+            float barY = strip.Top + (0.198f * w);
+            var chest = Box.FromCenter(strip.Right - (0.125f * w), barY - (0.035f * w), 0.215f * w, 0.215f * w);
+            var bar = new Box(strip.Left + (0.04f * w), barY - (0.031f * w), chest.CenterX, barY + (0.031f * w));
+            var status = new Box(bar.Left + (0.01f * w), strip.Top + (0.242f * w), bar.Left + (0.37f * w), strip.Top + (0.284f * w));
+            var sceneLine = new Box(status.Right, status.Top, chest.Left - (0.01f * w), status.Bottom);
             float frame = FrameUnits * unit;
             float top = ribbon.Bottom + (0.02f * w) + frame;
             float bottom = strip.Top - (0.022f * w) - frame;
@@ -163,12 +228,93 @@ namespace Bloomlings.Client.UI.Design
             float arrowY = scene.CenterY;
             var previous = Box.FromCenter(safe.Left + (0.075f * w), arrowY, arrow, arrow);
             var next = Box.FromCenter(safe.Right - (0.075f * w), arrowY, arrow, arrow);
-            float columnLeft = strip.Left + (0.67f * w);
-            var count = new Box(columnLeft, strip.Top + (0.018f * w), strip.Right - (0.03f * w), strip.Top + (0.078f * w));
-            var status = new Box(columnLeft, count.Bottom + (0.004f * w), count.Right, count.Bottom + (0.044f * w));
-            var sceneLine = new Box(columnLeft, status.Bottom + (0.004f * w), count.Right, status.Bottom + (0.044f * w));
-            return new AlbumRegions(safe, w, store.Header, ribbon, card, scene, card.Width + (0.05f * w), previous, next, strip, count, status, sceneLine, reward, navTop, touch);
+            return new AlbumRegions(safe, w, store.Header, ribbon, card, scene, card.Width + (0.05f * w), previous, next, strip, bar, chest, status, sceneLine, navTop, touch);
         }
+
+        /// <summary>The chest's state for a scene <paramref name="complete"/> or not, its chest <paramref name="claimed"/> or not.</summary>
+        public static AlbumChestState ChestState(bool complete, bool claimed) =>
+            claimed ? AlbumChestState.Claimed : complete ? AlbumChestState.Ready : AlbumChestState.Filling;
+
+        /// <summary>
+        /// The chest's tooltip over <paramref name="r"/>'s chest, in shares of W: 0.6 W wide, its right edge 0.17 W right of
+        /// the chest's middle (inside the safe area), its bottom 0.035 W over the chest's top with the tail between; padding
+        /// 0.045 W; the title 0.07 W; three rows 0.085 W (the icon 0.078 W); the footer 0.115 W (the green Claim, 0.42 W) when
+        /// <paramref name="claim"/>, else a line 0.06 W.
+        /// </summary>
+        public static AlbumChestTipRegions ChestTip(AlbumRegions r, bool claim)
+        {
+            float w = r.W;
+            float pad = 0.045f * w;
+            float titleH = 0.07f * w;
+            float rowH = 0.085f * w;
+            float footerH = claim ? 0.115f * w : 0.06f * w;
+            float height = pad + titleH + (0.012f * w) + (3f * rowH) + (0.018f * w) + footerH + pad;
+            float bubbleWidth = 0.6f * w;
+            float right = Math.Min(r.Safe.Right - (0.02f * w), r.Chest.CenterX + (0.17f * w));
+            float tail = 0.045f * w;
+            float bottom = r.Chest.Top + (0.01f * w) - tail;
+            var bubble = new Box(right - bubbleWidth, bottom - height, right, bottom);
+            float tailX = Math.Max(bubble.Left + (0.08f * w), Math.Min(bubble.Right - (0.08f * w), r.Chest.CenterX));
+            var title = new Box(bubble.Left + pad, bubble.Top + pad, bubble.Right - pad, bubble.Top + pad + titleH);
+            var icons = new Box[3];
+            var texts = new Box[3];
+            float y = title.Bottom + (0.012f * w);
+            float icon = 0.078f * w;
+            for (int i = 0; i < 3; i++)
+            {
+                icons[i] = Box.FromCenter(bubble.Left + pad + (0.02f * w) + (icon / 2f), y + (rowH / 2f), icon, icon);
+                texts[i] = new Box(icons[i].Right + (0.03f * w), y, bubble.Right - pad, y + rowH);
+                y += rowH;
+            }
+
+            y += 0.018f * w;
+            Box footer = claim
+                ? Box.FromCenter(bubble.CenterX, y + (footerH / 2f), 0.42f * w, footerH)
+                : new Box(bubble.Left + pad + (0.07f * w), y, bubble.Right - pad, y + footerH);
+            Box footerIcon = Box.FromCenter(bubble.Left + pad + (0.03f * w), y + (footerH / 2f), 0.055f * w, 0.055f * w);
+            return new AlbumChestTipRegions(bubble, tailX, tail, title, icons, texts, footer, footerIcon);
+        }
+
+        /// <summary>
+        /// The bar's share <paramref name="seconds"/> after the scene showed: the objects open before
+        /// (<paramref name="open"/> less the <paramref name="reveals"/> new ones) plus each new reveal as far as its colour has
+        /// come back (<see cref="Reveal"/>), of <paramref name="total"/>: the fill grows with the reveals.
+        /// </summary>
+        public static float BarShare(int open, int total, int reveals, float seconds)
+        {
+            if (total <= 0)
+            {
+                return 0f;
+            }
+
+            float filled = Math.Max(0, open - reveals);
+            for (int i = 0; i < reveals; i++)
+            {
+                filled += Reveal(seconds, i);
+            }
+
+            return Math.Max(0f, Math.Min(1f, filled / total));
+        }
+
+        /// <summary>
+        /// The ready chest's motion <paramref name="seconds"/> after the scene showed: its scale (the waiting button's breath,
+        /// <see cref="GardenLook.Breathe"/>) and its hop as a share of its height (up is negative: one gentle hop every
+        /// <see cref="ChestHopEvery"/> seconds), and its glow's alpha (<see cref="GardenLook.Glow"/>). Still otherwise.
+        /// </summary>
+        public static (float Scale, float Hop, float Glow) ChestMotion(AlbumChestState state, float seconds)
+        {
+            if (state != AlbumChestState.Ready)
+            {
+                return (1f, 0f, 0f);
+            }
+
+            float t = seconds % ChestHopEvery;
+            float hop = t < ChestHopSeconds ? -0.06f * (float)Math.Sin(Math.PI * t / ChestHopSeconds) : 0f;
+            return (GardenLook.Breathe(seconds), hop, GardenLook.Glow(seconds));
+        }
+
+        /// <summary>The tooltip's pop <paramref name="seconds"/> after it opened: its scale about the tail, from 0.85 to 1, eased.</summary>
+        public static float TipPop(float seconds) => 0.85f + (0.15f * Ease(seconds / TipSeconds));
 
         /// <summary>
         /// The object sheet, in shares of the safe width W: the panel 0.96 W wide, its top at a third of the screen's height

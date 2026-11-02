@@ -14,6 +14,20 @@ namespace Bloomlings.Client.Meta.Album
     /// <param name="New">Open but not yet seen in colour: the colour's return plays when its scene is next shown.</param>
     public sealed record AlbumObjectView(AlbumObject Item, int? Level, bool Open, bool New);
 
+    /// <summary>
+    /// A finished scene's chest (spec 007 FR-012 as changed by the owner on 2026-11-02): the one-time reward the chest at the
+    /// progress bar's end holds, Petals and booster charges (Remote Config <c>economy.album.chest.petals</c>,
+    /// <c>economy.album.chest.return</c>, <c>economy.album.chest.slot</c>; 200 + 1 + 1 by default).
+    /// </summary>
+    /// <param name="Petals">The Petals it pays.</param>
+    /// <param name="Return">The Return booster's charges.</param>
+    /// <param name="ExtraSlot">The Extra Slot booster's charges (the new Waiting Slot).</param>
+    public sealed record AlbumChest(int Petals, int Return, int ExtraSlot)
+    {
+        /// <summary>The booster charges as the economy grants them.</summary>
+        public BoosterGrant Boosters => new BoosterGrant(ExtraSlot, 0, Return, 0);
+    }
+
     /// <summary>A scene as the album shows it now (spec 007): its objects, how many are open and its reward's state.</summary>
     public sealed record AlbumSceneView(AlbumScene Scene, IReadOnlyList<AlbumObjectView> Objects, bool RewardClaimed)
     {
@@ -36,7 +50,7 @@ namespace Bloomlings.Client.Meta.Album
         /// <summary>Every object is open ("Scene complete").</summary>
         public bool Complete => OpenCount == Total;
 
-        /// <summary>Complete and its one-time reward not claimed yet: the reward strip's Claim.</summary>
+        /// <summary>Complete and its chest not claimed yet: the chest glows and its tooltip offers Claim.</summary>
         public bool RewardWaiting => Complete && !RewardClaimed;
 
         /// <summary>An opened object not seen yet, or a reward waiting: the menu's "!" and the album's opening priority.</summary>
@@ -88,8 +102,8 @@ namespace Bloomlings.Client.Meta.Album
     /// (<see cref="Shown"/>).</description></item>
     /// <item><description>The album opens on (<see cref="OpeningIndex"/>): a scene with a new reveal or a waiting reward, else
     /// the last viewed incomplete one, else the nearest incomplete one.</description></item>
-    /// <item><description>A complete scene's reward (<see cref="RewardPetals"/>, Remote Config
-    /// <c>economy.album.sceneReward</c>) is claimed once (<see cref="Claim"/>), a gift through the economy service with no
+    /// <item><description>A complete scene's chest (<see cref="Chest"/>: Petals, a Return and an Extra Slot charge, Remote
+    /// Config <c>economy.album.chest.*</c>) is claimed once (<see cref="Claim"/>), a gift through the economy service with no
     /// purchase confirmation.</description></item>
     /// <item><description>The save's <c>album</c> section keeps the claimed rewards, the reveals seen
     /// (<see cref="Viewed"/>) and the scene viewed last.</description></item>
@@ -132,8 +146,14 @@ namespace Bloomlings.Client.Meta.Album
         /// <summary>The level Play starts ("Next level: M").</summary>
         public int NextLevel => _save.Progression.CurrentLevel;
 
-        /// <summary>A finished scene's one-time reward in Petals (Remote Config <c>economy.album.sceneReward</c>, 50).</summary>
-        public int RewardPetals => _config.Get(RemoteConfigKeys.AlbumSceneReward);
+        /// <summary>
+        /// A finished scene's chest, its one-time reward (Remote Config <c>economy.album.chest.petals</c>,
+        /// <c>economy.album.chest.return</c>, <c>economy.album.chest.slot</c>; 200 Petals, one Return, one Extra Slot).
+        /// </summary>
+        public AlbumChest Chest => new AlbumChest(
+            _config.Get(RemoteConfigKeys.AlbumChestPetals),
+            _config.Get(RemoteConfigKeys.AlbumChestReturn),
+            _config.Get(RemoteConfigKeys.AlbumChestSlot));
 
         /// <summary>
         /// Whether a claim can pay here: the server-authoritative economy has no album grant yet, so there the Claim stays
@@ -353,22 +373,22 @@ namespace Bloomlings.Client.Meta.Album
         public bool CanClaim(AlbumScene scene) => IsUnlocked && CanPay && View(scene).RewardWaiting;
 
         /// <summary>
-        /// Claims <paramref name="scene"/>'s one-time reward: <see cref="RewardPetals"/> through the economy service and the
-        /// scene marked claimed in the save. Returns the Petals paid, 0 when nothing was claimable (claimed already,
-        /// incomplete, the album closed, or a server economy).
+        /// Claims <paramref name="scene"/>'s chest once: its <see cref="Chest"/> (Petals and booster charges) through the economy
+        /// service in one grant and the scene marked claimed in the save. Returns what it paid, null when nothing was
+        /// claimable (claimed already, incomplete, the album closed, or a server economy).
         /// </summary>
-        public int Claim(AlbumScene scene)
+        public AlbumChest? Claim(AlbumScene scene)
         {
             if (!CanClaim(scene) || !_save.Album.Claimed.Add(scene.Id))
             {
-                return 0;
+                return null;
             }
 
-            int petals = RewardPetals;
-            _economy.Grant(petals, null);
+            AlbumChest chest = Chest;
+            _economy.Grant(chest.Petals, chest.Boosters);
             _persist();
             Changed?.Invoke();
-            return petals;
+            return chest;
         }
     }
 }

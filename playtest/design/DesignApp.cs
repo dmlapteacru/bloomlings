@@ -667,6 +667,12 @@ namespace Bloomlings.Playtest.Design
         /// <summary>Whether the album page's last frame had motion (a reveal, a snap, the sheet): the host keeps drawing frames.</summary>
         public bool AlbumMoving { get; set; }
 
+        /// <summary>Whether the chest's tooltip is open (spec 007 FR-012: a tap on the chest), and the seconds since it opened.</summary>
+        public bool AlbumTipOpen { get; private set; }
+
+        public float AlbumTipSince => Now - _albumTipAt;
+
+        private float _albumTipAt = -10f;
         private float _albumSheetAt = -10f;
         private float _albumTurnAt = -10f;
         private int _albumTurnStep;
@@ -682,6 +688,7 @@ namespace Bloomlings.Playtest.Design
             Sound.Play(SoundCue.Click);
             ClearOverlays();
             AlbumSheet = null;
+            AlbumTipOpen = false;
             _albumTurnAt = -10f;
             Screen = Screen.Album;
             if (Meta.Album.IsUnlocked)
@@ -706,6 +713,7 @@ namespace Bloomlings.Playtest.Design
 
             Sound.Play(SoundCue.Click);
             AlbumSheet = null;
+            AlbumTipOpen = false;
             AlbumIndex = next;
             _albumTurnStep = Math.Sign(step);
             _albumTurnAt = Now;
@@ -730,9 +738,21 @@ namespace Bloomlings.Playtest.Design
         public void OpenAlbumObject(string id)
         {
             Sound.Play(SoundCue.Click);
+            AlbumTipOpen = false;
             AlbumSheet = id;
             _albumSheetAt = Now;
         }
+
+        /// <summary>A tap on the chest (spec 007 FR-012): its tooltip opens with the contents, a second tap closes it.</summary>
+        public void ToggleAlbumChest()
+        {
+            Sound.Play(SoundCue.Click);
+            AlbumTipOpen = !AlbumTipOpen;
+            _albumTipAt = Now;
+        }
+
+        /// <summary>Closes the chest's tooltip (a tap outside it, the system back).</summary>
+        public void CloseAlbumChest() => AlbumTipOpen = false;
 
         /// <summary>Closes the object sheet (its ×, a swipe down, a tap outside, the system back).</summary>
         public void CloseAlbumSheet()
@@ -751,7 +771,10 @@ namespace Bloomlings.Playtest.Design
             StartLevel();
         }
 
-        /// <summary>Claims the shown scene's one-time reward (spec 007 FR-012): a gift, no purchase confirmation.</summary>
+        /// <summary>
+        /// The tooltip's Claim: claims the shown scene's chest once (spec 007 FR-012: Petals, a Return and an Extra Slot charge in
+        /// one grant): a gift, no purchase confirmation; the tooltip stays and says "Reward claimed".
+        /// </summary>
         public void ClaimAlbumReward()
         {
             IReadOnlyList<Bloomlings.Client.Meta.Album.AlbumScene> shown = Meta.Album.Shown;
@@ -761,7 +784,7 @@ namespace Bloomlings.Playtest.Design
             }
 
             long before = Meta.Economy.Petals;
-            if (Meta.Album.Claim(shown[AlbumIndex]) > 0)
+            if (Meta.Album.Claim(shown[AlbumIndex]) != null)
             {
                 Sound.Play(SoundCue.PodDone);
                 RewardBurst(before);
@@ -775,6 +798,12 @@ namespace Bloomlings.Playtest.Design
         /// <summary>Back on the album page: the object sheet closes, else Home.</summary>
         public void AlbumBack()
         {
+            if (AlbumTipOpen)
+            {
+                CloseAlbumChest();
+                return;
+            }
+
             if (AlbumSheet != null)
             {
                 CloseAlbumSheet();

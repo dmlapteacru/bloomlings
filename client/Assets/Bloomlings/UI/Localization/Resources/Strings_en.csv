@@ -208,8 +208,11 @@ album.next_level,Next level: {0}
 album.continue,Continue playing
 album.level_completed,Level {0} completed
 album.claim,Claim
-album.reward_amount,+{0}
 album.reward_claimed,Reward claimed
+album.chest.title,Scene chest
+album.chest.petals,{0} Petals
+album.chest.booster,{0} {1}
+album.chest.locked,Open every object to get it
 album.scene.forest,Forest Glade
 album.scene.airmail,Air Mail Garden
 album.object.forest.owl,Owl

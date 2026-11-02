@@ -29,12 +29,18 @@
 
 ## Phase 5: US4 — the reward (P2)
 
-- [x] T011 Reward strip with Claim (no confirmation) and "Reward claimed"
+- [x] T011 Reward strip with Claim (no confirmation) and "Reward claimed" (replaced by the chest in T017)
 
 ## Phase 6: Polish
 
 - [x] T012 Strings (`album.*`, `demo.album`), `AlbumServiceTests`, reference-layout tests for the new menu
 - [x] T013 Preview frames 271–275, updated fixtures (Collection opened directly as ballast), inventory regenerated
 - [x] T014 Docs: CLAUDE.md, product/13, product/OPEN_QUESTIONS.md (reward amount, Collection ballast)
-- [ ] T015 (open) The owner's look check on the APK; scene names/object names confirmation; reward amount
+- [x] T017 The owner's change of 2026-11-02: the chest picture (`tools/album/import_scene_pack.py --chest` →
+  `Art/Album/Resources/Album/chest.png`, source record, notices), the progress bar and chest in the kit (`AlbumLook`), the
+  chest's tooltip in both builds, the reward strip removed, the bundle in `AlbumService.Chest` / `Claim` with Remote Config
+  `economy.album.chest.*` (defaults.json, `RemoteConfigKeys`), strings `album.chest.*`, asset slots `ui.album.progress`,
+  `ui.album.chest`, `ui.album.chest.tip`, `AlbumServiceTests` (the bundle once, Remote Config, the layout), preview frames
+  271–276 (276 the tooltip), OPEN_QUESTIONS 5a
+- [ ] T015 (open) The owner's look check on the APK; scene names/object names confirmation; chest contents (200 Petals + 1 Return + 1 Extra Slot by default)
 - [ ] T016 (open) A server-side album grant for the authoritative economy (Claim is greyed there now)

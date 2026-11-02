@@ -15,9 +15,10 @@ namespace Bloomlings.Playtest.Design
     /// <item><description>one big vertical card, the owner's layered scene contain-fitted in the popups' wooden frame (locked
     /// objects grey at 82 %, open ones in colour, new reveals coming back to colour), the neighbours' edges showing; a
     /// horizontal swipe or the existing raised ‹ › buttons turn it one card at a time with a snap, never cycling;</description></item>
-    /// <item><description>the progress strip: the objects' medallions (tappable, the green check on the open ones), "1 / 4",
-    /// "Scene complete", "Scene 2 / N";</description></item>
-    /// <item><description>a complete scene's reward strip: the Petals and the green Claim, then "Reward claimed";</description></item>
+    /// <item><description>the progress strip: the objects' medallions (tappable, the green check on the open ones), under them
+    /// the progress bar with "1 / 4" filling with the reveals and the scene chest at its end (the owner's change of
+    /// 2026-11-02): dimmed while the scene fills, glowing and hopping when complete, with the check once claimed; a tap on
+    /// it opens its tooltip (the contents, the green Claim when ready); "Scene complete" or "Reward claimed", "Scene 2 / N";</description></item>
     /// <item><description>a tapped object (its alpha, never its transparent area) or medallion: a golden outline and the
     /// object sheet from the bottom (the colour preview, the name, "Unlocks after Level N" and "Next level: M" with
     /// "Continue playing", or "Level N completed"), closed by its ×, a swipe down or a tap outside; the card shrinks over it
@@ -108,11 +109,9 @@ namespace Bloomlings.Playtest.Design
             Kit.ArrowButton(p, r.Previous.CenterX, r.Previous.CenterY, r.Previous.Width, false, index > 0 && !sheetOpen ? () => app.TurnAlbum(-1) : (Action?)null);
             Kit.ArrowButton(p, r.Next.CenterX, r.Next.CenterY, r.Next.Width, true, index < shown.Count - 1 && !sheetOpen ? () => app.TurnAlbum(1) : (Action?)null);
 
-            Strip(p, app, r, scene, view, index, shown.Count, sheetOpen ? null : app.OpenAlbumObject);
-            if (view.Complete)
-            {
-                Reward(p, app, r, view, album);
-            }
+            AlbumChestState chest = AlbumLook.ChestState(view.Complete, view.RewardClaimed);
+            app.AlbumMoving |= chest == AlbumChestState.Ready || (app.AlbumTipOpen && app.AlbumTipSince < AlbumLook.TipSeconds + .1f);
+            Strip(p, app, r, scene, view, index, shown.Count, sheetOpen ? null : app.OpenAlbumObject, reveals, revealSince, chest);
 
             // A horizontal swipe on the card band turns one card (registered after the content, so it never taps).
             if (!sheetOpen)
@@ -125,6 +124,10 @@ namespace Bloomlings.Playtest.Design
             if (chosen != null)
             {
                 Sheet(p, app, sheet, scene, chosen, album.NextLevel);
+            }
+            else if (app.AlbumTipOpen)
+            {
+                ChestTip(p, app, r, album, chest, index > 0 ? () => app.TurnAlbum(-1) : (Action?)null, index < shown.Count - 1 ? () => app.TurnAlbum(1) : (Action?)null);
             }
 
             if (app.HomeToastText != null)
@@ -226,16 +229,21 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>
         /// The progress strip: a raised cream row with the objects' medallions (each object's layer in a cream disc in a wooden
-        /// ring, grey or in colour with the green check; tappable), "1 / 4", "Scene complete" and "Scene 2 / N".
+        /// ring, grey or in colour with the green check; tappable), under them the progress bar ("1 / 4" on it, its fill
+        /// growing with the reveals) running into the chest at its right end, and the caption row ("Scene complete" or
+        /// "Reward claimed", "Scene 2 / N").
         /// </summary>
-        private static void Strip(IPainter p, DesignApp app, AlbumRegions r, AlbumScene scene, AlbumSceneView view, int index, int count, Action<string>? tap)
+        private static void Strip(IPainter p, DesignApp app, AlbumRegions r, AlbumScene scene, AlbumSceneView view, int index, int count, Action<string>? tap,
+            IReadOnlyList<string> reveals, float revealSince, AlbumChestState chest)
         {
-            Kit.RaisedRow(p, r.Strip, r.Strip.Height * .3f);
+            Kit.RaisedRow(p, r.Strip, r.W * .06f);
             for (int i = 0; i < view.Objects.Count; i++)
             {
                 AlbumObjectView item = view.Objects[i];
                 Box disc = r.Medallion(i, view.Objects.Count);
-                Medallion(p, disc, PainterBase.AlbumPrefix + item.Item.Layer, item.Open, item.Item.Id == app.AlbumSheet);
+                int reveal = IndexOf(reveals, item.Item.Id);
+                bool open = item.Open && (reveal < 0 || AlbumLook.Reveal(revealSince, reveal) >= 1f);
+                Medallion(p, disc, PainterBase.AlbumPrefix + item.Item.Layer, open, item.Item.Id == app.AlbumSheet);
                 if (tap != null)
                 {
                     string id = item.Item.Id;
@@ -243,10 +251,13 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
-            ProfileGamePainter.Label(p, r.CountLine, PlaytestText.F("album.count", view.OpenCount, view.Total), ProfileGameDesign.Name, heightShare: .9f);
-            if (view.Complete)
+            float share = AlbumLook.BarShare(view.OpenCount, view.Total, CountOpen(view, reveals), revealSince);
+            ProgressBar(p, r, share, PlaytestText.F("album.count", view.OpenCount, view.Total));
+            Chest(p, r, chest, revealSince, tap != null ? app.ToggleAlbumChest : (Action?)null);
+            string? status = chest == AlbumChestState.Claimed ? PlaytestText.T("album.reward_claimed") : view.Complete ? PlaytestText.T("album.complete") : null;
+            if (status != null)
             {
-                ProfileGamePainter.Label(p, r.StatusLine, PlaytestText.T("album.complete"), ProfileGameDesign.Item, heightShare: .9f);
+                ProfileGamePainter.Label(p, r.StatusLine, status, ProfileGameDesign.Item, left: true, heightShare: .9f);
             }
 
             ProfileGamePainter.Label(p, r.SceneLine, PlaytestText.F("album.scene_index", index + 1, count), ProfileGameDesign.Info, heightShare: .9f);
@@ -275,26 +286,139 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        /// <summary>
-        /// The finished scene's reward strip (<c>ui.album.reward</c>): a raised cream row with the Petals lotus and "+N" and the
-        /// green Claim, or the check and "Reward claimed" once claimed (the card stays to look at).
-        /// </summary>
-        private static void Reward(IPainter p, DesignApp app, AlbumRegions r, AlbumSceneView view, AlbumService album)
+        /// <summary>How many of <paramref name="reveals"/> are open objects of <paramref name="view"/> (the bar grows with them).</summary>
+        private static int CountOpen(AlbumSceneView view, IReadOnlyList<string> reveals)
         {
-            p.Mark("ui.album.reward");
-            Box row = r.Reward;
-            Kit.RaisedRow(p, row, row.Height * .4f);
-            float icon = row.Height * .62f;
-            if (view.RewardClaimed)
+            int n = 0;
+            foreach (string id in reveals)
             {
-                Kit.CheckBadge(p, row.Left + (row.Height * .55f), row.CenterY, icon * .8f);
-                ProfileGamePainter.Label(p, new Box(row.Left + row.Height, row.Top, row.Right - (row.Height * .3f), row.Bottom), PlaytestText.T("album.reward_claimed"), ProfileGameDesign.Name, left: true, heightShare: .5f);
-                return;
+                n += view.Find(id)?.Open == true ? 1 : 0;
             }
 
-            Kit.Petal(p, Box.FromCenter(row.Left + (row.Height * .6f), row.CenterY, icon, icon));
-            ProfileGamePainter.Label(p, new Box(row.Left + (row.Height * 1.05f), row.Top, row.Left + (row.Width * .45f), row.Bottom), PlaytestText.F("album.reward_amount", NumberText.Group(album.RewardPetals)), ProfileGameDesign.Name, left: true, heightShare: .5f);
-            Kit.PrimaryButton(p, r.ClaimButton, PlaytestText.T("album.claim"), app.AlbumSheet == null && album.CanPay ? app.ClaimAlbumReward : (Action?)null, ProfileGameDesign.Action);
+            return n;
+        }
+
+        /// <summary>
+        /// The progress bar (<c>ui.album.progress</c>): a light wood track pressed into the strip (<see cref="UiRaster.Groove"/>)
+        /// and the glossy green fill raised in it (the green button's face, <see cref="UiRaster.ButtonFace(int, int, ColorSet, float, bool)"/>),
+        /// "n / 4" in white letters on it.
+        /// </summary>
+        public static void ProgressBar(IPainter p, AlbumRegions r, float share, string label)
+        {
+            p.Mark("ui.album.progress");
+            p.Picture("ui.groove", r.Bar, UiRaster.Groove);
+            Box? fill = r.BarFill(share);
+            if (fill != null)
+            {
+                p.Picture("ui.album.progress.fill", fill.Value, (w, h) => UiRaster.ButtonFace(w, h, GardenLook.Green, .5f, true));
+            }
+
+            Box text = new Box(r.Bar.Left, r.Bar.Top, r.Chest.Left, r.Bar.Bottom);
+            ProfileGamePainter.Label(p, text, label, ProfileGameDesign.Progress, ShopBodyDesign.Letters, heightShare: .78f);
+        }
+
+        /// <summary>
+        /// The scene chest (<c>ui.album.chest</c>, the owner's picture) over the bar's end: dimmed while the scene fills (its
+        /// grey copy under the colour at <see cref="AlbumLook.ChestFillingColour"/>), in colour with a soft glow, a breath and
+        /// a gentle hop when ready, in colour with the green check ball once claimed. A tap toggles its tooltip.
+        /// </summary>
+        public static void Chest(IPainter p, AlbumRegions r, AlbumChestState state, float seconds, Action? tap)
+        {
+            p.Mark("ui.album.chest");
+            string name = PainterBase.AlbumPrefix + AlbumCatalog.ChestPicture;
+            (float scale, float hop, float glow) = AlbumLook.ChestMotion(state, seconds);
+            Box box = r.Chest;
+            if (glow > 0f)
+            {
+                // The glow: soft rings of garden.glow behind the chest, as the lit speed pill's halo.
+                for (int i = GardenLook.SpeedGlowLayers; i >= 1; i--)
+                {
+                    float radius = box.Width * (.36f + (.05f * i));
+                    p.FillCircle(box.CenterX, box.CenterY + (box.Height * .05f), radius, C.GardenGlow.WithAlpha(glow * .3f));
+                }
+            }
+
+            p.PushTransform(0f, hop * box.Height, scale, box.CenterX, box.Bottom);
+            if (!p.HasSprite(name))
+            {
+                p.FillRound(box.Inset(box.Width * .15f), box.Width * .12f, C.WoodDarkTop);
+            }
+            else if (state == AlbumChestState.Filling)
+            {
+                p.Sprite(name + PainterBase.GreySuffix, box);
+                p.PushAlpha(AlbumLook.ChestFillingColour);
+                p.Sprite(name, box);
+                p.PopAlpha();
+            }
+            else
+            {
+                p.Sprite(name, box);
+            }
+
+            p.PopTransform();
+            if (state == AlbumChestState.Claimed)
+            {
+                Box check = r.ChestCheck;
+                Kit.CheckBadge(p, check.CenterX, check.CenterY, check.Width);
+            }
+
+            if (tap != null)
+            {
+                p.Hit(r.ChestTouch, tap);
+            }
+        }
+
+        /// <summary>
+        /// The chest's tooltip (<c>ui.album.chest.tip</c>): a tap anywhere outside closes it (the swipe still turns the card);
+        /// the guides' parchment bubble above the chest with its tail on the chest, the title, the contents (the Petals lotus
+        /// and "200 Petals", the Return and Extra Slot booster icons and "1 Return", "1 Extra Slot") and the footer: the green
+        /// Claim when the chest is ready (no purchase confirmation: a gift), the check and "Reward claimed" once claimed, or
+        /// "Open every object to get it" while the scene fills.
+        /// </summary>
+        private static void ChestTip(IPainter p, DesignApp app, AlbumRegions r, AlbumService album, AlbumChestState state, Action? previous, Action? next)
+        {
+            p.Mark("ui.album.chest.tip");
+            p.Hit(new Box(0f, 0f, p.Width, p.Height), app.CloseAlbumChest);
+
+            // The swipe registered again over the tap-outside target, so the tooltip never blocks it (a turn closes the tooltip).
+            p.Scroll(new Box(r.Safe.Left, r.Ribbon.Bottom, r.Safe.Right, r.Strip.Top), previous, next);
+            bool claim = state == AlbumChestState.Ready;
+            AlbumChestTipRegions t = AlbumLook.ChestTip(r, claim);
+            float pop = AlbumLook.TipPop(app.AlbumTipSince);
+            p.PushTransform(0f, 0f, pop, t.TailX, t.Bubble.Bottom + (t.Tail / 2f));
+            Box b = t.Bubble;
+            p.PushRotate(45f, t.TailX, b.Bottom);
+            Box diamond = Box.FromCenter(t.TailX, b.Bottom, t.Tail * 1.1f, t.Tail * 1.1f);
+            p.FillRound(diamond, p.U(6f), C.ParchmentBottom);
+            p.StrokeRound(diamond, p.U(6f), p.U(DesignTokens.Garden.OutlineWidth) * .8f, C.ParchmentLine);
+            p.PopTransform();
+            Kit.CardFrame(p, b);
+            p.Hit(b, () => { });
+            ProfileGamePainter.Label(p, t.Title, PlaytestText.T("album.chest.title"), ProfileGameDesign.Name, heightShare: .9f);
+            AlbumChest chest = album.Chest;
+            Kit.Petal(p, t.Icons[0]);
+            ProfileGamePainter.Label(p, t.Texts[0], PlaytestText.F("album.chest.petals", NumberText.Group(chest.Petals)), ProfileGameDesign.Item, left: true, heightShare: .74f);
+            Kit.BoosterIcon(p, "return", t.Icons[1]);
+            ProfileGamePainter.Label(p, t.Texts[1], PlaytestText.F("album.chest.booster", chest.Return, PlaytestText.T("booster.return")), ProfileGameDesign.Item, left: true, heightShare: .74f);
+            Kit.BoosterIcon(p, "extra_slot", t.Icons[2]);
+            ProfileGamePainter.Label(p, t.Texts[2], PlaytestText.F("album.chest.booster", chest.ExtraSlot, PlaytestText.T("booster.extra_slot")), ProfileGameDesign.Item, left: true, heightShare: .74f);
+            switch (state)
+            {
+                case AlbumChestState.Ready:
+                    Kit.PrimaryButton(p, t.Footer, PlaytestText.T("album.claim"), album.CanPay ? app.ClaimAlbumReward : (Action?)null, ProfileGameDesign.Action);
+                    break;
+                case AlbumChestState.Claimed:
+                    Kit.CheckBadge(p, t.FooterIcon.CenterX, t.FooterIcon.CenterY, t.FooterIcon.Width);
+                    ProfileGamePainter.Label(p, t.Footer, PlaytestText.T("album.reward_claimed"), ProfileGameDesign.Info, left: true, heightShare: .8f);
+                    break;
+                default:
+                    p.Mark("ui.lock");
+                    p.Shape("ui.lock", t.FooterIcon, C.InkBrownSoft);
+                    ProfileGamePainter.Label(p, t.Footer, PlaytestText.T("album.chest.locked"), ProfileGameDesign.Info, left: true, heightShare: .8f);
+                    break;
+            }
+
+            p.PopTransform();
         }
 
         /// <summary>

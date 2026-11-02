@@ -152,7 +152,9 @@ Unlock:
 Not a level selector and no new currency. Implemented on 2026-11-02 (`specs/007-scene-album/`): the Scene Album took the
 Collection's place in the bottom menu (unlock `system.album` at L27, a locked place with the padlock before it); the
 first scenes are the owner's Forest Glade (L1, L4, L7, L17) and Air Mail Garden (L54, L71, L76, L96), each object bound to
-its picture code; the chest is `economy.album.sceneReward` Petals (50 until the owner fixes it). The Collection is
+its picture code; the chest stands at the end of the progress bar under the medallions (the owner's change of 2026-11-02:
+a tap shows its contents, Claim when the scene is complete) and holds 200 Petals, one Return and one Extra Slot charge
+(`economy.album.chest.*`, after the owner's example until the owner fixes the contents). The Collection is
 switched off, not deleted: ballast to reuse or delete later (`OPEN_QUESTIONS.md`).
 
 ---

@@ -51,6 +51,11 @@ namespace Bloomlings.Client.Meta.Album
         /// <summary>The folder of the layer pictures (<c>Art/Album/Resources/Album/</c>).</summary>
         public const string PictureFolder = "Album";
 
+        /// <summary>
+        /// The scene chest's picture in that folder (the owner's purple chest of 2026-11-02, <c>chest.png</c>; spec 007 FR-012),
+        /// shared by every scene.
+        /// </summary>
+        public const string ChestPicture = "chest";
 
         public AlbumCatalog(IReadOnlyList<AlbumScene> scenes)
         {

@@ -2411,12 +2411,33 @@ namespace Bloomlings.Playtest.Preview
                 return app;
             }
 
-            yield return new Fixture(271, "album-partial", "Scene Album: a scene at 1 / 4, its locked objects grey (spec 007)", (p, data) =>
+            yield return new Fixture(271, "album-partial", "Scene Album: a scene at 1 / 4, its locked objects grey, the progress bar and the dimmed chest (spec 007)", (p, data) =>
             {
                 DesignApp app = OnAirMail(p, data);
                 Expect(p.Slots.Contains("ui.album.medallion") && p.Slots.Contains("ui.album.card") && p.Slots.Contains("ui.album.scene"), "the card and the medallions are drawn");
-                Expect(!p.MissingSprites.Any(s => s.StartsWith(PainterBase.AlbumPrefix, StringComparison.Ordinal)), "every scene picture is embedded");
+                Expect(p.Slots.Contains("ui.album.progress") && p.Slots.Contains("ui.album.chest") && !p.Slots.Contains("ui.album.reward"), "the progress bar and the chest replace the reward strip");
+                Expect(!p.MissingSprites.Any(s => s.StartsWith(PainterBase.AlbumPrefix, StringComparison.Ordinal)), "every scene picture and the chest are embedded");
+                AlbumRegions r = Page(p);
+                Tap(p, r.Chest);
+                Expect(app.AlbumTipOpen, "a tap on the dimmed chest opens its tooltip");
+                Run(app, p, 0.3f);
+                Expect(p.Slots.Contains("ui.album.chest.tip") && Shows(p, "Open every object to get it") && Shows(p, "200 Petals") && !Shows(p, "Claim"), "the filling chest's tooltip shows the contents and how it opens, no Claim");
+                Tap(p, r.Chest);
+                Expect(!app.AlbumTipOpen, "a second tap on the chest closes the tooltip");
+                Run(app, p, 0.1f);
+                Tap(p, r.Chest);
+                Run(app, p, 0.2f);
+                p.Dispatch(r.Scene.CenterX, r.Ribbon.CenterY);
+                Expect(!app.AlbumTipOpen && app.AlbumSheet == null, "a tap outside closes the tooltip and opens nothing");
+                Run(app, p, 0.1f);
+                Tap(p, r.Chest);
+                Run(app, p, 0.2f);
+                Drag(p, r.Scene.CenterX - (r.W * .3f), r.Scene.CenterY, r.Scene.CenterX + (r.W * .3f), r.Scene.CenterY);
+                Expect(app.AlbumIndex == 0 && !app.AlbumTipOpen, "the tooltip does not block the swipe: the card turns and the tooltip closes");
                 Run(app, p, 0.5f);
+                Tap(p, r.Next);
+                Run(app, p, 1.0f);
+                Expect(Shows(p, "1 / 4") && Shows(p, "Scene 2 / 2"), "back on the Air Mail Garden at 1 / 4");
             });
 
             yield return new Fixture(272, "album-object-sheet", "Scene Album: a locked object's sheet (spec 007)", (p, data) =>
@@ -2465,27 +2486,39 @@ namespace Bloomlings.Playtest.Preview
                 Expect(app.AlbumSheet == "airship", "the airship's sheet for the frame");
             });
 
-            yield return new Fixture(273, "album-complete-claim", "Scene Album: a complete scene with its reward (spec 007)", (p, data) =>
+            yield return new Fixture(273, "album-complete-claim", "Scene Album: a complete scene, its chest glowing (spec 007)", (p, data) =>
             {
                 DesignApp app = AlbumApp(data, 68);
                 Run(app, p, 0.1f);
                 Tap(p, NavTouch(p, app, NavPlace.Album));
                 Run(app, p, 2.2f);
-                Expect(Shows(p, "4 / 4") && Shows(p, "Scene complete") && Shows(p, "Claim") && Shows(p, "+50"), "a complete scene shows its reward strip with Claim");
-                Expect(p.Slots.Contains("ui.album.reward"), "the reward strip is drawn");
+                Expect(Shows(p, "4 / 4") && Shows(p, "Scene complete") && !Shows(p, "Claim") && !Shows(p, "+50"), "a complete scene: the full bar and \"Scene complete\", the old reward strip gone");
+                Expect(p.Slots.Contains("ui.album.chest") && p.Slots.Contains("ui.album.progress") && !p.Slots.Contains("ui.album.reward"), "the chest at the full bar's end");
+                Expect(app.AlbumMoving, "the ready chest breathes and hops (the host keeps drawing frames)");
             });
 
-            yield return new Fixture(274, "album-claimed", "Scene Album: the reward claimed (spec 007)", (p, data) =>
+            yield return new Fixture(274, "album-claimed", "Scene Album: the chest claimed (spec 007)", (p, data) =>
             {
                 DesignApp app = AlbumApp(data, 68);
                 Run(app, p, 0.1f);
                 Tap(p, NavTouch(p, app, NavPlace.Album));
                 Run(app, p, 2.2f);
                 long before = app.Meta.Economy.Petals;
-                Tap(p, Page(p).ClaimButton);
-                Expect(app.Meta.Economy.Petals == before + 50, "Claim pays the scene's 50 Petals at once, with no purchase confirmation");
+                int returns = app.Meta.Economy.Charges(global::Bloomlings.Client.Services.Save.BoosterKind.Return);
+                int slots = app.Meta.Economy.Charges(global::Bloomlings.Client.Services.Save.BoosterKind.ExtraSlot);
+                AlbumRegions r = Page(p);
+                Tap(p, r.Chest);
+                Run(app, p, 0.3f);
+                Tap(p, AlbumLook.ChestTip(r, claim: true).Footer);
+                Expect(app.Meta.Economy.Petals == before + 200, "the tooltip's Claim pays the chest's 200 Petals at once, with no purchase confirmation");
+                Expect(app.Meta.Economy.Charges(global::Bloomlings.Client.Services.Save.BoosterKind.Return) == returns + 1
+                    && app.Meta.Economy.Charges(global::Bloomlings.Client.Services.Save.BoosterKind.ExtraSlot) == slots + 1, "and one Return and one Extra Slot charge");
                 Expect(app.Overlays.Count == 0, "no confirmation card opens for a gift");
-                Expect(app.Meta.Album.Claim(app.Meta.Album.Shown[0]) == 0 && app.Meta.Economy.Petals == before + 50, "the reward is claimed once");
+                Expect(app.Meta.Album.Claim(app.Meta.Album.Shown[0]) == null && app.Meta.Economy.Petals == before + 200, "the chest is claimed once");
+                Run(app, p, 0.3f);
+                Expect(app.AlbumTipOpen && Shows(p, "Reward claimed") && !Shows(p, "Claim"), "the tooltip stays and says the reward is claimed");
+                p.Dispatch(r.Scene.CenterX, r.Ribbon.CenterY);
+                Expect(!app.AlbumTipOpen, "a tap outside closes it");
                 Run(app, p, 0.2f);
                 Expect(Shows(p, "Reward claimed"), "the strip says the reward is claimed");
                 app.GoHome();
@@ -2500,7 +2533,7 @@ namespace Bloomlings.Playtest.Preview
                 Run(app, p, 0.1f);
                 Tap(p, Page(p).Previous);
                 Run(app, p, 0.6f);
-                Expect(Shows(p, "Reward claimed") && Shows(p, "Forest Glade"), "the claimed scene stays to look at");
+                Expect(Shows(p, "Reward claimed") && Shows(p, "Forest Glade") && !app.AlbumMoving, "the claimed scene stays to look at, its chest still");
             });
 
             yield return new Fixture(275, "album-locked", "Scene Album: the locked menu place before L27 (spec 007)", (p, data) =>
@@ -2513,6 +2546,21 @@ namespace Bloomlings.Playtest.Preview
                 Expect(app.Screen == Design.Screen.Album, "the locked Album opens its page");
                 Run(app, p, 0.4f);
                 Expect(Shows(p, "Available from level 27"), "the locked page says level 27");
+            });
+
+            yield return new Fixture(276, "album-chest-tip", "Scene Album: the chest's tooltip with its contents and Claim (spec 007)", (p, data) =>
+            {
+                DesignApp app = AlbumApp(data, 68);
+                Run(app, p, 0.1f);
+                Tap(p, NavTouch(p, app, NavPlace.Album));
+                Run(app, p, 2.2f);
+                AlbumRegions r = Page(p);
+                Tap(p, r.Chest);
+                Run(app, p, 0.5f);
+                Expect(app.AlbumTipOpen && p.Slots.Contains("ui.album.chest.tip"), "a tap on the ready chest opens its tooltip");
+                Expect(Shows(p, "Scene chest") && Shows(p, "200 Petals") && Shows(p, "1 Return") && Shows(p, "1 Extra Slot") && Shows(p, "Claim"), "the tooltip lists 200 Petals, one Return and one Extra Slot with Claim");
+                AlbumChestTipRegions t = AlbumLook.ChestTip(r, claim: true);
+                Expect(t.Bubble.Left >= r.Safe.Left && t.Bubble.Right <= r.Safe.Right && t.Bubble.Bottom <= r.Chest.Top, "the tooltip stays on the screen, above the chest");
             });
         }
 

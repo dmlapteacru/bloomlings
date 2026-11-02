@@ -4,7 +4,7 @@
 
 **Created**: 2026-11-02
 
-**Status**: Implemented (both builds; the owner's look check pending)
+**Status**: Implemented (both builds; the owner's look check pending); the chest of 2026-11-02 implemented
 
 **Input**: The owner, 2026-11-02 (translated): «Implement this page in the game. The Scene Album replaces the existing
 Collection menu item. For now just switch Collection off, do not delete it, but write down somewhere that it is ballast to
@@ -57,17 +57,27 @@ the neighbours' edges show; "Scene 2 / N" tells the place; no cycling at the end
 opens on (1) a scene with a new reveal or an unclaimed reward, else (2) the last viewed incomplete scene, else (3) the
 nearest incomplete one. Future scenes appear gradually: a scene shows once one of its objects is within 30 levels.
 
-### User Story 4 - Claim the finished scene's reward once (Priority: P2)
+### User Story 4 - Claim the finished scene's chest once (Priority: P2)
 
-At 4 / 4 the card wears the green check, the strip says "Scene complete" and a reward strip offers the Petals with a green
-Claim (a gift: no purchase confirmation). After the claim the strip reads "Reward claimed"; the card stays to look at; the
-claim is restored from the save and never paid twice (also across a cloud merge).
+The owner's change of 2026-11-02 (translated): «I want the progress (1 of 4, 4 of 4 …) to look like a progress bar. Keep the
+object medallions, just add a progress bar below them, and at the end of the bar there will be a chest — as if it is a
+little chest we give the player. When you tap the chest, a small tooltip pops up above the chest showing what we give, e.g.
+200 Petals, one Return booster and one new-slot booster. Everything should look like a chest.»
+
+Under the medallions a progress bar fills with the opened objects ("1 / 4" on it; its fill grows as a reveal comes back to
+colour) and runs into the scene chest (the owner's picture) at its right end. While the scene fills, the chest is dimmed
+and a tap shows its tooltip: the contents and "Open every object to get it". At 4 / 4 the card wears the green check, the
+caption says "Scene complete" and the chest glows and hops gently; a tap opens the tooltip with the contents and a green
+Claim (a gift: no purchase confirmation). After the claim the tooltip and the caption read "Reward claimed" and the chest
+wears the check ball; the card stays to look at; the claim is restored from the save and never paid twice (also across a
+cloud merge). The tooltip closes on a tap outside or a second tap on the chest and never blocks the swipe.
 
 ### Edge Cases
 
 - A picture no published level holds yet: the object stays grey and its sheet says "Arrives with new levels".
 - Past the last published level: "Continue playing" leads to "new levels soon" as Play does.
-- A server-authoritative economy has no album grant yet: Claim stays greyed and nothing is marked claimed (open point).
+- A server-authoritative economy has no album grant yet: the tooltip's Claim stays greyed and nothing is marked claimed
+  (open point).
 - A save older than this feature has no `album` section: everything open counts as new once (the first-fill animation).
 - A save whose `album` section is newer than the app is refused like a newer save.
 
@@ -92,8 +102,15 @@ claim is restored from the save and never paid twice (also across a cloud merge)
   "Unlocks after Level N", "Next level: M", "Continue playing" (starts the next available level).
 - **FR-010** Tap on an open object: name, check, "Level N completed".
 - **FR-011** The sheet closes by ×, swipe down or a tap outside, and lifts/shrinks the card when it would cover the object.
-- **FR-012** A complete scene's reward: Remote Config `economy.album.sceneReward` Petals (default 50, not fixed by the
-  owner), claimed once through the economy service, no purchase confirmation; "Reward claimed" after.
+- **FR-012** A complete scene's reward is its chest (the owner's change of 2026-11-02): one bundle of Petals, Return charges
+  and Extra Slot charges (Remote Config `economy.album.chest.petals` 200, `economy.album.chest.return` 1,
+  `economy.album.chest.slot` 1, after the owner's example; it was `economy.album.sceneReward`, 50 Petals), claimed once
+  through the economy service in one grant, no purchase confirmation. The chest (the owner's picture `Album/chest.png`)
+  stands at the right end of a progress bar under the medallions (a groove pressed into the strip, the green fill growing
+  with the reveals, "n / 4" on it): dimmed while the scene fills, glowing and hopping gently when ready, with the check
+  ball once claimed. A tap on it toggles a tooltip above it (the guides' parchment bubble) listing the contents with the
+  Petals lotus and the booster icons, and the green Claim when ready, "Reward claimed" after, else how it opens; a tap
+  outside closes it; a swipe still turns the card. The old reward strip is gone; "Scene complete" stays as the caption.
 - **FR-013** New reveals play a short colour return (0.5 s crossfade, staggered) on the next album open.
 - **FR-014** The save's optional `album` section (own `version` 1): claimed scenes, seen objects per scene, last viewed
   scene; merged as unions.
@@ -103,7 +120,7 @@ claim is restored from the save and never paid twice (also across a cloud merge)
 
 ## Success Criteria
 
-- Preview frames 271–275 render and their checks pass (1 / 4 with grey objects, a locked object's sheet, 4 / 4 with
-  Claim, after the claim, the locked place before L27).
+- Preview frames 271–276 render and their checks pass (1 / 4 with grey objects and the dimmed chest, a locked object's
+  sheet, 4 / 4 with the glowing chest, after the claim, the locked place before L27, the chest's tooltip with Claim).
 - The engine-free tests (`AlbumServiceTests`) cover the binding, the retroactive count, the order rule, the reward once,
   the save section and its migration.

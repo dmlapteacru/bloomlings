@@ -172,22 +172,48 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
-        public void TheReward_IsClaimedOnce_ThroughTheEconomy_AndOnlyWhenComplete()
+        public void TheChest_IsClaimedOnce_AsOneBundle_ThroughTheEconomy_AndOnlyWhenComplete()
         {
             AlbumService album = Service(out PlayerSave save, out EconomyService economy, out ProgressionService progression);
             AlbumScene forest = album.Catalog.Find("forest")!;
             progression.FastForward(16);
-            Assert.That(album.Claim(forest), Is.Zero, "the album is closed and the butterfly (L17) not won");
+            Assert.That(album.Claim(forest), Is.Null, "the album is closed and the butterfly (L17) not won");
             progression.FastForward(27);
-            int before = economy.Petals;
-            Assert.That(album.RewardPetals, Is.EqualTo(50), "Remote Config economy.album.sceneReward, 50 by default");
-            Assert.That(album.Claim(forest), Is.EqualTo(50));
-            Assert.That(economy.Petals, Is.EqualTo(before + 50));
-            Assert.That(album.Claim(forest), Is.Zero, "a second claim pays nothing");
-            Assert.That(economy.Petals, Is.EqualTo(before + 50));
+            int petals = economy.Petals;
+            int returns = economy.Charges(BoosterKind.Return);
+            int slots = economy.Charges(BoosterKind.ExtraSlot);
+            int shuffles = economy.Charges(BoosterKind.Shuffle);
+            int bursts = economy.Charges(BoosterKind.BloomBurst);
+            Assert.That(album.Chest, Is.EqualTo(new AlbumChest(200, 1, 1)), "Remote Config economy.album.chest.*: 200 Petals, one Return, one Extra Slot");
+            Assert.That(album.Claim(forest), Is.EqualTo(new AlbumChest(200, 1, 1)));
+            Assert.That(economy.Petals, Is.EqualTo(petals + 200));
+            Assert.That(economy.Charges(BoosterKind.Return), Is.EqualTo(returns + 1), "one Return charge");
+            Assert.That(economy.Charges(BoosterKind.ExtraSlot), Is.EqualTo(slots + 1), "one Extra Slot charge");
+            Assert.That(economy.Charges(BoosterKind.Shuffle), Is.EqualTo(shuffles), "nothing else");
+            Assert.That(economy.Charges(BoosterKind.BloomBurst), Is.EqualTo(bursts), "nothing else");
+            Assert.That(album.Claim(forest), Is.Null, "a second claim pays nothing");
+            Assert.That(economy.Petals, Is.EqualTo(petals + 200));
+            Assert.That(economy.Charges(BoosterKind.Return), Is.EqualTo(returns + 1));
+            Assert.That(economy.Charges(BoosterKind.ExtraSlot), Is.EqualTo(slots + 1));
             Assert.That(album.View(forest).RewardClaimed, Is.True);
-            Assert.That(album.Claim(album.Catalog.Find("airmail")!), Is.Zero, "an incomplete scene has no reward to claim");
+            Assert.That(album.Claim(album.Catalog.Find("airmail")!), Is.Null, "an incomplete scene has no chest to claim");
             Assert.That(save.Album.Claimed, Is.EquivalentTo(new[] { "forest" }));
+        }
+
+        [Test]
+        public void TheChest_FollowsRemoteConfig()
+        {
+            var config = new Dictionary<string, int>
+            {
+                ["economy.album.chest.petals"] = 350,
+                ["economy.album.chest.return"] = 2,
+                ["economy.album.chest.slot"] = 0,
+            };
+            AlbumService album = Service(out _, out EconomyService economy, out ProgressionService progression, config: new FixedConfig(config));
+            progression.FastForward(27);
+            int slots = economy.Charges(BoosterKind.ExtraSlot);
+            Assert.That(album.Claim(album.Catalog.Find("forest")!), Is.EqualTo(new AlbumChest(350, 2, 0)));
+            Assert.That(economy.Charges(BoosterKind.ExtraSlot), Is.EqualTo(slots), "a chest without a slot charge grants none");
         }
 
         [Test]
@@ -288,6 +314,62 @@ namespace Bloomlings.Client.Tests
             Assert.That(r.Scene.Width / r.Scene.Height, Is.EqualTo(853f / 1844f).Within(0.001f), "the scene is contain-fitted, never cropped");
         }
 
+        [Test]
+        public void TheProgressBar_RunsUnderTheMedallions_IntoTheChest_AndItsTooltipStaysOnScreen()
+        {
+            foreach ((float w, float h, Insets insets) in new[] { (1080f, 2340f, new Insets(110f, 63f)), (1080f, 1920f, new Insets(0f, 0f)), (1080f, 2520f, new Insets(120f, 60f)) })
+            {
+                AlbumRegions r = AlbumLook.Page(w, h, insets, 853, 1844);
+                string at = w + "x" + h;
+                Assert.That(r.Strip.Bottom, Is.LessThanOrEqualTo(r.NavTop), at + ": the strip stays above the bottom menu");
+                Assert.That(r.Card.Bottom, Is.LessThanOrEqualTo(r.Strip.Top), at + ": the card stays above the strip");
+                Assert.That(r.Bar.Left >= r.Strip.Left && r.Bar.Bottom <= r.Strip.Bottom, Is.True, at + ": the bar lies in the strip");
+                Assert.That(r.Bar.Right, Is.EqualTo(r.Chest.CenterX).Within(0.5f), at + ": the bar runs into the chest's middle");
+                Assert.That(r.Chest.Top <= r.Bar.Top && r.Chest.Bottom >= r.Bar.Bottom && r.Chest.Bottom <= r.Strip.Bottom, Is.True, at + ": the chest sits over the bar's end, in the strip");
+                for (int i = 0; i < 4; i++)
+                {
+                    Box disc = r.Medallion(i, 4);
+                    Assert.That(disc.Bottom, Is.LessThanOrEqualTo(r.Bar.Top), at + ": medallion " + i + " is above the bar");
+                    Assert.That(disc.Right, Is.LessThanOrEqualTo(r.Chest.Left), at + ": medallion " + i + " is left of the chest");
+                    Assert.That(r.MedallionTouch(i, 4).Height, Is.GreaterThanOrEqualTo(r.TouchMin - 0.01f), at);
+                }
+
+                Assert.That(r.ChestTouch.Width, Is.GreaterThanOrEqualTo(r.TouchMin - 0.01f), at + ": the chest is a touch target");
+                Assert.That(r.StatusLine.Top, Is.GreaterThanOrEqualTo(r.Bar.Bottom), at + ": the caption is under the bar");
+                foreach (bool claim in new[] { true, false })
+                {
+                    AlbumChestTipRegions t = AlbumLook.ChestTip(r, claim);
+                    Assert.That(t.Bubble.Left >= r.Safe.Left && t.Bubble.Right <= r.Safe.Right && t.Bubble.Top >= r.Header.Row.Bottom, Is.True, at + ": the tooltip stays on screen");
+                    Assert.That(t.Bubble.Bottom + t.Tail, Is.LessThanOrEqualTo(r.Chest.Top + (r.W * 0.02f)), at + ": the tooltip stands above the chest");
+                    Assert.That(t.TailX, Is.InRange(t.Bubble.Left, t.Bubble.Right), at);
+                    Assert.That(t.Footer.Bottom, Is.LessThanOrEqualTo(t.Bubble.Bottom), at + ": its footer stays inside");
+                }
+            }
+        }
+
+        [Test]
+        public void TheBar_FillsWithTheReveals_AndTheChestMovesOnlyWhenReady()
+        {
+            Assert.That(AlbumLook.BarShare(1, 4, 0, 0f), Is.EqualTo(0.25f));
+            Assert.That(AlbumLook.BarShare(4, 4, 3, 0f), Is.EqualTo(0.25f), "before the reveals play, only the earlier object counts");
+            Assert.That(AlbumLook.BarShare(4, 4, 3, 10f), Is.EqualTo(1f), "after them the bar is full");
+            float mid = AlbumLook.BarShare(4, 4, 3, AlbumLook.RevealDelay + (AlbumLook.RevealSeconds / 2f));
+            Assert.That(mid, Is.InRange(0.3f, 0.45f), "the fill grows with the first reveal's colour return");
+            Assert.That(AlbumLook.BarShare(0, 0, 0, 0f), Is.Zero);
+            Assert.That(AlbumLook.ChestState(false, false), Is.EqualTo(AlbumChestState.Filling));
+            Assert.That(AlbumLook.ChestState(true, false), Is.EqualTo(AlbumChestState.Ready));
+            Assert.That(AlbumLook.ChestState(true, true), Is.EqualTo(AlbumChestState.Claimed));
+            Assert.That(AlbumLook.ChestMotion(AlbumChestState.Filling, 1.3f), Is.EqualTo((1f, 0f, 0f)));
+            Assert.That(AlbumLook.ChestMotion(AlbumChestState.Claimed, 1.3f), Is.EqualTo((1f, 0f, 0f)));
+            (float scale, float hop, float glow) = AlbumLook.ChestMotion(AlbumChestState.Ready, AlbumLook.ChestHopSeconds / 2f);
+            Assert.That(hop, Is.LessThan(0f), "the ready chest hops up");
+            Assert.That(glow, Is.GreaterThan(0f));
+            Assert.That(scale, Is.InRange(1f, 1.1f));
+            Assert.That(AlbumCatalog.ChestPicture, Is.EqualTo("chest"));
+            string chest = Path.Combine(DevContent.RepositoryContentFolder, "..", "client", "Assets", "Bloomlings", "Art", "Album", "Resources", "Album", "chest.png");
+            Assert.That(File.Exists(chest), Is.True, "the owner's chest picture is in the album's folder");
+        }
+
         private static AlbumScene Scene(string id, int level) => new AlbumScene(id, "album.scene." + id, 10, 20, id + "-background", new[]
         {
             new AlbumObject("a", "t", "P" + (level * 3).ToString("0000"), level, id + "-a", 0, 0, 1, 1),
@@ -295,13 +377,27 @@ namespace Bloomlings.Client.Tests
             new AlbumObject("c", "t", "P" + ((level * 3) + 2).ToString("0000"), level + 2, id + "-c", 0, 0, 1, 1),
         });
 
-        private static AlbumService Service(out PlayerSave save, out EconomyService economy, out ProgressionService progression, AlbumCatalog? catalog = null, Func<string, int?>? levels = null)
+        private static AlbumService Service(out PlayerSave save, out EconomyService economy, out ProgressionService progression, AlbumCatalog? catalog = null, Func<string, int?>? levels = null, IRemoteConfigService? config = null)
         {
             save = PlayerSave.CreateNew("0a1b2c3d4e5f60718293a4b5c6d7e8f9", Today);
             economy = new EconomyService(save, EconomyConfig.Bundled, () => { });
             progression = new ProgressionService(save, UnlockRoadmap.Default, () => { });
             catalog ??= Catalog;
-            return new AlbumService(save, catalog, levels ?? AlbumService.PictureLevels(catalog, Published), new BundledRemoteConfigService(), economy, () => { });
+            return new AlbumService(save, catalog, levels ?? AlbumService.PictureLevels(catalog, Published), config ?? new BundledRemoteConfigService(), economy, () => { });
+        }
+
+        /// <summary>Remote Config with some int keys fixed, the rest at their defaults.</summary>
+        private sealed class FixedConfig : IRemoteConfigService
+        {
+            private readonly IReadOnlyDictionary<string, int> _ints;
+
+            public FixedConfig(IReadOnlyDictionary<string, int> ints) => _ints = ints;
+
+            public int Get(IntKey key) => _ints.TryGetValue(key.Name, out int value) ? value : key.Default;
+
+            public bool Get(BoolKey key) => key.Default;
+
+            public string Get(StringKey key) => key.Default;
         }
 
         /// <summary>A round level source whose levels 1..N hold the given pictures.</summary>

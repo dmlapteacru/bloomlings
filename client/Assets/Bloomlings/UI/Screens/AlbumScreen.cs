@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Bloomlings.Client.Gameplay.Themes;
+using Bloomlings.Client.Art;
 using Bloomlings.Client.Meta.Album;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Client.UI.Localization;
@@ -17,8 +18,9 @@ namespace Bloomlings.Client.UI.Screens
     /// <c>AlbumScreen</c>), a place of the bottom menu in the Collection's place: the pages' header, the scene's name on the
     /// name plate, one big vertical card (the owner's layers in the popups' wooden card frame, locked objects grey at 82 %,
     /// new reveals coming back to colour) with its neighbours' edges, the existing raised ‹ › buttons and a horizontal swipe
-    /// turning one card with a snap (no cycling), the medallions and counts, a complete scene's reward strip (Claim, then
-    /// "Reward claimed"), and the object sheet from the bottom (the colour preview, the name, "Unlocks after Level N",
+    /// turning one card with a snap (no cycling), the medallions, the progress bar filling with the reveals and the scene
+    /// chest at its end (the owner's change of 2026-11-02: dimmed while the scene fills, glowing and hopping when complete,
+    /// the check once claimed; a tap opens its tooltip with the contents and, when ready, the green Claim), and the object sheet from the bottom (the colour preview, the name, "Unlocks after Level N",
     /// "Next level: M" and "Continue playing", or "Level N completed"; closed by its ×, a swipe down or a tap outside; the
     /// card shrinks over it where it would cover the object). A tap picks an object by its layer's alpha
     /// (<see cref="AlbumLook.HitObject"/>). Before L27 the locked notice. Layout and motion are the kit's
@@ -41,10 +43,24 @@ namespace Bloomlings.Client.UI.Screens
         private Image _plate = null!;
         private TextMeshProUGUI _plateLabel = null!, _count = null!, _status = null!, _sceneLine = null!;
         private Button _previous = null!, _next = null!;
-        private RectTransform _strip = null!, _reward = null!, _claimed = null!;
-        private Image _petal = null!;
-        private TextMeshProUGUI _amount = null!, _claimedLabel = null!;
-        private Button _claim = null!;
+        private RectTransform _strip = null!;
+
+        // The progress bar and the chest (spec 007 FR-012).
+        private Image _barTrack = null!, _barFill = null!, _chestHit = null!;
+        private RawImage _chestGrey = null!, _chestColour = null!;
+        private readonly Image[] _chestGlow = new Image[GardenLook.SpeedGlowLayers];
+        private RectTransform _chestCheck = null!;
+        private AlbumChestState _chestState;
+        private int _barOpen, _barTotal, _barReveals;
+
+        // The chest's tooltip.
+        private RectTransform _tip = null!;
+        private Image _tipTail = null!, _tipBubble = null!, _tipLock = null!;
+        private RectTransform _tipCheck = null!;
+        private TextMeshProUGUI _tipTitle = null!, _tipFooter = null!;
+        private readonly Image[] _tipIcons = new Image[3];
+        private readonly TextMeshProUGUI[] _tipTexts = new TextMeshProUGUI[3];
+        private Button _tipClaim = null!;
         private readonly CardView?[] _cardViews = new CardView?[3];
         private int _index;
         private int _turnStep;
@@ -91,19 +107,25 @@ namespace Bloomlings.Client.UI.Screens
             s._strip = strip;
             UiKit.RaisedRow(stripLayout, s._strip, 0.3f);
             s._medallions = UiFactory.Stretch(UiFactory.CreateRect("Medallions", s._page));
-            s._count = MetaShelfView.Label("Count", s._page, string.Empty, ProfileGameDesign.Name);
+            // The progress bar: the light wood groove pressed into the strip and the glossy green fill raised in it.
+            s._barTrack = UiFactory.CreateImage("BarTrack", s._page, null, Color.white);
+            PictureFit.On(s._barTrack, (w, h) => ProceduralSprites.Picture("ui.groove", w, h, UiRaster.Groove));
+            s._barFill = UiFactory.CreateImage("BarFill", s._page, null, Color.white);
+            PictureFit.On(s._barFill, (w, h) => ProceduralSprites.ButtonFace(GardenLook.Green, w, h, 0.5f, true));
+            s._count = MetaShelfView.Label("Count", s._page, string.Empty, ProfileGameDesign.Progress, ShopBodyDesign.Letters);
+            for (int i = 0; i < s._chestGlow.Length; i++)
+            {
+                s._chestGlow[i] = UiKit.RoundRect("ChestGlow" + i, s._page, UiTheme.Of(C.GardenGlow.WithAlpha(0.22f)), b => b.Width / 2f);
+            }
+
+            s._chestGrey = ChestImage("ChestGrey", s._page, AlbumArt.LockedPicture(AlbumCatalog.ChestPicture));
+            s._chestColour = ChestImage("Chest", s._page, AlbumArt.Picture(AlbumCatalog.ChestPicture));
+            s._chestCheck = CheckBadge("ChestCheck", s._page);
+            s._chestHit = UiFactory.CreateImage("ChestTouch", s._page, null, Color.clear, raycast: true);
+            UiKit.TapTarget(s._chestHit, s.ToggleTip, press: true);
             s._status = MetaShelfView.Label("Status", s._page, Loc.T("album.complete"), ProfileGameDesign.Item);
+            s._status.alignment = TextAlignmentOptions.Left;
             s._sceneLine = MetaShelfView.Label("SceneIndex", s._page, string.Empty, ProfileGameDesign.Info);
-            (RectTransform reward, BoxLayout rewardLayout) = UiKit.Element("Reward", s._page);
-            s._reward = reward;
-            UiKit.RaisedRow(rewardLayout, s._reward, 0.4f);
-            s._petal = UiKit.PetalIcon("Petals", s._reward);
-            s._amount = MetaShelfView.Label("Amount", s._reward, string.Empty, ProfileGameDesign.Name);
-            s._amount.alignment = TextAlignmentOptions.Left;
-            s._claim = UiKit.PrimaryButton("Claim", s._reward, Loc.T("album.claim"), s.Claim, ProfileGameDesign.Action);
-            s._claimed = UiFactory.Stretch(UiFactory.CreateRect("Claimed", s._reward));
-            s._claimedLabel = MetaShelfView.Label("ClaimedLabel", s._claimed, Loc.T("album.reward_claimed"), ProfileGameDesign.Name);
-            s._claimedLabel.alignment = TextAlignmentOptions.Left;
             s._lockedFrame = UiKit.CardFrame("LockedPanel", root.transform, false);
             s._notice = UiKit.LockedNotice("Locked", root.transform);
             // A horizontal swipe on the card band turns one card (spec 005 FR-041: a drag never taps).
@@ -114,6 +136,7 @@ namespace Bloomlings.Client.UI.Screens
             }
 
             s._header = UiKit.PageHeader(root.transform, Loc.T("album.heading"), s.Back, petals != null, onStore);
+            s.BuildTip(root.transform);
             s.BuildSheet(root.transform);
             s._root.SetActive(false);
             return s;
@@ -126,6 +149,7 @@ namespace Bloomlings.Client.UI.Screens
             _shownPetals = -1;
             _sheetObject = null;
             _sheet.gameObject.SetActive(false);
+            _tip.gameObject.SetActive(false);
             _turnAt = -10f;
             _lockedFrame.gameObject.SetActive(false);
             _notice.gameObject.SetActive(false);
@@ -143,6 +167,7 @@ namespace Bloomlings.Client.UI.Screens
             _root.SetActive(true);
             _shownPetals = -1;
             _sheet.gameObject.SetActive(false);
+            _tip.gameObject.SetActive(false);
             _page.gameObject.SetActive(false);
             var f = UiKit.ScreenFrame();
             LockedPageRegions r = ScreenLayout.LockedPage(f.Width, f.Height, f.Insets);
@@ -168,7 +193,11 @@ namespace Bloomlings.Client.UI.Screens
 
         private void Back()
         {
-            if (_sheetObject != null)
+            if (_tip.gameObject.activeSelf)
+            {
+                CloseTip();
+            }
+            else if (_sheetObject != null)
             {
                 CloseSheet();
             }
@@ -186,6 +215,7 @@ namespace Bloomlings.Client.UI.Screens
                 return;
             }
 
+            CloseTip();
             _index = next;
             _turnStep = Math.Sign(step);
             _turnAt = Time.unscaledTime;
@@ -221,10 +251,17 @@ namespace Bloomlings.Client.UI.Screens
             _previous.interactable = _index > 0;
             _next.interactable = _index < shown.Count - 1;
             _count.text = Loc.F("album.count", view.OpenCount, view.Total);
-            _status.gameObject.SetActive(view.Complete);
             _sceneLine.text = Loc.F("album.scene_index", _index + 1, shown.Count);
+            _barOpen = view.OpenCount;
+            _barTotal = view.Total;
+            _barReveals = 0;
+            foreach (string id in _reveals)
+            {
+                _barReveals += view.Find(id)?.Open == true ? 1 : 0;
+            }
+
             BuildMedallions(view);
-            ShowReward(view);
+            ShowChest(view);
             Layout();
         }
 
@@ -271,44 +308,59 @@ namespace Bloomlings.Client.UI.Screens
             }
         }
 
-        private void ShowReward(AlbumSceneView view)
+        /// <summary>The chest's state for the shown scene: its dim or colour, its check, the caption ("Scene complete" or "Reward claimed").</summary>
+        private void ShowChest(AlbumSceneView view)
         {
-            _reward.gameObject.SetActive(view.Complete);
-            if (!view.Complete)
+            _chestState = AlbumLook.ChestState(view.Complete, view.RewardClaimed);
+            bool filling = _chestState == AlbumChestState.Filling;
+            _chestGrey.gameObject.SetActive(filling && _chestGrey.texture != null);
+            _chestColour.color = new Color(1f, 1f, 1f, filling ? AlbumLook.ChestFillingColour : 1f);
+            _chestCheck.gameObject.SetActive(_chestState == AlbumChestState.Claimed);
+            foreach (Image glow in _chestGlow)
             {
-                return;
+                glow.gameObject.SetActive(_chestState == AlbumChestState.Ready);
             }
 
-            Box row = _r.Reward;
-            UiKit.PlaceScreen(_reward, row);
-            bool claimed = view.RewardClaimed;
-            _petal.gameObject.SetActive(!claimed);
-            _amount.gameObject.SetActive(!claimed);
-            _claim.gameObject.SetActive(!claimed);
-            _claimed.gameObject.SetActive(claimed);
-            float icon = row.Height * 0.62f;
-            if (claimed)
-            {
-                UiKit.PlaceBox(_claimed, row, row);
-                for (int i = _claimed.childCount - 1; i >= 0; i--)
-                {
-                    if (_claimed.GetChild(i).name == "Check")
-                    {
-                        Destroy(_claimed.GetChild(i).gameObject);
-                    }
-                }
+            _status.gameObject.SetActive(view.Complete);
+            _status.text = view.RewardClaimed ? Loc.T("album.reward_claimed") : Loc.T("album.complete");
+        }
 
-                RectTransform check = CheckBadge("Check", _claimed);
-                UiKit.PlaceBox(check, Box.FromCenter(row.Left + (row.Height * 0.55f), row.CenterY, icon * 0.8f, icon * 0.8f), row);
-                UiKit.PlaceBox(_claimedLabel.rectTransform, new Box(row.Left + row.Height, row.Top + (row.Height * 0.2f), row.Right - (row.Height * 0.3f), row.Bottom - (row.Height * 0.2f)), row);
-                return;
+        /// <summary>Places the bar's fill at its share now (growing with the reveals) and the chest with its breath, hop and glow.</summary>
+        private void LayoutChest()
+        {
+            AlbumRegions r = _r;
+            float shown = Time.unscaledTime - _shownAt;
+            Box? fill = r.BarFill(AlbumLook.BarShare(_barOpen, _barTotal, _barReveals, shown));
+            _barFill.gameObject.SetActive(fill != null);
+            if (fill != null)
+            {
+                UiKit.PlaceScreen(_barFill.rectTransform, fill.Value);
             }
 
-            _amount.text = Loc.F("album.reward_amount", NumberText.Group(_album.RewardPetals));
-            UiKit.PlaceBox(_petal.rectTransform, Box.FromCenter(row.Left + (row.Height * 0.6f), row.CenterY, icon, icon), row);
-            UiKit.PlaceBox(_amount.rectTransform, new Box(row.Left + (row.Height * 1.05f), row.Top + (row.Height * 0.2f), row.Left + (row.Width * 0.45f), row.Bottom - (row.Height * 0.2f)), row);
-            UiKit.PlaceBox((RectTransform)_claim.transform, _r.ClaimButton, row);
-            _claim.interactable = _album.CanPay;
+            (float scale, float hop, float glow) = AlbumLook.ChestMotion(_chestState, shown);
+            Box c = r.Chest;
+            float w = c.Width * scale;
+            float h = c.Height * scale;
+            float bottom = c.Bottom + (hop * c.Height);
+            var box = new Box(c.CenterX - (w / 2f), bottom - h, c.CenterX + (w / 2f), bottom);
+            UiKit.PlaceScreen(_chestGrey.rectTransform, box);
+            UiKit.PlaceScreen(_chestColour.rectTransform, box);
+            for (int i = 0; i < _chestGlow.Length; i++)
+            {
+                float radius = c.Width * (0.36f + (0.05f * (_chestGlow.Length - i)));
+                UiKit.PlaceScreen(_chestGlow[i].rectTransform, Box.FromCenter(c.CenterX, c.CenterY + (c.Height * 0.05f), radius * 2f, radius * 2f));
+                _chestGlow[i].color = UiTheme.Of(C.GardenGlow.WithAlpha(glow * 0.3f));
+            }
+        }
+
+        private static RawImage ChestImage(string name, Transform parent, Texture2D? texture)
+        {
+            RawImage image = new GameObject(name, typeof(RectTransform)).AddComponent<RawImage>();
+            image.transform.SetParent(parent, false);
+            image.texture = texture;
+            image.raycastTarget = false;
+            image.gameObject.SetActive(texture != null);
+            return image;
         }
 
         /// <summary>Places the page for the current slide (a turn's snap) and lift (the sheet over the chosen object).</summary>
@@ -327,9 +379,13 @@ namespace Bloomlings.Client.UI.Screens
             UiKit.PlaceScreen((RectTransform)_previous.transform, r.Previous);
             UiKit.PlaceScreen((RectTransform)_next.transform, r.Next);
             UiKit.PlaceScreen(_strip, r.Strip);
-            UiKit.PlaceScreen(_count.rectTransform, r.CountLine);
+            UiKit.PlaceScreen(_barTrack.rectTransform, r.Bar);
+            UiKit.PlaceScreen(_count.rectTransform, new Box(r.Bar.Left, r.Bar.Top, r.Chest.Left, r.Bar.Bottom));
+            UiKit.PlaceScreen(_chestCheck, r.ChestCheck);
+            UiKit.PlaceScreen(_chestHit.rectTransform, r.ChestTouch);
             UiKit.PlaceScreen(_status.rectTransform, r.StatusLine);
             UiKit.PlaceScreen(_sceneLine.rectTransform, r.SceneLine);
+            LayoutChest();
             float lift = 1f;
             CardView? centre = _cardViews[1];
             if (_sheetObject != null && centre != null)
@@ -396,6 +452,10 @@ namespace Bloomlings.Client.UI.Screens
             {
                 Layout();
             }
+            else if (_r != null && (_chestState == AlbumChestState.Ready || AlbumLook.Revealing(Time.unscaledTime - _shownAt, _reveals.Count)))
+            {
+                LayoutChest();
+            }
 
             // The colour's return of the new reveals, and the chosen object's golden outline.
             CardView? centre = _cardViews[1];
@@ -435,13 +495,95 @@ namespace Bloomlings.Client.UI.Screens
             }
         }
 
+        /// <summary>The tooltip's Claim: the chest once (Petals, a Return and an Extra Slot charge), a gift with no purchase confirmation; the tooltip stays and says "Reward claimed".</summary>
         private void Claim()
         {
             IReadOnlyList<AlbumScene> shown = _album.Shown;
-            if (_index < shown.Count && _album.Claim(shown[_index]) > 0)
+            if (_index < shown.Count && _album.Claim(shown[_index]) != null)
             {
-                ShowReward(_album.View(shown[_index]));
+                AlbumSceneView view = _album.View(shown[_index]);
+                ShowChest(view);
+                LayoutChest();
+                ShowTip();
             }
+        }
+
+        // ---- The chest's tooltip ----
+
+        private void BuildTip(Transform parent)
+        {
+            _tip = UiFactory.Stretch(UiFactory.CreateRect("ChestTip", parent));
+            // A tap anywhere outside closes it; a drag still reaches the page's swipe (the catcher handles no drag).
+            Image catcher = UiFactory.CreateImage("Outside", _tip, null, Color.clear, raycast: true);
+            UiFactory.Stretch(catcher.rectTransform);
+            UiKit.TapTarget(catcher, CloseTip);
+            _tipTail = UiKit.RoundRect("Tail", _tip, UiTheme.Of(C.ParchmentBottom), _ => UiKit.Units(6f));
+            _tipBubble = UiKit.CardFrame("Bubble", _tip, true);
+            _tipTitle = MetaShelfView.Label("Title", _tip, Loc.T("album.chest.title"), ProfileGameDesign.Name);
+            _tipIcons[0] = UiKit.PetalIcon("Petals", _tip);
+            _tipIcons[1] = UiKit.BoosterIcon("Return", _tip, "return");
+            _tipIcons[2] = UiKit.BoosterIcon("ExtraSlot", _tip, "extra_slot");
+            for (int i = 0; i < 3; i++)
+            {
+                _tipTexts[i] = MetaShelfView.Label("Text" + i, _tip, string.Empty, ProfileGameDesign.Item);
+                _tipTexts[i].alignment = TextAlignmentOptions.Left;
+            }
+
+            _tipClaim = UiKit.PrimaryButton("Claim", _tip, Loc.T("album.claim"), Claim, ProfileGameDesign.Action);
+            _tipLock = UiKit.ShapeImage("Lock", _tip, "ui.lock", C.InkBrownSoft);
+            _tipCheck = CheckBadge("Check", _tip);
+            _tipFooter = MetaShelfView.Label("Footer", _tip, string.Empty, ProfileGameDesign.Info);
+            _tipFooter.alignment = TextAlignmentOptions.Left;
+            _tip.gameObject.SetActive(false);
+        }
+
+        /// <summary>A tap on the chest: its tooltip opens, a second tap closes it.</summary>
+        private void ToggleTip()
+        {
+            if (_tip.gameObject.activeSelf)
+            {
+                CloseTip();
+            }
+            else if (_sheetObject == null && _r != null)
+            {
+                ShowTip();
+            }
+        }
+
+        private void CloseTip() => _tip.gameObject.SetActive(false);
+
+        /// <summary>Lays the tooltip out for the chest's state: the contents, then the green Claim, "Reward claimed" or how it opens.</summary>
+        private void ShowTip()
+        {
+            AlbumChestState state = _chestState;
+            AlbumChestTipRegions t = AlbumLook.ChestTip(_r, state == AlbumChestState.Ready);
+            _tip.gameObject.SetActive(true);
+            _tip.SetAsLastSibling();
+            _sheet.SetAsLastSibling();
+            UiKit.PlaceScreen(_tipBubble.rectTransform, t.Bubble);
+            UiKit.PlaceScreen(_tipTail.rectTransform, Box.FromCenter(t.TailX, t.Bubble.Bottom, t.Tail * 1.1f, t.Tail * 1.1f));
+            _tipTail.transform.localEulerAngles = new Vector3(0f, 0f, 45f);
+            UiKit.PlaceScreen(_tipTitle.rectTransform, t.Title);
+            AlbumChest chest = _album.Chest;
+            _tipTexts[0].text = Loc.F("album.chest.petals", NumberText.Group(chest.Petals));
+            _tipTexts[1].text = Loc.F("album.chest.booster", chest.Return, Loc.T("booster.return"));
+            _tipTexts[2].text = Loc.F("album.chest.booster", chest.ExtraSlot, Loc.T("booster.extra_slot"));
+            for (int i = 0; i < 3; i++)
+            {
+                UiKit.PlaceScreen(_tipIcons[i].rectTransform, t.Icons[i]);
+                UiKit.PlaceScreen(_tipTexts[i].rectTransform, t.Texts[i]);
+            }
+
+            _tipClaim.gameObject.SetActive(state == AlbumChestState.Ready);
+            _tipClaim.interactable = _album.CanPay;
+            _tipFooter.gameObject.SetActive(state != AlbumChestState.Ready);
+            _tipLock.gameObject.SetActive(state == AlbumChestState.Filling);
+            _tipCheck.gameObject.SetActive(state == AlbumChestState.Claimed);
+            UiKit.PlaceScreen((RectTransform)_tipClaim.transform, t.Footer);
+            UiKit.PlaceScreen(_tipFooter.rectTransform, t.Footer);
+            UiKit.PlaceScreen(_tipLock.rectTransform, t.FooterIcon);
+            UiKit.PlaceScreen(_tipCheck, t.FooterIcon);
+            _tipFooter.text = state == AlbumChestState.Claimed ? Loc.T("album.reward_claimed") : Loc.T("album.chest.locked");
         }
 
         // ---- The object sheet ----
@@ -488,6 +630,7 @@ namespace Bloomlings.Client.UI.Screens
                 return;
             }
 
+            CloseTip();
             _sheetObject = id;
             _sheetAt = Time.unscaledTime;
             AlbumSheetRegions s = _s;

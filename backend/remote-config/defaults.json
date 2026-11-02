@@ -58,10 +58,22 @@
       "min": 5,
       "type": "int"
     },
-    "economy.album.sceneReward": {
-      "default": 50,
+    "economy.album.chest.petals": {
+      "default": 200,
       "max": 5000,
-      "min": 1,
+      "min": 0,
+      "type": "int"
+    },
+    "economy.album.chest.return": {
+      "default": 1,
+      "max": 5,
+      "min": 0,
+      "type": "int"
+    },
+    "economy.album.chest.slot": {
+      "default": 1,
+      "max": 5,
+      "min": 0,
       "type": "int"
     },
     "economy.drop.everyLevels": {

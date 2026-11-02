@@ -58,8 +58,14 @@ tools/album/import_scene_pack.py            the pack → resources + catalog
 - **Card width**: the scene is contain-fitted at full height between the name plate and the progress strip, so the card
   is narrower than the mockup's (the owner's rule: never cropped); the medallions moved to a full-width progress strip
   under the card for big touch targets.
-- **Reward**: Remote Config `economy.album.sceneReward` (50, open question); through `EconomyService.Grant`; greyed in
-  the server-authoritative economy until a server grant exists.
+- **Reward**: the scene chest (the owner's change of 2026-11-02): `AlbumService.Chest` from Remote Config
+  `economy.album.chest.petals` / `.return` / `.slot` (200 + 1 + 1, open question), one `EconomyService.Grant(petals,
+  BoosterGrant)`; greyed in the server-authoritative economy until a server grant exists. The old key
+  `economy.album.sceneReward` was removed (never shipped to a server).
+- **Progress bar and chest**: `AlbumRegions.Bar` / `BarFill` / `Chest` / `ChestTouch`, `AlbumLook.BarShare` (the fill grows
+  with each reveal's colour return), `ChestState` / `ChestMotion` (the waiting button's breath, a hop every 2.4 s, the
+  booster glow curve), `ChestTip` (the guides' bubble with its turned-square tail). The track is `UiRaster.Groove`, the
+  fill the green button face with gloss; the dimmed chest is its grey copy under the colour at 40 %.
 - **Locked look**: the playtest draws the grey copy under an 18 % black silhouette tint (= 82 % brightness); Unity bakes
   `AlbumLook.LockedPixels` once per layer.
 - **Analytics**: none (the contract has no album event).

@@ -2,6 +2,7 @@
 """Imports the owner's layered Scene Album pack into the client (spec 007-scene-album).
 
 Usage: python3 -I tools/album/import_scene_pack.py <pack dir> [<nav icon png>]
+       python3 -I tools/album/import_scene_pack.py --chest <chest png>
 
 <pack dir> is an unpacked `scene-album-layered-v1` pack (manifest.json and one folder per scene with background.png and
 one full-canvas transparent PNG per object). For every scene it writes, under
@@ -15,7 +16,13 @@ client/Assets/Bloomlings/Meta/Album/Resources/AlbumCatalog.json (scenes in TITLE
 layerOrder, each bound to its picture code; the level is looked up in the published round levels at runtime).
 With <nav icon png> it also writes the bottom menu's icon Icons/nav-album.png (alpha below 8 dropped as noise, trimmed,
 fitted into 512 x 512 with a 20 px margin, 8-bit palette, as the other menu icons D9-D13).
+With --chest it writes the scene chest (the owner's picture of 2026-11-02: a purple chest with gold bands, open, Petals and
+boosters inside) as Resources/Album/chest.png: alpha below 8 dropped as noise, every speck apart from the chest (a connected
+piece under 1 % of the picture) cleared, trimmed and fitted into 512 x 512 with a 12 px margin, full RGBA (its gradients
+band in a palette). The album draws it at the progress bar's end, dimmed while the scene fills (spec 007 FR-012).
 """
+from collections import deque
+
 import json
 import os
 import sys
@@ -84,5 +91,46 @@ def main(pack, icon=None):
             os.path.join(repo, "client/Assets/Bloomlings/Art/Icons/Resources/Icons/nav-album.png"), optimize=True)
 
 
+def chest(source):
+    repo = os.path.abspath(os.path.join(os.path.dirname(__file__), "..", ".."))
+    o = Image.open(source).convert("RGBA")
+    w, h = o.size
+    alpha = o.getchannel("A").point(lambda v: v if v >= 8 else 0)
+    data = alpha.load()
+    seen = bytearray(w * h)
+    keep = bytearray(w * h)
+    for y in range(h):
+        for x in range(w):
+            if data[x, y] == 0 or seen[(y * w) + x]:
+                continue
+            piece = []
+            queue = deque([(x, y)])
+            seen[(y * w) + x] = 1
+            while queue:
+                px, py = queue.popleft()
+                piece.append((px, py))
+                for nx, ny in ((px + 1, py), (px - 1, py), (px, py + 1), (px, py - 1)):
+                    if 0 <= nx < w and 0 <= ny < h and data[nx, ny] and not seen[(ny * w) + nx]:
+                        seen[(ny * w) + nx] = 1
+                        queue.append((nx, ny))
+            if len(piece) >= w * h // 100:
+                for px, py in piece:
+                    keep[(py * w) + px] = 1
+    for y in range(h):
+        for x in range(w):
+            if not keep[(y * w) + x]:
+                data[x, y] = 0
+    o.putalpha(alpha)
+    o = o.crop(alpha.getbbox())
+    s = min(488 / o.width, 488 / o.height)
+    o = o.resize((round(o.width * s), round(o.height * s)), Image.LANCZOS)
+    canvas = Image.new("RGBA", (512, 512), (0, 0, 0, 0))
+    canvas.paste(o, ((512 - o.width) // 2, (512 - o.height) // 2), o)
+    canvas.save(os.path.join(repo, "client/Assets/Bloomlings/Art/Album/Resources/Album/chest.png"), optimize=True)
+
+
 if __name__ == "__main__":
-    main(*sys.argv[1:])
+    if sys.argv[1:2] == ["--chest"]:
+        chest(sys.argv[2])
+    else:
+        main(*sys.argv[1:])

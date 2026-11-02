@@ -87,9 +87,12 @@ namespace Bloomlings.Client.Services.Config
         public static readonly IntKey PriceClearing = new IntKey("economy.price.clearing", 3500, 10, 50000);
         public static readonly IntKey PriceClearingPremium = new IntKey("economy.price.clearingPremium", 5000, 10, 50000);
 
-        // The Scene Album's one-time reward for a finished scene (spec 007 FR-012): 50 Petals until the owner fixes the
-        // amount (product/OPEN_QUESTIONS.md).
-        public static readonly IntKey AlbumSceneReward = new IntKey("economy.album.sceneReward", 50, 1, 5000);
+        // The Scene Album's chest, a finished scene's one-time reward (spec 007 FR-012 as changed by the owner on 2026-11-02:
+        // a bundle; it was economy.album.sceneReward, 50 Petals): Petals, Return charges and Extra Slot charges, 200 + 1 + 1
+        // after the owner's example until the owner fixes the contents (product/OPEN_QUESTIONS.md).
+        public static readonly IntKey AlbumChestPetals = new IntKey("economy.album.chest.petals", 200, 0, 5000);
+        public static readonly IntKey AlbumChestReturn = new IntKey("economy.album.chest.return", 1, 0, 5);
+        public static readonly IntKey AlbumChestSlot = new IntKey("economy.album.chest.slot", 1, 0, 5);
         public static readonly IntKey UnlockGrant = new IntKey("economy.unlockGrant", 1, 1, 3);
         public static readonly IntKey DropEveryLevels = new IntKey("economy.drop.everyLevels", 10, 2, 20);
 
@@ -129,7 +132,7 @@ namespace Bloomlings.Client.Services.Config
         {
             PetalsBase, PetalsCleanBonus, PetalsHardBonus, PetalsSuperHardBonus,
             PriceExtraSlot, PriceShuffle, PriceReturn, PriceBloomBurst,
-            PriceAvatarCommon, PriceAvatarRare, PriceAvatarSpecial, PriceClearingIntro, PriceClearing, PriceClearingPremium, AlbumSceneReward, UnlockGrant, DropEveryLevels,
+            PriceAvatarCommon, PriceAvatarRare, PriceAvatarSpecial, PriceClearingIntro, PriceClearing, PriceClearingPremium, AlbumChestPetals, AlbumChestReturn, AlbumChestSlot, UnlockGrant, DropEveryLevels,
             DailyRewardStep1, DailyRewardStep2, DailyRewardStep3, DailyRewardStep4, DailyRewardStep5,
             InterstitialFirstLevel, InterstitialMinSeconds, InterstitialMinLevels, RescuePerAttempt,
             FxBacklogThresholdMs,
