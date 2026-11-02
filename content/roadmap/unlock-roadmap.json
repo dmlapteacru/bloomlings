@@ -110,6 +110,12 @@
     },
     {
       "demoWithin": 0,
+      "kind": "system",
+      "level": 27,
+      "unlockId": "system.album"
+    },
+    {
+      "demoWithin": 0,
       "kind": "mechanic",
       "level": 28,
       "unlockId": "mechanic.layered_tile"

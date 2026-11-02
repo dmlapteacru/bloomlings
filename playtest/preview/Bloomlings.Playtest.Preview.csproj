@@ -53,6 +53,7 @@
     <Compile Include="../../client/Assets/Bloomlings/Meta/DailyChallenge/DailyChallengeRules.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/DailyReward/DailyRewardService.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/Collection/CollectionService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/Album/*.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/Profile/*.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/Clearing/*.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Gameplay/Themes/ThemeRotation.cs" />
@@ -80,6 +81,9 @@
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Icons/Resources/Icons/*.png" LogicalName="icons/%(Filename)%(Extension)" />
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Badges/Resources/Badges/*.png" LogicalName="badges/%(Filename)%(Extension)" />
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Decor/Resources/Decor/*.png" LogicalName="decor/%(Filename)%(Extension)" />
+    <!-- The owner's Scene Album scenes (spec 007), embedded without the extension as the backgrounds. -->
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Album/Resources/Album/*.png;../../client/Assets/Bloomlings/Art/Album/Resources/Album/*.jpg" LogicalName="album/%(Filename)" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Meta/Album/Resources/AlbumCatalog.json" LogicalName="album/AlbumCatalog.json" />
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/*.jpg" LogicalName="avatars/%(Filename)" />
     <!--
       The owner's animated heroes as flat frames (spec 005 FR-028, tools/heroanim; no 3D model in the game): the splash,

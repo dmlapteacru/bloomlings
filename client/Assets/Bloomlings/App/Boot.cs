@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using Bloomlings.Client.App.Progression;
+using Bloomlings.Client.Meta.Album;
 using Bloomlings.Client.Meta.Collection;
 using Bloomlings.Client.Meta.DailyChallenge;
 using Bloomlings.Client.Meta.DailyReward;
@@ -169,6 +170,26 @@ namespace Bloomlings.Client.App
             services.Register(new ProfileService(save, remote, clock, saves.Save, economy));
             var clearing = new ClearingService(save, remote, saves.Save, economy);
             services.Register(clearing);
+            // The Scene Album (spec 007): its scenes from Resources/AlbumCatalog.json, each object opened by the published
+            // round level holding its picture (looked up again when a content update changes the round set).
+            TextAsset? albumJson = Resources.Load<TextAsset>(AlbumCatalog.ResourceName);
+            AlbumCatalog albumCatalog = albumJson != null ? AlbumCatalog.Parse(albumJson.text) : AlbumCatalog.Empty;
+            IRoundLevelSource? albumSource = null;
+            Func<string, int?> albumLevels = AlbumService.PictureLevels(albumCatalog, roundContent);
+            albumSource = roundContent;
+            int? AlbumLevelOf(string picture)
+            {
+                IRoundLevelSource? now = services.TryGet(out RoundCatalogService? roundCatalog) ? roundCatalog!.Source : roundContent;
+                if (!ReferenceEquals(now, albumSource))
+                {
+                    albumSource = now;
+                    albumLevels = AlbumService.PictureLevels(albumCatalog, now);
+                }
+
+                return albumLevels(picture);
+            }
+
+            services.Register(new AlbumService(save, albumCatalog, AlbumLevelOf, remote, economy, saves.Save));
             clearing.Chose += id => analytics.CosmeticEquip(CosmeticsData.BoardOwner, id);
 
             var progression = new ProgressionService(save, UnlockRoadmap.Default, saves.Save);

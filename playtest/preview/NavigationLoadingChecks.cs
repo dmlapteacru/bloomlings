@@ -46,7 +46,7 @@ namespace Bloomlings.Playtest.Preview
                     ("animations", () => { app.Navigate(NavPlace.Shop); app.StoreTab = 1; app.ShopScrollOffset = 0; }),
                     ("wardrobe-scarf", () => { app.Navigate(NavPlace.Wardrobe); app.WardrobeBrowse.Select(CosmeticKind.Scarf); }),
                     ("leaderboard", () => app.Navigate(NavPlace.Leaderboard)),
-                    ("collection", () => app.Navigate(NavPlace.Collection)),
+                    ("album", () => app.Navigate(NavPlace.Album)),
                     ("profile", app.OpenProfile),
                     ("settings", () => app.OpenOverlay(Overlay.Settings)),
                 };

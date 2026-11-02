@@ -25,6 +25,8 @@ public static class PhoneTextureProfile
             _ when logical.StartsWith("Assets/brand/", StringComparison.Ordinal) => 768,
             // Full-screen gardens retain substantially more resolution than icons. Home's sharp courtyard stays intact.
             "Assets/backgrounds/home.jpg" => 1846,
+            // The Scene Album's layers (spec 007) share one 853 x 1844 canvas and show at about that size: kept as made.
+            _ when logical.StartsWith("Assets/album/", StringComparison.Ordinal) => int.MaxValue,
             _ when logical.StartsWith("Assets/backgrounds/", StringComparison.Ordinal) => 1600,
             _ => int.MaxValue,
         };

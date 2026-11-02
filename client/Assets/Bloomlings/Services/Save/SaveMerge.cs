@@ -19,7 +19,7 @@ namespace Bloomlings.Client.Services.Save
     /// date on each side (on the same day the more Daily Reward steps claimed), so a reward claimed on another device
     /// today is not claimable again; statistics keep the larger
     /// value of each counter; the profile keeps the base's name (else the other's) and the earlier joining day (spec 005
-    /// FR-037). Neither input is modified.
+    /// FR-037); the Scene Album's claimed rewards and seen reveals are unions (spec 007). Neither input is modified.
     /// </summary>
     public static class SaveMerge
     {
@@ -97,6 +97,19 @@ namespace Bloomlings.Client.Services.Save
             {
                 merged.Profile.JoinedAt = other.Profile.JoinedAt;
             }
+
+            // The Scene Album (spec 007): a reward claimed on either device stays claimed (never paid twice), a reveal seen
+            // on either is seen; the base's last scene, else the other's.
+            merged.Album.Claimed.UnionWith(other.Album.Claimed);
+            foreach (KeyValuePair<string, SortedSet<string>> scene in other.Album.Seen)
+            {
+                foreach (string item in scene.Value)
+                {
+                    merged.Album.MarkSeen(scene.Key, item);
+                }
+            }
+
+            merged.Album.LastViewed ??= other.Album.LastViewed;
 
             MergeDaily(merged.Daily, other.Daily);
             MergeCollection(merged.Collection, other.Collection);

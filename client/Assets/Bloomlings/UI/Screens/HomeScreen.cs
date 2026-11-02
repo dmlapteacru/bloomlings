@@ -52,13 +52,16 @@ namespace Bloomlings.Client.UI.Screens
         bool DailyRewardBadge = false,
         string? ProfileName = null,
         int MilestoneProgressLeaves=0,
-        bool DailyRewardCompleted=false);
+        bool DailyRewardCompleted=false,
+        bool AlbumAvailable=false,
+        bool AlbumNews=false);
 
     /// <summary>
     /// The Home buttons that are not places of the bottom menu: the Daily Challenge (US7), the header's profile avatar
     /// (the owner's request of 2026-10-04; it opens the profile page, spec 005 FR-037) and the
     /// promo scenes (spec 005 FR-032): No Ads opens the Remove Ads card, the Daily scene the Daily Reward card. The Store,
-    /// the Wardrobe, the Leaderboard and the Collection are the bottom menu's places (spec 005 FR-030).
+    /// the Wardrobe, the Leaderboard and the Scene Album (spec 007; it replaced the Collection) are the bottom menu's
+    /// places (spec 005 FR-030).
     /// </summary>
     public sealed record HomeFeatureActions(Action? OnDailyChallenge, Action? OnProfile = null, Action? OnNoAds = null, Action? OnDailyReward = null);
 
@@ -237,6 +240,7 @@ namespace Bloomlings.Client.UI.Screens
             "system.leaderboard" => _nav.PlaceRect(NavPlace.Leaderboard),
             "system.store" => _nav.PlaceRect(NavPlace.Shop),
             "system.wardrobe" => _nav.PlaceRect(NavPlace.Wardrobe),
+            "system.album" => _nav.PlaceRect(NavPlace.Album),
             "system.daily_challenge" => Visible(_daily),
             "system.milestone_25" => Visible(_teaser.gameObject),
             _ => null,
@@ -255,7 +259,7 @@ namespace Bloomlings.Client.UI.Screens
             Collection: model.CollectionAvailable,
             Rank: model.LeaderboardUnlocked,
             DailyChallenge: model.DailyChallengeAvailable,
-            FreeBoosterOffer: _freeBoosterShown);
+            FreeBoosterOffer: _freeBoosterShown) { Album = model.AlbumAvailable, AlbumNews = model.AlbumNews };
 
         /// <summary>
         /// Places every element of frame 2 or 3 on the reference regions (contracts/look.md §6.4; data-model rule 4:

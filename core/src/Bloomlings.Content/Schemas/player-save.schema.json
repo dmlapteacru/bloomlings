@@ -172,6 +172,21 @@
         "name": { "type": "string", "minLength": 1, "maxLength": 16 },
         "joinedAt": { "type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$" }
       }
+    },
+    "album": {
+      "description": "The Scene Album's state (spec 007-scene-album): the section's own format version, the scenes whose one-time reward is claimed, per scene the objects seen opened (the colour's return plays for the others) and the scene viewed last. Open objects are not stored: they follow from progression.highestCompletedLevel through the published round levels' pictures. Missing in older saves and until the album is first opened.",
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["version", "claimed", "seen"],
+      "properties": {
+        "version": { "type": "integer", "minimum": 1, "maximum": 1 },
+        "claimed": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } },
+        "seen": {
+          "type": "object",
+          "additionalProperties": { "type": "array", "uniqueItems": true, "items": { "type": "string", "minLength": 1 } }
+        },
+        "lastViewed": { "type": "string", "minLength": 1 }
+      }
     }
   },
   "$defs": {

@@ -128,6 +128,7 @@ namespace Bloomlings.Core.Progression
             new UnlockEntry(18, "mechanic.connected_pair", UnlockKind.Mechanic, 0, false),
             new UnlockEntry(20, "profile.four_families", UnlockKind.Profile, 0, false),
             new UnlockEntry(25, "system.milestone_25", UnlockKind.System, 0, false),
+            new UnlockEntry(27, "system.album", UnlockKind.System, 0, false),
             new UnlockEntry(28, "mechanic.layered_tile", UnlockKind.Mechanic, 0, false),
             new UnlockEntry(32, "profile.five_variants", UnlockKind.Profile, 0, false),
             new UnlockEntry(35, "mechanic.gate", UnlockKind.Mechanic, 0, false),

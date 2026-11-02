@@ -108,7 +108,7 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   first tap, the blocked entry, the kept charge, Return's slot, Bloom Burst's tiles; the profile 39–41: the page, the
   edit card's avatars, its name and frames; and the Store's Animations 42–43: the clearing styles' live previews, then
   their padlocks before L40; the lotus iris 44–47: the splash opening on Level 1, then the win's Next closing, closed
-  on "Level 13" and opening) to PNG in `playtest/preview/out/` (gitignored; a fixture's frames are only recorded and its
+  on "Level 13" and opening; the Scene Album 271–275: 1 / 4, a locked object's sheet, 4 / 4 with Claim, claimed, locked before L27) to PNG in `playtest/preview/out/` (gitignored; a fixture's frames are only recorded and its
   last one rasterized, `SkiaPainter.Flush`, so the whole board takes a few minutes) and checks
   slots, touch targets and the safe area; `-- --inventory` regenerates `specs/002-ux-design-board/asset-inventory.md`
   from the asset slot registry. `DOTNET_TieredCompilation=0 dotnet run -c Release --project playtest/preview -- --perf`
@@ -386,6 +386,18 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   "Claim" on the Daily Reward's ad steps, on the win's ×2, before "Free" on the jam's free rescue and Home's free booster
   (`GardenLook.AdMarkPillShare` of the pill), faded on a greyed button (`AdMarkDisabledAlpha`), in both builds. Never a
   video camera, a ▶, or another color for an ad; a new rewarded placement uses `Kit.AdMark` / `UiKit.AdMark` too.
+- The Scene Album (spec 007-scene-album, the owner's UX of 2026-11-02): a bottom-menu page in the Collection's place
+  (`NavPlace.Album`, the owner's open-album icon `Icons/nav-album.png`), open from L27 (`system.album` in the roadmap, a
+  locked place before). Each scene is the owner's layered pack (`Art/Album/Resources/Album/<scene>-background.jpg` and
+  cropped object PNGs, catalog `Meta/Album/Resources/AlbumCatalog.json` from `tools/album/import_scene_pack.py`); an
+  object opens when the published round level holding its picture is won (`AlbumService`, engine-free: binding by picture
+  code, retroactive, scenes shown 30 levels ahead, opening on news / last viewed incomplete / nearest incomplete, the
+  one-time reward `economy.album.sceneReward` without a purchase confirmation, the save's optional `album` section with its
+  own version). Layout and motion are the kit's `AlbumLook` (card contain-fitted, never cropped; locked layers greyscale at
+  82 %; alpha hit test; the bottom sheet and its lift; colour return; snap); the playtest's `AlbumScreen` and Unity's
+  `AlbumScreen` / `AlbumArt` reuse the header, the raised ‹ ›, the card frame, the primary button, the check ball and the
+  alert badge (the menu's "!" while a reveal or reward is new). Preview frames 271–275. The Collection is switched off,
+  not deleted (ballast, `product/OPEN_QUESTIONS.md`): its screens and data stay, wins still record its pictures.
 - The owner's pictures (3D heroes and poses, backgrounds, logo) are listed with sizes and slots in
   `specs/005-reference-look/pictures.md` (names in `OwnerPictures` and `CharacterArt`): `Art/Backgrounds/Resources/`,
   `Art/Brand/Resources/` (Unity `OwnerArt`; the playtest APKs carry them as assets, the preview embeds them) and the artgen folder's `3d/` (record them with

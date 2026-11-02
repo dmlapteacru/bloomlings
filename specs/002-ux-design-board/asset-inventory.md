@@ -34,7 +34,7 @@ How to read the columns:
 | Specials | 7 | 0 | 7 |
 | Pods and slots | 20 | 0 | 20 |
 | Booster icons | 11 | 0 | 11 |
-| UI kit | 103 | 0 | 103 |
+| UI kit | 109 | 0 | 109 |
 | Materials | 3 | 0 | 3 |
 | Currency and rewards | 5 | 0 | 5 |
 | Collection frames | 2 | 0 | 2 |
@@ -42,7 +42,7 @@ How to read the columns:
 | Visual effects | 12 | 5 | 17 |
 | Typography | 3 | 0 | 3 |
 | Audio | 11 | 3 | 14 |
-| **All** | **299** | **40** | **339** |
+| **All** | **305** | **40** | **345** |
 
 ## Brand
 
@@ -336,7 +336,7 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `ui.ad.outline` | Rewarded-ad mark's dark blue outline | 4, 10, 15 | Round every `ui.ad` | normal | Icon | no | Launch | shape `ui.ad.outline` |
 | `ui.alert` | Exclamation mark | 3 | Home: the Daily Reward's "!" badge (spec 005 FR-050) | normal | Icon | no | Launch | shape `ui.alert` |
 | `ui.shirt` | Wardrobe glyph (the bottom menu's stand-in) | 3 | Bottom menu (while `Icons/nav-wardrobe.png` is missing) | normal | Icon | no | Launch | shape `ui.shirt` |
-| `ui.grid` | Collection glyph (the bottom menu's stand-in) | 3 | Bottom menu (while `Icons/nav-collection.png` is missing) | normal | Icon | no | Launch | shape `ui.grid` |
+| `ui.grid` | Scene Album glyph (the bottom menu's stand-in; the switched-off Collection's too) | 3 | Bottom menu (while `Icons/nav-album.png` is missing) | normal | Icon | no | Launch | shape `ui.grid` |
 | `ui.sun` | Daily Challenge glyph | 3 | Home Daily Challenge card | normal; done | Small | no | Launch | shape `ui.sun` |
 | `ui.person` | Player avatar placeholder | 5 | Leaderboard page; profile | any tint | Small | no | Launch | shape `ui.person` |
 | `ui.symbols` | Symbols mode glyph (a heart, a diamond and a triangle) of its Settings row (spec 006 FR-047) | 19 | Settings | normal | Small | no | Launch | shape `ui.symbols` |
@@ -353,9 +353,15 @@ signs, parchment cards with a brown outline, and sentence-case labels in Nunito.
 | `icon.nav.wardrobe` | Bottom menu icon: Wardrobe (the owner's picture `Icons/nav-wardrobe.png`, spec 005 pictures.md D10) | 2, 3, 5, 6, 17 | Bottom menu (on the plank; in the medallion when active); locked notice | on the plank; in the medallion; pressed; locked (padlock badge) | Small | no | Launch | the `ui.shirt` glyph in its color over a darker outline until the picture exists |
 | `icon.nav.home` | Bottom menu icon: Home (the owner's picture `Icons/nav-home.png`, spec 005 pictures.md D11) | 2, 3, 5, 6, 17 | Bottom menu (on the plank; in the medallion when active) | on the plank; in the medallion; pressed | Small | no | Launch | the `special.fountain` glyph in its color over a darker outline until the picture exists |
 | `icon.nav.leaderboard` | Bottom menu icon: Leaderboard (the owner's picture `Icons/nav-leaderboard.png`, spec 005 pictures.md D12) | 2, 3, 5, 6, 17 | Bottom menu (on the plank; in the medallion when active); locked notice | on the plank; in the medallion; pressed; locked (padlock badge) | Small | no | Launch | the `ui.trophy` glyph in its color over a darker outline until the picture exists |
-| `icon.nav.collection` | Bottom menu icon: Collection (the owner's picture `Icons/nav-collection.png`, spec 005 pictures.md D13) | 2, 3, 5, 6, 17 | Bottom menu (on the plank; in the medallion when active); locked notice | on the plank; in the medallion; pressed; locked (padlock badge) | Small | no | Launch | the `ui.grid` glyph in its color over a darker outline until the picture exists |
+| `icon.nav.album` | Bottom menu icon: Album (the owner's picture `Icons/nav-album.png`, the open album of 2026-11-02, spec 007; it replaced the Collection's D13) | 2, 3, 5, 6, 17 | Bottom menu (on the plank; in the medallion when active); locked notice | on the plank; in the medallion; pressed; locked (padlock badge) | Small | no | Launch | the `ui.grid` glyph in its color over a darker outline until the picture exists |
 | `ui.nav.lock` | Bottom menu: the padlock badge of a locked place | 2, 5, 6, 17 | Bottom menu (a locked place's icon on the plank); locked notice | locked; pressed (squashes with its icon) | Icon | no | Launch | the outfit cards' padlock badge (`Kit.LockBadge`): the switches' round cream button (`UiRaster.ToggleKnob`, spec 005 FR-048) in a `cream.line` ring with the brown `ui.lock`, over a soft shadow, 0.34 of the icon's side at its lower right inside the plank's band |
 | `ui.locked.notice` | Locked notice: "Available from level N" on a locked place's page | 5, 6, 17 | The Store, Wardrobe, Leaderboard and Collection pages (before their unlock) | Shop; Wardrobe; Leaderboard; Collection | Large | no | Launch | the place's owner icon (or its stand-in glyph) 0.4 of the area's width with the padlock badge on its lower right, then "Available from level N" in `type.title` `ink.brown` and "Keep playing to unlock it!" in `type.body` `ink.brown_soft`, centered, in the pages' wooden card frame with the corner flowers (spec 005 FR-049) |
+| `ui.album.scene` | Scene Album: the owner's layered scene (`Album/<scene>/background.jpg` and one cropped transparent PNG per object, all on one canvas; spec 007) | 271, 272, 273, 274 | Scene Album page: the centre card and its neighbours' edges; the object sheet's preview; the medallions | object locked (greyscale, 82 % brightness); open (full colour); the colour's return (0.5 s crossfade) | Screen | no | Launch | the owner's pictures, contain-fitted, never cropped; while a picture is missing, the card's cream panel |
+| `ui.album.card` | Scene Album: the vertical scene card | 271, 272, 273, 274 | Scene Album page (one card at a time, its neighbours' edges showing; a horizontal swipe or the arrows turn it with a snap) | centre; neighbour; complete (the green check badge on its corner); lifted over the object sheet | Large | no | Launch | the popups' wooden card frame (`Kit.CardFrame` / `UiKit.CardFrame`) snug round the contain-fitted scene |
+| `ui.album.medallion` | Scene Album: an object's medallion in the progress strip | 271, 273, 274 | Scene Album page (one per object, a big touch target for small objects) | locked (grey object); open (colour, the green check ball); chosen (gold ring) | Small | no | Launch | a cream disc in a wooden ring holding the object's layer, contain-fitted |
+| `ui.album.outline` | Scene Album: the thin golden outline of a tapped object | 272 | Scene Album page (while its object sheet is open) | pulse; steady | Large | no | Launch | the object's silhouette in `medal.gold` drawn round it (eight offset copies), pulsing once |
+| `ui.album.sheet` | Scene Album: the object sheet (a bottom sheet about a third of the screen) | 272 | Scene Album page (a tapped object or medallion) | locked object ("Unlocks after Level N", "Next level: M", Continue playing); open object ("Level N completed") | Large | no | Launch | the popups' wooden card frame (`Kit.CardFrame`) from the bottom of the screen with a grab handle, the close, the object's colour preview in a well, its name and lines, and the green raised primary button |
+| `ui.album.reward` | Scene Album: the finished scene's reward strip | 273, 274 | Scene Album page (a complete scene) | Claim (the green raised button); claimed ("Reward claimed" with the check) | Medium | no | Launch | a raised cream row (`Kit.RaisedRow`) with the Petals lotus and the amount, and the green raised Claim button |
 | `ui.avatar` | Profile avatar picture (the owner's `Avatars/*.jpg`, pictures.md I; spec 005 FR-037): it fills the avatar's whole disc inside a thin `cream.line` ring, on the cream lip (`AvatarLook`; the owner, 2026-10-06) | 2, 3, 5 | Home's avatar button; the profile page; its edit card; the player's own leaderboard row | each of the 14 avatars; owned; for sale (price pill); picked (check) | Small | no | Launch | the profile hero (`char.hero3d.bloom`) on the soft green middle while the picture is missing |
 | `ui.achievement` | Achievement tile (spec 005 FR-037) | 2 | The profile page's 3 × 3 Achievements grid | before bronze (padlock); bronze; silver; gold (check) | Small | no | Launch | a cream tile in a thin wooden rim (`ui.tile.framed`, spec 005 FR-047; no flowers since FR-049) filled by the achievement's illustrated badge (faded before bronze), with the count toward the next tier over its foot and the name under it |
 | `ui.promo.no_ads` | Home promo scene: No Ads (the owner's layers `Decor/promo-noads-*.png`: the short stand, Sprig, the crossed AD sign) | 2, 3 | Home (left, under the logo, until Remove Ads is owned); the Remove Ads card | idle; attention (Sprig shoves and tumbles the sign off the stand, hops, then resets); pressed | Medium | no | Launch | the label "No Ads" on a wooden sign (`ui.sign.wood`) until the pictures exist |

@@ -197,6 +197,29 @@ collection.title,Collection
 collection.count_one,{0} picture
 collection.count_many,{0} pictures
 collection.completed,Completed at Level {0}
+album.title,Album
+album.heading,Scene Album
+album.count,{0} / {1}
+album.complete,Scene complete
+album.scene_index,Scene {0} / {1}
+album.unlocks_after,Unlocks after Level {0}
+album.coming_soon,Arrives with new levels
+album.next_level,Next level: {0}
+album.continue,Continue playing
+album.level_completed,Level {0} completed
+album.claim,Claim
+album.reward_amount,+{0}
+album.reward_claimed,Reward claimed
+album.scene.forest,Forest Glade
+album.scene.airmail,Air Mail Garden
+album.object.forest.owl,Owl
+album.object.forest.hive,Beehive
+album.object.forest.fox,Fox
+album.object.forest.butterfly,Butterfly
+album.object.airmail.mill,Windmill
+album.object.airmail.airship,Airship
+album.object.airmail.fox,Postman Fox
+album.object.airmail.bicycle,Flower Bicycle
 demo.skip,Skip
 demo.tap_continue,Tap to continue
 demo.first_tap,Tap a pod to send its Bloomlings
@@ -240,6 +263,7 @@ demo.leaderboard,Your rank among all gardeners
 demo.store,The Store is open: Petals and boosters
 demo.milestones,Every 25 levels bring a reward
 demo.wardrobe,Dress up your Bloomlings in the Wardrobe
+demo.album,The Scene Album is open: win levels to color its scenes
 demo.daily_challenge,A new puzzle every day
 demo.themes,The garden changes its colors as you go
 gameplay.hint_return,Tap a waiting pod to send it back

@@ -86,6 +86,10 @@ namespace Bloomlings.Client.Services.Config
         public static readonly IntKey PriceClearingIntro = new IntKey("economy.price.clearingIntro", 2500, 10, 50000);
         public static readonly IntKey PriceClearing = new IntKey("economy.price.clearing", 3500, 10, 50000);
         public static readonly IntKey PriceClearingPremium = new IntKey("economy.price.clearingPremium", 5000, 10, 50000);
+
+        // The Scene Album's one-time reward for a finished scene (spec 007 FR-012): 50 Petals until the owner fixes the
+        // amount (product/OPEN_QUESTIONS.md).
+        public static readonly IntKey AlbumSceneReward = new IntKey("economy.album.sceneReward", 50, 1, 5000);
         public static readonly IntKey UnlockGrant = new IntKey("economy.unlockGrant", 1, 1, 3);
         public static readonly IntKey DropEveryLevels = new IntKey("economy.drop.everyLevels", 10, 2, 20);
 
@@ -125,7 +129,7 @@ namespace Bloomlings.Client.Services.Config
         {
             PetalsBase, PetalsCleanBonus, PetalsHardBonus, PetalsSuperHardBonus,
             PriceExtraSlot, PriceShuffle, PriceReturn, PriceBloomBurst,
-            PriceAvatarCommon, PriceAvatarRare, PriceAvatarSpecial, PriceClearingIntro, PriceClearing, PriceClearingPremium, UnlockGrant, DropEveryLevels,
+            PriceAvatarCommon, PriceAvatarRare, PriceAvatarSpecial, PriceClearingIntro, PriceClearing, PriceClearingPremium, AlbumSceneReward, UnlockGrant, DropEveryLevels,
             DailyRewardStep1, DailyRewardStep2, DailyRewardStep3, DailyRewardStep4, DailyRewardStep5,
             InterstitialFirstLevel, InterstitialMinSeconds, InterstitialMinLevels, RescuePerAttempt,
             FxBacklogThresholdMs,

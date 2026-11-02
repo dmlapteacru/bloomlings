@@ -58,6 +58,12 @@
       "min": 5,
       "type": "int"
     },
+    "economy.album.sceneReward": {
+      "default": 50,
+      "max": 5000,
+      "min": 1,
+      "type": "int"
+    },
     "economy.drop.everyLevels": {
       "default": 10,
       "max": 20,

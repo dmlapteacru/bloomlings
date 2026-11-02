@@ -7,6 +7,8 @@
 new planned features: Album scenes L27, Photo studio L60 (proposed), Master challenges L81, the Daily streak with the
 Daily Challenge at L48 and a per-player access level for each calendar event. See the amendment block at the end and
 [`plans/content-unlocks-plan-2026-11-01.md`](plans/content-unlocks-plan-2026-11-01.md).
+**2026-11-02:** the Album scenes (L27) are implemented in both builds (spec 007-scene-album) in the Collection's menu
+place; the Collection is switched off and kept as ballast.
 
 This document defines **what the player unlocks as the global level number increases**.
 
@@ -141,13 +143,17 @@ Reward:
 
 No new navigation.
 
-## Level 27 — Album Scenes (planned, not implemented; owner 2026-11-01)
+## Level 27 — Album Scenes (owner 2026-11-01; implemented 2026-11-02, spec 007-scene-album)
 Unlock:
 - the first album scene: one whole illustration with 3–5 elements, each revealed by winning its matching campaign
   picture; earlier matching wins count at once;
 - a one-time chest for a finished scene.
 
-Not a level selector and no new currency. The Collection keeps showing won pictures before L27.
+Not a level selector and no new currency. Implemented on 2026-11-02 (`specs/007-scene-album/`): the Scene Album took the
+Collection's place in the bottom menu (unlock `system.album` at L27, a locked place with the padlock before it); the
+first scenes are the owner's Forest Glade (L1, L4, L7, L17) and Air Mail Garden (L54, L71, L76, L96), each object bound to
+its picture code; the chest is `economy.album.sceneReward` Petals (50 until the owner fixes it). The Collection is
+switched off, not deleted: ballast to reuse or delete later (`OPEN_QUESTIONS.md`).
 
 ---
 
@@ -441,7 +447,7 @@ round mechanics' calendar of 17 §9 is unchanged.
 | L10 | Leaderboard | Kept; implemented |
 | L12 | Store | Kept; implemented |
 | L25, L50, L75, L100 … | Milestone rewards | Kept as configured (`content/roadmap/milestones.json`) |
-| L27 | **Album scenes** | New; owner-confirmed; not implemented (documents only) |
+| L27 | **Album scenes** (in the Collection's menu place; the Collection switched off) | Owner-confirmed; implemented 2026-11-02 (spec 007, `system.album`) |
 | L40 | Store clearing styles (Animations tab) | Unchanged; a different feature from the Wardrobe |
 | **L44** | **Wardrobe** (was L40) and its first catalogue wave (55 of 89) | Owner-confirmed; implemented in `content/roadmap/unlock-roadmap.json` and the cosmetic catalogue |
 | **L48** | **Daily Challenge** (was L50) | Owner-confirmed; implemented in the runtime roadmap (the challenge itself stays switched off with round levels, spec 006 FR-063) |

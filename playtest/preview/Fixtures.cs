@@ -749,7 +749,7 @@ namespace Bloomlings.Playtest.Preview
                 Run(app, p, 0.3f);
                 Expect(Nav(p, app).Places.Count == 5, "every place shows on an early Home");
                 Expect(!app.PlaceOpen(NavPlace.Shop) && !app.PlaceOpen(NavPlace.Wardrobe) && !app.PlaceOpen(NavPlace.Leaderboard), "the Shop, the Wardrobe and the Leaderboard are locked at Level 5");
-                Expect(app.PlaceOpen(NavPlace.Home) && app.PlaceOpen(NavPlace.Collection), "Home and the Collection are open at Level 5");
+                Expect(app.PlaceOpen(NavPlace.Home) && !app.PlaceOpen(NavPlace.Album), "Home is open and the Scene Album locked at Level 5");
 
                 // The header row (the owner's request of 2026-10-04): a tap on the avatar opens the profile page (spec 005
                 // FR-037, frame 39); the system back returns, so the frame shows Home as it stands.
@@ -840,15 +840,15 @@ namespace Bloomlings.Playtest.Preview
                 Tap(p, NavTouch(p, app, NavPlace.Leaderboard));
                 Expect(app.Back() && app.Screen == Design.Screen.Home, "the system back closes the Leaderboard page");
 
-                // From page to page: the Leaderboard's Collection, the Collection's Leaderboard, its Shop and Home.
+                // From page to page: the Leaderboard's Scene Album, the album's Leaderboard, its Shop and Home.
                 Run(app, p, 0.1f);
                 Tap(p, NavTouch(p, app, NavPlace.Leaderboard));
                 Run(app, p, 0.1f);
-                Tap(p, NavTouch(p, app, NavPlace.Collection));
-                Expect(app.Screen == Design.Screen.Collection, "the Leaderboard page's Collection opens the Collection page");
+                Tap(p, NavTouch(p, app, NavPlace.Album));
+                Expect(app.Screen == Design.Screen.Album, "the Leaderboard page's Album opens the Scene Album page");
                 Run(app, p, 0.1f);
                 Tap(p, NavTouch(p, app, NavPlace.Leaderboard));
-                Expect(app.Screen == Design.Screen.Leaderboard, "the Collection page's Leaderboard opens the Leaderboard page");
+                Expect(app.Screen == Design.Screen.Leaderboard, "the Scene Album page's Leaderboard opens the Leaderboard page");
                 Run(app, p, 0.1f);
                 Tap(p, NavTouch(p, app, NavPlace.Shop));
                 Expect(app.Screen == Design.Screen.Store && app.StoreReturn == Design.Screen.Leaderboard, "the Leaderboard page's Shop opens the Store page over it");
@@ -870,7 +870,8 @@ namespace Bloomlings.Playtest.Preview
             {
                 // The Collection page of a player at Level 88 with every picture won (newest first, a page at a time): its
                 // page arrows turn the pages, a tap on a picture shows its detail, back (and the system back) returns to
-                // the grid and a second back to Home.
+                // the grid and a second back to Home. Switched off in the menu since spec 007 (the Scene Album took its
+                // place): ballast to reuse or delete later, opened here directly so its page keeps working.
                 DesignApp app = Progressed(App(data), content, 87);
                 CloseAll(app);
                 for (int level = 1; level <= 87; level++)
@@ -882,8 +883,9 @@ namespace Bloomlings.Playtest.Preview
                 }
 
                 Run(app, p, 0.1f);
-                Tap(p, NavTouch(p, app, NavPlace.Collection));
-                Expect(app.Screen == Design.Screen.Collection && app.Overlays.Count == 0, "the bottom menu's Collection opens the page");
+                Expect(Nav(p, app).IndexOf(NavPlace.Collection) < 0, "the Collection is not in the bottom menu (spec 007)");
+                app.OpenCollection();
+                Expect(app.Screen == Design.Screen.Collection && app.Overlays.Count == 0, "the switched-off Collection page still opens");
                 Run(app, p, 0.1f);
                 var r = CollectionGalleryDesign.Page(p.Width, p.Height, p.Insets);
                 int count = app.Meta.Collection.Count;
@@ -908,7 +910,7 @@ namespace Bloomlings.Playtest.Preview
                 Expect(app.CollectionDetail == count - 2 && app.Back() && app.Screen == Design.Screen.Collection && app.CollectionDetail == -1, "the system back from the detail returns to the grid");
                 Expect(app.Back() && app.Screen == Design.Screen.Home, "a second back leaves the page for Home");
                 Run(app, p, 0.1f);
-                Tap(p, NavTouch(p, app, NavPlace.Collection));
+                app.OpenCollection();
                 Run(app, p, 0.1f);
                 Tap(p, r.Header.Back);
                 Expect(app.Screen == Design.Screen.Home, "the Collection page's back returns to Home");
@@ -1657,11 +1659,11 @@ namespace Bloomlings.Playtest.Preview
                 Tap(p, NavTouch(p, app, NavPlace.Leaderboard));
                 Expect(app.Screen == Design.Screen.Leaderboard && app.Overlays.Count == 0, "the Wardrobe's Leaderboard opens the Leaderboard page");
                 Run(app, p, 0.1f);
-                Tap(p, NavTouch(p, app, NavPlace.Collection));
-                Expect(app.Screen == Design.Screen.Collection && app.Overlays.Count == 0, "the Leaderboard page's Collection opens the Collection page");
+                Tap(p, NavTouch(p, app, NavPlace.Album));
+                Expect(app.Screen == Design.Screen.Album && app.Overlays.Count == 0, "the Leaderboard page's Album opens the Scene Album page");
                 Run(app, p, 0.1f);
                 Tap(p, NavTouch(p, app, NavPlace.Wardrobe));
-                Expect(app.Screen == Design.Screen.Wardrobe, "the Collection page's Wardrobe opens the Wardrobe again");
+                Expect(app.Screen == Design.Screen.Wardrobe, "the Scene Album page's Wardrobe opens the Wardrobe again");
                 Run(app, p, 0.1f);
                 var shelf=WardrobeShelfCatalog.Build(app.Meta.Wardrobe,CosmeticKind.Hat,Family.Sprig);
                 int starter=Enumerable.Range(0,shelf.Count).First(i=>shelf[i].Item?.Id=="hat.sprout_cap");
@@ -1754,21 +1756,21 @@ namespace Bloomlings.Playtest.Preview
             });
             yield return new Fixture(31, "leaderboard-locked", "Extra: locked Leaderboard page (spec 005 FR-030)", (p, data) =>
             {
-                // A new profile on Home (Level 1): the menu's Collection opens its page saying it is available from level 2
-                // (its first picture comes with Level 1's win), its back returning to Home; the Leaderboard's page says
-                // level 10 (the roadmap's), the Leaderboard raised, and the system back returns to Home.
+                // A new profile on Home (Level 1): the menu's Scene Album (spec 007, in the Collection's place) opens its page
+                // saying it is available from level 27 (the roadmap's), its back returning to Home; the Leaderboard's page
+                // says level 10 (the roadmap's), the Leaderboard raised, and the system back returns to Home.
                 DesignApp app = App(data);
                 app.GoHome();
                 CloseAll(app);
                 Run(app, p, 0.1f);
-                Expect(app.Meta.CurrentLevel == 1 && !app.PlaceOpen(NavPlace.Collection), "a new profile's Collection is locked");
-                Tap(p, NavTouch(p, app, NavPlace.Collection));
-                Expect(app.Screen == Design.Screen.Collection && app.Overlays.Count == 0, "the locked Collection opens its page");
+                Expect(app.Meta.CurrentLevel == 1 && !app.PlaceOpen(NavPlace.Album), "a new profile's Scene Album is locked");
+                Tap(p, NavTouch(p, app, NavPlace.Album));
+                Expect(app.Screen == Design.Screen.Album && app.Overlays.Count == 0, "the locked Scene Album opens its page");
                 Run(app, p, 0.5f);
-                Expect(Shows(p, "Available from level 2"), "the locked Collection page says level 2");
-                Expect(Nav(p, app).Active == NavPlace.Collection, "the locked Collection page raises the Collection");
+                Expect(Shows(p, "Available from level 27"), "the locked Scene Album page says level 27");
+                Expect(Nav(p, app).Active == NavPlace.Album, "the locked Scene Album page raises the Album");
                 Tap(p, ScreenLayout.LockedPage(p.Width, p.Height, p.Insets).Header.Back);
-                Expect(app.Screen == Design.Screen.Home, "the locked Collection page's back returns to Home");
+                Expect(app.Screen == Design.Screen.Home, "the locked Scene Album page's back returns to Home");
                 Run(app, p, 0.1f);
                 Tap(p, NavTouch(p, app, NavPlace.Leaderboard));
                 Expect(app.Screen == Design.Screen.Leaderboard && app.Overlays.Count == 0, "the locked Leaderboard opens its page");
@@ -1777,10 +1779,10 @@ namespace Bloomlings.Playtest.Preview
                 Expect(Shows(p, "Available from level 10"), "the locked Leaderboard page says level 10");
                 Expect(app.Back() && app.Screen == Design.Screen.Home, "the system back returns from the locked Leaderboard page to Home");
                 Run(app, p, 0.1f);
-                Tap(p, NavTouch(p, app, NavPlace.Collection));
+                Tap(p, NavTouch(p, app, NavPlace.Album));
                 Run(app, p, 0.1f);
                 Tap(p, NavTouch(p, app, NavPlace.Leaderboard));
-                Expect(app.Screen == Design.Screen.Leaderboard, "the locked Collection page's Leaderboard opens the locked Leaderboard page");
+                Expect(app.Screen == Design.Screen.Leaderboard, "the locked Scene Album page's Leaderboard opens the locked Leaderboard page");
                 Run(app, p, 0.5f);
             });
             yield return new Fixture(32, "remove-ads", "Extra: Remove Ads card (spec 005 FR-033)", (p, data) =>
@@ -2350,6 +2352,170 @@ namespace Bloomlings.Playtest.Preview
         /// (Level 2), a booster's free use and its "kept" step (Level 3), Return's slots (Level 6) and Bloom Burst's tiles
         /// (Level 9).
         /// </summary>
+        /// <summary>
+        /// The Scene Album (spec 007-scene-album; frames 271–275): on the published round levels (the real picture → level
+        /// binding), a player on Level 69 (as the owner's mockup: the Air Mail Garden at 1 / 4, the airship "Unlocks after
+        /// Level 76", "Next level: 69"), the forest scene complete with its reward, the reward claimed, and a player on
+        /// Level 21 before the album's L27.
+        /// </summary>
+        public static IEnumerable<Fixture> Album(string root)
+        {
+            global::Bloomlings.Content.Rounds.RoundContentSet? rounds = null;
+            DesignApp AlbumApp(string data, int highest)
+            {
+                string folder = Path.Combine(root, "content", "game", "rounds", "published");
+                rounds ??= global::Bloomlings.Content.Rounds.RoundContentSet.Read(path =>
+                {
+                    string file = Path.Combine(folder, path);
+                    return File.Exists(file) ? File.ReadAllBytes(file) : null;
+                });
+                var empty = new ContentSet(0, 0, Array.Empty<LevelDefinition>(), Array.Empty<BasePicture>());
+                var app = new DesignApp(data, empty, new Silence(), false, rounds: rounds);
+                app.Meta.SkipTo(highest);
+                app.Meta.Economy.Grant(1240 - app.Meta.Economy.Petals, null);
+                app.GoHome();
+                CloseAll(app);
+                return app;
+            }
+
+            AlbumRegions Page(SkiaPainter p) => AlbumLook.Page(p.Width, p.Height, p.Insets, 853, 1844);
+
+            // Level 69: the forest scene (L1, L4, L7, L17) complete with its reward waiting, the Air Mail Garden at 1 / 4.
+            DesignApp OnAirMail(SkiaPainter p, string data)
+            {
+                DesignApp app = AlbumApp(data, 68);
+                Run(app, p, 0.1f);
+                Expect(app.PlaceOpen(NavPlace.Album) && HomeScreen.Look(app).AlbumNews, "at Level 69 the Album is open and wears the \"!\"");
+                Expect(p.Slots.Contains("ui.badge.alert"), "the bottom menu's Album shows the \"!\"");
+                Tap(p, NavTouch(p, app, NavPlace.Album));
+                Expect(app.Screen == Design.Screen.Album && app.AlbumIndex == 0, "the album opens on the forest scene, its reward waiting and its reveals new");
+                Run(app, p, 0.1f);
+                Expect(Shows(p, "Forest Glade") && Shows(p, "4 / 4") && Shows(p, "Scene 1 / 2"), "the forest scene is complete: the early wins count at once");
+                AlbumRegions r = Page(p);
+                Drag(p, r.Scene.CenterX + (r.W * .3f), r.Scene.CenterY, r.Scene.CenterX - (r.W * .3f), r.Scene.CenterY);
+                Expect(app.AlbumIndex == 1 && app.AlbumSheet == null, "a swipe to the left turns to the next scene and opens no sheet");
+                Run(app, p, 0.1f);
+                Tap(p, r.Previous);
+                Expect(app.AlbumIndex == 0, "the ‹ turns back");
+                Run(app, p, 0.1f);
+                Tap(p, r.Previous);
+                Expect(app.AlbumIndex == 0, "no cycling at the first scene");
+                Run(app, p, 0.5f);
+                Tap(p, r.Next);
+                Expect(app.AlbumIndex == 1, "the › turns to the Air Mail Garden");
+                Run(app, p, 0.5f);
+                Tap(p, r.Next);
+                Expect(app.AlbumIndex == 1, "no cycling at the last scene");
+                Run(app, p, 1.4f);
+                Expect(Shows(p, "Air Mail Garden") && Shows(p, "1 / 4") && Shows(p, "Scene 2 / 2"), "the Air Mail Garden at 1 / 4 (the windmill, L54)");
+                return app;
+            }
+
+            yield return new Fixture(271, "album-partial", "Scene Album: a scene at 1 / 4, its locked objects grey (spec 007)", (p, data) =>
+            {
+                DesignApp app = OnAirMail(p, data);
+                Expect(p.Slots.Contains("ui.album.medallion") && p.Slots.Contains("ui.album.card") && p.Slots.Contains("ui.album.scene"), "the card and the medallions are drawn");
+                Expect(!p.MissingSprites.Any(s => s.StartsWith(PainterBase.AlbumPrefix, StringComparison.Ordinal)), "every scene picture is embedded");
+                Run(app, p, 0.5f);
+            });
+
+            yield return new Fixture(272, "album-object-sheet", "Scene Album: a locked object's sheet (spec 007)", (p, data) =>
+            {
+                DesignApp app = OnAirMail(p, data);
+                AlbumRegions r = Page(p);
+                var scene = app.Meta.Album.Shown[1];
+                var airship = scene.Find("airship")!;
+                Box airshipBox = AlbumLook.LayerBox(r.Scene, scene.CanvasWidth, airship.X, airship.Y, airship.Width, airship.Height);
+                // A tap on the scene's transparent area (the sky over the windmill, beside the airship) chooses nothing.
+                p.Dispatch(r.Scene.Left + (r.Scene.Width * .08f), r.Scene.Top + (r.Scene.Height * .04f));
+                Expect(app.AlbumSheet == null, "a tap where no object is opaque opens no sheet");
+                Tap(p, airshipBox);
+                Expect(app.AlbumSheet == "airship", "a tap on the airship opens its sheet");
+                Run(app, p, 0.6f);
+                Expect(Shows(p, "Airship") && Shows(p, "Unlocks after Level 76") && Shows(p, "Next level: 69") && Shows(p, "Continue playing"), "the sheet says where the airship opens and the next level");
+                Expect(p.Slots.Contains("ui.album.outline") && p.Slots.Contains("ui.album.sheet"), "the golden outline and the sheet are drawn");
+                AlbumSheetRegions s = AlbumLook.Sheet(p.Width, p.Height, p.Insets);
+                Tap(p, s.Close);
+                Expect(app.AlbumSheet == null && app.AlbumIndex == 1, "the × closes the sheet and keeps the scene");
+                Run(app, p, 0.1f);
+                Tap(p, r.MedallionTouch(0, 4));
+                Expect(app.AlbumSheet == "mill", "the windmill's medallion opens its sheet");
+                Run(app, p, 0.6f);
+                Expect(Shows(p, "Windmill") && Shows(p, "Level 54 completed"), "an open object's sheet says its level is completed");
+                p.Dispatch(p.Width / 2f, r.Header.Banner.CenterY);
+                Expect(app.AlbumSheet == null, "a tap outside closes the sheet");
+                Run(app, p, 0.1f);
+                Tap(p, r.MedallionTouch(1, 4));
+                Run(app, p, 0.6f);
+                Drag(p, s.Panel.CenterX, s.Top + (r.W * .2f), s.Panel.CenterX, s.Top + (r.W * .6f));
+                Expect(app.AlbumSheet == null && app.AlbumIndex == 1, "a swipe down closes the sheet");
+                Run(app, p, 0.1f);
+                Tap(p, r.MedallionTouch(1, 4));
+                Run(app, p, 0.6f);
+                Tap(p, s.Button);
+                Expect(app.Screen == Design.Screen.RoundLevel && app.RoundLevelNumber == 69, "Continue playing starts the next level (69), not the airship's 76");
+                app.GoHome();
+                app.Navigate(NavPlace.Album);
+                Expect(app.AlbumIndex == 0, "the album reopens on the forest scene, whose reward still waits (first priority)");
+                Run(app, p, 0.2f);
+                Tap(p, r.Next);
+                Run(app, p, 0.5f);
+                Tap(p, airshipBox);
+                Run(app, p, 1.2f);
+                Expect(app.AlbumSheet == "airship", "the airship's sheet for the frame");
+            });
+
+            yield return new Fixture(273, "album-complete-claim", "Scene Album: a complete scene with its reward (spec 007)", (p, data) =>
+            {
+                DesignApp app = AlbumApp(data, 68);
+                Run(app, p, 0.1f);
+                Tap(p, NavTouch(p, app, NavPlace.Album));
+                Run(app, p, 2.2f);
+                Expect(Shows(p, "4 / 4") && Shows(p, "Scene complete") && Shows(p, "Claim") && Shows(p, "+50"), "a complete scene shows its reward strip with Claim");
+                Expect(p.Slots.Contains("ui.album.reward"), "the reward strip is drawn");
+            });
+
+            yield return new Fixture(274, "album-claimed", "Scene Album: the reward claimed (spec 007)", (p, data) =>
+            {
+                DesignApp app = AlbumApp(data, 68);
+                Run(app, p, 0.1f);
+                Tap(p, NavTouch(p, app, NavPlace.Album));
+                Run(app, p, 2.2f);
+                long before = app.Meta.Economy.Petals;
+                Tap(p, Page(p).ClaimButton);
+                Expect(app.Meta.Economy.Petals == before + 50, "Claim pays the scene's 50 Petals at once, with no purchase confirmation");
+                Expect(app.Overlays.Count == 0, "no confirmation card opens for a gift");
+                Expect(app.Meta.Album.Claim(app.Meta.Album.Shown[0]) == 0 && app.Meta.Economy.Petals == before + 50, "the reward is claimed once");
+                Run(app, p, 0.2f);
+                Expect(Shows(p, "Reward claimed"), "the strip says the reward is claimed");
+                app.GoHome();
+                app.Navigate(NavPlace.Album);
+                Expect(app.AlbumIndex == 1, "with the forest done, the album opens on the Air Mail Garden (its windmill newly opened)");
+                Run(app, p, 1.6f);
+                app.GoHome();
+                Run(app, p, 0.1f);
+                Expect(!HomeScreen.Look(app).AlbumNews, "with nothing new the Album wears no \"!\"");
+                app.Navigate(NavPlace.Album);
+                Expect(app.AlbumIndex == 1, "the album reopens on the last viewed incomplete scene");
+                Run(app, p, 0.1f);
+                Tap(p, Page(p).Previous);
+                Run(app, p, 0.6f);
+                Expect(Shows(p, "Reward claimed") && Shows(p, "Forest Glade"), "the claimed scene stays to look at");
+            });
+
+            yield return new Fixture(275, "album-locked", "Scene Album: the locked menu place before L27 (spec 007)", (p, data) =>
+            {
+                DesignApp app = AlbumApp(data, 20);
+                Run(app, p, 0.1f);
+                Expect(!app.PlaceOpen(NavPlace.Album) && app.UnlockLevel(NavPlace.Album) == 27, "at Level 21 the Album is locked until 27");
+                Expect(p.Slots.Contains("icon.nav.album") && p.Slots.Contains("ui.nav.lock"), "the Album's icon wears the padlock");
+                Tap(p, NavTouch(p, app, NavPlace.Album));
+                Expect(app.Screen == Design.Screen.Album, "the locked Album opens its page");
+                Run(app, p, 0.4f);
+                Expect(Shows(p, "Available from level 27"), "the locked page says level 27");
+            });
+        }
+
         public static IEnumerable<Fixture> Guides(ContentSet content)
         {
             DesignApp App(string data) => new DesignApp(data, content, new Silence(), false);

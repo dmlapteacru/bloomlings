@@ -2,6 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.IO;
 using Bloomlings.Client.App.Progression;
+using Bloomlings.Client.Meta.Album;
 using Bloomlings.Client.Meta.Collection;
 using Bloomlings.Client.Meta.DailyReward;
 using Bloomlings.Client.Meta.Clearing;
@@ -28,7 +29,8 @@ namespace Bloomlings.Playtest
     /// <item><description>Petals and booster charges;</description></item>
     /// <item><description>milestone rewards;</description></item>
     /// <item><description>the Daily Reward;</description></item>
-    /// <item><description>the Collection;</description></item>
+    /// <item><description>the Collection (switched off in the menu since spec 007, still recording wins);</description></item>
+    /// <item><description>the Scene Album (spec 007);</description></item>
     /// <item><description>the Wardrobe;</description></item>
     /// <item><description>the profile (avatars, name, joining day).</description></item>
     /// </list>
@@ -44,7 +46,11 @@ namespace Bloomlings.Playtest
         {
         }
 
-        public PlaytestMeta(string dataFolder, IClock clock, IAuthoritativeEconomy? authority = null)
+        /// <param name="albumLevels">
+        /// The campaign level of a picture code for the Scene Album (<see cref="AlbumService.PictureLevels"/> on the build's
+        /// round levels); null: the album catalog's own level hints (no round levels, the preview's legacy frames).
+        /// </param>
+        public PlaytestMeta(string dataFolder, IClock clock, IAuthoritativeEconomy? authority = null, Func<string, int?>? albumLevels = null)
         {
             _saves = new SaveService(Path.Combine(dataFolder, SaveService.FolderName), clock);
             Save = _saves.Load();
@@ -62,6 +68,7 @@ namespace Bloomlings.Playtest
             Wardrobe = new WardrobeService(Save, Cosmetics, config, _saves.Save, Economy);
             Profile = new ProfileService(Save, config, clock, _saves.Save, Economy);
             Clearing = new ClearingService(Save, config, _saves.Save, Economy);
+            Album = new AlbumService(Save, AlbumCatalog, albumLevels ?? AlbumService.PictureLevels(AlbumCatalog, null), config, Economy, _saves.Save);
             Progression = new ProgressionService(Save, UnlockRoadmap.Default, _saves.Save);
             Progression.UnlockReached += entry =>
             {
@@ -76,6 +83,9 @@ namespace Bloomlings.Playtest
 
         /// <summary>The cosmetic catalog the Unity client ships (embedded from <c>Meta/Wardrobe/Resources</c>).</summary>
         public static CosmeticCatalog Cosmetics { get; } = LoadCosmetics();
+
+        /// <summary>The Scene Album's scenes (embedded from <c>Meta/Album/Resources/AlbumCatalog.json</c>, spec 007).</summary>
+        public static AlbumCatalog AlbumCatalog { get; } = LoadAlbum();
 
         public PlayerSave Save { get; }
 
@@ -97,6 +107,9 @@ namespace Bloomlings.Playtest
         public WardrobeService Wardrobe { get; }
 
         public ProfileService Profile { get; }
+
+        /// <summary>The Scene Album (spec 007): scenes, open objects, the one-time rewards.</summary>
+        public AlbumService Album { get; }
 
         /// <summary>The board's clearing styles: the free one (Munchers), the bought ones (spec 005 FR-038).</summary>
         public ClearingService Clearing { get; }
@@ -192,7 +205,7 @@ namespace Bloomlings.Playtest
         }
 
         /// <summary>Tester control: deletes the save and starts a brand-new profile (Level 1, nothing unlocked).</summary>
-        public static PlaytestMeta ResetProfile(string dataFolder)
+        public static PlaytestMeta ResetProfile(string dataFolder, Func<string, int?>? albumLevels = null)
         {
             string folder = Path.Combine(dataFolder, SaveService.FolderName);
             if (File.Exists(Path.Combine(folder, SaveService.AuthoritySealName)))
@@ -204,7 +217,19 @@ namespace Bloomlings.Playtest
                 Directory.Delete(folder, recursive: true);
             }
 
-            return new PlaytestMeta(dataFolder);
+            return new PlaytestMeta(dataFolder, new SystemClock(), null, albumLevels);
+        }
+
+        private static AlbumCatalog LoadAlbum()
+        {
+            using Stream? stream = typeof(PlaytestMeta).Assembly.GetManifestResourceStream("album/AlbumCatalog.json");
+            if (stream == null)
+            {
+                return AlbumCatalog.Empty;
+            }
+
+            using var reader = new StreamReader(stream);
+            return AlbumCatalog.Parse(reader.ReadToEnd());
         }
 
         private static CosmeticCatalog LoadCosmetics()

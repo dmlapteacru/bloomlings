@@ -672,9 +672,9 @@ namespace Bloomlings.Client.Tests
                 new[] { NavPlace.Home },
                 new[] { NavPlace.Home, NavPlace.Leaderboard },
                 new[] { NavPlace.Shop, NavPlace.Home, NavPlace.Leaderboard },
-                new[] { NavPlace.Shop, NavPlace.Home, NavPlace.Leaderboard, NavPlace.Collection },
+                new[] { NavPlace.Shop, NavPlace.Home, NavPlace.Leaderboard, NavPlace.Album },
                 new[] { NavPlace.Shop, NavPlace.Wardrobe, NavPlace.Home, NavPlace.Leaderboard },
-                new[] { NavPlace.Shop, NavPlace.Wardrobe, NavPlace.Home, NavPlace.Leaderboard, NavPlace.Collection },
+                new[] { NavPlace.Shop, NavPlace.Wardrobe, NavPlace.Home, NavPlace.Leaderboard, NavPlace.Album },
             };
             foreach ((float w, float h, Insets insets) in Phones())
             {
@@ -778,13 +778,14 @@ namespace Bloomlings.Client.Tests
         /// The places a player sees (spec 005 FR-030; the owner's request of 2026-10-04: "the menu's places must always be
         /// visible"): all five always, in their order; Home always open and each other place once its feature unlocks
         /// (<see cref="BottomNav.IsOpen"/>); a locked place's level from the build's roadmap (the Shop 12, the Wardrobe 44,
-        /// the Leaderboard 10 in <see cref="UnlockRoadmap.Default"/>) or the Collection's 2; and on every phone each place's
+        /// the Leaderboard 10, the Scene Album 27 in <see cref="UnlockRoadmap.Default"/>; the switched-off Collection's 2); and
+        /// on every phone each place's
         /// padlock badge (0.34 of its icon) on its icon's lower right, inside the plank's band and clear of the medallion.
         /// </summary>
         [Test]
         public void TheBottomMenu_ShowsEveryPlaceAlways_AndKnowsWhichAreOpenAndFromWhichLevel()
         {
-            Assert.That(BottomNav.Order, Is.EqualTo(new[] { NavPlace.Shop, NavPlace.Wardrobe, NavPlace.Home, NavPlace.Leaderboard, NavPlace.Collection }));
+            Assert.That(BottomNav.Order, Is.EqualTo(new[] { NavPlace.Shop, NavPlace.Wardrobe, NavPlace.Home, NavPlace.Leaderboard, NavPlace.Album }));
 
             // Which places are open: Home always; each other with its feature.
             foreach (NavPlace place in BottomNav.Order)
@@ -797,6 +798,8 @@ namespace Bloomlings.Client.Tests
             Assert.That(BottomNav.IsOpen(NavPlace.Wardrobe, HomeLook.Early with { Wardrobe = true }), Is.True);
             Assert.That(BottomNav.IsOpen(NavPlace.Leaderboard, HomeLook.Early with { Rank = true }), Is.True);
             Assert.That(BottomNav.IsOpen(NavPlace.Collection, HomeLook.Early with { Collection = true }), Is.True);
+            Assert.That(BottomNav.IsOpen(NavPlace.Album, HomeLook.Early with { Album = true }), Is.True);
+            Assert.That(BottomNav.IsOpen(NavPlace.Album, HomeLook.Early with { Collection = true }), Is.False, "the album opens with its own unlock");
             Assert.That(BottomNav.IsOpen(NavPlace.Shop, HomeLook.Early with { Rank = true, Collection = true }), Is.False, "one unlock opens its own place only");
             Assert.That(BottomNav.IsOpen(NavPlace.Wardrobe, HomeLook.All with { Wardrobe = false }), Is.False);
 
@@ -806,6 +809,7 @@ namespace Bloomlings.Client.Tests
             Assert.That(BottomNav.UnlockLevel(NavPlace.Wardrobe, roadmap), Is.EqualTo(44));
             Assert.That(BottomNav.UnlockLevel(NavPlace.Leaderboard, roadmap), Is.EqualTo(10));
             Assert.That(BottomNav.UnlockLevel(NavPlace.Collection, roadmap), Is.EqualTo(2).And.EqualTo(BottomNav.CollectionLevel));
+            Assert.That(BottomNav.UnlockLevel(NavPlace.Album, roadmap), Is.EqualTo(27));
             Assert.That(BottomNav.UnlockLevel(NavPlace.Home, roadmap), Is.EqualTo(1));
             Assert.That(BottomNav.UnlockLevel(NavPlace.Shop, id => id == HomeLook.StoreUnlock ? 15 : (int?)null), Is.EqualTo(15), "the build's own roadmap decides");
             Assert.That(BottomNav.UnlockLevel(NavPlace.Wardrobe, _ => null), Is.EqualTo(1), "an unlock the roadmap does not list counts from Level 1");
@@ -1321,7 +1325,7 @@ namespace Bloomlings.Client.Tests
                     targets.Add(TouchBox(box, touch));
                 }
 
-                foreach ((string _, Box box) in ScreenLayout.BottomNav(w, h, insets, BottomNav.Order, NavPlace.Collection).Buttons)
+                foreach ((string _, Box box) in ScreenLayout.BottomNav(w, h, insets, BottomNav.Order, NavPlace.Album).Buttons)
                 {
                     targets.Add(box);
                     Assert.That(box.Overlaps(r.Cell((r.RowsFitting(false) * ReferenceCollectionRegions.Columns) - 1)), Is.False, at + ": the last frame clear of the menu's " + box);

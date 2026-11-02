@@ -4,6 +4,7 @@ using Bloomlings.Client.Services.Economy.Online;
 using Bloomlings.Client.Services.Clock;
 using System.Collections.Generic;
 using Bloomlings.Client.Gameplay.Themes;
+using Bloomlings.Client.Meta.Album;
 using Bloomlings.Client.Meta.DailyReward;
 using Bloomlings.Client.Meta.Profile;
 using Bloomlings.Client.Meta.Wardrobe;
@@ -31,6 +32,9 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>The profile page (spec 005 FR-037), opened from Home's avatar.</summary>
         Profile,
+
+        /// <summary>The Scene Album page (spec 007-scene-album), a place of the bottom menu in the Collection's place.</summary>
+        Album,
 
         /// <summary>
         /// A round level (spec 006) on the round rules' live timeline (<see cref="RoundLevelScreen"/>). Only a build with
@@ -143,6 +147,9 @@ namespace Bloomlings.Playtest.Design
         private bool _transitionSwitched;
 
         private readonly string _dataFolder;
+
+        /// <summary>The Scene Album's picture → level map of this build's round levels (spec 007).</summary>
+        private readonly Func<string, int?> _albumLevels;
         private readonly List<(Overlay Overlay, float OpenedAt)> _overlays = new List<(Overlay, float)>();
         private readonly bool _firstLaunch;
 
@@ -158,7 +165,8 @@ namespace Bloomlings.Playtest.Design
             Sound = sound;
             ServerClient = serverEconomy;
             _serverEconomy = serverEconomy == null ? null : new ServerEconomy(serverEconomy, OnlineRoutines.Run, activateServerEconomy);
-            Meta = new PlaytestMeta(dataFolder, new SystemClock(), _serverEconomy);
+            _albumLevels = AlbumService.PictureLevels(PlaytestMeta.AlbumCatalog, rounds);
+            Meta = new PlaytestMeta(dataFolder, new SystemClock(), _serverEconomy, _albumLevels);
             Purchase.Changed += PurchaseChanged;
             Account = new AccountPanel(accountGateway ?? (serverEconomy != null ? ServerAccountGateway() : new DelegateAccountPanelGateway(
                 () => new AccountPanelSnapshot(Meta.Save.LocalPlayerId, Meta.Save.UpdatedAt,
@@ -346,6 +354,7 @@ namespace Bloomlings.Playtest.Design
             || (_homeToastUntil > Now)
             || (Screen == Screen.Home && (_overlays.Count == 0 || HomeMoving))
             || (Screen == Screen.Store && StoreMoving)
+            || (Screen == Screen.Album && AlbumMoving)
             || IsOpen(Overlay.DailyReward)
             || OnlineRoutines.HasWork
             || IsOpen(Overlay.Purchase)
@@ -586,6 +595,7 @@ namespace Bloomlings.Playtest.Design
             Screen.Wardrobe => NavPlace.Wardrobe,
             Screen.Leaderboard => NavPlace.Leaderboard,
             Screen.Collection => NavPlace.Collection,
+            Screen.Album => NavPlace.Album,
             _ => NavPlace.Home,
         };
 
@@ -625,12 +635,153 @@ namespace Bloomlings.Playtest.Design
                     OpenLeaderboard();
                     break;
                 case NavPlace.Collection:
+                    // Switched off since spec 007 (not in the menu); kept so its page still opens if asked.
                     OpenCollection();
+                    break;
+                case NavPlace.Album:
+                    OpenAlbum();
                     break;
                 default:
                     EnterHome(click: true);
                     break;
             }
+        }
+
+        // ---- The Scene Album (spec 007-scene-album) ----
+
+        /// <summary>The album's shown scene, an index into <see cref="AlbumService.Shown"/>.</summary>
+        public int AlbumIndex { get; private set; }
+
+        /// <summary>The object whose sheet is open (its id in the shown scene), or null.</summary>
+        public string? AlbumSheet { get; private set; }
+
+        /// <summary>When the object sheet opened (its rise, the golden outline, the card's lift).</summary>
+        public float AlbumSheetSince => Now - _albumSheetAt;
+
+        /// <summary>The last turn's direction (+1 to the next scene, −1 back) and the seconds since (the card's snap).</summary>
+        public (int Step, float Since) AlbumTurn => (_albumTurnStep, Now - _albumTurnAt);
+
+        /// <summary>The shown scene's new reveals (their colour's return) and the seconds since it showed.</summary>
+        public (IReadOnlyList<string> Ids, float Since) AlbumReveals => (_albumReveals, Now - _albumShownAt);
+
+        /// <summary>Whether the album page's last frame had motion (a reveal, a snap, the sheet): the host keeps drawing frames.</summary>
+        public bool AlbumMoving { get; set; }
+
+        private float _albumSheetAt = -10f;
+        private float _albumTurnAt = -10f;
+        private int _albumTurnStep;
+        private float _albumShownAt = -10f;
+        private IReadOnlyList<string> _albumReveals = Array.Empty<string>();
+
+        /// <summary>
+        /// Opens the Scene Album page (spec 007 FR-004): on the scene with a new reveal or a waiting reward, else the last
+        /// viewed incomplete one, else the nearest incomplete one. Locked before L27, the page says so.
+        /// </summary>
+        public void OpenAlbum()
+        {
+            Sound.Play(SoundCue.Click);
+            ClearOverlays();
+            AlbumSheet = null;
+            _albumTurnAt = -10f;
+            Screen = Screen.Album;
+            if (Meta.Album.IsUnlocked)
+            {
+                AlbumIndex = Math.Max(0, Meta.Album.OpeningIndex());
+                ShowAlbumScene();
+            }
+        }
+
+        /// <summary>
+        /// Turns the album by <paramref name="step"/> scenes (a swipe or an arrow: one card at a time, no cycling at the ends);
+        /// the object sheet closes.
+        /// </summary>
+        public void TurnAlbum(int step)
+        {
+            int count = Meta.Album.Shown.Count;
+            int next = AlbumIndex + Math.Sign(step);
+            if (step == 0 || next < 0 || next >= count)
+            {
+                return;
+            }
+
+            Sound.Play(SoundCue.Click);
+            AlbumSheet = null;
+            AlbumIndex = next;
+            _albumTurnStep = Math.Sign(step);
+            _albumTurnAt = Now;
+            ShowAlbumScene();
+        }
+
+        /// <summary>The shown scene: its new reveals start their colour's return and it counts as viewed (<see cref="AlbumService.Viewed"/>).</summary>
+        private void ShowAlbumScene()
+        {
+            IReadOnlyList<Bloomlings.Client.Meta.Album.AlbumScene> shown = Meta.Album.Shown;
+            if (AlbumIndex < 0 || AlbumIndex >= shown.Count)
+            {
+                return;
+            }
+
+            _albumReveals = Meta.Album.NewReveals(shown[AlbumIndex]);
+            _albumShownAt = Now;
+            Meta.Album.Viewed(shown[AlbumIndex]);
+        }
+
+        /// <summary>A tap on an object or its medallion (spec 007 FR-009, FR-010): its sheet opens; the carousel stays.</summary>
+        public void OpenAlbumObject(string id)
+        {
+            Sound.Play(SoundCue.Click);
+            AlbumSheet = id;
+            _albumSheetAt = Now;
+        }
+
+        /// <summary>Closes the object sheet (its ×, a swipe down, a tap outside, the system back).</summary>
+        public void CloseAlbumSheet()
+        {
+            if (AlbumSheet != null)
+            {
+                Sound.Play(SoundCue.Click);
+                AlbumSheet = null;
+            }
+        }
+
+        /// <summary>"Continue playing" (spec 007 FR-009): the next available level starts (not the object's level).</summary>
+        public void AlbumContinue()
+        {
+            AlbumSheet = null;
+            StartLevel();
+        }
+
+        /// <summary>Claims the shown scene's one-time reward (spec 007 FR-012): a gift, no purchase confirmation.</summary>
+        public void ClaimAlbumReward()
+        {
+            IReadOnlyList<Bloomlings.Client.Meta.Album.AlbumScene> shown = Meta.Album.Shown;
+            if (AlbumIndex < 0 || AlbumIndex >= shown.Count)
+            {
+                return;
+            }
+
+            long before = Meta.Economy.Petals;
+            if (Meta.Album.Claim(shown[AlbumIndex]) > 0)
+            {
+                Sound.Play(SoundCue.PodDone);
+                RewardBurst(before);
+            }
+            else if (!Meta.Album.CanPay)
+            {
+                HomeToast(PlaytestText.T("purchase.server_reward_unavailable"));
+            }
+        }
+
+        /// <summary>Back on the album page: the object sheet closes, else Home.</summary>
+        public void AlbumBack()
+        {
+            if (AlbumSheet != null)
+            {
+                CloseAlbumSheet();
+                return;
+            }
+
+            EnterHome(click: true);
         }
 
         /// <summary>Opens the Leaderboard page (spec 005 FR-030, contracts/look.md §6.8), locked before L10.</summary>
@@ -690,7 +841,7 @@ namespace Bloomlings.Playtest.Design
         {
             _storeProfileDraft=null;
             Sound.Play(SoundCue.Click);
-            StoreReturn = Screen == Screen.Wardrobe || Screen == Screen.Leaderboard || Screen == Screen.Collection || Screen == Screen.Profile ? Screen : Screen.Home;
+            StoreReturn = Screen == Screen.Wardrobe || Screen == Screen.Leaderboard || Screen == Screen.Collection || Screen == Screen.Album || Screen == Screen.Profile ? Screen : Screen.Home;
             ClearOverlays();
             StorePage = 0;
             StoreRowsPage = 0;
@@ -744,6 +895,9 @@ namespace Bloomlings.Playtest.Design
                     return true;
                 case Screen.Collection:
                     CollectionBack();
+                    return true;
+                case Screen.Album:
+                    AlbumBack();
                     return true;
                 case Screen.Profile:
                     CloseProfile();
@@ -1132,7 +1286,7 @@ namespace Bloomlings.Playtest.Design
         public void ResetProfile()
         {
             if (ServerClient != null) return;
-            Meta = PlaytestMeta.ResetProfile(_dataFolder);
+            Meta = PlaytestMeta.ResetProfile(_dataFolder, _albumLevels);
             HomeToast("New profile");
         }
 
@@ -1221,6 +1375,9 @@ namespace Bloomlings.Playtest.Design
                     break;
                 case Screen.Collection:
                     CollectionScreen.Draw(p, this);
+                    break;
+                case Screen.Album:
+                    AlbumScreen.Draw(p, this);
                     break;
                 case Screen.Profile:
                     ProfileScreen.Draw(p, this);
@@ -1391,7 +1548,7 @@ namespace Bloomlings.Playtest.Design
         /// <summary>The likely destinations an idle menu warms, in order.</summary>
         private const int WarmSteps = 7;
 
-        /// <summary>Prepares Shop, Wardrobe, Leaderboard, Collection, Profile, Settings, then the next level.</summary>
+        /// <summary>Prepares Shop, Wardrobe, Leaderboard, the Scene Album, Profile, Settings, then the next level.</summary>
         private void WarmNext(IPainter p, int step)
         {
             switch (step)
@@ -1406,7 +1563,7 @@ namespace Bloomlings.Playtest.Design
                     LeaderboardScreen.Draw(p, this);
                     break;
                 case 3:
-                    CollectionScreen.Draw(p, this);
+                    AlbumScreen.Draw(p, this);
                     break;
                 case 4:
                     ProfileScreen.Draw(p, this);

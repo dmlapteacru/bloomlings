@@ -9,7 +9,8 @@ namespace Bloomlings.Playtest.Design
     /// <summary>
     /// The bottom menu (spec 005 FR-030, contracts/look.md §6.7; Unity's <c>UiKit.BottomNav</c>): the wooden bar, its places'
     /// icons/captions (a locked one with its padlock badge) and the selected green inset, on Home and the four pages
-    /// (the Store, the Wardrobe, the Leaderboard and the Collection); and the notice a locked place's page shows
+    /// (the Store, the Wardrobe, the Leaderboard and the Scene Album, spec 007, whose icon wears the "!" while the album
+    /// has news); and the notice a locked place's page shows
     /// (<see cref="LockedNotice"/>). It marks the slots it draws; screens only call it.
     /// </summary>
     public static partial class Kit
@@ -42,6 +43,7 @@ namespace Bloomlings.Playtest.Design
                 else
                 {
                     if(!Client.UI.Design.BottomNav.IsOpen(place,look))NavLock(p,icon);
+                    else if(place==NavPlace.Album&&look.AlbumNews)AlertBadge(p,AlbumRegions.NewsBadge(icon));
                     p.PopTransform();p.Hit(touch,()=>onSelect(place));
                 }
             }

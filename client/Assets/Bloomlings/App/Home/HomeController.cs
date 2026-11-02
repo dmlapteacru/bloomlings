@@ -5,6 +5,7 @@ using Bloomlings.Client.App.Progression;
 using Bloomlings.Client.Gameplay.Board;
 using Bloomlings.Client.Gameplay.Themes;
 using Bloomlings.Client.Meta.Clearing;
+using Bloomlings.Client.Meta.Album;
 using Bloomlings.Client.Meta.Collection;
 using Bloomlings.Client.Meta.DailyChallenge;
 using Bloomlings.Client.Meta.DailyReward;
@@ -75,6 +76,7 @@ namespace Bloomlings.Client.App.Home
             WardrobeService wardrobe = services.Get<WardrobeService>();
             ProfileService profile = services.Get<ProfileService>();
             CollectionService collection = services.Get<CollectionService>();
+            AlbumService album = services.Get<AlbumService>();
             DailyChallengeService dailyChallenge = services.Get<DailyChallengeService>();
             LeaderboardClient leaderboard = services.Get<LeaderboardClient>();
             CloudSaveSync sync = services.Get<CloudSaveSync>();
@@ -127,6 +129,8 @@ namespace Bloomlings.Client.App.Home
                     Avatar: profile.Avatar,
                     DailyRewardBadge: daily.ShowsBadge,
                     DailyRewardCompleted: daily.IsUnlocked && daily.ClaimedToday == DailyRewardService.StepCount,
+                    AlbumAvailable: album.IsUnlocked,
+                    AlbumNews: album.HasNews,
                     ProfileName: ProfileScreen.NameOf(profile),
                     MilestoneProgressLeaves: next.HasValue ? PrimaryActionDesign.FilledLeaves(milestones.Table,next.Value.Level,next.Value.WinsToGo) : 0));
                 home.SetFreeBoosterOffer(ads.IsRewardedReady && freeBooster.IsAvailable && FreeBoosterKind(economy).HasValue);
@@ -165,12 +169,16 @@ namespace Bloomlings.Client.App.Home
                 Collection: collection.Count > 0,
                 Rank: leaderboard.IsUnlocked,
                 DailyChallenge: false,
-                FreeBoosterOffer: false);
+                FreeBoosterOffer: false) { Album = album.IsUnlocked, AlbumNews = album.HasNews };
             int UnlockLevel(NavPlace place) => BottomNav.UnlockLevel(place, progression.Roadmap.LevelOf);
             Action? showBoard = null;
             Action? showCollection = null;
             WardrobeScreen? wardrobeScreen = null;
+            // The Collection is switched off since the Scene Album took its menu place (spec 007, the owner, 2026-11-02):
+            // its screen and data stay in the tree as ballast to reuse or delete later (product/OPEN_QUESTIONS.md); wins
+            // still record its pictures.
             CollectionScreen? collectionScreen = null;
+            AlbumScreen? albumScreen = null;
             ProfileScreen? profileScreen = null;
 
             // The Store page over the screen that opened it (Home or one of its pages: the menu's Shop or a Petals "+"),
@@ -195,6 +203,7 @@ namespace Bloomlings.Client.App.Home
                 : wardrobeScreen != null && wardrobeScreen.IsOpen ? "wardrobe"
                 : board != null && board.IsOpen ? "leaderboard"
                 : collectionScreen != null && collectionScreen.IsOpen ? "collection"
+                : albumScreen != null && albumScreen.IsOpen ? "album"
                 : "home";
 
             void Navigate(NavPlace place)
@@ -212,7 +221,8 @@ namespace Bloomlings.Client.App.Home
                 profileScreen?.Hide();
                 wardrobeScreen!.Hide();
                 board!.Hide();
-                collectionScreen!.Hide();
+                collectionScreen?.Hide();
+                albumScreen!.Hide();
                 switch (place)
                 {
                     case NavPlace.Wardrobe:
@@ -238,13 +248,29 @@ namespace Bloomlings.Client.App.Home
 
                         break;
                     case NavPlace.Collection:
-                        if (open)
+                        // Not in the menu since spec 007; kept so a stray call still lands on its page.
+                        if (collectionScreen == null)
+                        {
+                            Refresh();
+                        }
+                        else if (open)
                         {
                             showCollection?.Invoke();
                         }
                         else
                         {
                             collectionScreen.ShowLocked(UnlockLevel(place));
+                        }
+
+                        break;
+                    case NavPlace.Album:
+                        if (open)
+                        {
+                            albumScreen.Show();
+                        }
+                        else
+                        {
+                            albumScreen.ShowLocked(UnlockLevel(place));
                         }
 
                         break;
@@ -260,7 +286,9 @@ namespace Bloomlings.Client.App.Home
             Action submitAppearance = () => RunInBackground(leaderboard.SubmitPending());
             wardrobe.Changed += submitAppearance;
             profile.Changed += submitAppearance;
-            collectionScreen = CollectionScreen.Create(root, () => economy.Petals, () => StoreFrom("collection"), Navigate, NavLook);
+            // The Scene Album (spec 007) in the Collection's menu place; its "Continue playing" starts the next level.
+            albumScreen = AlbumScreen.Create(root, album, () => economy.Petals, () => StoreFrom("album"), Navigate, NavLook, flow.Play);
+            albumScreen.Closed += Refresh;
             DailyChallengeScreen dailyScreen = DailyChallengeScreen.Create(root, () =>
             {
                 LevelAttempt? attempt = dailyChallenge.BeginAttempt();
@@ -288,7 +316,7 @@ namespace Bloomlings.Client.App.Home
             showCollection = () =>
             {
                 analytics?.CollectionOpen(collection.Count);
-                collectionScreen.Show(collection.Entries, (entry, side) => RenderCollectionEntry(catalog, entry, side));
+                collectionScreen?.Show(collection.Entries, (entry, side) => RenderCollectionEntry(catalog, entry, side));
             };
             showBoard = () =>
             {

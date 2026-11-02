@@ -369,12 +369,21 @@ namespace Bloomlings.Playtest.Design
             if (name.StartsWith(BadgePrefix, StringComparison.Ordinal))
                 return "badges/" + name.Substring(BadgePrefix.Length) + ".png";
 
+            if (name.StartsWith(AlbumPrefix, StringComparison.Ordinal))
+            {
+                // The Scene Album's layers (spec 007), embedded without the extension as the backgrounds (a JPEG or a PNG).
+                return name;
+            }
+
             return "characters/" + name + ".png";
         }
 
         /// <summary>The name prefix of the profile's avatar pictures (<c>avatar/drop_default</c>, spec 005 pictures.md I).</summary>
         public const string AvatarPrefix = "avatar/";
         public const string BadgePrefix = "badge/";
+
+        /// <summary>The name prefix of the Scene Album's pictures (<c>album/forest-owl</c>, spec 007; <see cref="Bloomlings.Client.Meta.Album.AlbumCatalog"/>).</summary>
+        public const string AlbumPrefix = "album/";
 
         /// <summary>The name prefix of the owner's backgrounds (<c>bg/home</c>).</summary>
         public const string BackgroundPrefix = "bg/";

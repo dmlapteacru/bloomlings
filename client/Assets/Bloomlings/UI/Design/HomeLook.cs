@@ -27,11 +27,23 @@ namespace Bloomlings.Client.UI.Design
         public const string WardrobeUnlock = "system.wardrobe";
         public const string DailyChallengeUnlock = "system.daily_challenge";
 
+        /// <summary>The Scene Album's unlock (spec 007, L27).</summary>
+        public const string AlbumUnlock = "system.album";
+
+        /// <summary>Whether the Scene Album is open (spec 007; the bottom menu's Album place, L27).</summary>
+        public bool Album { get; init; }
+
+        /// <summary>
+        /// Whether the album has news (spec 007 FR-016: an opened object not seen yet, or a finished scene's reward
+        /// waiting): the bottom menu's Album wears the "!" badge (<c>ui.badge.alert</c>).
+        /// </summary>
+        public bool AlbumNews { get; init; }
+
         /// <summary>The early look of frame 2: nothing beyond the essentials.</summary>
         public static HomeLook Early { get; } = new HomeLook(false, false, false, false, false, false, false, false);
 
         /// <summary>A long-run player's look: everything unlocked (the bottom menu's look on a screen not told its own).</summary>
-        public static HomeLook All { get; } = new HomeLook(true, true, true, true, true, true, true, true);
+        public static HomeLook All { get; } = new HomeLook(true, true, true, true, true, true, true, true) { Album = true };
 
         /// <param name="isUnlocked">Whether a roadmap unlock id is reached.</param>
         /// <param name="collectionCount">Pictures in the Collection.</param>
@@ -49,7 +61,7 @@ namespace Bloomlings.Client.UI.Design
                 Collection: collectionCount > 0,
                 Rank: isUnlocked(LeaderboardUnlock),
                 DailyChallenge: isUnlocked(DailyChallengeUnlock) && dailyChallengeAvailable,
-                FreeBoosterOffer: freeBoosterOffer);
+                FreeBoosterOffer: freeBoosterOffer) { Album = isUnlocked(AlbumUnlock) };
         }
 
         /// <summary>The same look from a set of reached unlock ids.</summary>

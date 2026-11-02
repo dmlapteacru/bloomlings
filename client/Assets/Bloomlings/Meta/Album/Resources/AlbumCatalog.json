@@ -1,0 +1,136 @@
+{
+  "format": "bloomlings-album-catalog.v1",
+  "source": "the owner's scene-album-layered-v1 pack of 2026-11-02 (tools/album/import_scene_pack.py)",
+  "locked": {
+    "saturation": 0,
+    "brightness": 0.82
+  },
+  "scenes": [
+    {
+      "id": "forest",
+      "title": "album.scene.forest",
+      "canvas": [
+        853,
+        1844
+      ],
+      "background": "forest-background",
+      "objects": [
+        {
+          "id": "owl",
+          "title": "album.object.forest.owl",
+          "picture": "P0113",
+          "levelHint": 7,
+          "layer": "forest-owl",
+          "rect": [
+            103,
+            360,
+            179,
+            228
+          ]
+        },
+        {
+          "id": "hive",
+          "title": "album.object.forest.hive",
+          "picture": "P0116",
+          "levelHint": 4,
+          "layer": "forest-hive",
+          "rect": [
+            460,
+            378,
+            345,
+            351
+          ]
+        },
+        {
+          "id": "fox",
+          "title": "album.object.forest.fox",
+          "picture": "P0001",
+          "levelHint": 1,
+          "layer": "forest-fox",
+          "rect": [
+            9,
+            911,
+            480,
+            541
+          ]
+        },
+        {
+          "id": "butterfly",
+          "title": "album.object.forest.butterfly",
+          "picture": "P0065",
+          "levelHint": 17,
+          "layer": "forest-butterfly",
+          "rect": [
+            486,
+            846,
+            364,
+            314
+          ]
+        }
+      ]
+    },
+    {
+      "id": "airmail",
+      "title": "album.scene.airmail",
+      "canvas": [
+        853,
+        1844
+      ],
+      "background": "airmail-background",
+      "objects": [
+        {
+          "id": "mill",
+          "title": "album.object.airmail.mill",
+          "picture": "P0394",
+          "levelHint": 54,
+          "layer": "airmail-mill",
+          "rect": [
+            28,
+            349,
+            477,
+            629
+          ]
+        },
+        {
+          "id": "airship",
+          "title": "album.object.airmail.airship",
+          "picture": "P1092",
+          "levelHint": 76,
+          "layer": "airmail-airship",
+          "rect": [
+            342,
+            124,
+            491,
+            344
+          ]
+        },
+        {
+          "id": "fox",
+          "title": "album.object.airmail.fox",
+          "picture": "P0013",
+          "levelHint": 71,
+          "layer": "airmail-fox",
+          "rect": [
+            9,
+            991,
+            381,
+            528
+          ]
+        },
+        {
+          "id": "bicycle",
+          "title": "album.object.airmail.bicycle",
+          "picture": "P0031",
+          "levelHint": 96,
+          "layer": "airmail-bicycle",
+          "rect": [
+            381,
+            1193,
+            469,
+            399
+          ]
+        }
+      ]
+    }
+  ]
+}

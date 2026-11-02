@@ -64,7 +64,7 @@ namespace Bloomlings.Client.Services.Save
         {
             JObject root = (migrations ?? SaveMigrations.Default).Apply(document);
             const string p = "";
-            JsonDoc.AllowOnly(root, p, "schemaVersion", "localPlayerId", "linkedIdentity", "deviceId", "updatedAt", "progression", "wallet", "purchases", "boosters", "unlocks", "milestones", "cosmetics", "daily", "collection", "settings", "stats", "profile", "cloudOwnerId", "cloudBaseHash", "serverEconomyOwnerId");
+            JsonDoc.AllowOnly(root, p, "schemaVersion", "localPlayerId", "linkedIdentity", "deviceId", "updatedAt", "progression", "wallet", "purchases", "boosters", "unlocks", "milestones", "cosmetics", "daily", "collection", "settings", "stats", "profile", "album", "cloudOwnerId", "cloudBaseHash", "serverEconomyOwnerId");
 
             var save = new PlayerSave
             {
@@ -214,6 +214,13 @@ namespace Bloomlings.Client.Services.Save
                 JsonDoc.AllowOnly(fields, "profile", "name", "joinedAt");
                 save.Profile.Name = OptionalString(fields, "profile", "name");
                 save.Profile.JoinedAt = OptionalString(fields, "profile", "joinedAt");
+            }
+
+            // The Scene Album (spec 007) is optional: older saves have none, and a player who never opened it writes none.
+            JToken? album = JsonDoc.Optional(root, "album");
+            if (album != null)
+            {
+                ReadAlbum(MigrateAlbum(JsonDoc.Object(album, "album")), save.Album);
             }
 
             JToken? stats = JsonDoc.Optional(root, "stats");
@@ -390,6 +397,28 @@ namespace Bloomlings.Client.Services.Save
                 root["profile"] = profile;
             }
 
+            if (!save.Album.IsEmpty)
+            {
+                var seen = new JObject();
+                foreach (KeyValuePair<string, SortedSet<string>> scene in save.Album.Seen)
+                {
+                    seen[scene.Key] = new JArray(ToObjects(scene.Value));
+                }
+
+                var album = new JObject
+                {
+                    ["version"] = AlbumData.CurrentVersion,
+                    ["claimed"] = new JArray(ToObjects(save.Album.Claimed)),
+                    ["seen"] = seen,
+                };
+                if (save.Album.LastViewed != null)
+                {
+                    album["lastViewed"] = save.Album.LastViewed;
+                }
+
+                root["album"] = album;
+            }
+
             if (save.Stats.Counters.Count > 0 || save.Stats.Groups.Count > 0)
             {
                 var stats = new JObject();
@@ -480,6 +509,42 @@ namespace Bloomlings.Client.Services.Save
             ["return"] = grant.Return,
             ["bloomBurst"] = grant.BloomBurst,
         };
+
+        /// <summary>
+        /// The <c>album</c> section's own forward migrations (spec 007): version n to n + 1 until
+        /// <see cref="AlbumData.CurrentVersion"/>. Version 1 is the first, so there is no step yet; a section newer than this
+        /// app is refused, as a newer save is.
+        /// </summary>
+        internal static JObject MigrateAlbum(JObject album)
+        {
+            int version = JsonDoc.Int(JsonDoc.Required(album, "album", "version"), "album.version", min: 1);
+            if (version > AlbumData.CurrentVersion)
+            {
+                throw new ContentFormatException("album.version", $"album version {version} is newer than this app ({AlbumData.CurrentVersion})");
+            }
+
+            return album;
+        }
+
+        private static void ReadAlbum(JObject album, AlbumData data)
+        {
+            JsonDoc.AllowOnly(album, "album", "version", "claimed", "seen", "lastViewed");
+            foreach (string scene in UniqueStrings(album, "album", "claimed"))
+            {
+                data.Claimed.Add(scene);
+            }
+
+            foreach (JProperty scene in JsonDoc.Object(JsonDoc.Required(album, "album", "seen"), "album.seen").Properties())
+            {
+                JArray items = JsonDoc.Array(scene.Value, "album.seen." + scene.Name);
+                for (int i = 0; i < items.Count; i++)
+                {
+                    data.MarkSeen(scene.Name, JsonDoc.String(items[i], JsonDoc.Index("album.seen." + scene.Name, i)));
+                }
+            }
+
+            data.LastViewed = OptionalString(album, "album", "lastViewed");
+        }
 
         private static JObject Obj(JObject root, string name, params string[] allowed)
         {

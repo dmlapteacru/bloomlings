@@ -20,8 +20,15 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The Leaderboard page (open from L10; before it, the page says so).</summary>
         Leaderboard,
 
-        /// <summary>The Collection page (open once a picture is won, from L2; before it, the page says so).</summary>
+        /// <summary>
+        /// The Collection page (open once a picture is won, from L2). Switched off since the Scene Album took its place in
+        /// the menu (spec 007, the owner, 2026-11-02): not in <see cref="BottomNav.Order"/>; its page and data stay in the
+        /// tree as ballast to reuse or delete later (product/OPEN_QUESTIONS.md).
+        /// </summary>
         Collection,
+
+        /// <summary>The Scene Album page (spec 007; open from L27, the roadmap's <c>system.album</c>; before it, the page says so).</summary>
+        Album,
     }
 
     /// <summary>
@@ -29,8 +36,8 @@ namespace Bloomlings.Client.UI.Design
     /// variant): the places in their order, which are open, from which level, their names, slots and stand-in glyphs, both
     /// builds. Every place always shows (the owner's request of 2026-10-04: "the menu's places must always be visible"). A
     /// place is open once its feature is unlocked (<see cref="IsOpen"/>): the Shop with <see cref="HomeLook.Store"/>, the
-    /// Wardrobe with <see cref="HomeLook.Wardrobe"/>, the Leaderboard with <see cref="HomeLook.Rank"/>, the Collection
-    /// with <see cref="HomeLook.Collection"/>; Home always. A locked place keeps its icon, still tappable, with a padlock
+    /// Wardrobe with <see cref="HomeLook.Wardrobe"/>, the Leaderboard with <see cref="HomeLook.Rank"/>, the Scene Album
+    /// with <see cref="HomeLook.Album"/> (spec 007; it replaced the Collection, which stays switched off); Home always. A locked place keeps its icon, still tappable, with a padlock
     /// badge (<see cref="LockBox"/>), and its page says from which level it is available
     /// (<see cref="UnlockLevel"/>, <see cref="ScreenLayout.LockedNotice"/>). Engine-free.
     /// </summary>
@@ -90,8 +97,11 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public const int CollectionLevel = 2;
 
-        /// <summary>The places in their order from the left: all five always show.</summary>
-        public static IReadOnlyList<NavPlace> Order { get; } = new[] { NavPlace.Shop, NavPlace.Wardrobe, NavPlace.Home, NavPlace.Leaderboard, NavPlace.Collection };
+        /// <summary>
+        /// The places in their order from the left: all five always show. The Scene Album took the Collection's place (spec
+        /// 007, the owner, 2026-11-02: "the Scene Album replaces the existing Collection menu item").
+        /// </summary>
+        public static IReadOnlyList<NavPlace> Order { get; } = new[] { NavPlace.Shop, NavPlace.Wardrobe, NavPlace.Home, NavPlace.Leaderboard, NavPlace.Album };
 
         /// <summary>
         /// Whether <paramref name="place"/> is open for a player whose Home looks like <paramref name="look"/>: Home always,
@@ -104,6 +114,7 @@ namespace Bloomlings.Client.UI.Design
             NavPlace.Wardrobe => look.Wardrobe,
             NavPlace.Leaderboard => look.Rank,
             NavPlace.Collection => look.Collection,
+            NavPlace.Album => look.Album,
             _ => true,
         };
 
@@ -111,7 +122,8 @@ namespace Bloomlings.Client.UI.Design
         /// The level from which <paramref name="place"/> is available, as its locked page says: the roadmap's level
         /// of the feature's unlock (<paramref name="levelOf"/>, the build's own roadmap, <c>UnlockRoadmap.LevelOf</c>): the
         /// Shop's <see cref="HomeLook.StoreUnlock"/> (L12), the Wardrobe's <see cref="HomeLook.WardrobeUnlock"/> (L44),
-        /// the Leaderboard's <see cref="HomeLook.LeaderboardUnlock"/> (L10); the Collection from
+        /// the Leaderboard's <see cref="HomeLook.LeaderboardUnlock"/> (L10), the Scene Album's <see cref="HomeLook.AlbumUnlock"/>
+        /// (L27); the switched-off Collection from
         /// <see cref="CollectionLevel"/>; Home from Level 1. An unlock the roadmap does not list counts from Level 1.
         /// </summary>
         public static int UnlockLevel(NavPlace place, Func<string, int?> levelOf)
@@ -121,6 +133,7 @@ namespace Bloomlings.Client.UI.Design
                 NavPlace.Shop => HomeLook.StoreUnlock,
                 NavPlace.Wardrobe => HomeLook.WardrobeUnlock,
                 NavPlace.Leaderboard => HomeLook.LeaderboardUnlock,
+                NavPlace.Album => HomeLook.AlbumUnlock,
                 _ => null,
             };
 
@@ -151,13 +164,14 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public static float LockDisc(Box badge) => Math.Min(badge.Width, badge.Height) / 1.16f;
 
-        /// <summary>A place's name in file names and keys: <c>shop</c>, <c>wardrobe</c>, <c>home</c>, <c>leaderboard</c>, <c>collection</c>.</summary>
+        /// <summary>A place's name in file names and keys: <c>shop</c>, <c>wardrobe</c>, <c>home</c>, <c>leaderboard</c>, <c>album</c> (<c>collection</c>, switched off).</summary>
         public static string Key(NavPlace place) => place switch
         {
             NavPlace.Shop => "shop",
             NavPlace.Wardrobe => "wardrobe",
             NavPlace.Leaderboard => "leaderboard",
             NavPlace.Collection => "collection",
+            NavPlace.Album => "album",
             _ => "home",
         };
 
@@ -168,6 +182,7 @@ namespace Bloomlings.Client.UI.Design
             NavPlace.Wardrobe => "icon.nav.wardrobe",
             NavPlace.Leaderboard => "icon.nav.leaderboard",
             NavPlace.Collection => "icon.nav.collection",
+            NavPlace.Album => "icon.nav.album",
             _ => "icon.nav.home",
         };
 
@@ -183,6 +198,7 @@ namespace Bloomlings.Client.UI.Design
             NavPlace.Wardrobe => ("ui.shirt", C.LotusFill, C.LotusLine),
             NavPlace.Leaderboard => ("ui.trophy", C.MedalGold, C.MedalGold.Darken(0.42f)),
             NavPlace.Collection => ("ui.grid", C.BadgeSuperHard, C.BadgeSuperHard.Darken(0.42f)),
+            NavPlace.Album => ("ui.grid", C.BadgeSuperHard, C.BadgeSuperHard.Darken(0.42f)),
             _ => ("special.fountain", C.ButtonBlue, C.ButtonBlue.Darken(0.42f)),
         };
 

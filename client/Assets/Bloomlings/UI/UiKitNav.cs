@@ -13,7 +13,7 @@ namespace Bloomlings.Client.UI
 {
     /// <summary>
     /// The bottom menu in uGUI (spec 005 FR-030, contracts/look.md §6.7), the twin of the playtest's <c>Kit.BottomNav</c>:
-    /// Home and the four pages (the Store, the Wardrobe, the Leaderboard and the Collection) each show one
+    /// Home and the four pages (the Store, the Wardrobe, the Leaderboard and the Scene Album, spec 007) each show one
     /// (<see cref="BottomNavView"/>), laid out from the kit's <see cref="ScreenLayout.BottomNav"/>, its five places always
     /// shown (a locked one with the padlock badge, <see cref="LockBadge"/>); and the notice a locked place's page shows
     /// (<see cref="LockedNotice"/>).
@@ -119,6 +119,8 @@ namespace Bloomlings.Client.UI
         private readonly Dictionary<NavPlace,(Image Touch,Image Selected,Image Icon,TextMeshProUGUI Caption,RectTransform Lock)> _places=new Dictionary<NavPlace,(Image,Image,Image,TextMeshProUGUI,RectTransform)>();
         private Image _bar=null!,_panel=null!;
         private readonly List<Image> _dividers=new List<Image>();
+        // The Scene Album's "!" while it has news (spec 007 FR-016; the Daily scene's alert badge).
+        private RectTransform? _albumNews;
         private NavPlace _active=NavPlace.Home;
         private bool _shown;
         public NavPlace Active=>_active;
@@ -136,6 +138,7 @@ namespace Bloomlings.Client.UI
                 TextMeshProUGUI caption=GameNavigationView.Label("Name",touch.transform,Loc.T(GameNavigationDesign.NameKey(place)),GameNavigationDesign.Caption,NavigationSkin.TabLook(false),.90f);
                 RectTransform badge=UiKit.LockBadge("Lock",touch.transform);
                 _places[place]=(touch,selected,icon,caption,badge);
+                if(place==NavPlace.Album){_albumNews=UiKit.AlertBadge("AlbumNews",touch.transform);_albumNews.gameObject.SetActive(false);}
             }
         }
         public void Show(NavPlace active,HomeLook look)
@@ -155,6 +158,11 @@ namespace Bloomlings.Client.UI
                 UiKit.PlaceBox(parts.Caption.rectTransform,GameNavigationDesign.NavCaption(face),touch);
                 bool locked=!chosen&&!Design.BottomNav.IsOpen(place,look);parts.Lock.gameObject.SetActive(locked);
                 if(locked)UiKit.PlaceBox(parts.Lock,Design.BottomNav.LockBox(icon),touch);
+                if(place==NavPlace.Album&&_albumNews!=null)
+                {
+                    bool news=!chosen&&!locked&&look.AlbumNews;_albumNews.gameObject.SetActive(news);
+                    if(news)UiKit.PlaceBox(_albumNews,AlbumRegions.NewsBadge(icon),touch);
+                }
             }
         }
         public RectTransform? PlaceRect(NavPlace place)=>!_shown||!isActiveAndEnabled ? null : _places[place].Touch.rectTransform;

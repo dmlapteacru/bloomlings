@@ -368,7 +368,8 @@ namespace Bloomlings.Playtest.Design
             bool hasNext = meta.Milestones.Next(meta.Progression.HighestCompletedLevel).HasValue;
             // The Daily Challenge stays off with round content (spec 006 FR-063) until it has round levels of its own.
             HomeLook look = HomeLook.From(meta.Progression.IsUnlocked, meta.Collection.Count, hasNext, dailyChallengeAvailable: app.DailyChallengeAvailable, freeBoosterOffer: false);
-            return look with { Collection = look.Collection || meta.CurrentLevel >= BottomNav.CollectionLevel };
+            // The Scene Album (spec 007): open from L27; its "!" while a reveal or a reward is new.
+            return look with { Collection = look.Collection || meta.CurrentLevel >= BottomNav.CollectionLevel, AlbumNews = meta.Album.HasNews };
         }
 
         /// <summary>The bottom menu's regions with its five places (<see cref="BottomNav.Order"/>) and <paramref name="active"/> in the medallion.</summary>

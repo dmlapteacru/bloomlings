@@ -29,6 +29,8 @@
     <Compile Include="../../client/Assets/Bloomlings/Meta/Profile/*.cs" Link="Shared/Profile/%(Filename)%(Extension)" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/Clearing/*.cs" Link="Shared/Clearing/%(Filename)%(Extension)" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/Collection/CollectionService.cs" Link="Shared/CollectionService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/Album/*.cs" Link="Shared/Album/%(Filename)%(Extension)" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Meta/Album/Resources/AlbumCatalog.json" LogicalName="album/AlbumCatalog.json" />
     <Compile Include="../../client/Assets/Bloomlings/Gameplay/Themes/ThemeRotation.cs" Link="Shared/ThemeRotation.cs" />
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Meta/Wardrobe/Resources/CosmeticCatalog.json" LogicalName="cosmetics/CosmeticCatalog.json" />
     <!-- The Garden look's font (spec 003 contracts/fonts.md); AndroidPainter loads it, the level tester does not. -->
@@ -53,6 +55,8 @@
     <AndroidAsset Include="../../client/Assets/Bloomlings/Art/Icons/Resources/Icons/*.png" Link="Assets/icons/%(Filename)%(Extension)" />
     <AndroidAsset Include="../../client/Assets/Bloomlings/Art/Badges/Resources/Badges/*.png" Link="Assets/badges/%(Filename)%(Extension)" />
     <AndroidAsset Include="../../client/Assets/Bloomlings/Art/Decor/Resources/Decor/*.png" Link="Assets/decor/%(Filename)%(Extension)" />
+    <!-- The owner's Scene Album scenes (spec 007): each scene's background JPEG and its objects' cropped PNG layers. -->
+    <AndroidAsset Include="../../client/Assets/Bloomlings/Art/Album/Resources/Album/*.png;../../client/Assets/Bloomlings/Art/Album/Resources/Album/*.jpg" Link="Assets/album/%(Filename)%(Extension)" />
     <AndroidAsset Include="../../client/Assets/Bloomlings/Art/Avatars/Resources/Avatars/*.jpg" Link="Assets/avatars/%(Filename)%(Extension)" />
     <!--
       The owner's animated heroes as flat frames (spec 005 FR-028, tools/heroanim; no 3D model in the game): the splash,

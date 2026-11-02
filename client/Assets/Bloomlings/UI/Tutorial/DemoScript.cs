@@ -78,6 +78,7 @@ namespace Bloomlings.Client.UI.Tutorial
             "system.leaderboard" => new DemoScript(unlockId, new DemoStep(Loc.T("demo.leaderboard")) { PointAt = target }),
             "system.store" => new DemoScript(unlockId, new DemoStep(Loc.T("demo.store")) { PointAt = target }),
             "system.wardrobe" => new DemoScript(unlockId, new DemoStep(Loc.T("demo.wardrobe")) { PointAt = target }),
+            "system.album" => new DemoScript(unlockId, new DemoStep(Loc.T("demo.album")) { PointAt = target }),
             "system.daily_challenge" => new DemoScript(unlockId, new DemoStep(Loc.T("demo.daily_challenge")) { PointAt = target }),
             "system.milestone_25" => new DemoScript(unlockId, new DemoStep(Loc.T("demo.milestones")) { PointAt = target }),
             "system.theme_rotation" => new DemoScript(unlockId, new DemoStep(Loc.T("demo.themes"))),
@@ -87,7 +88,7 @@ namespace Bloomlings.Client.UI.Tutorial
         /// <summary>The systems that have a Home demo, in roadmap order.</summary>
         public static IReadOnlyList<string> HomeSystems { get; } = new[]
         {
-            "system.leaderboard", "system.store", "system.milestone_25", "system.wardrobe", "system.daily_challenge", "system.theme_rotation",
+            "system.leaderboard", "system.store", "system.milestone_25", "system.album", "system.wardrobe", "system.daily_challenge", "system.theme_rotation",
         };
     }
 }

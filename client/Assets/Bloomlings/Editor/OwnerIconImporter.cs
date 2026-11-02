@@ -26,6 +26,10 @@ namespace Bloomlings.Client.Editor
         private const string Avatars = "Assets/Bloomlings/Art/Avatars/";
         private const string Badges = "Assets/Bloomlings/Art/Badges/";
 
+        // The Scene Album's layers (spec 007): a full-size opaque JPEG background and cropped transparent object PNGs a
+        // scene, drawn at about their size on a phone; sizes kept (their crop boxes are canvas pixels).
+        private const string Album = "Assets/Bloomlings/Art/Album/";
+
         private void OnPreprocessTexture()
         {
             if (assetPath.StartsWith(Badges, StringComparison.Ordinal) && assetImporter is TextureImporter badge)
@@ -48,6 +52,22 @@ namespace Bloomlings.Client.Editor
                 badge.SetPlatformTextureSettings(android);
                 return;
             }
+            if (assetPath.StartsWith(Album, StringComparison.Ordinal) && assetImporter is TextureImporter album)
+            {
+                album.textureType = TextureImporterType.Default;
+                album.sRGBTexture = true;
+                album.alphaSource = assetPath.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase) ? TextureImporterAlphaSource.None : TextureImporterAlphaSource.FromInput;
+                album.alphaIsTransparency = true;
+                // The objects also show small in the medallions: mipmaps keep them smooth there.
+                album.mipmapEnabled = !assetPath.EndsWith(".jpg", StringComparison.OrdinalIgnoreCase);
+                album.wrapMode = TextureWrapMode.Clamp;
+                album.npotScale = TextureImporterNPOTScale.None;
+                album.maxTextureSize = 2048;
+                album.isReadable = false;
+                album.textureCompression = TextureImporterCompression.CompressedHQ;
+                return;
+            }
+
             if (assetPath.StartsWith(Avatars, StringComparison.Ordinal) && assetImporter is TextureImporter avatar)
             {
                 avatar.textureType = TextureImporterType.Default;

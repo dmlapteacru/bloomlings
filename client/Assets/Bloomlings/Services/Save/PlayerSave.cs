@@ -66,6 +66,9 @@ namespace Bloomlings.Client.Services.Save
         /// <summary>The profile page's name and joining day (spec 005 FR-037); the chosen avatar is a profile slot of <see cref="Cosmetics"/>.</summary>
         public ProfileData Profile { get; } = new ProfileData();
 
+        /// <summary>The Scene Album's state (spec 007), optional in the save as <c>album</c>: claimed rewards, seen reveals, the last scene viewed.</summary>
+        public AlbumData Album { get; } = new AlbumData();
+
         /// <summary>A fresh profile, created automatically on first launch with no sign-in (FR-087).</summary>
         public static PlayerSave CreateNew(string localPlayerId, DateTime utcNow)
         {
@@ -127,6 +130,7 @@ namespace Bloomlings.Client.Services.Save
             Settings.Language = source.Settings.Language;
             Profile.Name = source.Profile.Name;
             Profile.JoinedAt = source.Profile.JoinedAt;
+            Album.Assign(source.Album);
             Stats.Counters.Clear();
             foreach (KeyValuePair<string, long> pair in source.Stats.Counters)
             {
@@ -357,6 +361,58 @@ namespace Bloomlings.Client.Services.Save
         public string? Name { get; set; }
 
         public string? JoinedAt { get; set; }
+    }
+
+    /// <summary>
+    /// The Scene Album's own state (spec 007-scene-album), optional in the save as <c>album</c> (its own
+    /// <see cref="CurrentVersion"/>): which scenes' one-time rewards are claimed, which opened objects the player has seen
+    /// in colour (an opened object not yet seen plays the colour's return on the next album open, and the bottom menu's
+    /// Album wears the "!"), and the scene viewed last. Which objects are open is never stored: it follows from the won
+    /// levels (<see cref="ProgressionData.HighestCompletedLevel"/>) through the published round levels' pictures.
+    /// </summary>
+    public sealed class AlbumData
+    {
+        /// <summary>The <c>album</c> section's format: 1 (2026-11-02). A later format adds a step in <c>SaveSerializer</c>.</summary>
+        public const int CurrentVersion = 1;
+
+        /// <summary>The scenes whose reward was claimed (each once, FR-012).</summary>
+        public SortedSet<string> Claimed { get; } = new SortedSet<string>(StringComparer.Ordinal);
+
+        /// <summary>Scene id → the ids of its objects the player has seen opened.</summary>
+        public SortedDictionary<string, SortedSet<string>> Seen { get; } = new SortedDictionary<string, SortedSet<string>>(StringComparer.Ordinal);
+
+        /// <summary>The scene the album showed last, or null.</summary>
+        public string? LastViewed { get; set; }
+
+        /// <summary>Whether the section has nothing to write (an older save, or a player who never opened the album).</summary>
+        public bool IsEmpty => Claimed.Count == 0 && Seen.Count == 0 && LastViewed == null;
+
+        public bool HasSeen(string scene, string item) => Seen.TryGetValue(scene, out SortedSet<string>? items) && items.Contains(item);
+
+        /// <summary>Records that <paramref name="item"/> of <paramref name="scene"/> was seen opened; false when it already was.</summary>
+        public bool MarkSeen(string scene, string item)
+        {
+            if (!Seen.TryGetValue(scene, out SortedSet<string>? items))
+            {
+                items = new SortedSet<string>(StringComparer.Ordinal);
+                Seen[scene] = items;
+            }
+
+            return items.Add(item);
+        }
+
+        internal void Assign(AlbumData source)
+        {
+            Claimed.Clear();
+            Claimed.UnionWith(source.Claimed);
+            Seen.Clear();
+            foreach (KeyValuePair<string, SortedSet<string>> pair in source.Seen)
+            {
+                Seen[pair.Key] = new SortedSet<string>(pair.Value, StringComparer.Ordinal);
+            }
+
+            LastViewed = source.LastViewed;
+        }
     }
 
     public sealed class DailyData

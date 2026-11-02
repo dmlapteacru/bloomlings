@@ -31,6 +31,7 @@
     <Compile Include="../../client/Assets/Bloomlings/Meta/Wardrobe/WardrobeService.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/DailyReward/DailyRewardService.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/Collection/CollectionService.cs" />
+    <Compile Include="../../client/Assets/Bloomlings/Meta/Album/*.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/Profile/*.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/Clearing/*.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Services/Save/PlayerSave.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="../../client/Assets/Bloomlings/Services/Config/RemoteConfigKeys.cs" />
     <Compile Include="../../client/Assets/Bloomlings/Meta/Wardrobe/CosmeticCatalog.cs" />
     <EmbeddedResource Include="../../client/Assets/Bloomlings/Meta/Wardrobe/Resources/CosmeticCatalog.json" LogicalName="cosmetics/CosmeticCatalog.json" />
+    <EmbeddedResource Include="../../client/Assets/Bloomlings/Meta/Album/Resources/AlbumCatalog.json" LogicalName="album/AlbumCatalog.json" />
     <ProjectReference Include="../../core/src/Bloomlings.Core/Bloomlings.Core.csproj" />
     <ProjectReference Include="../../core/src/Bloomlings.Content/Bloomlings.Content.csproj" />
   </ItemGroup>
