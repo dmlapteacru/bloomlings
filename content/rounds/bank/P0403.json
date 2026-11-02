@@ -1,0 +1,31 @@
+{
+ "picture": "P0403",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|links+cells||tune",
+   "tune": {
+    "slot": "regular",
+    "t": null,
+    "attempts": 4,
+    "quick": 8,
+    "evaluated": 0,
+    "seconds": 16
+   },
+   "tried": 4,
+   "found": 0,
+   "reasons": {
+    "связки ловушками: очередь сама остаётся выше зоны": 1,
+    "быстрая оценка вне зоны после поправок": 3,
+    "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
+   }
+  }
+ ],
+ "tune": {
+  "Normal|links+cells|regular": {
+   "trap": true,
+   "offset": 0.35
+  }
+ }
+}

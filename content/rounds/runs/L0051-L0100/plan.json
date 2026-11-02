@@ -2222,17 +2222,18 @@
    "intro": null,
    "recipe": "links+cells",
    "slot": "regular",
-   "picture": "P0403",
-   "title": "Метеорит с древним папоротником",
-   "N": 865,
+   "picture": "P1030",
+   "title": "Свёкла с карманом для цветка",
+   "N": 1044,
    "band": "800–1200",
-   "pack": "packs-0268-0467 · Доисторические находки",
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
    "hidden": 4,
-   "P": 24,
+   "P": 30,
    "wantLoss": true,
-   "swappedFrom": "P0035",
+   "swappedFrom": "P0403",
    "tried": [
-    "P0035"
+    "P0035",
+    "P0403"
    ],
    "relaxed": [
     "family",
@@ -2253,7 +2254,9 @@
    "pack": "packs-0268-0467 · Новые версии знакомых героев",
    "hidden": 5,
    "P": 30,
-   "pin": true
+   "pin": true,
+   "pinRetry": true,
+   "maxColours": 10
   },
   {
    "level": 56,
@@ -2563,17 +2566,21 @@
    "intro": null,
    "recipe": "links+cells",
    "slot": "regular",
-   "picture": "P0415",
-   "title": "Походные ботинки на гусеницах",
-   "N": 881,
+   "picture": "P0039",
+   "title": "Привидение с чашкой",
+   "N": 745,
    "band": "700–900",
-   "pack": "packs-0268-0467 · Путешествия и походы",
-   "hidden": 3,
+   "pack": "batch-0011",
+   "hidden": 2,
    "P": 24,
    "relaxed": [
     "family",
     "motif",
     "colours"
+   ],
+   "swappedFrom": "P0415",
+   "tried": [
+    "P0415"
    ]
   },
   {
@@ -2582,14 +2589,22 @@
    "intro": null,
    "recipe": "links+cells+latch",
    "slot": "Hard",
-   "picture": "P0391",
-   "title": "Кассета — американские горки",
-   "N": 1236,
+   "picture": "P0931",
+   "title": "Перевёрнутый водопад в сапоге",
+   "N": 1320,
    "band": "1200–1500",
-   "pack": "packs-0268-0467 · Ретрофутуризм",
-   "hidden": 4,
-   "P": 30,
-   "pin": true
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
+   "hidden": 5,
+   "P": 31,
+   "swappedFrom": "P0391",
+   "tried": [
+    "P0391"
+   ],
+   "relaxed": [
+    "family",
+    "motif",
+    "colours"
+   ]
   },
   {
    "level": 81,
@@ -2688,17 +2703,21 @@
    "intro": null,
    "recipe": "links+cells",
    "slot": "regular",
-   "picture": "P0354",
-   "title": "Башня, сшитая из лоскутов",
-   "N": 880,
+   "picture": "P0400",
+   "title": "Аккордеон-город",
+   "N": 1178,
    "band": "800–1200",
-   "pack": "packs-0268-0467 · Невозможная архитектура",
+   "pack": "packs-0268-0467 · Музыка",
    "hidden": 4,
-   "P": 24,
+   "P": 30,
    "relaxed": [
     "family",
     "motif",
     "colours"
+   ],
+   "swappedFrom": "P0354",
+   "tried": [
+    "P0354"
    ]
   },
   {
@@ -2761,17 +2780,21 @@
    "intro": null,
    "recipe": "links",
    "slot": "after-hard",
-   "picture": "P0406",
-   "title": "Бумажная швейная машинка",
-   "N": 894,
+   "picture": "P0974",
+   "title": "Апельсиновый спасательный круг для семечка",
+   "N": 959,
    "band": "800–1200",
-   "pack": "packs-0268-0467 · Обмен свойствами предметов",
-   "hidden": 0,
-   "P": 24,
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
+   "hidden": 3,
+   "P": 27,
    "relaxed": [
     "family",
     "motif",
     "colours"
+   ],
+   "swappedFrom": "P0406",
+   "tried": [
+    "P0406"
    ]
   },
   {
@@ -2800,17 +2823,21 @@
    "intro": null,
    "recipe": "links+latch",
    "slot": "regular",
-   "picture": "P0362",
-   "title": "Воздушный змей — праздничная скатерть",
-   "N": 752,
+   "picture": "P1003",
+   "title": "Лемур с рулоном клетчатой ткани",
+   "N": 892,
    "band": "700–900",
-   "pack": "packs-0268-0467 · Праздники и карнавал",
-   "hidden": 2,
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
+   "hidden": 3,
    "P": 24,
    "relaxed": [
     "family",
     "motif",
     "colours"
+   ],
+   "swappedFrom": "P0362",
+   "tried": [
+    "P0362"
    ]
   },
   {
@@ -2877,14 +2904,23 @@
    "intro": null,
    "recipe": "cells+links",
    "slot": "regular",
-   "picture": "P0326",
-   "title": "Мягкий дорожный конус",
-   "N": 873,
+   "picture": "P0281",
+   "title": "Самовар-вулкан",
+   "N": 899,
    "band": "700–900",
-   "pack": "packs-0268-0467 · Обмен свойствами предметов",
-   "hidden": 2,
+   "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
+   "hidden": 4,
    "P": 24,
-   "pin": true
+   "swappedFrom": "P1008",
+   "tried": [
+    "P0326",
+    "P1008"
+   ],
+   "relaxed": [
+    "family",
+    "motif",
+    "colours"
+   ]
   },
   {
    "level": 98,

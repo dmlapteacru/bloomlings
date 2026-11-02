@@ -1,0 +1,48 @@
+{
+ "picture": "P0326",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|cells+links||tune",
+   "tune": {
+    "slot": "regular",
+    "t": null,
+    "attempts": 4,
+    "quick": 4,
+    "evaluated": 0,
+    "seconds": 4
+   },
+   "tried": 4,
+   "found": 0,
+   "reasons": {
+    "связки ловушками: очередь сама остаётся выше зоны": 1,
+    "быстрая оценка вне зоны после поправок": 3,
+    "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
+   }
+  },
+  {
+   "combo": "Normal|cells+links||tune",
+   "tune": {
+    "slot": "regular",
+    "t": null,
+    "attempts": 3,
+    "quick": 3,
+    "evaluated": 0,
+    "seconds": 3
+   },
+   "tried": 3,
+   "found": 0,
+   "reasons": {
+    "быстрая оценка вне зоны после поправок": 2,
+    "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
+   }
+  }
+ ],
+ "tune": {
+  "Normal|cells+links|regular": {
+   "trap": true,
+   "offset": 0.34
+  }
+ }
+}

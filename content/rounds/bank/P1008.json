@@ -1,0 +1,32 @@
+{
+ "picture": "P1008",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|cells+links||tune",
+   "tune": {
+    "slot": "regular",
+    "t": null,
+    "attempts": 4,
+    "quick": 10,
+    "evaluated": 0,
+    "seconds": 9
+   },
+   "tried": 4,
+   "found": 0,
+   "reasons": {
+    "связки ловушками: очередь сама остаётся выше зоны": 1,
+    "быстрая оценка вне зоны после поправок": 3,
+    "акценты: цветов уже предел (строим без них)": 1,
+    "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
+   }
+  }
+ ],
+ "tune": {
+  "Normal|cells+links|regular": {
+   "trap": true,
+   "offset": 1.82
+  }
+ }
+}
