@@ -435,6 +435,15 @@
     "candidate": "P0966-Nlatch+links+hidden-g1103b-2",
     "share": 0.63,
     "recipe": "latch+links+hidden"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0966",
+    "candidate": "P0966-Nlatch+links+hidden-g1103c-14",
+    "share": 0.65,
+    "recipe": "latch+links+hidden",
+    "lost": true,
+    "gen": "2026-11-03c"
    }
   },
   {
@@ -786,6 +795,15 @@
     "candidate": "P0039-Nlinks+cells-g1102b-42",
     "share": 0.638,
     "recipe": "links+cells"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0039",
+    "candidate": "P0039-Nlinks+cells-g1102b-42",
+    "share": 0.638,
+    "recipe": "links+cells",
+    "lost": true,
+    "gen": "2026-11-02b"
    }
   },
   {
