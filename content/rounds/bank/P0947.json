@@ -7044,10 +7044,10 @@
   },
   "Normal|latch+links+hidden|regular": {
    "trap": true,
-   "t": 1,
+   "t": 0.99,
    "cols": 5,
-   "offset": -2,
-   "quick": 0.625,
+   "offset": -1.97,
+   "quick": 0.65,
    "at": "2026-11-03"
   }
  },
