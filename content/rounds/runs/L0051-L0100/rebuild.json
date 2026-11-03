@@ -1,5 +1,5 @@
 {
- "tag": "2026-11-03",
+ "tag": "2026-11-03b",
  "levels": [
   {
    "level": 52,
@@ -234,6 +234,15 @@
    }
   },
   {
+   "level": 66,
+   "tag": "2026-11-03b",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03"
+  },
+  {
    "level": 67,
    "tag": "2026-11-02b",
    "why": [
@@ -369,6 +378,15 @@
    }
   },
   {
+   "level": 69,
+   "tag": "2026-11-03b",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03"
+  },
+  {
    "level": 70,
    "tag": "2026-11-03",
    "why": [
@@ -382,6 +400,15 @@
     "share": 0.3,
     "recipe": "links+latch"
    }
+  },
+  {
+   "level": 70,
+   "tag": "2026-11-03b",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03"
   },
   {
    "level": 72,
@@ -445,6 +472,15 @@
     "share": 0.6,
     "recipe": "links+latch"
    }
+  },
+  {
+   "level": 73,
+   "tag": "2026-11-03b",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03"
   },
   {
    "level": 74,
@@ -534,6 +570,15 @@
    }
   },
   {
+   "level": 77,
+   "tag": "2026-11-03b",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03"
+  },
+  {
    "level": 78,
    "tag": "2026-11-02c",
    "why": [
@@ -597,6 +642,15 @@
    }
   },
   {
+   "level": 80,
+   "tag": "2026-11-03b",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03"
+  },
+  {
    "level": 81,
    "tag": "2026-11-03",
    "why": [
@@ -610,6 +664,15 @@
     "share": 0.76,
     "recipe": "links+latch"
    }
+  },
+  {
+   "level": 81,
+   "tag": "2026-11-03b",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03"
   },
   {
    "level": 82,
@@ -699,6 +762,15 @@
    }
   },
   {
+   "level": 84,
+   "tag": "2026-11-03b",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03"
+  },
+  {
    "level": 89,
    "tag": "2026-11-02b",
    "why": [
@@ -759,6 +831,30 @@
     "candidate": "P0385-Nlatch+links-g1102b-a-19",
     "share": 0.65,
     "recipe": "latch+links"
+   }
+  },
+  {
+   "level": 89,
+   "tag": "2026-11-03b",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03"
+  },
+  {
+   "level": 90,
+   "tag": "2026-11-03b",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03",
+   "from": {
+    "picture": "P0337",
+    "candidate": "P0337-Slinks+latch+cells-a-6",
+    "share": 0.083,
+    "recipe": "links+latch+cells"
    }
   },
   {
@@ -849,6 +945,15 @@
    }
   },
   {
+   "level": 93,
+   "tag": "2026-11-03b",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03"
+  },
+  {
    "level": 95,
    "tag": "2026-11-03",
    "why": [
@@ -862,6 +967,15 @@
     "share": 0.37,
     "recipe": "links+latch"
    }
+  },
+  {
+   "level": 95,
+   "tag": "2026-11-03b",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03"
   },
   {
    "level": 96,
@@ -975,6 +1089,15 @@
    }
   },
   {
+   "level": 99,
+   "tag": "2026-11-03b",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03"
+  },
+  {
    "level": 100,
    "tag": "2026-11-03",
    "why": [
@@ -988,6 +1111,15 @@
     "share": 0.368,
     "recipe": "links+latch+cells"
    }
+  },
+  {
+   "level": 100,
+   "tag": "2026-11-03b",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03"
   }
  ]
 }

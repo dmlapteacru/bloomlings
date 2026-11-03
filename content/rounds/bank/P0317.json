@@ -581,10 +581,10 @@
   },
   "Normal|links+latch+cells|after-hard": {
    "trap": true,
-   "t": 1,
+   "t": 0.83,
    "cols": 3,
-   "offset": -0.17,
-   "quick": 0.775,
+   "offset": 0.51,
+   "quick": 0.925,
    "at": "2026-11-03"
   }
  },
