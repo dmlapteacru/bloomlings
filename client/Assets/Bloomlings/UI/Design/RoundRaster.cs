@@ -274,17 +274,25 @@ namespace Bloomlings.Client.UI.Design
         /// (<see cref="RoundScreenLook.BoardCubeFill"/>), and the material's symbol on its top in the symbols mode. Drawn from
         /// the far row to the near one, a nearer cube hides the front of the one behind it.
         /// </summary>
-        public static byte[] BoardCube(int width, int height, Rgba color, string? symbolId)
+        public static byte[] BoardCube(int width, int height, Rgba color, string? symbolId) => BoardCube(width, height, color, symbolId, BoardCubeLook.Default);
+
+        /// <summary>
+        /// <see cref="BoardCube(int, int, Rgba, string?)"/> in the cube look <paramref name="look"/> (its proportions, hairline and
+        /// shading, <see cref="BoardCubeLook"/>; the picture <see cref="BoardCubeLook.PictureShare"/> of its width tall), with
+        /// the look's soft shadow on the surface under the foot and in the gap at its sides where it has one.
+        /// </summary>
+        public static byte[] BoardCube(int width, int height, Rgba color, string? symbolId, BoardCubeLook look)
         {
             Check(width, height);
             var pixels = new byte[width * height * 4];
             float w = width;
             float h = height;
-            float m = w * (1f - RoundScreenLook.BoardCubeFill) / 2f;
-            float front = RoundScreenLook.BoardFrontShare / (RoundScreenLook.BoardRowShare + RoundScreenLook.BoardFrontShare);
-            float bevel = w * RoundScreenLook.BoardBevelShare;
+            float m = w * (1f - look.Fill) / 2f;
+            float front = look.FrontShare / (look.TopShare + look.FrontShare);
+            float bevel = w * look.BevelShare;
+            float shadow = h * look.ShadowShare / look.PictureShare;
             Func<float, float, float>? mark = symbolId != null ? ShapeLibrary.Get(symbolId) : null;
-            float topBottom = h - ((h - m) * front);
+            float topBottom = (h - shadow) - ((h - m - shadow) * front);
             float markUnit = Math.Min(w, topBottom) * MaterialSymbolShare(TileStyle.BoardColor) / 2f / ShapeRaster.Margin;
             Rgba ink = RoundLook.SymbolInk(color);
             Rgba halo = RoundLook.SymbolHalo(color);
@@ -294,22 +302,48 @@ namespace Bloomlings.Client.UI.Design
                 for (int px = 0; px < width; px++)
                 {
                     float x = px + 0.5f;
-                    (Color c, float cover, float _) = ObliqueCube(x, y, w, h, color, front, m, 0f, bevel);
-                    if (cover <= 0f)
-                    {
-                        continue;
-                    }
-
-                    if (mark != null)
+                    (Color c, float cover, float _) = ObliqueCube(x, y, w, h, color, front, m, shadow, bevel, look.Gloss, look);
+                    if (cover > 0f && mark != null)
                     {
                         MaterialMark(ref c, x, y, w / 2f, (m + topBottom) / 2f, markUnit, mark, ink, halo, Math.Max(0.8f, markUnit * 0.1f));
                     }
 
-                    Put(pixels, width, px, py, c, cover);
+                    PutOverShadow(pixels, width, px, py, x, y, w, h, c, cover, m, shadow, look.CornerShare, look.ShadowAlpha);
                 }
             }
 
             return pixels;
+        }
+
+        /// <summary>
+        /// Writes a board cube's pixel (<paramref name="c"/> at <paramref name="cover"/>) over the soft shadow of its body cast
+        /// <paramref name="shadow"/> px downward onto the surface (none while <paramref name="alpha"/> is 0, the game's look).
+        /// </summary>
+        private static void PutOverShadow(byte[] pixels, int width, int px, int py, float x, float y, float w, float h, Color c, float cover, float m, float shadow, float corner, float alpha)
+        {
+            float under = 0f;
+            if (alpha > 0f && shadow > 0f && cover < 1f)
+            {
+                // The body moved down by most of the drop and widened into the side gaps, with a soft edge as wide as the drop.
+                float blur = Math.Max(1f, shadow);
+                float d = RoundRect(x, y, m * 0.3f, m + (shadow * 0.6f), w - (m * 0.3f), h - (shadow * 0.15f), Math.Max(1f, w * corner));
+                under = alpha * Clamp01(0.5f - (d / blur));
+            }
+
+            if (under <= 0f)
+            {
+                if (cover > 0f)
+                {
+                    Put(pixels, width, px, py, c, cover);
+                }
+
+                return;
+            }
+
+            float a = cover + (under * (1f - cover));
+            var dark = new Color(new Rgba(40, 32, 24));
+            dark.Mix(c.ToRgba(), cover / Math.Max(0.001f, a));
+            Put(pixels, width, px, py, dark, a);
         }
 
         /// <summary>
@@ -361,6 +395,9 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>The cache key of a board cube's picture (<see cref="BoardCube"/>), the same in both builds.</summary>
         public static string BoardCubeKey(char code, bool symbol) => "tile.round/oblique/" + code + (symbol ? "/symbol" : string.Empty);
+
+        /// <summary>The cache key of a board cube's picture in <paramref name="look"/>: the game's key for <see cref="BoardCubeLook.Default"/>.</summary>
+        public static string BoardCubeKey(char code, bool symbol, in BoardCubeLook look) => BoardCubeKey(code, symbol) + (look.Key.Length > 0 ? "/" + look.Key : string.Empty);
 
         /// <summary>
         /// A round level's pod (<c>pod.cube</c>, spec 006 FR-064, the owner's pods of 2026-10-28, as the reference game's): no frame or
@@ -461,16 +498,20 @@ namespace Bloomlings.Client.UI.Design
         /// and hairline) in the hidden pod's neutral grey (<see cref="RoundLook.HiddenPodColor"/>) with the hidden pod's white
         /// "?" marks on its top (a big one and four small ones), never a material colour or symbol until it reveals.
         /// </summary>
-        public static byte[] HiddenBoardCube(int width, int height)
+        public static byte[] HiddenBoardCube(int width, int height) => HiddenBoardCube(width, height, BoardCubeLook.Default);
+
+        /// <summary><see cref="HiddenBoardCube(int, int)"/> in the cube look <paramref name="look"/> (<see cref="BoardCube(int, int, Rgba, string?, BoardCubeLook)"/>).</summary>
+        public static byte[] HiddenBoardCube(int width, int height, BoardCubeLook look)
         {
             Check(width, height);
             var pixels = new byte[width * height * 4];
             float w = width;
             float h = height;
-            float m = w * (1f - RoundScreenLook.BoardCubeFill) / 2f;
-            float front = RoundScreenLook.BoardFrontShare / (RoundScreenLook.BoardRowShare + RoundScreenLook.BoardFrontShare);
-            float bevel = w * RoundScreenLook.BoardBevelShare;
-            float topBottom = h - ((h - m) * front);
+            float m = w * (1f - look.Fill) / 2f;
+            float front = look.FrontShare / (look.TopShare + look.FrontShare);
+            float bevel = w * look.BevelShare;
+            float shadow = h * look.ShadowShare / look.PictureShare;
+            float topBottom = (h - shadow) - ((h - m - shadow) * front);
             Rgba color = RoundLook.HiddenPodColor;
             Func<float, float, float> mystery = ShapeLibrary.Get("tile.mystery");
             float topHeight = topBottom - m;
@@ -481,14 +522,13 @@ namespace Bloomlings.Client.UI.Design
                 for (int px = 0; px < width; px++)
                 {
                     float x = px + 0.5f;
-                    (Color c, float cover, float _) = ObliqueCube(x, y, w, h, color, front, m, 0f, bevel);
-                    if (cover <= 0f)
+                    (Color c, float cover, float _) = ObliqueCube(x, y, w, h, color, front, m, shadow, bevel, look.Gloss, look);
+                    if (cover > 0f)
                     {
-                        continue;
+                        MysteryMarks(ref c, x, y, w / 2f, (m + topBottom) / 2f, (w - (2f * m)) * 0.3f, topHeight * 0.32f, unit, mystery);
                     }
 
-                    MysteryMarks(ref c, x, y, w / 2f, (m + topBottom) / 2f, (w - (2f * m)) * 0.3f, topHeight * 0.32f, unit, mystery);
-                    Put(pixels, width, px, py, c, cover);
+                    PutOverShadow(pixels, width, px, py, x, y, w, h, c, cover, m, shadow, look.CornerShare, look.ShadowAlpha);
                 }
             }
 
@@ -497,6 +537,9 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>The cache key of a hidden cell's cube picture (<see cref="HiddenBoardCube"/>), the same in both builds.</summary>
         public const string HiddenBoardCubeKey = RoundLook.HiddenCellSlot + "/oblique";
+
+        /// <summary>The cache key of a hidden cell's cube picture in <paramref name="look"/>: <see cref="HiddenBoardCubeKey"/> for the game's look.</summary>
+        public static string HiddenBoardCubeKeyOf(in BoardCubeLook look) => HiddenBoardCubeKey + (look.Key.Length > 0 ? "/" + look.Key : string.Empty);
 
         /// <summary>The cache key of a hidden cell's side face (<see cref="SideFace"/> in <see cref="RoundLook.HiddenPodColor"/>).</summary>
         public static string HiddenSideFaceKey(bool left, float topShare) =>

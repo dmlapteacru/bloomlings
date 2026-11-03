@@ -11,6 +11,8 @@
 // Home makes the next likely screens' pictures on a worker, IPictureWarmer)
 // [--rounds [<published dir>]] (only the round levels as the APKs run them, spec 006: Home, the round level placeholder,
 // the dev row's jump and "new levels soon", from a published round set; RoundsPreview.cs)
+// [--board-cubes <published dir> <level> <out dir>] (only the board cube look-dev sheet of 2026-11-03: the level in each
+// look of BoardCubeLook.Variants; BoardCubeSheet.cs)
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -43,6 +45,7 @@ bool roundsPreview = false;
 (string Rounds, string Out)? latchStills = null;
 (string Rounds, string Out, int Level, string Tag)? linkStills = null;
 (int Level, float Seconds, string Out, string? Style)? clearVideo = null;
+(string Rounds, int Level, string Out)? boardCubes = null;
 string? roundsFolder = null;
 string? csv = null;
 float purchaseSize = ProfileGameDesign.PurchaseScale;
@@ -59,6 +62,12 @@ for (int i = 0; i < args.Length; i++)
         string? styleId = i + 4 < args.Length && !args[i + 4].StartsWith("--", StringComparison.Ordinal) ? args[i + 4] : null;
         clearVideo = (int.Parse(args[i + 1], System.Globalization.CultureInfo.InvariantCulture), float.Parse(args[i + 2], System.Globalization.CultureInfo.InvariantCulture), args[i + 3], styleId);
         i += styleId != null ? 4 : 3;
+    }
+    else if (args[i] == "--board-cubes" && i + 3 < args.Length)
+    {
+        // --board-cubes <published dir> <level> <out dir>: the board cube looks side by side (BoardCubeSheet)
+        boardCubes = (Path.GetFullPath(args[i + 1]), int.Parse(args[i + 2], System.Globalization.CultureInfo.InvariantCulture), Path.GetFullPath(args[i + 3]));
+        i += 3;
     }
     else if (args[i] == "--latch-stills" && i + 2 < args.Length)
     {
@@ -236,6 +245,11 @@ if (roundsPreview)
 if (linkStills != null)
 {
     return LinkStills.Write(linkStills.Value.Rounds, linkStills.Value.Out, linkStills.Value.Level, linkStills.Value.Tag);
+}
+
+if (boardCubes != null)
+{
+    return BoardCubeSheet.Write(root, boardCubes.Value.Rounds, boardCubes.Value.Level, boardCubes.Value.Out);
 }
 
 if (latchStills != null)

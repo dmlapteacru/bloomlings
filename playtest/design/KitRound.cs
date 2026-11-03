@@ -157,8 +157,10 @@ namespace Bloomlings.Playtest.Design
         private static readonly Dictionary<(int Material, RoundPodLook Look, bool Symbol, bool Grey), (string, Func<int, int, byte[]>)> RoundPods =
             new Dictionary<(int, RoundPodLook, bool, bool), (string, Func<int, int, byte[]>)>();
 
-        private static readonly Dictionary<(int Material, bool Symbol), (string, Func<int, int, byte[]>)> BoardCubes =
-            new Dictionary<(int, bool), (string, Func<int, int, byte[]>)>();
+        private static readonly Dictionary<(int Material, bool Symbol, string Look), (string, Func<int, int, byte[]>)> BoardCubes =
+            new Dictionary<(int, bool, string), (string, Func<int, int, byte[]>)>();
+
+        private static readonly Dictionary<string, BoardCubeLook> CubeLooks = new Dictionary<string, BoardCubeLook>();
 
         /// <summary>
         /// A round board's cube (spec 006 FR-064, the owner's "like Colony Flow" of 2026-10-28) in its picture box
@@ -166,7 +168,10 @@ namespace Bloomlings.Playtest.Design
         /// tall): the oblique cube in the material's colour (<see cref="UiRaster.BoardCube"/>), its symbol on its top in the
         /// symbols mode. Draw the far rows first: a nearer cube hides the front of the one behind it.
         /// </summary>
-        public static void BoardCube(IPainter p, Box box, RoundMaterial material, bool symbolsMode)
+        public static void BoardCube(IPainter p, Box box, RoundMaterial material, bool symbolsMode) => BoardCube(p, box, material, symbolsMode, BoardCubeLook.Default);
+
+        /// <summary><see cref="BoardCube(IPainter, Box, RoundMaterial, bool)"/> in the board's cube look (<see cref="RoundBoardLayout.Look"/>).</summary>
+        public static void BoardCube(IPainter p, Box box, RoundMaterial material, bool symbolsMode, BoardCubeLook look)
         {
             p.Mark("tile.candy");
             if (symbolsMode)
@@ -174,12 +179,14 @@ namespace Bloomlings.Playtest.Design
                 p.Mark(RoundLook.SymbolOf(material));
             }
 
-            (string key, Func<int, int, byte[]> render) = Recipe(BoardCubes, (Material: material.Index, Symbol: symbolsMode), k =>
+            CubeLooks[look.Key] = look;
+            (string key, Func<int, int, byte[]> render) = Recipe(BoardCubes, (Material: material.Index, Symbol: symbolsMode, Look: look.Key), k =>
             {
                 RoundMaterial m = RoundMaterial.All[k.Material];
                 Rgba color = RoundLook.ColorOf(m);
                 string? mark = k.Symbol ? RoundLook.SymbolOf(m) : null;
-                return (UiRaster.BoardCubeKey(m.Code, k.Symbol), (w, h) => UiRaster.BoardCube(w, h, color, mark));
+                BoardCubeLook shown = CubeLooks[k.Look];
+                return (UiRaster.BoardCubeKey(m.Code, k.Symbol, shown), (w, h) => UiRaster.BoardCube(w, h, color, mark, shown));
             });
             p.Picture(key, box, render);
         }
@@ -189,11 +196,21 @@ namespace Bloomlings.Playtest.Design
         /// (<see cref="RoundBoardLayout.CubeBox"/>): the board's oblique cube in the hidden pod's neutral grey with its white
         /// "?" marks (<see cref="UiRaster.HiddenBoardCube"/>), never a symbol.
         /// </summary>
-        public static void HiddenCube(IPainter p, Box box)
+        public static void HiddenCube(IPainter p, Box box) => HiddenCube(p, box, BoardCubeLook.Default);
+
+        /// <summary><see cref="HiddenCube(IPainter, Box)"/> in the board's cube look (<see cref="RoundBoardLayout.Look"/>).</summary>
+        public static void HiddenCube(IPainter p, Box box, BoardCubeLook look)
         {
             p.Mark(RoundLook.HiddenCellSlot);
             p.Mark("tile.mystery");
-            p.Picture(UiRaster.HiddenBoardCubeKey, box, (w, h) => UiRaster.HiddenBoardCube(w, h));
+            if (look.Key.Length == 0)
+            {
+                p.Picture(UiRaster.HiddenBoardCubeKey, box, (w, h) => UiRaster.HiddenBoardCube(w, h));
+            }
+            else
+            {
+                p.Picture(UiRaster.HiddenBoardCubeKeyOf(look), box, (w, h) => UiRaster.HiddenBoardCube(w, h, look));
+            }
         }
 
         /// <summary>A hidden cell's side face in <paramref name="box"/>, in the hidden pod's grey (<see cref="UiRaster.SideFace"/>).</summary>

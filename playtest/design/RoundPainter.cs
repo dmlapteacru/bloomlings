@@ -323,18 +323,18 @@ namespace Bloomlings.Playtest.Design
                         {
                             if (veiled)
                             {
-                                Kit.HiddenSideFace(p, board.SideBox(cell), board.SideStepOf(cell) < 0, RoundBoardLayout.TopShare);
+                                Kit.HiddenSideFace(p, board.SideBox(cell), board.SideStepOf(cell) < 0, board.SideTopShare);
                             }
                             else
                             {
-                                Kit.SideFace(p, board.SideBox(cell), RoundMaterial.All[m], board.SideStepOf(cell) < 0, RoundBoardLayout.TopShare);
+                                Kit.SideFace(p, board.SideBox(cell), RoundMaterial.All[m], board.SideStepOf(cell) < 0, board.SideTopShare);
                             }
                         }
 
                         if (veiled)
                         {
                             // A hidden cell (17 §8 «Скрытые клетки»): the neutral "?" cube until its cellReveal plays.
-                            Kit.HiddenCube(p, board.CubeBox(cell));
+                            Kit.HiddenCube(p, board.CubeBox(cell), board.Look);
                         }
                         else
                         {
@@ -345,12 +345,12 @@ namespace Bloomlings.Playtest.Design
                                 Box cube = board.CubeBox(cell);
                                 float scale = RoundLook.CellRevealScale(since);
                                 p.PushTransform(0f, 0f, scale, cube.CenterX, cube.CenterY);
-                                Kit.BoardCube(p, cube, RoundMaterial.All[m], symbols);
+                                Kit.BoardCube(p, cube, RoundMaterial.All[m], symbols, board.Look);
                                 float veil = RoundLook.CellRevealVeil(since);
                                 if (veil > 0f)
                                 {
                                     p.PushAlpha(veil);
-                                    Kit.HiddenCube(p, cube);
+                                    Kit.HiddenCube(p, cube, board.Look);
                                     p.PopAlpha();
                                 }
 
@@ -358,7 +358,7 @@ namespace Bloomlings.Playtest.Design
                             }
                             else
                             {
-                                Kit.BoardCube(p, board.CubeBox(cell), RoundMaterial.All[m], symbols);
+                                Kit.BoardCube(p, board.CubeBox(cell), RoundMaterial.All[m], symbols, board.Look);
                             }
                         }
                     }
@@ -467,11 +467,11 @@ namespace Bloomlings.Playtest.Design
             p.PushTransform(0f, 0f, 1f + (0.35f * k), cube.CenterX, cube.CenterY);
             if (material == -2)
             {
-                Kit.HiddenCube(p, cube);
+                Kit.HiddenCube(p, cube, board.Look);
             }
             else
             {
-                Kit.BoardCube(p, cube, RoundMaterial.All[material], false);
+                Kit.BoardCube(p, cube, RoundMaterial.All[material], false, board.Look);
             }
 
             p.PopTransform();

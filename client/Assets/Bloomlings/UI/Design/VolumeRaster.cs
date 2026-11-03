@@ -39,11 +39,19 @@ namespace Bloomlings.Client.UI.Design
         /// end. <paramref name="margin"/> px stay clear at the sides and the top (a hairline between neighbours) and
         /// <paramref name="bottom"/> px under the foot. Returns the colour, the coverage and the top face's lower edge.
         /// </summary>
-        private static (Color Color, float Cover, float TopBottom) ObliqueCube(float x, float y, float w, float h, Rgba col, float front, float margin, float bottom, float bevel, float gloss = RoundScreenLook.CubeGloss)
+        private static (Color Color, float Cover, float TopBottom) ObliqueCube(float x, float y, float w, float h, Rgba col, float front, float margin, float bottom, float bevel, float gloss = RoundScreenLook.CubeGloss) =>
+            ObliqueCube(x, y, w, h, col, front, margin, bottom, bevel, gloss, BoardCubeLook.Default);
+
+        /// <summary>
+        /// <see cref="ObliqueCube(float, float, float, float, Rgba, float, float, float, float, float)"/> shaded by
+        /// <paramref name="look"/>'s corner, rim, top, bevel, front, seam and light spot (<see cref="BoardCubeLook"/>; the
+        /// game's numbers in <see cref="BoardCubeLook.Default"/>).
+        /// </summary>
+        private static (Color Color, float Cover, float TopBottom) ObliqueCube(float x, float y, float w, float h, Rgba col, float front, float margin, float bottom, float bevel, float gloss, in BoardCubeLook look)
         {
             float m = margin;
             float foot = h - bottom;
-            float r = Math.Max(1f, w * RoundScreenLook.CubeCornerShare);
+            float r = Math.Max(1f, w * look.CornerShare);
             float topBottom = foot - ((h - m - bottom) * front);
             float body = RoundRect(x, y, m, m, w - m, foot, r);
             float cover = Coverage(body);
@@ -60,29 +68,29 @@ namespace Bloomlings.Client.UI.Design
             {
                 // Nearly flat, a little lighter than the hue, a faint lift toward the upper left where the light comes from.
                 float diagonal = Clamp01((((x - m) / Math.Max(1f, w - (2f * m))) + ((y - m) / Math.Max(1f, topBottom - m))) / 2f);
-                c = new Color(col.Lighten(0.1f).Mix(col.Lighten(0.03f), diagonal));
+                c = new Color(col.Lighten(look.TopLift).Mix(col.Lighten(0.03f), diagonal));
 
                 // The rounded bevel turning down along the top's lower edge.
                 float b = Clamp01((y - (topBottom - bevel)) / Math.Max(1f, bevel));
-                c.Mix(deep.Darken(0.2f), 0.6f * b * b);
+                c.Mix(deep.Darken(0.2f), look.BevelDark * b * b);
 
                 // The light rim along the top and the left, the darker side on the right.
-                c.Mix(col.Lighten(0.42f), 0.6f * Clamp01(1f - ((y - m) / edge)));
-                c.Mix(col.Lighten(0.3f), 0.45f * Clamp01(1f - ((x - m) / edge)));
+                c.Mix(col.Lighten(0.42f), 0.6f * look.Rim * Clamp01(1f - ((y - m) / edge)));
+                c.Mix(col.Lighten(0.3f), 0.45f * look.Rim * Clamp01(1f - ((x - m) / edge)));
                 c.Mix(deep.Darken(0.22f), 0.55f * Clamp01(1f - ((w - m - x) / edge)));
 
                 // A soft light spot at the top's lower right (the reference game's gloss, the owner's "softer" of 2026-10-28): a small
                 // blurred glow of low alpha fading out, never a sharp dot.
-                float spot = Length(x - (w - m - (w * 0.22f)), y - (topBottom - bevel - (w * 0.1f))) / Math.Max(1f, w * 0.085f);
+                float spot = Length(x - (w - m - (w * 0.22f)), y - (topBottom - bevel - (w * 0.1f))) / Math.Max(1f, w * look.GlossSize);
                 c.Mix(Rgba.White, gloss * (float)Math.Exp(-spot * spot));
 
                 // A thin dark seam round the top, so neighbours read apart without a gap.
-                c.Mix(deep.Darken(0.4f), 0.45f * Clamp01(1f + (top / Math.Max(0.75f, w * 0.02f))));
+                c.Mix(deep.Darken(0.4f), look.Seam * Clamp01(1f + (top / Math.Max(0.75f, w * 0.02f))));
             }
             else
             {
                 float t = Clamp01((y - topBottom) / Math.Max(1f, foot - topBottom));
-                c = new Color(deep.Darken(0.12f).Mix(deep.Darken(0.32f), Smooth(t)));
+                c = new Color(deep.Darken(look.FrontLight).Mix(deep.Darken(look.FrontDeep), Smooth(t)));
                 c.Mix(deep.Darken(0.45f), 0.5f * Clamp01(1f - ((w - m - x) / edge)));
                 c.Mix(col.Lighten(0.1f), 0.2f * Clamp01(1f - ((x - m) / edge)));
             }

@@ -352,11 +352,11 @@ namespace Bloomlings.Client.Gameplay.Board
                     cube.enabled = shown >= 0;
                     if (shown == VeiledCube)
                     {
-                        cube.sprite = RoundSprites.HiddenCube(_pixels, CubePixelsTall());
+                        cube.sprite = RoundSprites.HiddenCube(_pixels, CubePixelsTall(), CubeLook);
                     }
                     else if (shown >= 0)
                     {
-                        cube.sprite = RoundSprites.BoardCube(shown, _symbols, _pixels, CubePixelsTall());
+                        cube.sprite = RoundSprites.BoardCube(shown, _symbols, _pixels, CubePixelsTall(), CubeLook);
                     }
 
                     if (!puff)
@@ -481,7 +481,7 @@ namespace Bloomlings.Client.Gameplay.Board
 
             if (veil == null)
             {
-                veil = UiFactory.CreateImage("Veil", cube.rectTransform, RoundSprites.HiddenCube(_pixels, CubePixelsTall()), Color.white);
+                veil = UiFactory.CreateImage("Veil", cube.rectTransform, RoundSprites.HiddenCube(_pixels, CubePixelsTall(), CubeLook), Color.white);
                 veil.raycastTarget = false;
                 UiFactory.Stretch(veil.rectTransform);
                 _veils[cell] = veil;
@@ -514,8 +514,8 @@ namespace Bloomlings.Client.Gameplay.Board
                     int width = UiRaster.Quantize(Mathf.Max(2f, box.Width));
                     bool left = layout.SideStepOf(cell) < 0;
                     side.sprite = shown == VeiledCube
-                        ? RoundSprites.HiddenSideFace(left, RoundBoardLayout.TopShare, width, CubePixelsTall())
-                        : RoundSprites.SideFace(shown, left, RoundBoardLayout.TopShare, width, CubePixelsTall());
+                        ? RoundSprites.HiddenSideFace(left, layout.SideTopShare, width, CubePixelsTall())
+                        : RoundSprites.SideFace(shown, left, layout.SideTopShare, width, CubePixelsTall());
                     _sideShown[cell] = shown;
                 }
 
@@ -649,7 +649,10 @@ namespace Bloomlings.Client.Gameplay.Board
         private int CellPixels() => _layout == null ? 64 : UiRaster.Quantize(Mathf.Max(8f, _layout.Cell));
 
         /// <summary>A board cube picture's height for <see cref="CellPixels"/> wide: a row's pitch and the front face.</summary>
-        private int CubePixelsTall() => Mathf.Max(8, Mathf.RoundToInt(_pixels * (RoundBoardLayout.RowShare + RoundBoardLayout.FrontShare)));
+        private int CubePixelsTall() => Mathf.Max(8, Mathf.RoundToInt(_pixels * CubeLook.PictureShare));
+
+        /// <summary>The board's cube look (<see cref="RoundBoardLayout.Look"/>; the game's <see cref="BoardCubeLook.Default"/>).</summary>
+        private BoardCubeLook CubeLook => _layout?.Look ?? BoardCubeLook.Default;
 
         private void PlaceGrid()
         {

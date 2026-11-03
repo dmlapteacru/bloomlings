@@ -107,20 +107,26 @@ namespace Bloomlings.Client.Art
         /// A round board's oblique cube (spec 006 FR-064; the playtest's <c>Kit.BoardCube</c>) at a pixel size of a column wide
         /// and a row's pitch with the front face tall (<see cref="RoundBoardLayout.CubeBox"/>; <see cref="UiRaster.BoardCube"/>).
         /// </summary>
-        public static Sprite BoardCube(int material, bool symbolsMode, int width, int height)
+        public static Sprite BoardCube(int material, bool symbolsMode, int width, int height) => BoardCube(material, symbolsMode, width, height, BoardCubeLook.Default);
+
+        /// <summary><see cref="BoardCube(int, bool, int, int)"/> in the board's cube look (<see cref="RoundBoardLayout.Look"/>).</summary>
+        public static Sprite BoardCube(int material, bool symbolsMode, int width, int height, BoardCubeLook look)
         {
             RoundMaterial m = RoundMaterial.All[material];
             Rgba color = RoundLook.ColorOf(m);
             string? mark = symbolsMode ? RoundLook.SymbolOf(m) : null;
-            return ProceduralSprites.Picture(UiRaster.BoardCubeKey(m.Code, symbolsMode), Math.Max(1, width), Math.Max(1, height), (w, h) => UiRaster.BoardCube(w, h, color, mark));
+            return ProceduralSprites.Picture(UiRaster.BoardCubeKey(m.Code, symbolsMode, look), Math.Max(1, width), Math.Max(1, height), (w, h) => UiRaster.BoardCube(w, h, color, mark, look));
         }
 
         /// <summary>
         /// A hidden cell's cube (17 §8 «Скрытые клетки», spec 006 FR-066; the playtest's <c>Kit.HiddenCube</c>): the board's
         /// oblique cube in the hidden pod's grey with its white "?" marks (<see cref="UiRaster.HiddenBoardCube"/>).
         /// </summary>
-        public static Sprite HiddenCube(int width, int height) =>
-            ProceduralSprites.Picture(UiRaster.HiddenBoardCubeKey, Math.Max(1, width), Math.Max(1, height), (w, h) => UiRaster.HiddenBoardCube(w, h));
+        public static Sprite HiddenCube(int width, int height) => HiddenCube(width, height, BoardCubeLook.Default);
+
+        /// <summary><see cref="HiddenCube(int, int)"/> in the board's cube look (<see cref="RoundBoardLayout.Look"/>).</summary>
+        public static Sprite HiddenCube(int width, int height, BoardCubeLook look) =>
+            ProceduralSprites.Picture(UiRaster.HiddenBoardCubeKeyOf(look), Math.Max(1, width), Math.Max(1, height), (w, h) => UiRaster.HiddenBoardCube(w, h, look));
 
         /// <summary>A hidden cell's side face (the playtest's <c>Kit.HiddenSideFace</c>), in the hidden pod's grey.</summary>
         public static Sprite HiddenSideFace(bool left, float topShare, int width, int height)

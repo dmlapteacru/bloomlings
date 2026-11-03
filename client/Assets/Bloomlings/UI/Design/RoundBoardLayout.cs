@@ -354,9 +354,10 @@ namespace Bloomlings.Client.UI.Design
         private readonly bool[] _stone;
         private readonly float _maxCell;
 
-        private RoundBoardLayout(Box outer, int width, int height, RoundCellKind[] kinds, sbyte[] materials, int[] entries, IReadOnlyList<RoundBridgeChoice> bridge, bool[] stone, float maxCell)
+        private RoundBoardLayout(Box outer, int width, int height, RoundCellKind[] kinds, sbyte[] materials, int[] entries, IReadOnlyList<RoundBridgeChoice> bridge, bool[] stone, float maxCell, BoardCubeLook look)
         {
             _maxCell = maxCell;
+            Look = look;
             Outer = outer;
             Width = width;
             Height = height;
@@ -371,10 +372,11 @@ namespace Bloomlings.Client.UI.Design
             int columns = width - 2;
             int rows = height - 2;
             // The oblique cubes (FR-064, the owner's cubes of 2026-10-28): a column pitch of Cell, a row pitch of
-            // RowShare cells, and the nearest row's front face below the last row.
-            float tall = ((rows + (2 * ExtraPad)) * RowShare) + FrontShare;
+            // RowShare cells, and the nearest row's front face below the last row (the look's overhang: its front, the part of
+            // its top beyond the row, and its shadow).
+            float tall = ((rows + (2 * ExtraPad)) * look.RowShare) + look.Overhang;
             Cell = Math.Max(1f, Math.Min(maxCell, Math.Min(Surface.Width / (columns + (2 * ExtraPad)), Surface.Height / tall)));
-            Grid = Box.FromCenter(Surface.CenterX, Surface.CenterY, Cell * columns, (Cell * RowShare * rows) + (Cell * FrontShare));
+            Grid = Box.FromCenter(Surface.CenterX, Surface.CenterY, Cell * columns, (Cell * look.RowShare * rows) + (Cell * look.Overhang));
 
             var gates = new List<RoundGate>();
             foreach (int cell in entries)
@@ -440,11 +442,20 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>One cell's side (the cube size), in pixels: the largest that fits the cells inside the wall on <see cref="Surface"/>.</summary>
         public float Cell { get; }
 
+        /// <summary>The cube look this board was laid out in (<see cref="BoardCubeLook.Current"/> when it was built; the game's <see cref="BoardCubeLook.Default"/>).</summary>
+        public BoardCubeLook Look { get; }
+
         /// <summary>One row's pitch on screen, in pixels: <see cref="RowShare"/> of <see cref="Cell"/> (a cube's top is wider than tall).</summary>
-        public float RowPitch => Cell * RowShare;
+        public float RowPitch => Cell * Look.RowShare;
+
+        /// <summary>A cube's top face on screen, in pixels: the row's pitch in the game's look (<see cref="BoardCubeLook.TopShare"/>).</summary>
+        public float TopFace => Cell * Look.TopShare;
 
         /// <summary>A cube's front face under its top, in pixels: <see cref="FrontShare"/> of <see cref="Cell"/>.</summary>
-        public float Front => Cell * FrontShare;
+        public float Front => Cell * Look.FrontShare;
+
+        /// <summary>Where a side face turns from the top's shade to the front's (<see cref="BoardCubeLook.TopOfBody"/>; <see cref="TopShare"/> in the game's look).</summary>
+        public float SideTopShare => Look.TopOfBody;
 
         /// <summary>The cells inside the wall, centred on <see cref="Surface"/>.</summary>
         public Box Grid { get; }
@@ -475,7 +486,7 @@ namespace Bloomlings.Client.UI.Design
         /// <paramref name="box"/>. The walls among <paramref name="overlay"/>'s cells (the level's overlay,
         /// <see cref="RoundLevel.OverlayCells"/>) are a stone wall instead of water.
         /// </summary>
-        public static RoundBoardLayout Fit(Box box, int width, int height, IReadOnlyList<string> rowsBottomFirst, IReadOnlyList<int> entries, IReadOnlyList<RoundBridgeChoice>? bridge, IReadOnlyList<int>? overlay = null, float maxCell = float.MaxValue)
+        public static RoundBoardLayout Fit(Box box, int width, int height, IReadOnlyList<string> rowsBottomFirst, IReadOnlyList<int> entries, IReadOnlyList<RoundBridgeChoice>? bridge, IReadOnlyList<int>? overlay = null, float maxCell = float.MaxValue, BoardCubeLook? look = null)
         {
             if (width < 3 || height < 3 || width > MaxSide || height > MaxSide)
             {
@@ -546,7 +557,7 @@ namespace Bloomlings.Client.UI.Design
                 entryCells[e] = entries[e];
             }
 
-            return new RoundBoardLayout(box, width, height, kinds, materials, entryCells, bridge ?? Array.Empty<RoundBridgeChoice>(), stone, maxCell);
+            return new RoundBoardLayout(box, width, height, kinds, materials, entryCells, bridge ?? Array.Empty<RoundBridgeChoice>(), stone, maxCell, look ?? BoardCubeLook.Current);
         }
 
         /// <summary>
@@ -554,6 +565,10 @@ namespace Bloomlings.Client.UI.Design
         /// the same on every level of the screen whatever its picture, badge or boosters.
         /// </summary>
         public static RoundBoardLayout In(ReferenceGameplayRegions regions, RoundLevel level) => Fit(regions.RoundBoard, level, MaxCell(regions.W));
+
+        /// <summary><see cref="In(ReferenceGameplayRegions, RoundLevel)"/> in the cube look <paramref name="look"/>.</summary>
+        public static RoundBoardLayout In(ReferenceGameplayRegions regions, RoundLevel level, BoardCubeLook look) =>
+            Fit(regions.RoundBoard, level.Width, level.Height, level.RowsBottomFirst, level.Entries, level.Bridge, level.OverlayCells(), MaxCell(regions.W), look);
 
         /// <summary>
         /// The largest cell on a screen <paramref name="width"/> wide: <see cref="RoundScreenLook.BoardCubeMax"/> (pixels of a
@@ -564,7 +579,7 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>The same board moved so its frame's bottom is on <paramref name="bottom"/> (the cube size kept).</summary>
         public RoundBoardLayout DockBottom(float bottom) =>
-            new RoundBoardLayout(Outer.Offset(0f, bottom - Outer.Bottom), Width, Height, _kinds, _materials, _entries, _bridge, _stone, _maxCell);
+            new RoundBoardLayout(Outer.Offset(0f, bottom - Outer.Bottom), Width, Height, _kinds, _materials, _entries, _bridge, _stone, _maxCell, Look);
 
         /// <summary>
         /// The stone banks along the stream (the owner, 2026-10-31: the water round the pictures "must stand out clearly", it
@@ -659,11 +674,12 @@ namespace Bloomlings.Client.UI.Design
             return new Box(left, top, left + Cell, top + RowPitch);
         }
 
-        /// <summary>A cube's box in its cell (<see cref="CubeInset"/>).</summary>
+        /// <summary>A cube's picture box in its cell (<see cref="CubeInset"/>): a column wide, <see cref="BoardCubeLook.PictureShare"/> of it tall from the cell's top.</summary>
         public Box CubeBox(int cell)
         {
             Box top = CellBox(cell);
-            return new Box(top.Left + (Cell * CubeInset), top.Top, top.Right - (Cell * CubeInset), top.Bottom + Front);
+            // The top face from the cell's top (the whole row in the game's look), its front under it, and the look's shadow.
+            return new Box(top.Left + (Cell * CubeInset), top.Top, top.Right - (Cell * CubeInset), top.Top + TopFace + Front + (Cell * Look.ShadowShare));
         }
 
         /// <summary>The share of a cube picture's height that is its top face (the rest its front).</summary>
@@ -673,8 +689,8 @@ namespace Bloomlings.Client.UI.Design
         public Box CubeBody(int cell)
         {
             Box box = CubeBox(cell);
-            float hair = box.Width * (1f - RoundScreenLook.BoardCubeFill) / 2f;
-            return new Box(box.Left + hair, box.Top + hair, box.Right - hair, box.Bottom);
+            float hair = box.Width * (1f - Look.Fill) / 2f;
+            return new Box(box.Left + hair, box.Top + hair, box.Right - hair, box.Bottom - (Cell * Look.ShadowShare));
         }
 
         /// <summary>
