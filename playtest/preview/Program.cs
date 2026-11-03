@@ -47,6 +47,7 @@ bool roundsPreview = false;
 (string Rounds, string Out)? latchStills = null;
 (string Rounds, string Out, int Level, string Tag)? linkStills = null;
 (int Level, float Seconds, string Out, string? Style)? clearVideo = null;
+(int Level, float Seconds, string Out, string Look, float From)? walkerVideo = null;
 (string Rounds, int Level, string Out)? boardCubes = null;
 (string Rounds, string Out, List<int> Levels)? boardAfter = null;
 string[]? boardCompare = null;
@@ -66,6 +67,18 @@ for (int i = 0; i < args.Length; i++)
         string? styleId = i + 4 < args.Length && !args[i + 4].StartsWith("--", StringComparison.Ordinal) ? args[i + 4] : null;
         clearVideo = (int.Parse(args[i + 1], System.Globalization.CultureInfo.InvariantCulture), float.Parse(args[i + 2], System.Globalization.CultureInfo.InvariantCulture), args[i + 3], styleId);
         i += styleId != null ? 4 : 3;
+    }
+    else if (args[i] == "--walker-sheet" && i + 1 < args.Length)
+    {
+        return WalkerVideo.Sheet(Path.GetFullPath(args[i + 1]));
+    }
+    else if (args[i] == "--walker-video" && i + 4 < args.Length)
+    {
+        // --walker-video <level> <seconds> <out dir> <default|contrast|creature> [from seconds]: the walker mock (WalkerVideo)
+        bool hasFrom = i + 5 < args.Length && !args[i + 5].StartsWith("--", StringComparison.Ordinal);
+        walkerVideo = (int.Parse(args[i + 1], System.Globalization.CultureInfo.InvariantCulture), float.Parse(args[i + 2], System.Globalization.CultureInfo.InvariantCulture), args[i + 3], args[i + 4],
+            hasFrom ? float.Parse(args[i + 5], System.Globalization.CultureInfo.InvariantCulture) : 0f);
+        i += hasFrom ? 5 : 4;
     }
     else if (args[i] == "--board-compare" && i + 7 < args.Length)
     {
@@ -290,6 +303,11 @@ if (boardCubes != null)
 if (latchStills != null)
 {
     return LatchStills.Write(latchStills.Value.Rounds, latchStills.Value.Out);
+}
+
+if (walkerVideo != null)
+{
+    return WalkerVideo.Write(root, walkerVideo.Value.Level, walkerVideo.Value.Seconds, Path.GetFullPath(walkerVideo.Value.Out), walkerVideo.Value.Look, walkerVideo.Value.From);
 }
 
 if (clearVideo != null)

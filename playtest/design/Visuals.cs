@@ -81,6 +81,71 @@ namespace Bloomlings.Playtest.Design
             Walker(p, box, material.Family, RoundLook.ColorOf(material));
         }
 
+        /// <summary>
+        /// A round walker in <see cref="WalkerLook.Current"/>: the game's look draws it as above; the walker mock's looks add the
+        /// dark outline and the shade off its cubes' colour, or draw the running creature (<paramref name="pose"/>, the run frame
+        /// or <see cref="WalkerLook.RunFrames"/> standing, mirrored when <paramref name="facing"/> is −1).
+        /// </summary>
+        public static void Walker(IPainter p, Box box, Bloomlings.Core.Rounds.RoundMaterial material, int pose, int facing)
+        {
+            WalkerLook look = WalkerLook.Current;
+            if (look.IsDefault)
+            {
+                Walker(p, box, material);
+                return;
+            }
+
+            Rgba color = RoundLook.ColorOf(material);
+            Rgba line = DesignTokens.Colors.InkBrown;
+            p.Mark(CharacterArt.WalkerSlot);
+            if (pose >= 0 && look.DrawsCreature(material.Index))
+            {
+                int frame = pose >= WalkerLook.RunFrames ? -1 : pose;
+                float k = WalkerLook.CreatureScale;
+                box = new Box(box.CenterX - (box.Width * k / 2f), box.Bottom - (box.Height * k), box.CenterX + (box.Width * k / 2f), box.Bottom);
+                Rgba body = look.BodyOf(color);
+                bool vein = material.Family == Family.Sprig;
+                if (facing < 0)
+                {
+                    p.PushSquash(-1f, 1f, box.CenterX, box.CenterY);
+                }
+
+                p.Picture("walker.creature." + material.Code + "." + frame, box, (w, h) => UiRaster.Creature(w, h, body, line, frame, WalkerLook.RunFrames, vein));
+                if (facing < 0)
+                {
+                    p.PopTransform();
+                }
+
+                return;
+            }
+
+            string name = CharacterArt.WalkerPicture(material);
+            if (!p.HasSprite(name))
+            {
+                Walker(p, box, material.Family, color);
+                return;
+            }
+
+            if (look.Outline > 0f)
+            {
+                float r = Math.Max(1.5f, look.Outline * box.Width);
+                for (int i = 0; i < 12; i++)
+                {
+                    double angle = i * Math.PI / 6.0;
+                    float dx = (float)Math.Cos(angle) * r;
+                    float dy = (float)Math.Sin(angle) * r;
+                    p.SpriteTint(name, new Box(box.Left + dx, box.Top + dy, box.Right + dx, box.Bottom + dy), line);
+                }
+            }
+
+            p.Sprite(name, box);
+            (Rgba tint, float amount) = look.ShadeOf(color);
+            if (amount > 0f)
+            {
+                p.SpriteTint(name, box, tint.WithAlpha(amount));
+            }
+        }
+
         public static void Walker(IPainter p, Box box, Family family, Rgba tint)
         {
             p.Mark(ShapeLibrary.SilhouetteId(family));

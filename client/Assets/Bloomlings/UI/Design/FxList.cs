@@ -44,8 +44,10 @@ namespace Bloomlings.Client.UI.Design
     /// </summary>
     public readonly struct FxItem
     {
-        public FxItem(FxKind kind, FxLayer layer, string slot, float x, float y, float w, float h, float sx, float sy, float turn, float alpha, Rgba color, VariantId variant, CharacterMood mood, string? shape, float radius, float line, int material = -1)
+        public FxItem(FxKind kind, FxLayer layer, string slot, float x, float y, float w, float h, float sx, float sy, float turn, float alpha, Rgba color, VariantId variant, CharacterMood mood, string? shape, float radius, float line, int material = -1, int pose = -1, int facing = 1)
         {
+            Pose = pose;
+            Facing = facing;
             Material = material;
             Kind = kind;
             Layer = layer;
@@ -110,6 +112,15 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public int Material { get; }
 
+        /// <summary>
+        /// A round walker's pose for a look that draws one (<see cref="WalkerLook.CreatureFamilies"/>): its run frame (0 to
+        /// <see cref="WalkerLook.RunFrames"/> − 1), <see cref="WalkerLook.RunFrames"/> standing, or −1 for the host's own figure.
+        /// </summary>
+        public int Pose { get; }
+
+        /// <summary>Which way a posed walker faces: 1 right, −1 left (a host mirrors the figure).</summary>
+        public int Facing { get; }
+
         public Box Box => Box.FromCenter(X, Y, W, H);
     }
 
@@ -144,6 +155,12 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The round material the next tiles and characters carry (<see cref="FxItem.Material"/>), or -1.</summary>
         public int Material { get; set; } = -1;
 
+        /// <summary>The pose the next characters carry (<see cref="FxItem.Pose"/>), −1 for none.</summary>
+        public int Pose { get; set; } = -1;
+
+        /// <summary>Which way the next posed characters face (<see cref="FxItem.Facing"/>).</summary>
+        public int Facing { get; set; } = 1;
+
         public void Clear()
         {
             _items.Clear();
@@ -157,6 +174,8 @@ namespace Bloomlings.Client.UI.Design
             _alpha = 1f;
             Layer = FxLayer.Board;
             Material = -1;
+            Pose = -1;
+            Facing = 1;
         }
 
         /// <summary>Turns what follows by <paramref name="degrees"/> clockwise about (<paramref name="px"/>, <paramref name="py"/>).</summary>
@@ -261,7 +280,8 @@ namespace Bloomlings.Client.UI.Design
                 sy = _d;
             }
 
-            _items.Add(new FxItem(kind, Layer, Slot, x, y, box.Width, box.Height, sx, sy, turn * 180f / (float)Math.PI, _alpha, color, variant, mood, shape, radius, line, kind == FxKind.Tile || kind == FxKind.Character ? Material : -1));
+            _items.Add(new FxItem(kind, Layer, Slot, x, y, box.Width, box.Height, sx, sy, turn * 180f / (float)Math.PI, _alpha, color, variant, mood, shape, radius, line, kind == FxKind.Tile || kind == FxKind.Character ? Material : -1,
+                kind == FxKind.Character ? Pose : -1, kind == FxKind.Character ? Facing : 1));
         }
     }
 }

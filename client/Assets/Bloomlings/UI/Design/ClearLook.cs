@@ -44,7 +44,7 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public static ClearWalk Live(IReadOnlyList<(float X, float Y)> points, int material, VariantId variant, float start, float arrive, float clear, float done, Box? seat,
             float cubesAcross = ClearStyles.BigCubesAcross) =>
-            new ClearWalk(points, variant, start, clear - start, seat, material, arrive, clear, done, ClearStyles.WalkerCubes(cubesAcross) / ClearLook.WalkerSize);
+            new ClearWalk(points, variant, start, clear - start, seat, material, arrive, clear, done, WalkerLook.Current.WalkerCubes(cubesAcross) / ClearLook.WalkerSize);
 
         public IReadOnlyList<(float X, float Y)> Points { get; }
 
@@ -171,6 +171,10 @@ namespace Bloomlings.Client.UI.Design
             list.Material = walk.Material;
             _pop = walk.IsLive ? walk.LiveScale * spot.GateSize : 1f;
             _liveAct = walk.IsLive;
+            _look = walk.IsLive ? WalkerLook.Current : WalkerLook.Default;
+            _creature = !_look.IsDefault && _look.DrawsCreature(walk.Material);
+            _runFrame = spot.Walking ? WalkerLook.RunFrame(spot.Hops / HopsPerCell) : WalkerLook.RunFrames;
+            _facing = spot.DirX < -0.1f ? -1 : spot.DirX > 0.1f ? 1 : spot.Leg == Leg.Back ? -1 : 1;
             bool gate = walk.IsLive && spot.GateAlpha < 1f;
             if (gate)
             {
@@ -184,10 +188,7 @@ namespace Bloomlings.Client.UI.Design
                     list.Pop();
                 }
 
-                _pop = 1f;
-                _liveAct = false;
-                list.Material = -1;
-                list.Layer = FxLayer.Board;
+                EndWalker(list);
                 return;
             }
 
@@ -221,11 +222,40 @@ namespace Bloomlings.Client.UI.Design
                 list.Pop();
             }
 
+            EndWalker(list);
+        }
+
+        private static void EndWalker(FxList list)
+        {
             _pop = 1f;
             _liveAct = false;
+            _look = WalkerLook.Default;
+            _creature = false;
             list.Material = -1;
+            list.Pose = -1;
+            list.Facing = 1;
             list.Layer = FxLayer.Board;
         }
+
+        // The look of the walker being drawn (WalkerLook.Current for a round level's, else the default), whether it is the drawn
+        // creature, its run frame (WalkerLook.RunFrames standing) and which way it faces.
+        [ThreadStatic]
+        private static WalkerLook? _lookField;
+
+        private static WalkerLook _look
+        {
+            get => _lookField ?? WalkerLook.Default;
+            set => _lookField = value;
+        }
+
+        [ThreadStatic]
+        private static bool _creature;
+
+        [ThreadStatic]
+        private static int _runFrame;
+
+        [ThreadStatic]
+        private static int _facing;
 
         // A round walker's size (ClearWalk.LiveScale): Body multiplies every size by it while a walker is drawn.
         [ThreadStatic]
@@ -391,6 +421,12 @@ namespace Bloomlings.Client.UI.Design
         // Munchers: it climbs onto the tile, eats it from the top in three bites, and waddles home full.
         private static void Munchers(FxList list, in ClearWalk walk, Spot spot)
         {
+            if (walk.IsLive && _look.Carry)
+            {
+                Carry(list, walk, spot);
+                return;
+            }
+
             float swing = Swing(spot);
             switch (spot.Leg)
             {
@@ -719,13 +755,107 @@ namespace Bloomlings.Client.UI.Design
             }
         }
 
+        // Munchers carrying (WalkerLook.Carry, round levels): it stops at its cube, the cube pops up onto its head (gone from
+        // the board as it lifts), and it runs home with it along its way; the rules' clear and every time stay.
+        private static void Carry(FxList list, in ClearWalk walk, Spot spot)
+        {
+            float walker = WalkerSize * (_pop > 0f ? _pop : 1f);
+            int segments = Math.Max(1, walk.Points.Count - 1);
+            float stop = Math.Min(WalkerLook.CarryStopCells, walker / 3f);
+            float end = Math.Max(0f, 1f - (stop / segments));
+            float carried = Clamp(TileSide, WalkerLook.CarriedMin * walker, WalkerLook.CarriedMax * walker);
+            Box tile = TileAt(walk.Target);
+            switch (spot.Leg)
+            {
+                case Leg.Out:
+                {
+                    (float x, float y) = Along(walk.Points, spot.U * end);
+                    spot.X = x;
+                    spot.Y = y;
+                    Walking(list, walk, spot, WalkerSize);
+                    return;
+                }
+
+                case Leg.Act:
+                {
+                    float u = spot.U;
+                    (float x, float y) = Along(walk.Points, end);
+                    float grab = Clamp01(u / WalkerLook.GrabEnd);
+                    float lift = Smooth((u - WalkerLook.GrabEnd) / (WalkerLook.LiftEnd - WalkerLook.GrabEnd));
+                    float lean = (float)Math.Sin(grab * Math.PI) * 12f * _facing;
+                    float catchSquash = u > WalkerLook.LiftEnd ? (float)Math.Sin(Clamp01((u - WalkerLook.LiftEnd) / 0.16f) * Math.PI) * 0.1f : 0f;
+                    if (u > 0.82f)
+                    {
+                        // It turns for home with its cube.
+                        float home = -Toward(walk.Points, walk.Points.Count - 2).X;
+                        _facing = home > 0.1f ? 1 : home < -0.1f ? -1 : -_facing;
+                    }
+
+                    _runFrame = WalkerLook.RunFrames;
+                    (float hx, float hy) = Head(x, y, walker, 0f);
+                    if (lift <= 0f)
+                    {
+                        // The grab: the cube wiggles in its cell, under the walker.
+                        float wiggle = (float)Math.Sin(grab * Math.PI * 3f) * 7f * (1f - grab);
+                        list.PushTurn(wiggle, tile.CenterX, tile.CenterY);
+                        list.Tile(tile, walk.Variant);
+                        list.Pop();
+                        Body(list, x, y, WalkerSize, 0f, lean, 1f, 1f, 1f, walk.Variant);
+                        return;
+                    }
+
+                    Body(list, x, y, WalkerSize, 0f, lean * (1f - lift), 1f + catchSquash, 1f - catchSquash, 1f, walk.Variant);
+
+                    // A puff where the cube was.
+                    float puff = Clamp01(lift * 1.6f);
+                    if (puff < 1f)
+                    {
+                        list.Ring(tile.CenterX, tile.CenterY, 0.35f + (0.45f * puff), 0.09f * (1f - puff), Rgba.White.WithAlpha(0.85f * (1f - puff)));
+                    }
+
+                    // The cube flies in an arc onto the head, spinning a quarter turn and swelling a little on the way.
+                    float cx = Lerp(tile.CenterX, hx, lift);
+                    float cy = Lerp(tile.CenterY, hy - (catchSquash * walker * 0.3f), lift) - ((float)Math.Sin(lift * Math.PI) * walker * 0.55f);
+                    float side = Lerp(tile.Width, carried, lift) * (1f + (0.18f * (float)Math.Sin(lift * Math.PI)));
+                    list.PushTurn(90f * lift * _facing, cx, cy);
+                    list.Tile(Box.FromCenter(cx, cy, side, side), walk.Variant);
+                    list.Pop();
+                    return;
+                }
+
+                default:
+                {
+                    // Home with the cube on its head, bobbing with its step.
+                    (float x, float y) = Along(walk.Points, (1f - spot.U) * end);
+                    spot.X = x;
+                    spot.Y = y;
+                    float swing = Swing(spot);
+                    float hop = _creature ? 0f : Math.Abs(swing) * 0.085f;
+                    Walking(list, walk, spot, WalkerSize);
+                    float bob = _creature ? (float)Math.Abs(Math.Sin(_runFrame * Math.PI * 2.0 / WalkerLook.RunFrames)) * 0.035f * walker : 0f;
+                    (float hx, float hy) = Head(x, y, walker, (hop * walker / WalkerSize) + bob);
+                    list.PushTurn(_creature ? 0f : swing * 7f, hx, hy);
+                    list.Tile(Box.FromCenter(hx, hy, carried, carried), walk.Variant);
+                    list.Pop();
+                    return;
+                }
+            }
+
+            // Where the carried cube sits: on the walker's head, a little behind it.
+            (float X, float Y) Head(float x, float y, float size, float up)
+            {
+                float top = y - (size * (_creature ? 0.52f : 0.5f)) - up;
+                return (x - (_facing * size * (_creature ? 0.08f : 0.03f)), top - (carried * 0.3f));
+            }
+        }
+
         // ---- The pieces ----
 
         private static void Walking(FxList list, in ClearWalk walk, Spot spot, float size, float waddle = 7f, float hopHeight = 0.085f)
         {
             float swing = Swing(spot);
-            float hop = spot.Walking ? Math.Abs(swing) * hopHeight : 0f;
-            Body(list, spot.X, spot.Y, size, hop, spot.Walking ? swing * waddle : 0f, 1f, 1f, 1f, walk.Variant);
+            float hop = spot.Walking && !_creature ? Math.Abs(swing) * hopHeight : 0f;
+            Body(list, spot.X, spot.Y, size, hop, spot.Walking && !_creature ? swing * waddle : 0f, 1f, 1f, 1f, walk.Variant);
         }
 
         /// <summary>A Bloomling standing at (x, y): its shadow, then its character, leaning and squashed about its feet.</summary>
@@ -740,7 +870,21 @@ namespace Bloomlings.Client.UI.Design
             list.PushAlpha(alpha);
             Box body = Box.FromCenter(x, y - (size * 0.1f) - hop, size, size);
             Box ground = Box.FromCenter(x, y - (size * 0.1f), size * sx * (1f - hop), size);
-            list.Shadow(ground);
+            if (_look.IsDefault)
+            {
+                list.Shadow(ground);
+            }
+            else
+            {
+                // A contact shadow: a soft wide ellipse and a darker core right under the feet, on the board and the cubes alike.
+                float w = ground.Width * (_creature ? 0.62f : 0.72f) * (1f - (hop * 1.5f));
+                float cyShadow = ground.Bottom - (ground.Height * 0.06f);
+                list.Ellipse(Box.FromCenter(x, cyShadow, w, w * 0.3f), Rgba.Black.WithAlpha(_look.ShadowAlpha * 0.55f));
+                list.Ellipse(Box.FromCenter(x, cyShadow, w * 0.68f, w * 0.18f), Rgba.Black.WithAlpha(_look.ShadowAlpha * 0.6f));
+            }
+
+            list.Pose = _creature ? _runFrame : -1;
+            list.Facing = _creature && _facing < 0 ? -1 : 1;
             list.PushTurn(lean, x, body.Bottom);
             list.PushSquash(sx, sy, x, body.Bottom);
             list.Character(body, variant);
@@ -961,6 +1105,9 @@ namespace Bloomlings.Client.UI.Design
             // A round walker stepping out of or into its gate: its size and opacity (1 elsewhere).
             public float GateSize;
             public float GateAlpha;
+
+            // The way a live walker goes now (x of the unit step; toward its cube in the act, home on the way back).
+            public float DirX;
         }
 
         private static Spot Locate(ClearStyle style, in ClearWalk walk, float now)
@@ -1046,6 +1193,7 @@ namespace Bloomlings.Client.UI.Design
                 spot.U = progress;
                 spot.Hops = progress * segments * HopsPerCell;
                 spot.Walking = progress < 1f;
+                spot.DirX = Toward(walk.Points, Segment(walk.Points, progress)).X;
                 Gate(ref spot, (now - walk.Start) / ClearStyles.GateSeconds);
             }
             else if (now < walk.ClearAt + ClearStyles.LiveLinger)
@@ -1055,6 +1203,7 @@ namespace Bloomlings.Client.UI.Design
                 spot.Leg = Leg.Act;
                 spot.U = Clamp01((now - walk.ArriveAt) / Math.Max(1e-4f, walk.ClearAt + ClearStyles.LiveLinger - walk.ArriveAt));
                 spot.Hops = segments * HopsPerCell;
+                spot.DirX = Toward(walk.Points, walk.Points.Count - 2).X;
             }
             else if (now < home)
             {
@@ -1065,6 +1214,7 @@ namespace Bloomlings.Client.UI.Design
                 at = Along(walk.Points, 1f - spot.U);
                 spot.Hops = (segments * HopsPerCell) + (spot.U * segments * HopsPerCell);
                 spot.Walking = true;
+                spot.DirX = -Toward(walk.Points, Segment(walk.Points, 1f - spot.U)).X;
                 Gate(ref spot, (home - now) / ClearStyles.GateSeconds);
             }
             else
@@ -1098,6 +1248,12 @@ namespace Bloomlings.Client.UI.Design
             spot.GateSize = ClearStyles.GateScale + ((1f - ClearStyles.GateScale) * g);
             spot.GateAlpha = g;
         }
+
+        // The segment a walker at progress is on (Along's), for its heading.
+        private static int Segment(IReadOnlyList<(float X, float Y)> points, float progress) =>
+            points.Count < 2 ? 0 : Math.Min((int)(Clamp01(progress) * (points.Count - 1)), points.Count - 2);
+
+        private static float Clamp(float v, float min, float max) => Math.Max(min, Math.Min(max, v));
 
         private static (float X, float Y) Along(IReadOnlyList<(float X, float Y)> points, float progress)
         {
