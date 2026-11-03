@@ -219,6 +219,21 @@
    }
   },
   {
+   "level": 64,
+   "tag": "2026-11-03c",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03",
+   "from": {
+    "picture": "P0315",
+    "candidate": "P0315-Nlinks+cells-0",
+    "share": 0.62,
+    "recipe": "links+cells"
+   }
+  },
+  {
    "level": 66,
    "tag": "2026-11-03",
    "why": [
