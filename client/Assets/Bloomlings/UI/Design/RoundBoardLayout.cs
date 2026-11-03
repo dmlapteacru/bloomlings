@@ -679,7 +679,9 @@ namespace Bloomlings.Client.UI.Design
         {
             Box top = CellBox(cell);
             // The top face from the cell's top (the whole row in the game's look), its front under it, and the look's shadow.
-            return new Box(top.Left + (Cell * CubeInset), top.Top, top.Right - (Cell * CubeInset), top.Top + TopFace + Front + (Cell * Look.ShadowShare));
+            // The look's overlap reaches into the neighbours' columns, so touching cubes never let the surface through their seam.
+            float reach = Cell * (Look.Overlap - CubeInset);
+            return new Box(top.Left - reach, top.Top, top.Right + reach, top.Top + TopFace + Front + (Cell * Look.ShadowShare));
         }
 
         /// <summary>The share of a cube's body (top and front, no shadow) that is its top face in the game's look (<see cref="SideTopShare"/> for the board's own look).</summary>

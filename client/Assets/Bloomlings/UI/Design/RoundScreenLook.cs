@@ -65,10 +65,20 @@ namespace Bloomlings.Client.UI.Design
         public const int PadCells = 1;
 
         /// <summary>
-        /// A board cube's body as a share of its column (the owner's look "E2" of 2026-11-03, after 0.98 of 2026-10-28): a very
-        /// thin seam between neighbours, darkened by the cube's soft shadow (<see cref="BoardShadowAlpha"/>).
+        /// A board cube's body as a share of its column (the owner's look "E3" of 2026-11-03, after 0.98 of 2026-10-28 and E2's
+        /// 0.955: "a strong grey strip between the cubes, look at the reference game"): the cubes touch, parted only by each
+        /// cube's own darker edge (<see cref="BoardEdge"/>) and, between rows, by the band of its front.
         /// </summary>
-        public const float BoardCubeFill = 0.955f;
+        public const float BoardCubeFill = 1f;
+
+        /// <summary>
+        /// How far a board cube's picture reaches into each neighbour's column, as a share of the column (E3): touching pictures
+        /// drawn at fractional pixels overlap a little, so the surface never shows through their antialiased seam.
+        /// </summary>
+        public const float BoardCubeOverlap = 0.025f;
+
+        /// <summary>The dark edge of a board cube's own deeper shade round its body, its strongest alpha (E3; 0.45 before): the seam between touching cubes.</summary>
+        public const float BoardEdge = 0.7f;
 
         /// <summary>
         /// The board's oblique cubes (the owner's "like the reference game, somehow at an angle", 2026-10-28; flat 2D, no vanishing
@@ -78,7 +88,7 @@ namespace Bloomlings.Client.UI.Design
         public const float BoardRowShare = 0.88f;
 
         /// <summary>
-        /// A board cube's top face, from its cell's top to its front, as a share of the cube's width (the owner's look "E2" of
+        /// A board cube's top face, from its cell's top to its front, as a share of the cube's width (the owner's look "E2"/"E3" of
         /// 2026-11-03: "every cube still reads as a cube in the middle of a big picture"): shorter than the row
         /// (<see cref="BoardRowShare"/>), so every cube shows a darker band of its front, <see cref="BoardRowShare"/> − this
         /// tall, under its top even where the cell in front is filled.
@@ -86,7 +96,7 @@ namespace Bloomlings.Client.UI.Design
         public const float BoardCubeTopShare = 0.755f;
 
         /// <summary>
-        /// A board cube's front face under its top, as a share of the cube's width (the owner's look "E2" of 2026-11-03, after
+        /// A board cube's front face under its top, as a share of the cube's width (the owner's look "E2"/"E3" of 2026-11-03, after
         /// 0.38 of 2026-10-28). Drawn far rows first, the nearer cube hides all of it but its top band; the whole front shows
         /// on the picture's bottom edge, at steps of the silhouette and where a cube was eaten.
         /// </summary>
@@ -95,7 +105,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The rounded bevel along a cube top's lower edge, as a share of the column pitch.</summary>
         public const float BoardBevelShare = 0.10f;
 
-        // The board cube's shading of the owner's look "E2" of 2026-11-03 (BoardCubeLook.Default; the pods keep the old shading).
+        // The board cube's shading of the owner's look "E2"/"E3" of 2026-11-03 (BoardCubeLook.Default; the pods keep the old shading).
 
         /// <summary>How strong the light rim along a board cube top's upper and left edges is (1 was the old look).</summary>
         public const float BoardRim = 1.2f;
@@ -113,16 +123,19 @@ namespace Bloomlings.Client.UI.Design
         public const float BoardFrontDeep = 0.44f;
 
         /// <summary>The dark seam round a board cube's top (0.45 was the old look).</summary>
-        public const float BoardSeam = 0.4f;
+        public const float BoardSeam = 0.5f;
 
         /// <summary>The soft light spot's radius as a share of the width (0.085 was the old look).</summary>
         public const float BoardGlossSize = 0.06f;
 
-        /// <summary>The soft shadow under a board cube onto the surface and into the gaps, how far below its foot, as a share of the width.</summary>
+        /// <summary>The soft shadow under a board cube's foot onto the surface, how far below it, as a share of the width.</summary>
         public const float BoardShadowShare = 0.05f;
 
         /// <summary>The board cube's shadow's strongest alpha.</summary>
         public const float BoardShadowAlpha = 0.35f;
+
+        /// <summary>Whether the shadow also darkens the gaps between cubes (E3: no, only under a cube's foot onto the surface).</summary>
+        public const bool BoardShadowSides = false;
 
         /// <summary>
         /// A cube's side face at the board's outermost column, as a share of the cube's width (constitution 1.2.0 VII, the
@@ -141,7 +154,7 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public const float CubeGloss = 0.8f;
 
-        /// <summary>A board cube's corner radius, as a share of its width (the reference game's soft corners; the owner's look "E2" of 2026-11-03, after 0.12).</summary>
+        /// <summary>A board cube's corner radius, as a share of its width (the reference game's soft corners; the owner's look "E2"/"E3" of 2026-11-03, after 0.12).</summary>
         public const float CubeCornerShare = 0.16f;
 
         /// <summary>The square cube tiles' light spot (the finished picture's tiles; the board's old look, kept when the board changed on 2026-11-03).</summary>

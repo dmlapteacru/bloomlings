@@ -96,7 +96,7 @@ namespace Bloomlings.Client.UI.Design
             }
 
             // A soft deep edge round the body.
-            c.Mix(deep.Darken(0.5f), 0.45f * Clamp01(1f + (body / Math.Max(0.75f, w * 0.02f))));
+            c.Mix(deep.Darken(0.5f), look.Edge * Clamp01(1f + (body / Math.Max(0.75f, w * 0.02f))));
             return (c, cover, topBottom);
         }
 

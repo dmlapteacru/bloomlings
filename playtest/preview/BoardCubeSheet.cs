@@ -86,7 +86,7 @@ namespace Bloomlings.Playtest.Preview
 
         /// <summary>
         /// <c>--board-after &lt;published dir&gt; &lt;out dir&gt; &lt;level&gt;...</c>: the given levels in the game's cube look
-        /// (<see cref="BoardCubeLook.Default"/>, the owner's "E2" of 2026-11-03) as <c>after-L&lt;n&gt;-screen.png</c>,
+        /// (<see cref="BoardCubeLook.Default"/>, the owner's "E3" of 2026-11-03) as <c>after-L&lt;n&gt;-screen.png</c>,
         /// <c>-board.png</c> and, on a board big enough, <c>-closeup.png</c> (×2.5 of the densest middle).
         /// </summary>
         public static int After(string folder, string outDir, IReadOnlyList<int> levels)
@@ -117,7 +117,8 @@ namespace Bloomlings.Playtest.Preview
                     Save(crop, Path.Combine(outDir, name + "-closeup.png"));
                 }
 
-                Console.WriteLine(name + ": " + round.Width + " x " + round.Height + ", cell " + board.Cell.ToString("0.0", CultureInfo.InvariantCulture) + " px");
+                Console.WriteLine(name + ": " + round.Width + " x " + round.Height + ", cell " + board.Cell.ToString("0.0", CultureInfo.InvariantCulture) + " px, grid "
+                    + string.Format(CultureInfo.InvariantCulture, "{0:0.00},{1:0.00} row {2:0.00}", board.Grid.Left, board.Grid.Top, board.RowPitch));
             }
 
             return 0;
@@ -125,9 +126,10 @@ namespace Bloomlings.Playtest.Preview
 
         /// <summary>
         /// <c>--board-compare &lt;published dir&gt; &lt;level&gt; &lt;out dir&gt; &lt;reference close-up&gt; &lt;its cell px&gt; &lt;reference screen&gt; &lt;x,y,w,h&gt;</c>:
-        /// looks E and E2 side by side with the owner's reference screenshot (2026-11-03): <c>E2-compare-closeup.png</c>, the
-        /// ×2.5 close-ups and the reference close-up scaled to the same cell size, and <c>E2-compare-board.png</c>, the level's
-        /// board in both looks and the reference board, all at phone scale (1:1 pixels of a 1080-wide phone).
+        /// the last two looks of <see cref="BoardCubeLook.Variants"/> (the game's look last) side by side with the owner's reference
+        /// screenshot (2026-11-03): <c>&lt;id&gt;-compare-closeup.png</c>, the ×2.5 close-ups and the reference close-up scaled to the
+        /// same cell size, and <c>&lt;id&gt;-compare-board.png</c>, the level's board in both looks and the reference board, all at
+        /// phone scale (1:1 pixels of a 1080-wide phone).
         /// </summary>
         public static int Compare(string root, string folder, int level, string outDir, string referenceCrop, float referenceCell, string referenceShot, Box referenceBoard)
         {
@@ -148,7 +150,7 @@ namespace Bloomlings.Playtest.Preview
             {
                 foreach ((string id, string label, BoardCubeLook look) in BoardCubeLook.Variants)
                 {
-                    if (id != "E" && id != "E2")
+                    if (id != BoardCubeLook.Variants[^1].Id && id != BoardCubeLook.Variants[^2].Id)
                     {
                         continue;
                     }
@@ -176,8 +178,10 @@ namespace Bloomlings.Playtest.Preview
                 boards.Add(("референс, телефон 1:1", Crop(screen, referenceBoard, 1f)));
             }
 
-            Row(root, Path.Combine(outDir, "E2-compare-closeup.png"), "E и E2 рядом с референсом: крупно ×2.5, кубик одной величины (" + cell.ToString("0", CultureInfo.InvariantCulture) + " px)", closeups);
-            Row(root, Path.Combine(outDir, "E2-compare-board.png"), "Уровень " + level + " в E и E2 и борд референса, всё в масштабе телефона 1:1", boards);
+            string older = BoardCubeLook.Variants[^2].Id;
+            string newest = BoardCubeLook.Variants[^1].Id;
+            Row(root, Path.Combine(outDir, newest + "-compare-closeup.png"), older + " и " + newest + " рядом с референсом: крупно ×2.5, кубик одной величины (" + cell.ToString("0", CultureInfo.InvariantCulture) + " px)", closeups);
+            Row(root, Path.Combine(outDir, newest + "-compare-board.png"), "Уровень " + level + " в " + older + " и " + newest + " и борд референса, всё в масштабе телефона 1:1", boards);
             foreach ((string _, SKBitmap bitmap) in closeups)
             {
                 bitmap.Dispose();
@@ -188,7 +192,7 @@ namespace Bloomlings.Playtest.Preview
                 bitmap.Dispose();
             }
 
-            Console.WriteLine("board compare: E2-compare-*.png in " + outDir);
+            Console.WriteLine("board compare: " + BoardCubeLook.Variants[^1].Id + "-compare-*.png in " + outDir);
             return 0;
         }
 

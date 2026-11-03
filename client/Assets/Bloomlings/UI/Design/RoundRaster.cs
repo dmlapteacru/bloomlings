@@ -269,11 +269,12 @@ namespace Bloomlings.Client.UI.Design
         /// A round board's cube (spec 006 FR-064, the owner's "like the reference game, somehow at an angle" of 2026-10-28): one flat
         /// 2D picture <paramref name="width"/> (a column) × <paramref name="height"/> (its top, its front and its shadow,
         /// <see cref="RoundBoardLayout.CubeBox"/>) of the oblique cube (<see cref="ObliqueCube"/>) in the material's
-        /// <paramref name="color"/>, in the owner's look "E2" of 2026-11-03 (<see cref="BoardCubeLook.Default"/>): its top
+        /// <paramref name="color"/>, in the owner's look "E3" of 2026-11-03 (<see cref="BoardCubeLook.Default"/>): its top
         /// <see cref="RoundScreenLook.BoardCubeTopShare"/> of the width tall, its front <see cref="RoundScreenLook.BoardFrontShare"/>,
-        /// a thin gap round it (<see cref="RoundScreenLook.BoardCubeFill"/>) darkened by its soft shadow, and the material's
-        /// symbol on its top in the symbols mode. Drawn from the far row to the near one, a nearer cube hides all of the front
-        /// behind it but its top band (<see cref="RoundScreenLook.BoardRowShare"/> − <see cref="RoundScreenLook.BoardCubeTopShare"/>).
+        /// filling its column (<see cref="RoundScreenLook.BoardCubeFill"/>) so neighbours touch, parted only by each cube's own
+        /// darker edge (<see cref="RoundScreenLook.BoardEdge"/>), a soft shadow under its foot, and the material's symbol on its
+        /// top in the symbols mode. Drawn from the far row to the near one, a nearer cube hides all of the front behind it but its
+        /// top band (<see cref="RoundScreenLook.BoardRowShare"/> − <see cref="RoundScreenLook.BoardCubeTopShare"/>).
         /// </summary>
         public static byte[] BoardCube(int width, int height, Rgba color, string? symbolId) => BoardCube(width, height, color, symbolId, BoardCubeLook.Default);
 
@@ -309,7 +310,7 @@ namespace Bloomlings.Client.UI.Design
                         MaterialMark(ref c, x, y, w / 2f, (m + topBottom) / 2f, markUnit, mark, ink, halo, Math.Max(0.8f, markUnit * 0.1f));
                     }
 
-                    PutOverShadow(pixels, width, px, py, x, y, w, h, c, cover, m, shadow, look.CornerShare, look.ShadowAlpha);
+                    PutOverShadow(pixels, width, px, py, x, y, w, h, c, cover, m, shadow, look.CornerShare, look.ShadowAlpha, look.ShadowSides);
                 }
             }
 
@@ -318,12 +319,13 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// Writes a board cube's pixel (<paramref name="c"/> at <paramref name="cover"/>) over the soft shadow of its body cast
-        /// <paramref name="shadow"/> px downward onto the surface (none while <paramref name="alpha"/> is 0, the game's look).
+        /// <paramref name="shadow"/> px downward onto the surface (none while <paramref name="alpha"/> is 0; only under the foot,
+        /// never in the side gaps, unless <paramref name="sides"/>).
         /// </summary>
-        private static void PutOverShadow(byte[] pixels, int width, int px, int py, float x, float y, float w, float h, Color c, float cover, float m, float shadow, float corner, float alpha)
+        private static void PutOverShadow(byte[] pixels, int width, int px, int py, float x, float y, float w, float h, Color c, float cover, float m, float shadow, float corner, float alpha, bool sides = true)
         {
             float under = 0f;
-            if (alpha > 0f && shadow > 0f && cover < 1f)
+            if (alpha > 0f && shadow > 0f && cover < 1f && (sides || y > h - shadow - 0.5f))
             {
                 // The body moved down by most of the drop and widened into the side gaps, with a soft edge as wide as the drop.
                 float blur = Math.Max(1f, shadow);
@@ -529,7 +531,7 @@ namespace Bloomlings.Client.UI.Design
                         MysteryMarks(ref c, x, y, w / 2f, (m + topBottom) / 2f, (w - (2f * m)) * 0.3f, topHeight * 0.32f, unit, mystery);
                     }
 
-                    PutOverShadow(pixels, width, px, py, x, y, w, h, c, cover, m, shadow, look.CornerShare, look.ShadowAlpha);
+                    PutOverShadow(pixels, width, px, py, x, y, w, h, c, cover, m, shadow, look.CornerShare, look.ShadowAlpha, look.ShadowSides);
                 }
             }
 

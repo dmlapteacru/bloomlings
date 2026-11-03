@@ -9,7 +9,7 @@ namespace Bloomlings.Client.UI.Design
     /// <para>
     /// The owner's look-dev of 2026-11-03 ("in the middle of a big picture the cubes look flat, a drawn grid"): the variants
     /// of the review sheet (<c>product/previews/board-cubes-2026-11-03/</c>, the preview's <c>--board-cubes</c>) are values of
-    /// this struct (<see cref="Variants"/>); the owner chose "E" and corrected its proportions to "E2", whose numbers are the
+    /// this struct (<see cref="Variants"/>); the owner chose "E" and corrected it to "E2" and then "E3", whose numbers are the
     /// <see cref="RoundScreenLook"/> board constants and so <see cref="Default"/>. The pods keep the look before (<see cref="Previous"/>'s shading).
     /// </para>
     /// <para>
@@ -25,8 +25,11 @@ namespace Bloomlings.Client.UI.Design
     {
         public BoardCubeLook(string key, float fill, float rowShare, float topShare, float frontShare, float bevelShare, float gloss, float cornerShare,
             float rim = 1f, float topLift = 0.1f, float bevelDark = 0.6f, float frontLight = 0.12f, float frontDeep = 0.32f, float seam = 0.45f,
-            float glossSize = 0.085f, float shadowShare = 0f, float shadowAlpha = 0f)
+            float glossSize = 0.085f, float shadowShare = 0f, float shadowAlpha = 0f, float edge = 0.45f, float overlap = 0f, bool shadowSides = true)
         {
+            Edge = edge;
+            Overlap = overlap;
+            ShadowSides = shadowSides;
             Key = key;
             Fill = fill;
             RowShare = rowShare;
@@ -97,6 +100,19 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The shadow's strongest alpha (0: none).</summary>
         public float ShadowAlpha { get; }
 
+        /// <summary>The dark edge of the cube's own deeper shade round its body, its strongest alpha (0.45: the look before): the seam between touching cubes.</summary>
+        public float Edge { get; }
+
+        /// <summary>
+        /// How far a cube's picture box reaches into its neighbours' columns on each side (0: none). With the body filling its
+        /// column (<see cref="Fill"/> 1) a small overlap keeps the board's surface from showing through the antialiased seam
+        /// between two pictures drawn at fractional pixels.
+        /// </summary>
+        public float Overlap { get; }
+
+        /// <summary>Whether the shadow also darkens the gaps at the cube's sides (true) or lies only under its foot (false).</summary>
+        public bool ShadowSides { get; }
+
         /// <summary>How far a cube's picture reaches below its cell (its front, beyond the row, and its shadow).</summary>
         public float Overhang => (TopShare - RowShare) + FrontShare + ShadowShare;
 
@@ -109,12 +125,13 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The top face's share of the cube's body (top and front, no shadow): where a side face turns from light to dark.</summary>
         public float TopOfBody => TopShare / (TopShare + FrontShare);
 
-        /// <summary>The game's look (the <see cref="RoundScreenLook"/> constants): the owner's look "E2" of 2026-11-03.</summary>
+        /// <summary>The game's look (the <see cref="RoundScreenLook"/> constants): the owner's look "E3" of 2026-11-03.</summary>
         public static readonly BoardCubeLook Default = new BoardCubeLook(string.Empty, RoundScreenLook.BoardCubeFill, RoundScreenLook.BoardRowShare,
             RoundScreenLook.BoardCubeTopShare, RoundScreenLook.BoardFrontShare, RoundScreenLook.BoardBevelShare, RoundScreenLook.CubeGloss, RoundScreenLook.CubeCornerShare,
             rim: RoundScreenLook.BoardRim, topLift: RoundScreenLook.BoardTopLift, bevelDark: RoundScreenLook.BoardBevelDark, frontLight: RoundScreenLook.BoardFrontLight,
             frontDeep: RoundScreenLook.BoardFrontDeep, seam: RoundScreenLook.BoardSeam, glossSize: RoundScreenLook.BoardGlossSize,
-            shadowShare: RoundScreenLook.BoardShadowShare, shadowAlpha: RoundScreenLook.BoardShadowAlpha);
+            shadowShare: RoundScreenLook.BoardShadowShare, shadowAlpha: RoundScreenLook.BoardShadowAlpha, edge: RoundScreenLook.BoardEdge,
+            overlap: RoundScreenLook.BoardCubeOverlap, shadowSides: RoundScreenLook.BoardShadowSides);
 
         /// <summary>
         /// The board's look before 2026-11-03 (variant A of the review sheet), and the shading the pods, the places and the square
@@ -131,7 +148,7 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public static BoardCubeLook Current { get; set; } = Default;
 
-        /// <summary>The owner's review variants of 2026-11-03 (A the look before, <see cref="Previous"/>; E2 the owner's choice, now <see cref="Default"/>), with their sheet labels.</summary>
+        /// <summary>The owner's review variants of 2026-11-03 (A the look before, <see cref="Previous"/>; E3 the owner's choice, now <see cref="Default"/>), with their sheet labels.</summary>
         public static readonly (string Id, string Label, BoardCubeLook Look)[] Variants =
         {
             ("A", "A — было", Previous),
@@ -152,9 +169,14 @@ namespace Bloomlings.Client.UI.Design
                 rim: 1.3f, topLift: 0.16f, bevelDark: 0.55f, frontLight: 0.18f, frontDeep: 0.42f, seam: 0.35f, glossSize: 0.13f, shadowShare: 0.08f, shadowAlpha: 0.6f)),
 
             // E2: E's style in the reference game's proportions (the owner's correction of 2026-11-03: "the front does not stick
-            // out that far"): a band 0.125 of a column under each top, very thin seams, a small gloss dot, a subtle shadow.
+            // out that far"): a band 0.125 of a column under each top, thin seams, a small gloss dot, a subtle shadow.
+            ("E2", "E2 — E с низкой полоской", new BoardCubeLook("lookE2", 0.955f, 0.88f, 0.755f, 0.30f, 0.10f, 0.8f, 0.16f,
+                rim: 1.2f, topLift: 0.12f, bevelDark: 0.5f, frontLight: 0.24f, frontDeep: 0.44f, seam: 0.4f, glossSize: 0.06f, shadowShare: 0.05f, shadowAlpha: 0.35f)),
+
+            // E3: E2 with the cubes touching (the owner on his phone, 2026-11-03: "a strong grey strip between the cubes, look at
+            // the reference game"): no gap, each cube parted by its own darker edge, the shadow only under the picture's foot.
             // The game's look.
-            ("E2", "E2 — E с низкой полоской (выбран)", Default),
+            ("E3", "E3 — без серых щелей (выбран)", Default),
         };
     }
 }

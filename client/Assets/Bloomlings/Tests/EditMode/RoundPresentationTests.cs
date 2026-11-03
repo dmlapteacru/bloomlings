@@ -380,7 +380,7 @@ namespace Bloomlings.Client.Tests
                 Assert.That(layout.Grid.CenterX, Is.EqualTo(layout.Surface.CenterX).Within(1e-3), at + ": centred");
                 Assert.That(layout.Grid.CenterY, Is.EqualTo(layout.Surface.CenterY).Within(1e-3), at + ": centred");
                 Box cube = layout.CubeBox(level(side));
-                Assert.That(cube.Width, Is.EqualTo(layout.Cell * (1f - (2f * RoundBoardLayout.CubeInset))).Within(1e-3), at + ": the cube follows the cell");
+                Assert.That(cube.Width, Is.EqualTo(layout.Cell * (1f + (2f * RoundScreenLook.BoardCubeOverlap))).Within(1e-3), at + ": the cube follows the cell, reaching a little into its neighbours");
                 Assert.That(cube.Height, Is.EqualTo(layout.Cell * BoardCubeLook.Default.PictureShare).Within(1e-3), at + ": its top, its front and its shadow");
             }
 

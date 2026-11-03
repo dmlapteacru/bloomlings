@@ -191,7 +191,7 @@ namespace Bloomlings.Client.Tests.EditMode
         }
 
         [Test]
-        public void ABoardCube_IsTheObliqueCube_AThinGapRoundIt_ItsFrontADeeperShade()
+        public void ABoardCube_IsTheObliqueCube_TouchingItsNeighbours_ItsEdgeAndFrontADeeperShade()
         {
             const int w = 34;
             int h = (int)Math.Round(w * BoardCubeLook.Default.PictureShare);
@@ -200,9 +200,12 @@ namespace Bloomlings.Client.Tests.EditMode
                 string at = material.Code.ToString();
                 byte[] cube = UiRaster.BoardCube(w, h, RoundLook.ColorOf(material), null);
                 Assert.That(cube, Is.EqualTo(UiRaster.BoardCube(w, h, RoundLook.ColorOf(material), null)), "deterministic");
-                Assert.That(Pixel(cube, w, 0, h / 3).A, Is.LessThan(250), at + ": a thin gap at the side (the owner's look E2 of 2026-11-03)");
-                Assert.That(Pixel(cube, w, 2, h / 3).A, Is.GreaterThan(250), at + ": only a thin one");
                 (byte R, byte G, byte B, byte A) top = Pixel(cube, w, w / 2, h / 3);
+                (byte R, byte G, byte B, byte A) edge = Pixel(cube, w, w - 1, h / 3);
+                Assert.That(Pixel(cube, w, 0, h / 3).A, Is.GreaterThan(250), at + ": no gap at the side, the cubes touch (the owner's look E3 of 2026-11-03)");
+                Assert.That(edge.A, Is.GreaterThan(250), at + ": nor at the right");
+                Assert.That(Luma(edge), Is.LessThan(Luma(top)), at + ": parted by the cube's own darker edge");
+                Assert.That(Chroma(edge), Is.GreaterThanOrEqualTo(Chroma(top) * 0.5f), at + ": in its own hue, never a grey strip");
                 (byte R, byte G, byte B, byte A) front = Pixel(cube, w, w / 2, h - 4);
                 Assert.That(Luma(front), Is.LessThan(Luma(top)), at + ": a visible front, deeper than the top");
                 Assert.That(Chroma(front), Is.GreaterThanOrEqualTo(Chroma(top) * 0.6f), at + ": never grey");

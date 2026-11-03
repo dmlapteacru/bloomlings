@@ -348,12 +348,13 @@ owner sees the same behaviour as in the playtest app.
     middle) only where the neighbour on the side facing away from the middle is empty. Hit areas follow the cells; the
     rules keep their flat grid.
   - As amended by the owner on 2026-11-03 (look "E" of the review sheet `product/previews/board-cubes-2026-11-03/`, "in
-    the middle of a big picture the cubes look flat, squares in a drawn grid", with his correction "E2": "the front does
-    not stick out from under the cubes that far"), every board cube MUST read as a soft cube in a packed area too, as in
+    the middle of a big picture the cubes look flat, squares in a drawn grid", with his corrections "E2": "the front does
+    not stick out from under the cubes that far", and "E3"), every board cube MUST read as a soft cube in a packed area too, as in
     the reference game: rows 0.88 of a column, a top 0.755 tall with soft corners (0.16) and a small light dot at its
     lower right, under every cube a clearly darker band of its front (0.30 deep, 0.125 of a column showing under a filled
-    cell in front; the whole front where that cell is empty), very thin seams between neighbours (body 0.955 of a
-    column) and a subtle shadow under each cube on the surface. The pods and the places keep their look of 2026-10-28.
+    cell in front; the whole front where that cell is empty) and neighbours touching (body 1.0 of a column, the owner's
+    "E3" after a phone check: "a strong grey strip between the cubes"), parted only by each cube's own darker edge in its
+    own hue, never a grey or surface-coloured strip, with a subtle shadow only under the picture's foot on the surface. The pods and the places keep their look of 2026-10-28.
   - Each column MUST show exactly its first three pods, one after another and never overlapping, and no "+N" for the
     rest. A pod is a cube with no frame or box round it: the top row's in a white outline, its number big in the middle
     of its top (no corner count anywhere: pods, places, flights). Waiting pods MUST keep their colour clearly
