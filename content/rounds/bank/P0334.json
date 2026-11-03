@@ -554,6 +554,13 @@
    "offset": -1.35,
    "quick": 0.45,
    "at": "2026-11-02"
+  },
+  "Hard|links+latch+cells|Hard": {
+   "t": 0.42,
+   "cols": 4,
+   "offset": -2.59,
+   "quick": 0.425,
+   "at": "2026-11-03"
   }
  },
  "placed": []
