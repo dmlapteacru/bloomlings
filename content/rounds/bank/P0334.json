@@ -556,10 +556,10 @@
    "at": "2026-11-02"
   },
   "Hard|links+latch+cells|Hard": {
-   "t": 0.42,
+   "t": 0,
    "cols": 4,
-   "offset": -2.59,
-   "quick": 0.425,
+   "offset": -2.91,
+   "quick": 0.25,
    "at": "2026-11-03"
   }
  },

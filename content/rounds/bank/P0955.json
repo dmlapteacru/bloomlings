@@ -676,11 +676,11 @@
  ],
  "tune": {
   "Hard|links+latch+cells|Hard": {
-   "t": 0.6,
+   "t": 0.27,
    "cols": 5,
-   "offset": -2.44,
-   "quick": 0.35,
-   "at": "2026-11-02"
+   "offset": -2.65,
+   "quick": 0.275,
+   "at": "2026-11-03"
   }
  },
  "placed": []
