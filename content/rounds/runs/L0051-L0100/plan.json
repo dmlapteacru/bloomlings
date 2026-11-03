@@ -2179,13 +2179,18 @@
    "intro": null,
    "recipe": "latch+links+hidden",
    "slot": "regular",
-   "picture": "P0947",
-   "title": "Сырная расчёска",
-   "N": 1170,
+   "picture": "P0966",
+   "title": "Лягушонок в сапогах-лотосах",
+   "N": 1139,
    "band": "800–1200",
    "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
-   "hidden": 3,
-   "P": 30
+   "hidden": 4,
+   "P": 30,
+   "swappedFrom": "P0947",
+   "swaps": 1,
+   "tried": [
+    "P0947"
+   ]
   },
   {
    "level": 70,

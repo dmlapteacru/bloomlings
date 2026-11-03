@@ -153,7 +153,15 @@ export function slotProblems(e,level,cls,slot,pic,planRecipe=null){const k=e.che
 // pass the slot's filters.
 export async function tuneJob({pic,cls,recipe,slot=null,intro=false,want=1,wantLoss=false,attempts=64,minutes=Infinity,memory={},seed=1,accentMode='auto',maxColours=10,save=()=>{},log=()=>{},model=loadModel()}){
  slot=slot||(intro?'intro':cls==='Normal'?'regular':cls);const zone=zoneFor(cls,slot),[lo,hi,aim]=zone,t0=Date.now(),breather=slot==='breather',planRecipe=recipe;
- const m=measure(pic),board=boardOf(pic),f=pictureFeatures(pic),base=LV.splitPods(m.volumes,m.N,null);let types=recipe==='none'?[]:recipe.split('+');
+ let types=recipe==='none'?[]:recipe.split('+');
+ // latches (17 §8, the owner's amendment of 2026-11-03): an introduction and a Normal one, a Hard three where the picture can
+ // take them (else two), a Super Hard exactly three; keys stand in the picture's holes, and where it has too few, in 2×2
+ // spots the level takes out of the picture (overlay.keys, levels.mjs carveKeySpots), each with its key
+ let overlay=null,latchWant=null;
+ if(types.includes('latch')){const tries=intro||cls==='Normal'?[1]:cls==='Hard'?[3,2]:[3];
+  for(const n of tries){const ov=LV.carveKeySpots(pic,null,n,rnd(seed*7+n));if(ov!==null){overlay=ov;latchWant=n;break;}}
+  if(latchWant==null)return {banked:[],accepted:[],stats:{attempts:0,quick:0,corrections:0,linkChecks:0,evaluated:0,passed:0,accepted:0,reasons:{[`засов: нет места для ${tries[tries.length-1]} ключей и не вырезать (17 §8)`]:1}},memory};}
+ const m=measure(overlaid(pic,overlay)),board=boardOf(pic,overlay),f=pictureFeatures(pic),base=LV.splitPods(m.volumes,m.N,null);
  // a breather whose share stays above its zone with hidden information alone (or none) takes one plain link pair instead
  // (17 §5 «Передышка», the owner, 2026-11-02: hidden pods and cells do not move the bot test); the picture remembers it
  const toPair=()=>{recipe='links';types=['links'];mem.pair=true;};
@@ -167,14 +175,14 @@ export async function tuneJob({pic,cls,recipe,slot=null,intro=false,want=1,wantL
   stats.attempts++;const cs=columnsFor(m.N),cols=mem.cols&&cs.includes(mem.cols)&&k%3!==2?mem.cols:cs[k%cs.length],cseed=seed*1000003+k*7919+['Normal','Hard','Super Hard'].indexOf(cls)*31+(intro?17:0);
   const pos=recipe==='none'||intro||breather?null:trapMode?1:LV.DOSE_CYCLE[k%LV.DOSE_CYCLE.length],rc=recipe;
   // accents (17 §6), as levels.mjs build: this attempt paints 1–2 accent materials (the level's recolouring); never on a breather
-  const av=breather?null:LV.accentVariant(pic,null,m,null,cls,intro,k,accentMode,cseed,no,maxColours),cm=av?av.m:m,cboard=av?av.board:board,cpods=av?av.pods:base.pods;
+  const av=breather?null:LV.accentVariant(pic,overlay,m,null,cls,intro,k,accentMode,cseed,no,maxColours),cm=av?av.m:m,cboard=av?av.board:board,cpods=av?av.pods:base.pods;
   // the links dose (the lead its dose place, an additional one its minimum, a breather the lead's minimum)
   const dz=LV.doses(recipe,cls,cpods.length,intro,cm.N,{breather});if(dz.error){no(dz.error);break;}
   let linkWant=types.includes('links')?(breather||pos===null?dz.links[0]:dz.links[0]+2*Math.round(pos*(dz.links[1]-dz.links[0])/2)):0,posUsed=pos;
   const p={sigma:SIGMA[cls],cols,P:cpods.length,hold:slot==='regular'?1:0,links:linkWant,trap:cls!=='Normal'||trapMode,latch:types.includes('latch')?dz.latch[0]:0,accents:!!av};
   // the start t: the picture's memory (± 0.03), else the model's plan; a breather starts from the access order (t = 0)
   let t=breather&&mem.t==null?0:mem.t!=null?clamp(r2(mem.t+(rnd(cseed)()-.5)*.06),0,1):planT(f,p,zone,{model,offset}).t;
-  const make=async t=>{const c=LV.candidate(pic,cboard,cpods,cols,recipe,cls,cseed,intro,pos,{...(cls==='Normal'?{t}:{tStrong:t}),sigma:p.sigma,noLinks:!intro,noInfo:true,noHold:slot!=='regular',...(av?{accents:av.accents.map(x=>x.code)}:{})});
+  const make=async t=>{const c=LV.candidate(pic,cboard,cpods,cols,recipe,cls,cseed,intro,pos,{...(cls==='Normal'?{t}:{tStrong:t}),sigma:p.sigma,noLinks:!intro,noInfo:true,noHold:slot!=='regular',...(latchWant!=null?{latchWant}:{}),...(av?{accents:av.accents.map(x=>x.code)}:{})});
    if(c.error)return c;if(!linkWant||intro)return c;let ch=await chooseLinks(c.level,linkWant,cls,rnd(cseed^0x77),{noTrap:breather,trap:trapMode});stats.linkChecks+=ch.checked||0;
    // the dose place cannot hold the forced limit on this queue: the lead's minimum dose instead (the placer weighs the place
    // softly, 17 §7), recorded as dose place 0

@@ -217,7 +217,7 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null,opt
   hiddenCells=pickHiddenCells(board,want,r,{intro,avoid});if(!hiddenCells)return {error:'не хватило глубоких клеток для скрытых клеток'};}
  // latch + acorn key (17 §8, 2026-11-01): the lead its dose place, an additional one its minimum, an introduction one
  let latches=null;
- if(types.includes('latch')){const [a,b]=dz.latch,lead0=types.filter(m=>m!=='bridge')[0]==='latch',want=pos===null||intro||!lead0?a+Math.floor(r()*(b-a+1)):a+Math.round(pos*(b-a));
+ if(types.includes('latch')){const [a,b]=dz.latch,lead0=types.filter(m=>m!=='bridge')[0]==='latch',want=opts.latchWant!=null?opts.latchWant:pos===null||intro||!lead0?a+Math.floor(r()*(b-a+1)):a+Math.round(pos*(b-a));
   const lp=pickLatches(board,tray,pods,want,cls,r,{intro});if(lp.error)return {error:lp.error};latches=lp.latches;}
  if(types.includes('bridge')&&!board.hero)return {error:'на картинке нет мест моста (b)'};
  // a strip cuts a part off: without a bridge its cells cannot be reached
@@ -262,6 +262,32 @@ export function latchTiming(board,tray,pods,holes){const {idle:R}=engineSync(),l
 // the middle of that band, a little noise); without such a pair the nearest. Refuses a set the cheap key check
 // (rules.cjs latchKeysBlocked) finds unreachable; up to 12 draws. Returns {latches:[{column, depth, key}]} sorted by
 // column, or {error}.
+// Key spots carved out of the picture (17 §8 «Засов», the owner's amendment of 2026-11-03: «чтобы ставить где-то 3 ключа,
+// мы спокойно можем убирать какие-то 4 кубика и вместо них ставить ключ в пустое пространство… в 3 разных местах
+// картинки»): when the picture has fewer holes than `need` keys, 2×2 blocks of colour cells (the level's overlay.keys,
+// picture coordinates; the approved picture stays as it is) become empty, each enclosed by colour all round, in the middle
+// band of the access depth (opens partway, never on the start front), only out of colours of 30+ cells, spread over the
+// picture (at least 5 cells from another spot or hole). Returns the overlay with its keys (walls and sites kept), the
+// overlay unchanged when the picture has holes enough, or null when no such blocks can be found.
+export function carveKeySpots(pic,overlay,need,r=Math.random){if(need<=0)return overlay;
+ const base=boardOf(pic,overlay),holes=keyHoles(base);if(holes.length>=need)return overlay;
+ const p=overlaid(pic,overlay),rows=p.rows,pw=rows[0].length,ph=rows.length,vol=measure(p).volumes,{d}=depths(base,-1),w=base.w,h=base.h;
+ const di=(x,y)=>d[(h-1-(y+2))*w+x+2],cell=(x,y)=>x>=0&&y>=0&&x<pw&&y<ph?rows[y][x]:'.';
+ let maxD=0;for(let y=0;y<ph;y++)for(let x=0;x<pw;x++)if(CODES.includes(rows[y][x])&&di(x,y)<Infinity)maxD=Math.max(maxD,di(x,y));
+ const lo=Math.max(2,Math.floor(maxD*.3)),hi=Math.max(lo,Math.ceil(maxD*.85));
+ const taken=holes.map(hh=>{const i=hh.key,bx=i%w,by=h-1-Math.floor(i/w);return [bx-2,by-2];});
+ const opts=[];for(let y=1;y+2<ph;y++)for(let x=1;x+2<pw;x++){let ok=true,dsum=0;
+  for(let yy=y;yy<y+2&&ok;yy++)for(let xx=x;xx<x+2&&ok;xx++){const c=cell(xx,yy),dd=di(xx,yy);if(!CODES.includes(c)||!((vol[c]||0)>=30)||!(dd>=lo&&dd<=hi))ok=false;else dsum+=dd;}
+  // the ring round the block is colour all round, so the spot is a hole of its own (never open to the start front)
+  for(let yy=y-1;yy<=y+2&&ok;yy++)for(let xx=x-1;xx<=x+2&&ok;xx++){if(yy>=y&&yy<y+2&&xx>=x&&xx<x+2)continue;if(!CODES.includes(cell(xx,yy)))ok=false;}
+  if(ok)opts.push({x,y,depth:dsum/4});}
+ const keys=[...((overlay&&overlay.keys)||[])],spots=[...taken];
+ for(let k=holes.length;k<need;k++){const dist=o=>spots.length?Math.min(...spots.map(([sx,sy])=>Math.max(Math.abs(o.x+.5-sx),Math.abs(o.y+.5-sy)))):99;
+  const cand=opts.filter(o=>dist(o)>=5);if(!cand.length)return null;
+  const mid=(lo+hi)/2,best=cand.map(o=>({o,sc:Math.min(dist(o),14)-Math.abs(o.depth-mid)*.6+r()*1.5})).sort((a,b)=>b.sc-a.sc)[0].o;
+  for(let yy=best.y;yy<best.y+2;yy++)for(let xx=best.x;xx<best.x+2;xx++)keys.push([xx,yy]);spots.push([best.x+.5,best.y+.5]);}
+ const out={walls:(overlay&&overlay.walls)||[],sites:(overlay&&overlay.sites)||[],keys};
+ return keyHoles(boardOf(pic,out)).length>=need?out:null;}
 export const LATCH_WAIT={intro:[1,3],Normal:[0,3],Hard:[1,5],'Super Hard':[2,8]};
 export function pickLatches(board,tray,pods,want,cls,r,{intro=false}={}){const holes=keyHoles(board);
  if(holes.length<want)return {error:holes.length?`мест для ключа ${holes.length} — меньше ${want} засовов`:'нет пустой клетки для ключа, закрытой работой (засов)'};
