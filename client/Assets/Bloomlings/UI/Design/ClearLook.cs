@@ -763,8 +763,10 @@ namespace Bloomlings.Client.UI.Design
             int segments = Math.Max(1, walk.Points.Count - 1);
             float stop = Math.Min(WalkerLook.CarryStopCells, walker / 3f);
             float end = Math.Max(0f, 1f - (stop / segments));
-            float carried = Clamp(TileSide, WalkerLook.CarriedMin * walker, WalkerLook.CarriedMax * walker);
-            Box tile = TileAt(walk.Target);
+            // The cube keeps at least its size on the board (a column wide, the board's own cube picture), and grows to a size that
+            // reads on small cubes (WalkerLook.CarriedMin of the walker); it never shrinks.
+            float carried = Math.Max(1f, WalkerLook.CarriedMin * walker);
+            Box tile = Box.FromCenter(walk.Target.X, walk.Target.Y, 1f, 1f);
             switch (spot.Leg)
             {
                 case Leg.Out:
@@ -818,7 +820,9 @@ namespace Bloomlings.Client.UI.Design
                     float cy = Lerp(tile.CenterY, hy - (catchSquash * walker * 0.3f), lift) - ((float)Math.Sin(lift * Math.PI) * walker * 0.55f);
                     float side = Lerp(tile.Width, carried, lift) * (1f + (0.18f * (float)Math.Sin(lift * Math.PI)));
                     list.PushTurn(90f * lift * _facing, cx, cy);
+                    list.Lifted = true;
                     list.Tile(Box.FromCenter(cx, cy, side, side), walk.Variant);
+                    list.Lifted = false;
                     list.Pop();
                     return;
                 }
@@ -835,7 +839,9 @@ namespace Bloomlings.Client.UI.Design
                     float bob = _creature ? (float)Math.Abs(Math.Sin(_runFrame * Math.PI * 2.0 / WalkerLook.RunFrames)) * 0.035f * walker : 0f;
                     (float hx, float hy) = Head(x, y, walker, (hop * walker / WalkerSize) + bob);
                     list.PushTurn(_creature ? 0f : swing * 7f, hx, hy);
+                    list.Lifted = true;
                     list.Tile(Box.FromCenter(hx, hy, carried, carried), walk.Variant);
+                    list.Lifted = false;
                     list.Pop();
                     return;
                 }
@@ -845,7 +851,11 @@ namespace Bloomlings.Client.UI.Design
             (float X, float Y) Head(float x, float y, float size, float up)
             {
                 float top = y - (size * (_creature ? 0.52f : 0.5f)) - up;
-                return (x - (_facing * size * (_creature ? 0.08f : 0.03f)), top - (carried * 0.3f));
+                // The cube's body reaches this far below its centre (the board cube's top and front under its row's middle), so its
+                // bottom rests a little into the head.
+                BoardCubeLook cube = BoardCubeLook.Default;
+                float below = cube.TopShare + cube.FrontShare - (cube.RowShare / 2f);
+                return (x - (_facing * size * (_creature ? 0.08f : 0.03f)), top + (size * WalkerLook.CarriedSink) - (carried * below));
             }
         }
 

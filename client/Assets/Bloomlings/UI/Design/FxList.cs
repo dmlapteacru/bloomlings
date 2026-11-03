@@ -44,8 +44,9 @@ namespace Bloomlings.Client.UI.Design
     /// </summary>
     public readonly struct FxItem
     {
-        public FxItem(FxKind kind, FxLayer layer, string slot, float x, float y, float w, float h, float sx, float sy, float turn, float alpha, Rgba color, VariantId variant, CharacterMood mood, string? shape, float radius, float line, int material = -1, int pose = -1, int facing = 1)
+        public FxItem(FxKind kind, FxLayer layer, string slot, float x, float y, float w, float h, float sx, float sy, float turn, float alpha, Rgba color, VariantId variant, CharacterMood mood, string? shape, float radius, float line, int material = -1, int pose = -1, int facing = 1, bool lifted = false)
         {
+            Lifted = lifted;
             Pose = pose;
             Facing = facing;
             Material = material;
@@ -121,6 +122,12 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>Which way a posed walker faces: 1 right, −1 left (a host mirrors the figure).</summary>
         public int Facing { get; }
 
+        /// <summary>
+        /// A cube a walker lifts or carries (<see cref="WalkerLook.Carry"/>): a host draws these after the layer's other items, so
+        /// another walker never hides a carried cube.
+        /// </summary>
+        public bool Lifted { get; }
+
         public Box Box => Box.FromCenter(X, Y, W, H);
     }
 
@@ -161,6 +168,9 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>Which way the next posed characters face (<see cref="FxItem.Facing"/>).</summary>
         public int Facing { get; set; } = 1;
 
+        /// <summary>Whether the next tiles are lifted or carried (<see cref="FxItem.Lifted"/>).</summary>
+        public bool Lifted { get; set; }
+
         public void Clear()
         {
             _items.Clear();
@@ -176,6 +186,7 @@ namespace Bloomlings.Client.UI.Design
             Material = -1;
             Pose = -1;
             Facing = 1;
+            Lifted = false;
         }
 
         /// <summary>Turns what follows by <paramref name="degrees"/> clockwise about (<paramref name="px"/>, <paramref name="py"/>).</summary>
@@ -281,7 +292,7 @@ namespace Bloomlings.Client.UI.Design
             }
 
             _items.Add(new FxItem(kind, Layer, Slot, x, y, box.Width, box.Height, sx, sy, turn * 180f / (float)Math.PI, _alpha, color, variant, mood, shape, radius, line, kind == FxKind.Tile || kind == FxKind.Character ? Material : -1,
-                kind == FxKind.Character ? Pose : -1, kind == FxKind.Character ? Facing : 1));
+                kind == FxKind.Character ? Pose : -1, kind == FxKind.Character ? Facing : 1, kind == FxKind.Tile && Lifted));
         }
     }
 }

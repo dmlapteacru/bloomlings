@@ -85,10 +85,13 @@ namespace Bloomlings.Playtest.Design
 
         private static void DrawEffects(IPainter p, IReadOnlyList<FxItem> items, FxLayer layer, float ox, float oy, float cell, bool icons, bool symbols, bool heroWalkers)
         {
+            // The walker mock's looks draw the lifted and carried cubes after everything else of the layer (FxItem.Lifted).
+            int passes = WalkerLook.Current.IsDefault ? 1 : 2;
             string? marked = null;
+            for (int pass = 0; pass < passes; pass++)
             foreach (FxItem item in items)
             {
-                if (item.Layer != layer || Math.Abs(item.Sx) < 1e-3f || Math.Abs(item.Sy) < 1e-3f)
+                if (item.Layer != layer || Math.Abs(item.Sx) < 1e-3f || Math.Abs(item.Sy) < 1e-3f || (passes == 2 && item.Lifted != (pass == 1)))
                 {
                     continue;
                 }
@@ -126,7 +129,8 @@ namespace Bloomlings.Playtest.Design
                         else Visuals.Character(p, box, item.Variant, item.Mood);
                         break;
                     case FxKind.Tile:
-                        if (item.Material >= 0) Kit.MaterialTile(p, box, RoundMaterial.All[item.Material], RoundLook.CubeStyle, symbols);
+                        if (item.Material >= 0 && !WalkerLook.Current.IsDefault) BoardCubeAt(p, x, y, w, RoundMaterial.All[item.Material], symbols);
+                        else if (item.Material >= 0) Kit.MaterialTile(p, box, RoundMaterial.All[item.Material], RoundLook.CubeStyle, symbols);
                         else Kit.CandyTile(p, box, item.Variant, icons ? TileStyle.MosaicIcon : TileStyle.Mosaic);
                         break;
                     case FxKind.Circle:
@@ -168,6 +172,16 @@ namespace Bloomlings.Playtest.Design
 
                 p.PopAlpha();
             }
+        }
+
+        // The walker mock's looks (WalkerLook): a held or carried cube is the board's own cube picture, w px wide, placed as the
+        // board places a cube in its cell when (x, y) is that cell's middle (its row's middle; the picture from the row's top).
+        private static void BoardCubeAt(IPainter p, float x, float y, float w, RoundMaterial material, bool symbols)
+        {
+            BoardCubeLook look = BoardCubeLook.Default;
+            float reach = w * look.Overlap;
+            float top = y - (w * look.RowShare / 2f);
+            Kit.BoardCube(p, new Box(x - (w / 2f) - reach, top, x + (w / 2f) + reach, top + (w * look.PictureShare)), material, symbols, look);
         }
 
         // A cell's center in cell units (y down, the grid's top left at 0, 0).

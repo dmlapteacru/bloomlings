@@ -72,11 +72,16 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public const float CarryStopCells = 0.9f;
 
-        /// <summary>The carried cube's size as a share of the walker, at least and at most (else the board's cube).</summary>
-        public const float CarriedMin = 0.36f;
+        /// <summary>
+        /// The carried cube's least size as a share of the walker's box (the owner, 2026-11-03: a carried cube never gets smaller
+        /// than the board's cube, and on small cubes it grows so it is seen): its size is the larger of the board's cube and this
+        /// (about 26 px at a 53 px walker; the reference game's carried pieces are about 0.4 of its ants' length, 0.75 of their
+        /// width). Drawn as the board's own cube picture.
+        /// </summary>
+        public const float CarriedMin = 0.5f;
 
-        /// <inheritdoc cref="CarriedMin"/>
-        public const float CarriedMax = 0.52f;
+        /// <summary>How deep the carried cube's bottom rests into the walker's head, a share of the walker's box.</summary>
+        public const float CarriedSink = 0.1f;
 
         /// <summary>Within the act (0–1): the walker grabs the cube until <see cref="GrabEnd"/>, it flies onto its head until <see cref="LiftEnd"/>, then the walker turns for home.</summary>
         public const float GrabEnd = 0.22f;
