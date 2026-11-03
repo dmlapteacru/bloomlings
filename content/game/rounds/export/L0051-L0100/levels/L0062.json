@@ -1,0 +1,212 @@
+{
+ "format": "round-level.v1",
+ "number": 62,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P1090",
+  "version": 1
+ },
+ "board": {
+  "w": 29,
+  "h": 39,
+  "rowsBottomFirst": [
+   "##############.##############",
+   "#...........................#",
+   "#.............CCCC..........#",
+   "#...........CCCCCCCCC.......#",
+   "#.........CCCCACCCCC........#",
+   "#.......OOOOOAACCCCC........#",
+   "#.....OOOOOOOOOOOOOOOO......#",
+   "#....OOOOOOOOOOOOOOOOOOO....#",
+   "#...OOOOOOOOYOOYOOOOOOOO....#",
+   "#...OOOOOYYYYOYYYOYOOOOOOO..#",
+   "#..OOOOOOOOYYYYYYOYYOOOOOO..#",
+   "#..OOOOOOOOOYYYYAYYYYYYOOO..#",
+   "#..OOYYYYOOYYYYAAAAYYYOOOOA.#",
+   "#.OOOYYYYYDDDYYYYYAYYYOOOOA.#",
+   "#.OOYYYYYYDDDYYYYYYYDYOOOOA.#",
+   "#.OOYYYYYYDDDYYYYYYDDDYYOOA.#",
+   "#..OOYYYYYDDDYYYYYYDDDYYOOA.#",
+   "#..OOYYYYYYYYYYYYYYDCDYYOO..#",
+   "#..OOYYYCYYYYYYYYYYYDDYOOO..#",
+   "#...OOYYCCYYYYYYYYYYYYYOOO..#",
+   "#....OOYYCCYYYYYYYYYYYOOO...#",
+   "#....OOYYYCCYYYYYYYYYOOOO...#",
+   "#.....OOYYYYYYYYYYYYOOOO....#",
+   "#.......OOYYYYOYYOYOOOO.....#",
+   "#........OOYYOOOOOOOO.......#",
+   "#.........OOYOOOOOO.........#",
+   "#.........GOYYYOOO..........#",
+   "#.........GGMGGMOO..........#",
+   "#........GGGMGGMGG..........#",
+   "#........GGGMGGMGG..........#",
+   "#.......GGGMMGGMGGG.........#",
+   "#......GGGMMGGMMGGG.........#",
+   "#.....GGGG.MGGM.GGGG........#",
+   "#.....GGG.MMGG..GGGG........#",
+   "#....GGG..MGGC...GGGM.......#",
+   "#.........GGG......MM.......#",
+   "#.........GG................#",
+   "#...........................#",
+   "#############################"
+  ],
+  "entries": [
+   14
+  ],
+  "hiddenCells": [
+   214,
+   215,
+   216,
+   217,
+   243,
+   244,
+   245,
+   246,
+   272,
+   273,
+   274,
+   275,
+   303,
+   304,
+   420,
+   421,
+   422,
+   423,
+   449,
+   450,
+   451,
+   452,
+   479,
+   480,
+   481,
+   508,
+   509,
+   510,
+   594,
+   595,
+   596,
+   597,
+   598,
+   623,
+   624,
+   625,
+   626,
+   627,
+   653,
+   654,
+   655,
+   656
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "G",
+   "count": 23
+  },
+  {
+   "code": "G",
+   "count": 22
+  },
+  {
+   "code": "G",
+   "count": 22
+  },
+  {
+   "code": "M",
+   "count": 11
+  },
+  {
+   "code": "M",
+   "count": 10
+  },
+  {
+   "code": "C",
+   "count": 18
+  },
+  {
+   "code": "C",
+   "count": 18
+  },
+  {
+   "code": "O",
+   "count": 48
+  },
+  {
+   "code": "O",
+   "count": 48
+  },
+  {
+   "code": "O",
+   "count": 48
+  },
+  {
+   "code": "O",
+   "count": 47
+  },
+  {
+   "code": "Y",
+   "count": 48
+  },
+  {
+   "code": "Y",
+   "count": 47
+  },
+  {
+   "code": "Y",
+   "count": 47
+  },
+  {
+   "code": "Y",
+   "count": 47
+  },
+  {
+   "code": "D",
+   "count": 12
+  },
+  {
+   "code": "D",
+   "count": 11
+  },
+  {
+   "code": "A",
+   "count": 14
+  }
+ ],
+ "tray": [
+  [
+   13,
+   10,
+   6,
+   2,
+   8,
+   5
+  ],
+  [
+   14,
+   12,
+   17,
+   9,
+   1,
+   16
+  ],
+  [
+   0,
+   15,
+   11,
+   4,
+   3,
+   7
+  ]
+ ],
+ "mechanics": [
+  "cells"
+ ],
+ "engine": {
+  "rules": "335db27e3443dd1e0e7a25739b2d9bcede2eaee38d04c5f3021aa9a8b5173a18",
+  "timeline": "1d0d15678f80d655abea67993cb489d47a7c70b9fe020c6a56491f5ffb291fca",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}
