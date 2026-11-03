@@ -2213,18 +2213,15 @@
    "intro": null,
    "recipe": "links+latch+cells",
    "slot": "Hard",
-   "picture": "P0234",
+   "picture": "P0268",
    "title": "Утка-детектив с лупой",
    "N": 960,
    "band": "800–1200",
    "pack": "batch-0168-D",
    "hidden": 7,
    "P": 27,
-   "swappedFrom": "P0268",
-   "swaps": 1,
-   "tried": [
-    "P0268"
-   ]
+   "swaps": 0,
+   "tried": []
   },
   {
    "level": 71,
@@ -2375,19 +2372,15 @@
    "intro": null,
    "recipe": "links+cells+latch",
    "slot": "Hard",
-   "picture": "P0383",
-   "title": "Раскопки заводного динозавра",
-   "N": 1221,
+   "picture": "P0931",
+   "title": "Кот в сапогах",
+   "N": 1216,
    "band": "1200–1500",
-   "pack": "packs-0268-0467 · Доисторические находки",
+   "pack": "batch-0168-C",
    "hidden": 7,
    "P": 30,
-   "tried": [
-    "P0391",
-    "P0931"
-   ],
-   "swappedFrom": "P0931",
-   "swaps": 1
+   "tried": [],
+   "swaps": 0
   },
   {
    "level": 81,
@@ -2614,18 +2607,15 @@
    "intro": null,
    "recipe": "links+latch+cells",
    "slot": "Hard",
-   "picture": "P0398",
+   "picture": "P0334",
    "title": "Красильня внутри палитры",
    "N": 863,
    "band": "800–1200",
    "pack": "packs-0268-0467 · Миниатюрные мастерские",
    "hidden": 7,
    "P": 25,
-   "swappedFrom": "P0334",
-   "swaps": 1,
-   "tried": [
-    "P0334"
-   ]
+   "swaps": 0,
+   "tried": []
   },
   {
    "level": 96,
@@ -2709,12 +2699,14 @@
    "recipe": "links+latch+cells",
    "slot": "Hard",
    "picture": "P0955",
-   "title": "Защитный комбинезон для ростка",
-   "N": 1025,
+   "title": "Дюймовочка в тюльпане",
+   "N": 837,
    "band": "800–1200",
-   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
-   "hidden": 4,
-   "P": 30
+   "pack": "batch-0168-C",
+   "hidden": 7,
+   "P": 25,
+   "swaps": 0,
+   "tried": []
   }
  ],
  "assignMissing": [],

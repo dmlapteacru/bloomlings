@@ -116,7 +116,8 @@ function doses(recipe,cls,P,intro,N=0,{breather=false}={}){const types=recipe===
   // an additional mechanic takes the minimum admissible dose of its range: for links the smallest even count in it (pairs,
   // §7: 10 % of 24 pods is 2.4 → 3 → 4 participants, still inside 10–20 %)
   // 5–10 really hidden cells on a hidden-cell introduction (§9); one latch with its key on a latch introduction
-  if(intro){if(m==='hidden'){a=2;b=3;}else if(m==='cells'){a=5;b=10;}else a=b=m==='links'?2:1;}else if(j>0){if(m==='links')a+=a%2;b=a<=b?a:b;}else if(role==='lead'&&pr.count>=3){b=Math.floor((a+b)/2);}
+  // latches keep their whole count range in any role (the owner's amendment of 2026-11-03: Hard 2–3, Super Hard 3)
+  if(intro){if(m==='hidden'){a=2;b=3;}else if(m==='cells'){a=5;b=10;}else a=b=m==='links'?2:1;}else if(m==='latch'){}else if(j>0){if(m==='links')a+=a%2;b=a<=b?a:b;}else if(role==='lead'&&pr.count>=3){b=Math.floor((a+b)/2);}
   if(m==='links'){a+=a%2;b-=b%2;}if(breather&&m==='links')a=b=2;if(a>b)out.error=`нет целых доз ${m} для ${cls} при P=${P}`;out[m]=[a,b];});
  return out;}
 // the colour cells of a level's board (N)

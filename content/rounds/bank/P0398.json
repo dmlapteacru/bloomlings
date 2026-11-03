@@ -5,10 +5,10 @@
  "searched": [],
  "tune": {
   "Hard|links+latch+cells|Hard": {
-   "t": 0.37,
+   "t": 0.57,
    "cols": 4,
-   "offset": 2.7,
-   "quick": 0.425,
+   "offset": 3.33,
+   "quick": 0.4,
    "at": "2026-11-03"
   }
  }
