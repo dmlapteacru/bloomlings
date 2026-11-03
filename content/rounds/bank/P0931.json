@@ -668,11 +668,11 @@
  ],
  "tune": {
   "Hard|links+cells+latch|Hard": {
-   "t": 0.36,
+   "t": 0.49,
    "cols": 4,
-   "offset": -0.04,
-   "quick": 0.375,
-   "at": "2026-11-02"
+   "offset": -0.6,
+   "quick": 0.45,
+   "at": "2026-11-03"
   }
  },
  "placed": []

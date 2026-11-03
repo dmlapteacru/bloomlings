@@ -1138,10 +1138,10 @@
    "at": "2026-11-02"
   },
   "Hard|links+latch+cells|Hard": {
-   "t": 0.55,
+   "t": 0.5,
    "cols": 4,
-   "offset": 3.29,
-   "quick": 0.35,
+   "offset": 2.26,
+   "quick": 0.2,
    "at": "2026-11-03"
   }
  },
