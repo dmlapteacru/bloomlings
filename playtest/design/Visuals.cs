@@ -98,20 +98,26 @@ namespace Bloomlings.Playtest.Design
             Rgba color = RoundLook.ColorOf(material);
             Rgba line = DesignTokens.Colors.InkBrown;
             p.Mark(CharacterArt.WalkerSlot);
+            if (pose >= 0 && look.Heroes)
+            {
+                HeroWalker(p, box, material.Family, pose);
+                return;
+            }
+
             if (pose >= 0 && look.DrawsCreature(material.Index))
             {
-                int frame = pose >= WalkerLook.RunFrames ? -1 : pose;
                 float k = WalkerLook.CreatureScale;
                 box = new Box(box.CenterX - (box.Width * k / 2f), box.Bottom - (box.Height * k), box.CenterX + (box.Width * k / 2f), box.Bottom);
                 Rgba body = look.BodyOf(color);
-                bool vein = material.Family == Family.Sprig;
-                if (facing < 0)
+                Family family = material.Family;
+                bool mirror = facing < 0 && pose <= WalkerLook.PoseSide;
+                if (mirror)
                 {
                     p.PushSquash(-1f, 1f, box.CenterX, box.CenterY);
                 }
 
-                p.Picture("walker.creature." + material.Code + "." + frame, box, (w, h) => UiRaster.Creature(w, h, body, line, frame, WalkerLook.RunFrames, vein));
-                if (facing < 0)
+                p.Picture("walker.creature." + material.Code + "." + pose, box, (w, h) => UiRaster.Creature(w, h, body, line, family, pose));
+                if (mirror)
                 {
                     p.PopTransform();
                 }
@@ -144,6 +150,39 @@ namespace Bloomlings.Playtest.Design
             {
                 p.SpriteTint(name, box, tint.WithAlpha(amount));
             }
+        }
+
+        /// <summary>
+        /// The walker mock's experiment (<see cref="WalkerLook.HandsHeroes"/>; not the game's look, see there): <paramref name="family"/>'s
+        /// real modular V2 hero, stock, standing on the walker box's bottom (<see cref="WalkerLook.HeroCellScale"/> of it tall), or
+        /// for <see cref="WalkerLook.PoseHands"/> only his hands, the hero drawn again clipped to his hand discs
+        /// (<see cref="RoundLook.HeroHands"/>, the latch hero's trick) over the cube he holds.
+        /// </summary>
+        public static void HeroWalker(IPainter p, Box box, Family family, int pose)
+        {
+            Box cell = HeroWalkerCell(box);
+            if (pose != WalkerLook.PoseHands)
+            {
+                Hero(p, cell, family, null);
+                return;
+            }
+
+            (Box left, Box right) = RoundLook.HeroHands(cell, family);
+            foreach (Box hand in new[] { left, right })
+            {
+                p.PushClipRound(hand, hand.Width / 2f);
+                Hero(p, cell, family, null);
+                p.PopClip();
+            }
+        }
+
+        /// <summary>A hero walker's cell (<see cref="HeroMotion.CellWidth"/> × <see cref="HeroMotion.CellHeight"/>) on the walker box: his feet on its bottom.</summary>
+        public static Box HeroWalkerCell(Box box)
+        {
+            float h = box.Height * WalkerLook.HeroCellScale;
+            float w = h * HeroMotion.CellWidth / HeroMotion.CellHeight;
+            float top = box.Bottom - (h * HeroMotion.FootLine);
+            return new Box(box.CenterX - (w / 2f), top, box.CenterX + (w / 2f), top + h);
         }
 
         public static void Walker(IPainter p, Box box, Family family, Rgba tint)

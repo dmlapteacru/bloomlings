@@ -223,7 +223,7 @@ namespace Bloomlings.Client.UI.Design
         private bool _drawnDirty = true;
 
         /// <summary>How long a walker's act is drawn after the rules' clear (<see cref="ClearStyles.LiveLinger"/>), display µs.</summary>
-        public static readonly long LingerUs = (long)Math.Round(ClearStyles.LiveLinger * 1_000_000.0);
+        public static long LingerUs => (long)Math.Round(ClearStyles.Linger * 1_000_000.0);
 
         /// <summary>
         /// When a walker's look is home again, display µs (<see cref="ClearStyles.LiveHomeAt"/>): its act to the clear plus the

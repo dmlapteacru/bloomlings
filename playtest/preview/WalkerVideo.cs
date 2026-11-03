@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using System.Globalization;
 using System.IO;
 using Bloomlings.Client.UI.Design;
@@ -30,6 +31,8 @@ namespace Bloomlings.Playtest.Preview
             "default" => WalkerLook.Default,
             "contrast" => WalkerLook.Contrast,
             "creature" => WalkerLook.Creature,
+            "hands-creature" => WalkerLook.HandsCreature,
+            "hands-heroes" => WalkerLook.HandsHeroes,
             _ => null,
         };
 
@@ -96,12 +99,164 @@ namespace Bloomlings.Playtest.Preview
             return 0;
         }
 
-        public static int Write(string root, int level, float seconds, string outDir, string lookName, float from)
+        /// <summary>
+        /// <c>--walker-strips &lt;out dir&gt;</c>: the "in hands" acts frame by frame, one row a walker, on a patch of the board's cubes
+        /// (<c>gags-strip.png</c>: Munchers' four gags with the creature and the heroes; <c>styles-strip.png</c>: the other six
+        /// styles; <c>creatures-sheet.png</c>: the four creatures' poses), with <c>*.rows.txt</c> naming each row for the labels.
+        /// Review material only.
+        /// </summary>
+        public static int Strips(string outDir)
+        {
+            Directory.CreateDirectory(outDir);
+            WalkerLook before = WalkerLook.Current;
+            try
+            {
+                int[] materials = { 0, 1, 2, 3 };
+                var gags = new List<(string, WalkerLook, ClearStyle, int, int)>();
+                string[] gagNames = { "chomp", "squish", "toss", "shake" };
+                for (int gag = 0; gag < 4; gag++)
+                {
+                    gags.Add((gagNames[gag] + " creature", WalkerLook.HandsCreature, ClearStyle.Munchers, gag, materials[gag]));
+                    gags.Add((gagNames[gag] + " heroes", WalkerLook.HandsHeroes, ClearStyle.Munchers, gag, materials[gag]));
+                }
+
+                StripSheet(Path.Combine(outDir, "gags-strip.png"), gags);
+                var styles = new List<(string, WalkerLook, ClearStyle, int, int)>();
+                int m = 0;
+                foreach (ClearStyle style in ClearStyles.Bought)
+                {
+                    styles.Add((ClearStyles.Id(style) + " creature", WalkerLook.HandsCreature, style, -1, materials[m % 4]));
+                    styles.Add((ClearStyles.Id(style) + " heroes", WalkerLook.HandsHeroes, style, -1, materials[m % 4]));
+                    m++;
+                }
+
+                StripSheet(Path.Combine(outDir, "styles-strip.png"), styles);
+                CreatureSheet(Path.Combine(outDir, "creatures-sheet.png"));
+            }
+            finally
+            {
+                WalkerLook.Current = before;
+            }
+
+            return 0;
+        }
+
+        // One row a walker: frames of its act from just before its arrival to its way home.
+        private static void StripSheet(string outPng, List<(string Label, WalkerLook Look, ClearStyle Style, int Gag, int Material)> rows)
+        {
+            const int Frames = 12;
+            const int FrameW = 190;
+            const int RowH = 380;
+            const float Cell = 36f;
+            const float Walker = 100f;
+            float cubesAcross = Walker / Cell / WalkerLook.MockBoardShare;
+            using var painter = new SkiaPainter(Frames * FrameW, rows.Count * RowH, new Insets(0, 0));
+            painter.BeginFrame();
+            painter.FillRect(new Box(0, 0, Frames * FrameW, rows.Count * RowH), DesignTokens.Colors.BoardSurface);
+            var labels = new List<string>();
+            var list = new FxList();
+            for (int r = 0; r < rows.Count; r++)
+            {
+                (string label, WalkerLook look, ClearStyle style, int gag, int material) = rows[r];
+                labels.Add(label);
+                WalkerLook.Current = look;
+                RoundMaterial mat = RoundMaterial.All[material];
+
+                // A target whose cell picks the gag (ClearLook's seed: 7 a column, 13 a row).
+                const int Ty = 3;
+                int tx = 8;
+                while (gag >= 0 && ((tx * 7) + (Ty * 13)) % 4 != gag)
+                {
+                    tx++;
+                }
+
+                var points = new List<(float X, float Y)>();
+                for (int i = 6; i >= 0; i--)
+                {
+                    points.Add((tx - i + 0.5f, Ty + 0.5f));
+                }
+
+                ClearWalk walk = ClearWalk.Live(points, material, RoundLook.WalkerVariant(mat.Family), 0f, 0.6f, 0.7f, 1.25f, null, cubesAcross);
+                for (int f = 0; f < Frames; f++)
+                {
+                    float t = 0.56f + (f * 0.11f);
+                    float left = f * FrameW;
+                    float top = r * RowH;
+                    float ox = left + (FrameW * (style == ClearStyle.Pushers ? 0.75f : 0.45f)) - ((tx + 0.5f) * Cell);
+                    float oy = top + (RowH * 0.72f) - ((Ty + 0.5f) * Cell);
+                    painter.PushClip(new Box(left, top, left + FrameW - 2, top + RowH - 2));
+
+                    // A patch of cubes of its colour round the target, the far rows first; the target until the walker takes it.
+                    for (int cy = Ty - 2; cy <= Ty + 1; cy++)
+                    {
+                        for (int cx = tx; cx <= tx + 3; cx++)
+                        {
+                            if ((cx == tx && cy == Ty && t >= 0.6f) || (cx == tx && cy > Ty))
+                            {
+                                continue;
+                            }
+
+                            BoardCubeLook cubeLook = BoardCubeLook.Default;
+                            float x0 = ox + (cx * Cell);
+                            float y0 = oy + (cy * Cell);
+                            Kit.BoardCube(painter, new Box(x0 - (Cell * cubeLook.Overlap), y0, x0 + Cell + (Cell * cubeLook.Overlap), y0 + (Cell * cubeLook.PictureShare)), mat, false, cubeLook);
+                        }
+                    }
+
+                    list.Clear();
+                    ClearLook.Walker(list, style, walk, t);
+                    ClearPainter.DrawItems(painter, list.Items, FxLayer.Board, ox, oy, Cell);
+                    ClearPainter.DrawItems(painter, list.Items, FxLayer.Over, ox, oy, Cell);
+                    painter.PopClip();
+                }
+            }
+
+            File.WriteAllBytes(outPng, painter.Png());
+            File.WriteAllLines(Path.ChangeExtension(outPng, ".rows.txt"), labels);
+            Console.WriteLine("walker strips → " + outPng);
+        }
+
+        // The four creatures (rows) in their poses: the run's eight frames, standing from the side, facing, holding, the hands.
+        private static void CreatureSheet(string outPng)
+        {
+            const int Cell = 150;
+            int columns = WalkerLook.PoseHands + 1;
+            int[] materials = { 0, 1, 2, 3, 10, 12, 4, 15 };
+            using var painter = new SkiaPainter(columns * Cell, materials.Length * Cell, new Insets(0, 0));
+            painter.BeginFrame();
+            painter.FillRect(new Box(0, 0, columns * Cell, materials.Length * Cell), DesignTokens.Colors.BoardSurface);
+            WalkerLook.Current = WalkerLook.HandsCreature;
+            for (int row = 0; row < materials.Length; row++)
+            {
+                RoundMaterial material = RoundMaterial.All[materials[row]];
+                for (int pose = 0; pose <= WalkerLook.PoseHands; pose++)
+                {
+                    Box box = Box.FromCenter((pose * Cell) + (Cell / 2f), (row * Cell) + (Cell * 0.56f), Cell * 0.62f, Cell * 0.62f);
+                    if (pose == WalkerLook.PoseHands)
+                    {
+                        // The holding pose with the cube and its hands over it, as the act draws it.
+                        Visuals.Walker(painter, box, material, WalkerLook.PoseHold, 1);
+                        float g = WalkerLook.HeldShare * box.Width;
+                        float cy = box.Bottom - (WalkerLook.HeldUp * box.Width);
+                        BoardCubeLook look = BoardCubeLook.Default;
+                        float top = cy - (g * look.RowShare / 2f);
+                        Kit.BoardCube(painter, new Box(box.CenterX - (g / 2f) - (g * look.Overlap), top, box.CenterX + (g / 2f) + (g * look.Overlap), top + (g * look.PictureShare)), material, false, look);
+                    }
+
+                    Visuals.Walker(painter, box, material, pose, 1);
+                }
+            }
+
+            File.WriteAllBytes(outPng, painter.Png());
+            Console.WriteLine("creatures sheet → " + outPng);
+        }
+
+        public static int Write(string root, int level, float seconds, string outDir, string lookName, float from, string? styleId = null)
         {
             WalkerLook? look = LookOf(lookName);
             if (look == null)
             {
-                Console.Error.WriteLine("walker video: the look is default, contrast or creature");
+                Console.Error.WriteLine("walker video: the look is default, contrast, creature, hands-creature or hands-heroes");
                 return 2;
             }
 
@@ -124,6 +279,11 @@ namespace Bloomlings.Playtest.Preview
                 var app = new DesignApp(data, empty, new Silence(), false, rounds: rounds);
                 app.LoadLevel(level);
                 RoundLevelScreen s = app.Round!;
+                if (ClearStyles.Parse(styleId) is ClearStyle style)
+                {
+                    s.Style = style;
+                }
+
                 void Frame(float dt)
                 {
                     painter.Now += dt;

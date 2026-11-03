@@ -168,7 +168,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>Which way the next posed characters face (<see cref="FxItem.Facing"/>).</summary>
         public int Facing { get; set; } = 1;
 
-        /// <summary>Whether the next tiles are lifted or carried (<see cref="FxItem.Lifted"/>).</summary>
+        /// <summary>Whether the next items are lifted or carried, or a held cube's effects and hands (<see cref="FxItem.Lifted"/>).</summary>
         public bool Lifted { get; set; }
 
         public void Clear()
@@ -292,7 +292,7 @@ namespace Bloomlings.Client.UI.Design
             }
 
             _items.Add(new FxItem(kind, Layer, Slot, x, y, box.Width, box.Height, sx, sy, turn * 180f / (float)Math.PI, _alpha, color, variant, mood, shape, radius, line, kind == FxKind.Tile || kind == FxKind.Character ? Material : -1,
-                kind == FxKind.Character ? Pose : -1, kind == FxKind.Character ? Facing : 1, kind == FxKind.Tile && Lifted));
+                kind == FxKind.Character ? Pose : -1, kind == FxKind.Character ? Facing : 1, Lifted));
         }
     }
 }

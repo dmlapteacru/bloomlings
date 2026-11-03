@@ -117,6 +117,12 @@ namespace Bloomlings.Client.UI.Design
         public const float LiveLinger = 0.6f;
 
         /// <summary>
+        /// The linger the look plays (<see cref="LiveLinger"/> in the game): the walker mock's "in hands" looks lengthen it, set with
+        /// their look (<c>WalkerLook.Current</c>). Presentation only.
+        /// </summary>
+        public static float Linger { get; set; } = LiveLinger;
+
+        /// <summary>
         /// A round level's walker's size in cubes on the biggest cubes (<see cref="BigCubesAcross"/> or fewer across the board's
         /// box) and on the smallest (<see cref="SmallCubesAcross"/> or more), the same on its way and at its cube; in between it
         /// goes linearly (the owner, 2026-10-31: "1.6 when the cubes get small, 1.4 on big ones"; it was 1.17 throughout, and
@@ -202,7 +208,7 @@ namespace Bloomlings.Client.UI.Design
         /// looks calm end to end. Presentation only: the rules' return stays.
         /// </summary>
         public static float LiveHomeAt(float start, float arrive, float clear, float done) =>
-            clear + LiveLinger + Math.Max(done - clear, arrive - start);
+            clear + Linger + Math.Max(done - clear, arrive - start);
 
         /// <summary>The free style, every level's while no bought style is chosen (the owner, 2026-10-11: "Munchers stays the main one").</summary>
         public const ClearStyle Default = ClearStyle.Munchers;

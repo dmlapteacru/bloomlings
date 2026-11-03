@@ -22,8 +22,14 @@ namespace Bloomlings.Client.UI.Design
             float shade = 0f,
             bool carry = false,
             Family[]? creatures = null,
-            string name = "default")
+            string name = "default",
+            bool hands = false,
+            bool heroes = false,
+            float linger = ClearStyles.LiveLinger)
         {
+            Hands = hands;
+            Heroes = heroes;
+            Linger = linger;
             BoardShare = boardShare;
             Outline = outline;
             ShadowAlpha = shadowAlpha;
@@ -56,6 +62,42 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>The run cycle's frames of the drawn creature (<see cref="UiRaster.Creature"/>).</summary>
         public const int RunFrames = 8;
+
+        /// <summary>A posed walker standing seen from the side (<see cref="FxItem.Pose"/>; 0 to <see cref="RunFrames"/> − 1 are the run).</summary>
+        public const int PoseSide = RunFrames;
+
+        /// <summary>A posed walker standing facing the player, arms down.</summary>
+        public const int PoseFront = RunFrames + 1;
+
+        /// <summary>A posed walker facing the player holding a cube in front of its belly, arms forward (its hands drawn by <see cref="PoseHands"/>).</summary>
+        public const int PoseHold = RunFrames + 2;
+
+        /// <summary>Only the hands of <see cref="PoseHold"/>, drawn over the held cube.</summary>
+        public const int PoseHands = RunFrames + 3;
+
+        /// <summary>
+        /// The "in hands" looks (the owner, 2026-11-03: small cubes make poor animations, but once a hero takes one in his hands it is
+        /// big and nice to watch): the held cube's side as a share of the walker's box.
+        /// </summary>
+        public const float HeldShare = 0.65f;
+
+        /// <summary>How far above the walker's feet the held cube's middle is, in walker boxes (its bottom a little in front of the feet, so the face shows over it).</summary>
+        public const float HeldUp = (HeldShare / 2f) - 0.05f;
+
+        /// <summary>
+        /// The "in hands" looks' act after the rules' clear, seconds (presentation only, like <see cref="ClearStyles.LiveLinger"/>): the
+        /// act runs from the arrival to the clear plus this (about 1.1 s), long enough for a gag.
+        /// </summary>
+        public const float HandsLinger = 1f;
+
+        /// <summary>Within an "in hands" act (0–1): the cube jumps into the hands, growing, until this; the gag follows.</summary>
+        public const float JumpEnd = 0.2f;
+
+        /// <summary>Within an "in hands" act: the gag is over by this; the walker then turns for home empty-handed.</summary>
+        public const float GagEnd = 0.92f;
+
+        /// <summary>A real hero walker's cell height (<see cref="HeroMotion.CellHeight"/>) as a share of the walker's box: upright, a little taller than the round figures.</summary>
+        public const float HeroCellScale = 1.45f;
 
         /// <summary>
         /// How much bigger than the walker's box the creature's picture is drawn (on the same feet): its body fills less of its
@@ -99,13 +141,38 @@ namespace Bloomlings.Client.UI.Design
         public static WalkerLook Contrast { get; } = new WalkerLook(MockBoardShare, MockOutline, MockShadowAlpha, MockShade, true, null, "contrast");
 
         /// <summary>
+        /// The "in hands" mock with the drawn creature for all four families (arms and legs): the walker takes its cube in its
+        /// hands, where it grows, plays a gag with it (Munchers) or its style's flavour, and runs home empty-handed.
+        /// </summary>
+        public static WalkerLook HandsCreature { get; } = new WalkerLook(MockBoardShare, MockOutline, MockShadowAlpha, MockShade, false,
+            new[] { Family.Sprig, Family.Bloom, Family.Drop, Family.Twig }, "hands-creature", hands: true, linger: HandsLinger);
+
+        /// <summary>
+        /// The "in hands" mock with the owner's real modular V2 heroes as small walkers (an experiment for comparison only: hero
+        /// frames inside a level as walkers would need the constitution's principle VII amended, which allows them only as a
+        /// mechanic's figure).
+        /// </summary>
+        public static WalkerLook HandsHeroes { get; } = new WalkerLook(MockBoardShare, 0f, MockShadowAlpha, 0f, false, null, "hands-heroes",
+            hands: true, heroes: true, linger: HandsLinger);
+
+        /// <summary>
         /// The mock's variant 4: <see cref="Contrast"/> with the Sprig family's walkers a drawn running creature (a leaf with its
         /// veins), and the Drop family's the same body as a glossy drop, so that it shows on L1 (no Sprig cube) too.
         /// </summary>
         public static WalkerLook Creature { get; } = new WalkerLook(MockBoardShare, MockOutline, MockShadowAlpha, MockShade, true, new[] { Family.Sprig, Family.Drop }, "creature");
 
         /// <summary>The look the hosts draw now: <see cref="Default"/> in the game; the preview's walker mock sets another.</summary>
-        public static WalkerLook Current { get; set; } = Default;
+        public static WalkerLook Current
+        {
+            get => _current;
+            set
+            {
+                _current = value ?? Default;
+                ClearStyles.Linger = _current.Linger;
+            }
+        }
+
+        private static WalkerLook _current = Default;
 
         /// <summary>The walker box as a share of the board surface's width, or 0 for the size by cubes (<see cref="ClearStyles.WalkerCubes"/>).</summary>
         public float BoardShare { get; }
@@ -126,6 +193,15 @@ namespace Bloomlings.Client.UI.Design
         public System.Collections.Generic.IReadOnlyList<Family> CreatureFamilies { get; }
 
         public string Name { get; }
+
+        /// <summary>The "in hands" act (<see cref="HandsCreature"/>, <see cref="HandsHeroes"/>).</summary>
+        public bool Hands { get; }
+
+        /// <summary>The walkers are the owner's real modular V2 heroes (<see cref="HandsHeroes"/>).</summary>
+        public bool Heroes { get; }
+
+        /// <summary>How long a walker's act lasts after the rules' clear (presentation only; <see cref="ClearStyles.LiveLinger"/> in the game).</summary>
+        public float Linger { get; }
 
         public bool IsDefault => ReferenceEquals(this, Default);
 

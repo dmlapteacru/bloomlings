@@ -115,7 +115,7 @@ namespace Bloomlings.Client.UI.Design
     /// (<see cref="Holds"/>: the host draws the cell's ground under it). Tokens and registered slots only
     /// (<see cref="SlotOf"/>). Engine-free.
     /// </summary>
-    public static class ClearLook
+    public static partial class ClearLook
     {
         /// <summary>A walker's size, in cells (the Parade's are smaller).</summary>
         public const float WalkerSize = 0.74f;
@@ -173,6 +173,7 @@ namespace Bloomlings.Client.UI.Design
             _liveAct = walk.IsLive;
             _look = walk.IsLive ? WalkerLook.Current : WalkerLook.Default;
             _creature = !_look.IsDefault && _look.DrawsCreature(walk.Material);
+            _hero = !_look.IsDefault && _look.Heroes && walk.Material >= 0;
             _runFrame = spot.Walking ? WalkerLook.RunFrame(spot.Hops / HopsPerCell) : WalkerLook.RunFrames;
             _facing = spot.DirX < -0.1f ? -1 : spot.DirX > 0.1f ? 1 : spot.Leg == Leg.Back ? -1 : 1;
             bool gate = walk.IsLive && spot.GateAlpha < 1f;
@@ -180,6 +181,18 @@ namespace Bloomlings.Client.UI.Design
             {
                 list.PushAlpha(spot.GateAlpha);
             }
+            if (walk.IsLive && _look.Hands)
+            {
+                Hands(list, style, walk, spot, now);
+                if (gate)
+                {
+                    list.Pop();
+                }
+
+                EndWalker(list);
+                return;
+            }
+
             if (walk.IsLive && spot.Leg == Leg.Back && style != ClearStyle.Munchers && style != ClearStyle.Pushers)
             {
                 LiveReturn(list, style, walk, spot, now);
@@ -231,6 +244,9 @@ namespace Bloomlings.Client.UI.Design
             _liveAct = false;
             _look = WalkerLook.Default;
             _creature = false;
+            _hero = false;
+            _pose = -1;
+            list.Lifted = false;
             list.Material = -1;
             list.Pose = -1;
             list.Facing = 1;
@@ -250,6 +266,13 @@ namespace Bloomlings.Client.UI.Design
 
         [ThreadStatic]
         private static bool _creature;
+
+        // The walker being drawn is a real hero (WalkerLook.Heroes), and a pose the hands act sets for its figure (-1: the run's).
+        [ThreadStatic]
+        private static bool _hero;
+
+        [ThreadStatic]
+        private static int _pose;
 
         [ThreadStatic]
         private static int _runFrame;
@@ -310,6 +333,17 @@ namespace Bloomlings.Client.UI.Design
 
             list.Slot = SlotOf(style);
             list.Layer = FxLayer.Board;
+            if (fade.Material >= 0 && WalkerLook.Current.Hands)
+            {
+                // The "in hands" looks play the style at the walker's hands, not at the cell: only the slot's ring.
+                if (fade.Seat.HasValue)
+                {
+                    Landed(list, fade.Seat.Value, t);
+                }
+
+                return;
+            }
+
             (float x, float y) = fade.Center;
             Rgba color = fade.Material >= 0 ? RoundLook.ColorOf(fade.Material) : ColorOf(fade.Variant);
             if (style == ClearStyle.Blossom)
@@ -864,12 +898,21 @@ namespace Bloomlings.Client.UI.Design
         private static void Walking(FxList list, in ClearWalk walk, Spot spot, float size, float waddle = 7f, float hopHeight = 0.085f)
         {
             float swing = Swing(spot);
+            if (_hero)
+            {
+                // A real hero has no run cycle: a hop each step, stretched in the air and squashed on landing, leaning into it.
+                float air = spot.Walking ? Math.Abs(swing) : 0f;
+                float stretch = spot.Walking ? 0.07f * ((2f * air) - 1f) : 0f;
+                Body(list, spot.X, spot.Y, size, air * hopHeight * 1.4f, spot.Walking ? swing * 6f : 0f, 1f - (stretch * 0.6f), 1f + stretch, 1f, walk.Variant);
+                return;
+            }
+
             float hop = spot.Walking && !_creature ? Math.Abs(swing) * hopHeight : 0f;
             Body(list, spot.X, spot.Y, size, hop, spot.Walking && !_creature ? swing * waddle : 0f, 1f, 1f, 1f, walk.Variant);
         }
 
         /// <summary>A Bloomling standing at (x, y): its shadow, then its character, leaning and squashed about its feet.</summary>
-        private static void Body(FxList list, float x, float y, float size, float hop, float lean, float sx, float sy, float alpha, VariantId variant)
+        private static void Body(FxList list, float x, float y, float size, float hop, float lean, float sx, float sy, float alpha, VariantId variant, bool shadow = true)
         {
             if (alpha <= 0f || size <= 0f)
             {
@@ -884,7 +927,7 @@ namespace Bloomlings.Client.UI.Design
             {
                 list.Shadow(ground);
             }
-            else
+            else if (shadow)
             {
                 // A contact shadow: a soft wide ellipse and a darker core right under the feet, on the board and the cubes alike.
                 float w = ground.Width * (_creature ? 0.62f : 0.72f) * (1f - (hop * 1.5f));
@@ -893,7 +936,7 @@ namespace Bloomlings.Client.UI.Design
                 list.Ellipse(Box.FromCenter(x, cyShadow, w * 0.68f, w * 0.18f), Rgba.Black.WithAlpha(_look.ShadowAlpha * 0.6f));
             }
 
-            list.Pose = _creature ? _runFrame : -1;
+            list.Pose = _creature || _hero ? (_pose >= 0 ? _pose : _runFrame) : -1;
             list.Facing = _creature && _facing < 0 ? -1 : 1;
             list.PushTurn(lean, x, body.Bottom);
             list.PushSquash(sx, sy, x, body.Bottom);
@@ -1206,19 +1249,19 @@ namespace Bloomlings.Client.UI.Design
                 spot.DirX = Toward(walk.Points, Segment(walk.Points, progress)).X;
                 Gate(ref spot, (now - walk.Start) / ClearStyles.GateSeconds);
             }
-            else if (now < walk.ClearAt + ClearStyles.LiveLinger)
+            else if (now < walk.ClearAt + ClearStyles.Linger)
             {
                 // The act lasts past the rules' clear by the linger (presentation only), so the style is seen.
                 at = Along(walk.Points, 1f);
                 spot.Leg = Leg.Act;
-                spot.U = Clamp01((now - walk.ArriveAt) / Math.Max(1e-4f, walk.ClearAt + ClearStyles.LiveLinger - walk.ArriveAt));
+                spot.U = Clamp01((now - walk.ArriveAt) / Math.Max(1e-4f, walk.ClearAt + ClearStyles.Linger - walk.ArriveAt));
                 spot.Hops = segments * HopsPerCell;
                 spot.DirX = Toward(walk.Points, walk.Points.Count - 2).X;
             }
             else if (now < home)
             {
                 // Home at its way out's pace, slowing down into the gate.
-                float from = walk.ClearAt + ClearStyles.LiveLinger;
+                float from = walk.ClearAt + ClearStyles.Linger;
                 spot.Leg = Leg.Back;
                 spot.U = 1f - SetOff(1f - Clamp01((now - from) / Math.Max(1e-4f, home - from)));
                 at = Along(walk.Points, 1f - spot.U);
