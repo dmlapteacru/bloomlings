@@ -3,7 +3,7 @@
   51,
   100
  ],
- "created": "2026-11-03T11:21:02.200Z",
+ "created": "2026-11-03T11:33:08.319Z",
  "positions": [
   {
    "level": 51,
@@ -376,8 +376,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0317"
   },
   {
    "level": 67,
@@ -451,8 +451,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0966"
   },
   {
    "level": 70,
@@ -476,8 +476,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0268"
   },
   {
    "level": 71,
@@ -551,8 +551,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0936"
   },
   {
    "level": 74,
@@ -726,8 +726,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0931"
   },
   {
    "level": 81,
@@ -751,8 +751,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0025"
   },
   {
    "level": 82,
@@ -826,8 +826,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0378"
   },
   {
    "level": 85,
@@ -951,8 +951,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0385"
   },
   {
    "level": 90,
@@ -976,8 +976,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0337"
   },
   {
    "level": 91,
@@ -1051,8 +1051,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P1003"
   },
   {
    "level": 94,
@@ -1101,8 +1101,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0334"
   },
   {
    "level": 96,
@@ -1151,8 +1151,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0304"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 98,
@@ -1201,8 +1201,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0371"
   },
   {
    "level": 100,
@@ -1226,26 +1226,14 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0955"
   }
  ],
  "open": [
-  66,
-  69,
-  70,
-  73,
   75,
   77,
-  80,
-  81,
-  84,
-  89,
-  90,
-  93,
-  95,
-  99,
-  100
+  97
  ],
  "blockers": [],
  "mechanics": {
@@ -1795,68 +1783,55 @@
   }
  },
  "need": {
-  "Normal": 9,
-  "Hard": 4,
-  "Super Hard": 1,
+  "Normal": 2,
+  "Hard": 0,
+  "Super Hard": 0,
   "intro": 0,
   "bridge": 0
  },
  "supply": {
-  "pictures": 528,
-  "strong": 202,
+  "pictures": 516,
+  "strong": 192,
   "stream": 1,
   "bank": {
    "знакомство: hidden": 34,
-   "Normal": 525,
-   "знакомство: cells": 22,
+   "Normal": 448,
+   "знакомство: cells": 20,
    "знакомство: links": 30,
-   "Hard": 44,
-   "Super Hard": 19,
+   "Hard": 35,
+   "Super Hard": 16,
    "знакомство: latch": 6
   },
   "packs": {
    "owner-0004-0008": 1,
    "owner-0010": 1,
-   "batch-0011-env": 8,
+   "batch-0011-env": 7,
    "batch-0011": 22,
    "batch-0061": 28,
    "batch-0168-C": 20,
    "batch-0168-D": 18,
    "batch-0168-E": 1,
-   "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01": 46,
-   "packs-0268-0467 · Миниатюрные мастерские": 10,
+   "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01": 45,
+   "packs-0268-0467 · Миниатюрные мастерские": 9,
    "packs-0268-0467 · Необычные магазины": 8,
    "packs-0268-0467 · Музыка": 8,
-   "packs-0268-0467 · Ретрофутуризм": 10,
+   "packs-0268-0467 · Ретрофутуризм": 9,
    "packs-0268-0467 · Праздники и карнавал": 9,
    "packs-0268-0467 · Доисторические находки": 9,
-   "packs-0268-0467 · Невозможная архитектура": 9,
-   "packs-0268-0467 · Путешествия и походы": 10,
+   "packs-0268-0467 · Невозможная архитектура": 8,
+   "packs-0268-0467 · Путешествия и походы": 9,
    "packs-0268-0467 · Обмен свойствами предметов": 10,
-   "packs-0268-0467 · Уютная мистика": 10,
+   "packs-0268-0467 · Уютная мистика": 9,
    "packs-0268-0467 · Новые герои игр": 1,
-   "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01": 193,
+   "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01": 188,
    "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02": 96
   },
   "latch": {
    "positions": [
-    66,
-    69,
-    70,
-    73,
     75,
-    77,
-    80,
-    81,
-    84,
-    89,
-    90,
-    93,
-    95,
-    99,
-    100
+    77
    ],
-   "pictures": 479
+   "pictures": 467
   },
   "overlay": {}
  },
@@ -1865,19 +1840,9 @@
    "id": "P0317",
    "title": "Светофор-бабочкарий",
    "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
-   "positions": [
-    66,
-    69,
-    73,
-    77,
-    81,
-    84,
-    89,
-    93,
-    99
-   ],
+   "positions": [],
    "reserved": 66,
-   "status": "free",
+   "status": "placed",
    "reason": null
   },
   {
@@ -1893,24 +1858,9 @@
    "id": "P0337",
    "title": "Зеркало отражает другую осень",
    "pack": "packs-0268-0467 · Уютная мистика",
-   "positions": [
-    66,
-    69,
-    70,
-    73,
-    77,
-    80,
-    81,
-    84,
-    89,
-    90,
-    93,
-    95,
-    99,
-    100
-   ],
+   "positions": [],
    "reserved": 90,
-   "status": "free",
+   "status": "placed",
    "reason": null
   }
  ],
@@ -2143,7 +2093,8 @@
    "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
    "hidden": 1,
    "P": 24,
-   "pin": true
+   "pin": true,
+   "placed": true
   },
   {
    "level": 67,
@@ -2205,7 +2156,8 @@
    "P": 30,
    "tried": [
     "P0947"
-   ]
+   ],
+   "placed": true
   },
   {
    "level": 70,
@@ -2219,7 +2171,8 @@
    "band": "800–1200",
    "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
    "hidden": 7,
-   "P": 24
+   "P": 24,
+   "placed": true
   },
   {
    "level": 71,
@@ -2264,7 +2217,8 @@
    "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
    "hidden": 2,
    "P": 30,
-   "wantLoss": true
+   "wantLoss": true,
+   "placed": true
   },
   {
    "level": 74,
@@ -2320,7 +2274,8 @@
    "tried": [
     "P0391",
     "P0048"
-   ]
+   ],
+   "wantLoss": true
   },
   {
    "level": 78,
@@ -2376,7 +2331,8 @@
    "band": "1200–1500",
    "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
    "hidden": 5,
-   "P": 31
+   "P": 31,
+   "placed": true
   },
   {
    "level": 81,
@@ -2393,7 +2349,8 @@
    "P": 30,
    "tried": [
     "P0363"
-   ]
+   ],
+   "placed": true
   },
   {
    "level": 82,
@@ -2445,7 +2402,8 @@
    "pack": "packs-0268-0467 · Миниатюрные мастерские",
    "hidden": 4,
    "P": 24,
-   "wantLoss": true
+   "wantLoss": true,
+   "placed": true
   },
   {
    "level": 86,
@@ -2509,7 +2467,8 @@
    "band": "1200–1500",
    "pack": "packs-0268-0467 · Путешествия и походы",
    "hidden": 6,
-   "P": 30
+   "P": 30,
+   "placed": true
   },
   {
    "level": 90,
@@ -2524,7 +2483,8 @@
    "pack": "packs-0268-0467 · Уютная мистика",
    "hidden": 4,
    "P": 30,
-   "pin": true
+   "pin": true,
+   "placed": true
   },
   {
    "level": 91,
@@ -2577,7 +2537,8 @@
    "tried": [
     "P0362"
    ],
-   "wantLoss": true
+   "wantLoss": true,
+   "placed": true
   },
   {
    "level": 94,
@@ -2607,7 +2568,8 @@
    "band": "800–1200",
    "pack": "packs-0268-0467 · Невозможная архитектура",
    "hidden": 7,
-   "P": 26
+   "P": 26,
+   "placed": true
   },
   {
    "level": 96,
@@ -2633,25 +2595,25 @@
    "intro": null,
    "recipe": "cells+links",
    "slot": "regular",
-   "picture": "P0304",
-   "title": "Ступеньки из падающих домино",
-   "N": 861,
+   "picture": "P0291",
+   "title": "Гроза под стеклянным колпаком тарелки",
+   "N": 863,
    "band": "700–900",
    "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
-   "hidden": 3,
-   "P": 24,
+   "hidden": 2,
+   "P": 25,
    "tried": [
     "P0326",
     "P1008",
     "P0281",
     "P0048",
     "P0313",
-    "P0020"
+    "P0020",
+    "P0304"
    ],
    "wantLoss": true,
-   "swappedFrom": "P0020",
-   "swaps": 2,
-   "placed": true
+   "swappedFrom": "P0304",
+   "swaps": 1
   },
   {
    "level": 98,
@@ -2682,7 +2644,8 @@
    "pack": "packs-0268-0467 · Ретрофутуризм",
    "hidden": 4,
    "P": 24,
-   "wantLoss": true
+   "wantLoss": true,
+   "placed": true
   },
   {
    "level": 100,
@@ -2696,15 +2659,16 @@
    "band": "800–1200",
    "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
    "hidden": 4,
-   "P": 30
+   "P": 30,
+   "placed": true
   }
  ],
  "assignMissing": [],
  "assignQuota": {
-  "800–1200": 9,
-  "700–900": 3,
-  "400–700": 1,
-  "1200–1500": 1
+  "800–1200": 1,
+  "700–900": 1,
+  "400–700": 0,
+  "1200–1500": 0
  },
  "hand": [
   75

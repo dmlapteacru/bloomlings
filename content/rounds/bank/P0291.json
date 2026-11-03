@@ -518,11 +518,11 @@
  ],
  "tune": {
   "Normal|cells+links|regular": {
-   "t": 0.57,
+   "t": 0.55,
    "cols": 3,
-   "offset": -1.9,
-   "quick": 0.575,
-   "at": "2026-11-02"
+   "offset": -1.77,
+   "quick": 0.55,
+   "at": "2026-11-03"
   }
  },
  "placed": []

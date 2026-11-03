@@ -687,6 +687,21 @@
    }
   },
   {
+   "level": 77,
+   "tag": "2026-11-03c",
+   "why": [
+    "медиана L60–L79 61 % вне 50–60 % (бот 65 %)"
+   ],
+   "reassign": false,
+   "at": "2026-11-03",
+   "from": {
+    "picture": "P1029",
+    "candidate": "P1029-Nlatch+links+hidden-g1103b-2",
+    "share": 0.65,
+    "recipe": "latch+links+hidden"
+   }
+  },
+  {
    "level": 78,
    "tag": "2026-11-02c",
    "why": [
@@ -1308,6 +1323,21 @@
     "recipe": "cells+links",
     "lost": false,
     "gen": "2026-11-02c"
+   }
+  },
+  {
+   "level": 97,
+   "tag": "2026-11-03c",
+   "why": [
+    "«по цветам» проигрывает 12 из 25 (нужно около 13)"
+   ],
+   "reassign": false,
+   "at": "2026-11-03",
+   "from": {
+    "picture": "P0304",
+    "candidate": "P0304-Ncells+links-g1102c-0",
+    "share": 0.81,
+    "recipe": "cells+links"
    }
   },
   {
