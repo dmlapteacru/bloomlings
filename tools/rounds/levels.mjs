@@ -78,9 +78,9 @@ function depths(board,only=null){const {w,h,rowsBottomFirst:rows,entries}=board,
 // hidden after the start reveal; the small-queue table (P < 16) gives them the lead range
 const DOSE_T={links:{lead:[[.1,.3],[.2,.45],[.35,.6]],add:[[.05,.15],[.1,.2],[.15,.25]]},hidden:{lead:[[.05,.15],[.1,.25],[.15,.35]],add:[[.05,.1],[.05,.1],[.05,.15]]},
  cells:{lead:[[.05,.1],[.1,.2],[.15,.3]],add:[[.05,.08],[.05,.08],[.05,.08]]}};
-// latch + acorn key (17 §7 table, §8): counts of latch/key pairs, lead Normal 1, Hard 1–2, Super Hard 2–3, additional 1;
-// a small queue 1
-const LATCH_T={lead:[[1,1],[1,2],[2,3]],add:[[1,1],[1,1],[1,1]]};
+// latch + acorn key (17 §7 table, §8; the owner's amendment of 2026-11-03): counts of latch/key pairs, Normal 1, Hard 2–3,
+// Super Hard exactly 3, lead and additional alike; a small queue 1
+const LATCH_T={lead:[[1,1],[2,3],[3,3]],add:[[1,1],[2,3],[3,3]]};
 function doseRange(m,cls,role,P,N=0){const i=CLASSES.indexOf(cls);
  if(m==='latch')return P<16?[1,1]:LATCH_T[role][i].slice();
  if(m==='cells'){const [a,b]=DOSE_T.cells[P<16?'lead':role][i];return [Math.ceil(a*N),Math.floor(b*N)];}

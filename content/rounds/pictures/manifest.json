@@ -3924,8 +3924,7 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0168-C",
-   "note": null,
-   "usedBy": "L0060"
+   "note": null
   },
   {
    "id": "P0224",
@@ -8366,7 +8365,7 @@
    "status": "approved",
    "batch": "batch-0468-contour-bridges",
    "note": null,
-   "usedBy": "L0075"
+   "usedBy": "L0060"
   },
   {
    "id": "P0833",

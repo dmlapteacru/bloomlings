@@ -102,11 +102,16 @@
   {
    "level": 60,
    "cls": "Super Hard",
-   "lead": "links",
+   "lead": "bridge",
    "add": [
+    "links",
     "cells"
    ],
-   "recipe": "links+cells",
+   "recipe": "bridge+links+cells",
+   "bridgeSide": "two",
+   "strip": "gap",
+   "bridgeKind": "single",
+   "by": "hand",
    "accents": true
   },
   {
@@ -169,9 +174,10 @@
    "cls": "Normal",
    "lead": "links",
    "add": [
-    "latch"
+    "latch",
+    "cells"
    ],
-   "recipe": "links+latch"
+   "recipe": "links+latch+cells"
   },
   {
    "level": 67,
@@ -196,19 +202,21 @@
    "cls": "Normal",
    "lead": "latch",
    "add": [
-    "links"
+    "links",
+    "hidden"
    ],
-   "recipe": "latch+links"
+   "recipe": "latch+links+hidden"
   },
   {
    "level": 70,
    "cls": "Hard",
+   "accents": true,
    "lead": "links",
    "add": [
-    "latch"
+    "latch",
+    "cells"
    ],
-   "recipe": "links+latch",
-   "accents": true
+   "recipe": "links+latch+cells"
   },
   {
    "level": 71,
@@ -234,9 +242,10 @@
    "cls": "Normal",
    "lead": "links",
    "add": [
-    "latch"
+    "latch",
+    "cells"
    ],
-   "recipe": "links+latch"
+   "recipe": "links+latch+cells"
   },
   {
    "level": 74,
@@ -248,17 +257,17 @@
   {
    "level": 75,
    "cls": "Super Hard",
+   "accents": true,
    "lead": "bridge",
    "add": [
     "links",
-    "cells"
+    "latch"
    ],
-   "recipe": "bridge+links+cells",
+   "recipe": "bridge+links+latch",
    "bridgeSide": "two",
    "strip": "gap",
    "bridgeKind": "single",
-   "by": "hand",
-   "accents": true
+   "by": "hand"
   },
   {
    "level": 76,
@@ -272,9 +281,10 @@
    "cls": "Normal",
    "lead": "latch",
    "add": [
-    "links"
+    "links",
+    "hidden"
    ],
-   "recipe": "latch+links"
+   "recipe": "latch+links+hidden"
   },
   {
    "level": 78,
@@ -311,9 +321,10 @@
    "cls": "Normal",
    "lead": "links",
    "add": [
-    "latch"
+    "latch",
+    "cells"
    ],
-   "recipe": "links+latch"
+   "recipe": "links+latch+cells"
   },
   {
    "level": 82,
@@ -336,9 +347,10 @@
    "cls": "Normal",
    "lead": "latch",
    "add": [
-    "cells"
+    "cells",
+    "links"
    ],
-   "recipe": "latch+cells"
+   "recipe": "latch+cells+links"
   },
   {
    "level": 85,
@@ -387,9 +399,10 @@
    "cls": "Normal",
    "lead": "latch",
    "add": [
-    "links"
+    "links",
+    "hidden"
    ],
-   "recipe": "latch+links"
+   "recipe": "latch+links+hidden"
   },
   {
    "level": 90,
@@ -423,9 +436,10 @@
    "cls": "Normal",
    "lead": "links",
    "add": [
-    "latch"
+    "latch",
+    "cells"
    ],
-   "recipe": "links+latch"
+   "recipe": "links+latch+cells"
   },
   {
    "level": 94,
@@ -440,12 +454,13 @@
   {
    "level": 95,
    "cls": "Hard",
+   "accents": true,
    "lead": "links",
    "add": [
-    "latch"
+    "latch",
+    "cells"
    ],
-   "recipe": "links+latch",
-   "accents": true
+   "recipe": "links+latch+cells"
   },
   {
    "level": 96,
@@ -479,9 +494,10 @@
    "cls": "Normal",
    "lead": "latch",
    "add": [
-    "links"
+    "links",
+    "hidden"
    ],
-   "recipe": "latch+links"
+   "recipe": "latch+links+hidden"
   },
   {
    "level": 100,
@@ -495,5 +511,12 @@
    "accents": true
   }
  ],
- "pinNote": "02.11: P0465 и P0341 сняты с волны (владелец: передышки на картинках ~500 клеток); вместе с ними P0326 и P0391 (не встали по классу / семейству) — в следующую волну."
+ "pinNote": "02.11: P0465 и P0341 сняты с волны (владелец: передышки на картинках ~500 клеток); вместе с ними P0326 и P0391 (не встали по классу / семейству) — в следующую волну.",
+ "amended": [
+  {
+   "date": "2026-11-03",
+   "by": "owner",
+   "note": "Rules 17 amendment of 2026-11-03: latches Super Hard exactly 3, Hard 2–3; Hard after the latch introduction links+latch+cells (70, 80, 95, 100; bridge Hards 65 and 85 stay); latch Normals add hidden cells or hidden pods in turn (66 cells, 69 pods, 73 cells, 77 pods, 81 cells, 84 cells with links, 89 pods, 93 cells, 99 pods); old L75 (bridge+links+cells) moves to L60, the new L75 is bridge+links+latch by hand; L90 keeps links+latch+cells with three latches."
+  }
+ ]
 }
