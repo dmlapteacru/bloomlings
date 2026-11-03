@@ -688,5 +688,9 @@
   ],
   "id": 75,
   "difficulty": "Super Hard"
- }
+ },
+ "bridgeShown": [
+  true,
+  false
+ ]
 }
