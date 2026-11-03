@@ -3,7 +3,7 @@
   51,
   100
  ],
- "created": "2026-11-03T11:36:02.425Z",
+ "created": "2026-11-03T11:41:46.090Z",
  "positions": [
   {
    "level": 51,
@@ -451,8 +451,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0966"
   },
   {
    "level": 70,
@@ -551,8 +551,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0936"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 74,
@@ -701,8 +701,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0039"
   },
   {
    "level": 80,
@@ -1231,8 +1231,7 @@
   }
  ],
  "open": [
-  69,
-  79
+  73
  ],
  "blockers": [],
  "mechanics": {
@@ -1782,21 +1781,21 @@
   }
  },
  "need": {
-  "Normal": 2,
+  "Normal": 1,
   "Hard": 0,
   "Super Hard": 0,
   "intro": 0,
   "bridge": 0
  },
  "supply": {
-  "pictures": 516,
-  "strong": 193,
+  "pictures": 515,
+  "strong": 192,
   "stream": 0,
   "bank": {
-   "знакомство: hidden": 36,
-   "Normal": 453,
+   "знакомство: hidden": 34,
+   "Normal": 450,
    "знакомство: cells": 20,
-   "знакомство: links": 32,
+   "знакомство: links": 30,
    "Hard": 35,
    "Super Hard": 16,
    "знакомство: latch": 6
@@ -1805,7 +1804,7 @@
    "owner-0004-0008": 1,
    "owner-0010": 1,
    "batch-0011-env": 7,
-   "batch-0011": 23,
+   "batch-0011": 22,
    "batch-0061": 28,
    "batch-0168-C": 20,
    "batch-0168-D": 18,
@@ -1827,9 +1826,9 @@
   },
   "latch": {
    "positions": [
-    69
+    73
    ],
-   "pictures": 467
+   "pictures": 466
   },
   "overlay": {}
  },
@@ -2155,7 +2154,8 @@
    "tried": [
     "P0947"
    ],
-   "wantLoss": true
+   "wantLoss": true,
+   "placed": true
   },
   {
    "level": 70,
@@ -2215,8 +2215,7 @@
    "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
    "hidden": 2,
    "P": 30,
-   "wantLoss": true,
-   "placed": true
+   "wantLoss": true
   },
   {
    "level": 74,
@@ -2315,7 +2314,8 @@
    "tried": [
     "P0415"
    ],
-   "wantLoss": true
+   "wantLoss": true,
+   "placed": true
   },
   {
    "level": 80,
@@ -2665,7 +2665,7 @@
  "assignMissing": [],
  "assignQuota": {
   "800–1200": 1,
-  "700–900": 1,
+  "700–900": 0,
   "400–700": 0,
   "1200–1500": 0
  },
@@ -2683,7 +2683,7 @@
   },
   "strips": [],
   "scenes": [],
-  "sceneSources": 166,
+  "sceneSources": 165,
   "splits": [],
   "avoidMotifs": [
    "ретро-техника (10)",

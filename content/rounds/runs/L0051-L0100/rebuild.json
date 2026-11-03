@@ -597,6 +597,21 @@
    }
   },
   {
+   "level": 73,
+   "tag": "2026-11-03c",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03",
+   "from": {
+    "picture": "P0936",
+    "candidate": "P0936-Nlinks+latch+cells-g1103b-a-1",
+    "share": 0.613,
+    "recipe": "links+latch+cells"
+   }
+  },
+  {
    "level": 74,
    "tag": "2026-11-02b",
    "why": [
