@@ -76,8 +76,8 @@ Water/Dew, Wood/Acorn). The launch has 2500 sequential levels, with later expans
   size fitted to the picture (`RoundBoardLayout.Cell`). The level screen is the owner's of 2026-10-28 (spec 006 FR-064): every size is a
   constant of `RoundScreenLook` (the board constructor's values), laid out by `ScreenLayout.RoundGameplay`; the board's
   cubes, pods and places are oblique cubes from one fixed viewpoint (`UiRaster.BoardCube`, `PodCube`, `SideFace`; rows
-  `BoardRowShare` of a column; since the owner's look E2 of 2026-11-03 every board cube shows a thin darker front band
-  under it, thin gaps and a small gloss dot, `BoardCubeLook.Default` from the `RoundScreenLook` constants; pods keep
+  `BoardRowShare` of a column; since the owner's look E3 of 2026-11-03 every board cube shows a thin darker front band
+  under it, neighbours touch with only the cube's own darker edge between them (no grey gaps) and a small gloss dot, `BoardCubeLook.Default` from the `RoundScreenLook` constants; pods keep
   their own look); three pods a column, no "+N", the number
   in the middle of the cube. The owner's bridge batch of 2026-10-31 (spec 006 FR-065, 17 §8): the link tube is twice as
   thick, the stream is deep water with cream stone banks (`RoundBoardLayout.Banks`), a bridge is a big wooden footbridge
