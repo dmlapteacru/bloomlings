@@ -1,7 +1,7 @@
 {
  "code": "P0363",
- "state": "used",
- "usedBy": "L0081",
+ "state": "free",
+ "usedBy": null,
  "version": 1,
  "title": "Папоротник из каменных пластин",
  "theme": "Доисторические находки",

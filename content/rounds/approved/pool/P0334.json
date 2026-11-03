@@ -1,7 +1,7 @@
 {
  "code": "P0334",
- "state": "used",
- "usedBy": "L0095",
+ "state": "free",
+ "usedBy": null,
  "version": 1,
  "title": "Библиотека на винтовой лестнице",
  "theme": "Невозможная архитектура",

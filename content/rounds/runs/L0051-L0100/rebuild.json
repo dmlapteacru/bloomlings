@@ -1,5 +1,5 @@
 {
- "tag": "2026-11-02c",
+ "tag": "2026-11-03",
  "levels": [
   {
    "level": 52,
@@ -219,6 +219,21 @@
    }
   },
   {
+   "level": 66,
+   "tag": "2026-11-03",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03",
+   "from": {
+    "picture": "P0317",
+    "candidate": "P0317-Nlinks+latch-a-4",
+    "share": 0.8,
+    "recipe": "links+latch"
+   }
+  },
+  {
    "level": 67,
    "tag": "2026-11-02b",
    "why": [
@@ -339,6 +354,36 @@
    }
   },
   {
+   "level": 69,
+   "tag": "2026-11-03",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03",
+   "from": {
+    "picture": "P0947",
+    "candidate": "P0947-Nlatch+links-g1102c-a-1",
+    "share": 0.63,
+    "recipe": "latch+links"
+   }
+  },
+  {
+   "level": 70,
+   "tag": "2026-11-03",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03",
+   "from": {
+    "picture": "P0268",
+    "candidate": "P0268-Hlinks+latch-a-31",
+    "share": 0.3,
+    "recipe": "links+latch"
+   }
+  },
+  {
    "level": 72,
    "tag": "2026-11-02c",
    "why": [
@@ -384,6 +429,21 @@
     "recipe": "links+latch",
     "lost": true,
     "gen": "2026-11-02c"
+   }
+  },
+  {
+   "level": 73,
+   "tag": "2026-11-03",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03",
+   "from": {
+    "picture": "P0936",
+    "candidate": "P0936-Nlinks+latch-g1102c-a-10",
+    "share": 0.6,
+    "recipe": "links+latch"
    }
   },
   {
@@ -459,6 +519,21 @@
    }
   },
   {
+   "level": 77,
+   "tag": "2026-11-03",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03",
+   "from": {
+    "picture": "P1029",
+    "candidate": "P1029-Nlatch+links-g1102c-0",
+    "share": 0.51,
+    "recipe": "latch+links"
+   }
+  },
+  {
    "level": 78,
    "tag": "2026-11-02c",
    "why": [
@@ -504,6 +579,36 @@
     "recipe": "links+cells",
     "lost": true,
     "gen": "2026-11-02b"
+   }
+  },
+  {
+   "level": 80,
+   "tag": "2026-11-03",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03",
+   "from": {
+    "picture": "P0931",
+    "candidate": "P0931-Hlinks+cells+latch-a-3",
+    "share": 0.443,
+    "recipe": "links+cells+latch"
+   }
+  },
+  {
+   "level": 81,
+   "tag": "2026-11-03",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03",
+   "from": {
+    "picture": "P0363",
+    "candidate": "P0363-Nlinks+latch-1",
+    "share": 0.76,
+    "recipe": "links+latch"
    }
   },
   {
@@ -579,6 +684,21 @@
    }
   },
   {
+   "level": 84,
+   "tag": "2026-11-03",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03",
+   "from": {
+    "picture": "P0378",
+    "candidate": "P0378-Nlatch+cells-g1102b-a-4",
+    "share": 0.61,
+    "recipe": "latch+cells"
+   }
+  },
+  {
    "level": 89,
    "tag": "2026-11-02b",
    "why": [
@@ -624,6 +744,21 @@
     "recipe": "latch+links",
     "lost": true,
     "gen": "2026-11-02b"
+   }
+  },
+  {
+   "level": 89,
+   "tag": "2026-11-03",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03",
+   "from": {
+    "picture": "P0385",
+    "candidate": "P0385-Nlatch+links-g1102b-a-19",
+    "share": 0.65,
+    "recipe": "latch+links"
    }
   },
   {
@@ -696,6 +831,36 @@
     "recipe": "links+latch",
     "lost": false,
     "gen": null
+   }
+  },
+  {
+   "level": 93,
+   "tag": "2026-11-03",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03",
+   "from": {
+    "picture": "P1003",
+    "candidate": "P1003-Nlinks+latch-a-1",
+    "share": 0.62,
+    "recipe": "links+latch"
+   }
+  },
+  {
+   "level": 95,
+   "tag": "2026-11-03",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03",
+   "from": {
+    "picture": "P0334",
+    "candidate": "P0334-Hlinks+latch-a-3",
+    "share": 0.37,
+    "recipe": "links+latch"
    }
   },
   {
@@ -792,6 +957,36 @@
     "recipe": "links+hidden",
     "lost": true,
     "gen": "2026-11-02b"
+   }
+  },
+  {
+   "level": 99,
+   "tag": "2026-11-03",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03",
+   "from": {
+    "picture": "P0371",
+    "candidate": "P0371-Nlatch+links-0",
+    "share": 0.58,
+    "recipe": "latch+links"
+   }
+  },
+  {
+   "level": 100,
+   "tag": "2026-11-03",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-03",
+   "from": {
+    "picture": "P0955",
+    "candidate": "P0955-Hlinks+latch+cells-a-25",
+    "share": 0.368,
+    "recipe": "links+latch+cells"
    }
   }
  ]

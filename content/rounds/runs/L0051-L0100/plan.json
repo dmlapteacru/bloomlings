@@ -3,7 +3,7 @@
   51,
   100
  ],
- "created": "2026-11-02T10:51:35.391Z",
+ "created": "2026-11-03T09:48:02.822Z",
  "positions": [
   {
    "level": 51,
@@ -236,7 +236,7 @@
     "compact": true
    },
    "placed": true,
-   "picture": "P0223"
+   "picture": "P0470"
   },
   {
    "level": 61,
@@ -280,8 +280,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P1090"
   },
   {
    "level": 63,
@@ -376,8 +376,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0317"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 67,
@@ -451,8 +451,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0947"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 70,
@@ -476,8 +476,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0268"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 71,
@@ -551,8 +551,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0936"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 74,
@@ -601,8 +601,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0470"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 76,
@@ -651,8 +651,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P1029"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 78,
@@ -726,8 +726,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0931"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 81,
@@ -751,8 +751,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0363"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 82,
@@ -826,8 +826,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0378"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 85,
@@ -951,8 +951,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0385"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 90,
@@ -1051,8 +1051,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P1003"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 94,
@@ -1101,8 +1101,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0334"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 96,
@@ -1201,8 +1201,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0371"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 100,
@@ -1226,12 +1226,25 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0955"
+   "placed": false,
+   "picture": null
   }
  ],
  "open": [
-  62
+  66,
+  69,
+  70,
+  73,
+  75,
+  77,
+  80,
+  81,
+  84,
+  89,
+  93,
+  95,
+  99,
+  100
  ],
  "blockers": [],
  "mechanics": {
@@ -1319,12 +1332,15 @@
    {
     "level": 60,
     "cls": "Super Hard",
-    "lead": "links",
+    "lead": "bridge",
     "add": [
+     "links",
      "cells"
     ],
-    "recipe": "links+cells",
-    "doses": "связки 35–60 % P (10–14 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+    "recipe": "bridge+links+cells",
+    "doses": "мост: 1 выбор из 2 мест; связки 35–60 % P (10–14 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)",
+    "bridgeSide": "two",
+    "strip": "gap"
    },
    {
     "level": 61,
@@ -1377,10 +1393,11 @@
     "cls": "Normal",
     "lead": "links",
     "add": [
-     "latch"
+     "latch",
+     "cells"
     ],
-    "recipe": "links+latch",
-    "doses": "связки 10–30 % P (4–6 при P = 24); засов и ключ доп. 1 пара"
+    "recipe": "links+latch+cells",
+    "doses": "связки 10–20 % P (4 при P = 24); засов и ключ доп. 1 пара; скрытые клетки доп. 5 % N (35 при N = 700)"
    },
    {
     "level": 67,
@@ -1407,20 +1424,22 @@
     "cls": "Normal",
     "lead": "latch",
     "add": [
-     "links"
+     "links",
+     "hidden"
     ],
-    "recipe": "latch+links",
-    "doses": "засов и ключ 1 пара; связки доп. 5 % P (2 при P = 24)"
+    "recipe": "latch+links+hidden",
+    "doses": "засов и ключ 1 пара; связки доп. 5 % P (2 при P = 24); скрытые доп. 5 % P (2 при P = 24)"
    },
    {
     "level": 70,
     "cls": "Hard",
     "lead": "links",
     "add": [
-     "latch"
+     "latch",
+     "cells"
     ],
-    "recipe": "links+latch",
-    "doses": "связки 20–45 % P (6–10 при P = 24); засов и ключ доп. 1 пара"
+    "recipe": "links+latch+cells",
+    "doses": "связки 20–32.5 % P (6 при P = 24); засов и ключ доп. 2 пары; скрытые клетки доп. 5 % N (35 при N = 700)"
    },
    {
     "level": 71,
@@ -1445,10 +1464,11 @@
     "cls": "Normal",
     "lead": "links",
     "add": [
-     "latch"
+     "latch",
+     "cells"
     ],
-    "recipe": "links+latch",
-    "doses": "связки 10–30 % P (4–6 при P = 24); засов и ключ доп. 1 пара"
+    "recipe": "links+latch+cells",
+    "doses": "связки 10–20 % P (4 при P = 24); засов и ключ доп. 1 пара; скрытые клетки доп. 5 % N (35 при N = 700)"
    },
    {
     "level": 74,
@@ -1464,10 +1484,10 @@
     "lead": "bridge",
     "add": [
      "links",
-     "cells"
+     "latch"
     ],
-    "recipe": "bridge+links+cells",
-    "doses": "мост: 1 выбор из 2 мест; связки 35–60 % P (10–14 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)",
+    "recipe": "bridge+links+latch",
+    "doses": "мост: 1 выбор из 2 мест; связки 35–60 % P (10–14 при P = 24); засов и ключ доп. 3 пары",
     "bridgeSide": "two",
     "strip": "gap"
    },
@@ -1484,10 +1504,11 @@
     "cls": "Normal",
     "lead": "latch",
     "add": [
-     "links"
+     "links",
+     "hidden"
     ],
-    "recipe": "latch+links",
-    "doses": "засов и ключ 1 пара; связки доп. 5 % P (2 при P = 24)"
+    "recipe": "latch+links+hidden",
+    "doses": "засов и ключ 1 пара; связки доп. 5 % P (2 при P = 24); скрытые доп. 5 % P (2 при P = 24)"
    },
    {
     "level": 78,
@@ -1518,17 +1539,18 @@
      "latch"
     ],
     "recipe": "links+cells+latch",
-    "doses": "связки 20–32.5 % P (6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700); засов и ключ доп. 1 пара"
+    "doses": "связки 20–32.5 % P (6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700); засов и ключ доп. 2 пары"
    },
    {
     "level": 81,
     "cls": "Normal",
     "lead": "links",
     "add": [
-     "latch"
+     "latch",
+     "cells"
     ],
-    "recipe": "links+latch",
-    "doses": "связки 10–30 % P (4–6 при P = 24); засов и ключ доп. 1 пара"
+    "recipe": "links+latch+cells",
+    "doses": "связки 10–20 % P (4 при P = 24); засов и ключ доп. 1 пара; скрытые клетки доп. 5 % N (35 при N = 700)"
    },
    {
     "level": 82,
@@ -1553,10 +1575,11 @@
     "cls": "Normal",
     "lead": "latch",
     "add": [
-     "cells"
+     "cells",
+     "links"
     ],
-    "recipe": "latch+cells",
-    "doses": "засов и ключ 1 пара; скрытые клетки доп. 5 % N (35 при N = 700)"
+    "recipe": "latch+cells+links",
+    "doses": "засов и ключ 1 пара; скрытые клетки доп. 5 % N (35 при N = 700); связки доп. 5 % P (2 при P = 24)"
    },
    {
     "level": 85,
@@ -1604,10 +1627,11 @@
     "cls": "Normal",
     "lead": "latch",
     "add": [
-     "links"
+     "links",
+     "hidden"
     ],
-    "recipe": "latch+links",
-    "doses": "засов и ключ 1 пара; связки доп. 5 % P (2 при P = 24)"
+    "recipe": "latch+links+hidden",
+    "doses": "засов и ключ 1 пара; связки доп. 5 % P (2 при P = 24); скрытые доп. 5 % P (2 при P = 24)"
    },
    {
     "level": 90,
@@ -1618,7 +1642,7 @@
      "cells"
     ],
     "recipe": "links+latch+cells",
-    "doses": "связки 35–47.5 % P (10 при P = 24); засов и ключ доп. 1 пара; скрытые клетки доп. 5 % N (35 при N = 700)"
+    "doses": "связки 35–47.5 % P (10 при P = 24); засов и ключ доп. 3 пары; скрытые клетки доп. 5 % N (35 при N = 700)"
    },
    {
     "level": 91,
@@ -1643,10 +1667,11 @@
     "cls": "Normal",
     "lead": "links",
     "add": [
-     "latch"
+     "latch",
+     "cells"
     ],
-    "recipe": "links+latch",
-    "doses": "связки 10–30 % P (4–6 при P = 24); засов и ключ доп. 1 пара"
+    "recipe": "links+latch+cells",
+    "doses": "связки 10–20 % P (4 при P = 24); засов и ключ доп. 1 пара; скрытые клетки доп. 5 % N (35 при N = 700)"
    },
    {
     "level": 94,
@@ -1663,10 +1688,11 @@
     "cls": "Hard",
     "lead": "links",
     "add": [
-     "latch"
+     "latch",
+     "cells"
     ],
-    "recipe": "links+latch",
-    "doses": "связки 20–45 % P (6–10 при P = 24); засов и ключ доп. 1 пара"
+    "recipe": "links+latch+cells",
+    "doses": "связки 20–32.5 % P (6 при P = 24); засов и ключ доп. 2 пары; скрытые клетки доп. 5 % N (35 при N = 700)"
    },
    {
     "level": 96,
@@ -1703,10 +1729,11 @@
     "cls": "Normal",
     "lead": "latch",
     "add": [
-     "links"
+     "links",
+     "hidden"
     ],
-    "recipe": "latch+links",
-    "doses": "засов и ключ 1 пара; связки доп. 5 % P (2 при P = 24)"
+    "recipe": "latch+links+hidden",
+    "doses": "засов и ключ 1 пара; связки доп. 5 % P (2 при P = 24); скрытые доп. 5 % P (2 при P = 24)"
    },
    {
     "level": 100,
@@ -1717,33 +1744,33 @@
      "cells"
     ],
     "recipe": "links+latch+cells",
-    "doses": "связки 20–32.5 % P (6 при P = 24); засов и ключ доп. 1 пара; скрытые клетки доп. 5 % N (35 при N = 700)"
+    "doses": "связки 20–32.5 % P (6 при P = 24); засов и ключ доп. 2 пары; скрытые клетки доп. 5 % N (35 при N = 700)"
    }
   ],
   "shares": {
    "bridge": {
-    "levels": 3,
-    "share": 0.06,
-    "lead": 3
+    "levels": 4,
+    "share": 0.08,
+    "lead": 4
    },
    "links": {
-    "levels": 40,
-    "share": 0.8,
-    "lead": 28
+    "levels": 41,
+    "share": 0.82,
+    "lead": 27
    },
    "hidden": {
-    "levels": 7,
-    "share": 0.14,
+    "levels": 11,
+    "share": 0.22,
     "lead": 2
    },
    "cells": {
-    "levels": 24,
-    "share": 0.48,
+    "levels": 29,
+    "share": 0.58,
     "lead": 9
    },
    "latch": {
-    "levels": 16,
-    "share": 0.32,
+    "levels": 17,
+    "share": 0.34,
     "lead": 7
    },
    "none": {
@@ -1757,33 +1784,33 @@
   ],
   "types": {
    "one": 13,
-   "two": 31,
-   "three": 5
+   "two": 19,
+   "three": 17
   },
   "sides": {
+   "two": 2,
    "up": 1,
-   "two": 1,
    "left": 1
   }
  },
  "need": {
-  "Normal": 1,
-  "Hard": 0,
+  "Normal": 9,
+  "Hard": 4,
   "Super Hard": 0,
   "intro": 0,
   "bridge": 0
  },
  "supply": {
-  "pictures": 514,
-  "strong": 192,
+  "pictures": 527,
+  "strong": 201,
   "stream": 0,
   "bank": {
    "знакомство: hidden": 34,
-   "Normal": 455,
+   "Normal": 503,
    "знакомство: cells": 22,
    "знакомство: links": 30,
-   "Hard": 39,
-   "Super Hard": 16,
+   "Hard": 43,
+   "Super Hard": 17,
    "знакомство: latch": 6
   },
   "packs": {
@@ -1792,23 +1819,42 @@
    "batch-0011-env": 8,
    "batch-0011": 22,
    "batch-0061": 28,
-   "batch-0168-C": 19,
+   "batch-0168-C": 20,
    "batch-0168-D": 18,
    "batch-0168-E": 1,
-   "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01": 44,
-   "packs-0268-0467 · Миниатюрные мастерские": 9,
+   "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01": 46,
+   "packs-0268-0467 · Миниатюрные мастерские": 10,
    "packs-0268-0467 · Необычные магазины": 8,
    "packs-0268-0467 · Музыка": 8,
-   "packs-0268-0467 · Ретрофутуризм": 9,
+   "packs-0268-0467 · Ретрофутуризм": 10,
    "packs-0268-0467 · Праздники и карнавал": 9,
-   "packs-0268-0467 · Доисторические находки": 8,
-   "packs-0268-0467 · Невозможная архитектура": 8,
-   "packs-0268-0467 · Путешествия и походы": 9,
+   "packs-0268-0467 · Доисторические находки": 9,
+   "packs-0268-0467 · Невозможная архитектура": 9,
+   "packs-0268-0467 · Путешествия и походы": 10,
    "packs-0268-0467 · Обмен свойствами предметов": 10,
    "packs-0268-0467 · Уютная мистика": 9,
    "packs-0268-0467 · Новые герои игр": 1,
-   "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01": 187,
-   "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02": 97
+   "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01": 193,
+   "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02": 96
+  },
+  "latch": {
+   "positions": [
+    66,
+    69,
+    70,
+    73,
+    75,
+    77,
+    80,
+    81,
+    84,
+    89,
+    93,
+    95,
+    99,
+    100
+   ],
+   "pictures": 152
   },
   "overlay": {}
  },
@@ -1817,9 +1863,19 @@
    "id": "P0317",
    "title": "Светофор-бабочкарий",
    "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
-   "positions": [],
+   "positions": [
+    66,
+    69,
+    73,
+    77,
+    81,
+    84,
+    89,
+    93,
+    99
+   ],
    "reserved": 66,
-   "status": "placed",
+   "status": "free",
    "reason": null
   },
   {
@@ -1998,21 +2054,6 @@
    "placed": true
   },
   {
-   "level": 60,
-   "cls": "Super Hard",
-   "intro": null,
-   "recipe": "links+cells",
-   "slot": "Super Hard",
-   "picture": "P0223",
-   "title": "Дюймовочка в тюльпане",
-   "N": 837,
-   "band": "800–1200",
-   "pack": "batch-0168-C",
-   "hidden": 7,
-   "P": 25,
-   "placed": true
-  },
-  {
    "level": 61,
    "cls": "Normal",
    "intro": "latch",
@@ -2039,7 +2080,8 @@
    "band": "400–700",
    "pack": "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02",
    "hidden": 2,
-   "P": 18
+   "P": 18,
+   "placed": true
   },
   {
    "level": 63,
@@ -2075,7 +2117,7 @@
    "level": 66,
    "cls": "Normal",
    "intro": null,
-   "recipe": "links+latch",
+   "recipe": "links+latch+cells",
    "slot": "after-hard",
    "picture": "P0317",
    "title": "Светофор-бабочкарий",
@@ -2084,8 +2126,7 @@
    "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
    "hidden": 1,
    "P": 24,
-   "pin": true,
-   "placed": true
+   "pin": true
   },
   {
    "level": 67,
@@ -2136,7 +2177,7 @@
    "level": 69,
    "cls": "Normal",
    "intro": null,
-   "recipe": "latch+links",
+   "recipe": "latch+links+hidden",
    "slot": "regular",
    "picture": "P0947",
    "title": "Сырная расчёска",
@@ -2144,14 +2185,13 @@
    "band": "800–1200",
    "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
    "hidden": 3,
-   "P": 30,
-   "placed": true
+   "P": 30
   },
   {
    "level": 70,
    "cls": "Hard",
    "intro": null,
-   "recipe": "links+latch",
+   "recipe": "links+latch+cells",
    "slot": "Hard",
    "picture": "P0268",
    "title": "Водопад в песочных часах",
@@ -2159,8 +2199,7 @@
    "band": "800–1200",
    "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
    "hidden": 7,
-   "P": 24,
-   "placed": true
+   "P": 24
   },
   {
    "level": 71,
@@ -2196,7 +2235,7 @@
    "level": 73,
    "cls": "Normal",
    "intro": null,
-   "recipe": "links+latch",
+   "recipe": "links+latch+cells",
    "slot": "regular",
    "picture": "P0936",
    "title": "Бабочка из цветной бумаги",
@@ -2205,8 +2244,7 @@
    "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
    "hidden": 2,
    "P": 30,
-   "wantLoss": true,
-   "placed": true
+   "wantLoss": true
   },
   {
    "level": 74,
@@ -2250,7 +2288,7 @@
    "level": 77,
    "cls": "Normal",
    "intro": null,
-   "recipe": "latch+links",
+   "recipe": "latch+links+hidden",
    "slot": "regular",
    "picture": "P1029",
    "title": "Лиственная лопатка для облачного песка",
@@ -2262,10 +2300,7 @@
    "tried": [
     "P0391",
     "P0048"
-   ],
-   "swappedFrom": "P0048",
-   "swaps": 1,
-   "placed": true
+   ]
   },
   {
    "level": 78,
@@ -2322,17 +2357,15 @@
    "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
    "hidden": 5,
    "P": 31,
-   "swappedFrom": "P0391",
    "tried": [
     "P0391"
-   ],
-   "placed": true
+   ]
   },
   {
    "level": 81,
    "cls": "Normal",
    "intro": null,
-   "recipe": "links+latch",
+   "recipe": "links+latch+cells",
    "slot": "after-hard",
    "picture": "P0363",
    "title": "Папоротник из каменных пластин",
@@ -2340,8 +2373,7 @@
    "band": "800–1200",
    "pack": "packs-0268-0467 · Доисторические находки",
    "hidden": 0,
-   "P": 26,
-   "placed": true
+   "P": 26
   },
   {
    "level": 82,
@@ -2384,7 +2416,7 @@
    "level": 84,
    "cls": "Normal",
    "intro": null,
-   "recipe": "latch+cells",
+   "recipe": "latch+cells+links",
    "slot": "regular",
    "picture": "P0378",
    "title": "Мастерская ключей в навесном замке",
@@ -2393,8 +2425,7 @@
    "pack": "packs-0268-0467 · Миниатюрные мастерские",
    "hidden": 4,
    "P": 24,
-   "wantLoss": true,
-   "placed": true
+   "wantLoss": true
   },
   {
    "level": 86,
@@ -2450,7 +2481,7 @@
    "level": 89,
    "cls": "Normal",
    "intro": null,
-   "recipe": "latch+links",
+   "recipe": "latch+links+hidden",
    "slot": "regular",
    "picture": "P0385",
    "title": "Рюкзак с пикниковым садом",
@@ -2458,9 +2489,7 @@
    "band": "1200–1500",
    "pack": "packs-0268-0467 · Путешествия и походы",
    "hidden": 6,
-   "P": 30,
-   "wantLoss": true,
-   "placed": true
+   "P": 30
   },
   {
    "level": 90,
@@ -2517,7 +2546,7 @@
    "level": 93,
    "cls": "Normal",
    "intro": null,
-   "recipe": "links+latch",
+   "recipe": "links+latch+cells",
    "slot": "regular",
    "picture": "P1003",
    "title": "Лемур с рулоном клетчатой ткани",
@@ -2529,8 +2558,7 @@
    "tried": [
     "P0362"
    ],
-   "wantLoss": true,
-   "placed": true
+   "wantLoss": true
   },
   {
    "level": 94,
@@ -2552,7 +2580,7 @@
    "level": 95,
    "cls": "Hard",
    "intro": null,
-   "recipe": "links+latch",
+   "recipe": "links+latch+cells",
    "slot": "Hard",
    "picture": "P0334",
    "title": "Библиотека на винтовой лестнице",
@@ -2560,8 +2588,7 @@
    "band": "800–1200",
    "pack": "packs-0268-0467 · Невозможная архитектура",
    "hidden": 7,
-   "P": 26,
-   "placed": true
+   "P": 26
   },
   {
    "level": 96,
@@ -2627,7 +2654,7 @@
    "level": 99,
    "cls": "Normal",
    "intro": null,
-   "recipe": "latch+links",
+   "recipe": "latch+links+hidden",
    "slot": "regular",
    "picture": "P0371",
    "title": "Телевизор с бумажным водопадом",
@@ -2636,7 +2663,7 @@
    "pack": "packs-0268-0467 · Ретрофутуризм",
    "hidden": 4,
    "P": 24,
-   "placed": true
+   "wantLoss": true
   },
   {
    "level": 100,
@@ -2650,18 +2677,19 @@
    "band": "800–1200",
    "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
    "hidden": 4,
-   "P": 30,
-   "placed": true
+   "P": 30
   }
  ],
  "assignMissing": [],
  "assignQuota": {
-  "800–1200": 1,
-  "700–900": 0,
-  "400–700": 0,
-  "1200–1500": 0
+  "800–1200": 8,
+  "700–900": 3,
+  "400–700": 1,
+  "1200–1500": 1
  },
- "hand": [],
+ "hand": [
+  75
+ ],
  "order": {
   "total": 0,
   "strong": 0,
@@ -2675,8 +2703,23 @@
   },
   "strips": [],
   "scenes": [],
-  "sceneSources": 166,
-  "splits": [],
+  "sceneSources": 165,
+  "splits": [
+   {
+    "level": 75,
+    "cls": "Super Hard",
+    "side": "two",
+    "kind": "single",
+    "recipe": "bridge+links+latch",
+    "have": 0,
+    "sources": [
+     "P0011",
+     "P0014",
+     "P0023"
+    ],
+    "command": "node tools/rounds/bridge-scene.mjs make --mode split --from P0011,P0014,P0023 --side two --kind single --cls \"Super Hard\" --recipe bridge+links+latch --level 75 --out content/rounds/pictures/src/split-L0075.mjs"
+   }
+  ],
   "avoidMotifs": [
    "ретро-техника (10)",
    "лампы и фонари (5)",
