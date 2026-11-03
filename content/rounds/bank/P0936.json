@@ -2809,10 +2809,10 @@
   },
   "Normal|links+latch+cells|regular": {
    "trap": true,
-   "t": 0.49,
-   "cols": 5,
-   "offset": -1.58,
-   "quick": 0.6,
+   "t": 0.77,
+   "cols": 4,
+   "offset": -1.97,
+   "quick": 0.625,
    "at": "2026-11-03"
   }
  },
