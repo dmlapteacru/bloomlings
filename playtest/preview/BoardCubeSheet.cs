@@ -49,58 +49,15 @@ namespace Bloomlings.Playtest.Preview
                 foreach ((string id, string label, BoardCubeLook look) in BoardCubeLook.Variants)
                 {
                     BoardCubeLook.Current = look;
-                    string data = Path.Combine(Path.GetTempPath(), "bloomlings-board-cubes-" + Guid.NewGuid().ToString("N"));
-                    try
-                    {
-                        using var painter = new SkiaPainter(1080, 2340, insets);
-                        var app = new DesignApp(data, empty, new Silence(), false, rounds: rounds);
-                        void Frame(float dt)
-                        {
-                            painter.Now += dt;
-                            painter.BeginFrame();
-                            app.Draw(painter, dt);
-                        }
-
-                        app.LoadLevel(level);
-                        RoundLevelScreen screen = app.Round!;
-                        screen.SkipGuide();
-                        for (int i = 0; i < 20; i++)
-                        {
-                            Frame(1f / 30f);
-                        }
-
-                        if (screen.Intro != null)
-                        {
-                            screen.CloseIntro();
-                        }
-
-                        for (int i = 0; i < 40; i++)
-                        {
-                            Frame(1f / 30f);
-                        }
-
-                        byte[] png = painter.Png();
-                        File.WriteAllBytes(Path.Combine(outDir, id + "-screen.png"), png);
-                        RoundBoardLayout board = RoundPainter.Layout(painter, screen, RoundPainter.HasBoosters(screen), RoundPainter.Badge(screen).HasValue).Board;
-                        using SKBitmap shot = SKBitmap.Decode(png);
-                        SKBitmap boardBitmap = Crop(shot, board.Outer, 1f);
-                        Save(boardBitmap, Path.Combine(outDir, id + "-board.png"));
-                        boards.Add(boardBitmap);
-                        Box a = board.CellBox(wx, wy);
-                        Box b = board.CellBox(wx + WindowColumns - 1, wy - WindowRows + 1);
-                        var window = new Box(a.Left, a.Top, b.Right, b.Bottom + (board.Cell * board.Look.Overhang));
-                        SKBitmap crop = Crop(shot, window, Zoom);
-                        Save(crop, Path.Combine(outDir, id + "-closeup.png"));
-                        crops.Add(crop);
-                        app.Dispose();
-                    }
-                    finally
-                    {
-                        if (Directory.Exists(data))
-                        {
-                            Directory.Delete(data, true);
-                        }
-                    }
+                    (byte[] png, RoundBoardLayout board) = Render(rounds, empty, level, insets);
+                    File.WriteAllBytes(Path.Combine(outDir, id + "-screen.png"), png);
+                    using SKBitmap shot = SKBitmap.Decode(png);
+                    SKBitmap boardBitmap = Crop(shot, board.Outer, 1f);
+                    Save(boardBitmap, Path.Combine(outDir, id + "-board.png"));
+                    boards.Add(boardBitmap);
+                    SKBitmap crop = Crop(shot, Window(board, wx, wy), Zoom);
+                    Save(crop, Path.Combine(outDir, id + "-closeup.png"));
+                    crops.Add(crop);
 
                     notes.AppendLine(id + " " + Numbers(look) + " | " + CellSizes(rounds, look, insets));
                 }
@@ -125,6 +82,100 @@ namespace Bloomlings.Playtest.Preview
 
             Console.WriteLine("board cubes: sheet and frames in " + outDir);
             return 0;
+        }
+
+        /// <summary>
+        /// <c>--board-after &lt;published dir&gt; &lt;out dir&gt; &lt;level&gt;...</c>: the given levels in the game's cube look
+        /// (<see cref="BoardCubeLook.Default"/>, the owner's "E" of 2026-11-03) as <c>after-L&lt;n&gt;-screen.png</c>,
+        /// <c>-board.png</c> and, on a board big enough, <c>-closeup.png</c> (×2.5 of the densest middle).
+        /// </summary>
+        public static int After(string folder, string outDir, IReadOnlyList<int> levels)
+        {
+            RoundContentSet rounds = RoundContentSet.Read(path =>
+            {
+                string file = Path.Combine(folder, path);
+                return File.Exists(file) ? File.ReadAllBytes(file) : null;
+            });
+            var empty = new ContentSet(0, 0, Array.Empty<Bloomlings.Core.Definitions.LevelDefinition>(), Array.Empty<Bloomlings.Core.Definitions.BasePicture>());
+            Directory.CreateDirectory(outDir);
+            foreach (int level in levels)
+            {
+                string name = "after-L" + level.ToString("00", CultureInfo.InvariantCulture);
+                (byte[] png, RoundBoardLayout board) = Render(rounds, empty, level, new Insets(110, 63));
+                File.WriteAllBytes(Path.Combine(outDir, name + "-screen.png"), png);
+                using SKBitmap shot = SKBitmap.Decode(png);
+                using (SKBitmap boardBitmap = Crop(shot, board.Outer, 1f))
+                {
+                    Save(boardBitmap, Path.Combine(outDir, name + "-board.png"));
+                }
+
+                RoundLevel round = rounds.GetLevel(level);
+                if (round.Width - 2 >= WindowColumns && round.Height - 2 >= WindowRows)
+                {
+                    (int wx, int wy) = DensestWindow(round);
+                    using SKBitmap crop = Crop(shot, Window(board, wx, wy), Zoom);
+                    Save(crop, Path.Combine(outDir, name + "-closeup.png"));
+                }
+
+                Console.WriteLine(name + ": " + round.Width + " x " + round.Height + ", cell " + board.Cell.ToString("0.0", CultureInfo.InvariantCulture) + " px");
+            }
+
+            return 0;
+        }
+
+        /// <summary>The close-up window from cell (<paramref name="wx"/>, <paramref name="wy"/>), the last row's overhang included.</summary>
+        private static Box Window(RoundBoardLayout board, int wx, int wy)
+        {
+            Box a = board.CellBox(wx, wy);
+            Box b = board.CellBox(wx + WindowColumns - 1, wy - WindowRows + 1);
+            return new Box(a.Left, a.Top, b.Right, b.Bottom + (board.Cell * board.Look.Overhang));
+        }
+
+        /// <summary>Level <paramref name="level"/> as the full playtest draws it on a 1080 × 2340 phone (its intro closed), in <see cref="BoardCubeLook.Current"/>.</summary>
+        private static (byte[] Png, RoundBoardLayout Board) Render(RoundContentSet rounds, ContentSet empty, int level, Insets insets)
+        {
+            string data = Path.Combine(Path.GetTempPath(), "bloomlings-board-cubes-" + Guid.NewGuid().ToString("N"));
+            try
+            {
+                using var painter = new SkiaPainter(1080, 2340, insets);
+                var app = new DesignApp(data, empty, new Silence(), false, rounds: rounds);
+                void Frame(float dt)
+                {
+                    painter.Now += dt;
+                    painter.BeginFrame();
+                    app.Draw(painter, dt);
+                }
+
+                app.LoadLevel(level);
+                RoundLevelScreen screen = app.Round!;
+                screen.SkipGuide();
+                for (int i = 0; i < 20; i++)
+                {
+                    Frame(1f / 30f);
+                }
+
+                if (screen.Intro != null)
+                {
+                    screen.CloseIntro();
+                }
+
+                for (int i = 0; i < 40; i++)
+                {
+                    Frame(1f / 30f);
+                }
+
+                byte[] png = painter.Png();
+                RoundBoardLayout board = RoundPainter.Layout(painter, screen, RoundPainter.HasBoosters(screen), RoundPainter.Badge(screen).HasValue).Board;
+                app.Dispose();
+                return (png, board);
+            }
+            finally
+            {
+                if (Directory.Exists(data))
+                {
+                    Directory.Delete(data, true);
+                }
+            }
         }
 
         /// <summary>A look's numbers, as the sheet and the notes print them.</summary>

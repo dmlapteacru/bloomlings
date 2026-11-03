@@ -102,11 +102,12 @@ namespace Bloomlings.Client.UI.Design
             float pw = h * 0.7f;
             var pod = Box.FromCenter(area.Left + (area.Width * 0.25f), area.CenterY + (h * 0.12f), pw, pw);
             float cell = Math.Min(h * 0.2f, area.Width * 0.1f);
-            float row = cell * RoundBoardLayout.RowShare;
+            BoardCubeLook look = BoardCubeLook.Default;
+            float row = cell * look.RowShare;
             const int cols = 5;
             const int rows = 3;
             float px = area.Left + (area.Width * 0.66f);
-            var patch = Box.FromCenter(px, area.CenterY + (h * 0.12f), (cols * cell) + (cell * 0.5f), (rows * row) + (cell * RoundBoardLayout.FrontShare) + (cell * 0.5f));
+            var patch = Box.FromCenter(px, area.CenterY + (h * 0.12f), (cols * cell) + (cell * 0.5f), (rows * row) + (cell * look.Overhang) + (cell * 0.5f));
             float left = patch.CenterX - (cols * cell / 2f);
             float top = patch.Top + (cell * 0.25f);
             var cubes = new List<(Box, int)>();
@@ -129,7 +130,7 @@ namespace Bloomlings.Client.UI.Design
                         continue;
                     }
 
-                    cubes.Add((new Box(box.Left, box.Top, box.Right, box.Bottom + (cell * RoundBoardLayout.FrontShare)), materials[(x + (y * 2)) % materials.Length]));
+                    cubes.Add((look.PictureBox(box, cell), materials[(x + (y * 2)) % materials.Length]));
                 }
             }
 

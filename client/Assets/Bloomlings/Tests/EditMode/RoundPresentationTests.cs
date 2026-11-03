@@ -98,7 +98,7 @@ namespace Bloomlings.Client.Tests
             Assert.That(gate.Side, Is.EqualTo(EntrySide.Bottom));
             Box inner = layout.CellBox(level.Width / 2, 1);
             Assert.That(gate.InnerCell.Left, Is.EqualTo(inner.Left).Within(1e-3));
-            Assert.That(inner.Bottom + layout.Front, Is.EqualTo(layout.Grid.Bottom).Within(1e-3), "the inside cell is in the grid's bottom row, its cube's front under it (FR-064)");
+            Assert.That(inner.Bottom + (layout.Cell * layout.Look.Overhang), Is.EqualTo(layout.Grid.Bottom).Within(1e-3), "the inside cell is in the grid's bottom row, its cube's front and shadow under it (FR-064)");
             (float x, float y) = layout.Point(gate.Cell);
             Assert.That(x, Is.EqualTo(gate.Door.X).Within(1e-3));
             Assert.That(y, Is.EqualTo(gate.Door.Y).Within(1e-3));
@@ -372,8 +372,8 @@ namespace Bloomlings.Client.Tests
                 Assert.That(layout.Grid.Within(layout.Surface), Is.True, at + ": the picture fits the surface");
                 float fill = Math.Max(layout.Grid.Width / layout.Surface.Width, layout.Grid.Height / layout.Surface.Height);
                 Assert.That(fill, Is.EqualTo(1f).Within(1e-3), at + ": as large as fits");
-                // The oblique rows (FR-064): a row's pitch is BoardRowShare of a column, the nearest front under the last row.
-                float rowsTall = ((side - 2) * RoundBoardLayout.RowShare) + RoundBoardLayout.FrontShare;
+                // The oblique rows (FR-064): a row's pitch is BoardRowShare of a column, the nearest cube's overhang under the last row.
+                float rowsTall = ((side - 2) * RoundBoardLayout.RowShare) + BoardCubeLook.Default.Overhang;
                 Assert.That(layout.Cell, Is.EqualTo(Math.Min(layout.Surface.Width / (side - 2), layout.Surface.Height / rowsTall)).Within(1e-3), at);
                 Assert.That(layout.Cell, Is.LessThan(last), at + ": a bigger matrix takes smaller cubes");
                 last = layout.Cell;
@@ -381,7 +381,7 @@ namespace Bloomlings.Client.Tests
                 Assert.That(layout.Grid.CenterY, Is.EqualTo(layout.Surface.CenterY).Within(1e-3), at + ": centred");
                 Box cube = layout.CubeBox(level(side));
                 Assert.That(cube.Width, Is.EqualTo(layout.Cell * (1f - (2f * RoundBoardLayout.CubeInset))).Within(1e-3), at + ": the cube follows the cell");
-                Assert.That(cube.Height, Is.EqualTo(layout.RowPitch + layout.Front).Within(1e-3), at + ": its top and its front");
+                Assert.That(cube.Height, Is.EqualTo(layout.Cell * BoardCubeLook.Default.PictureShare).Within(1e-3), at + ": its top, its front and its shadow");
             }
 
             static int level(int side) => (2 * side) + 2;
@@ -389,7 +389,7 @@ namespace Bloomlings.Client.Tests
             // A tall picture keeps its proportions: the height fills the surface, the width is centred in it.
             RoundBoardLayout tall = RoundBoardLayout.In(r, BoardOf(Enumerable.Repeat(new string('G', 20), 40).ToArray()));
             Assert.That(tall.Grid.Height, Is.EqualTo(tall.Surface.Height).Within(1e-3));
-            Assert.That(tall.Grid.Width / tall.Grid.Height, Is.EqualTo(22f / ((42f * RoundBoardLayout.RowShare) + RoundBoardLayout.FrontShare)).Within(1e-3));
+            Assert.That(tall.Grid.Width / tall.Grid.Height, Is.EqualTo(22f / ((42f * RoundBoardLayout.RowShare) + BoardCubeLook.Default.Overhang)).Within(1e-3));
             Assert.That(tall.Grid.CenterX, Is.EqualTo(tall.Surface.CenterX).Within(1e-3));
         }
 

@@ -191,16 +191,17 @@ namespace Bloomlings.Client.Tests.EditMode
         }
 
         [Test]
-        public void ABoardCube_IsTheObliqueCube_TouchingItsNeighbours_ItsFrontADeeperShade()
+        public void ABoardCube_IsTheObliqueCube_AThinGapRoundIt_ItsFrontADeeperShade()
         {
             const int w = 34;
-            int h = (int)Math.Round(w * (RoundScreenLook.BoardRowShare + RoundScreenLook.BoardFrontShare));
+            int h = (int)Math.Round(w * BoardCubeLook.Default.PictureShare);
             foreach (RoundMaterial material in RoundMaterial.All)
             {
                 string at = material.Code.ToString();
                 byte[] cube = UiRaster.BoardCube(w, h, RoundLook.ColorOf(material), null);
                 Assert.That(cube, Is.EqualTo(UiRaster.BoardCube(w, h, RoundLook.ColorOf(material), null)), "deterministic");
-                Assert.That(Pixel(cube, w, 0, h / 3).A, Is.GreaterThan(127), at + ": no gap at the side, the cubes touch");
+                Assert.That(Pixel(cube, w, 0, h / 3).A, Is.LessThan(250), at + ": a thin gap at the side (the owner's look E of 2026-11-03)");
+                Assert.That(Pixel(cube, w, 2, h / 3).A, Is.GreaterThan(250), at + ": only a thin one");
                 (byte R, byte G, byte B, byte A) top = Pixel(cube, w, w / 2, h / 3);
                 (byte R, byte G, byte B, byte A) front = Pixel(cube, w, w / 2, h - 4);
                 Assert.That(Luma(front), Is.LessThan(Luma(top)), at + ": a visible front, deeper than the top");
@@ -212,7 +213,7 @@ namespace Bloomlings.Client.Tests.EditMode
             int bestX = 0;
             int bestY = 0;
             float best = 0f;
-            int faceBottom = (int)(w * RoundScreenLook.BoardRowShare);
+            int faceBottom = (int)(w * RoundScreenLook.BoardCubeTopShare);
             for (int y = 4; y < faceBottom; y++)
             {
                 for (int x = 4; x < w - 4; x++)
@@ -261,9 +262,10 @@ namespace Bloomlings.Client.Tests.EditMode
             byte[] leftFace = UiRaster.SideFace(8, 40, orange, true, 0.7f);
             byte[] rightFace = UiRaster.SideFace(8, 40, orange, false, 0.7f);
             Assert.That(Luma(Pixel(leftFace, 8, 3, 10)), Is.GreaterThan(Luma(Pixel(rightFace, 8, 4, 10))));
-            byte[] cube = UiRaster.BoardCube(34, 43, orange, null);
+            int tall = (int)Math.Round(34 * BoardCubeLook.Default.PictureShare);
+            byte[] cube = UiRaster.BoardCube(34, tall, orange, null);
             float topLuma = Luma(Pixel(cube, 34, 17, 12));
-            float frontLuma = Luma(Pixel(cube, 34, 17, 40));
+            float frontLuma = Luma(Pixel(cube, 34, 17, tall - 8));
             Assert.That(Luma(Pixel(leftFace, 8, 3, 10)), Is.LessThan(topLuma).And.GreaterThan(frontLuma), "between the top and the front");
         }
 
@@ -274,7 +276,9 @@ namespace Bloomlings.Client.Tests.EditMode
             RoundBoardLayout board = RoundBoardLayout.Fit(new Box(0f, 0f, 1000f, 1000f), level);
             Assert.That(board.RowPitch, Is.EqualTo(board.Cell * RoundScreenLook.BoardRowShare).Within(1e-3));
             Assert.That(board.Front, Is.EqualTo(board.Cell * RoundScreenLook.BoardFrontShare).Within(1e-3));
-            Assert.That(board.Grid.Height, Is.EqualTo((board.Rows * board.RowPitch) + board.Front).Within(1e-2), "the rows and the nearest front");
+            Assert.That(board.TopFace, Is.EqualTo(board.Cell * RoundScreenLook.BoardCubeTopShare).Within(1e-3));
+            Assert.That(board.RowPitch - board.TopFace, Is.GreaterThan(board.Front * 0.3f).And.LessThan(board.Front), "every cube shows a band of its front under its top (the owner's look E)");
+            Assert.That(board.Grid.Height, Is.EqualTo((board.Rows * board.RowPitch) + (board.Cell * BoardCubeLook.Default.Overhang)).Within(1e-2), "the rows and the nearest cube's overhang");
             Assert.That(board.Grid.Width, Is.EqualTo(board.Columns * board.Cell).Within(1e-2));
             Assert.That(board.Grid.Within(board.Surface), Is.True);
             for (int y = 1; y < level.Height - 1; y++)
@@ -290,7 +294,7 @@ namespace Bloomlings.Client.Tests.EditMode
                     Assert.That(py, Is.EqualTo(top.CenterY).Within(1e-3), "the walkers walk on the tops");
                     Box picture = board.CubeBox(cell);
                     Assert.That(picture.Top, Is.EqualTo(top.Top).Within(1e-3));
-                    Assert.That(picture.Height, Is.EqualTo(board.RowPitch + board.Front).Within(1e-3), "the picture is the top and its front");
+                    Assert.That(picture.Height, Is.EqualTo(board.TopFace + board.Front + (board.Cell * RoundScreenLook.BoardShadowShare)).Within(1e-3), "the picture is the top, its front and its shadow");
                 }
             }
         }

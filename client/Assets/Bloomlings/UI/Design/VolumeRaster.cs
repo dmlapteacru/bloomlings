@@ -31,7 +31,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>
         /// The cube of the owner's look of 2026-10-28 ("like the reference game"; spec 006 FR-064) at (<paramref name="x"/>,
         /// <paramref name="y"/>) of a picture <paramref name="w"/> × <paramref name="h"/>, flat 2D seen from the front at a
-        /// tilt (an oblique drawing, no vanishing point): a top face (corners <see cref="RoundScreenLook.CubeCornerShare"/> of
+        /// tilt (an oblique drawing, no vanishing point): a top face (corners <see cref="RoundScreenLook.PodCornerShare"/> of
         /// the width) of nearly flat colour a little lighter than <paramref name="col"/>, a thin light rim along its top and
         /// left edges, a thin darker right side, a small soft specular dot at its lower right, and a rounded bevel of
         /// <paramref name="bevel"/> px turning down along its lower edge; under it a front face of <paramref name="front"/>
@@ -39,13 +39,13 @@ namespace Bloomlings.Client.UI.Design
         /// end. <paramref name="margin"/> px stay clear at the sides and the top (a hairline between neighbours) and
         /// <paramref name="bottom"/> px under the foot. Returns the colour, the coverage and the top face's lower edge.
         /// </summary>
-        private static (Color Color, float Cover, float TopBottom) ObliqueCube(float x, float y, float w, float h, Rgba col, float front, float margin, float bottom, float bevel, float gloss = RoundScreenLook.CubeGloss) =>
-            ObliqueCube(x, y, w, h, col, front, margin, bottom, bevel, gloss, BoardCubeLook.Default);
+        private static (Color Color, float Cover, float TopBottom) ObliqueCube(float x, float y, float w, float h, Rgba col, float front, float margin, float bottom, float bevel, float gloss = RoundScreenLook.TileGloss) =>
+            ObliqueCube(x, y, w, h, col, front, margin, bottom, bevel, gloss, BoardCubeLook.Previous);
 
         /// <summary>
         /// <see cref="ObliqueCube(float, float, float, float, Rgba, float, float, float, float, float)"/> shaded by
         /// <paramref name="look"/>'s corner, rim, top, bevel, front, seam and light spot (<see cref="BoardCubeLook"/>; the
-        /// game's numbers in <see cref="BoardCubeLook.Default"/>).
+        /// board's numbers in <see cref="BoardCubeLook.Default"/>, the pods' and tiles' in <see cref="BoardCubeLook.Previous"/>).
         /// </summary>
         private static (Color Color, float Cover, float TopBottom) ObliqueCube(float x, float y, float w, float h, Rgba col, float front, float margin, float bottom, float bevel, float gloss, in BoardCubeLook look)
         {

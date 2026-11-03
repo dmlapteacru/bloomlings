@@ -320,7 +320,7 @@ namespace Bloomlings.Playtest.Preview
                         }
 
                         var top = new Box(x + (c * cell), y, x + ((c + 1) * cell), y + (cell * RoundBoardLayout.RowShare));
-                        Kit.BoardCube(painter, new Box(top.Left, top.Top, top.Right, top.Bottom + (cell * RoundBoardLayout.FrontShare)), RoundMaterial.All[((c + row) * 7) % 24], false);
+                        Kit.BoardCube(painter, BoardCubeLook.Default.PictureBox(top, cell), RoundMaterial.All[((c + row) * 7) % 24], false);
                     }
 
                     var keyCell = new Box(x + cell, y, x + (2 * cell), y + (cell * RoundBoardLayout.RowShare));

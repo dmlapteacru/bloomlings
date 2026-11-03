@@ -267,12 +267,13 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>
         /// A round board's cube (spec 006 FR-064, the owner's "like the reference game, somehow at an angle" of 2026-10-28): one flat
-        /// 2D picture <paramref name="width"/> (a column) × <paramref name="height"/> (a row's pitch and the front face below
-        /// it, <see cref="RoundBoardLayout.CubeBox"/>) of the oblique cube (<see cref="ObliqueCube"/>) in the material's
-        /// <paramref name="color"/>: its top <see cref="RoundScreenLook.BoardRowShare"/> of the width tall, its front
-        /// <see cref="RoundScreenLook.CubeDepthShare"/>, the cubes touching but for the owner's hairline
-        /// (<see cref="RoundScreenLook.BoardCubeFill"/>), and the material's symbol on its top in the symbols mode. Drawn from
-        /// the far row to the near one, a nearer cube hides the front of the one behind it.
+        /// 2D picture <paramref name="width"/> (a column) × <paramref name="height"/> (its top, its front and its shadow,
+        /// <see cref="RoundBoardLayout.CubeBox"/>) of the oblique cube (<see cref="ObliqueCube"/>) in the material's
+        /// <paramref name="color"/>, in the owner's look "E" of 2026-11-03 (<see cref="BoardCubeLook.Default"/>): its top
+        /// <see cref="RoundScreenLook.BoardCubeTopShare"/> of the width tall, its front <see cref="RoundScreenLook.BoardFrontShare"/>,
+        /// a thin gap round it (<see cref="RoundScreenLook.BoardCubeFill"/>) darkened by its soft shadow, and the material's
+        /// symbol on its top in the symbols mode. Drawn from the far row to the near one, a nearer cube hides all of the front
+        /// behind it but its top band (<see cref="RoundScreenLook.BoardRowShare"/> − <see cref="RoundScreenLook.BoardCubeTopShare"/>).
         /// </summary>
         public static byte[] BoardCube(int width, int height, Rgba color, string? symbolId) => BoardCube(width, height, color, symbolId, BoardCubeLook.Default);
 
@@ -428,7 +429,7 @@ namespace Bloomlings.Client.UI.Design
             float markUnit = s * 0.22f / 2f / ShapeRaster.Margin;
             Rgba ink = RoundLook.SymbolInk(col);
             Rgba halo = RoundLook.SymbolHalo(col);
-            float radius = Math.Max(1f, s * RoundScreenLook.CubeCornerShare);
+            float radius = Math.Max(1f, s * RoundScreenLook.PodCornerShare);
             for (int py = 0; py < size; py++)
             {
                 float y = py + 0.5f;

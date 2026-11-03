@@ -13,6 +13,7 @@
 // the dev row's jump and "new levels soon", from a published round set; RoundsPreview.cs)
 // [--board-cubes <published dir> <level> <out dir>] (only the board cube look-dev sheet of 2026-11-03: the level in each
 // look of BoardCubeLook.Variants; BoardCubeSheet.cs)
+// [--board-after <published dir> <out dir> <level>...] (only those levels in the game's cube look, after-*.png)
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -46,6 +47,7 @@ bool roundsPreview = false;
 (string Rounds, string Out, int Level, string Tag)? linkStills = null;
 (int Level, float Seconds, string Out, string? Style)? clearVideo = null;
 (string Rounds, int Level, string Out)? boardCubes = null;
+(string Rounds, string Out, List<int> Levels)? boardAfter = null;
 string? roundsFolder = null;
 string? csv = null;
 float purchaseSize = ProfileGameDesign.PurchaseScale;
@@ -62,6 +64,19 @@ for (int i = 0; i < args.Length; i++)
         string? styleId = i + 4 < args.Length && !args[i + 4].StartsWith("--", StringComparison.Ordinal) ? args[i + 4] : null;
         clearVideo = (int.Parse(args[i + 1], System.Globalization.CultureInfo.InvariantCulture), float.Parse(args[i + 2], System.Globalization.CultureInfo.InvariantCulture), args[i + 3], styleId);
         i += styleId != null ? 4 : 3;
+    }
+    else if (args[i] == "--board-after" && i + 3 < args.Length)
+    {
+        // --board-after <published dir> <out dir> <level>...: levels in the game's cube look (BoardCubeSheet.After)
+        var afterLevels = new List<int>();
+        int first = i + 3;
+        for (i = first; i < args.Length && !args[i].StartsWith("--", StringComparison.Ordinal); i++)
+        {
+            afterLevels.Add(int.Parse(args[i], System.Globalization.CultureInfo.InvariantCulture));
+        }
+
+        boardAfter = (Path.GetFullPath(args[first - 2]), Path.GetFullPath(args[first - 1]), afterLevels);
+        i--;
     }
     else if (args[i] == "--board-cubes" && i + 3 < args.Length)
     {
@@ -245,6 +260,11 @@ if (roundsPreview)
 if (linkStills != null)
 {
     return LinkStills.Write(linkStills.Value.Rounds, linkStills.Value.Out, linkStills.Value.Level, linkStills.Value.Tag);
+}
+
+if (boardAfter != null)
+{
+    return BoardCubeSheet.After(boardAfter.Value.Rounds, boardAfter.Value.Out, boardAfter.Value.Levels);
 }
 
 if (boardCubes != null)

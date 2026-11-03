@@ -270,7 +270,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The surface's corner radius in frame units (the frame's dark gap round it is <see cref="BoardLayout.Gap"/>).</summary>
         public const float SurfaceRadius = 0.12f;
 
-        /// <summary>How much a cube picture is inset into its column (each side, in cells): none, the cubes touch (the picture keeps the owner's hairline, <see cref="RoundScreenLook.BoardCubeFill"/>).</summary>
+        /// <summary>How much a cube picture is inset into its column (each side, in cells): none (the picture keeps the gap itself, <see cref="RoundScreenLook.BoardCubeFill"/>).</summary>
         public const float CubeInset = 0f;
 
         /// <summary>A row's pitch as a share of the column pitch (<see cref="RoundScreenLook.BoardRowShare"/>).</summary>
@@ -448,7 +448,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>One row's pitch on screen, in pixels: <see cref="RowShare"/> of <see cref="Cell"/> (a cube's top is wider than tall).</summary>
         public float RowPitch => Cell * Look.RowShare;
 
-        /// <summary>A cube's top face on screen, in pixels: the row's pitch in the game's look (<see cref="BoardCubeLook.TopShare"/>).</summary>
+        /// <summary>A cube's top face on screen, in pixels (<see cref="BoardCubeLook.TopShare"/>): shorter than the row, so a band of its front shows under it.</summary>
         public float TopFace => Cell * Look.TopShare;
 
         /// <summary>A cube's front face under its top, in pixels: <see cref="FrontShare"/> of <see cref="Cell"/>.</summary>
@@ -682,10 +682,10 @@ namespace Bloomlings.Client.UI.Design
             return new Box(top.Left + (Cell * CubeInset), top.Top, top.Right - (Cell * CubeInset), top.Top + TopFace + Front + (Cell * Look.ShadowShare));
         }
 
-        /// <summary>The share of a cube picture's height that is its top face (the rest its front).</summary>
-        public const float TopShare = RowShare / (RowShare + FrontShare);
+        /// <summary>The share of a cube's body (top and front, no shadow) that is its top face in the game's look (<see cref="SideTopShare"/> for the board's own look).</summary>
+        public const float TopShare = RoundScreenLook.BoardCubeTopShare / (RoundScreenLook.BoardCubeTopShare + FrontShare);
 
-        /// <summary>A cube's body in its picture box: <see cref="CubeBox"/> less the owner's hairline at its sides (<see cref="RoundScreenLook.BoardCubeFill"/>).</summary>
+        /// <summary>A cube's body in its picture box: <see cref="CubeBox"/> less the gap at its sides and top (<see cref="RoundScreenLook.BoardCubeFill"/>) and its shadow below.</summary>
         public Box CubeBody(int cell)
         {
             Box box = CubeBox(cell);
@@ -707,7 +707,7 @@ namespace Bloomlings.Client.UI.Design
         }
 
         /// <summary>Where the side face of the cube in <paramref name="cell"/> stands (empty at the middle, <see cref="RoundLook.SideBox"/>).</summary>
-        public Box SideBox(int cell) => RoundLook.SideBox(CubeBody(cell), SideStepOf(cell));
+        public Box SideBox(int cell) => RoundLook.SideBox(CubeBody(cell), SideStepOf(cell), Look.CornerShare);
 
         /// <summary>
         /// Where a walker stands on cell <paramref name="cell"/> of its route: the middle of a cell inside the wall, or in the

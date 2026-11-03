@@ -587,7 +587,10 @@ namespace Bloomlings.Client.UI.Design
         /// outside its left edge for a negative <paramref name="step"/>, its right for a positive one, as tall as the body
         /// less its rounded top corner, tucked a hair under it. Empty at step 0.
         /// </summary>
-        public static Box SideBox(Box body, int step)
+        public static Box SideBox(Box body, int step) => SideBox(body, step, RoundScreenLook.PodCornerShare);
+
+        /// <summary><see cref="SideBox(Box, int)"/> beside a cube whose corners are <paramref name="cornerShare"/> of its width (a board cube's, <see cref="BoardCubeLook.CornerShare"/>).</summary>
+        public static Box SideBox(Box body, int step, float cornerShare)
         {
             float w = SideWidth(body.Width, step);
             if (w <= 0f)
@@ -596,7 +599,7 @@ namespace Bloomlings.Client.UI.Design
             }
 
             float tuck = body.Width * 0.03f;
-            float top = body.Top + (body.Width * RoundScreenLook.CubeCornerShare * 0.5f);
+            float top = body.Top + (body.Width * cornerShare * 0.5f);
             return step < 0
                 ? new Box(body.Left - w, top, body.Left + tuck, body.Bottom)
                 : new Box(body.Right - tuck, top, body.Right + w, body.Bottom);
