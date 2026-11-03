@@ -17855,10 +17855,10 @@
  "placed": [],
  "tune": {
   "Normal|links+latch+cells|after-hard": {
-   "t": 0.52,
-   "cols": 4,
-   "offset": -1.42,
-   "quick": 0.85,
+   "t": 0,
+   "cols": 5,
+   "offset": -3.76,
+   "quick": 0.9,
    "at": "2026-11-03"
   }
  }

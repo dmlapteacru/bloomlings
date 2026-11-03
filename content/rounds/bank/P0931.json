@@ -698,10 +698,10 @@
  ],
  "tune": {
   "Hard|links+cells+latch|Hard": {
-   "t": 0.28,
+   "t": 0.51,
    "cols": 5,
-   "offset": 0.72,
-   "quick": 0.375,
+   "offset": 1.26,
+   "quick": 0.5,
    "at": "2026-11-03"
   }
  },

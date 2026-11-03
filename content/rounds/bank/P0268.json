@@ -1084,6 +1084,625 @@
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 1,
    "attempt": 0
+  },
+  {
+   "id": "P0268-Hlinks+latch+cells-g1103c-a-13",
+   "picture": "P0268",
+   "requested": "Hard",
+   "cls": "Hard",
+   "intro": false,
+   "recipe": "links+latch+cells",
+   "gen": "2026-11-03c",
+   "level": {
+    "id": 1,
+    "title": "Водопад в песочных часах",
+    "subject": "P0268",
+    "w": 34,
+    "h": 40,
+    "rowsBottomFirst": [
+     "#################.################",
+     "#................................#",
+     "#.EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.#",
+     "#.EAAAAAAAAAAAAAAAAAAAAAAAAAAAAE.#",
+     "#.EAAAAAAAAAAAAAAAAAAAAAAAAAAAAE.#",
+     "#.EAAAAAAAAAAAAAAAAAAAAAAAAAAAAE.#",
+     "#.EAAAAAAAAAAAAAAAAAAAAAAAAAAAAE.#",
+     "#..EEYYYNNNNNNNNNNNNNNNNNNNYYEE..#",
+     "#...EYYYNSSSSSSSSSSSSSSSSSNYYE...#",
+     "#...EYYYNGGBBBBBBBBBBBBGGNYYYE...#",
+     "#...EYYYNGBBCCCCCCCCCCBBGNYYYE...#",
+     "#...EYYYNGGGBBBBBBBBBBBBNNEYYE...#",
+     "#...EYYYESSGGGGGGGGGGGSSSEEYYE...#",
+     "#...EYYYESSSSSGGGGGSSSSSS.EYYE...#",
+     "#...EYYYE.SSSSSSCCSSSSSS..EYYE...#",
+     "#...EYYYE..SSSSSCCSSSSS...EYYE...#",
+     "#...EYYYE...SSSBCCSSSS....EYYE...#",
+     "#...EYYYE....SSBCCSSS.....EYYE...#",
+     "#...EYYYE.....BBCCCC......EYYE...#",
+     "#...EYYYE......BCFC.......EYYE...#",
+     "#...EYYYE.....BBCFCC......EYYE...#",
+     "#...EYYYE....SSBCCCSS.....EYYE...#",
+     "#...EYYYE...SSSBCCCSSS....EYYE...#",
+     "#...EYYYE..NSSBBCCBBSSN...EYYE...#",
+     "#...EYYYE.NNSBBBCCBBBSNN..EYYE...#",
+     "#...EYYYE.NBBBBBCCBBBBNN..EYYE...#",
+     "#...EYYYEEBBBBBBBBBBBBBNN.EYYE...#",
+     "#...EYYYEEBBBBBBBBBBBBBBNNEYYE...#",
+     "#...EYYYNSBBBBBBBBBBBBBBSNEYYE...#",
+     "#...EYYYNSBBBBBBBBBBBBBBSNYYYE...#",
+     "#...EYYYNSSSSSSSSSSSSSSSSNYYYE...#",
+     "#...EYYYNSSSSSSSSSSSSSSSSSNYYE...#",
+     "#..EEYYY..NNNNNNNNNNNNNNNNNYYEE..#",
+     "#.EAAAAA..AAAAAAAAAAAAAAAAAAAAAE.#",
+     "#.EAAAAAAAAAAAAAAAAAAAAAAAAAAAAE.#",
+     "#.EAAAAAAAAAAAAAAAAAAAAAAAAAAAAE.#",
+     "#.EAAAAAAAAAAAAAAAAAAAAAAAAAAAAE.#",
+     "#.EEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.#",
+     "#................................#",
+     "##################################"
+    ],
+    "entries": [
+     17
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "E",
+      "count": 57
+     },
+     {
+      "color": "E",
+      "count": 56,
+      "group": "A"
+     },
+     {
+      "color": "E",
+      "count": 56
+     },
+     {
+      "color": "A",
+      "count": 56,
+      "group": "A"
+     },
+     {
+      "color": "A",
+      "count": 56,
+      "group": "B"
+     },
+     {
+      "color": "A",
+      "count": 55
+     },
+     {
+      "color": "A",
+      "count": 55
+     },
+     {
+      "color": "Y",
+      "count": 45
+     },
+     {
+      "color": "Y",
+      "count": 45,
+      "group": "C"
+     },
+     {
+      "color": "Y",
+      "count": 44
+     },
+     {
+      "color": "N",
+      "count": 22,
+      "group": "C"
+     },
+     {
+      "color": "N",
+      "count": 22
+     },
+     {
+      "color": "N",
+      "count": 22
+     },
+     {
+      "color": "S",
+      "count": 40,
+      "group": "B"
+     },
+     {
+      "color": "S",
+      "count": 40
+     },
+     {
+      "color": "S",
+      "count": 40
+     },
+     {
+      "color": "B",
+      "count": 37
+     },
+     {
+      "color": "B",
+      "count": 37
+     },
+     {
+      "color": "B",
+      "count": 37
+     },
+     {
+      "color": "C",
+      "count": 20
+     },
+     {
+      "color": "C",
+      "count": 19
+     },
+     {
+      "color": "F",
+      "count": 2
+     },
+     {
+      "color": "G",
+      "count": 13
+     },
+     {
+      "color": "G",
+      "count": 12
+     }
+    ],
+    "tray": [
+     [
+      1,
+      5,
+      6,
+      15,
+      18,
+      23
+     ],
+     [
+      10,
+      4,
+      19,
+      0,
+      7,
+      22
+     ],
+     [
+      3,
+      21,
+      12,
+      2,
+      9,
+      20
+     ],
+     [
+      8,
+      13,
+      14,
+      11,
+      17,
+      16
+     ]
+    ],
+    "recipe": "links+latch+cells",
+    "overlay": {
+     "walls": [],
+     "sites": [],
+     "keys": [
+      [
+       6,
+       4
+      ],
+      [
+       7,
+       4
+      ],
+      [
+       6,
+       5
+      ],
+      [
+       7,
+       5
+      ]
+     ]
+    },
+    "recolor": [
+     [
+      15,
+      17,
+      "F"
+     ],
+     [
+      15,
+      18,
+      "F"
+     ]
+    ],
+    "latches": [
+     {
+      "column": 0,
+      "depth": 4,
+      "key": 656
+     },
+     {
+      "column": 1,
+      "depth": 4,
+      "key": 1096
+     },
+     {
+      "column": 3,
+      "depth": 2,
+      "key": 669
+     }
+    ],
+    "hiddenCells": [
+     453,
+     454,
+     455,
+     456,
+     457,
+     487,
+     488,
+     489,
+     490,
+     491,
+     521,
+     522,
+     523,
+     524,
+     525,
+     760,
+     793,
+     794,
+     826,
+     827,
+     828,
+     860,
+     861,
+     862,
+     893,
+     894,
+     895,
+     896,
+     929,
+     930,
+     937,
+     938,
+     939,
+     940,
+     971,
+     972,
+     973,
+     974,
+     1005,
+     1006,
+     1007,
+     1008,
+     1039,
+     1040,
+     1041
+    ]
+   },
+   "N": 888,
+   "W": 888,
+   "colours": 9,
+   "P": 24,
+   "columns": 4,
+   "linked": 6,
+   "hidden": 0,
+   "cells": 45,
+   "latches": 3,
+   "slot": "Hard",
+   "inZone": true,
+   "random": {
+    "runs": 100,
+    "wins": 39,
+    "share": 0.39,
+    "wilson95": [
+     0.3,
+     0.488
+    ],
+    "cls": "Hard",
+    "borderline": false,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     },
+     {
+      "type": "tap",
+      "pod": 15
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
+      "pod": 21
+     },
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 19
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 18
+     },
+     {
+      "type": "tap",
+      "pod": 23
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 22
+     },
+     {
+      "type": "tap",
+      "pod": 2
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 20
+     },
+     {
+      "type": "tap",
+      "pod": 14
+     },
+     {
+      "type": "tap",
+      "pod": 11
+     },
+     {
+      "type": "tap",
+      "pod": 17
+     },
+     {
+      "type": "tap",
+      "pod": 16
+     }
+    ],
+    "forks": 2,
+    "singleSafe": 2,
+    "unknown": 0,
+    "fast": {
+     "status": "lost",
+     "seconds": 18.9
+    }
+   },
+   "fairness": {
+    "checked": 12,
+    "unfair": 0,
+    "unknown": 0,
+    "fair": true,
+    "note": "перестановки материалов двух скрытых клеток разного цвета"
+   },
+   "strategies": {
+    "left-to-right|left": false,
+    "left-to-right|right": false,
+    "right-to-left|left": false,
+    "right-to-left|right": false,
+    "top-down|left": false,
+    "top-down|right": false,
+    "bottom-up|left": false,
+    "bottom-up|right": false,
+    "diagonal|left": true,
+    "diagonal|right": true,
+    "small-first|left": false,
+    "small-first|right": false,
+    "most-now|left": false,
+    "most-now|right": false,
+    "fast-release|left": false,
+    "fast-release|right": false
+   },
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 3.68,
+      "minFree": 1,
+      "fullShare": 0,
+      "maxWaiting": 2
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 1.12,
+      "minFree": 0,
+      "fullShare": 0.14,
+      "maxWaiting": 4
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 2.28,
+      "minFree": 1,
+      "fullShare": 0,
+      "maxWaiting": 1
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 4.37,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 4.43,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     }
+    ],
+    "launchesAfter80": 5,
+    "lastLaunchAtW": 96,
+    "seconds": 452.9
+   },
+   "dosePos": 0.8,
+   "blend": 0.36,
+   "tune": {
+    "steps": [
+     {
+      "t": 0.36,
+      "q": 0.35
+     }
+    ],
+    "links": {
+     "pairs": 3,
+     "traps": 3,
+     "forced": 0.2,
+     "greedy": 0.1891891891891892
+    },
+    "seconds": 58
+   },
+   "checks": {
+    "forced": 0.2,
+    "opening": {
+     "first": {
+      "openings": 2,
+      "wins": 0
+     },
+     "three": {
+      "openings": 11,
+      "wins": 1,
+      "share": 0.09
+     },
+     "ok": true,
+     "strategies": [
+      "most-now"
+     ]
+    },
+    "hold": true,
+    "greedyLoses": true,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.37,
+     "tight": 0.92
+    },
+    "calm": {
+     "runs": 400,
+     "wins": 182,
+     "share": 0.455,
+     "wilson95": [
+      0.407,
+      0.504
+     ],
+     "borderline": true,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 3,
+     "traps": 3,
+     "top": 3
+    },
+    "latch": {
+     "latches": [
+      {
+       "latch": 0,
+       "column": 0,
+       "depth": 4,
+       "behind": 2,
+       "key": 656,
+       "atW": 0.544,
+       "command": 10,
+       "waitMs": 216525
+      },
+      {
+       "latch": 1,
+       "column": 1,
+       "depth": 4,
+       "behind": 2,
+       "key": 1096,
+       "atW": 0.528,
+       "command": 10,
+       "waitMs": 0
+      },
+      {
+       "latch": 2,
+       "column": 3,
+       "depth": 2,
+       "behind": 4,
+       "key": 669,
+       "atW": 0.33,
+       "command": 8,
+       "waitMs": 0
+      }
+     ],
+     "maxBlocked": 1,
+     "limit": 2,
+     "lastOpenAtW": 0.544,
+     "waits": true,
+     "randomOverLimit": 0,
+     "ok": true,
+     "problems": [],
+     "notes": []
+    },
+    "accents": {
+     "materials": [
+      {
+       "code": "F",
+       "name": "Фуксия",
+       "from": "C",
+       "cells": 2,
+       "clusters": 1,
+       "pods": [
+        {
+         "pod": 21,
+         "count": 2,
+         "row": 1
+        }
+       ]
+      }
+     ],
+     "cells": 2,
+     "pressure": {
+      "with": 1.37,
+      "without": 1.11
+     }
+    }
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "seed": 1,
+   "attempt": 13
   }
  ],
  "rejected": [],
@@ -1153,6 +1772,28 @@
     "evaluate: спокойная игра: Hard выигрывается в 63 % (не больше 50 %, §5)": 1,
     "evaluate: дозы не подходят фактическому классу: засовов 3 вне 2–2 для Hard": 1
    }
+  },
+  {
+   "combo": "Hard|links+latch+cells||tune|2026-11-03c",
+   "tune": {
+    "slot": "Hard",
+    "t": 0.36,
+    "attempts": 14,
+    "quick": 34,
+    "evaluated": 8,
+    "seconds": 58
+   },
+   "tried": 14,
+   "found": 1,
+   "reasons": {
+    "evaluate: дебют + цвета: выигрывает после первого запуска (§5)": 3,
+    "засов: ключ недоступен (материал пути заперт за засовом) или не хватило колонок нужной глубины": 1,
+    "быстрая оценка вне зоны после поправок": 3,
+    "evaluate: спокойная игра: Hard выигрывается в 66 % (не больше 50 %, §5)": 1,
+    "evaluate: дебют + цвета: больше 35 % после трёх запусков (§5)": 2,
+    "связки: каждая следующая пара поднимает вынужденные решения выше 35 % (§5)": 2,
+    "evaluate: нет решения": 1
+   }
   }
  ],
  "tune": {
@@ -1164,10 +1805,10 @@
    "at": "2026-11-02"
   },
   "Hard|links+latch+cells|Hard": {
-   "t": 0.43,
+   "t": 0.36,
    "cols": 4,
-   "offset": 1.64,
-   "quick": 0.25,
+   "offset": 1.68,
+   "quick": 0.35,
    "at": "2026-11-03"
   }
  },
