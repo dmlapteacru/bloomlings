@@ -1,7 +1,7 @@
 {
  "format": "round-level.v1",
  "number": 99,
- "definitionVersion": 1,
+ "definitionVersion": 2,
  "class": "Normal",
  "picture": {
   "id": "P0371",
@@ -27,8 +27,8 @@
    "#.EAAANNVVVVVVCCCCSSVVVVVNNNAPPPAAE.#",
    "#.EAAANVVVVVVCCCCSSSSSVVVVNNAPPPAAE.#",
    "#.EAAANVVVVVVCCCCSSSSSSVVVNNAPPPAAE.#",
-   "#.EAAANVVVVVCCCCCSSSSSSVVVNNAAPAAAE.#",
-   "#.EAAANVVVVVCCCCCCSSSSSVVVNNAAAAAAE.#",
+   "#.EAAANVVVVVCCFCCSSSSSSVVVNNAAPAAAE.#",
+   "#.EAAANVVVVVCFFCCCSSSSSVVVNNAAAAAAE.#",
    "#.EAAANVVVVVCCCCCCSSSSVVVVNNAAAAAAE.#",
    "#.EAAANVVVVCCCCCCCSSSSVVVVNNAAAAAAE.#",
    "#.EAAANVVVVVCCCCCCCSSSVVVVNNAAAAAAE.#",
@@ -53,6 +53,23 @@
   ],
   "entries": [
    18
+  ],
+  "recolor": [
+   [
+    11,
+    19,
+    "F"
+   ],
+   [
+    12,
+    19,
+    "F"
+   ],
+   [
+    12,
+    20,
+    "F"
+   ]
   ]
  },
  "capacity": 5,
@@ -71,31 +88,27 @@
   },
   {
    "code": "A",
-   "count": 45
+   "count": 52
   },
   {
    "code": "A",
-   "count": 45
+   "count": 52
   },
   {
    "code": "A",
-   "count": 45
+   "count": 52
   },
   {
    "code": "A",
-   "count": 45
+   "count": 52
   },
   {
    "code": "A",
-   "count": 44
+   "count": 52
   },
   {
    "code": "A",
-   "count": 44
-  },
-  {
-   "code": "A",
-   "count": 44
+   "count": 52
   },
   {
    "code": "E",
@@ -123,24 +136,26 @@
   },
   {
    "code": "Y",
-   "count": 10,
-   "group": "A"
+   "count": 10
   },
   {
    "code": "C",
-   "count": 36
-  },
-  {
-   "code": "C",
-   "count": 36
+   "count": 35,
+   "mystery": "depth"
   },
   {
    "code": "C",
    "count": 35
   },
   {
+   "code": "C",
+   "count": 34,
+   "group": "A"
+  },
+  {
    "code": "S",
-   "count": 22
+   "count": 22,
+   "mystery": "depth"
   },
   {
    "code": "S",
@@ -148,44 +163,48 @@
   },
   {
    "code": "S",
-   "count": 21
+   "count": 21,
+   "group": "A"
+  },
+  {
+   "code": "F",
+   "count": 3
   },
   {
    "code": "P",
-   "count": 10,
-   "group": "A"
+   "count": 10
   }
  ],
  "tray": [
   [
+   21,
+   13,
+   17,
    22,
-   2,
-   18,
-   1,
-   7,
-   6,
+   11,
+   23,
    3,
-   10
+   9
   ],
   [
-   19,
+   18,
    14,
-   13,
-   16,
+   8,
    20,
-   5,
-   0,
-   17
+   4,
+   10,
+   19,
+   0
   ],
   [
    15,
-   21,
-   9,
-   23,
-   8,
+   2,
    12,
-   4,
-   11
+   1,
+   7,
+   6,
+   5,
+   16
   ]
  ],
  "latches": [
@@ -196,6 +215,7 @@
   }
  ],
  "mechanics": [
+  "hidden",
   "links",
   "latch"
  ],

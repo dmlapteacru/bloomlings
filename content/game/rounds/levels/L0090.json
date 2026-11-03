@@ -1,7 +1,7 @@
 {
  "format": "round-level.v1",
  "number": 90,
- "definitionVersion": 1,
+ "definitionVersion": 2,
  "class": "Super Hard",
  "picture": {
   "id": "P0337",
@@ -24,15 +24,15 @@
    "#.....EEMMMMMMMMYYOOOOOOOOAAAOOOOOYYYYEE....#",
    "#.....EEEMMMMMMMYYOOOOOOOOAAAOOOOOOYYYYE....#",
    "#.....EEEMMMMMMMMOOOOOOOOOAAAOOOOOOOYYYEE...#",
-   "#.....EEEMMMMMMFMOOOOOOOOOAAAOOOOOOOYYYYE...#",
-   "#......EE.MMMMFFMMSSSSSSSSAAASSSSSSSSYYYE...#",
-   "#.GGG..EE..MMMMFMMSSSSSSSSAAASSSSSSSSYYYYE..#",
+   "#.....EEEMMMMMMMMOOOOOOOOOAAAOOOOOOOYYYYE...#",
+   "#......EE.MMMMMMMMSSSSSSSSAAA..SSSSSSYYYE...#",
+   "#.GGG..EE..MMMMMMMSSSSSSSSAAA..SSSSSSYYYYE..#",
    "#.GGGGGGG..MMMMMMMSSSSSSSSAAASSSSSSSSYYYYE..#",
    "#.GGGGGGGGGYYYYSSSSSSSSSSSAAASSSSSSSSSYYYE..#",
    "#.GGGGGGGGGGYYYSSSSSSSSSSSAAASSSSSSSSSYYYE..#",
    "#.GGGGGGGGGGYYSSSSSSSSSSSSAAASSSSSSSSSYYYEE.#",
-   "#.GGGGGGGGGGGYSSSSSSSSSSSSAAASSSSSSSSSYYYYE.#",
-   "#..GGGGGGGGGGYSSSSSSSSSSSSAAASSSSSSSSSYYYYE.#",
+   "#.GGGGGGGHHGGYSSSSSSSSSSSSAAASSSSSSSSSYYYYE.#",
+   "#..GGGGGGHGGGYSSSSSSSSSSSSAAASSSSSSSSSYYYYE.#",
    "#..GGGGGGGGGGYSSSSSSSSSSSAAAASSSSSSSSSYYYYE.#",
    "#...GGGGGGGGGYSSSSSSSSSSAAAAASSSSSSSSSYYYYE.#",
    "#....GGGGGGGGYSRRRRRSSSAAAAAASSSSSSSSSYYYYE.#",
@@ -40,8 +40,8 @@
    "#.......EEEYYYSRRRRRRRRRAAAOOOOSSSSSSSYYYEE.#",
    "#.......EEEYYYYRRRRRRRRRRAAOOOOOOOSSSSYYYE..#",
    "#........EEYYYYRRRRRRRRRRRAOOOOOOOOOSSYYYE..#",
-   "#..........EYYYRRRRRRRRRRRAOOOOOOOOOOYYYYE..#",
-   "#..........EYYYYRRRRRRRRRRAOOOOOOOOOOYYYEE..#",
+   "#..........EYYYRRRRRR..RRRAOOOOOOOOOOYYYYE..#",
+   "#..........EYYYYRRRRR..RRRAOOOOOOOOOOYYYEE..#",
    "#..........EYYYYSRRRRRRRRRAAOOOOOOOOOYYYE...#",
    "#...........EYYYSSRRRRRRRRRROOOOOOOOYYYYE...#",
    "#...........EYYYYSSRRRRRRRRRRROOOOOOYYYEE...#",
@@ -61,90 +61,123 @@
   "entries": [
    22
   ],
+  "overlay": {
+   "walls": [],
+   "sites": [],
+   "keys": [
+    [
+     27,
+     28
+    ],
+    [
+     28,
+     28
+    ],
+    [
+     27,
+     29
+    ],
+    [
+     28,
+     29
+    ],
+    [
+     19,
+     13
+    ],
+    [
+     20,
+     13
+    ],
+    [
+     19,
+     14
+    ],
+    [
+     20,
+     14
+    ]
+   ]
+  },
   "recolor": [
    [
-    13,
-    28,
-    "F"
+    7,
+    22,
+    "H"
    ],
    [
-    12,
-    29,
-    "F"
+    7,
+    23,
+    "H"
    ],
    [
-    13,
-    29,
-    "F"
-   ],
-   [
-    13,
-    30,
-    "F"
+    8,
+    23,
+    "H"
    ]
   ],
   "hiddenCells": [
-   870,
-   871,
-   872,
-   873,
-   915,
-   916,
-   917,
-   918,
-   960,
-   961,
-   962,
-   963,
-   1005,
-   1006,
-   1007,
-   1008,
+   556,
+   557,
+   558,
+   559,
+   601,
+   602,
+   603,
+   604,
+   646,
+   647,
+   648,
+   649,
+   691,
+   692,
+   693,
+   694,
+   736,
+   737,
+   738,
+   739,
+   788,
+   789,
+   790,
+   791,
+   832,
+   833,
+   834,
+   835,
+   836,
+   876,
+   877,
+   878,
+   879,
+   880,
+   881,
+   921,
+   922,
+   923,
+   924,
+   925,
+   926,
+   964,
+   965,
+   966,
+   967,
+   968,
+   1009,
+   1010,
+   1011,
+   1012,
    1013,
-   1014,
-   1015,
-   1016,
-   1017,
-   1050,
-   1051,
-   1052,
-   1053,
+   1054,
+   1055,
+   1056,
+   1057,
    1058,
-   1059,
-   1060,
-   1061,
-   1062,
-   1096,
-   1103,
-   1104,
-   1105,
-   1106,
-   1107,
-   1148,
-   1149,
-   1150,
-   1151,
-   1152,
-   1380,
-   1381,
-   1382,
-   1383,
-   1425,
-   1426,
-   1427,
-   1428,
-   1470,
-   1471,
-   1472,
-   1473,
-   1515,
-   1516,
-   1517,
-   1518,
-   1560,
-   1561,
-   1562,
-   1563
+   1099,
+   1100,
+   1101,
+   1102,
+   1103
   ]
  },
  "capacity": 5,
@@ -155,8 +188,7 @@
   },
   {
    "code": "E",
-   "count": 48,
-   "group": "A"
+   "count": 48
   },
   {
    "code": "E",
@@ -165,7 +197,7 @@
   {
    "code": "Y",
    "count": 51,
-   "group": "B"
+   "group": "D"
   },
   {
    "code": "Y",
@@ -174,55 +206,54 @@
   {
    "code": "Y",
    "count": 51,
-   "group": "F"
-  },
-  {
-   "code": "Y",
-   "count": 51
-  },
-  {
-   "code": "Y",
-   "count": 51
-  },
-  {
-   "code": "Y",
-   "count": 50
-  },
-  {
-   "code": "S",
-   "count": 50,
-   "group": "F"
-  },
-  {
-   "code": "S",
-   "count": 50
-  },
-  {
-   "code": "S",
-   "count": 50,
    "group": "G"
   },
   {
-   "code": "S",
+   "code": "Y",
+   "count": 51
+  },
+  {
+   "code": "Y",
+   "count": 51,
+   "group": "E"
+  },
+  {
+   "code": "Y",
    "count": 50
   },
   {
    "code": "S",
    "count": 49,
-   "group": "A"
+   "group": "D"
+  },
+  {
+   "code": "S",
+   "count": 49,
+   "group": "B"
+  },
+  {
+   "code": "S",
+   "count": 49
+  },
+  {
+   "code": "S",
+   "count": 49
+  },
+  {
+   "code": "S",
+   "count": 49
   },
   {
    "code": "R",
-   "count": 45
+   "count": 44
   },
   {
    "code": "R",
-   "count": 45
+   "count": 43
   },
   {
    "code": "R",
-   "count": 44,
-   "group": "C"
+   "count": 43
   },
   {
    "code": "O",
@@ -231,99 +262,101 @@
   {
    "code": "O",
    "count": 41,
-   "group": "E"
+   "group": "C"
+  },
+  {
+   "code": "O",
+   "count": 41
   },
   {
    "code": "O",
    "count": 41,
-   "group": "G"
-  },
-  {
-   "code": "O",
-   "count": 41,
-   "group": "D"
-  },
-  {
-   "code": "A",
-   "count": 23
+   "group": "B"
   },
   {
    "code": "A",
    "count": 23,
-   "group": "D"
+   "group": "A"
+  },
+  {
+   "code": "A",
+   "count": 23,
+   "group": "C"
   },
   {
    "code": "A",
    "count": 22,
-   "group": "B"
-  },
-  {
-   "code": "G",
-   "count": 31
-  },
-  {
-   "code": "G",
-   "count": 31,
-   "group": "C"
+   "group": "E"
   },
   {
    "code": "G",
    "count": 30,
-   "group": "E"
+   "group": "G"
+  },
+  {
+   "code": "G",
+   "count": 30
+  },
+  {
+   "code": "G",
+   "count": 29,
+   "group": "F"
+  },
+  {
+   "code": "H",
+   "count": 3
   },
   {
    "code": "M",
-   "count": 27
+   "count": 29,
+   "group": "A"
   },
   {
    "code": "M",
-   "count": 27
-  },
-  {
-   "code": "F",
-   "count": 4
+   "count": 29,
+   "group": "F"
   }
  ],
  "tray": [
   [
-   12,
-   11,
-   10,
-   7,
-   17,
-   24
-  ],
-  [
-   13,
    15,
-   18,
-   6,
-   4,
-   27
+   23,
+   12,
+   16,
+   0,
+   1
   ],
   [
-   1,
+   21,
    19,
-   26,
+   13,
+   8,
    25,
-   5,
-   23
+   2
   ],
   [
    22,
-   21,
-   8,
-   16,
-   9,
-   3
+   7,
+   14,
+   17,
+   6,
+   4
   ],
   [
-   20,
-   29,
-   14,
    28,
-   2,
-   0
+   11,
+   20,
+   3,
+   24,
+   26
+  ],
+  [
+   18,
+   27,
+   10,
+   9,
+   5,
+   29
   ]
  ],
  "latches": [
@@ -331,6 +364,16 @@
    "column": 0,
    "depth": 2,
    "key": 684
+  },
+  {
+   "column": 1,
+   "depth": 2,
+   "key": 659
+  },
+  {
+   "column": 2,
+   "depth": 2,
+   "key": 1326
   }
  ],
  "mechanics": [

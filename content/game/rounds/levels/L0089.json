@@ -1,7 +1,7 @@
 {
  "format": "round-level.v1",
  "number": 89,
- "definitionVersion": 1,
+ "definitionVersion": 2,
  "class": "Normal",
  "picture": {
   "id": "P0385",
@@ -44,8 +44,8 @@
    "#.........EEECCCCCCCCCCCCCCCCCCCCCCEEEE........#",
    "#.........EEEEEEEEEEEEEEEEEEEEEEEEEEEE.........#",
    "#.........EEGGGGGGGGGGGGGGGGGGGGGGGGEE.........#",
-   "#..........EEGGGGGGGGGGFGGGGGGGGGGGEE..........#",
-   "#............EEGGGGGGGFFFGGGGGGGGGEE...........#",
+   "#..........EEGGGGGGGGGGGGGGGGGGGGGGEE..........#",
+   "#............EEGGGGGGGGGGGGGGGGGGGEE...........#",
    "#.............EEGGGGGGGGGGGGGGGGGG.............#",
    "#...............EEEGGYYYYYYGGEEE...............#",
    "#.................EEEYYYYYYEEE.................#",
@@ -57,28 +57,6 @@
   ],
   "entries": [
    24
-  ],
-  "recolor": [
-   [
-    20,
-    6,
-    "F"
-   ],
-   [
-    21,
-    6,
-    "F"
-   ],
-   [
-    22,
-    6,
-    "F"
-   ],
-   [
-    21,
-    7,
-    "F"
-   ]
   ]
  },
  "capacity": 5,
@@ -105,53 +83,46 @@
   },
   {
    "code": "E",
-   "count": 53
-  },
-  {
-   "code": "E",
-   "count": 52
-  },
-  {
-   "code": "E",
-   "count": 52
-  },
-  {
-   "code": "G",
-   "count": 48
-  },
-  {
-   "code": "G",
-   "count": 48
-  },
-  {
-   "code": "G",
-   "count": 47
-  },
-  {
-   "code": "F",
-   "count": 2
-  },
-  {
-   "code": "F",
-   "count": 2
-  },
-  {
-   "code": "C",
-   "count": 53
-  },
-  {
-   "code": "C",
    "count": 53,
    "group": "A"
   },
   {
+   "code": "E",
+   "count": 52,
+   "mystery": "depth"
+  },
+  {
+   "code": "E",
+   "count": 52
+  },
+  {
+   "code": "G",
+   "count": 49,
+   "group": "A"
+  },
+  {
+   "code": "G",
+   "count": 49
+  },
+  {
+   "code": "G",
+   "count": 49
+  },
+  {
    "code": "C",
    "count": 53
   },
   {
    "code": "C",
-   "count": 52,
-   "group": "A"
+   "count": 53
+  },
+  {
+   "code": "C",
+   "count": 53
+  },
+  {
+   "code": "C",
+   "count": 52
   },
   {
    "code": "C",
@@ -171,7 +142,8 @@
   },
   {
    "code": "M",
-   "count": 46
+   "count": 46,
+   "mystery": "depth"
   },
   {
    "code": "M",
@@ -216,54 +188,53 @@
  ],
  "tray": [
   [
-   3,
+   1,
    11,
-   20,
-   10,
    4,
-   31,
-   30,
-   8
-  ],
-  [
-   16,
-   13,
-   12,
-   21,
+   27,
+   10,
    26,
-   19,
-   29,
+   17,
    15
   ],
   [
-   23,
-   6,
-   24,
-   18,
-   7,
+   5,
+   20,
    2,
-   0,
-   25
+   13,
+   16,
+   12,
+   7,
+   21
   ],
   [
-   14,
-   17,
-   1,
-   28,
+   8,
+   19,
    9,
+   18,
+   14,
+   28,
+   24
+  ],
+  [
    22,
-   5,
-   27
+   6,
+   0,
+   25,
+   23,
+   3,
+   29
   ]
  ],
  "latches": [
   {
-   "column": 3,
+   "column": 0,
    "depth": 3,
    "key": 952
   }
  ],
  "mechanics": [
+  "hidden",
   "links",
   "latch"
  ],

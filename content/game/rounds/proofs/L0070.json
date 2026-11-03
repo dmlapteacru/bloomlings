@@ -1,24 +1,9 @@
 {
  "format": "round-proof.v1",
  "number": 70,
- "definitionVersion": 1,
+ "definitionVersion": 2,
  "solution": {
   "commands": [
-   {
-    "type": "tap",
-    "pod": 3,
-    "atUs": 0
-   },
-   {
-    "type": "tap",
-    "pod": 14,
-    "atUs": 0
-   },
-   {
-    "type": "tap",
-    "pod": 11,
-    "atUs": 0
-   },
    {
     "type": "tap",
     "pod": 1,
@@ -27,106 +12,131 @@
    {
     "type": "tap",
     "pod": 5,
-    "atUs": 30825000
+    "atUs": 19275000
    },
    {
     "type": "tap",
-    "pod": 17,
-    "atUs": 41525000
-   },
-   {
-    "type": "tap",
-    "pod": 4,
-    "atUs": 73525000
-   },
-   {
-    "type": "tap",
-    "pod": 8,
-    "atUs": 73525000
-   },
-   {
-    "type": "tap",
-    "pod": 22,
-    "atUs": 106050000
-   },
-   {
-    "type": "tap",
-    "pod": 10,
-    "atUs": 113000000
+    "pod": 6,
+    "atUs": 36725000
    },
    {
     "type": "tap",
     "pod": 15,
-    "atUs": 133825000
+    "atUs": 40150000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 40150000
    },
    {
     "type": "tap",
     "pod": 21,
-    "atUs": 294075000
+    "atUs": 57975000
    },
    {
     "type": "tap",
-    "pod": 2,
-    "atUs": 294075000
+    "pod": 12,
+    "atUs": 57975000
    },
    {
     "type": "tap",
-    "pod": 0,
-    "atUs": 331950000
-   },
-   {
-    "type": "tap",
-    "pod": 16,
-    "atUs": 355500000
-   },
-   {
-    "type": "tap",
-    "pod": 18,
-    "atUs": 371725000
-   },
-   {
-    "type": "tap",
-    "pod": 7,
-    "atUs": 395225000
+    "pod": 4,
+    "atUs": 89275000
    },
    {
     "type": "tap",
     "pod": 19,
-    "atUs": 414375000
+    "atUs": 235775000
    },
    {
     "type": "tap",
-    "pod": 13,
-    "atUs": 424825000
+    "pod": 0,
+    "atUs": 250775000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 271875000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 287975000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 294675000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 311825000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 323275000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 346925000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 369400000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 387400000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 408675000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 422075000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 437125000
    }
   ],
   "outcome": "Won",
-  "endUs": 441850000
+  "endUs": 452875000
  },
  "randomTest": {
   "policy": "17§5 extended: uniform over legal actions + wait before a state event",
   "seedBase": 1,
   "runs": 100,
-  "wins": 30,
-  "share": 0.3,
+  "wins": 39,
+  "share": 0.39,
   "wilson95": [
-   0.219,
-   0.396
+   0.3,
+   0.488
   ],
   "classOfShare": "Hard",
   "borderline": false
  },
  "checks": {
-  "forced": 0.35,
+  "forced": 0.2,
   "opening": {
    "first": {
-    "openings": 3,
+    "openings": 2,
     "wins": 0
    },
    "three": {
-    "openings": 25,
-    "wins": 0,
-    "share": 0
+    "openings": 11,
+    "wins": 1,
+    "share": 0.09
    },
    "ok": true,
    "strategies": [
@@ -139,42 +149,62 @@
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 1.45,
-   "tight": 0.91
+   "stuck": 1.37,
+   "tight": 0.92
   },
   "calm": {
-   "runs": 200,
-   "wins": 16,
-   "share": 0.08,
+   "runs": 400,
+   "wins": 182,
+   "share": 0.455,
    "wilson95": [
-    0.05,
-    0.126
+    0.407,
+    0.504
    ],
-   "borderline": false,
+   "borderline": true,
    "protocol": "§5 calm: uniform over legal actions, the board settled before each",
    "seedBase": 3
   },
   "traps": {
-   "links": 5,
-   "traps": 5,
-   "top": 2
+   "links": 3,
+   "traps": 3,
+   "top": 3
   },
   "latch": {
    "latches": [
     {
      "latch": 0,
      "column": 0,
+     "depth": 4,
+     "behind": 2,
+     "key": 656,
+     "atW": 0.544,
+     "command": 10,
+     "waitMs": 216525
+    },
+    {
+     "latch": 1,
+     "column": 1,
+     "depth": 4,
+     "behind": 2,
+     "key": 1096,
+     "atW": 0.528,
+     "command": 10,
+     "waitMs": 0
+    },
+    {
+     "latch": 2,
+     "column": 3,
      "depth": 2,
      "behind": 4,
      "key": 669,
-     "atW": 0.315,
-     "command": 6,
-     "waitMs": 25800
+     "atW": 0.33,
+     "command": 8,
+     "waitMs": 0
     }
    ],
    "maxBlocked": 1,
    "limit": 2,
-   "lastOpenAtW": 0.315,
+   "lastOpenAtW": 0.544,
    "waits": true,
    "randomOverLimit": 0,
    "ok": true,
@@ -200,8 +230,8 @@
    ],
    "cells": 2,
    "pressure": {
-    "with": 1.45,
-    "without": 0.85
+    "with": 1.37,
+    "without": 1.11
    }
   }
  },
@@ -209,10 +239,11 @@
   "result": "OK",
   "report": "content/rounds/audit-L0051-L0100.md",
   "notes": [
-   "слой Б: стоят без работы 1.45 < 1.5 (§13, quality.json)",
-   "опасных развилок 8 (ориентир 2–5, §5)",
-   "последний запуск при 94 % W (ориентир 80–92 %, §10)",
-   "время быстрых нажатий 241.4 с (ориентир 70–160 с, §12)"
+   "спокойная игра 46 % на границе по Wilson — решение человека (§5)",
+   "слой Б: стоят без работы 1.37 < 1.5 (§13, quality.json)",
+   "после 80 % W запусков 5 (ориентир 1–4, §10)",
+   "последний запуск при 96 % W (ориентир 80–92 %, §10)",
+   "время быстрых нажатий 18.9 с (ориентир 70–160 с, §12)"
   ]
  },
  "engine": {

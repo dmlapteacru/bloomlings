@@ -1,7 +1,7 @@
 {
  "format": "round-level.v1",
  "number": 77,
- "definitionVersion": 1,
+ "definitionVersion": 2,
  "class": "Normal",
  "picture": {
   "id": "P1029",
@@ -71,7 +71,8 @@
   },
   {
    "code": "M",
-   "count": 48
+   "count": 48,
+   "mystery": "depth"
   },
   {
    "code": "M",
@@ -103,12 +104,8 @@
   },
   {
    "code": "C",
-   "count": 50
-  },
-  {
-   "code": "C",
-   "count": 49,
-   "group": "A"
+   "count": 50,
+   "mystery": "depth"
   },
   {
    "code": "C",
@@ -116,8 +113,11 @@
   },
   {
    "code": "C",
-   "count": 49,
-   "group": "A"
+   "count": 49
+  },
+  {
+   "code": "C",
+   "count": 49
   },
   {
    "code": "C",
@@ -129,7 +129,8 @@
   },
   {
    "code": "L",
-   "count": 16
+   "count": 16,
+   "group": "A"
   },
   {
    "code": "L",
@@ -141,7 +142,8 @@
   },
   {
    "code": "P",
-   "count": 11
+   "count": 11,
+   "group": "A"
   },
   {
    "code": "R",
@@ -167,43 +169,46 @@
  "tray": [
   [
    14,
-   13,
-   11,
+   16,
    18,
-   22,
-   1,
+   5,
    17,
-   21
+   20
   ],
   [
+   13,
    10,
-   3,
-   5,
-   4,
-   19,
+   15,
    23,
+   4,
+   3
+  ],
+  [
+   11,
    6,
+   9,
+   1,
+   19,
    0
   ],
   [
    12,
-   16,
-   15,
    2,
+   21,
    8,
-   7,
-   9,
-   20
+   22,
+   7
   ]
  ],
  "latches": [
   {
    "column": 0,
-   "depth": 6,
+   "depth": 3,
    "key": 1226
   }
  ],
  "mechanics": [
+  "hidden",
   "links",
   "latch"
  ],

@@ -1,7 +1,7 @@
 {
  "format": "round-level.v1",
  "number": 73,
- "definitionVersion": 1,
+ "definitionVersion": 2,
  "class": "Normal",
  "picture": {
   "id": "P0936",
@@ -35,8 +35,8 @@
    "#....AAYYYAAAANNNPPPPPPPPYYYYCC..SSSSKKKNSSS.#",
    "#...AAYYYYYYYAN..PPPPPPPYYYYCCC..SSSSNNNNSSS.#",
    "#..YYYYYYYYYYYYY....PPYYYYYYCPPPPPPSSSSSSSSS.#",
-   "#..YYYY....YYYYYAAA..YYYYYYCCPPPPPPPSSSSSNNN.#",
-   "#..YYY......YYFYYYYYYYYYYYCCCCPPPPPPPSSSS....#",
+   "#..YYYY....YYYFYAAA..YYFFYYCCPPPPPPPSSSSSNNN.#",
+   "#..YYY......YYFYYYYYYYYYFYCCCCPPPPPPPSSSS....#",
    "#.YYYY.......YFYYYYYYYDYYYCCC..PPPPPPP.......#",
    "#.AYYY......YYYYAAAYAYYYYCYYYYY.NNN..........#",
    "#.AYYY.....YYYYY...AAYYYCYYYYYYYYY...........#",
@@ -71,7 +71,86 @@
     12,
     18,
     "F"
+   ],
+   [
+    22,
+    18,
+    "F"
+   ],
+   [
+    12,
+    19,
+    "F"
+   ],
+   [
+    21,
+    19,
+    "F"
+   ],
+   [
+    22,
+    19,
+    "F"
    ]
+  ],
+  "hiddenCells": [
+   587,
+   588,
+   589,
+   590,
+   633,
+   634,
+   635,
+   636,
+   679,
+   680,
+   681,
+   682,
+   725,
+   726,
+   727,
+   728,
+   771,
+   772,
+   773,
+   942,
+   943,
+   944,
+   945,
+   979,
+   980,
+   988,
+   989,
+   990,
+   991,
+   992,
+   1024,
+   1025,
+   1026,
+   1034,
+   1035,
+   1036,
+   1037,
+   1038,
+   1070,
+   1071,
+   1072,
+   1073,
+   1080,
+   1081,
+   1082,
+   1083,
+   1084,
+   1116,
+   1117,
+   1119,
+   1120,
+   1121,
+   1122,
+   1165,
+   1166,
+   1167,
+   1168
   ]
  },
  "capacity": 5,
@@ -86,29 +165,29 @@
   },
   {
    "code": "Y",
-   "count": 54
-  },
-  {
-   "code": "Y",
-   "count": 53
-  },
-  {
-   "code": "Y",
-   "count": 53
-  },
-  {
-   "code": "Y",
    "count": 53
   },
   {
    "code": "Y",
    "count": 53,
-   "group": "D"
+   "group": "C"
   },
   {
    "code": "Y",
    "count": 53,
-   "group": "B"
+   "group": "A"
+  },
+  {
+   "code": "Y",
+   "count": 52
+  },
+  {
+   "code": "Y",
+   "count": 52
+  },
+  {
+   "code": "Y",
+   "count": 52
   },
   {
    "code": "C",
@@ -121,12 +200,11 @@
   {
    "code": "N",
    "count": 36,
-   "group": "C"
+   "group": "B"
   },
   {
    "code": "N",
-   "count": 35,
-   "group": "D"
+   "count": 35
   },
   {
    "code": "N",
@@ -134,22 +212,12 @@
   },
   {
    "code": "F",
-   "count": 2,
-   "group": "A"
+   "count": 6
   },
   {
    "code": "D",
-   "count": 1
-  },
-  {
-   "code": "P",
-   "count": 47,
+   "count": 1,
    "group": "C"
-  },
-  {
-   "code": "P",
-   "count": 47,
-   "group": "B"
   },
   {
    "code": "P",
@@ -157,7 +225,16 @@
   },
   {
    "code": "P",
-   "count": 46
+   "count": 47
+  },
+  {
+   "code": "P",
+   "count": 47
+  },
+  {
+   "code": "P",
+   "count": 46,
+   "group": "B"
   },
   {
    "code": "S",
@@ -165,8 +242,7 @@
   },
   {
    "code": "S",
-   "count": 41,
-   "group": "A"
+   "count": 41
   },
   {
    "code": "S",
@@ -202,58 +278,62 @@
   },
   {
    "code": "B",
-   "count": 18
+   "count": 18,
+   "group": "A"
   }
  ],
  "tray": [
   [
-   15,
-   3,
-   21,
-   19,
-   1,
-   9,
-   29,
-   18
-  ],
-  [
-   0,
-   23,
-   8,
-   6,
-   14,
-   16,
-   12
-  ],
-  [
-   2,
-   20,
-   4,
-   24,
-   28,
    22,
-   26,
-   27
+   4,
+   17,
+   9,
+   1,
+   0
   ],
   [
    10,
+   29,
+   3,
+   6,
+   7,
+   20
+  ],
+  [
+   8,
+   21,
+   15,
+   16,
+   27,
+   25
+  ],
+  [
+   18,
+   12,
+   14,
+   28,
+   23,
+   19
+  ],
+  [
+   2,
+   11,
    13,
    5,
-   11,
-   25,
-   7,
-   17
+   26,
+   24
   ]
  ],
  "latches": [
   {
-   "column": 2,
+   "column": 0,
    "depth": 3,
-   "key": 1225
+   "key": 612
   }
  ],
  "mechanics": [
   "links",
+  "cells",
   "latch"
  ],
  "engine": {

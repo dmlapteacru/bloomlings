@@ -1,7 +1,7 @@
 {
  "format": "round-level.v1",
  "number": 93,
- "definitionVersion": 1,
+ "definitionVersion": 2,
  "class": "Normal",
  "picture": {
   "id": "P1003",
@@ -23,23 +23,23 @@
    "#..DCCDDDDDDDDDDDDDNNNPPPPKKKKPPPNNNN.#",
    "#.DDCCCDDDDDKKDDDDDNNNPPPBBBKPPPP.....#",
    "#.DDDCCCDDKKKKCCDDNNNPPPPPBNNNNN......#",
-   "#.DDDDCCDDKKKCCCCCNWNPPPVVVNNND.......#",
-   "#.DDDDDDDDKCCCCCCCNWNPPNVVVNNN........#",
+   "#.DDDDCCDDKKKCCCCCNNNPPPVVVNNND.......#",
+   "#.DDDDDDDDKCCCCCCCNNNPPNVVVNNN........#",
    "#.DDDDDDDDKDCCCCCDNNNPNNNNNNND........#",
    "#.CDDDDDDDKKDDCCDDDDPPNNNPPPPPPP......#",
    "#.CCCDDCDDKKKDDDDDDDDNNNNPPPPNPPP.....#",
-   "#.DCCCCCD.DKKDKKDDDDDNWNPPPPNNNNPP....#",
-   "#.DDCCCCD..KDKKKDDDDDNWNPPPPNPPNNP....#",
-   "#.DDDDDDDD.DDKKKCCPPPNWNPPPPPPPPNP....#",
-   "#.DDDDDDDD..DKKKCCPPPNNNPPPPPPPPNP....#",
-   "#.DDDDDDDD..DDDDCCDPPNNNPPPPPPPPPP....#",
-   "#.CDDDDDDD..DDDCCCCDPPNNPPPPPPPPPP....#",
+   "#.DCCCCCD.DKKDKKDDDDDNNNPPPPNNNNPP....#",
+   "#.DDCCCCD..KDKKKDDDDDNNNPPPPNPPNNP....#",
+   "#.DDDDDDDD.DDKKKCCPPPNNNPPPPPPPPNP....#",
+   "#.DDDDDWDD..DKKKCCPPPNNNPPPPPPPPNP....#",
+   "#.DDDDDWDD..DDDDCCDPPNNNPPPPPPPPPP....#",
+   "#.CDDDDWDD..DDDCCCCDPPNNPPPPPPPPPP....#",
    "#.CCCDDDDD.DCCCCCCCCCDNNNPPPPPPPP.....#",
    "#.CCCCCCCDDCCCCCCCCCCDCCCCPPPPPP......#",
    "#.DCCCCCDDCCCCDDDCDDDDCCCCCD..........#",
    "#.DDCCCCDDCCCDDYYDCDDDDDDDCD..........#",
-   "#.DDDDDDDDCCCDYYDDDDDDDDDDCD..........#",
-   "#.DDDDDD.DCCCDYYDDDCCDDDDDDD..........#",
+   "#.DDDDDDDDCCCDYYDDDDDDWWDDCD..........#",
+   "#.DDDDDD.DCCCDYYDDDCCDWWDDDD..........#",
    "#.DDDDD.DCDCCDDYDDDCCDDDDDDDD.........#",
    "#..DD..DCDDCCDDDDDDCCDDDDDDDD.........#",
    "#......DCDDDCCDDDDCCCCDDDDDDCD........#",
@@ -56,76 +56,132 @@
   "recolor": [
    [
     20,
-    16,
+    7,
+    "W"
+   ],
+   [
+    21,
+    7,
     "W"
    ],
    [
     20,
-    17,
+    8,
     "W"
    ],
    [
-    20,
-    18,
+    21,
+    8,
     "W"
    ],
    [
-    17,
-    22,
+    5,
+    13,
     "W"
    ],
    [
-    17,
-    23,
+    5,
+    14,
+    "W"
+   ],
+   [
+    5,
+    15,
     "W"
    ]
+  ],
+  "hiddenCells": [
+   447,
+   448,
+   449,
+   450,
+   486,
+   487,
+   488,
+   489,
+   490,
+   525,
+   526,
+   527,
+   528,
+   529,
+   565,
+   566,
+   567,
+   568,
+   604,
+   605,
+   606,
+   607,
+   644,
+   645,
+   646,
+   647,
+   669,
+   670,
+   671,
+   683,
+   684,
+   685,
+   686,
+   708,
+   709,
+   710,
+   748,
+   749,
+   750,
+   788,
+   789,
+   827,
+   828,
+   866,
+   867
   ]
  },
  "capacity": 5,
  "pods": [
   {
    "code": "D",
-   "count": 53
-  },
-  {
-   "code": "D",
    "count": 52
   },
   {
    "code": "D",
-   "count": 52
+   "count": 51
   },
   {
    "code": "D",
-   "count": 52
+   "count": 51
   },
   {
    "code": "D",
-   "count": 52
+   "count": 51
   },
   {
    "code": "D",
-   "count": 52,
+   "count": 51
+  },
+  {
+   "code": "D",
+   "count": 51
+  },
+  {
+   "code": "D",
+   "count": 51
+  },
+  {
+   "code": "C",
+   "count": 54
+  },
+  {
+   "code": "C",
+   "count": 54
+  },
+  {
+   "code": "C",
+   "count": 53,
    "group": "B"
   },
   {
-   "code": "D",
-   "count": 52,
-   "group": "A"
-  },
-  {
-   "code": "C",
-   "count": 54
-  },
-  {
-   "code": "C",
-   "count": 54
-  },
-  {
-   "code": "C",
-   "count": 53
-  },
-  {
    "code": "K",
    "count": 22
   },
@@ -135,11 +191,15 @@
   },
   {
    "code": "K",
-   "count": 21,
-   "group": "A"
+   "count": 21
   },
   {
    "code": "Y",
+   "count": 7,
+   "group": "A"
+  },
+  {
+   "code": "W",
    "count": 7
   },
   {
@@ -152,7 +212,8 @@
   },
   {
    "code": "P",
-   "count": 41
+   "count": 41,
+   "group": "A"
   },
   {
    "code": "P",
@@ -160,71 +221,70 @@
   },
   {
    "code": "N",
-   "count": 38
+   "count": 40
   },
   {
    "code": "N",
-   "count": 38
+   "count": 39
   },
   {
    "code": "N",
-   "count": 37
-  },
-  {
-   "code": "W",
-   "count": 5
+   "count": 39
   },
   {
    "code": "V",
-   "count": 6
+   "count": 6,
+   "group": "B"
   },
   {
    "code": "B",
-   "count": 4,
-   "group": "B"
+   "count": 4
   }
  ],
  "tray": [
   [
-   9,
-   13,
-   23,
-   11,
-   4,
    2,
-   7,
-   14
-  ],
-  [
-   6,
-   21,
-   5,
-   22,
-   3,
-   19,
-   10,
-   0
-  ],
-  [
-   12,
-   17,
+   13,
    20,
-   8,
+   0,
+   11,
+   5
+  ],
+  [
+   1,
+   23,
+   14,
+   4,
+   22,
+   15
+  ],
+  [
    16,
-   15,
+   17,
+   19,
+   21,
    18,
-   1
+   12
+  ],
+  [
+   10,
+   3,
+   7,
+   6,
+   9,
+   8
   ]
  ],
  "latches": [
   {
-   "column": 1,
-   "depth": 6,
-   "key": 1138
+   "column": 0,
+   "depth": 3,
+   "key": 1100
   }
  ],
  "mechanics": [
   "links",
+  "cells",
   "latch"
  ],
  "engine": {

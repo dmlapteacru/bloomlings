@@ -1,7 +1,7 @@
 {
  "format": "round-proof.v1",
  "number": 77,
- "definitionVersion": 1,
+ "definitionVersion": 2,
  "solution": {
   "commands": [
    {
@@ -11,158 +11,174 @@
    },
    {
     "type": "tap",
+    "pod": 16,
+    "atUs": 6400000
+   },
+   {
+    "type": "tap",
     "pod": 13,
     "atUs": 6400000
    },
    {
     "type": "tap",
-    "pod": 10,
-    "atUs": 6400000
-   },
-   {
-    "type": "tap",
-    "pod": 3,
-    "atUs": 6400000
-   },
-   {
-    "type": "tap",
     "pod": 11,
-    "atUs": 163650000
-   },
-   {
-    "type": "tap",
-    "pod": 18,
-    "atUs": 205575000
-   },
-   {
-    "type": "tap",
-    "pod": 22,
-    "atUs": 222475000
-   },
-   {
-    "type": "tap",
-    "pod": 1,
-    "atUs": 232350000
-   },
-   {
-    "type": "tap",
-    "pod": 17,
-    "atUs": 251900000
-   },
-   {
-    "type": "tap",
-    "pod": 21,
-    "atUs": 269225000
-   },
-   {
-    "type": "tap",
-    "pod": 5,
-    "atUs": 281025000
-   },
-   {
-    "type": "tap",
-    "pod": 4,
-    "atUs": 302850000
-   },
-   {
-    "type": "tap",
-    "pod": 19,
-    "atUs": 329425000
-   },
-   {
-    "type": "tap",
-    "pod": 23,
-    "atUs": 339325000
+    "atUs": 6400000
    },
    {
     "type": "tap",
     "pod": 6,
-    "atUs": 350100000
+    "atUs": 6400000
    },
    {
     "type": "tap",
-    "pod": 0,
-    "atUs": 405725000
-   },
-   {
-    "type": "tap",
-    "pod": 16,
-    "atUs": 428350000
+    "pod": 10,
+    "atUs": 202550000
    },
    {
     "type": "tap",
     "pod": 15,
-    "atUs": 437025000
+    "atUs": 242575000
    },
    {
     "type": "tap",
-    "pod": 2,
-    "atUs": 451150000
+    "pod": 5,
+    "atUs": 369350000
    },
    {
     "type": "tap",
-    "pod": 8,
-    "atUs": 474375000
-   },
-   {
-    "type": "tap",
-    "pod": 7,
-    "atUs": 484750000
-   },
-   {
-    "type": "tap",
-    "pod": 9,
-    "atUs": 500375000
+    "pod": 17,
+    "atUs": 396600000
    },
    {
     "type": "tap",
     "pod": 20,
-    "atUs": 521650000
+    "atUs": 431425000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 447750000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 457375000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 486350000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 550875000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 584875000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 602425000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 612325000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 633475000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 659950000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 683175000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 703525000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 713900000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 724925000
    }
   ],
   "outcome": "Won",
-  "endUs": 534425000
+  "endUs": 740550000
  },
  "randomTest": {
   "policy": "17§5 extended: uniform over legal actions + wait before a state event",
   "seedBase": 1,
-  "runs": 400,
-  "wins": 204,
-  "share": 0.51,
+  "runs": 100,
+  "wins": 63,
+  "share": 0.63,
   "wilson95": [
-   0.461,
-   0.559
+   0.532,
+   0.718
   ],
   "classOfShare": "Normal",
-  "borderline": true
+  "borderline": false
  },
  "checks": {
-  "forced": 0.07,
+  "forced": 0.2,
   "opening": null,
   "hold": true,
-  "greedyLoses": false,
-  "hiddenMatters": null,
+  "greedyLoses": true,
+  "hiddenMatters": {
+   "ok": false,
+   "pods": [
+    {
+     "pod": 9,
+     "revealAt": 5,
+     "gap": 8,
+     "newColour": false
+    },
+    {
+     "pod": 1,
+     "revealAt": 14,
+     "gap": 0,
+     "newColour": true
+    }
+   ]
+  },
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 0.43,
-   "tight": 0.9
+   "stuck": 0.33,
+   "tight": 0.84
   },
   "calm": {
-   "runs": 400,
-   "wins": 209,
-   "share": 0.523,
+   "runs": 200,
+   "wins": 115,
+   "share": 0.575,
    "wilson95": [
-    0.474,
-    0.571
+    0.506,
+    0.641
    ],
-   "borderline": true,
+   "borderline": false,
    "protocol": "§5 calm: uniform over legal actions, the board settled before each",
    "seedBase": 3
   },
   "traps": {
    "links": 1,
-   "traps": 0,
+   "traps": 1,
    "top": 0
   },
   "latch": {
@@ -170,17 +186,17 @@
     {
      "latch": 0,
      "column": 0,
-     "depth": 6,
-     "behind": 2,
+     "depth": 3,
+     "behind": 3,
      "key": 1226,
-     "atW": 0.385,
-     "command": 8,
+     "atW": 0.306,
+     "command": 7,
      "waitMs": 0
     }
    ],
    "maxBlocked": 0,
-   "limit": 1,
-   "lastOpenAtW": 0.385,
+   "limit": 2,
+   "lastOpenAtW": 0.306,
    "waits": false,
    "randomOverLimit": 0,
    "ok": true,
@@ -192,12 +208,10 @@
   "result": "OK",
   "report": "content/rounds/audit-L0051-L0100.md",
   "notes": [
-   "спокойная игра 52 % на границе по Wilson — решение человека (§5)",
-   "слой Б: стоят без работы 0.43 < 0.9 (§13, quality.json)",
-   "класс на границе по Wilson 46 %–56 % — нужно решение владельца (§5)",
+   "слой Б: стоят без работы 0.33 < 0.9 (§13, quality.json)",
    "после 80 % W запусков 5 (ориентир 1–4, §10)",
-   "последний запуск при 97 % W (ориентир 80–92 %, §10)",
-   "время быстрых нажатий 190.9 с (ориентир 70–160 с, §12)"
+   "последний запуск при 98 % W (ориентир 80–92 %, §10)",
+   "время быстрых нажатий 228 с (ориентир 70–160 с, §12)"
   ]
  },
  "engine": {

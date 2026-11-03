@@ -1,7 +1,7 @@
 {
  "format": "round-level.v1",
  "number": 70,
- "definitionVersion": 1,
+ "definitionVersion": 2,
  "class": "Hard",
  "picture": {
   "id": "P0268",
@@ -30,9 +30,9 @@
    "#...EYYYE...SSSBCCSSSS....EYYE...#",
    "#...EYYYE....SSBCCSSS.....EYYE...#",
    "#...EYYYE.....BBCCCC......EYYE...#",
-   "#...EYYYE......BCCC.......EYYE...#",
+   "#...EYYYE......BCFC.......EYYE...#",
    "#...EYYYE.....BBCFCC......EYYE...#",
-   "#...EYYYE....SSBCFCSS.....EYYE...#",
+   "#...EYYYE....SSBCCCSS.....EYYE...#",
    "#...EYYYE...SSSBCCCSSS....EYYE...#",
    "#...EYYYE..NSSBBCCBBSSN...EYYE...#",
    "#...EYYYE.NNSBBBCCBBBSNN..EYYE...#",
@@ -43,8 +43,8 @@
    "#...EYYYNSBBBBBBBBBBBBBBSNYYYE...#",
    "#...EYYYNSSSSSSSSSSSSSSSSNYYYE...#",
    "#...EYYYNSSSSSSSSSSSSSSSSSNYYE...#",
-   "#..EEYYYNNNNNNNNNNNNNNNNNNNYYEE..#",
-   "#.EAAAAAAAAAAAAAAAAAAAAAAAAAAAAE.#",
+   "#..EEYYY..NNNNNNNNNNNNNNNNNYYEE..#",
+   "#.EAAAAA..AAAAAAAAAAAAAAAAAAAAAE.#",
    "#.EAAAAAAAAAAAAAAAAAAAAAAAAAAAAE.#",
    "#.EAAAAAAAAAAAAAAAAAAAAAAAAAAAAE.#",
    "#.EAAAAAAAAAAAAAAAAAAAAAAAAAAAAE.#",
@@ -55,17 +55,86 @@
   "entries": [
    17
   ],
+  "overlay": {
+   "walls": [],
+   "sites": [],
+   "keys": [
+    [
+     6,
+     4
+    ],
+    [
+     7,
+     4
+    ],
+    [
+     6,
+     5
+    ],
+    [
+     7,
+     5
+    ]
+   ]
+  },
   "recolor": [
-   [
-    15,
-    16,
-    "F"
-   ],
    [
     15,
     17,
     "F"
+   ],
+   [
+    15,
+    18,
+    "F"
    ]
+  ],
+  "hiddenCells": [
+   453,
+   454,
+   455,
+   456,
+   457,
+   487,
+   488,
+   489,
+   490,
+   491,
+   521,
+   522,
+   523,
+   524,
+   525,
+   760,
+   793,
+   794,
+   826,
+   827,
+   828,
+   860,
+   861,
+   862,
+   893,
+   894,
+   895,
+   896,
+   929,
+   930,
+   937,
+   938,
+   939,
+   940,
+   971,
+   972,
+   973,
+   974,
+   1005,
+   1006,
+   1007,
+   1008,
+   1039,
+   1040,
+   1041
   ]
  },
  "capacity": 5,
@@ -76,52 +145,43 @@
   },
   {
    "code": "E",
-   "count": 56
+   "count": 56,
+   "group": "A"
   },
   {
    "code": "E",
-   "count": 56,
-   "group": "C"
-  },
-  {
-   "code": "A",
-   "count": 56,
-   "group": "B"
-  },
-  {
-   "code": "A",
    "count": 56
   },
   {
    "code": "A",
    "count": 56,
-   "group": "E"
+   "group": "A"
   },
   {
    "code": "A",
    "count": 56,
-   "group": "E"
-  },
-  {
-   "code": "Y",
-   "count": 45
-  },
-  {
-   "code": "Y",
-   "count": 45
-  },
-  {
-   "code": "Y",
-   "count": 44,
    "group": "B"
   },
   {
-   "code": "N",
-   "count": 23
+   "code": "A",
+   "count": 55
   },
   {
-   "code": "N",
-   "count": 23
+   "code": "A",
+   "count": 55
+  },
+  {
+   "code": "Y",
+   "count": 45
+  },
+  {
+   "code": "Y",
+   "count": 45,
+   "group": "C"
+  },
+  {
+   "code": "Y",
+   "count": 44
   },
   {
    "code": "N",
@@ -129,9 +189,17 @@
    "group": "C"
   },
   {
+   "code": "N",
+   "count": 22
+  },
+  {
+   "code": "N",
+   "count": 22
+  },
+  {
    "code": "S",
    "count": 40,
-   "group": "A"
+   "group": "B"
   },
   {
    "code": "S",
@@ -143,8 +211,7 @@
   },
   {
    "code": "B",
-   "count": 37,
-   "group": "D"
+   "count": 37
   },
   {
    "code": "B",
@@ -160,8 +227,7 @@
   },
   {
    "code": "C",
-   "count": 19,
-   "group": "D"
+   "count": 19
   },
   {
    "code": "F",
@@ -173,53 +239,63 @@
   },
   {
    "code": "G",
-   "count": 12,
-   "group": "A"
+   "count": 12
   }
  ],
  "tray": [
   [
-   3,
+   1,
    5,
-   4,
-   8,
-   22,
-   15
-  ],
-  [
-   9,
    6,
-   17,
-   10,
-   20,
-   13
+   15,
+   18,
+   23
   ],
   [
+   10,
+   4,
+   19,
+   0,
+   7,
+   22
+  ],
+  [
+   3,
+   21,
+   12,
+   2,
+   9,
+   20
+  ],
+  [
+   8,
+   13,
    14,
    11,
-   12,
-   0,
-   16,
-   18
-  ],
-  [
-   1,
-   21,
-   2,
-   7,
-   19,
-   23
+   17,
+   16
   ]
  ],
  "latches": [
   {
    "column": 0,
+   "depth": 4,
+   "key": 656
+  },
+  {
+   "column": 1,
+   "depth": 4,
+   "key": 1096
+  },
+  {
+   "column": 3,
    "depth": 2,
    "key": 669
   }
  ],
  "mechanics": [
   "links",
+  "cells",
   "latch"
  ],
  "engine": {

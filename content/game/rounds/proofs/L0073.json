@@ -1,158 +1,163 @@
 {
  "format": "round-proof.v1",
  "number": 73,
- "definitionVersion": 1,
+ "definitionVersion": 2,
  "solution": {
   "commands": [
    {
     "type": "tap",
-    "pod": 10,
+    "pod": 22,
     "atUs": 0
    },
    {
     "type": "tap",
-    "pod": 3,
-    "atUs": 15450000
-   },
-   {
-    "type": "tap",
-    "pod": 21,
-    "atUs": 39275000
-   },
-   {
-    "type": "tap",
-    "pod": 19,
-    "atUs": 52175000
-   },
-   {
-    "type": "tap",
-    "pod": 1,
-    "atUs": 67875000
-   },
-   {
-    "type": "tap",
-    "pod": 9,
-    "atUs": 88475000
-   },
-   {
-    "type": "tap",
-    "pod": 29,
-    "atUs": 114000000
-   },
-   {
-    "type": "tap",
-    "pod": 18,
-    "atUs": 131625000
-   },
-   {
-    "type": "tap",
-    "pod": 0,
-    "atUs": 160775000
-   },
-   {
-    "type": "tap",
-    "pod": 23,
-    "atUs": 202775000
-   },
-   {
-    "type": "tap",
-    "pod": 2,
-    "atUs": 216675000
-   },
-   {
-    "type": "tap",
-    "pod": 13,
-    "atUs": 241225000
-   },
-   {
-    "type": "tap",
-    "pod": 8,
-    "atUs": 260700000
+    "pod": 10,
+    "atUs": 18600000
    },
    {
     "type": "tap",
     "pod": 4,
-    "atUs": 260700000
-   },
-   {
-    "type": "tap",
-    "pod": 24,
-    "atUs": 334725000
-   },
-   {
-    "type": "tap",
-    "pod": 28,
-    "atUs": 353225000
-   },
-   {
-    "type": "tap",
-    "pod": 22,
-    "atUs": 357600000
-   },
-   {
-    "type": "tap",
-    "pod": 26,
-    "atUs": 387450000
-   },
-   {
-    "type": "tap",
-    "pod": 27,
-    "atUs": 418950000
-   },
-   {
-    "type": "tap",
-    "pod": 5,
-    "atUs": 435400000
-   },
-   {
-    "type": "tap",
-    "pod": 6,
-    "atUs": 458275000
-   },
-   {
-    "type": "tap",
-    "pod": 14,
-    "atUs": 479775000
-   },
-   {
-    "type": "tap",
-    "pod": 25,
-    "atUs": 486700000
-   },
-   {
-    "type": "tap",
-    "pod": 7,
-    "atUs": 507150000
-   },
-   {
-    "type": "tap",
-    "pod": 12,
-    "atUs": 535700000
+    "atUs": 33375000
    },
    {
     "type": "tap",
     "pod": 17,
-    "atUs": 552000000
+    "atUs": 57200000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 81650000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 107175000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 127250000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 127250000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 141725000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 172425000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 211800000
+   },
+   {
+    "type": "tap",
+    "pod": 27,
+    "atUs": 254550000
+   },
+   {
+    "type": "tap",
+    "pod": 25,
+    "atUs": 268200000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 287200000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 301925000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 343375000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 362700000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 382725000
+   },
+   {
+    "type": "tap",
+    "pod": 28,
+    "atUs": 400175000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 404550000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 436550000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 456925000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 479275000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 495575000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 503050000
+   },
+   {
+    "type": "tap",
+    "pod": 26,
+    "atUs": 529000000
+   },
+   {
+    "type": "tap",
+    "pod": 24,
+    "atUs": 545525000
    }
   ],
   "outcome": "Won",
-  "endUs": 571950000
+  "endUs": 565525000
  },
  "randomTest": {
   "policy": "17§5 extended: uniform over legal actions + wait before a state event",
   "seedBase": 1,
   "runs": 400,
-  "wins": 240,
-  "share": 0.6,
+  "wins": 245,
+  "share": 0.613,
   "wilson95": [
-   0.551,
-   0.647
+   0.564,
+   0.659
   ],
   "classOfShare": "Normal",
   "borderline": false
  },
  "checks": {
-  "forced": 0.34,
+  "forced": 0.27,
   "opening": null,
   "hold": true,
   "greedyLoses": true,
@@ -160,43 +165,43 @@
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 0.84,
-   "tight": 0.91
+   "stuck": 0.92,
+   "tight": 0.92
   },
   "calm": {
-   "runs": 200,
-   "wins": 191,
-   "share": 0.955,
+   "runs": 400,
+   "wins": 213,
+   "share": 0.533,
    "wilson95": [
-    0.917,
-    0.976
+    0.484,
+    0.581
    ],
-   "borderline": false,
+   "borderline": true,
    "protocol": "§5 calm: uniform over legal actions, the board settled before each",
    "seedBase": 3
   },
   "traps": {
-   "links": 4,
-   "traps": 1,
+   "links": 3,
+   "traps": 2,
    "top": 1
   },
   "latch": {
    "latches": [
     {
      "latch": 0,
-     "column": 2,
+     "column": 0,
      "depth": 3,
-     "behind": 5,
-     "key": 1225,
-     "atW": 0.428,
-     "command": 14,
-     "waitMs": 10500
+     "behind": 3,
+     "key": 612,
+     "atW": 0.166,
+     "command": 4,
+     "waitMs": 0
     }
    ],
-   "maxBlocked": 1,
-   "limit": 2,
-   "lastOpenAtW": 0.428,
-   "waits": true,
+   "maxBlocked": 0,
+   "limit": 3,
+   "lastOpenAtW": 0.166,
+   "waits": false,
    "randomOverLimit": 0,
    "ok": true,
    "problems": [],
@@ -208,21 +213,21 @@
      "code": "F",
      "name": "Фуксия",
      "from": "Y",
-     "cells": 2,
-     "clusters": 1,
+     "cells": 6,
+     "clusters": 2,
      "pods": [
       {
        "pod": 13,
-       "count": 2,
-       "row": 1
+       "count": 6,
+       "row": 2
       }
      ]
     }
    ],
-   "cells": 2,
+   "cells": 6,
    "pressure": {
-    "with": 0.84,
-    "without": 0.98
+    "with": 0.92,
+    "without": 0.74
    }
   }
  },
@@ -230,7 +235,9 @@
   "result": "OK",
   "report": "content/rounds/audit-L0051-L0100.md",
   "notes": [
-   "слой Б: стоят без работы 0.84 < 0.9 (§13, quality.json)",
+   "спокойная игра 53 % на границе по Wilson — решение человека (§5)",
+   "опасных развилок 4 (ориентир 0–2, §5)",
+   "после 80 % W запусков 5 (ориентир 1–4, §10)",
    "последний запуск при 96 % W (ориентир 80–92 %, §10)"
   ]
  },
