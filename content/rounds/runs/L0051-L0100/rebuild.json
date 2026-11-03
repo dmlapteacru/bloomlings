@@ -231,6 +231,15 @@
     "candidate": "P0315-Nlinks+cells-0",
     "share": 0.62,
     "recipe": "links+cells"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0315",
+    "candidate": "P0315-Nlinks+cells-0",
+    "share": 0.62,
+    "recipe": "links+cells",
+    "lost": true,
+    "gen": null
    }
   },
   {
