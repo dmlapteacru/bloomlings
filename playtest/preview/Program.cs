@@ -14,6 +14,7 @@
 // [--board-cubes <published dir> <level> <out dir>] (only the board cube look-dev sheet of 2026-11-03: the level in each
 // look of BoardCubeLook.Variants; BoardCubeSheet.cs)
 // [--board-after <published dir> <out dir> <level>...] (only those levels in the game's cube look, after-*.png)
+// [--board-compare <published dir> <level> <out dir> <ref close-up> <its cell px> <ref screen> <x,y,w,h>] (E, E2, reference)
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -48,6 +49,7 @@ bool roundsPreview = false;
 (int Level, float Seconds, string Out, string? Style)? clearVideo = null;
 (string Rounds, int Level, string Out)? boardCubes = null;
 (string Rounds, string Out, List<int> Levels)? boardAfter = null;
+string[]? boardCompare = null;
 string? roundsFolder = null;
 string? csv = null;
 float purchaseSize = ProfileGameDesign.PurchaseScale;
@@ -64,6 +66,12 @@ for (int i = 0; i < args.Length; i++)
         string? styleId = i + 4 < args.Length && !args[i + 4].StartsWith("--", StringComparison.Ordinal) ? args[i + 4] : null;
         clearVideo = (int.Parse(args[i + 1], System.Globalization.CultureInfo.InvariantCulture), float.Parse(args[i + 2], System.Globalization.CultureInfo.InvariantCulture), args[i + 3], styleId);
         i += styleId != null ? 4 : 3;
+    }
+    else if (args[i] == "--board-compare" && i + 7 < args.Length)
+    {
+        // --board-compare <published dir> <level> <out dir> <reference close-up> <its cell px> <reference screen> <x,y,w,h>
+        boardCompare = args[(i + 1)..(i + 8)];
+        i += 7;
     }
     else if (args[i] == "--board-after" && i + 3 < args.Length)
     {
@@ -260,6 +268,13 @@ if (roundsPreview)
 if (linkStills != null)
 {
     return LinkStills.Write(linkStills.Value.Rounds, linkStills.Value.Out, linkStills.Value.Level, linkStills.Value.Tag);
+}
+
+if (boardCompare != null)
+{
+    float[] rect = boardCompare[6].Split(',').Select(v => float.Parse(v, System.Globalization.CultureInfo.InvariantCulture)).ToArray();
+    return BoardCubeSheet.Compare(root, Path.GetFullPath(boardCompare[0]), int.Parse(boardCompare[1], System.Globalization.CultureInfo.InvariantCulture), Path.GetFullPath(boardCompare[2]),
+        Path.GetFullPath(boardCompare[3]), float.Parse(boardCompare[4], System.Globalization.CultureInfo.InvariantCulture), Path.GetFullPath(boardCompare[5]), new Box(rect[0], rect[1], rect[0] + rect[2], rect[1] + rect[3]));
 }
 
 if (boardAfter != null)

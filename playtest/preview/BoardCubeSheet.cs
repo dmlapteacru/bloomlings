@@ -86,7 +86,7 @@ namespace Bloomlings.Playtest.Preview
 
         /// <summary>
         /// <c>--board-after &lt;published dir&gt; &lt;out dir&gt; &lt;level&gt;...</c>: the given levels in the game's cube look
-        /// (<see cref="BoardCubeLook.Default"/>, the owner's "E" of 2026-11-03) as <c>after-L&lt;n&gt;-screen.png</c>,
+        /// (<see cref="BoardCubeLook.Default"/>, the owner's "E2" of 2026-11-03) as <c>after-L&lt;n&gt;-screen.png</c>,
         /// <c>-board.png</c> and, on a board big enough, <c>-closeup.png</c> (×2.5 of the densest middle).
         /// </summary>
         public static int After(string folder, string outDir, IReadOnlyList<int> levels)
@@ -121,6 +121,115 @@ namespace Bloomlings.Playtest.Preview
             }
 
             return 0;
+        }
+
+        /// <summary>
+        /// <c>--board-compare &lt;published dir&gt; &lt;level&gt; &lt;out dir&gt; &lt;reference close-up&gt; &lt;its cell px&gt; &lt;reference screen&gt; &lt;x,y,w,h&gt;</c>:
+        /// looks E and E2 side by side with the owner's reference screenshot (2026-11-03): <c>E2-compare-closeup.png</c>, the
+        /// ×2.5 close-ups and the reference close-up scaled to the same cell size, and <c>E2-compare-board.png</c>, the level's
+        /// board in both looks and the reference board, all at phone scale (1:1 pixels of a 1080-wide phone).
+        /// </summary>
+        public static int Compare(string root, string folder, int level, string outDir, string referenceCrop, float referenceCell, string referenceShot, Box referenceBoard)
+        {
+            RoundContentSet rounds = RoundContentSet.Read(path =>
+            {
+                string file = Path.Combine(folder, path);
+                return File.Exists(file) ? File.ReadAllBytes(file) : null;
+            });
+            var empty = new ContentSet(0, 0, Array.Empty<Bloomlings.Core.Definitions.LevelDefinition>(), Array.Empty<Bloomlings.Core.Definitions.BasePicture>());
+            Directory.CreateDirectory(outDir);
+            RoundLevel round = rounds.GetLevel(level);
+            (int wx, int wy) = DensestWindow(round);
+            var closeups = new List<(string, SKBitmap)>();
+            var boards = new List<(string, SKBitmap)>();
+            BoardCubeLook before = BoardCubeLook.Current;
+            float cell = 0f;
+            try
+            {
+                foreach ((string id, string label, BoardCubeLook look) in BoardCubeLook.Variants)
+                {
+                    if (id != "E" && id != "E2")
+                    {
+                        continue;
+                    }
+
+                    BoardCubeLook.Current = look;
+                    (byte[] png, RoundBoardLayout board) = Render(rounds, empty, level, new Insets(110, 63));
+                    using SKBitmap shot = SKBitmap.Decode(png);
+                    closeups.Add((label, Crop(shot, Window(board, wx, wy), Zoom)));
+                    boards.Add((label, Crop(shot, board.Outer, 1f)));
+                    cell = board.Cell * Zoom;
+                }
+            }
+            finally
+            {
+                BoardCubeLook.Current = before;
+            }
+
+            using (SKBitmap reference = SKBitmap.Decode(referenceCrop))
+            {
+                closeups.Add(("референс (та же величина кубика)", Crop(reference, new Box(0f, 0f, reference.Width, reference.Height), cell / referenceCell)));
+            }
+
+            using (SKBitmap screen = SKBitmap.Decode(referenceShot))
+            {
+                boards.Add(("референс, телефон 1:1", Crop(screen, referenceBoard, 1f)));
+            }
+
+            Row(root, Path.Combine(outDir, "E2-compare-closeup.png"), "E и E2 рядом с референсом: крупно ×2.5, кубик одной величины (" + cell.ToString("0", CultureInfo.InvariantCulture) + " px)", closeups);
+            Row(root, Path.Combine(outDir, "E2-compare-board.png"), "Уровень " + level + " в E и E2 и борд референса, всё в масштабе телефона 1:1", boards);
+            foreach ((string _, SKBitmap bitmap) in closeups)
+            {
+                bitmap.Dispose();
+            }
+
+            foreach ((string _, SKBitmap bitmap) in boards)
+            {
+                bitmap.Dispose();
+            }
+
+            Console.WriteLine("board compare: E2-compare-*.png in " + outDir);
+            return 0;
+        }
+
+        /// <summary>Pictures in a row under their labels, a title above.</summary>
+        private static void Row(string root, string path, string title, List<(string Label, SKBitmap Picture)> pictures)
+        {
+            const int pad = 40;
+            const int head = 120;
+            const int label = 80;
+            int width = pad;
+            int tallest = 0;
+            foreach ((string _, SKBitmap picture) in pictures)
+            {
+                width += picture.Width + pad;
+                tallest = Math.Max(tallest, picture.Height);
+            }
+
+            using var sheet = new SKBitmap(width, head + label + tallest + pad);
+            using var canvas = new SKCanvas(sheet);
+            canvas.Clear(new SKColor(246, 240, 228));
+            using SKTypeface bold = Font(root, true);
+            using var titleFont = new SKFont(bold, 48);
+            using var labelFont = new SKFont(bold, 44);
+            using var ink = new SKPaint { Color = new SKColor(62, 44, 30), IsAntialias = true };
+            canvas.DrawText(title, pad, 80, titleFont, ink);
+            float x = pad;
+            foreach ((string text, SKBitmap picture) in pictures)
+            {
+                labelFont.Size = 44;
+                while (labelFont.Size > 20 && labelFont.MeasureText(text) > picture.Width)
+                {
+                    labelFont.Size -= 2;
+                }
+
+                canvas.DrawText(text, x, head + 50, labelFont, ink);
+                canvas.DrawBitmap(picture, x, head + label);
+                x += picture.Width + pad;
+            }
+
+            canvas.Flush();
+            Save(sheet, path);
         }
 
         /// <summary>The close-up window from cell (<paramref name="wx"/>, <paramref name="wy"/>), the last row's overhang included.</summary>
@@ -183,7 +292,7 @@ namespace Bloomlings.Playtest.Preview
             "fill {0:0.00}, row {1:0.00}, top {2:0.00}, front {3:0.00} (peek {4:0.00}), bevel {5:0.00}, gloss {6:0.00}, corner {7:0.00}, rim {8:0.0}, top lift {9:0.00}, bevel dark {10:0.00}, front {11:0.00}-{12:0.00}, seam {13:0.00}, gloss size {14:0.000}, shadow {15:0.00}@{16:0.00}",
             k.Fill, k.RowShare, k.TopShare, k.FrontShare, k.FrontPeek, k.BevelShare, k.Gloss, k.CornerShare, k.Rim, k.TopLift, k.BevelDark, k.FrontLight, k.FrontDeep, k.Seam, k.GlossSize, k.ShadowShare, k.ShadowAlpha);
 
-        /// <summary>The cell size (px on a 1080-wide phone) the look leaves on the biggest published boards.</summary>
+        /// <summary>The cell size (px on a 1080-wide phone) the look leaves on the biggest published boards, against the look before 2026-11-03.</summary>
         private static string CellSizes(RoundContentSet rounds, BoardCubeLook look, Insets insets)
         {
             var parts = new List<string>();
@@ -197,8 +306,8 @@ namespace Bloomlings.Playtest.Preview
                 RoundLevel r = rounds.GetLevel(n);
                 ReferenceGameplayRegions regions = ScreenLayout.RoundGameplay(1080, 2340, insets, Math.Max(1, r.Tray.Count), 5, true, false);
                 RoundBoardLayout b = RoundBoardLayout.In(regions, r, look);
-                RoundBoardLayout a = RoundBoardLayout.In(regions, r, BoardCubeLook.Default);
-                parts.Add(string.Format(CultureInfo.InvariantCulture, "L{0} {1}x{2}: cell {3:0.0} px ({4:+0.0;-0.0;0} %)", n, r.Width, r.Height, b.Cell, ((b.Cell / a.Cell) - 1f) * 100f));
+                RoundBoardLayout a = RoundBoardLayout.In(regions, r, BoardCubeLook.Previous);
+                parts.Add(string.Format(CultureInfo.InvariantCulture, "L{0} {1}x{2}: cell {3:0.0} px ({4:+0.0;-0.0;0} % against the look before)", n, r.Width, r.Height, b.Cell, ((b.Cell / a.Cell) - 1f) * 100f));
             }
 
             return string.Join("; ", parts);

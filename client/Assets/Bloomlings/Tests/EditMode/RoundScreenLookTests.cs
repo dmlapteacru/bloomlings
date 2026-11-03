@@ -200,7 +200,7 @@ namespace Bloomlings.Client.Tests.EditMode
                 string at = material.Code.ToString();
                 byte[] cube = UiRaster.BoardCube(w, h, RoundLook.ColorOf(material), null);
                 Assert.That(cube, Is.EqualTo(UiRaster.BoardCube(w, h, RoundLook.ColorOf(material), null)), "deterministic");
-                Assert.That(Pixel(cube, w, 0, h / 3).A, Is.LessThan(250), at + ": a thin gap at the side (the owner's look E of 2026-11-03)");
+                Assert.That(Pixel(cube, w, 0, h / 3).A, Is.LessThan(250), at + ": a thin gap at the side (the owner's look E2 of 2026-11-03)");
                 Assert.That(Pixel(cube, w, 2, h / 3).A, Is.GreaterThan(250), at + ": only a thin one");
                 (byte R, byte G, byte B, byte A) top = Pixel(cube, w, w / 2, h / 3);
                 (byte R, byte G, byte B, byte A) front = Pixel(cube, w, w / 2, h - 4);
@@ -277,7 +277,7 @@ namespace Bloomlings.Client.Tests.EditMode
             Assert.That(board.RowPitch, Is.EqualTo(board.Cell * RoundScreenLook.BoardRowShare).Within(1e-3));
             Assert.That(board.Front, Is.EqualTo(board.Cell * RoundScreenLook.BoardFrontShare).Within(1e-3));
             Assert.That(board.TopFace, Is.EqualTo(board.Cell * RoundScreenLook.BoardCubeTopShare).Within(1e-3));
-            Assert.That(board.RowPitch - board.TopFace, Is.GreaterThan(board.Front * 0.3f).And.LessThan(board.Front), "every cube shows a band of its front under its top (the owner's look E)");
+            Assert.That(board.RowPitch - board.TopFace, Is.GreaterThan(board.Front * 0.3f).And.LessThan(board.Front), "every cube shows a band of its front under its top (the owner's look E2)");
             Assert.That(board.Grid.Height, Is.EqualTo((board.Rows * board.RowPitch) + (board.Cell * BoardCubeLook.Default.Overhang)).Within(1e-2), "the rows and the nearest cube's overhang");
             Assert.That(board.Grid.Width, Is.EqualTo(board.Columns * board.Cell).Within(1e-2));
             Assert.That(board.Grid.Within(board.Surface), Is.True);

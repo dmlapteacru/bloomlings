@@ -65,64 +65,64 @@ namespace Bloomlings.Client.UI.Design
         public const int PadCells = 1;
 
         /// <summary>
-        /// A board cube's body as a share of its column (the owner's look "E" of 2026-11-03, after 0.98 of 2026-10-28): a thin
-        /// gap between neighbours, darkened by the cube's soft shadow (<see cref="BoardShadowAlpha"/>).
+        /// A board cube's body as a share of its column (the owner's look "E2" of 2026-11-03, after 0.98 of 2026-10-28): a very
+        /// thin seam between neighbours, darkened by the cube's soft shadow (<see cref="BoardShadowAlpha"/>).
         /// </summary>
-        public const float BoardCubeFill = 0.93f;
+        public const float BoardCubeFill = 0.955f;
 
         /// <summary>
         /// The board's oblique cubes (the owner's "like the reference game, somehow at an angle", 2026-10-28; flat 2D, no vanishing
         /// point, constitution VII): a row's pitch as a share of the column pitch, so each cube's top is wider than tall
         /// (the reference game's 30 px rows on 34 px columns).
         /// </summary>
-        public const float BoardRowShare = 0.90f;
+        public const float BoardRowShare = 0.88f;
 
         /// <summary>
-        /// A board cube's top face, from its cell's top to its front, as a share of the cube's width (the owner's look "E" of
+        /// A board cube's top face, from its cell's top to its front, as a share of the cube's width (the owner's look "E2" of
         /// 2026-11-03: "every cube still reads as a cube in the middle of a big picture"): shorter than the row
         /// (<see cref="BoardRowShare"/>), so every cube shows a darker band of its front, <see cref="BoardRowShare"/> − this
         /// tall, under its top even where the cell in front is filled.
         /// </summary>
-        public const float BoardCubeTopShare = 0.64f;
+        public const float BoardCubeTopShare = 0.755f;
 
         /// <summary>
-        /// A board cube's front face under its top, as a share of the cube's width (the owner's look "E" of 2026-11-03, after
+        /// A board cube's front face under its top, as a share of the cube's width (the owner's look "E2" of 2026-11-03, after
         /// 0.38 of 2026-10-28). Drawn far rows first, the nearer cube hides all of it but its top band; the whole front shows
         /// on the picture's bottom edge, at steps of the silhouette and where a cube was eaten.
         /// </summary>
-        public const float BoardFrontShare = 0.42f;
+        public const float BoardFrontShare = 0.30f;
 
         /// <summary>The rounded bevel along a cube top's lower edge, as a share of the column pitch.</summary>
-        public const float BoardBevelShare = 0.12f;
+        public const float BoardBevelShare = 0.10f;
 
-        // The board cube's shading of the owner's look "E" of 2026-11-03 (BoardCubeLook.Default; the pods keep the old shading).
+        // The board cube's shading of the owner's look "E2" of 2026-11-03 (BoardCubeLook.Default; the pods keep the old shading).
 
         /// <summary>How strong the light rim along a board cube top's upper and left edges is (1 was the old look).</summary>
-        public const float BoardRim = 1.3f;
+        public const float BoardRim = 1.2f;
 
         /// <summary>How much lighter than its hue a board cube's top is (0.1 was the old look).</summary>
-        public const float BoardTopLift = 0.16f;
+        public const float BoardTopLift = 0.12f;
 
         /// <summary>How dark the bevel turning down along the top's lower edge gets (0.6 was the old look).</summary>
-        public const float BoardBevelDark = 0.55f;
+        public const float BoardBevelDark = 0.5f;
 
         /// <summary>The front's darkening at its upper edge, the band every cube shows (0.12 was the old look).</summary>
-        public const float BoardFrontLight = 0.18f;
+        public const float BoardFrontLight = 0.24f;
 
         /// <summary>The front's darkening at its foot (0.32 was the old look).</summary>
-        public const float BoardFrontDeep = 0.42f;
+        public const float BoardFrontDeep = 0.44f;
 
         /// <summary>The dark seam round a board cube's top (0.45 was the old look).</summary>
-        public const float BoardSeam = 0.35f;
+        public const float BoardSeam = 0.4f;
 
         /// <summary>The soft light spot's radius as a share of the width (0.085 was the old look).</summary>
-        public const float BoardGlossSize = 0.13f;
+        public const float BoardGlossSize = 0.06f;
 
         /// <summary>The soft shadow under a board cube onto the surface and into the gaps, how far below its foot, as a share of the width.</summary>
-        public const float BoardShadowShare = 0.08f;
+        public const float BoardShadowShare = 0.05f;
 
         /// <summary>The board cube's shadow's strongest alpha.</summary>
-        public const float BoardShadowAlpha = 0.6f;
+        public const float BoardShadowAlpha = 0.35f;
 
         /// <summary>
         /// A cube's side face at the board's outermost column, as a share of the cube's width (constitution 1.2.0 VII, the
@@ -139,16 +139,19 @@ namespace Bloomlings.Client.UI.Design
         /// The board cubes' soft light spot at their top's lower right, its strongest alpha (the owner's "softer gloss" of
         /// 2026-10-28: a small blurred glow fading out); none on the pods and in the places.
         /// </summary>
-        public const float CubeGloss = 0.42f;
+        public const float CubeGloss = 0.8f;
 
-        /// <summary>A board cube's corner radius, as a share of its width (the reference game's soft corners; the owner's look "E" of 2026-11-03, after 0.12).</summary>
-        public const float CubeCornerShare = 0.18f;
+        /// <summary>A board cube's corner radius, as a share of its width (the reference game's soft corners; the owner's look "E2" of 2026-11-03, after 0.12).</summary>
+        public const float CubeCornerShare = 0.16f;
 
         /// <summary>The square cube tiles' light spot (the finished picture's tiles; the board's old look, kept when the board changed on 2026-11-03).</summary>
         public const float TileGloss = 0.32f;
 
         /// <summary>A pod's, a place's and a square cube tile's corner radius, as a share of its width (kept at the board's old 0.12 on 2026-11-03).</summary>
         public const float PodCornerShare = 0.12f;
+
+        /// <summary>The bevel along a pod's, a place's and a square cube tile's top, as a share of its width (× 0.8; kept at the board's old 0.12 on 2026-11-03).</summary>
+        public const float PodBevelShare = 0.12f;
 
         /// <summary>
         /// A pod's front face (its base) under its top, as a share of its height: the pods, the cubes in the places and the

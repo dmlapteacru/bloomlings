@@ -269,7 +269,7 @@ namespace Bloomlings.Client.UI.Design
         /// A round board's cube (spec 006 FR-064, the owner's "like the reference game, somehow at an angle" of 2026-10-28): one flat
         /// 2D picture <paramref name="width"/> (a column) × <paramref name="height"/> (its top, its front and its shadow,
         /// <see cref="RoundBoardLayout.CubeBox"/>) of the oblique cube (<see cref="ObliqueCube"/>) in the material's
-        /// <paramref name="color"/>, in the owner's look "E" of 2026-11-03 (<see cref="BoardCubeLook.Default"/>): its top
+        /// <paramref name="color"/>, in the owner's look "E2" of 2026-11-03 (<see cref="BoardCubeLook.Default"/>): its top
         /// <see cref="RoundScreenLook.BoardCubeTopShare"/> of the width tall, its front <see cref="RoundScreenLook.BoardFrontShare"/>,
         /// a thin gap round it (<see cref="RoundScreenLook.BoardCubeFill"/>) darkened by its soft shadow, and the material's
         /// symbol on its top in the symbols mode. Drawn from the far row to the near one, a nearer cube hides all of the front
@@ -421,7 +421,7 @@ namespace Bloomlings.Client.UI.Design
             // A hidden pod is the neutral dark "?" cube in every row (the owner, 2026-10-31, as the reference game's).
             Rgba col = hidden ? RoundLook.HiddenPodColor : look == RoundPodLook.Waiting ? RoundLook.WaitingColor(color) : color;
             float front = look == RoundPodLook.Waiting ? RoundScreenLook.WaitingDepthShare : RoundScreenLook.CubeDepthShare;
-            float bevel = s * RoundScreenLook.BoardBevelShare * 0.8f;
+            float bevel = s * RoundScreenLook.PodBevelShare * 0.8f;
             float topBottom = (s - m) - ((s - (2f * m)) * front);
             Func<float, float, float>? mystery = hidden ? ShapeLibrary.Get("tile.mystery") : null;
             float mysteryUnit = (s * 0.5f) / 2f / ShapeRaster.Margin;

@@ -9,8 +9,8 @@ namespace Bloomlings.Client.UI.Design
     /// <para>
     /// The owner's look-dev of 2026-11-03 ("in the middle of a big picture the cubes look flat, a drawn grid"): the variants
     /// of the review sheet (<c>product/previews/board-cubes-2026-11-03/</c>, the preview's <c>--board-cubes</c>) are values of
-    /// this struct (<see cref="Variants"/>); the owner chose "E", whose numbers are the <see cref="RoundScreenLook"/> board
-    /// constants and so <see cref="Default"/>. The pods keep the look before (<see cref="Previous"/>'s shading).
+    /// this struct (<see cref="Variants"/>); the owner chose "E" and corrected its proportions to "E2", whose numbers are the
+    /// <see cref="RoundScreenLook"/> board constants and so <see cref="Default"/>. The pods keep the look before (<see cref="Previous"/>'s shading).
     /// </para>
     /// <para>
     /// Geometry, flat 2D from one fixed tilted viewpoint (constitution VII): each cube's picture is a column wide and
@@ -109,7 +109,7 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The top face's share of the cube's body (top and front, no shadow): where a side face turns from light to dark.</summary>
         public float TopOfBody => TopShare / (TopShare + FrontShare);
 
-        /// <summary>The game's look (the <see cref="RoundScreenLook"/> constants): the owner's look "E" of 2026-11-03.</summary>
+        /// <summary>The game's look (the <see cref="RoundScreenLook"/> constants): the owner's look "E2" of 2026-11-03.</summary>
         public static readonly BoardCubeLook Default = new BoardCubeLook(string.Empty, RoundScreenLook.BoardCubeFill, RoundScreenLook.BoardRowShare,
             RoundScreenLook.BoardCubeTopShare, RoundScreenLook.BoardFrontShare, RoundScreenLook.BoardBevelShare, RoundScreenLook.CubeGloss, RoundScreenLook.CubeCornerShare,
             rim: RoundScreenLook.BoardRim, topLift: RoundScreenLook.BoardTopLift, bevelDark: RoundScreenLook.BoardBevelDark, frontLight: RoundScreenLook.BoardFrontLight,
@@ -120,7 +120,7 @@ namespace Bloomlings.Client.UI.Design
         /// The board's look before 2026-11-03 (variant A of the review sheet), and the shading the pods, the places and the square
         /// cube tiles keep: the cubes touching, the top a whole row tall, a front only where the cell in front is empty.
         /// </summary>
-        public static readonly BoardCubeLook Previous = new BoardCubeLook("lookA", 0.98f, 0.88f, 0.88f, 0.38f, 0.12f, RoundScreenLook.TileGloss, RoundScreenLook.PodCornerShare);
+        public static readonly BoardCubeLook Previous = new BoardCubeLook("lookA", 0.98f, 0.88f, 0.88f, 0.38f, RoundScreenLook.PodBevelShare, RoundScreenLook.TileGloss, RoundScreenLook.PodCornerShare);
 
         /// <summary>The cube picture box of a cell whose top is <paramref name="cellTop"/>, <paramref name="cell"/> px wide: from its top, <see cref="PictureShare"/> of the width tall.</summary>
         public Box PictureBox(Box cellTop, float cell) => new Box(cellTop.Left, cellTop.Top, cellTop.Right, cellTop.Top + (cell * PictureShare));
@@ -131,7 +131,7 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public static BoardCubeLook Current { get; set; } = Default;
 
-        /// <summary>The owner's review variants of 2026-11-03 (A the look before, <see cref="Previous"/>; E the owner's choice, now <see cref="Default"/>), with their sheet labels.</summary>
+        /// <summary>The owner's review variants of 2026-11-03 (A the look before, <see cref="Previous"/>; E2 the owner's choice, now <see cref="Default"/>), with their sheet labels.</summary>
         public static readonly (string Id, string Label, BoardCubeLook Look)[] Variants =
         {
             ("A", "A — было", Previous),
@@ -147,10 +147,14 @@ namespace Bloomlings.Client.UI.Design
                 rim: 1.5f, topLift: 0.14f, bevelDark: 0.8f, frontLight: 0.16f, frontDeep: 0.48f, seam: 0.5f)),
 
             // E: the reference game's packed cubes: softer rounder tops, a big soft gloss, a darker band on every cube, thin
-            // gaps and a soft shadow on the surface.
-            // E: the reference game's packed cubes: softer rounder tops, a big soft gloss, a darker band on every cube, thin
-            // gaps and a soft shadow on the surface. The owner's choice of 2026-11-03: the game's look.
-            ("E", "E — как у референса (выбран)", Default),
+            // gaps and a soft shadow on the surface. The owner's choice of style on 2026-11-03.
+            ("E", "E — как у референса", new BoardCubeLook("lookE", 0.93f, 0.90f, 0.64f, 0.42f, 0.12f, 0.42f, 0.18f,
+                rim: 1.3f, topLift: 0.16f, bevelDark: 0.55f, frontLight: 0.18f, frontDeep: 0.42f, seam: 0.35f, glossSize: 0.13f, shadowShare: 0.08f, shadowAlpha: 0.6f)),
+
+            // E2: E's style in the reference game's proportions (the owner's correction of 2026-11-03: "the front does not stick
+            // out that far"): a band 0.125 of a column under each top, very thin seams, a small gloss dot, a subtle shadow.
+            // The game's look.
+            ("E2", "E2 — E с низкой полоской (выбран)", Default),
         };
     }
 }

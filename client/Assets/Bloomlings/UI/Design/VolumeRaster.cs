@@ -108,7 +108,7 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         private static (Color Color, float Cover) Cube(float x, float y, float s, Rgba col)
         {
-            (Color c, float cover, float _) = ObliqueCube(x, y, s, s, col, CubeSide, s * CubeMargin, s * CubeMargin, s * RoundScreenLook.BoardBevelShare * 0.8f);
+            (Color c, float cover, float _) = ObliqueCube(x, y, s, s, col, CubeSide, s * CubeMargin, s * CubeMargin, s * RoundScreenLook.PodBevelShare * 0.8f);
             return (c, cover);
         }
 
