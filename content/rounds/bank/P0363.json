@@ -496,6 +496,25 @@
     "evaluate: не тот класс по быстрой оценке": 1,
     "акценты: цветов уже предел (строим без них)": 1
    }
+  },
+  {
+   "combo": "Normal|links+latch+cells||tune|after-hard|2026-11-03b",
+   "tune": {
+    "slot": "after-hard",
+    "t": null,
+    "attempts": 8,
+    "quick": 20,
+    "evaluated": 4,
+    "seconds": 31
+   },
+   "tried": 8,
+   "found": 0,
+   "reasons": {
+    "связки: каждая следующая пара поднимает вынужденные решения выше 35 % (§5)": 3,
+    "evaluate: не тот класс по быстрой оценке": 4,
+    "связки ловушками: очередь сама остаётся выше зоны": 1,
+    "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
+   }
   }
  ],
  "tune": {
@@ -507,7 +526,10 @@
    "quick": 0.875,
    "at": "2026-11-02"
   },
-  "Normal|links+latch+cells|after-hard": {}
+  "Normal|links+latch+cells|after-hard": {
+   "trap": true,
+   "offset": -2.61
+  }
  },
  "placed": []
 }

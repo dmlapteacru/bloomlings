@@ -2387,13 +2387,18 @@
    "intro": null,
    "recipe": "links+latch+cells",
    "slot": "after-hard",
-   "picture": "P0363",
-   "title": "Папоротник из каменных пластин",
-   "N": 840,
+   "picture": "P0025",
+   "title": "Осьминог-дирижёр",
+   "N": 1152,
    "band": "800–1200",
-   "pack": "packs-0268-0467 · Доисторические находки",
-   "hidden": 0,
-   "P": 26
+   "pack": "batch-0011-env",
+   "hidden": 4,
+   "P": 30,
+   "swappedFrom": "P0363",
+   "swaps": 1,
+   "tried": [
+    "P0363"
+   ]
   },
   {
    "level": 82,

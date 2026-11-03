@@ -1665,6 +1665,13 @@
    "offset": -4.1,
    "quick": 0.65,
    "at": "2026-11-02"
+  },
+  "Normal|latch+cells+links|regular": {
+   "t": 0.52,
+   "cols": 3,
+   "offset": -1,
+   "quick": 0.65,
+   "at": "2026-11-03"
   }
  },
  "placed": []
