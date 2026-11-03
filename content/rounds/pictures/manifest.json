@@ -441,7 +441,8 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0011-env",
-   "note": null
+   "note": null,
+   "usedBy": "L0081"
   },
   {
    "id": "P0026",
@@ -4733,7 +4734,8 @@
    "colours": 8,
    "status": "approved",
    "batch": "packs-0268-0467",
-   "note": null
+   "note": null,
+   "usedBy": "L0070"
   },
   {
    "id": "P0269",
@@ -5610,7 +5612,8 @@
    "colours": 7,
    "status": "approved",
    "batch": "packs-0268-0467",
-   "note": null
+   "note": null,
+   "usedBy": "L0066"
   },
   {
    "id": "P0318",
@@ -5915,7 +5918,8 @@
    "colours": 9,
    "status": "approved",
    "batch": "packs-0268-0467",
-   "note": null
+   "note": null,
+   "usedBy": "L0095"
   },
   {
    "id": "P0335",
@@ -5968,7 +5972,8 @@
    "colours": 8,
    "status": "approved",
    "batch": "packs-0268-0467",
-   "note": null
+   "note": null,
+   "usedBy": "L0090"
   },
   {
    "id": "P0338",
@@ -6575,7 +6580,8 @@
    "colours": 8,
    "status": "approved",
    "batch": "packs-0268-0467",
-   "note": null
+   "note": null,
+   "usedBy": "L0099"
   },
   {
    "id": "P0372",
@@ -6700,7 +6706,8 @@
    "colours": 9,
    "status": "approved",
    "batch": "packs-0268-0467",
-   "note": null
+   "note": null,
+   "usedBy": "L0084"
   },
   {
    "id": "P0379",
@@ -6824,7 +6831,8 @@
    "colours": 9,
    "status": "approved",
    "batch": "packs-0268-0467",
-   "note": null
+   "note": null,
+   "usedBy": "L0089"
   },
   {
    "id": "P0386",
@@ -10138,7 +10146,8 @@
    "colours": 9,
    "status": "approved",
    "batch": "packs-0833-1082",
-   "note": null
+   "note": null,
+   "usedBy": "L0080"
   },
   {
    "id": "P0932",
@@ -10227,7 +10236,8 @@
    "colours": 9,
    "status": "approved",
    "batch": "packs-0833-1082",
-   "note": null
+   "note": null,
+   "usedBy": "L0073"
   },
   {
    "id": "P0937",
@@ -10567,7 +10577,8 @@
    "colours": 9,
    "status": "approved",
    "batch": "packs-0833-1082",
-   "note": null
+   "note": null,
+   "usedBy": "L0100"
   },
   {
    "id": "P0956",
@@ -10765,7 +10776,7 @@
    "status": "approved",
    "batch": "packs-0833-1082",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0069"
   },
   {
    "id": "P0967",
@@ -11429,7 +11440,8 @@
    "colours": 8,
    "status": "approved",
    "batch": "packs-0833-1082",
-   "note": null
+   "note": null,
+   "usedBy": "L0093"
   },
   {
    "id": "P1004",
@@ -11896,7 +11908,8 @@
    "colours": 9,
    "status": "approved",
    "batch": "packs-0833-1082",
-   "note": null
+   "note": null,
+   "usedBy": "L0077"
   },
   {
    "id": "P1030",

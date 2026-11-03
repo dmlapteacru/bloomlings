@@ -231,6 +231,15 @@
     "candidate": "P0317-Nlinks+latch-a-4",
     "share": 0.8,
     "recipe": "links+latch"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0317",
+    "candidate": "P0317-Nlinks+latch+cells-g1103b-a-4",
+    "share": 0.9,
+    "recipe": "links+latch+cells",
+    "lost": false,
+    "gen": "2026-11-03b"
    }
   },
   {
@@ -240,7 +249,16 @@
     "по списку"
    ],
    "reassign": false,
-   "at": "2026-11-03"
+   "at": "2026-11-03",
+   "done": true,
+   "to": {
+    "picture": "P0317",
+    "candidate": "P0317-Nlinks+latch+cells-g1103b-a-4",
+    "share": 0.9,
+    "recipe": "links+latch+cells",
+    "lost": false,
+    "gen": "2026-11-03b"
+   }
   },
   {
    "level": 67,
@@ -375,6 +393,15 @@
     "candidate": "P0947-Nlatch+links-g1102c-a-1",
     "share": 0.63,
     "recipe": "latch+links"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0966",
+    "candidate": "P0966-Nlatch+links+hidden-g1103b-2",
+    "share": 0.63,
+    "recipe": "latch+links+hidden",
+    "lost": false,
+    "gen": "2026-11-03b"
    }
   },
   {
@@ -384,7 +411,16 @@
     "по списку"
    ],
    "reassign": false,
-   "at": "2026-11-03"
+   "at": "2026-11-03",
+   "done": true,
+   "to": {
+    "picture": "P0966",
+    "candidate": "P0966-Nlatch+links+hidden-g1103b-2",
+    "share": 0.63,
+    "recipe": "latch+links+hidden",
+    "lost": false,
+    "gen": "2026-11-03b"
+   }
   },
   {
    "level": 70,
@@ -399,6 +435,15 @@
     "candidate": "P0268-Hlinks+latch-a-31",
     "share": 0.3,
     "recipe": "links+latch"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0268",
+    "candidate": "P0268-Hlinks+latch+cells-g1103c-a-13",
+    "share": 0.39,
+    "recipe": "links+latch+cells",
+    "lost": true,
+    "gen": "2026-11-03c"
    }
   },
   {
@@ -408,7 +453,16 @@
     "по списку"
    ],
    "reassign": false,
-   "at": "2026-11-03"
+   "at": "2026-11-03",
+   "done": true,
+   "to": {
+    "picture": "P0268",
+    "candidate": "P0268-Hlinks+latch+cells-g1103c-a-13",
+    "share": 0.39,
+    "recipe": "links+latch+cells",
+    "lost": true,
+    "gen": "2026-11-03c"
+   }
   },
   {
    "level": 70,
@@ -417,7 +471,16 @@
     "по списку"
    ],
    "reassign": false,
-   "at": "2026-11-03"
+   "at": "2026-11-03",
+   "done": true,
+   "to": {
+    "picture": "P0268",
+    "candidate": "P0268-Hlinks+latch+cells-g1103c-a-13",
+    "share": 0.39,
+    "recipe": "links+latch+cells",
+    "lost": true,
+    "gen": "2026-11-03c"
+   }
   },
   {
    "level": 72,
@@ -480,6 +543,15 @@
     "candidate": "P0936-Nlinks+latch-g1102c-a-10",
     "share": 0.6,
     "recipe": "links+latch"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0936",
+    "candidate": "P0936-Nlinks+latch+cells-g1103b-a-1",
+    "share": 0.613,
+    "recipe": "links+latch+cells",
+    "lost": true,
+    "gen": "2026-11-03b"
    }
   },
   {
@@ -489,7 +561,16 @@
     "по списку"
    ],
    "reassign": false,
-   "at": "2026-11-03"
+   "at": "2026-11-03",
+   "done": true,
+   "to": {
+    "picture": "P0936",
+    "candidate": "P0936-Nlinks+latch+cells-g1103b-a-1",
+    "share": 0.613,
+    "recipe": "links+latch+cells",
+    "lost": true,
+    "gen": "2026-11-03b"
+   }
   },
   {
    "level": 74,
@@ -576,6 +657,15 @@
     "candidate": "P1029-Nlatch+links-g1102c-0",
     "share": 0.51,
     "recipe": "latch+links"
+   },
+   "done": true,
+   "to": {
+    "picture": "P1029",
+    "candidate": "P1029-Nlatch+links+hidden-g1103b-2",
+    "share": 0.65,
+    "recipe": "latch+links+hidden",
+    "lost": false,
+    "gen": "2026-11-03b"
    }
   },
   {
@@ -585,7 +675,16 @@
     "по списку"
    ],
    "reassign": false,
-   "at": "2026-11-03"
+   "at": "2026-11-03",
+   "done": true,
+   "to": {
+    "picture": "P1029",
+    "candidate": "P1029-Nlatch+links+hidden-g1103b-2",
+    "share": 0.65,
+    "recipe": "latch+links+hidden",
+    "lost": false,
+    "gen": "2026-11-03b"
+   }
   },
   {
    "level": 78,
@@ -648,6 +747,15 @@
     "candidate": "P0931-Hlinks+cells+latch-a-3",
     "share": 0.443,
     "recipe": "links+cells+latch"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0931",
+    "candidate": "P0931-Hlinks+cells+latch-g1103c-a-13",
+    "share": 0.29,
+    "recipe": "links+cells+latch",
+    "lost": true,
+    "gen": "2026-11-03c"
    }
   },
   {
@@ -657,7 +765,16 @@
     "по списку"
    ],
    "reassign": false,
-   "at": "2026-11-03"
+   "at": "2026-11-03",
+   "done": true,
+   "to": {
+    "picture": "P0931",
+    "candidate": "P0931-Hlinks+cells+latch-g1103c-a-13",
+    "share": 0.29,
+    "recipe": "links+cells+latch",
+    "lost": true,
+    "gen": "2026-11-03c"
+   }
   },
   {
    "level": 80,
@@ -666,7 +783,16 @@
     "по списку"
    ],
    "reassign": false,
-   "at": "2026-11-03"
+   "at": "2026-11-03",
+   "done": true,
+   "to": {
+    "picture": "P0931",
+    "candidate": "P0931-Hlinks+cells+latch-g1103c-a-13",
+    "share": 0.29,
+    "recipe": "links+cells+latch",
+    "lost": true,
+    "gen": "2026-11-03c"
+   }
   },
   {
    "level": 81,
@@ -681,6 +807,15 @@
     "candidate": "P0363-Nlinks+latch-1",
     "share": 0.76,
     "recipe": "links+latch"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0025",
+    "candidate": "P0025-Nlinks+latch+cells-g1103b-0",
+    "share": 0.89,
+    "recipe": "links+latch+cells",
+    "lost": false,
+    "gen": "2026-11-03b"
    }
   },
   {
@@ -690,7 +825,16 @@
     "по списку"
    ],
    "reassign": false,
-   "at": "2026-11-03"
+   "at": "2026-11-03",
+   "done": true,
+   "to": {
+    "picture": "P0025",
+    "candidate": "P0025-Nlinks+latch+cells-g1103b-0",
+    "share": 0.89,
+    "recipe": "links+latch+cells",
+    "lost": false,
+    "gen": "2026-11-03b"
+   }
   },
   {
    "level": 82,
@@ -777,6 +921,15 @@
     "candidate": "P0378-Nlatch+cells-g1102b-a-4",
     "share": 0.61,
     "recipe": "latch+cells"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0378",
+    "candidate": "P0378-Nlatch+cells+links-g1103b-3",
+    "share": 0.57,
+    "recipe": "latch+cells+links",
+    "lost": false,
+    "gen": "2026-11-03b"
    }
   },
   {
@@ -786,7 +939,16 @@
     "по списку"
    ],
    "reassign": false,
-   "at": "2026-11-03"
+   "at": "2026-11-03",
+   "done": true,
+   "to": {
+    "picture": "P0378",
+    "candidate": "P0378-Nlatch+cells+links-g1103b-3",
+    "share": 0.57,
+    "recipe": "latch+cells+links",
+    "lost": false,
+    "gen": "2026-11-03b"
+   }
   },
   {
    "level": 89,
@@ -849,6 +1011,15 @@
     "candidate": "P0385-Nlatch+links-g1102b-a-19",
     "share": 0.65,
     "recipe": "latch+links"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0385",
+    "candidate": "P0385-Nlatch+links+hidden-g1103b-2",
+    "share": 0.61,
+    "recipe": "latch+links+hidden",
+    "lost": false,
+    "gen": "2026-11-03b"
    }
   },
   {
@@ -858,7 +1029,16 @@
     "по списку"
    ],
    "reassign": false,
-   "at": "2026-11-03"
+   "at": "2026-11-03",
+   "done": true,
+   "to": {
+    "picture": "P0385",
+    "candidate": "P0385-Nlatch+links+hidden-g1103b-2",
+    "share": 0.61,
+    "recipe": "latch+links+hidden",
+    "lost": false,
+    "gen": "2026-11-03b"
+   }
   },
   {
    "level": 90,
@@ -873,6 +1053,15 @@
     "candidate": "P0337-Slinks+latch+cells-a-6",
     "share": 0.083,
     "recipe": "links+latch+cells"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0337",
+    "candidate": "P0337-Slinks+latch+cells-g1103b-a-4",
+    "share": 0.09,
+    "recipe": "links+latch+cells",
+    "lost": true,
+    "gen": "2026-11-03b"
    }
   },
   {
@@ -960,6 +1149,15 @@
     "candidate": "P1003-Nlinks+latch-a-1",
     "share": 0.62,
     "recipe": "links+latch"
+   },
+   "done": true,
+   "to": {
+    "picture": "P1003",
+    "candidate": "P1003-Nlinks+latch+cells-g1103b-a-19",
+    "share": 0.523,
+    "recipe": "links+latch+cells",
+    "lost": true,
+    "gen": "2026-11-03b"
    }
   },
   {
@@ -969,7 +1167,16 @@
     "по списку"
    ],
    "reassign": false,
-   "at": "2026-11-03"
+   "at": "2026-11-03",
+   "done": true,
+   "to": {
+    "picture": "P1003",
+    "candidate": "P1003-Nlinks+latch+cells-g1103b-a-19",
+    "share": 0.523,
+    "recipe": "links+latch+cells",
+    "lost": true,
+    "gen": "2026-11-03b"
+   }
   },
   {
    "level": 95,
@@ -984,6 +1191,15 @@
     "candidate": "P0334-Hlinks+latch-a-3",
     "share": 0.37,
     "recipe": "links+latch"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0334",
+    "candidate": "P0334-Hlinks+latch+cells-g1103c-a-4",
+    "share": 0.245,
+    "recipe": "links+latch+cells",
+    "lost": true,
+    "gen": "2026-11-03c"
    }
   },
   {
@@ -993,7 +1209,16 @@
     "по списку"
    ],
    "reassign": false,
-   "at": "2026-11-03"
+   "at": "2026-11-03",
+   "done": true,
+   "to": {
+    "picture": "P0334",
+    "candidate": "P0334-Hlinks+latch+cells-g1103c-a-4",
+    "share": 0.245,
+    "recipe": "links+latch+cells",
+    "lost": true,
+    "gen": "2026-11-03c"
+   }
   },
   {
    "level": 95,
@@ -1002,7 +1227,16 @@
     "по списку"
    ],
    "reassign": false,
-   "at": "2026-11-03"
+   "at": "2026-11-03",
+   "done": true,
+   "to": {
+    "picture": "P0334",
+    "candidate": "P0334-Hlinks+latch+cells-g1103c-a-4",
+    "share": 0.245,
+    "recipe": "links+latch+cells",
+    "lost": true,
+    "gen": "2026-11-03c"
+   }
   },
   {
    "level": 96,
@@ -1113,6 +1347,15 @@
     "candidate": "P0371-Nlatch+links-0",
     "share": 0.58,
     "recipe": "latch+links"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0371",
+    "candidate": "P0371-Nlatch+links+hidden-g1103b-a-1",
+    "share": 0.588,
+    "recipe": "latch+links+hidden",
+    "lost": false,
+    "gen": "2026-11-03b"
    }
   },
   {
@@ -1122,7 +1365,16 @@
     "по списку"
    ],
    "reassign": false,
-   "at": "2026-11-03"
+   "at": "2026-11-03",
+   "done": true,
+   "to": {
+    "picture": "P0371",
+    "candidate": "P0371-Nlatch+links+hidden-g1103b-a-1",
+    "share": 0.588,
+    "recipe": "latch+links+hidden",
+    "lost": false,
+    "gen": "2026-11-03b"
+   }
   },
   {
    "level": 100,
@@ -1137,6 +1389,15 @@
     "candidate": "P0955-Hlinks+latch+cells-a-25",
     "share": 0.368,
     "recipe": "links+latch+cells"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0955",
+    "candidate": "P0955-Hlinks+latch+cells-a-25",
+    "share": 0.368,
+    "recipe": "links+latch+cells",
+    "lost": true,
+    "gen": null
    }
   },
   {
@@ -1146,7 +1407,16 @@
     "по списку"
    ],
    "reassign": false,
-   "at": "2026-11-03"
+   "at": "2026-11-03",
+   "done": true,
+   "to": {
+    "picture": "P0955",
+    "candidate": "P0955-Hlinks+latch+cells-a-25",
+    "share": 0.368,
+    "recipe": "links+latch+cells",
+    "lost": true,
+    "gen": null
+   }
   },
   {
    "level": 100,
@@ -1155,7 +1425,16 @@
     "по списку"
    ],
    "reassign": false,
-   "at": "2026-11-03"
+   "at": "2026-11-03",
+   "done": true,
+   "to": {
+    "picture": "P0955",
+    "candidate": "P0955-Hlinks+latch+cells-a-25",
+    "share": 0.368,
+    "recipe": "links+latch+cells",
+    "lost": true,
+    "gen": null
+   }
   }
  ]
 }
