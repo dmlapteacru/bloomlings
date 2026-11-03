@@ -130,7 +130,8 @@ export function dosesOk(level,cls,{breather=false}={}){const P=level.pods.length
  // latch + key (17 §7, §8): the recipe and the level's latches agree, their count in the dose for the class and role
  {const nl=(level.latches||[]).length;if(types.includes('latch')!==(nl>0))return 'рецепт и засовы не совпадают';
   if(types.includes('latch')&&(nl<d.latch[0]||nl>Math.max(d.latch[1],d.latch[0])))return `засовов ${nl} вне ${d.latch.join('–')} для ${cls}`;}
- const max=cls==='Normal'?2:3;if(types.length>max)return `типов ${types.length} больше ${max} для ${cls}`;if(P<16&&types.length>1)return 'очередь меньше 16 подов — только один тип';return null;}
+ // a Normal takes two types, three when one is the latch (the owner's amendment of 2026-11-03: keys, links and hidden)
+ const max=cls==='Normal'&&!types.includes('latch')?2:3;if(types.length>max)return `типов ${types.length} больше ${max} для ${cls}`;if(P<16&&types.length>1)return 'очередь меньше 16 подов — только один тип';return null;}
 
 // ---- one candidate: order pods by access depth with noise, deal them into columns, add the recipe's mechanics ----
 export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null,opts={}){const r=rnd(seed),intended=recipe.includes('bridge')&&board.hero?(k=>Number.isInteger(opts.intended)?opts.intended:k)(Math.floor(r()*board.hero.choices.length)):null,{d,g}=depths(board,intended),pods=base.map(p=>({...p}));

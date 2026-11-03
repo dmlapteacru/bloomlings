@@ -52,7 +52,9 @@ const placedLevels=()=>{const o={};if(fs.existsSync(LEVELS))for(const f of fs.re
 function freePictures(){const u=usage();return manifest().pictures.filter(e=>e.status==='approved'&&!u[e.id]).map(e=>picture(e.id)).filter(p=>p&&!p.locked&&!franchiseBlocked(p));}
 // latch + acorn key (17 §8): how many holes for a key a picture's board offers (levels.mjs keyHoles: empty cells closed in
 // by colour work, reached without a bridge)
-const holeCache=new Map(),holesOf=p=>{if(!holeCache.has(p.id)){let k=0;try{k=LV.keyHoles(boardOf(p)).length;}catch{k=0;}holeCache.set(p.id,k);}return holeCache.get(p.id);};
+// the keys a picture can take (17 §8): its holes, or up to three where the level may carve the missing key spots out of it
+// (the owner's amendment of 2026-11-03, levels.mjs carveKeySpots)
+const holeCache=new Map(),holesOf=p=>{if(!holeCache.has(p.id)){let k=0;try{k=LV.keyHoles(boardOf(p)).length;if(k<3)for(let n=3;n>k;n--){if(LV.carveKeySpots(p,null,n,()=>.5)!==false){k=n;break;}}}catch{k=0;}holeCache.set(p.id,k);}return holeCache.get(p.id);};
 // the latch/key pairs a planned recipe needs at least (levels.mjs doses: Super Hard lead 2, otherwise 1)
 const latchNeed=(recipe,cls,intro)=>recipe.split('+').includes('latch')?LV.doses(recipe,cls,24,!!intro,700).latch[0]:0;
 // a free picture fits a planned position: its stage; a bridge position only a picture with its own strip crossing that

@@ -17,7 +17,7 @@
 //
 // node search.mjs <outDir> <seed> <n>      env: PIC, CLS (Hard | Super Hard), KIND (better | single), WIN_ANCHOR (the anchor
 //   colour of the deciding / better bridge), APPROACH, ENTRY, MID, LAST, OUT (JSON lists / codes), COLS, CELLS=1 (hidden
-//   cells), ACCENTS=1, QG (quick games), ALO–AHI (the deciding / better bridge's quick share), GAP ('better'), OFFMIN (each
+//   cells), LATCHES=n (latches with keys, 2026-11-03), ACCENTS=1, QG (quick games), ALO–AHI (the deciding / better bridge's quick share), GAP ('better'), OFFMIN (each
 //   bridge offered first in at least this many of 60 games), PMIN (pods without work, 'single'), CALM=1 (the §5 calm test)
 // Reads pictures from ROUNDS_DIR (default: the repository's content/rounds), writes only into <outDir>.
 import fs from 'node:fs';import path from 'node:path';import {fileURLToPath} from 'node:url';
@@ -67,8 +67,11 @@ for(let k=0;k<N;k++){
   const depth=Math.min(...tray.map(t=>t.length)),mids=[];for(let c=0;c+1<cols;c++)for(let row=3;row<depth-1;row++)mids.push([tray[c][row],tray[c+1][row],row]);
   mids.sort(()=>r()-.5);const rowsUsed=new Set();
   for(const [a,b,row] of mids){if(g>=pairs)break;if(used.has(a)||used.has(b)||(rowsUsed.has(row)&&r()<.7))continue;used.add(a);used.add(b);rowsUsed.add(row);const n=String.fromCharCode(65+g++);pods[a].group=n;pods[b].group=n;}}
- const recipe=E.CELLS?'bridge+links+cells':'bridge+links';
+ const recipe=E.LATCHES?'bridge+links+latch':E.CELLS?'bridge+links+cells':'bridge+links';
  const level={id:1,title:pic.title,subject:pic.id,w:board.w,h:board.h,rowsBottomFirst:board.rowsBottomFirst,entries:board.entries,capacity:5,pods,tray,recipe,hero:board.hero,...(recolor?{recolor}:{}),strip:'gap'};
+ // latches (17 §8, the owner's amendment of 2026-11-03: a Super Hard exactly 3) with their keys in the picture's holes
+ // (levels.mjs pickLatches: each in its own column, the class's depth, the key opening partway)
+ if(E.LATCHES){const lp=LV.pickLatches(board,tray,pods,+E.LATCHES,CLS,r);if(lp.error){console.log(k,'latch',lp.error);continue;}level.latches=lp.latches;}
  // hidden cells (17 §8): the additional dose, exactly its minimum ceil(5 % N) (levels.mjs doses), never an accent cube
  if(E.CELLS){const want=Math.ceil(.05*LV.cellsOf(level)),avoid=new Set((recolor||[]).map(([x,y])=>(board.h-1-(y+2))*board.w+x+2));
   const hc=LV.pickHiddenCells(board,want,r,{avoid});if(!hc){console.log(k,'hidden cells: too few deep cells');continue;}level.hiddenCells=hc;}
