@@ -57,7 +57,7 @@ export function levelV1(L,engine,definitionVersion=1){const d=L.definition,n=L.l
   // a site hidden at the start (17 §8 as amended on 2026-10-31, rounds.mjs bridges) is "shown": false; absent means shown
   board:{w:d.w,h:d.h,rowsBottomFirst:d.rowsBottomFirst,entries:d.entries,...(d.hero?{hero:{id:d.hero.id,choices:d.hero.choices.map((c,i)=>({cell:c.cell,anchor:c.anchor,label:c.label,...(L.bridgeShown&&L.bridgeShown[i]===false?{shown:false}:{})}))}}:{}),
    // the generator's wall over the approved picture (17 §8), picture coordinates: the board is that picture plus this
-   ...(d.overlay?{overlay:{walls:d.overlay.walls.map(c=>[c[0],c[1]]),sites:d.overlay.sites.map(c=>[c[0],c[1]])}}:{}),
+   ...(d.overlay?{overlay:{walls:(d.overlay.walls||[]).map(c=>[c[0],c[1]]),sites:(d.overlay.sites||[]).map(c=>[c[0],c[1]]),...(d.overlay.keys&&d.overlay.keys.length?{keys:d.overlay.keys.map(c=>[c[0],c[1]])}:{})}}:{}),
    // the level's recolouring of its picture (17 §3, §6 accents, 2026-11-01), picture coordinates, applied before the overlay
    ...(d.recolor&&d.recolor.length?{recolor:d.recolor.map(e=>[e[0],e[1],e[2]])}:{}),
    // hidden cells (17 §8 «Скрытые клетки», 2026-11-01): sorted cell indices of the rows (bottom first, y*w+x)

@@ -142,7 +142,7 @@ namespace Bloomlings.Content.Rounds
                 Paint(picture, cells, recolor);
                 if (overlay != null)
                 {
-                    foreach ((int x, int y) in overlay.Walls.Concat(overlay.Sites))
+                    foreach ((int x, int y) in overlay.Walls.Concat(overlay.Sites).Concat(overlay.Keys))
                     {
                         if (recolor.Any(e => e.X == x && e.Y == y))
                         {
@@ -156,6 +156,7 @@ namespace Bloomlings.Content.Rounds
             {
                 Lay(overlay.Walls, '#', "wall");
                 Lay(overlay.Sites, 'b', "site");
+                Lay(overlay.Keys, '.', "key spot");
             }
 
             void Lay(IReadOnlyList<(int X, int Y)> at, char c, string what)
@@ -165,6 +166,11 @@ namespace Bloomlings.Content.Rounds
                     if (x < 0 || x >= pw || y < 0 || y >= ph)
                     {
                         throw new ArgumentException($"picture {picture.Key}: overlay {what} ({x},{y}) lies outside the {pw}×{ph} picture.");
+                    }
+
+                    if (c == '.' && RoundMaterial.IndexOf(cells[y][x]) < 0)
+                    {
+                        throw new ArgumentException($"picture {picture.Key}: overlay key spot ({x},{y}) is not a colour cell.");
                     }
 
                     if (c == 'b' && cells[y][x] != '#' && cells[y][x] != 'b')

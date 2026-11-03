@@ -167,6 +167,23 @@ namespace Bloomlings.Content.Tests.Rounds
         }
 
         [Test]
+        public void OverlayKeySpots_LeaveColourCellsEmpty_ForTheKeys()
+        {
+            // The owner's amendment of 2026-11-03 (17 §8 «Засов»): a level takes 2×2 colour cells out for a key.
+            RoundPicture picture = Picture("GGGG", "GPPG", "GPPG", "GGGG");
+            RoundBoardShape board = RoundPictureBoard.Of(picture, new RoundOverlay(Array.Empty<(int, int)>(), Array.Empty<(int, int)>(), new[] { (1, 1), (2, 1), (1, 2), (2, 2) }));
+            Assert.That(TopFirst(board).Skip(2).Take(4).Select(r => r.Substring(2, 4)), Is.EqualTo(new[] { "GGGG", "G..G", "G..G", "GGGG" }));
+        }
+
+        [Test]
+        public void AnOverlayKeySpotOffAColourCell_IsAnError()
+        {
+            RoundPicture picture = Picture("GGG", "G.G", "GGG");
+            var e = Assert.Throws<ArgumentException>(() => RoundPictureBoard.Of(picture, new RoundOverlay(Array.Empty<(int, int)>(), Array.Empty<(int, int)>(), new[] { (1, 1) })));
+            Assert.That(e!.Message, Does.Contain("overlay key spot (1,1) is not a colour cell"));
+        }
+
+        [Test]
         public void TwoEqualLabels_AreToldApartByTheirOrder()
         {
             // Two sites crossing up in the middle third: "в центре" twice becomes left and right.

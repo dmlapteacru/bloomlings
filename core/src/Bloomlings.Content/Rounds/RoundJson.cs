@@ -127,10 +127,19 @@ namespace Bloomlings.Content.Rounds
             {
                 string overlayPath = JsonDoc.Join(boardPath, "overlay");
                 JObject overlayObject = JsonDoc.Object(overlayToken, overlayPath);
-                JsonDoc.AllowOnly(overlayObject, overlayPath, "walls", "sites");
+                JsonDoc.AllowOnly(overlayObject, overlayPath, "walls", "sites", "keys");
+                // a bridge's two sites, or none on an overlay of key spots only (the owner's amendment of 2026-11-03)
+                List<(int X, int Y)> sites = PictureCells(JsonDoc.Required(overlayObject, overlayPath, "sites"), JsonDoc.Join(overlayPath, "sites"), w - 4, h - 4, 0, 2);
+                if (sites.Count == 1)
+                {
+                    throw new ContentFormatException(JsonDoc.Join(overlayPath, "sites"), "an overlay has two bridge sites or none");
+                }
+
+                JToken? keysToken = JsonDoc.Optional(overlayObject, "keys");
                 overlay = new RoundOverlay(
                     PictureCells(JsonDoc.Required(overlayObject, overlayPath, "walls"), JsonDoc.Join(overlayPath, "walls"), w - 4, h - 4),
-                    PictureCells(JsonDoc.Required(overlayObject, overlayPath, "sites"), JsonDoc.Join(overlayPath, "sites"), w - 4, h - 4, 2, 2));
+                    sites,
+                    keysToken == null ? null : PictureCells(keysToken, JsonDoc.Join(overlayPath, "keys"), w - 4, h - 4, 1));
             }
 
             // The level's recolouring (rules 17 §3 and §6, 2026-11-01): [x, y, "C"] inside the picture, one entry per cell;
@@ -340,7 +349,13 @@ namespace Bloomlings.Content.Rounds
 
             if (level.Overlay != null)
             {
-                board["overlay"] = new JObject { ["walls"] = PictureCells(level.Overlay.Walls), ["sites"] = PictureCells(level.Overlay.Sites) };
+                var overlayJson = new JObject { ["walls"] = PictureCells(level.Overlay.Walls), ["sites"] = PictureCells(level.Overlay.Sites) };
+                if (level.Overlay.Keys.Count > 0)
+                {
+                    overlayJson["keys"] = PictureCells(level.Overlay.Keys);
+                }
+
+                board["overlay"] = overlayJson;
             }
 
             if (level.Recolor.Count > 0)

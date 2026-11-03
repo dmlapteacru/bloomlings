@@ -268,7 +268,7 @@ export function latchTiming(board,tray,pods,holes){const {idle:R}=engineSync(),l
 // picture coordinates; the approved picture stays as it is) become empty, each enclosed by colour all round, in the middle
 // band of the access depth (opens partway, never on the start front), only out of colours of 30+ cells, spread over the
 // picture (at least 5 cells from another spot or hole). Returns the overlay with its keys (walls and sites kept), the
-// overlay unchanged when the picture has holes enough, or null when no such blocks can be found.
+// overlay unchanged (null when none) when the picture has holes enough, or false when no such blocks can be found.
 export function carveKeySpots(pic,overlay,need,r=Math.random){if(need<=0)return overlay;
  const base=boardOf(pic,overlay),holes=keyHoles(base);if(holes.length>=need)return overlay;
  const p=overlaid(pic,overlay),rows=p.rows,pw=rows[0].length,ph=rows.length,vol=measure(p).volumes,{d}=depths(base,-1),w=base.w,h=base.h;
@@ -283,11 +283,11 @@ export function carveKeySpots(pic,overlay,need,r=Math.random){if(need<=0)return 
   if(ok)opts.push({x,y,depth:dsum/4});}
  const keys=[...((overlay&&overlay.keys)||[])],spots=[...taken];
  for(let k=holes.length;k<need;k++){const dist=o=>spots.length?Math.min(...spots.map(([sx,sy])=>Math.max(Math.abs(o.x+.5-sx),Math.abs(o.y+.5-sy)))):99;
-  const cand=opts.filter(o=>dist(o)>=5);if(!cand.length)return null;
+  const cand=opts.filter(o=>dist(o)>=5);if(!cand.length)return false;
   const mid=(lo+hi)/2,best=cand.map(o=>({o,sc:Math.min(dist(o),14)-Math.abs(o.depth-mid)*.6+r()*1.5})).sort((a,b)=>b.sc-a.sc)[0].o;
   for(let yy=best.y;yy<best.y+2;yy++)for(let xx=best.x;xx<best.x+2;xx++)keys.push([xx,yy]);spots.push([best.x+.5,best.y+.5]);}
  const out={walls:(overlay&&overlay.walls)||[],sites:(overlay&&overlay.sites)||[],keys};
- return keyHoles(boardOf(pic,out)).length>=need?out:null;}
+ return keyHoles(boardOf(pic,out)).length>=need?out:false;}
 export const LATCH_WAIT={intro:[1,3],Normal:[0,3],Hard:[1,5],'Super Hard':[2,8]};
 export function pickLatches(board,tray,pods,want,cls,r,{intro=false}={}){const holes=keyHoles(board);
  if(holes.length<want)return {error:holes.length?`мест для ключа ${holes.length} — меньше ${want} засовов`:'нет пустой клетки для ключа, закрытой работой (засов)'};

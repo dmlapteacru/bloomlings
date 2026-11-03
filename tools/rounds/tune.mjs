@@ -159,7 +159,7 @@ export async function tuneJob({pic,cls,recipe,slot=null,intro=false,want=1,wantL
  // spots the level takes out of the picture (overlay.keys, levels.mjs carveKeySpots), each with its key
  let overlay=null,latchWant=null;
  if(types.includes('latch')){const tries=intro||cls==='Normal'?[1]:cls==='Hard'?[3,2]:[3];
-  for(const n of tries){const ov=LV.carveKeySpots(pic,null,n,rnd(seed*7+n));if(ov!==null){overlay=ov;latchWant=n;break;}}
+  for(const n of tries){const ov=LV.carveKeySpots(pic,null,n,rnd(seed*7+n));if(ov!==false){overlay=ov;latchWant=n;break;}}
   if(latchWant==null)return {banked:[],accepted:[],stats:{attempts:0,quick:0,corrections:0,linkChecks:0,evaluated:0,passed:0,accepted:0,reasons:{[`засов: нет места для ${tries[tries.length-1]} ключей и не вырезать (17 §8)`]:1}},memory};}
  const m=measure(overlaid(pic,overlay)),board=boardOf(pic,overlay),f=pictureFeatures(pic),base=LV.splitPods(m.volumes,m.N,null);
  // a breather whose share stays above its zone with hidden information alone (or none) takes one plain link pair instead

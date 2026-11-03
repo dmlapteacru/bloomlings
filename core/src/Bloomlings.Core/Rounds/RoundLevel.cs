@@ -75,15 +75,21 @@ namespace Bloomlings.Core.Rounds
     /// <summary>
     /// A strip laid over an approved picture (17 §8 "Где стоит мост", 2026-10-28; <c>board.overlay</c> of
     /// <c>round-level.v1</c>): cells in picture coordinates (x from the left, y from the top) that become walls, and the
-    /// bridge sites among or beside them. The cells under it are no work: the board's rows already hold the wall.
+    /// bridge sites among or beside them. The cells under it are no work: the board's rows already hold the wall. Since
+    /// the owner's amendment of 2026-11-03 (rules 17 §8 «Засов», open question 8) it may also take key spots: colour cells
+    /// of the picture the level leaves empty ('.'), so a latch's key stands there; the approved picture stays as it is.
     /// </summary>
     public sealed class RoundOverlay
     {
-        public RoundOverlay(IReadOnlyList<(int X, int Y)> walls, IReadOnlyList<(int X, int Y)> sites)
+        public RoundOverlay(IReadOnlyList<(int X, int Y)> walls, IReadOnlyList<(int X, int Y)> sites, IReadOnlyList<(int X, int Y)>? keys = null)
         {
             Walls = walls ?? throw new ArgumentNullException(nameof(walls));
             Sites = sites ?? throw new ArgumentNullException(nameof(sites));
+            Keys = keys ?? Array.Empty<(int X, int Y)>();
         }
+
+        /// <summary>Picture colour cells the level leaves empty ('.') for latch keys (<c>overlay.keys</c>).</summary>
+        public IReadOnlyList<(int X, int Y)> Keys { get; }
 
         /// <summary>Picture cells that become a wall ('#').</summary>
         public IReadOnlyList<(int X, int Y)> Walls { get; }
