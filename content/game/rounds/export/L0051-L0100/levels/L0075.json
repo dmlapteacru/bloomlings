@@ -1,0 +1,330 @@
+{
+ "format": "round-level.v1",
+ "number": 75,
+ "definitionVersion": 2,
+ "class": "Super Hard",
+ "picture": {
+  "id": "P1183",
+  "version": 3
+ },
+ "board": {
+  "w": 40,
+  "h": 41,
+  "rowsBottomFirst": [
+   "####################.###################",
+   "#......................................#",
+   "#.GGGGGGGGWRWGGGGXXXXXGGGGGGGGGGGGGGGG.#",
+   "#.GGGGGGGGR.RGGGGXXXXXGGGGGGGGGWRWGGGG.#",
+   "#.GGGGGGGGWRWGGGGXXXXXGGGGGGGGGR.RGGGG.#",
+   "#.GGGGWRWGGGGGGGGGXXXGGGGGGGGGGWRWGGGG.#",
+   "#.GGGGR.RGGGGGGGGGXXXGGGGGGGGGGGGGGGGG.#",
+   "#.GGGGWRWGGGGG###########GGGGGGGGGGGGG.#",
+   "#.GGGGGGGGG###MMMMMMMMMMM###GGGGGGGGGG.#",
+   "#.GGGGGGGG#MMMMMMMMMMMMLLLLM#GGGGGGGGG.#",
+   "#.GGGGGG##MMMMMMMMMMMMMLLRLML##GGGGGGG.#",
+   "#.GGGGG#MMMMMMMMMMMMMMMLLLLMLRL#GGGGGG.#",
+   "#.GGGG#MMMMMMMMMMMMMMMMMMMMMLLLM#GGGGG.#",
+   "#.GGGG#XXXXXXXXXXDD..DXXXXXXXXXX#GGGGG.#",
+   "#.GGG#MCXXXCXCXCXDD..DXCXXXCXXXCM#GGGG.#",
+   "#.GGG#MXXXXXCXCXXDDDDDXXXXXXXXXXM#GGGG.#",
+   "#.GGS#MXXXXCX.XCXDDDDDXXXXXXXXXXM#GGGG.#",
+   "#.SSS#MXCXXXCXCXCXDDDXXXCXXXCXXXM#GGGG.#",
+   "#.SSS#MXDDXXXCXXXXXXXXXXXXXXXXDDM#SSSS.#",
+   "#.SSSS#XXXXXXXXXXXXXXXXXXXXXXXXX#SSSSS.#",
+   "#.SSSS#XXCCXCCCXCCCXCCCXCCCXCCXX#SSSSS.#",
+   "#.SSSS#XXXXMMMMXXXXXXXXXMMMMXXXX#SSSSS.#",
+   "#.SSSS#XXXXMMMMXXXXXXXXXMMMMXXXX#SSSSS.#",
+   "#.SSSS#XDDCSMMMXXXCXXXCXMMMSXXDD#SSSSS.#",
+   "#.SSSS#XXXXS##SXXXXXXXXXS##SXXXX#SSSSS.#",
+   "#.SSSS#CXCX#SS#XXXXXXXXX#SS#XCXC#SSSSS.#",
+   "#.SSS#RRRRRR#S#CXDDCXDDC#S#RRRRRR#SSSS.#",
+   "#.SSS#RRRRRR#S#XXXXXXXXX#S#RRRRRR#SSSS.#",
+   "#.SSSS#RRRR#SS#XXXXXXXXX#SS#RRRR#SSSSS.#",
+   "#.SSSSS#RR#SSSS##SXXCS##SSSS#RR#SSSSSS.#",
+   "#.SSSSS#RR#SSSSSS#XDD#SSSSSS#RR#SSSSSS.#",
+   "#.SSSSSS##SSSSSSS#XDD#SSSSSSS##SSSSSSS.#",
+   "#.SSSSSSSSSSSSSSS#XXX#SSSSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSS#RRRRR#SSSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSS#RRR#SSSSSSSSSSSSSSSS.#",
+   "#.SSSSSSWSSSSSSSS#RRR#SSSSSSSSWWSSSSSS.#",
+   "#.SSSWWWWWWWWSSSSS#R#SSSSSSSWWWWWWSSSS.#",
+   "#.SSSSWWWWWWWWSSSSS#SSSSSSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#......................................#",
+   "########################################"
+  ],
+  "entries": [
+   20
+  ],
+  "hero": {
+   "id": "sprig-bridge",
+   "choices": [
+    {
+     "cell": 552,
+     "anchor": 553,
+     "label": "Мостик влево снизу"
+    },
+    {
+     "cell": 299,
+     "anchor": 259,
+     "label": "Мостик вверх в центре",
+     "shown": false
+    }
+   ]
+  }
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "M",
+   "count": 22,
+   "group": "A"
+  },
+  {
+   "code": "M",
+   "count": 22,
+   "group": "A"
+  },
+  {
+   "code": "M",
+   "count": 21,
+   "group": "B"
+  },
+  {
+   "code": "G",
+   "count": 33,
+   "group": "B"
+  },
+  {
+   "code": "G",
+   "count": 33,
+   "group": "C"
+  },
+  {
+   "code": "G",
+   "count": 33,
+   "group": "C"
+  },
+  {
+   "code": "G",
+   "count": 32
+  },
+  {
+   "code": "G",
+   "count": 32
+  },
+  {
+   "code": "G",
+   "count": 32
+  },
+  {
+   "code": "G",
+   "count": 32
+  },
+  {
+   "code": "G",
+   "count": 32
+  },
+  {
+   "code": "S",
+   "count": 43
+  },
+  {
+   "code": "X",
+   "count": 38,
+   "group": "E"
+  },
+  {
+   "code": "X",
+   "count": 37,
+   "group": "E"
+  },
+  {
+   "code": "X",
+   "count": 37
+  },
+  {
+   "code": "X",
+   "count": 37
+  },
+  {
+   "code": "X",
+   "count": 37,
+   "group": "I"
+  },
+  {
+   "code": "X",
+   "count": 37,
+   "group": "I"
+  },
+  {
+   "code": "X",
+   "count": 37
+  },
+  {
+   "code": "W",
+   "count": 19
+  },
+  {
+   "code": "C",
+   "count": 23
+  },
+  {
+   "code": "R",
+   "count": 22
+  },
+  {
+   "code": "C",
+   "count": 22,
+   "group": "H"
+  },
+  {
+   "code": "R",
+   "count": 22,
+   "group": "H"
+  },
+  {
+   "code": "L",
+   "count": 17,
+   "group": "D"
+  },
+  {
+   "code": "M",
+   "count": 22,
+   "group": "D"
+  },
+  {
+   "code": "M",
+   "count": 21,
+   "group": "G"
+  },
+  {
+   "code": "D",
+   "count": 17,
+   "group": "G"
+  },
+  {
+   "code": "S",
+   "count": 43
+  },
+  {
+   "code": "D",
+   "count": 18
+  },
+  {
+   "code": "W",
+   "count": 18,
+   "group": "F"
+  },
+  {
+   "code": "R",
+   "count": 22,
+   "group": "F"
+  },
+  {
+   "code": "S",
+   "count": 43
+  },
+  {
+   "code": "S",
+   "count": 43
+  },
+  {
+   "code": "S",
+   "count": 43
+  },
+  {
+   "code": "S",
+   "count": 43
+  },
+  {
+   "code": "S",
+   "count": 43
+  },
+  {
+   "code": "S",
+   "count": 43
+  },
+  {
+   "code": "S",
+   "count": 43
+  }
+ ],
+ "tray": [
+  [
+   0,
+   4,
+   8,
+   12,
+   16,
+   20,
+   24,
+   28,
+   32,
+   36
+  ],
+  [
+   1,
+   5,
+   9,
+   13,
+   17,
+   21,
+   25,
+   29,
+   33,
+   37
+  ],
+  [
+   2,
+   6,
+   10,
+   14,
+   18,
+   22,
+   26,
+   30,
+   34,
+   38
+  ],
+  [
+   3,
+   7,
+   11,
+   15,
+   19,
+   23,
+   27,
+   31,
+   35
+  ]
+ ],
+ "latches": [
+  {
+   "column": 0,
+   "depth": 5,
+   "key": 131
+  },
+  {
+   "column": 2,
+   "depth": 3,
+   "key": 247
+  },
+  {
+   "column": 3,
+   "depth": 2,
+   "key": 192
+  }
+ ],
+ "mechanics": [
+  "links",
+  "bridge",
+  "latch"
+ ],
+ "engine": {
+  "rules": "335db27e3443dd1e0e7a25739b2d9bcede2eaee38d04c5f3021aa9a8b5173a18",
+  "timeline": "1d0d15678f80d655abea67993cb489d47a7c70b9fe020c6a56491f5ffb291fca",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

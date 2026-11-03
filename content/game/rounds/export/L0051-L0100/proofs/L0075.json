@@ -1,0 +1,306 @@
+{
+ "format": "round-proof.v1",
+ "number": 75,
+ "definitionVersion": 2,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 10375000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 21025000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 32200000
+   },
+   {
+    "type": "bridge",
+    "choice": 1,
+    "atUs": 36425000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 101900000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 147450000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 166200000
+   },
+   {
+    "type": "tap",
+    "pod": 24,
+    "atUs": 177050000
+   },
+   {
+    "type": "tap",
+    "pod": 28,
+    "atUs": 187300000
+   },
+   {
+    "type": "tap",
+    "pod": 32,
+    "atUs": 205275000
+   },
+   {
+    "type": "tap",
+    "pod": 36,
+    "atUs": 224625000
+   },
+   {
+    "type": "tap",
+    "pod": 29,
+    "atUs": 244675000
+   },
+   {
+    "type": "tap",
+    "pod": 33,
+    "atUs": 254100000
+   },
+   {
+    "type": "tap",
+    "pod": 37,
+    "atUs": 275050000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 297900000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 315125000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 327350000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 340725000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 354025000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 370525000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 386450000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 408800000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 445625000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 459850000
+   },
+   {
+    "type": "tap",
+    "pod": 26,
+    "atUs": 473075000
+   },
+   {
+    "type": "tap",
+    "pod": 30,
+    "atUs": 485950000
+   },
+   {
+    "type": "tap",
+    "pod": 34,
+    "atUs": 507200000
+   },
+   {
+    "type": "tap",
+    "pod": 38,
+    "atUs": 529125000
+   },
+   {
+    "type": "tap",
+    "pod": 35,
+    "atUs": 552725000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 602950000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 100,
+  "wins": 11,
+  "share": 0.11,
+  "wilson95": [
+   0.063,
+   0.186
+  ],
+  "classOfShare": "Super Hard",
+  "borderline": false,
+  "bridge": 1
+ },
+ "checks": {
+  "forced": 0.33,
+  "opening": {
+   "first": {
+    "openings": 2,
+    "wins": 0
+   },
+   "three": {
+    "openings": 11,
+    "wins": 0,
+    "share": 0
+   },
+   "ok": true,
+   "strategies": [
+    "most-now",
+    "fast-release"
+   ]
+  },
+  "hold": true,
+  "greedyLoses": true,
+  "hiddenMatters": null,
+  "bridgeKind": "single",
+  "bridgeSingle": {
+   "each": [
+    false,
+    true
+   ],
+   "offered": [
+    25,
+    7
+   ],
+   "policy": "random",
+   "ok": true
+  },
+  "bridgeLoss": {
+   "choice": 0,
+   "games": 120,
+   "built": 22,
+   "chosen": 1,
+   "forced": 21,
+   "won": 0,
+   "medianLaunchesAfter": 0,
+   "instant": 0.95,
+   "ok": false
+  },
+  "pressure": {
+   "stuck": 1.6,
+   "tight": 0.84
+  },
+  "calm": {
+   "runs": 200,
+   "wins": 14,
+   "share": 0.07,
+   "wilson95": [
+    0.042,
+    0.114
+   ],
+   "borderline": false,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3,
+   "bridge": 1
+  },
+  "traps": {
+   "links": 9,
+   "traps": 5,
+   "top": 2
+  },
+  "latch": {
+   "latches": [
+    {
+     "latch": 0,
+     "column": 0,
+     "depth": 5,
+     "behind": 5,
+     "key": 131,
+     "atW": 0.267,
+     "command": 8,
+     "waitMs": 46750
+    },
+    {
+     "latch": 1,
+     "column": 2,
+     "depth": 3,
+     "behind": 7,
+     "key": 247,
+     "atW": 0.598,
+     "command": 19,
+     "waitMs": 0
+    },
+    {
+     "latch": 2,
+     "column": 3,
+     "depth": 2,
+     "behind": 7,
+     "key": 192,
+     "atW": 0.685,
+     "command": 22,
+     "waitMs": 0
+    }
+   ],
+   "maxBlocked": 1,
+   "limit": 2,
+   "lastOpenAtW": 0.685,
+   "waits": true,
+   "randomOverLimit": 0,
+   "ok": true,
+   "problems": [],
+   "notes": []
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0051-L0100.md",
+  "notes": [
+   "слой Б: стоят без работы 1.6 < 2 (§13, quality.json)",
+   "место дозы не записано (уровень собран до поправки)",
+   "последний запуск при 96 % W (ориентир 80–92 %, §10)",
+   "время быстрых нажатий 258.5 с (ориентир 100–210 с, §12)"
+  ]
+ },
+ "engine": {
+  "rules": "335db27e3443dd1e0e7a25739b2d9bcede2eaee38d04c5f3021aa9a8b5173a18",
+  "timeline": "1d0d15678f80d655abea67993cb489d47a7c70b9fe020c6a56491f5ffb291fca",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

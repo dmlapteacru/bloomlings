@@ -1,0 +1,302 @@
+{
+ "format": "round-level.v1",
+ "number": 92,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0333",
+  "version": 1
+ },
+ "board": {
+  "w": 45,
+  "h": 47,
+  "rowsBottomFirst": [
+   "######################.######################",
+   "#...........................................#",
+   "#.............................GGGG..........#",
+   "#............EEEEEEEEEEEEE....GGGGGG........#",
+   "#.........EEEECCCCCCCCCCCEEEEEGGGGGGG.......#",
+   "#.......CCCCCCCCCCCCCCCCCCCCCEGGGGGGGG......#",
+   "#.....CCCCCCCCCCCCCCCCCCCCCCCCGGGGGGGG......#",
+   "#....CCCCCCCCCCCCCCCCCCNCCCCCCCGGGGGGGG.....#",
+   "#...CCCCCCCCCCCCCCNNNNNNNNNNNCCGGGGGGGG.....#",
+   "#..ECCCCCCCCCCCNNNNNNNNNNNNNNNCCCGGGGGG.....#",
+   "#.EECCCCCCCCCCNNNNNNNNNNNNNNNNNNCCCGGG......#",
+   "#.ECCCAAACCBBBBBBBBBBBBBBCCCCCCCCCCCCC......#",
+   "#.ECCAAAABBBBBBBBBBBBBBCCCCCCCCCCCCCCCC.....#",
+   "#.EAAAACBBBBBBBBBBBBCCCCCCCCCCCCCCCCCCC.....#",
+   "#.EAAACCBBBBBBBBBBBBCCCCCCCCCCCCCCCCCCCE....#",
+   "#.EECCCCBBBBBBBBBBBCCCCCCCCCCCCCCCCCCCCE....#",
+   "#.EECCCCBBBBBBBBBBCCCCCCCEECCCCCCCCCCCCEE...#",
+   "#.EECCCCSBBBBBBBBCCCCCEEEEEEEECCCCCCCCCCE...#",
+   "#..ECCCCSBBBBBBBBCCCCC........CCCCCCCCCCE...#",
+   "#..ECCCCSSCCBBBBCCCCC...........EECCCCCCCE..#",
+   "#..ECCCCSSCCCBBBCCCC.............EECCCCCCE..#",
+   "#..ECCCCAAACCCCCCCCC..............EECCCCCE..#",
+   "#..ECCCAAAACCCCCCCE.................CCCCCE..#",
+   "#..ECCAAASSSCCCCCCE..................CCCCE..#",
+   "#..EECAACSSSCCCCCCE...................CCCCE.#",
+   "#...ECCCCSSSSCCCCCE....................CCCE.#",
+   "#...ECCCCSSSSCCCCEE.....................CCE.#",
+   "#...ECCCCSSSSSCCCEE......................EE.#",
+   "#...EECCCCSSSSCCCEE.........................#",
+   "#....ECCCCSSSSCCCE..........................#",
+   "#....ECCCCSSSSCCCE..........................#",
+   "#....EECCCCSSSCCCEE.........................#",
+   "#.....ECCCCSSSCCCEE.........................#",
+   "#.....EECCCCSSCCCCE.........................#",
+   "#......ECCCCCSCCCCE.........................#",
+   "#......EECCCCCCCCCE.........................#",
+   "#.......ECCCCCCCCCE.........................#",
+   "#........CCCCCCCCCE.........................#",
+   "#.........ECCCCCCCEE........................#",
+   "#.........EECCCCCCCE........................#",
+   "#...........CCCCCCCE........................#",
+   "#............EECCCCE........................#",
+   "#.............EECCCEE.......................#",
+   "#...............EEEEE.......................#",
+   "#..................E........................#",
+   "#...........................................#",
+   "#############################################"
+  ],
+  "entries": [
+   22
+  ],
+  "hiddenCells": [
+   366,
+   367,
+   410,
+   411,
+   412,
+   413,
+   414,
+   415,
+   416,
+   455,
+   456,
+   457,
+   458,
+   459,
+   460,
+   461,
+   500,
+   501,
+   502,
+   503,
+   504,
+   505,
+   506,
+   545,
+   546,
+   547,
+   548,
+   549,
+   550,
+   551,
+   571,
+   572,
+   573,
+   574,
+   575,
+   576,
+   616,
+   617,
+   618,
+   619,
+   620,
+   621,
+   661,
+   662,
+   663,
+   664,
+   665,
+   666,
+   706,
+   707,
+   708,
+   709,
+   710,
+   711,
+   751,
+   752,
+   753,
+   754,
+   755,
+   756,
+   1131,
+   1132,
+   1133,
+   1134,
+   1135,
+   1136,
+   1175,
+   1176,
+   1177,
+   1178,
+   1179,
+   1180,
+   1181,
+   1221,
+   1222,
+   1223,
+   1224,
+   1225,
+   1226,
+   1266,
+   1267,
+   1268,
+   1269,
+   1270,
+   1271,
+   1311,
+   1312,
+   1313,
+   1314,
+   1315,
+   1316
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "E",
+   "count": 45,
+   "group": "A"
+  },
+  {
+   "code": "E",
+   "count": 44
+  },
+  {
+   "code": "E",
+   "count": 44
+  },
+  {
+   "code": "C",
+   "count": 52
+  },
+  {
+   "code": "C",
+   "count": 52
+  },
+  {
+   "code": "C",
+   "count": 52
+  },
+  {
+   "code": "C",
+   "count": 52
+  },
+  {
+   "code": "C",
+   "count": 51
+  },
+  {
+   "code": "C",
+   "count": 51
+  },
+  {
+   "code": "C",
+   "count": 51
+  },
+  {
+   "code": "C",
+   "count": 51
+  },
+  {
+   "code": "C",
+   "count": 51
+  },
+  {
+   "code": "C",
+   "count": 51
+  },
+  {
+   "code": "S",
+   "count": 23
+  },
+  {
+   "code": "S",
+   "count": 23
+  },
+  {
+   "code": "A",
+   "count": 13
+  },
+  {
+   "code": "A",
+   "count": 13
+  },
+  {
+   "code": "B",
+   "count": 32
+  },
+  {
+   "code": "B",
+   "count": 32
+  },
+  {
+   "code": "B",
+   "count": 32,
+   "group": "A"
+  },
+  {
+   "code": "N",
+   "count": 23
+  },
+  {
+   "code": "N",
+   "count": 22
+  },
+  {
+   "code": "G",
+   "count": 29
+  },
+  {
+   "code": "G",
+   "count": 29
+  }
+ ],
+ "tray": [
+  [
+   19,
+   12,
+   16,
+   11,
+   15,
+   7,
+   22,
+   14
+  ],
+  [
+   18,
+   17,
+   20,
+   10,
+   8,
+   5,
+   4,
+   2
+  ],
+  [
+   0,
+   21,
+   13,
+   23,
+   9,
+   6,
+   3,
+   1
+  ]
+ ],
+ "mechanics": [
+  "links",
+  "cells"
+ ],
+ "engine": {
+  "rules": "335db27e3443dd1e0e7a25739b2d9bcede2eaee38d04c5f3021aa9a8b5173a18",
+  "timeline": "1d0d15678f80d655abea67993cb489d47a7c70b9fe020c6a56491f5ffb291fca",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

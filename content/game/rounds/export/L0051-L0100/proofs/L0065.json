@@ -1,0 +1,290 @@
+{
+ "format": "round-proof.v1",
+ "number": 65,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 9875000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 15500000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 15500000
+   },
+   {
+    "type": "bridge",
+    "choice": 1,
+    "atUs": 15500000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 32625000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 32625000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 37075000
+   },
+   {
+    "type": "tap",
+    "pod": 24,
+    "atUs": 50825000
+   },
+   {
+    "type": "tap",
+    "pod": 28,
+    "atUs": 83100000
+   },
+   {
+    "type": "tap",
+    "pod": 32,
+    "atUs": 123850000
+   },
+   {
+    "type": "tap",
+    "pod": 36,
+    "atUs": 147175000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 162150000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 200650000
+   },
+   {
+    "type": "tap",
+    "pod": 25,
+    "atUs": 214275000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 229475000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 244800000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 255925000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 273100000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 285600000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 304250000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 330750000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 336875000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 348975000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 371525000
+   },
+   {
+    "type": "tap",
+    "pod": 29,
+    "atUs": 394725000
+   },
+   {
+    "type": "tap",
+    "pod": 33,
+    "atUs": 409450000
+   },
+   {
+    "type": "tap",
+    "pod": 37,
+    "atUs": 427225000
+   },
+   {
+    "type": "tap",
+    "pod": 26,
+    "atUs": 444825000
+   },
+   {
+    "type": "tap",
+    "pod": 30,
+    "atUs": 473800000
+   },
+   {
+    "type": "tap",
+    "pod": 34,
+    "atUs": 502050000
+   },
+   {
+    "type": "tap",
+    "pod": 31,
+    "atUs": 520650000
+   },
+   {
+    "type": "tap",
+    "pod": 35,
+    "atUs": 541400000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 562925000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 100,
+  "wins": 32,
+  "share": 0.32,
+  "wilson95": [
+   0.237,
+   0.417
+  ],
+  "classOfShare": "Hard",
+  "borderline": false,
+  "bridge": 0
+ },
+ "checks": {
+  "forced": 0.14,
+  "opening": {
+   "first": {
+    "openings": 2,
+    "wins": 0
+   },
+   "three": {
+    "openings": 12,
+    "wins": 0,
+    "share": 0
+   },
+   "ok": true,
+   "strategies": [
+    "most-now"
+   ]
+  },
+  "hold": true,
+  "greedyLoses": true,
+  "hiddenMatters": null,
+  "bridgeKind": "better",
+  "bridgeSingle": {
+   "each": [
+    true,
+    true
+   ],
+   "offered": [
+    25,
+    35
+   ],
+   "policy": "random",
+   "ok": false
+  },
+  "pressure": {
+   "stuck": 1.69,
+   "tight": 0.93
+  },
+  "calm": {
+   "runs": 400,
+   "wins": 111,
+   "share": 0.278,
+   "wilson95": [
+    0.236,
+    0.323
+   ],
+   "borderline": true,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3,
+   "bridge": 0
+  },
+  "traps": {
+   "links": 6,
+   "traps": 3,
+   "top": 0
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "F",
+     "name": "Фуксия",
+     "from": "W",
+     "cells": 5,
+     "clusters": 2,
+     "pods": [
+      {
+       "pod": 11,
+       "count": 2,
+       "row": 2
+      },
+      {
+       "pod": 16,
+       "count": 3,
+       "row": 4
+      }
+     ]
+    }
+   ],
+   "cells": 5,
+   "pressure": {
+    "with": 1.69,
+    "without": 1.78
+   }
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0051-L0100.md",
+  "notes": [
+   "место дозы не записано (уровень собран до поправки)",
+   "опасных развилок 13 (ориентир 2–5, §5)",
+   "последний запуск при 97 % W (ориентир 80–92 %, §10)",
+   "время быстрых нажатий 232.9 с (ориентир 100–210 с, §12)"
+  ]
+ },
+ "engine": {
+  "rules": "335db27e3443dd1e0e7a25739b2d9bcede2eaee38d04c5f3021aa9a8b5173a18",
+  "timeline": "1d0d15678f80d655abea67993cb489d47a7c70b9fe020c6a56491f5ffb291fca",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

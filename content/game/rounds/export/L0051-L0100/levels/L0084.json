@@ -1,0 +1,258 @@
+{
+ "format": "round-level.v1",
+ "number": 84,
+ "definitionVersion": 2,
+ "class": "Normal",
+ "picture": {
+  "id": "P0378",
+  "version": 1
+ },
+ "board": {
+  "w": 33,
+  "h": 41,
+  "rowsBottomFirst": [
+   "################.################",
+   "#...............................#",
+   "#...EEEAAEEEEEEEEEEEEEEEAAEEEE..#",
+   "#..YYYEAAEYYYYYYYYYYYYYEAAEYYEE.#",
+   "#.EYYYEAAEYYYYYYYYYYYYYEAAEYYYE.#",
+   "#.EYYYEAAEYYYYYYYYYYYYYEAAEYYYE.#",
+   "#.EYYYEAAEYYYYYYYYYYYYYEAAEYYYE.#",
+   "#.EYYYEAAEEEEEEEEEEEEEEEAAEYYYE.#",
+   "#.EYYRRRRRAAAAAAAAAAAAAAAAAYYYE.#",
+   "#.EYYRRRRRAAAAAAAAAAAAAAAAAAYYE.#",
+   "#.EYYERRRRBBBBAAAAAAAAAAAAAAYYE.#",
+   "#.EYYEEEEEBBBBBBBBBBCCCCCCAAYYE.#",
+   "#.EYYYVVVVCCCCBBBBBBBBCCCCVYYYE.#",
+   "#.EYYYVVVVCCVVVVVVVBBBVVVVVYYYE.#",
+   "#.EYYYVVVVCCVVVVVVVVCCVVVVVYYYE.#",
+   "#.EYYYVVVCCCCVVVVVVCCCCVVVVYYYE.#",
+   "#.EYYYVVCCCCCCVVVVVCCCCCVVVYYYE.#",
+   "#.EYYYVVCCVVCCVVVVCCVVVCVVVYYYE.#",
+   "#.EYYYVVCCVVCCVVVVCCVVCCVVVYYYE.#",
+   "#.EYYYVVVCCCCVVVVVVCCCCVVVVYYYE.#",
+   "#.EYYYVVVVCCVVVVVVVVCCVVVVVYYYE.#",
+   "#.EYYYYYYYYYYYYYYYYYYYYYYYYYYYE.#",
+   "#.EYYYYYYYYYYYYYYYYYYYYYYYYYYYE.#",
+   "#.EEYYYYYYYYYYYYYYYYYYYYYYYYYEE.#",
+   "#...EEEEEEEEEEEEEEEEEEEEEEEEEE..#",
+   "#.....NSSSSSSN.....NSSSSSSN.....#",
+   "#.....NSSSSSSN.....NSSSSSSN.....#",
+   "#.....NSSSSSSN.....NSSSSSSN.....#",
+   "#.....NSSSSSSN.....NSSSSSSN.....#",
+   "#.....NSSSSSSN.....NSSSSSSN.....#",
+   "#.....NSSSSSSN.....NSSSSSSN.....#",
+   "#.....NSSSSSSN.....NSSSSSSN.....#",
+   "#......NSSSSSSNNNNNSSSSSSN......#",
+   "#......NSSSSSSSSSSSSSSSSSN......#",
+   "#......NSSSSSSSSSSSSSSSSSN......#",
+   "#.......SSSSSSSSSSSSSSSSS.......#",
+   "#........SSSSSSSSSSSSSSS........#",
+   "#.........NNNSSSSSSSSSS.........#",
+   "#............NNNNNNN............#",
+   "#...............................#",
+   "#################################"
+  ],
+  "entries": [
+   16
+  ],
+  "hiddenCells": [
+   376,
+   377,
+   378,
+   408,
+   409,
+   410,
+   411,
+   441,
+   442,
+   443,
+   444,
+   474,
+   475,
+   476,
+   477,
+   510,
+   542,
+   543,
+   544,
+   545,
+   574,
+   575,
+   576,
+   577,
+   578,
+   607,
+   608,
+   609,
+   610,
+   611,
+   640,
+   641,
+   642,
+   643,
+   644,
+   673,
+   674,
+   675,
+   676,
+   677,
+   706,
+   707,
+   708,
+   709,
+   710
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "N",
+   "count": 25
+  },
+  {
+   "code": "N",
+   "count": 24,
+   "group": "A"
+  },
+  {
+   "code": "S",
+   "count": 58
+  },
+  {
+   "code": "S",
+   "count": 57,
+   "group": "A"
+  },
+  {
+   "code": "S",
+   "count": 57
+  },
+  {
+   "code": "E",
+   "count": 44
+  },
+  {
+   "code": "E",
+   "count": 44
+  },
+  {
+   "code": "E",
+   "count": 43
+  },
+  {
+   "code": "Y",
+   "count": 58
+  },
+  {
+   "code": "Y",
+   "count": 58
+  },
+  {
+   "code": "Y",
+   "count": 58
+  },
+  {
+   "code": "Y",
+   "count": 57
+  },
+  {
+   "code": "V",
+   "count": 40
+  },
+  {
+   "code": "V",
+   "count": 39
+  },
+  {
+   "code": "V",
+   "count": 39
+  },
+  {
+   "code": "C",
+   "count": 22
+  },
+  {
+   "code": "C",
+   "count": 22
+  },
+  {
+   "code": "C",
+   "count": 22
+  },
+  {
+   "code": "B",
+   "count": 13
+  },
+  {
+   "code": "B",
+   "count": 12
+  },
+  {
+   "code": "A",
+   "count": 25
+  },
+  {
+   "code": "A",
+   "count": 25
+  },
+  {
+   "code": "A",
+   "count": 25
+  },
+  {
+   "code": "R",
+   "count": 14
+  }
+ ],
+ "tray": [
+  [
+   3,
+   21,
+   12,
+   11,
+   20,
+   2,
+   5,
+   15
+  ],
+  [
+   14,
+   17,
+   18,
+   22,
+   10,
+   13,
+   16,
+   9
+  ],
+  [
+   1,
+   19,
+   6,
+   0,
+   23,
+   4,
+   7,
+   8
+  ]
+ ],
+ "latches": [
+  {
+   "column": 1,
+   "depth": 4,
+   "key": 940
+  }
+ ],
+ "mechanics": [
+  "links",
+  "cells",
+  "latch"
+ ],
+ "engine": {
+  "rules": "335db27e3443dd1e0e7a25739b2d9bcede2eaee38d04c5f3021aa9a8b5173a18",
+  "timeline": "1d0d15678f80d655abea67993cb489d47a7c70b9fe020c6a56491f5ffb291fca",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

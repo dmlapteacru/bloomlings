@@ -1,0 +1,38 @@
+{
+ "format": "round-picture.v1",
+ "id": "P0066",
+ "version": 1,
+ "title": "Круассан",
+ "family": "Хлеб и выпечка",
+ "subject": "золотистый круассан-полумесяц со слоистыми сегментами",
+ "source": "оригинальный",
+ "w": 34,
+ "h": 19,
+ "rows": [
+  "................EE................",
+  "..............EEEEEE..............",
+  "...........E.EEOOOOEE.E...........",
+  ".........EEEEEOYYYYOEEEEE.........",
+  "........EOOOEOYCCYYYOEOOOE........",
+  ".......EOOYYEOYCYYYYOEYYOOE.......",
+  ".......EOYYEOOYYYYYYOOEYYOE.......",
+  "....EEEEOYYEOYYYYYYYYOEYYOEEEE....",
+  "....EOEOYYYEOYYYYYYYAOEYYAOEOE....",
+  "...EOYEOYYYYEAYYYYYAAEYYYAOEYOE...",
+  "...EOYYEAAYYEAAAYAAAAEYAAAEYYOE...",
+  "...EOYYEAAAAEEAAAAAAEEAAAAEYYOE...",
+  ".EEEAAYAEAAAAEAAAAAAEAAAAEYAAAEEE.",
+  "EEOEAAAAEEEAEEEEAAEEEEAEEEAAAAEOEE",
+  "EOYEEAAAAAEEE..EEEE..EEEAAAAAEEOOE",
+  "EOOOEEAAEE..............EEAAEEOOOE",
+  "EOAAAAEEE................EEEAAAAOE",
+  ".EEAEEE....................EEEAEE.",
+  "...EE........................EE..."
+ ],
+ "approval": {
+  "status": "approved",
+  "by": "owner",
+  "decidedAt": "2026-10-26"
+ },
+ "rights": "own"
+}

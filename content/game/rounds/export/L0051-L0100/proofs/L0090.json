@@ -1,0 +1,263 @@
+{
+ "format": "round-proof.v1",
+ "number": 90,
+ "definitionVersion": 2,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 93725000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 156625000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 176775000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 196150000
+   },
+   {
+    "type": "tap",
+    "pod": 25,
+    "atUs": 220075000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 236025000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 251825000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 269850000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 289750000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 322375000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 362625000
+   },
+   {
+    "type": "tap",
+    "pod": 27,
+    "atUs": 378625000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 378625000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 402775000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 438450000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 489950000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 521575000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 543275000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 562650000
+   },
+   {
+    "type": "tap",
+    "pod": 26,
+    "atUs": 584300000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 599925000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 400,
+  "wins": 36,
+  "share": 0.09,
+  "wilson95": [
+   0.066,
+   0.122
+  ],
+  "classOfShare": "Super Hard",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.35,
+  "opening": {
+   "first": {
+    "openings": 3,
+    "wins": 0
+   },
+   "three": {
+    "openings": 28,
+    "wins": 2,
+    "share": 0.07
+   },
+   "ok": true,
+   "strategies": [
+    "most-now",
+    "fast-release"
+   ]
+  },
+  "hold": true,
+  "greedyLoses": true,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 2.74,
+   "tight": 0.97
+  },
+  "calm": {
+   "runs": 200,
+   "wins": 23,
+   "share": 0.115,
+   "wilson95": [
+    0.078,
+    0.167
+   ],
+   "borderline": false,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 7,
+   "traps": 5,
+   "top": 3
+  },
+  "latch": {
+   "latches": [
+    {
+     "latch": 0,
+     "column": 0,
+     "depth": 2,
+     "behind": 4,
+     "key": 684,
+     "atW": 0.727,
+     "command": 18,
+     "waitMs": 441450
+    },
+    {
+     "latch": 1,
+     "column": 1,
+     "depth": 2,
+     "behind": 4,
+     "key": 659,
+     "atW": 0.192,
+     "command": 5,
+     "waitMs": 0
+    },
+    {
+     "latch": 2,
+     "column": 2,
+     "depth": 2,
+     "behind": 4,
+     "key": 1326,
+     "atW": 0.172,
+     "command": 4,
+     "waitMs": 140625
+    }
+   ],
+   "maxBlocked": 2,
+   "limit": 3,
+   "lastOpenAtW": 0.727,
+   "waits": true,
+   "randomOverLimit": 0,
+   "ok": true,
+   "problems": [],
+   "notes": []
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "H",
+     "name": "Лаванда",
+     "from": "G",
+     "cells": 3,
+     "clusters": 1,
+     "pods": [
+      {
+       "pod": 27,
+       "count": 3,
+       "row": 1
+      }
+     ]
+    }
+   ],
+   "cells": 3,
+   "pressure": {
+    "with": 2.74,
+    "without": 1.62
+   }
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0051-L0100.md",
+  "notes": [
+   "последний запуск при 95 % W (ориентир 80–92 %, §10)",
+   "время быстрых нажатий 233.9 с (ориентир 100–210 с, §12)"
+  ]
+ },
+ "engine": {
+  "rules": "335db27e3443dd1e0e7a25739b2d9bcede2eaee38d04c5f3021aa9a8b5173a18",
+  "timeline": "1d0d15678f80d655abea67993cb489d47a7c70b9fe020c6a56491f5ffb291fca",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

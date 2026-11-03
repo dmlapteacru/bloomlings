@@ -1,0 +1,255 @@
+{
+ "format": "round-proof.v1",
+ "number": 70,
+ "definitionVersion": 2,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 19275000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 36725000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 40150000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 40150000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 57975000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 57975000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 89275000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 235775000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 250775000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 271875000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 287975000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 294675000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 311825000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 323275000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 346925000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 369400000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 387400000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 408675000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 422075000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 437125000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 452875000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 100,
+  "wins": 39,
+  "share": 0.39,
+  "wilson95": [
+   0.3,
+   0.488
+  ],
+  "classOfShare": "Hard",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.2,
+  "opening": {
+   "first": {
+    "openings": 2,
+    "wins": 0
+   },
+   "three": {
+    "openings": 11,
+    "wins": 1,
+    "share": 0.09
+   },
+   "ok": true,
+   "strategies": [
+    "most-now"
+   ]
+  },
+  "hold": true,
+  "greedyLoses": true,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.37,
+   "tight": 0.92
+  },
+  "calm": {
+   "runs": 400,
+   "wins": 182,
+   "share": 0.455,
+   "wilson95": [
+    0.407,
+    0.504
+   ],
+   "borderline": true,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 3,
+   "traps": 3,
+   "top": 3
+  },
+  "latch": {
+   "latches": [
+    {
+     "latch": 0,
+     "column": 0,
+     "depth": 4,
+     "behind": 2,
+     "key": 656,
+     "atW": 0.544,
+     "command": 10,
+     "waitMs": 216525
+    },
+    {
+     "latch": 1,
+     "column": 1,
+     "depth": 4,
+     "behind": 2,
+     "key": 1096,
+     "atW": 0.528,
+     "command": 10,
+     "waitMs": 0
+    },
+    {
+     "latch": 2,
+     "column": 3,
+     "depth": 2,
+     "behind": 4,
+     "key": 669,
+     "atW": 0.33,
+     "command": 8,
+     "waitMs": 0
+    }
+   ],
+   "maxBlocked": 1,
+   "limit": 2,
+   "lastOpenAtW": 0.544,
+   "waits": true,
+   "randomOverLimit": 0,
+   "ok": true,
+   "problems": [],
+   "notes": []
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "F",
+     "name": "Фуксия",
+     "from": "C",
+     "cells": 2,
+     "clusters": 1,
+     "pods": [
+      {
+       "pod": 21,
+       "count": 2,
+       "row": 1
+      }
+     ]
+    }
+   ],
+   "cells": 2,
+   "pressure": {
+    "with": 1.37,
+    "without": 1.11
+   }
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0051-L0100.md",
+  "notes": [
+   "спокойная игра 46 % на границе по Wilson — решение человека (§5)",
+   "слой Б: стоят без работы 1.37 < 1.5 (§13, quality.json)",
+   "после 80 % W запусков 5 (ориентир 1–4, §10)",
+   "последний запуск при 96 % W (ориентир 80–92 %, §10)",
+   "время быстрых нажатий 18.9 с (ориентир 70–160 с, §12)"
+  ]
+ },
+ "engine": {
+  "rules": "335db27e3443dd1e0e7a25739b2d9bcede2eaee38d04c5f3021aa9a8b5173a18",
+  "timeline": "1d0d15678f80d655abea67993cb489d47a7c70b9fe020c6a56491f5ffb291fca",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

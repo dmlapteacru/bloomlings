@@ -1,0 +1,295 @@
+{
+ "format": "round-level.v1",
+ "number": 97,
+ "definitionVersion": 2,
+ "class": "Normal",
+ "picture": {
+  "id": "P0291",
+  "version": 1
+ },
+ "board": {
+  "w": 42,
+  "h": 38,
+  "rowsBottomFirst": [
+   "#####################.####################",
+   "#........................................#",
+   "#...........EEEEEEEEEEEEEEEEEE...........#",
+   "#......EEEEECCCCCCCCCCCCCCCCCCEEEEE......#",
+   "#...EEECCCCCCCCCCCCCCCCCCCCCCCCCCCCEEE...#",
+   "#..CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC..#",
+   "#.CCCCCCAAAAAAAAAAAAAAAAAAAAAAAAAACCCCCC.#",
+   "#.CCCCCCAAAAAAAAAAAAAAAAAAAAAAAAAACCCCCC.#",
+   "#..CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC..#",
+   "#...EEECCCCCCCCCCCCCCCCCCCCCCCCCCCCEEE...#",
+   "#....NSEEEEEECCCCCCCCCCCCCCCCEEEEEESN....#",
+   "#....NSSSSBBEEEEEEEEEEEEEEEEEESSSSSSN....#",
+   "#....NSSSSSBBSSSSSSSSSYYSSSBBBSSSSSSN....#",
+   "#....NSSSSSBBBSSSYYYYYYYYSSBBBSSSSSSN....#",
+   "#....NSSSSSSBBSSSSYYYYYYYYSSBBSSSSSSN....#",
+   "#....NSSSSSSBBSSSSSYYYYYYYYYBBSSSSSSN....#",
+   "#....NSSSCCSSVVVVVVYYYYYVVVVVSSSSSSSN....#",
+   "#....NSSSCCSVVVVVVVVYYYYYVVVVVSSSSSSN....#",
+   "#.....NSSCCVVVVVVVVVVYYYYYVVVVVSSSSN.....#",
+   "#.....NSSCCVVVVVVVVVVVVVVVVVVVVSSSSN.....#",
+   "#.....NSSCCCVVVVVVVVVVVVVVVVVVSSSSSN.....#",
+   "#......NSSCCSSVVVVVVVVVVVVVVVSSSSSSN.....#",
+   "#......NSSCCSSSSVVVVVVVVVVVSSSSSSSS......#",
+   "#......NNSSCCSSSVVVVVVVVVVSSSSSSSSS......#",
+   "#.......NSSCCCSSSSVVVVVVSSSSSSSSSS.......#",
+   "#........SSSCCCCSSSSSSSSSSSSSSSSN........#",
+   "#.........NSSSCCSSSSSSSSSSSSSSSNN........#",
+   "#.........NNSSSSSSSSSSSSSSSSSSNN.........#",
+   "#...........SSSSSSSAAAASSSSSNN...........#",
+   "#.............NNNSYYYYYSSNNNN............#",
+   "#................AYYYYYYA................#",
+   "#................AYYYYYYA................#",
+   "#................AYYYYYYA................#",
+   "#................AYYYYYYA................#",
+   "#.................YYYYYY.................#",
+   "#..................AAAA..................#",
+   "#........................................#",
+   "##########################################"
+  ],
+  "entries": [
+   21
+  ],
+  "hiddenCells": [
+   479,
+   480,
+   481,
+   482,
+   517,
+   518,
+   519,
+   520,
+   521,
+   522,
+   523,
+   524,
+   558,
+   559,
+   560,
+   561,
+   562,
+   563,
+   564,
+   565,
+   566,
+   600,
+   601,
+   602,
+   603,
+   604,
+   605,
+   606,
+   607,
+   608,
+   642,
+   643,
+   644,
+   645,
+   646,
+   647,
+   648,
+   649,
+   650,
+   684,
+   685,
+   686,
+   687,
+   688,
+   689,
+   690,
+   691,
+   692,
+   726,
+   727,
+   728,
+   729,
+   730,
+   731,
+   732,
+   733,
+   734,
+   904,
+   905,
+   906,
+   907,
+   908,
+   946,
+   947,
+   948,
+   949,
+   950,
+   951,
+   988,
+   989,
+   990,
+   991,
+   992,
+   993,
+   1030,
+   1031,
+   1032,
+   1033,
+   1034,
+   1035,
+   1072,
+   1073,
+   1074,
+   1075,
+   1076,
+   1077
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "A",
+   "count": 23
+  },
+  {
+   "code": "A",
+   "count": 23
+  },
+  {
+   "code": "A",
+   "count": 22
+  },
+  {
+   "code": "Y",
+   "count": 26,
+   "group": "A"
+  },
+  {
+   "code": "Y",
+   "count": 26
+  },
+  {
+   "code": "Y",
+   "count": 25
+  },
+  {
+   "code": "N",
+   "count": 23
+  },
+  {
+   "code": "N",
+   "count": 22
+  },
+  {
+   "code": "S",
+   "count": 51
+  },
+  {
+   "code": "S",
+   "count": 50
+  },
+  {
+   "code": "S",
+   "count": 50
+  },
+  {
+   "code": "S",
+   "count": 50
+  },
+  {
+   "code": "S",
+   "count": 50
+  },
+  {
+   "code": "C",
+   "count": 53
+  },
+  {
+   "code": "C",
+   "count": 53
+  },
+  {
+   "code": "C",
+   "count": 53
+  },
+  {
+   "code": "C",
+   "count": 53
+  },
+  {
+   "code": "V",
+   "count": 40
+  },
+  {
+   "code": "V",
+   "count": 40
+  },
+  {
+   "code": "V",
+   "count": 39,
+   "group": "A"
+  },
+  {
+   "code": "B",
+   "count": 11
+  },
+  {
+   "code": "B",
+   "count": 10
+  },
+  {
+   "code": "E",
+   "count": 24
+  },
+  {
+   "code": "E",
+   "count": 23
+  },
+  {
+   "code": "E",
+   "count": 23
+  }
+ ],
+ "tray": [
+  [
+   5,
+   1,
+   24,
+   10,
+   22,
+   18,
+   15
+  ],
+  [
+   3,
+   6,
+   9,
+   17,
+   7,
+   13
+  ],
+  [
+   16,
+   8,
+   4,
+   2,
+   12,
+   11
+  ],
+  [
+   19,
+   20,
+   0,
+   21,
+   23,
+   14
+  ]
+ ],
+ "mechanics": [
+  "links",
+  "cells"
+ ],
+ "engine": {
+  "rules": "335db27e3443dd1e0e7a25739b2d9bcede2eaee38d04c5f3021aa9a8b5173a18",
+  "timeline": "1d0d15678f80d655abea67993cb489d47a7c70b9fe020c6a56491f5ffb291fca",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

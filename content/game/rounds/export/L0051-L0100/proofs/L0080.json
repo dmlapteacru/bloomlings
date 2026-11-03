@@ -1,0 +1,283 @@
+{
+ "format": "round-proof.v1",
+ "number": 80,
+ "definitionVersion": 2,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 25,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 17175000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 44775000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 124075000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 154950000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 170850000
+   },
+   {
+    "type": "tap",
+    "pod": 24,
+    "atUs": 188925000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 243175000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 253750000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 288000000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 311250000
+   },
+   {
+    "type": "tap",
+    "pod": 31,
+    "atUs": 330250000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 337225000
+   },
+   {
+    "type": "tap",
+    "pod": 29,
+    "atUs": 391100000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 403075000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 434650000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 452725000
+   },
+   {
+    "type": "tap",
+    "pod": 28,
+    "atUs": 471325000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 502625000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 521150000
+   },
+   {
+    "type": "tap",
+    "pod": 30,
+    "atUs": 541525000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 547175000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 559150000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 576350000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 587475000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 607475000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 632225000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 655725000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 400,
+  "wins": 116,
+  "share": 0.29,
+  "wilson95": [
+   0.248,
+   0.336
+  ],
+  "classOfShare": "Hard",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.23,
+  "opening": {
+   "first": {
+    "openings": 3,
+    "wins": 0
+   },
+   "three": {
+    "openings": 28,
+    "wins": 9,
+    "share": 0.32
+   },
+   "ok": true,
+   "strategies": [
+    "most-now"
+   ]
+  },
+  "hold": true,
+  "greedyLoses": true,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.26,
+   "tight": 0.95
+  },
+  "calm": {
+   "runs": 400,
+   "wins": 101,
+   "share": 0.253,
+   "wilson95": [
+    0.212,
+    0.297
+   ],
+   "borderline": true,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 5,
+   "traps": 5,
+   "top": 3
+  },
+  "latch": {
+   "latches": [
+    {
+     "latch": 0,
+     "column": 0,
+     "depth": 3,
+     "behind": 3,
+     "key": 705,
+     "atW": 0.77,
+     "command": 20,
+     "waitMs": 0
+    },
+    {
+     "latch": 1,
+     "column": 2,
+     "depth": 3,
+     "behind": 4,
+     "key": 796,
+     "atW": 0.28,
+     "command": 6,
+     "waitMs": 0
+    },
+    {
+     "latch": 2,
+     "column": 3,
+     "depth": 2,
+     "behind": 4,
+     "key": 710,
+     "atW": 0.573,
+     "command": 14,
+     "waitMs": 0
+    }
+   ],
+   "maxBlocked": 0,
+   "limit": 3,
+   "lastOpenAtW": 0.77,
+   "waits": false,
+   "randomOverLimit": 0,
+   "ok": true,
+   "problems": [],
+   "notes": []
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "W",
+     "name": "Снег",
+     "from": "N",
+     "cells": 5,
+     "clusters": 2,
+     "pods": [
+      {
+       "pod": 30,
+       "count": 5,
+       "row": 3
+      }
+     ]
+    }
+   ],
+   "cells": 5,
+   "pressure": {
+    "with": 1.26,
+    "without": 1.2
+   }
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0051-L0100.md",
+  "notes": [
+   "слой Б: стоят без работы 1.26 < 1.5 (§13, quality.json)",
+   "после 80 % W запусков 7 (ориентир 1–4, §10)",
+   "последний запуск при 96 % W (ориентир 80–92 %, §10)"
+  ]
+ },
+ "engine": {
+  "rules": "335db27e3443dd1e0e7a25739b2d9bcede2eaee38d04c5f3021aa9a8b5173a18",
+  "timeline": "1d0d15678f80d655abea67993cb489d47a7c70b9fe020c6a56491f5ffb291fca",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}
