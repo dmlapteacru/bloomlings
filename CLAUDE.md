@@ -52,9 +52,11 @@ Water/Dew, Wood/Acorn). The launch has 2500 sequential levels, with later expans
   `engine.mjs`: pilot v9 rules with the §8 link rule). The behaviour of the 12 types is in the full catalog `product/design/Bloomlings-gameplay-mechanics.md`. Only mechanics the round engine plays may be used. Today these
   are hidden pods, links, the Sprig bridge, hidden cells (`cells`, introduced on L51/L53 without a popup; never with hidden
   pods) and the latch with its key (`latch`, `latches` of `round-level.v1`, introduced on L61/L63 with an
-  explanation popup and a reminder; spec 006 FR-068; drawn as Colony Flow's since the owner's look of 2026-11-01: a
-  padlock with our acorn hero on the pod it holds, an ordinary big key in that pod's colour on the board); later types
-  need engine and pilot work first.
+  explanation popup and a reminder; spec 006 FR-068; the owner's look of 2026-11-02: while closed the held pod is not
+  drawn and the hero of its colour (Sprig, Bloom, Drop or Twig, in the player's outfit; Twig for a hidden pod) stands in
+  its place holding a padlock in that colour (`RoundLook.LatchFamily`, `HeroFit`, `LatchHeroView`); the key in the same
+  colour stands upright on its tip, hovering over its cell and turning; on `latchOpen` it flies to the keyhole, the
+  padlock opens and the hero steps aside, `LatchOpenUs` 0.9 s); later types need engine and pilot work first.
 - **Round levels in the game (spec 006, `specs/006-round-levels-in-game/`).** The game's rules are the round engine's,
   ported to `core/src/Bloomlings.Core/Rounds/` (`RoundTimeline` with integer µs model time, `RoundRules`,
   `RoundBoosters` in live time, `RoundEvents`, `RoundRandomPolicy`, `RoundSolver`, `RoundLevelValidator`); the JS
