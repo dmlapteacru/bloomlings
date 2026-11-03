@@ -1,0 +1,15 @@
+{
+ "picture": "P0398",
+ "candidates": [],
+ "rejected": [],
+ "searched": [],
+ "tune": {
+  "Hard|links+latch+cells|Hard": {
+   "t": 0.37,
+   "cols": 4,
+   "offset": 2.7,
+   "quick": 0.425,
+   "at": "2026-11-03"
+  }
+ }
+}

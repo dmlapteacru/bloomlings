@@ -4,6 +4,12 @@
  "rejected": [],
  "searched": [],
  "tune": {
-  "Hard|links+latch+cells|Hard": {}
+  "Hard|links+latch+cells|Hard": {
+   "t": 0.46,
+   "cols": 4,
+   "offset": 1.8,
+   "quick": 0.325,
+   "at": "2026-11-03"
+  }
  }
 }
