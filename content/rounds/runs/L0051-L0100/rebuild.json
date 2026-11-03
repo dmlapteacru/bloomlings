@@ -609,6 +609,15 @@
     "candidate": "P0936-Nlinks+latch+cells-g1103b-a-1",
     "share": 0.613,
     "recipe": "links+latch+cells"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0936",
+    "candidate": "P0936-Nlinks+latch+cells-g1103b-a-1",
+    "share": 0.613,
+    "recipe": "links+latch+cells",
+    "lost": true,
+    "gen": "2026-11-03b"
    }
   },
   {
