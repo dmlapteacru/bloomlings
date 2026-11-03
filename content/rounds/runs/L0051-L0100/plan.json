@@ -2213,13 +2213,18 @@
    "intro": null,
    "recipe": "links+latch+cells",
    "slot": "Hard",
-   "picture": "P0268",
-   "title": "Водопад в песочных часах",
-   "N": 892,
+   "picture": "P0234",
+   "title": "Утка-детектив с лупой",
+   "N": 960,
    "band": "800–1200",
-   "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
+   "pack": "batch-0168-D",
    "hidden": 7,
-   "P": 24
+   "P": 27,
+   "swappedFrom": "P0268",
+   "swaps": 1,
+   "tried": [
+    "P0268"
+   ]
   },
   {
    "level": 71,
