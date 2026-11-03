@@ -3,7 +3,7 @@
   51,
   100
  ],
- "created": "2026-11-03T11:33:08.319Z",
+ "created": "2026-11-03T11:36:02.425Z",
  "positions": [
   {
    "level": 51,
@@ -451,8 +451,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0966"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 70,
@@ -601,8 +601,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P1183"
   },
   {
    "level": 76,
@@ -651,8 +651,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P1029"
   },
   {
    "level": 78,
@@ -701,8 +701,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0039"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 80,
@@ -1151,8 +1151,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0291"
   },
   {
    "level": 98,
@@ -1231,9 +1231,8 @@
   }
  ],
  "open": [
-  75,
-  77,
-  97
+  69,
+  79
  ],
  "blockers": [],
  "mechanics": {
@@ -1791,13 +1790,13 @@
  },
  "supply": {
   "pictures": 516,
-  "strong": 192,
-  "stream": 1,
+  "strong": 193,
+  "stream": 0,
   "bank": {
-   "знакомство: hidden": 34,
-   "Normal": 448,
+   "знакомство: hidden": 36,
+   "Normal": 453,
    "знакомство: cells": 20,
-   "знакомство: links": 30,
+   "знакомство: links": 32,
    "Hard": 35,
    "Super Hard": 16,
    "знакомство: latch": 6
@@ -1806,12 +1805,12 @@
    "owner-0004-0008": 1,
    "owner-0010": 1,
    "batch-0011-env": 7,
-   "batch-0011": 22,
+   "batch-0011": 23,
    "batch-0061": 28,
    "batch-0168-C": 20,
    "batch-0168-D": 18,
    "batch-0168-E": 1,
-   "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01": 45,
+   "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01": 44,
    "packs-0268-0467 · Миниатюрные мастерские": 9,
    "packs-0268-0467 · Необычные магазины": 8,
    "packs-0268-0467 · Музыка": 8,
@@ -1828,8 +1827,7 @@
   },
   "latch": {
    "positions": [
-    75,
-    77
+    69
    ],
    "pictures": 467
   },
@@ -2157,7 +2155,7 @@
    "tried": [
     "P0947"
    ],
-   "placed": true
+   "wantLoss": true
   },
   {
    "level": 70,
@@ -2275,7 +2273,8 @@
     "P0391",
     "P0048"
    ],
-   "wantLoss": true
+   "wantLoss": true,
+   "placed": true
   },
   {
    "level": 78,
@@ -2316,8 +2315,7 @@
    "tried": [
     "P0415"
    ],
-   "wantLoss": true,
-   "placed": true
+   "wantLoss": true
   },
   {
    "level": 80,
@@ -2613,7 +2611,8 @@
    ],
    "wantLoss": true,
    "swappedFrom": "P0304",
-   "swaps": 1
+   "swaps": 1,
+   "placed": true
   },
   {
    "level": 98,
@@ -2670,9 +2669,7 @@
   "400–700": 0,
   "1200–1500": 0
  },
- "hand": [
-  75
- ],
+ "hand": [],
  "order": {
   "total": 0,
   "strong": 0,
@@ -2686,23 +2683,8 @@
   },
   "strips": [],
   "scenes": [],
-  "sceneSources": 165,
-  "splits": [
-   {
-    "level": 75,
-    "cls": "Super Hard",
-    "side": "two",
-    "kind": "single",
-    "recipe": "bridge+links+latch",
-    "have": 0,
-    "sources": [
-     "P0011",
-     "P0014",
-     "P0023"
-    ],
-    "command": "node tools/rounds/bridge-scene.mjs make --mode split --from P0011,P0014,P0023 --side two --kind single --cls \"Super Hard\" --recipe bridge+links+latch --level 75 --out content/rounds/pictures/src/split-L0075.mjs"
-   }
-  ],
+  "sceneSources": 166,
+  "splits": [],
   "avoidMotifs": [
    "ретро-техника (10)",
    "лампы и фонари (5)",
