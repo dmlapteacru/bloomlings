@@ -684,8 +684,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "batch-0011",
-   "note": null,
-   "usedBy": "L0079"
+   "note": null
   },
   {
    "id": "P0040",
@@ -10775,8 +10774,7 @@
    "colours": 9,
    "status": "approved",
    "batch": "packs-0833-1082",
-   "note": null,
-   "usedBy": "L0069"
+   "note": null
   },
   {
    "id": "P0967",
