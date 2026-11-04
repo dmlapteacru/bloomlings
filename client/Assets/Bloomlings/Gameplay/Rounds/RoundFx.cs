@@ -21,6 +21,7 @@ namespace Bloomlings.Client.Gameplay.Rounds
         private readonly List<int> _gone = new List<int>();
         private readonly List<int> _heldCells = new List<int>();
         private readonly AsideSpots _aside = new AsideSpots();
+        private readonly Dictionary<int, byte[]> _lanes = new Dictionary<int, byte[]>();
         private bool[] _held = Array.Empty<bool>();
         private RoundBoardLayout? _layout;
 
@@ -40,6 +41,7 @@ namespace Bloomlings.Client.Gameplay.Rounds
         public void Reset()
         {
             _points.Clear();
+            _lanes.Clear();
             _aside.Reset();
             List.Clear();
             ClearHeld();
@@ -55,6 +57,7 @@ namespace Bloomlings.Client.Gameplay.Rounds
             if (!ReferenceEquals(layout, _layout))
             {
                 _points.Clear();
+                _lanes.Clear();
                 _layout = layout;
             }
 
@@ -88,6 +91,18 @@ namespace Bloomlings.Client.Gameplay.Rounds
                 if (aside)
                 {
                     live = live.WithAside(_aside.Of(walk.Id));
+                }
+
+                if (WalkerLook.Current.Trails)
+                {
+                    // The Trails walkers' lanes keep to open ground (TrailLanes), measured once a walker.
+                    if (!_lanes.TryGetValue(walk.Id, out byte[]? lanes))
+                    {
+                        lanes = TrailLanes.Flags(points, WalkerLook.Current.WalkerCubes(cubesAcross), layout, a);
+                        _lanes[walk.Id] = lanes;
+                    }
+
+                    live = live.WithLanes(lanes);
                 }
                 if (ClearLook.Holds(style, live, now) && walk.Cell >= 0 && walk.Cell < _held.Length && !_held[walk.Cell])
                 {
@@ -192,6 +207,7 @@ namespace Bloomlings.Client.Gameplay.Rounds
             foreach (int id in _gone)
             {
                 _points.Remove(id);
+                _lanes.Remove(id);
             }
         }
     }

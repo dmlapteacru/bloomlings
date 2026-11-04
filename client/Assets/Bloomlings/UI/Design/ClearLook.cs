@@ -20,8 +20,9 @@ namespace Bloomlings.Client.UI.Design
         }
 
         private ClearWalk(IReadOnlyList<(float X, float Y)> points, VariantId variant, float start, float arrival, Box? seat, int material, float arriveAt, float clearAt, float doneAt,
-            float liveScale = 1f, float asideX = float.NaN, float asideY = float.NaN)
+            float liveScale = 1f, float asideX = float.NaN, float asideY = float.NaN, IReadOnlyList<byte>? lanes = null)
         {
+            Lanes = lanes;
             AsideX = asideX;
             AsideY = asideY;
             LiveScale = liveScale;
@@ -63,7 +64,17 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>This walk stepping aside to <paramref name="spot"/> (null: none).</summary>
         public ClearWalk WithAside((float X, float Y)? spot) =>
-            new ClearWalk(Points, Variant, Start, Arrival, Seat, Material, ArriveAt, ClearAt, DoneAt, LiveScale, spot?.X ?? float.NaN, spot?.Y ?? float.NaN);
+            new ClearWalk(Points, Variant, Start, Arrival, Seat, Material, ArriveAt, ClearAt, DoneAt, LiveScale, spot?.X ?? float.NaN, spot?.Y ?? float.NaN, Lanes);
+
+        /// <summary>
+        /// Which side of each of its way's segments is free for a lane (<see cref="TrailLanes.Flags"/>: 1 right, 2 left), for the
+        /// Trails walkers (<see cref="WalkerLook.Trails"/>); null: both sides (the mocks).
+        /// </summary>
+        public IReadOnlyList<byte>? Lanes { get; }
+
+        /// <summary>This walk with its lanes' free sides (<see cref="Lanes"/>).</summary>
+        public ClearWalk WithLanes(IReadOnlyList<byte>? lanes) =>
+            new ClearWalk(Points, Variant, Start, Arrival, Seat, Material, ArriveAt, ClearAt, DoneAt, LiveScale, AsideX, AsideY, lanes);
 
         public VariantId Variant { get; }
 
@@ -198,6 +209,16 @@ namespace Bloomlings.Client.UI.Design
             {
                 list.PushAlpha(spot.GateAlpha);
             }
+            if (walk.IsLive && _look.Trails && !_look.UsesHands(style) && (spot.Leg == Leg.Out || spot.Leg == Leg.Back))
+            {
+                // The Trails walkers keep to their lane on the way out and home, whatever the style.
+                float walkerCells = WalkerSize * (_pop > 0f ? _pop : 1f);
+                bool outward = spot.Leg == Leg.Out;
+                (float ox, float oy) = LaneOffset(walk, outward ? spot.U : 1f - spot.U, outward ? 1f : -1f, walkerCells);
+                spot.X += ox;
+                spot.Y += oy;
+            }
+
             if (walk.IsLive && _look.UsesHands(style))
             {
                 Hands(list, style, walk, spot, now);

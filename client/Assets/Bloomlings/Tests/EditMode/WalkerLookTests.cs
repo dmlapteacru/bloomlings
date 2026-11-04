@@ -32,20 +32,47 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
-        public void CreaturesAndHeroes_EatAsideInMunchers_AndKeepTheOtherStylesActs()
+        public void CreaturesAndHeroes_WalkTheTrails_EatingOnTheWayHome_AndKeepTheOtherStylesActs()
         {
             foreach (WalkerKind kind in new[] { WalkerKind.Creatures, WalkerKind.Heroes })
             {
                 WalkerLook look = WalkerLook.For(kind);
-                Assert.That(look.AsideMunch, Is.True, kind.ToString());
+                Assert.That(look.Trails, Is.True, kind.ToString());
+                Assert.That(look.AsideMunch, Is.False, "the aside eating of the first version is gone (the owner, 2026-11-04)");
                 Assert.That(look.UsesHands(ClearStyle.Munchers), Is.True);
                 Assert.That(look.UsesHands(ClearStyle.Bonk), Is.True);
                 Assert.That(look.UsesHands(ClearStyle.Blossom), Is.False, "the other bought styles keep their acts");
-                Assert.That(look.BoardShare, Is.EqualTo(WalkerLook.MockBoardShare), "a fixed size on screen");
+                Assert.That(look.LingerFor(ClearStyle.Munchers), Is.EqualTo(WalkerLook.TrailsLinger), "no standing at the cube");
+                Assert.That(look.BoardShare, Is.EqualTo(WalkerLook.TrailsBoardShare), "a fixed size on screen, 5% of the board");
             }
 
             Assert.That(WalkerLook.GameCreatures.DrawsCreature(RoundMaterial.Of('A').Index), Is.True, "every family is a creature");
             Assert.That(WalkerLook.GameHeroes.Heroes, Is.True);
+            Assert.That(WalkerLook.GameHeroes.Cue, Is.EqualTo(HeroCue.Glow), "the heroes glow in their cube's colour");
+            Assert.That(WalkerLook.GameHeroes.HeroScale, Is.EqualTo(WalkerLook.TrailsHeroScale));
+            (float inner, float outer) = WalkerLook.GlowScales(40f);
+            Assert.That((inner - 1f) * 40f * 0.25f, Is.GreaterThanOrEqualTo(WalkerLook.GlowMinPixels - 0.01f), "the glow reads on small cubes");
+            Assert.That(outer, Is.GreaterThan(inner));
+        }
+
+        [Test]
+        public void TheLanes_KeepOffTheCubes_AndToTheCentreWhereNeitherSideIsFree()
+        {
+            // A way along row 10 of a 20 × 20 field, cubes above it (rows < 10), open below.
+            var way = new List<(float X, float Y)>();
+            for (int x = 2; x < 18; x++)
+            {
+                way.Add((x + 0.5f, 10.5f));
+            }
+
+            int CellAt(float x, float y) => x < 0 || y < 0 || x >= 20 || y >= 20 ? -1 : ((int)y * 20) + (int)x;
+            byte[] flags = TrailLanes.Flags(way, 1.5f, CellAt, cell => cell / 20 >= 10);
+
+            // Going right (+x), its right is +y (down, open) and its left -y (up, the cubes).
+            Assert.That(flags.All(f => (f & TrailLanes.Right) != 0), Is.True, "the open side takes a lane");
+            Assert.That(flags.All(f => (f & TrailLanes.Left) == 0), Is.True, "never a lane over the cubes");
+            byte[] none = TrailLanes.Flags(way, 1.5f, CellAt, cell => cell / 20 == 10);
+            Assert.That(none.All(f => f == 0), Is.True, "neither side free: the centre line");
         }
 
         [Test]

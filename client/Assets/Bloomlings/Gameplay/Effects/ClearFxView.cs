@@ -89,7 +89,8 @@ namespace Bloomlings.Client.Gameplay.Effects
                         // The real V2 hero of the cube's family (the owner's experiment of 2026-11-04), or only his hands over the cube.
                         HeroWalker hero = HeroAt(heroes++, family);
                         Box cell = WalkerLook.HeroCell(item.Box);
-                        hero.Show(item.Pose == WalkerLook.PoseHands, cell, RoundLook.HeroHands(cell, family), Cell, item.Alpha);
+                        Rgba? glow = look.Cue == HeroCue.Glow ? RoundLook.ColorOf(item.Material) : (Rgba?)null;
+                        hero.Show(item.Pose == WalkerLook.PoseHands, cell, RoundLook.HeroHands(cell, family), Cell, item.Alpha, glow);
                         Place(hero.Root, Map(cell.CenterX, cell.CenterY), cell.Width * Cell, cell.Height * Cell, item);
                         hero.Root.SetSiblingIndex(order++);
                         continue;
@@ -218,8 +219,14 @@ namespace Bloomlings.Client.Gameplay.Effects
         /// </summary>
         private sealed class HeroWalker
         {
+            // The colour glow's flat silhouettes keep only the pictures' alpha (WalkerLook.GlowScales; none if the shader is missing).
+            private static Material? _silhouette;
+            private static bool _looked;
+
             private readonly CanvasGroup _group;
             private readonly HeroGearView _gear;
+            private readonly (RectTransform Rect, HeroGearView Gear)[] _glow = new (RectTransform, HeroGearView)[2];
+            private Rgba? _glowColor;
             private readonly (Image Mask, RectTransform Cell, HeroGearView Gear)[] _hands = new (Image, RectTransform, HeroGearView)[2];
             private Family? _family;
 
@@ -228,6 +235,13 @@ namespace Bloomlings.Client.Gameplay.Effects
                 Root = UiFactory.CreateRect("HeroWalker", parent);
                 _group = Root.gameObject.AddComponent<CanvasGroup>();
                 _group.blocksRaycasts = false;
+                for (int i = 0; i < _glow.Length; i++)
+                {
+                    RectTransform rect = UiFactory.Stretch(UiFactory.CreateRect("Glow", Root));
+                    rect.pivot = new Vector2(0.5f, 1f - WalkerLook.GlowPivot);
+                    _glow[i] = (rect, HeroGearView.Create(rect));
+                }
+
                 RectTransform body = UiFactory.Stretch(UiFactory.CreateRect("Body", Root));
                 _gear = HeroGearView.Create(body);
                 for (int i = 0; i < _hands.Length; i++)
@@ -250,7 +264,13 @@ namespace Bloomlings.Client.Gameplay.Effects
                 }
 
                 _family = family;
+                _glowColor = null;
                 _gear.Wear(family, null);
+                foreach ((RectTransform _, HeroGearView gear) in _glow)
+                {
+                    gear.Wear(family, null);
+                }
+
                 foreach ((Image _, RectTransform _, HeroGearView gear) in _hands)
                 {
                     gear.Wear(family, null);
@@ -258,10 +278,43 @@ namespace Bloomlings.Client.Gameplay.Effects
             }
 
             /// <summary>His figure, or only his <paramref name="hands"/> discs (cell units like <paramref name="cell"/>, <paramref name="unit"/> layer units a cell).</summary>
-            public void Show(bool handsOnly, Box cell, (Box Left, Box Right) hands, float unit, float alpha)
+            public void Show(bool handsOnly, Box cell, (Box Left, Box Right) hands, float unit, float alpha, Rgba? glow)
             {
                 _group.alpha = alpha;
                 _gear.Rect.parent.gameObject.SetActive(!handsOnly);
+                if (!_looked)
+                {
+                    _looked = true;
+                    Shader? shader = Shader.Find("GUI/Text Shader");
+                    _silhouette = shader != null ? new Material(shader) : null;
+                }
+
+                bool glowing = !handsOnly && glow.HasValue && _silhouette != null;
+                (float glowIn, float glowOut) = WalkerLook.GlowScales(cell.Width * unit);
+                for (int i = 0; i < _glow.Length; i++)
+                {
+                    (RectTransform rect, HeroGearView gear) = _glow[i];
+                    rect.gameObject.SetActive(glowing);
+                    if (!glowing)
+                    {
+                        continue;
+                    }
+
+                    // The outer halo first (fainter), then the inner rim, scaled up from about his middle.
+                    float k = i == 0 ? glowOut : glowIn;
+                    rect.localScale = new Vector3(k, k, 1f);
+                    if (!_glowColor.HasValue || !_glowColor.Value.Equals(glow!.Value))
+                    {
+                        Color c = UiTheme.Of(glow!.Value);
+                        c.a = i == 0 ? WalkerLook.GlowOuterAlpha : WalkerLook.GlowInnerAlpha;
+                        gear.Silhouette(_silhouette!, c);
+                    }
+                }
+
+                if (glowing)
+                {
+                    _glowColor = glow;
+                }
                 for (int i = 0; i < _hands.Length; i++)
                 {
                     (Image mask, RectTransform inner, HeroGearView _) = _hands[i];

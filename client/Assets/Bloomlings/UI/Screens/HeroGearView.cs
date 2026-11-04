@@ -70,6 +70,21 @@ namespace Bloomlings.Client.UI.Screens
             }
             Place(Cell);
         }
+        /// <summary>
+        /// Draws every layer as one flat silhouette in <paramref name="color"/> with <paramref name="material"/> (a shader that keeps
+        /// only the picture's alpha, the round heroes' colour glow; the owner, 2026-11-04), without the skin pattern.
+        /// </summary>
+        public void Silhouette(Material material, Color color)
+        {
+            foreach (Image part in _parts)
+            {
+                part.material = material;
+                part.color = color;
+            }
+
+            _mask.gameObject.SetActive(false);
+        }
+
         private HeroFrame? Layer(int index) => _towardLotus ? HomeHeroArt.Layer(_family, _outfit, index) : HeroGearArt.Layer(_family, _outfit, index);
         public void Tick(HeroPose pose) => Place(HeroGearArt.PoseCell(Cell, pose, _family));
         private void Place(Box cell)

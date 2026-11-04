@@ -258,15 +258,15 @@ namespace Bloomlings.Client.UI.Design
         /// its hands, steps aside and eats it in three bites (<see cref="AsideMunch"/>); Bonk tosses it onto its head; the other
         /// styles keep their acts with the creature as their figure.
         /// </summary>
-        public static WalkerLook GameCreatures { get; } = new WalkerLook(MockBoardShare, MockOutline, MockShadowAlpha, MockShade, false,
-            new[] { Family.Sprig, Family.Bloom, Family.Drop, Family.Twig }, "creatures", hands: true, handsAllStyles: false, asideMunch: true);
+        public static WalkerLook GameCreatures { get; } = new WalkerLook(TrailsBoardShare, MockOutline, MockShadowAlpha, MockShade, false,
+            new[] { Family.Sprig, Family.Bloom, Family.Drop, Family.Twig }, "creatures", hands: true, handsAllStyles: false, trails: true);
 
         /// <summary>
         /// The game's Heroes walkers (Settings; the owner's experiment of 2026-11-04, see <see cref="WalkerKind"/>): the real modular
         /// V2 hero of the cube's family as a small walker (no outline), with the same acts as <see cref="GameCreatures"/>.
         /// </summary>
-        public static WalkerLook GameHeroes { get; } = new WalkerLook(MockBoardShare, 0f, MockShadowAlpha, 0f, false, null, "heroes",
-            hands: true, heroes: true, handsAllStyles: false, asideMunch: true);
+        public static WalkerLook GameHeroes { get; } = new WalkerLook(TrailsBoardShare, 0f, MockShadowAlpha, 0f, false, null, "heroes",
+            hands: true, heroes: true, handsAllStyles: false, trails: true, heroScale: TrailsHeroScale, cue: HeroCue.Glow);
 
         /// <summary>The look of a Settings walker kind: <see cref="Default"/>, <see cref="GameCreatures"/> or <see cref="GameHeroes"/>.</summary>
         public static WalkerLook For(WalkerKind kind) => kind switch
@@ -370,8 +370,58 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The colour cue a real hero walker wears for its cube (the hero colour-cue mock); none in the game.</summary>
         public HeroCue Cue { get; }
 
-        /// <summary>The Trails mock's act at the cube after the rules' clear, seconds: only the cube's hop into the hands.</summary>
+        /// <summary>The Trails act at the cube after the rules' clear, seconds: only the cube's hop into the hands.</summary>
         public const float TrailsLinger = 0.25f;
+
+        /// <summary>
+        /// On the way home a Trails walker first carries its cube (the owner, 2026-11-04: «чтоб он чуть пронёс и потом кушать
+        /// начал») for this long or <see cref="TrailCarryCells"/> of its way, whichever is longer (at most half its way home).
+        /// </summary>
+        public const float TrailCarrySeconds = 0.45f;
+
+        /// <inheritdoc cref="TrailCarrySeconds"/>
+        public const float TrailCarryCells = 1.75f;
+
+        /// <summary>
+        /// The share of the way home by which the third bite is done (shortly before the arch); the three bites spread evenly
+        /// from the carry's end to here (the owner: a little slower eating on the way).
+        /// </summary>
+        public const float TrailEatEnd = 0.9f;
+
+        /// <summary>The three bites' moments within the eating (0–1, each bite <see cref="TrailBiteShare"/> long).</summary>
+        public static IReadOnlyList<float> TrailBites { get; } = new[] { 0.12f, 0.5f, 0.88f };
+
+        /// <inheritdoc cref="TrailBites"/>
+        public const float TrailBiteShare = 0.08f;
+
+        /// <summary>
+        /// The heroes' colour cue (the owner's (в) of 2026-11-04): a soft glow in the cube's colour, his silhouette drawn twice
+        /// behind him, scaled up from <see cref="GlowPivot"/> of his cell by at least these shares (inner, then outer and fainter),
+        /// and so that the inner rim is at least <see cref="GlowMinPixels"/> wide at his sides on the smallest cubes.
+        /// </summary>
+        public const float GlowInner = 0.1f;
+
+        /// <inheritdoc cref="GlowInner"/>
+        public const float GlowOuter = 0.2f;
+
+        /// <summary>The inner glow's least width at the hero's sides, in pixels.</summary>
+        public const float GlowMinPixels = 2.5f;
+
+        /// <summary>The glow layers' opacity: the inner rim and the soft outer halo.</summary>
+        public const float GlowInnerAlpha = 0.9f;
+
+        /// <inheritdoc cref="GlowInnerAlpha"/>
+        public const float GlowOuterAlpha = 0.35f;
+
+        /// <summary>Where in his cell the glow grows from, as a share of its height from the top (about his middle).</summary>
+        public const float GlowPivot = 0.55f;
+
+        /// <summary>The glow's two scales for a hero cell <paramref name="cellWidth"/> pixels wide (his figure about a half of it).</summary>
+        public static (float Inner, float Outer) GlowScales(float cellWidth)
+        {
+            float inner = 1f + Math.Max(GlowInner, GlowMinPixels / Math.Max(1f, cellWidth * 0.25f));
+            return (inner, inner + (GlowOuter - GlowInner));
+        }
 
         /// <summary>The Trails mock's walker box as a share of the board surface's width (6% in the game's Creatures and Heroes).</summary>
         public const float TrailsBoardShare = 0.05f;

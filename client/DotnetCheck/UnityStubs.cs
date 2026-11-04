@@ -86,7 +86,7 @@ namespace UnityEngine { public interface ICanvasRaycastFilter { bool IsRaycastLo
 namespace UnityEngine.Events { public delegate void UnityAction(); public delegate void UnityAction<T0>(T0 arg0); public class UnityEvent { public void AddListener(UnityAction a) { } public void RemoveAllListeners() { } } public class UnityEvent<T0> { public void AddListener(UnityAction<T0> a) { } public void RemoveAllListeners() { } } }
 namespace UnityEngine.UI
 {
-    public class Graphic : Behaviour { public Color color { get; set; } public bool raycastTarget { get; set; } public RectTransform rectTransform => null!; public void SetVerticesDirty() { } }
+    public class Graphic : Behaviour { public Color color { get; set; } public bool raycastTarget { get; set; } public Material? material { get; set; } public RectTransform rectTransform => null!; public void SetVerticesDirty() { } }
     public struct UIVertex { public Vector3 position; public Color32 color; }
     public class VertexHelper { public int currentVertCount => 0; public void PopulateUIVertex(ref UIVertex vertex, int i) { } public void SetUIVertex(UIVertex vertex, int i) { } }
     public abstract class BaseMeshEffect : UnityEngine.MonoBehaviour { protected Graphic graphic => null!; public abstract void ModifyMesh(VertexHelper vh); }

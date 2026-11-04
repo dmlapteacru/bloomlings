@@ -337,13 +337,18 @@ owner sees the same behaviour as in the playtest app.
   cube's colour in a dark outline, an 8-frame run, holding a cube before its belly with its hands over it) or **Heroes** (the
   owner's real modular V2 hero of the material's family as a small walker, his hands drawn again over the cube; **the
   owner's experiment of 2026-11-04**: hero frames in a level as walkers go beyond constitution principle VII, which allows
-  them only as a mechanic's figure, until the owner decides). Creatures and Heroes walk at a fixed size on screen (6% of the
-  board's width, `WalkerLook.MockBoardShare`) on a contact shadow; in Munchers each takes its cube into its hands, steps aside
-  a short way (0.9–1.7 walker boxes) to free ground (a path, an eaten cell or the board's empty surface, never a cube, a lane
-  if avoidable, or an entry), spaced from the others still eating (`AsideSpots`, 0.95 walker boxes), eats it there in three
-  bites and walks back home; the other bought styles keep their acts with these figures; the held cube is the board's own
-  cube. Presentation only: the rules' clear, return and conformance stay; only the act after the clear lasts longer
-  (`WalkerLook.HandsLinger`, 1.0 s against 0.6).
+  them only as a mechanic's figure, until the owner decides). *Changed by the owner later on 2026-11-04 (the Trails):*
+  Creatures and Heroes walk at a fixed size on screen (5% of the board's width, `WalkerLook.TrailsBoardShare`; a hero 1.15×
+  the walker) on a contact shadow, turned a little sideways while walking (0.8 of their width, leaning 7° into the way); they
+  keep to two lanes, right of the way's centre line going out and left coming home (0.45 walker boxes), each lane only where
+  that side is open ground (`TrailLanes`: never over cubes; the centre line where it is not); a pod's line spreads to 1.15
+  walker boxes where the figure is longer than its gap (a later, quicker set-off, the arrival unchanged). In Munchers a walker
+  never stands: the cube hops into its hands at its cube (0.25 s), it carries it a little (0.45 s or 1.75 cells of its way
+  home), then eats it in three bites spread up to 90% of its way home, crumbs where each bite is taken; a cube bigger than
+  its hands can hold rides on its head, never smaller than on the board. The heroes wear a soft glow in their cube's colour
+  (two silhouettes behind them, `WalkerLook.GlowScales`, at least 2.5 px). The other bought styles keep their acts with these
+  figures, size and lanes. Presentation only: the rules' clear, return and conformance stay; the act after the clear is
+  0.25 s (`WalkerLook.TrailsLinger`).
 - **FR-049** (the owner's board, 2026-10-28): The board MUST stand in one fixed, roughly square box, the same position and
   size on every level, its frame always the same thickness. Inside the frame the board MUST be one solid neutral surface
   (no grass, no grid of cells under the picture), and an eaten cube MUST leave only that surface (no imprint). The

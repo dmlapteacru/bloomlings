@@ -178,16 +178,19 @@ namespace Bloomlings.Playtest.Design
 
                 if (cue == HeroCue.Glow)
                 {
-                    // (c): a soft glow round him, his layers' silhouettes in the cube's colour a little out all round.
-                    float r = Math.Max(1.5f, box.Width * 0.05f);
-                    p.PushAlpha(0.75f);
-                    for (int i = 0; i < 10; i++)
+                    // The heroes' colour cue (the owner's (в) of 2026-11-04): a soft glow in the cube's colour, his silhouette twice
+                    // behind him, scaled up from about his middle (WalkerLook.GlowScales): a faint outer halo, then the inner rim.
+                    (float inner, float outer) = WalkerLook.GlowScales(cell.Width);
+                    float px = cell.CenterX;
+                    float py = cell.Top + (cell.Height * WalkerLook.GlowPivot);
+                    foreach ((float k, float alpha) in new[] { (outer, WalkerLook.GlowOuterAlpha), (inner, WalkerLook.GlowInnerAlpha) })
                     {
-                        double a = i * Math.PI / 5.0;
-                        HeroSilhouette(p, cell.Offset((float)Math.Cos(a) * r, (float)Math.Sin(a) * r), family, outfit, color);
+                        p.PushAlpha(alpha);
+                        p.PushSquash(k, k, px, py);
+                        HeroSilhouette(p, cell, family, outfit, color);
+                        p.PopTransform();
+                        p.PopAlpha();
                     }
-
-                    p.PopAlpha();
                 }
 
                 Hero(p, cell, family, outfit);

@@ -45,7 +45,7 @@ namespace Bloomlings.Client.UI.Design
             bool aside = style == ClearStyle.Munchers && _look.AsideMunch;
             if (style == ClearStyle.Munchers && _look.Trails)
             {
-                TrailsMunch(list, walk, spot, walker, end);
+                TrailsMunch(list, walk, spot, walker, end, now);
                 return;
             }
 
@@ -54,6 +54,13 @@ namespace Bloomlings.Client.UI.Design
                 case Leg.Out:
                 {
                     (spot.X, spot.Y) = Along(walk.Points, spot.U * end);
+                    if (_look.Trails)
+                    {
+                        (float ox, float oy) = LaneOffset(walk, spot.U * end, 1f, walker);
+                        spot.X += ox;
+                        spot.Y += oy;
+                    }
+
                     Walking(list, walk, spot, WalkerSize);
                     return;
                 }
@@ -74,6 +81,13 @@ namespace Bloomlings.Client.UI.Design
                 default:
                 {
                     (spot.X, spot.Y) = Along(walk.Points, (1f - spot.U) * end);
+                    if (_look.Trails)
+                    {
+                        (float ox, float oy) = LaneOffset(walk, (1f - spot.U) * end, -1f, walker);
+                        spot.X += ox;
+                        spot.Y += oy;
+                    }
+
                     if (aside && walk.HasAside)
                     {
                         // Back from its spot onto its way home.
@@ -287,16 +301,19 @@ namespace Bloomlings.Client.UI.Design
 
         // The Trails mock's Munchers (WalkerLook.Trails): out on the right-hand lane, the cube hops into its hands at its cube (a
         // quarter of a second, no standing), and it eats it in three bites walking home on the other lane, crumbs falling behind.
-        private static void TrailsMunch(FxList list, in ClearWalk walk, Spot spot, float walker, float end)
+        private static void TrailsMunch(FxList list, in ClearWalk walk, Spot spot, float walker, float end, float now)
         {
-            float g = WalkerLook.HeldShare * walker;
+            // The cube in its hands never smaller than on the board (the owner, 2026-11-03); one bigger than the hands can hold it carries
+            // on its head (Overhead), like the reference game's ants.
+            float g = Math.Max(1f, WalkerLook.HeldShare * walker);
+            bool overhead = g > WalkerLook.HeldShare * walker * 1.05f;
             switch (spot.Leg)
             {
                 case Leg.Out:
                 {
                     float prog = spot.U * end;
                     (float x, float y) = Along(walk.Points, prog);
-                    (float ox, float oy) = LaneOffset(walk.Points, prog, 1f, walker);
+                    (float ox, float oy) = LaneOffset(walk, prog, 1f, walker);
                     spot.X = x + ox;
                     spot.Y = y + oy;
                     Walking(list, walk, spot, WalkerSize);
@@ -308,12 +325,12 @@ namespace Bloomlings.Client.UI.Design
                     (float x, float y) = Along(walk.Points, end);
                     (float tx, float ty) = walk.Target;
                     float k = Smooth(spot.U);
-                    float hy = HoldY(y + (0.4f * walker), walker, g);
-                    Figure(list, walk, x, y, k > 0.8f ? WalkerLook.PoseHold : WalkerLook.PoseFront, WalkerLook.TrailSquash, 1f);
+                    float hy = TrailHoldY(y + (0.4f * walker), walker, g, overhead);
+                    Figure(list, walk, x, y, k > 0.8f && !overhead ? WalkerLook.PoseHold : WalkerLook.PoseFront, WalkerLook.TrailSquash, 1f);
                     Cube(list, walk, Lerp(tx, x, k), Lerp(ty, hy, k) - ((float)Math.Sin(k * Math.PI) * walker * 0.4f), Lerp(1f, g, k), 90f * k * _facing);
                     if (k > 0.8f)
                     {
-                        HandsOver(list, walk, x, y, WalkerLook.TrailSquash, 1f);
+                        if (!overhead) HandsOver(list, walk, x, y, WalkerLook.TrailSquash, 1f);
                     }
 
                     return;
@@ -323,15 +340,24 @@ namespace Bloomlings.Client.UI.Design
                 {
                     float prog = (1f - spot.U) * end;
                     (float x, float y) = Along(walk.Points, prog);
-                    (float ox, float oy) = LaneOffset(walk.Points, prog, -1f, walker);
+                    (float ox, float oy) = LaneOffset(walk, prog, -1f, walker);
                     spot.X = x + ox;
                     spot.Y = y + oy;
-                    float p = Clamp01(spot.U / 0.7f);
-                    float[] at = { 0.12f, 0.42f, 0.72f };
+
+                    // It carries the cube a little first (WalkerLook.TrailCarrySeconds or TrailCarryCells), then eats it in three
+                    // bites spread over its way home up to WalkerLook.TrailEatEnd.
+                    float from = walk.ClearAt + ClearStyles.Linger;
+                    float home = ClearStyles.LiveHomeAt(walk.Start, walk.ArriveAt, walk.ClearAt, walk.DoneAt);
+                    int segments = Math.Max(1, walk.Points.Count - 1);
+                    float carry = Math.Min(0.5f, Math.Max(WalkerLook.TrailCarrySeconds / Math.Max(0.05f, home - from), WalkerLook.TrailCarryCells / segments));
+                    float eatSpan = Math.Max(0.05f, WalkerLook.TrailEatEnd - carry);
+                    float p = Clamp01((spot.U - carry) / eatSpan);
+                    IReadOnlyList<float> at = WalkerLook.TrailBites;
+                    float bite = WalkerLook.TrailBiteShare;
                     float left = 1f;
-                    left = Lerp(left, 0.66f, Smooth((p - at[0]) / 0.08f));
-                    left = Lerp(left, 0.33f, Smooth((p - at[1]) / 0.08f));
-                    left = Lerp(left, 0f, Smooth((p - at[2]) / 0.08f));
+                    left = Lerp(left, 0.66f, Smooth((p - at[0]) / bite));
+                    left = Lerp(left, 0.33f, Smooth((p - at[1]) / bite));
+                    left = Lerp(left, 0f, Smooth((p - at[2]) / bite));
                     if (left <= 0.02f)
                     {
                         Walking(list, walk, spot, WalkerSize);
@@ -339,32 +365,32 @@ namespace Bloomlings.Client.UI.Design
                     else
                     {
                         float hop = (float)Math.Abs(Math.Sin(spot.Hops * Math.PI)) * 0.05f * walker;
-                        float chew = Math.Abs((float)Math.Sin(p * Math.PI * 9f)) * 0.05f;
-                        Figure(list, walk, spot.X, spot.Y, WalkerLook.PoseHold, WalkerLook.TrailSquash, 1f - chew, hop, WalkerLook.TrailLean * _facing * 0.5f);
-                        float cy = HoldY(spot.Y + (0.4f * walker), walker, g) - hop;
+                        float chew = p > 0f ? Math.Abs((float)Math.Sin(p * Math.PI * 9f)) * 0.05f : 0f;
+                        Figure(list, walk, spot.X, spot.Y, overhead ? WalkerLook.PoseFront : WalkerLook.PoseHold, WalkerLook.TrailSquash, 1f - chew, hop, WalkerLook.TrailLean * _facing * 0.5f);
+                        float cy = TrailHoldY(spot.Y + (0.4f * walker), walker, g, overhead) - hop;
                         list.Lifted = true;
                         list.PushSquash(1f, left, spot.X, cy + (g / 2f));
                         list.Tile(Box.FromCenter(spot.X, cy, g, g), walk.Variant);
                         list.Pop();
                         list.Lifted = false;
-                        HandsOver(list, walk, spot.X, spot.Y, WalkerLook.TrailSquash, 1f - chew, hop);
+                        if (!overhead) HandsOver(list, walk, spot.X, spot.Y, WalkerLook.TrailSquash, 1f - chew, hop);
                     }
 
                     // Each bite's crumbs where it was taken, falling as the walker goes on.
                     Rgba color = ColorOf(walk);
                     list.Lifted = true;
-                    for (int b = 0; b < at.Length; b++)
+                    for (int b = 0; b < at.Count; b++)
                     {
-                        float t = (p - at[b]) / 0.35f;
+                        float t = (p - at[b]) / 0.3f;
                         if (t <= 0f || t >= 1f)
                         {
                             continue;
                         }
 
-                        float bp = (1f - (at[b] * 0.7f)) * end;
+                        float bp = (1f - (carry + (at[b] * eatSpan))) * end;
                         (float bx, float by) = Along(walk.Points, bp);
-                        (float bo, float bq) = LaneOffset(walk.Points, bp, -1f, walker);
-                        float top = HoldY(by + bq + (0.4f * walker), walker, g) - (g * (0.5f - (b / 3f)));
+                        (float bo, float bq) = LaneOffset(walk, bp, -1f, walker);
+                        float top = TrailHoldY(by + bq + (0.4f * walker), walker, g, overhead) - (g * (0.5f - (b / 3f)));
                         for (int i = 0; i < 5; i++)
                         {
                             float dir = (i - 2f) * 0.5f;
@@ -384,11 +410,16 @@ namespace Bloomlings.Client.UI.Design
             }
         }
 
+        // Where a Trails walker holds its cube: before its belly, or on its head when the cube is bigger than its hands can hold.
+        private static float TrailHoldY(float feet, float walker, float g, bool overhead) =>
+            overhead ? feet - (0.92f * walker) - (0.4f * g) : HoldY(feet, walker, g);
+
         // The sideways shift of a lane at a way's progress: perpendicular to the way (its direction smoothed over a cell or so),
         // WalkerLook.TrailLane walker boxes to the right of the way toward the cube for side 1 (out) and to the left for -1 (home),
         // easing to the centre line within a cell or so of the entry and of the cube.
-        private static (float X, float Y) LaneOffset(IReadOnlyList<(float X, float Y)> points, float progress, float side, float walker)
+        private static (float X, float Y) LaneOffset(in ClearWalk walk, float progress, float side, float walker)
         {
+            IReadOnlyList<(float X, float Y)> points = walk.Points;
             int segments = Math.Max(1, points.Count - 1);
             float e = 0.6f / segments;
             (float ax, float ay) = Along(points, progress - e);
@@ -402,8 +433,27 @@ namespace Bloomlings.Client.UI.Design
             }
 
             float fade = Smooth(Math.Min(progress, 1f - progress) * segments / 1.2f);
-            float off = side * WalkerLook.TrailLane * walker * fade;
+            float off = side * WalkerLook.TrailLane * walker * fade * LaneFree(walk.Lanes, segments, progress, e, side);
             return (-dy / len * off, dx / len * off);
+        }
+
+        // How free its lane's side is about a way's progress (TrailLanes flags of the segments a little before and after, so a
+        // lane eases on and off its side over a cell): 1 free, 0 taken (it keeps to the centre line), 1 without flags.
+        private static float LaneFree(IReadOnlyList<byte>? lanes, int segments, float progress, float e, float side)
+        {
+            if (lanes == null || lanes.Count == 0)
+            {
+                return 1f;
+            }
+
+            byte bit = side > 0f ? TrailLanes.Right : TrailLanes.Left;
+            float Free(float at)
+            {
+                int i = Math.Max(0, Math.Min(lanes.Count - 1, (int)(Clamp01(at) * segments)));
+                return (lanes[i] & bit) != 0 ? 1f : 0f;
+            }
+
+            return (Free(progress - e) + Free(progress) + Free(progress + e)) / 3f;
         }
 
         // ---- Munchers' gags ----

@@ -1557,11 +1557,20 @@ carries `FxItem.Pose` (the creature's run frame, `PoseSide`, `PoseFront`, `PoseH
 draw it as `UiRaster.Creature` (`WalkerLook.CreatureBox`, mirrored for the left from the side) or the V2 hero
 (`WalkerLook.HeroCell`; `PoseHands` = his hands clipped to `RoundLook.HeroHands` discs). Items with `FxItem.Lifted` (a held,
 lifted or carried cube, its effects, the hands over it) are drawn after the layer's other items, and a lifted cube (or any
-round cube while the walkers are not Classic) is the board's own cube picture placed as in its cell. Munchers' aside spots
-come from `AsideSpots` (each host one per level screen; `ClearWalk.WithAside`). The act: the cube jumps into the hands
-(`AsideJumpEnd` 0.18 of the act), the walk to the spot (to 0.38), three bites (to 0.94), a hop; home from the spot over
-`AsideBackSeconds` (0.3 s). Head Bonk: the jump into the hands (0.2; over the head for the flat walkers), then the toss
-(0.1 of the gag), the bonk (0.6) and the shards and stars.
+round cube while the walkers are not Classic) is the board's own cube picture placed as in its cell. *The Trails (the owner,
+later on 2026-11-04; `WalkerLook.Trails`, the game's Creatures and Heroes):* 5% of the board, heroes 1.15× the walker; a walking
+figure squashed to `TrailSquash` 0.8 and leaning `TrailLean` 7°; lanes `TrailLane` 0.45 walker boxes right of the way going
+out and left coming home, each segment's side only where `TrailLanes.Flags` finds open ground (measured once a walker by each
+host, `ClearWalk.WithLanes`; eased over a cell at segment changes and to the centre near the entry and the cube); a pod's
+line spread to `TrailGap` 1.15 walker boxes by a later, quicker set-off (at most a third of the way). Munchers: the act after
+the clear is `TrailsLinger` 0.25 s (the cube hops into the hands); on the way home it carries the cube for `TrailCarrySeconds`
+0.45 s or `TrailCarryCells` 1.75 cells (the longer, at most half the way), then three bites at `TrailBites` 0.12, 0.5, 0.88 of
+the eating, which ends at `TrailEatEnd` 0.9 of the way home, each bite `TrailBiteShare` 0.08 long, crumbs where it is taken;
+the held cube is `max(1 cell, HeldShare × walker)`, carried on the head when bigger than the hands can hold. The heroes'
+colour cue (`HeroCue.Glow`): two silhouettes in the cube's colour behind the hero, scaled up from `GlowPivot` 0.55 of his
+cell by `GlowScales` (inner at least +0.1 and 2.5 px at his sides, alpha 0.9; outer +0.1 more, alpha 0.35); Unity draws the
+silhouettes with the built-in "GUI/Text Shader" (the picture's alpha in a flat colour). Head Bonk: the jump into the hands
+(0.2; over the head for the flat walkers), then the toss (0.1 of the gag), the bonk (0.6) and the shards and stars.
 
 Timing (`ClearStyles`): every trip takes `TripSeconds(n) = 1.1 n / WalkSpeedUp + 1.4 / ActSpeedUp` s for a tile `n`
 cells from its arch: `WalkSpeedUp` = 10, Colony Flow's ants' walk of about 9 cells a second (the owner's video of

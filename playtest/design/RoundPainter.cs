@@ -46,6 +46,9 @@ namespace Bloomlings.Playtest.Design
 
             /// <summary>Where Munchers' walkers step aside to eat (the Creatures and Heroes walkers, WalkerLook.AsideMunch).</summary>
             public readonly AsideSpots Aside = new AsideSpots();
+
+            /// <summary>Each walker's lanes' free sides (the Trails walkers, TrailLanes), measured when it is first seen.</summary>
+            public readonly Dictionary<int, byte[]> Lanes = new Dictionary<int, byte[]>();
             public readonly List<(int Pod, int Column, int Depth, Box Layout, Box Drawn, float Fade)> Pods = new List<(int, int, int, Box, Box, float)>();
 
             // Latch + key (17 §8): a column's queue items and the latch blocks to draw this frame.
@@ -85,6 +88,7 @@ namespace Bloomlings.Playtest.Design
                 cache.Held = new bool[s.Round.CellCount];
                 cache.HeldCells.Clear();
                 cache.Points.Clear();
+                cache.Lanes.Clear();
                 cache.FrameOf = new Box?[s.Round.Pods.Count];
             }
 
@@ -541,6 +545,17 @@ namespace Bloomlings.Playtest.Design
                 {
                     live = live.WithAside(cache.Aside.Of(walk.Id));
                 }
+
+                if (WalkerLook.Current.Trails)
+                {
+                    if (!cache.Lanes.TryGetValue(walk.Id, out byte[]? lanes))
+                    {
+                        lanes = TrailLanes.Flags(points, WalkerLook.Current.WalkerCubes(cubesAcross), board, a);
+                        cache.Lanes[walk.Id] = lanes;
+                    }
+
+                    live = live.WithLanes(lanes);
+                }
                 if (ClearLook.Holds(style, live, now) && !cache.Held[walk.Cell])
                 {
                     cache.Held[walk.Cell] = true;
@@ -571,6 +586,7 @@ namespace Bloomlings.Playtest.Design
                 foreach (int id in cache.Gone)
                 {
                     cache.Points.Remove(id);
+                    cache.Lanes.Remove(id);
                 }
             }
 
