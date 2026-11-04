@@ -43,6 +43,9 @@ namespace Bloomlings.Playtest.Design
             public readonly List<int> HeldCells = new List<int>();
             public readonly Dictionary<int, List<(float X, float Y)>> Points = new Dictionary<int, List<(float X, float Y)>>();
             public readonly List<int> Gone = new List<int>();
+
+            /// <summary>Where Munchers' walkers step aside to eat (the Creatures and Heroes walkers, WalkerLook.AsideMunch).</summary>
+            public readonly AsideSpots Aside = new AsideSpots();
             public readonly List<(int Pod, int Column, int Depth, Box Layout, Box Drawn, float Fade)> Pods = new List<(int, int, int, Box, Box, float)>();
 
             // Latch + key (17 §8): a column's queue items and the latch blocks to draw this frame.
@@ -484,6 +487,25 @@ namespace Bloomlings.Playtest.Design
         /// clear and return), from the gate's door along its route, its tiles going to its pod's place; each cube cleared
         /// within <see cref="ClearStyles.RestoreSeconds"/> plays the style's restore.
         /// </summary>
+        // A walker's way in the board's cell units: its route's walker points (made once a walker).
+        private static List<(float X, float Y)> PointsOf(LayoutCache cache, RoundWalk walk)
+        {
+            if (!cache.Points.TryGetValue(walk.Id, out List<(float X, float Y)>? points))
+            {
+                RoundBoardLayout board = cache.Board;
+                points = new List<(float X, float Y)>(walk.Route.Count);
+                foreach (int cell in walk.Route)
+                {
+                    (float px, float py) = board.Point(cell);
+                    points.Add(((px - board.Grid.Left) / board.Cell, (py - board.Grid.Top) / board.Cell));
+                }
+
+                cache.Points[walk.Id] = points;
+            }
+
+            return points;
+        }
+
         private static void BuildFx(RoundLevelScreen s, LayoutCache cache)
         {
             FxList list = s.Fx;
@@ -498,6 +520,13 @@ namespace Bloomlings.Playtest.Design
             RoundBoardLayout board = cache.Board;
             ClearStyle style = s.Style;
             float now = s.ShowSeconds;
+            float cubesAcross = board.Surface.Width / Math.Max(1f, board.Cell);
+            bool aside = style == ClearStyle.Munchers && WalkerLook.Current.AsideMunch;
+            if (aside)
+            {
+                cache.Aside.Update(a, board, now, WalkerLook.Current.WalkerCubes(cubesAcross), walk => PointsOf(cache, walk));
+            }
+
             foreach (RoundWalk walk in a.ShownWalkers)
             {
                 if (walk.Route.Count == 0)
@@ -505,20 +534,13 @@ namespace Bloomlings.Playtest.Design
                     continue;
                 }
 
-                if (!cache.Points.TryGetValue(walk.Id, out List<(float X, float Y)>? points))
-                {
-                    points = new List<(float X, float Y)>(walk.Route.Count);
-                    foreach (int cell in walk.Route)
-                    {
-                        (float px, float py) = board.Point(cell);
-                        points.Add(((px - board.Grid.Left) / board.Cell, (py - board.Grid.Top) / board.Cell));
-                    }
-
-                    cache.Points[walk.Id] = points;
-                }
-
+                List<(float X, float Y)> points = PointsOf(cache, walk);
                 ClearWalk live = ClearWalk.Live(points, walk.Material, FamilyVariant(walk.Material), walk.Start / 1_000_000f, walk.Arrive / 1_000_000f, walk.Clear / 1_000_000f, walk.Done / 1_000_000f, Seat(s, cache, walk.Pod),
-                    board.Surface.Width / Math.Max(1f, board.Cell));
+                    cubesAcross);
+                if (aside)
+                {
+                    live = live.WithAside(cache.Aside.Of(walk.Id));
+                }
                 if (ClearLook.Holds(style, live, now) && !cache.Held[walk.Cell])
                 {
                     cache.Held[walk.Cell] = true;

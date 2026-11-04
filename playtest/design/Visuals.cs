@@ -97,17 +97,17 @@ namespace Bloomlings.Playtest.Design
 
             Rgba color = RoundLook.ColorOf(material);
             Rgba line = DesignTokens.Colors.InkBrown;
-            p.Mark(CharacterArt.WalkerSlot);
             if (pose >= 0 && look.Heroes)
             {
+                p.Mark(WalkerLook.HeroSlot);
                 HeroWalker(p, box, material.Family, pose);
                 return;
             }
 
             if (pose >= 0 && look.DrawsCreature(material.Index))
             {
-                float k = WalkerLook.CreatureScale;
-                box = new Box(box.CenterX - (box.Width * k / 2f), box.Bottom - (box.Height * k), box.CenterX + (box.Width * k / 2f), box.Bottom);
+                p.Mark(WalkerLook.CreatureSlot);
+                box = WalkerLook.CreatureBox(box);
                 Rgba body = look.BodyOf(color);
                 Family family = material.Family;
                 bool mirror = facing < 0 && pose <= WalkerLook.PoseSide;
@@ -125,6 +125,7 @@ namespace Bloomlings.Playtest.Design
                 return;
             }
 
+            p.Mark(CharacterArt.WalkerSlot);
             string name = CharacterArt.WalkerPicture(material);
             if (!p.HasSprite(name))
             {
@@ -176,14 +177,8 @@ namespace Bloomlings.Playtest.Design
             }
         }
 
-        /// <summary>A hero walker's cell (<see cref="HeroMotion.CellWidth"/> × <see cref="HeroMotion.CellHeight"/>) on the walker box: his feet on its bottom.</summary>
-        public static Box HeroWalkerCell(Box box)
-        {
-            float h = box.Height * WalkerLook.HeroCellScale;
-            float w = h * HeroMotion.CellWidth / HeroMotion.CellHeight;
-            float top = box.Bottom - (h * HeroMotion.FootLine);
-            return new Box(box.CenterX - (w / 2f), top, box.CenterX + (w / 2f), top + h);
-        }
+        /// <summary>A hero walker's cell on the walker box (<see cref="WalkerLook.HeroCell"/>).</summary>
+        public static Box HeroWalkerCell(Box box) => WalkerLook.HeroCell(box);
 
         public static void Walker(IPainter p, Box box, Family family, Rgba tint)
         {

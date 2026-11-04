@@ -20,8 +20,10 @@ namespace Bloomlings.Client.UI.Design
         }
 
         private ClearWalk(IReadOnlyList<(float X, float Y)> points, VariantId variant, float start, float arrival, Box? seat, int material, float arriveAt, float clearAt, float doneAt,
-            float liveScale = 1f)
+            float liveScale = 1f, float asideX = float.NaN, float asideY = float.NaN)
         {
+            AsideX = asideX;
+            AsideY = asideY;
             LiveScale = liveScale;
             Points = points;
             Variant = variant;
@@ -47,6 +49,21 @@ namespace Bloomlings.Client.UI.Design
             new ClearWalk(points, variant, start, clear - start, seat, material, arrive, clear, done, WalkerLook.Current.WalkerCubes(cubesAcross) / ClearLook.WalkerSize);
 
         public IReadOnlyList<(float X, float Y)> Points { get; }
+
+        /// <summary>
+        /// Where a live walker steps aside to eat its cube (<see cref="WalkerLook.AsideMunch"/>, <see cref="AsideSpots"/>), a point
+        /// of its way's kind (cell units); NaN for none (it eats where it stands).
+        /// </summary>
+        public float AsideX { get; }
+
+        /// <inheritdoc cref="AsideX"/>
+        public float AsideY { get; }
+
+        public bool HasAside => !float.IsNaN(AsideX) && !float.IsNaN(AsideY);
+
+        /// <summary>This walk stepping aside to <paramref name="spot"/> (null: none).</summary>
+        public ClearWalk WithAside((float X, float Y)? spot) =>
+            new ClearWalk(Points, Variant, Start, Arrival, Seat, Material, ArriveAt, ClearAt, DoneAt, LiveScale, spot?.X ?? float.NaN, spot?.Y ?? float.NaN);
 
         public VariantId Variant { get; }
 
@@ -181,7 +198,7 @@ namespace Bloomlings.Client.UI.Design
             {
                 list.PushAlpha(spot.GateAlpha);
             }
-            if (walk.IsLive && _look.Hands)
+            if (walk.IsLive && _look.UsesHands(style))
             {
                 Hands(list, style, walk, spot, now);
                 if (gate)
@@ -224,6 +241,9 @@ namespace Bloomlings.Client.UI.Design
                     break;
                 case ClearStyle.Parade:
                     Parade(list, walk, spot, now);
+                    break;
+                case ClearStyle.Bonk:
+                    BonkTrip(list, walk, spot);
                     break;
                 default:
                     Blossom(list, walk, spot);
@@ -333,7 +353,7 @@ namespace Bloomlings.Client.UI.Design
 
             list.Slot = SlotOf(style);
             list.Layer = FxLayer.Board;
-            if (fade.Material >= 0 && WalkerLook.Current.Hands)
+            if (fade.Material >= 0 && WalkerLook.Current.UsesHands(style))
             {
                 // The "in hands" looks play the style at the walker's hands, not at the cell: only the slot's ring.
                 if (fade.Seat.HasValue)

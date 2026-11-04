@@ -8,8 +8,11 @@ namespace Bloomlings.Client.UI.Design
         public static bool SettingsIcon(string name)=>name==SoundIcon || name==HapticsIcon;
         public static (int Left,int Top,int Width,int Height) SettingsCrop(string name,int w,int h)
         { Box b=name==SoundIcon?new Box(88,153,860,760):new Box(951,113,1731,772);return ((int)(b.Left*w/1774),(int)(b.Top*h/887),(int)(b.Width*w/1774),(int)(b.Height*h/887)); }
-        /// <summary>The Settings card's switch rows: Sound, Haptics and the symbols mode (spec 006 FR-047), 126 units each, 12 apart.</summary>
-        public const int SettingsRows=3;
+        /// <summary>
+        /// The Settings card's rows, 126 units each, 12 apart: the switches Sound, Haptics and the symbols mode (spec 006 FR-047), then
+        /// the walkers (the owner, 2026-11-04: Classic, Creatures, Heroes).
+        /// </summary>
+        public const int SettingsRows=4;
         public const float SettingsRowsHeight=SettingsRows*126+(SettingsRows-1)*12;
         public const float SettingsContent=12+SettingsRowsHeight+20+DesignTokens.Size.TouchMin+12+DesignTokens.Size.TouchMin+24+2*DesignTokens.Size.CardSecondaryHeight+18+30;
         public const string Header="navigation/popup-title-v1";

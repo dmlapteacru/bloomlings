@@ -386,7 +386,7 @@ namespace Bloomlings.Playtest.Design
                 string name=PlaytestText.T(ClearStyles.NameKey(style));
                 ClearingAction action=clearing.ActionOf(style,app.Meta.CurrentLevel);
                 Action? tap=action==ClearingAction.Chosen ? (Action?)null : ()=>TapClearing(app,style,name);
-                ShopCatalogPainter.Card(p,card,area,false,i==6,name,action,clearing.PriceOf(style),action==ClearingAction.Chosen,ClearStyles.IsFree(style),tap,well=>Kit.ClearingPreview(p,well,style,catalog:true));
+                ShopCatalogPainter.Card(p,card,area,false,i==ShopCatalogDesign.AnimationWide,name,action,clearing.PriceOf(style),action==ClearingAction.Chosen,ClearStyles.IsFree(style),tap,well=>Kit.ClearingPreview(p,well,style,catalog:true));
             }
             Box caption=ShopCatalogDesign.Caption(area).Offset(0,-app.ShopScrollOffset);
             if(caption.Bottom>viewport.Top&&caption.Top<viewport.Bottom)

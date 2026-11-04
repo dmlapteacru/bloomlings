@@ -26,6 +26,12 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>A line of small Bloomlings; the tile squashes, stretches and pops into confetti.</summary>
         Parade,
+
+        /// <summary>
+        /// The Bloomling takes the tile in its hands (over its head for the flat walkers), tosses it up, and it spins, bonks on
+        /// its head and shatters while stars circle (the owner's paid style of 2026-11-04).
+        /// </summary>
+        Bonk,
     }
 
     /// <summary>
@@ -216,10 +222,13 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>The free styles: Munchers alone since 2026-10-11 (Blossom went to the Store).</summary>
         public static IReadOnlyList<ClearStyle> Free { get; } = new[] { Default };
 
-        /// <summary>The bought styles, in the Store's order (Blossom first since the owner moved it there on 2026-10-11).</summary>
+        /// <summary>
+        /// The bought styles, in the Store's order (Blossom first since the owner moved it there on 2026-10-11; Bonk, the owner's
+        /// of 2026-11-04, before the wide Parade card).
+        /// </summary>
         public static IReadOnlyList<ClearStyle> Bought { get; } = new[]
         {
-            ClearStyle.Blossom, ClearStyle.Fireflies, ClearStyle.Bubbles, ClearStyle.Pushers, ClearStyle.Fireworks, ClearStyle.Parade,
+            ClearStyle.Blossom, ClearStyle.Fireflies, ClearStyle.Bubbles, ClearStyle.Pushers, ClearStyle.Fireworks, ClearStyle.Bonk, ClearStyle.Parade,
         };
 
         public static bool IsFree(ClearStyle style) => style == Default;
@@ -275,6 +284,9 @@ namespace Bloomlings.Client.UI.Design
                     return new ClearLegs(Leg(0.45f, 0f, n), Leg(0f, 0.4f, n), Leg(0.65f, 0f, n), Leg(0f, 1f, n));
                 case ClearStyle.Fireworks:
                     return new ClearLegs(Leg(1.1f, 0f, n), Leg(0f, 0.5f, n), 0f, Leg(0f, 0.9f, n));
+                case ClearStyle.Bonk:
+                    // Out, the toss and the bonk in its hands (the longest act), home, a hop into the arch.
+                    return new ClearLegs(Leg(0.5f, 0f, n), Leg(0f, 1.3f, n), Leg(0.6f, 0f, n), Leg(0f, 0.1f, n));
                 default:
                     // Blossom and the Parade: out at the trip's pace, then the act at the tile.
                     return new ClearLegs(Leg(1.1f, 0f, n), Leg(0f, 1.4f, n), 0f, 0f);
@@ -292,6 +304,7 @@ namespace Bloomlings.Client.UI.Design
             ClearStyle.Bubbles => "bubbles",
             ClearStyle.Pushers => "pushers",
             ClearStyle.Fireworks => "fireworks",
+            ClearStyle.Bonk => "bonk",
             _ => "parade",
         };
     }

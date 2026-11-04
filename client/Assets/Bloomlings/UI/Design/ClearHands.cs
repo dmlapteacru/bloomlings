@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 
 namespace Bloomlings.Client.UI.Design
 {
@@ -21,12 +22,27 @@ namespace Bloomlings.Client.UI.Design
             Shake,
         }
 
+        /// <summary>
+        /// Where a round walker of <paramref name="walkerCells"/> cells stops at its cube in the "in hands" act (on its way, a little
+        /// before the cube) and the way it faces there (the unit step toward the cube), in its way's cell units: the hosts choose its
+        /// aside spot from here (<see cref="AsideSpots"/>).
+        /// </summary>
+        public static (float X, float Y, float Dx, float Dy) StopOf(IReadOnlyList<(float X, float Y)> points, float walkerCells)
+        {
+            int segments = Math.Max(1, points.Count - 1);
+            float stop = Math.Min(WalkerLook.CarryStopCells, walkerCells / 3f);
+            (float x, float y) = Along(points, Math.Max(0f, 1f - (stop / segments)));
+            (float dx, float dy) = Toward(points, points.Count - 2);
+            return (x, y, dx, dy);
+        }
+
         private static void Hands(FxList list, ClearStyle style, in ClearWalk walk, Spot spot, float now)
         {
             float walker = WalkerSize * (_pop > 0f ? _pop : 1f);
             int segments = Math.Max(1, walk.Points.Count - 1);
             float stop = Math.Min(WalkerLook.CarryStopCells, walker / 3f);
             float end = Math.Max(0f, 1f - (stop / segments));
+            bool aside = style == ClearStyle.Munchers && _look.AsideMunch;
             switch (spot.Leg)
             {
                 case Leg.Out:
@@ -39,6 +55,12 @@ namespace Bloomlings.Client.UI.Design
                 case Leg.Act:
                 {
                     (float x, float y) = Along(walk.Points, end);
+                    if (aside)
+                    {
+                        AsideAct(list, walk, x, y, walker, spot.U);
+                        return;
+                    }
+
                     HandsAct(list, style, walk, x, y, walker, spot.U, now);
                     return;
                 }
@@ -46,6 +68,20 @@ namespace Bloomlings.Client.UI.Design
                 default:
                 {
                     (spot.X, spot.Y) = Along(walk.Points, (1f - spot.U) * end);
+                    if (aside && walk.HasAside)
+                    {
+                        // Back from its spot onto its way home.
+                        float since = now - (walk.ClearAt + ClearStyles.Linger);
+                        float k = Smooth(since / WalkerLook.AsideBackSeconds);
+                        if (k < 1f)
+                        {
+                            spot.X = Lerp(walk.AsideX, spot.X, k);
+                            spot.Y = Lerp(walk.AsideY, spot.Y, k);
+                            float dx = spot.X - walk.AsideX;
+                            _facing = dx < -0.01f ? -1 : dx > 0.01f ? 1 : _facing;
+                        }
+                    }
+
                     if (style != ClearStyle.Pushers)
                     {
                         Walking(list, walk, spot, WalkerSize);
@@ -70,7 +106,7 @@ namespace Bloomlings.Client.UI.Design
             float g = WalkerLook.HeldShare * walker;
             float feet = y + (0.4f * walker);
             float hx = x;
-            float hy = feet - (WalkerLook.HeldUp * walker);
+            float hy = HoldY(feet, walker, g);
             (float tx, float ty) = walk.Target;
             if (style == ClearStyle.Pushers)
             {
@@ -136,6 +172,9 @@ namespace Bloomlings.Client.UI.Design
                 case ClearStyle.Parade:
                     JuggleHands(list, walk, x, y, hx, hy, g, walker, p, color, seed);
                     break;
+                case ClearStyle.Bonk:
+                    Toss(list, walk, x, y, hx, hy, g, walker, p, color, seed);
+                    break;
                 default:
                     switch ((Gag)(seed % 4))
                     {
@@ -154,6 +193,89 @@ namespace Bloomlings.Client.UI.Design
                     }
 
                     break;
+            }
+        }
+
+        // A flat family picture has no hands: it holds the cube over its head; the creatures and heroes hold it before their belly.
+        private static float HoldY(float feet, float walker, float g) =>
+            _creature || _hero ? feet - (WalkerLook.HeldUp * walker) : feet - (1.02f * walker) - (0.32f * g);
+
+        // Munchers stepping aside (WalkerLook.AsideMunch): the cube jumps into its hands, it walks to its spot (ClearWalk.Aside),
+        // eats the cube there in three bites with crumbs, and hops; its way home starts from the spot.
+        private static void AsideAct(FxList list, in ClearWalk walk, float x, float y, float walker, float u)
+        {
+            float g = WalkerLook.HeldShare * walker;
+            (float tx, float ty) = walk.Target;
+            float sx = walk.HasAside ? walk.AsideX : x;
+            float sy = walk.HasAside ? walk.AsideY : y;
+            if (u < WalkerLook.AsideJumpEnd)
+            {
+                float k = Smooth(u / WalkerLook.AsideJumpEnd);
+                float crouch = u < 0.07f ? 0.08f * (float)Math.Sin(u / 0.07f * Math.PI) : 0f;
+                Figure(list, walk, x, y, WalkerLook.PoseFront, 1f + crouch, 1f - crouch);
+                float hy = HoldY(y + (0.4f * walker), walker, g);
+                float cx = Lerp(tx, x, k);
+                float cy = Lerp(ty, hy, k) - ((float)Math.Sin(k * Math.PI) * walker * 0.5f);
+                Cube(list, walk, cx, cy, Lerp(1f, g, k), 90f * k * _facing);
+                list.Lifted = true;
+                if (k < 0.6f)
+                {
+                    list.Ring(tx, ty, 0.35f + (0.5f * k), 0.08f * (1f - k), Rgba.White.WithAlpha(0.85f * (1f - (k / 0.6f))));
+                }
+
+                list.Lifted = false;
+                if (k > 0.85f)
+                {
+                    HandsOver(list, walk, x, y, 1f, 1f);
+                }
+
+                return;
+            }
+
+            if (u < WalkerLook.AsideWalkEnd)
+            {
+                // To its spot with the cube in its hands, a little hop each step.
+                float k = Smooth((u - WalkerLook.AsideJumpEnd) / (WalkerLook.AsideWalkEnd - WalkerLook.AsideJumpEnd));
+                float px = Lerp(x, sx, k);
+                float py = Lerp(y, sy, k);
+                float hop = (float)Math.Abs(Math.Sin(k * Math.PI * 3f)) * 0.05f * walker;
+                Figure(list, walk, px, py, WalkerLook.PoseHold, 1f, 1f, hop);
+                Cube(list, walk, px, HoldY(py + (0.4f * walker), walker, g) - hop, g, 0f);
+                HandsOver(list, walk, px, py, 1f, 1f, hop);
+                return;
+            }
+
+            float p = Clamp01((u - WalkerLook.AsideWalkEnd) / (WalkerLook.AsideEatEnd - WalkerLook.AsideWalkEnd));
+            if (u < WalkerLook.AsideEatEnd)
+            {
+                Chomp(list, walk, sx, sy, sx, HoldY(sy + (0.4f * walker), walker, g), g, walker, p, ColorOf(walk));
+                return;
+            }
+
+            float h = (float)Math.Sin(Clamp01((u - WalkerLook.AsideEatEnd) / (1f - WalkerLook.AsideEatEnd)) * Math.PI) * 0.06f;
+            Figure(list, walk, sx, sy, WalkerLook.PoseFront, 1f, 1f, h * walker);
+        }
+
+        // Bonk on a level without the live timeline (the Store's previews): out, the toss onto its head, home, a hop into the arch.
+        private static void BonkTrip(FxList list, in ClearWalk walk, Spot spot)
+        {
+            float walker = WalkerSize * (_pop > 0f ? _pop : 1f);
+            switch (spot.Leg)
+            {
+                case Leg.Out:
+                case Leg.Back:
+                    Walking(list, walk, spot, WalkerSize);
+                    return;
+                case Leg.Act:
+                    HandsAct(list, ClearStyle.Bonk, walk, spot.X, spot.Y, walker, spot.U, 0f);
+                    return;
+                default:
+                {
+                    float u = spot.U;
+                    float sink = 1f - (0.35f * u);
+                    Body(list, spot.X, spot.Y, WalkerSize, (float)Math.Sin(u * Math.PI) * 0.16f, 0f, sink, sink, 1f - u, walk.Variant);
+                    return;
+                }
             }
         }
 
@@ -589,6 +711,12 @@ namespace Bloomlings.Client.UI.Design
         // Its hands over the held cube (the same squash), drawn after every walker with the cube.
         private static void HandsOver(FxList list, in ClearWalk walk, float x, float y, float sx, float sy, float hop = 0f)
         {
+            if (!_creature && !_hero)
+            {
+                // A flat family picture has no hands to draw over the cube.
+                return;
+            }
+
             _pose = WalkerLook.PoseHands;
             list.Lifted = true;
             Body(list, x, y, WalkerSize, hop, 0f, sx, sy, 1f, walk.Variant, false);

@@ -155,6 +155,7 @@
         "haptics": { "type": "boolean" },
         "speed2x": { "type": "boolean" },
         "symbols": { "type": "boolean", "description": "The symbols mode (spec 006 FR-047): each round material's symbol on cubes, pods and places. Optional, off when missing; written only while on" },
+        "walkers": { "type": "string", "enum": ["classic", "creatures", "heroes"], "description": "The walkers (Settings, the owner's of 2026-11-04): today's flat walkers, the creatures with arms and legs, or the real V2 heroes (the owner's experiment). Optional, classic when missing; written only when not classic" },
         "homePetals": { "type": "boolean", "description": "Read and ignored (written as on by saves before 2026-10-05; Home's falling petals were removed on 2026-10-06)" },
         "homePetalsOn": { "type": "boolean", "description": "Read and ignored (Home's falling petals and their Settings switch were removed on 2026-10-06)" },
         "language": { "type": "string", "default": "en" }

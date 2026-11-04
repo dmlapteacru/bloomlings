@@ -6,6 +6,8 @@ using Bloomlings.Client.Gameplay.Workers;
 using Bloomlings.Client.Meta.Wardrobe;
 using Bloomlings.Client.UI;
 using Bloomlings.Client.UI.Design;
+using Bloomlings.Client.UI.Screens;
+using C = Bloomlings.Client.UI.Design.DesignTokens.Colors;
 using Bloomlings.Core.Rounds;
 using Bloomlings.Core.Variants;
 using UnityEngine;
@@ -27,6 +29,8 @@ namespace Bloomlings.Client.Gameplay.Effects
     {
         public bool CatalogIcons { get; set; }
         private readonly List<Image> _images = new List<Image>();
+        private readonly List<Image> _creatures = new List<Image>();
+        private readonly List<HeroWalker> _heroes = new List<HeroWalker>();
         private readonly List<(BloomlingFigure Figure, CanvasGroup Group, (VariantId Variant, int Material, bool Hero)? Shown)> _figures = new List<(BloomlingFigure, CanvasGroup, (VariantId, int, bool)?)>();
         private RectTransform _layer = null!;
 
@@ -61,15 +65,74 @@ namespace Bloomlings.Client.Gameplay.Effects
         {
             int images = 0;
             int figures = 0;
+            int creatures = 0;
+            int heroes = 0;
             int order = 0;
+            WalkerLook look = WalkerLook.Current;
+
+            // The lifted and carried cubes, a held cube's effects and the hands over it come after the layer's other items
+            // (FxItem.Lifted; the playtest's ClearPainter), so no other walker hides them.
+            for (int pass = 0; pass < 2; pass++)
             foreach (FxItem item in items)
             {
-                if (item.Layer != layer || Mathf.Abs(item.Sx) < 0.001f || Mathf.Abs(item.Sy) < 0.001f)
+                if (item.Layer != layer || Mathf.Abs(item.Sx) < 0.001f || Mathf.Abs(item.Sy) < 0.001f || item.Lifted != (pass == 1))
                 {
                     continue;
                 }
 
                 Vector2 center = Map(item.X, item.Y);
+                if (item.Kind == FxKind.Character && item.Material >= 0 && item.Pose >= 0 && !look.IsDefault)
+                {
+                    Family family = RoundMaterial.All[item.Material].Family;
+                    if (look.Heroes)
+                    {
+                        // The real V2 hero of the cube's family (the owner's experiment of 2026-11-04), or only his hands over the cube.
+                        HeroWalker hero = HeroAt(heroes++, family);
+                        Box cell = WalkerLook.HeroCell(item.Box);
+                        hero.Show(item.Pose == WalkerLook.PoseHands, cell, RoundLook.HeroHands(cell, family), Cell, item.Alpha);
+                        Place(hero.Root, Map(cell.CenterX, cell.CenterY), cell.Width * Cell, cell.Height * Cell, item);
+                        hero.Root.SetSiblingIndex(order++);
+                        continue;
+                    }
+
+                    if (look.DrawsCreature(item.Material))
+                    {
+                        // The drawn creature with arms and legs (UiRaster.Creature), mirrored for the left from the side.
+                        Image creature = CreatureAt(creatures++);
+                        RoundMaterial material = RoundMaterial.All[item.Material];
+                        int pose = item.Pose;
+                        Rgba body = look.BodyOf(RoundLook.ColorOf(material));
+                        creature.sprite = ProceduralSprites.Picture("walker.creature." + material.Code + "." + pose, CreaturePixels, CreaturePixels,
+                            (w, h) => UiRaster.Creature(w, h, body, C.InkBrown, family, pose));
+                        creature.color = new Color(1f, 1f, 1f, item.Alpha);
+                        Box box = WalkerLook.CreatureBox(item.Box);
+                        Place(creature.rectTransform, Map(box.CenterX, box.CenterY), box.Width * Cell, box.Height * Cell, item);
+                        if (item.Facing < 0 && pose <= WalkerLook.PoseSide)
+                        {
+                            creature.rectTransform.localScale = new Vector3(-item.Sx, item.Sy, 1f);
+                        }
+
+                        creature.rectTransform.SetSiblingIndex(order++);
+                        continue;
+                    }
+                }
+
+                if (item.Kind == FxKind.Tile && item.Material >= 0 && (item.Lifted || !look.IsDefault))
+                {
+                    // A held or carried cube: the board's own cube picture, placed as the board places one in its cell.
+                    Image cube = ImageAt(images++);
+                    BoardCubeLook cubeLook = BoardCubeLook.Default;
+                    float edge = item.W;
+                    float top = item.Y - (edge * cubeLook.RowShare / 2f);
+                    float height = edge * cubeLook.PictureShare;
+                    float width = edge * (1f + (2f * cubeLook.Overlap));
+                    cube.sprite = RoundSprites.BoardCube(item.Material, Symbols, CubePixels, UiRaster.Quantize(CubePixels * cubeLook.PictureShare / (1f + (2f * cubeLook.Overlap))), cubeLook);
+                    cube.color = new Color(1f, 1f, 1f, item.Alpha);
+                    Place(cube.rectTransform, Map(item.X, top + (height / 2f)), width * Cell, height * Cell, item);
+                    cube.rectTransform.SetSiblingIndex(order++);
+                    continue;
+                }
+
                 if (item.Kind == FxKind.Character)
                 {
                     RectTransform figure = Figure(figures++, item.Variant, item.Material, item.Alpha);
@@ -104,6 +167,123 @@ namespace Bloomlings.Client.Gameplay.Effects
             for (int i = figures; i < _figures.Count; i++)
             {
                 _figures[i].Figure.Rect.gameObject.SetActive(false);
+            }
+
+            for (int i = creatures; i < _creatures.Count; i++)
+            {
+                _creatures[i].gameObject.SetActive(false);
+            }
+
+            for (int i = heroes; i < _heroes.Count; i++)
+            {
+                _heroes[i].Root.gameObject.SetActive(false);
+            }
+        }
+
+        // The creature pictures' size in pixels, and a held cube's width (its picture's height follows the board's cube look).
+        private const int CreaturePixels = 96;
+        private const int CubePixels = 64;
+
+        private Image CreatureAt(int index)
+        {
+            if (index >= _creatures.Count)
+            {
+                Image image = UiFactory.CreateImage("Creature", _layer, null, Color.white);
+                image.raycastTarget = false;
+                _creatures.Add(image);
+            }
+
+            Image found = _creatures[index];
+            found.gameObject.SetActive(true);
+            return found;
+        }
+
+        private HeroWalker HeroAt(int index, Family family)
+        {
+            if (index >= _heroes.Count)
+            {
+                _heroes.Add(new HeroWalker(_layer));
+            }
+
+            HeroWalker found = _heroes[index];
+            found.Wear(family);
+            found.Root.gameObject.SetActive(true);
+            return found;
+        }
+
+        /// <summary>
+        /// A real V2 hero as a walker (the owner's experiment of 2026-11-04; <see cref="WalkerLook.HeroCell"/>): his figure in his
+        /// cell, or only his hands, the hero drawn again clipped to a disc round each (<see cref="RoundLook.HeroHands"/>, the latch
+        /// hero's trick), over the cube he holds. Stock, without an outfit.
+        /// </summary>
+        private sealed class HeroWalker
+        {
+            private readonly CanvasGroup _group;
+            private readonly HeroGearView _gear;
+            private readonly (Image Mask, RectTransform Cell, HeroGearView Gear)[] _hands = new (Image, RectTransform, HeroGearView)[2];
+            private Family? _family;
+
+            public HeroWalker(Transform parent)
+            {
+                Root = UiFactory.CreateRect("HeroWalker", parent);
+                _group = Root.gameObject.AddComponent<CanvasGroup>();
+                _group.blocksRaycasts = false;
+                RectTransform body = UiFactory.Stretch(UiFactory.CreateRect("Body", Root));
+                _gear = HeroGearView.Create(body);
+                for (int i = 0; i < _hands.Length; i++)
+                {
+                    Image mask = UiFactory.CreateImage("Hand", Root, ProceduralSprites.Circle, Color.white);
+                    mask.raycastTarget = false;
+                    mask.gameObject.AddComponent<Mask>().showMaskGraphic = false;
+                    RectTransform cell = UiFactory.CreateRect("Cell", mask.transform);
+                    _hands[i] = (mask, cell, HeroGearView.Create(cell));
+                }
+            }
+
+            public RectTransform Root { get; }
+
+            public void Wear(Family family)
+            {
+                if (_family == family)
+                {
+                    return;
+                }
+
+                _family = family;
+                _gear.Wear(family, null);
+                foreach ((Image _, RectTransform _, HeroGearView gear) in _hands)
+                {
+                    gear.Wear(family, null);
+                }
+            }
+
+            /// <summary>His figure, or only his <paramref name="hands"/> discs (cell units like <paramref name="cell"/>, <paramref name="unit"/> layer units a cell).</summary>
+            public void Show(bool handsOnly, Box cell, (Box Left, Box Right) hands, float unit, float alpha)
+            {
+                _group.alpha = alpha;
+                _gear.Rect.parent.gameObject.SetActive(!handsOnly);
+                for (int i = 0; i < _hands.Length; i++)
+                {
+                    (Image mask, RectTransform inner, HeroGearView _) = _hands[i];
+                    mask.gameObject.SetActive(handsOnly);
+                    if (!handsOnly)
+                    {
+                        continue;
+                    }
+
+                    Box disc = i == 0 ? hands.Left : hands.Right;
+                    Centered(mask.rectTransform, (disc.CenterX - cell.CenterX) * unit, -(disc.CenterY - cell.CenterY) * unit, disc.Width * unit, disc.Height * unit);
+                    Centered(inner, (cell.CenterX - disc.CenterX) * unit, -(cell.CenterY - disc.CenterY) * unit, cell.Width * unit, cell.Height * unit);
+                }
+            }
+
+            private static void Centered(RectTransform rect, float x, float y, float w, float h)
+            {
+                rect.anchorMin = new Vector2(0.5f, 0.5f);
+                rect.anchorMax = new Vector2(0.5f, 0.5f);
+                rect.pivot = new Vector2(0.5f, 0.5f);
+                rect.anchoredPosition = new Vector2(x, y);
+                rect.sizeDelta = new Vector2(w, h);
             }
         }
 

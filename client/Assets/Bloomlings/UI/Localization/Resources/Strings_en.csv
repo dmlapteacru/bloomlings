@@ -103,6 +103,7 @@ clearing.bubbles,Bubbles
 clearing.pushers,Pushers
 clearing.fireworks,Fireworks
 clearing.parade,Confetti Parade
+clearing.bonk,Head Bonk
 clearing.choose,Choose
 clearing.chosen,Chosen
 store.cosmetic,{0} ({1})
@@ -417,6 +418,10 @@ settings.haptics_label,Haptics
 settings.speed_label,Fast forward
 settings.symbols,Symbols: {0}
 settings.symbols_label,Symbols
+settings.walkers_label,Walkers
+settings.walkers.classic,Classic
+settings.walkers.creatures,Creatures
+settings.walkers.heroes,Heroes
 daily_reward.watch_claim,Watch & claim
 purchase.price_pending,Price is not available yet.
 settings.privacy_policy,Privacy policy

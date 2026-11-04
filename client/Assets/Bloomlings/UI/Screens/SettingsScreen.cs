@@ -37,6 +37,8 @@ namespace Bloomlings.Client.UI.Screens
         private TextMeshProUGUI _sfx = null!;
         private TextMeshProUGUI _haptics = null!;
         private TextMeshProUGUI _symbols = null!;
+        private TextMeshProUGUI _walkers = null!;
+        private TextMeshProUGUI? _walkersValue;
         private TextMeshProUGUI? _account;
         private Func<string>? _accountStatus;
         private TextMeshProUGUI? _levelLabel;
@@ -83,7 +85,9 @@ namespace Bloomlings.Client.UI.Screens
             screen._haptics=Toggle(view.Body,body,lines[1],"Haptics","settings.haptics",()=>settings.Haptics,()=>settings.Haptics=!settings.Haptics,screen,u);
             // The symbols mode (spec 006 FR-047), off by default.
             screen._symbols=Toggle(view.Body,body,lines[2],"Symbols","settings.symbols",()=>settings.Symbols,()=>settings.Symbols=!settings.Symbols,screen,u);
-            float y=lines[2].Bottom;
+            // The walkers (the owner, 2026-11-04): Classic, Creatures, Heroes; a tap on the value chooses the next.
+            screen._walkers=Walkers(view.Body,body,lines[3],settings,screen,u);
+            float y=lines[3].Bottom;
 
             if (account != null)
             {
@@ -169,6 +173,8 @@ namespace Bloomlings.Client.UI.Screens
             _sfx.text = Loc.T("settings.sound_label");
             _haptics.text = Loc.T("settings.haptics_label");
             _symbols.text = Loc.T("settings.symbols_label");
+            _walkers.text = Loc.T("settings.walkers_label");
+            if (_walkersValue != null) _walkersValue.text = Loc.T(WalkerKinds.NameKey(WalkerKinds.Parse(_settings.Walkers)));
             if(_levelLabel != null && _levels != null) _levelLabel.text="Level "+_levels.Current();
             if(_petalLabel != null && _petals != null) _petalLabel.text=Loc.T("settings.petals_label")+" "+NumberText.Group(_petals.Current());
             foreach ((ToggleView view, Func<bool> on) in _toggles)
@@ -212,6 +218,36 @@ namespace Bloomlings.Client.UI.Screens
             });
             UiKit.PlaceBox((RectTransform)toggle.transform, CardLook.SettingsToggleBox(line, u), line);
             screen._toggles.Add((toggle, on));
+            return label;
+        }
+
+        /// <summary>
+        /// The walkers row (the playtest's <c>MenuCards.Settings</c>; the owner, 2026-11-04): the settings row's icon and label, and a
+        /// raised cream value button (<see cref="CardLook.SettingsValueBox"/>) naming the chosen walkers; a tap chooses the next kind,
+        /// saves it and draws it at once (<see cref="WalkerLook.Use(WalkerKind)"/>).
+        /// </summary>
+        private static TextMeshProUGUI Walkers(RectTransform cardBody, Box body, Box line, SettingsData settings, SettingsScreen screen, float u)
+        {
+            Image separator=UiKit.RoundRect("Divider",cardBody,UiTheme.Of(C.ParchmentEdge.WithAlpha(.35f)));
+            UiKit.PlaceBox(separator.rectTransform,new Box(line.Left+line.Width*.04f,line.Top-7*u,line.Right-line.Width*.04f,line.Top-5*u),body);
+            Image row = UiFactory.CreateImage("Walkers",cardBody,null,Color.clear);
+            UiKit.PlaceBox(row.rectTransform, line, body);
+            Icon(row.transform, CardLook.SettingsIconOf("settings.walkers"), CardLook.SettingsIconBox(line, u), line);
+            TextMeshProUGUI label = UiKit.Label("Label", row.transform, string.Empty, PopupDesign.Label, UiTheme.Of(C.InkBrown), TextAlignmentOptions.Left, TextLook.Plain(C.InkBrown));
+            label.fontSizeMax = UiKit.Units(T.ButtonSecondary.Size * CardLook.SettingsLabelScale);
+            label.fontSize = label.fontSizeMax;
+            float left = CardLook.SettingsLabelLeft(line, u);
+            UiKit.PlaceBox(label.rectTransform, new Box(left, line.Top, CardLook.SettingsValueLabelRight(line, u), line.Bottom), line);
+            Button value = UiKit.SecondaryButton("Value", row.transform, Loc.T(WalkerKinds.NameKey(WalkerKinds.Parse(settings.Walkers))), () =>
+            {
+                WalkerKind next = WalkerKinds.Next(WalkerKinds.Parse(settings.Walkers));
+                settings.Walkers = WalkerKinds.Id(next);
+                WalkerLook.Use(next);
+                screen._persist();
+                screen.Refresh();
+            }, style: PopupDesign.Label);
+            UiKit.PlaceBox((RectTransform)value.transform, CardLook.SettingsValueBox(line, u), line);
+            screen._walkersValue = value.GetComponentInChildren<TextMeshProUGUI>();
             return label;
         }
 

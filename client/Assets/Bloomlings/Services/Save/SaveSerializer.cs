@@ -195,7 +195,7 @@ namespace Bloomlings.Client.Services.Save
                     JsonDoc.Int(JsonDoc.Required(entry, path, "levelNumber"), JsonDoc.Join(path, "levelNumber"), min: 1)));
             }
 
-            JObject settings = Obj(root, "settings", "music", "sfx", "haptics", "speed2x", "symbols", "homePetals", "homePetalsOn", "language");
+            JObject settings = Obj(root, "settings", "music", "sfx", "haptics", "speed2x", "symbols", "walkers", "homePetals", "homePetalsOn", "language");
             save.Settings.Music = JsonDoc.Bool(JsonDoc.Required(settings, "settings", "music"), "settings.music");
             save.Settings.Sfx = JsonDoc.Bool(JsonDoc.Required(settings, "settings", "sfx"), "settings.sfx");
             save.Settings.Haptics = JsonDoc.Bool(JsonDoc.Required(settings, "settings", "haptics"), "settings.haptics");
@@ -203,6 +203,9 @@ namespace Bloomlings.Client.Services.Save
             // The symbols mode (spec 006 FR-047) is optional: older saves have none, and it is off by default.
             JToken? symbols = JsonDoc.Optional(settings, "symbols");
             save.Settings.Symbols = symbols != null && JsonDoc.Bool(symbols, "settings.symbols");
+            // The walkers (the owner, 2026-11-04) are optional: older saves have none, and an unknown value reads as classic.
+            string? walkers = OptionalString(settings, "settings", "walkers");
+            save.Settings.Walkers = walkers == "creatures" || walkers == "heroes" ? walkers : "classic";
             // homePetals and homePetalsOn (Home's falling petals' switch, removed with the petals by the owner on
             // 2026-10-06) are accepted in older saves and ignored.
             save.Settings.Language = OptionalString(settings, "settings", "language") ?? "en";
@@ -365,6 +368,12 @@ namespace Bloomlings.Client.Services.Save
             {
                 // Written only while on, so saves without the symbols mode stay as they were (spec 006 FR-047).
                 ((JObject)root["settings"]!)["symbols"] = true;
+            }
+
+            if (save.Settings.Walkers == "creatures" || save.Settings.Walkers == "heroes")
+            {
+                // Written only when not classic, so older saves and classic players' saves stay as they were.
+                ((JObject)root["settings"]!)["walkers"] = save.Settings.Walkers;
             }
 
             if (save.CloudOwnerId != null) root["cloudOwnerId"] = save.CloudOwnerId;

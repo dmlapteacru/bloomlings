@@ -34,16 +34,25 @@ namespace Bloomlings.Client.UI.Design
             return new Box(x,y,x+width,y+height);
         }
         public static float CosmeticsHeight(Box area,int count) => Math.Max(area.Height, CosmeticCard(area,Math.Max(0,count-1)).Bottom-area.Top+area.Width*.035f);
+        /// <summary>The Animations tab's wide card: the last, the Confetti Parade's (Munchers, the six bought styles before it, then the Parade).</summary>
+        public const int AnimationWide = 7;
+
+        /// <summary>
+        /// The Animations tab's card <paramref name="index"/> (Munchers first, then <see cref="ClearStyles.Bought"/>): two a row, the
+        /// seventh (Head Bonk, the owner's of 2026-11-04) alone in the middle of its row, the Parade wide under them.
+        /// </summary>
         public static Box AnimationCard(Box area,int index)
         {
             float gap=area.Width*.028f, width=(area.Width-gap)*.5f;
             float wide=width*.65f;
             float height=width*1.06f;
-            if(index==6) return new Box(area.Left,area.Top+3*(height+gap),area.Right,area.Top+3*(height+gap)+wide);
-            float x=area.Left+(index%2)*(width+gap), y=area.Top+(index/2)*(height+gap);
+            int rows=(AnimationWide+1)/2;
+            if(index==AnimationWide) return new Box(area.Left,area.Top+rows*(height+gap),area.Right,area.Top+rows*(height+gap)+wide);
+            bool alone=AnimationWide%2==1 && index==AnimationWide-1;
+            float x=alone ? area.CenterX-width/2 : area.Left+(index%2)*(width+gap), y=area.Top+(index/2)*(height+gap);
             return new Box(x,y,x+width,y+height);
         }
-        public static Box Caption(Box area) { Box last=AnimationCard(area,6); return new Box(area.Left,last.Bottom+area.Width*.018f,area.Right,last.Bottom+area.Width*.075f); }
+        public static Box Caption(Box area) { Box last=AnimationCard(area,AnimationWide); return new Box(area.Left,last.Bottom+area.Width*.018f,area.Right,last.Bottom+area.Width*.075f); }
         public static float AnimationsHeight(Box area) => Math.Max(area.Height,Caption(area).Bottom-area.Top+area.Width*.025f);
         public static ShopCatalogParts Parts(Box b,bool cosmetics,bool wide=false)
         {

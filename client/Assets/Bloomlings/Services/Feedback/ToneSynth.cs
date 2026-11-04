@@ -245,6 +245,35 @@ namespace Bloomlings.Client.Services.Feedback
                     Noise(s, 0, 0.12, 1100 + (100 * i), 1100 + (100 * i), 1.0, 0.001, 0.025, 0.6, 81 + i, true);
                     Voice(s, 0, 140, 85, 0.04, 0.002, P(1, 1, 0.05));
                     return Finish(s, 0.2);
+                case ClearSound.BonkCrack:
+                {
+                    // A bright wooden "tock" on its note, then a little crackle of the shards scattering.
+                    s = Buffer(0.3);
+                    Voice(s, 0, f * 1.04, f, 0.006, 0.0012, P(1, 1, 0.07), P(2.4, 0.3, 0.03), P(4.1, 0.08, 0.015));
+                    double[] shards = { 0.035, 0.05, 0.07, 0.095 };
+                    for (int k = 0; k < shards.Length; k++)
+                    {
+                        Noise(s, shards[k], 0.008, 3200 - (200 * k), 3200 - (200 * k), 1.3, 0.0005, 0.003, 0.22 - (0.04 * k), 91 + k, false);
+                    }
+
+                    return Finish(s, 0.25);
+                }
+
+                case ClearSound.BonkToss:
+                    // A quick rising breath as the cube flies up.
+                    s = Buffer(0.18);
+                    Noise(s, 0, 0.16, 600 + (60 * i), 2600 + (120 * i), 1.0, 0.07, 0.05, 1, 101 + i, false);
+                    return Finish(s, 0.1);
+                case ClearSound.BonkHit:
+                {
+                    // A soft hollow knock on the head (a falling wooden thump) and a short crack of the shards.
+                    s = Buffer(0.16);
+                    double k = 300 + (25 * i);
+                    Voice(s, 0, k * 1.4, k, 0.02, 0.001, P(1, 1, 0.04), P(1.6, 0.4, 0.02));
+                    Noise(s, 0.004, 0.02, 2600 + (150 * i), 2600 + (150 * i), 1.4, 0.0005, 0.008, 0.6, 111 + i, false);
+                    return Finish(s, 0.18);
+                }
+
                 default:
                 {
                     // ParadeHop: a tiny "pip", the second hop higher.

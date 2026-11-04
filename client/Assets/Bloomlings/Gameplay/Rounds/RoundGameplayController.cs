@@ -239,6 +239,8 @@ namespace Bloomlings.Client.Gameplay.Rounds
             int levelNumber = _attempt.LevelNumber;
             ClearStyle style = Service<ClearingService>()?.StyleFor(levelNumber) ?? ClearStyles.ForLevel(levelNumber);
             Feedback?.Prewarm(style);
+            // The walkers the player chose in Settings (the owner, 2026-11-04; presentation only).
+            WalkerLook.Use(WalkerKinds.Parse(Service<PlayerSave>()?.Settings.Walkers), style);
             _core = new RoundLevelCore(levelNumber, _attempt.Level, style, this);
             _core.Toasted += key => _hud.Toast(Loc.T(key));
             _launch = new Box?[_attempt.Level.Pods.Count];

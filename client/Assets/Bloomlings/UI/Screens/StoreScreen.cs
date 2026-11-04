@@ -679,7 +679,7 @@ namespace Bloomlings.Client.UI.Screens
             Box area=ShopCatalogDesign.Viewport(_regions,false);
             Box content=CatalogContent(area,ShopCatalogDesign.AnimationsHeight(area));
             var styles=new List<ClearStyle>(ClearStyles.Free);styles.AddRange(ClearStyles.Bought);
-            for(int i=0;i<styles.Count;i++)ClearingCatalogCard(ShopCatalogDesign.AnimationCard(area,i),content,styles[i],clearing,i==6);
+            for(int i=0;i<styles.Count;i++)ClearingCatalogCard(ShopCatalogDesign.AnimationCard(area,i),content,styles[i],clearing,i==ShopCatalogDesign.AnimationWide);
             TextMeshProUGUI caption=UiKit.KitLabel("Caption",_shopContent,Loc.T("store.animations_caption"),ShopBodyDesign.Small,ShopBodyDesign.Letters);
             UiKit.PlaceBox(caption.rectTransform,ShopCatalogDesign.Caption(area),content);
         }

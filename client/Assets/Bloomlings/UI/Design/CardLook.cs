@@ -44,6 +44,7 @@ namespace Bloomlings.Client.UI.Design
             "settings.haptics" => new SettingsIcon(PopupDesign.HapticsIcon,null,"ui.haptics"),
             "settings.music" => new SettingsIcon(OwnerPictures.VariantIcon("bud"), null, ShapeLibrary.SymbolId("bud")),
             "settings.symbols" => new SettingsIcon(null, "ui.symbols", "ui.symbols"),
+            "settings.walkers" => new SettingsIcon(OwnerPictures.VariantIcon("leaf"), null, ShapeLibrary.SymbolId("leaf")),
             _ => new SettingsIcon(null, "ui.fast", "ui.fast"),
         };
 
@@ -61,6 +62,15 @@ namespace Bloomlings.Client.UI.Design
         /// height as in the mockup, its middle 116 units in from the row's right end.
         /// </summary>
         public static Box SettingsToggleBox(Box row, float unit) => Box.FromCenter(row.Right - (116f * unit), row.CenterY, 160f * unit, 82f * unit);
+
+        /// <summary>
+        /// The walkers row's value button (Settings «Ходоки», the owner, 2026-11-04): a raised cream pill naming the chosen walkers
+        /// (Classic, Creatures, Heroes), 250 × 82 units, its middle 152 units in from the row's right end; a tap chooses the next.
+        /// </summary>
+        public static Box SettingsValueBox(Box row, float unit) => Box.FromCenter(row.Right - (152f * unit), row.CenterY, 250f * unit, 82f * unit);
+
+        /// <summary>Where the walkers row's label must end, clear of its value button.</summary>
+        public static float SettingsValueLabelRight(Box row, float unit) => row.Right - (290f * unit);
 
         /// <summary>Where a Settings row's label must end, clear of its switch.</summary>
         public static float SettingsLabelRight(Box row, float unit) => row.Right - (214f * unit);

@@ -56,6 +56,7 @@ namespace Bloomlings.Playtest.Design
             Picture = picture;
             Play = new RoundPlay(level);
             Style = app.Meta.Clearing.StyleFor(Level);
+            ApplyWalkers();
             _podKeys = new string[level.Pods.Count];
             _revealReal = new float[level.Pods.Count];
             PodBoxes = new Box?[level.Pods.Count];
@@ -84,7 +85,23 @@ namespace Bloomlings.Playtest.Design
 
         /// <summary>The level's clearing style (spec 005 FR-038): Munchers, or the chosen bought one.</summary>
         /// <summary>The clearing style its walkers play (settable for the preview's review videos).</summary>
-        public ClearStyle Style { get; set; }
+        public ClearStyle Style
+        {
+            get => _style;
+            set
+            {
+                _style = value;
+                ApplyWalkers();
+            }
+        }
+
+        private ClearStyle _style;
+
+        /// <summary>
+        /// Draws the walkers the player chose in Settings (<c>settings.walkers</c>, <see cref="WalkerLook.Use(WalkerKind, ClearStyle)"/>)
+        /// with this level's style; again when the choice changes during the level.
+        /// </summary>
+        public void ApplyWalkers() => WalkerLook.Use(WalkerKinds.Parse(_app.Meta.Save.Settings.Walkers), _style);
 
         public PlaytestMeta Meta => _app.Meta;
 

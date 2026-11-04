@@ -1,9 +1,51 @@
 using System;
+using System.Collections.Generic;
 using Bloomlings.Core.Rounds;
 using Bloomlings.Core.Variants;
 
 namespace Bloomlings.Client.UI.Design
 {
+    /// <summary>
+    /// The walkers the player chose in Settings (the owner, 2026-11-04: «Ходоки», <c>settings.walkers</c>): today's flat family
+    /// pictures, the drawn creatures with arms and legs, or the owner's real V2 heroes (his experiment of 2026-11-04: hero frames
+    /// inside a level as walkers go beyond constitution principle VII, which allows them only as a mechanic's figure).
+    /// Presentation only.
+    /// </summary>
+    public enum WalkerKind
+    {
+        Classic,
+        Creatures,
+        Heroes,
+    }
+
+    /// <summary>The walker kinds' save ids (<c>settings.walkers</c>) and their looks (<see cref="WalkerLook.For"/>).</summary>
+    public static class WalkerKinds
+    {
+        public static IReadOnlyList<WalkerKind> All { get; } = new[] { WalkerKind.Classic, WalkerKind.Creatures, WalkerKind.Heroes };
+
+        /// <summary>The kind's save id and the tail of its name key (<c>settings.walkers.creatures</c>).</summary>
+        public static string Id(WalkerKind kind) => kind switch
+        {
+            WalkerKind.Creatures => "creatures",
+            WalkerKind.Heroes => "heroes",
+            _ => "classic",
+        };
+
+        /// <summary>The kind a save id names; anything else (an older save, a missing key) is <see cref="WalkerKind.Classic"/>.</summary>
+        public static WalkerKind Parse(string? id) => id switch
+        {
+            "creatures" => WalkerKind.Creatures,
+            "heroes" => WalkerKind.Heroes,
+            _ => WalkerKind.Classic,
+        };
+
+        /// <summary>The kind after <paramref name="kind"/> on the Settings row's tap (Classic, Creatures, Heroes, Classic…).</summary>
+        public static WalkerKind Next(WalkerKind kind) => All[((int)kind + 1) % All.Count];
+
+        /// <summary>The kind's label in the strings table.</summary>
+        public static string NameKey(WalkerKind kind) => "settings.walkers." + Id(kind);
+    }
+
     /// <summary>
     /// How a round level's clearing walkers are drawn (presentation only; the rules, their times and every outcome stay): their
     /// size, outline, contact shadow, body shade, Munchers' act (chew the cube, or carry it home) and, for some families, the
@@ -25,8 +67,12 @@ namespace Bloomlings.Client.UI.Design
             string name = "default",
             bool hands = false,
             bool heroes = false,
-            float linger = ClearStyles.LiveLinger)
+            float linger = ClearStyles.LiveLinger,
+            bool handsAllStyles = true,
+            bool asideMunch = false)
         {
+            HandsAllStyles = handsAllStyles;
+            AsideMunch = asideMunch;
             Hands = hands;
             Heroes = heroes;
             Linger = linger;
@@ -38,6 +84,12 @@ namespace Bloomlings.Client.UI.Design
             CreatureFamilies = creatures ?? Array.Empty<Family>();
             Name = name;
         }
+
+        /// <summary>The asset slot of the drawn creature walkers (<see cref="UiRaster.Creature"/>).</summary>
+        public const string CreatureSlot = "char.walker.creature";
+
+        /// <summary>The asset slot of the real hero walkers (<see cref="HeroCell"/>).</summary>
+        public const string HeroSlot = "char.walker.hero";
 
         /// <summary>The walkers' own flat shadow's opacity (<see cref="FxList.Shadow"/>).</summary>
         public const float DefaultShadowAlpha = 0.13f;
@@ -95,6 +147,27 @@ namespace Bloomlings.Client.UI.Design
 
         /// <summary>Within an "in hands" act: the gag is over by this; the walker then turns for home empty-handed.</summary>
         public const float GagEnd = 0.92f;
+
+        /// <summary>Within Munchers' aside act (<see cref="AsideMunch"/>, about 1.1 s): the cube is in its hands by this…</summary>
+        public const float AsideJumpEnd = 0.18f;
+
+        /// <summary>…it is at its spot by this (about a quarter of a second's walk)…</summary>
+        public const float AsideWalkEnd = 0.38f;
+
+        /// <summary>…and has eaten the cube in three bites by this; a hop, then home.</summary>
+        public const float AsideEatEnd = 0.94f;
+
+        /// <summary>Seconds a walker takes from its aside spot back onto its way home (the start of its way back).</summary>
+        public const float AsideBackSeconds = 0.3f;
+
+        /// <summary>How far aside a walker steps, in walker boxes, at the least and at the most (the owner: a short step, about 1–2 cells).</summary>
+        public const float AsideNear = 0.9f;
+
+        /// <inheritdoc cref="AsideNear"/>
+        public const float AsideFar = 1.7f;
+
+        /// <summary>The least distance between two walkers' aside spots at once, in walker boxes, so they never crowd in one place.</summary>
+        public const float AsideSpacing = 0.95f;
 
         /// <summary>A real hero walker's cell height (<see cref="HeroMotion.CellHeight"/>) as a share of the walker's box: upright, a little taller than the round figures.</summary>
         public const float HeroCellScale = 1.45f;
@@ -156,6 +229,47 @@ namespace Bloomlings.Client.UI.Design
             hands: true, heroes: true, linger: HandsLinger);
 
         /// <summary>
+        /// The game's Creatures walkers (Settings, the owner's of 2026-11-04): the drawn creature of every family with arms and legs
+        /// at a fixed size on screen (<see cref="MockBoardShare"/>), in its outline with a contact shadow; Munchers takes its cube in
+        /// its hands, steps aside and eats it in three bites (<see cref="AsideMunch"/>); Bonk tosses it onto its head; the other
+        /// styles keep their acts with the creature as their figure.
+        /// </summary>
+        public static WalkerLook GameCreatures { get; } = new WalkerLook(MockBoardShare, MockOutline, MockShadowAlpha, MockShade, false,
+            new[] { Family.Sprig, Family.Bloom, Family.Drop, Family.Twig }, "creatures", hands: true, handsAllStyles: false, asideMunch: true);
+
+        /// <summary>
+        /// The game's Heroes walkers (Settings; the owner's experiment of 2026-11-04, see <see cref="WalkerKind"/>): the real modular
+        /// V2 hero of the cube's family as a small walker (no outline), with the same acts as <see cref="GameCreatures"/>.
+        /// </summary>
+        public static WalkerLook GameHeroes { get; } = new WalkerLook(MockBoardShare, 0f, MockShadowAlpha, 0f, false, null, "heroes",
+            hands: true, heroes: true, handsAllStyles: false, asideMunch: true);
+
+        /// <summary>The look of a Settings walker kind: <see cref="Default"/>, <see cref="GameCreatures"/> or <see cref="GameHeroes"/>.</summary>
+        public static WalkerLook For(WalkerKind kind) => kind switch
+        {
+            WalkerKind.Creatures => GameCreatures,
+            WalkerKind.Heroes => GameHeroes,
+            _ => Default,
+        };
+
+        /// <summary>
+        /// The hosts' switch for a level: draws <paramref name="kind"/>'s walkers (<see cref="Current"/>) and sets the act's linger
+        /// for <paramref name="style"/> (<see cref="LingerFor"/>, <see cref="ClearStyles.Linger"/>). Classic with any style but Bonk
+        /// keeps the game's look and timing exactly.
+        /// </summary>
+        public static void Use(WalkerKind kind, ClearStyle style)
+        {
+            _style = style;
+            Current = For(kind);
+            ClearStyles.Linger = Current.LingerFor(style);
+        }
+
+        /// <summary><see cref="Use"/> with the style last used (a walker kind chosen in Settings during a level).</summary>
+        public static void Use(WalkerKind kind) => Use(kind, _style);
+
+        private static ClearStyle _style = ClearStyles.Default;
+
+        /// <summary>
         /// The mock's variant 4: <see cref="Contrast"/> with the Sprig family's walkers a drawn running creature (a leaf with its
         /// veins), and the Drop family's the same body as a glossy drop, so that it shows on L1 (no Sprig cube) too.
         /// </summary>
@@ -204,6 +318,37 @@ namespace Bloomlings.Client.UI.Design
         public float Linger { get; }
 
         public bool IsDefault => ReferenceEquals(this, Default);
+
+        /// <summary>The "in hands" act plays in every style (the mocks); else only in Munchers (and Bonk, always).</summary>
+        public bool HandsAllStyles { get; }
+
+        /// <summary>Munchers takes its cube in its hands, steps aside to a free spot and eats it there in three bites (the owner, 2026-11-04).</summary>
+        public bool AsideMunch { get; }
+
+        /// <summary>Whether a round walker of <paramref name="style"/> plays the "in hands" act (<see cref="ClearLook"/>): Bonk always.</summary>
+        public bool UsesHands(ClearStyle style) => style == ClearStyle.Bonk || (Hands && (HandsAllStyles || style == ClearStyle.Munchers));
+
+        /// <summary>The act's linger after the rules' clear for <paramref name="style"/>: <see cref="HandsLinger"/> for an "in hands" act, else <see cref="Linger"/>.</summary>
+        public float LingerFor(ClearStyle style) => UsesHands(style) ? Math.Max(Linger, HandsLinger) : Linger;
+
+        /// <summary>
+        /// A real hero walker's cell (<see cref="HeroMotion.CellWidth"/> × <see cref="HeroMotion.CellHeight"/>) on its walker box
+        /// <paramref name="box"/>: <see cref="HeroCellScale"/> of it tall, his feet (the cell's <see cref="HeroMotion.FootLine"/>) on its bottom.
+        /// </summary>
+        public static Box HeroCell(Box box)
+        {
+            float h = box.Height * HeroCellScale;
+            float w = h * HeroMotion.CellWidth / HeroMotion.CellHeight;
+            float top = box.Bottom - (h * HeroMotion.FootLine);
+            return new Box(box.CenterX - (w / 2f), top, box.CenterX + (w / 2f), top + h);
+        }
+
+        /// <summary>A drawn creature's picture box on its walker box: <see cref="CreatureScale"/> of it, on the same feet.</summary>
+        public static Box CreatureBox(Box box)
+        {
+            float k = CreatureScale;
+            return new Box(box.CenterX - (box.Width * k / 2f), box.Bottom - (box.Height * k), box.CenterX + (box.Width * k / 2f), box.Bottom);
+        }
 
         /// <summary>A round walker's size in cubes when <paramref name="cubesAcross"/> cubes span the board surface.</summary>
         public float WalkerCubes(float cubesAcross) => BoardShare > 0f ? BoardShare * cubesAcross : ClearStyles.WalkerCubes(cubesAcross);

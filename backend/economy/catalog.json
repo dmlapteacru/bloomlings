@@ -1,5 +1,5 @@
 {
-  "version": "economy-1-ebffff4c9c465545",
+  "version": "economy-1-9868d32b7ee7554e",
   "maxLevel": 2500,
   "cosmetics": {
     "frame.wood_ring": {
@@ -624,6 +624,11 @@
     },
     "clear.fireworks": {
       "price": 5000,
+      "free": false,
+      "minLevel": 40
+    },
+    "clear.bonk": {
+      "price": 3500,
       "free": false,
       "minLevel": 40
     },

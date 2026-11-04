@@ -65,7 +65,7 @@ namespace Bloomlings.Playtest.Design
                     app.Meta.Persist();
                 }),
             };
-            Box[] lines = ScreenLayout.Column(new Box(r.Body.Left, r.Body.Top + p.U(12f), r.Body.Right, r.Body.Bottom), items.Length, p.U(126f), p.U(12f));
+            Box[] lines = ScreenLayout.Column(new Box(r.Body.Left, r.Body.Top + p.U(12f), r.Body.Right, r.Body.Bottom), PopupDesign.SettingsRows, p.U(126f), p.U(12f));
             for (int i = 0; i < items.Length; i++)
             {
                 (string key, bool on, Action toggle) = items[i];
@@ -76,6 +76,22 @@ namespace Bloomlings.Playtest.Design
                 float left = CardLook.SettingsLabelLeft(line, p.U(1f));
                 p.TextLeft(PlaytestText.T(key + "_label"), left, line.CenterY, PopupDesign.Label, C.InkBrown, CardLook.SettingsLabelRight(line, p.U(1f)) - left, CardLook.SettingsLabelScale, TextLook.Plain(C.InkBrown));
                 Kit.Toggle(p, CardLook.SettingsToggleBox(line, p.U(1f)), on, toggle);
+            }
+
+            // The walkers (the owner, 2026-11-04): a tap on the value chooses the next kind (Classic, Creatures, Heroes).
+            {
+                Box line = lines[items.Length];
+                p.Line(line.Left+line.Width*.04f,line.Top-p.U(6),line.Right-line.Width*.04f,line.Top-p.U(6),p.U(2),C.ParchmentEdge.WithAlpha(.35f));
+                DrawSettingsIcon(p, CardLook.SettingsIconOf("settings.walkers"), CardLook.SettingsIconBox(line, p.U(1f)));
+                float left = CardLook.SettingsLabelLeft(line, p.U(1f));
+                p.TextLeft(PlaytestText.T("settings.walkers_label"), left, line.CenterY, PopupDesign.Label, C.InkBrown, CardLook.SettingsValueLabelRight(line, p.U(1f)) - left, CardLook.SettingsLabelScale, TextLook.Plain(C.InkBrown));
+                WalkerKind kind = WalkerKinds.Parse(save.Walkers);
+                Kit.SecondaryButton(p, CardLook.SettingsValueBox(line, p.U(1f)), PlaytestText.T(WalkerKinds.NameKey(kind)), () =>
+                {
+                    save.Walkers = WalkerKinds.Id(WalkerKinds.Next(kind));
+                    app.Meta.Persist();
+                    app.Round?.ApplyWalkers();
+                }, style: PopupDesign.Label);
             }
 
             float top = lines[lines.Length - 1].Bottom + p.U(20f);

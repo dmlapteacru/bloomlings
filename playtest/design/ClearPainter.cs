@@ -85,13 +85,13 @@ namespace Bloomlings.Playtest.Design
 
         private static void DrawEffects(IPainter p, IReadOnlyList<FxItem> items, FxLayer layer, float ox, float oy, float cell, bool icons, bool symbols, bool heroWalkers)
         {
-            // The walker mock's looks draw the lifted and carried cubes after everything else of the layer (FxItem.Lifted).
-            int passes = WalkerLook.Current.IsDefault ? 1 : 2;
+            // The lifted and carried cubes, the held cubes' effects and the hands over them come after everything else of the layer
+            // (FxItem.Lifted; none in the game's classic look but Bonk's), so no other walker hides them.
             string? marked = null;
-            for (int pass = 0; pass < passes; pass++)
+            for (int pass = 0; pass < 2; pass++)
             foreach (FxItem item in items)
             {
-                if (item.Layer != layer || Math.Abs(item.Sx) < 1e-3f || Math.Abs(item.Sy) < 1e-3f || (passes == 2 && item.Lifted != (pass == 1)))
+                if (item.Layer != layer || Math.Abs(item.Sx) < 1e-3f || Math.Abs(item.Sy) < 1e-3f || item.Lifted != (pass == 1))
                 {
                     continue;
                 }
@@ -129,7 +129,7 @@ namespace Bloomlings.Playtest.Design
                         else Visuals.Character(p, box, item.Variant, item.Mood);
                         break;
                     case FxKind.Tile:
-                        if (item.Material >= 0 && !WalkerLook.Current.IsDefault) BoardCubeAt(p, x, y, w, RoundMaterial.All[item.Material], symbols);
+                        if (item.Material >= 0 && (item.Lifted || !WalkerLook.Current.IsDefault)) BoardCubeAt(p, x, y, w, RoundMaterial.All[item.Material], symbols);
                         else if (item.Material >= 0) Kit.MaterialTile(p, box, RoundMaterial.All[item.Material], RoundLook.CubeStyle, symbols);
                         else Kit.CandyTile(p, box, item.Variant, icons ? TileStyle.MosaicIcon : TileStyle.Mosaic);
                         break;

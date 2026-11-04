@@ -1,6 +1,6 @@
 {
   "catalog": {
-    "version": "economy-1-ebffff4c9c465545",
+    "version": "economy-1-9868d32b7ee7554e",
     "cosmetics": {
       "frame.wood_ring": {
         "price": 0,
@@ -627,6 +627,11 @@
         "free": false,
         "minLevel": 40
       },
+      "clear.bonk": {
+        "price": 3500,
+        "free": false,
+        "minLevel": 40
+      },
       "clear.parade": {
         "price": 5000,
         "free": false,
@@ -664,7 +669,7 @@
   "initialState": {
     "schemaVersion": 1,
     "ownerId": "alice",
-    "catalogVersion": "economy-1-ebffff4c9c465545",
+    "catalogVersion": "economy-1-9868d32b7ee7554e",
     "revision": 0,
     "petals": 10000,
     "highestCompletedLevel": 100,
@@ -687,7 +692,7 @@
     "kind": "buy_cosmetic",
     "installationId": "fixture-phone",
     "sequence": 1,
-    "catalogVersion": "economy-1-ebffff4c9c465545",
+    "catalogVersion": "economy-1-9868d32b7ee7554e",
     "itemId": "hat.twig_nightcap"
   },
   "read": {
@@ -695,7 +700,7 @@
     "code": "loaded",
     "consumed": false,
     "retryable": false,
-    "catalogVersion": "economy-1-ebffff4c9c465545",
+    "catalogVersion": "economy-1-9868d32b7ee7554e",
     "catalog": {
       "cosmetics": {
         "frame.wood_ring": {
@@ -1323,6 +1328,11 @@
           "free": false,
           "minLevel": 40
         },
+        "clear.bonk": {
+          "price": 3500,
+          "free": false,
+          "minLevel": 40
+        },
         "clear.parade": {
           "price": 5000,
           "free": false,
@@ -1360,7 +1370,7 @@
     "state": {
       "schemaVersion": 1,
       "ownerId": "alice",
-      "catalogVersion": "economy-1-ebffff4c9c465545",
+      "catalogVersion": "economy-1-9868d32b7ee7554e",
       "revision": 0,
       "petals": 10000,
       "highestCompletedLevel": 100,
@@ -1391,11 +1401,11 @@
     "consumed": true,
     "retryable": false,
     "replayed": false,
-    "catalogVersion": "economy-1-ebffff4c9c465545",
+    "catalogVersion": "economy-1-9868d32b7ee7554e",
     "state": {
       "schemaVersion": 1,
       "ownerId": "alice",
-      "catalogVersion": "economy-1-ebffff4c9c465545",
+      "catalogVersion": "economy-1-9868d32b7ee7554e",
       "revision": 1,
       "petals": 9350,
       "highestCompletedLevel": 100,

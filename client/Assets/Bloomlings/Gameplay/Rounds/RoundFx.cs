@@ -20,6 +20,7 @@ namespace Bloomlings.Client.Gameplay.Rounds
         private readonly Dictionary<int, List<(float X, float Y)>> _points = new Dictionary<int, List<(float X, float Y)>>();
         private readonly List<int> _gone = new List<int>();
         private readonly List<int> _heldCells = new List<int>();
+        private readonly AsideSpots _aside = new AsideSpots();
         private bool[] _held = Array.Empty<bool>();
         private RoundBoardLayout? _layout;
 
@@ -39,6 +40,7 @@ namespace Bloomlings.Client.Gameplay.Rounds
         public void Reset()
         {
             _points.Clear();
+            _aside.Reset();
             List.Clear();
             ClearHeld();
             _layout = null;
@@ -66,6 +68,13 @@ namespace Bloomlings.Client.Gameplay.Rounds
             list.Clear();
             ClearHeld();
             float now = clockUs / 1_000_000f;
+            float cubesAcross = layout.Surface.Width / Math.Max(1f, layout.Cell);
+            bool aside = style == ClearStyle.Munchers && WalkerLook.Current.AsideMunch;
+            if (aside)
+            {
+                _aside.Update(a, layout, now, WalkerLook.Current.WalkerCubes(cubesAcross), PointsOf);
+            }
+
             foreach (RoundWalk walk in a.ShownWalkers)
             {
                 if (walk.Route.Count == 0)
@@ -73,19 +82,13 @@ namespace Bloomlings.Client.Gameplay.Rounds
                     continue;
                 }
 
-                if (!_points.TryGetValue(walk.Id, out List<(float X, float Y)>? points))
-                {
-                    points = new List<(float X, float Y)>(walk.Route.Count);
-                    foreach (int cell in walk.Route)
-                    {
-                        points.Add(InCells(layout, cell));
-                    }
-
-                    _points[walk.Id] = points;
-                }
-
+                List<(float X, float Y)> points = PointsOf(walk);
                 ClearWalk live = ClearWalk.Live(points, walk.Material, FamilyVariant(walk.Material), walk.Start / 1_000_000f, walk.Arrive / 1_000_000f, walk.Clear / 1_000_000f, walk.Done / 1_000_000f, seat(walk.Pod),
-                    layout.Surface.Width / Math.Max(1f, layout.Cell));
+                    cubesAcross);
+                if (aside)
+                {
+                    live = live.WithAside(_aside.Of(walk.Id));
+                }
                 if (ClearLook.Holds(style, live, now) && walk.Cell >= 0 && walk.Cell < _held.Length && !_held[walk.Cell])
                 {
                     _held[walk.Cell] = true;
@@ -115,6 +118,23 @@ namespace Bloomlings.Client.Gameplay.Rounds
                 int material = a.OriginalMaterial(cell);
                 ClearLook.Restore(list, style, new ClearFade(InCells(layout, cell), FamilyVariant(material), at / 1_000_000f, null, material), now);
             }
+        }
+
+        // A walker's way in cell units of the grid (made once a walker).
+        private List<(float X, float Y)> PointsOf(RoundWalk walk)
+        {
+            if (!_points.TryGetValue(walk.Id, out List<(float X, float Y)>? points))
+            {
+                points = new List<(float X, float Y)>(walk.Route.Count);
+                foreach (int cell in walk.Route)
+                {
+                    points.Add(InCells(_layout!, cell));
+                }
+
+                _points[walk.Id] = points;
+            }
+
+            return points;
         }
 
         /// <summary>A rules cell's walker point (<see cref="RoundBoardLayout.Point"/>) in cell units of the grid.</summary>

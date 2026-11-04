@@ -688,7 +688,7 @@ namespace Bloomlings.Playtest.Preview
             yield return new Fixture(79,"privacy-policy-mock","Privacy policy: placeholder and return to Settings",(p,data)=>
             {
                 DesignApp app=Progressed(App(data),content,14);CloseAll(app);app.OpenOverlay(Overlay.Settings);Run(app,p,.5f);
-                Expect(!Shows(p,PlaytestText.T("settings.music_label")) && !Shows(p,PlaytestText.T("settings.speed_label")),"music and fast forward stay out of Settings (Sound, Haptics and the symbols mode only)");
+                Expect(!Shows(p,PlaytestText.T("settings.music_label")) && !Shows(p,PlaytestText.T("settings.speed_label")),"music and fast forward stay out of Settings (Sound, Haptics, the symbols mode and the walkers only)");
                 Tap(p,p.Texts.First(t=>t.Text==PlaytestText.T("settings.privacy_policy")).Box);Run(app,p,.5f);
                 Expect(app.IsOpen(Overlay.PrivacyPolicy) && Shows(p,PlaytestText.T("settings.privacy_mock")) && !Shows(p,PlaytestText.T("settings.title")),"policy mock replaces the visible settings card");
                 Expect(app.Back() && app.IsOpen(Overlay.Settings),"back returns to retained Settings");Run(app,p,.1f);
@@ -702,7 +702,16 @@ namespace Bloomlings.Playtest.Preview
                 Box[] rows=ScreenLayout.Column(new Box(body.Left,body.Top+p.U(12),body.Right,body.Bottom),PopupDesign.SettingsRows,p.U(126),p.U(12));
                 bool music=app.Meta.Save.Settings.Music,sound=app.Meta.Save.Settings.Sfx,haptics=app.Meta.Save.Settings.Haptics,speed=app.Meta.Save.Settings.Speed2x;
                 Expect(!app.Meta.Save.Settings.Symbols,"the symbols mode is off by default (spec 006 FR-047)");
-                for(int i=0;i<PopupDesign.SettingsRows;i++){Tap(p,CardLook.SettingsToggleBox(rows[i],p.Scale));Run(app,p,.1f);}
+                for(int i=0;i<PopupDesign.SettingsRows-1;i++){Tap(p,CardLook.SettingsToggleBox(rows[i],p.Scale));Run(app,p,.1f);}
+                // The walkers (the owner, 2026-11-04): Classic by default; each tap on the value chooses the next and is saved.
+                Expect(WalkerKinds.Parse(app.Meta.Save.Settings.Walkers)==WalkerKind.Classic && Shows(p,PlaytestText.T("settings.walkers.classic")),"the walkers are Classic by default");
+                Box walkers=CardLook.SettingsValueBox(rows[PopupDesign.SettingsRows-1],p.Scale);
+                Tap(p,walkers);Run(app,p,.1f);
+                Expect(App(data).Meta.Save.Settings.Walkers=="creatures" && Shows(p,PlaytestText.T("settings.walkers.creatures")),"a tap chooses the Creatures and saves them");
+                Tap(p,walkers);Run(app,p,.1f);
+                Expect(App(data).Meta.Save.Settings.Walkers=="heroes","the next tap the Heroes");
+                Tap(p,walkers);Run(app,p,.1f);
+                Expect(App(data).Meta.Save.Settings.Walkers=="classic","and back to Classic");
                 DesignApp restored=App(data);
                 Expect(restored.Meta.Save.Settings.Music==music && restored.Meta.Save.Settings.Sfx!=sound && restored.Meta.Save.Settings.Haptics!=haptics && restored.Meta.Save.Settings.Speed2x==speed,"sound and haptics persist; settings no longer change music or HUD speed");
                 Expect(restored.Meta.Save.Settings.Symbols,"the symbols mode persists");

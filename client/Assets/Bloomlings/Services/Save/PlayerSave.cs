@@ -127,6 +127,7 @@ namespace Bloomlings.Client.Services.Save
             Settings.Haptics = source.Settings.Haptics;
             Settings.Speed2x = source.Settings.Speed2x;
             Settings.Symbols = source.Settings.Symbols;
+            Settings.Walkers = source.Settings.Walkers;
             Settings.Language = source.Settings.Language;
             Profile.Name = source.Profile.Name;
             Profile.JoinedAt = source.Profile.JoinedAt;
@@ -456,6 +457,13 @@ namespace Bloomlings.Client.Services.Save
         /// players. Off by default; the save writes it only while on (<c>settings.symbols</c>, optional).
         /// </summary>
         public bool Symbols { get; set; }
+
+        /// <summary>
+        /// The walkers (Settings «Ходоки», the owner, 2026-11-04): <c>classic</c> (today's), <c>creatures</c> (with arms and legs) or
+        /// <c>heroes</c> (the owner's experiment with the real V2 heroes); <c>WalkerKinds.Parse</c> reads it. Classic by default; the
+        /// save writes it only when it is not (<c>settings.walkers</c>, optional; an older save without it is classic).
+        /// </summary>
+        public string Walkers { get; set; } = "classic";
 
         public string Language { get; set; } = "en";
     }

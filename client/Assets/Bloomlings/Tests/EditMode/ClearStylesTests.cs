@@ -51,10 +51,12 @@ namespace Bloomlings.Client.Tests
         }
 
         [Test]
-        public void TheCatalog_HasOneFreeAndSixBoughtStyles_WithIdsAndSlots()
+        public void TheCatalog_HasOneFreeAndSevenBoughtStyles_WithIdsAndSlots()
         {
             Assert.That(ClearStyles.Free, Is.EquivalentTo(new[] { ClearStyle.Munchers }));
-            Assert.That(ClearStyles.Bought.Count, Is.EqualTo(6));
+            Assert.That(ClearStyles.Bought.Count, Is.EqualTo(7));
+            Assert.That(ClearStyles.Bought[ClearStyles.Bought.Count - 1], Is.EqualTo(ClearStyle.Parade), "the wide Parade card last");
+            Assert.That(ClearStyles.Bought, Does.Contain(ClearStyle.Bonk), "Head Bonk, the owner's of 2026-11-04");
             Assert.That(ClearStyles.Bought[0], Is.EqualTo(ClearStyle.Blossom), "Blossom first in the Store");
             Assert.That(ClearStyles.Free.Concat(ClearStyles.Bought), Is.EquivalentTo(Styles));
             foreach (ClearStyle style in Styles)

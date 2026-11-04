@@ -56,6 +56,15 @@ namespace Bloomlings.Client.Services.Feedback
 
         /// <summary>A Parade Bloomling's little hop on its tile: a tiny "pip".</summary>
         ParadeHop,
+
+        /// <summary>Bonk's collect (the owner's paid style of 2026-11-04): a bright "tock" on the ladder with a little crackle of the shards.</summary>
+        BonkCrack,
+
+        /// <summary>Bonk's toss: a short rising whoosh as the cube flies up.</summary>
+        BonkToss,
+
+        /// <summary>Bonk's hit: a soft hollow knock on the head and a crack of the shards.</summary>
+        BonkHit,
     }
 
     /// <summary>One sound of a walker's trip before its clear: when (a share of the trip), what and which variation.</summary>
@@ -112,11 +121,12 @@ namespace Bloomlings.Client.Services.Feedback
             ClearStyle.Pushers => ClearSound.PushPlonk,
             ClearStyle.Fireworks => ClearSound.FireworkSparkle,
             ClearStyle.Parade => ClearSound.ParadeBoing,
+            ClearStyle.Bonk => ClearSound.BonkCrack,
             _ => ClearSound.BlossomPluck,
         };
 
         /// <summary>Whether the sound is a collect (pitched on the ladder) rather than a texture (with variations).</summary>
-        public static bool IsCollect(ClearSound sound) => sound <= ClearSound.ParadeBoing;
+        public static bool IsCollect(ClearSound sound) => sound <= ClearSound.ParadeBoing || sound == ClearSound.BonkCrack;
 
         /// <summary>How many clips a sound has: one per ladder step for a collect, one per variation for a texture.</summary>
         public static int ClipCount(ClearSound sound) => IsCollect(sound) ? Steps : Variations;
@@ -135,6 +145,7 @@ namespace Bloomlings.Client.Services.Feedback
             ClearStyle.Pushers => HapticPattern.Micro(24, 200, new HapticNote(HapticPrimitive.Click, 1f)),
             ClearStyle.Fireworks => HapticPattern.Micro(18, 180, new HapticNote(HapticPrimitive.Click, 0.9f)),
             ClearStyle.Parade => HapticPattern.Micro(18, 160, new HapticNote(HapticPrimitive.Tick, 0.8f), new HapticNote(HapticPrimitive.Click, 0.85f, 40)),
+            ClearStyle.Bonk => HapticPattern.Micro(22, 190, new HapticNote(HapticPrimitive.Click, 1f), new HapticNote(HapticPrimitive.Tick, 0.75f, 30)),
             _ => HapticPattern.Micro(18, 150, new HapticNote(HapticPrimitive.Click, 0.7f)),
         };
 
@@ -213,6 +224,12 @@ namespace Bloomlings.Client.Services.Feedback
                     // The swell under the walker, then the burst as the last leg begins.
                     window.Add(act + 0.005f, ClearSound.FireworkFizz, variation);
                     window.Add(fin + 0.005f, ClearSound.FireworkBang, variation);
+                    break;
+                case ClearStyle.Bonk:
+                    // The toss as the cube leaves its hands, and the knock on its head: 0.1 and 0.6 of the gag, which runs from 0.2 to
+                    // 0.92 of the act (WalkerLook.JumpEnd, GagEnd; ClearLook's Toss). Literal here: the tester links this file alone.
+                    window.Add(act + (0.272f * actShare), ClearSound.BonkToss, variation);
+                    window.Add(act + (0.632f * actShare), ClearSound.BonkHit, variation);
                     break;
                 case ClearStyle.Parade:
                     // Its two little hops on the tile.

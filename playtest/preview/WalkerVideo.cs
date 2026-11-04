@@ -132,9 +132,22 @@ namespace Bloomlings.Playtest.Preview
 
                 StripSheet(Path.Combine(outDir, "styles-strip.png"), styles);
                 CreatureSheet(Path.Combine(outDir, "creatures-sheet.png"));
+
+                // The game's walkers of 2026-11-04: Munchers stepping aside to eat, and the Head Bonk with every walker kind.
+                var game = new List<(string, WalkerLook, ClearStyle, int, int)>
+                {
+                    ("aside creatures", WalkerLook.GameCreatures, ClearStyle.Munchers, -1, 0),
+                    ("aside heroes", WalkerLook.GameHeroes, ClearStyle.Munchers, -1, 1),
+                    ("bonk classic", WalkerLook.Default, ClearStyle.Bonk, -1, 2),
+                    ("bonk creatures", WalkerLook.GameCreatures, ClearStyle.Bonk, -1, 3),
+                    ("bonk heroes", WalkerLook.GameHeroes, ClearStyle.Bonk, -1, 1),
+                };
+                StripSheet(Path.Combine(outDir, "game-strip.png"), game);
+                StorePreviewStrip(Path.Combine(outDir, "store-bonk.png"));
             }
             finally
             {
+                WalkerLook.Use(WalkerKind.Classic, ClearStyles.Default);
                 WalkerLook.Current = before;
             }
 
@@ -159,7 +172,17 @@ namespace Bloomlings.Playtest.Preview
             {
                 (string label, WalkerLook look, ClearStyle style, int gag, int material) = rows[r];
                 labels.Add(label);
-                WalkerLook.Current = look;
+                WalkerKind? kind = ReferenceEquals(look, WalkerLook.GameCreatures) ? WalkerKind.Creatures
+                    : ReferenceEquals(look, WalkerLook.GameHeroes) ? WalkerKind.Heroes
+                    : look.IsDefault ? WalkerKind.Classic : (WalkerKind?)null;
+                if (kind.HasValue)
+                {
+                    WalkerLook.Use(kind.Value, style);
+                }
+                else
+                {
+                    WalkerLook.Current = look;
+                }
                 RoundMaterial mat = RoundMaterial.All[material];
 
                 // A target whose cell picks the gag (ClearLook's seed: 7 a column, 13 a row).
@@ -177,12 +200,19 @@ namespace Bloomlings.Playtest.Preview
                 }
 
                 ClearWalk walk = ClearWalk.Live(points, material, RoundLook.WalkerVariant(mat.Family), 0f, 0.6f, 0.7f, 1.25f, null, cubesAcross);
+                if (style == ClearStyle.Munchers && WalkerLook.Current.AsideMunch)
+                {
+                    // Its aside spot: a step back and aside off its way (the hosts choose one with AsideSpots).
+                    (float sx, float sy, float _, float _) = ClearLook.StopOf(points, Walker / Cell);
+                    walk = walk.WithAside((sx - (0.85f * Walker / Cell), sy + (0.2f * Walker / Cell)));
+                }
                 for (int f = 0; f < Frames; f++)
                 {
                     float t = 0.56f + (f * 0.11f);
                     float left = f * FrameW;
                     float top = r * RowH;
-                    float ox = left + (FrameW * (style == ClearStyle.Pushers ? 0.75f : 0.45f)) - ((tx + 0.5f) * Cell);
+                    float share = label.StartsWith("aside", StringComparison.Ordinal) ? 0.97f : style == ClearStyle.Pushers ? 0.75f : 0.45f;
+                    float ox = left + (FrameW * share) - ((tx + 0.5f) * Cell);
                     float oy = top + (RowH * 0.72f) - ((Ty + 0.5f) * Cell);
                     painter.PushClip(new Box(left, top, left + FrameW - 2, top + RowH - 2));
 
@@ -214,6 +244,28 @@ namespace Bloomlings.Playtest.Preview
             File.WriteAllBytes(outPng, painter.Png());
             File.WriteAllLines(Path.ChangeExtension(outPng, ".rows.txt"), labels);
             Console.WriteLine("walker strips → " + outPng);
+        }
+
+        // The Head Bonk's live Store preview (Kit.ClearingPreview, the catalog's and the confirmation's) over a loop, a frame every 0.2 s.
+        private static void StorePreviewStrip(string outPng)
+        {
+            const int W = 360;
+            const int H = 300;
+            const int Frames = 10;
+            using var painter = new SkiaPainter(W * Frames, H * 2, new Insets(0, 0));
+            painter.BeginFrame();
+            painter.FillRect(new Box(0, 0, W * Frames, H * 2), DesignTokens.Colors.ParchmentTop);
+            for (int row = 0; row < 2; row++)
+            {
+                for (int f = 0; f < Frames; f++)
+                {
+                    painter.Now = 1f + (f * 0.2f);
+                    Kit.ClearingPreview(painter, new Box((f * W) + 8, (row * H) + 8, ((f + 1) * W) - 8, ((row + 1) * H) - 8), ClearStyle.Bonk, catalog: row == 0);
+                }
+            }
+
+            File.WriteAllBytes(outPng, painter.Png());
+            Console.WriteLine("store preview strip → " + outPng);
         }
 
         // The four creatures (rows) in their poses: the run's eight frames, standing from the side, facing, holding, the hands.
@@ -253,10 +305,12 @@ namespace Bloomlings.Playtest.Preview
 
         public static int Write(string root, int level, float seconds, string outDir, string lookName, float from, string? styleId = null)
         {
-            WalkerLook? look = LookOf(lookName);
+            // The game's walkers by their Settings choice (classic, creatures, heroes: the real path), else a mock look.
+            WalkerKind? kind = lookName == "classic" || lookName == "creatures" || lookName == "heroes" ? WalkerKinds.Parse(lookName) : (WalkerKind?)null;
+            WalkerLook? look = kind.HasValue ? WalkerLook.For(kind.Value) : LookOf(lookName);
             if (look == null)
             {
-                Console.Error.WriteLine("walker video: the look is default, contrast, creature, hands-creature or hands-heroes");
+                Console.Error.WriteLine("walker video: the look is classic, creatures, heroes (the game's), or the mocks default, contrast, creature, hands-creature, hands-heroes");
                 return 2;
             }
 
@@ -272,16 +326,26 @@ namespace Bloomlings.Playtest.Preview
             string data = Path.Combine(Path.GetTempPath(), "bloomlings-walker-video-" + Guid.NewGuid().ToString("N"));
             Directory.CreateDirectory(outDir);
             WalkerLook before = WalkerLook.Current;
-            WalkerLook.Current = look;
             try
             {
                 using var painter = new SkiaPainter(1080, 2340, new Insets(110, 63));
                 var app = new DesignApp(data, empty, new Silence(), false, rounds: rounds);
+                if (kind.HasValue)
+                {
+                    app.Meta.Save.Settings.Walkers = WalkerKinds.Id(kind.Value);
+                }
+
                 app.LoadLevel(level);
                 RoundLevelScreen s = app.Round!;
                 if (ClearStyles.Parse(styleId) is ClearStyle style)
                 {
                     s.Style = style;
+                }
+
+                if (!kind.HasValue)
+                {
+                    // A mock look over whatever the level chose.
+                    WalkerLook.Current = look;
                 }
 
                 void Frame(float dt)
@@ -353,6 +417,7 @@ namespace Bloomlings.Playtest.Preview
             }
             finally
             {
+                WalkerLook.Use(WalkerKind.Classic, ClearStyles.Default);
                 WalkerLook.Current = before;
                 if (Directory.Exists(data))
                 {
