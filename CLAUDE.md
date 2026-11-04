@@ -260,8 +260,10 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   `cosmetics.equipped.board.clearing`), and a chosen one plays on every level. The rules' clear stays at each trip's
   end; `LevelAnimator` and `TimelinePlayer` keep the same schedule. Settings' «Walkers» (`settings.walkers`: classic, the
   default; creatures with arms and legs; heroes — the owner's experiment of 2026-11-04, beyond constitution VII) picks the
-  walker figures (`WalkerLook`, `ClearHands`, `AsideSpots`): creatures and heroes keep one size (6 % of the board), take the
-  cube into their hands and, in Munchers, step aside to eat it in three bites; the act after the clear is `ClearStyles.Linger`.
+  walker figures (`WalkerLook`, `ClearHands`, `AsideSpots`): creatures and heroes keep one size (5 % of the board), walk two lanes
+  (`TrailLanes`, never over cubes), take the cube into their hands, carry it a little and, in Munchers, eat it in three slow
+  bites on the way home; heroes glow in the target cube's colour (the owner, 2026-11-04); the act after the clear is
+  `ClearStyles.Linger`.
 - The clearing sounds and haptics (spec 005 FR-042, 2026-10-07; recipe in `contracts/look.md` §6.16): each style plays
   its act's soft textures at the moments its look draws them and its collect with each tile's clear, a pod's collects
   climbing a ladder of ten C-major-pentatonic notes (`ClearSounds`, `ClearLadder`; all synthesized by `ToneSynth.Clear`,
