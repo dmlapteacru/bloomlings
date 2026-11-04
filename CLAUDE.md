@@ -255,10 +255,13 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   restores and flights as an `FxList` of items in cell units) are drawn by the playtest's `ClearPainter` and Unity's
   `ClearFxView`, so both builds and the Store's previews (`ClearPreview`; `Kit.ClearingPreview`, `ClearPreviewView`)
   show the same thing. Munchers is the free style and plays on every level (`ClearStyles.Default`, `ForLevel`; the owner,
-  2026-10-11); Blossom, Fireflies, Bubbles, Pushers, Fireworks and Confetti Parade are board cosmetics bought once for Petals from L40 on the Store's
+  2026-10-11); Blossom, Fireflies, Bubbles, Pushers, Fireworks, Head Bonk (2026-11-04) and Confetti Parade are board cosmetics bought once for Petals from L40 on the Store's
   Animations tab (`ClearingService`; Remote Config `economy.price.clearing`, the save's `clear.<name>` and
   `cosmetics.equipped.board.clearing`), and a chosen one plays on every level. The rules' clear stays at each trip's
-  end; `LevelAnimator` and `TimelinePlayer` keep the same schedule.
+  end; `LevelAnimator` and `TimelinePlayer` keep the same schedule. Settings' «Walkers» (`settings.walkers`: classic, the
+  default; creatures with arms and legs; heroes — the owner's experiment of 2026-11-04, beyond constitution VII) picks the
+  walker figures (`WalkerLook`, `ClearHands`, `AsideSpots`): creatures and heroes keep one size (6 % of the board), take the
+  cube into their hands and, in Munchers, step aside to eat it in three bites; the act after the clear is `ClearStyles.Linger`.
 - The clearing sounds and haptics (spec 005 FR-042, 2026-10-07; recipe in `contracts/look.md` §6.16): each style plays
   its act's soft textures at the moments its look draws them and its collect with each tile's clear, a pod's collects
   climbing a ladder of ten C-major-pentatonic notes (`ClearSounds`, `ClearLadder`; all synthesized by `ToneSynth.Clear`,
