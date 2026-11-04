@@ -1413,7 +1413,7 @@ inventory.
   card, the Wardrobe's profile tab and the player's own leaderboard row; while its picture is missing, its family's
   hero stands in. Presentation and profile cosmetics only (spec 001 FR-063 as amended): no gameplay effect.
 - **FR-038** *(the owner's clearing styles of 2026-10-06; amended the same day: the previews loop all the time and
-  each card has its button)*: The board MUST clear in one of seven styles, in both builds
+  each card has its button; Head Bonk added by the owner on 2026-11-04)*: The board MUST clear in one of eight styles, in both builds
   and in the Store's previews alike. The kit's engine-free `ClearStyles` and `ClearLook` hold the styles' timing and
   look, and each host only draws the list they give (contracts/look.md §6.12). Every style takes the same time for a
   tile (`ClearStyles.TripSeconds`). The Bloomlings leave the arch in a line, each style splitting the trip into its own
@@ -1428,6 +1428,13 @@ inventory.
     hopping from the arch into the slot.
   - **Fireworks**: the tile swells white and pops, its sparkles flying in arcs to the slot.
   - **Confetti Parade**: the tile squashes and stretches and pops into confetti and a ring.
+  - **Head Bonk** *(the owner's paid style of 2026-11-04, `clear.bonk`)*: the Bloomling takes the tile into its hands, where it
+    grows (over its head for the flat family walkers, which have no hands), tosses it up spinning; it bonks on the walker's
+    head and shatters, the walker squashed by the knock, stars circling. Bought once for Petals from L40 like the other bought
+    styles (`economy.price.clearing`, 3500; its card alone in the middle of its row, the wide Parade under it), with its
+    live preview, its sounds (`BonkCrack` collect, `BonkToss`, `BonkHit`, synthesized by `ToneSynth`) and its haptic. Its
+    act after the rules' clear lasts `WalkerLook.HandsLinger` (1.0 s, `ClearStyles.Linger`; presentation only, the rules'
+    clear and every outcome stay). It plays with every walker kind of Settings (spec 006 FR-048 as amended).
 
   Blossom and Munchers MUST play by level (Blossom on Levels 1–10 and odd levels, Munchers on even levels from 12)
   while the player has chosen no bought style. A chosen bought style MUST play on every level. The Store MUST show an

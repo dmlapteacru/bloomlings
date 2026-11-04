@@ -2103,6 +2103,24 @@ namespace Bloomlings.Playtest.Preview
                 Expect(p.Slots.Contains("ui.card.clearing") && p.Slots.Contains("fx.clear.fireflies"), "the cards' live previews");
             });
 
+            yield return new Fixture(48, "store-animations-bonk", "Extra: the Store's Animations scrolled to the Head Bonk (the owner's paid style of 2026-11-04) and the wide Parade", (p, data) =>
+            {
+                DesignApp app = Progressed(App(data), content, 44);
+                app.Meta.Economy.Grant(12000, null);
+                Expect(app.Meta.Clearing.ActionOf(ClearStyle.Bonk, app.Meta.CurrentLevel) == ClearingAction.Buy, "Head Bonk is bought from Level 40");
+                Expect(app.Meta.Clearing.PriceOf(ClearStyle.Bonk) == 3500, "at the standard clearing price (economy.price.clearing)");
+                CloseAll(app);
+                app.OpenStore();
+                Run(app, p, 0.1f);
+                Box tabs = ScreenLayout.ReferenceStore(p.Width, p.Height, p.Insets).Tabs;
+                Tap(p, Box.FromCenter(tabs.Right - (tabs.Width / 4f), tabs.CenterY, 1f, 1f));
+                Run(app, p, 0.1f);
+                app.ShopScrollOffset = 100000f;
+                Run(app, p, 2.4f);
+                Expect(p.Slots.Contains("fx.clear.bonk"), "the Head Bonk card's live preview");
+                Expect(Shows(p, PlaytestText.T("clearing.bonk")), "its name on its card");
+            });
+
             yield return new Fixture(43, "store-animations-locked", "Extra: the Store's Animations before Level 40, the previews bright under their padlocks (spec 005 FR-038)", (p, data) =>
             {
                 DesignApp app = Progressed(App(data), content, 19);

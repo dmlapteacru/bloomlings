@@ -331,6 +331,19 @@ owner sees the same behaviour as in the playtest app.
 - **FR-048**: The walking Bloomlings of every clearing style MUST show the hero of the material's family (each of the 24
   colours belongs to one of the 4 heroes), tinted in that material's colour. The same holds in the Store's clearing
   previews.
+  *Amended by the owner on 2026-11-04 (Settings «Ходоки», `settings.walkers`):* the player MUST be able to choose the walkers in
+  Settings: **Classic** (default, and for saves without the key; the look above, byte-identical), **Creatures** (a drawn
+  creature of the material's family with arms and legs, `UiRaster.Creature`: leaf, flower, drop or acorn shaded off its
+  cube's colour in a dark outline, an 8-frame run, holding a cube before its belly with its hands over it) or **Heroes** (the
+  owner's real modular V2 hero of the material's family as a small walker, his hands drawn again over the cube; **the
+  owner's experiment of 2026-11-04**: hero frames in a level as walkers go beyond constitution principle VII, which allows
+  them only as a mechanic's figure, until the owner decides). Creatures and Heroes walk at a fixed size on screen (6% of the
+  board's width, `WalkerLook.MockBoardShare`) on a contact shadow; in Munchers each takes its cube into its hands, steps aside
+  a short way (0.9–1.7 walker boxes) to free ground (a path, an eaten cell or the board's empty surface, never a cube, a lane
+  if avoidable, or an entry), spaced from the others still eating (`AsideSpots`, 0.95 walker boxes), eats it there in three
+  bites and walks back home; the other bought styles keep their acts with these figures; the held cube is the board's own
+  cube. Presentation only: the rules' clear, return and conformance stay; only the act after the clear lasts longer
+  (`WalkerLook.HandsLinger`, 1.0 s against 0.6).
 - **FR-049** (the owner's board, 2026-10-28): The board MUST stand in one fixed, roughly square box, the same position and
   size on every level, its frame always the same thickness. Inside the frame the board MUST be one solid neutral surface
   (no grass, no grid of cells under the picture), and an eaten cube MUST leave only that surface (no imprint). The

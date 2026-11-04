@@ -16,13 +16,14 @@ namespace Bloomlings.Client.UI.Design
     public sealed class AsideSpots
     {
         // The candidates' directions from the stop, in degrees from straight back along the way (toward home): both sides first.
-        private static readonly float[] Angles = { 90f, 60f, 120f, 35f, 145f };
+        private static readonly float[] Angles = { 90f, 60f, 120f, 35f, 145f, 12f };
 
         private readonly Dictionary<int, Spot> _spots = new Dictionary<int, Spot>();
         private readonly HashSet<int> _lanes = new HashSet<int>();
         private readonly List<RoundWalk> _pending = new List<RoundWalk>();
         private readonly List<int> _gone = new List<int>();
         private readonly HashSet<int> _shown = new HashSet<int>();
+        private readonly List<(float X, float Y)> _doors = new List<(float X, float Y)>();
 
         private readonly struct Spot
         {
@@ -54,10 +55,21 @@ namespace Bloomlings.Client.UI.Design
         {
             _layout = layout;
             _animator = a;
-            _cellAt ??= (x, y) => _layout!.CellAt(_layout.Grid.Left + (x * _layout.Cell), _layout.Grid.Top + (y * _layout.Cell));
+            _cellAt ??= (x, y) =>
+            {
+                // A rules cell, or the board's empty surface round the rows (Outside), or off the board (-1).
+                RoundBoardLayout l = _layout!;
+                float px = l.Grid.Left + (x * l.Cell);
+                float py = l.Grid.Top + (y * l.Cell);
+                int cell = l.CellAt(px, py);
+                return cell >= 0 ? cell : l.Surface.Inset(l.Cell * 0.5f).Contains(px, py) ? Outside : -1;
+            };
             _open ??= cell => _layout!.KindOf(cell) == RoundCellKind.Path || (_layout.KindOf(cell) == RoundCellKind.Material && _animator!.MaterialAt(cell) < 0);
             Update(a.ShownWalkers, now, walkerCells, pointsOf, _cellAt, _open);
         }
+
+        /// <summary>A point on the board's empty surface outside the rows (<c>cellAt</c>'s answer): open ground, never a lane.</summary>
+        public const int Outside = -2;
 
         /// <summary>Forgets every spot (a new level, a restart).</summary>
         public void Reset() => _spots.Clear();
@@ -104,13 +116,20 @@ namespace Bloomlings.Client.UI.Design
                 return;
             }
 
-            // The lanes: every cell a shown walker's way crosses.
+            // The lanes: every cell a shown walker's way crosses; and the doors they come out of, kept clear.
             _lanes.Clear();
+            _doors.Clear();
             foreach (RoundWalk walk in walkers)
             {
                 foreach (int cell in walk.Route)
                 {
                     _lanes.Add(cell);
+                }
+
+                IReadOnlyList<(float X, float Y)> way = pointsOf(walk);
+                if (way.Count > 0 && !_doors.Contains(way[0]))
+                {
+                    _doors.Add(way[0]);
                 }
             }
 
@@ -186,12 +205,21 @@ namespace Bloomlings.Client.UI.Design
             for (int i = 0; i < probes.GetLength(0); i++)
             {
                 int cell = cellAt(x + (probes[i, 0] * w), y + (probes[i, 1] * w));
-                if (cell < 0 || !open(cell))
+                if (cell == -1 || (cell >= 0 && !open(cell)))
                 {
                     return false;
                 }
 
-                onLane |= i == 0 && _lanes.Contains(cell);
+                onLane |= i == 0 && cell >= 0 && _lanes.Contains(cell);
+            }
+
+            // Never in front of an entry, where the walkers come out.
+            foreach ((float dx, float dy) in _doors)
+            {
+                if (((dx - x) * (dx - x)) + ((dy - y) * (dy - y)) < 1.44f * w * w)
+                {
+                    return false;
+                }
             }
 
             return true;

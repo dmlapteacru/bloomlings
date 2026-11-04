@@ -1542,12 +1542,26 @@ over 0.03); outlines `max(1.1 px, 0.0065)`.
 
 ### 6.12 Clearing styles and their Store cards (both builds; the owner's choices of 2026-10-06, FR-038)
 
-The board's clearing is one of seven styles (`ClearStyles`), drawn from one engine-free display list (`ClearLook` into
+The board's clearing is one of eight styles (`ClearStyles`; Head Bonk since 2026-11-04), drawn from one engine-free display list (`ClearLook` into
 `FxList`, in cell units with y down, the grid's top left at 0, 0): the playtest's `ClearPainter` draws it through
 `IPainter`, Unity's `ClearFxView` with pooled Bloomling figures and images (a turn is clockwise on screen, Unity
 turns by its negative; the SDF circles and rounded boxes are drawn ×`ShapeRaster.Margin`). Each item has its kind
 (character, tile, ellipse, ring, rounded box or its outline, shape), its center, size, squash, turn, alpha, color and
 layer: `Board` over the tiles, `Over` above the tray and slots (the flights into the slot). Tokens and slots only.
+
+*The walkers in Settings and Head Bonk (the owner, 2026-11-04; spec 006 FR-048 as amended, FR-038):* `WalkerLook.Use(kind,
+style)` picks the walkers' look (`settings.walkers`: Classic = `WalkerLook.Default`, today's look exactly; Creatures =
+`GameCreatures`; Heroes = `GameHeroes`) and the act's linger (`ClearStyles.Linger`: `HandsLinger` 1.0 s for an "in hands"
+act — Munchers with Creatures or Heroes, and Head Bonk with every kind — else `LiveLinger` 0.6 s). A posed walker item
+carries `FxItem.Pose` (the creature's run frame, `PoseSide`, `PoseFront`, `PoseHold`, `PoseHands`) and `Facing`; the hosts
+draw it as `UiRaster.Creature` (`WalkerLook.CreatureBox`, mirrored for the left from the side) or the V2 hero
+(`WalkerLook.HeroCell`; `PoseHands` = his hands clipped to `RoundLook.HeroHands` discs). Items with `FxItem.Lifted` (a held,
+lifted or carried cube, its effects, the hands over it) are drawn after the layer's other items, and a lifted cube (or any
+round cube while the walkers are not Classic) is the board's own cube picture placed as in its cell. Munchers' aside spots
+come from `AsideSpots` (each host one per level screen; `ClearWalk.WithAside`). The act: the cube jumps into the hands
+(`AsideJumpEnd` 0.18 of the act), the walk to the spot (to 0.38), three bites (to 0.94), a hop; home from the spot over
+`AsideBackSeconds` (0.3 s). Head Bonk: the jump into the hands (0.2; over the head for the flat walkers), then the toss
+(0.1 of the gag), the bonk (0.6) and the shards and stars.
 
 Timing (`ClearStyles`): every trip takes `TripSeconds(n) = 1.1 n / WalkSpeedUp + 1.4 / ActSpeedUp` s for a tile `n`
 cells from its arch: `WalkSpeedUp` = 10, Colony Flow's ants' walk of about 9 cells a second (the owner's video of
