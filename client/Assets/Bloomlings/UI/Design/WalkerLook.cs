@@ -18,6 +18,24 @@ namespace Bloomlings.Client.UI.Design
         Heroes,
     }
 
+    /// <summary>How a real hero walker shows its cube's colour (the owner's colour-cue mock of 2026-11-04; none in the game).</summary>
+    public enum HeroCue
+    {
+        None,
+
+        /// <summary>A coloured ring under his feet.</summary>
+        Ring,
+
+        /// <summary>A scarf in the cube's colour (his wardrobe's knitted scarf, tinted).</summary>
+        Scarf,
+
+        /// <summary>A soft glow round him in the cube's colour.</summary>
+        Glow,
+
+        /// <summary>The whole hero washed toward the cube's colour.</summary>
+        Tint,
+    }
+
     /// <summary>The walker kinds' save ids (<c>settings.walkers</c>) and their looks (<see cref="WalkerLook.For"/>).</summary>
     public static class WalkerKinds
     {
@@ -69,8 +87,14 @@ namespace Bloomlings.Client.UI.Design
             bool heroes = false,
             float linger = ClearStyles.LiveLinger,
             bool handsAllStyles = true,
-            bool asideMunch = false)
+            bool asideMunch = false,
+            bool trails = false,
+            float heroScale = HeroCellScale,
+            HeroCue cue = HeroCue.None)
         {
+            Trails = trails;
+            HeroScale = heroScale;
+            Cue = cue;
             HandsAllStyles = handsAllStyles;
             AsideMunch = asideMunch;
             Hands = hands;
@@ -329,7 +353,55 @@ namespace Bloomlings.Client.UI.Design
         public bool UsesHands(ClearStyle style) => style == ClearStyle.Bonk || (Hands && (HandsAllStyles || style == ClearStyle.Munchers));
 
         /// <summary>The act's linger after the rules' clear for <paramref name="style"/>: <see cref="HandsLinger"/> for an "in hands" act, else <see cref="Linger"/>.</summary>
-        public float LingerFor(ClearStyle style) => UsesHands(style) ? Math.Max(Linger, HandsLinger) : Linger;
+        public float LingerFor(ClearStyle style) =>
+            Trails && style == ClearStyle.Munchers ? TrailsLinger : UsesHands(style) ? Math.Max(Linger, HandsLinger) : Linger;
+
+        /// <summary>
+        /// The "Trails" mock (the owner's yes of 2026-11-04 to the crowd fixes; preview only): Munchers takes its cube and eats it
+        /// while walking home (no standing, no aside step), the walkers keep to two lanes by direction (<see cref="TrailLane"/>),
+        /// a pod's walkers set off a little later and walk a little faster where the figure is longer than their gap
+        /// (<see cref="TrailGap"/>), and a walking figure turns slightly sideways (<see cref="TrailSquash"/>, <see cref="TrailLean"/>).
+        /// </summary>
+        public bool Trails { get; }
+
+        /// <summary>A real hero walker's cell height as a share of the walker's box (<see cref="HeroCellScale"/>, smaller in the Trails mock).</summary>
+        public float HeroScale { get; }
+
+        /// <summary>The colour cue a real hero walker wears for its cube (the hero colour-cue mock); none in the game.</summary>
+        public HeroCue Cue { get; }
+
+        /// <summary>The Trails mock's act at the cube after the rules' clear, seconds: only the cube's hop into the hands.</summary>
+        public const float TrailsLinger = 0.25f;
+
+        /// <summary>The Trails mock's walker box as a share of the board surface's width (6% in the game's Creatures and Heroes).</summary>
+        public const float TrailsBoardShare = 0.05f;
+
+        /// <summary>The Trails mock's hero cell height as a share of the walker's box.</summary>
+        public const float TrailsHeroScale = 1.15f;
+
+        /// <summary>How far a walker keeps to the side of its way's centre line, in walker boxes: right of it going out, left coming home.</summary>
+        public const float TrailLane = 0.45f;
+
+        /// <summary>The least gap between a pod's walkers on their lane, in walker boxes (the Trails mock).</summary>
+        public const float TrailGap = 1.15f;
+
+        /// <summary>A walking figure's width in the Trails mock (it turns a little sideways).</summary>
+        public const float TrailSquash = 0.8f;
+
+        /// <summary>How far a walking figure leans into its way in the Trails mock, degrees.</summary>
+        public const float TrailLean = 7f;
+
+        /// <summary>The Trails mock with the game's creatures.</summary>
+        public static WalkerLook TrailsCreatures { get; } = new WalkerLook(TrailsBoardShare, MockOutline, MockShadowAlpha, MockShade, false,
+            new[] { Family.Sprig, Family.Bloom, Family.Drop, Family.Twig }, "trails-creatures", hands: true, handsAllStyles: false, trails: true);
+
+        /// <summary>The Trails mock with the real heroes, no taller than <see cref="TrailsHeroScale"/> of the walker.</summary>
+        public static WalkerLook TrailsHeroes { get; } = new WalkerLook(TrailsBoardShare, 0f, MockShadowAlpha, 0f, false, null, "trails-heroes",
+            hands: true, heroes: true, handsAllStyles: false, trails: true, heroScale: TrailsHeroScale);
+
+        /// <summary>The game's Heroes walkers wearing a colour cue for their cube (the hero colour-cue mock).</summary>
+        public static WalkerLook HeroesWith(HeroCue cue) => new WalkerLook(MockBoardShare, 0f, MockShadowAlpha, 0f, false, null, "heroes-" + cue.ToString().ToLowerInvariant(),
+            hands: true, heroes: true, handsAllStyles: false, asideMunch: true, cue: cue);
 
         /// <summary>
         /// A real hero walker's cell (<see cref="HeroMotion.CellWidth"/> × <see cref="HeroMotion.CellHeight"/>) on its walker box
@@ -337,7 +409,7 @@ namespace Bloomlings.Client.UI.Design
         /// </summary>
         public static Box HeroCell(Box box)
         {
-            float h = box.Height * HeroCellScale;
+            float h = box.Height * Current.HeroScale;
             float w = h * HeroMotion.CellWidth / HeroMotion.CellHeight;
             float top = box.Bottom - (h * HeroMotion.FootLine);
             return new Box(box.CenterX - (w / 2f), top, box.CenterX + (w / 2f), top + h);

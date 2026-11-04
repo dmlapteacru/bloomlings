@@ -43,6 +43,12 @@ namespace Bloomlings.Client.UI.Design
             float stop = Math.Min(WalkerLook.CarryStopCells, walker / 3f);
             float end = Math.Max(0f, 1f - (stop / segments));
             bool aside = style == ClearStyle.Munchers && _look.AsideMunch;
+            if (style == ClearStyle.Munchers && _look.Trails)
+            {
+                TrailsMunch(list, walk, spot, walker, end);
+                return;
+            }
+
             switch (spot.Leg)
             {
                 case Leg.Out:
@@ -277,6 +283,127 @@ namespace Bloomlings.Client.UI.Design
                     return;
                 }
             }
+        }
+
+        // The Trails mock's Munchers (WalkerLook.Trails): out on the right-hand lane, the cube hops into its hands at its cube (a
+        // quarter of a second, no standing), and it eats it in three bites walking home on the other lane, crumbs falling behind.
+        private static void TrailsMunch(FxList list, in ClearWalk walk, Spot spot, float walker, float end)
+        {
+            float g = WalkerLook.HeldShare * walker;
+            switch (spot.Leg)
+            {
+                case Leg.Out:
+                {
+                    float prog = spot.U * end;
+                    (float x, float y) = Along(walk.Points, prog);
+                    (float ox, float oy) = LaneOffset(walk.Points, prog, 1f, walker);
+                    spot.X = x + ox;
+                    spot.Y = y + oy;
+                    Walking(list, walk, spot, WalkerSize);
+                    return;
+                }
+
+                case Leg.Act:
+                {
+                    (float x, float y) = Along(walk.Points, end);
+                    (float tx, float ty) = walk.Target;
+                    float k = Smooth(spot.U);
+                    float hy = HoldY(y + (0.4f * walker), walker, g);
+                    Figure(list, walk, x, y, k > 0.8f ? WalkerLook.PoseHold : WalkerLook.PoseFront, WalkerLook.TrailSquash, 1f);
+                    Cube(list, walk, Lerp(tx, x, k), Lerp(ty, hy, k) - ((float)Math.Sin(k * Math.PI) * walker * 0.4f), Lerp(1f, g, k), 90f * k * _facing);
+                    if (k > 0.8f)
+                    {
+                        HandsOver(list, walk, x, y, WalkerLook.TrailSquash, 1f);
+                    }
+
+                    return;
+                }
+
+                default:
+                {
+                    float prog = (1f - spot.U) * end;
+                    (float x, float y) = Along(walk.Points, prog);
+                    (float ox, float oy) = LaneOffset(walk.Points, prog, -1f, walker);
+                    spot.X = x + ox;
+                    spot.Y = y + oy;
+                    float p = Clamp01(spot.U / 0.7f);
+                    float[] at = { 0.12f, 0.42f, 0.72f };
+                    float left = 1f;
+                    left = Lerp(left, 0.66f, Smooth((p - at[0]) / 0.08f));
+                    left = Lerp(left, 0.33f, Smooth((p - at[1]) / 0.08f));
+                    left = Lerp(left, 0f, Smooth((p - at[2]) / 0.08f));
+                    if (left <= 0.02f)
+                    {
+                        Walking(list, walk, spot, WalkerSize);
+                    }
+                    else
+                    {
+                        float hop = (float)Math.Abs(Math.Sin(spot.Hops * Math.PI)) * 0.05f * walker;
+                        float chew = Math.Abs((float)Math.Sin(p * Math.PI * 9f)) * 0.05f;
+                        Figure(list, walk, spot.X, spot.Y, WalkerLook.PoseHold, WalkerLook.TrailSquash, 1f - chew, hop, WalkerLook.TrailLean * _facing * 0.5f);
+                        float cy = HoldY(spot.Y + (0.4f * walker), walker, g) - hop;
+                        list.Lifted = true;
+                        list.PushSquash(1f, left, spot.X, cy + (g / 2f));
+                        list.Tile(Box.FromCenter(spot.X, cy, g, g), walk.Variant);
+                        list.Pop();
+                        list.Lifted = false;
+                        HandsOver(list, walk, spot.X, spot.Y, WalkerLook.TrailSquash, 1f - chew, hop);
+                    }
+
+                    // Each bite's crumbs where it was taken, falling as the walker goes on.
+                    Rgba color = ColorOf(walk);
+                    list.Lifted = true;
+                    for (int b = 0; b < at.Length; b++)
+                    {
+                        float t = (p - at[b]) / 0.35f;
+                        if (t <= 0f || t >= 1f)
+                        {
+                            continue;
+                        }
+
+                        float bp = (1f - (at[b] * 0.7f)) * end;
+                        (float bx, float by) = Along(walk.Points, bp);
+                        (float bo, float bq) = LaneOffset(walk.Points, bp, -1f, walker);
+                        float top = HoldY(by + bq + (0.4f * walker), walker, g) - (g * (0.5f - (b / 3f)));
+                        for (int i = 0; i < 5; i++)
+                        {
+                            float dir = (i - 2f) * 0.5f;
+                            float cx = bx + bo + (dir * walker * 0.4f * t);
+                            float cy = top - (walker * 0.35f * t) + (walker * 1.2f * t * t);
+                            float r = g * 0.1f * (1f - (0.4f * t));
+                            list.PushAlpha(1f - (t * t));
+                            list.Round(Box.FromCenter(cx, cy, r * 2.5f, r * 2.5f), r * 0.6f, Rgba.White);
+                            list.Round(Box.FromCenter(cx, cy, r * 2f, r * 2f), r * 0.5f, color);
+                            list.Pop();
+                        }
+                    }
+
+                    list.Lifted = false;
+                    return;
+                }
+            }
+        }
+
+        // The sideways shift of a lane at a way's progress: perpendicular to the way (its direction smoothed over a cell or so),
+        // WalkerLook.TrailLane walker boxes to the right of the way toward the cube for side 1 (out) and to the left for -1 (home),
+        // easing to the centre line within a cell or so of the entry and of the cube.
+        private static (float X, float Y) LaneOffset(IReadOnlyList<(float X, float Y)> points, float progress, float side, float walker)
+        {
+            int segments = Math.Max(1, points.Count - 1);
+            float e = 0.6f / segments;
+            (float ax, float ay) = Along(points, progress - e);
+            (float bx, float by) = Along(points, progress + e);
+            float dx = bx - ax;
+            float dy = by - ay;
+            float len = (float)Math.Sqrt((dx * dx) + (dy * dy));
+            if (len < 1e-4f)
+            {
+                return (0f, 0f);
+            }
+
+            float fade = Smooth(Math.Min(progress, 1f - progress) * segments / 1.2f);
+            float off = side * WalkerLook.TrailLane * walker * fade;
+            return (-dy / len * off, dx / len * off);
         }
 
         // ---- Munchers' gags ----

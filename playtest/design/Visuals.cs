@@ -100,7 +100,7 @@ namespace Bloomlings.Playtest.Design
             if (pose >= 0 && look.Heroes)
             {
                 p.Mark(WalkerLook.HeroSlot);
-                HeroWalker(p, box, material.Family, pose);
+                HeroWalker(p, box, material.Family, pose, look.Cue, color);
                 return;
             }
 
@@ -159,12 +159,58 @@ namespace Bloomlings.Playtest.Design
         /// for <see cref="WalkerLook.PoseHands"/> only his hands, the hero drawn again clipped to his hand discs
         /// (<see cref="RoundLook.HeroHands"/>, the latch hero's trick) over the cube he holds.
         /// </summary>
-        public static void HeroWalker(IPainter p, Box box, Family family, int pose)
+        public static void HeroWalker(IPainter p, Box box, Family family, int pose, HeroCue cue = HeroCue.None, Rgba color = default)
         {
             Box cell = HeroWalkerCell(box);
+            Outfit? outfit = cue == HeroCue.Scarf ? ScarfOutfit(family) : null;
             if (pose != WalkerLook.PoseHands)
             {
-                Hero(p, cell, family, null);
+                if (cue == HeroCue.Ring)
+                {
+                    // The colour-cue mock (a): a coloured ring under his feet.
+                    float cx = box.CenterX;
+                    float cy = box.Bottom - (box.Height * 0.04f);
+                    p.PushSquash(1f, 0.32f, cx, cy);
+                    p.FillCircle(cx, cy, box.Width * 0.42f, color.WithAlpha(0.45f));
+                    p.StrokeCircle(cx, cy, box.Width * 0.42f, Math.Max(1.5f, box.Width * 0.07f), color);
+                    p.PopTransform();
+                }
+
+                if (cue == HeroCue.Glow)
+                {
+                    // (c): a soft glow round him, his layers' silhouettes in the cube's colour a little out all round.
+                    float r = Math.Max(1.5f, box.Width * 0.05f);
+                    p.PushAlpha(0.75f);
+                    for (int i = 0; i < 10; i++)
+                    {
+                        double a = i * Math.PI / 5.0;
+                        HeroSilhouette(p, cell.Offset((float)Math.Cos(a) * r, (float)Math.Sin(a) * r), family, outfit, color);
+                    }
+
+                    p.PopAlpha();
+                }
+
+                Hero(p, cell, family, outfit);
+                if (cue == HeroCue.Tint)
+                {
+                    // (d): the whole hero washed toward the cube's colour.
+                    p.PushAlpha(0.6f);
+                    HeroSilhouette(p, cell, family, outfit, color);
+                    p.PopAlpha();
+                }
+                else if (cue == HeroCue.Scarf)
+                {
+                    // (b): his knitted scarf in the cube's colour.
+                    for (int i = 0; i < HeroGearArt.LayerCount; i++)
+                    {
+                        HeroFrame? layer = HeroGearArt.Layer(family, HeroGearArt.DisplayOutfit(outfit), i);
+                        if (layer.HasValue && layer.Value.Name.Contains("scarf"))
+                        {
+                            p.SpriteTint(PainterBase.HeroMotionPrefix + layer.Value.Name, HeroMotion.PictureBox(cell, layer.Value), color.WithAlpha(0.72f));
+                        }
+                    }
+                }
+
                 return;
             }
 
@@ -172,9 +218,36 @@ namespace Bloomlings.Playtest.Design
             foreach (Box hand in new[] { left, right })
             {
                 p.PushClipRound(hand, hand.Width / 2f);
-                Hero(p, cell, family, null);
+                Hero(p, cell, family, outfit);
+                if (cue == HeroCue.Tint)
+                {
+                    p.PushAlpha(0.6f);
+                    HeroSilhouette(p, cell, family, outfit, color);
+                    p.PopAlpha();
+                }
+
                 p.PopClip();
             }
+        }
+
+        // A hero's layers as one flat silhouette in a colour.
+        private static void HeroSilhouette(IPainter p, Box cell, Family family, Outfit? outfit, Rgba color)
+        {
+            for (int i = 0; i < HeroGearArt.LayerCount; i++)
+            {
+                HeroFrame? layer = HeroGearArt.Layer(family, HeroGearArt.DisplayOutfit(outfit), i);
+                if (layer.HasValue)
+                {
+                    p.SpriteTint(PainterBase.HeroMotionPrefix + layer.Value.Name, HeroMotion.PictureBox(cell, layer.Value), color);
+                }
+            }
+        }
+
+        // The stock hero wearing his family's knitted scarf (the colour-cue mock's scarf).
+        private static Outfit? ScarfOutfit(Family family)
+        {
+            string id = "scarf." + family.ToString().ToLowerInvariant() + "_knit";
+            return PlaytestMeta.Cosmetics.TryGet(id, out CosmeticItem? scarf) && scarf != null ? new Outfit(null, null, null, null, Scarf: scarf) : null;
         }
 
         /// <summary>A hero walker's cell on the walker box (<see cref="WalkerLook.HeroCell"/>).</summary>

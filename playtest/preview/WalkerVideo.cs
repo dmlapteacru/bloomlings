@@ -5,6 +5,7 @@ using System.IO;
 using Bloomlings.Client.UI.Design;
 using Bloomlings.Content.Packs;
 using Bloomlings.Content.Rounds;
+using Bloomlings.Core.Variants;
 using Bloomlings.Core.Rounds;
 using Bloomlings.Playtest.Design;
 
@@ -33,6 +34,12 @@ namespace Bloomlings.Playtest.Preview
             "creature" => WalkerLook.Creature,
             "hands-creature" => WalkerLook.HandsCreature,
             "hands-heroes" => WalkerLook.HandsHeroes,
+            "trails-creatures" => WalkerLook.TrailsCreatures,
+            "trails-heroes" => WalkerLook.TrailsHeroes,
+            "heroes-ring" => WalkerLook.HeroesWith(HeroCue.Ring),
+            "heroes-scarf" => WalkerLook.HeroesWith(HeroCue.Scarf),
+            "heroes-glow" => WalkerLook.HeroesWith(HeroCue.Glow),
+            "heroes-tint" => WalkerLook.HeroesWith(HeroCue.Tint),
             _ => null,
         };
 
@@ -268,6 +275,58 @@ namespace Bloomlings.Playtest.Preview
             Console.WriteLine("store preview strip → " + outPng);
         }
 
+        /// <summary>
+        /// <c>--hero-cues &lt;out.png&gt;</c>: the colour-cue mock of 2026-11-04: each real hero (a row) holding a cube of a material of
+        /// his family whose colour is not his own, with no cue, then a ring under his feet, a scarf, a glow and a wash in the cube's
+        /// colour (the columns). Review material only.
+        /// </summary>
+        public static int HeroCues(string outPng)
+        {
+            const int Cell = 220;
+            (Family Family, int Material)[] rows = { (Family.Sprig, 7), (Family.Bloom, 6), (Family.Drop, 4), (Family.Twig, 5) };
+            HeroCue[] cues = { HeroCue.None, HeroCue.Ring, HeroCue.Scarf, HeroCue.Glow, HeroCue.Tint };
+            using var painter = new SkiaPainter(cues.Length * Cell, 2 * rows.Length * Cell, new Insets(0, 0));
+            painter.BeginFrame();
+            painter.FillRect(new Box(0, 0, cues.Length * Cell, 2 * rows.Length * Cell), DesignTokens.Colors.BoardSurface);
+            WalkerLook before = WalkerLook.Current;
+            try
+            {
+                // The first rows hold their cube; the next ones walk to it with empty hands.
+                for (int r = 0; r < 2 * rows.Length; r++)
+                {
+                    RoundMaterial material = RoundMaterial.All[rows[r % rows.Length].Material];
+                    bool holding = r < rows.Length;
+                    for (int c = 0; c < cues.Length; c++)
+                    {
+                        WalkerLook.Current = WalkerLook.HeroesWith(cues[c]);
+                        Box box = Box.FromCenter((c * Cell) + (Cell / 2f), (r * Cell) + (Cell * 0.62f), Cell * 0.5f, Cell * 0.5f);
+                        painter.FillCircle(box.CenterX, box.Bottom, box.Width * 0.3f, Rgba.Black.WithAlpha(0.12f));
+                        if (!holding)
+                        {
+                            Visuals.Walker(painter, box, material, 0, 1);
+                            continue;
+                        }
+
+                        Visuals.Walker(painter, box, material, WalkerLook.PoseHold, 1);
+                        float g = WalkerLook.HeldShare * box.Width;
+                        float cy = box.Bottom - (WalkerLook.HeldUp * box.Width);
+                        BoardCubeLook look = BoardCubeLook.Default;
+                        float top = cy - (g * look.RowShare / 2f);
+                        Kit.BoardCube(painter, new Box(box.CenterX - (g / 2f) - (g * look.Overlap), top, box.CenterX + (g / 2f) + (g * look.Overlap), top + (g * look.PictureShare)), material, false, look);
+                        Visuals.Walker(painter, box, material, WalkerLook.PoseHands, 1);
+                    }
+                }
+            }
+            finally
+            {
+                WalkerLook.Current = before;
+            }
+
+            File.WriteAllBytes(outPng, painter.Png());
+            Console.WriteLine("hero cues → " + outPng);
+            return 0;
+        }
+
         // The four creatures (rows) in their poses: the run's eight frames, standing from the side, facing, holding, the hands.
         private static void CreatureSheet(string outPng)
         {
@@ -344,8 +403,9 @@ namespace Bloomlings.Playtest.Preview
 
                 if (!kind.HasValue)
                 {
-                    // A mock look over whatever the level chose.
+                    // A mock look over whatever the level chose, with its act's linger for the level's style.
                     WalkerLook.Current = look;
+                    ClearStyles.Linger = look.LingerFor(s.Style);
                 }
 
                 void Frame(float dt)

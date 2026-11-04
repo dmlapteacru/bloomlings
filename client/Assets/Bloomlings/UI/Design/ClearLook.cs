@@ -918,12 +918,20 @@ namespace Bloomlings.Client.UI.Design
         private static void Walking(FxList list, in ClearWalk walk, Spot spot, float size, float waddle = 7f, float hopHeight = 0.085f)
         {
             float swing = Swing(spot);
+            float narrow = _look.Trails && spot.Walking ? WalkerLook.TrailSquash : 1f;
+            float into = _look.Trails && spot.Walking ? WalkerLook.TrailLean * _facing : 0f;
             if (_hero)
             {
                 // A real hero has no run cycle: a hop each step, stretched in the air and squashed on landing, leaning into it.
                 float air = spot.Walking ? Math.Abs(swing) : 0f;
                 float stretch = spot.Walking ? 0.07f * ((2f * air) - 1f) : 0f;
-                Body(list, spot.X, spot.Y, size, air * hopHeight * 1.4f, spot.Walking ? swing * 6f : 0f, 1f - (stretch * 0.6f), 1f + stretch, 1f, walk.Variant);
+                Body(list, spot.X, spot.Y, size, air * hopHeight * 1.4f, (spot.Walking ? swing * 6f : 0f) + into, (1f - (stretch * 0.6f)) * narrow, 1f + stretch, 1f, walk.Variant);
+                return;
+            }
+
+            if (_look.Trails)
+            {
+                Body(list, spot.X, spot.Y, size, 0f, into, narrow, 1f, 1f, walk.Variant);
                 return;
             }
 
@@ -1247,27 +1255,44 @@ namespace Bloomlings.Client.UI.Design
         // A live walk: out from its start to its arrival (setting off from a standstill), its act until the clear plus the
         // linger, back at its way out's pace, slowing down into the gate (ClearStyles.LiveLinger, LiveHomeAt, GateEaseShare);
         // it grows and fades in out of the arch and shrinks and fades into it (GateSeconds).
+        // When a live walker is seen to set off: its start, or in the Trails mock (WalkerLook.Trails) a little later where its
+        // figure is longer than the gap its pod's line leaves on the way (ClearStyles.LineGap at the walking pace), so it walks a
+        // little faster and the line spreads to WalkerLook.TrailGap walker boxes (at most a third later); it arrives on time.
+        private static float TrailStart(in ClearWalk walk)
+        {
+            if (!WalkerLook.Current.Trails)
+            {
+                return walk.Start;
+            }
+
+            float walker = walk.LiveScale * WalkerSize;
+            float gap = ClearStyles.LineGap / ClearStyles.PerCell;
+            float factor = Math.Max(1f, Math.Min(1.5f, WalkerLook.TrailGap * walker / Math.Max(0.01f, gap)));
+            return walk.Start + ((walk.ArriveAt - walk.Start) * (1f - (1f / factor)));
+        }
+
         private static Spot LocateLive(in ClearWalk walk, float now)
         {
             int segments = Math.Max(1, walk.Points.Count - 1);
             var spot = new Spot { GateSize = 1f, GateAlpha = 1f };
             float home = ClearStyles.LiveHomeAt(walk.Start, walk.ArriveAt, walk.ClearAt, walk.DoneAt);
+            float start = TrailStart(walk);
             (float X, float Y) at;
-            if (now < walk.Start)
+            if (now < start)
             {
                 spot.Leg = Leg.Before;
                 at = Along(walk.Points, 0f);
             }
             else if (now < walk.ArriveAt)
             {
-                float progress = SetOff(Clamp01((now - walk.Start) / Math.Max(1e-4f, walk.ArriveAt - walk.Start)));
+                float progress = SetOff(Clamp01((now - start) / Math.Max(1e-4f, walk.ArriveAt - start)));
                 at = Along(walk.Points, progress);
                 spot.Leg = Leg.Out;
                 spot.U = progress;
                 spot.Hops = progress * segments * HopsPerCell;
                 spot.Walking = progress < 1f;
                 spot.DirX = Toward(walk.Points, Segment(walk.Points, progress)).X;
-                Gate(ref spot, (now - walk.Start) / ClearStyles.GateSeconds);
+                Gate(ref spot, (now - start) / ClearStyles.GateSeconds);
             }
             else if (now < walk.ClearAt + ClearStyles.Linger)
             {

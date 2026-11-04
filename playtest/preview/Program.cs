@@ -72,6 +72,10 @@ for (int i = 0; i < args.Length; i++)
     {
         return WalkerVideo.Sheet(Path.GetFullPath(args[i + 1]));
     }
+    else if (args[i] == "--hero-cues" && i + 1 < args.Length)
+    {
+        return WalkerVideo.HeroCues(Path.GetFullPath(args[i + 1]));
+    }
     else if (args[i] == "--walker-strips" && i + 1 < args.Length)
     {
         // --walker-strips <out dir>: the "in hands" acts frame by frame (WalkerVideo.Strips)
