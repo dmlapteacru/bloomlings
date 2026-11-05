@@ -633,7 +633,7 @@ namespace Bloomlings.Content.Rounds
 
             string randomPath = JsonDoc.Join(path, "randomTest");
             JObject random = JsonDoc.Object(JsonDoc.Required(root, path, "randomTest"), randomPath);
-            JsonDoc.AllowOnly(random, randomPath, "policy", "seedBase", "runs", "wins", "share", "wilson95", "classOfShare", "borderline", "bridge");
+            JsonDoc.AllowOnly(random, randomPath, "policy", "seedBase", "runs", "wins", "share", "wilson95", "classOfShare", "borderline", "bridge", "exit");
             Const(JsonDoc.Required(random, randomPath, "policy"), JsonDoc.Join(randomPath, "policy"), RoundRandomTest.PolicyName);
             long seedBase = Long(JsonDoc.Required(random, randomPath, "seedBase"), JsonDoc.Join(randomPath, "seedBase"));
             int runs = JsonDoc.Int(JsonDoc.Required(random, randomPath, "runs"), JsonDoc.Join(randomPath, "runs"));
@@ -653,6 +653,8 @@ namespace Bloomlings.Content.Rounds
             bool? borderline = borderlineToken == null ? (bool?)null : JsonDoc.Bool(borderlineToken, JsonDoc.Join(randomPath, "borderline"));
             JToken? bridgeToken = JsonDoc.Optional(random, "bridge");
             int? bridge = bridgeToken == null ? (int?)null : JsonDoc.Int(bridgeToken, JsonDoc.Join(randomPath, "bridge"), min: 0);
+            JToken? exitToken = JsonDoc.Optional(random, "exit");
+            int? exit = exitToken == null ? (int?)null : JsonDoc.Int(exitToken, JsonDoc.Join(randomPath, "exit"), min: 0);
 
             JObject checks = JsonDoc.Object(JsonDoc.Required(root, path, "checks"), JsonDoc.Join(path, "checks"));
 
@@ -674,7 +676,7 @@ namespace Bloomlings.Content.Rounds
                 number,
                 definitionVersion,
                 new RoundSolution(commands, endUs),
-                new RoundRandomTest(seedBase, runs, wins, share, low, high, classOfShare, borderline, bridge),
+                new RoundRandomTest(seedBase, runs, wins, share, low, high, classOfShare, borderline, bridge, exit),
                 checks,
                 new RoundAudit(result, report, notes),
                 engine);
@@ -703,6 +705,11 @@ namespace Bloomlings.Content.Rounds
             if (random.Bridge.HasValue)
             {
                 randomTest["bridge"] = random.Bridge.Value;
+            }
+
+            if (random.Exit.HasValue)
+            {
+                randomTest["exit"] = random.Exit.Value;
             }
 
             var audit = new JObject { ["result"] = proof.Audit.Result, ["report"] = proof.Audit.Report };
@@ -802,7 +809,8 @@ namespace Bloomlings.Content.Rounds
                 JsonDoc.Int(JsonDoc.Required(random, "random", "wins"), "random.wins", min: 0),
                 owner,
                 root,
-                JsonDoc.Optional(random, "bridge") is JToken bridge ? JsonDoc.Int(bridge, "random.bridge", min: 0) : (int?)null);
+                JsonDoc.Optional(random, "bridge") is JToken bridge ? JsonDoc.Int(bridge, "random.bridge", min: 0) : (int?)null,
+                JsonDoc.Optional(random, "exit") is JToken exit ? JsonDoc.Int(exit, "random.exit", min: 0) : (int?)null);
         }
 
         // ---------------------------------------------------------------- shared

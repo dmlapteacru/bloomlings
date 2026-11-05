@@ -497,6 +497,12 @@ owner sees the same behaviour as in the playtest app.
     chosen exit after the bridge (`…|bridge|channel|status`) on a channel level only; a snapshot keeps it and a restored
     one recomputes the rest; a level without a channel plays byte-identically. The solver and the random test enumerate
     each exit as an action once the channel is ready (after the taps and bridges).
+  - Class (rules 17 §5, the owner, 2026-11-05): a Super Hard whose channel decides (exactly one exit wins; the wave plan's
+    `channelKind: "single"`, the hand Super Hards L110, L130, L150) is measured with its winning exit only, as a bridge
+    level with its best bridge: the proof's optional `randomTest.exit` (and the fixture's `random.exit`, equal to it) names
+    that exit, and the random games, here and in the reference, leave every other channel action out of the bot's moves
+    (`RoundRandomPolicy.KeepExit`, `Keep(bridge, exit)`); `rounds validate` refuses an exit the level's channel does not
+    have and a fixture whose exit differs from the proof's. On Normal and Hard the exit stays one of the uniform actions.
   - Boosters: no booster chooses an exit. Bloom Burst may open the way to the spring; the channel is then ready right after
     the burst's cell reveals and latches. Return and Shuffle are unaffected.
   - Look (the owner's choice of 2026-11-05 from the mock `product/previews/channel-shutters-2026-11-05/`: channel A fully;

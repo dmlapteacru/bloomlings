@@ -22,13 +22,18 @@ export function randomGame(E,level,seed,keep=null){const {R,T}=E,t=new T.Timelin
 export const keepBridge=bridge=>bridge===null||bridge===undefined?null:a=>a.type!=='bridge'||a.choice===bridge;
 // the keep filter of a test restricted to one exit of a water channel (measure.mjs channelExits)
 export const keepExit=exit=>a=>a.type!=='channel'||a.exit===exit;
+// the keep filter of a class test (randomTest, quickShare): at most one bridge and at most one channel exit (17 §5: a bridge
+// level's class with its best bridge, the owner, 2026-10-30; a deciding-exit Super Hard's with its winning exit, the
+// owner, 2026-11-05); with no exit it is keepBridge itself, so every other test plays exactly as before
+export const keepOf=(bridge,exit)=>{if(exit===null||exit===undefined)return keepBridge(bridge);const kb=keepBridge(bridge),ke=keepExit(exit);return kb?a=>kb(a)&&ke(a):ke;};
 // a hero's choice the strategies take at once by side: a bridge place or a water channel's exit (left the first offered,
 // right the last)
 export const heroChoices=m=>m.filter(a=>a.type==='bridge'||a.type==='channel');
 
 // a calm game (calmTest): before every choice the board plays until nothing more changes (the idle engine)
-export function calmGame(E,level,seed,bridge){const {R,idle:I}=E,r=rng(seed);let s=R.create(level,level.capacity||5),g=0;
- while(s.status==='Playing'&&g++<5000){const mv=R.legal(s).filter(a=>bridge===null||a.type!=='bridge'||a.choice===bridge);if(!mv.length)break;const x=I.step(s,mv[Math.floor(r()*mv.length)]);if(!x.accepted)break;s=x.state;}
+// (bridge, exit: the class's best bridge and winning channel exit, null for any)
+export function calmGame(E,level,seed,bridge,exit=null){const {R,idle:I}=E,r=rng(seed);let s=R.create(level,level.capacity||5),g=0;
+ while(s.status==='Playing'&&g++<5000){const mv=R.legal(s).filter(a=>(bridge===null||bridge===undefined||a.type!=='bridge'||a.choice===bridge)&&(exit===null||exit===undefined||a.type!=='channel'||a.exit===exit));if(!mv.length)break;const x=I.step(s,mv[Math.floor(r()*mv.length)]);if(!x.accepted)break;s=x.state;}
  return s.status==='Won';}
 
 // bridgeSingle's game g: the bridge choices buildable at the first moment any bridge is (policy 'random' or 'tap')
@@ -70,11 +75,11 @@ export const openingWins=(E,level,seq,strats,sides)=>strats.some(k=>sides.some(s
 // game i of a test kind, the unit a worker plays (pool.mjs): the seeds are the measures' own
 export function playOne(E,level,kind,p,i){
  switch(kind){
-  case 'random':return randomGame(E,level,p.seed*7919+i*104729+1,keepBridge(p.bridge));
-  case 'quick':return randomGame(E,level,p.seed*31+i*977,keepBridge(p.bridge));
+  case 'random':return randomGame(E,level,p.seed*7919+i*104729+1,keepOf(p.bridge,p.exit));
+  case 'quick':return randomGame(E,level,p.seed*31+i*977,keepOf(p.bridge,p.exit));
   case 'choice':return randomGame(E,level,p.seed*7919+i*104729+p.choice,keepBridge(p.choice));
   case 'exit':return randomGame(E,level,p.seed*7919+i*104729+p.exit+3,keepExit(p.exit));
-  case 'calm':return calmGame(E,level,p.seed*7919+i*104729+5,p.bridge);
+  case 'calm':return calmGame(E,level,p.seed*7919+i*104729+5,p.bridge,p.exit);
   case 'single':return singleGame(E,level,p.seed,i,p.policy);
   case 'loss':return lossGame(E,level,p.seed,i,p.choice,p.restricted);
   case 'opening':return openingWins(E,level,p.openings[i],p.strats,p.sides);

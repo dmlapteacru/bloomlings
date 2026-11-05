@@ -695,6 +695,44 @@ namespace Bloomlings.Content.Tests.Rounds
             });
         }
 
+        [Test]
+        public void Proof_ADecidingChannelLevelsRandomTestNamesItsExit_AndRoundTrips()
+        {
+            // rules 17 §5, the owner, 2026-11-05: a Super Hard where exactly one exit wins is measured with that exit
+            JObject proof = JObject.Parse(ProofSample);
+            proof["randomTest"]!["exit"] = 1;
+            string json = proof.ToString();
+
+            RoundProof read = RoundJson.ReadProof(json);
+            string written = RoundJson.WriteProof(read);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(ContractSchemas.IsValidRoundProof(json), Is.True);
+                Assert.That(read.RandomTest.Exit, Is.EqualTo(1));
+                Assert.That(read.RandomTest.Bridge, Is.Null);
+                Assert.That(JObject.Parse(written)["randomTest"]!["exit"]!.Value<int>(), Is.EqualTo(1));
+                Assert.That(RoundJson.ReadProof(written).RandomTest.Exit, Is.EqualTo(1));
+                Assert.That(RoundJson.ReadProof(ProofSample).RandomTest.Exit, Is.Null, "absent: every exit may be chosen");
+                Assert.That(JObject.Parse(RoundJson.WriteProof(RoundJson.ReadProof(ProofSample)))["randomTest"]!["exit"], Is.Null, "absent stays absent");
+            });
+        }
+
+        [TestCase(-1)]
+        [TestCase("left")]
+        public void Proof_ABadRandomTestExit_IsRejectedByBoth(object value)
+        {
+            JObject proof = JObject.Parse(ProofSample);
+            proof["randomTest"]!["exit"] = JToken.FromObject(value);
+            string json = proof.ToString();
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(ContractSchemas.IsValidRoundProof(json), Is.False, "schema");
+                Assert.Throws<ContentFormatException>(() => RoundJson.ReadProof(json), "reader");
+            });
+        }
+
         [TestCase("format")]
         [TestCase("number")]
         [TestCase("definitionVersion")]

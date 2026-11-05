@@ -7,7 +7,7 @@ import fs from 'node:fs';import path from 'node:path';
 import {franchiseBlocked,LEVELS,CODES,readJSON,lid,arg,picture,measure,fitsStage,stageOf,budget,columnsFor,slotOf,SUPPORTED,FIXED_VOLUMES,motifsOf,boardOf,overlaid,recolorErrors} from './lib.mjs';
 import {engine} from './engine.mjs';
 import {run} from '../level-stats/trace.mjs';
-import {channelExits,shutterCheck,latchCheck,cellsHiddenAtStart,bridgeChoicesWin,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,pressure,calmTest,calmFails,calmBorderline,trapLinks} from './measure.mjs';
+import {channelExits,shutterCheck,latchCheck,cellsHiddenAtStart,bridgeChoicesWin,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,pressure,calmTest,calmFails,calmBorderline,trapLinks,classKeep} from './measure.mjs';
 import {INTRO,planOf,repeatWindow} from './lib.mjs';
 import {fitness} from './fitness.mjs';
 import {breatherRecipeOk,BREATHER_ZONE,repeatClash,REPEAT_GAP,REPEAT_PER_WAVE,medianWindows,median,greedyQuota} from './wave.mjs';
@@ -92,7 +92,16 @@ for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
   if(ch){if(R.channelChoices(s0).length)bad.push('канал: родник доступен сразу, без расчищенного подхода (§8)');
    const ce=await channelExits(d);L._channel=ce;
    if(slot.intro==='canal'&&!ce.each.every(x=>x.win===true))bad.push(`знакомство с каналом: не каждый выход ведёт к победе ${JSON.stringify(ce.each.map(x=>x.win))} (§9)`);
-   else soft.push(`канал: выходы ${ce.each.map(x=>`${x.exit+1} ${x.win===true?'выигрывает':x.win===false?'проигрывает':'не решён'}`).join(', ')}${ce.decides?' — решает ровно один':''} (§8)`);}}
+   else soft.push(`канал: выходы ${ce.each.map(x=>`${x.exit+1} ${x.win===true?'выигрывает':x.win===false?'проигрывает':'не решён'}`).join(', ')}${ce.decides?' — решает ровно один':''} (§8)`);}
+  // a deciding-exit Super Hard (the wave plan's channelKind single, recorded as checks.channelKind and random.exit; the
+  // owner, 2026-11-05): exactly one exit wins, and the class (below, by L.random) is the one measured with that exit only
+  // (17 §5, as a bridge level's best bridge)
+  {const single=((planOf(n)||{}).channelKind==='single')||(L.checks&&L.checks.channelKind==='single')||(L.random&&L.random.exit!=null);
+   if(single){if(!ch)bad.push('канал single: на уровне нет канала');else{const ce=L._channel;
+    if(!ce.decides)bad.push(`канал: решает не ровно один выход (single) ${JSON.stringify(ce.each.map(x=>x.win))} (§8)`);
+    else if(L.random.exit!==ce.each.findIndex(x=>x.win===true))bad.push(`канал single: класс измерен ${L.random.exit==null?'без ограничения выхода':'с выходом '+(L.random.exit+1)}, нужен выигрывающий выход ${ce.each.findIndex(x=>x.win===true)+1} (§5)`);
+    if(!(L.checks&&L.checks.channelKind==='single'))bad.push('канал single: checks.channelKind не записан (evaluate channelKind single)');
+    if(L.cls!=='Super Hard')bad.push(`канал single на ${L.cls}: класс с одним выходом только для Super Hard (§5)`);}}}}
  // the Twig wooden shutters (17 §7, §8, §9, the owner, 2026-11-05): the recipe and the shutters agree, an introduction has
  // one, the number and the counters for class and role (levels.mjs dosesOk), and on the saved solution every shutter opens
  // before 80 % W (measure.mjs shutterCheck; no new front at the opening is a note)
@@ -141,7 +150,7 @@ for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
  // §5 the calm test and §8 trap links (the owner's amendment of 2026-10-31): with the board settled before every tap a Hard
  // wins at most 50 %, a Super Hard at most 25 %, a regular Normal at least 50 % (the class's best bridge); a Hard or Super
  // Hard with links has a group with a member whose material is hidden at the start
- if(!slot.intro&&n>3&&!br){const calm=await calmTest(d,L.random&&L.random.bridge!=null?{bridge:L.random.bridge}:{});L._calm=calm.share;const cf=calmFails(L.cls,calm,L._regular),ex=L.exception&&typeof L.exception==='object'&&/calm/i.test(L.exception.rule||'')?L.exception:null;
+ if(!slot.intro&&n>3&&!br){const calm=await calmTest(d,classKeep(L.random));L._calm=calm.share;const cf=calmFails(L.cls,calm,L._regular),ex=L.exception&&typeof L.exception==='object'&&/calm/i.test(L.exception.rule||'')?L.exception:null;
   // an owner's exception to the calm rule (the level's exception field) turns the failure into a note
   if(cf&&ex)soft.push(`исключение владельца от ${ex.decidedAt}: ${cf}`);else if(cf)bad.push(cf);else if(calmBorderline(L.cls,calm)&&(L.cls!=='Normal'||L._regular))soft.push(`спокойная игра ${Math.round(calm.share*100)} % на границе по Wilson — решение человека (§5)`);
   const tl=trapLinks(d);if((L.cls==='Hard'||L.cls==='Super Hard')&&tl.length&&!tl.some(x=>x.trap))bad.push('нет связки-ловушки: у каждой связки материалы открыты с самого начала (§8)');}

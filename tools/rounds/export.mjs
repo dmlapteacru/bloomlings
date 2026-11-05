@@ -169,12 +169,16 @@ export async function exportWave(from,to,{out,ownerResults=[],game=path.join(roo
   // name that bridge, and the replay (here and in C#) leaves every other bridge out of the bot's moves
   const bridge=rt.bridge??null;
   if(bridge!==null&&!(Number.isInteger(bridge)&&lv.board.hero&&bridge>=0&&bridge<lv.board.hero.choices.length))errors.push(`${lid(n)}: the random test's bridge ${bridge} is not a bridge choice of the level`);
+  // a deciding-exit channel Super Hard's class test plays its winning exit only (17 §5, the owner, 2026-11-05): likewise
+  // named in the proof and the fixture, every other exit left out of the bot's moves
+  const exit=rt.exit??null;
+  if(exit!==null&&!(Number.isInteger(exit)&&lv.board.channel&&exit>=0&&exit<lv.board.channel.exits.length))errors.push(`${lid(n)}: the random test's exit ${exit} is not an exit of the level's channel`);
   const proof={format:'round-proof.v1',number:n,definitionVersion:lv.definitionVersion,
    solution:{commands:sol.commands,outcome:'Won',endUs:sol.endUs},
-   randomTest:{policy:POLICY,seedBase:rt.seedBase,runs:rt.runs,wins:rt.wins,share:rt.share,wilson95:rt.wilson95,classOfShare:rt.cls,...(rt.borderline!=null?{borderline:rt.borderline}:{}),...(bridge!==null?{bridge}:{})},
+   randomTest:{policy:POLICY,seedBase:rt.seedBase,runs:rt.runs,wins:rt.wins,share:rt.share,wilson95:rt.wilson95,classOfShare:rt.cls,...(rt.borderline!=null?{borderline:rt.borderline}:{}),...(bridge!==null?{bridge}:{}),...(exit!==null?{exit}:{})},
    checks:L.checks||{},audit:audit.results[n],engine};
   // the random test replayed game by game (research R5)
-  const rnd=await randomFixture(def,{seedBase:rt.seedBase,runs:rt.runs,bridge});randomGames+=rnd.games.length;
+  const rnd=await randomFixture(def,{seedBase:rt.seedBase,runs:rt.runs,bridge,exit});randomGames+=rnd.games.length;
   if(rnd.wins!==rt.wins)errors.push(`${lid(n)} random test: ${rnd.wins} of ${rt.runs} won on replay, the level records ${rt.wins}`);
   for(const x of rnd.nearTies)errors.push(`${lid(n)} random game: near-tie of model times ${x}`);
   // the owner's attempts on this level
@@ -186,7 +190,7 @@ export async function exportWave(from,to,{out,ownerResults=[],game=path.join(roo
    own.push({source:rel(o.file),attempt:String(a.id),commands:f.commands,outcome:f.outcome,endUs:f.endUs,finalSignature:f.finalSignature});}
   const fixture={format:'round-conformance.v1',number:n,definitionVersion:lv.definitionVersion,engine,
    solution:{windows:sol.windows.map(w=>({command:w.command,events:w.events,signature:w.signature})),outcome:sol.outcome,endUs:sol.endUs,finalSignature:sol.finalSignature},
-   random:{policy:FIXTURE_POLICY,seedBase:rt.seedBase,runs:rt.runs,...(bridge!==null?{bridge}:{}),games:rnd.games,wins:rnd.wins},owner:own};
+   random:{policy:FIXTURE_POLICY,seedBase:rt.seedBase,runs:rt.runs,...(bridge!==null?{bridge}:{}),...(exit!==null?{exit}:{}),games:rnd.games,wins:rnd.wins},owner:own};
   // schemas
   for(const [name,doc,label] of [['round-level',lv,`levels/${lid(n)}`],['round-picture',pv,`pictures/${pv.id}`],['round-proof',proof,`proofs/${lid(n)}`]]){
    const e=validate(name,doc);if(e.length)return {ok:false,failures:e.map(x=>`schema ${name}: ${label}${x}`)};}
@@ -209,7 +213,7 @@ export function fixtureShape(f){const e=[],sig=/^sha256:[0-9a-f]{64}$/,int=x=>Nu
  const s=f.solution;if(!s||!Array.isArray(s.windows)||!s.windows.length)e.push('solution.windows');
  else s.windows.forEach((w,i)=>{if(!cmd(w.command)||!sig.test(w.events)||!sig.test(w.signature))e.push(`solution.windows[${i}]`);});
  if(!s||!['Won','Jammed','Stuck','Playing'].includes(s.outcome)||!int(s.endUs)||!sig.test(s.finalSignature))e.push('solution end');
- const r=f.random;if(!r||r.policy!==FIXTURE_POLICY||!Number.isInteger(r.seedBase)||![100,400].includes(r.runs)||!Array.isArray(r.games)||r.games.length!==r.runs||!int(r.wins)||(r.bridge!==undefined&&!int(r.bridge)))e.push('random');
+ const r=f.random;if(!r||r.policy!==FIXTURE_POLICY||!Number.isInteger(r.seedBase)||![100,400].includes(r.runs)||!Array.isArray(r.games)||r.games.length!==r.runs||!int(r.wins)||(r.bridge!==undefined&&!int(r.bridge))||(r.exit!==undefined&&!int(r.exit)))e.push('random');
  else r.games.forEach((g,i)=>{if(!int(g.seed)||!['Won','Jammed','Stuck','Playing'].includes(g.outcome)||!int(g.endUs)||!sig.test(g.finalSignature))e.push(`random.games[${i}]`);});
  if(!Array.isArray(f.owner))e.push('owner');else f.owner.forEach((o,i)=>{if(typeof o.source!=='string'||typeof o.attempt!=='string'||!Array.isArray(o.commands)||!o.commands.every(cmd)||typeof o.outcome!=='string'||!int(o.endUs)||!sig.test(o.finalSignature))e.push(`owner[${i}]`);});
  return e;}

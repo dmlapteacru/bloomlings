@@ -11,6 +11,8 @@
 //      [--slot regular|after-hard|breather] [--want n] [--want-loss] [--minutes m] [--intro] [--max-colours n] [--legacy]: every non-bridge level of a
 //      free picture is built by the generator's tuning (tune.mjs, README «The generator (2026-11-02)»): the model's blend, ≤ 5
 //      quick tests, links under the forced limit, hidden pods / cells after the class; --legacy the old random blend
+//      [--channel-kind single]: a Super Hard with a water channel must decide (exactly one exit wins) and its class is
+//      measured with that exit only (17 §5, the owner, 2026-11-05; evaluate's channelKind)
 //      candidates for each picture, recipe and class: balance → queue → saved solution → random test → bank. Recipes put
 //      the lead first (17 §7): none, links, hidden, bridge, links+hidden, hidden+links, bridge+links, bridge+hidden,
 //      hidden+bridge, links+bridge, links+bridge+hidden, bridge+links+hidden; hidden cells (17 §8, 2026-11-01) as 'cells':
@@ -36,7 +38,7 @@ import {franchiseBlocked,packOf,waveRange,siteChoice,ROUNDS,PICTURES,LEVELS,BANK
 import {fitness} from './fitness.mjs';import {deltaE,labOf} from './colour-distance.mjs';
 import {tuneJob,ZONES} from './tune.mjs';
 import {GEN,breatherRecipeOk,BREATHER_ZONE,repeatClash,wideClash,medianPenalty,greedyQuota,MEDIAN} from './wave.mjs';
-import {channelExits,shutterCheck,latchCheck,LATCH_DEPTH,LATCH_BEHIND,cellsHiddenAtStart,cellFairness,randomTest,quickShare,solve,fairness,strategies,rhythm,bridgeChoicesWin,bridgeChoices,greedy,greedyBeaten,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,bridgeLoss,pressure,calmTest,calmFails,calmBorderline,trapLinks} from './measure.mjs';
+import {channelExits,winningExit,shutterCheck,latchCheck,LATCH_DEPTH,LATCH_BEHIND,cellsHiddenAtStart,cellFairness,randomTest,quickShare,solve,fairness,strategies,rhythm,bridgeChoicesWin,bridgeChoices,greedy,greedyBeaten,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,bridgeLoss,pressure,calmTest,calmFails,calmBorderline,trapLinks,classKeep} from './measure.mjs';
 // layer B of 17 §13: the bounds of the metrics of interest (content/rounds/quality.json)
 const QUALITY=readJSON(path.join(ROUNDS,'quality.json'),{pressure:{min:{},games:30,mode:'soft'}});import {engine,rulesSync} from './engine.mjs';import {createRequire as _cr} from 'node:module';
 // the engine synchronously (the latch timing runs inside candidate, which is synchronous)
@@ -570,7 +572,11 @@ const rowOfPod=(level,i)=>{for(const st of level.tray){const k=st.indexOf(i);if(
 // other comes later through materials and places, not at the choice: bridgeLoss), 'better' (not an introduction: both
 // win, one 10+ points better by the random test) or 'any' (single or better). The owner, 2026-10-28 (second decision):
 // Normal any, Hard half single and half better, Super Hard single.
-export async function evaluate(level,{m,cls,intro=false,fixed=null,kind=null,breather=false,tick=()=>{}}){const W=m.N,recipe=level.recipe||'none';
+// channelKind 'single' (the wave plan's channelKind of a hand Super Hard with a water channel, the owner, 2026-11-05): the
+// channel must decide (exactly one exit wins, measure.mjs channelExits), and the class is measured with that exit only, as a
+// bridge level's with its best bridge (17 §5): the quick estimate, the random test and the calm test keep the winning exit,
+// the test over both exits stays as randomAll; checks.channelKind records it. Without it nothing changes.
+export async function evaluate(level,{m,cls,intro=false,fixed=null,kind=null,channelKind=null,breather=false,tick=()=>{}}){const W=m.N,recipe=level.recipe||'none';
  const errs=checkPods(level.pods,m.volumes);if(errs.length)return {reason:'баланс'};
  {const {R}=await engine(),ve=R.validate(level);if(ve&&ve.length)return {reason:'движок отклоняет: '+ve[0]};}
  // hidden cells (17 §8, §9): never with hidden pods; an introduction has 5–10 cells still hidden after the start reveal
@@ -585,9 +591,12 @@ export async function evaluate(level,{m,cls,intro=false,fixed=null,kind=null,bre
  if(intro&&recipe==='shutters'&&(level.shutters||[]).length!==1)return {reason:`знакомство: створок ${(level.shutters||[]).length}, нужны одни (§9)`};
  // a breather (17 §5 «Передышка», the owner, 2026-11-02): the mandatory checks only
  if(breather)return evaluateBreather(level,{m,tick});
+ // a deciding-exit channel (channelKind single, 17 §5, the owner, 2026-11-05): each exit solved alone first; exactly one wins
+ let ch=null,exit=null;if(channelKind!==null){if(channelKind!=='single')throw Error('channelKind: только single');if(!level.channel)return {reason:'канал: план single, а на уровне нет канала'};if(cls!=='Super Hard')return {reason:'канал: single только на Super Hard (§5)'};
+  ch=await channelExits(level);tick('выходы канала '+JSON.stringify(ch.each));if(!ch.decides)return {reason:'канал: решает не ровно один выход (single)'};exit=winningExit(ch);}
  // a bridge introduction may be the second one, where one bridge only wins: its target is the Normal zone (§9)
  // a bridge level's class is its best bridge's (17 §5, the owner, 2026-10-30): the quick estimate takes the better bridge
- const q=level.hero?Math.max(...await Promise.all(level.hero.choices.map((_,i)=>quickShare(level,40,11,i)))):await quickShare(level,40);tick('быстрая оценка '+q);const target=intro&&recipe==='bridge'?[.5,1]:intro?[.9,1]:fixed===1?[1,1]:fixed?[.9,1]:{Normal:[.5,.75],Hard:[.2,.5],'Super Hard':[.05,.2]}[cls];
+ const q=level.hero?Math.max(...await Promise.all(level.hero.choices.map((_,i)=>quickShare(level,40,11,i)))):exit!==null?await quickShare(level,40,11,null,exit):await quickShare(level,40);tick('быстрая оценка '+q);const target=intro&&recipe==='bridge'?[.5,1]:intro?[.9,1]:fixed===1?[1,1]:fixed?[.9,1]:{Normal:[.5,.75],Hard:[.2,.5],'Super Hard':[.05,.2]}[cls];
  if(q<target[0]-.15||q>target[1]+.15)return {reason:'не тот класс по быстрой оценке',quick:q};
  // the planned bridge kind first: each bridge alone solved (17 §8)
  let win=null,early=null;if(kind&&level.hero){win=(await bridgeChoicesWin(level)).each;const t=win.filter(x=>x===true).length,f=win.filter(x=>x===false).length;tick('мосты '+JSON.stringify(win));
@@ -604,7 +613,7 @@ export async function evaluate(level,{m,cls,intro=false,fixed=null,kind=null,bre
  const sol=await solve(level);tick('решение '+sol.win);if(sol.win!==true||sol.replay!=='won')return {reason:sol.win===null?'решение не найдено за бюджет (не проверено)':'нет решения'};
  // the water channel (17 §8, §9): each exit solved alone and its random share (the class test itself takes the exit as one
  // of the bot's uniform actions, §5); on both introductions each exit keeps a winning continuation
- const ch=level.channel?await channelExits(level):null;if(ch)tick('выходы канала '+JSON.stringify(ch.each));
+ if(!ch&&level.channel){ch=await channelExits(level);tick('выходы канала '+JSON.stringify(ch.each));}
  if(ch&&intro&&recipe==='canal'&&!ch.each.every(x=>x.win===true))return {reason:'знакомство с каналом: не каждый выход ведёт к победе (§9)'};
  // wooden shutters (17 §8): every shutter opens on the saved solution before 80 % W
  const sc=level.shutters?await shutterCheck(level,sol.route):null;if(sc)tick('створки '+JSON.stringify(sc.shutters.map(x=>x.atW)));if(sc&&!sc.ok)return {reason:'створки: '+sc.problems[0]};
@@ -612,15 +621,18 @@ export async function evaluate(level,{m,cls,intro=false,fixed=null,kind=null,bre
  // when both win, the one the random games win more often; the test over both bridges stays as randomAll
  let best=null,bc0=null,rtAll=null;if(level.hero){win=win||(await bridgeChoicesWin(level)).each;const t=win.filter(x=>x===true).length;
   if(t===1)best=win.indexOf(true);else{bc0=await bridgeChoices(level,60,5,win);best=bc0.better;}}
- const rt=await randomTest(level,best===null?{}:{bridge:best});tick('случайный тест '+rt.share+(best===null?'':` (мост ${best})`));if(rt.cls==='too hard')return {reason:'ниже 5 %'};
+ // a deciding-exit channel (channelKind single): with the winning exit only, the test over both exits as randomAll
+ const only={...(best===null?{}:{bridge:best}),...(exit===null?{}:{exit})};
+ const rt=await randomTest(level,only);tick('случайный тест '+rt.share+(best===null?'':` (мост ${best})`)+(exit===null?'':` (выход ${exit})`));if(rt.cls==='too hard')return {reason:'ниже 5 %'};
  if(best!==null){rtAll=await randomTest(level);tick('случайный тест с обоими мостами '+rtAll.share);}
+ if(exit!==null){rtAll=await randomTest(level);tick('случайный тест с обоими выходами '+rtAll.share);}
  if(rt.cls!=='Normal'){const g2=gr||await greedy(level);if(!greedyBeaten(g2,rt.cls))return {reason:'жадная стратегия выигрывает измеренный класс (§5)'};}
  // §5 "opening + colours" (the owner's second amendment of 2026-10-27): no first launch then greedy wins, ≤ 35 % after three
  const opening=rt.cls==='Normal'?null:await openingTest(level,rt.cls);tick('дебют '+JSON.stringify(opening));if(opening&&!opening.ok)return {reason:opening.first.wins?'дебют + цвета: выигрывает после первого запуска (§5)':'дебют + цвета: больше 35 % после трёх запусков (§5)'};
  // §5 the calm test (the owner's amendment of 2026-10-31): a Hard or Super Hard stays hard when the board settles before
  // every tap (only the order of choices counts); a Normal's calm share is kept for the placer, which holds a regular
  // Normal to 50 % and more
- const calm=await calmTest(level,best===null?{}:{bridge:best});tick('спокойно '+calm.share);{const cf=calmFails(rt.cls,calm);if(cf&&!intro)return {reason:cf};}
+ const calm=await calmTest(level,only);tick('спокойно '+calm.share);{const cf=calmFails(rt.cls,calm);if(cf&&!intro)return {reason:cf};}
  // §8 trap links (2026-10-31): a Hard or Super Hard with links has a group with a member whose material is hidden at the
  // start, so the group holds two places long
  const traps=trapLinks(level),trapN=traps.filter(x=>x.trap).length;
@@ -646,7 +658,7 @@ export async function evaluate(level,{m,cls,intro=false,fixed=null,kind=null,bre
   if(bridgeKind==='single'){bl=early||await bridgeLoss(level,bs.each.indexOf(false));tick('проигрыш с другим мостом '+JSON.stringify(bl));if(!bl.ok&&cls!=='Super Hard'&&rt.cls!=='Super Hard')return {reason:'мост: с другим мостом проигрыш сразу при выборе (§8)'};}}
  const st=await strategies(level),rh=rhythm(sol.trace,W),greedyLoses=!st['most-now|left']&&!st['most-now|right'],hold=await holdPod(level);
  return {random:rt,...(rtAll?{randomAll:rtAll}:{}),solution:{route:sol.route,forks:sol.decisions.forks,singleSafe:sol.decisions.single,unknown:sol.decisions.unknown,fast:sol.fast},fairness:fair,strategies:st,rhythm:rh,...(bc?{bridge:bc}:{}),
-  checks:{forced,opening,hold,greedyLoses,hiddenMatters:hm,bridgeKind,bridgeSingle:bs,...(bl?{bridgeLoss:bl}:{}),pressure:await pressure(level,QUALITY.pressure.games),calm,traps:{links:traps.length,traps:trapN,top:traps.filter(x=>x.trap&&x.row<=2).length},...(lc?{latch:lc}:{}),...(ch?{channel:ch}:{}),...(sc?{shutters:sc}:{})}};}
+  checks:{forced,opening,hold,greedyLoses,hiddenMatters:hm,bridgeKind,bridgeSingle:bs,...(bl?{bridgeLoss:bl}:{}),pressure:await pressure(level,QUALITY.pressure.games),calm,traps:{links:traps.length,traps:trapN,top:traps.filter(x=>x.trap&&x.row<=2).length},...(lc?{latch:lc}:{}),...(ch?{channel:ch}:{}),...(exit!==null?{channelKind:'single'}:{}),...(sc?{shutters:sc}:{})}};}
 
 // A breather (17 §5 «Передышка», the owner, 2026-11-02: «некоторые играются как "передышка", особенно те что < 500–550
 // клеток»): a Normal on a picture up to ~550 cells (BREATHER_N) or a position the wave plan marks `breather`. Zero or one
@@ -699,6 +711,8 @@ export function accentVariant(pic,overlay,m,fixed,cls,intro,k,mode,cseed,no=()=>
  if(!a){no(room>0?'акценты: нет места в картинке (строим без них)':'акценты: цветов уже предел (строим без них)');return null;}
  const am=measure(overlaid(pic,overlay,a.recolor)),ab=splitPods(am.volumes,am.N,fixed);if(ab.error){no('акценты: '+ab.error+' (строим без них)');return null;}
  let ps=accentPods(ab.pods,a.accents,ar);if(ps.length>budget(am.N)[1])ps=ab.pods;return {accents:a.accents,recolor:a.recolor,m:am,pods:ps,board:boardOf(pic,overlay,a.recolor)};}
+// the channelKind of a build (--channel-kind single): only a Super Hard whose recipe has the water channel takes it
+const channelKindOf=(cls,recipe)=>{const k=arg('--channel-kind');if(!k)return null;if(k!=='single')throw Error('--channel-kind: только single');return cls==='Super Hard'&&recipe.split('+').includes('canal')?k:null;};
 async function build(ids){const accentMode=arg('--accents','auto');if(!['auto','on','off'].includes(accentMode))throw Error('--accents: auto, on или off');const classes=(arg('--classes','Normal,Hard,Super Hard')).split(','),seed0=+arg('--seed',+(process.env.ROUNDS_SEED||1)),sides=arg('--overlay')?arg('--overlay').split(','):null;
  if(sides&&sides.some(x=>x!=='none'&&!SIDES.includes(x)))throw Error(`--overlay: стороны none, ${SIDES.join(', ')}`);
  // --pairs (rounds.mjs run under a mechanics plan): only the planned class:recipe pairs, @side for a wall's side
@@ -749,7 +763,7 @@ async function build(ids){const accentMode=arg('--accents','auto');if(!['auto','
      if(c.error){reasons[c.error]=(reasons[c.error]||0)+1;continue;}
      let quick=null;const trace=process.env.ROUNDS_TRACE?(l=>console.error(`  ${id} ${cls} ${recipe} #${k}${blend!==null?' t '+blend.toFixed(2):''} ${l} ${((Date.now()-t0)/1000).toFixed(1)} s`)):()=>{},t0=Date.now();
      const tick=l=>{const q=/^быстрая оценка ([\d.]+)/.exec(l);if(q)quick=+q[1];trace(l);};
-     const e=await evaluate(c.level,{m:cm,cls,intro,fixed,tick});
+     const ck=channelKindOf(cls,recipe),e=await evaluate(c.level,{m:cm,cls,intro,fixed,tick,...(ck?{channelKind:ck}:{})});
      // the steering step shrinks with the attempts (a noisy share: the same t gives 10–90 % on some pictures)
      if(steer){const q=e.random?e.random.share:quick;if(q!==null){steer.n++;steer.t=Math.min(1,Math.max(.3,steer.t+.45/Math.sqrt(steer.n)*(q-steer.aim)));}}
      if(e.reason){no(e.reason);continue;}
@@ -770,7 +784,7 @@ async function build(ids){const accentMode=arg('--accents','auto');if(!['auto','
 async function buildTuned({pic,id,cls,recipe,intro,slot,bank,bankFile,combo,runTag,seed0,accentMode,budgetN}){
  const want=+arg('--want',2),wantLoss=flag('--want-loss')&&slot==='regular',minutes=+arg('--minutes',Infinity),key=`${cls}|${recipe}|${slot}`;
  bank.tune=bank.tune||{};const memory=bank.tune[key]=bank.tune[key]||{};const trace=process.env.ROUNDS_TRACE?l=>console.error(`  ${id} ${cls} ${recipe} ${slot} ${l}`):()=>{};
- const res=await tuneJob({pic,cls,recipe,slot,intro,want,wantLoss,attempts:budgetN,minutes,memory,seed:seed0,accentMode,maxColours:+arg('--max-colours',10),save:()=>writeJSON(bankFile,bank),log:trace});
+ const ck=channelKindOf(cls,recipe),res=await tuneJob({pic,cls,recipe,slot,intro,...(ck?{channelKind:ck}:{}),want,wantLoss,attempts:budgetN,minutes,memory,seed:seed0,accentMode,maxColours:+arg('--max-colours',10),save:()=>writeJSON(bankFile,bank),log:trace});
  for(const x of res.banked){const lv=x.level,e=x.e,inZone=res.accepted.includes(x)&&!x.zoneMiss;
   const rc=x.recipe||recipe;bank.candidates.push({id:`${id}-${cls[0]}${rc}-g${GEN.slice(5).replace('-','')}${runTag?'-'+runTag:''}${x.acc?'-a':''}${slot==='breather'?'-br':''}-${x.k}${intro?'-intro':''}`,picture:id,requested:cls,cls:e.random.cls,intro,recipe:rc,gen:GEN,level:lv,N:x.m.N,W:x.m.N,colours:x.m.colours,P:lv.pods.length,columns:lv.tray.length,
    linked:lv.pods.filter(p=>p.group).length,hidden:lv.pods.filter(p=>p.mystery).length,...(lv.hiddenCells?{cells:cellsHiddenAtStart(lv)}:{}),...(lv.latches?{latches:lv.latches.length}:{}),...(lv.channel?{channel:true}:{}),...(lv.shutters?{shutters:lv.shutters.length}:{}),...(slot==='breather'?{breather:true}:{}),slot,inZone,...(x.zoneMiss?{zoneMiss:true}:{}),
@@ -895,7 +909,7 @@ async function place(from,to){const placed={};for(const f of fs.existsSync(LEVEL
   // §5 calm test and §8 trap links (the owner's amendment of 2026-10-31), measured for the candidates that passed the other
   // filters when the bank has them not yet (kept in the bank): a Hard ≤ 50 %, a Super Hard ≤ 25 %, a regular Normal ≥ 50 %
   // calm; a Hard or Super Hard with links has a trap link. Hand positions are adopted, not placed
-  for(const c of ok)if((!c.checks.calm&&!brOf(c))||!c.checks.traps){const lv=c.level;if(!c.checks.calm&&!brOf(c))c.checks.calm=await calmTest(lv,c.random&&c.random.bridge!=null?{bridge:c.random.bridge}:{});
+  for(const c of ok)if((!c.checks.calm&&!brOf(c))||!c.checks.traps){const lv=c.level;if(!c.checks.calm&&!brOf(c))c.checks.calm=await calmTest(lv,classKeep(c.random));
    if(!c.checks.traps){const t=trapLinks(lv);c.checks.traps={links:t.length,traps:t.filter(x=>x.trap).length,top:t.filter(x=>x.trap&&x.row<=2).length};}
    const b=banks.find(b=>b.picture===c.picture);if(b)writeJSON(path.join(BANK,b.picture+'.json'),b);}
   ok=ok.filter(c=>(brOf(c)||!calmFails(c.cls,c.checks.calm,regularSlot))&&!(c.cls!=='Normal'&&c.checks.traps.links&&!c.checks.traps.traps));
@@ -967,7 +981,7 @@ async function place(from,to){const placed={};for(const f of fs.existsSync(LEVEL
  if(needs.length)console.log(`не заполнено ${needs.length}: ${needs.map(x=>`L${x.level} ${x.cls}${x.intro?' ('+x.intro+')':''}${x.recipe?' '+x.recipe+(x.bridgeSide?' '+x.bridgeSide+(x.strip?'/'+x.strip:''):''):''}`).join(', ')} → content/rounds/needs.json`);}
 
 function card(n){const L=readJSON(path.join(LEVELS,lid(n)+'.json'));if(!L)return console.log('нет уровня',n);
- console.log(`${lid(n)} · ${L.cls}${L.intro?' · знакомство: '+MECH_RU[L.intro]:''} · картинка ${L.picture} «${L.definition.title}»\nN ${L.N} · W ${L.W} · материалов ${L.colours} · подов ${L.P} · колонок ${L.columns} · мест ${L.definition.capacity}\nрецепт: ${L.recipe} (связанных ${L.linked}, скрытых ${L.hidden}${L.cells!=null?`, скрытых клеток ${L.cells} из ${L.definition.hiddenCells.length}`:''}${L.definition.latches?`, засовов ${L.definition.latches.length}: ${L.definition.latches.map(l=>`колонка ${l.column+1} после ${l.depth} подов, ключ в клетке ${l.key}`).join('; ')}`:''})${L.definition.hero?` · мост: ${bridgeSide(L.definition)} (${L.definition.hero.choices.map(c=>c.label).join(', ')})${L.definition.overlay?', стена генератора поверх картинки':''}`:''}\nслучайный тест: ${Math.round(L.random.share*100)} % из ${L.random.runs}, Wilson95 ${L.random.wilson95.map(x=>Math.round(x*100)+' %').join('–')}${L.random.bridge!=null&&L.definition.hero?` (с мостом «${L.definition.hero.choices[L.random.bridge].label}»${L.randomAll?`; с обоими мостами ${Math.round(L.randomAll.share*100)} %`:''})`:''}\nрешение: ${L.solution.route.length} действий, опасных развилок ${L.solution.forks}, с одним безопасным ${L.solution.singleSafe}\nпосле 80 % W запусков: ${L.rhythm.launchesAfter80}, последний при ${L.rhythm.lastLaunchAtW} % W, время решения ${L.rhythm.seconds} с (×1, после окончания работы), тапы сразу: ${L.solution.fast?L.solution.fast.seconds+' с ('+L.solution.fast.status+')':'—'}\nэтапы: ${L.rhythm.segments.map(s=>`${s.from}–${s.to}%: своб. ${s.meanFree}/${s.minFree}, полный ${Math.round((s.fullShare||0)*100)} %`).join(' · ')}\nпростые стратегии: выиграли ${Object.values(L.strategies).filter(Boolean).length} из ${Object.keys(L.strategies).length}; «больше работы сейчас» ${greedyLost(L)?'проигрывает':'выигрывает'}\nвынужденных решений: ${L.checks?Math.round(L.checks.forced*100)+' %':'—'}${L.checks&&L.checks.opening?` · дебют + цвета: после первого запуска ${L.checks.opening.first.wins} из ${L.checks.opening.first.openings}, после трёх ${Math.round(L.checks.opening.three.share*100)} %`:''}${L.checks&&L.checks.hold!=null?' · под держит место: '+(L.checks.hold?'да':'нет'):''}${L.checks&&L.checks.pressure?' · стоят без работы: '+L.checks.pressure.stuck:''}${L.checks&&L.checks.bridgeKind?' · мост: '+(L.checks.bridgeKind==='single'?'решает ровно один':'оба выигрывают, один лучше'):''}${accentLine(L)}${L.checks&&L.checks.latch?`\nзасовы на решении: ${L.checks.latch.latches.map(x=>`${x.latch+1} открыт при ${x.atW==null?'—':Math.round(x.atW*100)+' % W'}${x.waitMs?` (ждал ${Math.round(x.waitMs/100)/10} с)`:''}`).join(', ')} · перекрыто колонок сразу до ${L.checks.latch.maxBlocked} из ${L.checks.latch.limit}`:''}`);}
+ console.log(`${lid(n)} · ${L.cls}${L.intro?' · знакомство: '+MECH_RU[L.intro]:''} · картинка ${L.picture} «${L.definition.title}»\nN ${L.N} · W ${L.W} · материалов ${L.colours} · подов ${L.P} · колонок ${L.columns} · мест ${L.definition.capacity}\nрецепт: ${L.recipe} (связанных ${L.linked}, скрытых ${L.hidden}${L.cells!=null?`, скрытых клеток ${L.cells} из ${L.definition.hiddenCells.length}`:''}${L.definition.latches?`, засовов ${L.definition.latches.length}: ${L.definition.latches.map(l=>`колонка ${l.column+1} после ${l.depth} подов, ключ в клетке ${l.key}`).join('; ')}`:''})${L.definition.hero?` · мост: ${bridgeSide(L.definition)} (${L.definition.hero.choices.map(c=>c.label).join(', ')})${L.definition.overlay?', стена генератора поверх картинки':''}`:''}\nслучайный тест: ${Math.round(L.random.share*100)} % из ${L.random.runs}, Wilson95 ${L.random.wilson95.map(x=>Math.round(x*100)+' %').join('–')}${L.random.bridge!=null&&L.definition.hero?` (с мостом «${L.definition.hero.choices[L.random.bridge].label}»${L.randomAll?`; с обоими мостами ${Math.round(L.randomAll.share*100)} %`:''})`:''}${L.random.exit!=null&&L.definition.channel?` (с выходом канала ${L.random.exit+1} — решает ровно один${L.randomAll?`; с обоими выходами ${Math.round(L.randomAll.share*100)} %`:''})`:''}\nрешение: ${L.solution.route.length} действий, опасных развилок ${L.solution.forks}, с одним безопасным ${L.solution.singleSafe}\nпосле 80 % W запусков: ${L.rhythm.launchesAfter80}, последний при ${L.rhythm.lastLaunchAtW} % W, время решения ${L.rhythm.seconds} с (×1, после окончания работы), тапы сразу: ${L.solution.fast?L.solution.fast.seconds+' с ('+L.solution.fast.status+')':'—'}\nэтапы: ${L.rhythm.segments.map(s=>`${s.from}–${s.to}%: своб. ${s.meanFree}/${s.minFree}, полный ${Math.round((s.fullShare||0)*100)} %`).join(' · ')}\nпростые стратегии: выиграли ${Object.values(L.strategies).filter(Boolean).length} из ${Object.keys(L.strategies).length}; «больше работы сейчас» ${greedyLost(L)?'проигрывает':'выигрывает'}\nвынужденных решений: ${L.checks?Math.round(L.checks.forced*100)+' %':'—'}${L.checks&&L.checks.opening?` · дебют + цвета: после первого запуска ${L.checks.opening.first.wins} из ${L.checks.opening.first.openings}, после трёх ${Math.round(L.checks.opening.three.share*100)} %`:''}${L.checks&&L.checks.hold!=null?' · под держит место: '+(L.checks.hold?'да':'нет'):''}${L.checks&&L.checks.pressure?' · стоят без работы: '+L.checks.pressure.stuck:''}${L.checks&&L.checks.bridgeKind?' · мост: '+(L.checks.bridgeKind==='single'?'решает ровно один':'оба выигрывают, один лучше'):''}${accentLine(L)}${L.checks&&L.checks.latch?`\nзасовы на решении: ${L.checks.latch.latches.map(x=>`${x.latch+1} открыт при ${x.atW==null?'—':Math.round(x.atW*100)+' % W'}${x.waitMs?` (ждал ${Math.round(x.waitMs/100)/10} с)`:''}`).join(', ')} · перекрыто колонок сразу до ${L.checks.latch.maxBlocked} из ${L.checks.latch.limit}`:''}`);}
 // the card's accents (17 §6, 2026-11-01): each material, its clusters over which ground, its pods' rows, and «стоят без
 // работы» with and without the accents; a recolouring that is no builder's accent is listed cell by cell
 function accentLine(L){const d=L.definition,a=L.checks&&L.checks.accents;if(!a&&!(d.recolor&&d.recolor.length))return '';
@@ -993,12 +1007,16 @@ else if(cmd==='adopt'){const n=+process.argv[3],src=readJSON(path.resolve(proces
  if(!pic||pic.status!=='approved')errs.push(`картинка ${src.picture} не утверждена`);if(pic&&pic.usedBy&&pic.usedBy!==lid(n))errs.push(`картинка ${src.picture} уже в ${pic.usedBy}`);
  if(src.random.cls!==slot.cls)errs.push(`класс ${src.random.cls}, по календарю ${slot.cls}`);if(fs.existsSync(f))errs.push(`${lid(n)} уже поставлен (сначала unplace)`);
  const side=src.definition.hero?bridgeSide(src.definition):null;if(plan&&!fitsPlan({recipe:src.recipe,bridgeSide:side,level:src.definition},plan))errs.push(`рецепт ${src.recipe}/${side} не по плану ${plan.recipe}/${plan.bridgeSide}`);
+ // a hand Super Hard with a deciding channel (the plan's channelKind single, the owner, 2026-11-05): measured with its winning exit
+ if(plan&&plan.channelKind==='single'){const ch=src.checks&&src.checks.channel;if(!src.definition.channel)errs.push('по плану канал single, а канала нет');
+  else if(!ch||!ch.decides)errs.push('канал: решает не ровно один выход (single)');
+  else if(src.random.exit!==ch.each.findIndex(x=>x.win===true)||!src.checks||src.checks.channelKind!=='single')errs.push('канал single: класс не измерен с выигрывающим выходом (evaluate channelKind single, §5)');}
  if(errs.length){console.error('НЕТ:',errs.join('; '));process.exit(1);}
  const {level:_l,cls:_c,intro:_i,definition,...rest}=src,{id:_id,difficulty:_d,...def}=definition;
  const L={level:n,cls:slot.cls,intro:slot.intro,...rest,dosePos:null,...(side?{bridgeSide:side}:{}),hand:true,definition:{...def,id:n,difficulty:slot.cls}};
  writeJSON(f,L);const m=manifest(),e=m.pictures.find(p=>p.id===src.picture);e.usedBy=lid(n);const pf=path.join(PICTURES,src.picture+'.json'),pj=readJSON(pf);pj.usedBy=lid(n);writeJSON(pf,pj);saveManifest(m);
  execFileSync(process.execPath,[new URL('./pictures.mjs',import.meta.url).pathname,'publish'],{stdio:'inherit',env:process.env});
- console.log(lid(n),slot.cls,'вручную:',src.picture,src.recipe,side?'мост '+side:'',`случайный тест ${Math.round(src.random.share*100)} %${src.random.bridge!=null?' (с решающим мостом)':''}`);}
+ console.log(lid(n),slot.cls,'вручную:',src.picture,src.recipe,side?'мост '+side:'',`случайный тест ${Math.round(src.random.share*100)} %${src.random.bridge!=null?' (с решающим мостом)':''}${src.random.exit!=null?' (с решающим выходом канала)':''}`);}
 else if(cmd==='bank'){for(const f of fs.existsSync(BANK)?fs.readdirSync(BANK):[]){const b=readJSON(path.join(BANK,f));const by={};for(const c of b.candidates){const k=c.cls+(c.intro?' (знакомство)':'');(by[k]=by[k]||[]).push(`${c.recipe} ${Math.round(c.random.share*100)}%`);}console.log(b.picture,JSON.stringify(by),b.rejected.length?'отклонения: '+b.rejected.map(x=>x.reason).join('; '):'');}}
 else if(cmd==='card'){card(+process.argv[3]);}
 else if(cmd==='checks'){
@@ -1015,7 +1033,7 @@ else if(cmd==='checks'){
   if(lv.latches&&!c.checks.latch&&c.solution){c.checks.latch=await latchCheck(lv,c.solution.route,c.cls);n++;}
   // §8 trap links (2026-10-31); the §5 calm test only with --calm (a few seconds a candidate: the placer measures the
   // candidates it weighs and keeps the result, so a whole bank need not be measured)
-  if(flag('--calm')&&!c.checks.calm){c.checks.calm=await calmTest(lv,c.random&&c.random.bridge!=null?{bridge:c.random.bridge}:{});n++;}
+  if(flag('--calm')&&!c.checks.calm){c.checks.calm=await calmTest(lv,classKeep(c.random));n++;}
   if(!c.checks.traps){const t=trapLinks(lv);c.checks.traps={links:t.length,traps:t.filter(x=>x.trap).length,top:t.filter(x=>x.trap&&x.row<=2).length};n++;}return n;};
  const files=(fs.existsSync(BANK)?fs.readdirSync(BANK):[]).sort().filter((f,i)=>i%sn===si);
  for(const f of files){const bf=path.join(BANK,f),b=readJSON(bf);let changed=0;for(const c of b.candidates)changed+=await fill(c);if(changed)writeJSON(bf,b);console.log(b.picture,'проверок добавлено',changed);}

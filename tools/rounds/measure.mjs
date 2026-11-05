@@ -21,6 +21,9 @@ export const classOfShare=p=>p>=.5?'Normal':p>=.2?'Hard':p>=.05?'Super Hard':'to
 // 100 games; widened to 400 in total when the 95 % Wilson interval crosses a class border (§5)
 // bridge: the class of a bridge level is measured with its best bridge only (17 §5, the owner, 2026-10-30: the bridge adds
 // a choice, not difficulty; a player who loses with the wrong one takes the right one after the free retry)
+// exit: likewise a deciding-exit water channel level (a hand Super Hard, channelKind single: exactly one exit wins) is
+// measured with its winning exit only (17 §5, the owner, 2026-11-05); the bot's channel actions keep that exit, every
+// other action stays. Without it (Normal and Hard) the exit stays one of the bot's uniform actions.
 // early (the owner, 2026-11-02; off by default): the sequential test stops at the first checkpoint (every `step` games
 // from `min`, and at `first` and `max`) where the Wilson interval crosses no class border (and, with `zone` [lo, hi], neither
 // of the zone's ends); runs, wins, share and class are those of the games played. Such a result is NOT a §5 result: the
@@ -28,9 +31,9 @@ export const classOfShare=p=>p>=.5?'Normal':p>=.2?'Hard':p>=.05?'Super Hard':'to
 // test. ROUNDS_RANDOM_EARLY=1 turns it on for every call that does not say full: true.
 const CLASS_BORDERS=[.05,.2,.5];
 export const crossesAny=(borders,[a,b])=>borders.some(x=>a<x&&b>=x);
-export async function randomTest(level,{seed=1,first=100,max=400,bridge=null,early=null,full=false,step=20,min=40,zone=null}={}){
- const keep=bridge===null?{}:{bridge},seq=!full&&(early??process.env.ROUNDS_RANDOM_EARLY==='1');
- const crosses=ci=>crossesAny(CLASS_BORDERS,ci),p={seed,bridge};let res;
+export async function randomTest(level,{seed=1,first=100,max=400,bridge=null,exit=null,early=null,full=false,step=20,min=40,zone=null}={}){
+ const keep={...(bridge===null?{}:{bridge}),...(exit===null?{}:{exit})},seq=!full&&(early??process.env.ROUNDS_RANDOM_EARLY==='1');
+ const crosses=ci=>crossesAny(CLASS_BORDERS,ci),p=exit===null?{seed,bridge}:{seed,bridge,exit};let res;
  if(!seq){res=await games('random',level,p,{count:max>first?max:first,checkpoints:[first],stop:r=>!crosses(wilson(r.filter(Boolean).length,r.length))});
   if(max<=first)res=res.slice(0,first);}
  else{const borders=zone?[...CLASS_BORDERS,...zone]:CLASS_BORDERS,points=new Set([first,max]);for(let n=min;n<max;n+=step)points.add(n);
@@ -41,12 +44,15 @@ export async function randomTest(level,{seed=1,first=100,max=400,bridge=null,ear
 // test (a pod, a whole group, the best bridge of a bridge level), but before every one the board plays until nothing more
 // changes (the idle engine), so only the order of the choices counts, never the tempo. Hard ≤ 50 %, Super Hard ≤ 25 %,
 // a regular Normal ≥ 50 % (CF's exact models: Hard 25–27 %, Super Hard 12–16 %, Normal 68–100 %).
-export async function calmTest(level,{first=200,max=400,seed=3,bridge=null,borders=[.25,.5]}={}){
+export async function calmTest(level,{first=200,max=400,seed=3,bridge=null,exit=null,borders=[.25,.5]}={}){
  // 200 games, widened to 400 when the 95 % Wilson interval crosses a threshold of the calm rule (as the class test does)
  const crosses=([a,b])=>borders.some(x=>a<x&&b>=x);
- const res=(await games('calm',level,{seed,bridge},{count:max>first?max:first,checkpoints:[first],stop:r=>!crosses(wilson(r.filter(Boolean).length,r.length))})).slice(0,max>first?max:first);
+ const res=(await games('calm',level,exit===null?{seed,bridge}:{seed,bridge,exit},{count:max>first?max:first,checkpoints:[first],stop:r=>!crosses(wilson(r.filter(Boolean).length,r.length))})).slice(0,max>first?max:first);
  const n=res.length,wins=res.filter(Boolean).length,ci=wilson(wins,n);
- return {runs:n,wins,share:Math.round(wins/n*1000)/1000,wilson95:ci.map(x=>Math.round(x*1000)/1000),borderline:crosses(ci),protocol:'§5 calm: uniform over legal actions, the board settled before each',seedBase:seed,...(bridge!==null?{bridge}:{})};}
+ return {runs:n,wins,share:Math.round(wins/n*1000)/1000,wilson95:ci.map(x=>Math.round(x*1000)/1000),borderline:crosses(ci),protocol:'§5 calm: uniform over legal actions, the board settled before each',seedBase:seed,...(bridge!==null?{bridge}:{}),...(exit!==null?{exit}:{})};}
+// the restriction a recorded random test was measured with (its best bridge, its winning channel exit), for the tests that
+// repeat it (calmTest in audit.mjs and levels.mjs place / checks): {} when every action was open
+export const classKeep=r=>({...(r&&r.bridge!=null?{bridge:r.bridge}:{}),...(r&&r.exit!=null?{exit:r.exit}:{})});
 // the calm rule of a class (17 §5): null when it holds, else the reason. A result whose Wilson interval still crosses the
 // class's own threshold after 400 games (Super Hard 25 %, Hard and Normal 50 %) is borderline: it holds, as a borderline
 // class does, and is left to a person
@@ -68,8 +74,8 @@ export function trapLinks(level){const {w,h,rowsBottomFirst:rows,entries}=level,
  const groups=new Map();level.pods.forEach((p,i)=>{if(p.group){if(!groups.has(p.group))groups.set(p.group,[]);groups.get(p.group).push(i);}});
  const rowOf=i=>{for(const st of level.tray){const r=st.indexOf(i);if(r>=0)return r+1;}return null;};
  return [...groups].map(([group,m])=>({group,trap:m.some(i=>(minD[level.pods[i].color]??0)>0),row:Math.min(...m.map(rowOf))}));}
-// a quick estimate for screening candidates before the full test
-export async function quickShare(level,count=40,seed=11,bridge=null){return (await games('quick',level,{seed,bridge},{count})).filter(Boolean).length/count;}
+// a quick estimate for screening candidates before the full test (bridge, exit: the class's best bridge / winning exit)
+export async function quickShare(level,count=40,seed=11,bridge=null,exit=null){return (await games('quick',level,exit===null?{seed,bridge}:{seed,bridge,exit},{count})).filter(Boolean).length/count;}
 
 // the saved winning solution: full-information search on the patient model, replayed on the live timeline (§1, §13.7)
 // (a water channel: the search tries an exit as soon as one may be chosen, exit 0 first, then exit 1, so the saved
@@ -154,11 +160,15 @@ export async function bridgeChoicesWin(level){const E=await engine(),out=[];
 // the water channel as a choice (17 §8 «Drop Водный канал», §9; the owner, 2026-11-05): for each exit, whether the level is
 // won with only that exit (a fresh solver, its legal actions filtered) and the random test's share when only that exit may
 // be chosen (n games); decides = exactly one exit wins (a hand Super Hard's choice), gap = best share − worst share. The
-// class test itself (randomTest) plays the exit as one of the bot's uniform actions (17 §5, as RoundRandomPolicy does).
+// class test itself (randomTest) plays the exit as one of the bot's uniform actions (17 §5, as RoundRandomPolicy does),
+// except on a deciding-exit Super Hard (channelKind single, the owner, 2026-11-05): randomTest(level, {exit}) with the exit
+// that alone wins (winningExit).
 export async function channelExits(level,n=60,seed=5){if(!level.channel)return null;const E=await engine(),each=[];
  for(let i=0;i<level.channel.exits.length;i++){const win=solver(E,200000,a=>a.type!=='channel'||a.exit===i).winnable(E.idle.create(level,level.capacity||5));
   const sh=(await games('exit',level,{seed,exit:i},{count:n})).filter(Boolean).length;each.push({exit:i,win,share:Math.round(sh/n*100)/100});}
  const sh=each.map(x=>x.share);return {each,gap:Math.round((Math.max(...sh)-Math.min(...sh))*100)/100,decides:each.filter(x=>x.win===true).length===1&&each.filter(x=>x.win===false).length===each.length-1,better:sh.indexOf(Math.max(...sh))};}
+// the exit that alone wins when a channel decides (channelExits(...).decides), else null
+export const winningExit=ch=>ch&&ch.decides?ch.each.findIndex(x=>x.win===true):null;
 // wooden shutters on the saved solution (17 §8 «Twig Деревянные створки»): the solution replayed patiently on the timeline
 // (as latchCheck): when each shutter opens (done work W as a share, the command after which), and whether at that moment a
 // cell under it is a target at once (a new front: its cubes are reachable work); problems (mandatory): a shutter that never

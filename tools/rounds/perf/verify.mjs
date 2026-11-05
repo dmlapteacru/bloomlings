@@ -13,6 +13,7 @@
 import fs from 'node:fs';import path from 'node:path';import {fileURLToPath} from 'node:url';
 import {solver} from '../../level-stats/solve.mjs';
 import {REF,FAST,replay,randomGame,calmGame} from './identity.mjs';
+import {keepOf} from './games.mjs';
 const HERE=path.dirname(fileURLToPath(import.meta.url)),ROOT=path.resolve(HERE,'../../..');
 const ROUNDS=process.env.ROUNDS_DIR?path.resolve(process.env.ROUNDS_DIR):path.join(ROOT,'content/rounds');
 const arg=k=>{const i=process.argv.indexOf(k);return i>=0?process.argv[i+1]:null;};
@@ -32,11 +33,11 @@ let bad=0,games=0,calms=0,routes=0,solved=0;const t0=performance.now();
 const fail=(it,what,x,y)=>{bad++;console.log(`DIFFERENT ${it.name} ${what}: reference ${JSON.stringify(x)} fast ${JSON.stringify(y)}`);};
 for(const it of items){const {level,random}=it;let tr=0,tf=0;
  if(it.route)for(const patient of [true,false]){const x=replay(REF,level,it.route,patient),y=replay(FAST,level,it.route,patient);routes++;if(JSON.stringify(x)!==JSON.stringify(y))fail(it,patient?'solution':'solution (fast taps)',x,y);}
- if(random){const seed=random.seedBase||1,bridge=random.bridge??null,keep=bridge===null?null:a=>a.type!=='bridge'||a.choice===bridge,runs=Math.min(random.runs,capGames);let wins=0;
+ if(random){const seed=random.seedBase||1,bridge=random.bridge??null,keep=keepOf(bridge,random.exit??null),runs=Math.min(random.runs,capGames);let wins=0;
   for(let n=0;n<runs;n++){const s=seed*7919+n*104729+1;let q=performance.now();const x=randomGame(REF,level,s,keep);tr+=performance.now()-q;q=performance.now();const y=randomGame(FAST,level,s,keep);tf+=performance.now()-q;games++;
    if(x.won!==y.won||x.hash!==y.hash)fail(it,`random game ${n}`,x,y);if(x.won)wins++;}
   if(runs===random.runs&&random.wins!==null&&wins!==random.wins)console.log(`note ${it.name}: the recorded random test has ${random.wins} wins, the reference plays ${wins} now`);}
- for(let n=0;n<calmN;n++){const s=3*7919+n*104729+5,bridge=random&&random.bridge!=null?random.bridge:null,x=calmGame(REF,level,s,bridge),y=calmGame(FAST,level,s,bridge);calms++;if(x.hash!==y.hash)fail(it,`calm game ${n}`,x,y);}
+ for(let n=0;n<calmN;n++){const s=3*7919+n*104729+5,bridge=random&&random.bridge!=null?random.bridge:null,exit=random&&random.exit!=null?random.exit:null,x=calmGame(REF,level,s,bridge,exit),y=calmGame(FAST,level,s,bridge,exit);calms++;if(x.hash!==y.hash)fail(it,`calm game ${n}`,x,y);}
  if(!process.argv.includes('--no-solver')){const x=solver(REF,200000).route(level,level.capacity||5),y=solver(FAST,200000).route(level,level.capacity||5);solved++;if(JSON.stringify(x)!==JSON.stringify(y))fail(it,'solver',{win:x.win,nodes:x.nodes},{win:y.win,nodes:y.nodes});}
  console.log(`${it.name.padEnd(28)} ok so far: ${bad?bad+' differences':'identical'}; random games reference ${Math.round(tr)} ms, fast ${Math.round(tf)} ms`);}
 console.log(`\n${items.length} levels: ${routes} solution replays, ${games} random games, ${calms} calm games, ${solved} solver runs; ${bad} differences (${Math.round((performance.now()-t0)/1000)} s)`);

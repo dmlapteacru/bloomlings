@@ -280,6 +280,26 @@ namespace Bloomlings.Pipeline.Tests.Rounds
         }
 
         [Test]
+        public void ARandomTestExit_MustBeAnExitOfTheLevelsChannel_AndTheFixturesToo()
+        {
+            // a deciding-exit channel Super Hard's class test plays its winning exit (17 §5, the owner, 2026-11-05); the test
+            // content's levels have no channel: a proof that names an exit is wrong, and its fixture must name the same
+            using var content = new RoundTestContent();
+            content.Edit("proofs/L0001.json", j => j["randomTest"]!["exit"] = 0);
+            content.Edit("conformance/L0002.json", j => j["random"]!["exit"] = 1);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(Errors(content.Validate(), "proof"), Is.EqualTo(new[] { "error L0001 proof: random test: exit 0 is not an exit of the level's channel (0 exits)" }));
+                Assert.That(Errors(content.Validate(), "fixture"), Is.EqualTo(new[]
+                {
+                    "error L0001 fixture: random games with exit any, the proof's 0",
+                    "error L0002 fixture: random games with exit 1, the proof's any",
+                }));
+            });
+        }
+
+        [Test]
         public void AClassThatIsNotTheRandomTests_NeedsAnExceptionForThatRule()
         {
             using var content = new RoundTestContent();

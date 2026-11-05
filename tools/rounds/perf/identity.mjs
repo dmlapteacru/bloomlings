@@ -41,7 +41,7 @@ export function randomGame(E,level,seed,keep){const {R,T}=E,t=new T.Timeline(R.c
  return {won:false,hash:log.digest()};}
 
 // measure.mjs calmTest's game with the signature after every step
-export function calmGame(E,level,seed,bridge){const {R,idle:I}=E,r=rng(seed),log=new Log();let s=R.create(level,level.capacity||5),g=0;log.add(R.signature(s));
- while(s.status==='Playing'&&g++<5000){const mv=R.legal(s).filter(a=>bridge===null||a.type!=='bridge'||a.choice===bridge);log.add(mv);if(!mv.length)break;const x=I.step(s,mv[Math.floor(r()*mv.length)]);log.add(x.events);if(!x.accepted)break;s=x.state;log.add(R.signature(s));}
+export function calmGame(E,level,seed,bridge,exit=null){const {R,idle:I}=E,r=rng(seed),log=new Log();let s=R.create(level,level.capacity||5),g=0;log.add(R.signature(s));
+ while(s.status==='Playing'&&g++<5000){const mv=R.legal(s).filter(a=>(bridge===null||a.type!=='bridge'||a.choice===bridge)&&(exit===null||a.type!=='channel'||a.exit===exit));log.add(mv);if(!mv.length)break;const x=I.step(s,mv[Math.floor(r()*mv.length)]);log.add(x.events);if(!x.accepted)break;s=x.state;log.add(R.signature(s));}
  return {won:s.status==='Won',hash:log.digest()};}
 

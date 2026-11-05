@@ -345,6 +345,50 @@ namespace Bloomlings.Core.Tests.Rounds
         }
 
         [Test]
+        public void ADecidingChannelsClassTest_ChoosesOnlyItsWinningExit()
+        {
+            // rules 17 §5, the owner, 2026-11-05: a Super Hard where exactly one exit wins is measured with that exit only
+            // (reference measure.mjs randomTest {exit}, perf/games.mjs keepExit); "need" is won with exit 0 and stuck with 1
+            RoundLevel need = Channel("need");
+            Assert.Multiple(() =>
+            {
+                Assert.That(RoundRandomPolicy.KeepExit(null), Is.Null);
+                Assert.That(RoundRandomPolicy.Keep(null, null), Is.Null, "no narrowing: the uniform policy of Normal and Hard");
+                Func<RoundAction, bool> keep = RoundRandomPolicy.KeepExit(0)!;
+                Assert.That(keep(RoundAction.ChooseExit(0)), Is.True);
+                Assert.That(keep(RoundAction.ChooseExit(1)), Is.False);
+                Assert.That(keep(RoundAction.Tap(1)), Is.True, "every pod action stays");
+                Assert.That(keep(RoundAction.BuildBridge(1)), Is.True, "every bridge action stays");
+                Func<RoundAction, bool> both = RoundRandomPolicy.Keep(1, 0)!;
+                Assert.That(both(RoundAction.BuildBridge(0)), Is.False);
+                Assert.That(both(RoundAction.BuildBridge(1)), Is.True);
+                Assert.That(both(RoundAction.ChooseExit(1)), Is.False);
+                Assert.That(both(RoundAction.ChooseExit(0)), Is.True);
+            });
+
+            for (int g = 0; g < 20; g++)
+            {
+                uint seed = RoundRandomPolicy.SeedOf(1, g);
+                RoundRandomGame kept = RoundRandomPolicy.Play(need, seed, RoundRandomPolicy.KeepExit(1), checkInvariants: true);
+                Assert.That(kept.Timeline.State.Channel, Is.EqualTo(-1).Or.EqualTo(1), $"game {g}: only exit 1 may be chosen");
+                Assert.That(kept.Won, Is.False, $"game {g}: exit 1 never wins");
+            }
+
+            RoundRandomRun all = RoundRandomPolicy.Test(need);
+            RoundRandomRun winning = RoundRandomPolicy.Test(need, exit: 0);
+            RoundRandomRun losing = RoundRandomPolicy.Test(need, exit: 1);
+            Assert.Multiple(() =>
+            {
+                Assert.That(winning.Runs, Is.EqualTo(100));
+                Assert.That(winning.Wins, Is.EqualTo(100), "with the winning exit every game wins (the reference's 100 %)");
+                Assert.That(winning.Games.All(x => x.Timeline.State.Channel == 0), Is.True);
+                Assert.That(losing.Wins, Is.Zero);
+                Assert.That(all.Runs, Is.EqualTo(400), "uniform over both exits the share crosses 50 %: widened (the reference's 52.3 % of 400)");
+                Assert.That(all.Wins, Is.EqualTo(209));
+            });
+        }
+
+        [Test]
         public void TheChannelCommandReplaysAndParses()
         {
             RoundInput input = RoundInput.Parse("channel exit=1 at=1500");

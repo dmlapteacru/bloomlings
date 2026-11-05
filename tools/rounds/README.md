@@ -487,7 +487,19 @@ level (`objectsOf`) and refuses a recipe that does not match them.
   one exit wins); both introductions need both exits winning (17 §9).
 - *Measurement.* The §5 random test is unchanged: the bot chooses uniformly among all legal actions, and while the channel
   is ready each exit is one of them (with the pods and the wait), exactly as `RoundRandomPolicy` (C#) and the
-  conformance fixtures. The saved-solution search (`level-stats/solve.mjs` `prefer`) tries an exit as soon as one may be
+  conformance fixtures. *A deciding-exit Super Hard* (the owner, 2026-11-05: the wave plan's `channelKind: "single"`, exactly one
+  exit wins) is measured with its winning exit only, as a bridge level with its best bridge (17 §5): `levels.mjs evaluate`
+  with `channelKind: 'single'` (`levels.mjs build --channel-kind single` for a Super Hard canal recipe; only on Super
+  Hard) first requires `channelExits(level).decides` (else «канал: решает не ровно один выход (single)»), then takes the
+  quick estimate, the random test and the calm test with `exit` = that exit (`quickShare(…, bridge, exit)`,
+  `randomTest(level, {exit})`, `calmTest(level, {exit})`; `perf/games.mjs keepOf`: the bot's channel actions keep that exit,
+  every other action stays), keeps the test over both exits as `randomAll` and records `checks.channelKind: 'single'` and
+  `random.exit`. `audit.mjs` holds such a level (the plan's `channelKind`, `checks.channelKind` or `random.exit`) to a
+  deciding channel, `random.exit` the winning exit and Super Hard; `levels.mjs adopt` refuses a hand level of a
+  `channelKind: "single"` position measured otherwise; the card shows the exit and the share with both exits. The export
+  writes the exit into the proof's `randomTest.exit` and the fixture's `random.exit` (`conformance.mjs randomFixture
+  {exit}`), and `rounds validate` replays those games with `RoundRandomPolicy.Keep(bridge, exit)`. Without `channelKind`
+  every level measures exactly as before. The saved-solution search (`level-stats/solve.mjs` `prefer`) tries an exit as soon as one may be
   chosen, exit 0 then exit 1, so the proof shows the choice; the simple strategies take an exit at once (left the first,
   right the last; `strategies.mjs bridgeFirst`, `perf/games.mjs heroChoices`), and forced decisions count taps only.
 - *Pictures.* Carving one cell for the spring and each exit is enough: no picture needs to be drawn with pockets.

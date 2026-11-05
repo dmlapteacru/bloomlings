@@ -85,11 +85,16 @@ namespace Bloomlings.Content.Rounds
         public const string PolicyName = "17§5 extended: uniform over legal actions + wait before a state event";
 
         public RoundRandomTest(long seedBase, int runs, int wins, decimal share, decimal wilsonLow, decimal wilsonHigh, RoundClass classOfShare, bool? borderline = null,
-            int? bridge = null)
+            int? bridge = null, int? exit = null)
         {
             if (bridge < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(bridge));
+            }
+
+            if (exit < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(exit));
             }
 
             SeedBase = seedBase;
@@ -101,6 +106,7 @@ namespace Bloomlings.Content.Rounds
             ClassOfShare = classOfShare;
             Borderline = borderline;
             Bridge = bridge;
+            Exit = exit;
         }
 
         public string Policy => PolicyName;
@@ -127,6 +133,13 @@ namespace Bloomlings.Content.Rounds
         /// every other bridge action left out of its moves; null when every bridge may be built.
         /// </summary>
         public int? Bridge { get; }
+
+        /// <summary>
+        /// A deciding-exit water channel level's class test (a Super Hard where exactly one exit wins; rules 17 §5, the
+        /// owner, 2026-11-05): the only channel exit the bot may choose, every other channel action left out of its moves;
+        /// null when every exit may be chosen (Normal and Hard keep choosing the exit uniformly).
+        /// </summary>
+        public int? Exit { get; }
     }
 
     /// <summary>The audit result of a level (rules 17 §13 layer A, with the layer B notes).</summary>

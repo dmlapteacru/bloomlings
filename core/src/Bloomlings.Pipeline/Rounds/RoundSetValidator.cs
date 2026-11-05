@@ -312,6 +312,13 @@ namespace Bloomlings.Pipeline.Rounds
                 yield return new RoundIssue(where, "proof", $"random test: bridge {random.Bridge.Value} is not a bridge choice of the level ({level.Bridge?.Count ?? 0} choices)");
             }
 
+            // a deciding-exit channel Super Hard's class test plays its winning exit (17 §5, the owner, 2026-11-05): it must
+            // be an exit of the level's channel
+            if (random.Exit.HasValue && (level.Channel == null || random.Exit.Value >= level.Channel.Exits.Count))
+            {
+                yield return new RoundIssue(where, "proof", $"random test: exit {random.Exit.Value} is not an exit of the level's channel ({level.Channel?.Exits.Count ?? 0} exits)");
+            }
+
             RoundClass? measured = ClassOfShare(share);
             if (measured == null)
             {
@@ -381,6 +388,11 @@ namespace Bloomlings.Pipeline.Rounds
             if (fixture.RandomBridge != random.Bridge)
             {
                 yield return new RoundIssue(where, "fixture", $"random games with bridge {fixture.RandomBridge?.ToString() ?? "any"}, the proof's {random.Bridge?.ToString() ?? "any"}");
+            }
+
+            if (fixture.RandomExit != random.Exit)
+            {
+                yield return new RoundIssue(where, "fixture", $"random games with exit {fixture.RandomExit?.ToString() ?? "any"}, the proof's {random.Exit?.ToString() ?? "any"}");
             }
 
             if (fixture.Games.Count != random.Runs)
