@@ -2495,6 +2495,20 @@
     "быстрая оценка вне зоны после поправок": 2,
     "вне зоны позиции (проходит фильтры)": 1
    }
+  },
+  {
+   "combo": "Normal|links+cells||tune|2026-11-05",
+   "tune": {
+    "slot": "regular",
+    "t": 0.52,
+    "attempts": 1,
+    "quick": 6,
+    "evaluated": 1,
+    "seconds": 5
+   },
+   "tried": 1,
+   "found": 1,
+   "reasons": {}
   }
  ],
  "tune": {
@@ -2504,7 +2518,16 @@
    "offset": -1.32,
    "quick": 0.75,
    "at": "2026-11-02"
+  },
+  "Normal|links+cells|regular": {
+   "t": 0.52,
+   "cols": 3,
+   "offset": -2.09,
+   "quick": 0.5,
+   "at": "2026-11-05"
   }
  },
- "placed": []
+ "placed": [
+  "P0417-Nlinks+cells-g1105-0"
+ ]
 }

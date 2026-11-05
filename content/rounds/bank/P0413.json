@@ -1,0 +1,33 @@
+{
+ "picture": "P0413",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|links+latch+cells||tune|2026-11-05",
+   "tune": {
+    "slot": "regular",
+    "t": null,
+    "attempts": 2,
+    "quick": 3,
+    "evaluated": 1,
+    "seconds": 6
+   },
+   "tried": 2,
+   "found": 1,
+   "reasons": {
+    "связки ловушками: очередь сама остаётся выше зоны": 1,
+    "быстрая оценка вне зоны после поправок": 1
+   }
+  }
+ ],
+ "tune": {
+  "Normal|links+latch+cells|regular": {
+   "trap": true,
+   "offset": 1.55
+  }
+ },
+ "placed": [
+  "P0413-Nlinks+latch+cells-g1105-a-1"
+ ]
+}

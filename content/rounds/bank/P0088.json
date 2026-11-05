@@ -80,6 +80,32 @@
     "не тот класс по быстрой оценке": 62,
     "жадная стратегия выигрывает (§5)": 2
    }
+  },
+  {
+   "combo": "Normal|shutters|intro|tune|2026-11-05",
+   "tune": {
+    "slot": "intro",
+    "t": 0.32,
+    "attempts": 1,
+    "quick": 1,
+    "evaluated": 1,
+    "seconds": 18
+   },
+   "tried": 1,
+   "found": 1,
+   "reasons": {}
   }
+ ],
+ "tune": {
+  "Normal|shutters|intro": {
+   "t": 0.32,
+   "cols": 3,
+   "offset": -3.07,
+   "quick": 1,
+   "at": "2026-11-05"
+  }
+ },
+ "placed": [
+  "P0088-Nshutters-g1105-0-intro"
  ]
 }

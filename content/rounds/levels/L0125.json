@@ -1,0 +1,495 @@
+{
+ "level": 125,
+ "cls": "Hard",
+ "intro": null,
+ "gen": "2026-11-05",
+ "picture": "P1152",
+ "candidate": "P1152-Hlinks+shutters-g1105-a-19",
+ "recipe": "links+shutters",
+ "N": 689,
+ "W": 689,
+ "colours": 8,
+ "P": 20,
+ "columns": 3,
+ "linked": 4,
+ "hidden": 0,
+ "random": {
+  "runs": 400,
+  "wins": 109,
+  "share": 0.273,
+  "wilson95": [
+   0.231,
+   0.318
+  ],
+  "cls": "Hard",
+  "borderline": false,
+  "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+  "seedBase": 1
+ },
+ "solution": {
+  "route": [
+   {
+    "type": "tap",
+    "pod": 7
+   },
+   {
+    "type": "tap",
+    "pod": 10
+   },
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 13
+   },
+   {
+    "type": "tap",
+    "pod": 0
+   },
+   {
+    "type": "tap",
+    "pod": 17
+   },
+   {
+    "type": "tap",
+    "pod": 16
+   },
+   {
+    "type": "tap",
+    "pod": 12
+   },
+   {
+    "type": "tap",
+    "pod": 3
+   },
+   {
+    "type": "tap",
+    "pod": 14
+   },
+   {
+    "type": "tap",
+    "pod": 9
+   },
+   {
+    "type": "tap",
+    "pod": 15
+   },
+   {
+    "type": "tap",
+    "pod": 18
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 2
+   },
+   {
+    "type": "tap",
+    "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 4
+   }
+  ],
+  "forks": 3,
+  "singleSafe": 3,
+  "unknown": 0,
+  "fast": {
+   "status": "won",
+   "seconds": 159.8
+  }
+ },
+ "fairness": {
+  "fair": true,
+  "checked": 0
+ },
+ "strategies": {
+  "left-to-right|left": false,
+  "left-to-right|right": false,
+  "right-to-left|left": true,
+  "right-to-left|right": true,
+  "top-down|left": true,
+  "top-down|right": true,
+  "bottom-up|left": false,
+  "bottom-up|right": false,
+  "diagonal|left": false,
+  "diagonal|right": false,
+  "small-first|left": false,
+  "small-first|right": false,
+  "most-now|left": false,
+  "most-now|right": false,
+  "fast-release|left": false,
+  "fast-release|right": false
+ },
+ "rhythm": {
+  "segments": [
+   {
+    "from": 0,
+    "to": 20,
+    "meanFree": 1.82,
+    "minFree": 1,
+    "fullShare": 0,
+    "maxWaiting": 2
+   },
+   {
+    "from": 20,
+    "to": 40,
+    "meanFree": 0.7,
+    "minFree": 0,
+    "fullShare": 0.42,
+    "maxWaiting": 3
+   },
+   {
+    "from": 40,
+    "to": 60,
+    "meanFree": 3.2,
+    "minFree": 1,
+    "fullShare": 0,
+    "maxWaiting": 2
+   },
+   {
+    "from": 60,
+    "to": 80,
+    "meanFree": 3.53,
+    "minFree": 3,
+    "fullShare": 0,
+    "maxWaiting": 1
+   },
+   {
+    "from": 80,
+    "to": 100,
+    "meanFree": 4.35,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   }
+  ],
+  "launchesAfter80": 2,
+  "lastLaunchAtW": 92,
+  "seconds": 345.8
+ },
+ "dosePos": 0,
+ "checks": {
+  "forced": 0.22,
+  "opening": {
+   "first": {
+    "openings": 2,
+    "wins": 0
+   },
+   "three": {
+    "openings": 12,
+    "wins": 1,
+    "share": 0.08
+   },
+   "ok": true,
+   "strategies": [
+    "most-now"
+   ]
+  },
+  "hold": true,
+  "greedyLoses": true,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.9,
+   "tight": 0.94
+  },
+  "calm": {
+   "runs": 400,
+   "wins": 94,
+   "share": 0.235,
+   "wilson95": [
+    0.196,
+    0.279
+   ],
+   "borderline": true,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 2,
+   "traps": 2,
+   "top": 1
+  },
+  "shutters": {
+   "shutters": [
+    {
+     "shutter": 0,
+     "material": "G",
+     "count": 35,
+     "cells": 24,
+     "atW": 0.051,
+     "command": 1,
+     "front": 0
+    }
+   ],
+   "lastOpenAtW": 0.051,
+   "ok": true,
+   "problems": [],
+   "notes": [
+    "створки 1 (G 35): при открытии ни одна клетка под ними не доступна сразу (§8: новый фронт)"
+   ]
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "F",
+     "name": "Фуксия",
+     "from": "M",
+     "cells": 6,
+     "clusters": 2,
+     "pods": [
+      {
+       "pod": 12,
+       "count": 6,
+       "row": 3
+      }
+     ]
+    }
+   ],
+   "cells": 6,
+   "pressure": {
+    "with": 1.9,
+    "without": 1.89
+   }
+  }
+ },
+ "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+ "definition": {
+  "id": 125,
+  "title": "Листовой трон для жёлтого жука",
+  "subject": "P1152",
+  "w": 35,
+  "h": 33,
+  "rowsBottomFirst": [
+   "#################.#################",
+   "#.................................#",
+   "#.........DMMMMMMMMDMMDD..........#",
+   "#........MMMGMMMMMMMMMMMMDM.......#",
+   "#......MMMMDGGMMMMMMMMMMMMMM......#",
+   "#.....DMMDMMMGGMMMMMMMMMMMMMMM....#",
+   "#.....MMMMMMMDGGGMMMGMMMMMMMMMD...#",
+   "#....MMMMMMMMMMMGGGGGMMMMMMMMMM...#",
+   "#....MMMMMMMMMGGGDGGGGGMMMGMMMGD..#",
+   "#...MMMMGMMGGGGOOAOOGGGGGGGGMMGG..#",
+   "#..MMMMGGGGGGDOOOAYOOOODDGGGGGGG..#",
+   "#..MGGGGDDODOOOYYAYYOOOAAAMMMMDG..#",
+   "#.MGGMDMDOOYYOYYYAYYYOOAAAAMMMMG..#",
+   "#.MMMMMMMOOAYOYYYAYYYOYAAMMMMMMGM.#",
+   "#.MMMMMMMODAYYYYYYYYYYYDDMMMMMMGM.#",
+   "#.MGMMMMMOOAAYYYYYYYYYAAMMMMMMMMM.#",
+   "#.MGMMFFMMOAAAAAAAAAAAAAMMMMMMMGM.#",
+   "#.MGMMMMMMMMCCCCYYYCCCCDMMMMGMMGM.#",
+   "#.MGMMMMMMMMCDDDYYYCDDCMMMMMGGGG..#",
+   "#..GMMMMMMMMCDDDYYYDDDCMMMMMMMGG..#",
+   "#..MMMMMMMMMCCDCAAACCCMMMMMMMMG...#",
+   "#...MMMMMMMMMMMAAAAAMMMFMMMMMM....#",
+   "#...MMMMMMMMMMMAAAAAMMFFFMMMMM....#",
+   "#...MGMMMMMMMMMMMAMMMMMMMMMMM.....#",
+   "#....GGMMMMMMMMMMMMMMMMGMMMMM.....#",
+   "#.....GGGMMMMMMMMMMMMMMGGGGG......#",
+   "#......MMMMMMMMMMMMMMMMMGGG.......#",
+   "#.........MMGGGMMMMMMMMM..........#",
+   "#...........MMMGGMMGGG............#",
+   "#..............GGGGGG.............#",
+   "#................MMM..............#",
+   "#.................................#",
+   "###################################"
+  ],
+  "entries": [
+   17
+  ],
+  "capacity": 5,
+  "pods": [
+   {
+    "color": "M",
+    "count": 57
+   },
+   {
+    "color": "M",
+    "count": 56
+   },
+   {
+    "color": "M",
+    "count": 56
+   },
+   {
+    "color": "M",
+    "count": 56
+   },
+   {
+    "color": "M",
+    "count": 56
+   },
+   {
+    "color": "M",
+    "count": 56
+   },
+   {
+    "color": "M",
+    "count": 56
+   },
+   {
+    "color": "G",
+    "count": 36,
+    "group": "A"
+   },
+   {
+    "color": "G",
+    "count": 35
+   },
+   {
+    "color": "G",
+    "count": 35
+   },
+   {
+    "color": "A",
+    "count": 24
+   },
+   {
+    "color": "A",
+    "count": 23,
+    "group": "A"
+   },
+   {
+    "color": "F",
+    "count": 6
+   },
+   {
+    "color": "C",
+    "count": 19
+   },
+   {
+    "color": "D",
+    "count": 19
+   },
+   {
+    "color": "D",
+    "count": 18
+   },
+   {
+    "color": "Y",
+    "count": 25,
+    "group": "B"
+   },
+   {
+    "color": "Y",
+    "count": 25
+   },
+   {
+    "color": "O",
+    "count": 16
+   },
+   {
+    "color": "O",
+    "count": 15,
+    "group": "B"
+   }
+  ],
+  "tray": [
+   [
+    7,
+    10,
+    19,
+    12,
+    3,
+    14,
+    9
+   ],
+   [
+    6,
+    17,
+    16,
+    15,
+    18,
+    5,
+    2
+   ],
+   [
+    11,
+    1,
+    13,
+    0,
+    8,
+    4
+   ]
+  ],
+  "recipe": "links+shutters",
+  "recolor": [
+   [
+    20,
+    8,
+    "F"
+   ],
+   [
+    21,
+    8,
+    "F"
+   ],
+   [
+    22,
+    8,
+    "F"
+   ],
+   [
+    21,
+    9,
+    "F"
+   ],
+   [
+    4,
+    14,
+    "F"
+   ],
+   [
+    5,
+    14,
+    "F"
+   ]
+  ],
+  "shutters": [
+   {
+    "cells": [
+     444,
+     445,
+     446,
+     447,
+     479,
+     480,
+     481,
+     482,
+     514,
+     515,
+     516,
+     517,
+     549,
+     550,
+     551,
+     552,
+     584,
+     585,
+     586,
+     587,
+     619,
+     620,
+     621,
+     622
+    ],
+    "material": "G",
+    "count": 35
+   }
+  ],
+  "difficulty": "Hard"
+ }
+}

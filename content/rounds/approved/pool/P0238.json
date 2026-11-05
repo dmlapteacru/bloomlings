@@ -1,7 +1,7 @@
 {
  "code": "P0238",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0145",
  "version": 1,
  "title": "Улитка-гонщик с турбиной",
  "theme": "Смешные и абсурдные герои",

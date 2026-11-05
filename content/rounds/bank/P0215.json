@@ -2,7 +2,24 @@
  "picture": "P0215",
  "candidates": [],
  "rejected": [],
- "searched": [],
+ "searched": [
+  {
+   "combo": "Hard|links+canal||tune|2026-11-05",
+   "tune": {
+    "slot": "Hard",
+    "t": 0.02,
+    "attempts": 4,
+    "quick": 13,
+    "evaluated": 1,
+    "seconds": 112
+   },
+   "tried": 4,
+   "found": 1,
+   "reasons": {
+    "быстрая оценка вне зоны после поправок": 3
+   }
+  }
+ ],
  "tune": {
   "Hard|links+canal|Hard": {
    "t": 0.02,
@@ -11,5 +28,8 @@
    "quick": 0.25,
    "at": "2026-11-05"
   }
- }
+ },
+ "placed": [
+  "P0215-Hlinks+canal-g1105-a-3"
+ ]
 }

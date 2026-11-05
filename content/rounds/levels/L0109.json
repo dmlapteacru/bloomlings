@@ -1,0 +1,275 @@
+{
+ "level": 109,
+ "cls": "Normal",
+ "intro": null,
+ "breather": true,
+ "zoneMiss": true,
+ "gen": "2026-11-05",
+ "picture": "P0063",
+ "candidate": "P0063-Ncells-g1105-br-0",
+ "recipe": "cells",
+ "N": 271,
+ "W": 271,
+ "colours": 4,
+ "P": 9,
+ "columns": 3,
+ "linked": 0,
+ "hidden": 0,
+ "cells": 21,
+ "random": {
+  "runs": 100,
+  "wins": 100,
+  "share": 1,
+  "wilson95": [
+   0.963,
+   1
+  ],
+  "cls": "Normal",
+  "borderline": false,
+  "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+  "seedBase": 1
+ },
+ "solution": {
+  "route": [
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 4
+   },
+   {
+    "type": "tap",
+    "pod": 0
+   },
+   {
+    "type": "tap",
+    "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 7
+   },
+   {
+    "type": "tap",
+    "pod": 2
+   },
+   {
+    "type": "tap",
+    "pod": 3
+   }
+  ],
+  "forks": 0,
+  "singleSafe": 0,
+  "unknown": 0,
+  "fast": {
+   "status": "won",
+   "seconds": 23.9
+  }
+ },
+ "fairness": {
+  "checked": 0,
+  "fair": true,
+  "note": "все скрытые клетки одного материала — нечего переставлять"
+ },
+ "strategies": {},
+ "rhythm": {
+  "segments": [
+   {
+    "from": 0,
+    "to": 20,
+    "meanFree": 4.09,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   },
+   {
+    "from": 20,
+    "to": 40,
+    "meanFree": 4.19,
+    "minFree": 3,
+    "fullShare": 0,
+    "maxWaiting": 1
+   },
+   {
+    "from": 40,
+    "to": 60,
+    "meanFree": 3.29,
+    "minFree": 3,
+    "fullShare": 0,
+    "maxWaiting": 1
+   },
+   {
+    "from": 60,
+    "to": 80,
+    "meanFree": 3.71,
+    "minFree": 3,
+    "fullShare": 0,
+    "maxWaiting": 1
+   },
+   {
+    "from": 80,
+    "to": 100,
+    "meanFree": 4.45,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   }
+  ],
+  "launchesAfter80": 1,
+  "lastLaunchAtW": 86,
+  "seconds": 104.8
+ },
+ "dosePos": null,
+ "checks": {
+  "breather": true,
+  "forced": 0.2,
+  "opening": null,
+  "hold": null,
+  "greedyLoses": null,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 0.28,
+   "tight": 0.7
+  },
+  "traps": {
+   "links": 0,
+   "traps": 0,
+   "top": 0
+  }
+ },
+ "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+ "definition": {
+  "id": 109,
+  "title": "Вишенки",
+  "subject": "P0063",
+  "w": 26,
+  "h": 29,
+  "rowsBottomFirst": [
+   "#############.############",
+   "#........................#",
+   "#...............RRRRR....#",
+   "#.....RRRR....RRRRRRRR...#",
+   "#...RRRRRRRR..RRRRRRRRR..#",
+   "#..RRRRRRRRRRRRRRRRRRRRR.#",
+   "#..RRRRRRRRRRRRRRRRRRRRR.#",
+   "#..RRRRRRRRRRRRRRRRRRRRR.#",
+   "#.RRRRRRRRRRRRRCCRRRRRRR.#",
+   "#.RRRCCRRRRRRRRCCCRRRRRR.#",
+   "#..RRCCRRRRRRRRRCRRRRRR..#",
+   "#..RRCCRRRRRR.RRRRRRRRR..#",
+   "#...RRRRRRRRR..RRRRRR....#",
+   "#....RRRRRRR.....MM......#",
+   "#......RRM......MM.......#",
+   "#........MM.....MM.......#",
+   "#........MMM....MM.......#",
+   "#.........MM...MM........#",
+   "#.........MMM..MM........#",
+   "#..........MM..MM........#",
+   "#..........MMMMM.........#",
+   "#...........MMMM.........#",
+   "#...........MMMM.........#",
+   "#............MMMMGGG.....#",
+   "#............MMGGMMMG....#",
+   "#...............GGGMMM...#",
+   "#................GGGGGG..#",
+   "#........................#",
+   "##########################"
+  ],
+  "entries": [
+   13
+  ],
+  "capacity": 5,
+  "pods": [
+   {
+    "color": "G",
+    "count": 15
+   },
+   {
+    "color": "M",
+    "count": 26
+   },
+   {
+    "color": "M",
+    "count": 26
+   },
+   {
+    "color": "R",
+    "count": 39
+   },
+   {
+    "color": "R",
+    "count": 39
+   },
+   {
+    "color": "R",
+    "count": 38
+   },
+   {
+    "color": "R",
+    "count": 38
+   },
+   {
+    "color": "R",
+    "count": 38
+   },
+   {
+    "color": "C",
+    "count": 12
+   }
+  ],
+  "tray": [
+   [
+    6,
+    4,
+    0
+   ],
+   [
+    8,
+    5,
+    1
+   ],
+   [
+    7,
+    2,
+    3
+   ]
+  ],
+  "recipe": "cells",
+  "hiddenCells": [
+   94,
+   119,
+   120,
+   138,
+   139,
+   140,
+   141,
+   144,
+   145,
+   146,
+   164,
+   165,
+   166,
+   169,
+   170,
+   171,
+   172,
+   190,
+   191,
+   192,
+   195
+  ],
+  "difficulty": "Normal"
+ }
+}

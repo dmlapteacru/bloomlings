@@ -2,7 +2,27 @@
  "picture": "P0209",
  "candidates": [],
  "rejected": [],
- "searched": [],
+ "searched": [
+  {
+   "combo": "Hard|links+canal+latch||tune|2026-11-05",
+   "tune": {
+    "slot": "Hard",
+    "t": 0.14,
+    "attempts": 4,
+    "quick": 11,
+    "evaluated": 3,
+    "seconds": 104
+   },
+   "tried": 4,
+   "found": 1,
+   "reasons": {
+    "связки: доза снижена до минимума (вынужденные решения)": 1,
+    "связки: каждая следующая пара поднимает вынужденные решения выше 35 % (§5)": 1,
+    "evaluate: дебют + цвета: выигрывает после первого запуска (§5)": 1,
+    "evaluate: жадная стратегия выигрывает (§5)": 1
+   }
+  }
+ ],
  "tune": {
   "Hard|links+cells+latch|Hard": {
    "t": 0,
@@ -10,6 +30,16 @@
    "offset": -2.63,
    "quick": 0.45,
    "at": "2026-11-03"
+  },
+  "Hard|links+canal+latch|Hard": {
+   "t": 0.14,
+   "cols": 5,
+   "offset": -0.21,
+   "quick": 0.325,
+   "at": "2026-11-05"
   }
- }
+ },
+ "placed": [
+  "P0209-Hlinks+canal+latch-g1105-a-3"
+ ]
 }

@@ -1036,12 +1036,40 @@
     "evaluate: засов: засов 1 (колонка 4): открылся при 86 % W на сохранённом решении, нужно до 80 % (§8)": 1,
     "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
    }
+  },
+  {
+   "combo": "Normal|canal+links||tune|after-hard|2026-11-05",
+   "tune": {
+    "slot": "after-hard",
+    "t": 1,
+    "attempts": 3,
+    "quick": 9,
+    "evaluated": 3,
+    "seconds": 46
+   },
+   "tried": 3,
+   "found": 1,
+   "reasons": {
+    "связки ловушками: очередь сама остаётся выше зоны": 1,
+    "evaluate: не тот класс по быстрой оценке": 2
+   }
   }
  ],
  "tune": {
   "Normal|links+latch|regular": {
    "trap": true,
    "offset": -3.62
+  },
+  "Normal|canal+links|after-hard": {
+   "trap": true,
+   "t": 1,
+   "cols": 3,
+   "offset": -3.79,
+   "quick": 0.775,
+   "at": "2026-11-05"
   }
- }
+ },
+ "placed": [
+  "P0362-Ncanal+links-g1105-2"
+ ]
 }

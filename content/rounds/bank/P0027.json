@@ -16658,9 +16658,25 @@
    "tried": 1,
    "found": 1,
    "reasons": {}
+  },
+  {
+   "combo": "Normal|shutters+cells||tune|2026-11-05",
+   "tune": {
+    "slot": "regular",
+    "t": 0.68,
+    "attempts": 1,
+    "quick": 1,
+    "evaluated": 1,
+    "seconds": 28
+   },
+   "tried": 1,
+   "found": 1,
+   "reasons": {}
   }
  ],
- "placed": [],
+ "placed": [
+  "P0027-Nshutters+cells-g1105-0"
+ ],
  "tune": {
   "Normal|cells+links|regular": {
    "t": 1,
@@ -16668,6 +16684,13 @@
    "offset": -5.23,
    "quick": 0.65,
    "at": "2026-11-02"
+  },
+  "Normal|shutters+cells|regular": {
+   "t": 0.68,
+   "cols": 3,
+   "offset": -5.27,
+   "quick": 0.65,
+   "at": "2026-11-05"
   }
  }
 }

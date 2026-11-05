@@ -1,7 +1,7 @@
 {
  "code": "P0243",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0119",
  "version": 1,
  "title": "Кактус в боксёрских перчатках",
  "theme": "Смешные и абсурдные герои",

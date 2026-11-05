@@ -1,0 +1,628 @@
+{
+ "picture": "P0361",
+ "candidates": [
+  {
+   "id": "P0361-Nlatch+links+cells-g1105-0",
+   "picture": "P0361",
+   "requested": "Normal",
+   "cls": "Normal",
+   "intro": false,
+   "recipe": "latch+links+cells",
+   "gen": "2026-11-05",
+   "level": {
+    "id": 1,
+    "title": "Радиоприёмник с антеннами-парусами",
+    "subject": "P0361",
+    "w": 39,
+    "h": 42,
+    "rowsBottomFirst": [
+     "###################.###################",
+     "#.....................................#",
+     "#...EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE...#",
+     "#..OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO..#",
+     "#.EOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOE.#",
+     "#.EOOOOOOOONNNNNNOOOOOOOOOOOOOOOOOOOE.#",
+     "#.EOOOOOONNNNNNNNNOOOOOOOYYYYOOOOOOOE.#",
+     "#.EOOOOONNNNNNNNNNNOOOOOOYYYYYOOOOOOE.#",
+     "#.EOOOOONNNNVVVVNNNNOOOOYYYYYYOOOOOOE.#",
+     "#.EOOOONNNNVVVVVVNNNOOOOOYYYYYOOOOOOE.#",
+     "#.EOOOONNNVVVVVVVNNNOOOOOYYYYYOOOOOOE.#",
+     "#.EOOOONNNVVVVVVVVNNNOOOOOYYOOOOOOOOE.#",
+     "#.EOOOONNNVVVVVVVNNNNOOOOOOOOOOOOOOOE.#",
+     "#.EOOOONNNVVVVVVVNNNOOOOOOOOOOOOOOOOE.#",
+     "#.EOOOOONNNVVVVVNNNNOOOOCCCCCCCOOOOOE.#",
+     "#.EOOOOONNNNNVNNNNNOOOOOCCC..CCOOOOOE.#",
+     "#.EOOOOOONNNNNNNNNOOOOOOOCC..COOOOOOE.#",
+     "#.EOOOOOOONNNNNNNOOOOOOOOOOOOOOOOOOOE.#",
+     "#.EOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOE.#",
+     "#..EOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOEE.#",
+     "#..EEEEEEEEAAEEEEEEEEEEEEEAAEEEEEEEE..#",
+     "#..........AA.............AA..........#",
+     "#..........AA....SSSSSSSSSSA..........#",
+     "#...CCCCCCCAA.....SSSSSSSSSA..........#",
+     "#...CCCCCCCCA.BBBBBBBBSSSSSA..........#",
+     "#...CCCCCCCCA.BBBBBBBBSSSSSA..........#",
+     "#....CCCCCCCA.BBBBBBBSSSSSSA..........#",
+     "#.....CCCCCCA.BBBBBB.SSSSSSA..........#",
+     "#.....CCCCCCA.BBBBB...SSSSSA..........#",
+     "#......CCCCCA.BBBBB....SSSSA..........#",
+     "#.......CCCCA.BBBB.....SSSSA..........#",
+     "#.......CCCCA.BBB.......SSSA..........#",
+     "#........CCCA.BB.........SSA..........#",
+     "#........CCCA.BB..........SA..........#",
+     "#.........CCA.B...........AA..........#",
+     "#..........CA.............AA..........#",
+     "#..........AA..............A..........#",
+     "#..........AA.........................#",
+     "#..........AA.........................#",
+     "#..........A..........................#",
+     "#.....................................#",
+     "#######################################"
+    ],
+    "entries": [
+     19
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "A",
+      "count": 24
+     },
+     {
+      "color": "A",
+      "count": 24
+     },
+     {
+      "color": "C",
+      "count": 27
+     },
+     {
+      "color": "C",
+      "count": 26
+     },
+     {
+      "color": "C",
+      "count": 26
+     },
+     {
+      "color": "B",
+      "count": 26
+     },
+     {
+      "color": "B",
+      "count": 25
+     },
+     {
+      "color": "S",
+      "count": 20
+     },
+     {
+      "color": "S",
+      "count": 20
+     },
+     {
+      "color": "S",
+      "count": 20
+     },
+     {
+      "color": "E",
+      "count": 31
+     },
+     {
+      "color": "E",
+      "count": 31
+     },
+     {
+      "color": "E",
+      "count": 31
+     },
+     {
+      "color": "O",
+      "count": 53
+     },
+     {
+      "color": "O",
+      "count": 53
+     },
+     {
+      "color": "O",
+      "count": 53
+     },
+     {
+      "color": "O",
+      "count": 53
+     },
+     {
+      "color": "O",
+      "count": 53
+     },
+     {
+      "color": "O",
+      "count": 52
+     },
+     {
+      "color": "O",
+      "count": 52
+     },
+     {
+      "color": "N",
+      "count": 33
+     },
+     {
+      "color": "N",
+      "count": 33
+     },
+     {
+      "color": "N",
+      "count": 33
+     },
+     {
+      "color": "V",
+      "count": 23
+     },
+     {
+      "color": "V",
+      "count": 22,
+      "group": "A"
+     },
+     {
+      "color": "Y",
+      "count": 14
+     },
+     {
+      "color": "Y",
+      "count": 13,
+      "group": "A"
+     }
+    ],
+    "tray": [
+     [
+      24,
+      21,
+      25,
+      16,
+      15,
+      3,
+      1,
+      5,
+      22
+     ],
+     [
+      26,
+      23,
+      18,
+      4,
+      9,
+      14,
+      2,
+      12,
+      0
+     ],
+     [
+      10,
+      19,
+      20,
+      17,
+      6,
+      8,
+      13,
+      7,
+      11
+     ]
+    ],
+    "recipe": "latch+links+cells",
+    "overlay": {
+     "walls": [],
+     "sites": [],
+     "keys": [
+      [
+       25,
+       23
+      ],
+      [
+       26,
+       23
+      ],
+      [
+       25,
+       24
+      ],
+      [
+       26,
+       24
+      ]
+     ]
+    },
+    "latches": [
+     {
+      "column": 1,
+      "depth": 3,
+      "key": 612
+     }
+    ],
+    "hiddenCells": [
+     199,
+     200,
+     201,
+     202,
+     208,
+     209,
+     210,
+     238,
+     239,
+     240,
+     241,
+     247,
+     248,
+     249,
+     277,
+     278,
+     279,
+     280,
+     286,
+     287,
+     288,
+     317,
+     318,
+     319,
+     325,
+     326,
+     327,
+     364,
+     365,
+     366,
+     481,
+     482,
+     483,
+     484,
+     520,
+     521,
+     522,
+     523,
+     559,
+     560,
+     561,
+     598,
+     599,
+     600
+    ]
+   },
+   "N": 871,
+   "W": 871,
+   "colours": 9,
+   "P": 27,
+   "columns": 3,
+   "linked": 2,
+   "hidden": 0,
+   "cells": 44,
+   "latches": 1,
+   "slot": "regular",
+   "inZone": false,
+   "random": {
+    "runs": 100,
+    "wins": 73,
+    "share": 0.73,
+    "wilson95": [
+     0.636,
+     0.807
+    ],
+    "cls": "Normal",
+    "borderline": false,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 24
+     },
+     {
+      "type": "tap",
+      "pod": 21
+     },
+     {
+      "type": "tap",
+      "pod": 25
+     },
+     {
+      "type": "tap",
+      "pod": 16
+     },
+     {
+      "type": "tap",
+      "pod": 15
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 22
+     },
+     {
+      "type": "tap",
+      "pod": 23
+     },
+     {
+      "type": "tap",
+      "pod": 18
+     },
+     {
+      "type": "tap",
+      "pod": 10
+     },
+     {
+      "type": "tap",
+      "pod": 19
+     },
+     {
+      "type": "tap",
+      "pod": 20
+     },
+     {
+      "type": "tap",
+      "pod": 17
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
+      "pod": 13
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 14
+     },
+     {
+      "type": "tap",
+      "pod": 2
+     },
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 11
+     }
+    ],
+    "forks": 2,
+    "singleSafe": 0,
+    "unknown": 0,
+    "fast": {
+     "status": "lost",
+     "seconds": 103.1
+    }
+   },
+   "fairness": {
+    "checked": 12,
+    "unfair": 0,
+    "unknown": 0,
+    "fair": true,
+    "note": "перестановки материалов двух скрытых клеток разного цвета"
+   },
+   "strategies": {
+    "left-to-right|left": false,
+    "left-to-right|right": false,
+    "right-to-left|left": true,
+    "right-to-left|right": true,
+    "top-down|left": true,
+    "top-down|right": true,
+    "bottom-up|left": true,
+    "bottom-up|right": true,
+    "diagonal|left": true,
+    "diagonal|right": true,
+    "small-first|left": false,
+    "small-first|right": false,
+    "most-now|left": true,
+    "most-now|right": true,
+    "fast-release|left": true,
+    "fast-release|right": true
+   },
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 0.67,
+      "minFree": 0,
+      "fullShare": 0.52,
+      "maxWaiting": 4
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 4.41,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 4.25,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 4.47,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 4.44,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     }
+    ],
+    "launchesAfter80": 5,
+    "lastLaunchAtW": 96,
+    "seconds": 420.3
+   },
+   "dosePos": 0.5,
+   "blend": 0.99,
+   "tune": {
+    "steps": [
+     {
+      "t": 0.86,
+      "q": 0.75
+     },
+     {
+      "t": 1,
+      "q": 0.375
+     },
+     {
+      "t": 0.93,
+      "q": 0.7
+     },
+     {
+      "t": 0.96,
+      "q": 0.725
+     },
+     {
+      "t": 0.98,
+      "q": 0.725
+     },
+     {
+      "t": 0.99,
+      "q": 0.725
+     }
+    ],
+    "links": {
+     "pairs": 1,
+     "traps": 1,
+     "forced": 0.18,
+     "greedy": null
+    },
+    "seconds": 4
+   },
+   "checks": {
+    "forced": 0.18,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": false,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.89,
+     "tight": 0.87
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 152,
+     "share": 0.76,
+     "wilson95": [
+      0.696,
+      0.814
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 1,
+     "traps": 1,
+     "top": 1
+    },
+    "latch": {
+     "latches": [
+      {
+       "latch": 0,
+       "column": 1,
+       "depth": 3,
+       "behind": 6,
+       "key": 612,
+       "atW": 0.711,
+       "command": 18,
+       "waitMs": 123825
+      }
+     ],
+     "maxBlocked": 1,
+     "limit": 1,
+     "lastOpenAtW": 0.711,
+     "waits": true,
+     "randomOverLimit": 0,
+     "ok": true,
+     "problems": [],
+     "notes": []
+    }
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "seed": 1,
+   "attempt": 0
+  }
+ ],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|latch+links+cells||tune|2026-11-05",
+   "tune": {
+    "slot": "regular",
+    "t": 0.54,
+    "attempts": 2,
+    "quick": 11,
+    "evaluated": 2,
+    "seconds": 11
+   },
+   "tried": 2,
+   "found": 1,
+   "reasons": {
+    "связки ловушками: очередь сама остаётся выше зоны": 1,
+    "вне зоны позиции (проходит фильтры)": 1
+   }
+  }
+ ],
+ "tune": {
+  "Normal|latch+links+cells|regular": {
+   "trap": true,
+   "t": 0.54,
+   "cols": 4,
+   "offset": -1.06,
+   "quick": 0.625,
+   "at": "2026-11-05"
+  }
+ },
+ "placed": [
+  "P0361-Nlatch+links+cells-g1105-a-1"
+ ]
+}

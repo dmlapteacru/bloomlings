@@ -1,0 +1,635 @@
+{
+ "picture": "P0408",
+ "candidates": [
+  {
+   "id": "P0408-Nlinks-g1105-br-1",
+   "picture": "P0408",
+   "requested": "Normal",
+   "cls": "Normal",
+   "intro": false,
+   "recipe": "links",
+   "gen": "2026-11-05",
+   "level": {
+    "id": 1,
+    "title": "Ювелирный стол в кольце",
+    "subject": "P0408",
+    "w": 24,
+    "h": 29,
+    "rowsBottomFirst": [
+     "############.###########",
+     "#......................#",
+     "#.......YYYYYYYY.......#",
+     "#.....AAYYYYYYYYAA.....#",
+     "#....YYAAYYYYYYAAYY....#",
+     "#...YYYAACCCCCCAAYYY...#",
+     "#..YYYYAACCCCCCAAYYYY..#",
+     "#..YYYAAAAAAAAAAAAYYY..#",
+     "#.YYYYAAAAAAAAAAAAAYYY.#",
+     "#.YYYCCCCCCCCCCCCCCYYY.#",
+     "#.YYYCCCCCCCBCCCCCCYYY.#",
+     "#.YYYCCCECCBBBCCCCCYYY.#",
+     "#.YYYCCEECCBBBCCCCCYYY.#",
+     "#.YYYCCECCCCBBCCCCCYYY.#",
+     "#.YYYCCCCCCCCCCCCCCYYY.#",
+     "#.YYYYCCCCCCCCCCCCYYYY.#",
+     "#..YYYCCCCCCCCCCCCYYY..#",
+     "#..YYYYYCCCCCCCCCYYYY..#",
+     "#...YYYYYCCCCCCYYYYY...#",
+     "#....YYYYYBBBBYYYYY....#",
+     "#.....YYYBBBBBYYYY.....#",
+     "#......EEBBBBBBBE......#",
+     "#......EBBBBBBBBE......#",
+     "#......EBBBBBBBBE......#",
+     "#.......BBBBBBBB.......#",
+     "#.......BBBBBBBB.......#",
+     "#........EEEEEE........#",
+     "#......................#",
+     "########################"
+    ],
+    "entries": [
+     12
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "E",
+      "count": 17
+     },
+     {
+      "color": "B",
+      "count": 29
+     },
+     {
+      "color": "B",
+      "count": 28
+     },
+     {
+      "color": "Y",
+      "count": 47,
+      "group": "A"
+     },
+     {
+      "color": "Y",
+      "count": 46,
+      "group": "A"
+     },
+     {
+      "color": "Y",
+      "count": 46
+     },
+     {
+      "color": "C",
+      "count": 41
+     },
+     {
+      "color": "C",
+      "count": 41
+     },
+     {
+      "color": "C",
+      "count": 40
+     },
+     {
+      "color": "A",
+      "count": 21
+     },
+     {
+      "color": "A",
+      "count": 20
+     }
+    ],
+    "tray": [
+     [
+      2,
+      5,
+      1,
+      3
+     ],
+     [
+      7,
+      6,
+      9
+     ],
+     [
+      8,
+      10,
+      0,
+      4
+     ]
+    ],
+    "recipe": "links"
+   },
+   "N": 376,
+   "W": 376,
+   "colours": 5,
+   "P": 11,
+   "columns": 3,
+   "linked": 2,
+   "hidden": 0,
+   "breather": true,
+   "slot": "breather",
+   "inZone": false,
+   "random": {
+    "runs": 100,
+    "wins": 100,
+    "share": 1,
+    "wilson95": [
+     0.963,
+     1
+    ],
+    "cls": "Normal",
+    "borderline": false,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 2
+     },
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
+      "pod": 10
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     }
+    ],
+    "forks": 0,
+    "singleSafe": 0,
+    "unknown": 0,
+    "fast": {
+     "status": "won",
+     "seconds": 49.5
+    }
+   },
+   "fairness": {
+    "fair": true,
+    "checked": 0
+   },
+   "strategies": {},
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 4.23,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 3.84,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 1
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 4.38,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 4.22,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 3.78,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 0
+     }
+    ],
+    "launchesAfter80": 0,
+    "lastLaunchAtW": 75,
+    "seconds": 209.4
+   },
+   "dosePos": null,
+   "blend": 1,
+   "tune": {
+    "steps": [
+     {
+      "t": 0,
+      "q": 1
+     },
+     {
+      "t": 0.21,
+      "q": 1
+     },
+     {
+      "t": 0.45,
+      "q": 1
+     },
+     {
+      "t": 0.74,
+      "q": 1
+     },
+     {
+      "t": 1,
+      "q": 1
+     }
+    ],
+    "links": {
+     "pairs": 1,
+     "traps": 0,
+     "forced": 0.26,
+     "greedy": null
+    },
+    "seconds": 2
+   },
+   "checks": {
+    "breather": true,
+    "forced": 0.26,
+    "opening": null,
+    "hold": null,
+    "greedyLoses": null,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.08,
+     "tight": 0.8
+    },
+    "traps": {
+     "links": 1,
+     "traps": 0,
+     "top": 0
+    }
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "seed": 1,
+   "attempt": 1
+  },
+  {
+   "id": "P0408-Nlinks-g1105-br-2",
+   "picture": "P0408",
+   "requested": "Normal",
+   "cls": "Normal",
+   "intro": false,
+   "recipe": "links",
+   "gen": "2026-11-05",
+   "level": {
+    "id": 1,
+    "title": "Ювелирный стол в кольце",
+    "subject": "P0408",
+    "w": 24,
+    "h": 29,
+    "rowsBottomFirst": [
+     "############.###########",
+     "#......................#",
+     "#.......YYYYYYYY.......#",
+     "#.....AAYYYYYYYYAA.....#",
+     "#....YYAAYYYYYYAAYY....#",
+     "#...YYYAACCCCCCAAYYY...#",
+     "#..YYYYAACCCCCCAAYYYY..#",
+     "#..YYYAAAAAAAAAAAAYYY..#",
+     "#.YYYYAAAAAAAAAAAAAYYY.#",
+     "#.YYYCCCCCCCCCCCCCCYYY.#",
+     "#.YYYCCCCCCCBCCCCCCYYY.#",
+     "#.YYYCCCECCBBBCCCCCYYY.#",
+     "#.YYYCCEECCBBBCCCCCYYY.#",
+     "#.YYYCCECCCCBBCCCCCYYY.#",
+     "#.YYYCCCCCCCCCCCCCCYYY.#",
+     "#.YYYYCCCCCCCCCCCCYYYY.#",
+     "#..YYYCCCCCCCCCCCCYYY..#",
+     "#..YYYYYCCCCCCCCCYYYY..#",
+     "#...YYYYYCCCCCCYYYYY...#",
+     "#....YYYYYBBBBYYYYY....#",
+     "#.....YYYBBBBBYYYY.....#",
+     "#......EEBBBBBBBE......#",
+     "#......EBBBBBBBBE......#",
+     "#......EBBBBBBBBE......#",
+     "#.......BBBBBBBB.......#",
+     "#.......BBBBBBBB.......#",
+     "#........EEEEEE........#",
+     "#......................#",
+     "########################"
+    ],
+    "entries": [
+     12
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "E",
+      "count": 17
+     },
+     {
+      "color": "B",
+      "count": 29
+     },
+     {
+      "color": "B",
+      "count": 28
+     },
+     {
+      "color": "Y",
+      "count": 47,
+      "group": "A"
+     },
+     {
+      "color": "Y",
+      "count": 46,
+      "group": "A"
+     },
+     {
+      "color": "Y",
+      "count": 46
+     },
+     {
+      "color": "C",
+      "count": 41
+     },
+     {
+      "color": "C",
+      "count": 41
+     },
+     {
+      "color": "C",
+      "count": 40
+     },
+     {
+      "color": "A",
+      "count": 21
+     },
+     {
+      "color": "A",
+      "count": 20
+     }
+    ],
+    "tray": [
+     [
+      2,
+      5,
+      1
+     ],
+     [
+      8,
+      6,
+      0,
+      3
+     ],
+     [
+      7,
+      10,
+      9,
+      4
+     ]
+    ],
+    "recipe": "links"
+   },
+   "N": 376,
+   "W": 376,
+   "colours": 5,
+   "P": 11,
+   "columns": 3,
+   "linked": 2,
+   "hidden": 0,
+   "breather": true,
+   "slot": "breather",
+   "inZone": false,
+   "random": {
+    "runs": 100,
+    "wins": 100,
+    "share": 1,
+    "wilson95": [
+     0.963,
+     1
+    ],
+    "cls": "Normal",
+    "borderline": false,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 2
+     },
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 10
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     }
+    ],
+    "forks": 0,
+    "singleSafe": 0,
+    "unknown": 0,
+    "fast": {
+     "status": "won",
+     "seconds": 96.8
+    }
+   },
+   "fairness": {
+    "fair": true,
+    "checked": 0
+   },
+   "strategies": {},
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 4.23,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 3.84,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 1
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 4.35,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 4.25,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 3.78,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 0
+     }
+    ],
+    "launchesAfter80": 0,
+    "lastLaunchAtW": 75,
+    "seconds": 244.7
+   },
+   "dosePos": null,
+   "blend": 1,
+   "tune": {
+    "steps": [
+     {
+      "t": 0,
+      "q": 1
+     },
+     {
+      "t": 0.21,
+      "q": 1
+     },
+     {
+      "t": 0.45,
+      "q": 1
+     },
+     {
+      "t": 0.74,
+      "q": 1
+     },
+     {
+      "t": 1,
+      "q": 1
+     }
+    ],
+    "links": {
+     "pairs": 1,
+     "traps": 0,
+     "forced": 0.26,
+     "greedy": null
+    },
+    "seconds": 3
+   },
+   "checks": {
+    "breather": true,
+    "forced": 0.26,
+    "opening": null,
+    "hold": null,
+    "greedyLoses": null,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.05,
+     "tight": 0.78
+    },
+    "traps": {
+     "links": 1,
+     "traps": 0,
+     "top": 0
+    }
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "seed": 1,
+   "attempt": 2
+  }
+ ],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|cells||tune|breather|2026-11-05",
+   "tune": {
+    "slot": "breather",
+    "t": null,
+    "attempts": 4,
+    "quick": 20,
+    "evaluated": 3,
+    "seconds": 4
+   },
+   "tried": 4,
+   "found": 1,
+   "reasons": {
+    "передышка: одна обычная связка вместо скрытых (доля выше зоны)": 1,
+    "вне зоны позиции (проходит фильтры)": 3,
+    "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
+   }
+  }
+ ],
+ "tune": {
+  "Normal|cells|breather": {
+   "pair": true,
+   "offset": -0.5
+  }
+ },
+ "placed": [
+  "P0408-Ncells-g1105-br-0"
+ ]
+}

@@ -186,7 +186,9 @@ export function assignPictures(positions,pool,{pinned=new Map(),before=[],picOf=
   if(!cand.length){missing.push({level:q.level,band,reason:'нет свободной картинки, которая подходит позиции (этап, класс, рецепт, место для ключа, повторы семейств и мотивов, окно 10+ цветов)'});continue;}
   // a regular Normal aims at 50–75 %: the calibration's weak pictures (0–1 colours hidden at the start) stay near 100 % with
   // any queue, so it prefers 2–4 hidden; the first Normal after a Hard (75–95 %), a breather and an introduction the weaker
-  const fit=p=>q.cls!=='Normal'?-p.hidden:q.intro||q.breather||q.after?(p.hidden>=3?.5:0):p.hidden<2?(2-p.hidden)*.4:p.hidden>4?(p.hidden-4)*.2:0;
+  // a regular Normal with a water channel (the trial run of wave L101–L150, 2026-11-05): the chosen exit opens a second
+  // entry deep in the picture, so a picture with 2–3 colours hidden stays above the zone with any queue; it prefers 4+
+  const fit=p=>q.canal&&q.cls==='Normal'&&!q.intro&&!q.breather?(p.hidden<4?(4-p.hidden)*.6:0)-p.hidden*.05:q.cls!=='Normal'?-p.hidden:q.intro||q.breather||q.after?(p.hidden>=3?.5:0):p.hidden<2?(2-p.hidden)*.4:p.hidden>4?(p.hidden-4)*.2:0;
   const score=p=>fit(p)+(q.intro?(p.weak?-.3:0):0)+(q.breather?(p.N<=BREATHER_N?p.N/2000:1+p.N/2000):q.cls==='Normal'&&!q.intro&&p.N<=BREATHER_N?1:0)+.12*(packUse[p.pack]||0)+hash(p.id,q.level+seed)*.05;
   const p=cand.sort((a,b)=>score(a)-score(b))[0];out.set(q.level,{level:q.level,picture:p.id,band,N:p.N,...(relaxed.length?{relaxed}:{})});used.add(p.id);at.set(q.level,p.id);packUse[p.pack]=(packUse[p.pack]||0)+1;}
  return {assign:positions.filter(q=>out.has(q.level)).map(q=>out.get(q.level)),missing,quota};}

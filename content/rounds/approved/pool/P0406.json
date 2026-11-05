@@ -1,7 +1,7 @@
 {
  "code": "P0406",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0121",
  "version": 1,
  "title": "Бумажная швейная машинка",
  "theme": "Обмен свойствами предметов",

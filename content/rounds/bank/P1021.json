@@ -1,0 +1,33 @@
+{
+ "picture": "P1021",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|links||tune|after-hard|2026-11-05",
+   "tune": {
+    "slot": "after-hard",
+    "t": 0.93,
+    "attempts": 1,
+    "quick": 2,
+    "evaluated": 1,
+    "seconds": 4
+   },
+   "tried": 1,
+   "found": 1,
+   "reasons": {}
+  }
+ ],
+ "tune": {
+  "Normal|links|after-hard": {
+   "t": 0.93,
+   "cols": 4,
+   "offset": 0.96,
+   "quick": 0.9,
+   "at": "2026-11-05"
+  }
+ },
+ "placed": [
+  "P1021-Nlinks-g1105-0"
+ ]
+}

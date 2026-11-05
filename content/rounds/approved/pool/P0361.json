@@ -1,7 +1,7 @@
 {
  "code": "P0361",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0129",
  "version": 1,
  "title": "Радиоприёмник с антеннами-парусами",
  "theme": "Ретрофутуризм",

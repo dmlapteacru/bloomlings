@@ -1,0 +1,36 @@
+{
+ "picture": "P1028",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|links+cells||tune|after-hard|2026-11-05",
+   "tune": {
+    "slot": "after-hard",
+    "t": 0.98,
+    "attempts": 3,
+    "quick": 13,
+    "evaluated": 1,
+    "seconds": 10
+   },
+   "tried": 3,
+   "found": 1,
+   "reasons": {
+    "связки: доза снижена до минимума (вынужденные решения)": 1,
+    "быстрая оценка вне зоны после поправок": 2
+   }
+  }
+ ],
+ "tune": {
+  "Normal|links+cells|after-hard": {
+   "t": 0.98,
+   "cols": 3,
+   "offset": -4.49,
+   "quick": 0.8,
+   "at": "2026-11-05"
+  }
+ },
+ "placed": [
+  "P1028-Nlinks+cells-g1105-2"
+ ]
+}

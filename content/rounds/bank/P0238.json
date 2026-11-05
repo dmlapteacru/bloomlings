@@ -1,0 +1,40 @@
+{
+ "picture": "P0238",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Hard|links+shutters+cells||tune|2026-11-05",
+   "tune": {
+    "slot": "Hard",
+    "t": 0.25,
+    "attempts": 6,
+    "quick": 24,
+    "evaluated": 5,
+    "seconds": 156
+   },
+   "tried": 6,
+   "found": 1,
+   "reasons": {
+    "акценты: под створками (строим без них)": 6,
+    "evaluate: дозы не подходят фактическому классу: связанных 8 вне 4–6 для Normal": 1,
+    "быстрая оценка вне зоны после поправок": 1,
+    "evaluate: дебют + цвета: выигрывает после первого запуска (§5)": 1,
+    "evaluate: жадная стратегия выигрывает измеренный класс (§5)": 1,
+    "evaluate: дозы не подходят фактическому классу: связанных 8 вне 12–14 для Super Hard": 1
+   }
+  }
+ ],
+ "tune": {
+  "Hard|links+shutters+cells|Hard": {
+   "t": 0.25,
+   "cols": 5,
+   "offset": -2.21,
+   "quick": 0.475,
+   "at": "2026-11-05"
+  }
+ },
+ "placed": [
+  "P0238-Hlinks+shutters+cells-g1105-5"
+ ]
+}

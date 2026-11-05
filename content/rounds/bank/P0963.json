@@ -2,7 +2,25 @@
  "picture": "P0963",
  "candidates": [],
  "rejected": [],
- "searched": [],
+ "searched": [
+  {
+   "combo": "Normal|canal+cells||tune|2026-11-05",
+   "tune": {
+    "slot": "regular",
+    "t": null,
+    "attempts": 3,
+    "quick": 9,
+    "evaluated": 0,
+    "seconds": 11
+   },
+   "tried": 3,
+   "found": 0,
+   "reasons": {
+    "быстрая оценка вне зоны после поправок": 2,
+    "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
+   }
+  }
+ ],
  "tune": {
   "Normal|links+cells|regular": {
    "trap": true,
@@ -11,6 +29,9 @@
    "offset": -1.57,
    "quick": 0.625,
    "at": "2026-11-02"
+  },
+  "Normal|canal+cells|regular": {
+   "offset": -0.93
   }
  }
 }

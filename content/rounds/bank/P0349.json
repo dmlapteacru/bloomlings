@@ -1,0 +1,37 @@
+{
+ "picture": "P0349",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Super Hard|links+latch+hidden||tune|2026-11-05",
+   "tune": {
+    "slot": "Super Hard",
+    "t": 0.01,
+    "attempts": 64,
+    "quick": 18,
+    "evaluated": 9,
+    "seconds": 267
+   },
+   "tried": 64,
+   "found": 0,
+   "reasons": {
+    "связки: доза снижена до минимума (вынужденные решения)": 50,
+    "связки: каждая следующая пара поднимает вынужденные решения выше 35 % (§5)": 54,
+    "evaluate: ниже 5 %": 1,
+    "evaluate: нет решения": 6,
+    "evaluate: жадная стратегия выигрывает (§5)": 2,
+    "не хватило подов для скрытых": 1
+   }
+  }
+ ],
+ "tune": {
+  "Super Hard|links+latch+hidden|Super Hard": {
+   "t": 0.01,
+   "cols": 4,
+   "offset": -1.97,
+   "quick": 0.1,
+   "at": "2026-11-05"
+  }
+ }
+}

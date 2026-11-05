@@ -1,0 +1,33 @@
+{
+ "picture": "P0245",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|shutters+links+latch||tune|2026-11-05",
+   "tune": {
+    "slot": "regular",
+    "t": 0.55,
+    "attempts": 1,
+    "quick": 6,
+    "evaluated": 1,
+    "seconds": 21
+   },
+   "tried": 1,
+   "found": 1,
+   "reasons": {}
+  }
+ ],
+ "tune": {
+  "Normal|shutters+links+latch|regular": {
+   "t": 0.55,
+   "cols": 3,
+   "offset": -2.54,
+   "quick": 0.55,
+   "at": "2026-11-05"
+  }
+ },
+ "placed": [
+  "P0245-Nshutters+links+latch-g1105-0"
+ ]
+}

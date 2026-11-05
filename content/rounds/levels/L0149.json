@@ -1,0 +1,524 @@
+{
+ "level": 149,
+ "cls": "Normal",
+ "intro": null,
+ "gen": "2026-11-05",
+ "picture": "P0283",
+ "candidate": "P0283-Nshutters+hidden-g1105-4",
+ "recipe": "shutters+hidden",
+ "N": 893,
+ "W": 893,
+ "colours": 6,
+ "P": 24,
+ "columns": 4,
+ "linked": 0,
+ "hidden": 2,
+ "random": {
+  "runs": 400,
+  "wins": 222,
+  "share": 0.555,
+  "wilson95": [
+   0.506,
+   0.603
+  ],
+  "cls": "Normal",
+  "borderline": false,
+  "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+  "seedBase": 1
+ },
+ "solution": {
+  "route": [
+   {
+    "type": "tap",
+    "pod": 14
+   },
+   {
+    "type": "tap",
+    "pod": 7
+   },
+   {
+    "type": "tap",
+    "pod": 22
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 2
+   },
+   {
+    "type": "tap",
+    "pod": 0
+   },
+   {
+    "type": "tap",
+    "pod": 15
+   },
+   {
+    "type": "tap",
+    "pod": 13
+   },
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 4
+   },
+   {
+    "type": "tap",
+    "pod": 17
+   },
+   {
+    "type": "tap",
+    "pod": 16
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 12
+   },
+   {
+    "type": "tap",
+    "pod": 11
+   },
+   {
+    "type": "tap",
+    "pod": 9
+   },
+   {
+    "type": "tap",
+    "pod": 18
+   },
+   {
+    "type": "tap",
+    "pod": 3
+   },
+   {
+    "type": "tap",
+    "pod": 21
+   },
+   {
+    "type": "tap",
+    "pod": 20
+   },
+   {
+    "type": "tap",
+    "pod": 19
+   },
+   {
+    "type": "tap",
+    "pod": 10
+   },
+   {
+    "type": "tap",
+    "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 23
+   }
+  ],
+  "forks": 0,
+  "singleSafe": 0,
+  "unknown": 0,
+  "fast": {
+   "status": "won",
+   "seconds": 83.2
+  }
+ },
+ "fairness": {
+  "checked": 1,
+  "unfair": 0,
+  "unknown": 0,
+  "fair": true,
+  "note": "перестановки материала и числа между скрытыми подами с тем же балансом"
+ },
+ "strategies": {
+  "left-to-right|left": true,
+  "left-to-right|right": true,
+  "right-to-left|left": true,
+  "right-to-left|right": true,
+  "top-down|left": true,
+  "top-down|right": true,
+  "bottom-up|left": true,
+  "bottom-up|right": true,
+  "diagonal|left": true,
+  "diagonal|right": true,
+  "small-first|left": true,
+  "small-first|right": true,
+  "most-now|left": true,
+  "most-now|right": true,
+  "fast-release|left": true,
+  "fast-release|right": true
+ },
+ "rhythm": {
+  "segments": [
+   {
+    "from": 0,
+    "to": 20,
+    "meanFree": 3.77,
+    "minFree": 3,
+    "fullShare": 0,
+    "maxWaiting": 1
+   },
+   {
+    "from": 20,
+    "to": 40,
+    "meanFree": 4.39,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   },
+   {
+    "from": 40,
+    "to": 60,
+    "meanFree": 4.32,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   },
+   {
+    "from": 60,
+    "to": 80,
+    "meanFree": 4.34,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   },
+   {
+    "from": 80,
+    "to": 100,
+    "meanFree": 4.4,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   }
+  ],
+  "launchesAfter80": 5,
+  "lastLaunchAtW": 98,
+  "seconds": 482.6
+ },
+ "dosePos": 1,
+ "checks": {
+  "forced": 0.07,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": false,
+  "hiddenMatters": {
+   "ok": false,
+   "pods": [
+    {
+     "pod": 18,
+     "revealAt": 16,
+     "gap": 0,
+     "newColour": true
+    },
+    {
+     "pod": 10,
+     "revealAt": 21,
+     "gap": 0,
+     "newColour": true
+    }
+   ]
+  },
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.08,
+   "tight": 0.93
+  },
+  "calm": {
+   "runs": 200,
+   "wins": 136,
+   "share": 0.68,
+   "wilson95": [
+    0.612,
+    0.741
+   ],
+   "borderline": false,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 0,
+   "traps": 0,
+   "top": 0
+  },
+  "shutters": {
+   "shutters": [
+    {
+     "shutter": 0,
+     "material": "A",
+     "count": 40,
+     "cells": 56,
+     "atW": 0.483,
+     "command": 12,
+     "front": 15
+    }
+   ],
+   "lastOpenAtW": 0.483,
+   "ok": true,
+   "problems": [],
+   "notes": []
+  }
+ },
+ "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+ "definition": {
+  "id": 149,
+  "title": "Тапочки с лунными кратерами",
+  "subject": "P0283",
+  "w": 38,
+  "h": 38,
+  "rowsBottomFirst": [
+   "###################.##################",
+   "#....................................#",
+   "#.......................NN...........#",
+   "#..........NNNN......NNNANNN.........#",
+   "#........NNNAAANN...NNAAAAAAA........#",
+   "#.......NNAAAAAANN..NAAAAAAAANN......#",
+   "#......NNAAAAAAAAN.NAAAAYYAAAAN......#",
+   "#.....NNAAAYYYAAAANNAAYYYYYSSAAA.....#",
+   "#.....NAAYYYYYYYAANAAAYYYYSSSSAAA....#",
+   "#....AAAYYYYYYYYAANAAYYYYYSSSSSAA....#",
+   "#....AAAYYYYYSSSAANAAYYYYYSSSSSAAN...#",
+   "#...AAAYYYYYSSSSSNNAYYYYYYSSSSYAAN...#",
+   "#...AAYYYYYYSSSSSAAAYYYYYYYYYYYYANN..#",
+   "#..NAAYYYYYYSSSSSYAAYYCCCYYYYYYYAAN..#",
+   "#..NAYYCCYYYYSSSYYAAYCCCCCYYYYYYYAN..#",
+   "#..NAYCCCCCYYYYYYYAACCCCCCYYYYYYYAN..#",
+   "#.NAACCCCCCYYYYYYYNACCCCCCYYYYYYYYAN.#",
+   "#.NAYCCCCCCYYYYYYYNAYCCCCCYYYYYYYYAN.#",
+   "#.NAYYCCCCCYYYYYYYNAYYCCCYYYYYYYYYAN.#",
+   "#.NAYYCCCCYYYYYYYYNAYYYYYYYYYYYYYYAN.#",
+   "#.NAYYYYYYYYYYYYYYNAYYYYYYYYYYYYYYAN.#",
+   "#.NYYYYYYYYYYYYYYYNAYYYYYYYYYYYYYYYN.#",
+   "#.NYYYYYYYYYYYYYYANNAYYYYYYVVVVYYYYN.#",
+   "#.NYYYYVVVVVYYYYYANNAYYYYVVVVVVVYYYN.#",
+   "#.NYYYVVVVVVVYYYYANNAYYYYVVVVVVVVYYN.#",
+   "#.NYYVVVVVVVVYYYYN..AYYYVVVVVVVVVYYN.#",
+   "#.NYVVVVVVVVVVYYNN..AYYYVVVVVVVVVVYN.#",
+   "#.NYVVVVVVVVVVYYNN...NYYVVVVVVVVVVNN.#",
+   "#.NYVVVVVVVVVVYNN....NNYVVVVVVVVVVN..#",
+   "#..NVVVVVVVVVVYN......NYVVVVVVVVVVN..#",
+   "#..NVVVVVVVVVVNN.......VVVVVVVVVVVN..#",
+   "#..NVVVVVVVVVNN.........VVVVVVVVVN...#",
+   "#...NVVVVVVVVN...........VVVVVVVNN...#",
+   "#...NNVVVVVVV.............NNVVVNN....#",
+   "#....NNVVVVV...............NNNN......#",
+   "#......NNN...........................#",
+   "#....................................#",
+   "######################################"
+  ],
+  "entries": [
+   19
+  ],
+  "capacity": 5,
+  "pods": [
+   {
+    "color": "N",
+    "count": 44
+   },
+   {
+    "color": "N",
+    "count": 44
+   },
+   {
+    "color": "N",
+    "count": 43
+   },
+   {
+    "color": "V",
+    "count": 40
+   },
+   {
+    "color": "V",
+    "count": 40
+   },
+   {
+    "color": "V",
+    "count": 39
+   },
+   {
+    "color": "V",
+    "count": 39
+   },
+   {
+    "color": "V",
+    "count": 39
+   },
+   {
+    "color": "Y",
+    "count": 42
+   },
+   {
+    "color": "Y",
+    "count": 42
+   },
+   {
+    "color": "Y",
+    "count": 42,
+    "mystery": "depth"
+   },
+   {
+    "color": "Y",
+    "count": 42
+   },
+   {
+    "color": "Y",
+    "count": 42
+   },
+   {
+    "color": "Y",
+    "count": 42
+   },
+   {
+    "color": "Y",
+    "count": 42
+   },
+   {
+    "color": "Y",
+    "count": 42
+   },
+   {
+    "color": "A",
+    "count": 33
+   },
+   {
+    "color": "A",
+    "count": 33
+   },
+   {
+    "color": "A",
+    "count": 33,
+    "mystery": "depth"
+   },
+   {
+    "color": "A",
+    "count": 33
+   },
+   {
+    "color": "C",
+    "count": 28
+   },
+   {
+    "color": "C",
+    "count": 28
+   },
+   {
+    "color": "S",
+    "count": 21
+   },
+   {
+    "color": "S",
+    "count": 20
+   }
+  ],
+  "tray": [
+   [
+    14,
+    7,
+    22,
+    5,
+    2,
+    0
+   ],
+   [
+    15,
+    13,
+    6,
+    4,
+    17,
+    16
+   ],
+   [
+    1,
+    12,
+    11,
+    9,
+    18,
+    3
+   ],
+   [
+    21,
+    20,
+    19,
+    10,
+    8,
+    23
+   ]
+  ],
+  "recipe": "shutters+hidden",
+  "shutters": [
+   {
+    "cells": [
+     748,
+     749,
+     750,
+     751,
+     752,
+     753,
+     754,
+     755,
+     786,
+     787,
+     788,
+     789,
+     790,
+     791,
+     792,
+     793,
+     824,
+     825,
+     826,
+     827,
+     828,
+     829,
+     830,
+     831,
+     862,
+     863,
+     864,
+     865,
+     866,
+     867,
+     868,
+     869,
+     900,
+     901,
+     902,
+     903,
+     904,
+     905,
+     906,
+     907,
+     938,
+     939,
+     940,
+     941,
+     942,
+     943,
+     944,
+     945,
+     976,
+     977,
+     978,
+     979,
+     980,
+     981,
+     982,
+     983
+    ],
+    "material": "A",
+    "count": 40
+   }
+  ],
+  "difficulty": "Normal"
+ }
+}

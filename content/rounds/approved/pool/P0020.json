@@ -1,7 +1,7 @@
 {
  "code": "P0020",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0108",
  "version": 1,
  "title": "Робот поливает цветок",
  "theme": "batch-0011",

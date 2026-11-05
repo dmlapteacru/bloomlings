@@ -1,0 +1,36 @@
+{
+ "picture": "P0269",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|links||tune|after-hard|2026-11-05",
+   "tune": {
+    "slot": "after-hard",
+    "t": 0.45,
+    "attempts": 7,
+    "quick": 33,
+    "evaluated": 6,
+    "seconds": 15
+   },
+   "tried": 7,
+   "found": 1,
+   "reasons": {
+    "быстрая оценка вне зоны после поправок": 1,
+    "evaluate: не тот класс по быстрой оценке": 5
+   }
+  }
+ ],
+ "tune": {
+  "Normal|links|after-hard": {
+   "t": 0.45,
+   "cols": 4,
+   "offset": -2.3,
+   "quick": 0.9,
+   "at": "2026-11-05"
+  }
+ },
+ "placed": [
+  "P0269-Nlinks-g1105-6"
+ ]
+}

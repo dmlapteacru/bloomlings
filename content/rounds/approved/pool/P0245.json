@@ -1,7 +1,7 @@
 {
  "code": "P0245",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0137",
  "version": 1,
  "title": "Чайка ворует картошку фри",
  "theme": "Смешные и абсурдные герои",

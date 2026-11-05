@@ -1,0 +1,31 @@
+{
+ "picture": "P0299",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|links+cells||tune|after-hard|2026-11-05",
+   "tune": {
+    "slot": "after-hard",
+    "t": null,
+    "attempts": 5,
+    "quick": 17,
+    "evaluated": 4,
+    "seconds": 39
+   },
+   "tried": 5,
+   "found": 0,
+   "reasons": {
+    "связки ловушками: очередь сама остаётся выше зоны": 1,
+    "evaluate: не тот класс по быстрой оценке": 4,
+    "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
+   }
+  }
+ ],
+ "tune": {
+  "Normal|links+cells|after-hard": {
+   "trap": true,
+   "offset": 0.66
+  }
+ }
+}

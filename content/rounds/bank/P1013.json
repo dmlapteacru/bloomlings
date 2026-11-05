@@ -1,0 +1,29 @@
+{
+ "picture": "P1013",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|canal+hidden||tune|2026-11-05",
+   "tune": {
+    "slot": "regular",
+    "t": null,
+    "attempts": 3,
+    "quick": 9,
+    "evaluated": 0,
+    "seconds": 13
+   },
+   "tried": 3,
+   "found": 0,
+   "reasons": {
+    "быстрая оценка вне зоны после поправок": 2,
+    "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
+   }
+  }
+ ],
+ "tune": {
+  "Normal|canal+hidden|regular": {
+   "offset": -1.46
+  }
+ }
+}

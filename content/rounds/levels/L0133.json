@@ -1,0 +1,566 @@
+{
+ "level": 133,
+ "cls": "Normal",
+ "intro": null,
+ "gen": "2026-11-05",
+ "picture": "P0027",
+ "candidate": "P0027-Nshutters+cells-g1105-0",
+ "recipe": "shutters+cells",
+ "N": 975,
+ "W": 975,
+ "colours": 7,
+ "P": 24,
+ "columns": 3,
+ "linked": 0,
+ "hidden": 0,
+ "cells": 49,
+ "random": {
+  "runs": 400,
+  "wins": 218,
+  "share": 0.545,
+  "wilson95": [
+   0.496,
+   0.593
+  ],
+  "cls": "Normal",
+  "borderline": true,
+  "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+  "seedBase": 1
+ },
+ "solution": {
+  "route": [
+   {
+    "type": "tap",
+    "pod": 21
+   },
+   {
+    "type": "tap",
+    "pod": 12
+   },
+   {
+    "type": "tap",
+    "pod": 13
+   },
+   {
+    "type": "tap",
+    "pod": 18
+   },
+   {
+    "type": "tap",
+    "pod": 0
+   },
+   {
+    "type": "tap",
+    "pod": 16
+   },
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 20
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 19
+   },
+   {
+    "type": "tap",
+    "pod": 11
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 17
+   },
+   {
+    "type": "tap",
+    "pod": 23
+   },
+   {
+    "type": "tap",
+    "pod": 22
+   },
+   {
+    "type": "tap",
+    "pod": 2
+   },
+   {
+    "type": "tap",
+    "pod": 14
+   },
+   {
+    "type": "tap",
+    "pod": 10
+   },
+   {
+    "type": "tap",
+    "pod": 7
+   },
+   {
+    "type": "tap",
+    "pod": 3
+   },
+   {
+    "type": "tap",
+    "pod": 9
+   },
+   {
+    "type": "tap",
+    "pod": 4
+   },
+   {
+    "type": "tap",
+    "pod": 15
+   }
+  ],
+  "forks": 1,
+  "singleSafe": 1,
+  "unknown": 0,
+  "fast": {
+   "status": "won",
+   "seconds": 105.8
+  }
+ },
+ "fairness": {
+  "checked": 12,
+  "unfair": 0,
+  "unknown": 0,
+  "fair": true,
+  "note": "перестановки материалов двух скрытых клеток разного цвета"
+ },
+ "strategies": {
+  "left-to-right|left": true,
+  "left-to-right|right": true,
+  "right-to-left|left": true,
+  "right-to-left|right": true,
+  "top-down|left": true,
+  "top-down|right": true,
+  "bottom-up|left": true,
+  "bottom-up|right": true,
+  "diagonal|left": true,
+  "diagonal|right": true,
+  "small-first|left": false,
+  "small-first|right": false,
+  "most-now|left": true,
+  "most-now|right": true,
+  "fast-release|left": true,
+  "fast-release|right": true
+ },
+ "rhythm": {
+  "segments": [
+   {
+    "from": 0,
+    "to": 20,
+    "meanFree": 3.17,
+    "minFree": 2,
+    "fullShare": 0,
+    "maxWaiting": 2
+   },
+   {
+    "from": 20,
+    "to": 40,
+    "meanFree": 1.91,
+    "minFree": 0,
+    "fullShare": 0.12,
+    "maxWaiting": 4
+   },
+   {
+    "from": 40,
+    "to": 60,
+    "meanFree": 3.64,
+    "minFree": 0,
+    "fullShare": 0,
+    "maxWaiting": 3
+   },
+   {
+    "from": 60,
+    "to": 80,
+    "meanFree": 4.33,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   },
+   {
+    "from": 80,
+    "to": 100,
+    "meanFree": 4.36,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   }
+  ],
+  "launchesAfter80": 4,
+  "lastLaunchAtW": 95,
+  "seconds": 478.4
+ },
+ "dosePos": 0.5,
+ "checks": {
+  "forced": 0.08,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": false,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.51,
+   "tight": 0.89
+  },
+  "calm": {
+   "runs": 400,
+   "wins": 204,
+   "share": 0.51,
+   "wilson95": [
+    0.461,
+    0.559
+   ],
+   "borderline": true,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 0,
+   "traps": 0,
+   "top": 0
+  },
+  "shutters": {
+   "shutters": [
+    {
+     "shutter": 0,
+     "material": "R",
+     "count": 65,
+     "cells": 56,
+     "atW": 0.496,
+     "command": 13,
+     "front": 11
+    }
+   ],
+   "lastOpenAtW": 0.496,
+   "ok": true,
+   "problems": [],
+   "notes": []
+  }
+ },
+ "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+ "definition": {
+  "id": 133,
+  "title": "Чайник-ракета",
+  "subject": "P0027",
+  "w": 48,
+  "h": 48,
+  "rowsBottomFirst": [
+   "########################.#######################",
+   "#..............................................#",
+   "#......................OO......................#",
+   "#.....................OOOO.....................#",
+   "#...................OOOYYOOO...................#",
+   "#.....R.............OOOYYOOO.............R.....#",
+   "#.....RRR..........OOOYYYYOOO..........RRR.....#",
+   "#.....RRRR.........OOOYYYYOOO.........RRRR.....#",
+   "#.....RRRRR........OOYYYYYYOO........RRRRR.....#",
+   "#.....RRRRRR.......OOOYYYYOOO.......RRRRRR.....#",
+   "#.....RRRRRRR.....NNOOYYYYOONN.....RRRRRRR.....#",
+   "#.....RRRRRRRRR...NNONNNNNNONN...RRRRRRRRR.....#",
+   "#.....RRRRRRRRRR..NNNNNNNNNNNN..RRRRRRRRRR.....#",
+   "#......RRRRRRRRRNNBBBBBBBBBNNNNNRRRRRRRRR......#",
+   "#.......RRRRRRBBBBBBBBBBBBBBBNNNNNRRRRRR.......#",
+   "#........RRRRBBBBBBBBBBBBBBBBBBNNNNRRRR........#",
+   "#.........RRBBBBBBBBBBBBBBBBBBBBNNNNRR.........#",
+   "#..........RBBBBBBBBBBBBBBBBBBBBBNNNR..........#",
+   "#..........BBBBBBBBBBBBBBBBBBBBBBBNNNNNNN......#",
+   "#.........BBBBBBBBBBBBBBBBBBBBBBBBBNNNNNNN.....#",
+   "#.........BBBBBBBBBBYYYYYYBBBBBBBBBNNNNNNNN....#",
+   "#.........BBBBBBBBBYYYSSYYYBBBBBBBBBNN.NNNN....#",
+   "#.........BBBBBBBBYYSSSSSSYYBBBBBBBBNN..NNNN...#",
+   "#........BBBBBBBBBYYSSSSSSYYBBBBBBBBBNN.NNNN...#",
+   "#.......BBBBBBBBBBYSSSSSSSSYBBBBBBBBBNN..NNN...#",
+   "#.......BBBBBBBBBBYSSCSSSSSYBBBBBBBBBNN..NNN...#",
+   "#......BBBBBCCBBBBYYSCCSSSYYBBBBBBBBBN...NNN...#",
+   "#.....BBBBBBCCBBBBYYSSSSSSYYBBBBBBBBBN..NNNN...#",
+   "#....BBBBBBBBCCBBBBYYYSSYYYBBBBBBBBBBN..NNNN...#",
+   "#....BBBBBBBBCCBBBBBYYYYYYBBBBBBBBBBNN.NNNN....#",
+   "#....BBBBB.BBBCCBBBBBBBBBBBBBBBBBBBBNNNNNNN....#",
+   "#....BBBBB..BBBCCBBBBBBBBBBBBBBBBBBBNNNNNN.....#",
+   "#...BBBBB...BNNNNNNNNNNNNNNNNNNNNNNNNNNNN......#",
+   "#...BBBB.....NNNNNNNNNNNNNNNNNNNNNN............#",
+   "#...RRRR........RRRRRRRRRRRRRRRR...............#",
+   "#...RRR..........RRRRRRRRRRRRRR................#",
+   "#...RRR...........RRRRRRRRRRRR.................#",
+   "#.................RRRRRRRRRRRR.................#",
+   "#..................RRRRRRRRRR..................#",
+   "#...................RRRRRRRR...................#",
+   "#....................RRRRRR....................#",
+   "#.....................RRRR.....................#",
+   "#......................RR......................#",
+   "#......................YY......................#",
+   "#......................YY......................#",
+   "#......................YY......................#",
+   "#..............................................#",
+   "################################################"
+  ],
+  "entries": [
+   24
+  ],
+  "capacity": 5,
+  "pods": [
+   {
+    "color": "Y",
+    "count": 26
+   },
+   {
+    "color": "Y",
+    "count": 25
+   },
+   {
+    "color": "Y",
+    "count": 25
+   },
+   {
+    "color": "R",
+    "count": 46
+   },
+   {
+    "color": "R",
+    "count": 46
+   },
+   {
+    "color": "R",
+    "count": 46
+   },
+   {
+    "color": "R",
+    "count": 45
+   },
+   {
+    "color": "R",
+    "count": 45
+   },
+   {
+    "color": "B",
+    "count": 56
+   },
+   {
+    "color": "B",
+    "count": 56
+   },
+   {
+    "color": "B",
+    "count": 55
+   },
+   {
+    "color": "B",
+    "count": 55
+   },
+   {
+    "color": "B",
+    "count": 55
+   },
+   {
+    "color": "B",
+    "count": 55
+   },
+   {
+    "color": "B",
+    "count": 55
+   },
+   {
+    "color": "N",
+    "count": 46
+   },
+   {
+    "color": "N",
+    "count": 46
+   },
+   {
+    "color": "N",
+    "count": 45
+   },
+   {
+    "color": "N",
+    "count": 45
+   },
+   {
+    "color": "C",
+    "count": 15
+   },
+   {
+    "color": "S",
+    "count": 21
+   },
+   {
+    "color": "S",
+    "count": 20
+   },
+   {
+    "color": "O",
+    "count": 23
+   },
+   {
+    "color": "O",
+    "count": 23
+   }
+  ],
+  "tray": [
+   [
+    21,
+    12,
+    13,
+    18,
+    0,
+    16,
+    6,
+    8
+   ],
+   [
+    20,
+    1,
+    19,
+    11,
+    5,
+    17,
+    23,
+    22
+   ],
+   [
+    2,
+    14,
+    10,
+    7,
+    3,
+    9,
+    4,
+    15
+   ]
+  ],
+  "recipe": "shutters+cells",
+  "shutters": [
+   {
+    "cells": [
+     941,
+     942,
+     943,
+     944,
+     945,
+     946,
+     947,
+     948,
+     989,
+     990,
+     991,
+     992,
+     993,
+     994,
+     995,
+     996,
+     1037,
+     1038,
+     1039,
+     1040,
+     1041,
+     1042,
+     1043,
+     1044,
+     1085,
+     1086,
+     1087,
+     1088,
+     1089,
+     1090,
+     1091,
+     1092,
+     1133,
+     1134,
+     1135,
+     1136,
+     1137,
+     1138,
+     1139,
+     1140,
+     1181,
+     1182,
+     1183,
+     1184,
+     1185,
+     1186,
+     1187,
+     1188,
+     1229,
+     1230,
+     1231,
+     1232,
+     1233,
+     1234,
+     1235,
+     1236
+    ],
+    "material": "R",
+    "count": 65
+   }
+  ],
+  "hiddenCells": [
+   692,
+   693,
+   694,
+   695,
+   740,
+   741,
+   742,
+   743,
+   788,
+   789,
+   790,
+   791,
+   836,
+   837,
+   838,
+   839,
+   884,
+   885,
+   886,
+   887,
+   932,
+   933,
+   934,
+   935,
+   980,
+   981,
+   982,
+   1028,
+   1029,
+   1030,
+   1076,
+   1077,
+   1078,
+   1124,
+   1125,
+   1126,
+   1172,
+   1173,
+   1174,
+   1220,
+   1221,
+   1222,
+   1268,
+   1269,
+   1270,
+   1317,
+   1318,
+   1365,
+   1366
+  ],
+  "difficulty": "Normal"
+ }
+}

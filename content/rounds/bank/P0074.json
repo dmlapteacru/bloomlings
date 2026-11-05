@@ -6930,7 +6930,36 @@
     "не тот класс по быстрой оценке": 60,
     "жадная стратегия выигрывает (§5)": 4
    }
+  },
+  {
+   "combo": "Normal|canal+links+latch||tune|2026-11-05",
+   "tune": {
+    "slot": "regular",
+    "t": 1,
+    "attempts": 2,
+    "quick": 3,
+    "evaluated": 1,
+    "seconds": 19
+   },
+   "tried": 2,
+   "found": 1,
+   "reasons": {
+    "связки ловушками: очередь сама остаётся выше зоны": 1,
+    "быстрая оценка вне зоны после поправок": 1
+   }
   }
  ],
- "placed": []
+ "placed": [
+  "P0074-Ncanal+links+latch-g1105-a-1"
+ ],
+ "tune": {
+  "Normal|canal+links+latch|regular": {
+   "trap": true,
+   "t": 1,
+   "cols": 4,
+   "offset": 2.09,
+   "quick": 0.65,
+   "at": "2026-11-05"
+  }
+ }
 }
