@@ -490,6 +490,9 @@ level (`objectsOf`) and refuses a recipe that does not match them.
   conformance fixtures. The saved-solution search (`level-stats/solve.mjs` `prefer`) tries an exit as soon as one may be
   chosen, exit 0 then exit 1, so the proof shows the choice; the simple strategies take an exit at once (left the first,
   right the last; `strategies.mjs bridgeFirst`, `perf/games.mjs heroChoices`), and forced decisions count taps only.
+- *Pictures.* Carving one cell for the spring and each exit is enough: no picture needs to be drawn with pockets.
+  `rounds.mjs plan` gives a channel position only a picture `placeChannel` finds places on (pool entries' `channel`,
+  `wave.mjs eligible`).
 - *Wave L101–L150* (`content/rounds/runs/L0101-L0150/mechanics.json`, the owner's plan of 2026-11-05): the Super Hards with
   a channel (110, 130, 150) are `by: "hand"` (`channelKind: "single"`: exactly one exit wins), skipped by `place`.
 
