@@ -85,6 +85,10 @@ The signature is hashed with SHA-256.
     (optional, equal to the proof's `randomTest.bridge`) is the only bridge choice the bot may build. Every other bridge
     action is left out of the moves before the choice (reference `measure.mjs randomTest`'s `keep`, C#
     `RoundRandomPolicy.KeepBridge`). Absent: every bridge may be built.
+  - A deciding-exit channel Super Hard's class test plays its winning exit only (rules 17 §5, the owner, 2026-11-05):
+    `random.exit` (optional, equal to the proof's `randomTest.exit`) is the only channel exit the bot may choose; every
+    other channel action is left out of the moves before the choice (reference `measure.mjs randomTest`'s `exit`,
+    `perf/games.mjs keepOf`; C# `RoundRandomPolicy.KeepExit`, `Keep(bridge, exit)`). Absent: every exit may be chosen.
 - **Owner attempts**:
   - advance to each `atUs` and commit; a refused command is recorded as refused, as in the pilot;
   - stop where the attempt ended (won, jammed, or left at `endUs`);

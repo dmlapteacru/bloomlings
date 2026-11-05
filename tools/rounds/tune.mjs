@@ -151,7 +151,7 @@ export function slotProblems(e,level,cls,slot,pic,planRecipe=null){const k=e.che
 // accentMode (levels.mjs build --accents), save() after each attempt, log. Returns {banked, accepted, stats, memory}:
 // banked = every candidate that passed evaluate (any measured class, for the bank), accepted = those in the zone that
 // pass the slot's filters.
-export async function tuneJob({pic,cls,recipe,slot=null,intro=false,want=1,wantLoss=false,attempts=64,minutes=Infinity,memory={},seed=1,accentMode='auto',maxColours=10,save=()=>{},log=()=>{},model=loadModel()}){
+export async function tuneJob({pic,cls,recipe,slot=null,intro=false,channelKind=null,want=1,wantLoss=false,attempts=64,minutes=Infinity,memory={},seed=1,accentMode='auto',maxColours=10,save=()=>{},log=()=>{},model=loadModel()}){
  slot=slot||(intro?'intro':cls==='Normal'?'regular':cls);const zone=zoneFor(cls,slot),[lo,hi,aim]=zone,t0=Date.now(),breather=slot==='breather',planRecipe=recipe;
  let types=recipe==='none'?[]:recipe.split('+');
  // latches (17 §8, the owner's amendment of 2026-11-03): an introduction and a Normal one, a Hard three where the picture can
@@ -232,7 +232,7 @@ export async function tuneJob({pic,cls,recipe,slot=null,intro=false,want=1,wantL
   if(q<lo-.15||q>hi+.15){no('быстрая оценка вне зоны после поправок');continue;}
   // the class is set by the queue and its links: now the information overlays, without re-tuning
   const info=addInfo(level,rc,cls,{intro,pos,r:rnd(cseed^0x9e37)});if(info.error){no(info.error);continue;}level=info.level;
-  stats.evaluated++;const e=await LV.evaluate(level,{m:cm,cls,intro,fixed:null,breather});if(e.reason){no('evaluate: '+e.reason);log(`   evaluate: ${e.reason}`);continue;}
+  stats.evaluated++;const e=await LV.evaluate(level,{m:cm,cls,intro,fixed:null,breather,...(channelKind?{channelKind}:{})});if(e.reason){no('evaluate: '+e.reason);log(`   evaluate: ${e.reason}`);continue;}
   if(av)e.checks.accents=await LV.accentCheck(level,pic,av.accents,e.checks.pressure||null);
   stats.passed++;const x={k,t,cols,pos:posUsed,steps,level,m:cm,e,acc:av,recipe:rc,links:links&&{pairs:links.pairs.length,traps:links.pairs.filter(p=>p.trap).length,forced:links.forced,greedy:links.greedy},seconds:(Date.now()-t0)/1000};banked.push(x);
   const why=slotProblems(e,level,cls,slot,pic,breather?planRecipe:null),inZone=e.random.share>=lo&&e.random.share<=hi;

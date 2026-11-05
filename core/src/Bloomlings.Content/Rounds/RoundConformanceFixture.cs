@@ -96,11 +96,17 @@ namespace Bloomlings.Content.Rounds
             int randomWins,
             IReadOnlyList<RoundFixtureAttempt> owner,
             JObject document,
-            int? randomBridge = null)
+            int? randomBridge = null,
+            int? randomExit = null)
         {
             if (randomBridge < 0)
             {
                 throw new ArgumentOutOfRangeException(nameof(randomBridge));
+            }
+
+            if (randomExit < 0)
+            {
+                throw new ArgumentOutOfRangeException(nameof(randomExit));
             }
 
             Number = number;
@@ -114,6 +120,7 @@ namespace Bloomlings.Content.Rounds
             RandomSeedBase = randomSeedBase;
             RandomRuns = randomRuns;
             RandomBridge = randomBridge;
+            RandomExit = randomExit;
             Games = games;
             RandomWins = randomWins;
             Owner = owner;
@@ -145,6 +152,12 @@ namespace Bloomlings.Content.Rounds
         /// null when every bridge may be built. It equals the proof's <c>randomTest.bridge</c>.
         /// </summary>
         public int? RandomBridge { get; }
+
+        /// <summary>
+        /// A deciding-exit channel level's random games (rules 17 §5, the owner, 2026-11-05): the only channel exit the bot
+        /// may choose; null when every exit may be chosen. It equals the proof's <c>randomTest.exit</c>.
+        /// </summary>
+        public int? RandomExit { get; }
 
         public IReadOnlyList<RoundFixtureGame> Games { get; }
 

@@ -108,6 +108,11 @@
           "type": "integer",
           "minimum": 0,
           "description": "A bridge level's class test (rules 17 §5 as amended on 2026-10-30): the bot may build only this bridge choice; every other bridge action is left out of its moves. Absent: every bridge may be built."
+        },
+        "exit": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "A deciding-exit water channel level's class test (a Super Hard where exactly one exit wins; rules 17 §5, the owner, 2026-11-05): the bot may choose only this channel exit; every other channel action is left out of its moves. Absent: every exit may be chosen."
         }
       }
     },

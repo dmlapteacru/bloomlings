@@ -187,15 +187,55 @@ namespace Bloomlings.Core.Rounds
         }
 
         /// <summary>
+        /// The reference's narrowing for a deciding-exit water channel level's class test (<c>measure.mjs randomTest</c>'s
+        /// <c>exit</c>, <c>perf/games.mjs keepExit</c>; rules 17 §5, the owner, 2026-11-05: a Super Hard where exactly one exit
+        /// wins is measured with that exit): only channel exit <paramref name="exit"/> may be chosen, every pod and bridge
+        /// action stays; null for no narrowing.
+        /// </summary>
+        public static Func<RoundAction, bool>? KeepExit(int? exit)
+        {
+            if (exit == null)
+            {
+                return null;
+            }
+
+            int only = exit.Value;
+            return a => a.Type != RoundActionType.Channel || a.Exit == only;
+        }
+
+        /// <summary>
+        /// The narrowing of a class test (<c>perf/games.mjs keepOf</c>): at most one bridge choice
+        /// (<see cref="KeepBridge"/>) and at most one channel exit (<see cref="KeepExit"/>); null when neither is set.
+        /// </summary>
+        public static Func<RoundAction, bool>? Keep(int? bridge, int? exit)
+        {
+            Func<RoundAction, bool>? kb = KeepBridge(bridge);
+            Func<RoundAction, bool>? ke = KeepExit(exit);
+            if (kb == null)
+            {
+                return ke;
+            }
+
+            if (ke == null)
+            {
+                return kb;
+            }
+
+            return a => kb(a) && ke(a);
+        }
+
+        /// <summary>
         /// Plays a random test (reference <c>randomTest</c>): <paramref name="first"/> games, widened to
         /// <paramref name="max"/> in total when the Wilson interval crosses a class border. <paramref name="bridge"/>, for a
-        /// bridge level, is the only bridge the bot may build (<see cref="KeepBridge"/>).
+        /// bridge level, is the only bridge the bot may build (<see cref="KeepBridge"/>); <paramref name="exit"/>, for a
+        /// deciding-exit channel Super Hard, the only channel exit it may choose (<see cref="KeepExit"/>).
         /// </summary>
-        public static RoundRandomRun Test(RoundLevel level, long seedBase = 1, int first = 100, int max = 400, RoundProfile? profile = null, int? bridge = null)
+        public static RoundRandomRun Test(RoundLevel level, long seedBase = 1, int first = 100, int max = 400, RoundProfile? profile = null, int? bridge = null,
+            int? exit = null)
         {
             var games = new List<RoundRandomGame>(max);
             int wins = 0;
-            Func<RoundAction, bool>? keep = KeepBridge(bridge);
+            Func<RoundAction, bool>? keep = Keep(bridge, exit);
             void PlayMore(int count)
             {
                 for (int i = 0; i < count; i++)

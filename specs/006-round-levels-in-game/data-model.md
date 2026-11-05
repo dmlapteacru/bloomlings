@@ -133,7 +133,7 @@ Each is recorded with its µs time and replays deterministically. None is used i
 | Field | Meaning |
 |---|---|
 | `solution` | `{commands: [{type, pod? / choice?, atUs}], outcome: "Won", endUs}`; the patient replay of the reference: each command when all prior work has settled |
-| `randomTest` | `{policy: "17§5 extended: uniform over legal actions + wait before a state event", seedBase, runs (100 / 400), wins, share, wilson95, classOfShare, borderline?, bridge?}`; `bridge`, on a bridge level from wave L21–L50 on, is the only bridge choice the test's bot may build (17 §5 as amended on 2026-10-30) |
+| `randomTest` | `{policy: "17§5 extended: uniform over legal actions + wait before a state event", seedBase, runs (100 / 400), wins, share, wilson95, classOfShare, borderline?, bridge?, exit?}`; `bridge`, on a bridge level from wave L21–L50 on, is the only bridge choice the test's bot may build (17 §5 as amended on 2026-10-30); `exit`, on a Super Hard whose water channel decides (exactly one exit wins), the only channel exit it may choose (17 §5, the owner, 2026-11-05) |
 | `checks` | `{opening, forced, hold, greedyLoses, hiddenMatters, bridgeKind, bridgeSingle, pressure}`, as computed by `tools/rounds/measure.mjs` |
 | `audit` | `{result: "OK", report: "content/rounds/audit-L####-L####.md", notes[]}` (layer B notes included) |
 | `engine` | fingerprints |
