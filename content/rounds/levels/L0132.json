@@ -5,17 +5,17 @@
  "breather": true,
  "zoneMiss": true,
  "gen": "2026-11-05",
- "picture": "P0408",
- "candidate": "P0408-Ncells-g1105-br-0",
+ "picture": "P0384",
+ "candidate": "P0384-Ncells-g1105-br-0",
  "recipe": "cells",
- "N": 376,
- "W": 376,
- "colours": 5,
- "P": 11,
+ "N": 385,
+ "W": 385,
+ "colours": 6,
+ "P": 13,
  "columns": 3,
  "linked": 0,
  "hidden": 0,
- "cells": 29,
+ "cells": 32,
  "random": {
   "runs": 100,
   "wins": 100,
@@ -33,27 +33,15 @@
   "route": [
    {
     "type": "tap",
-    "pod": 7
-   },
-   {
-    "type": "tap",
-    "pod": 6
-   },
-   {
-    "type": "tap",
     "pod": 9
    },
    {
     "type": "tap",
-    "pod": 4
+    "pod": 1
    },
    {
     "type": "tap",
-    "pod": 8
-   },
-   {
-    "type": "tap",
-    "pod": 10
+    "pod": 11
    },
    {
     "type": "tap",
@@ -69,11 +57,31 @@
    },
    {
     "type": "tap",
+    "pod": 12
+   },
+   {
+    "type": "tap",
     "pod": 5
    },
    {
     "type": "tap",
-    "pod": 1
+    "pod": 10
+   },
+   {
+    "type": "tap",
+    "pod": 7
+   },
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 4
+   },
+   {
+    "type": "tap",
+    "pod": 8
    }
   ],
   "forks": 0,
@@ -81,7 +89,7 @@
   "unknown": 0,
   "fast": {
    "status": "won",
-   "seconds": 38.2
+   "seconds": 40.3
   }
  },
  "fairness": {
@@ -97,23 +105,23 @@
    {
     "from": 0,
     "to": 20,
-    "meanFree": 2.74,
-    "minFree": 2,
+    "meanFree": 3.37,
+    "minFree": 3,
     "fullShare": 0,
-    "maxWaiting": 2
+    "maxWaiting": 1
    },
    {
     "from": 20,
     "to": 40,
-    "meanFree": 4.21,
-    "minFree": 3,
+    "meanFree": 4.31,
+    "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
    },
    {
     "from": 40,
     "to": 60,
-    "meanFree": 4.32,
+    "meanFree": 4.28,
     "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
@@ -121,7 +129,7 @@
    {
     "from": 60,
     "to": 80,
-    "meanFree": 4.36,
+    "meanFree": 4.28,
     "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
@@ -129,20 +137,20 @@
    {
     "from": 80,
     "to": 100,
-    "meanFree": 4.39,
+    "meanFree": 4.48,
     "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
    }
   ],
-  "launchesAfter80": 2,
-  "lastLaunchAtW": 92,
-  "seconds": 146.9
+  "launchesAfter80": 3,
+  "lastLaunchAtW": 97,
+  "seconds": 173.7
  },
  "dosePos": null,
  "checks": {
   "breather": true,
-  "forced": 0.17,
+  "forced": 0.14,
   "opening": null,
   "hold": null,
   "greedyLoses": null,
@@ -150,8 +158,8 @@
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 0.98,
-   "tight": 0.78
+   "stuck": 0.54,
+   "tight": 0.76
   },
   "traps": {
    "links": 0,
@@ -162,141 +170,157 @@
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
  "definition": {
   "id": 132,
-  "title": "Ювелирный стол в кольце",
-  "subject": "P0408",
-  "w": 24,
-  "h": 29,
+  "title": "Башня стоит на собственном ключе",
+  "subject": "P0384",
+  "w": 31,
+  "h": 32,
   "rowsBottomFirst": [
-   "############.###########",
-   "#......................#",
-   "#.......YYYYYYYY.......#",
-   "#.....AAYYYYYYYYAA.....#",
-   "#....YYAAYYYYYYAAYY....#",
-   "#...YYYAACCCCCCAAYYY...#",
-   "#..YYYYAACCCCCCAAYYYY..#",
-   "#..YYYAAAAAAAAAAAAYYY..#",
-   "#.YYYYAAAAAAAAAAAAAYYY.#",
-   "#.YYYCCCCCCCCCCCCCCYYY.#",
-   "#.YYYCCCCCCCBCCCCCCYYY.#",
-   "#.YYYCCCECCBBBCCCCCYYY.#",
-   "#.YYYCCEECCBBBCCCCCYYY.#",
-   "#.YYYCCECCCCBBCCCCCYYY.#",
-   "#.YYYCCCCCCCCCCCCCCYYY.#",
-   "#.YYYYCCCCCCCCCCCCYYYY.#",
-   "#..YYYCCCCCCCCCCCCYYY..#",
-   "#..YYYYYCCCCCCCCCYYYY..#",
-   "#...YYYYYCCCCCCYYYYY...#",
-   "#....YYYYYBBBBYYYYY....#",
-   "#.....YYYBBBBBYYYY.....#",
-   "#......EEBBBBBBBE......#",
-   "#......EBBBBBBBBE......#",
-   "#......EBBBBBBBBE......#",
-   "#.......BBBBBBBB.......#",
-   "#.......BBBBBBBB.......#",
-   "#........EEEEEE........#",
-   "#......................#",
-   "########################"
+   "###############.###############",
+   "#.............................#",
+   "#.................EEEE........#",
+   "#....EEEE.........YYYE........#",
+   "#..YYYYYYY........YYYE..EEEE..#",
+   "#..YYYYYYYE.......YYYE..YYYE..#",
+   "#.YYYYCYYEEEEEEEEEYYYYYYYYYE..#",
+   "#.YYYCCCYEYYYYYYYYYYYYYYYYYYE.#",
+   "#.YYYCCCCEYYYYYYYYYYYYYYYYYYE.#",
+   "#.YYYYCCYEYYYYYYYYYYYYYYYYYYE.#",
+   "#.YYYYYYYEEEEEECCCAAACCCEEEEE.#",
+   "#..YYYYYYYE...ECCCAAACCCE.....#",
+   "#...YYYYYY....ECCCAAACCCE.....#",
+   "#.............ECCCAAACCCE.....#",
+   "#.............ECCCCCCCCCE.....#",
+   "#.............ECCCCCCCCCE.....#",
+   "#.............ECCCBBBCCCE.....#",
+   "#.............ECCCBBBCCCE.....#",
+   "#.............ECCCBBBCCCE.....#",
+   "#.............ECCCBBBCCCE.....#",
+   "#.............ECCCCCCCCCE.....#",
+   "#.............ECCCCCCCCCE.....#",
+   "#...........EEECCCCCCCCCEEE...#",
+   "#...........ERRRRRRRRRRRRRE...#",
+   "#............RRRRRRRRRRRRR....#",
+   "#.............RRRRRRRRRR......#",
+   "#..............RRRRRRRR.......#",
+   "#...............RRRRRR........#",
+   "#................RRRR.........#",
+   "#.................RR..........#",
+   "#.............................#",
+   "###############################"
   ],
   "entries": [
-   12
+   15
   ],
   "capacity": 5,
   "pods": [
    {
-    "color": "E",
-    "count": 17
-   },
-   {
-    "color": "B",
-    "count": 29
-   },
-   {
-    "color": "B",
+    "color": "R",
     "count": 28
    },
    {
-    "color": "Y",
-    "count": 47
+    "color": "R",
+    "count": 28
    },
    {
-    "color": "Y",
-    "count": 46
+    "color": "E",
+    "count": 25
    },
    {
-    "color": "Y",
-    "count": 46
+    "color": "E",
+    "count": 25
    },
    {
-    "color": "C",
-    "count": 41
-   },
-   {
-    "color": "C",
-    "count": 41
+    "color": "E",
+    "count": 25
    },
    {
     "color": "C",
-    "count": 40
+    "count": 35
+   },
+   {
+    "color": "C",
+    "count": 34
+   },
+   {
+    "color": "C",
+    "count": 34
+   },
+   {
+    "color": "B",
+    "count": 12
    },
    {
     "color": "A",
-    "count": 21
+    "count": 12
    },
    {
-    "color": "A",
-    "count": 20
+    "color": "Y",
+    "count": 43
+   },
+   {
+    "color": "Y",
+    "count": 42
+   },
+   {
+    "color": "Y",
+    "count": 42
    }
   ],
   "tray": [
    [
-    7,
-    6,
     9,
-    4
-   ],
-   [
-    8,
-    10,
+    1,
+    11,
     0,
     3
    ],
    [
     2,
+    12,
     5,
-    1
+    10
+   ],
+   [
+    7,
+    6,
+    4,
+    8
    ]
   ],
   "recipe": "cells",
   "hiddenCells": [
-   125,
-   126,
-   127,
-   128,
-   149,
-   150,
-   151,
-   152,
-   173,
-   174,
-   175,
-   176,
-   198,
-   199,
-   200,
-   348,
-   349,
-   372,
-   373,
-   374,
-   396,
-   397,
-   398,
+   191,
+   192,
+   193,
+   194,
+   195,
+   222,
+   223,
+   224,
+   225,
+   226,
+   253,
+   254,
+   255,
+   256,
+   257,
+   286,
+   326,
+   327,
+   328,
+   329,
+   357,
+   358,
+   359,
+   360,
+   388,
+   389,
+   390,
+   391,
+   419,
    420,
    421,
-   422,
-   444,
-   445,
-   446
+   422
   ],
   "difficulty": "Normal"
  }

@@ -1,7 +1,7 @@
 {
  "code": "P0267",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0147",
  "version": 1,
  "title": "Bloom с подозрительным прищуром",
  "theme": "Мемные и абсурдные герои",

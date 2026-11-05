@@ -4,12 +4,12 @@
  "intro": null,
  "gen": "2026-11-05",
  "picture": "P0234",
- "candidate": "P0234-Ncanal+links-g1105-a-28",
+ "candidate": "P0234-Ncanal+links-g1105-6",
  "recipe": "canal+links",
  "N": 957,
  "W": 957,
- "colours": 9,
- "P": 27,
+ "colours": 8,
+ "P": 26,
  "columns": 4,
  "linked": 2,
  "hidden": 0,
@@ -30,91 +30,11 @@
   "route": [
    {
     "type": "tap",
-    "pod": 5
-   },
-   {
-    "type": "tap",
-    "pod": 12
-   },
-   {
-    "type": "tap",
-    "pod": 1
-   },
-   {
-    "type": "tap",
-    "pod": 20
-   },
-   {
-    "type": "tap",
-    "pod": 3
-   },
-   {
-    "type": "tap",
-    "pod": 4
-   },
-   {
-    "type": "tap",
-    "pod": 26
-   },
-   {
-    "type": "tap",
-    "pod": 0
+    "pod": 9
    },
    {
     "type": "tap",
     "pod": 13
-   },
-   {
-    "type": "channel",
-    "exit": 0
-   },
-   {
-    "type": "tap",
-    "pod": 6
-   },
-   {
-    "type": "tap",
-    "pod": 11
-   },
-   {
-    "type": "tap",
-    "pod": 15
-   },
-   {
-    "type": "tap",
-    "pod": 21
-   },
-   {
-    "type": "tap",
-    "pod": 24
-   },
-   {
-    "type": "tap",
-    "pod": 2
-   },
-   {
-    "type": "tap",
-    "pod": 7
-   },
-   {
-    "type": "tap",
-    "pod": 8
-   },
-   {
-    "type": "tap",
-    "pod": 17
-   },
-   {
-    "type": "tap",
-    "pod": 14
-   },
-   {
-    "type": "tap",
-    "pod": 22
-   },
-   {
-    "type": "tap",
-    "pod": 16
    },
    {
     "type": "tap",
@@ -122,7 +42,47 @@
    },
    {
     "type": "tap",
-    "pod": 10
+    "pod": 3
+   },
+   {
+    "type": "channel",
+    "exit": 0
+   },
+   {
+    "type": "tap",
+    "pod": 12
+   },
+   {
+    "type": "tap",
+    "pod": 24
+   },
+   {
+    "type": "tap",
+    "pod": 16
+   },
+   {
+    "type": "tap",
+    "pod": 7
+   },
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 25
+   },
+   {
+    "type": "tap",
+    "pod": 21
+   },
+   {
+    "type": "tap",
+    "pod": 22
+   },
+   {
+    "type": "tap",
+    "pod": 0
    },
    {
     "type": "tap",
@@ -130,19 +90,55 @@
    },
    {
     "type": "tap",
-    "pod": 9
+    "pod": 10
    },
    {
     "type": "tap",
     "pod": 18
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 15
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 2
+   },
+   {
+    "type": "tap",
+    "pod": 4
+   },
+   {
+    "type": "tap",
+    "pod": 20
+   },
+   {
+    "type": "tap",
+    "pod": 11
+   },
+   {
+    "type": "tap",
+    "pod": 14
    }
   ],
-  "forks": 2,
+  "forks": 1,
   "singleSafe": 0,
   "unknown": 0,
   "fast": {
    "status": "won",
-   "seconds": 123.6
+   "seconds": 90.3
   }
  },
  "fairness": {
@@ -150,16 +146,16 @@
   "checked": 0
  },
  "strategies": {
-  "left-to-right|left": false,
-  "left-to-right|right": false,
-  "right-to-left|left": false,
-  "right-to-left|right": false,
+  "left-to-right|left": true,
+  "left-to-right|right": true,
+  "right-to-left|left": true,
+  "right-to-left|right": true,
   "top-down|left": true,
   "top-down|right": true,
-  "bottom-up|left": false,
-  "bottom-up|right": false,
+  "bottom-up|left": true,
+  "bottom-up|right": true,
   "diagonal|left": true,
-  "diagonal|right": true,
+  "diagonal|right": false,
   "small-first|left": false,
   "small-first|right": false,
   "most-now|left": true,
@@ -172,23 +168,23 @@
    {
     "from": 0,
     "to": 20,
-    "meanFree": 1.29,
+    "meanFree": 0.95,
     "minFree": 0,
-    "fullShare": 0.24,
-    "maxWaiting": 3
+    "fullShare": 0.34,
+    "maxWaiting": 4
    },
    {
     "from": 20,
     "to": 40,
-    "meanFree": 2.49,
-    "minFree": 0,
-    "fullShare": 0.13,
-    "maxWaiting": 3
+    "meanFree": 2.95,
+    "minFree": 1,
+    "fullShare": 0,
+    "maxWaiting": 2
    },
    {
     "from": 40,
     "to": 60,
-    "meanFree": 3.34,
+    "meanFree": 4.06,
     "minFree": 3,
     "fullShare": 0,
     "maxWaiting": 1
@@ -196,7 +192,7 @@
    {
     "from": 60,
     "to": 80,
-    "meanFree": 3.76,
+    "meanFree": 4.06,
     "minFree": 3,
     "fullShare": 0,
     "maxWaiting": 1
@@ -204,17 +200,17 @@
    {
     "from": 80,
     "to": 100,
-    "meanFree": 4.42,
+    "meanFree": 4.39,
     "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
    }
   ],
-  "launchesAfter80": 7,
-  "lastLaunchAtW": 98,
-  "seconds": 429.3
+  "launchesAfter80": 4,
+  "lastLaunchAtW": 94,
+  "seconds": 422.2
  },
- "dosePos": 1,
+ "dosePos": 0.5,
  "checks": {
   "forced": 0.09,
   "opening": null,
@@ -224,16 +220,16 @@
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 1.4,
+   "stuck": 1.29,
    "tight": 0.87
   },
   "calm": {
    "runs": 200,
-   "wins": 139,
-   "share": 0.695,
+   "wins": 160,
+   "share": 0.8,
    "wilson95": [
-    0.628,
-    0.755
+    0.739,
+    0.85
    ],
    "borderline": false,
    "protocol": "§5 calm: uniform over legal actions, the board settled before each",
@@ -249,40 +245,17 @@
     {
      "exit": 0,
      "win": true,
-     "share": 0.65
+     "share": 0.82
     },
     {
      "exit": 1,
      "win": true,
-     "share": 0.72
+     "share": 0.53
     }
    ],
-   "gap": 0.07,
+   "gap": 0.29,
    "decides": false,
-   "better": 1
-  },
-  "accents": {
-   "materials": [
-    {
-     "code": "W",
-     "name": "Снег",
-     "from": "N",
-     "cells": 3,
-     "clusters": 1,
-     "pods": [
-      {
-       "pod": 12,
-       "count": 3,
-       "row": 1
-      }
-     ]
-    }
-   ],
-   "cells": 3,
-   "pressure": {
-    "with": 1.4,
-    "without": 0.86
-   }
+   "better": 0
   }
  },
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -299,7 +272,7 @@
    "#.NNNNNNOOOOONNNOOOOONNNNNNNNNNN.#",
    "#.NNNAAAAAAAAAAAAAAAAAAAANNNNNNN.#",
    "#.NNNNAAAAAAAAAAEEAAAAAANNNNNNNN.#",
-   "#.NNNNAAAAAAAAAAEE.AAAAANNNNNNNN.#",
+   "#.NNNNAAAAAAAAA.EEAAAAAANNNNNNNN.#",
    "#.NNNNAAAAAAAAAAAAAAAAAANNNEENNN.#",
    "#.NNNNEEEEEEEEEEEEEEEEEEENEEENNN.#",
    "#.NNNNEEEEEEEEEEEEEEEEEE.YYYYNNN.#",
@@ -322,7 +295,7 @@
    "#.NNNNNNAAAAAAAAAAAAAANNNNNNNNNN.#",
    "#.NNNNNNNAAAAAAAAAAAANNNNNNNNNNN.#",
    "#.NNNNNNNNNAAAAAAAANNNNNNNNNNNNN.#",
-   "#.NNNNNNNNNNNEEEENNNNWWWNNNNNNNN.#",
+   "#.NNNNNNNNNNNEEEENNNNNNNNNNNNNNN.#",
    "#.NNNNNNNNNNNEEEENNNNNNNNNNNNNNN.#",
    "#.NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN.#",
    "#.NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN.#",
@@ -357,36 +330,32 @@
    },
    {
     "color": "N",
-    "count": 55,
+    "count": 55
+   },
+   {
+    "color": "N",
+    "count": 55
+   },
+   {
+    "color": "N",
+    "count": 55
+   },
+   {
+    "color": "N",
+    "count": 55
+   },
+   {
+    "color": "E",
+    "count": 24,
     "group": "A"
    },
    {
-    "color": "N",
-    "count": 54
-   },
-   {
-    "color": "N",
-    "count": 54
-   },
-   {
-    "color": "N",
-    "count": 54
-   },
-   {
     "color": "E",
     "count": 24
    },
    {
     "color": "E",
     "count": 24
-   },
-   {
-    "color": "E",
-    "count": 24
-   },
-   {
-    "color": "W",
-    "count": 3
    },
    {
     "color": "A",
@@ -410,7 +379,8 @@
    },
    {
     "color": "Y",
-    "count": 23
+    "count": 23,
+    "group": "A"
    },
    {
     "color": "Y",
@@ -438,8 +408,7 @@
    },
    {
     "color": "O",
-    "count": 19,
-    "group": "A"
+    "count": 19
    },
    {
     "color": "O",
@@ -448,39 +417,38 @@
   ],
   "tray": [
    [
-    5,
-    12,
-    1,
-    20,
+    9,
+    13,
+    19,
     3,
-    26,
+    12,
+    24,
+    16
+   ],
+   [
+    17,
+    7,
+    6,
+    25,
+    21,
+    22,
     0
    ],
    [
-    4,
-    13,
-    6,
-    11,
-    15,
-    21,
-    24
-   ],
-   [
-    25,
-    2,
-    7,
-    8,
-    17,
-    14,
-    22
-   ],
-   [
-    16,
-    19,
-    10,
     23,
-    9,
-    18
+    10,
+    18,
+    5,
+    8,
+    15
+   ],
+   [
+    1,
+    2,
+    4,
+    20,
+    11,
+    14
    ]
   ],
   "recipe": "canal+links",
@@ -489,7 +457,7 @@
    "sites": [],
    "keys": [
     [
-     16,
+     13,
      27
     ],
     [
@@ -502,32 +470,12 @@
     ]
    ]
   },
-  "recolor": [
-   [
-    19,
-    4,
-    "W"
-   ],
-   [
-    20,
-    4,
-    "W"
-   ],
-   [
-    21,
-    4,
-    "W"
-   ]
-  ],
   "channel": {
-   "spring": 222,
+   "spring": 219,
    "exits": [
     {
      "cell": 860,
      "route": [
-      222,
-      221,
-      220,
       219,
       218,
       217,
@@ -554,11 +502,14 @@
       826,
       860
      ],
-     "rideUs": 1620000
+     "rideUs": 1440000
     },
     {
      "cell": 330,
      "route": [
+      219,
+      220,
+      221,
       222,
       223,
       224,
@@ -570,7 +521,7 @@
       296,
       330
      ],
-     "rideUs": 540000
+     "rideUs": 720000
     }
    ]
   },

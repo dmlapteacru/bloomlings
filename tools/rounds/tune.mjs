@@ -184,8 +184,9 @@ export async function tuneJob({pic,cls,recipe,slot=null,intro=false,channelKind=
  const mem=memory;const banked=[],accepted=[];let offset=mem.offset||0,nOff=mem.offset!=null?2:0,tooEasy=0,tooHard=0,landed=false,trapMode=!!mem.trap;
  if(breather&&mem.pair&&!types.includes('links'))toPair();
  for(let k=0;k<Math.min(64,attempts)&&(Date.now()-t0)<minutes*60000;k++){
-  // (wantLoss keeps going for a level "most work now" loses, up to four accepted)
-  if(accepted.length>=want&&(!wantLoss||accepted.length>=Math.max(want,4)||accepted.some(x=>x.e.checks.greedyLoses)))break;
+  // (wantLoss keeps going for a level "most work now" loses, up to six accepted; a loser whose class is borderline by
+  // Wilson does not stop it: the placer takes a borderline level last, and the losers of «по цветам» sit low in the zone)
+  if(accepted.length>=want&&(!wantLoss||accepted.length>=Math.max(want,6)||accepted.some(x=>x.e.checks.greedyLoses&&!x.e.random.borderline)))break;
   stats.attempts++;const cs=columnsFor(m.N),cols=mem.cols&&cs.includes(mem.cols)&&k%3!==2?mem.cols:cs[k%cs.length],cseed=seed*1000003+k*7919+['Normal','Hard','Super Hard'].indexOf(cls)*31+(intro?17:0);
   const pos=recipe==='none'||intro||breather?null:trapMode?1:LV.DOSE_CYCLE[k%LV.DOSE_CYCLE.length],rc=recipe;
   // accents (17 §6), as levels.mjs build: this attempt paints 1–2 accent materials (the level's recolouring); never on a breather

@@ -1,7 +1,7 @@
 {
  "code": "P0384",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0132",
  "version": 1,
  "title": "Башня стоит на собственном ключе",
  "theme": "Невозможная архитектура",

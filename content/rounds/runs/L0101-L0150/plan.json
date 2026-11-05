@@ -3,7 +3,7 @@
   101,
   150
  ],
- "created": "2026-11-05T19:41:22.239Z",
+ "created": "2026-11-05T19:48:57.619Z",
  "positions": [
   {
    "level": 101,
@@ -225,8 +225,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0063"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 110,
@@ -459,8 +459,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0054"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 119,
@@ -485,8 +485,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0243"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 120,
@@ -822,8 +822,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0408"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 133,
@@ -876,8 +876,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P1102"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 135,
@@ -984,8 +984,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P1030"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 139,
@@ -1011,8 +1011,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0234"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 140,
@@ -1146,8 +1146,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0395"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 145,
@@ -1227,8 +1227,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P1113"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 148,
@@ -1313,8 +1313,17 @@
   }
  ],
  "open": [
+  109,
   110,
+  118,
+  119,
   130,
+  132,
+  134,
+  138,
+  139,
+  144,
+  147,
   150
  ],
  "blockers": [],
@@ -1862,33 +1871,33 @@
   "sides": {}
  },
  "need": {
-  "Normal": 0,
+  "Normal": 9,
   "Hard": 0,
   "Super Hard": 3,
   "intro": 0,
   "bridge": 0
  },
  "supply": {
-  "pictures": 467,
-  "strong": 165,
+  "pictures": 476,
+  "strong": 170,
   "stream": 0,
   "bank": {
-   "знакомство: hidden": 24,
-   "Normal": 293,
+   "знакомство: hidden": 26,
+   "Normal": 359,
    "знакомство: cells": 14,
-   "знакомство: links": 20,
+   "знакомство: links": 22,
    "знакомство: latch": 2,
-   "Hard": 22,
-   "Super Hard": 9
+   "Hard": 24,
+   "Super Hard": 12
   },
   "packs": {
    "owner-0004-0008": 1,
    "owner-0010": 1,
    "batch-0011-env": 5,
-   "batch-0011": 19,
-   "batch-0061": 22,
+   "batch-0011": 20,
+   "batch-0061": 23,
    "batch-0168-C": 18,
-   "batch-0168-D": 13,
+   "batch-0168-D": 15,
    "batch-0168-E": 1,
    "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01": 40,
    "packs-0268-0467 · Необычные магазины": 6,
@@ -1896,20 +1905,20 @@
    "packs-0268-0467 · Праздники и карнавал": 7,
    "packs-0268-0467 · Доисторические находки": 8,
    "packs-0268-0467 · Невозможная архитектура": 8,
-   "packs-0268-0467 · Путешествия и походы": 8,
+   "packs-0268-0467 · Путешествия и походы": 9,
    "packs-0268-0467 · Обмен свойствами предметов": 9,
    "packs-0268-0467 · Уютная мистика": 8,
-   "packs-0268-0467 · Миниатюрные мастерские": 7,
+   "packs-0268-0467 · Миниатюрные мастерские": 8,
    "packs-0268-0467 · Ретрофутуризм": 7,
    "packs-0268-0467 · Новые герои игр": 1,
-   "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01": 178,
-   "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02": 93
+   "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01": 179,
+   "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02": 95
   },
   "latch": {
    "positions": [
     150
    ],
-   "pictures": 186
+   "pictures": 191
   },
   "overlay": {}
  },
@@ -2053,14 +2062,16 @@
    "intro": null,
    "recipe": "cells",
    "slot": "breather",
-   "picture": "P0063",
-   "title": "Вишенки",
-   "N": 271,
+   "picture": "P0373",
+   "title": "Янтарь с грозовым облаком",
+   "N": 386,
    "band": "400–700",
-   "pack": "batch-0061",
-   "hidden": 1,
-   "P": 9,
-   "placed": true
+   "pack": "packs-0268-0467 · Доисторические находки",
+   "hidden": 4,
+   "P": 12,
+   "tried": [
+    "P0063"
+   ]
   },
   {
    "level": 111,
@@ -2192,7 +2203,7 @@
    "pack": "batch-0011",
    "hidden": 4,
    "P": 24,
-   "placed": true
+   "wantLoss": true
   },
   {
    "level": 119,
@@ -2200,14 +2211,16 @@
    "intro": null,
    "recipe": "hidden",
    "slot": "breather",
-   "picture": "P0243",
-   "title": "Кактус в боксёрских перчатках",
-   "N": 336,
+   "picture": "P0220",
+   "title": "Гном с киркой",
+   "N": 378,
    "band": "400–700",
-   "pack": "batch-0168-D",
-   "hidden": 2,
-   "P": 14,
-   "placed": true
+   "pack": "batch-0168-C",
+   "hidden": 4,
+   "P": 13,
+   "tried": [
+    "P0243"
+   ]
   },
   {
    "level": 120,
@@ -2400,14 +2413,16 @@
    "intro": null,
    "recipe": "cells",
    "slot": "breather",
-   "picture": "P0408",
-   "title": "Ювелирный стол в кольце",
-   "N": 376,
+   "picture": "P0384",
+   "title": "Башня стоит на собственном ключе",
+   "N": 385,
    "band": "400–700",
-   "pack": "packs-0268-0467 · Миниатюрные мастерские",
-   "hidden": 1,
-   "P": 11,
-   "placed": true
+   "pack": "packs-0268-0467 · Невозможная архитектура",
+   "hidden": 3,
+   "P": 13,
+   "tried": [
+    "P0408"
+   ]
   },
   {
    "level": 133,
@@ -2437,8 +2452,7 @@
    "pack": "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02",
    "hidden": 4,
    "P": 18,
-   "wantLoss": true,
-   "placed": true
+   "wantLoss": true
   },
   {
    "level": 135,
@@ -2504,13 +2518,10 @@
    "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
    "hidden": 4,
    "P": 30,
-   "wantLoss": true,
-   "swappedFrom": "P1009",
-   "swaps": 1,
    "tried": [
     "P1009"
    ],
-   "placed": true
+   "wantLoss": true
   },
   {
    "level": 139,
@@ -2525,8 +2536,7 @@
    "pack": "batch-0168-D",
    "hidden": 7,
    "P": 27,
-   "wantLoss": true,
-   "placed": true
+   "wantLoss": true
   },
   {
    "level": 140,
@@ -2612,8 +2622,7 @@
    "pack": "packs-0268-0467 · Путешествия и походы",
    "hidden": 6,
    "P": 26,
-   "wantLoss": true,
-   "placed": true
+   "wantLoss": true
   },
   {
    "level": 145,
@@ -2656,14 +2665,16 @@
    "intro": null,
    "recipe": "hidden",
    "slot": "breather",
-   "picture": "P1113",
-   "title": "Морская свинка в шарфике",
-   "N": 428,
+   "picture": "P0267",
+   "title": "Bloom с подозрительным прищуром",
+   "N": 314,
    "band": "400–700",
-   "pack": "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02",
-   "hidden": 1,
-   "P": 18,
-   "placed": true
+   "pack": "batch-0168-E",
+   "hidden": 3,
+   "P": 9,
+   "tried": [
+    "P1113"
+   ]
   },
   {
    "level": 148,
@@ -2699,10 +2710,10 @@
  ],
  "assignMissing": [],
  "assignQuota": {
-  "800–1200": 0,
-  "700–900": 0,
-  "400–700": 0,
-  "1200–1500": 0
+  "800–1200": 5,
+  "700–900": 2,
+  "400–700": 1,
+  "1200–1500": 1
  },
  "hand": [
   110,
@@ -2722,7 +2733,7 @@
   },
   "strips": [],
   "scenes": [],
-  "sceneSources": 155,
+  "sceneSources": 161,
   "splits": [],
   "avoidMotifs": [
    "ретро-техника (10)",

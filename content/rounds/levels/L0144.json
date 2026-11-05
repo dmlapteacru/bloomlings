@@ -4,7 +4,7 @@
  "intro": null,
  "gen": "2026-11-05",
  "picture": "P0395",
- "candidate": "P0395-Ncanal+cells-g1105-2",
+ "candidate": "P0395-Ncanal+cells-g1105-0",
  "recipe": "canal+cells",
  "N": 895,
  "W": 895,
@@ -15,12 +15,12 @@
  "hidden": 0,
  "cells": 45,
  "random": {
-  "runs": 100,
-  "wins": 64,
-  "share": 0.64,
+  "runs": 400,
+  "wins": 224,
+  "share": 0.56,
   "wilson95": [
-   0.542,
-   0.727
+   0.511,
+   0.608
   ],
   "cls": "Normal",
   "borderline": false,
@@ -31,19 +31,31 @@
   "route": [
    {
     "type": "tap",
-    "pod": 22
+    "pod": 5
    },
    {
     "type": "tap",
-    "pod": 4
+    "pod": 8
    },
    {
     "type": "tap",
-    "pod": 7
+    "pod": 3
    },
    {
     "type": "tap",
-    "pod": 18
+    "pod": 11
+   },
+   {
+    "type": "tap",
+    "pod": 16
+   },
+   {
+    "type": "tap",
+    "pod": 2
+   },
+   {
+    "type": "channel",
+    "exit": 0
    },
    {
     "type": "tap",
@@ -51,23 +63,11 @@
    },
    {
     "type": "tap",
-    "pod": 5
+    "pod": 24
    },
    {
     "type": "tap",
-    "pod": 6
-   },
-   {
-    "type": "tap",
-    "pod": 25
-   },
-   {
-    "type": "tap",
-    "pod": 23
-   },
-   {
-    "type": "tap",
-    "pod": 12
+    "pod": 22
    },
    {
     "type": "tap",
@@ -79,15 +79,11 @@
    },
    {
     "type": "tap",
-    "pod": 19
+    "pod": 18
    },
    {
     "type": "tap",
-    "pod": 10
-   },
-   {
-    "type": "tap",
-    "pod": 2
+    "pod": 7
    },
    {
     "type": "tap",
@@ -95,15 +91,15 @@
    },
    {
     "type": "tap",
+    "pod": 25
+   },
+   {
+    "type": "tap",
     "pod": 1
    },
    {
     "type": "tap",
-    "pod": 0
-   },
-   {
-    "type": "channel",
-    "exit": 0
+    "pod": 23
    },
    {
     "type": "tap",
@@ -111,15 +107,11 @@
    },
    {
     "type": "tap",
-    "pod": 8
+    "pod": 4
    },
    {
     "type": "tap",
-    "pod": 16
-   },
-   {
-    "type": "tap",
-    "pod": 11
+    "pod": 19
    },
    {
     "type": "tap",
@@ -127,23 +119,31 @@
    },
    {
     "type": "tap",
-    "pod": 3
-   },
-   {
-    "type": "tap",
-    "pod": 24
+    "pod": 10
    },
    {
     "type": "tap",
     "pod": 15
+   },
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 12
+   },
+   {
+    "type": "tap",
+    "pod": 0
    }
   ],
-  "forks": 4,
-  "singleSafe": 2,
+  "forks": 0,
+  "singleSafe": 0,
   "unknown": 0,
   "fast": {
    "status": "won",
-   "seconds": 118.7
+   "seconds": 96.6
   }
  },
  "fairness": {
@@ -154,16 +154,16 @@
   "note": "перестановки материалов двух скрытых клеток разного цвета"
  },
  "strategies": {
-  "left-to-right|left": false,
-  "left-to-right|right": false,
-  "right-to-left|left": false,
-  "right-to-left|right": false,
+  "left-to-right|left": true,
+  "left-to-right|right": true,
+  "right-to-left|left": true,
+  "right-to-left|right": true,
   "top-down|left": true,
   "top-down|right": true,
   "bottom-up|left": false,
   "bottom-up|right": false,
   "diagonal|left": false,
-  "diagonal|right": false,
+  "diagonal|right": true,
   "small-first|left": false,
   "small-first|right": false,
   "most-now|left": true,
@@ -176,31 +176,31 @@
    {
     "from": 0,
     "to": 20,
-    "meanFree": 1.94,
-    "minFree": 0,
-    "fullShare": 0.15,
-    "maxWaiting": 4
+    "meanFree": 3.84,
+    "minFree": 3,
+    "fullShare": 0,
+    "maxWaiting": 1
    },
    {
     "from": 20,
     "to": 40,
-    "meanFree": 3.33,
-    "minFree": 1,
+    "meanFree": 3.81,
+    "minFree": 2,
     "fullShare": 0,
     "maxWaiting": 2
    },
    {
     "from": 40,
     "to": 60,
-    "meanFree": 4.33,
-    "minFree": 4,
+    "meanFree": 4.06,
+    "minFree": 3,
     "fullShare": 0,
-    "maxWaiting": 0
+    "maxWaiting": 1
    },
    {
     "from": 60,
     "to": 80,
-    "meanFree": 4.27,
+    "meanFree": 4.23,
     "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
@@ -208,19 +208,19 @@
    {
     "from": 80,
     "to": 100,
-    "meanFree": 4.41,
+    "meanFree": 4.36,
     "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
    }
   ],
   "launchesAfter80": 5,
-  "lastLaunchAtW": 97,
-  "seconds": 398.5
+  "lastLaunchAtW": 93,
+  "seconds": 415.8
  },
- "dosePos": 0.4,
+ "dosePos": 0.5,
  "checks": {
-  "forced": 0.1,
+  "forced": 0.06,
   "opening": null,
   "hold": true,
   "greedyLoses": false,
@@ -228,16 +228,16 @@
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 1.52,
-   "tight": 0.92
+   "stuck": 1.64,
+   "tight": 0.88
   },
   "calm": {
-   "runs": 400,
-   "wins": 238,
-   "share": 0.595,
+   "runs": 200,
+   "wins": 122,
+   "share": 0.61,
    "wilson95": [
-    0.546,
-    0.642
+    0.541,
+    0.675
    ],
    "borderline": false,
    "protocol": "§5 calm: uniform over legal actions, the board settled before each",
@@ -253,17 +253,17 @@
     {
      "exit": 0,
      "win": true,
-     "share": 0.67
+     "share": 0.48
     },
     {
      "exit": 1,
      "win": true,
-     "share": 0.65
+     "share": 0.63
     }
    ],
-   "gap": 0.02,
+   "gap": 0.15,
    "decides": false,
-   "better": 0
+   "better": 1
   }
  },
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -283,8 +283,8 @@
    "#.SRRRRREMMPPPPPPPPPPEEEBBBBBEMS.#",
    "#.SRRRRREEPPPPPPPPPPPPPEBBBBBESS.#",
    "#.SRRRRREEPPPPPPPPPPPPPEBBBBBESS.#",
-   "#.SRRRRREEPPPPPPPPPPPPPPBBBBBESS.#",
-   "#.SRRRRREPPPPPPPPPPPPPP.BBBBBESS.#",
+   "#.SRRRRRE.PPPPPPPPPPPPPPBBBBBESS.#",
+   "#.SRRRRREPPPPPPPPPPPPPPPBBBBBESS.#",
    "#.SRRRRREPPPPYYYYYYYPPPPPBBBBESS.#",
    "#.SRRRRRPPPYYYYPPPPYYYPPPBBBBESS.#",
    "#.SRRRRPPPYYYPPPPPPPPYYPPPBBBESS.#",
@@ -298,10 +298,10 @@
    "#.SRRRRRESSSSSSSSSSSSSSEBBBBBESS.#",
    "#.SRRRRRESSSSSSSSSSSSSSEBBBBBESS.#",
    "#.SRRRRRESSSSSSSSSSSSSSEBBBBBESS.#",
-   "#.SRRRRRE.SSSSSSSSSSSSSEBBBBBESS.#",
+   "#.SRRRRRESSSSSSSSSSSSSSE.BBBBESS.#",
    "#.SECCCCESSSSSSSSSSSSSSSCCCCCESS.#",
    "#.SECCCCSSSSSSSSSSSSSSSSCCCCESSS.#",
-   "#.SECCCSSSSSSSSSS.SSSSSSCCCCESSS.#",
+   "#.SECCCSSSSSSSSSSSSS.SSSCCCCESSS.#",
    "#.SSSNNSSSSSSSSSSSSSSSSSSENNESSS.#",
    "#.SSSNNSSSSSSSSSSSSSSSSSSENSSSSS.#",
    "#.SSSNESSSSSSSSSSSSSSSSSSENSSSSS.#",
@@ -314,6 +314,10 @@
   ],
   "capacity": 5,
   "pods": [
+   {
+    "color": "S",
+    "count": 59
+   },
    {
     "color": "S",
     "count": 59
@@ -335,12 +339,8 @@
     "count": 58
    },
    {
-    "color": "S",
-    "count": 58
-   },
-   {
     "color": "E",
-    "count": 35
+    "count": 34
    },
    {
     "color": "E",
@@ -384,11 +384,11 @@
    },
    {
     "color": "B",
-    "count": 27
+    "count": 26
    },
    {
     "color": "P",
-    "count": 40
+    "count": 41
    },
    {
     "color": "P",
@@ -421,36 +421,36 @@
   ],
   "tray": [
    [
-    22,
-    4,
-    7,
-    18,
+    5,
+    8,
+    3,
+    11,
+    16,
+    2,
     9,
-    6,
-    25,
-    23,
-    12
+    24
    ],
    [
-    5,
+    22,
     21,
     17,
-    19,
-    10,
-    2,
+    18,
+    7,
     13,
+    25,
     1,
-    0
+    23
    ],
    [
     20,
-    8,
-    16,
-    11,
+    4,
+    19,
     14,
-    3,
-    24,
-    15
+    10,
+    15,
+    6,
+    12,
+    0
    ]
   ],
   "recipe": "canal+cells",
@@ -459,25 +459,42 @@
    "sites": [],
    "keys": [
     [
-     15,
+     18,
      4
     ],
     [
-     7,
+     22,
      7
     ],
     [
-     21,
-     21
+     7,
+     22
     ]
    ]
   },
   "channel": {
-   "spring": 935,
+   "spring": 938,
    "exits": [
     {
-     "cell": 825,
+     "cell": 840,
      "route": [
+      938,
+      939,
+      940,
+      941,
+      942,
+      908,
+      874,
+      840
+     ],
+     "rideUs": 420000
+    },
+    {
+     "cell": 315,
+     "route": [
+      938,
+      937,
+      936,
       935,
       934,
       933,
@@ -489,88 +506,73 @@
       927,
       893,
       859,
-      825
+      825,
+      791,
+      757,
+      723,
+      689,
+      655,
+      621,
+      587,
+      553,
+      519,
+      485,
+      451,
+      417,
+      383,
+      349,
+      315
      ],
-     "rideUs": 660000
-    },
-    {
-     "cell": 363,
-     "route": [
-      935,
-      936,
-      937,
-      938,
-      939,
-      940,
-      941,
-      907,
-      873,
-      839,
-      805,
-      771,
-      737,
-      703,
-      669,
-      635,
-      601,
-      567,
-      533,
-      499,
-      465,
-      431,
-      397,
-      363
-     ],
-     "rideUs": 1380000
+     "rideUs": 1740000
     }
    ]
   },
   "hiddenCells": [
-   356,
-   357,
-   358,
-   390,
-   391,
-   392,
-   424,
-   425,
-   426,
-   458,
-   459,
-   460,
-   492,
-   493,
-   494,
+   453,
+   454,
+   455,
+   456,
+   487,
+   488,
+   489,
+   490,
+   521,
+   522,
+   523,
+   524,
+   556,
+   557,
+   558,
+   559,
+   590,
    591,
    592,
    593,
-   594,
-   595,
+   624,
    625,
    626,
    627,
-   628,
-   629,
-   659,
    660,
    661,
-   662,
-   663,
+   694,
+   695,
+   728,
+   729,
    767,
    768,
    769,
    770,
+   771,
    801,
    802,
    803,
    804,
+   805,
    835,
    836,
    837,
    838,
-   870,
-   871,
-   872
+   839
   ],
   "difficulty": "Normal"
  }

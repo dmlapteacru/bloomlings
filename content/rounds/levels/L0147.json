@@ -5,23 +5,23 @@
  "breather": true,
  "zoneMiss": true,
  "gen": "2026-11-05",
- "picture": "P1113",
- "candidate": "P1113-Nhidden-g1105-br-0",
+ "picture": "P0267",
+ "candidate": "P0267-Nhidden-g1105-br-0",
  "recipe": "hidden",
- "N": 428,
- "W": 428,
- "colours": 7,
- "P": 18,
+ "N": 314,
+ "W": 314,
+ "colours": 4,
+ "P": 9,
  "columns": 3,
  "linked": 0,
  "hidden": 2,
  "random": {
   "runs": 100,
-  "wins": 100,
-  "share": 1,
+  "wins": 98,
+  "share": 0.98,
   "wilson95": [
-   0.963,
-   1
+   0.93,
+   0.994
   ],
   "cls": "Normal",
   "borderline": false,
@@ -32,51 +32,7 @@
   "route": [
    {
     "type": "tap",
-    "pod": 3
-   },
-   {
-    "type": "tap",
-    "pod": 11
-   },
-   {
-    "type": "tap",
-    "pod": 17
-   },
-   {
-    "type": "tap",
-    "pod": 16
-   },
-   {
-    "type": "tap",
-    "pod": 10
-   },
-   {
-    "type": "tap",
-    "pod": 0
-   },
-   {
-    "type": "tap",
     "pod": 5
-   },
-   {
-    "type": "tap",
-    "pod": 2
-   },
-   {
-    "type": "tap",
-    "pod": 15
-   },
-   {
-    "type": "tap",
-    "pod": 8
-   },
-   {
-    "type": "tap",
-    "pod": 14
-   },
-   {
-    "type": "tap",
-    "pod": 6
    },
    {
     "type": "tap",
@@ -84,15 +40,11 @@
    },
    {
     "type": "tap",
-    "pod": 12
+    "pod": 8
    },
    {
     "type": "tap",
-    "pod": 9
-   },
-   {
-    "type": "tap",
-    "pod": 1
+    "pod": 0
    },
    {
     "type": "tap",
@@ -100,7 +52,19 @@
    },
    {
     "type": "tap",
-    "pod": 13
+    "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 3
+   },
+   {
+    "type": "tap",
+    "pod": 2
    }
   ],
   "forks": 0,
@@ -108,7 +72,7 @@
   "unknown": 0,
   "fast": {
    "status": "won",
-   "seconds": 53.5
+   "seconds": 36.3
   }
  },
  "fairness": {
@@ -124,52 +88,52 @@
    {
     "from": 0,
     "to": 20,
-    "meanFree": 3.83,
-    "minFree": 2,
+    "meanFree": 1,
+    "minFree": 1,
     "fullShare": 0,
-    "maxWaiting": 2
+    "maxWaiting": 3
    },
    {
     "from": 20,
     "to": 40,
-    "meanFree": 2.65,
-    "minFree": 2,
+    "meanFree": 1.52,
+    "minFree": 1,
     "fullShare": 0,
-    "maxWaiting": 2
+    "maxWaiting": 1
    },
    {
     "from": 40,
     "to": 60,
-    "meanFree": 3.25,
-    "minFree": 3,
+    "meanFree": 4.23,
+    "minFree": 4,
     "fullShare": 0,
-    "maxWaiting": 1
+    "maxWaiting": 0
    },
    {
     "from": 60,
     "to": 80,
     "meanFree": 4.34,
-    "minFree": 3,
+    "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
    },
    {
     "from": 80,
     "to": 100,
-    "meanFree": 4.45,
+    "meanFree": 4.35,
     "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
    }
   ],
-  "launchesAfter80": 3,
-  "lastLaunchAtW": 95,
-  "seconds": 266.4
+  "launchesAfter80": 1,
+  "lastLaunchAtW": 82,
+  "seconds": 89.6
  },
  "dosePos": null,
  "checks": {
   "breather": true,
-  "forced": 0.12,
+  "forced": 0.19,
   "opening": null,
   "hold": null,
   "greedyLoses": null,
@@ -177,8 +141,8 @@
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 0.69,
-   "tight": 0.88
+   "stuck": 0.72,
+   "tight": 0.65
   },
   "traps": {
    "links": 0,
@@ -189,143 +153,97 @@
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
  "definition": {
   "id": 147,
-  "title": "Морская свинка в шарфике",
-  "subject": "P1113",
-  "w": 27,
-  "h": 27,
+  "title": "Bloom с подозрительным прищуром",
+  "subject": "P0267",
+  "w": 24,
+  "h": 26,
   "rowsBottomFirst": [
-   "#############.#############",
-   "#.........................#",
-   "#...............MMM..M....#",
-   "#...AAOOCCCCCCCCMMMMMMMM..#",
-   "#.AAAAOOOCCMMMMCMMMMGGMM..#",
-   "#.AAAAAMMMGGGGGMMMMMGGGMM.#",
-   "#.AAAGGGMGGGGGMMMGGGMGMMM.#",
-   "#..MMGGGMGGGGGGMGGGGMMMM..#",
-   "#..MMMGGGMMMCMMMMMGGMMGG..#",
-   "#..MMMGCCCCCCCCCCCCMMGGGG.#",
-   "#..AMMCCCCCCPPPCCCCCCGGG..#",
-   "#..AAOCCCCCCPPPCCCCCCOAA..#",
-   "#..AAOOCCCCCCCCCCCCCOOAA..#",
-   "#..AAOOOCCCCCCCCCCCOOOAA..#",
-   "#..AAOOOOOCCCCCCCCOOOOAA..#",
-   "#..AAOOCDDCCCCCCCDDCOOAA..#",
-   "#..AAOOCDDDOCCCCDDDCOOAA..#",
-   "#...AAOCDDDOCCCCDDDCOAA...#",
-   "#...AAACCDOOCCCCCDCAAAA...#",
-   "#....AAAOOOOCCCCCAAAAA....#",
-   "#....APAAOOOCCCCCAAAAA....#",
-   "#....APPAAOOCCCCCAAPPP....#",
-   "#....AAAAAOOCCCCCAAPPP....#",
-   "#.....AAAACCCCCCCA.PP.....#",
-   "#..........CCCCC..........#",
-   "#.........................#",
-   "###########################"
+   "############.###########",
+   "#......................#",
+   "#.........RRRR.........#",
+   "#........RRRRRR........#",
+   "#.......RRRRRRRR.......#",
+   "#.......RRRRRRRR.......#",
+   "#..RRRRRRKKKKKKRRRRRR..#",
+   "#..RRRRRKKKKKKKKRRRRR..#",
+   "#.RRRRRKKKKKDDDDKRRRRR.#",
+   "#.RRRRKKKKKKKKKKKKRRRR.#",
+   "#.RRRRKKKKKKKKKKKKRRRR.#",
+   "#..RRKKKKKKKKKKKKKKRR..#",
+   "#...RKKDDDDKKDDDDKKRR..#",
+   "#..RRKKKKKKKKKKKKKKRR..#",
+   "#..RRRKDDDDKKKKKKKRRR..#",
+   "#.RRRRKKKKKKKDDDDKRRRR.#",
+   "#.RRRRRKKKKKKKKKKRRRRR.#",
+   "#.RRRRRRKYYYYYYKRRRRRR.#",
+   "#..RRRRRRYYYYYYRRRRRR..#",
+   "#...RRRRRRYYYYRRRRRRR..#",
+   "#.......RRRYYRRR.......#",
+   "#.......RRRRRRRR.......#",
+   "#........RRRRRR........#",
+   "#.........RRRR.........#",
+   "#......................#",
+   "########################"
   ],
   "entries": [
-   13
+   12
   ],
   "capacity": 5,
   "pods": [
    {
-    "color": "C",
-    "count": 24
+    "color": "R",
+    "count": 57
    },
    {
-    "color": "C",
-    "count": 24
+    "color": "R",
+    "count": 57,
+    "mystery": "depth"
    },
    {
-    "color": "C",
-    "count": 24
+    "color": "R",
+    "count": 56
    },
    {
-    "color": "C",
-    "count": 23
-   },
-   {
-    "color": "C",
-    "count": 23
-   },
-   {
-    "color": "C",
-    "count": 23
-   },
-   {
-    "color": "A",
-    "count": 28
-   },
-   {
-    "color": "A",
-    "count": 28
-   },
-   {
-    "color": "A",
-    "count": 27
-   },
-   {
-    "color": "P",
-    "count": 17
-   },
-   {
-    "color": "O",
-    "count": 26
-   },
-   {
-    "color": "O",
-    "count": 25
-   },
-   {
-    "color": "D",
+    "color": "Y",
     "count": 18
    },
    {
-    "color": "M",
-    "count": 23
+    "color": "K",
+    "count": 36
    },
    {
-    "color": "M",
-    "count": 23,
+    "color": "K",
+    "count": 35
+   },
+   {
+    "color": "K",
+    "count": 35
+   },
+   {
+    "color": "D",
+    "count": 10,
     "mystery": "depth"
    },
    {
-    "color": "M",
-    "count": 22
-   },
-   {
-    "color": "G",
-    "count": 25
-   },
-   {
-    "color": "G",
-    "count": 25,
-    "mystery": "depth"
+    "color": "D",
+    "count": 10
    }
   ],
   "tray": [
    [
-    3,
-    11,
-    17,
-    16,
-    10,
-    0
-   ],
-   [
     5,
-    2,
-    15,
-    8,
-    14,
-    6
+    4,
+    8
    ],
    [
-    4,
-    12,
-    9,
-    1,
+    0,
     7,
-    13
+    1
+   ],
+   [
+    6,
+    3,
+    2
    ]
   ],
   "recipe": "hidden",

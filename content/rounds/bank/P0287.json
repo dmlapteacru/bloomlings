@@ -1,0 +1,15 @@
+{
+ "picture": "P0287",
+ "candidates": [],
+ "rejected": [],
+ "searched": [],
+ "tune": {
+  "Super Hard|links+canal+cells|Super Hard": {
+   "t": 0.1,
+   "cols": 4,
+   "offset": -2.1,
+   "quick": 0.125,
+   "at": "2026-11-05"
+  }
+ }
+}

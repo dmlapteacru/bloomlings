@@ -1,0 +1,602 @@
+{
+ "picture": "P0267",
+ "candidates": [
+  {
+   "id": "P0267-Nlinks-g1105-br-s2-3",
+   "picture": "P0267",
+   "requested": "Normal",
+   "cls": "Normal",
+   "intro": false,
+   "recipe": "links",
+   "gen": "2026-11-05",
+   "level": {
+    "id": 1,
+    "title": "Bloom с подозрительным прищуром",
+    "subject": "P0267",
+    "w": 24,
+    "h": 26,
+    "rowsBottomFirst": [
+     "############.###########",
+     "#......................#",
+     "#.........RRRR.........#",
+     "#........RRRRRR........#",
+     "#.......RRRRRRRR.......#",
+     "#.......RRRRRRRR.......#",
+     "#..RRRRRRKKKKKKRRRRRR..#",
+     "#..RRRRRKKKKKKKKRRRRR..#",
+     "#.RRRRRKKKKKDDDDKRRRRR.#",
+     "#.RRRRKKKKKKKKKKKKRRRR.#",
+     "#.RRRRKKKKKKKKKKKKRRRR.#",
+     "#..RRKKKKKKKKKKKKKKRR..#",
+     "#...RKKDDDDKKDDDDKKRR..#",
+     "#..RRKKKKKKKKKKKKKKRR..#",
+     "#..RRRKDDDDKKKKKKKRRR..#",
+     "#.RRRRKKKKKKKDDDDKRRRR.#",
+     "#.RRRRRKKKKKKKKKKRRRRR.#",
+     "#.RRRRRRKYYYYYYKRRRRRR.#",
+     "#..RRRRRRYYYYYYRRRRRR..#",
+     "#...RRRRRRYYYYRRRRRRR..#",
+     "#.......RRRYYRRR.......#",
+     "#.......RRRRRRRR.......#",
+     "#........RRRRRR........#",
+     "#.........RRRR.........#",
+     "#......................#",
+     "########################"
+    ],
+    "entries": [
+     12
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "R",
+      "count": 57
+     },
+     {
+      "color": "R",
+      "count": 57,
+      "group": "A"
+     },
+     {
+      "color": "R",
+      "count": 56,
+      "group": "A"
+     },
+     {
+      "color": "Y",
+      "count": 18
+     },
+     {
+      "color": "K",
+      "count": 36
+     },
+     {
+      "color": "K",
+      "count": 35
+     },
+     {
+      "color": "K",
+      "count": 35
+     },
+     {
+      "color": "D",
+      "count": 10
+     },
+     {
+      "color": "D",
+      "count": 10
+     }
+    ],
+    "tray": [
+     [
+      5,
+      4,
+      2
+     ],
+     [
+      8,
+      7,
+      1
+     ],
+     [
+      0,
+      3,
+      6
+     ]
+    ],
+    "recipe": "links"
+   },
+   "N": 314,
+   "W": 314,
+   "colours": 4,
+   "P": 9,
+   "columns": 3,
+   "linked": 2,
+   "hidden": 0,
+   "breather": true,
+   "slot": "breather",
+   "inZone": false,
+   "random": {
+    "runs": 100,
+    "wins": 100,
+    "share": 1,
+    "wilson95": [
+     0.963,
+     1
+    ],
+    "cls": "Normal",
+    "borderline": false,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     }
+    ],
+    "forks": 0,
+    "singleSafe": 0,
+    "unknown": 0,
+    "fast": {
+     "status": "won",
+     "seconds": 35.5
+    }
+   },
+   "fairness": {
+    "fair": true,
+    "checked": 0
+   },
+   "strategies": {},
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 0,
+      "minFree": 0,
+      "fullShare": 1,
+      "maxWaiting": 4
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 0.52,
+      "minFree": 0,
+      "fullShare": 0.74,
+      "maxWaiting": 2
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 3.66,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 3,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 4.51,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 0
+     }
+    ],
+    "launchesAfter80": 2,
+    "lastLaunchAtW": 89,
+    "seconds": 73.2
+   },
+   "dosePos": null,
+   "blend": 1,
+   "tune": {
+    "steps": [
+     {
+      "t": 0,
+      "q": 1
+     },
+     {
+      "t": 0.17,
+      "q": 1
+     },
+     {
+      "t": 0.36,
+      "q": 1
+     },
+     {
+      "t": 0.59,
+      "q": 1
+     },
+     {
+      "t": 0.91,
+      "q": 1
+     },
+     {
+      "t": 1,
+      "q": 1
+     }
+    ],
+    "links": {
+     "pairs": 1,
+     "traps": 0,
+     "forced": 0.31,
+     "greedy": null
+    },
+    "seconds": 5
+   },
+   "checks": {
+    "breather": true,
+    "forced": 0.31,
+    "opening": null,
+    "hold": null,
+    "greedyLoses": null,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.86,
+     "tight": 0.68
+    },
+    "traps": {
+     "links": 1,
+     "traps": 0,
+     "top": 0
+    }
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "seed": 2,
+   "attempt": 3
+  },
+  {
+   "id": "P0267-Nlinks-g1105-br-s2-4",
+   "picture": "P0267",
+   "requested": "Normal",
+   "cls": "Normal",
+   "intro": false,
+   "recipe": "links",
+   "gen": "2026-11-05",
+   "level": {
+    "id": 1,
+    "title": "Bloom с подозрительным прищуром",
+    "subject": "P0267",
+    "w": 24,
+    "h": 26,
+    "rowsBottomFirst": [
+     "############.###########",
+     "#......................#",
+     "#.........RRRR.........#",
+     "#........RRRRRR........#",
+     "#.......RRRRRRRR.......#",
+     "#.......RRRRRRRR.......#",
+     "#..RRRRRRKKKKKKRRRRRR..#",
+     "#..RRRRRKKKKKKKKRRRRR..#",
+     "#.RRRRRKKKKKDDDDKRRRRR.#",
+     "#.RRRRKKKKKKKKKKKKRRRR.#",
+     "#.RRRRKKKKKKKKKKKKRRRR.#",
+     "#..RRKKKKKKKKKKKKKKRR..#",
+     "#...RKKDDDDKKDDDDKKRR..#",
+     "#..RRKKKKKKKKKKKKKKRR..#",
+     "#..RRRKDDDDKKKKKKKRRR..#",
+     "#.RRRRKKKKKKKDDDDKRRRR.#",
+     "#.RRRRRKKKKKKKKKKRRRRR.#",
+     "#.RRRRRRKYYYYYYKRRRRRR.#",
+     "#..RRRRRRYYYYYYRRRRRR..#",
+     "#...RRRRRRYYYYRRRRRRR..#",
+     "#.......RRRYYRRR.......#",
+     "#.......RRRRRRRR.......#",
+     "#........RRRRRR........#",
+     "#.........RRRR.........#",
+     "#......................#",
+     "########################"
+    ],
+    "entries": [
+     12
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "R",
+      "count": 57
+     },
+     {
+      "color": "R",
+      "count": 57,
+      "group": "A"
+     },
+     {
+      "color": "R",
+      "count": 56,
+      "group": "A"
+     },
+     {
+      "color": "Y",
+      "count": 18
+     },
+     {
+      "color": "K",
+      "count": 36
+     },
+     {
+      "color": "K",
+      "count": 35
+     },
+     {
+      "color": "K",
+      "count": 35
+     },
+     {
+      "color": "D",
+      "count": 10
+     },
+     {
+      "color": "D",
+      "count": 10
+     }
+    ],
+    "tray": [
+     [
+      5,
+      3,
+      2
+     ],
+     [
+      8,
+      7,
+      1
+     ],
+     [
+      0,
+      4,
+      6
+     ]
+    ],
+    "recipe": "links"
+   },
+   "N": 314,
+   "W": 314,
+   "colours": 4,
+   "P": 9,
+   "columns": 3,
+   "linked": 2,
+   "hidden": 0,
+   "breather": true,
+   "slot": "breather",
+   "inZone": false,
+   "random": {
+    "runs": 100,
+    "wins": 100,
+    "share": 1,
+    "wilson95": [
+     0.963,
+     1
+    ],
+    "cls": "Normal",
+    "borderline": false,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     }
+    ],
+    "forks": 0,
+    "singleSafe": 0,
+    "unknown": 0,
+    "fast": {
+     "status": "won",
+     "seconds": 46.1
+    }
+   },
+   "fairness": {
+    "fair": true,
+    "checked": 0
+   },
+   "strategies": {},
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 0,
+      "minFree": 0,
+      "fullShare": 1,
+      "maxWaiting": 4
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 0.92,
+      "minFree": 0,
+      "fullShare": 0.5,
+      "maxWaiting": 3
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 0,
+      "minFree": 0,
+      "fullShare": 1,
+      "maxWaiting": 3
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 2.02,
+      "minFree": 0,
+      "fullShare": 0.14,
+      "maxWaiting": 3
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 4.18,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 0
+     }
+    ],
+    "launchesAfter80": 1,
+    "lastLaunchAtW": 89,
+    "seconds": 84.6
+   },
+   "dosePos": null,
+   "blend": 1,
+   "tune": {
+    "steps": [
+     {
+      "t": 0,
+      "q": 1
+     },
+     {
+      "t": 0.17,
+      "q": 1
+     },
+     {
+      "t": 0.36,
+      "q": 1
+     },
+     {
+      "t": 0.59,
+      "q": 1
+     },
+     {
+      "t": 0.91,
+      "q": 1
+     },
+     {
+      "t": 1,
+      "q": 1
+     }
+    ],
+    "links": {
+     "pairs": 1,
+     "traps": 0,
+     "forced": 0.31,
+     "greedy": null
+    },
+    "seconds": 6
+   },
+   "checks": {
+    "breather": true,
+    "forced": 0.31,
+    "opening": null,
+    "hold": null,
+    "greedyLoses": null,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.82,
+     "tight": 0.67
+    },
+    "traps": {
+     "links": 1,
+     "traps": 0,
+     "top": 0
+    }
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "seed": 2,
+   "attempt": 4
+  }
+ ],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|hidden||tune|breather|2026-11-05",
+   "tune": {
+    "slot": "breather",
+    "t": null,
+    "attempts": 6,
+    "quick": 30,
+    "evaluated": 3,
+    "seconds": 6
+   },
+   "tried": 6,
+   "found": 1,
+   "reasons": {
+    "передышка: одна обычная связка вместо скрытых (доля выше зоны)": 1,
+    "вне зоны позиции (проходит фильтры)": 3,
+    "связки: каждая следующая пара поднимает вынужденные решения выше 35 % (§5)": 2,
+    "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
+   }
+  }
+ ],
+ "tune": {
+  "Normal|hidden|breather": {
+   "pair": true,
+   "offset": -3.37
+  }
+ },
+ "placed": [
+  "P0267-Nhidden-g1105-br-0"
+ ]
+}

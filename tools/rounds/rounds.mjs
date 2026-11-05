@@ -297,9 +297,10 @@ function rebuildStep(a,b,step){const dir=waveDir(a,b),f=path.join(dir,'rebuild.j
   for(const x of reb.levels)if(x.tag===GEN&&!x.done&&!placed[x.level]&&x.level>=a&&x.level<=b)lv.push({level:x.level,cls:classOf(x.level),intro:false,breather:false,regular:regularAt(x.level,placed)&&!(((wp&&wp.levels)||[]).find(l=>l.level===x.level)||{}).breather,share:MEDIAN.aim,lost:true,recipe:'none',gen:GEN,hand:false,pinned:false,family:null,motifs:[],colours:0});
   const context=Object.values(placed).filter(L=>L.level>=a-20&&L.level<a).map(L=>({level:L.level,...info(L)})),planMap=new Map(((wp&&wp.levels)||[]).map(l=>[l.level,{recipe:l.recipe,breather:!!l.breather}]));
   // (a level a rebuild placed is left alone, unless it was placed as a regular Normal outside its tuning zone: a fallback,
-  // or the placement put its old candidate back (nothing new fitted): taken again, with the next seed, at most REBUILD_TAKES
-  // times in a generator revision)
-  const again=x=>x.to&&x.from&&x.to.candidate===x.from.candidate&&(x.takes||1)<REBUILD_TAKES;
+  // or the rebuild missed its purpose: the placement put its old candidate back, a level sent back for «по цветам» still
+  // wins it, one sent back for the median is still above it; taken again, with the next seed, at most REBUILD_TAKES times
+  // in a generator revision)
+  const again=x=>!!(x.to&&x.from&&(x.takes||1)<REBUILD_TAKES&&(x.to.candidate===x.from.candidate||(x.why||[]).some(w=>w.startsWith('«по цветам»'))&&!x.to.lost||(x.why||[]).some(w=>w.startsWith('медиана'))&&x.to.share>MEDIAN.hi));
   S=rebuildSet(lv,{from:a,to:b,context,plan:planMap,done:new Set(reb.levels.filter(x=>x.done&&x.tag===GEN&&!again(x)&&!(x.to&&regularAt(x.level,placed)&&!(x.to.share>=REGULAR_ZONE[0]&&x.to.share<=REGULAR_ZONE[1]))).map(x=>x.level))});}
  else S=v.split(',').map(Number).filter(n=>n>=a&&n<=b).map(n=>({level:n,why:['по списку'],reassign:false}));
  const take=[];for(const x of S){const L=placed[x.level],old=reb.levels.find(y=>y.level===x.level&&y.tag===GEN);if(old&&old.done&&v!=='auto')continue;const wasDone=!!(old&&old.done);if(old)old.done=false;

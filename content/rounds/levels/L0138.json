@@ -4,22 +4,22 @@
  "intro": null,
  "gen": "2026-11-05",
  "picture": "P1030",
- "candidate": "P1030-Nlinks+hidden-g1105-a-4",
+ "candidate": "P1030-Nlinks+hidden-g1105-2",
  "recipe": "links+hidden",
  "N": 1044,
  "W": 1044,
- "colours": 9,
+ "colours": 8,
  "P": 30,
  "columns": 4,
- "linked": 8,
+ "linked": 6,
  "hidden": 2,
  "random": {
   "runs": 100,
-  "wins": 64,
-  "share": 0.64,
+  "wins": 62,
+  "share": 0.62,
   "wilson95": [
-   0.542,
-   0.727
+   0.522,
+   0.709
   ],
   "cls": "Normal",
   "borderline": false,
@@ -30,39 +30,19 @@
   "route": [
    {
     "type": "tap",
-    "pod": 2
-   },
-   {
-    "type": "tap",
-    "pod": 1
-   },
-   {
-    "type": "tap",
-    "pod": 10
-   },
-   {
-    "type": "tap",
-    "pod": 20
-   },
-   {
-    "type": "tap",
-    "pod": 13
-   },
-   {
-    "type": "tap",
     "pod": 22
    },
    {
     "type": "tap",
-    "pod": 24
+    "pod": 19
    },
    {
     "type": "tap",
-    "pod": 8
+    "pod": 11
    },
    {
     "type": "tap",
-    "pod": 21
+    "pod": 26
    },
    {
     "type": "tap",
@@ -70,7 +50,63 @@
    },
    {
     "type": "tap",
-    "pod": 25
+    "pod": 10
+   },
+   {
+    "type": "tap",
+    "pod": 29
+   },
+   {
+    "type": "tap",
+    "pod": 15
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 18
+   },
+   {
+    "type": "tap",
+    "pod": 27
+   },
+   {
+    "type": "tap",
+    "pod": 16
+   },
+   {
+    "type": "tap",
+    "pod": 4
+   },
+   {
+    "type": "tap",
+    "pod": 28
+   },
+   {
+    "type": "tap",
+    "pod": 21
+   },
+   {
+    "type": "tap",
+    "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 9
+   },
+   {
+    "type": "tap",
+    "pod": 2
    },
    {
     "type": "tap",
@@ -82,51 +118,19 @@
    },
    {
     "type": "tap",
-    "pod": 6
-   },
-   {
-    "type": "tap",
-    "pod": 4
-   },
-   {
-    "type": "tap",
-    "pod": 12
-   },
-   {
-    "type": "tap",
-    "pod": 5
-   },
-   {
-    "type": "tap",
     "pod": 23
    },
    {
     "type": "tap",
-    "pod": 18
+    "pod": 13
    },
    {
     "type": "tap",
-    "pod": 15
+    "pod": 24
    },
    {
     "type": "tap",
-    "pod": 27
-   },
-   {
-    "type": "tap",
-    "pod": 29
-   },
-   {
-    "type": "tap",
-    "pod": 16
-   },
-   {
-    "type": "tap",
-    "pod": 28
-   },
-   {
-    "type": "tap",
-    "pod": 9
+    "pod": 7
    },
    {
     "type": "tap",
@@ -138,7 +142,7 @@
   "unknown": 0,
   "fast": {
    "status": "won",
-   "seconds": 83.4
+   "seconds": 108.4
   }
  },
  "fairness": {
@@ -151,10 +155,10 @@
  "strategies": {
   "left-to-right|left": true,
   "left-to-right|right": true,
-  "right-to-left|left": true,
-  "right-to-left|right": true,
-  "top-down|left": false,
-  "top-down|right": false,
+  "right-to-left|left": false,
+  "right-to-left|right": false,
+  "top-down|left": true,
+  "top-down|right": true,
   "bottom-up|left": true,
   "bottom-up|right": true,
   "diagonal|left": true,
@@ -171,51 +175,51 @@
    {
     "from": 0,
     "to": 20,
-    "meanFree": 3.99,
-    "minFree": 3,
+    "meanFree": 3.4,
+    "minFree": 2,
     "fullShare": 0,
-    "maxWaiting": 0
+    "maxWaiting": 2
    },
    {
     "from": 20,
     "to": 40,
-    "meanFree": 4.24,
-    "minFree": 3,
+    "meanFree": 3.22,
+    "minFree": 2,
     "fullShare": 0,
-    "maxWaiting": 0
+    "maxWaiting": 1
    },
    {
     "from": 40,
     "to": 60,
-    "meanFree": 4.29,
+    "meanFree": 4.03,
     "minFree": 3,
     "fullShare": 0,
-    "maxWaiting": 0
+    "maxWaiting": 1
    },
    {
     "from": 60,
     "to": 80,
-    "meanFree": 4.35,
-    "minFree": 4,
+    "meanFree": 4.22,
+    "minFree": 3,
     "fullShare": 0,
     "maxWaiting": 0
    },
    {
     "from": 80,
     "to": 100,
-    "meanFree": 3.95,
+    "meanFree": 3.98,
     "minFree": 3,
     "fullShare": 0,
-    "maxWaiting": 1
+    "maxWaiting": 0
    }
   ],
-  "launchesAfter80": 7,
-  "lastLaunchAtW": 95,
-  "seconds": 448
+  "launchesAfter80": 4,
+  "lastLaunchAtW": 96,
+  "seconds": 555.4
  },
- "dosePos": 1,
+ "dosePos": 0.4,
  "checks": {
-  "forced": 0.28,
+  "forced": 0.2,
   "opening": null,
   "hold": true,
   "greedyLoses": false,
@@ -223,14 +227,14 @@
    "ok": false,
    "pods": [
     {
-     "pod": 23,
-     "revealAt": 17,
+     "pod": 4,
+     "revealAt": 14,
      "gap": 0,
      "newColour": true
     },
     {
-     "pod": 29,
-     "revealAt": 21,
+     "pod": 24,
+     "revealAt": 24,
      "gap": 0,
      "newColour": true
     }
@@ -239,48 +243,25 @@
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 1.34,
-   "tight": 0.93
+   "stuck": 1.6,
+   "tight": 0.94
   },
   "calm": {
    "runs": 200,
-   "wins": 152,
-   "share": 0.76,
+   "wins": 156,
+   "share": 0.78,
    "wilson95": [
-    0.696,
-    0.814
+    0.718,
+    0.832
    ],
    "borderline": false,
    "protocol": "§5 calm: uniform over legal actions, the board settled before each",
    "seedBase": 3
   },
   "traps": {
-   "links": 4,
+   "links": 3,
    "traps": 1,
    "top": 0
-  },
-  "accents": {
-   "materials": [
-    {
-     "code": "W",
-     "name": "Снег",
-     "from": "N",
-     "cells": 2,
-     "clusters": 1,
-     "pods": [
-      {
-       "pod": 29,
-       "count": 2,
-       "row": 3
-      }
-     ]
-    }
-   ],
-   "cells": 2,
-   "pressure": {
-    "with": 1.34,
-    "without": 0.94
-   }
   }
  },
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -299,7 +280,7 @@
    "#..........DVVDDBBBBBBBBBBD..........#",
    "#........DDBBBBNNNNNNNNNNBBBDD.......#",
    "#......DDBBBBNNNNNNNNNNNNNBBBBD......#",
-   "#.....DBBBBBNNNNNNNNNNNWWNBBBBND.....#",
+   "#.....DBBBBBNNNNNNNNNNNNNNBBBBND.....#",
    "#....DNBBBBNNNNBBBBBDDNNNNBBBBNVD....#",
    "#....VNBBBBNNNDDDDYYYDGGDNBBBBNVV....#",
    "#...DVNBBBBNNDGDYYYYYDGGGDBBBBDVVD...#",
@@ -351,10 +332,6 @@
    },
    {
     "color": "D",
-    "count": 44
-   },
-   {
-    "color": "D",
     "count": 44,
     "group": "A"
    },
@@ -364,7 +341,12 @@
    },
    {
     "color": "D",
-    "count": 43
+    "count": 44
+   },
+   {
+    "color": "D",
+    "count": 43,
+    "mystery": "depth"
    },
    {
     "color": "D",
@@ -372,30 +354,34 @@
    },
    {
     "color": "G",
-    "count": 44
+    "count": 36
    },
    {
     "color": "G",
-    "count": 44,
-    "group": "A"
+    "count": 35,
+    "group": "B"
    },
    {
     "color": "G",
-    "count": 44
+    "count": 35
    },
    {
     "color": "G",
-    "count": 44
+    "count": 35,
+    "group": "C"
+   },
+   {
+    "color": "G",
+    "count": 35
    },
    {
     "color": "V",
-    "count": 42,
-    "group": "C"
+    "count": 42
    },
    {
     "color": "V",
     "count": 41,
-    "group": "C"
+    "group": "B"
    },
    {
     "color": "V",
@@ -403,13 +389,11 @@
    },
    {
     "color": "V",
-    "count": 41,
-    "group": "D"
+    "count": 41
    },
    {
     "color": "V",
-    "count": 41,
-    "group": "B"
+    "count": 41
    },
    {
     "color": "C",
@@ -430,7 +414,7 @@
    {
     "color": "B",
     "count": 34,
-    "group": "D"
+    "group": "A"
    },
    {
     "color": "B",
@@ -451,16 +435,16 @@
    },
    {
     "color": "N",
-    "count": 24
+    "count": 25,
+    "group": "C"
    },
    {
     "color": "N",
-    "count": 24
+    "count": 25
    },
    {
     "color": "Y",
-    "count": 12,
-    "group": "B"
+    "count": 12
    },
    {
     "color": "Y",
@@ -469,66 +453,49 @@
    {
     "color": "O",
     "count": 3
-   },
-   {
-    "color": "W",
-    "count": 2,
-    "mystery": "depth"
    }
   ],
   "tray": [
    [
-    2,
-    1,
-    13,
     22,
-    24,
-    26,
-    25
-   ],
-   [
-    11,
-    20,
     19,
-    8,
-    21,
+    11,
+    26,
     14,
-    0
-   ],
-   [
     10,
-    17,
-    6,
-    4,
-    12,
-    5,
-    23,
-    18
+    29,
+    15
    ],
    [
-    7,
-    15,
-    27,
-    29,
-    16,
-    28,
-    9,
+    1,
+    6,
+    25,
+    2,
+    0,
+    17,
+    12,
     3
+   ],
+   [
+    5,
+    18,
+    27,
+    16,
+    4,
+    28,
+    21
+   ],
+   [
+    20,
+    8,
+    9,
+    23,
+    13,
+    24,
+    7
    ]
   ],
   "recipe": "links+hidden",
-  "recolor": [
-   [
-    21,
-    37,
-    "W"
-   ],
-   [
-    22,
-    37,
-    "W"
-   ]
-  ],
   "difficulty": "Normal"
  }
 }

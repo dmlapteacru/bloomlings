@@ -1,7 +1,7 @@
 {
  "code": "P0408",
- "state": "used",
- "usedBy": "L0132",
+ "state": "free",
+ "usedBy": null,
  "version": 1,
  "title": "Ювелирный стол в кольце",
  "theme": "Миниатюрные мастерские",

@@ -1,0 +1,29 @@
+{
+ "picture": "P0373",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|cells||tune|breather|2026-11-05",
+   "tune": {
+    "slot": "breather",
+    "t": null,
+    "attempts": 1,
+    "quick": 6,
+    "evaluated": 1,
+    "seconds": 2
+   },
+   "tried": 1,
+   "found": 1,
+   "reasons": {}
+  }
+ ],
+ "tune": {
+  "Normal|cells|breather": {
+   "offset": -4.05
+  }
+ },
+ "placed": [
+  "P0373-Ncells-g1105-br-0"
+ ]
+}

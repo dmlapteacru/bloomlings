@@ -153,7 +153,7 @@ breathers and a picture-first wave. `levels.mjs build` runs it for every non-bri
   (repeats, the colour window, a breather's recipe), but the sequence rules take them too (2026-11-05: a wave built
   wholly under the current `GEN` could otherwise never be fixed). A level a rebuild already placed stays, unless it went
   in as a regular Normal outside its tuning zone (a fallback) or the placement put its old candidate back (taken again,
-  at most 3 takes per `GEN`, `REBUILD_TAKES`); a breather left out of 75–90 % at one plain link pair or its nearest
+  at most 3 takes per `GEN`, `REBUILD_TAKES`; so is one that missed its purpose: still winning «по цветам», or still above the median); a breather left out of 75–90 % at one plain link pair or its nearest
   layout goes to another small picture (`reassign`; the planner's breather prefers 3–4 colours hidden at the start and
   the larger of the small pictures, as the breathers that landed in L51–L100). Each is taken off (`levels.mjs unplace`:
   the old candidate stays in the bank as a fallback) and recorded in `runs/<wave>/rebuild.json` (why, from, later to,

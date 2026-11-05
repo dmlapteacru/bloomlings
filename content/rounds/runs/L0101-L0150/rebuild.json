@@ -2,6 +2,81 @@
  "tag": "2026-11-05",
  "levels": [
   {
+   "level": 109,
+   "tag": "2026-11-05",
+   "why": [
+    "передышка 100 % вне 75–90 % и на последнем запасном ходе (ближайшая раскладка): другая картинка"
+   ],
+   "reassign": true,
+   "at": "2026-11-05",
+   "takes": 1,
+   "from": {
+    "picture": "P0063",
+    "candidate": "P0063-Ncells-g1105-br-0",
+    "share": 1,
+    "recipe": "cells"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0373",
+    "candidate": "P0373-Ncells-g1105-br-0",
+    "share": 0.77,
+    "recipe": "cells",
+    "lost": true,
+    "gen": "2026-11-05"
+   }
+  },
+  {
+   "level": 118,
+   "tag": "2026-11-05",
+   "why": [
+    "«по цветам» проигрывает 10 из 24 (нужно около 12)"
+   ],
+   "reassign": false,
+   "at": "2026-11-05",
+   "takes": 1,
+   "from": {
+    "picture": "P0054",
+    "candidate": "P0054-Nlinks+cells-g1105-18",
+    "share": 0.65,
+    "recipe": "links+cells"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0054",
+    "candidate": "P0054-Nlinks+cells-g1105-a-1",
+    "share": 0.563,
+    "recipe": "links+cells",
+    "lost": true,
+    "gen": "2026-11-05"
+   }
+  },
+  {
+   "level": 119,
+   "tag": "2026-11-05",
+   "why": [
+    "передышка 100 % вне 75–90 % и на последнем запасном ходе (ближайшая раскладка): другая картинка"
+   ],
+   "reassign": true,
+   "at": "2026-11-05",
+   "takes": 1,
+   "from": {
+    "picture": "P0243",
+    "candidate": "P0243-Nhidden-g1105-br-0",
+    "share": 1,
+    "recipe": "hidden"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0220",
+    "candidate": "P0220-Nlinks-g1105-br-5",
+    "share": 0.84,
+    "recipe": "links",
+    "lost": true,
+    "gen": "2026-11-05"
+   }
+  },
+  {
    "level": 128,
    "tag": "2026-11-05",
    "why": [
@@ -23,6 +98,156 @@
     "recipe": "links+hidden",
     "lost": false,
     "gen": null
+   }
+  },
+  {
+   "level": 132,
+   "tag": "2026-11-05",
+   "why": [
+    "передышка 100 % вне 75–90 % и на последнем запасном ходе (ближайшая раскладка): другая картинка"
+   ],
+   "reassign": true,
+   "at": "2026-11-05",
+   "takes": 1,
+   "from": {
+    "picture": "P0408",
+    "candidate": "P0408-Ncells-g1105-br-0",
+    "share": 1,
+    "recipe": "cells"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0384",
+    "candidate": "P0384-Ncells-g1105-br-0",
+    "share": 1,
+    "recipe": "cells",
+    "lost": true,
+    "gen": "2026-11-05"
+   }
+  },
+  {
+   "level": 134,
+   "tag": "2026-11-05",
+   "why": [
+    "«по цветам» проигрывает 11 из 24 (нужно около 12)"
+   ],
+   "reassign": false,
+   "at": "2026-11-05",
+   "takes": 1,
+   "from": {
+    "picture": "P1102",
+    "candidate": "P1102-Ncanal+hidden-g1105-a-1",
+    "share": 0.63,
+    "recipe": "canal+hidden"
+   },
+   "done": true,
+   "to": {
+    "picture": "P1102",
+    "candidate": "P1102-Ncanal+hidden-g1105-a-4",
+    "share": 0.62,
+    "recipe": "canal+hidden",
+    "lost": false,
+    "gen": "2026-11-05"
+   }
+  },
+  {
+   "level": 138,
+   "tag": "2026-11-05",
+   "why": [
+    "медиана L123–L142 60 % вне 50–60 % (бот 64 %)"
+   ],
+   "reassign": false,
+   "at": "2026-11-05",
+   "takes": 1,
+   "from": {
+    "picture": "P1030",
+    "candidate": "P1030-Nlinks+hidden-g1105-a-4",
+    "share": 0.64,
+    "recipe": "links+hidden"
+   },
+   "done": true,
+   "to": {
+    "picture": "P1030",
+    "candidate": "P1030-Nlinks+hidden-g1105-2",
+    "share": 0.62,
+    "recipe": "links+hidden",
+    "lost": false,
+    "gen": "2026-11-05"
+   }
+  },
+  {
+   "level": 139,
+   "tag": "2026-11-05",
+   "why": [
+    "медиана L120–L139 60 % вне 50–60 % (бот 65 %)"
+   ],
+   "reassign": false,
+   "at": "2026-11-05",
+   "takes": 1,
+   "from": {
+    "picture": "P0234",
+    "candidate": "P0234-Ncanal+links-g1105-a-28",
+    "share": 0.65,
+    "recipe": "canal+links"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0234",
+    "candidate": "P0234-Ncanal+links-g1105-6",
+    "share": 0.65,
+    "recipe": "canal+links",
+    "lost": false,
+    "gen": "2026-11-05"
+   }
+  },
+  {
+   "level": 144,
+   "tag": "2026-11-05",
+   "why": [
+    "медиана L128–L147 61 % вне 50–60 % (бот 64 %)"
+   ],
+   "reassign": false,
+   "at": "2026-11-05",
+   "takes": 1,
+   "from": {
+    "picture": "P0395",
+    "candidate": "P0395-Ncanal+cells-g1105-2",
+    "share": 0.64,
+    "recipe": "canal+cells"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0395",
+    "candidate": "P0395-Ncanal+cells-g1105-0",
+    "share": 0.56,
+    "recipe": "canal+cells",
+    "lost": false,
+    "gen": "2026-11-05"
+   }
+  },
+  {
+   "level": 147,
+   "tag": "2026-11-05",
+   "why": [
+    "передышка 100 % вне 75–90 % и на последнем запасном ходе (ближайшая раскладка): другая картинка"
+   ],
+   "reassign": true,
+   "at": "2026-11-05",
+   "takes": 1,
+   "from": {
+    "picture": "P1113",
+    "candidate": "P1113-Nhidden-g1105-br-0",
+    "share": 1,
+    "recipe": "hidden"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0267",
+    "candidate": "P0267-Nhidden-g1105-br-0",
+    "share": 0.98,
+    "recipe": "hidden",
+    "lost": true,
+    "gen": "2026-11-05"
    }
   }
  ]

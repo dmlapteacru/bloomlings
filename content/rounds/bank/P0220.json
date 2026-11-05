@@ -1,0 +1,1555 @@
+{
+ "picture": "P0220",
+ "candidates": [
+  {
+   "id": "P0220-Nhidden-g1105-br-s2-0",
+   "picture": "P0220",
+   "requested": "Normal",
+   "cls": "Normal",
+   "intro": false,
+   "recipe": "hidden",
+   "gen": "2026-11-05",
+   "level": {
+    "id": 1,
+    "title": "Гном с киркой",
+    "subject": "P0220",
+    "w": 22,
+    "h": 25,
+    "rowsBottomFirst": [
+     "###########.##########",
+     "#....................#",
+     "#.DDDDDDDDDDDDDDDDDD.#",
+     "#.DDDDDAAADDAAADDDDD.#",
+     "#.DDDDDAAADDAAAAADDD.#",
+     "#.DDDDDSSSCCSSAAADDD.#",
+     "#.DDDDDSSCCCCSSAADDD.#",
+     "#.DDDDKSCCCCCCCAADDD.#",
+     "#.DDDKKKCCCCCCCAADDD.#",
+     "#.DDDKKKCCCCCCCAADDD.#",
+     "#.DDDDDCCCCCCCKKKDDD.#",
+     "#.DDDDDCCCRRCCKKKDDD.#",
+     "#.DDDDDKKKRRKKKKADDD.#",
+     "#.DDDDKKDDKKDDKKADDD.#",
+     "#.DDDDDKDDKKDDKAADDD.#",
+     "#.DDDDDDKKKKKKKAADDD.#",
+     "#.DDDDRRRRRRRRRRADSS.#",
+     "#.DDDDRRRRRRRRRRSSSD.#",
+     "#.DDDDDRRRRRRRRSSSDD.#",
+     "#.DDDDDDRRRRRRDDDDDD.#",
+     "#.DDDDDDDRRRRDDDDDDD.#",
+     "#.DDDDDDDDRRDDDDDDDD.#",
+     "#.DDDDDDDDDDDDDDDDDD.#",
+     "#....................#",
+     "######################"
+    ],
+    "entries": [
+     11
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "D",
+      "count": 52
+     },
+     {
+      "color": "D",
+      "count": 52
+     },
+     {
+      "color": "D",
+      "count": 52
+     },
+     {
+      "color": "D",
+      "count": 52
+     },
+     {
+      "color": "R",
+      "count": 22
+     },
+     {
+      "color": "R",
+      "count": 22,
+      "mystery": "depth"
+     },
+     {
+      "color": "S",
+      "count": 18
+     },
+     {
+      "color": "A",
+      "count": 16
+     },
+     {
+      "color": "A",
+      "count": 16
+     },
+     {
+      "color": "K",
+      "count": 19
+     },
+     {
+      "color": "K",
+      "count": 18,
+      "mystery": "depth"
+     },
+     {
+      "color": "C",
+      "count": 20
+     },
+     {
+      "color": "C",
+      "count": 19
+     }
+    ],
+    "tray": [
+     [
+      7,
+      12,
+      8,
+      5,
+      10
+     ],
+     [
+      0,
+      9,
+      3,
+      2
+     ],
+     [
+      4,
+      11,
+      1,
+      6
+     ]
+    ],
+    "recipe": "hidden"
+   },
+   "N": 378,
+   "W": 378,
+   "colours": 6,
+   "P": 13,
+   "columns": 3,
+   "linked": 0,
+   "hidden": 2,
+   "breather": true,
+   "slot": "breather",
+   "inZone": false,
+   "random": {
+    "runs": 100,
+    "wins": 96,
+    "share": 0.96,
+    "wilson95": [
+     0.902,
+     0.984
+    ],
+    "cls": "Normal",
+    "borderline": false,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 10
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 2
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 11
+     },
+     {
+      "type": "tap",
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     }
+    ],
+    "forks": 1,
+    "singleSafe": 1,
+    "unknown": 0,
+    "fast": {
+     "status": "won",
+     "seconds": 51.6
+    }
+   },
+   "fairness": {
+    "checked": 1,
+    "unfair": 0,
+    "unknown": 0,
+    "fair": true,
+    "note": "перестановки материала и числа между скрытыми подами с тем же балансом"
+   },
+   "strategies": {},
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 0.17,
+      "minFree": 0,
+      "fullShare": 0.83,
+      "maxWaiting": 4
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 3.24,
+      "minFree": 1,
+      "fullShare": 0,
+      "maxWaiting": 3
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 3.66,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 1
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 4.31,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 4.41,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     }
+    ],
+    "launchesAfter80": 2,
+    "lastLaunchAtW": 95,
+    "seconds": 144.2
+   },
+   "dosePos": null,
+   "blend": 0.48,
+   "tune": {
+    "steps": [
+     {
+      "t": 0,
+      "q": 1
+     },
+     {
+      "t": 0.16,
+      "q": 1
+     },
+     {
+      "t": 0.34,
+      "q": 0.95
+     },
+     {
+      "t": 0.48,
+      "q": 0.85
+     }
+    ],
+    "seconds": 1
+   },
+   "checks": {
+    "breather": true,
+    "forced": 0.14,
+    "opening": null,
+    "hold": null,
+    "greedyLoses": null,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.9,
+     "tight": 0.73
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
+    }
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "seed": 2,
+   "attempt": 0
+  },
+  {
+   "id": "P0220-Nhidden-g1105-br-s2-1",
+   "picture": "P0220",
+   "requested": "Normal",
+   "cls": "Normal",
+   "intro": false,
+   "recipe": "hidden",
+   "gen": "2026-11-05",
+   "level": {
+    "id": 1,
+    "title": "Гном с киркой",
+    "subject": "P0220",
+    "w": 22,
+    "h": 25,
+    "rowsBottomFirst": [
+     "###########.##########",
+     "#....................#",
+     "#.DDDDDDDDDDDDDDDDDD.#",
+     "#.DDDDDAAADDAAADDDDD.#",
+     "#.DDDDDAAADDAAAAADDD.#",
+     "#.DDDDDSSSCCSSAAADDD.#",
+     "#.DDDDDSSCCCCSSAADDD.#",
+     "#.DDDDKSCCCCCCCAADDD.#",
+     "#.DDDKKKCCCCCCCAADDD.#",
+     "#.DDDKKKCCCCCCCAADDD.#",
+     "#.DDDDDCCCCCCCKKKDDD.#",
+     "#.DDDDDCCCRRCCKKKDDD.#",
+     "#.DDDDDKKKRRKKKKADDD.#",
+     "#.DDDDKKDDKKDDKKADDD.#",
+     "#.DDDDDKDDKKDDKAADDD.#",
+     "#.DDDDDDKKKKKKKAADDD.#",
+     "#.DDDDRRRRRRRRRRADSS.#",
+     "#.DDDDRRRRRRRRRRSSSD.#",
+     "#.DDDDDRRRRRRRRSSSDD.#",
+     "#.DDDDDDRRRRRRDDDDDD.#",
+     "#.DDDDDDDRRRRDDDDDDD.#",
+     "#.DDDDDDDDRRDDDDDDDD.#",
+     "#.DDDDDDDDDDDDDDDDDD.#",
+     "#....................#",
+     "######################"
+    ],
+    "entries": [
+     11
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "D",
+      "count": 52
+     },
+     {
+      "color": "D",
+      "count": 52
+     },
+     {
+      "color": "D",
+      "count": 52
+     },
+     {
+      "color": "D",
+      "count": 52
+     },
+     {
+      "color": "R",
+      "count": 22
+     },
+     {
+      "color": "R",
+      "count": 22
+     },
+     {
+      "color": "S",
+      "count": 18
+     },
+     {
+      "color": "A",
+      "count": 16
+     },
+     {
+      "color": "A",
+      "count": 16
+     },
+     {
+      "color": "K",
+      "count": 19
+     },
+     {
+      "color": "K",
+      "count": 18
+     },
+     {
+      "color": "C",
+      "count": 20
+     },
+     {
+      "color": "C",
+      "count": 19,
+      "mystery": "depth"
+     }
+    ],
+    "tray": [
+     [
+      0,
+      11,
+      6,
+      7,
+      12
+     ],
+     [
+      10,
+      9,
+      4,
+      2
+     ],
+     [
+      5,
+      3,
+      8,
+      1
+     ]
+    ],
+    "recipe": "hidden"
+   },
+   "N": 378,
+   "W": 378,
+   "colours": 6,
+   "P": 13,
+   "columns": 3,
+   "linked": 0,
+   "hidden": 1,
+   "breather": true,
+   "slot": "breather",
+   "inZone": false,
+   "random": {
+    "runs": 100,
+    "wins": 100,
+    "share": 1,
+    "wilson95": [
+     0.963,
+     1
+    ],
+    "cls": "Normal",
+    "borderline": false,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 11
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 10
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 2
+     },
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
+      "pod": 1
+     }
+    ],
+    "forks": 0,
+    "singleSafe": 0,
+    "unknown": 0,
+    "fast": {
+     "status": "won",
+     "seconds": 45.1
+    }
+   },
+   "fairness": {
+    "checked": 0,
+    "fair": true,
+    "note": "одна скрытая — нечего переставлять"
+   },
+   "strategies": {},
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 4.15,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 4.23,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 4.24,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 4.26,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 4.42,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     }
+    ],
+    "launchesAfter80": 2,
+    "lastLaunchAtW": 86,
+    "seconds": 172.4
+   },
+   "dosePos": null,
+   "blend": 1,
+   "tune": {
+    "steps": [
+     {
+      "t": 0.47,
+      "q": 1
+     },
+     {
+      "t": 0.72,
+      "q": 1
+     },
+     {
+      "t": 1,
+      "q": 1
+     }
+    ],
+    "seconds": 3
+   },
+   "checks": {
+    "breather": true,
+    "forced": 0.14,
+    "opening": null,
+    "hold": null,
+    "greedyLoses": null,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.03,
+     "tight": 0.78
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
+    }
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "seed": 2,
+   "attempt": 1
+  },
+  {
+   "id": "P0220-Nlinks-g1105-br-s2-2",
+   "picture": "P0220",
+   "requested": "Normal",
+   "cls": "Normal",
+   "intro": false,
+   "recipe": "links",
+   "gen": "2026-11-05",
+   "level": {
+    "id": 1,
+    "title": "Гном с киркой",
+    "subject": "P0220",
+    "w": 22,
+    "h": 25,
+    "rowsBottomFirst": [
+     "###########.##########",
+     "#....................#",
+     "#.DDDDDDDDDDDDDDDDDD.#",
+     "#.DDDDDAAADDAAADDDDD.#",
+     "#.DDDDDAAADDAAAAADDD.#",
+     "#.DDDDDSSSCCSSAAADDD.#",
+     "#.DDDDDSSCCCCSSAADDD.#",
+     "#.DDDDKSCCCCCCCAADDD.#",
+     "#.DDDKKKCCCCCCCAADDD.#",
+     "#.DDDKKKCCCCCCCAADDD.#",
+     "#.DDDDDCCCCCCCKKKDDD.#",
+     "#.DDDDDCCCRRCCKKKDDD.#",
+     "#.DDDDDKKKRRKKKKADDD.#",
+     "#.DDDDKKDDKKDDKKADDD.#",
+     "#.DDDDDKDDKKDDKAADDD.#",
+     "#.DDDDDDKKKKKKKAADDD.#",
+     "#.DDDDRRRRRRRRRRADSS.#",
+     "#.DDDDRRRRRRRRRRSSSD.#",
+     "#.DDDDDRRRRRRRRSSSDD.#",
+     "#.DDDDDDRRRRRRDDDDDD.#",
+     "#.DDDDDDDRRRRDDDDDDD.#",
+     "#.DDDDDDDDRRDDDDDDDD.#",
+     "#.DDDDDDDDDDDDDDDDDD.#",
+     "#....................#",
+     "######################"
+    ],
+    "entries": [
+     11
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "D",
+      "count": 52
+     },
+     {
+      "color": "D",
+      "count": 52,
+      "group": "A"
+     },
+     {
+      "color": "D",
+      "count": 52,
+      "group": "A"
+     },
+     {
+      "color": "D",
+      "count": 52
+     },
+     {
+      "color": "R",
+      "count": 22
+     },
+     {
+      "color": "R",
+      "count": 22
+     },
+     {
+      "color": "S",
+      "count": 18
+     },
+     {
+      "color": "A",
+      "count": 16
+     },
+     {
+      "color": "A",
+      "count": 16
+     },
+     {
+      "color": "K",
+      "count": 19
+     },
+     {
+      "color": "K",
+      "count": 18
+     },
+     {
+      "color": "C",
+      "count": 20
+     },
+     {
+      "color": "C",
+      "count": 19
+     }
+    ],
+    "tray": [
+     [
+      10,
+      9,
+      4,
+      7,
+      12
+     ],
+     [
+      0,
+      11,
+      6,
+      2
+     ],
+     [
+      5,
+      8,
+      3,
+      1
+     ]
+    ],
+    "recipe": "links"
+   },
+   "N": 378,
+   "W": 378,
+   "colours": 6,
+   "P": 13,
+   "columns": 3,
+   "linked": 2,
+   "hidden": 0,
+   "breather": true,
+   "slot": "breather",
+   "inZone": false,
+   "random": {
+    "runs": 100,
+    "wins": 96,
+    "share": 0.96,
+    "wilson95": [
+     0.902,
+     0.984
+    ],
+    "cls": "Normal",
+    "borderline": false,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 10
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 11
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     },
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 1
+     }
+    ],
+    "forks": 1,
+    "singleSafe": 1,
+    "unknown": 0,
+    "fast": {
+     "status": "won",
+     "seconds": 50
+    }
+   },
+   "fairness": {
+    "fair": true,
+    "checked": 0
+   },
+   "strategies": {},
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 0.94,
+      "minFree": 0,
+      "fullShare": 0.32,
+      "maxWaiting": 4
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 1.85,
+      "minFree": 1,
+      "fullShare": 0,
+      "maxWaiting": 3
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 4.3,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 3.86,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 3.72,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 0
+     }
+    ],
+    "launchesAfter80": 0,
+    "lastLaunchAtW": 72,
+    "seconds": 124.6
+   },
+   "dosePos": null,
+   "blend": 0.76,
+   "tune": {
+    "steps": [
+     {
+      "t": 0.5,
+      "q": 1
+     },
+     {
+      "t": 0.76,
+      "q": 0.85
+     }
+    ],
+    "links": {
+     "pairs": 1,
+     "traps": 0,
+     "forced": 0.26,
+     "greedy": null
+    },
+    "seconds": 4
+   },
+   "checks": {
+    "breather": true,
+    "forced": 0.26,
+    "opening": null,
+    "hold": null,
+    "greedyLoses": null,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.02,
+     "tight": 0.75
+    },
+    "traps": {
+     "links": 1,
+     "traps": 0,
+     "top": 0
+    }
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "seed": 2,
+   "attempt": 2
+  },
+  {
+   "id": "P0220-Nlinks-g1105-br-s2-3",
+   "picture": "P0220",
+   "requested": "Normal",
+   "cls": "Normal",
+   "intro": false,
+   "recipe": "links",
+   "gen": "2026-11-05",
+   "level": {
+    "id": 1,
+    "title": "Гном с киркой",
+    "subject": "P0220",
+    "w": 22,
+    "h": 25,
+    "rowsBottomFirst": [
+     "###########.##########",
+     "#....................#",
+     "#.DDDDDDDDDDDDDDDDDD.#",
+     "#.DDDDDAAADDAAADDDDD.#",
+     "#.DDDDDAAADDAAAAADDD.#",
+     "#.DDDDDSSSCCSSAAADDD.#",
+     "#.DDDDDSSCCCCSSAADDD.#",
+     "#.DDDDKSCCCCCCCAADDD.#",
+     "#.DDDKKKCCCCCCCAADDD.#",
+     "#.DDDKKKCCCCCCCAADDD.#",
+     "#.DDDDDCCCCCCCKKKDDD.#",
+     "#.DDDDDCCCRRCCKKKDDD.#",
+     "#.DDDDDKKKRRKKKKADDD.#",
+     "#.DDDDKKDDKKDDKKADDD.#",
+     "#.DDDDDKDDKKDDKAADDD.#",
+     "#.DDDDDDKKKKKKKAADDD.#",
+     "#.DDDDRRRRRRRRRRADSS.#",
+     "#.DDDDRRRRRRRRRRSSSD.#",
+     "#.DDDDDRRRRRRRRSSSDD.#",
+     "#.DDDDDDRRRRRRDDDDDD.#",
+     "#.DDDDDDDRRRRDDDDDDD.#",
+     "#.DDDDDDDDRRDDDDDDDD.#",
+     "#.DDDDDDDDDDDDDDDDDD.#",
+     "#....................#",
+     "######################"
+    ],
+    "entries": [
+     11
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "D",
+      "count": 52
+     },
+     {
+      "color": "D",
+      "count": 52,
+      "group": "A"
+     },
+     {
+      "color": "D",
+      "count": 52,
+      "group": "A"
+     },
+     {
+      "color": "D",
+      "count": 52
+     },
+     {
+      "color": "R",
+      "count": 22
+     },
+     {
+      "color": "R",
+      "count": 22
+     },
+     {
+      "color": "S",
+      "count": 18
+     },
+     {
+      "color": "A",
+      "count": 16
+     },
+     {
+      "color": "A",
+      "count": 16
+     },
+     {
+      "color": "K",
+      "count": 19
+     },
+     {
+      "color": "K",
+      "count": 18
+     },
+     {
+      "color": "C",
+      "count": 20
+     },
+     {
+      "color": "C",
+      "count": 19
+     }
+    ],
+    "tray": [
+     [
+      12,
+      11,
+      4,
+      2,
+      10
+     ],
+     [
+      0,
+      9,
+      3,
+      1
+     ],
+     [
+      5,
+      8,
+      6,
+      7
+     ]
+    ],
+    "recipe": "links"
+   },
+   "N": 378,
+   "W": 378,
+   "colours": 6,
+   "P": 13,
+   "columns": 3,
+   "linked": 2,
+   "hidden": 0,
+   "breather": true,
+   "slot": "breather",
+   "inZone": false,
+   "random": {
+    "runs": 100,
+    "wins": 94,
+    "share": 0.94,
+    "wilson95": [
+     0.875,
+     0.972
+    ],
+    "cls": "Normal",
+    "borderline": false,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 11
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 10
+     },
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     }
+    ],
+    "forks": 0,
+    "singleSafe": 0,
+    "unknown": 0,
+    "fast": {
+     "status": "won",
+     "seconds": 35.4
+    }
+   },
+   "fairness": {
+    "fair": true,
+    "checked": 0
+   },
+   "strategies": {},
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 1.11,
+      "minFree": 1,
+      "fullShare": 0,
+      "maxWaiting": 3
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 3.12,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 1
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 2.51,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 1
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 3.47,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 4.47,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     }
+    ],
+    "launchesAfter80": 4,
+    "lastLaunchAtW": 96,
+    "seconds": 103.8
+   },
+   "dosePos": null,
+   "blend": 0.75,
+   "tune": {
+    "steps": [
+     {
+      "t": 0.75,
+      "q": 0.85
+     }
+    ],
+    "links": {
+     "pairs": 1,
+     "traps": 0,
+     "forced": 0.29,
+     "greedy": null
+    },
+    "seconds": 4
+   },
+   "checks": {
+    "breather": true,
+    "forced": 0.29,
+    "opening": null,
+    "hold": null,
+    "greedyLoses": null,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.11,
+     "tight": 0.82
+    },
+    "traps": {
+     "links": 1,
+     "traps": 0,
+     "top": 0
+    }
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "seed": 2,
+   "attempt": 3
+  },
+  {
+   "id": "P0220-Nlinks-g1105-br-s2-4",
+   "picture": "P0220",
+   "requested": "Normal",
+   "cls": "Normal",
+   "intro": false,
+   "recipe": "links",
+   "gen": "2026-11-05",
+   "level": {
+    "id": 1,
+    "title": "Гном с киркой",
+    "subject": "P0220",
+    "w": 22,
+    "h": 25,
+    "rowsBottomFirst": [
+     "###########.##########",
+     "#....................#",
+     "#.DDDDDDDDDDDDDDDDDD.#",
+     "#.DDDDDAAADDAAADDDDD.#",
+     "#.DDDDDAAADDAAAAADDD.#",
+     "#.DDDDDSSSCCSSAAADDD.#",
+     "#.DDDDDSSCCCCSSAADDD.#",
+     "#.DDDDKSCCCCCCCAADDD.#",
+     "#.DDDKKKCCCCCCCAADDD.#",
+     "#.DDDKKKCCCCCCCAADDD.#",
+     "#.DDDDDCCCCCCCKKKDDD.#",
+     "#.DDDDDCCCRRCCKKKDDD.#",
+     "#.DDDDDKKKRRKKKKADDD.#",
+     "#.DDDDKKDDKKDDKKADDD.#",
+     "#.DDDDDKDDKKDDKAADDD.#",
+     "#.DDDDDDKKKKKKKAADDD.#",
+     "#.DDDDRRRRRRRRRRADSS.#",
+     "#.DDDDRRRRRRRRRRSSSD.#",
+     "#.DDDDDRRRRRRRRSSSDD.#",
+     "#.DDDDDDRRRRRRDDDDDD.#",
+     "#.DDDDDDDRRRRDDDDDDD.#",
+     "#.DDDDDDDDRRDDDDDDDD.#",
+     "#.DDDDDDDDDDDDDDDDDD.#",
+     "#....................#",
+     "######################"
+    ],
+    "entries": [
+     11
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "D",
+      "count": 52
+     },
+     {
+      "color": "D",
+      "count": 52,
+      "group": "A"
+     },
+     {
+      "color": "D",
+      "count": 52,
+      "group": "A"
+     },
+     {
+      "color": "D",
+      "count": 52
+     },
+     {
+      "color": "R",
+      "count": 22
+     },
+     {
+      "color": "R",
+      "count": 22
+     },
+     {
+      "color": "S",
+      "count": 18
+     },
+     {
+      "color": "A",
+      "count": 16
+     },
+     {
+      "color": "A",
+      "count": 16
+     },
+     {
+      "color": "K",
+      "count": 19
+     },
+     {
+      "color": "K",
+      "count": 18
+     },
+     {
+      "color": "C",
+      "count": 20
+     },
+     {
+      "color": "C",
+      "count": 19
+     }
+    ],
+    "tray": [
+     [
+      5,
+      9,
+      6,
+      7,
+      10
+     ],
+     [
+      0,
+      11,
+      8,
+      1
+     ],
+     [
+      12,
+      3,
+      4,
+      2
+     ]
+    ],
+    "recipe": "links"
+   },
+   "N": 378,
+   "W": 378,
+   "colours": 6,
+   "P": 13,
+   "columns": 3,
+   "linked": 2,
+   "hidden": 0,
+   "breather": true,
+   "slot": "breather",
+   "inZone": false,
+   "random": {
+    "runs": 100,
+    "wins": 100,
+    "share": 1,
+    "wilson95": [
+     0.963,
+     1
+    ],
+    "cls": "Normal",
+    "borderline": false,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 10
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 11
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 1
+     }
+    ],
+    "forks": 0,
+    "singleSafe": 0,
+    "unknown": 0,
+    "fast": {
+     "status": "won",
+     "seconds": 70.3
+    }
+   },
+   "fairness": {
+    "fair": true,
+    "checked": 0
+   },
+   "strategies": {},
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 2.51,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 2
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 2.7,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 2
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 3.75,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 1
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 4.04,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 3.72,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 0
+     }
+    ],
+    "launchesAfter80": 0,
+    "lastLaunchAtW": 72,
+    "seconds": 194.7
+   },
+   "dosePos": null,
+   "blend": 1,
+   "tune": {
+    "steps": [
+     {
+      "t": 0.77,
+      "q": 1
+     },
+     {
+      "t": 1,
+      "q": 1
+     }
+    ],
+    "links": {
+     "pairs": 1,
+     "traps": 0,
+     "forced": 0.26,
+     "greedy": null
+    },
+    "seconds": 5
+   },
+   "checks": {
+    "breather": true,
+    "forced": 0.26,
+    "opening": null,
+    "hold": null,
+    "greedyLoses": null,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.91,
+     "tight": 0.71
+    },
+    "traps": {
+     "links": 1,
+     "traps": 0,
+     "top": 0
+    }
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "seed": 2,
+   "attempt": 4
+  }
+ ],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|hidden||tune|breather|2026-11-05",
+   "tune": {
+    "slot": "breather",
+    "t": 0.75,
+    "attempts": 6,
+    "quick": 15,
+    "evaluated": 6,
+    "seconds": 6
+   },
+   "tried": 6,
+   "found": 1,
+   "reasons": {
+    "вне зоны позиции (проходит фильтры)": 5,
+    "передышка: одна обычная связка вместо скрытых (доля выше зоны)": 1
+   }
+  }
+ ],
+ "tune": {
+  "Normal|hidden|breather": {
+   "t": 0.75,
+   "cols": 3,
+   "offset": 0.15,
+   "quick": 0.85,
+   "at": "2026-11-05",
+   "pair": true
+  }
+ },
+ "placed": [
+  "P0220-Nlinks-g1105-br-5"
+ ]
+}
