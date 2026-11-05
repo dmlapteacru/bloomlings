@@ -191,10 +191,12 @@ export async function tuneJob({pic,cls,recipe,slot=null,intro=false,want=1,wantL
   // accents (17 §6), as levels.mjs build: this attempt paints 1–2 accent materials (the level's recolouring); never on a breather
   let av=breather?null:LV.accentVariant(pic,overlay,m,null,cls,intro,k,accentMode,cseed,no,maxColours);
   // (an accent never under a shutter: it must be seen to read as the reason its pod waits; the board keeps the job's objects)
-  // (nor over a shutter's counted material: its counter is a share of that material's work, 17 §8)
-  if(av&&board.shutters){const under=new Set(LV.shutterCells(board)),counted=new Set(board.shutters.map(x=>x.material));
-   if(av.recolor.some(([x,y])=>under.has((board.h-1-(y+2))*board.w+x+2))||av.accents.some(a=>counted.has(a.from))){no('акценты: под створками или по их материалу (строим без них)');av=null;}}
-  if(av)av={...av,board:LV.withObjects(av.board,{channel:board.channel,shutters:board.shutters})};
+  // (over a shutter's counted material its counter is fitted again to that material's work, 17 §8: levels.mjs refitShutters)
+  let shut=board.shutters;
+  if(av&&shut){const under=new Set(LV.shutterCells(board));
+   if(av.recolor.some(([x,y])=>under.has((board.h-1-(y+2))*board.w+x+2))){no('акценты: под створками (строим без них)');av=null;}
+   else{shut=LV.refitShutters(av.board,shut,intro?'Normal':cls);if(!shut){no('акценты: счётчик створок не подогнать (строим без них)');av=null;shut=board.shutters;}}}
+  if(av)av={...av,board:LV.withObjects(av.board,{channel:board.channel,shutters:shut})};
   const cm=av?av.m:m,cboard=av?av.board:board,cpods=av?av.pods:base.pods;
   // the links dose (the lead its dose place, an additional one its minimum, a breather the lead's minimum)
   const dz=LV.doses(recipe,cls,cpods.length,intro,cm.N,{breather});if(dz.error){no(dz.error);break;}

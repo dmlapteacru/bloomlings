@@ -58,6 +58,10 @@ test('placeShutters: a full rectangle of colour cells off the start front, nothi
  // two shutters keep apart; the avoid cells are never covered
  const two=LV.placeShutters(b,{n:2,cls:'Hard',role:'lead',r:rnd(9)});if(two){const [p,q]=two.map(s=>s.rect);assert.ok(p[0]+p[2]+2<=q[0]||q[0]+q[2]+2<=p[0]||p[1]+p[3]+2<=q[1]||q[1]+q[3]+2<=p[1]);}
  const first=LV.placeShutters(b,{n:1,cls:'Normal',r:rnd(7)})[0],moved=LV.placeShutters(b,{n:1,cls:'Normal',r:rnd(7),avoid:first.cells});assert.ok(!moved||!moved[0].cells.some(i=>first.cells.includes(i)));
+ // an accent over the counted material: the counter is fitted again to that material's recoloured work
+ const rc=[];for(let i=0;i<g.length&&rc.length<12;i++)if(g[i]===first.material&&!first.cells.includes(i)){const x=i%b.w-2,y=b.h-1-Math.floor(i/b.w)-2;rc.push([x,y,'W']);}
+ const fit=LV.refitShutters(L.boardOf(TOY,null,rc),[first],'Normal'),W2=[...L.boardOf(TOY,null,rc).rowsBottomFirst.join('')].filter(c=>c===first.material).length;
+ assert.ok(fit&&LV.shutterCounts('Normal',W2).includes(fit[0].count));assert.deepEqual(fit[0].cells,first.cells);
  // a counter out of its class's range is a dose error
  const lv=levelOf(LV.withObjects(b,{shutters:[{...LV.shuttersOf([first])[0],count:first.count+1}]}));assert.match(LV.dosesOk({...lv,recipe:'shutters'},'Normal'),/счётчик/);});
 

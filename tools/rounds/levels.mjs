@@ -473,6 +473,13 @@ export function placeShutters(board,{n=1,cls='Normal',role='lead',intro=false,po
    if(!mat)continue;pick={cells:cells.sort((u,v)=>u-v),material:mat.m,count:mat.c,rect:o.rc};break;}
   if(!pick)return null;placed.push(pick);for(const i of pick.cells)under.add(i);}
  return placed;}
+// The same shutters on a board whose materials changed a little (an accent painted over a counted material, 17 §6): each
+// counter kept when shutterCounts of the material's work there still holds it, else the nearest that does (at most outMax
+// of the work outside every shutter); null when one has none.
+export function refitShutters(board,shutters,cls){const g=board.rowsBottomFirst.join(''),under=new Set(shutters.flatMap(s=>s.cells));
+ const out=[];for(const s of shutters){const W=[...g].filter(c=>c===s.material).length,outside=W-[...under].filter(i=>g[i]===s.material).length;
+  const c=shutterCounts(cls,W).filter(c=>c<=SHUTTER.outMax*outside).sort((a,b)=>Math.abs(a-s.count)-Math.abs(b-s.count))[0];if(c==null)return null;out.push({...s,count:c});}
+ return out;}
 // the shutters in the engine's format (a level's `shutters`)
 export const shuttersOf=list=>list.map(s=>({cells:s.cells.slice(),material:s.material,count:s.count}));
 

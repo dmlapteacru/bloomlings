@@ -478,7 +478,8 @@ level (`objectsOf`) and refuses a recipe that does not match them.
   material's work on the board (Normal 20–35 %, Hard 30–50 %, Super Hard 40–60 %), a multiple of 5, at least 10, the
   material at least 40 units, the lead at its dose place in the range, an additional one and an introduction at the
   class's lower bound, at most 85 % of the material's work outside the shutters; preferred a material scarce under the
-  rectangle. Hidden cells never stand under a shutter; an accent over a shutter or its counted material is dropped.
+  rectangle. Hidden cells never stand under a shutter; an accent under a shutter is dropped, one over its counted material keeps
+  the accent and fits the counter again to that material's recoloured work (`refitShutters`).
 - *Doses and checks* (`dosesOk`, `evaluate`, `place mechOk`, `audit.mjs`): the recipe and the objects agree; shutters'
   number and counters by class and role; the saved solution opens every shutter before 80 % W (`measure.mjs shutterCheck`;
   no cell under it reachable at once is a note); `channelExits` solves the level with each exit alone (a fresh solver
