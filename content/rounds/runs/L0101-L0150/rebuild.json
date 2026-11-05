@@ -2,6 +2,31 @@
  "tag": "2026-11-05",
  "levels": [
   {
+   "level": 102,
+   "tag": "2026-11-05",
+   "why": [
+    "«по цветам»: целевая сборка levels.mjs build --want 20 --want-loss --seed 11, place --pick"
+   ],
+   "reassign": false,
+   "at": "2026-11-05",
+   "takes": 1,
+   "from": {
+    "picture": "P1018",
+    "candidate": "P1018-Nlinks-g1105-2",
+    "share": 0.588,
+    "recipe": "links"
+   },
+   "done": true,
+   "to": {
+    "picture": "P1018",
+    "candidate": "P1018-Nlinks-g1105-a-s11-58",
+    "share": 0.56,
+    "recipe": "links",
+    "lost": true,
+    "gen": "2026-11-05"
+   }
+  },
+  {
    "level": 109,
    "tag": "2026-11-05",
    "why": [
@@ -48,6 +73,31 @@
     "share": 0.61,
     "recipe": "links+cells",
     "lost": false,
+    "gen": "2026-11-05"
+   }
+  },
+  {
+   "level": 117,
+   "tag": "2026-11-05",
+   "why": [
+    "«по цветам»: целевая сборка levels.mjs build --want 20 --want-loss --seed 11, place --pick"
+   ],
+   "reassign": false,
+   "at": "2026-11-05",
+   "takes": 1,
+   "from": {
+    "picture": "P0014",
+    "candidate": "P0014-Ncanal+links-g1105-9",
+    "share": 0.575,
+    "recipe": "canal+links"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0014",
+    "candidate": "P0014-Ncanal+links-g1105-a-s11-49",
+    "share": 0.605,
+    "recipe": "canal+links",
+    "lost": true,
     "gen": "2026-11-05"
    }
   },
@@ -201,6 +251,31 @@
    }
   },
   {
+   "level": 137,
+   "tag": "2026-11-05",
+   "why": [
+    "«по цветам»: целевая сборка levels.mjs build --want 20 --want-loss --seed 11, place --pick"
+   ],
+   "reassign": false,
+   "at": "2026-11-05",
+   "takes": 1,
+   "from": {
+    "picture": "P0245",
+    "candidate": "P0245-Nshutters+links+latch-g1105-0",
+    "share": 0.528,
+    "recipe": "shutters+links+latch"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0245",
+    "candidate": "P0245-Nshutters+links+latch-g1105-s11-15",
+    "share": 0.55,
+    "recipe": "shutters+links+latch",
+    "lost": true,
+    "gen": "2026-11-05"
+   }
+  },
+  {
    "level": 138,
    "tag": "2026-11-05",
    "why": [
@@ -254,24 +329,24 @@
    "level": 142,
    "tag": "2026-11-05",
    "why": [
-    "«по цветам» проигрывает 11 из 24 (нужно около 12)"
+    "«по цветам»: целевая сборка levels.mjs build --want 20 --want-loss --seed 11, place --pick"
    ],
    "reassign": false,
    "at": "2026-11-05",
-   "takes": 1,
+   "takes": 2,
    "from": {
     "picture": "P0099",
-    "candidate": "P0099-Nlatch+links+hidden-g1105-a-7",
-    "share": 0.61,
+    "candidate": "P0099-Nlatch+links+hidden-g1105-a-s2-7",
+    "share": 0.6,
     "recipe": "latch+links+hidden"
    },
    "done": true,
    "to": {
     "picture": "P0099",
-    "candidate": "P0099-Nlatch+links+hidden-g1105-a-s2-7",
-    "share": 0.6,
+    "candidate": "P0099-Nlatch+links+hidden-g1105-a-s11-22",
+    "share": 0.545,
     "recipe": "latch+links+hidden",
-    "lost": false,
+    "lost": true,
     "gen": "2026-11-05"
    }
   },

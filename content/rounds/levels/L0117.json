@@ -4,22 +4,22 @@
  "intro": null,
  "gen": "2026-11-05",
  "picture": "P0014",
- "candidate": "P0014-Ncanal+links-g1105-9",
+ "candidate": "P0014-Ncanal+links-g1105-a-s11-49",
  "recipe": "canal+links",
  "N": 942,
  "W": 942,
- "colours": 8,
- "P": 26,
+ "colours": 9,
+ "P": 28,
  "columns": 4,
  "linked": 2,
  "hidden": 0,
  "random": {
   "runs": 400,
-  "wins": 230,
-  "share": 0.575,
+  "wins": 242,
+  "share": 0.605,
   "wilson95": [
-   0.526,
-   0.623
+   0.556,
+   0.652
   ],
   "cls": "Normal",
   "borderline": false,
@@ -34,87 +34,7 @@
    },
    {
     "type": "tap",
-    "pod": 0
-   },
-   {
-    "type": "tap",
-    "pod": 1
-   },
-   {
-    "type": "tap",
-    "pod": 10
-   },
-   {
-    "type": "tap",
-    "pod": 22
-   },
-   {
-    "type": "tap",
-    "pod": 20
-   },
-   {
-    "type": "tap",
-    "pod": 14
-   },
-   {
-    "type": "tap",
-    "pod": 16
-   },
-   {
-    "type": "tap",
     "pod": 18
-   },
-   {
-    "type": "tap",
-    "pod": 25
-   },
-   {
-    "type": "tap",
-    "pod": 17
-   },
-   {
-    "type": "tap",
-    "pod": 21
-   },
-   {
-    "type": "tap",
-    "pod": 23
-   },
-   {
-    "type": "tap",
-    "pod": 13
-   },
-   {
-    "type": "tap",
-    "pod": 11
-   },
-   {
-    "type": "tap",
-    "pod": 8
-   },
-   {
-    "type": "tap",
-    "pod": 15
-   },
-   {
-    "type": "tap",
-    "pod": 7
-   },
-   {
-    "type": "tap",
-    "pod": 6
-   },
-   {
-    "type": "tap",
-    "pod": 3
-   },
-   {
-    "type": "tap",
-    "pod": 24
-   },
-   {
-    "type": "tap",
-    "pod": 5
    },
    {
     "type": "tap",
@@ -122,7 +42,75 @@
    },
    {
     "type": "tap",
+    "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 26
+   },
+   {
+    "type": "tap",
+    "pod": 11
+   },
+   {
+    "type": "tap",
+    "pod": 23
+   },
+   {
+    "type": "tap",
+    "pod": 20
+   },
+   {
+    "type": "tap",
+    "pod": 3
+   },
+   {
+    "type": "tap",
+    "pod": 7
+   },
+   {
+    "type": "tap",
+    "pod": 13
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 17
+   },
+   {
+    "type": "tap",
     "pod": 12
+   },
+   {
+    "type": "tap",
+    "pod": 4
+   },
+   {
+    "type": "tap",
+    "pod": 22
+   },
+   {
+    "type": "tap",
+    "pod": 16
+   },
+   {
+    "type": "tap",
+    "pod": 21
+   },
+   {
+    "type": "tap",
+    "pod": 15
+   },
+   {
+    "type": "tap",
+    "pod": 25
+   },
+   {
+    "type": "tap",
+    "pod": 10
    },
    {
     "type": "channel",
@@ -130,15 +118,35 @@
    },
    {
     "type": "tap",
-    "pod": 4
+    "pod": 24
+   },
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 19
+   },
+   {
+    "type": "tap",
+    "pod": 27
+   },
+   {
+    "type": "tap",
+    "pod": 0
    }
   ],
-  "forks": 1,
-  "singleSafe": 1,
+  "forks": 4,
+  "singleSafe": 2,
   "unknown": 0,
   "fast": {
    "status": "won",
-   "seconds": 132.1
+   "seconds": 152.1
   }
  },
  "fairness": {
@@ -148,18 +156,18 @@
  "strategies": {
   "left-to-right|left": true,
   "left-to-right|right": true,
-  "right-to-left|left": false,
-  "right-to-left|right": false,
+  "right-to-left|left": true,
+  "right-to-left|right": true,
   "top-down|left": false,
   "top-down|right": false,
   "bottom-up|left": true,
   "bottom-up|right": true,
   "diagonal|left": false,
   "diagonal|right": false,
-  "small-first|left": false,
-  "small-first|right": false,
-  "most-now|left": true,
-  "most-now|right": true,
+  "small-first|left": true,
+  "small-first|right": true,
+  "most-now|left": false,
+  "most-now|right": false,
   "fast-release|left": true,
   "fast-release|right": true
  },
@@ -168,68 +176,68 @@
    {
     "from": 0,
     "to": 20,
-    "meanFree": 4.09,
-    "minFree": 3,
-    "fullShare": 0,
-    "maxWaiting": 1
+    "meanFree": 1.84,
+    "minFree": 0,
+    "fullShare": 0.19,
+    "maxWaiting": 4
    },
    {
     "from": 20,
     "to": 40,
-    "meanFree": 3.19,
+    "meanFree": 1.05,
+    "minFree": 0,
+    "fullShare": 0.15,
+    "maxWaiting": 4
+   },
+   {
+    "from": 40,
+    "to": 60,
+    "meanFree": 1.73,
+    "minFree": 0,
+    "fullShare": 0.06,
+    "maxWaiting": 4
+   },
+   {
+    "from": 60,
+    "to": 80,
+    "meanFree": 3.65,
     "minFree": 2,
     "fullShare": 0,
     "maxWaiting": 2
    },
    {
-    "from": 40,
-    "to": 60,
-    "meanFree": 1.99,
-    "minFree": 0,
-    "fullShare": 0.07,
-    "maxWaiting": 3
-   },
-   {
-    "from": 60,
-    "to": 80,
-    "meanFree": 4.35,
+    "from": 80,
+    "to": 100,
+    "meanFree": 4.28,
     "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
-   },
-   {
-    "from": 80,
-    "to": 100,
-    "meanFree": 4.12,
-    "minFree": 3,
-    "fullShare": 0,
-    "maxWaiting": 1
    }
   ],
-  "launchesAfter80": 5,
+  "launchesAfter80": 4,
   "lastLaunchAtW": 94,
-  "seconds": 451.7
+  "seconds": 362.3
  },
- "dosePos": 0.7,
+ "dosePos": 0.8,
  "checks": {
-  "forced": 0.1,
+  "forced": 0.11,
   "opening": null,
   "hold": true,
-  "greedyLoses": false,
+  "greedyLoses": true,
   "hiddenMatters": null,
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 1.38,
-   "tight": 0.91
+   "stuck": 1.72,
+   "tight": 0.92
   },
   "calm": {
    "runs": 200,
-   "wins": 126,
-   "share": 0.63,
+   "wins": 132,
+   "share": 0.66,
    "wilson95": [
-    0.561,
-    0.694
+    0.592,
+    0.722
    ],
    "borderline": false,
    "protocol": "§5 calm: uniform over legal actions, the board settled before each",
@@ -237,25 +245,53 @@
   },
   "traps": {
    "links": 1,
-   "traps": 1,
-   "top": 1
+   "traps": 0,
+   "top": 0
   },
   "channel": {
    "each": [
     {
      "exit": 0,
      "win": true,
-     "share": 0.48
+     "share": 0.6
     },
     {
      "exit": 1,
      "win": true,
-     "share": 0.58
+     "share": 0.52
     }
    ],
-   "gap": 0.1,
+   "gap": 0.08,
    "decides": false,
-   "better": 1
+   "better": 0
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "F",
+     "name": "Фуксия",
+     "from": "Y",
+     "cells": 5,
+     "clusters": 2,
+     "pods": [
+      {
+       "pod": 17,
+       "count": 3,
+       "row": 3
+      },
+      {
+       "pod": 18,
+       "count": 2,
+       "row": 1
+      }
+     ]
+    }
+   ],
+   "cells": 5,
+   "pressure": {
+    "with": 1.72,
+    "without": 1.05
+   }
   }
  },
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -277,7 +313,7 @@
    "#.SSSSSSAAAAAAAAAAAAAAAASSSSS.#",
    "#.SSSSSSSRRRRRDDDRRRRRSSSSSSS.#",
    "#.SSSSSSSRRRRRDDDRRRRRSSSSSSS.#",
-   "#.SSSSSSSSRRRRDDDRRRR.SSSSSSS.#",
+   "#.SSSSSSS.RRRRDDDRRRRSSSSSSSS.#",
    "#.SSSSSSSSCCCCCDCCCCCSSSSSSSS.#",
    "#.SSSSSSSSCCCCCCCCCCCSSSSSSSS.#",
    "#.SSSSSSSSCCCCCCCCCCCSSSSSSSS.#",
@@ -294,11 +330,11 @@
    "#.SSSSSSSDDDDDDDDDDDDDSSSSSSS.#",
    "#.YYYYSSSDDDDDDDDDDDDDSSSYYYY.#",
    "#.YYYYYYYYYDDYYYYYDDYYYYYYYYY.#",
-   "#.YYYYYYYYYDDYYYYYDDYYYYYYYYY.#",
-   "#.YYYYYYY.YDDYYYYYDDYYYYYYYYY.#",
+   "#.YYYYYYYFYDDYYYYYDDYYYYFYYYY.#",
+   "#.YYYYYYFFYDDYYYYYDDY.YYFYYYY.#",
    "#.YYYYYYYYYDDDDDDDDDYYYYYYYYY.#",
    "#.YYYYYSSSSRRRRRRRRRSSSSYYYYY.#",
-   "#.SSSSSSSSSSRRRR.RRSSSSSSSSSS.#",
+   "#.SSSSSSSSSSRR.RRRRSSSSSSSSSS.#",
    "#.SSSSSSSSSSSSRRRSSSSSSSSSSSS.#",
    "#.SSSSSSSSSSSSSDSSSSSSSSSSSSS.#",
    "#.SSSSSSSSSSSSSDSSSSSSSSSSSSS.#",
@@ -321,7 +357,8 @@
    },
    {
     "color": "S",
-    "count": 55
+    "count": 55,
+    "group": "A"
    },
    {
     "color": "S",
@@ -365,20 +402,28 @@
    },
    {
     "color": "R",
-    "count": 38,
+    "count": 38
+   },
+   {
+    "color": "Y",
+    "count": 33,
     "group": "A"
    },
    {
     "color": "Y",
-    "count": 35
+    "count": 33
    },
    {
     "color": "Y",
-    "count": 35
+    "count": 33
    },
    {
-    "color": "Y",
-    "count": 34
+    "color": "F",
+    "count": 3
+   },
+   {
+    "color": "F",
+    "count": 2
    },
    {
     "color": "C",
@@ -390,8 +435,7 @@
    },
    {
     "color": "C",
-    "count": 24,
-    "group": "A"
+    "count": 24
    },
    {
     "color": "A",
@@ -420,38 +464,40 @@
   ],
   "tray": [
    [
-    2,
-    0,
-    1,
-    10,
-    22,
-    20,
-    14
-   ],
-   [
-    16,
+    14,
     18,
-    25,
-    17,
-    21,
-    23
-   ],
-   [
-    19,
-    8,
-    15,
-    7,
-    6,
-    3
-   ],
-   [
-    13,
-    11,
-    24,
-    5,
     9,
+    8,
+    26,
+    11,
+    20
+   ],
+   [
+    23,
+    3,
+    7,
+    17,
     12,
-    4
+    4,
+    22
+   ],
+   [
+    2,
+    13,
+    5,
+    16,
+    21,
+    15,
+    25
+   ],
+   [
+    10,
+    24,
+    6,
+    1,
+    19,
+    27,
+    0
    ]
   ],
   "recipe": "canal+links",
@@ -460,42 +506,54 @@
    "sites": [],
    "keys": [
     [
-     14,
+     12,
      4
     ],
     [
-     7,
+     19,
      7
     ],
     [
-     19,
+     7,
      25
     ]
    ]
   },
+  "recolor": [
+   [
+    6,
+    7,
+    "F"
+   ],
+   [
+    7,
+    7,
+    "F"
+   ],
+   [
+    22,
+    7,
+    "F"
+   ],
+   [
+    7,
+    8,
+    "F"
+   ],
+   [
+    22,
+    8,
+    "F"
+   ]
+  ],
   "channel": {
-   "spring": 1008,
+   "spring": 1006,
    "exits": [
     {
-     "cell": 908,
+     "cell": 920,
      "route": [
-      1008,
-      1007,
       1006,
-      1005,
-      1004,
-      1003,
-      1002,
-      1001,
-      970,
-      939,
-      908
-     ],
-     "rideUs": 600000
-    },
-    {
-     "cell": 362,
-     "route": [
+      1007,
       1008,
       1009,
       1010,
@@ -504,25 +562,40 @@
       1013,
       982,
       951,
-      920,
-      889,
-      858,
-      827,
-      796,
-      765,
-      734,
-      703,
-      672,
-      641,
-      610,
-      579,
-      548,
-      517,
-      486,
-      455,
-      424,
-      393,
-      362
+      920
+     ],
+     "rideUs": 600000
+    },
+    {
+     "cell": 350,
+     "route": [
+      1006,
+      1005,
+      1004,
+      1003,
+      1002,
+      1001,
+      970,
+      939,
+      908,
+      877,
+      846,
+      815,
+      784,
+      753,
+      722,
+      691,
+      660,
+      629,
+      598,
+      567,
+      536,
+      505,
+      474,
+      443,
+      412,
+      381,
+      350
      ],
      "rideUs": 1560000
     }

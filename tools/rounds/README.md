@@ -100,7 +100,9 @@ breathers and a picture-first wave. `levels.mjs build` runs it for every non-bri
   no re-tuning; their fairness is still checked by `evaluate`.
 - **Acceptance**: `evaluate` (all checks; a breather the mandatory ones only, below) and the placer's filters of the slot
   (`slotProblems`: class, forced, opening, latch, picture fitness, holding pod, calm rule, trap link), then the zone.
-  `--want n` levels (default 2), `--want-loss` also one that "most work now" loses (17 §5), `--minutes m` on top of the
+  `--want n` levels (default 2), `--want-loss` also one that "most work now" loses (17 §5; it goes on past a loser whose class is borderline, up to
+  six accepted, and with links every second attempt takes the top dose place on 4 columns where the size allows: the
+  losers of L21–L150 were nearly all such), `--minutes m` on top of the
   64 candidates of §13.5. Every candidate that passes `evaluate` goes to the bank (with `inZone`, `slot`, `blend`, `tune`);
   the build prints `@@tune {json}` for the runner.
 - **Breathers** (17 §5 «Передышка», the owner, 2026-11-02): a Normal on a picture up to ~550 cells (`BREATHER_N`) or a
