@@ -36,7 +36,7 @@ import {franchiseBlocked,packOf,waveRange,siteChoice,ROUNDS,PICTURES,LEVELS,BANK
 import {fitness} from './fitness.mjs';import {deltaE,labOf} from './colour-distance.mjs';
 import {tuneJob,ZONES} from './tune.mjs';
 import {GEN,breatherRecipeOk,BREATHER_ZONE,repeatClash,wideClash,medianPenalty,greedyQuota,MEDIAN} from './wave.mjs';
-import {latchCheck,LATCH_DEPTH,LATCH_BEHIND,cellsHiddenAtStart,cellFairness,randomTest,quickShare,solve,fairness,strategies,rhythm,bridgeChoicesWin,bridgeChoices,greedy,greedyBeaten,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,bridgeLoss,pressure,calmTest,calmFails,calmBorderline,trapLinks} from './measure.mjs';
+import {channelExits,shutterCheck,latchCheck,LATCH_DEPTH,LATCH_BEHIND,cellsHiddenAtStart,cellFairness,randomTest,quickShare,solve,fairness,strategies,rhythm,bridgeChoicesWin,bridgeChoices,greedy,greedyBeaten,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,bridgeLoss,pressure,calmTest,calmFails,calmBorderline,trapLinks} from './measure.mjs';
 // layer B of 17 §13: the bounds of the metrics of interest (content/rounds/quality.json)
 const QUALITY=readJSON(path.join(ROUNDS,'quality.json'),{pressure:{min:{},games:30,mode:'soft'}});import {engine,rulesSync} from './engine.mjs';import {createRequire as _cr} from 'node:module';
 // the engine synchronously (the latch timing runs inside candidate, which is synchronous)
@@ -73,6 +73,10 @@ function depths(board,only=null){const {w,h,rowsBottomFirst:rows,entries}=board,
   const cost=CODES.includes(g[c])?1:0,nd=d[c]+cost;if(nd<d[n]){d[n]=nd;cost?dq.push(n):dq.unshift(n);}}}
  return {d,g};}
 
+// with a water channel (17 §8): the access depth when exit `exit` is chosen the moment the spring is reached: a cell is
+// reached either from the entries or, after the spring's depth, from the exit (depth from the exit as an entry)
+export function channelDepths(board,exit,only=null){const a=depths(board,only),ch=board.channel,ds=a.d[ch.spring];if(!(ds<Infinity))return a;
+ const b=depths({...board,entries:[ch.exits[exit].cell]},only),d=a.d.map((x,i)=>Math.min(x,ds+b.d[i]));return {d,g:a.g};}
 // ---- doses (§7, §9): ranges by class and role; a small queue (< 16 pods) has its own table ----
 // hidden cells ('cells', 17 §8 «Скрытые клетки», 2026-11-01): shares of N (the colour cells), counting only the cells still
 // hidden after the start reveal; the small-queue table (P < 16) gives them the lead range
@@ -81,8 +85,14 @@ const DOSE_T={links:{lead:[[.1,.3],[.2,.45],[.35,.6]],add:[[.05,.15],[.1,.2],[.1
 // latch + acorn key (17 §7 table, §8; the owner's amendment of 2026-11-03): counts of latch/key pairs, Normal 1, Hard 2–3,
 // Super Hard exactly 3, lead and additional alike; a small queue 1
 const LATCH_T={lead:[[1,1],[2,3],[3,3]],add:[[1,1],[2,3],[3,3]]};
+// wooden shutters (17 §7 table, §8 «Twig Деревянные створки», the owner, 2026-11-05): objects, lead Normal 1, Hard 1–2,
+// Super Hard 2–3, an additional one 1; a small queue 1. Their area and counters: SHUTTER below. The water channel (17 §7,
+// §8 «Drop Водный канал») is always one channel with two exits.
+export const SHUTTER_T={lead:[[1,1],[1,2],[2,3]],add:[[1,1],[1,1],[1,1]]};
 function doseRange(m,cls,role,P,N=0){const i=CLASSES.indexOf(cls);
  if(m==='latch')return P<16?[1,1]:LATCH_T[role][i].slice();
+ if(m==='shutters')return P<16?[1,1]:SHUTTER_T[role][i].slice();
+ if(m==='canal')return [1,1];
  if(m==='cells'){const [a,b]=DOSE_T.cells[P<16?'lead':role][i];return [Math.ceil(a*N),Math.floor(b*N)];}
  if(P<16)return m==='hidden'?[[1,2],[2,3],[3,4]][i]:m==='links'?[[2,2],[4,4],[4,6]][i]:[1,1];
  const T=DOSE_T;
@@ -95,7 +105,9 @@ function podRoles(types){const pod=types.filter(m=>m!=='bridge'),bridge=pod.leng
 // (three pod types: its lower half), an additional one its minimum (alone after a bridge: its range), a bridge one choice
 // of two sites
 export function doseShares(recipe,cls){const types=recipe==='none'?[]:recipe.split('+'),i=CLASSES.indexOf(cls),pr=podRoles(types);
- return types.map(m=>{if(m==='latch'){const role=pr.role(m);let [a,b]=LATCH_T[role][i];if(!pr.first(m))b=a;else if(role==='lead'&&pr.count>=3)b=Math.floor((a+b)/2);return {m,role,count:[a,b]};}
+ return types.map(m=>{if(m==='canal')return {m,role:pr.role(m),count:[1,1]};
+  if(m==='shutters'){const role=pr.role(m);let [a,b]=SHUTTER_T[role][i];if(!pr.first(m))b=a;else if(role==='lead'&&pr.count>=3)b=Math.floor((a+b)/2);return {m,role,count:[a,b]};}
+  if(m==='latch'){const role=pr.role(m);let [a,b]=LATCH_T[role][i];if(!pr.first(m))b=a;else if(role==='lead'&&pr.count>=3)b=Math.floor((a+b)/2);return {m,role,count:[a,b]};}
   if(!DOSE_T[m])return {m,role:'lead',choice:1};const role=pr.role(m);let [a,b]=DOSE_T[m][role][i];if(!pr.first(m))b=a;else if(role==='lead'&&pr.count>=3)b=(a+b)/2;return {m,role,range:[a,b]};});}
 export {doses};
 // recipe → concrete doses: one type uses its full range, two types: the additional at its minimum, three: the lead in
@@ -131,11 +143,21 @@ export function dosesOk(level,cls,{breather=false}={}){const P=level.pods.length
  // latch + key (17 §7, §8): the recipe and the level's latches agree, their count in the dose for the class and role
  {const nl=(level.latches||[]).length;if(types.includes('latch')!==(nl>0))return 'рецепт и засовы не совпадают';
   if(types.includes('latch')&&(nl<d.latch[0]||nl>Math.max(d.latch[1],d.latch[0])))return `засовов ${nl} вне ${d.latch.join('–')} для ${cls}`;}
+ // the water channel (17 §7, §8): the recipe and the level's channel agree (one channel, two exits: R.validate)
+ if(types.includes('canal')!==!!level.channel)return 'рецепт и канал не совпадают';
+ // wooden shutters (17 §7, §8): the recipe and the level's shutters agree, their number in the dose, each counter of its
+ // material's work in the class range (a multiple of 5, at least 10, the material at least 40 units)
+ {const sh=level.shutters||[];if(types.includes('shutters')!==(sh.length>0))return 'рецепт и створки не совпадают';
+  if(sh.length){if(sh.length<d.shutters[0]||sh.length>Math.max(d.shutters[1],d.shutters[0]))return `створок ${sh.length} вне ${d.shutters.join('–')} для ${cls}`;
+   const role=podRoles(types).role('shutters'),bad=shutterCountErrors(level,cls,role);if(bad.length)return bad[0];}}
  // a Normal takes two types, three when one is the latch (the owner's amendment of 2026-11-03: keys, links and hidden)
  const max=cls==='Normal'&&!types.includes('latch')?2:3;if(types.length>max)return `типов ${types.length} больше ${max} для ${cls}`;if(P<16&&types.length>1)return 'очередь меньше 16 подов — только один тип';return null;}
 
 // ---- one candidate: order pods by access depth with noise, deal them into columns, add the recipe's mechanics ----
-export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null,opts={}){const r=rnd(seed),intended=recipe.includes('bridge')&&board.hero?(k=>Number.isInteger(opts.intended)?opts.intended:k)(Math.floor(r()*board.hero.choices.length)):null,{d,g}=depths(board,intended),pods=base.map(p=>({...p}));
+// a water channel (17 §8): the queue is ordered for one exit (opts.exit, else drawn), as if that exit were chosen as soon as
+// the spring is reached (channelDepths), so the pods of its region come earlier and with the other exit they wait
+export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null,opts={}){const r=rnd(seed),intended=recipe.includes('bridge')&&board.hero?(k=>Number.isInteger(opts.intended)?opts.intended:k)(Math.floor(r()*board.hero.choices.length)):null,pods=base.map(p=>({...p}));
+ const exitOf=board.channel?(Number.isInteger(opts.exit)?opts.exit:Math.floor(r()*board.channel.exits.length)):null,{d,g}=exitOf!==null?channelDepths(board,exitOf,intended):depths(board,intended);
  const byColour={};for(let i=0;i<g.length;i++)if(CODES.includes(g[i]))(byColour[g[i]]=byColour[g[i]]||[]).push(d[i]);
  const maxD=Math.max(1,...Object.values(byColour).flat());
  for(const [c,ds] of Object.entries(byColour)){ds.sort((a,b)=>a-b);const ps=pods.filter(p=>p.color===c);let k=0;for(const p of ps){const slice=ds.slice(k,k+p.count);k+=p.count;p.key=slice.reduce((a,b)=>a+b,0)/slice.length/maxD;}}
@@ -215,17 +237,19 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null,opt
  let hiddenCells=null;
  if(types.includes('cells')&&!opts.noInfo){const [a,b]=dz.cells,lead0=types.filter(m=>m!=='bridge')[0]==='cells',want=pos===null||intro||!lead0?a+Math.floor(r()*(b-a+1)):a+Math.round(pos*(b-a));
   // never a recoloured cell (an accent must be seen to read as the reason its pod waits)
-  const avoid=new Set((board.recolor||[]).map(([x,y])=>(board.h-1-(y+2))*board.w+x+2));
+  const avoid=new Set([...(board.recolor||[]).map(([x,y])=>(board.h-1-(y+2))*board.w+x+2),...shutterCells(board)]);
   hiddenCells=pickHiddenCells(board,want,r,{intro,avoid});if(!hiddenCells)return {error:'не хватило глубоких клеток для скрытых клеток'};}
  // latch + acorn key (17 §8, 2026-11-01): the lead its dose place, an additional one its minimum, an introduction one
  let latches=null;
  if(types.includes('latch')){const [a,b]=dz.latch,lead0=types.filter(m=>m!=='bridge')[0]==='latch',want=opts.latchWant!=null?opts.latchWant:pos===null||intro||!lead0?a+Math.floor(r()*(b-a+1)):a+Math.round(pos*(b-a));
   const lp=pickLatches(board,tray,pods,want,cls,r,{intro});if(lp.error)return {error:lp.error};latches=lp.latches;}
+ if(types.includes('canal')!==!!board.channel)return {error:types.includes('canal')?'канал: на поле нет канала (placeChannel)':'на поле канал, а в рецепте его нет'};
+ if(types.includes('shutters')!==!!(board.shutters&&board.shutters.length))return {error:types.includes('shutters')?'створки: на поле нет створок (placeShutters)':'на поле створки, а в рецепте их нет'};
  if(types.includes('bridge')&&!board.hero)return {error:'на картинке нет мест моста (b)'};
  // a strip cuts a part off: without a bridge its cells cannot be reached
  if(board.hero&&!types.includes('bridge'))return {error:'на поле полоса с местами моста — нужен рецепт с мостом'};
  // a level on the generator's wall keeps the wall (picture coordinates), so its board is rebuilt from the approved picture
- const level={id:1,title:pic.title,subject:pic.id,w:board.w,h:board.h,rowsBottomFirst:board.rowsBottomFirst,entries:board.entries,capacity:5,pods:pods.map(({key,keyO,order,...p})=>p),tray,recipe,...(types.includes('bridge')?{hero:board.hero}:{}),...(board.overlay?{overlay:board.overlay}:{}),...(board.recolor?{recolor:board.recolor}:{}),...(board.strip?{strip:board.strip}:{}),...(hiddenCells?{hiddenCells}:{}),...(latches?{latches}:{})};
+ const level={id:1,title:pic.title,subject:pic.id,w:board.w,h:board.h,rowsBottomFirst:board.rowsBottomFirst,entries:board.entries,capacity:5,pods:pods.map(({key,keyO,order,...p})=>p),tray,recipe,...(types.includes('bridge')?{hero:board.hero}:{}),...(board.overlay?{overlay:board.overlay}:{}),...(board.recolor?{recolor:board.recolor}:{}),...(board.strip?{strip:board.strip}:{}),...(hiddenCells?{hiddenCells}:{}),...(latches?{latches}:{}),...objectsOf(board)};
  return {level};}
 
 // ---- latch + acorn key (17 §8 «Засов и жёлудь-ключ», the owner, 2026-11-01; README «Latch and key») ----
@@ -233,7 +257,9 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null,opt
 // (open cells only, bridge sites closed) but that clearing colour cells reaches without a bridge (access depth finite with
 // every site a wall, so a key never hangs on the bridge choice). Each hole: its cells, its depth (the fewest colour cells
 // to clear on the way, depths()), the key cell (its cell nearest the hole's centre, ties by index). Sorted by depth.
-export function keyHoles(board){const {w,h,rowsBottomFirst:rows,entries}=board,g=rows.join(''),n=w*h,{d}=depths(board,-1),start=new Uint8Array(n),q=[];
+// A hole holding a cell of `skip` (board indices; default the board's water channel: its spring and exits, 17 §8) is no
+// key hole (a key never stands on the channel's cells).
+export function keyHoles(board,skip=channelCells(board)){const {w,h,rowsBottomFirst:rows,entries}=board,g=rows.join(''),n=w*h,{d}=depths(board,-1),start=new Uint8Array(n),q=[];
  for(const e of entries)if(g[e]==='.'){start[e]=1;q.push(e);}
  const nb=i=>{const x=i%w,o=[];if(i>=w)o.push(i-w);if(i+w<n)o.push(i+w);if(x>0)o.push(i-1);if(x<w-1)o.push(i+1);return o;};
  while(q.length){const i=q.pop();for(const j of nb(i))if(!start[j]&&g[j]==='.'){start[j]=1;q.push(j);}}
@@ -242,17 +268,18 @@ export function keyHoles(board){const {w,h,rowsBottomFirst:rows,entries}=board,g
   for(let k=0;k<cells.length;k++)for(const j of nb(cells[k]))if(!seen[j]&&g[j]==='.'&&!start[j]){seen[j]=1;cells.push(j);}
   const cx=cells.reduce((s,c)=>s+c%w,0)/cells.length,cy=cells.reduce((s,c)=>s+Math.floor(c/w),0)/cells.length;
   const key=cells.slice().sort((a,b)=>Math.hypot(a%w-cx,Math.floor(a/w)-cy)-Math.hypot(b%w-cx,Math.floor(b/w)-cy)||a-b)[0];
+  if(skip&&cells.some(c=>skip.has(c)))continue;
   holes.push({cells:cells.sort((a,b)=>a-b),depth:Math.min(...cells.map(c=>d[c])),key});}
  return holes.sort((a,b)=>a.depth-b.depth||a.key-b.key);}
 // When the candidate's queue reaches what (latchTiming): one patient game on the queue without latches (each launch
 // settles before the next; the launch with the most reachable work now, a buildable bridge first): top[c][d] = the
 // launches made when column c's head reaches d (a latch at depth d would be on top from then), hole[k] = the launches made
 // when hole k's key is first reached (Infinity if never in that game).
-export function latchTiming(board,tray,pods,holes){const {idle:R}=engineSync(),lv={id:1,title:'t',w:board.w,h:board.h,rowsBottomFirst:board.rowsBottomFirst,entries:board.entries,capacity:5,pods,tray,...(board.hero?{hero:board.hero}:{})};
+export function latchTiming(board,tray,pods,holes){const {idle:R}=engineSync(),lv={id:1,title:'t',w:board.w,h:board.h,rowsBottomFirst:board.rowsBottomFirst,entries:board.entries,capacity:5,pods,tray,...(board.hero?{hero:board.hero}:{}),...objectsOf(board)};
  let s=R.create(lv,5),n=0;const top=tray.map(st=>new Array(st.length+1).fill(Infinity)),hole=holes.map(()=>Infinity);
  const mark=()=>{tray.forEach((_,c)=>{if(top[c][s.heads[c]]===Infinity)top[c][s.heads[c]]=n;});const d=R.reach(s).distance;holes.forEach((h,k)=>{if(hole[k]===Infinity&&d[h.key]>0)hole[k]=n;});};
  mark();
- for(let g=0;g<4*pods.length&&s.status==='Playing';g++){const mv=R.legal(s);if(!mv.length)break;let a=mv.find(x=>x.type==='bridge');
+ for(let g=0;g<4*pods.length&&s.status==='Playing';g++){const mv=R.legal(s);if(!mv.length)break;let a=mv.find(x=>x.type==='bridge'||x.type==='channel');
   if(!a){const t=R.reach(s).targets,work=c=>t.reduce((k,i)=>k+(s.board[i]===c),0);a=mv.slice().sort((x,y)=>work(s.meta.colours[y.pod])-work(s.meta.colours[x.pod]))[0];}
   s=R.step(s,a).state;if(a.type==='tap')n++;mark();}
  return {top,hole};}
@@ -271,8 +298,11 @@ export function latchTiming(board,tray,pods,holes){const {idle:R}=engineSync(),l
 // band of the access depth (opens partway, never on the start front), only out of colours of 30+ cells, spread over the
 // picture (at least 5 cells from another spot or hole). Returns the overlay with its keys (walls and sites kept), the
 // overlay unchanged (null when none) when the picture has holes enough, or false when no such blocks can be found.
-export function carveKeySpots(pic,overlay,need,r=Math.random){if(need<=0)return overlay;
- const base=boardOf(pic,overlay),holes=keyHoles(base);if(holes.length>=need)return overlay;
+// avoid: picture cells [x, y] the level already took for something else (a water channel's spring and exits, levels.mjs
+// placeChannel): never a key hole, and a carved spot keeps 5 cells from each like from another spot.
+export function carveKeySpots(pic,overlay,need,r=Math.random,{avoid=[]}={}){if(need<=0)return overlay;
+ const skipOf=b=>new Set(avoid.map(([x,y])=>(b.h-1-(y+2))*b.w+x+2));
+ const base=boardOf(pic,overlay),holes=keyHoles(base,skipOf(base));if(holes.length>=need)return overlay;
  const p=overlaid(pic,overlay),rows=p.rows,pw=rows[0].length,ph=rows.length,vol=measure(p).volumes,{d}=depths(base,-1),w=base.w,h=base.h;
  const di=(x,y)=>d[(h-1-(y+2))*w+x+2],cell=(x,y)=>x>=0&&y>=0&&x<pw&&y<ph?rows[y][x]:'.';
  let maxD=0;for(let y=0;y<ph;y++)for(let x=0;x<pw;x++)if(CODES.includes(rows[y][x])&&di(x,y)<Infinity)maxD=Math.max(maxD,di(x,y));
@@ -283,13 +313,13 @@ export function carveKeySpots(pic,overlay,need,r=Math.random){if(need<=0)return 
   // the ring round the block is colour all round, so the spot is a hole of its own (never open to the start front)
   for(let yy=y-1;yy<=y+2&&ok;yy++)for(let xx=x-1;xx<=x+2&&ok;xx++){if(yy>=y&&yy<y+2&&xx>=x&&xx<x+2)continue;if(!CODES.includes(cell(xx,yy)))ok=false;}
   if(ok)opts.push({x,y,depth:dsum/4});}
- const keys=[...((overlay&&overlay.keys)||[])],spots=[...taken];
+ const keys=[...((overlay&&overlay.keys)||[])],spots=[...taken,...avoid.map(([x,y])=>[x,y])];
  for(let k=holes.length;k<need;k++){const dist=o=>spots.length?Math.min(...spots.map(([sx,sy])=>Math.max(Math.abs(o.x+.5-sx),Math.abs(o.y+.5-sy)))):99;
   const cand=opts.filter(o=>dist(o)>=5);if(!cand.length)return false;
   const mid=(lo+hi)/2,best=cand.map(o=>({o,sc:Math.min(dist(o),14)-Math.abs(o.depth-mid)*.6+r()*1.5})).sort((a,b)=>b.sc-a.sc)[0].o;
   for(let yy=best.y;yy<best.y+2;yy++)for(let xx=best.x;xx<best.x+2;xx++)keys.push([xx,yy]);spots.push([best.x+.5,best.y+.5]);}
  const out={walls:(overlay&&overlay.walls)||[],sites:(overlay&&overlay.sites)||[],keys};
- return keyHoles(boardOf(pic,out)).length>=need?out:false;}
+ const made=boardOf(pic,out);return keyHoles(made,skipOf(made)).length>=need?out:false;}
 export const LATCH_WAIT={intro:[1,3],Normal:[0,3],Hard:[1,5],'Super Hard':[2,8]};
 export function pickLatches(board,tray,pods,want,cls,r,{intro=false}={}){const holes=keyHoles(board);
  if(holes.length<want)return {error:holes.length?`мест для ключа ${holes.length} — меньше ${want} засовов`:'нет пустой клетки для ключа, закрытой работой (засов)'};
@@ -304,7 +334,7 @@ export function pickLatches(board,tray,pods,want,cls,r,{intro=false}={}){const h
       opts.push({c,dep,k,score:(inside?0:10+Math.min(50,Math.abs(wait-mid)))+Math.abs(wait-mid)*.3+r()*(attempt?1.5:.6)});});}}
    if(!opts.length)break;opts.sort((a,b)=>a.score-b.score);const o=opts[0];used.add(holes[o.k].key);usedCols.add(o.c);out.push({column:o.c,depth:o.dep,key:holes[o.k].key});}
   if(out.length<want)continue;out.sort((a,b)=>a.column-b.column);
-  const lv={w:board.w,h:board.h,rowsBottomFirst:board.rowsBottomFirst,entries:board.entries,pods,tray,latches:out,...(board.hero?{hero:board.hero}:{})};
+  const lv={w:board.w,h:board.h,rowsBottomFirst:board.rowsBottomFirst,entries:board.entries,pods,tray,latches:out,...(board.hero?{hero:board.hero}:{}),...objectsOf(board)};
   if(!R.latchKeysBlocked(lv).length)return {latches:out};}
  return {error:'засов: ключ недоступен (материал пути заперт за засовом) или не хватило колонок нужной глубины'};}
 
@@ -326,6 +356,125 @@ export function pickHiddenCells(board,want,r,{intro=false,avoid=null}={}){const 
   while(patch.length<size){const front=[...new Set(patch.flatMap(nb))].filter(j=>ok(j)&&!chosen.has(j));if(!front.length)break;
    let best=null,bs=-1;for(const j of front){const sc=nb(j).filter(q=>chosen.has(q)).length+r()*.5;if(sc>bs){bs=sc;best=j;}}patch.push(best);chosen.add(best);}}
  return chosen.size>=want?[...chosen].slice(0,want).sort((a,b)=>a-b):null;}
+
+// ---- the Drop water channel and the Twig wooden shutters on the board (17 §8, §9; the owner, 2026-11-05; README
+// «Channel», «Shutters», «Channel and shutters in the builder») ----
+// A board may carry `channel` ({spring, exits: [{cell, route, rideUs} × 2]}, board indices) and `shutters` ([{cells,
+// material, count}]) in the engine's format (rules.cjs); a candidate copies them into its level (objectsOf).
+export const objectsOf=b=>({...(b&&b.channel?{channel:b.channel}:{}),...(b&&b.shutters&&b.shutters.length?{shutters:b.shutters}:{})});
+export const channelCells=b=>b&&b.channel?new Set([b.channel.spring,...b.channel.exits.map(e=>e.cell)]):null;
+export const shutterCells=b=>b&&b.shutters?b.shutters.flatMap(s=>s.cells):[];
+export function withObjects(board,{channel=board.channel,shutters=board.shutters}={}){const b={...board};delete b.channel;delete b.shutters;if(channel)b.channel=channel;if(shutters&&shutters.length)b.shutters=shutters;return b;}
+// The channel's places (picture coordinates): the spring's access depth (colour cells to clear before it, depths()) in
+// spring[0]–spring[1] of the deepest colour cell's (and at least 2: it sits behind work, the player clears an approach
+// first, 17 §8); each exit at least `exit` of it and 3 deeper than the spring (inner regions far from the entry); the two
+// exits at least apart × √(picture area) from each other and turned at least `angle` degrees from each other as seen from
+// the spring (different parts of the picture, so the choice matters); channel cells at least `gap` apart (Chebyshev). The
+// ride: stepMs a step of the route, at least minRideMs (README «Channel»).
+export const CHANNEL={spring:[.08,.35],exit:.5,apart:.4,angle:80,gap:3,minDepth:6,stepMs:60,minRideMs:400};
+export const rideUsOf=route=>Math.max(CHANNEL.minRideMs,CHANNEL.stepMs*(route.length-1))*1000;
+// an orthogonal route from a to b (picture or board coordinates [x, y]): one leg along a row and one along a column, the
+// column first when vertFirst; both ends included, no repeat
+export function channelRoute([x0,y0],[x1,y1],vertFirst=false){const out=[[x0,y0]];let x=x0,y=y0;const sx=Math.sign(x1-x0),sy=Math.sign(y1-y0);
+ const vert=()=>{while(y!==y1){y+=sy;out.push([x,y]);}},hor=()=>{while(x!==x1){x+=sx;out.push([x,y]);}};if(vertFirst){vert();hor();}else{hor();vert();}return out;}
+// Places the water channel on a picture (with its overlay): the spring and two exits, each a colour cell enclosed by colour
+// on its four sides that the level takes out (overlay.keys: a pocket of its own, so the start never reaches it and the cubes
+// round an exit are its new front) or an empty pocket of the picture the start does not reach (its holes); the spring in
+// its band, near the middle of it and of the picture's width (the entry's column), the exits the deepest, farthest apart
+// pair, materials round them preferably different; each route two straight legs, the pair overlapping least. Deterministic
+// by r. Returns {overlay (walls and sites kept, keys + the carved cells), at: {spring, exits, routes} (picture
+// coordinates), depth: {spring, exits, max}} or null when the picture has no such places.
+// A picture too thin for the strict pair (no two deep exits that far apart and turned that much) is tried once more with
+// CHANNEL_RELAXED (the result carries relaxed: true).
+export const CHANNEL_RELAXED={exit:.4,apart:.28,angle:55};
+export function placeChannel(pic,overlay=null,r=Math.random,{relaxed=false}={}){const C={...CHANNEL,...(relaxed?CHANNEL_RELAXED:{})},p=overlaid(pic,overlay),rows=p.rows,pw=rows[0].length,ph=rows.length,base=boardOf(pic,overlay),{d}=depths(base,-1),w=base.w,h=base.h;
+ const bi=(x,y)=>(h-1-(y+2))*w+x+2,cell=(x,y)=>x<0||y<0||x>=pw||y>=ph?'.':rows[y][x],col=(x,y)=>CODES.includes(cell(x,y)),g=base.rowsBottomFirst.join('');
+ const start=new Uint8Array(w*h),q=[];for(const e of base.entries)if(g[e]==='.'){start[e]=1;q.push(e);}
+ while(q.length){const i=q.pop(),x=i%w;for(const j of [i-w,i+w,x>0?i-1:-1,x<w-1?i+1:-1])if(j>=0&&j<w*h&&!start[j]&&g[j]==='.'){start[j]=1;q.push(j);}}
+ const spots=[];let maxD=0;
+ for(let y=0;y<ph;y++)for(let x=0;x<pw;x++){const dd=d[bi(x,y)];if(!(dd<Infinity))continue;if(col(x,y))maxD=Math.max(maxD,dd);
+  if(col(x,y)&&col(x-1,y)&&col(x+1,y)&&col(x,y-1)&&col(x,y+1))spots.push({x,y,d:dd,carve:true});else if(cell(x,y)==='.'&&!start[bi(x,y)])spots.push({x,y,d:dd,carve:false});}
+ if(maxD<C.minDepth)return null;
+ const sLo=Math.max(2,Math.round(C.spring[0]*maxD)),sHi=Math.max(sLo+1,Math.round(C.spring[1]*maxD)),eLo=Math.max(sLo+3,Math.round(C.exit*maxD));
+ const ex=Math.floor((pw+4)/2)-2,aimS=(sLo+sHi)/2,springs=spots.filter(s=>s.d>=sLo&&s.d<=sHi).map(s=>({...s,sc:Math.abs(s.d-aimS)/Math.max(1,sHi-sLo)+.8*Math.abs(s.x-ex)/pw+.3*r()})).sort((a,b)=>a.sc-b.sc).slice(0,6);
+ let exits=spots.filter(s=>s.d>=eLo);if(!springs.length||exits.length<2)return null;
+ // (a big picture: a fixed sample of the exit places keeps the pair search quick)
+ if(exits.length>320){const keep=exits.map(s=>({s,k:r()})).sort((a,b)=>a.k-b.k).slice(0,320).map(x=>x.s);exits=keep;}
+ const scale=Math.sqrt(pw*ph),cheb=(a,b)=>Math.max(Math.abs(a.x-b.x),Math.abs(a.y-b.y)),ring=s=>{const m={};for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const c=cell(s.x+dx,s.y+dy);if(CODES.includes(c))m[c]=(m[c]||0)+1;}return Object.entries(m).sort((a,b)=>b[1]-a[1])[0]?.[0]||null;};
+ let best=null;
+ for(const s of springs){const es=exits.filter(e=>cheb(e,s)>=C.gap);
+  for(let i=0;i<es.length;i++)for(let j=i+1;j<es.length;j++){const a=es[i],b=es[j],sep=Math.hypot(a.x-b.x,a.y-b.y);if(sep<C.apart*scale||cheb(a,b)<C.gap)continue;
+   const va=[a.x-s.x,a.y-s.y],vb=[b.x-s.x,b.y-s.y],cos=(va[0]*vb[0]+va[1]*vb[1])/(Math.hypot(...va)*Math.hypot(...vb)||1);if(cos>Math.cos(C.angle*Math.PI/180))continue;
+   const len=(Math.abs(va[0])+Math.abs(va[1])+Math.abs(vb[0])+Math.abs(vb[1]))/(pw+ph);
+   const sc=-(a.d+b.d)/(2*maxD)-Math.min(1,sep/(.7*scale))-(ring(a)!==ring(b)?.3:0)+.15*len+s.sc*.3+.1*r();
+   if(!best||sc<best.sc)best={sc,s,a,b};}}
+ if(!best)return relaxed?null:placeChannel(pic,overlay,r,{relaxed:true});
+ // the routes: of the four leg orders, the pair sharing fewest cells beyond the spring, never through the other exit
+ const {s,a,b}=best,P=o=>[o.x,o.y];let rt=null;
+ for(const va of [false,true])for(const vb of [false,true]){const ra=channelRoute(P(s),P(a),va),rb=channelRoute(P(s),P(b),vb),ka=new Set(ra.slice(1).map(c=>c+'')),shared=rb.slice(1).filter(c=>ka.has(c+'')).length;
+  const through=ra.some(c=>c[0]===b.x&&c[1]===b.y)||rb.some(c=>c[0]===a.x&&c[1]===a.y)?100:0,sc=shared+through+(va===vb?0:.1);if(!rt||sc<rt.sc)rt={sc,ra,rb};}
+ const carved=[s,a,b].filter(o=>o.carve).map(P),ov={walls:(overlay&&overlay.walls)||[],sites:(overlay&&overlay.sites)||[],keys:[...((overlay&&overlay.keys)||[]),...carved]};
+ return {overlay:ov,at:{spring:P(s),exits:[P(a),P(b)],routes:[rt.ra,rt.rb]},depth:{spring:s.d,exits:[a.d,b.d],max:maxD},...(relaxed?{relaxed:true}:{})};}
+// the channel of placeChannel's `at` on a board of that picture, in the engine's format (board indices, rideUs)
+export function channelOf(board,at){const bi=([x,y])=>(board.h-1-(y+2))*board.w+x+2;
+ return {spring:bi(at.spring),exits:at.exits.map((e,i)=>({cell:bi(e),route:at.routes[i].map(bi),rideUs:rideUsOf(at.routes[i])}))};}
+// the picture cells of a channel (spring and exits; never a key's place, levels.mjs carveKeySpots avoid)
+export const channelSpots=at=>at?[at.spring,...at.exits]:[];
+
+// Wooden shutters (17 §8 «Twig Деревянные створки», the owner, 2026-11-05): the closed area of all shutters as a share of N
+// (lead by class, an additional one 2–5 %; an introduction Normal's minimum, 17 §9), each a rectangle with sides 3–8; its
+// counter a share of its material's work (the material's cells on the board) by class, a multiple of 5, at least 10, the
+// material at least 40 units, an additional shutter and an introduction at the class's lower bound; at most `outMax` of
+// the material's work outside every shutter (so it opens while that work goes on).
+export const SHUTTER={area:{lead:[[.03,.08],[.05,.12],[.08,.15]],add:[[.02,.05],[.02,.05],[.02,.05]]},count:[[.2,.35],[.3,.5],[.4,.6]],minWork:40,minCount:10,step:5,side:[3,8],outMax:.85,depth:[.15,.8],gap:2};
+// the counter values a material of W units admits for a class: multiples of 5 in the class range, at least 10
+export function shutterCounts(cls,W){const [lo,hi]=SHUTTER.count[CLASSES.indexOf(cls)],out=[];if(W<SHUTTER.minWork)return out;
+ for(let c=Math.max(SHUTTER.minCount,Math.ceil(lo*W/SHUTTER.step-1e-9)*SHUTTER.step);c<=hi*W+1e-9;c+=SHUTTER.step)out.push(c);return out;}
+// the dose errors of a level's shutters for a class (dosesOk): each counter one of shutterCounts of its material's work
+export function shutterCountErrors(level,cls){const g=level.rowsBottomFirst.join(''),errs=[];
+ for(const [i,s] of (level.shutters||[]).entries()){const W=[...g].filter(c=>c===s.material).length,ok=shutterCounts(cls,W);
+  if(W<SHUTTER.minWork)errs.push(`створки ${i+1}: работы материала ${s.material} ${W} < ${SHUTTER.minWork} (§8)`);
+  else if(!ok.includes(s.count))errs.push(`створки ${i+1}: счётчик ${s.count} из ${W} ${s.material} вне ${ok.length?ok[0]+'–'+ok.at(-1):'—'} для ${cls} (§8: доля по классу, кратно 5, минимум 10)`);}
+ return errs;}
+// the access depth of every cell with `walls` (board indices) closed, as depths()
+function depthsWith(board,walls){const {w,h,rowsBottomFirst:rows,entries}=board,g=rows.join(''),wall=new Uint8Array(w*h),d=new Float64Array(w*h).fill(Infinity),dq=[];for(const i of walls)wall[i]=1;
+ for(const e of entries){d[e]=0;dq.push(e);}
+ while(dq.length){const c=dq.shift(),x=c%w,y=Math.floor(c/w);for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const u=x+dx,v=y+dy;if(u<0||v<0||u>=w||v>=h)continue;const n=v*w+u;if(g[n]==='#'||g[n]==='b'||wall[n])continue;
+  const cost=CODES.includes(g[c])?1:0,nd=d[c]+cost;if(nd<d[n]){d[n]=nd;cost?dq.push(n):dq.unshift(n);}}}
+ return d;}
+// Places `n` shutters on a board (17 §7, §8): each a full rectangle of colour cells (sides 3–8, aspect at most 2, the area
+// of the dose), never an entry, a cell of `avoid` (board indices: a channel's cells and routes, accents), off the start front
+// (every cell at access depth 1+), its mean depth near 45 % of the deepest colour cell's (in depth[0]–depth[1]), never
+// closing another colour cell off (with the rectangle as a wall every colour cell outside stays reachable), gap 2 from
+// another shutter; its material the one whose counter (shutterCounts: the lead its dose place pos in the range, an
+// additional one and an introduction the lower bound) is at most outMax of its work outside every shutter, preferably a
+// material scarce under the rectangle (so the player opens it working elsewhere). role: 'lead' | 'add'. Deterministic by r.
+// Returns [{cells (sorted), material, count, rect: [x, y, w, h] (board, bottom first)}] or null.
+export function placeShutters(board,{n=1,cls='Normal',role='lead',intro=false,pos=null,r=Math.random,avoid=null}={}){const {w,h}=board,g=board.rowsBottomFirst.join(''),{d}=depths(board,-1),ci=CLASSES.indexOf(intro?'Normal':cls),bad=new Set(avoid||[]);
+ const isCol=i=>CODES.includes(g[i]),N=[...g].filter(c=>CODES.includes(c)).length,vol={};for(const c of g)if(CODES.includes(c))vol[c]=(vol[c]||0)+1;
+ let maxD=0;for(let i=0;i<g.length;i++)if(isCol(i)&&d[i]<Infinity)maxD=Math.max(maxD,d[i]);if(maxD<4)return null;
+ const [aLo,aHi]=SHUTTER.area[intro?'lead':role][ci],share=intro?aLo:aLo+(aHi-aLo)*(pos??r()),area=Math.max(9,share*N/n);
+ const shapes=[];for(let a=SHUTTER.side[0];a<=SHUTTER.side[1];a++)for(let b=SHUTTER.side[0];b<=SHUTTER.side[1];b++)if(Math.max(a,b)<=2*Math.min(a,b))shapes.push([a,b,Math.abs(a*b-area)/area]);
+ shapes.sort((u,v)=>u[2]-v[2]);const near=shapes.filter(s=>s[2]<=shapes[0][2]+.15).slice(0,4);
+ const placed=[],under=new Set(),near2=(rc,o)=>rc[0]<o[0]+o[2]+SHUTTER.gap&&o[0]<rc[0]+rc[2]+SHUTTER.gap&&rc[1]<o[1]+o[3]+SHUTTER.gap&&o[1]<rc[1]+rc[3]+SHUTTER.gap;
+ const [dLo,dHi]=SHUTTER.depth,aim=.45*maxD;
+ for(let k=0;k<n;k++){const opts=[];
+  for(const [sw,sh] of near)for(let y=2;y+sh<=h-2;y++)for(let x=2;x+sw<=w-2;x++){const rc=[x,y,sw,sh];if(placed.some(o=>near2(rc,o.rect)))continue;let ok=true,sum=0;
+   for(let yy=y;yy<y+sh&&ok;yy++)for(let xx=x;xx<x+sw;xx++){const i=yy*w+xx;if(!isCol(i)||bad.has(i)||under.has(i)||board.entries.includes(i)||!(d[i]>=1&&d[i]<Infinity)){ok=false;break;}sum+=d[i];}
+   if(!ok)continue;const md=sum/(sw*sh);if(md<dLo*maxD||md>dHi*maxD)continue;opts.push({rc,sc:Math.abs(md-aim)/maxD+.15*r()});}
+  opts.sort((u,v)=>u.sc-v.sc);let pick=null;
+  for(const o of opts.slice(0,60)){const [x,y,sw,sh]=o.rc,cells=[];for(let yy=y;yy<y+sh;yy++)for(let xx=x;xx<x+sw;xx++)cells.push(yy*w+xx);
+   const all=[...under,...cells],dw=depthsWith(board,all),inside=new Set(all);let closes=false;for(let i=0;i<g.length;i++)if(isCol(i)&&!inside.has(i)&&d[i]<Infinity&&!(dw[i]<Infinity)){closes=true;break;}if(closes)continue;
+   // the material and its counter
+   const inRect={};for(const i of cells)inRect[g[i]]=(inRect[g[i]]||0)+1;let mat=null;
+   for(const [m,W] of Object.entries(vol)){const counts=shutterCounts(intro?'Normal':cls,W);if(!counts.length)continue;const out=W-all.filter(i=>g[i]===m).length,t=intro||role==='add'?0:(pos??r());
+    const want=counts[Math.round(t*(counts.length-1))],c=[...counts].sort((u,v)=>Math.abs(u-want)-Math.abs(v-want)).find(c=>c<=SHUTTER.outMax*out);if(c==null)continue;
+    const sc=(inRect[m]||0)/cells.length+.5*(placed.some(s=>s.material===m)?1:0)-.2*Math.min(1,W/(N/4))+.1*r();if(!mat||sc<mat.sc)mat={m,c,sc};}
+   if(!mat)continue;pick={cells:cells.sort((u,v)=>u-v),material:mat.m,count:mat.c,rect:o.rc};break;}
+  if(!pick)return null;placed.push(pick);for(const i of pick.cells)under.add(i);}
+ return placed;}
+// the shutters in the engine's format (a level's `shutters`)
+export const shuttersOf=list=>list.map(s=>({cells:s.cells.slice(),material:s.material,count:s.count}));
 
 // ---- accents for pressure on the places (17 §6 «Акценты для давления на места», §3; the owner, 2026-11-01) ----
 // Colony Flow's main trick on Hard and Super Hard (sometimes Normal): a few small elements of the picture — 2–4 cubes of
@@ -423,6 +572,10 @@ export async function evaluate(level,{m,cls,intro=false,fixed=null,kind=null,bre
  // latch + key (17 §9): an introduction has exactly one latch with its key
  if(intro&&recipe==='latch'&&(level.latches||[]).length!==1)return {reason:`знакомство: засовов ${(level.latches||[]).length}, нужен один с ключом (§9)`};
  if(level.hero){const {R}=await engine();if(R.bridgeChoices(R.create(level,level.capacity||5)).length)return {reason:'мост доступен сразу — нужен расчищенный подход (§8)'};}
+ // the water channel (17 §8): its spring sits behind work, the player clears an approach first (never ready at the start)
+ if(level.channel){const {R}=await engine();if(R.channelChoices(R.create(level,level.capacity||5)).length)return {reason:'канал: родник доступен сразу — нужен расчищенный подход (§8)'};}
+ // wooden shutters (17 §9): an introduction has exactly one
+ if(intro&&recipe==='shutters'&&(level.shutters||[]).length!==1)return {reason:`знакомство: створок ${(level.shutters||[]).length}, нужны одни (§9)`};
  // a breather (17 §5 «Передышка», the owner, 2026-11-02): the mandatory checks only
  if(breather)return evaluateBreather(level,{m,tick});
  // a bridge introduction may be the second one, where one bridge only wins: its target is the Normal zone (§9)
@@ -442,6 +595,12 @@ export async function evaluate(level,{m,cls,intro=false,fixed=null,kind=null,bre
  // §5: at most 35 % of the decisions may offer a single launch
  const forced=await forcedShare(level);if(!fixed&&forced>.35)return {reason:'вынужденных решений больше 35 % (§5)'};
  const sol=await solve(level);tick('решение '+sol.win);if(sol.win!==true||sol.replay!=='won')return {reason:sol.win===null?'решение не найдено за бюджет (не проверено)':'нет решения'};
+ // the water channel (17 §8, §9): each exit solved alone and its random share (the class test itself takes the exit as one
+ // of the bot's uniform actions, §5); on both introductions each exit keeps a winning continuation
+ const ch=level.channel?await channelExits(level):null;if(ch)tick('выходы канала '+JSON.stringify(ch.each));
+ if(ch&&intro&&recipe==='canal'&&!ch.each.every(x=>x.win===true))return {reason:'знакомство с каналом: не каждый выход ведёт к победе (§9)'};
+ // wooden shutters (17 §8): every shutter opens on the saved solution before 80 % W
+ const sc=level.shutters?await shutterCheck(level,sol.route):null;if(sc)tick('створки '+JSON.stringify(sc.shutters.map(x=>x.atW)));if(sc&&!sc.ok)return {reason:'створки: '+sc.problems[0]};
  // §5 for a bridge level (the owner, 2026-10-30): the class is measured with the best bridge, the one that alone wins or,
  // when both win, the one the random games win more often; the test over both bridges stays as randomAll
  let best=null,bc0=null,rtAll=null;if(level.hero){win=win||(await bridgeChoicesWin(level)).each;const t=win.filter(x=>x===true).length;
@@ -480,7 +639,7 @@ export async function evaluate(level,{m,cls,intro=false,fixed=null,kind=null,bre
   if(bridgeKind==='single'){bl=early||await bridgeLoss(level,bs.each.indexOf(false));tick('проигрыш с другим мостом '+JSON.stringify(bl));if(!bl.ok&&cls!=='Super Hard'&&rt.cls!=='Super Hard')return {reason:'мост: с другим мостом проигрыш сразу при выборе (§8)'};}}
  const st=await strategies(level),rh=rhythm(sol.trace,W),greedyLoses=!st['most-now|left']&&!st['most-now|right'],hold=await holdPod(level);
  return {random:rt,...(rtAll?{randomAll:rtAll}:{}),solution:{route:sol.route,forks:sol.decisions.forks,singleSafe:sol.decisions.single,unknown:sol.decisions.unknown,fast:sol.fast},fairness:fair,strategies:st,rhythm:rh,...(bc?{bridge:bc}:{}),
-  checks:{forced,opening,hold,greedyLoses,hiddenMatters:hm,bridgeKind,bridgeSingle:bs,...(bl?{bridgeLoss:bl}:{}),pressure:await pressure(level,QUALITY.pressure.games),calm,traps:{links:traps.length,traps:trapN,top:traps.filter(x=>x.trap&&x.row<=2).length},...(lc?{latch:lc}:{})}};}
+  checks:{forced,opening,hold,greedyLoses,hiddenMatters:hm,bridgeKind,bridgeSingle:bs,...(bl?{bridgeLoss:bl}:{}),pressure:await pressure(level,QUALITY.pressure.games),calm,traps:{links:traps.length,traps:trapN,top:traps.filter(x=>x.trap&&x.row<=2).length},...(lc?{latch:lc}:{}),...(ch?{channel:ch}:{}),...(sc?{shutters:sc}:{})}};}
 
 // A breather (17 §5 «Передышка», the owner, 2026-11-02: «некоторые играются как "передышка", особенно те что < 500–550
 // клеток»): a Normal on a picture up to ~550 cells (BREATHER_N) or a position the wave plan marks `breather`. Zero or one
@@ -590,7 +749,7 @@ async function build(ids){const accentMode=arg('--accents','auto');if(!['auto','
      // the accents and «стоят без работы» with / without them (the same queue, the accent pods playing their ground)
      if(acc)e.checks.accents=await accentCheck(c.level,pic,acc.accents,e.checks.pressure);
      bank.candidates.push({id:`${id}-${cls[0]}${recipe}${v.overlay?'~'+v.side:''}${runTag?'-'+runTag:''}${acc?'-a':''}-${k}${intro?'-intro':''}`,picture:id,requested:cls,cls:e.random.cls,intro,recipe,level:c.level,...(v.overlay?{overlay:v.overlay}:{}),...(side?{bridgeSide:side}:{}),N:cm.N,W:cm.N,colours:cm.colours,P:c.level.pods.length,columns:cols,
-      linked:c.level.pods.filter(p=>p.group).length,hidden:c.level.pods.filter(p=>p.mystery).length,...(c.level.hiddenCells?{cells:cellsHiddenAtStart(c.level)}:{}),...(c.level.latches?{latches:c.level.latches.length}:{}),random:e.random,...(e.randomAll?{randomAll:e.randomAll}:{}),solution:e.solution,fairness:e.fairness,strategies:e.strategies,rhythm:e.rhythm,dosePos:pos,...(blend!==null?{blend:Math.round(blend*1000)/1000}:{}),...(e.bridge?{bridge:e.bridge}:{}),checks:e.checks,engine:'tools/rounds/engine.mjs (pilot v9 + §8 link rule)',seed:seed0,attempt:k});
+      linked:c.level.pods.filter(p=>p.group).length,hidden:c.level.pods.filter(p=>p.mystery).length,...(c.level.hiddenCells?{cells:cellsHiddenAtStart(c.level)}:{}),...(c.level.latches?{latches:c.level.latches.length}:{}),...(c.level.channel?{channel:true}:{}),...(c.level.shutters?{shutters:c.level.shutters.length}:{}),random:e.random,...(e.randomAll?{randomAll:e.randomAll}:{}),solution:e.solution,fairness:e.fairness,strategies:e.strategies,rhythm:e.rhythm,dosePos:pos,...(blend!==null?{blend:Math.round(blend*1000)/1000}:{}),...(e.bridge?{bridge:e.bridge}:{}),checks:e.checks,engine:'tools/rounds/engine.mjs (pilot v9 + §8 link rule)',seed:seed0,attempt:k});
      found++;if(e.checks.greedyLoses)foundLoss++;}
     console.log(id,tag,cls.padEnd(10),recipe.padEnd(13),intro?'знакомство':'',`найдено ${found} из ${tried}`,Object.keys(reasons).length?JSON.stringify(reasons):'');
     bank.searched.push({combo,...(runTag?{tag:runTag}:{}),...(steer?{steer:{t:Math.round(steer.t*1000)/1000,aim:steer.aim}}:{}),tried,found,reasons});writeJSON(bankFile,bank);}}}
@@ -607,7 +766,7 @@ async function buildTuned({pic,id,cls,recipe,intro,slot,bank,bankFile,combo,runT
  const res=await tuneJob({pic,cls,recipe,slot,intro,want,wantLoss,attempts:budgetN,minutes,memory,seed:seed0,accentMode,maxColours:+arg('--max-colours',10),save:()=>writeJSON(bankFile,bank),log:trace});
  for(const x of res.banked){const lv=x.level,e=x.e,inZone=res.accepted.includes(x)&&!x.zoneMiss;
   const rc=x.recipe||recipe;bank.candidates.push({id:`${id}-${cls[0]}${rc}-g${GEN.slice(5).replace('-','')}${runTag?'-'+runTag:''}${x.acc?'-a':''}${slot==='breather'?'-br':''}-${x.k}${intro?'-intro':''}`,picture:id,requested:cls,cls:e.random.cls,intro,recipe:rc,gen:GEN,level:lv,N:x.m.N,W:x.m.N,colours:x.m.colours,P:lv.pods.length,columns:lv.tray.length,
-   linked:lv.pods.filter(p=>p.group).length,hidden:lv.pods.filter(p=>p.mystery).length,...(lv.hiddenCells?{cells:cellsHiddenAtStart(lv)}:{}),...(lv.latches?{latches:lv.latches.length}:{}),...(slot==='breather'?{breather:true}:{}),slot,inZone,...(x.zoneMiss?{zoneMiss:true}:{}),
+   linked:lv.pods.filter(p=>p.group).length,hidden:lv.pods.filter(p=>p.mystery).length,...(lv.hiddenCells?{cells:cellsHiddenAtStart(lv)}:{}),...(lv.latches?{latches:lv.latches.length}:{}),...(lv.channel?{channel:true}:{}),...(lv.shutters?{shutters:lv.shutters.length}:{}),...(slot==='breather'?{breather:true}:{}),slot,inZone,...(x.zoneMiss?{zoneMiss:true}:{}),
    random:e.random,solution:e.solution,fairness:e.fairness,strategies:e.strategies,rhythm:e.rhythm,dosePos:x.pos,blend:x.t,tune:{steps:x.steps,...(x.links?{links:x.links}:{}),seconds:Math.round(x.seconds)},checks:e.checks,engine:'tools/rounds/engine.mjs (pilot v9 + §8 link rule)',seed:seed0,attempt:x.k});}
  const st=res.stats;console.log(id,cls.padEnd(10),recipe.padEnd(13),slot,`принято ${res.accepted.length} из ${st.attempts} попыток (в банк ${res.banked.length}) за ${Math.round(res.seconds)} с`,JSON.stringify(st.reasons));
  bank.searched.push({combo,...(runTag?{tag:runTag}:{}),tune:{slot,t:memory.t??null,attempts:st.attempts,quick:st.quick,evaluated:st.evaluated,seconds:Math.round(res.seconds)},tried:st.attempts,found:res.accepted.length,reasons:st.reasons});writeJSON(bankFile,bank);
@@ -635,6 +794,12 @@ export function mechOk(c,n,slot,plan=null){const k=c.checks||{},second=slot.intr
  if(slot.intro==='cells')return c.cells>=5&&c.cells<=10;
  // a latch introduction: one latch with its key (§9), its §8 checks passed
  if(slot.intro==='latch')return c.latches===1&&(!k.latch||k.latch.ok);
+ // a water channel introduction: each exit keeps a winning continuation (§9)
+ if(slot.intro==='canal')return !!(k.channel&&k.channel.each.every(x=>x.win===true));
+ // a shutters introduction: one shutter (§9), its §8 check passed
+ if(slot.intro==='shutters')return c.shutters===1&&!!(k.shutters&&k.shutters.ok);
+ // any level with shutters: every one opens on the saved solution before 80 % W (§8)
+ if(k.shutters&&!k.shutters.ok)return false;
  // any level with latches: the §8 checks of its class
  if(k.latch&&!k.latch.ok)return false;return true;}
 const greedyLost=L=>{const s=L.strategies||{};return !s['most-now|left']&&!s['most-now|right'];};

@@ -20,6 +20,11 @@ export function randomGame(E,level,seed,keep=null){const {R,T}=E,t=new T.Timelin
  return false;}
 // the keep filter of a test restricted to one bridge (null: every action)
 export const keepBridge=bridge=>bridge===null||bridge===undefined?null:a=>a.type!=='bridge'||a.choice===bridge;
+// the keep filter of a test restricted to one exit of a water channel (measure.mjs channelExits)
+export const keepExit=exit=>a=>a.type!=='channel'||a.exit===exit;
+// a hero's choice the strategies take at once by side: a bridge place or a water channel's exit (left the first offered,
+// right the last)
+export const heroChoices=m=>m.filter(a=>a.type==='bridge'||a.type==='channel');
 
 // a calm game (calmTest): before every choice the board plays until nothing more changes (the idle engine)
 export function calmGame(E,level,seed,bridge){const {R,idle:I}=E,r=rng(seed);let s=R.create(level,level.capacity||5),g=0;
@@ -56,7 +61,7 @@ export const asap=(E,t)=>{let g=0;while(g++<100000){if(t.state.status==='Won')re
 export function greedyFrom(E,level,opening,k,side){const {R,T}=E,pol=STRATEGIES[k].make(1,E),t=new T.Timeline(R.create(level,level.capacity||5));
  for(const a of opening){const m=asap(E,t),x=m.find(y=>JSON.stringify(y)===a);if(!x)return false;t.commit(x);}
  let g=0;while(g++<100000){if(t.state.status==='Won')return true;const m=R.legal(t.state).filter(a=>!t.check(a));
-  if(m.length){const br=m.filter(a=>a.type==='bridge');const a=br.length?(side==='left'?br[0]:br.at(-1)):pol(t,m);if(!a||t.check(a)){if(t.pending){t.advance(t.steps[0].at-t.now);continue;}break;}t.commit(a);continue;}
+  if(m.length){const br=heroChoices(m);const a=br.length?(side==='left'?br[0]:br.at(-1)):pol(t,m);if(!a||t.check(a)){if(t.pending){t.advance(t.steps[0].at-t.now);continue;}break;}t.commit(a);continue;}
   if(!t.pending)break;t.advance(t.steps[0].at-t.now);}
  return t.state.status==='Won';}
 // whether some strategy at some hero side wins after the opening
@@ -68,6 +73,7 @@ export function playOne(E,level,kind,p,i){
   case 'random':return randomGame(E,level,p.seed*7919+i*104729+1,keepBridge(p.bridge));
   case 'quick':return randomGame(E,level,p.seed*31+i*977,keepBridge(p.bridge));
   case 'choice':return randomGame(E,level,p.seed*7919+i*104729+p.choice,keepBridge(p.choice));
+  case 'exit':return randomGame(E,level,p.seed*7919+i*104729+p.exit+3,keepExit(p.exit));
   case 'calm':return calmGame(E,level,p.seed*7919+i*104729+5,p.bridge);
   case 'single':return singleGame(E,level,p.seed,i,p.policy);
   case 'loss':return lossGame(E,level,p.seed,i,p.choice,p.restricted);

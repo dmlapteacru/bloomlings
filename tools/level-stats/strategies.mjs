@@ -14,7 +14,8 @@ function reachable(E,t,p){const s=t.state,col=s.meta.colours[p];let n=0;for(cons
 const groupLeft=(s,a)=>s.meta.groups[a.pod].reduce((n,p)=>n+s.remaining[p],0);
 // mean row (0 = top) of a colour's cells on the board; a hidden cell not revealed yet (round engine, 17 §8) is unknown
 function rowOf(s,p){const col=s.meta.colours[p],w=s.level.w,h=s.level.h,v=s.veiled;let sum=0,n=0;for(let i=0;i<s.board.length;i++)if(s.board[i]===col&&!(v&&v[i])){sum+=h-1-Math.floor(i/w);n++;}return n?sum/n:h;}
-const bridgeFirst=m=>m.find(a=>a.type==='bridge');
+// a hero's choice first: a bridge, or the exit of a ready water channel (17 §8, the owner, 2026-11-05; the first offered)
+const bridgeFirst=m=>m.find(a=>a.type==='bridge')||m.find(a=>a.type==='channel');
 export const STRATEGIES={
  'left-to-right':{label:'слева направо',make:()=>(t,m)=>bridgeFirst(m)||taps(m).sort((a,b)=>columnOf(t.state,a.pod)-columnOf(t.state,b.pod))[0]},
  'right-to-left':{label:'справа налево',make:()=>(t,m)=>bridgeFirst(m)||taps(m).sort((a,b)=>columnOf(t.state,b.pod)-columnOf(t.state,a.pod))[0]},

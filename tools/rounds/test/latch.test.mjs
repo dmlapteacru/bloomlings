@@ -97,10 +97,11 @@ test('identity: levels without latches have none; a latch open from the start ch
   for(let k=0;k<4;k++)assert.equal(M.randomGame(E,lv,k*7919+1),M.randomGame(E,d,k*7919+1));}});
 
 test('doses, calendar and the builder: one latch on an introduction, latches in key holes at the class depth',()=>{
- assert.deepEqual(LV.doses('latch','Normal',24,false).latch,[1,1]);assert.deepEqual(LV.doses('latch','Hard',24,false).latch,[1,2]);assert.deepEqual(LV.doses('latch','Super Hard',24,false).latch,[2,3]);
- assert.deepEqual(LV.doses('links+latch','Hard',24,false).latch,[1,1],'additional: 1');assert.deepEqual(LV.doses('latch+links+cells','Super Hard',24,false,700).latch,[2,2],'three types: the lead\'s lower half');
+ // the owner's amendment of 2026-11-03: Normal 1, Hard 2–3, Super Hard exactly 3, lead and additional alike
+ assert.deepEqual(LV.doses('latch','Normal',24,false).latch,[1,1]);assert.deepEqual(LV.doses('latch','Hard',24,false).latch,[2,3]);assert.deepEqual(LV.doses('latch','Super Hard',24,false).latch,[3,3]);
+ assert.deepEqual(LV.doses('links+latch','Hard',24,false).latch,[2,3],'additional: the whole range');assert.deepEqual(LV.doses('latch+links+cells','Super Hard',24,false,700).latch,[3,3],'three types: exactly 3');
  assert.deepEqual(LV.doses('latch','Normal',24,true).latch,[1,1],'introduction');assert.deepEqual(LV.doses('latch','Super Hard',12,false).latch,[1,1],'small queue');
- assert.deepEqual(LV.doseShares('links+latch','Hard').find(x=>x.m==='latch'),{m:'latch',role:'add',count:[1,1]});
+ assert.deepEqual(LV.doseShares('links+latch','Hard').find(x=>x.m==='latch'),{m:'latch',role:'add',count:[2,2]});
  assert.ok(L.SUPPORTED.has('latch'));assert.deepEqual(L.INTRO.find(([m])=>m==='latch'),['latch',61,63]);assert.equal(L.MECH_RU.latch,'засов и ключ');
  assert.equal(L.slotOf(61).intro,'latch');assert.equal(L.slotOf(63).intro,'latch');assert.equal(L.slotOf(62).allowed.includes('latch'),false);assert.equal(L.slotOf(64).allowed.includes('latch'),true);
  // key holes: empty areas closed in by work, reached without a bridge

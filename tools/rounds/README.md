@@ -414,8 +414,7 @@ recipe and mechanic name `latch`, «засов и ключ»). The exact contrac
   command `{"type":"channel","exit":i,"atUs":…}`; `round-proof.v1` commands too.
 - *Boosters* (C# only): none chooses an exit; Bloom Burst may open the way to the spring (ready right after the burst's
   cell reveals and latches).
-- *Not yet*: the builder (`SUPPORTED` in `lib.mjs` does not list `canal`), the §7/§8 doses and placement checks, the
-  pilot, and the look in both clients (the owner's choice A of `product/previews/channel-shutters-2026-11-05/`).
+- *Builder*: «Channel and shutters in the builder» below. *Not yet*: the pilot.
 
 **Shutters** (17 §8 «Twig Деревянные створки», §9: introductions on 121 and 123, the owner, 2026-11-05; mechanic name
 `shutters`, «деревянные створки Twig»; spec 006 FR-070). The exact contract, which the C# port follows:
@@ -448,8 +447,50 @@ recipe and mechanic name `latch`, «засов и ключ»). The exact contrac
 - *Conformance line*: `<µs> shutterOpen shutter=<i>`.
 - *Boosters* (C# only): none opens a shutter. Bloom Burst leaves the cells under a closed shutter (the material's pods
   keep that work) but the cells it clears count, so a shutter may open right after the burst, before its cell reveals.
-- *Not yet*: the builder, the doses and the §8 checks on the saved solution (open before 80 % W, a real new front), the
-  pilot, and the look (the owner's choice B of the mock).
+- *Builder*: «Channel and shutters in the builder» below. *Not yet*: the pilot.
+
+**Channel and shutters in the builder** (2026-11-05; `lib.mjs` `SUPPORTED` lists `canal` and `shutters`; generator
+revision `wave.mjs` `GEN` 2026-11-05). Both are placed once per job in `tune.mjs` `tuneJob`, before the queue is tuned,
+so the quick tests and every check see them; `levels.mjs candidate` copies the board's `channel` / `shutters` into the
+level (`objectsOf`) and refuses a recipe that does not match them.
+
+- *The channel's places* (`levels.mjs placeChannel`, `CHANNEL`): the spring and each exit is one cell, either a colour
+  cell enclosed by colour on its four sides that the level takes out (it joins `overlay.keys`, the list of the picture's
+  colour cells the level leaves empty; no format change, the C# `RoundPictureBoard` lays them the same way) or an empty
+  pocket of the picture the start does not reach. Access depth (colour cells to clear first, `depths`): the spring in
+  8–35 % of the deepest colour cell's (at least 2: behind work, never ready at the start, which `evaluate` and the audit
+  refuse), near the entry's column; the exits at least 50 % deep and 3 deeper than the spring, at least 0.4 × √(area)
+  apart and turned at least 80° from each other as seen from the spring (two different inner regions), cells of the
+  channel at least 3 apart; preferred: the deepest, farthest pair, different materials round the exits, short routes. A
+  thin picture without such a pair is tried once more relaxed (`CHANNEL_RELAXED`: 40 %, 0.28 × √area, 55°). Each route
+  is two straight legs (row then column or column then row; of the four combinations the pair sharing fewest cells),
+  ride 60 ms a step, at least 400 ms. Latch keys never take a channel cell (`keyHoles` skips them; `carveKeySpots
+  {avoid}` keeps 5 cells away).
+- *The queue for an exit* (`channelDepths`): the candidate orders its pods as if one exit (drawn per attempt) were chosen
+  the moment the spring is reached (a cell's depth = min(from the entries, spring depth + from the exit)), so that exit's
+  region is played earlier and with the other exit its pods wait: the choice matters.
+- *Shutters* (`placeShutters`, `SHUTTER`; 17 §7, §8): number by `doses` (`SHUTTER_T`: lead Normal 1, Hard 1–2, Super Hard
+  2–3, additional 1, introduction 1; in the wave plan L101–L150 every shutter level has one); total area as a share of
+  N (lead Normal 3–8 %, Hard 5–12 %, Super Hard 8–15 %, additional 2–5 %, introduction Normal's 3 %), each a full rectangle
+  of colour cells with sides 3–8 and aspect at most 2, off the start front, mean depth near 45 % of the deepest, never
+  over the channel's cells and routes or an accent, never closing another colour cell off (with it as a wall everything
+  else stays reachable), 2 cells from another shutter. Its counter (`shutterCounts`): 17 §8's share of the counted
+  material's work on the board (Normal 20–35 %, Hard 30–50 %, Super Hard 40–60 %), a multiple of 5, at least 10, the
+  material at least 40 units, the lead at its dose place in the range, an additional one and an introduction at the
+  class's lower bound, at most 85 % of the material's work outside the shutters; preferred a material scarce under the
+  rectangle. Hidden cells never stand under a shutter; an accent over a shutter or its counted material is dropped.
+- *Doses and checks* (`dosesOk`, `evaluate`, `place mechOk`, `audit.mjs`): the recipe and the objects agree; shutters'
+  number and counters by class and role; the saved solution opens every shutter before 80 % W (`measure.mjs shutterCheck`;
+  no cell under it reachable at once is a note); `channelExits` solves the level with each exit alone (a fresh solver
+  with `keep`) and plays 60 games with each exit only (`checks.channel`: `each[{exit, win, share}]`, `decides` = exactly
+  one exit wins); both introductions need both exits winning (17 §9).
+- *Measurement.* The §5 random test is unchanged: the bot chooses uniformly among all legal actions, and while the channel
+  is ready each exit is one of them (with the pods and the wait), exactly as `RoundRandomPolicy` (C#) and the
+  conformance fixtures. The saved-solution search (`level-stats/solve.mjs` `prefer`) tries an exit as soon as one may be
+  chosen, exit 0 then exit 1, so the proof shows the choice; the simple strategies take an exit at once (left the first,
+  right the last; `strategies.mjs bridgeFirst`, `perf/games.mjs heroChoices`), and forced decisions count taps only.
+- *Wave L101–L150* (`content/rounds/runs/L0101-L0150/mechanics.json`, the owner's plan of 2026-11-05): the Super Hards with
+  a channel (110, 130, 150) are `by: "hand"` (`channelKind: "single"`: exactly one exit wins), skipped by `place`.
 
 **Picture selection** (the owner, 2026-11-01).
 

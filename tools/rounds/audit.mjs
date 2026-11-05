@@ -7,7 +7,7 @@ import fs from 'node:fs';import path from 'node:path';
 import {franchiseBlocked,LEVELS,CODES,readJSON,lid,arg,picture,measure,fitsStage,stageOf,budget,columnsFor,slotOf,SUPPORTED,FIXED_VOLUMES,motifsOf,boardOf,overlaid,recolorErrors} from './lib.mjs';
 import {engine} from './engine.mjs';
 import {run} from '../level-stats/trace.mjs';
-import {latchCheck,cellsHiddenAtStart,bridgeChoicesWin,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,pressure,calmTest,calmFails,calmBorderline,trapLinks} from './measure.mjs';
+import {channelExits,shutterCheck,latchCheck,cellsHiddenAtStart,bridgeChoicesWin,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,pressure,calmTest,calmFails,calmBorderline,trapLinks} from './measure.mjs';
 import {INTRO,planOf,repeatWindow} from './lib.mjs';
 import {fitness} from './fitness.mjs';
 import {breatherRecipeOk,BREATHER_ZONE,repeatClash,REPEAT_GAP,REPEAT_PER_WAVE,medianWindows,median,greedyQuota} from './wave.mjs';
@@ -86,6 +86,21 @@ for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
    else if(types.includes('latch')){const dz=LV.doses(L.recipe,L.cls,P,false,W);if(dz.latch&&(ls.length<dz.latch[0]||ls.length>Math.max(...dz.latch)))bad.push(`засовов ${ls.length} вне ${dz.latch.join('–')} для ${L.cls} (§7)`);}
    const lc=await latchCheck(d,L.solution.route,L.cls);L._latch=lc;bad.push(...lc.problems);soft.push(...lc.notes);
    if(ls.some(l=>d.tray[l.column]&&d.tray[l.column].slice(l.depth).some(p=>pods[p]&&pods[p].mystery)))soft.push('скрытый под за засовом (§7: в стартовых рецептах так не ставят)');}}
+ // the Drop water channel (17 §8, §9, the owner, 2026-11-05): the recipe and the channel agree, the spring behind work (not
+ // ready at the start), on both introductions each exit keeps a winning continuation; each exit's verdict is noted
+ {const ch=d.channel||null;if(types.includes('canal')!==!!ch)bad.push('рецепт и канал не совпадают');
+  if(ch){if(R.channelChoices(s0).length)bad.push('канал: родник доступен сразу, без расчищенного подхода (§8)');
+   const ce=await channelExits(d);L._channel=ce;
+   if(slot.intro==='canal'&&!ce.each.every(x=>x.win===true))bad.push(`знакомство с каналом: не каждый выход ведёт к победе ${JSON.stringify(ce.each.map(x=>x.win))} (§9)`);
+   else soft.push(`канал: выходы ${ce.each.map(x=>`${x.exit+1} ${x.win===true?'выигрывает':x.win===false?'проигрывает':'не решён'}`).join(', ')}${ce.decides?' — решает ровно один':''} (§8)`);}}
+ // the Twig wooden shutters (17 §7, §8, §9, the owner, 2026-11-05): the recipe and the shutters agree, an introduction has
+ // one, the number and the counters for class and role (levels.mjs dosesOk), and on the saved solution every shutter opens
+ // before 80 % W (measure.mjs shutterCheck; no new front at the opening is a note)
+ {const sh=d.shutters||[];if(types.includes('shutters')!==(sh.length>0))bad.push('рецепт и створки не совпадают');
+  if(sh.length){if(slot.intro==='shutters'){if(sh.length!==1)bad.push(`знакомство: створок ${sh.length}, нужны одни (§9)`);}
+   else{const dz=LV.doses(L.recipe,L.cls,P,false,W);if(dz.shutters&&(sh.length<dz.shutters[0]||sh.length>Math.max(...dz.shutters)))bad.push(`створок ${sh.length} вне ${dz.shutters.join('–')} для ${L.cls} (§7)`);}
+   bad.push(...LV.shutterCountErrors(d,slot.intro==='shutters'?'Normal':L.cls));
+   const sc=await shutterCheck(d,L.solution.route);L._shutters=sc;bad.push(...sc.problems);soft.push(...sc.notes);}}
  if(L.cls!==slot.cls)bad.push(`класс ${L.cls}, календарь ждёт ${slot.cls} (§5)`);
  const secondIntro=!!slot.intro&&INTRO.some(([m,,b])=>m===slot.intro&&b===n);
  if(slot.intro){if(L.intro!==slot.intro||L.recipe!==slot.intro)bad.push(`знакомство с ${slot.intro}: рецепт ${L.recipe} (§9)`);

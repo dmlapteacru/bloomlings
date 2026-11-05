@@ -10,7 +10,7 @@ import {STRATEGIES,rng} from '../level-stats/strategies.mjs';
 // ROUNDS_THREADS), put back in index order, so every result is the one the reference gives in one thread
 import {engine} from './perf/engines.mjs';
 import {games} from './perf/pool.mjs';
-import {isStateEvent,asap,greedyFrom} from './perf/games.mjs';
+import {isStateEvent,asap,greedyFrom,heroChoices} from './perf/games.mjs';
 // one game of the extended random policy (§5; perf/games.mjs): before each choice the events of the moment are processed;
 // the bot picks uniformly among all legal actions (a pod, a whole group, each bridge place) and, when a state-changing
 // event is scheduled, one extra option: wait until that event. With no action and a scheduled event, time moves on by itself.
@@ -72,7 +72,9 @@ export function trapLinks(level){const {w,h,rowsBottomFirst:rows,entries}=level,
 export async function quickShare(level,count=40,seed=11,bridge=null){return (await games('quick',level,{seed,bridge},{count})).filter(Boolean).length/count;}
 
 // the saved winning solution: full-information search on the patient model, replayed on the live timeline (§1, §13.7)
-export async function solve(level,budget=200000){const E=await engine(),S=solver(E,budget),cap=level.capacity||5;
+// (a water channel: the search tries an exit as soon as one may be chosen, exit 0 first, then exit 1, so the saved
+// solution shows the choice; R.legal offers the exits after the taps)
+export async function solve(level,budget=200000){const E=await engine(),S=solver(E,budget,null,level.channel?a=>a.type==='channel':null),cap=level.capacity||5;
  const r=S.route(level,cap);if(!r.route)return {win:r.win,route:null,nodes:r.nodes};
  const tr=run(E,level,{commands:r.route.map(a=>({t:0,action:a})),patient:true});
  const dec=S.decisions(level,cap,r.route);
@@ -126,7 +128,7 @@ export async function strategies(level){const E=await engine(),{R,T}=E,out={};
  for(const [k,st] of Object.entries(STRATEGIES)){if(st.random||k==='planner'||k==='big-first')continue;
   for(const side of ['left','right']){const pol=st.make(1,E),t=new T.Timeline(R.create(level,level.capacity||5));let g=0;
    while(g++<100000){if(t.state.status==='Won')break;const m=R.legal(t.state).filter(a=>!t.check(a));
-    if(m.length){const br=m.filter(a=>a.type==='bridge');const a=br.length?(side==='left'?br[0]:br.at(-1)):pol(t,m);if(!a||t.check(a)){if(t.pending){t.advance(t.steps[0].at-t.now);continue;}break;}t.commit(a);continue;}
+    if(m.length){const br=heroChoices(m);const a=br.length?(side==='left'?br[0]:br.at(-1)):pol(t,m);if(!a||t.check(a)){if(t.pending){t.advance(t.steps[0].at-t.now);continue;}break;}t.commit(a);continue;}
     if(!t.pending)break;t.advance(t.steps[0].at-t.now);}
    out[`${k}|${side}`]=t.state.status==='Won';}}
  return out;}
@@ -149,6 +151,28 @@ export async function bridgeChoicesWin(level){const E=await engine(),out=[];
  for(let i=0;i<(level.hero?level.hero.choices.length:0);i++){const lv={...level,hero:{...level.hero,choices:[level.hero.choices[i]]}};out.push(solver(E,200000).winnable(E.idle.create(lv,level.capacity||5)));}
  return {each:out,ok:out.length>0&&out.every(x=>x===true)};}
 
+// the water channel as a choice (17 §8 «Drop Водный канал», §9; the owner, 2026-11-05): for each exit, whether the level is
+// won with only that exit (a fresh solver, its legal actions filtered) and the random test's share when only that exit may
+// be chosen (n games); decides = exactly one exit wins (a hand Super Hard's choice), gap = best share − worst share. The
+// class test itself (randomTest) plays the exit as one of the bot's uniform actions (17 §5, as RoundRandomPolicy does).
+export async function channelExits(level,n=60,seed=5){if(!level.channel)return null;const E=await engine(),each=[];
+ for(let i=0;i<level.channel.exits.length;i++){const win=solver(E,200000,a=>a.type!=='channel'||a.exit===i).winnable(E.idle.create(level,level.capacity||5));
+  const sh=(await games('exit',level,{seed,exit:i},{count:n})).filter(Boolean).length;each.push({exit:i,win,share:Math.round(sh/n*100)/100});}
+ const sh=each.map(x=>x.share);return {each,gap:Math.round((Math.max(...sh)-Math.min(...sh))*100)/100,decides:each.filter(x=>x.win===true).length===1&&each.filter(x=>x.win===false).length===each.length-1,better:sh.indexOf(Math.max(...sh))};}
+// wooden shutters on the saved solution (17 §8 «Twig Деревянные створки»): the solution replayed patiently on the timeline
+// (as latchCheck): when each shutter opens (done work W as a share, the command after which), and whether at that moment a
+// cell under it is a target at once (a new front: its cubes are reachable work); problems (mandatory): a shutter that never
+// opens or opens at 80 % W or later; notes: no new front at the opening.
+export async function shutterCheck(level,route){const ss=level.shutters||[];if(!ss.length)return null;const E=await engine(),{R,T}=E;
+ const W=level.pods.reduce((n,p)=>n+p.count,0),t=new T.Timeline(R.create(level,level.capacity||5)),opened=ss.map(()=>null);let k=0;
+ const watch=events=>{for(const e of events)if(e.type==='shutterOpen'&&!opened[e.shutter]){const tg=new Set(R.reach(t.state).targets);opened[e.shutter]={atW:Math.round(t.processedCells/W*1000)/1000,command:k,front:ss[e.shutter].cells.filter(c=>tg.has(c)).length};}};
+ const settle=()=>{while(t.pending){t.advance(Math.max(0,t.steps[0].at-t.now));watch(t.lastEvents);}};
+ for(const a of route||[]){settle();const r=t.commit(a);if(!r.accepted)break;k++;watch(r.events);watch(t.lastEvents);}
+ settle();const problems=[],notes=[],rows=ss.map((s,i)=>({shutter:i,material:s.material,count:s.count,cells:s.cells.length,...(opened[i]||{atW:null})}));
+ for(const x of rows){const tag=`створки ${x.shutter+1} (${x.material} ${x.count})`;if(x.atW===null)problems.push(`${tag}: не открылись на сохранённом решении (§8)`);
+  else{if(x.atW>=.8)problems.push(`${tag}: открылись при ${Math.round(x.atW*100)} % W на сохранённом решении, нужно до 80 % (§8)`);if(!x.front)notes.push(`${tag}: при открытии ни одна клетка под ними не доступна сразу (§8: новый фронт)`);}}
+ const ats=rows.map(x=>x.atW).filter(x=>x!=null);return {shutters:rows,lastOpenAtW:ats.length?Math.max(...ats):null,ok:!problems.length,problems,notes};}
+
 // the bridge as a choice (the owner, 2026-10-27: "надо выбрать, какой мост открывать"): for each bridge, whether it keeps a
 // winning continuation and the random test's share when only that bridge may be built; gap = best share − worst share
 // (win: each bridge's solver verdict when already known)
@@ -162,7 +186,7 @@ export async function bridgeChoices(level,n=60,seed=5,known=null){const win=know
 export async function greedy(level){const E=await engine(),{R,T}=E,out={};
  for(const k of ['most-now','fast-release'])for(const side of ['left','right']){const pol=STRATEGIES[k].make(1,E),t=new T.Timeline(R.create(level,level.capacity||5));let g=0;
   while(g++<100000){if(t.state.status==='Won')break;const m=R.legal(t.state).filter(a=>!t.check(a));
-   if(m.length){const br=m.filter(a=>a.type==='bridge');const a=br.length?(side==='left'?br[0]:br.at(-1)):pol(t,m);if(!a||t.check(a)){if(t.pending){t.advance(t.steps[0].at-t.now);continue;}break;}t.commit(a);continue;}
+   if(m.length){const br=heroChoices(m);const a=br.length?(side==='left'?br[0]:br.at(-1)):pol(t,m);if(!a||t.check(a)){if(t.pending){t.advance(t.steps[0].at-t.now);continue;}break;}t.commit(a);continue;}
    if(!t.pending)break;t.advance(t.steps[0].at-t.now);}
   out[`${k}|${side}`]=t.state.status==='Won';}
  return out;}
@@ -187,7 +211,7 @@ export async function openingTest(level,cls,{depth=3,limit=0.35}={}){const E=awa
 // one pod or group can be launched; at most 35 %
 export async function forcedShare(level,games=30,seed=12345){const E=await engine(),{R,T}=E,r=rng(seed);let one=0,all=0;
  for(let g=0;g<games;g++){const t=new T.Timeline(R.create(level,level.capacity||5));let k=0;
-  while(k++<100000){if(t.state.status==='Won')break;const m=R.legal(t.state).filter(a=>!t.check(a)),taps=m.filter(a=>a.type!=='bridge');
+  while(k++<100000){if(t.state.status==='Won')break;const m=R.legal(t.state).filter(a=>!t.check(a)),taps=m.filter(a=>a.type!=='bridge'&&a.type!=='channel');
    if(m.length){if(taps.length){all++;if(taps.length===1)one++;}t.commit(m[Math.floor(r()*m.length)]);continue;}
    if(!t.pending)break;t.advance(t.steps[0].at-t.now);}}
  return all?Math.round(one/all*100)/100:0;}

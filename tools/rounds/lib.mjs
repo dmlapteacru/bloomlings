@@ -77,8 +77,10 @@ export const classOf=n=>(n>100?n%10===0:n%15===0)?'Super Hard':n%5===0?'Hard':'N
 // owner's second amendment of 2026-11-01, wave plan v2: both new mechanics in the wave L51–L100; 17 §9)
 export const INTRO=[['hidden',6,8],['links',11,13],['bridge',16,18],['cells',51,53],['latch',61,63],['canal',101,103],['shutters',121,123],['repair',201,203],['bud',251,253],['seed',301,303],['well',351,353],['stacks',451,453]];
 export const MECH_RU={hidden:'скрытые поды',links:'связки',bridge:'мост Sprig',latch:'засов и ключ',canal:'водный канал Drop',shutters:'деревянные створки Twig',repair:'ремонт пятого места Twig',bud:'закрытый бутон Bloom',seed:'семечко Bloom',well:'колодец Drop',cells:'скрытые клетки',stacks:'стопки одного материала'};
-// what the round engine (tools/rounds/engine.mjs) really plays today; the rest waits for an engine change (§14)
-export const SUPPORTED=new Set(['hidden','links','bridge','cells','latch']);
+// what the round engine (tools/rounds/engine.mjs) really plays and the builder can place today; the rest waits for an
+// engine change (§14). The Drop water channel ('canal') and the Twig wooden shutters ('shutters') since 2026-11-05
+// (levels.mjs placeChannel, placeShutters; README «Channel», «Shutters»)
+export const SUPPORTED=new Set(['hidden','links','bridge','cells','latch','canal','shutters']);
 // hidden pods and hidden cells are interchangeable unknowns and never on one level (17 §8, the owner, 2026-11-01)
 export const EXCLUSIVE=[['hidden','cells']];
 export const recipeAllowed=recipe=>{const t=(recipe||'none').split('+');return !EXCLUSIVE.some(g=>g.every(m=>t.includes(m)));};
@@ -122,7 +124,9 @@ export function overlaid(pic,overlay,recolor=null){if(recolor&&recolor.length){c
  for(const c of overlay.walls||[]){const [x,y]=at(c,'стена');rows[y][x]='#';}
  for(const c of overlay.sites||[]){const [x,y]=at(c,'место моста');if(rows[y][x]!=='#'&&rows[y][x]!=='b')throw Error(`overlay: место моста ${JSON.stringify(c)} не на стене`);rows[y][x]='b';}
  // key spots (17 §8 «Засов», the owner's amendment of 2026-11-03: «убирать какие-то 4 кубика… и вместо них ставить ключ»):
- // colour cells of the picture the level takes out, so a key stands in the empty space; the approved picture stays as it is
+ // colour cells of the picture the level takes out, so a key stands in the empty space; the approved picture stays as it is.
+ // The same list carries the cells a water channel's spring and exits take out (17 §8 «Drop Водный канал», levels.mjs
+ // placeChannel, 2026-11-05): overlay.keys is «the picture's colour cells this level leaves empty», whatever stands there
  for(const c of overlay.keys||[]){const [x,y]=at(c,'место ключа');if(!CODES.includes(rows[y][x]))throw Error(`overlay: место ключа ${JSON.stringify(c)} не на цветной клетке («${rows[y][x]}»)`);rows[y][x]='.';}
  const out=rows.map(r=>r.join(''));return {...pic,rows:out,...measure({rows:out})};}
 // a bridge site whose anchor cannot be told: none or several of its orthogonal neighbours are reachable from the entry

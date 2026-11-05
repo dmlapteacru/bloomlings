@@ -25,14 +25,16 @@ export const recipeFitsPods=(recipe,P)=>P>=16||(recipe||'none').split('+').filte
 export const LATCH_MIN={Normal:3,Hard:2,'Super Hard':2};
 export const latchFits=(recipe,cls,P,cols=3)=>!(recipe||'none').split('+').includes('latch')||P>=cols*(LATCH_MIN[cls]+2);
 // the generator's revision (README «The generator»): banked candidates and placed levels carry it as `gen`; the wave's
-// rebuild (rebuildSet) leaves levels built under it alone. 2026-11-03c: latches keep their count range in any role (a
+// rebuild (rebuildSet) leaves levels built under it alone. 2026-11-05: the Drop water channel ('canal') and the Twig
+// wooden shutters ('shutters') in the builder (levels.mjs placeChannel, placeShutters; the channel's exit as a choice in the
+// saved solution and the strategies). 2026-11-03c: latches keep their count range in any role (a
 // Hard's additional latch 2–3). 2026-11-03b: key spots carved out of the picture (overlay.keys),
 // a latch Normal with three types. 2026-11-03: the owner's amendment of 2026-11-03 (latches Hard
 // 2–3 and Super Hard exactly 3; Hard links+latch+cells; latch Normals with hidden cells or pods in turn). 2026-11-02c: the placer keeps a regular Normal in the tuning
 // zone 50–65 % (out of it only as a fallback; the dry placement leaves such a position open to build). 2026-11-02b: the owner's decisions of 2026-11-02 (families
 // twice a wave 10 apart, breathers 75–90 % with one light mechanic, accents outside the 10+ window, the regular Normal
 // aimed at the middle of its zone)
-export const GEN='2026-11-03c';
+export const GEN='2026-11-05';
 // a breather's light mechanics (17 §5 «Передышка», the owner, 2026-11-02): hidden pods or hidden cells by default (never
 // both), one plain link pair when the share stays above the zone; a recipe of at most one of them
 export const LIGHT=['hidden','cells','links'];

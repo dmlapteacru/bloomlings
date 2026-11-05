@@ -88,7 +88,7 @@ namespace Bloomlings.Core.Rounds
             Keys = keys ?? Array.Empty<(int X, int Y)>();
         }
 
-        /// <summary>Picture colour cells the level leaves empty ('.') for latch keys (<c>overlay.keys</c>).</summary>
+        /// <summary>Picture colour cells the level leaves empty ('.') (<c>overlay.keys</c>): latch key spots and a water channel's spring and exits.</summary>
         public IReadOnlyList<(int X, int Y)> Keys { get; }
 
         /// <summary>Picture cells that become a wall ('#').</summary>

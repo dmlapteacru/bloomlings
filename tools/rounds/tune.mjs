@@ -127,7 +127,7 @@ export function addInfo(level,recipe,cls,{intro=false,pos=null,r=rnd(1)}={}){con
   if(intro){const k=opts.findIndex(([,row])=>row===1);if(k<0)return {error:'нет подходящего места во втором ряду для скрытого'};opts=[opts[k],...opts.filter((_,i)=>i!==k)];}
   if(opts.length<want)return {error:'не хватило подов для скрытых'};opts.slice(0,want).forEach(([p])=>pods[p].mystery='depth');}
  if(types.includes('cells')){const [a,b]=dz.cells,lead0=types.filter(m=>m!=='bridge')[0]==='cells',want=pos===null||intro||!lead0?a+Math.floor(r()*(b-a+1)):a+Math.round(pos*(b-a));
-  const avoid=new Set((level.recolor||[]).map(([x,y])=>(level.h-1-(y+2))*level.w+x+2));
+  const avoid=new Set([...(level.recolor||[]).map(([x,y])=>(level.h-1-(y+2))*level.w+x+2),...LV.shutterCells(level)]);
   hiddenCells=LV.pickHiddenCells(level,want,r,{intro,avoid});if(!hiddenCells)return {error:'не хватило глубоких клеток для скрытых клеток'};}
  return {level:{...level,pods,...(hiddenCells?{hiddenCells}:{})}};}
 
@@ -157,11 +157,25 @@ export async function tuneJob({pic,cls,recipe,slot=null,intro=false,want=1,wantL
  // latches (17 §8, the owner's amendment of 2026-11-03): an introduction and a Normal one, a Hard three where the picture can
  // take them (else two), a Super Hard exactly three; keys stand in the picture's holes, and where it has too few, in 2×2
  // spots the level takes out of the picture (overlay.keys, levels.mjs carveKeySpots), each with its key
- let overlay=null,latchWant=null;
+ let overlay=null,latchWant=null,channelAt=null;
+ const fail=why=>({banked:[],accepted:[],stats:{attempts:0,quick:0,corrections:0,linkChecks:0,evaluated:0,passed:0,accepted:0,reasons:{[why]:1}},memory});
+ // the water channel (17 §8 «Drop Водный канал», the owner, 2026-11-05): the spring behind work and two exits deep in
+ // different parts of the picture, carved out where the picture has no pocket (levels.mjs placeChannel); before the keys,
+ // which never take its cells
+ if(types.includes('canal')){const pc=LV.placeChannel(pic,null,rnd(seed*13+1));if(!pc)return fail('канал: нет места для родника и двух выходов (17 §8)');overlay=pc.overlay;channelAt=pc.at;}
  if(types.includes('latch')){const tries=intro||cls==='Normal'?[1]:cls==='Hard'?[3,2]:[3];
-  for(const n of tries){const ov=LV.carveKeySpots(pic,null,n,rnd(seed*7+n));if(ov!==false){overlay=ov;latchWant=n;break;}}
-  if(latchWant==null)return {banked:[],accepted:[],stats:{attempts:0,quick:0,corrections:0,linkChecks:0,evaluated:0,passed:0,accepted:0,reasons:{[`засов: нет места для ${tries[tries.length-1]} ключей и не вырезать (17 §8)`]:1}},memory};}
- const m=measure(overlaid(pic,overlay)),board=boardOf(pic,overlay),f=pictureFeatures(pic),base=LV.splitPods(m.volumes,m.N,null);
+  for(const n of tries){const ov=LV.carveKeySpots(pic,overlay,n,rnd(seed*7+n),{avoid:LV.channelSpots(channelAt)});if(ov!==false){overlay=ov;latchWant=n;break;}}
+  if(latchWant==null)return fail(`засов: нет места для ${tries[tries.length-1]} ключей и не вырезать (17 §8)`);}
+ const m=measure(overlaid(pic,overlay)),f=pictureFeatures(pic),base=LV.splitPods(m.volumes,m.N,null);let board=boardOf(pic,overlay);
+ // the board's objects: the channel (its places fixed above) and the shutters, placed once for the job (17 §7, §8): an
+ // introduction one at Normal's minimum, the lead its dose (a seeded place in its range), an additional one 1 at the
+ // class's lower bound; never over the channel's cells and routes
+ if(channelAt)board=LV.withObjects(board,{channel:LV.channelOf(board,channelAt)});
+ if(types.includes('shutters')){const roles=types.filter(t=>t!=='bridge'),role=roles.indexOf('shutters')>0?'add':'lead',dz0=LV.doses(recipe,cls,base.pods?base.pods.length:24,intro,m.N);
+  const sr=rnd(seed*31+5),n=dz0.shutters?dz0.shutters[0]+Math.floor(sr()*(dz0.shutters[1]-dz0.shutters[0]+1)):1;
+  const avoid=board.channel?[...new Set([board.channel.spring,...board.channel.exits.flatMap(e=>[e.cell,...e.route])])]:[];
+  const sh=LV.placeShutters(board,{n,cls,role,intro,r:sr,avoid});if(!sh)return fail(`створки: нет прямоугольника ${n>1?'для '+n+' створок ':''}с материалом счётчика (17 §8)`);
+  board=LV.withObjects(board,{shutters:LV.shuttersOf(sh)});}
  // a breather whose share stays above its zone with hidden information alone (or none) takes one plain link pair instead
  // (17 §5 «Передышка», the owner, 2026-11-02: hidden pods and cells do not move the bot test); the picture remembers it
  const toPair=()=>{recipe='links';types=['links'];mem.pair=true;};
@@ -175,7 +189,13 @@ export async function tuneJob({pic,cls,recipe,slot=null,intro=false,want=1,wantL
   stats.attempts++;const cs=columnsFor(m.N),cols=mem.cols&&cs.includes(mem.cols)&&k%3!==2?mem.cols:cs[k%cs.length],cseed=seed*1000003+k*7919+['Normal','Hard','Super Hard'].indexOf(cls)*31+(intro?17:0);
   const pos=recipe==='none'||intro||breather?null:trapMode?1:LV.DOSE_CYCLE[k%LV.DOSE_CYCLE.length],rc=recipe;
   // accents (17 §6), as levels.mjs build: this attempt paints 1–2 accent materials (the level's recolouring); never on a breather
-  const av=breather?null:LV.accentVariant(pic,overlay,m,null,cls,intro,k,accentMode,cseed,no,maxColours),cm=av?av.m:m,cboard=av?av.board:board,cpods=av?av.pods:base.pods;
+  let av=breather?null:LV.accentVariant(pic,overlay,m,null,cls,intro,k,accentMode,cseed,no,maxColours);
+  // (an accent never under a shutter: it must be seen to read as the reason its pod waits; the board keeps the job's objects)
+  // (nor over a shutter's counted material: its counter is a share of that material's work, 17 §8)
+  if(av&&board.shutters){const under=new Set(LV.shutterCells(board)),counted=new Set(board.shutters.map(x=>x.material));
+   if(av.recolor.some(([x,y])=>under.has((board.h-1-(y+2))*board.w+x+2))||av.accents.some(a=>counted.has(a.from))){no('акценты: под створками или по их материалу (строим без них)');av=null;}}
+  if(av)av={...av,board:LV.withObjects(av.board,{channel:board.channel,shutters:board.shutters})};
+  const cm=av?av.m:m,cboard=av?av.board:board,cpods=av?av.pods:base.pods;
   // the links dose (the lead its dose place, an additional one its minimum, a breather the lead's minimum)
   const dz=LV.doses(recipe,cls,cpods.length,intro,cm.N,{breather});if(dz.error){no(dz.error);break;}
   let linkWant=types.includes('links')?(breather||pos===null?dz.links[0]:dz.links[0]+2*Math.round(pos*(dz.links[1]-dz.links[0])/2)):0,posUsed=pos;

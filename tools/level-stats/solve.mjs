@@ -2,8 +2,11 @@
 // level winnable, one winning route, how many winning tap sequences there are, the smallest buffer that still wins, the
 // risky and one-right-move decisions on the route, and for a recorded attempt the first tap after which the level could
 // not be won any more. A search that runs out of budget answers null ("unknown"), never false.
-export function solver(E,budget=60000){
- const {idle:R}=E;
+// keep (optional): a filter of the legal actions, e.g. one exit of a water channel (rounds measure.mjs channelExits); a
+// fresh solver for each filter (the memo is keyed by the state's signature, which does not hold the filter). prefer
+// (optional): the legal actions it accepts are tried first (a water channel's exits as soon as one may be chosen)
+export function solver(E,budget=60000,keep=null,prefer=null){
+ const {idle:R0}=E,R=keep||prefer?{...R0,legal:s=>{let m=R0.legal(s);if(keep)m=m.filter(keep);if(prefer)m=[...m.filter(prefer),...m.filter(a=>!prefer(a))];return m;}}:R0;
  function route(level,capacity){const memo=new Map();let n=0;
   const go=s=>{if(s.status==='Won')return [];if(s.status!=='Playing')return null;const k=R.signature(s);if(memo.has(k))return memo.get(k);if(++n>budget)throw 0;
    for(const a of R.legal(s)){const r=go(R.step(s,a).state);if(r){const out=[a,...r];memo.set(k,out);return out;}}memo.set(k,null);return null;};
