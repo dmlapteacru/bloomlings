@@ -499,12 +499,23 @@ owner sees the same behaviour as in the playtest app.
     each exit as an action once the channel is ready (after the taps and bridges).
   - Boosters: no booster chooses an exit. Bloom Burst may open the way to the spring; the channel is then ready right after
     the burst's cell reveals and latches. Return and Shuffle are unaffected.
-  - Look: drawn later in both clients (the mock `product/previews/channel-shutters-2026-11-05/`, the owner's choice:
-    channel A — a stream in stone banks with spring-like exits, drawn over the cubes; a walker dives into the spring, a
-    bubble of its colour runs along the water and it pops out of the exit; both routes dotted before the choice; the exit
-    is chosen by tapping it, with no pause). Presentation only: the rules, events and timing above stay.
-  - Popup: its first meeting (L101) shows an explanation card ("The water channel": clear the way to the spring, then tap
-    one of the two exits; the Bloomlings then also start from it); its second (L103) a short reminder.
+  - Look (the owner's choice of 2026-11-05 from the mock `product/previews/channel-shutters-2026-11-05/`: channel A fully;
+    drawn in both clients from the kit's `ChannelLook`, `UiRaster.ChannelSpring` / `ChannelStream` and friends, asset slot
+    `board.channel`; stills `product/previews/channel-shutters-game-2026-11-05/`): the spring is a round well of the frame's
+    cream stone at its cell, each exit a smaller well at its own; before the choice both routes are dotted, the spring's
+    water is still and dark and the exits faint in a dashed white ring; at `channelReady` the spring wakes (rings, the Drop's
+    white drop over it) and both exits breathe in the buildable bridge's glow ring and take a tap (a target of at least
+    `ChannelLook.TouchCells` 3.2 cells and the touch token; the game keeps running) that commits `channel exit=<i>`; at
+    `channelOpen` the water runs from the spring along the chosen route in `RunSeconds` 0.9 s as an open stream between cream
+    stone banks (1.2 cells wide, raised on its front face, foam running on it), drawn over the cubes, the exit splashes open
+    and the other exit and its dots fade in 0.6 s. A walker whose route starts at the chosen exit is drawn as a bubble of its
+    material's colour running along the stream from the spring to the exit during its ride out (`RoundWalk.RideUs`, the
+    animator's walk starting after it) and back after it is home (`ChannelLook.Rider`), then steps out of the exit as out of
+    an arch. Presentation only: the rules, events and timing above stay.
+  - Popup: its first meeting (L101) shows an explanation card ("The water channel": "A spring waits on the board", "Clear
+    the way to the spring, then tap a gate: the Drops will ride the water from there", "Only one gate opens. Choose it
+    well"; `RoundIntroPicture.Channel`, a small board looping the call, the choice, the running water and a bubble); its
+    second (L103) a short reminder.
 - **FR-070** (Twig's wooden shutters, rules 17 §8 «Twig Деревянные створки», §9: introduced on L121 and L123, the owner,
   2026-11-05; the reference contract is `tools/rounds/README.md` "Shutters"):
   - Data: a round level MAY carry `board.shutters` = `[{cells, code, count}, …]` (`mechanics` then includes
@@ -525,11 +536,19 @@ owner sees the same behaviour as in the playtest app.
   - Boosters: no booster opens a shutter. Bloom Burst leaves the cells under a closed shutter (the material's pods keep
     that work), but the cells it clears count: a shutter may open right after the burst, before its cell reveals. Return
     and Shuffle are unaffected.
-  - Look: drawn later in both clients (the mock `product/previews/channel-shutters-2026-11-05/`, the owner's choice:
-    shutters B — a lid of wooden slats over the rectangle with a tag cube of its material and the count left hanging on a
-    nail). Presentation only.
-  - Popup: its first meeting (L121) shows an explanation card ("The wooden shutters": the lid counts one colour; every cube
-    of that colour cleared anywhere counts down; at 0 it opens); its second (L123) a short reminder.
+  - Look (the owner's choice of 2026-11-05: shutters B fully; drawn in both clients from the kit's `ShutterLook` and
+    `UiRaster.ShutterBase` / `ShutterBatten` / `ShutterHanger`, asset slot `board.shutter`): a crate lid over the rectangle,
+    raised `LidCells` 0.14 cell, level honey slats (the signs' plank) about one a row between two dark upright side battens
+    with nails, its soft shadow and dark front edge, drawn right after the cubes of its bottom row so the nearer rows stand in
+    front of its edge; on it a tag hangs from a nail on two strings: the pods' own cube in the counted material with the
+    count still to go (`RoundAnimator.ShutterLeft`, the rules' `ShutterLeft` at the display clock; at least 58 px of a
+    1080-wide screen), swaying a little and popping at each counted cube while a spark of the material flies from that cube
+    to it. At `shutterOpen` the slats pop off one after another from the top, lifting, sliding aside and turning, with dust
+    and leaves, over `RoundAnimator.ShutterOpenUs` 0.95 s. Presentation only.
+  - Popup: its first meeting (L121) shows an explanation card ("The crate": "A crate hides some cubes. Its tag shows a
+    color and a count", "Clear the shown cubes to break the crate open", "Every cube of that color counts, anywhere on the
+    board"; `RoundIntroPicture.Shutters`, a small board looping the count and the opening); its second (L123) a short
+    reminder.
 
 **Transfer path**
 

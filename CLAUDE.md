@@ -56,7 +56,16 @@ Water/Dew, Wood/Acorn). The launch has 2500 sequential levels, with later expans
   drawn and the hero of its colour (Sprig, Bloom, Drop or Twig, in the player's outfit; Twig for a hidden pod) stands in
   its place holding a padlock in that colour (`RoundLook.LatchFamily`, `HeroFit`, `LatchHeroView`); the key in the same
   colour stands upright on its tip, hovering over its cell and turning; on `latchOpen` it flies to the keyhole, the
-  padlock opens and the hero steps aside, `LatchOpenUs` 0.9 s); later types need engine and pilot work first.
+  padlock opens and the hero steps aside, `LatchOpenUs` 0.9 s), the Drop water channel (`canal`, `board.channel`, introduced on
+  L101/L103 with a popup and a reminder; spec 006 FR-069) and the Twig wooden shutters (`shutters`, `board.shutters`, on
+  L121/L123; FR-070). The owner's look of 2026-11-05 (the mock's channel A and shutters B, stills in
+  `product/previews/channel-shutters-game-2026-11-05/`, preview frames 277–283 on dev levels) lives in the kit's
+  `ChannelLook` / `ShutterLook` (pictures `ChannelRaster`, `ShutterRaster`; Unity's `ChannelView`, `ShutterView`): the channel
+  over the cubes, both routes dotted and the cream stone wells still until `channelReady`, then both exits breathing in the
+  glow ring and taking the tap that commits `channel exit=i` (no pause), the chosen route a stream in cream stone banks and
+  its riders bubbles of their colour (`RoundWalk.RideUs`, the walk between the rides); a shutter a crate lid of slats drawn
+  after the cubes of its bottom row with the pods' cube as a tag on a nail counting down (`RoundAnimator.ShutterLeft`), the
+  slats popping off with dust and leaves at `shutterOpen`; later types need engine and pilot work first.
 - **Round levels in the game (spec 006, `specs/006-round-levels-in-game/`).** The game's rules are the round engine's,
   ported to `core/src/Bloomlings.Core/Rounds/` (`RoundTimeline` with integer µs model time, `RoundRules`,
   `RoundBoosters` in live time, `RoundEvents`, `RoundRandomPolicy`, `RoundSolver`, `RoundLevelValidator`); the JS
@@ -112,7 +121,8 @@ Requires the .NET 10 SDK (pinned by `core/global.json`; outputs go to `core/arti
   first tap, the blocked entry, the kept charge, Return's slot, Bloom Burst's tiles; the profile 39–41: the page, the
   edit card's avatars, its name and frames; and the Store's Animations 42–43: the clearing styles' live previews, then
   their padlocks before L40; the lotus iris 44–47: the splash opening on Level 1, then the win's Next closing, closed
-  on "Level 13" and opening; the Scene Album 271–276: 1 / 4 with the chest in colour, a locked object's sheet, 4 / 4 with the glowing chest, claimed, locked before L27, the chest's tooltip) to PNG in `playtest/preview/out/` (gitignored; a fixture's frames are only recorded and its
+  on "Level 13" and opening; the Scene Album 271–276: 1 / 4 with the chest in colour, a locked object's sheet, 4 / 4 with the glowing chest, claimed, locked before L27, the chest's tooltip; the water channel and the wooden shutters 277–283 on dev levels: waiting, ready, a
+  ride, counting, opening, and their two introduction cards) to PNG in `playtest/preview/out/` (gitignored; a fixture's frames are only recorded and its
   last one rasterized, `SkiaPainter.Flush`, so the whole board takes a few minutes) and checks
   slots, touch targets and the safe area; `-- --inventory` regenerates `specs/002-ux-design-board/asset-inventory.md`
   from the asset slot registry. `DOTNET_TieredCompilation=0 dotnet run -c Release --project playtest/preview -- --perf`

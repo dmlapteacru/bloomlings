@@ -36,7 +36,7 @@ namespace Bloomlings.Playtest.Preview
                 });
             }
 
-            (DesignApp App, RoundLevelScreen Screen) Open(SkiaPainter p, string data, RoundLevel level)
+            (DesignApp App, RoundLevelScreen Screen) Open(SkiaPainter p, string data, RoundLevel level, bool intro = false)
             {
                 var empty = new ContentSet(0, 0, Array.Empty<LevelDefinition>(), Array.Empty<BasePicture>());
                 var app = new DesignApp(data, empty, new Silence(), false, rounds: Rounds());
@@ -44,7 +44,7 @@ namespace Bloomlings.Playtest.Preview
                 var s = new RoundLevelScreen(app, level.Number, level, null);
                 app.ShowRound(s);
                 s.SkipGuide();
-                if (s.Intro != null)
+                if (s.Intro != null && !intro)
                 {
                     s.CloseIntro();
                 }
@@ -135,6 +135,22 @@ namespace Bloomlings.Playtest.Preview
                 Expect(s.Animator.ShutterClosed(0) && s.Play.Timeline.State.ShutterLeft(0) == s.Animator.ShutterLeft(0), "the tag shows the rules' count");
             });
 
+            yield return new Fixture(282, "channel-intro", "Water channel: its introduction card on its first level (L101; spec 006 FR-069)", (p, data) =>
+            {
+                (DesignApp app, RoundLevelScreen s) = Open(p, data, ChannelLevel(Rounds(), new RoundIntroduction(RoundIntroCards.Canal, false)), intro: true);
+                Expect(s.Intro != null && s.Intro.Picture == RoundIntroPicture.Channel, "the channel's card opens on its first level");
+                Run(app, p, 2.2f);
+                Expect(Shows(p, "The water channel"), "the card shows its title");
+            });
+
+            yield return new Fixture(283, "shutters-intro", "Wooden shutters: their introduction card on their first level (L121; spec 006 FR-070)", (p, data) =>
+            {
+                (DesignApp app, RoundLevelScreen s) = Open(p, data, ShutterLevel(Rounds(), new RoundIntroduction(RoundIntroCards.Shutters, false)), intro: true);
+                Expect(s.Intro != null && s.Intro.Picture == RoundIntroPicture.Shutters, "the shutters' card opens on their first level");
+                Run(app, p, 1.5f);
+                Expect(Shows(p, "The crate"), "the card shows its title");
+            });
+
             yield return new Fixture(281, "shutters-opening", "Wooden shutters: the count reached, the slats popping off (spec 006 FR-070)", (p, data) =>
             {
                 (DesignApp app, RoundLevelScreen s) = Open(p, data, ShutterLevel(Rounds()));
@@ -182,7 +198,7 @@ namespace Bloomlings.Playtest.Preview
         /// A dev level from <paramref name="src"/>'s picture (rows top first, changed by the caller): the given pods lead their
         /// columns and every material's rest follows in pods of at most 50 (the rules' exact balance).
         /// </summary>
-        private static RoundLevel DevLevel(RoundLevel src, int number, char[][] rowsTop, (char Code, int Count)[][] columns, RoundChannel? channel = null, IReadOnlyList<RoundShutter>? shutters = null)
+        private static RoundLevel DevLevel(RoundLevel src, int number, char[][] rowsTop, (char Code, int Count)[][] columns, RoundChannel? channel = null, IReadOnlyList<RoundShutter>? shutters = null, RoundIntroduction? introduction = null)
         {
             var bottom = new List<string>();
             for (int y = rowsTop.Length - 1; y >= 0; y--)
@@ -234,7 +250,7 @@ namespace Bloomlings.Playtest.Preview
             }
 
             var tray = new List<IReadOnlyList<int>>(lists);
-            return new RoundLevel(number, src.Width, src.Height, bottom, pods, tray, src.Entries, pictureId: src.PictureId, pictureVersion: src.PictureVersion, channel: channel, shutters: shutters);
+            return new RoundLevel(number, src.Width, src.Height, bottom, pods, tray, src.Entries, introduction: introduction, pictureId: src.PictureId, pictureVersion: src.PictureVersion, channel: channel, shutters: shutters);
         }
 
         /// <summary>
@@ -242,7 +258,7 @@ namespace Bloomlings.Playtest.Preview
         /// edge, the inner exit in a carved pocket in the cream middle (a straight route down) and the outer one in the walkway by
         /// the nose (along the top, then down), shown as Level 101.
         /// </summary>
-        private static RoundLevel ChannelLevel(RoundContentSet rounds)
+        private static RoundLevel ChannelLevel(RoundContentSet rounds, RoundIntroduction? introduction = null)
         {
             RoundLevel src = rounds.GetLevel(76);
             char[][] rows = RowsTop(src);
@@ -296,11 +312,11 @@ namespace Bloomlings.Playtest.Preview
                 new[] { ('C', 40), ('N', 30), ('B', 48), ('D', 15) },
                 new[] { ('B', 48), ('R', 31), ('C', 50), ('Y', 11) },
             };
-            return DevLevel(src, 101, rows, tray, channel: channel);
+            return DevLevel(src, 101, rows, tray, channel: channel, introduction: introduction);
         }
 
         /// <summary>The shutters' dev level (frames 280–281): Level 91's picture with a shutter over 8 × 5 cubes counting 30 green ones, shown as Level 121.</summary>
-        private static RoundLevel ShutterLevel(RoundContentSet rounds)
+        private static RoundLevel ShutterLevel(RoundContentSet rounds, RoundIntroduction? introduction = null)
         {
             RoundLevel src = rounds.GetLevel(91);
             var cells = new List<int>();
@@ -319,7 +335,7 @@ namespace Bloomlings.Playtest.Preview
                 new[] { ('M', 23), ('G', 36), ('C', 52), ('Y', 51) },
                 new[] { ('D', 25), ('O', 27), ('G', 36), ('Y', 50) },
             };
-            return DevLevel(src, 121, RowsTop(src), tray, shutters: new[] { new RoundShutter(cells, 'G', 30) });
+            return DevLevel(src, 121, RowsTop(src), tray, shutters: new[] { new RoundShutter(cells, 'G', 30) }, introduction: introduction);
         }
     }
 }
