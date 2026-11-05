@@ -2,13 +2,34 @@
  "picture": "P0272",
  "candidates": [],
  "rejected": [],
- "searched": [],
+ "searched": [
+  {
+   "combo": "Super Hard|links+canal+shutters||tune|2026-11-05",
+   "tune": {
+    "slot": "Super Hard",
+    "t": 0.33,
+    "attempts": 64,
+    "quick": 220,
+    "evaluated": 58,
+    "seconds": 2077
+   },
+   "tried": 64,
+   "found": 0,
+   "reasons": {
+    "акценты: цветов уже предел (строим без них)": 64,
+    "evaluate: канал: решает не ровно один выход (single)": 58,
+    "быстрая оценка вне зоны после поправок": 3,
+    "связки: доза снижена до минимума (вынужденные решения)": 2,
+    "связки: каждая следующая пара поднимает вынужденные решения выше 35 % (§5)": 3
+   }
+  }
+ ],
  "tune": {
   "Super Hard|links+canal+shutters|Super Hard": {
-   "t": 0.53,
-   "cols": 4,
-   "offset": 1.09,
-   "quick": 0.125,
+   "t": 0.33,
+   "cols": 5,
+   "offset": -0.21,
+   "quick": 0.175,
    "at": "2026-11-05"
   }
  }

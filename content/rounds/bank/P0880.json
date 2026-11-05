@@ -2,13 +2,31 @@
  "picture": "P0880",
  "candidates": [],
  "rejected": [],
- "searched": [],
+ "searched": [
+  {
+   "combo": "Super Hard|links+canal+cells||tune|2026-11-05",
+   "tune": {
+    "slot": "Super Hard",
+    "t": 0.41,
+    "attempts": 64,
+    "quick": 201,
+    "evaluated": 63,
+    "seconds": 2365
+   },
+   "tried": 64,
+   "found": 0,
+   "reasons": {
+    "evaluate: канал: решает не ровно один выход (single)": 63,
+    "быстрая оценка вне зоны после поправок": 1
+   }
+  }
+ ],
  "tune": {
   "Super Hard|links+canal+cells|Super Hard": {
-   "t": 0.16,
+   "t": 0.41,
    "cols": 5,
-   "offset": -1.97,
-   "quick": 0.075,
+   "offset": -1.83,
+   "quick": 0.05,
    "at": "2026-11-05"
   }
  }

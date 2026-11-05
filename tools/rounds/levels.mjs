@@ -169,6 +169,12 @@ export function candidate(pic,board,base,cols,recipe,cls,seed,intro,pos=null,opt
  let lean=0;if(intended!==null&&board.hero.choices.length>1&&(r()<.6||!intro)){lean=.5+2.5*r();const o=depths(board,1-intended).d,byO={};
   for(let i=0;i<g.length;i++)if(CODES.includes(g[i]))(byO[g[i]]=byO[g[i]]||[]).push(o[i]);
   for(const [c,ds] of Object.entries(byO)){ds.sort((a,b)=>a-b);let k=0;for(const p of pods.filter(p=>p.color===c)){const sl=ds.slice(k,k+p.count);k+=p.count;p.keyO=sl.reduce((a,b)=>a+b,0)/sl.length/maxD;}}}
+ // a deciding water channel (a hand Super Hard, channelKind single, the owner, 2026-11-05): as the deciding bridge above, the
+ // pods whose cells are near the chosen exit's region but far when the other exit is chosen come earlier, so with the other
+ // exit they wait in places without work and jam (opts.channelLean; no draw is made without it, other builds unchanged)
+ if(exitOf!==null&&opts.channelLean&&board.channel.exits.length>1){lean=.5+2.5*r();const o=channelDepths(board,1-exitOf,intended).d,byO={};
+  for(let i=0;i<g.length;i++)if(CODES.includes(g[i]))(byO[g[i]]=byO[g[i]]||[]).push(o[i]);
+  for(const [c,ds] of Object.entries(byO)){ds.sort((a,b)=>a-b);let k=0;for(const p of pods.filter(p=>p.color===c)){const sl=ds.slice(k,k+p.count);k+=p.count;p.keyO=sl.reduce((a,b)=>a+b,0)/sl.length/maxD;}}}
  const sigma=opts.sigma??{Normal:.06,Hard:.16,'Super Hard':.26}[cls];
  for(const p of pods){const z=Math.sqrt(-2*Math.log(r()+1e-9))*Math.cos(2*Math.PI*r());p.order=p.key-lean*Math.max(0,(p.keyO??p.key)-p.key)+sigma*z;}
  // Normal blends a little towards the reverse access order too, so its random test lands in 50–75 % (§5, median 50–60 %)
