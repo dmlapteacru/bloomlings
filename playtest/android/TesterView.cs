@@ -437,6 +437,7 @@ namespace Bloomlings.Playtest
             RoundRefusal.PartnerNotExposed => PlaytestText.T("refusal.partner_buried"),
             RoundRefusal.PairNeedsTwoSlots => PlaytestText.T("refusal.group"),
             RoundRefusal.BridgeNotReady => PlaytestText.T("round.bridge_not_ready"),
+            RoundRefusal.ChannelNotReady => PlaytestText.T("round.channel_not_ready"),
             _ => PlaytestText.T("refusal.no_free_slot"),
         };
 
@@ -1311,14 +1312,83 @@ namespace Bloomlings.Playtest
                 KeyGlyph(canvas, kx, ky, cell, metal, a.LatchPips(latch), (a.Now / 1_000_000f) + (latch * 0.4f));
             }
 
-            // The walkers: a dot of their material where the timeline puts each courier now.
+            // The wooden shutters (17 §8, FR-070): a closed one is a brown lid over its cells with its count in its material's colour.
+            for (int i = 0; i < level.Shutters.Count; i++)
+            {
+                if (!a.ShutterClosed(i))
+                {
+                    continue;
+                }
+
+                int x0 = int.MaxValue, x1 = int.MinValue, y0 = int.MaxValue, y1 = int.MinValue;
+                foreach (int c in level.Shutters[i].Cells)
+                {
+                    x0 = Math.Min(x0, c % w);
+                    x1 = Math.Max(x1, c % w);
+                    y0 = Math.Min(y0, c / w);
+                    y1 = Math.Max(y1, c / w);
+                }
+
+                var lid = new RectF(ox + (x0 * cell), oy + ((h - 1 - y1) * cell), ox + ((x1 + 1) * cell), oy + ((h - y0) * cell));
+                Fill(canvas, lid, Color.ParseColor("#A87A45"), cell * 0.2f);
+                float tag = Math.Min(lid.Width(), lid.Height()) * 0.6f;
+                var tagBox = new RectF(lid.CenterX() - (tag / 2f), lid.CenterY() - (tag / 2f), lid.CenterX() + (tag / 2f), lid.CenterY() + (tag / 2f));
+                Fill(canvas, tagBox, MaterialColor(level.Shutters[i].Code), tag * 0.15f);
+                Text(canvas, a.ShutterLeft(i).ToString(System.Globalization.CultureInfo.InvariantCulture), tagBox.CenterX(), tagBox.CenterY(), tag * 0.55f, Color.White);
+            }
+
+            // The water channel (17 §8, FR-069): both routes dotted until one exit is chosen, then its route as water; the spring
+            // and the exits as rings, a choosable exit yellow and taking the tap.
+            if (level.Channel != null)
+            {
+                RoundChannel channel = level.Channel;
+                List<int> choices = RoundRules.ChannelChoices(_play.Timeline.State);
+                float Cx(int c) => ox + (((c % w) + 0.5f) * cell);
+                float Cy(int c) => oy + ((h - 1 - (c / w) + 0.5f) * cell);
+                _paint.SetStyle(Paint.Style.Fill);
+                for (int e = 0; e < channel.Exits.Count; e++)
+                {
+                    bool chosen = a.ChannelExit == e;
+                    if (a.ChannelExit >= 0 && !chosen)
+                    {
+                        continue;
+                    }
+
+                    foreach (int c in channel.Exits[e].Route)
+                    {
+                        _paint.Color = chosen ? Color.ParseColor("#1F6688") : Color.ParseColor("#E8F9FC");
+                        canvas.DrawCircle(Cx(c), Cy(c), cell * (chosen ? 0.42f : 0.12f), _paint);
+                    }
+                }
+
+                _paint.SetStyle(Paint.Style.Stroke);
+                _paint.StrokeWidth = Math.Max(2f, cell * 0.18f);
+                _paint.Color = a.ChannelReady ? Color.ParseColor("#3C9CBF") : Color.ParseColor("#1F3F55");
+                canvas.DrawCircle(Cx(channel.Spring), Cy(channel.Spring), cell * 0.7f, _paint);
+                for (int e = 0; e < channel.Exits.Count; e++)
+                {
+                    int c = channel.Exits[e].Cell;
+                    _paint.Color = choices.Contains(e) ? EntryColor : a.ChannelExit == e ? Color.ParseColor("#3C9CBF") : Color.ParseColor("#8CB8C8");
+                    canvas.DrawCircle(Cx(c), Cy(c), cell * 0.7f, _paint);
+                    if (choices.Contains(e))
+                    {
+                        int exit = e;
+                        float r = Math.Max(cell * 1.6f, 24f);
+                        Hit(new RectF(Cx(c) - r, Cy(c) - r, Cx(c) + r, Cy(c) + r), () => CommitRound(RoundAction.ChooseExit(exit)));
+                    }
+                }
+
+                _paint.SetStyle(Paint.Style.Fill);
+            }
+
+            // The walkers: a dot of their material where the timeline puts each courier now (a ring of water while riding the channel).
             _paint.SetStyle(Paint.Style.Fill);
             foreach (RoundCourier courier in _play.Timeline.Couriers)
             {
                 RoundCourierPose pose = _play.Timeline.PoseOf(courier, _play.Timeline.Now);
                 float cx = ox + (((float)pose.X + 0.5f) * cell);
                 float cy = oy + ((h - 1 - (float)pose.Y + 0.5f) * cell);
-                _paint.Color = Color.White;
+                _paint.Color = pose.Riding ? Color.ParseColor("#3C9CBF") : Color.White;
                 canvas.DrawCircle(cx, cy, cell * 0.36f, _paint);
                 _paint.Color = MaterialColor(level.Pods[courier.Pod].Code);
                 canvas.DrawCircle(cx, cy, cell * 0.28f, _paint);
