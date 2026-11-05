@@ -818,6 +818,208 @@
    ]
   },
   {
+   "id": 112,
+   "title": "Будильник с орбитальными стрелками",
+   "subject": "P0321",
+   "w": 38,
+   "h": 40,
+   "rowsBottomFirst": [
+    "###################.##################",
+    "#....................................#",
+    "#........AA................AAA.......#",
+    "#........AA................AA........#",
+    "#........AAA..EEEEEEEEEE..AAA........#",
+    "#.........AAAAOOOOOOOOOOOAAA.........#",
+    "#.........AAAAOOOOOOOOOOOAAA.........#",
+    "#........OOOAOOOOOOOOOOOOAAOO........#",
+    "#.......OOOOOOOOOOOOOOOOOOOOOO.......#",
+    "#......OOOOOOOOVVVVVVVVOOOOOOOO......#",
+    "#.....OOOOOOOVVVVVVVVVVVVOOOOOOE.....#",
+    "#.....OOOCCCCCCC..CCCCCCCPPPOOOEE....#",
+    "#....OCCCCCVVVVV..VVVCCCPPPPPOOOE....#",
+    "#....OCCOOVVVVVVVVVVVVVVPPPPPCOOE....#",
+    "#...EOCCOVVVVVVVVVVVVVVVVPPPPCCOOE...#",
+    "#...EOCCOVVVVVVVVVVVVVVVVVPPVCCOOE...#",
+    "#...EOOCCVVVVVVVVVCCVVVVVVVVVCCOOE...#",
+    "#...EOOOCCVVVVVVVCCCCYYYYYYVVCCOOE...#",
+    "#...EOOOCCBBBVVVVCCCCYYYYYYVVCCOOE...#",
+    "#...EOOOOBBBBBVVVVCCVVVVVVVVVCCOOE...#",
+    "#...EOOOOBBBBBVVVVVYYVVVVVVVCCOOOE...#",
+    "#...EOOOOBBBBBBVVVVYYVVVVVCCCOOOOE...#",
+    "#....OOOOBBBBBCCCVVYYVVVCCCVOOOOE....#",
+    "#....OOOOOBBBVVCCCCCYYCCCCVVOOOOE....#",
+    "#.....OOOOOVVVVVVVCCYYCVVVVOOOOEE....#",
+    "#.....OOOOOOVVVVVVVVYYVVVVOOOOOE.....#",
+    "#......OOOOOOOVVVVVVVYYVOOOOOOO......#",
+    "#.......EOOOOOOOOOVVOYYOOOOOOE.......#",
+    "#.......EEOOOOOOOOOOOOOOOOOOEE.......#",
+    "#....EEEEEEEEEOOOOOOOOOOEEEEEEEEE....#",
+    "#..EEYYYYYYYYYEEOOOOOOEEYYYYYYYYYEE..#",
+    "#.EEYYYYYYYYYYYEEEEEEEEYYFFYYYYYYYEE.#",
+    "#.EYYYYYYFFYYYYYE....EYYYFFYYFYYYYYE.#",
+    "#.EYYYYYYYYYYYYYE....EYYYYYYYFFYYYYE.#",
+    "#.EYYYYYYYYYYYYYE....EYYYYYYYYYYYYYE.#",
+    "#..YYYYYYYYYYYYY......YYYYYYYYYYYYY..#",
+    "#...YYYYYYYYYYY........YYYYYYYYYYY...#",
+    "#.....EEEEEEE............EEEEEEE.....#",
+    "#....................................#",
+    "######################################"
+   ],
+   "entries": [
+    19
+   ],
+   "capacity": 5,
+   "pods": [
+    {
+     "color": "E",
+     "count": 36
+    },
+    {
+     "color": "E",
+     "count": 35
+    },
+    {
+     "color": "E",
+     "count": 35
+    },
+    {
+     "color": "Y",
+     "count": 47
+    },
+    {
+     "color": "Y",
+     "count": 46,
+     "mystery": "depth"
+    },
+    {
+     "color": "Y",
+     "count": 46
+    },
+    {
+     "color": "Y",
+     "count": 46
+    },
+    {
+     "color": "F",
+     "count": 9
+    },
+    {
+     "color": "O",
+     "count": 50
+    },
+    {
+     "color": "O",
+     "count": 50
+    },
+    {
+     "color": "O",
+     "count": 50
+    },
+    {
+     "color": "O",
+     "count": 50
+    },
+    {
+     "color": "O",
+     "count": 49
+    },
+    {
+     "color": "V",
+     "count": 47
+    },
+    {
+     "color": "V",
+     "count": 47
+    },
+    {
+     "color": "V",
+     "count": 46,
+     "group": "A"
+    },
+    {
+     "color": "V",
+     "count": 46
+    },
+    {
+     "color": "C",
+     "count": 28
+    },
+    {
+     "color": "C",
+     "count": 27
+    },
+    {
+     "color": "C",
+     "count": 27
+    },
+    {
+     "color": "B",
+     "count": 14
+    },
+    {
+     "color": "B",
+     "count": 13,
+     "group": "A"
+    },
+    {
+     "color": "P",
+     "count": 19
+    },
+    {
+     "color": "A",
+     "count": 16
+    },
+    {
+     "color": "A",
+     "count": 16,
+     "mystery": "depth"
+    }
+   ],
+   "tray": [
+    [
+     1,
+     6,
+     13,
+     2,
+     5,
+     23
+    ],
+    [
+     16,
+     14,
+     12,
+     20,
+     9,
+     18
+    ],
+    [
+     21,
+     19,
+     11,
+     7,
+     8,
+     3
+    ],
+    [
+     15,
+     22,
+     10,
+     17,
+     4,
+     24,
+     0
+    ]
+   ],
+   "difficulty": "Normal",
+   "latches": [
+    {
+     "column": 1,
+     "depth": 3,
+     "key": 434
+    }
+   ]
+  },
+  {
    "id": 113,
    "title": "Прилавок запахов",
    "subject": "P0349",
@@ -2355,242 +2557,6 @@
      "key": 210
     }
    ]
-  },
-  {
-   "id": 143,
-   "title": "Ленивец-официант с подносом",
-   "subject": "P0233",
-   "w": 40,
-   "h": 38,
-   "rowsBottomFirst": [
-    "####################.###################",
-    "#......................................#",
-    "#.SSSSSSSSSSSSSAAAAAAAASSSSSSSSSSSSSSS.#",
-    "#.SSSSSSSSSSSAAAAAAAAAAAASSSSSSSSSSSSS.#",
-    "#.SSSSSSSSSSAAAAAAAAAAAAAASSSSSSSSSSSS.#",
-    "#.SSSSSSSSSSAAAAAAAAAAAAAASSSSSSSSSSSS.#",
-    "#.SSSSSSSSSSAAAAAAAAAAAAAASSSCCCSSSSSS.#",
-    "#.SSSSSSSSSSAAARRRRRRRRAAASSSCCCSSSSSS.#",
-    "#.SSSSSSSSSSSAARRRRRRRRAAAAAACCCSSSSSS.#",
-    "#.SSSSSSSSSSSSSAAAAAAAAAAAAAACCCSSSSSS.#",
-    "#.SSSSSSSSSSSSAAAACCAAAAAAAAACCCASSSSS.#",
-    "#.SSSSSSSSSSSAACCCCCCCCAASSAACCCASSSSS.#",
-    "#.SSSSSSSSSSAACCCDDDDCCCAASSSAAAASSSSS.#",
-    "#.SSSSSSSSSSACCCCCDDCCCCCASSSAAAASSSSS.#",
-    "#.SSSSSSSSSAADCCCCDDCCCCDAASSAAAASSSSS.#",
-    "#.SSSSSSSSSAADDDCCCCCCDDDDASSAAAASSSSS.#",
-    "#.SSSSSSSSSAADDDDCCCCDDDDAAYYYYYYYYYYS.#",
-    "#.SSSSSSSSSAADDDDDCCCDDDAAAYYYYYYYYYYS.#",
-    "#.SSSSSSSSSAAACCCCCCCCCCAAASSCOOOCSSSS.#",
-    "#.SSSSSSSSSAAAACCCCCCCCAAAASSCOOOCSSSS.#",
-    "#.SSSSSSSSSSAAAAAAAAAAAAAASSSCOOOCSSSS.#",
-    "#.SSSSSSSSSSAAAAAAAAAAAAAASSSCOOOCSSSS.#",
-    "#.SSSSSSSSSSAAAAAAAAAAAAASSSSCOOOCSSSS.#",
-    "#.SSSSSSSSSSAAAAAAAAAAAASSSSSCCCCCSSSS.#",
-    "#.SSSSSSSSSSAAAAAAAAAASSSSSSSCCCCCSSSS.#",
-    "#.SSSSSSSSSAAAAASSSSSSSSSSSSSSSSRRSSSS.#",
-    "#.SSSSSSSSSAAAASSSSSSSSSSSSSSSSSRRSSSS.#",
-    "#.SSSSSSSSSAAAASSSSSSSSSSSSSSSSSRRSSSS.#",
-    "#.EEEEEEEEAAAAAAEEEEEEEEEEEEEEEEEEEEEE.#",
-    "#.EEEEEEEEAAAAAAEWWEEWWWEEEEEEWWWEEEEE.#",
-    "#.EEEEEEEEAAAAAAEEEEEEEEEEEEEEEEEEEEEE.#",
-    "#.GGGGGGGGGAAAASSSSSSSSSSSSSGGGGGGGGGG.#",
-    "#.GGGGGGGGGGSSSSSSSSSSSSSSSSGGGGGGGGGG.#",
-    "#.GGGGGGGGGGSSSSSSSSSSSSSSSSSGGSGGGGGG.#",
-    "#.SGGGGGGGGSSSSSSSSSSSSSSSSSSSSSSSSGGG.#",
-    "#.SSSSSSGGSSSSSSSSSSSSSSSSSSSSSSSSSSGG.#",
-    "#......................................#",
-    "########################################"
-   ],
-   "entries": [
-    20
-   ],
-   "capacity": 5,
-   "pods": [
-    {
-     "color": "S",
-     "count": 56
-    },
-    {
-     "color": "S",
-     "count": 56
-    },
-    {
-     "color": "S",
-     "count": 56
-    },
-    {
-     "color": "S",
-     "count": 55
-    },
-    {
-     "color": "S",
-     "count": 55
-    },
-    {
-     "color": "S",
-     "count": 55
-    },
-    {
-     "color": "S",
-     "count": 55
-    },
-    {
-     "color": "S",
-     "count": 55
-    },
-    {
-     "color": "S",
-     "count": 55
-    },
-    {
-     "color": "S",
-     "count": 55
-    },
-    {
-     "color": "S",
-     "count": 55
-    },
-    {
-     "color": "G",
-     "count": 24
-    },
-    {
-     "color": "G",
-     "count": 24
-    },
-    {
-     "color": "G",
-     "count": 24
-    },
-    {
-     "color": "A",
-     "count": 53
-    },
-    {
-     "color": "A",
-     "count": 52
-    },
-    {
-     "color": "A",
-     "count": 52
-    },
-    {
-     "color": "A",
-     "count": 52
-    },
-    {
-     "color": "A",
-     "count": 52,
-     "group": "A"
-    },
-    {
-     "color": "E",
-     "count": 28
-    },
-    {
-     "color": "E",
-     "count": 27
-    },
-    {
-     "color": "E",
-     "count": 27
-    },
-    {
-     "color": "W",
-     "count": 4
-    },
-    {
-     "color": "W",
-     "count": 4
-    },
-    {
-     "color": "R",
-     "count": 11
-    },
-    {
-     "color": "R",
-     "count": 11
-    },
-    {
-     "color": "C",
-     "count": 35
-    },
-    {
-     "color": "C",
-     "count": 34
-    },
-    {
-     "color": "C",
-     "count": 34
-    },
-    {
-     "color": "O",
-     "count": 15
-    },
-    {
-     "color": "D",
-     "count": 17
-    },
-    {
-     "color": "D",
-     "count": 16,
-     "group": "A"
-    },
-    {
-     "color": "Y",
-     "count": 10
-    },
-    {
-     "color": "Y",
-     "count": 10
-    }
-   ],
-   "tray": [
-    [
-     18,
-     10,
-     33,
-     29,
-     7,
-     32,
-     12,
-     11,
-     1
-    ],
-    [
-     31,
-     27,
-     16,
-     22,
-     20,
-     13,
-     14,
-     3
-    ],
-    [
-     30,
-     9,
-     8,
-     26,
-     15,
-     24,
-     5,
-     2
-    ],
-    [
-     28,
-     17,
-     21,
-     23,
-     25,
-     6,
-     4,
-     19,
-     0
-    ]
-   ],
-   "difficulty": "Normal"
   }
  ],
  "lessons": {
@@ -2717,6 +2683,29 @@
    "runs": 100,
    "borderline": false,
    "seconds": 344.7,
+   "draft": false
+  },
+  {
+   "level": 112,
+   "bridgeKind": null,
+   "bridgeSide": null,
+   "overlay": true,
+   "gap": false,
+   "cls": "Normal",
+   "intro": null,
+   "picture": "P0321",
+   "recipe": "latch+links+hidden",
+   "N": 895,
+   "colours": 9,
+   "P": 25,
+   "columns": 4,
+   "linked": 2,
+   "hidden": 2,
+   "latches": 1,
+   "random": 0.538,
+   "runs": 400,
+   "borderline": true,
+   "seconds": 446,
    "draft": false
   },
   {
@@ -2876,40 +2865,19 @@
    "borderline": false,
    "seconds": 510.7,
    "draft": false
-  },
-  {
-   "level": 143,
-   "bridgeKind": null,
-   "bridgeSide": null,
-   "overlay": false,
-   "gap": false,
-   "cls": "Normal",
-   "intro": null,
-   "picture": "P0233",
-   "recipe": "shutters+links",
-   "N": 1224,
-   "colours": 10,
-   "P": 34,
-   "columns": 4,
-   "linked": 2,
-   "hidden": 0,
-   "random": 0.62,
-   "runs": 100,
-   "borderline": false,
-   "seconds": 602.4,
-   "draft": false
   }
  ],
  "stone": {
   "101": [],
   "103": [],
   "105": [],
+  "112": [],
   "113": [],
   "120": [],
   "140": []
  },
  "gap": {},
- "hash": "a548af28695399441ebb041bf5feb3c1e5d9085e3016c23db94044430587c421",
+ "hash": "da0ae44aaa00d5b32c5ab5bb0cecc7d98863febf8dd8e2fdae1ed2c551bc1eb0",
  "rulesHash": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
  "timelineHash": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
  "paletteHash": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",

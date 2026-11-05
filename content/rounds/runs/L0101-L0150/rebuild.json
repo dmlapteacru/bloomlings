@@ -14,6 +14,15 @@
     "candidate": "P0071-Nlinks+hidden-8",
     "share": 0.6,
     "recipe": "links+hidden"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0071",
+    "candidate": "P0071-Nlinks+hidden-8",
+    "share": 0.6,
+    "recipe": "links+hidden",
+    "lost": false,
+    "gen": null
    }
   }
  ]
