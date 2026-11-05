@@ -1,0 +1,20 @@
+{
+ "tag": "2026-11-05",
+ "levels": [
+  {
+   "level": 128,
+   "tag": "2026-11-05",
+   "why": [
+    "«по цветам» проигрывает 7 из 24 (нужно около 12)"
+   ],
+   "reassign": false,
+   "at": "2026-11-05",
+   "from": {
+    "picture": "P0071",
+    "candidate": "P0071-Nlinks+hidden-8",
+    "share": 0.6,
+    "recipe": "links+hidden"
+   }
+  }
+ ]
+}
