@@ -55,6 +55,9 @@ function freePictures(){const u=usage();return manifest().pictures.filter(e=>e.s
 // the keys a picture can take (17 §8): its holes, or up to three where the level may carve the missing key spots out of it
 // (the owner's amendment of 2026-11-03, levels.mjs carveKeySpots)
 const holeCache=new Map(),holesOf=p=>{if(!holeCache.has(p.id)){let k=0;try{k=LV.keyHoles(boardOf(p)).length;if(k<3)for(let n=3;n>k;n--){if(LV.carveKeySpots(p,null,n,()=>.5)!==false){k=n;break;}}}catch{k=0;}holeCache.set(p.id,k);}return holeCache.get(p.id);};
+// the water channel (17 §8): whether the builder finds a spring and two exits on a picture (levels.mjs placeChannel, carving
+// single cells where it has no pocket)
+const chanCache=new Map(),channelFitsPic=p=>{if(!chanCache.has(p.id)){let ok=false;try{ok=!!LV.placeChannel(p,null,()=>.5);}catch{ok=false;}chanCache.set(p.id,ok);}return chanCache.get(p.id);};
 // the latch/key pairs a planned recipe needs at least (levels.mjs doses: Super Hard lead 2, otherwise 1)
 const latchNeed=(recipe,cls,intro)=>recipe.split('+').includes('latch')?LV.doses(recipe,cls,24,!!intro,700).latch[0]:0;
 // a free picture fits a planned position: its stage; a bridge position only a picture with its own strip crossing that
@@ -64,7 +67,7 @@ function fitsPosition(p,q){const pl=q.plan;if(!pl||q.level<=3||!p.fits.includes(
  if(bridge?!(p.stream&&p.side===pl.bridgeSide&&(pl.strip||'new')==='new'):p.stream)return false;
  if(q.cls!=='Normal'&&!p.strong3)return false;
  // a queue under 16 pods takes one mechanic type only (17 §7, levels.mjs dosesOk): a two-type recipe needs a picture with 16+ pods
- if(!recipeFitsPods(pl.recipe,podsOf(p.pic)))return false;if(!latchFits(pl.recipe,q.cls,podsOf(p.pic),p.N<1000?3:4))return false;return holesOf(p.pic)>=latchNeed(pl.recipe,q.cls,q.intro);}
+ if(!recipeFitsPods(pl.recipe,podsOf(p.pic)))return false;if(!latchFits(pl.recipe,q.cls,podsOf(p.pic),p.N<1000?3:4))return false;if(pl.recipe.split('+').includes('canal')&&!channelFitsPic(p.pic))return false;return holesOf(p.pic)>=latchNeed(pl.recipe,q.cls,q.intro);}
 // the pods of a picture by §3 (levels.mjs splitPods; 0 when its volumes do not split)
 const podCache=new Map(),podsOf=p=>{if(!podCache.has(p.id)){const m=measure(p),b=LV.splitPods(m.volumes,m.N,null);podCache.set(p.id,b.error?0:b.pods.length);}return podCache.get(p.id);};
 // pinned pictures (mechanics.json `pin`, the owner): each reserved for one fitting open position of the wave, the pins with
@@ -102,8 +105,8 @@ function reservePins(ids,open,pics,placed,a,b,prev=new Map()){const by=new Map(p
 // third before L25) also looks for a level "most work now" loses (17 §5 «по цветам»)
 const slotOfPos=(q,N)=>q.intro?'intro':q.cls!=='Normal'?q.cls:isBreather({...q,breather:!!(q.plan&&q.plan.breather)},N)?'breather':classOf(q.level-1)!=='Normal'?'after-hard':'regular';
 // the free pool as wave.mjs reads it (no strip; the stage of each open position it fits)
-let PF_POOL=null;const pfPool=pics=>PF_POOL||(PF_POOL=pics.filter(p=>!p.stream&&p.fits.length).map(p=>({id:p.id,title:p.title,N:p.N,colours:p.colours,pack:packOf(p.pic)||'—',hidden:fitness(p.pic).hiddenColours,weak:p.weak,holes:holesOf(p.pic),P:podsOf(p.pic),family:p.family,motifs:p.motifs,fits:new Set(p.fits)})));
-const posOfQ=q=>({level:q.level,cls:q.cls,intro:!!q.intro,recipe:q.plan.recipe,breather:!!q.plan.breather,accents:!!q.plan.accents,after:q.cls==='Normal'&&classOf(q.level-1)!=='Normal',latchNeed:latchNeed(q.plan.recipe,q.cls,q.intro)});
+let PF_POOL=null;const pfPool=pics=>PF_POOL||(PF_POOL=pics.filter(p=>!p.stream&&p.fits.length).map(p=>({id:p.id,title:p.title,N:p.N,colours:p.colours,pack:packOf(p.pic)||'—',hidden:fitness(p.pic).hiddenColours,weak:p.weak,holes:holesOf(p.pic),channel:channelFitsPic(p.pic),P:podsOf(p.pic),family:p.family,motifs:p.motifs,fits:new Set(p.fits)})));
+const posOfQ=q=>({level:q.level,cls:q.cls,intro:!!q.intro,recipe:q.plan.recipe,breather:!!q.plan.breather,accents:!!q.plan.accents,after:q.cls==='Normal'&&classOf(q.level-1)!=='Normal',latchNeed:latchNeed(q.plan.recipe,q.cls,q.intro),canal:q.plan.recipe.split('+').includes('canal')});
 const isHandPos=q=>!q.plan||q.plan.by==='hand'||!!q.plan.bridgeSide||q.plan.recipe.split('+').includes('bridge');
 function pictureFirst(a,b,open,pics,pins,placed){const pool=pfPool(pics),dir=waveDir(a,b),prev=flag('--reassign')?null:readJSON(path.join(dir,'plan.json'),null);
  const positions=open.filter(q=>q.level>3&&!isHandPos(q)),hand=open.filter(q=>q.level>3&&isHandPos(q)).map(q=>q.level),poolIds=new Set(pool.map(p=>p.id));
@@ -407,7 +410,7 @@ async function buildPictureFirst(a,b,p,dir,jobs,step,needs){const open=new Set(n
   // a pinned picture (the owner's) is not given up at once: once more, searched afresh (--fresh), before a swap
   if(x.pin&&!x.pinRetry){x.pinRetry=true;step(`L${x.level}: закреплённая ${x.picture} — ещё раз заново`);queue.push(x);continue;}
   // the fallback: a free picture of the same size band that fits the position (the plan's rules), then build it
-  const q=p.positions.find(y=>y.level===x.level),pl=planOf(x.level),rp=PF_POOL&&replacement({level:x.level,cls:x.cls,intro:!!x.intro,recipe:x.recipe,breather:!!(pl&&pl.breather),accents:!!(pl&&pl.accents),latchNeed:latchNeed(x.recipe,x.cls,x.intro)},x.band,PF_POOL,{used:used(),tried:[...(x.tried||[]),x.picture],before:[...Object.values(placedLevels()).filter(L=>L.level>=a-20&&L.level<=b).map(L=>({level:L.level,picture:L.picture})),...p.assign.filter(y=>y.level!==x.level&&!placedLevels()[y.level]).map(y=>({level:y.level,picture:y.picture}))],picOf,waveStart:a,waveEnd:b});
+  const q=p.positions.find(y=>y.level===x.level),pl=planOf(x.level),rp=PF_POOL&&replacement({level:x.level,cls:x.cls,intro:!!x.intro,recipe:x.recipe,breather:!!(pl&&pl.breather),accents:!!(pl&&pl.accents),latchNeed:latchNeed(x.recipe,x.cls,x.intro),canal:x.recipe.split('+').includes('canal')},x.band,PF_POOL,{used:used(),tried:[...(x.tried||[]),x.picture],before:[...Object.values(placedLevels()).filter(L=>L.level>=a-20&&L.level<=b).map(L=>({level:L.level,picture:L.picture})),...p.assign.filter(y=>y.level!==x.level&&!placedLevels()[y.level]).map(y=>({level:y.level,picture:y.picture}))],picOf,waveStart:a,waveEnd:b});
   if(!rp){step(`L${x.level}: замены той же полосы ${x.band} нет`);continue;}
   const e=PF_POOL.find(z=>z.id===rp.picture);if(x.pin){delete x.pin;delete x.pinRetry;}x.swappedFrom=x.picture;x.swaps=(x.swaps||0)+1;x.tried=[...(x.tried||[]),x.picture];Object.assign(x,{picture:rp.picture,title:e.title,N:e.N,pack:e.pack,hidden:e.hidden,P:e.P,slot:slotOfPos({...q,plan:pl},e.N)});if(rp.relaxed)x.relaxed=rp.relaxed;else delete x.relaxed;
   writeJSON(path.join(dir,'plan.json'),p);step(`L${x.level}: ${x.swappedFrom} не дала уровня класса — замена ${x.picture} (${x.band})`);queue.push(x);}}));

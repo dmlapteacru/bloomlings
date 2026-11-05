@@ -126,13 +126,14 @@ const hash=(s,n)=>(([...s].reduce((h,c)=>(h*31+c.charCodeAt(0))>>>0,7)^Math.imul
 const typesOf=r=>(r||'none')==='none'?[]:r.split('+');
 
 // May picture p take position q (band aside)? p: {id, N, colours, pack, hidden (colours hidden at the start), weak,
-// holes (key holes), P (pods by §3), family, motifs, fits (levels whose stage it fits)}; q: {level, cls, intro, recipe,
-// breather, after (the first Normal after a Hard), latchNeed}. Hard and Super Hard need 3+ colours hidden at the start (17 §2); a weak picture only with a
+// holes (key holes), channel (a water channel fits), P (pods by §3), family, motifs, fits (levels whose stage it fits)}; q: {level, cls, intro, recipe,
+// breather, after (the first Normal after a Hard), latchNeed, canal (a water channel: p.channel false refuses, levels.mjs
+// placeChannel)}. Hard and Super Hard need 3+ colours hidden at the start (17 §2); a weak picture only with a
 // mechanic; two mechanic types need 16+ pods (§7); a latch needs key holes; a breather position takes a picture up to
 // ~550 cells first, other Normal positions never one (it would be a breather by 17 §5).
 export function eligible(p,q){if(!p.fits.has(q.level))return false;const t=typesOf(q.recipe);
  if(q.cls!=='Normal'&&p.hidden<3)return false;if(q.cls==='Normal'&&!q.intro&&p.weak&&!t.length)return false;
- if(!recipeFitsPods(q.recipe,p.P))return false;if((q.latchNeed||0)>(p.holes||0))return false;if(!latchFits(q.recipe,q.cls,p.P,p.N<1000?3:4))return false;
+ if(!recipeFitsPods(q.recipe,p.P))return false;if((q.latchNeed||0)>(p.holes||0))return false;if(q.canal&&p.channel===false)return false;if(!latchFits(q.recipe,q.cls,p.P,p.N<1000?3:4))return false;
  // a small picture on a Normal position makes it a breather (17 §5): only a light recipe (none, hidden pods, hidden cells,
  // a link pair) fits it
  if(!q.breather&&q.cls==='Normal'&&!q.intro&&q.level>3&&p.N<=BREATHER_N&&!breatherRecipeOk(q.recipe))return false;
