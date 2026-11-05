@@ -4,11 +4,11 @@
  "intro": null,
  "gen": "2026-11-05",
  "picture": "P0234",
- "candidate": "P0234-Ncanal+links-g1105-a-s3-13",
+ "candidate": "P0234-Ncanal+links-g1105-s4-0",
  "recipe": "canal+links",
  "N": 957,
  "W": 957,
- "colours": 9,
+ "colours": 8,
  "P": 27,
  "columns": 4,
  "linked": 2,
@@ -30,95 +30,11 @@
   "route": [
    {
     "type": "tap",
-    "pod": 0
+    "pod": 19
    },
    {
     "type": "tap",
-    "pod": 20
-   },
-   {
-    "type": "tap",
-    "pod": 7
-   },
-   {
-    "type": "tap",
-    "pod": 6
-   },
-   {
-    "type": "tap",
-    "pod": 17
-   },
-   {
-    "type": "tap",
-    "pod": 14
-   },
-   {
-    "type": "channel",
-    "exit": 0
-   },
-   {
-    "type": "tap",
-    "pod": 11
-   },
-   {
-    "type": "tap",
-    "pod": 9
-   },
-   {
-    "type": "tap",
-    "pod": 10
-   },
-   {
-    "type": "tap",
-    "pod": 25
-   },
-   {
-    "type": "tap",
-    "pod": 2
-   },
-   {
-    "type": "tap",
-    "pod": 5
-   },
-   {
-    "type": "tap",
-    "pod": 3
-   },
-   {
-    "type": "tap",
-    "pod": 24
-   },
-   {
-    "type": "tap",
-    "pod": 26
-   },
-   {
-    "type": "tap",
-    "pod": 4
-   },
-   {
-    "type": "tap",
-    "pod": 1
-   },
-   {
-    "type": "tap",
-    "pod": 15
-   },
-   {
-    "type": "tap",
-    "pod": 16
-   },
-   {
-    "type": "tap",
-    "pod": 21
-   },
-   {
-    "type": "tap",
-    "pod": 22
-   },
-   {
-    "type": "tap",
-    "pod": 12
+    "pod": 13
    },
    {
     "type": "tap",
@@ -126,23 +42,107 @@
    },
    {
     "type": "tap",
+    "pod": 12
+   },
+   {
+    "type": "tap",
+    "pod": 0
+   },
+   {
+    "type": "tap",
+    "pod": 11
+   },
+   {
+    "type": "tap",
+    "pod": 16
+   },
+   {
+    "type": "tap",
+    "pod": 9
+   },
+   {
+    "type": "tap",
     "pod": 23
    },
    {
     "type": "tap",
-    "pod": 19
+    "pod": 24
+   },
+   {
+    "type": "tap",
+    "pod": 25
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 4
+   },
+   {
+    "type": "tap",
+    "pod": 10
+   },
+   {
+    "type": "tap",
+    "pod": 26
+   },
+   {
+    "type": "tap",
+    "pod": 20
+   },
+   {
+    "type": "tap",
+    "pod": 22
+   },
+   {
+    "type": "tap",
+    "pod": 7
+   },
+   {
+    "type": "tap",
+    "pod": 21
+   },
+   {
+    "type": "tap",
+    "pod": 3
+   },
+   {
+    "type": "tap",
+    "pod": 15
+   },
+   {
+    "type": "channel",
+    "exit": 0
    },
    {
     "type": "tap",
     "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 2
+   },
+   {
+    "type": "tap",
+    "pod": 17
+   },
+   {
+    "type": "tap",
+    "pod": 6
    }
   ],
-  "forks": 0,
-  "singleSafe": 0,
+  "forks": 3,
+  "singleSafe": 2,
   "unknown": 0,
   "fast": {
-   "status": "won",
-   "seconds": 110.5
+   "status": "lost",
+   "seconds": 71.9
   }
  },
  "fairness": {
@@ -150,90 +150,90 @@
   "checked": 0
  },
  "strategies": {
-  "left-to-right|left": true,
-  "left-to-right|right": true,
-  "right-to-left|left": false,
-  "right-to-left|right": false,
-  "top-down|left": true,
-  "top-down|right": true,
+  "left-to-right|left": false,
+  "left-to-right|right": false,
+  "right-to-left|left": true,
+  "right-to-left|right": true,
+  "top-down|left": false,
+  "top-down|right": false,
   "bottom-up|left": false,
   "bottom-up|right": false,
   "diagonal|left": true,
   "diagonal|right": true,
   "small-first|left": false,
   "small-first|right": false,
-  "most-now|left": true,
-  "most-now|right": true,
-  "fast-release|left": true,
-  "fast-release|right": true
+  "most-now|left": false,
+  "most-now|right": false,
+  "fast-release|left": false,
+  "fast-release|right": false
  },
  "rhythm": {
   "segments": [
    {
     "from": 0,
     "to": 20,
-    "meanFree": 3.38,
-    "minFree": 3,
-    "fullShare": 0,
-    "maxWaiting": 1
+    "meanFree": 1.07,
+    "minFree": 0,
+    "fullShare": 0.47,
+    "maxWaiting": 4
    },
    {
     "from": 20,
     "to": 40,
-    "meanFree": 3.47,
-    "minFree": 2,
+    "meanFree": 2.15,
+    "minFree": 1,
     "fullShare": 0,
-    "maxWaiting": 1
+    "maxWaiting": 3
    },
    {
     "from": 40,
     "to": 60,
-    "meanFree": 4.27,
-    "minFree": 4,
-    "fullShare": 0,
-    "maxWaiting": 0
+    "meanFree": 1.13,
+    "minFree": 0,
+    "fullShare": 0.33,
+    "maxWaiting": 3
    },
    {
     "from": 60,
     "to": 80,
-    "meanFree": 3.39,
-    "minFree": 3,
+    "meanFree": 2.84,
+    "minFree": 2,
     "fullShare": 0,
     "maxWaiting": 1
    },
    {
     "from": 80,
     "to": 100,
-    "meanFree": 3.75,
-    "minFree": 2,
+    "meanFree": 4.29,
+    "minFree": 4,
     "fullShare": 0,
-    "maxWaiting": 2
+    "maxWaiting": 0
    }
   ],
-  "launchesAfter80": 8,
+  "launchesAfter80": 4,
   "lastLaunchAtW": 94,
-  "seconds": 421.8
+  "seconds": 350
  },
- "dosePos": 0.8,
+ "dosePos": 1,
  "checks": {
-  "forced": 0.07,
+  "forced": 0.1,
   "opening": null,
   "hold": true,
-  "greedyLoses": false,
+  "greedyLoses": true,
   "hiddenMatters": null,
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 1.27,
-   "tight": 0.86
+   "stuck": 1.22,
+   "tight": 0.87
   },
   "calm": {
    "runs": 200,
-   "wins": 123,
-   "share": 0.615,
+   "wins": 132,
+   "share": 0.66,
    "wilson95": [
-    0.546,
-    0.68
+    0.592,
+    0.722
    ],
    "borderline": false,
    "protocol": "§5 calm: uniform over legal actions, the board settled before each",
@@ -249,40 +249,17 @@
     {
      "exit": 0,
      "win": true,
-     "share": 0.6
+     "share": 0.53
     },
     {
      "exit": 1,
      "win": true,
-     "share": 0.48
+     "share": 0.63
     }
    ],
-   "gap": 0.12,
+   "gap": 0.1,
    "decides": false,
-   "better": 0
-  },
-  "accents": {
-   "materials": [
-    {
-     "code": "W",
-     "name": "Снег",
-     "from": "N",
-     "cells": 2,
-     "clusters": 1,
-     "pods": [
-      {
-       "pod": 12,
-       "count": 2,
-       "row": 2
-      }
-     ]
-    }
-   ],
-   "cells": 2,
-   "pressure": {
-    "with": 1.27,
-    "without": 0.84
-   }
+   "better": 1
   }
  },
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -298,12 +275,12 @@
    "#.NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN.#",
    "#.NNNNNNOOOOONNNOOOOONNNNNNNNNNN.#",
    "#.NNNAAAAAAAAAAAAAAAAAAAANNNNNNN.#",
-   "#.NNNNAAAAAAAAA.EEAAAAAANNNNNNNN.#",
+   "#.NNNNAAAAAAAAAAEEAAAAAANNNNNNNN.#",
    "#.NNNNAAAAAAAAAAEEAAAAAANNNNNNNN.#",
    "#.NNNNAAAAAAAAAAAAAAAAAANNNEENNN.#",
    "#.NNNNEEEEEEEEEEEEEEEEEEENEEENNN.#",
-   "#.NNNNEEEEEEEEEEEEEEEEEE.YYYYNNN.#",
-   "#.NNNNNAAAAAAAAAAAAAAAANNYYYYNNN.#",
+   "#.NNNNEEEEEEEEEEEEEEEEEEEYYYYNNN.#",
+   "#.NNNNNAAA.AAAAAAAAAAAANNYYYYNNN.#",
    "#.NNNNNNAAAAAAYYAAAAAANNNYYYYNNN.#",
    "#.NNNNNNAAAAAAYYYAAAAANNNYYYYNNN.#",
    "#.NNNNNNAAAAAYYYYAAAAANNEEENNNNN.#",
@@ -318,11 +295,11 @@
    "#.NNNNNNNYYYYYYYDSSCCCCSSDNNNNNN.#",
    "#.NNNNNNNYYYYYYYYSSSSSSSSNNNNNNN.#",
    "#.NNNAAAEEEEEEEEEEDDDDDDAANNNNNN.#",
-   "#.NNNAAAAA.AAAAAAAAADDAAAANNNNNN.#",
-   "#.NNNNNNAAAAAAAAAAAAAANNNNNNNNNN.#",
+   "#.NNNAAAAAAAAAAAAAAADDAAAANNNNNN.#",
+   "#.NNNNNNAAAAAAAAAAAAAANN.NNNNNNN.#",
    "#.NNNNNNNAAAAAAAAAAAANNNNNNNNNNN.#",
-   "#.NNNNNNNNNAAAAAAAANNNNNNWNNNNNN.#",
-   "#.NNNNNNNNNNNEEEENNNNNNNNWNNNNNN.#",
+   "#.NNNNNNNNNAAAAAAAANNNNNNNNNNNNN.#",
+   "#.NNNNNNNNNNNEEEE.NNNNNNNNNNNNNN.#",
    "#.NNNNNNNNNNNEEEENNNNNNNNNNNNNNN.#",
    "#.NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN.#",
    "#.NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN.#",
@@ -373,6 +350,10 @@
    },
    {
     "color": "E",
+    "count": 25
+   },
+   {
+    "color": "E",
     "count": 24,
     "group": "A"
    },
@@ -381,25 +362,21 @@
     "count": 24
    },
    {
-    "color": "E",
-    "count": 24
-   },
-   {
-    "color": "W",
-    "count": 2
+    "color": "A",
+    "count": 46
    },
    {
     "color": "A",
-    "count": 60,
+    "count": 45
+   },
+   {
+    "color": "A",
+    "count": 45,
     "group": "A"
    },
    {
     "color": "A",
-    "count": 60
-   },
-   {
-    "color": "A",
-    "count": 60
+    "count": 45
    },
    {
     "color": "D",
@@ -448,39 +425,39 @@
   ],
   "tray": [
    [
-    0,
-    20,
-    7,
-    6,
-    17,
-    14,
-    11
+    19,
+    13,
+    18,
+    12,
+    16,
+    9,
+    23
    ],
    [
-    13,
-    10,
+    0,
+    11,
+    24,
     25,
-    2,
     5,
+    4
+   ],
+   [
+    14,
+    26,
+    20,
+    22,
+    7,
+    21,
     3
    ],
    [
-    9,
-    24,
-    26,
-    4,
-    1,
+    10,
     15,
-    16
-   ],
-   [
-    21,
-    22,
-    12,
-    18,
-    23,
-    19,
-    8
+    8,
+    1,
+    2,
+    17,
+    6
    ]
   ],
   "recipe": "canal+links",
@@ -489,85 +466,71 @@
    "sites": [],
    "keys": [
     [
-     13,
-     28
-    ],
-    [
-     8,
-     8
+     15,
+     4
     ],
     [
      22,
-     24
+     7
+    ],
+    [
+     8,
+     23
     ]
    ]
   },
-  "recolor": [
-   [
-    23,
-    4,
-    "W"
-   ],
-   [
-    23,
-    5,
-    "W"
-   ]
-  ],
   "channel": {
-   "spring": 185,
+   "spring": 1003,
    "exits": [
     {
-     "cell": 860,
+     "cell": 908,
      "route": [
-      185,
-      184,
-      183,
-      182,
-      181,
-      180,
-      214,
-      248,
-      282,
-      316,
-      350,
-      384,
-      418,
-      452,
-      486,
-      520,
-      554,
-      588,
-      622,
-      656,
-      690,
-      724,
-      758,
-      792,
-      826,
-      860
+      1003,
+      1004,
+      1005,
+      1006,
+      1007,
+      1008,
+      1009,
+      1010,
+      976,
+      942,
+      908
      ],
-     "rideUs": 1500000
+     "rideUs": 600000
     },
     {
-     "cell": 330,
+     "cell": 350,
      "route": [
-      185,
-      186,
-      187,
-      188,
-      189,
-      190,
-      191,
-      192,
-      193,
-      194,
-      228,
-      262,
-      296,
-      330
+      1003,
+      1002,
+      1001,
+      1000,
+      999,
+      998,
+      997,
+      996,
+      962,
+      928,
+      894,
+      860,
+      826,
+      792,
+      758,
+      724,
+      690,
+      656,
+      622,
+      588,
+      554,
+      520,
+      486,
+      452,
+      418,
+      384,
+      350
      ],
-     "rideUs": 780000
+     "rideUs": 1560000
     }
    ]
   },

@@ -1,0 +1,33 @@
+{
+ "picture": "P1134",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|cells||tune|breather|2026-11-05",
+   "tune": {
+    "slot": "breather",
+    "t": 0.49,
+    "attempts": 1,
+    "quick": 6,
+    "evaluated": 1,
+    "seconds": 3
+   },
+   "tried": 1,
+   "found": 1,
+   "reasons": {}
+  }
+ ],
+ "tune": {
+  "Normal|cells|breather": {
+   "t": 0.49,
+   "cols": 3,
+   "offset": -2.94,
+   "quick": 0.875,
+   "at": "2026-11-05"
+  }
+ },
+ "placed": [
+  "P1134-Ncells-g1105-br-s4-0"
+ ]
+}

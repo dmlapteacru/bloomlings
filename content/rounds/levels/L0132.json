@@ -3,26 +3,25 @@
  "cls": "Normal",
  "intro": null,
  "breather": true,
- "zoneMiss": true,
  "gen": "2026-11-05",
- "picture": "P0384",
- "candidate": "P0384-Ncells-g1105-br-0",
+ "picture": "P1134",
+ "candidate": "P1134-Ncells-g1105-br-s4-0",
  "recipe": "cells",
- "N": 385,
- "W": 385,
- "colours": 6,
- "P": 13,
+ "N": 517,
+ "W": 517,
+ "colours": 7,
+ "P": 18,
  "columns": 3,
  "linked": 0,
  "hidden": 0,
- "cells": 32,
+ "cells": 49,
  "random": {
   "runs": 100,
-  "wins": 100,
-  "share": 1,
+  "wins": 89,
+  "share": 0.89,
   "wilson95": [
-   0.963,
-   1
+   0.814,
+   0.937
   ],
   "cls": "Normal",
   "borderline": false,
@@ -33,43 +32,7 @@
   "route": [
    {
     "type": "tap",
-    "pod": 9
-   },
-   {
-    "type": "tap",
-    "pod": 1
-   },
-   {
-    "type": "tap",
-    "pod": 11
-   },
-   {
-    "type": "tap",
     "pod": 0
-   },
-   {
-    "type": "tap",
-    "pod": 3
-   },
-   {
-    "type": "tap",
-    "pod": 2
-   },
-   {
-    "type": "tap",
-    "pod": 12
-   },
-   {
-    "type": "tap",
-    "pod": 5
-   },
-   {
-    "type": "tap",
-    "pod": 10
-   },
-   {
-    "type": "tap",
-    "pod": 7
    },
    {
     "type": "tap",
@@ -77,11 +40,67 @@
    },
    {
     "type": "tap",
+    "pod": 12
+   },
+   {
+    "type": "tap",
+    "pod": 14
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 7
+   },
+   {
+    "type": "tap",
+    "pod": 9
+   },
+   {
+    "type": "tap",
+    "pod": 13
+   },
+   {
+    "type": "tap",
     "pod": 4
    },
    {
     "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
     "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 10
+   },
+   {
+    "type": "tap",
+    "pod": 2
+   },
+   {
+    "type": "tap",
+    "pod": 15
+   },
+   {
+    "type": "tap",
+    "pod": 16
+   },
+   {
+    "type": "tap",
+    "pod": 17
+   },
+   {
+    "type": "tap",
+    "pod": 11
+   },
+   {
+    "type": "tap",
+    "pod": 3
    }
   ],
   "forks": 0,
@@ -89,7 +108,7 @@
   "unknown": 0,
   "fast": {
    "status": "won",
-   "seconds": 40.3
+   "seconds": 79
   }
  },
  "fairness": {
@@ -105,23 +124,23 @@
    {
     "from": 0,
     "to": 20,
-    "meanFree": 3.37,
-    "minFree": 3,
+    "meanFree": 3.69,
+    "minFree": 2,
     "fullShare": 0,
-    "maxWaiting": 1
+    "maxWaiting": 2
    },
    {
     "from": 20,
     "to": 40,
-    "meanFree": 4.31,
-    "minFree": 4,
+    "meanFree": 3.36,
+    "minFree": 2,
     "fullShare": 0,
-    "maxWaiting": 0
+    "maxWaiting": 1
    },
    {
     "from": 40,
     "to": 60,
-    "meanFree": 4.28,
+    "meanFree": 4.36,
     "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
@@ -129,7 +148,7 @@
    {
     "from": 60,
     "to": 80,
-    "meanFree": 4.28,
+    "meanFree": 4.45,
     "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
@@ -137,20 +156,20 @@
    {
     "from": 80,
     "to": 100,
-    "meanFree": 4.48,
+    "meanFree": 4.4,
     "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
    }
   ],
   "launchesAfter80": 3,
-  "lastLaunchAtW": 97,
-  "seconds": 173.7
+  "lastLaunchAtW": 95,
+  "seconds": 295.4
  },
- "dosePos": 0.5,
+ "dosePos": null,
  "checks": {
   "breather": true,
-  "forced": 0.14,
+  "forced": 0.1,
   "opening": null,
   "hold": null,
   "greedyLoses": null,
@@ -158,8 +177,8 @@
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 0.54,
-   "tight": 0.76
+   "stuck": 1.31,
+   "tight": 0.82
   },
   "traps": {
    "links": 0,
@@ -170,157 +189,199 @@
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
  "definition": {
   "id": 132,
-  "title": "Башня стоит на собственном ключе",
-  "subject": "P0384",
-  "w": 31,
+  "title": "Авокадо с сердечком-косточкой",
+  "subject": "P1134",
+  "w": 29,
   "h": 32,
   "rowsBottomFirst": [
-   "###############.###############",
-   "#.............................#",
-   "#.................EEEE........#",
-   "#....EEEE.........YYYE........#",
-   "#..YYYYYYY........YYYE..EEEE..#",
-   "#..YYYYYYYE.......YYYE..YYYE..#",
-   "#.YYYYCYYEEEEEEEEEYYYYYYYYYE..#",
-   "#.YYYCCCYEYYYYYYYYYYYYYYYYYYE.#",
-   "#.YYYCCCCEYYYYYYYYYYYYYYYYYYE.#",
-   "#.YYYYCCYEYYYYYYYYYYYYYYYYYYE.#",
-   "#.YYYYYYYEEEEEECCCAAACCCEEEEE.#",
-   "#..YYYYYYYE...ECCCAAACCCE.....#",
-   "#...YYYYYY....ECCCAAACCCE.....#",
-   "#.............ECCCAAACCCE.....#",
-   "#.............ECCCCCCCCCE.....#",
-   "#.............ECCCCCCCCCE.....#",
-   "#.............ECCCBBBCCCE.....#",
-   "#.............ECCCBBBCCCE.....#",
-   "#.............ECCCBBBCCCE.....#",
-   "#.............ECCCBBBCCCE.....#",
-   "#.............ECCCCCCCCCE.....#",
-   "#.............ECCCCCCCCCE.....#",
-   "#...........EEECCCCCCCCCEEE...#",
-   "#...........ERRRRRRRRRRRRRE...#",
-   "#............RRRRRRRRRRRRR....#",
-   "#.............RRRRRRRRRR......#",
-   "#..............RRRRRRRR.......#",
-   "#...............RRRRRR........#",
-   "#................RRRR.........#",
-   "#.................RR..........#",
-   "#.............................#",
-   "###############################"
+   "##############.##############",
+   "#...........................#",
+   "#..........DDDDDDDD.........#",
+   "#.......DDMMMMMMMMMDD.......#",
+   "#.....DMMMMGGGGGGMMMMDD.....#",
+   "#....DMMMMMLLLLLGGGGMMMD....#",
+   "#...DMMGGLLLLLLLLLLGGMMMD...#",
+   "#...DMGGLLLLAAALLLLLLMMMD...#",
+   "#..DMMGLLLLAAAAAAALLLLMMMD..#",
+   "#..DMGLLLLAAAAAAAALLLLLGMM..#",
+   "#..MGGLLLAAAOOAAAAALLLLGMDD.#",
+   "#.DMGGLLAAAOOOOOAAAALLLGGMD.#",
+   "#.DMGLLLAAOOOOOOOAAAALLLGMD.#",
+   "#.DMGLLAAOOOOOOOOOAAAALLGMD.#",
+   "#.DMGLLAAOOOOOOOOOOAAALLGMD.#",
+   "#..MGGLAOOOOOOOOOOOAAALLGM..#",
+   "#..MMLLLOOCCOOOOOOOAAALLGM..#",
+   "#..DMLLLOOOCOOOOOOOALLLGGM..#",
+   "#...MMLLLOOOOLLLLLLLLLLGGD..#",
+   "#...DMLLLLLLLLLLLLLLLLLGG...#",
+   "#....MMLLLLLLLLLLLLLLLMDD...#",
+   "#.....MMLLLLLLDDDLLLLLMD....#",
+   "#......MMLLLDLLLLLDDLLMD....#",
+   "#......DMLLLDDLLLLDDLLM.....#",
+   "#.......DLLLDDLLLLLLLLD.....#",
+   "#........LLLLLLLLLLLLL......#",
+   "#........DDLLLLLLLLLLD......#",
+   "#.........DGGGLLLLGGG.......#",
+   "#..........DDGGGGGGD........#",
+   "#.............DDDD..........#",
+   "#...........................#",
+   "#############################"
   ],
   "entries": [
-   15
+   14
   ],
   "capacity": 5,
   "pods": [
    {
-    "color": "R",
-    "count": 28
+    "color": "D",
+    "count": 23
    },
    {
-    "color": "R",
-    "count": 28
+    "color": "D",
+    "count": 22
    },
    {
-    "color": "E",
+    "color": "D",
+    "count": 22
+   },
+   {
+    "color": "G",
+    "count": 27
+   },
+   {
+    "color": "G",
+    "count": 27
+   },
+   {
+    "color": "L",
+    "count": 49
+   },
+   {
+    "color": "L",
+    "count": 49
+   },
+   {
+    "color": "L",
+    "count": 49
+   },
+   {
+    "color": "L",
+    "count": 48
+   },
+   {
+    "color": "M",
     "count": 25
    },
    {
-    "color": "E",
-    "count": 25
+    "color": "M",
+    "count": 24
    },
    {
-    "color": "E",
-    "count": 25
+    "color": "M",
+    "count": 24
+   },
+   {
+    "color": "O",
+    "count": 23
+   },
+   {
+    "color": "O",
+    "count": 22
+   },
+   {
+    "color": "O",
+    "count": 22
    },
    {
     "color": "C",
-    "count": 35
-   },
-   {
-    "color": "C",
-    "count": 34
-   },
-   {
-    "color": "C",
-    "count": 34
-   },
-   {
-    "color": "B",
-    "count": 12
+    "count": 3
    },
    {
     "color": "A",
-    "count": 12
+    "count": 29
    },
    {
-    "color": "Y",
-    "count": 43
-   },
-   {
-    "color": "Y",
-    "count": 42
-   },
-   {
-    "color": "Y",
-    "count": 42
+    "color": "A",
+    "count": 29
    }
   ],
   "tray": [
    [
-    9,
-    1,
-    11,
     0,
-    3
+    6,
+    12,
+    14,
+    1,
+    7
    ],
    [
-    2,
-    12,
+    9,
+    13,
+    4,
     5,
+    8,
     10
    ],
    [
-    7,
-    6,
-    4,
-    8
+    2,
+    15,
+    16,
+    17,
+    11,
+    3
    ]
   ],
   "recipe": "cells",
   "hiddenCells": [
-   191,
-   192,
-   193,
-   194,
-   195,
-   222,
-   223,
-   224,
-   225,
-   226,
-   253,
-   254,
-   255,
-   256,
-   257,
-   286,
-   326,
-   327,
-   328,
-   329,
-   357,
-   358,
+   301,
+   302,
+   303,
+   304,
+   330,
+   331,
+   332,
+   333,
+   334,
    359,
    360,
-   388,
-   389,
+   361,
+   362,
+   363,
    390,
    391,
-   419,
-   420,
+   392,
    421,
-   422
+   422,
+   423,
+   424,
+   425,
+   426,
+   450,
+   451,
+   452,
+   453,
+   454,
+   455,
+   479,
+   480,
+   481,
+   482,
+   483,
+   484,
+   507,
+   508,
+   509,
+   510,
+   511,
+   512,
+   513,
+   536,
+   537,
+   538,
+   539,
+   540,
+   541,
+   542
   ],
   "difficulty": "Normal"
  }

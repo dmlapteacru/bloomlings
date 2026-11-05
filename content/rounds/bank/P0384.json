@@ -1285,6 +1285,332 @@
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 3,
    "attempt": 1
+  },
+  {
+   "id": "P0384-Ncells-g1105-br-0",
+   "picture": "P0384",
+   "requested": "Normal",
+   "cls": "Normal",
+   "intro": false,
+   "recipe": "cells",
+   "level": {
+    "id": 1,
+    "title": "Башня стоит на собственном ключе",
+    "subject": "P0384",
+    "w": 31,
+    "h": 32,
+    "rowsBottomFirst": [
+     "###############.###############",
+     "#.............................#",
+     "#.................EEEE........#",
+     "#....EEEE.........YYYE........#",
+     "#..YYYYYYY........YYYE..EEEE..#",
+     "#..YYYYYYYE.......YYYE..YYYE..#",
+     "#.YYYYCYYEEEEEEEEEYYYYYYYYYE..#",
+     "#.YYYCCCYEYYYYYYYYYYYYYYYYYYE.#",
+     "#.YYYCCCCEYYYYYYYYYYYYYYYYYYE.#",
+     "#.YYYYCCYEYYYYYYYYYYYYYYYYYYE.#",
+     "#.YYYYYYYEEEEEECCCAAACCCEEEEE.#",
+     "#..YYYYYYYE...ECCCAAACCCE.....#",
+     "#...YYYYYY....ECCCAAACCCE.....#",
+     "#.............ECCCAAACCCE.....#",
+     "#.............ECCCCCCCCCE.....#",
+     "#.............ECCCCCCCCCE.....#",
+     "#.............ECCCBBBCCCE.....#",
+     "#.............ECCCBBBCCCE.....#",
+     "#.............ECCCBBBCCCE.....#",
+     "#.............ECCCBBBCCCE.....#",
+     "#.............ECCCCCCCCCE.....#",
+     "#.............ECCCCCCCCCE.....#",
+     "#...........EEECCCCCCCCCEEE...#",
+     "#...........ERRRRRRRRRRRRRE...#",
+     "#............RRRRRRRRRRRRR....#",
+     "#.............RRRRRRRRRR......#",
+     "#..............RRRRRRRR.......#",
+     "#...............RRRRRR........#",
+     "#................RRRR.........#",
+     "#.................RR..........#",
+     "#.............................#",
+     "###############################"
+    ],
+    "entries": [
+     15
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "R",
+      "count": 28
+     },
+     {
+      "color": "R",
+      "count": 28
+     },
+     {
+      "color": "E",
+      "count": 25
+     },
+     {
+      "color": "E",
+      "count": 25
+     },
+     {
+      "color": "E",
+      "count": 25
+     },
+     {
+      "color": "C",
+      "count": 35
+     },
+     {
+      "color": "C",
+      "count": 34
+     },
+     {
+      "color": "C",
+      "count": 34
+     },
+     {
+      "color": "B",
+      "count": 12
+     },
+     {
+      "color": "A",
+      "count": 12
+     },
+     {
+      "color": "Y",
+      "count": 43
+     },
+     {
+      "color": "Y",
+      "count": 42
+     },
+     {
+      "color": "Y",
+      "count": 42
+     }
+    ],
+    "tray": [
+     [
+      9,
+      1,
+      11,
+      0,
+      3
+     ],
+     [
+      2,
+      12,
+      5,
+      10
+     ],
+     [
+      7,
+      6,
+      4,
+      8
+     ]
+    ],
+    "recipe": "cells",
+    "hiddenCells": [
+     191,
+     192,
+     193,
+     194,
+     195,
+     222,
+     223,
+     224,
+     225,
+     226,
+     253,
+     254,
+     255,
+     256,
+     257,
+     286,
+     326,
+     327,
+     328,
+     329,
+     357,
+     358,
+     359,
+     360,
+     388,
+     389,
+     390,
+     391,
+     419,
+     420,
+     421,
+     422
+    ]
+   },
+   "N": 385,
+   "W": 385,
+   "colours": 6,
+   "P": 13,
+   "columns": 3,
+   "linked": 0,
+   "hidden": 0,
+   "cells": 32,
+   "random": {
+    "runs": 100,
+    "wins": 100,
+    "share": 1,
+    "wilson95": [
+     0.963,
+     1
+    ],
+    "cls": "Normal",
+    "borderline": false,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 11
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 2
+     },
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 10
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     }
+    ],
+    "forks": 0,
+    "singleSafe": 0,
+    "unknown": 0,
+    "fast": {
+     "status": "won",
+     "seconds": 40.3
+    }
+   },
+   "fairness": {
+    "checked": 12,
+    "unfair": 0,
+    "unknown": 0,
+    "fair": true,
+    "note": "перестановки материалов двух скрытых клеток разного цвета"
+   },
+   "strategies": {},
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 3.37,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 1
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 4.31,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 4.28,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 4.28,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 4.48,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     }
+    ],
+    "launchesAfter80": 3,
+    "lastLaunchAtW": 97,
+    "seconds": 173.7
+   },
+   "dosePos": 0.5,
+   "gen": "2026-11-05",
+   "zoneMiss": true,
+   "breather": true,
+   "checks": {
+    "breather": true,
+    "forced": 0.14,
+    "opening": null,
+    "hold": null,
+    "greedyLoses": null,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.54,
+     "tight": 0.76
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
+    }
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)"
   }
  ],
  "rejected": [],
@@ -1331,7 +1657,5 @@
    "offset": -2.98
   }
  },
- "placed": [
-  "P0384-Ncells-g1105-br-0"
- ]
+ "placed": []
 }

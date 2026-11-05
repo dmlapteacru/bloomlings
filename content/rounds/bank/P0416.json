@@ -2,12 +2,30 @@
  "picture": "P0416",
  "candidates": [],
  "rejected": [],
- "searched": [],
+ "searched": [
+  {
+   "combo": "Super Hard|links+canal+shutters||tune|2026-11-05",
+   "tune": {
+    "slot": "Super Hard",
+    "t": 0,
+    "attempts": 64,
+    "quick": 181,
+    "evaluated": 62,
+    "seconds": 1752
+   },
+   "tried": 64,
+   "found": 0,
+   "reasons": {
+    "evaluate: канал: решает не ровно один выход (single)": 62,
+    "быстрая оценка вне зоны после поправок": 2
+   }
+  }
+ ],
  "tune": {
   "Super Hard|links+canal+shutters|Super Hard": {
    "t": 0,
    "cols": 4,
-   "offset": -6.43,
+   "offset": -6.7,
    "quick": 0.1,
    "at": "2026-11-05"
   }

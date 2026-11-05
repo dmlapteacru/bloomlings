@@ -3,7 +3,7 @@
   101,
   150
  ],
- "created": "2026-11-05T20:00:37.548Z",
+ "created": "2026-11-05T20:11:22.890Z",
  "positions": [
   {
    "level": 101,
@@ -355,8 +355,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0417"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 115,
@@ -606,8 +606,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0413"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 125,
@@ -876,8 +876,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P1102"
   },
   {
    "level": 135,
@@ -984,8 +984,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P1030"
   },
   {
    "level": 139,
@@ -1092,8 +1092,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0099"
   },
   {
    "level": 143,
@@ -1227,8 +1227,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0037"
   },
   {
    "level": 148,
@@ -1254,8 +1254,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0074"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 149,
@@ -1314,13 +1314,12 @@
  ],
  "open": [
   110,
+  114,
+  124,
   130,
   132,
-  134,
-  138,
   139,
-  142,
-  147,
+  148,
   150
  ],
  "blockers": [],
@@ -1868,21 +1867,21 @@
   "sides": {}
  },
  "need": {
-  "Normal": 6,
+  "Normal": 5,
   "Hard": 0,
   "Super Hard": 3,
   "intro": 0,
   "bridge": 0
  },
  "supply": {
-  "pictures": 473,
-  "strong": 167,
+  "pictures": 472,
+  "strong": 166,
   "stream": 0,
   "bank": {
-   "знакомство: hidden": 24,
-   "Normal": 369,
+   "знакомство: hidden": 26,
+   "Normal": 363,
    "знакомство: cells": 14,
-   "знакомство: links": 20,
+   "знакомство: links": 22,
    "знакомство: latch": 2,
    "Hard": 25,
    "Super Hard": 11
@@ -1891,7 +1890,7 @@
    "owner-0004-0008": 1,
    "owner-0010": 1,
    "batch-0011-env": 5,
-   "batch-0011": 19,
+   "batch-0011": 18,
    "batch-0061": 24,
    "batch-0168-C": 17,
    "batch-0168-D": 15,
@@ -1900,20 +1899,21 @@
    "packs-0268-0467 · Необычные магазины": 6,
    "packs-0268-0467 · Музыка": 7,
    "packs-0268-0467 · Праздники и карнавал": 7,
-   "packs-0268-0467 · Доисторические находки": 7,
+   "packs-0268-0467 · Доисторические находки": 8,
    "packs-0268-0467 · Невозможная архитектура": 8,
    "packs-0268-0467 · Путешествия и походы": 8,
    "packs-0268-0467 · Обмен свойствами предметов": 9,
-   "packs-0268-0467 · Уютная мистика": 8,
+   "packs-0268-0467 · Уютная мистика": 9,
    "packs-0268-0467 · Миниатюрные мастерские": 8,
    "packs-0268-0467 · Ретрофутуризм": 7,
    "packs-0268-0467 · Новые герои игр": 1,
-   "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01": 179,
-   "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02": 95
+   "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01": 178,
+   "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02": 94
   },
   "latch": {
    "positions": [
-    142,
+    124,
+    148,
     150
    ],
    "pictures": 426
@@ -2136,7 +2136,7 @@
    "pack": "packs-0268-0467 · Уютная мистика",
    "hidden": 4,
    "P": 25,
-   "placed": true
+   "wantLoss": true
   },
   {
    "level": 115,
@@ -2297,14 +2297,20 @@
    "intro": null,
    "recipe": "links+latch+cells",
    "slot": "regular",
-   "picture": "P0413",
-   "title": "Аммонит с часовым механизмом",
-   "N": 882,
+   "picture": "P0415",
+   "title": "Походные ботинки на гусеницах",
+   "N": 881,
    "band": "800–1200",
-   "pack": "packs-0268-0467 · Доисторические находки",
-   "hidden": 4,
+   "pack": "packs-0268-0467 · Путешествия и походы",
+   "hidden": 3,
    "P": 24,
-   "placed": true
+   "wantLoss": true,
+   "swappedFrom": "P0959",
+   "swaps": 2,
+   "tried": [
+    "P0413",
+    "P0959"
+   ]
   },
   {
    "level": 125,
@@ -2414,13 +2420,16 @@
    "intro": null,
    "recipe": "cells",
    "slot": "breather",
-   "picture": "P0384",
-   "title": "Башня стоит на собственном ключе",
-   "N": 385,
+   "picture": "P1134",
+   "title": "Авокадо с сердечком-косточкой",
+   "N": 517,
    "band": "400–700",
-   "pack": "packs-0268-0467 · Невозможная архитектура",
+   "pack": "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02",
    "hidden": 3,
-   "P": 13
+   "P": 18,
+   "tried": [
+    "P0384"
+   ]
   },
   {
    "level": 133,
@@ -2450,7 +2459,8 @@
    "pack": "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02",
    "hidden": 4,
    "P": 18,
-   "wantLoss": true
+   "wantLoss": true,
+   "placed": true
   },
   {
    "level": 135,
@@ -2519,7 +2529,8 @@
    "tried": [
     "P1009"
    ],
-   "wantLoss": true
+   "wantLoss": true,
+   "placed": true
   },
   {
    "level": 139,
@@ -2589,7 +2600,8 @@
    "pack": "batch-0061",
    "hidden": 4,
    "P": 30,
-   "wantLoss": true
+   "wantLoss": true,
+   "placed": true
   },
   {
    "level": 143,
@@ -2673,7 +2685,8 @@
    "tried": [
     "P1113",
     "P0267"
-   ]
+   ],
+   "placed": true
   },
   {
    "level": 148,
@@ -2681,14 +2694,19 @@
    "intro": null,
    "recipe": "canal+links+latch",
    "slot": "regular",
-   "picture": "P0074",
-   "title": "Фонтан в парке",
-   "N": 900,
+   "picture": "P0398",
+   "title": "Красильня внутри палитры",
+   "N": 863,
    "band": "800–1200",
-   "pack": "batch-0061",
-   "hidden": 3,
-   "P": 24,
-   "placed": true
+   "pack": "packs-0268-0467 · Миниатюрные мастерские",
+   "hidden": 7,
+   "P": 25,
+   "wantLoss": true,
+   "swappedFrom": "P0074",
+   "swaps": 1,
+   "tried": [
+    "P0074"
+   ]
   },
   {
    "level": 149,
@@ -2709,7 +2727,7 @@
  ],
  "assignMissing": [],
  "assignQuota": {
-  "800–1200": 4,
+  "800–1200": 3,
   "700–900": 1,
   "400–700": 1,
   "1200–1500": 0
@@ -2732,7 +2750,7 @@
   },
   "strips": [],
   "scenes": [],
-  "sceneSources": 158,
+  "sceneSources": 156,
   "splits": [],
   "avoidMotifs": [
    "ретро-техника (10)",

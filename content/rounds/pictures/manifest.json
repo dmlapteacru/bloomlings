@@ -1296,8 +1296,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null,
-   "usedBy": "L0148"
+   "note": null
   },
   {
    "id": "P0075",
@@ -6823,8 +6822,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "packs-0268-0467",
-   "note": null,
-   "usedBy": "L0132"
+   "note": null
   },
   {
    "id": "P0385",
@@ -7075,7 +7073,7 @@
    "status": "approved",
    "batch": "packs-0268-0467",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0148"
   },
   {
    "id": "P0399",
@@ -7343,8 +7341,7 @@
    "colours": 6,
    "status": "approved",
    "batch": "packs-0268-0467",
-   "note": null,
-   "usedBy": "L0124"
+   "note": null
   },
   {
    "id": "P0414",
@@ -7380,7 +7377,7 @@
    "status": "approved",
    "batch": "packs-0268-0467",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0124"
   },
   {
    "id": "P0416",
@@ -13807,7 +13804,7 @@
    "status": "approved",
    "batch": "packs-1083-1182",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0132"
   },
   {
    "id": "P1135",

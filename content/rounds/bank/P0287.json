@@ -5,10 +5,10 @@
  "searched": [],
  "tune": {
   "Super Hard|links+canal+cells|Super Hard": {
-   "t": 0.12,
-   "cols": 4,
-   "offset": -2.09,
-   "quick": 0.05,
+   "t": 0.17,
+   "cols": 5,
+   "offset": -1.49,
+   "quick": 0.175,
    "at": "2026-11-05"
   }
  }
