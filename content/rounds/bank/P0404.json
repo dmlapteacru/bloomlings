@@ -19,13 +19,30 @@
     "evaluate: канал: решает не ровно один выход (single)": 63,
     "быстрая оценка вне зоны после поправок": 1
    }
+  },
+  {
+   "combo": "Super Hard|links+canal+cells||tune|2026-11-05",
+   "tune": {
+    "slot": "Super Hard",
+    "t": 0.29,
+    "attempts": 64,
+    "quick": 128,
+    "evaluated": 64,
+    "seconds": 1578
+   },
+   "tried": 64,
+   "found": 0,
+   "reasons": {
+    "evaluate: канал: решает не ровно один выход (single)": 63,
+    "evaluate: ниже 5 %": 1
+   }
   }
  ],
  "tune": {
   "Super Hard|links+canal+cells|Super Hard": {
-   "t": 0.09,
-   "cols": 5,
-   "offset": -2.2,
+   "t": 0.29,
+   "cols": 4,
+   "offset": -1.34,
    "quick": 0.05,
    "at": "2026-11-05"
   }
