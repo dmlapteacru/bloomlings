@@ -60,6 +60,27 @@ namespace Bloomlings.Core.Rounds
         /// its column and <see cref="RoundEvent.Cell"/> its key's cell.
         /// </summary>
         LatchOpen,
+
+        /// <summary>
+        /// The water channel became ready (rules 17 §8 «Drop Водный канал», 2026-11-05): its spring was reached by an open
+        /// path from an active entry for the first time, at the time of the clear, bridge or burst that reached it (after
+        /// that change's cell reveals and latches). Its exits can be chosen from now on.
+        /// </summary>
+        ChannelReady,
+
+        /// <summary>
+        /// The player chose exit <see cref="RoundEvent.Exit"/> of the water channel (the command's own event, at the commit
+        /// time): it is an active entry from now on. The cell reveals and latches the new entry causes follow at that time.
+        /// <see cref="RoundEvent.Cell"/> is the exit's cell.
+        /// </summary>
+        ChannelOpen,
+
+        /// <summary>
+        /// Shutter <see cref="RoundEvent.Shutter"/> opened (rules 17 §8 «Twig Деревянные створки», 2026-11-05): the work of
+        /// its material done anywhere reached its count, at the time of the clear or burst that reached it, before that
+        /// change's cell reveals; several in increasing order. Its cells are ordinary targets from now on.
+        /// </summary>
+        ShutterOpen,
     }
 
     /// <summary>
@@ -71,7 +92,7 @@ namespace Bloomlings.Core.Rounds
     {
         private RoundEvent(RoundEventType type, long at, int pod = -1, int slot = -1, int cell = -1, int id = -1,
             RoundMystery mode = RoundMystery.None, long arrive = -1, long clear = -1, long done = -1, int[]? route = null,
-            int column = -1, char code = '\0', int count = -1, int latch = -1)
+            int column = -1, char code = '\0', int count = -1, int latch = -1, int exit = -1, int shutter = -1, long ride = 0)
         {
             Type = type;
             At = at;
@@ -88,6 +109,9 @@ namespace Bloomlings.Core.Rounds
             Code = code;
             Count = count;
             Latch = latch;
+            Exit = exit;
+            Shutter = shutter;
+            RideUs = ride;
         }
 
         public RoundEventType Type { get; }
@@ -119,6 +143,15 @@ namespace Bloomlings.Core.Rounds
         /// <summary>The latch of a latch-open (its index in <see cref="RoundLevel.Latches"/>).</summary>
         public int Latch { get; }
 
+        /// <summary>The exit of a channel-open (its index in the channel's exits).</summary>
+        public int Exit { get; }
+
+        /// <summary>The shutter of a shutter-open (its index in <see cref="RoundLevel.Shutters"/>).</summary>
+        public int Shutter { get; }
+
+        /// <summary>A depart's channel ride in µs (0 unless its route starts at the chosen channel exit).</summary>
+        public long RideUs { get; }
+
         /// <summary>The column of a recall or a latch-open.</summary>
         public int Column { get; }
 
@@ -135,7 +168,7 @@ namespace Bloomlings.Core.Rounds
         internal static RoundEvent BridgeBuilt(long at, int cell) => new RoundEvent(RoundEventType.Bridge, at, cell: cell);
 
         internal static RoundEvent Depart(RoundCourier job) => new RoundEvent(RoundEventType.Depart, job.Start, pod: job.Pod, cell: job.Cell,
-            id: job.Id, arrive: job.Arrive, clear: job.Clear, done: job.Done, route: job.RouteArray);
+            id: job.Id, arrive: job.Arrive, clear: job.Clear, done: job.Done, route: job.RouteArray, ride: job.RideUs);
 
         internal static RoundEvent ArriveAtCell(long at, RoundCourier job) => new RoundEvent(RoundEventType.Arrive, at, pod: job.Pod, cell: job.Cell, id: job.Id);
 
@@ -160,6 +193,12 @@ namespace Bloomlings.Core.Rounds
         internal static RoundEvent LatchOpened(long at, int latch, RoundLatch info) =>
             new RoundEvent(RoundEventType.LatchOpen, at, cell: info.Key, column: info.Column, latch: latch);
 
+        internal static RoundEvent ChannelReadied(long at) => new RoundEvent(RoundEventType.ChannelReady, at);
+
+        internal static RoundEvent ChannelOpened(long at, int exit, int cell) => new RoundEvent(RoundEventType.ChannelOpen, at, cell: cell, exit: exit);
+
+        internal static RoundEvent ShutterOpened(long at, int shutter) => new RoundEvent(RoundEventType.ShutterOpen, at, shutter: shutter);
+
         /// <summary>The canonical line of this event (<see cref="RoundEvents.Line"/>).</summary>
         public override string ToString() => RoundEvents.Line(this);
     }
@@ -171,7 +210,7 @@ namespace Bloomlings.Core.Rounds
     /// </summary>
     public sealed class RoundCourier
     {
-        internal RoundCourier(int id, int pod, int cell, long start, long arrive, long clear, long done, int[] route, int frontier)
+        internal RoundCourier(int id, int pod, int cell, long start, long arrive, long clear, long done, int[] route, int frontier, long rideUs = 0)
         {
             Id = id;
             Pod = pod;
@@ -182,6 +221,7 @@ namespace Bloomlings.Core.Rounds
             Done = done;
             RouteArray = route;
             Frontier = frontier;
+            RideUs = rideUs;
         }
 
         public int Id { get; }
@@ -205,7 +245,13 @@ namespace Bloomlings.Core.Rounds
 
         internal int[] RouteArray { get; }
 
-        internal RoundCourier Copy() => new RoundCourier(Id, Pod, Cell, Start, Arrive, Clear, Done, (int[])RouteArray.Clone(), Frontier);
+        /// <summary>
+        /// The channel ride in µs (rules 17 §8 «Drop Водный канал»): its route starts at the chosen exit, so it rides the
+        /// channel for this long after <see cref="Start"/> and for this long before <see cref="Done"/>; 0 otherwise.
+        /// </summary>
+        public long RideUs { get; }
+
+        internal RoundCourier Copy() => new RoundCourier(Id, Pod, Cell, Start, Arrive, Clear, Done, (int[])RouteArray.Clone(), Frontier, RideUs);
     }
 
     /// <summary>The kinds of scheduled steps, in the order they run within one moment (research R3).</summary>

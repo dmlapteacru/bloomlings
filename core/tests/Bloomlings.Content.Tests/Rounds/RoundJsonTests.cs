@@ -509,6 +509,93 @@ namespace Bloomlings.Content.Tests.Rounds
             });
         }
 
+        // The sample board (rows bottom first): row 1 is open (cells 8–12), row 6 too (43–47); G at 30, 31, 37, 38; P at 23,
+        // 24, 32, 39. The spring at 8, exits at 12 and 47 (spring and exits are reached from the start: allowed, the channel
+        // is then ready at once); the shutter over the G square counts 2 P.
+        private const string ChannelJson = "{\"spring\": 8, \"exits\": [{\"cell\": 12, \"route\": [8, 9, 10, 11, 12], \"rideUs\": 400000}, "
+            + "{\"cell\": 47, \"route\": [8, 15, 22, 29, 36, 43, 44, 45, 46, 47], \"rideUs\": 600000}]}";
+
+        private const string ShuttersJson = "[{\"cells\": [30, 31, 37, 38], \"code\": \"P\", \"count\": 2}]";
+
+        [Test]
+        public void Level_WithChannelAndShutters_RoundTrips()
+        {
+            // 17 §8 «Drop Водный канал», «Twig Деревянные створки» (2026-11-05): board.channel and board.shutters; mechanics
+            // "canal" and "shutters".
+            JObject root = JObject.Parse(LevelSample);
+            root["board"]!["channel"] = JObject.Parse(ChannelJson);
+            root["board"]!["shutters"] = JArray.Parse(ShuttersJson);
+            root["mechanics"] = new JArray("canal", "shutters");
+            string json = root.ToString();
+
+            RoundLevel level = RoundJson.ReadLevel(json);
+            string written = RoundJson.WriteLevel(level);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(ContractSchemas.IsValidRoundLevel(json), Is.True);
+                Assert.That(ContractSchemas.IsValidRoundLevel(written), Is.True);
+                Assert.That(level.Channel!.Spring, Is.EqualTo(8));
+                Assert.That(level.Channel.Exits.Select(e => (e.Cell, e.Route.Count, e.RideUs)), Is.EqualTo(new[] { (12, 5, 400000L), (47, 10, 600000L) }));
+                Assert.That(level.Shutters.Select(x => (x.Cells.Count, x.Code, x.Count)), Is.EqualTo(new[] { (4, 'P', 2) }));
+                Assert.That(level.Mechanics, Is.EqualTo(new[] { "canal", "shutters" }));
+                Assert.That(RoundValidatorErrors(level), Is.Empty);
+                Assert.That(RoundJson.WriteLevel(RoundJson.ReadLevel(written)), Is.EqualTo(written));
+                Assert.That(JObject.Parse(written)["board"]!["shutters"]!.ToString(Newtonsoft.Json.Formatting.None), Is.EqualTo("[{\"cells\":[30,31,37,38],\"code\":\"P\",\"count\":2}]"));
+                JObject plain = JObject.Parse(RoundJson.WriteLevel(RoundJson.ReadLevel(LevelSample)));
+                Assert.That(plain["board"]!["channel"], Is.Null, "absent means none");
+                Assert.That(plain["board"]!["shutters"], Is.Null, "absent means none");
+            });
+        }
+
+        [TestCase("channel", "{\"spring\": 8, \"exits\": [{\"cell\": 12, \"route\": [8, 9, 10, 11, 12], \"rideUs\": 400000}]}", true, TestName = "ChannelOneExit_IsRejectedByBoth")]
+        [TestCase("channel", "{\"spring\": 8, \"exits\": [{\"cell\": 12, \"route\": [8, 9, 10, 11, 12], \"rideUs\": 0}, {\"cell\": 47, \"route\": [8, 47], \"rideUs\": 1000}]}", true, TestName = "ChannelRideZero_IsRejectedByBoth")]
+        [TestCase("channel", "{\"spring\": 8, \"exits\": [{\"cell\": 12, \"route\": [8, 12], \"rideUs\": 1000, \"x\": 1}, {\"cell\": 47, \"route\": [8, 47], \"rideUs\": 1000}]}", true, TestName = "ChannelExtraProperty_IsRejectedByBoth")]
+        [TestCase("channel", "{\"spring\": 99, \"exits\": [{\"cell\": 12, \"route\": [8, 12], \"rideUs\": 1000}, {\"cell\": 47, \"route\": [8, 47], \"rideUs\": 1000}]}", false, TestName = "ChannelSpringOffTheBoard_IsRejectedByTheReader")]
+        [TestCase("shutters", "[{\"cells\": [30, 31], \"code\": \"x\", \"count\": 2}]", true, TestName = "ShutterBadCode_IsRejectedByBoth")]
+        [TestCase("shutters", "[{\"cells\": [30, 31], \"code\": \"P\", \"count\": 0}]", true, TestName = "ShutterCountZero_IsRejectedByBoth")]
+        [TestCase("shutters", "[]", true, TestName = "ShuttersEmpty_IsRejectedByBoth")]
+        [TestCase("shutters", "[{\"cells\": [31, 30], \"code\": \"P\", \"count\": 1}]", false, TestName = "ShutterCellsUnsorted_IsRejectedByTheReader")]
+        public void Level_BadChannelOrShutters_AreRejected(string key, string value, bool bySchema)
+        {
+            JObject root = JObject.Parse(LevelSample);
+            root["board"]![key] = JToken.Parse(value);
+            root["mechanics"] = new JArray(key == "channel" ? "canal" : "shutters");
+            string text = root.ToString();
+
+            Assert.Multiple(() =>
+            {
+                if (bySchema)
+                {
+                    Assert.That(ContractSchemas.IsValidRoundLevel(text), Is.False, "schema");
+                }
+
+                Assert.Throws<ContentFormatException>(() => RoundJson.ReadLevel(text), "reader");
+            });
+        }
+
+        [Test]
+        public void Proof_WithAChannelCommand_RoundTrips()
+        {
+            JObject root = JObject.Parse(ProofSample);
+            var commands = (JArray)root["solution"]!["commands"]!;
+            commands.Add(JObject.Parse("{\"atUs\": 99000000, \"exit\": 1, \"type\": \"channel\"}"));
+            string json = root.ToString();
+            RoundProof proof = RoundJson.ReadProof(json);
+            RoundCommand last = proof.Solution.Commands[proof.Solution.Commands.Count - 1];
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(ContractSchemas.IsValidRoundProof(json), Is.True);
+                Assert.That((last.Type, last.Index, last.AtUs), Is.EqualTo((RoundCommandType.Channel, 1, 99000000L)));
+                Assert.That(last.Input.ToString(), Is.EqualTo("channel exit=1 at=99000000"));
+                Assert.That(last.Action, Is.EqualTo(RoundAction.ChooseExit(1)));
+                Assert.That(RoundJson.WriteProof(RoundJson.ReadProof(RoundJson.WriteProof(proof))), Is.EqualTo(RoundJson.WriteProof(proof)));
+                Assert.That(JObject.Parse(RoundJson.WriteProof(proof))["solution"]!["commands"]!.Last!.ToString(Newtonsoft.Json.Formatting.None),
+                    Is.EqualTo("{\"atUs\":99000000,\"exit\":1,\"type\":\"channel\"}"));
+            });
+        }
+
         [Test]
         public void Level_ALatchKeyOnAWall_IsTheValidatorsJob()
         {

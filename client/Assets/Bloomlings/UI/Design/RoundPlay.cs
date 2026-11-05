@@ -111,9 +111,8 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>Why <paramref name="action"/> would be refused now, or <see cref="RoundRefusal.None"/>.</summary>
         public RoundRefusal Check(RoundAction action) => Timeline.Check(action);
 
-        /// <summary>Commits a tap or a bridge at the current model time; an accepted one is recorded and animated.</summary>
-        public RoundCommitResult Commit(RoundAction action) =>
-            Apply(action.Type == RoundActionType.Tap ? RoundInput.Tap(action.Pod, 0) : RoundInput.Bridge(action.Choice, 0));
+        /// <summary>Commits a tap, a bridge or a channel exit at the current model time; an accepted one is recorded and animated.</summary>
+        public RoundCommitResult Commit(RoundAction action) => Apply(RoundInput.Of(action, 0));
 
         /// <summary>Applies a recorded kind of command (a player action or a booster) at the current model time.</summary>
         public RoundCommitResult Apply(RoundInput command)
@@ -124,7 +123,7 @@ namespace Bloomlings.Client.UI.Design
             if (result.Accepted)
             {
                 _inputs.Add(at);
-                if (at.Type != RoundInputType.Tap && at.Type != RoundInputType.Bridge)
+                if (at.Type != RoundInputType.Tap && at.Type != RoundInputType.Bridge && at.Type != RoundInputType.Channel)
                 {
                     BoostersUsed++;
                 }

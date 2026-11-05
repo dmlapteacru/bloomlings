@@ -28,7 +28,7 @@ namespace Bloomlings.Core.Rounds
     /// <summary>Where a courier is drawn at a moment (presentation only; cell units, x right, y up from the bottom row).</summary>
     public readonly struct RoundCourierPose
     {
-        public RoundCourierPose(int id, int pod, double x, double y, bool carrying, bool acting)
+        public RoundCourierPose(int id, int pod, double x, double y, bool carrying, bool acting, bool riding = false)
         {
             Id = id;
             Pod = pod;
@@ -36,6 +36,7 @@ namespace Bloomlings.Core.Rounds
             Y = y;
             Carrying = carrying;
             Acting = acting;
+            Riding = riding;
         }
 
         public int Id { get; }
@@ -51,6 +52,12 @@ namespace Bloomlings.Core.Rounds
 
         /// <summary>At its cell, working, before the clear.</summary>
         public bool Acting { get; }
+
+        /// <summary>
+        /// In the water channel (rules 17 §8 «Drop Водный канал»): a walker from the chosen exit during its ride out or back;
+        /// its position is the exit's cell (the client draws the bubble along the channel's route).
+        /// </summary>
+        public bool Riding { get; }
     }
 
     /// <summary>
@@ -160,10 +167,10 @@ namespace Bloomlings.Core.Rounds
         public IReadOnlyList<int> LastClears => _lastClears;
 
         /// <summary>
-        /// The tail (Auto) flag: every column is empty and no bridge is left to choose. Presentation only (FR-011): the
+        /// The tail (Auto) flag: every column is empty and no bridge or channel exit is left to choose. Presentation only (FR-011): the
         /// client shows the rest faster; the rules do not change.
         /// </summary>
-        public bool Tail => State.QueueEmpty && (State.Level.Bridge == null || State.Bridge >= 0);
+        public bool Tail => State.QueueEmpty && (State.Level.Bridge == null || State.Bridge >= 0) && (State.Level.Channel == null || State.Channel >= 0);
 
         /// <summary>The status a player sees: Playing while work is pending (shown as working), else the settled one.</summary>
         public RoundStatus Status => State.Status;
@@ -179,10 +186,11 @@ namespace Bloomlings.Core.Rounds
         public List<RoundAction> Legal() => RoundRules.Legal(State);
 
         /// <summary>
-        /// Applies a tap or a bridge at the current model time (reference <c>commit</c>): a link admission compacts the
-        /// places first; each member takes the first free place and its column's head moves down; a sealed pod reveals on
-        /// commit; a bridge reveals the hidden cells it opens; a latch now on top with its key reached opens; then every
-        /// hidden top pod in depth mode reveals, and work is dispatched.
+        /// Applies a tap, a bridge or a channel exit at the current model time (reference <c>commit</c>): a link admission
+        /// compacts the places first; each member takes the first free place and its column's head moves down; a sealed pod
+        /// reveals on commit; a bridge or the chosen exit reveals the hidden cells it opens; a latch now on top with its key
+        /// reached opens; a bridge that reached the spring readies the channel; then every hidden top pod in depth mode
+        /// reveals, and work is dispatched.
         /// </summary>
         public RoundCommitResult Commit(RoundAction action)
         {
@@ -231,6 +239,14 @@ namespace Bloomlings.Core.Rounds
                     }
                 }
             }
+            else if (action.Type == RoundActionType.Channel)
+            {
+                // Water channel (17 §8): the chosen exit becomes an active entry now.
+                s.Channel = action.Exit;
+                s.BoardChanged();
+                _events.Add(RoundEvent.ChannelOpened(Now, action.Exit, s.Level.Channel!.Exits[action.Exit].Cell));
+                RoundRules.RevealCells(s, _events, Now);
+            }
             else
             {
                 RoundBridgeChoice site = s.Level.Bridge![action.Choice];
@@ -241,8 +257,12 @@ namespace Bloomlings.Core.Rounds
                 RoundRules.RevealCells(s, _events, Now);
             }
 
-            // Latch + key (17 §8): a latch the tap brought to its column's top, or whose key the bridge reached, opens now.
+            // Latch + key (17 §8): a latch the tap brought to its column's top, or whose key the bridge or the channel
+            // reached, opens now.
             RoundRules.OpenLatches(s, _events, Now);
+
+            // Water channel (17 §8): a bridge that reached the spring makes the channel ready now.
+            RoundRules.ReadyChannel(s, _events, Now);
             RoundRules.RevealTops(s, _events, Now);
             Dispatch();
             Assert();
@@ -354,6 +374,9 @@ namespace Bloomlings.Core.Rounds
                         _lastClears.Add(j.Cell);
                         changed = true;
 
+                        // Shutters (17 §8): the ones whose count this clear reached open at its time, before its reveals.
+                        RoundRules.OpenShutters(s, _events, Now);
+
                         // Hidden cells (17 §8): the cells this clear reveals, right after it, at its time.
                         RoundRules.RevealCells(s, _events, Now);
 
@@ -363,6 +386,9 @@ namespace Bloomlings.Core.Rounds
                         {
                             RoundRules.RevealTops(s, _events, Now);
                         }
+
+                        // Water channel (17 §8): the clear that reached the spring makes the channel ready at its time.
+                        RoundRules.ReadyChannel(s, _events, Now);
                     }
                     else
                     {
@@ -427,12 +453,15 @@ namespace Bloomlings.Core.Rounds
                 {
                     int cell = available[next++];
                     int[] route = RoundRules.RouteTo(s, cell);
+
+                    // A route from the chosen channel exit rides the channel out and back (17 §8; 0 otherwise).
+                    long ride = RoundRules.RideOf(s, route);
                     int id = ++_serial;
                     long distance = route.Length - 1;
                     long start = Now;
-                    long arrive = start + Math.Max(Profile.MinOut, distance * Profile.OutPerCell);
+                    long arrive = start + ride + Math.Max(Profile.MinOut, distance * Profile.OutPerCell);
                     long clear = arrive + Profile.Act;
-                    long done = clear + Math.Max(Profile.MinReturn, distance * Profile.ReturnPerCell);
+                    long done = clear + Math.Max(Profile.MinReturn, distance * Profile.ReturnPerCell) + ride;
                     for (int r = 0; r < route.Length - 1; r++)
                     {
                         if (s.Board[route[r]] != RoundLevel.Open)
@@ -441,7 +470,7 @@ namespace Bloomlings.Core.Rounds
                         }
                     }
 
-                    var job = new RoundCourier(id, pod, cell, start, arrive, clear, done, route, available.Count - next + 1);
+                    var job = new RoundCourier(id, pod, cell, start, arrive, clear, done, route, available.Count - next + 1, ride);
                     _jobs.Add(id, job);
                     _reserved[cell] = id;
                     _inFlight[pod]++;
@@ -579,8 +608,10 @@ namespace Bloomlings.Core.Rounds
         /// </summary>
         public RoundCourierPose PoseOf(RoundCourier j, long at)
         {
+            // A channel rider is in the water for its ride after its start and before it is home: drawn at the exit.
+            long r = j.RideUs;
             bool back = at >= j.Clear;
-            double t = back ? (double)(j.Done - at) / (j.Done - j.Clear) : Math.Min(1.0, (double)(at - j.Start) / (j.Arrive - j.Start));
+            double t = back ? (double)(j.Done - r - at) / (j.Done - r - j.Clear) : Math.Min(1.0, (double)(at - j.Start - r) / (j.Arrive - j.Start - r));
             int last = j.RouteArray.Length - 1;
             double v = Math.Max(0.0, t) * Math.Max(0, last);
             int step = Math.Min(last, (int)Math.Floor(v));
@@ -590,7 +621,8 @@ namespace Bloomlings.Core.Rounds
             int w = State.Level.Width;
             double x = a % w + (b % w - a % w) * f;
             double y = a / w + (b / w - a / w) * f;
-            return new RoundCourierPose(j.Id, j.Pod, x, y, back, at >= j.Arrive && !back);
+            bool riding = r > 0 && (back ? at > j.Done - r : at < j.Start + r);
+            return new RoundCourierPose(j.Id, j.Pod, x, y, back, at >= j.Arrive && !back, riding);
         }
 
         /// <summary>Every courier's pose at the current model time.</summary>
@@ -751,6 +783,7 @@ namespace Bloomlings.Core.Rounds
                 s.Latched == null ? null : (bool[])s.Latched.Clone(),
                 s.Serial,
                 s.Bridge,
+                s.Channel,
                 s.Status,
                 _steps.ToArray(),
                 Now,
@@ -806,12 +839,28 @@ namespace Bloomlings.Core.Rounds
             fresh.Serial = snapshot.Serial;
             fresh.Bridge = snapshot.Bridge;
             fresh.Status = snapshot.Status;
+            if (fresh.Level.Channel != null)
+            {
+                if (snapshot.Channel < -1 || snapshot.Channel >= fresh.Level.Channel.Exits.Count)
+                {
+                    throw new ArgumentException("The snapshot's channel exit does not belong to this level.", nameof(snapshot));
+                }
+
+                fresh.Channel = snapshot.Channel;
+            }
+
             fresh.BoardChanged();
+
+            // Shutters (17 §8): recomputed from the board (reference syncShutters), before the cells and latches.
+            RoundRules.SyncShutters(fresh);
             RoundRules.SyncCells(fresh);
 
             // Latch + key (17 §8): recomputed from heads and board (reference syncLatches); a latch the snapshot had open
             // stays open (only Return moves a head back onto one).
             RoundRules.SyncLatches(fresh, snapshot.Latched);
+
+            // Water channel (17 §8): the spring's state recomputed from the board and the chosen exit (reference syncChannel).
+            RoundRules.SyncChannel(fresh);
             State = fresh;
 
             _steps.Clear();
@@ -863,7 +912,7 @@ namespace Bloomlings.Core.Rounds
     public sealed class RoundSnapshot
     {
         internal RoundSnapshot(sbyte[] board, int[] remaining, int[][] columns, int[] columnOf, bool columnsChanged, int[] heads, int[] slots,
-            int[] ages, bool[] revealed, bool[]? latched, int serial, int bridge, RoundStatus status, RoundStep[] steps, long now, int courierSerial,
+            int[] ages, bool[] revealed, bool[]? latched, int serial, int bridge, int channel, RoundStatus status, RoundStep[] steps, long now, int courierSerial,
             int processedCells, RoundCourier[] couriers, int[] reserved, int[] inFlight, long[] departReady, bool extraSlotUsed, int shufflesUsed)
         {
             Board = board;
@@ -878,6 +927,7 @@ namespace Bloomlings.Core.Rounds
             Latched = latched;
             Serial = serial;
             Bridge = bridge;
+            Channel = channel;
             Status = status;
             Steps = steps;
             Now = now;
@@ -918,6 +968,9 @@ namespace Bloomlings.Core.Rounds
         public int Serial { get; }
 
         public int Bridge { get; }
+
+        /// <summary>The chosen channel exit or -1 (17 §8, 2026-11-05); the shutters and the spring are recomputed on restore.</summary>
+        public int Channel { get; }
 
         public RoundStatus Status { get; }
 

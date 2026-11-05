@@ -125,6 +125,82 @@ namespace Bloomlings.Core.Rounds
         public int Key { get; }
     }
 
+    /// <summary>
+    /// One exit of the Drop water channel (<see cref="RoundChannel"/>): its cell (an empty '.' cell of its own, often an
+    /// enclosed pocket inside the picture), the channel's cells from the spring to it (presentation: drawn over the cubes)
+    /// and the ride a walker takes along it, in µs (whole milliseconds).
+    /// </summary>
+    public sealed class RoundChannelExit
+    {
+        public RoundChannelExit(int cell, IReadOnlyList<int> route, long rideUs)
+        {
+            Cell = cell;
+            Route = route ?? throw new ArgumentNullException(nameof(route));
+            RideUs = rideUs;
+        }
+
+        /// <summary>The exit's cell, an index <c>y * w + x</c> of the rows (row 0 at the bottom).</summary>
+        public int Cell { get; }
+
+        /// <summary>The channel's cells from the spring (first) to this exit (last), each beside the one before.</summary>
+        public IReadOnlyList<int> Route { get; }
+
+        /// <summary>
+        /// A walker's ride along the channel: added once on its way out (before it walks from the exit) and once on its way
+        /// back (after it walked back to the exit) when its route starts at this exit, the chosen one.
+        /// </summary>
+        public long RideUs { get; }
+    }
+
+    /// <summary>
+    /// The Drop water channel (rules 17 §8 «Drop Водный канал», the owner, 2026-11-05; <c>board.channel</c> of
+    /// <c>round-level.v1</c>; spec 006 FR-069; <c>tools/rounds/README.md</c> «Channel»). It is ready at the first moment the
+    /// <see cref="Spring"/> (an empty '.' cell) is reached by an open path from an active entry
+    /// (<see cref="RoundEventType.ChannelReady"/>); the player then chooses one of the two <see cref="Exits"/>
+    /// (<see cref="RoundAction.ChooseExit"/>: free, no place), which becomes an additional active entry
+    /// (<see cref="RoundEventType.ChannelOpen"/>); the other never does.
+    /// </summary>
+    public sealed class RoundChannel
+    {
+        public RoundChannel(int spring, IReadOnlyList<RoundChannelExit> exits)
+        {
+            Spring = spring;
+            Exits = exits ?? throw new ArgumentNullException(nameof(exits));
+        }
+
+        /// <summary>The spring's cell, an index <c>y * w + x</c> of the rows.</summary>
+        public int Spring { get; }
+
+        /// <summary>The two exits; index <c>i</c> is exit <c>i</c> of the command and the events.</summary>
+        public IReadOnlyList<RoundChannelExit> Exits { get; }
+    }
+
+    /// <summary>
+    /// Twig's wooden shutters (rules 17 §8 «Twig Деревянные створки», the owner, 2026-11-05; an item of
+    /// <c>board.shutters</c> of <c>round-level.v1</c>; spec 006 FR-070; <c>tools/rounds/README.md</c> «Shutters»): a lid
+    /// over a full rectangle of material <see cref="Cells"/>. While closed the cells are no targets and no passage; it counts
+    /// the work of material <see cref="Code"/> actually done anywhere since the start and opens when that reaches
+    /// <see cref="Count"/> (<see cref="RoundEventType.ShutterOpen"/>); its cells are then ordinary work.
+    /// </summary>
+    public sealed class RoundShutter
+    {
+        public RoundShutter(IReadOnlyList<int> cells, char code, int count)
+        {
+            Cells = cells ?? throw new ArgumentNullException(nameof(cells));
+            Code = code;
+            Count = count;
+        }
+
+        /// <summary>The covered cells, indices <c>y * w + x</c> of the rows, sorted ascending.</summary>
+        public IReadOnlyList<int> Cells { get; }
+
+        /// <summary>The exact material it counts.</summary>
+        public char Code { get; }
+
+        /// <summary>How many units of that material must be done before it opens (at least 1).</summary>
+        public int Count { get; }
+    }
+
     /// <summary>The mechanic a level introduces, and whether it is its second meeting (spec 006 FR-045).</summary>
     public sealed class RoundIntroduction
     {
@@ -217,7 +293,9 @@ namespace Bloomlings.Core.Rounds
             RoundOverlay? overlay = null,
             IReadOnlyList<int>? hiddenCells = null,
             IReadOnlyList<(int X, int Y, char Code)>? recolor = null,
-            IReadOnlyList<RoundLatch>? latches = null)
+            IReadOnlyList<RoundLatch>? latches = null,
+            RoundChannel? channel = null,
+            IReadOnlyList<RoundShutter>? shutters = null)
         {
             Number = number;
             Width = width;
@@ -240,6 +318,8 @@ namespace Bloomlings.Core.Rounds
             HiddenCells = hiddenCells ?? Array.Empty<int>();
             Recolor = recolor ?? Array.Empty<(int X, int Y, char Code)>();
             Latches = latches ?? Array.Empty<RoundLatch>();
+            Channel = channel;
+            Shutters = shutters ?? Array.Empty<RoundShutter>();
         }
 
         public int Number { get; }
@@ -304,6 +384,15 @@ namespace Bloomlings.Core.Rounds
         /// <c>round-level.v1</c>): index <c>i</c> is latch <c>i</c> of the events. Empty on a level without latches.
         /// </summary>
         public IReadOnlyList<RoundLatch> Latches { get; }
+
+        /// <summary>The Drop water channel (rules 17 §8, 2026-11-05; <c>board.channel</c>), or null.</summary>
+        public RoundChannel? Channel { get; }
+
+        /// <summary>
+        /// The wooden shutters (rules 17 §8, 2026-11-05; <c>board.shutters</c>): index <c>i</c> is shutter <c>i</c> of the
+        /// events. Empty on a level without shutters.
+        /// </summary>
+        public IReadOnlyList<RoundShutter> Shutters { get; }
 
         /// <summary>
         /// The board cell of a picture cell (x from the left, y from the top): the picture sits inside a wall frame and an
@@ -484,6 +573,33 @@ namespace Bloomlings.Core.Rounds
                     LatchColumns[c] = mine.ToArray();
                 }
             }
+
+            if (level.Shutters.Count > 0)
+            {
+                ShutCell = new int[n];
+                Array.Fill(ShutCell, -1);
+                ShutMaterial = new int[level.Shutters.Count];
+                for (int i = 0; i < level.Shutters.Count; i++)
+                {
+                    ShutMaterial[i] = RoundMaterial.IndexOf(level.Shutters[i].Code);
+                    foreach (int cell in level.Shutters[i].Cells)
+                    {
+                        if (cell >= 0 && cell < n)
+                        {
+                            ShutCell[cell] = i;
+                        }
+                    }
+                }
+
+                ShutStart = new int[RoundMaterial.Codes.Length];
+                foreach (sbyte c in Board)
+                {
+                    if (c >= 0)
+                    {
+                        ShutStart[c]++;
+                    }
+                }
+            }
         }
 
         public int[] Neighbours { get; }
@@ -506,5 +622,14 @@ namespace Bloomlings.Core.Rounds
         /// <c>latchCols</c>), or null on a level without latches.
         /// </summary>
         public int[][]? LatchColumns { get; }
+
+        /// <summary>Per cell, the shutter over it or -1 (reference <c>prepare</c>'s <c>shutCell</c>); null without shutters.</summary>
+        public int[]? ShutCell { get; }
+
+        /// <summary>Per shutter, the material index it counts; null without shutters.</summary>
+        public int[]? ShutMaterial { get; }
+
+        /// <summary>Per material index, its cells on the start board (reference <c>shutStart</c>); null without shutters.</summary>
+        public int[]? ShutStart { get; }
     }
 }

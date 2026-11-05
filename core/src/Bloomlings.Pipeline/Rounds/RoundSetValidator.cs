@@ -258,6 +258,10 @@ namespace Bloomlings.Pipeline.Rounds
                 {
                     yield return new RoundIssue(where, "proof", $"solution command {i}: {command} names a bridge site the level does not have");
                 }
+                else if (command.Type == RoundCommandType.Channel && (level.Channel == null || command.Index >= level.Channel.Exits.Count))
+                {
+                    yield return new RoundIssue(where, "proof", $"solution command {i}: {command} names a channel exit the level does not have");
+                }
 
                 if (command.AtUs < last)
                 {

@@ -8,11 +8,14 @@ namespace Bloomlings.Core.Rounds
     {
         Tap,
         Bridge,
+
+        /// <summary>Choosing an exit of the water channel (rules 17 §8 «Drop Водный канал», 2026-11-05).</summary>
+        Channel,
     }
 
     /// <summary>
     /// A player action of the round rules: a tap on a pod (for a link, any member launches the whole link; legal moves
-    /// name its first member) or building the Sprig bridge at one of its sites.
+    /// name its first member), building the Sprig bridge at one of its sites, or choosing an exit of the Drop water channel.
     /// </summary>
     public readonly struct RoundAction : IEquatable<RoundAction>
     {
@@ -24,16 +27,22 @@ namespace Bloomlings.Core.Rounds
 
         public RoundActionType Type { get; }
 
-        /// <summary>The pod of a tap or the site index of a bridge.</summary>
+        /// <summary>The pod of a tap, the site index of a bridge or the exit index of a channel choice.</summary>
         public int Value { get; }
 
         public int Pod => Type == RoundActionType.Tap ? Value : -1;
 
         public int Choice => Type == RoundActionType.Bridge ? Value : -1;
 
+        /// <summary>The exit of a channel choice, else -1.</summary>
+        public int Exit => Type == RoundActionType.Channel ? Value : -1;
+
         public static RoundAction Tap(int pod) => new RoundAction(RoundActionType.Tap, pod);
 
         public static RoundAction BuildBridge(int choice) => new RoundAction(RoundActionType.Bridge, choice);
+
+        /// <summary>Choosing exit <paramref name="exit"/> of the water channel (reference <c>{type:'channel', exit}</c>).</summary>
+        public static RoundAction ChooseExit(int exit) => new RoundAction(RoundActionType.Channel, exit);
 
         public bool Equals(RoundAction other) => Type == other.Type && Value == other.Value;
 
@@ -41,7 +50,7 @@ namespace Bloomlings.Core.Rounds
 
         public override int GetHashCode() => ((int)Type * 397) ^ Value;
 
-        public override string ToString() => Type == RoundActionType.Tap ? "tap pod=" + Value : "bridge choice=" + Value;
+        public override string ToString() => Type == RoundActionType.Tap ? "tap pod=" + Value : Type == RoundActionType.Bridge ? "bridge choice=" + Value : "channel exit=" + Value;
     }
 
     /// <summary>
@@ -53,6 +62,9 @@ namespace Bloomlings.Core.Rounds
         None,
         Finished,
         BridgeNotReady,
+
+        /// <summary>The channel cannot be chosen: its spring is not reached yet, an exit is already chosen, or no such exit.</summary>
+        ChannelNotReady,
         UnknownAction,
         UnknownPod,
         NotExposed,
@@ -118,10 +130,14 @@ namespace Bloomlings.Core.Rounds
 
             var state = new RoundState(level, capacity);
 
+            // Shutters (17 §8, 2026-11-05): all closed at the start (each counts at least 1), before any reach is taken.
+            SyncShutters(state);
+
             // A latch on top at the start whose key is already reached starts open (before the tops reveal).
             SyncLatches(state);
             RevealTops(state, null);
             SyncCells(state);
+            SyncChannel(state);
             state.Status = StatusOf(state);
             return state;
         }
@@ -270,6 +286,171 @@ namespace Bloomlings.Core.Rounds
         }
 
         /// <summary>
+        /// Opens every closed shutter whose count is reached (reference <c>openShutters</c>, rules 17 §8 «Twig Деревянные
+        /// створки»): the work done of its material (its start cells minus its cells now) is at least its count. Called
+        /// after every change of the board's material cells (a clear, a burst), first of all, before the cell reveals; the
+        /// shutters come in increasing order, each as a <see cref="RoundEventType.ShutterOpen"/> at <paramref name="at"/>
+        /// when <paramref name="events"/> is given. Their cells become targets (the cached reach is dropped). Returns how
+        /// many opened.
+        /// </summary>
+        public static int OpenShutters(RoundState state, List<RoundEvent>? events, long at = 0)
+        {
+            bool[]? shut = state.Shut;
+            if (shut == null || state.ShutLeft == 0)
+            {
+                return 0;
+            }
+
+            int[]? left = null;
+            int opened = 0;
+            IReadOnlyList<RoundShutter> shutters = state.Level.Shutters;
+            for (int i = 0; i < shutters.Count; i++)
+            {
+                if (!shut[i])
+                {
+                    continue;
+                }
+
+                left ??= MaterialLeft(state);
+                int material = state.Prepared.ShutMaterial![i];
+                if (state.Prepared.ShutStart![material] - left[material] >= shutters[i].Count)
+                {
+                    shut[i] = false;
+                    state.ShutLeft--;
+                    opened++;
+                    events?.Add(RoundEvent.ShutterOpened(at, i));
+                }
+            }
+
+            if (opened > 0)
+            {
+                state.BoardChanged();
+            }
+
+            return opened;
+        }
+
+        /// <summary>Recomputes the shutters from the board (reference <c>syncShutters</c>; a fresh state or a restored snapshot), silently.</summary>
+        public static void SyncShutters(RoundState state)
+        {
+            IReadOnlyList<RoundShutter> shutters = state.Level.Shutters;
+            if (shutters.Count == 0)
+            {
+                state.Shut = null;
+                state.ShutLeft = 0;
+                return;
+            }
+
+            int[] left = MaterialLeft(state);
+            var shut = new bool[shutters.Count];
+            int closed = 0;
+            for (int i = 0; i < shutters.Count; i++)
+            {
+                int material = state.Prepared.ShutMaterial![i];
+                shut[i] = state.Prepared.ShutStart![material] - left[material] < shutters[i].Count;
+                if (shut[i])
+                {
+                    closed++;
+                }
+            }
+
+            state.Shut = shut;
+            state.ShutLeft = closed;
+            state.BoardChanged();
+        }
+
+        private static int[] MaterialLeft(RoundState state)
+        {
+            var left = new int[RoundMaterial.Codes.Length];
+            foreach (sbyte c in state.Board)
+            {
+                if (c >= 0)
+                {
+                    left[c]++;
+                }
+            }
+
+            return left;
+        }
+
+        /// <summary>
+        /// The exits that can be chosen now (reference <c>channelChoices</c>, rules 17 §8 «Drop Водный канал»): both, once
+        /// the spring is reached by an open path from an active entry and no exit is chosen yet; else none.
+        /// </summary>
+        public static List<int> ChannelChoices(RoundState state)
+        {
+            var result = new List<int>();
+            RoundChannel? channel = state.Level.Channel;
+            if (channel == null || state.Channel >= 0 || !(state.Reach().Distance[channel.Spring] > 0))
+            {
+                return result;
+            }
+
+            for (int i = 0; i < channel.Exits.Count; i++)
+            {
+                result.Add(i);
+            }
+
+            return result;
+        }
+
+        private static bool AnyChannelChoice(RoundState state)
+        {
+            RoundChannel? channel = state.Level.Channel;
+            return channel != null && state.Channel < 0 && state.Reach().Distance[channel.Spring] > 0;
+        }
+
+        /// <summary>
+        /// Marks the spring reached the first time it is (reference <c>readyChannel</c>), adding a
+        /// <see cref="RoundEventType.ChannelReady"/> at <paramref name="at"/> when <paramref name="events"/> is given and no
+        /// exit is chosen. Called after every board change (a clear, a bridge, a burst), after its cell reveals and latches.
+        /// </summary>
+        public static bool ReadyChannel(RoundState state, List<RoundEvent>? events, long at = 0)
+        {
+            RoundChannel? channel = state.Level.Channel;
+            if (channel == null || state.SpringReached || !(state.Reach().Distance[channel.Spring] > 0))
+            {
+                return false;
+            }
+
+            state.SpringReached = true;
+            if (state.Channel < 0)
+            {
+                events?.Add(RoundEvent.ChannelReadied(at));
+            }
+
+            return true;
+        }
+
+        /// <summary>Recomputes <see cref="RoundState.SpringReached"/> from the board and the choice (reference <c>syncChannel</c>), silently.</summary>
+        public static void SyncChannel(RoundState state)
+        {
+            if (state.Level.Channel == null)
+            {
+                return;
+            }
+
+            state.SpringReached = false;
+            ReadyChannel(state, null);
+        }
+
+        /// <summary>
+        /// The ride of a walker on <paramref name="route"/> (reference <c>rideOf</c>): the chosen exit's ride when the route
+        /// starts at the chosen exit, else 0.
+        /// </summary>
+        public static long RideOf(RoundState state, int[] route)
+        {
+            RoundChannel? channel = state.Level.Channel;
+            if (channel == null || state.Channel < 0)
+            {
+                return 0;
+            }
+
+            RoundChannelExit exit = channel.Exits[state.Channel];
+            return route.Length > 0 && route[0] == exit.Cell ? exit.RideUs : 0;
+        }
+
+        /// <summary>
         /// Reveals every top pod that is still hidden and not sealed (depth mode), in column order, adding a reveal event
         /// at <paramref name="at"/> for each when <paramref name="events"/> is given.
         /// </summary>
@@ -385,7 +566,7 @@ namespace Bloomlings.Core.Rounds
 
         /// <summary>
         /// The settled status (reference <c>status</c>): Won when no material cell remains; Playing while a bridge can be
-        /// built; Jammed when no place is free; else Playing when some top pod can be tapped, else Stuck. The timeline
+        /// built or a channel exit chosen; Jammed when no place is free; else Playing when some top pod can be tapped, else Stuck. The timeline
         /// reports Playing while steps are pending.
         /// </summary>
         public static RoundStatus StatusOf(RoundState state)
@@ -406,6 +587,11 @@ namespace Bloomlings.Core.Rounds
             }
 
             if (AnyBridgeChoice(state))
+            {
+                return RoundStatus.Playing;
+            }
+
+            if (AnyChannelChoice(state))
             {
                 return RoundStatus.Playing;
             }
@@ -519,7 +705,7 @@ namespace Bloomlings.Core.Rounds
 
         /// <summary>
         /// The legal actions (reference <c>legal</c>): none unless Playing; one tap per tappable link, named by its first
-        /// member, in top-pod order; then each buildable bridge site.
+        /// member, in top-pod order; then each buildable bridge site; then each channel exit once the channel is ready.
         /// </summary>
         public static List<RoundAction> Legal(RoundState state)
         {
@@ -548,6 +734,11 @@ namespace Bloomlings.Core.Rounds
                 moves.Add(RoundAction.BuildBridge(choice));
             }
 
+            foreach (int exit in ChannelChoices(state))
+            {
+                moves.Add(RoundAction.ChooseExit(exit));
+            }
+
             return moves;
         }
 
@@ -564,6 +755,11 @@ namespace Bloomlings.Core.Rounds
                 return BridgeChoices(state).Contains(action.Choice) ? RoundRefusal.None : RoundRefusal.BridgeNotReady;
             }
 
+            if (action.Type == RoundActionType.Channel)
+            {
+                return ChannelChoices(state).Contains(action.Exit) ? RoundRefusal.None : RoundRefusal.ChannelNotReady;
+            }
+
             if (action.Type != RoundActionType.Tap)
             {
                 return RoundRefusal.UnknownAction;
@@ -578,6 +774,7 @@ namespace Bloomlings.Core.Rounds
             RoundRefusal.None => null,
             RoundRefusal.Finished => "finished",
             RoundRefusal.BridgeNotReady => "bridge-not-ready",
+            RoundRefusal.ChannelNotReady => "channel-not-ready",
             RoundRefusal.UnknownAction => "unknown-action",
             RoundRefusal.UnknownPod => "unknown-pod",
             RoundRefusal.NotExposed => "not-exposed",

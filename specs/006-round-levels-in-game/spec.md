@@ -318,7 +318,8 @@ owner sees the same behaviour as in the playtest app.
   of the tube is in one member's colour and half in the other's. The tube is not drawn above or on top of the pods.
 - **FR-044**: When Auto starts, the whole HUD MUST disappear and leave the board. The normal speed-up control stays
   available until then.
-- **FR-045**: The first introduction of each mechanic with a card (hidden pods, links, bridge, the latch since FR-068) MUST show
+- **FR-045**: The first introduction of each mechanic with a card (hidden pods, links, bridge, the latch since FR-068, the
+  channel since FR-069 and the shutters since FR-070) MUST show
   its explanation popup. The second introduction shows a short reminder. Hidden cells (FR-066) have no popup at all (the
   owner, 2026-11-01: the player sees the «?» and the cells reveal by themselves). A hidden pod that has just revealed glows
   briefly.
@@ -469,6 +470,66 @@ owner sees the same behaviour as in the playtest app.
   - Popup: its first meeting (L61) shows an explanation card ("The lock": the hero of the pod's colour holding the padlock in the pod's place and the
     upright key in the pod's colour on a patch of the board, looping the key's flight and the opening; "A padlocked pod waits in its column", "It opens when the Bloomlings reach
     the key of its color on the board"); its second (L63) a short reminder.
+- **FR-069** (the Drop water channel, rules 17 §8 «Drop Водный канал», §9: introduced on L101 and L103, the owner,
+  2026-11-05; the reference contract is `tools/rounds/README.md` "Channel"):
+  - Data: a round level MAY carry `board.channel` = `{spring, exits: [{cell, route, rideUs}, {…}]}` (`mechanics` then
+    includes `"canal"`; an introduction's mechanic is `"canal"`). `spring` and each exit's `cell` are cells `y*w+x` of
+    `rowsBottomFirst` of empty `.` cells, never an entry, a latch key or each other (an exit may be an enclosed pocket
+    inside the picture or a cell at its edge). Each exit's `route` lists the channel's cells from the spring to that exit
+    (both included, each an orthogonal neighbour of the one before, no repeat; it may pass over any cell: drawn over the
+    cubes, the cubes under it stay ordinary work). `rideUs` is a walker's ride along that channel in µs, whole
+    milliseconds from 1 ms to 10 s (the generator: 60 ms a step, at least 400 ms). Validation MUST refuse a bad spring or
+    exit, not exactly two exits, a broken route, a bad ride, and a spring that can never be reached (`ObjectsBlocked`, the
+    latch check's cheap flood extended to every board object). Absent means none.
+  - Rules: the channel is ready at the first moment the spring is reached by an open path from an active entry (the same
+    search the targets use); event `channelReady` (`<µs> channelReady`) at the time of the clear, bridge or burst that
+    reached it, after that change's cell reveals and latches (silent when the spring is reached at the start). Once ready
+    and while no exit is chosen, the player may choose either exit (command `channel exit=<i>`, fixture
+    `{"type": "channel", "exit": i, "atUs": …}`): free, no place, no pause, final; refused before as `channel-not-ready`.
+    The status stays Playing while the choice is open (a jam is no loss then) and the auto-tail waits for it. The choice
+    is the command's own event `channelOpen` (`<µs> channelOpen exit=<i>`, the commit's time), followed by the cell reveals
+    and latches the new entry causes. From then on the chosen exit is an active entry: the breadth-first reach starts from
+    the level's entries in their order and then from it, so every walker departs from the nearest active entry by path
+    (ties: the earlier source in that order) and the targets, reveals, latches and bridges see it. A walker whose route
+    starts at the chosen exit rides the channel: `rideUs` is added before it walks (arrive = start + ride + walk) and after
+    it walks back (done = clear + walk back + ride); its depart line shows those times. The unchosen exit never becomes an
+    entry (its pocket may join the open area by ordinary clearing and is then a passage). The extended signature lists the
+    chosen exit after the bridge (`…|bridge|channel|status`) on a channel level only; a snapshot keeps it and a restored
+    one recomputes the rest; a level without a channel plays byte-identically. The solver and the random test enumerate
+    each exit as an action once the channel is ready (after the taps and bridges).
+  - Boosters: no booster chooses an exit. Bloom Burst may open the way to the spring; the channel is then ready right after
+    the burst's cell reveals and latches. Return and Shuffle are unaffected.
+  - Look: drawn later in both clients (the mock `product/previews/channel-shutters-2026-11-05/`, the owner's choice:
+    channel A — a stream in stone banks with spring-like exits, drawn over the cubes; a walker dives into the spring, a
+    bubble of its colour runs along the water and it pops out of the exit; both routes dotted before the choice; the exit
+    is chosen by tapping it, with no pause). Presentation only: the rules, events and timing above stay.
+  - Popup: its first meeting (L101) shows an explanation card ("The water channel": clear the way to the spring, then tap
+    one of the two exits; the Bloomlings then also start from it); its second (L103) a short reminder.
+- **FR-070** (Twig's wooden shutters, rules 17 §8 «Twig Деревянные створки», §9: introduced on L121 and L123, the owner,
+  2026-11-05; the reference contract is `tools/rounds/README.md` "Shutters"):
+  - Data: a round level MAY carry `board.shutters` = `[{cells, code, count}, …]` (`mechanics` then includes
+    `"shutters"`): `cells` the covered cells, sorted indices `y*w+x` forming a full rectangle of material cells (any
+    materials; never an entry or a hidden cell, never under another shutter); `code` the exact material it counts; `count`
+    ≥ 1 units of it. Index `i` is shutter `i` of the events. Validation MUST refuse a bad rectangle, code or count, and a
+    count that can never be reached without the cells under the shutters still closed (`ObjectsBlocked`: no shutter waits
+    for its own cells or for another in a cycle). Doses (17 §7, §8: area share, counter share, multiples of 5) are the
+    generator's, not the validator's. Absent means none.
+  - Rules: while closed, a shutter's cells are no targets and no passage (their work waits; a pod of their material keeps
+    its place). It counts the work of its material actually done anywhere since the start: a courier's clear or a Bloom
+    Burst cell (work done = the material's start cells − its cells now, so the state follows from the board and the
+    signature is unchanged). At the first moment that reaches `count` it opens: event `shutterOpen`
+    (`<µs> shutterOpen shutter=<i>`) at the time of that clear, right after its clear line and before its cell reveals,
+    several in increasing order; its cells become ordinary targets at once (a waiting pod departs at that moment). The count
+    still shown is `count − done`, 0 once open (`RoundState.ShutterLeft`, the reference's `shutterLeft`/`view`). A restored
+    snapshot recomputes the shutters; a level without shutters plays byte-identically.
+  - Boosters: no booster opens a shutter. Bloom Burst leaves the cells under a closed shutter (the material's pods keep
+    that work), but the cells it clears count: a shutter may open right after the burst, before its cell reveals. Return
+    and Shuffle are unaffected.
+  - Look: drawn later in both clients (the mock `product/previews/channel-shutters-2026-11-05/`, the owner's choice:
+    shutters B — a lid of wooden slats over the rectangle with a tag cube of its material and the count left hanging on a
+    nail). Presentation only.
+  - Popup: its first meeting (L121) shows an explanation card ("The wooden shutters": the lid counts one colour; every cube
+    of that colour cleared anywhere counts down; at 0 it opens); its second (L123) a short reminder.
 
 **Transfer path**
 

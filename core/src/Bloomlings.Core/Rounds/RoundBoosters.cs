@@ -20,8 +20,8 @@ namespace Bloomlings.Core.Rounds
     ///   depth in different columns. An arrangement is taken only when the patient solver finds a win from it, else the
     ///   order stays.
     /// - <b>Bloom Burst</b>: for a material with a revealed pod still to do, every cell of it that no courier reserved
-    ///   clears, and the material's pods lose that many from their unsent counts (places by age, then the columns from the
-    ///   top), which by exact accounting brings them all to 0. Pods in places then release by the normal release rule.
+    ///   clears (but those under a closed shutter), and the material's pods lose that many from their unsent counts (places
+    ///   by age, then the columns from the top), which by exact accounting brings them all to 0 on a level without shutters. Pods in places then release by the normal release rule.
     ///   Cells reserved by a courier stay with it. A hidden cell of the material clears too (unseen), and the cells the
     ///   burst opens the way to reveal right after it.
     ///
@@ -31,6 +31,12 @@ namespace Bloomlings.Core.Rounds
     /// each column's first closed latch. Bloom Burst may open the way to a key: the latch then opens right after the
     /// burst's cell reveals, and the pods it exposes reveal by the depth rule; the work it settles may include revealed
     /// pods behind a closed latch (they keep their places with nothing left to send).
+    ///
+    /// Water channel and wooden shutters (rules 17 §8, 2026-11-05; spec 006 FR-069, FR-070): no booster chooses an exit or
+    /// opens a shutter. Bloom Burst leaves the cells under a closed shutter (they are no work yet; the material's pods keep
+    /// that many unsent), but the cells it clears are work done: a shutter counting that material may open right after the
+    /// burst (before its cell reveals), and a burst that opens the way to the spring readies the channel (after its cell
+    /// reveals and latches). Return and Shuffle change neither.
     /// </summary>
     public static class RoundBoosters
     {
@@ -291,7 +297,7 @@ namespace Bloomlings.Core.Rounds
             int[] reserved = t.ReservedArray;
             for (int c = 0; c < s.Board.Length; c++)
             {
-                if (s.Board[c] == material && reserved[c] < 0)
+                if (s.Board[c] == material && reserved[c] < 0 && !s.ShutAt(c))
                 {
                     return RoundRefusal.None;
                 }
@@ -330,7 +336,8 @@ namespace Bloomlings.Core.Rounds
             var cells = new List<int>();
             for (int c = 0; c < s.Board.Length; c++)
             {
-                if (s.Board[c] == material && reserved[c] < 0)
+                // A cell under a closed shutter is no work yet (17 §8, 2026-11-05): the burst leaves it.
+                if (s.Board[c] == material && reserved[c] < 0 && !s.ShutAt(c))
                 {
                     cells.Add(c);
                 }
@@ -352,6 +359,9 @@ namespace Bloomlings.Core.Rounds
 
             s.BoardChanged();
 
+            // Shutters (17 §8): the burst's cells are work done; a shutter whose count it reached opens first.
+            RoundRules.OpenShutters(s, t.EventLog, t.Now);
+
             // Hidden cells (17 §8): the cells the burst opens the way to reveal right after it.
             RoundRules.RevealCells(s, t.EventLog, t.Now);
 
@@ -361,6 +371,9 @@ namespace Bloomlings.Core.Rounds
             {
                 RoundRules.RevealTops(s, t.EventLog, t.Now);
             }
+
+            // Water channel (17 §8): a burst that opened the way to the spring readies the channel.
+            RoundRules.ReadyChannel(s, t.EventLog, t.Now);
 
             // Settle the material's unsent counts: places by age first, then the columns from the top.
             int left = cells.Count;

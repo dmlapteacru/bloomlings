@@ -9,6 +9,9 @@ namespace Bloomlings.Core.Rounds
     {
         Tap,
         Bridge,
+
+        /// <summary>Choosing an exit of the water channel (rules 17 §8, 2026-11-05).</summary>
+        Channel,
         ExtraSlot,
         Return,
         Shuffle,
@@ -17,7 +20,7 @@ namespace Bloomlings.Core.Rounds
 
     /// <summary>
     /// A recorded command with its model time in µs (constitution III: a command carries its time as an integer). Its
-    /// text is <c>tap pod=3 at=0</c>, <c>bridge choice=1 at=…</c>, <c>extra-slot at=…</c>, <c>return pod=4 at=…</c>,
+    /// text is <c>tap pod=3 at=0</c>, <c>bridge choice=1 at=…</c>, <c>channel exit=0 at=…</c>, <c>extra-slot at=…</c>, <c>return pod=4 at=…</c>,
     /// <c>shuffle at=…</c> or <c>burst code=G at=…</c>.
     /// </summary>
     public readonly struct RoundInput
@@ -34,7 +37,7 @@ namespace Bloomlings.Core.Rounds
 
         public long AtUs { get; }
 
-        /// <summary>The pod of a tap or return, the site of a bridge, else -1.</summary>
+        /// <summary>The pod of a tap or return, the site of a bridge, the exit of a channel choice, else -1.</summary>
         public int Value { get; }
 
         /// <summary>The material of a Bloom Burst.</summary>
@@ -43,6 +46,8 @@ namespace Bloomlings.Core.Rounds
         public static RoundInput Tap(int pod, long atUs) => new RoundInput(RoundInputType.Tap, atUs, pod);
 
         public static RoundInput Bridge(int choice, long atUs) => new RoundInput(RoundInputType.Bridge, atUs, choice);
+
+        public static RoundInput Channel(int exit, long atUs) => new RoundInput(RoundInputType.Channel, atUs, exit);
 
         public static RoundInput ExtraSlot(long atUs) => new RoundInput(RoundInputType.ExtraSlot, atUs);
 
@@ -54,7 +59,7 @@ namespace Bloomlings.Core.Rounds
 
         /// <summary>The command of a player action at a time.</summary>
         public static RoundInput Of(RoundAction action, long atUs) =>
-            action.Type == RoundActionType.Tap ? Tap(action.Pod, atUs) : Bridge(action.Choice, atUs);
+            action.Type == RoundActionType.Tap ? Tap(action.Pod, atUs) : action.Type == RoundActionType.Channel ? Channel(action.Exit, atUs) : Bridge(action.Choice, atUs);
 
         /// <summary>The same command at another time.</summary>
         public RoundInput At(long atUs) => new RoundInput(Type, atUs, Value, Code);
@@ -67,6 +72,7 @@ namespace Bloomlings.Core.Rounds
             {
                 RoundInputType.Tap => "tap pod=" + value + at,
                 RoundInputType.Bridge => "bridge choice=" + value + at,
+                RoundInputType.Channel => "channel exit=" + value + at,
                 RoundInputType.ExtraSlot => "extra-slot" + at,
                 RoundInputType.Return => "return pod=" + value + at,
                 RoundInputType.Shuffle => "shuffle" + at,
@@ -103,6 +109,8 @@ namespace Bloomlings.Core.Rounds
                     return Tap(Int("pod"), at);
                 case "bridge":
                     return Bridge(Int("choice"), at);
+                case "channel":
+                    return Channel(Int("exit"), at);
                 case "extra-slot":
                     return ExtraSlot(at);
                 case "return":
@@ -221,9 +229,10 @@ namespace Bloomlings.Core.Rounds
                 Finish();
             }
 
-            if (waitUntilAccepted && (command.Type == RoundInputType.Tap || command.Type == RoundInputType.Bridge))
+            if (waitUntilAccepted && (command.Type == RoundInputType.Tap || command.Type == RoundInputType.Bridge || command.Type == RoundInputType.Channel))
             {
-                RoundAction action = command.Type == RoundInputType.Tap ? RoundAction.Tap(command.Value) : RoundAction.BuildBridge(command.Value);
+                RoundAction action = command.Type == RoundInputType.Tap ? RoundAction.Tap(command.Value)
+                    : command.Type == RoundInputType.Channel ? RoundAction.ChooseExit(command.Value) : RoundAction.BuildBridge(command.Value);
                 for (int guard = 0; guard < WaitGuard && Timeline.Check(action) != RoundRefusal.None && Timeline.Pending; guard++)
                 {
                     AdvanceTo(Math.Min(NextAtUs, ClockUs + WaitChunkUs));
@@ -244,6 +253,7 @@ namespace Bloomlings.Core.Rounds
         {
             RoundInputType.Tap => timeline.Commit(RoundAction.Tap(command.Value)),
             RoundInputType.Bridge => timeline.Commit(RoundAction.BuildBridge(command.Value)),
+            RoundInputType.Channel => timeline.Commit(RoundAction.ChooseExit(command.Value)),
             RoundInputType.ExtraSlot => RoundBoosters.ExtraSlot(timeline),
             RoundInputType.Return => RoundBoosters.Return(timeline, command.Value),
             RoundInputType.Shuffle => RoundBoosters.Shuffle(timeline),

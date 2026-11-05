@@ -29,6 +29,9 @@ One JSON file per round level: `content/game/rounds/conformance/L####.json`. It 
 }
 ```
 
+A command (in `solution.windows[].command` and `owner[].commands`) is a tap `{"type": "tap", "pod", "atUs"}`, a bridge
+`{"type": "bridge", "choice", "atUs"}` or, since 2026-11-05, the water channel's exit `{"type": "channel", "exit", "atUs"}`.
+
 ## Canonical event log
 
 Each event is one line, UTF-8, `\n`-terminated. Times are integer µs. Events of one window (from a command up to the
@@ -41,7 +44,10 @@ next command, or to the end) are hashed together with SHA-256.
 | bridge | `t bridge cell=<c>` |
 | cellReveal | `t cellReveal cell=<c>` (hidden cells, rules 17 §8, 2026-11-01: right after the clear or bridge that revealed it, at that change's time; several in increasing cell order) |
 | latchOpen | `t latchOpen latch=<i>` (latch + acorn key, rules 17 §8, 2026-11-01: `i` indexes the level's `latches`; at the time of the change that opened it — a commit, after the commit and sealed-reveal lines, a clear, after that clear's cellReveal lines, or a bridge, after its cellReveal lines; several in increasing latch order; the depth reveals of the pods it exposes follow it at the same time, also when a clear opened it) |
-| depart | `t depart id=<j> pod=<p> cell=<c> arrive=<µs> clear=<µs> done=<µs> route=<len>` |
+| channelReady | `t channelReady` (the Drop water channel, rules 17 §8, 2026-11-05, spec 006 FR-069: its spring was reached by an open path from an active entry for the first time; at the time of the clear or bridge that reached it, after that change's cellReveal and latchOpen lines; never at the start) |
+| channelOpen | `t channelOpen exit=<i>` (the command `channel exit=<i>`'s own line at the commit's time; `i` indexes `board.channel.exits`; the cellReveal and latchOpen lines the new entry causes follow at that time) |
+| shutterOpen | `t shutterOpen shutter=<i>` (the wooden shutters, rules 17 §8, 2026-11-05, spec 006 FR-070: `i` indexes `board.shutters`; at the time of the clear that made the work of its material reach its count, right after that clear's line and before its cellReveal lines; several in increasing order) |
+| depart | `t depart id=<j> pod=<p> cell=<c> arrive=<µs> clear=<µs> done=<µs> route=<len>` (a route that starts at the chosen channel exit includes its ride twice: `arrive` = start + ride + walk, `done` = clear + walk back + ride) |
 | arrive | `t arrive id=<j>` |
 | clear | `t clear id=<j> cell=<c>` |
 | return | `t return id=<j>` |
@@ -61,6 +67,10 @@ The reference's `signature(state)` string, extended with the timeline:
   cell reached from an entry, so it follows from `heads` and `board`.
 - hidden cells add nothing: which hidden cells are still unrevealed follows from the board (a hidden colour cell that is
   not a target), so the signature is the same as without them.
+- the water channel adds its chosen exit (or -1) after `bridge`, on a channel level only:
+  `…|revealed|bridge|channel|status|now|steps`; whether its spring is reached follows from the board and the choice.
+- shutters add nothing: a shutter is open exactly when the work done of its material (its start cells minus its cells on
+  the board) is at least its count, so it follows from `board`.
 
 The signature is hashed with SHA-256.
 

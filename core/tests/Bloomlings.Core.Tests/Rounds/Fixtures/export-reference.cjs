@@ -26,6 +26,16 @@
 // with the route the patient solver finds (the saved routes may tap a held pod), the same solution, timed and solver
 // entries, 40 random games (seedBase 1), the latches closed after create, and the solution's latchOpen lines with the
 // line before each (the small levels: the whole canonical log).
+// Water channel (17 §8 «Drop Водный канал», 2026-11-05), under `channels`: the small levels of
+// tools/rounds/test/channel-shutters.test.mjs (the channel level with each exit, the level that needs exit 0, the channel
+// level with a shutter too) with their routes, and placed levels L14, L17 and L29 given a channel by a fixed rule (the
+// spring the first hole the start board does not reach, the exits the last and the middle hole, each route the shortest
+// orthogonal path over the grid, the ride 60 ms a step, at least 400 ms) with the route the patient solver finds.
+// Wooden shutters (17 §8 «Twig Деревянные створки», 2026-11-05), under `shutters`: the small shutter level with two routes
+// and placed levels L5, L13 and L28 given a shutter by a fixed rule (the 3×2 rectangle of colour cells nearest the board's
+// middle, counting the material with the most cells outside it, a quarter of them) with the solver's route. Each case has
+// the same solution, timed, random (40 games) and solver entries as the latch cases, and the solution's channel and
+// shutter lines with the line before each (the small levels: the whole canonical log).
 // Times are the reference's milliseconds × 1000, rounded (all of them are whole milliseconds here).
 'use strict';
 const fs = require('fs'), path = require('path'), crypto = require('crypto');
@@ -51,6 +61,8 @@ class Log {
       else if (e.type === 'bridge') this.lines.push(`${at} bridge cell=${e.cell}`);
       else if (e.type === 'cellReveal') this.lines.push(`${us(e.at)} cellReveal cell=${e.cell}`);
       else if (e.type === 'latchOpen') this.lines.push(`${e.at != null ? us(e.at) : at} latchOpen latch=${e.latch}`);
+      else if (e.type === 'channelOpen') this.lines.push(`${at} channelOpen exit=${e.exit}`);
+      else if (e.type === 'channelReady') this.lines.push(`${e.at != null ? us(e.at) : at} channelReady`);
       else throw Error('unknown commit event ' + e.type);
     }
     this.timeline(t);
@@ -68,6 +80,9 @@ class Log {
       // latch + key: a clear opened a latch; the pods it exposes reveal by the depth rule at that clear's time
       else if (e.type === 'latchOpen') this.lines.push(`${at} latchOpen latch=${e.latch}`);
       else if (e.type === 'reveal') this.lines.push(`${at} reveal pod=${e.pod} mode=${e.mode}`);
+      // water channel and shutters (17 §8, 2026-11-05)
+      else if (e.type === 'channelReady') this.lines.push(`${at} channelReady`);
+      else if (e.type === 'shutterOpen') this.lines.push(`${at} shutterOpen shutter=${e.shutter}`);
       else throw Error('unknown event ' + e.type);
     }
   }
@@ -75,7 +90,7 @@ class Log {
 }
 // The extended signature: signature(state)|now|steps (at:type:id-or-pod).
 const signature = t => R.signature(t.state) + '|' + us(t.now) + '|' + t.steps.map(e => `${us(e.at)}:${e.type}:${e.id ?? e.pod}`).join(',');
-const command = (a, atUs) => a.type === 'tap' ? { type: 'tap', pod: a.pod, atUs } : { type: 'bridge', choice: a.choice, atUs };
+const command = (a, atUs) => a.type === 'tap' ? { type: 'tap', pod: a.pod, atUs } : a.type === 'channel' ? { type: 'channel', exit: a.exit, atUs } : { type: 'bridge', choice: a.choice, atUs };
 
 function solution(level, route) {
   const t = new Timeline(R.create(level, level.capacity || 5)), log = new Log(), windows = [];
@@ -146,7 +161,9 @@ function solverRoute(level, budget) {
 
 const definitionOf = d => ({ w: d.w, h: d.h, rowsBottomFirst: d.rowsBottomFirst, entries: d.entries, capacity: d.capacity, pods: d.pods, tray: d.tray,
   ...(d.hero ? { hero: d.hero } : {}), ...(d.hiddenCells ? { hiddenCells: d.hiddenCells } : {}),
-  ...(d.latches ? { latches: d.latches.map(l => ({ column: l.column, depth: l.depth, key: l.key })) } : {}) });
+  ...(d.latches ? { latches: d.latches.map(l => ({ column: l.column, depth: l.depth, key: l.key })) } : {}),
+  ...(d.channel ? { channel: { spring: d.channel.spring, exits: d.channel.exits.map(e => ({ cell: e.cell, route: e.route.slice(), rideUs: e.rideUs })) } } : {}),
+  ...(d.shutters ? { shutters: d.shutters.map(x => ({ cells: x.cells.slice(), material: x.material, count: x.count })) } : {}) });
 // hidden cells by a fixed rule: every colour cell whose index hashes to 0 mod 7
 const pickCells = d => { const grid = d.rowsBottomFirst.join(''), out = [];
   for (let i = 0; i < grid.length; i++) if (R.CHANNELS.includes(grid[i]) && (Math.imul(i, 40503) >>> 0) % 7 === 0) out.push(i);
@@ -226,6 +243,97 @@ async function latchCases() {
   });
 }
 
+// the small levels of tools/rounds/test/channel-shutters.test.mjs (the same definitions)
+async function smallObjects() {
+  const L = await import(path.join(repo, 'tools/rounds/lib.mjs'));
+  const board = rows => { const b = L.boardOf({ id: 'T', title: 't', rows }); return { b, at: (x, y) => (b.h - 1 - (y + 2)) * b.w + x + 2 }; };
+  const base = b => ({ w: b.w, h: b.h, rowsBottomFirst: b.rowsBottomFirst, entries: b.entries, capacity: 5 });
+  const c = board(['GGGGGRRRR', 'G.GGGRR.R', 'GGGGGRRRR', 'BBBBBBBBB', 'BBBB.BBBB', 'BBBBBBBBB']), cr = pts => pts.map(([x, y]) => c.at(x, y));
+  const channel = { ...base(c.b), pods: [{ color: 'B', count: 26 }, { color: 'G', count: 14 }, { color: 'R', count: 11 }], tray: [[0], [1], [2]],
+    channel: { spring: c.at(4, 4), exits: [{ cell: c.at(1, 1), route: cr([[4, 4], [4, 3], [4, 2], [3, 2], [2, 2], [1, 2], [1, 1]]), rideUs: 600000 }, { cell: c.at(7, 1), route: cr([[4, 4], [5, 4], [6, 4], [7, 4], [7, 3], [7, 2], [7, 1]]), rideUs: 800000 }] } };
+  const gCells = []; for (let y = 0; y <= 2; y++) for (let x = 2; x <= 4; x++) gCells.push(c.at(x, y));
+  const both = { ...channel, shutters: [{ cells: gCells.sort((p, q) => p - q), material: 'B', count: 10 }] };
+  const n = board(['#######', '#GGGG.#', '#GGGGG#', '#######', 'BBB.BBB', 'BBBBBB.']), nr = pts => pts.map(([x, y]) => n.at(x, y));
+  const need = { ...base(n.b), pods: [{ color: 'B', count: 12 }, { color: 'G', count: 9 }], tray: [[0], [1]],
+    channel: { spring: n.at(3, 4), exits: [{ cell: n.at(5, 1), route: nr([[3, 4], [3, 3], [3, 2], [4, 2], [5, 2], [5, 1]]), rideUs: 500000 }, { cell: n.at(6, 5), route: nr([[3, 4], [4, 4], [5, 4], [6, 4], [6, 5]]), rideUs: 400000 }] } };
+  const sh = board(['AAAAAAA', 'AGGGGGA', 'AGGGGGA', 'AAAAAAA', 'BBBBBBB']), cells = [];
+  for (let y = 1; y <= 2; y++) for (let x = 1; x <= 5; x++) cells.push(sh.at(x, y));
+  const shut = { ...base(sh.b), pods: [{ color: 'A', count: 18 }, { color: 'B', count: 7 }, { color: 'G', count: 10 }], tray: [[0], [1], [2]], shutters: [{ cells: cells.sort((p, q) => p - q), material: 'B', count: 5 }] };
+  return { channel, both, need, shut };
+}
+// a channel by a fixed rule: the spring the first hole the start board does not reach, the exits the last and the middle
+// hole; each route the shortest orthogonal path over the grid (neighbour order below, left, right, above); 60 ms a step
+function pickChannel(d) {
+  const s = R.create(d, d.capacity || 5), dist = R.reach(s).distance, grid = d.rowsBottomFirst.join(''), entries = d.entries || [Math.floor(d.w / 2)];
+  const holes = []; for (let i = 0; i < grid.length; i++) if (grid[i] === '.' && !(dist[i] > 0) && !entries.includes(i)) holes.push(i);
+  const path = (a, b) => { const prev = new Int32Array(grid.length).fill(-2); prev[a] = -1; const q = [a];
+    for (let h = 0; h < q.length; h++) { const i = q[h], x = i % d.w; for (const j of [i - d.w, x > 0 ? i - 1 : -1, x < d.w - 1 ? i + 1 : -1, i + d.w]) if (j >= 0 && j < grid.length && prev[j] === -2) { prev[j] = i; q.push(j); } }
+    const out = []; for (let i = b; i >= 0; i = prev[i]) out.push(i); return out.reverse(); };
+  const exit = cell => { const route = path(holes[0], cell); return { cell, route, rideUs: Math.max(400, 60 * (route.length - 1)) * 1000 }; };
+  return { spring: holes[0], exits: [exit(holes[holes.length - 1]), exit(holes[Math.floor(holes.length / 2)])] };
+}
+// a shutter by a fixed rule: the 3×2 rectangle of colour cells (no entry, no hidden cell) nearest the board's middle,
+// counting the material with the most cells outside it, a quarter of them
+function pickShutter(d) {
+  const grid = d.rowsBottomFirst.join(''), entries = d.entries || [Math.floor(d.w / 2)], hidden = new Set(d.hiddenCells || []);
+  const ok = i => R.CHANNELS.includes(grid[i]) && !entries.includes(i) && !hidden.has(i), spots = [];
+  for (let y = 0; y + 1 < d.h; y++) for (let x = 0; x + 2 < d.w; x++) spots.push([Math.abs(x + 1 - d.w / 2) + Math.abs(y + 0.5 - d.h / 2), y * d.w + x]);
+  spots.sort((a, b) => a[0] - b[0] || a[1] - b[1]);
+  for (const [, at] of spots) { const cells = [at, at + 1, at + 2, at + d.w, at + d.w + 1, at + d.w + 2]; if (!cells.every(ok)) continue;
+    const outside = {}; for (let i = 0; i < grid.length; i++) if (R.CHANNELS.includes(grid[i]) && !cells.includes(i)) outside[grid[i]] = (outside[grid[i]] || 0) + 1;
+    const material = Object.keys(outside).sort((a, b) => outside[b] - outside[a] || (a < b ? -1 : 1))[0];
+    return [{ cells, material, count: Math.max(1, Math.floor(outside[material] / 4)) }]; }
+  throw Error('no rectangle');
+}
+function objectCase(name, d, route, full) {
+  const errors = R.validate({ id: 1, ...d });
+  if (errors.length) throw Error(name + ': ' + errors.join(', '));
+  const sv = solverRoute(d, 200000);
+  if (!route && !sv.win) throw Error(name + ': the patient solver finds no route (' + sv.win + ', ' + sv.nodes + ' nodes)');
+  route = route || sv.route;
+  const sol = solution(d, route), games = [];
+  for (let i = 0; i < 40; i++) games.push(randomGame(d, 1 * 7919 + i * 104729 + 1));
+  const marks = []; sol.lines.forEach((l, i) => { if (/ (channelReady|channelOpen|shutterOpen)( |$)/.test(l)) marks.push(sol.lines[i - 1] || '', l); });
+  return { name, definition: d, route, marks, ...(full ? { lines: sol.lines } : {}),
+    solution: { windows: sol.windows, outcome: sol.outcome, endUs: sol.endUs, finalSignature: sol.finalSignature },
+    timed: timed(d, route), random: { seedBase: 1, runs: games.length, wins: games.reduce((a, g) => a + g[1], 0), games },
+    solver: { win: sv.win, nodes: sv.nodes, sameAsSaved: !!sv.route && JSON.stringify(sv.route) === JSON.stringify(route) } };
+}
+// the solver's route with the channel choice put in as soon as it is legal (exit `prefer`, else the other); the plain
+// solver route when neither wins
+function chooseEarly(d, prefer) {
+  const sv = solverRoute(d, 200000); if (!sv.win) throw Error('no route');
+  for (const exit of [prefer, 1 - prefer]) {
+    let s = idle.create(d, d.capacity || 5); const route = []; let put = false;
+    for (const a of sv.route) {
+      if (!put && idle.legal(s).some(x => x.type === 'channel')) { s = idle.step(s, { type: 'channel', exit }).state; route.push({ type: 'channel', exit }); put = true; }
+      if (a.type === 'channel') continue;
+      const r = idle.step(s, a); if (!r.accepted) break; s = r.state; route.push(a);
+    }
+    if (put && s.status === 'Won') return route;
+  }
+  return sv.route;
+}
+const placedDefinition = n => ({ ...JSON.parse(fs.readFileSync(path.join(repo, `content/rounds/levels/L${String(n).padStart(4, '0')}.json`), 'utf8')).definition });
+async function channelCases() {
+  const t = await smallObjects(), tap = pod => ({ type: 'tap', pod }), ch = exit => ({ type: 'channel', exit });
+  const cases = [
+    objectCase('small', t.channel, [tap(0), ch(0), tap(1), tap(2)], true),
+    objectCase('small-exit1', t.channel, [tap(0), ch(1), tap(2), tap(1)], true),
+    objectCase('need', t.need, null, true),
+    objectCase('both', t.both, [tap(0), ch(0), tap(1), tap(2)], true),
+  ];
+  // (a fresh object: the engine prepares a level object once, so a channel added to one it has seen would be missed)
+  for (const n of [14, 17, 29]) { const base = definitionOf(placedDefinition(n)), d = { ...base, channel: pickChannel(base) }; cases.push(objectCase(`L${String(n).padStart(4, '0')}+channel`, d, chooseEarly(d, n % 2), false)); }
+  return cases;
+}
+async function shutterCases() {
+  const t = await smallObjects(), tap = pod => ({ type: 'tap', pod });
+  const cases = [objectCase('small', t.shut, [tap(0), tap(2), tap(1)], true), objectCase('small-early', t.shut, [tap(1), tap(2), tap(0)], true)];
+  for (const n of [5, 13, 28]) { const base = definitionOf(placedDefinition(n)); cases.push(objectCase(`L${String(n).padStart(4, '0')}+shutter`, { ...base, shutters: pickShutter(base) }, null, false)); }
+  return cases;
+}
+
 const out = {
   format: 'bloomlings-round-reference-1',
   note: 'Generated by export-reference.cjs from the reference round engine; do not edit by hand.',
@@ -253,5 +361,8 @@ cellCases().then(async cases => {
   for (const c of cases) console.error(`${c.name}: ${c.veiledAtStart.length} veiled at the start, ${c.reveals.length} revealed, ${c.solution.outcome}, random ${c.random.wins}/${c.random.runs}`);
   out.latches = await latchCases();
   for (const c of out.latches) console.error(`${c.name}: ${c.latchedAtStart.length} closed at the start, ${c.opens.length / 2} opened, ${c.solution.outcome}, random ${c.random.wins}/${c.random.runs}, solver ${c.solver.nodes} nodes`);
+  out.channels = await channelCases();
+  out.shutters = await shutterCases();
+  for (const c of [...out.channels, ...out.shutters]) console.error(`${c.name}: ${c.marks.length / 2} channel/shutter lines, ${c.solution.outcome}, random ${c.random.wins}/${c.random.runs}, solver ${c.solver.win} ${c.solver.nodes} nodes`);
   fs.writeFileSync(path.join(__dirname, 'reference-rounds.json'), JSON.stringify(out) + '\n');
 });

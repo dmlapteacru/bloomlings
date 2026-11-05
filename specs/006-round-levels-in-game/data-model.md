@@ -45,14 +45,14 @@ Validation:
 | `number` | the game position (1 …) |
 | `definitionVersion` | integer ≥ 1; bumps on any change after first publish |
 | `class` | Normal, Hard, Super Hard (calendar of 17 §5) |
-| `introduction` | none, hidden, links, bridge, cells (L51/L53, no card), latch (L61/L63); plus `second: true` on the second meeting |
+| `introduction` | none, hidden, links, bridge, cells (L51/L53, no card), latch (L61/L63), canal (L101/L103), shutters (L121/L123); plus `second: true` on the second meeting |
 | `picture` | `{id, version}` of an approved RoundPicture |
-| `board` | `{w, h, rowsBottomFirst, entries, hero?, overlay?}`: rows with the frame ring and wall, bottom first; `entries` cell indices (one gate, bottom middle); `hero.choices[] = {cell, anchor, label}` for the Sprig bridge; `overlay = {walls: [[x, y]…], sites: [[x, y]…]}` in picture coordinates (x from the left, y from the top): a strip laid over the picture (17 §8 "Где стоит мост", 2026-10-28), its walls `#`, its sites `b` |
+| `board` | `{w, h, rowsBottomFirst, entries, hero?, overlay?}`: rows with the frame ring and wall, bottom first; `entries` cell indices (one gate, bottom middle); `hero.choices[] = {cell, anchor, label}` for the Sprig bridge; `overlay = {walls: [[x, y]…], sites: [[x, y]…]}` in picture coordinates (x from the left, y from the top): a strip laid over the picture (17 §8 "Где стоит мост", 2026-10-28), its walls `#`, its sites `b`; `channel? = {spring, exits: [{cell, route, rideUs} × 2]}` (the Drop water channel, FR-069: spring and exits empty non-entry cells, each route the drawn channel from the spring to its exit, `rideUs` the ride in whole ms); `shutters? = [{cells, code, count}]` (the wooden shutters, FR-070: sorted cells of a full rectangle of material cells, the material counted, the count ≥ 1) |
 | `capacity` | 5 |
 | `pods[]` | `{code, count ≥ 1, mystery?: "depth", group?: "A".."Z…"}` |
 | `tray[]` | columns (2–6) of pod indices, top first |
 | `latches?` | latch + acorn key (17 §8, 2026-11-01): `[{column, depth, key}]`, `depth` the pods of that column before the latch (at least one behind it), `key` an empty non-entry cell `y*w+x` of the rows; index `i` is latch `i` of `latchOpen`; absent means none |
-| `mechanics` | subset of hidden, links, bridge, cells, latch |
+| `mechanics` | subset of hidden, links, bridge, cells, latch, canal, shutters |
 | `exception?` | `{rule, reason, decidedBy, decidedAt}`, e.g. L18: rule "one deciding bridge from the second introduction", reason "owner kept both winning bridges" |
 | `engine` | reference fingerprints (rules, timeline, palette, clock) |
 
@@ -64,7 +64,9 @@ Validation (all must hold; reference `rules.cjs validate` plus 17):
 - hidden pods are at most 6, never in a group, never in the first row on an introduction;
 - bridge sites are walls with an orthogonal neighbour as anchor (`|cell − anchor| == w`, or `== 1` in the same row; 17 §8 as amended on 2026-10-28);
 - latches: each column exists and its depth is `0 ≤ depth < column length`, one latch per depth of a column; each key an empty `.` non-entry cell, all keys different; no key can never be reached (`LatchKeysBlocked`); at most `max(1, columns − 2)` columns blocked at the start;
-- `mechanics` match the pods, hero, hidden cells and latches;
+- channel: the spring and two exits, each an empty `.` non-entry cell of its own, never a latch key; each route from the spring to its exit by orthogonal steps without a repeat; each ride whole ms, 1 ms–10 s; the spring can be reached (`ObjectsBlocked`);
+- shutters: each a full rectangle of material cells (sorted, never an entry or a hidden cell, never under another shutter), a material code and a count ≥ 1; every count can be reached without the cells under the shutters still closed (`ObjectsBlocked`);
+- `mechanics` match the pods, hero, hidden cells, latches, channel and shutters;
 - `class` matches the calendar;
 - introductions follow 17 §9;
 - the board is the picture's board (`boardOf`) with the overlay laid: every strip cell on the picture's edge closes the ring cell outward, each site's anchor is its one neighbour the entry reaches while every site is a wall, sites in reading order;
@@ -85,6 +87,8 @@ Validation (all must hold; reference `rules.cjs validate` plus 17):
 | `status` | Playing, Won, Jammed, Stuck |
 | `veiled[]` | per cell: a hidden cell not revealed yet (null without hidden cells) |
 | `latched[]` | per latch: closed (null without latches); a pod at or behind its column's first closed latch is no top pod; recomputed from heads and board on restore |
+| `channel` | the chosen channel exit or -1 (in the signature on a channel level); the chosen exit is an active entry; `springReached` follows from the board and the choice |
+| `shut[]` | per shutter: closed (null without shutters); its cells are no targets; recomputed from the board on restore (open when the material's start cells minus its cells now reach the count) |
 | `serial` | commit counter |
 
 ## RoundTimeline (runtime, rules only)

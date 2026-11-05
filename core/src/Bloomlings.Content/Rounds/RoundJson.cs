@@ -43,7 +43,7 @@ namespace Bloomlings.Content.Rounds
 
         private static readonly Regex Date = new Regex("^[0-9]{4}-[0-9]{2}-[0-9]{2}$", RegexOptions.CultureInvariant);
 
-        private static readonly string[] Mechanics = { "hidden", "links", "bridge", "cells", "latch" };
+        private static readonly string[] Mechanics = { "hidden", "links", "bridge", "cells", "latch", "canal", "shutters" };
 
         // ---------------------------------------------------------------- round-level.v1
 
@@ -77,7 +77,7 @@ namespace Bloomlings.Content.Rounds
 
             string boardPath = JsonDoc.Join(path, "board");
             JObject board = JsonDoc.Object(JsonDoc.Required(root, path, "board"), boardPath);
-            JsonDoc.AllowOnly(board, boardPath, "w", "h", "rowsBottomFirst", "entries", "hero", "overlay", "hiddenCells", "recolor");
+            JsonDoc.AllowOnly(board, boardPath, "w", "h", "rowsBottomFirst", "entries", "hero", "overlay", "hiddenCells", "recolor", "channel", "shutters");
             int w = JsonDoc.Int(JsonDoc.Required(board, boardPath, "w"), JsonDoc.Join(boardPath, "w"), 7, RoundLevel.MaxSide);
             int h = JsonDoc.Int(JsonDoc.Required(board, boardPath, "h"), JsonDoc.Join(boardPath, "h"), 8, RoundLevel.MaxSide);
             string rowsPath = JsonDoc.Join(boardPath, "rowsBottomFirst");
@@ -185,6 +185,72 @@ namespace Bloomlings.Content.Rounds
                     {
                         throw new ContentFormatException(JsonDoc.Index(hiddenPath, i), "hidden cells must be sorted ascending and unique");
                     }
+                }
+            }
+
+            // The Drop water channel (rules 17 §8, 2026-11-05): {spring, exits: [{cell, route, rideUs} × 2]}; absent means none.
+            // That the cells are empty non-entry cells, the routes orthogonal and the spring reachable is the validator's.
+            RoundChannel? channel = null;
+            JToken? channelToken = JsonDoc.Optional(board, "channel");
+            if (channelToken != null)
+            {
+                string channelPath = JsonDoc.Join(boardPath, "channel");
+                JObject ch = JsonDoc.Object(channelToken, channelPath);
+                JsonDoc.AllowOnly(ch, channelPath, "spring", "exits");
+                int spring = Cell(JsonDoc.Required(ch, channelPath, "spring"), JsonDoc.Join(channelPath, "spring"), w * h);
+                string exitsPath = JsonDoc.Join(channelPath, "exits");
+                JArray exitsArray = JsonDoc.Array(JsonDoc.Required(ch, channelPath, "exits"), exitsPath, 2, 2);
+                var exits = new List<RoundChannelExit>(2);
+                for (int i = 0; i < exitsArray.Count; i++)
+                {
+                    string at = JsonDoc.Index(exitsPath, i);
+                    JObject exit = JsonDoc.Object(exitsArray[i], at);
+                    JsonDoc.AllowOnly(exit, at, "cell", "route", "rideUs");
+                    string routePath = JsonDoc.Join(at, "route");
+                    JArray routeArray = JsonDoc.Array(JsonDoc.Required(exit, at, "route"), routePath, minItems: 2);
+                    var route = new int[routeArray.Count];
+                    for (int k = 0; k < route.Length; k++)
+                    {
+                        route[k] = Cell(routeArray[k], JsonDoc.Index(routePath, k), w * h);
+                    }
+
+                    exits.Add(new RoundChannelExit(
+                        Cell(JsonDoc.Required(exit, at, "cell"), JsonDoc.Join(at, "cell"), w * h),
+                        route,
+                        Long(JsonDoc.Required(exit, at, "rideUs"), JsonDoc.Join(at, "rideUs"), 1000, 10_000_000)));
+                }
+
+                channel = new RoundChannel(spring, exits);
+            }
+
+            // The wooden shutters (rules 17 §8, 2026-11-05): [{cells, code, count}]; absent means none. That the cells form a
+            // rectangle of material cells and the counts can be reached is the validator's.
+            List<RoundShutter>? shutters = null;
+            JToken? shuttersToken = JsonDoc.Optional(board, "shutters");
+            if (shuttersToken != null)
+            {
+                string shuttersPath = JsonDoc.Join(boardPath, "shutters");
+                JArray shutterArray = JsonDoc.Array(shuttersToken, shuttersPath, minItems: 1);
+                shutters = new List<RoundShutter>(shutterArray.Count);
+                for (int i = 0; i < shutterArray.Count; i++)
+                {
+                    string at = JsonDoc.Index(shuttersPath, i);
+                    JObject shutter = JsonDoc.Object(shutterArray[i], at);
+                    JsonDoc.AllowOnly(shutter, at, "cells", "code", "count");
+                    string cellsPath = JsonDoc.Join(at, "cells");
+                    JArray cellArray = JsonDoc.Array(JsonDoc.Required(shutter, at, "cells"), cellsPath, minItems: 1);
+                    var cellList = new int[cellArray.Count];
+                    for (int k = 0; k < cellList.Length; k++)
+                    {
+                        cellList[k] = Cell(cellArray[k], JsonDoc.Index(cellsPath, k), w * h);
+                        if (k > 0 && cellList[k] <= cellList[k - 1])
+                        {
+                            throw new ContentFormatException(JsonDoc.Index(cellsPath, k), "shutter cells must be sorted ascending and unique");
+                        }
+                    }
+
+                    string code = Match(JsonDoc.Required(shutter, at, "code"), JsonDoc.Join(at, "code"), PodCode);
+                    shutters.Add(new RoundShutter(cellList, code[0], JsonDoc.Int(JsonDoc.Required(shutter, at, "count"), JsonDoc.Join(at, "count"), min: 1)));
                 }
             }
 
@@ -305,7 +371,9 @@ namespace Bloomlings.Content.Rounds
                 overlay,
                 hiddenCells,
                 recolor,
-                latches);
+                latches,
+                channel,
+                shutters);
         }
 
         public static string WriteLevel(RoundLevel level, bool indented = true) => CanonicalJson.Write(ToJObject(level), indented);
@@ -374,6 +442,30 @@ namespace Bloomlings.Content.Rounds
                 var hidden = new List<int>(level.HiddenCells);
                 hidden.Sort();
                 board["hiddenCells"] = new JArray(ToArray(hidden));
+            }
+
+            if (level.Channel != null)
+            {
+                var exits = new JArray();
+                foreach (RoundChannelExit exit in level.Channel.Exits)
+                {
+                    exits.Add(new JObject { ["cell"] = exit.Cell, ["route"] = new JArray(ToArray(exit.Route)), ["rideUs"] = exit.RideUs });
+                }
+
+                board["channel"] = new JObject { ["spring"] = level.Channel.Spring, ["exits"] = exits };
+            }
+
+            if (level.Shutters.Count > 0)
+            {
+                var shutters = new JArray();
+                foreach (RoundShutter shutter in level.Shutters)
+                {
+                    var cells = new List<int>(shutter.Cells);
+                    cells.Sort();
+                    shutters.Add(new JObject { ["cells"] = new JArray(ToArray(cells)), ["code"] = shutter.Code.ToString(), ["count"] = shutter.Count });
+                }
+
+                board["shutters"] = shutters;
             }
 
             var pods = new JArray();
@@ -758,7 +850,9 @@ namespace Bloomlings.Content.Rounds
             {
                 array.Add(command.Type == RoundCommandType.Tap
                     ? new JObject { ["type"] = "tap", ["pod"] = command.Index, ["atUs"] = command.AtUs }
-                    : new JObject { ["type"] = "bridge", ["choice"] = command.Index, ["atUs"] = command.AtUs });
+                    : command.Type == RoundCommandType.Bridge
+                        ? new JObject { ["type"] = "bridge", ["choice"] = command.Index, ["atUs"] = command.AtUs }
+                        : new JObject { ["type"] = "channel", ["exit"] = command.Index, ["atUs"] = command.AtUs });
             }
 
             return array;
@@ -778,11 +872,11 @@ namespace Bloomlings.Content.Rounds
         private static RoundCommand ReadCommand(JToken token, string path)
         {
             JObject command = JsonDoc.Object(token, path);
-            string type = OneOf(JsonDoc.Required(command, path, "type"), JsonDoc.Join(path, "type"), new[] { "tap", "bridge" });
-            string indexName = type == "tap" ? "pod" : "choice";
+            string type = OneOf(JsonDoc.Required(command, path, "type"), JsonDoc.Join(path, "type"), new[] { "tap", "bridge", "channel" });
+            string indexName = type == "tap" ? "pod" : type == "bridge" ? "choice" : "exit";
             JsonDoc.AllowOnly(command, path, "type", indexName, "atUs");
             return new RoundCommand(
-                type == "tap" ? RoundCommandType.Tap : RoundCommandType.Bridge,
+                type == "tap" ? RoundCommandType.Tap : type == "bridge" ? RoundCommandType.Bridge : RoundCommandType.Channel,
                 JsonDoc.Int(JsonDoc.Required(command, path, indexName), JsonDoc.Join(path, indexName), min: 0),
                 Long(JsonDoc.Required(command, path, "atUs"), JsonDoc.Join(path, "atUs"), min: 0));
         }

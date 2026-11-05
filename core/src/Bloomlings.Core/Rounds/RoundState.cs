@@ -23,7 +23,9 @@ namespace Bloomlings.Core.Rounds
     /// - <see cref="Ages"/>: per pod, its commit order (<see cref="Serial"/> counts commits);
     /// - <see cref="Revealed"/>, <see cref="Bridge"/> (the built site or -1) and <see cref="Status"/>;
     /// - <see cref="Veiled"/>: per cell, whether it is a hidden cell not revealed yet (null without hidden cells);
-    /// - <see cref="Latched"/>: per latch, whether it is still closed (null without latches).
+    /// - <see cref="Latched"/>: per latch, whether it is still closed (null without latches);
+    /// - <see cref="Channel"/>: the chosen exit of the water channel or -1, and <see cref="SpringReached"/>;
+    /// - <see cref="Shut"/>: per shutter, whether it is still closed (null without shutters).
     /// The columns start as a copy of the level's tray. Only Return and Shuffle change them; without boosters they equal
     /// the tray, as the reference's fixed tray (research R10).
     /// </summary>
@@ -68,6 +70,7 @@ namespace Bloomlings.Core.Rounds
 
             Ages = new int[pods];
             Bridge = -1;
+            Channel = -1;
             Status = RoundStatus.Playing;
         }
 
@@ -96,6 +99,10 @@ namespace Bloomlings.Core.Rounds
             VeiledLeft = other.VeiledLeft;
             Latched = other.Latched == null ? null : (bool[])other.Latched.Clone();
             LatchedLeft = other.LatchedLeft;
+            Channel = other.Channel;
+            SpringReached = other.SpringReached;
+            Shut = other.Shut == null ? null : (bool[])other.Shut.Clone();
+            ShutLeft = other.ShutLeft;
             _reach = other._reach;
         }
 
@@ -157,6 +164,58 @@ namespace Bloomlings.Core.Rounds
 
         /// <summary>How many latches are still closed (reference <c>state.latchedLeft</c>).</summary>
         public int LatchedLeft { get; internal set; }
+
+        /// <summary>
+        /// The chosen exit of the water channel (rules 17 §8 «Drop Водный канал», 2026-11-05; reference
+        /// <c>state.channel</c>), or -1 while none is chosen (always -1 without a channel). The chosen exit is an active
+        /// entry; the extended signature lists it on a channel level.
+        /// </summary>
+        public int Channel { get; internal set; }
+
+        /// <summary>
+        /// Whether the channel's spring has been reached by an open path from an active entry (reference
+        /// <c>state.springReached</c>): a function of the board and the choice, kept only to time
+        /// <see cref="RoundEventType.ChannelReady"/>.
+        /// </summary>
+        public bool SpringReached { get; internal set; }
+
+        /// <summary>
+        /// Per shutter, true while it is closed (rules 17 §8 «Twig Деревянные створки», 2026-11-05; reference
+        /// <c>state.shut</c>); null on a level without shutters. A function of the board (a shutter is open exactly when the
+        /// work done of its material, its start cells minus its cells now, is at least its count), so the signature leaves
+        /// it out; <see cref="RoundRules.OpenShutters"/> keeps it up to date and a restored snapshot recomputes it.
+        /// </summary>
+        public bool[]? Shut { get; internal set; }
+
+        /// <summary>How many shutters are still closed (reference <c>state.shutLeft</c>).</summary>
+        public int ShutLeft { get; internal set; }
+
+        /// <summary>Whether cell <paramref name="cell"/> lies under a closed shutter (reference <c>shutAt</c>).</summary>
+        public bool ShutAt(int cell) => Shut != null && Prepared.ShutCell![cell] >= 0 && Shut[Prepared.ShutCell[cell]];
+
+        /// <summary>
+        /// The count still shown on shutter <paramref name="shutter"/> (reference <c>shutterLeft</c>): its count minus the
+        /// work of its material done so far, 0 once it is open.
+        /// </summary>
+        public int ShutterLeft(int shutter)
+        {
+            if (Shut == null || !Shut[shutter])
+            {
+                return 0;
+            }
+
+            int material = Prepared.ShutMaterial![shutter];
+            int left = 0;
+            foreach (sbyte c in Board)
+            {
+                if (c == material)
+                {
+                    left++;
+                }
+            }
+
+            return Math.Max(0, Level.Shutters[shutter].Count - (Prepared.ShutStart![material] - left));
+        }
 
         /// <summary>
         /// The depth of column <paramref name="column"/>'s first closed latch (reference <c>blockAt</c>): the pods at that
@@ -293,7 +352,8 @@ namespace Bloomlings.Core.Rounds
 
         /// <summary>
         /// The reference's <c>signature(state)</c>, exactly: board letters with '.' and '#', remaining, heads, slots, the
-        /// active pods by age, revealed as 0/1 digits, the bridge and the status, joined by '|'.
+        /// active pods by age, revealed as 0/1 digits, the bridge, the chosen channel exit (only on a channel level) and the
+        /// status, joined by '|'.
         /// </summary>
         public string Signature()
         {
@@ -324,6 +384,12 @@ namespace Bloomlings.Core.Rounds
             }
 
             sb.Append('|').Append(Bridge.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            if (Level.Channel != null)
+            {
+                // The chosen channel exit, only on a channel level (17 §8, 2026-11-05).
+                sb.Append('|').Append(Channel.ToString(System.Globalization.CultureInfo.InvariantCulture));
+            }
+
             sb.Append('|').Append(StatusText(Status));
         }
 
@@ -351,10 +417,10 @@ namespace Bloomlings.Core.Rounds
     }
 
     /// <summary>
-    /// The reach of a board (reference <c>reach</c>): breadth-first distances from the entries over open cells (an
-    /// entry is 1), each open cell's parent towards the entry, and the targets: material cells touching a reached cell
+    /// The reach of a board (reference <c>reach</c>): breadth-first distances from the entries, then the chosen channel
+    /// exit, over open cells (a source is 1), each open cell's parent towards the entry, and the targets: material cells touching a reached cell
     /// (or an entry), each at the nearest such neighbour's distance + 1 (an entry cell at 1), sorted by distance, then by
-    /// cell index. Immutable once built.
+    /// cell index; a cell under a closed shutter is no target. Immutable once built.
     /// </summary>
     public sealed class RoundReach
     {
@@ -401,6 +467,18 @@ namespace Bloomlings.Core.Rounds
                 }
             }
 
+            // The chosen channel exit: an active entry after the level's entries (17 §8 «Drop Водный канал»).
+            RoundChannel? channel = state.Level.Channel;
+            if (channel != null && state.Channel >= 0)
+            {
+                int exit = channel.Exits[state.Channel].Cell;
+                if (board[exit] == RoundLevel.Open && distance[exit] < 0)
+                {
+                    distance[exit] = 1;
+                    queue[tail++] = exit;
+                }
+            }
+
             while (head < tail)
             {
                 int i = queue[head++];
@@ -421,9 +499,17 @@ namespace Bloomlings.Core.Rounds
             int[] keys = queue;
             int count = 0;
             var targetDistance = new int[n];
+            bool[]? shut = state.Shut;
+            int[]? shutCell = meta.ShutCell;
             for (int i = 0; i < n; i++)
             {
                 if (board[i] < 0)
+                {
+                    continue;
+                }
+
+                // A cell under a closed shutter is no target (17 §8 «Twig Деревянные створки»).
+                if (shut != null && shutCell![i] >= 0 && shut[shutCell[i]])
                 {
                     continue;
                 }

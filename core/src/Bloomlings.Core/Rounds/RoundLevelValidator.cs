@@ -30,7 +30,7 @@ namespace Bloomlings.Core.Rounds
         public const string Entries = "entries are cells of the board";
         public const string BridgeSites = "bridge sites are walls with an orthogonal neighbour as anchor";
         public const string Mechanics = "mechanics match pods and hero";
-        public const string UnknownMechanic = "mechanics are hidden, links, bridge, cells or latch";
+        public const string UnknownMechanic = "mechanics are hidden, links, bridge, cells, latch, canal or shutters";
 
         /// <summary>17 §8 «Скрытые клетки» (2026-11-01): hidden cells are sorted, unique cell indices (reference "hidden cells").</summary>
         public const string HiddenCells = "hidden cells are sorted unique cells of the board";
@@ -58,6 +58,43 @@ namespace Bloomlings.Core.Rounds
 
         /// <summary>At the start at most <c>max(1, columns − 2)</c> columns are blocked (reference "latches block too many columns").</summary>
         public const string LatchesBlockTooMany = "latches block at most max(1, columns − 2) columns at the start";
+
+        /// <summary>
+        /// 17 §8 «Drop Водный канал» (2026-11-05; reference "channel"): the spring is an empty '.' cell, not an entry or a
+        /// latch key, and the channel has exactly two exits.
+        /// </summary>
+        public const string Channel = "the channel's spring is an empty non-entry cell and it has two exits";
+
+        /// <summary>Each exit is an empty non-entry cell of its own, not the spring or a latch key (reference "channel exit").</summary>
+        public const string ChannelExit = "a channel exit is its own empty non-entry cell";
+
+        /// <summary>
+        /// Each exit's route runs from the spring to the exit by orthogonal steps without a repeat, inside the board (reference
+        /// "channel route").
+        /// </summary>
+        public const string ChannelRoute = "a channel route runs from the spring to its exit by orthogonal steps";
+
+        /// <summary>Each exit's ride is whole milliseconds, 1 ms to 10 s (reference "channel ride").</summary>
+        public const string ChannelRide = "a channel ride is whole milliseconds, 1 ms to 10 s";
+
+        /// <summary>
+        /// The cheap necessary check (reference <c>objectsBlocked</c>, "channel spring unreachable"): the spring can be
+        /// reached at all.
+        /// </summary>
+        public const string ChannelSpringUnreachable = "the channel's spring can be reached";
+
+        /// <summary>
+        /// 17 §8 «Twig Деревянные створки» (2026-11-05; reference "shutter"): each shutter covers a full rectangle of
+        /// material cells (sorted unique indices; never an entry or a hidden cell, never under another shutter), counts one
+        /// material and at least 1.
+        /// </summary>
+        public const string Shutter = "a shutter covers a full rectangle of material cells, counts one material and at least 1";
+
+        /// <summary>
+        /// The cheap necessary check (reference <c>objectsBlocked</c>, "shutter count unreachable"): every count can be
+        /// reached without the cells under the shutters still closed (no shutter waits for itself or in a cycle).
+        /// </summary>
+        public const string ShutterCountUnreachable = "every shutter's count can be reached";
 
         /// <summary>17 §5: every 15th level Super Hard, other multiples of 5 Hard, the rest Normal.</summary>
         public const string Calendar = "class matches the calendar";
@@ -90,6 +127,8 @@ namespace Bloomlings.Core.Rounds
             ("bridge", 16, 18),
             ("cells", 51, 53),
             ("latch", 61, 63),
+            ("canal", 101, 103),
+            ("shutters", 121, 123),
         };
 
         /// <summary>
@@ -180,7 +219,7 @@ namespace Bloomlings.Core.Rounds
         /// <summary>
         /// The definition's errors, the reference's <c>validate</c> for round levels: board size, rows, tray partition,
         /// columns, capacity, pod counts, exact accounting, link pairs, hidden pods, hidden cells, entries, latches and their
-        /// keys, bridge sites and mechanics.
+        /// keys, the water channel, the wooden shutters, bridge sites and mechanics.
         /// </summary>
         public static List<string> ValidateDefinition(RoundLevel level)
         {
@@ -450,6 +489,132 @@ namespace Bloomlings.Core.Rounds
                 }
             }
 
+            // Water channel and wooden shutters (17 §8, 2026-11-05; reference validate), then the cheap reachability check.
+            bool objectsOk = partition && listed == pods && rowsOk && !errors.Contains(Latch) && !errors.Contains(LatchKey);
+            bool EmptyCell(int c)
+            {
+                if (c < 0 || c >= cellCount || !rowsOk || grid[c] != '.' || Contains(level.Entries, c))
+                {
+                    return false;
+                }
+
+                foreach (RoundLatch l in latches)
+                {
+                    if (l.Key == c)
+                    {
+                        return false;
+                    }
+                }
+
+                return true;
+            }
+
+            RoundChannel? channel = level.Channel;
+            if (channel != null)
+            {
+                if (!EmptyCell(channel.Spring) || channel.Exits.Count != 2)
+                {
+                    Add(errors, Channel);
+                    objectsOk = false;
+                }
+                else
+                {
+                    var used = new List<int> { channel.Spring };
+                    foreach (RoundChannelExit exit in channel.Exits)
+                    {
+                        if (!EmptyCell(exit.Cell) || used.Contains(exit.Cell))
+                        {
+                            Add(errors, ChannelExit);
+                            objectsOk = false;
+                            continue;
+                        }
+
+                        used.Add(exit.Cell);
+                        IReadOnlyList<int> route = exit.Route;
+                        bool routeOk = route.Count >= 2 && route[0] == channel.Spring && route[route.Count - 1] == exit.Cell;
+                        var visited = new HashSet<int>();
+                        for (int k = 0; routeOk && k < route.Count; k++)
+                        {
+                            routeOk = route[k] >= 0 && route[k] < cellCount && visited.Add(route[k]) && (k == 0 || Orthogonal(route[k], route[k - 1], w));
+                        }
+
+                        if (!routeOk)
+                        {
+                            Add(errors, ChannelRoute);
+                            objectsOk = false;
+                        }
+
+                        if (exit.RideUs < 1000 || exit.RideUs > 10_000_000 || exit.RideUs % 1000 != 0)
+                        {
+                            Add(errors, ChannelRide);
+                            objectsOk = false;
+                        }
+                    }
+                }
+            }
+
+            IReadOnlyList<RoundShutter> shutters = level.Shutters;
+            if (shutters.Count > 0)
+            {
+                var under = new bool[Math.Max(0, cellCount)];
+                foreach (RoundShutter shutter in shutters)
+                {
+                    IReadOnlyList<int> cs = shutter.Cells;
+                    bool ok = cs.Count > 0;
+                    for (int k = 0; ok && k < cs.Count; k++)
+                    {
+                        ok = cs[k] >= 0 && cs[k] < cellCount && (k == 0 || cs[k] > cs[k - 1]);
+                    }
+
+                    if (!ok)
+                    {
+                        Add(errors, Shutter);
+                        objectsOk = false;
+                        continue;
+                    }
+
+                    int x0 = int.MaxValue, x1 = int.MinValue, y0 = int.MaxValue, y1 = int.MinValue;
+                    foreach (int c in cs)
+                    {
+                        x0 = Math.Min(x0, c % w);
+                        x1 = Math.Max(x1, c % w);
+                        y0 = Math.Min(y0, c / w);
+                        y1 = Math.Max(y1, c / w);
+                    }
+
+                    bool shape = (x1 - x0 + 1) * (y1 - y0 + 1) == cs.Count;
+                    foreach (int c in cs)
+                    {
+                        shape &= rowsOk && RoundMaterial.IndexOf(grid[c]) >= 0 && !Contains(level.Entries, c) && !Contains(hiddenCells, c) && !under[c];
+                    }
+
+                    foreach (int c in cs)
+                    {
+                        under[c] = true;
+                    }
+
+                    if (!shape || RoundMaterial.IndexOf(shutter.Code) < 0 || shutter.Count < 1)
+                    {
+                        Add(errors, Shutter);
+                        objectsOk = false;
+                    }
+                }
+            }
+
+            if (objectsOk && (channel != null || shutters.Count > 0))
+            {
+                Blocked blocked = ObjectsBlocked(level);
+                if (channel != null && !blocked.Spring)
+                {
+                    Add(errors, ChannelSpringUnreachable);
+                }
+
+                if (blocked.Shutters.Count > 0)
+                {
+                    Add(errors, ShutterCountUnreachable);
+                }
+            }
+
             if (level.Bridge != null)
             {
                 foreach (RoundBridgeChoice site in level.Bridge)
@@ -464,7 +629,7 @@ namespace Bloomlings.Core.Rounds
 
             foreach (string m in level.Mechanics)
             {
-                if (m != "hidden" && m != "links" && m != "bridge" && m != "cells" && m != "latch")
+                if (m != "hidden" && m != "links" && m != "bridge" && m != "cells" && m != "latch" && m != "canal" && m != "shutters")
                 {
                     Add(errors, UnknownMechanic);
                 }
@@ -474,7 +639,9 @@ namespace Bloomlings.Core.Rounds
                 && Contains(level.Mechanics, "links") == (names.Count > 0)
                 && Contains(level.Mechanics, "bridge") == (level.Bridge != null && level.Bridge.Count > 0)
                 && Contains(level.Mechanics, "cells") == (hiddenCells.Count > 0)
-                && Contains(level.Mechanics, "latch") == (latches.Count > 0);
+                && Contains(level.Mechanics, "latch") == (latches.Count > 0)
+                && Contains(level.Mechanics, "canal") == (channel != null)
+                && Contains(level.Mechanics, "shutters") == (shutters.Count > 0);
             if (!mechanicsOk)
             {
                 Add(errors, Mechanics);
@@ -501,9 +668,39 @@ namespace Bloomlings.Core.Rounds
         /// passable; each closed latch whose key that flood from the entries reaches opens, until nothing changes. Empty: the
         /// keys may all be reached (the solver decides the rest). The level's rows and tray must be sound.
         /// </summary>
-        public static List<int> LatchKeysBlocked(RoundLevel level)
+        public static List<int> LatchKeysBlocked(RoundLevel level) => ObjectsBlocked(level).Latches;
+
+        /// <summary>What the cheap fixed point of <see cref="ObjectsBlocked"/> never opens.</summary>
+        public sealed class Blocked
+        {
+            internal Blocked(List<int> latches, List<int> shutters, bool spring)
+            {
+                Latches = latches;
+                Shutters = shutters;
+                Spring = spring;
+            }
+
+            /// <summary>The latches whose key is never reached.</summary>
+            public List<int> Latches { get; }
+
+            /// <summary>The shutters whose count is never reached.</summary>
+            public List<int> Shutters { get; }
+
+            /// <summary>Whether the channel's spring is reached (false without a channel).</summary>
+            public bool Spring { get; }
+        }
+
+        /// <summary>
+        /// The same cheap fixed point for every board object (reference <c>objectsBlocked</c>, 17 §8, 2026-11-05): a cell
+        /// under a closed shutter is a wall; once the spring is flooded both exits flood too (either may be chosen); a closed
+        /// shutter opens when the flooded cells of its material are at least its count. Without shutters and a channel it is
+        /// exactly <see cref="LatchKeysBlocked"/>. The level's rows and tray must be sound.
+        /// </summary>
+        public static Blocked ObjectsBlocked(RoundLevel level)
         {
             IReadOnlyList<RoundLatch> latches = level.Latches;
+            IReadOnlyList<RoundShutter> shutters = level.Shutters;
+            RoundChannel? channel = level.Channel;
             int w = level.Width;
             int n = level.CellCount;
             var grid = new char[n];
@@ -531,7 +728,22 @@ namespace Bloomlings.Core.Rounds
                 }
             }
 
+            var cover = new int[n];
+            Array.Fill(cover, -1);
+            for (int s = 0; s < shutters.Count; s++)
+            {
+                foreach (int c in shutters[s].Cells)
+                {
+                    if (c >= 0 && c < n)
+                    {
+                        cover[c] = s;
+                    }
+                }
+            }
+
             var open = new bool[latches.Count];
+            var opened = new bool[shutters.Count];
+            bool spring = false;
             var free = new bool[RoundMaterial.Codes.Length];
             var seen = new bool[n];
             var stack = new List<int>();
@@ -562,6 +774,11 @@ namespace Bloomlings.Core.Rounds
 
                 bool Pass(int i)
                 {
+                    if (cover[i] >= 0 && !opened[cover[i]])
+                    {
+                        return false;
+                    }
+
                     char c = grid[i];
                     if (c == '.' || sites[i])
                     {
@@ -574,7 +791,16 @@ namespace Bloomlings.Core.Rounds
 
                 Array.Clear(seen, 0, n);
                 stack.Clear();
-                foreach (int e in level.Entries)
+                var sources = new List<int>(level.Entries);
+                if (channel != null && spring)
+                {
+                    foreach (RoundChannelExit exit in channel.Exits)
+                    {
+                        sources.Add(exit.Cell);
+                    }
+                }
+
+                foreach (int e in sources)
                 {
                     if (e >= 0 && e < n && !seen[e] && Pass(e))
                     {
@@ -609,22 +835,61 @@ namespace Bloomlings.Core.Rounds
                     }
                 }
 
+                if (channel != null && !spring && channel.Spring >= 0 && channel.Spring < n && seen[channel.Spring])
+                {
+                    spring = true;
+                    changed = true;
+                }
+
+                // A flooded cell is never under a closed shutter, so it counts as clearable work of its material.
+                for (int s = 0; s < shutters.Count; s++)
+                {
+                    if (opened[s])
+                    {
+                        continue;
+                    }
+
+                    int got = 0;
+                    for (int i = 0; i < n; i++)
+                    {
+                        if (seen[i] && grid[i] == shutters[s].Code)
+                        {
+                            got++;
+                        }
+                    }
+
+                    if (got >= shutters[s].Count)
+                    {
+                        opened[s] = true;
+                        changed = true;
+                    }
+                }
+
                 if (!changed)
                 {
                     break;
                 }
             }
 
-            var closed = new List<int>();
+            var closedLatches = new List<int>();
             for (int i = 0; i < latches.Count; i++)
             {
                 if (!open[i])
                 {
-                    closed.Add(i);
+                    closedLatches.Add(i);
                 }
             }
 
-            return closed;
+            var closedShutters = new List<int>();
+            for (int s = 0; s < shutters.Count; s++)
+            {
+                if (!opened[s])
+                {
+                    closedShutters.Add(s);
+                }
+            }
+
+            return new Blocked(closedLatches, closedShutters, spring);
         }
 
         /// <summary>The columns blocked at the start (reference <c>startBlocked</c>): a latch at depth 0 whose key the start board does not reach.</summary>

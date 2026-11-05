@@ -37,6 +37,16 @@ namespace Bloomlings.Core.Tests.Rounds
 
         public static JsonElement ReferenceLatchCase(string name) => ReferenceLatchCases.First(c => c.GetProperty("name").GetString() == name);
 
+        /// <summary>The fixture's channel cases (17 §8 «Drop Водный канал»): small levels and placed levels given a channel.</summary>
+        public static IEnumerable<JsonElement> ReferenceChannelCases => Reference.GetProperty("channels").EnumerateArray();
+
+        public static JsonElement ReferenceChannelCase(string name) => ReferenceChannelCases.First(c => c.GetProperty("name").GetString() == name);
+
+        /// <summary>The fixture's shutter cases (17 §8 «Twig Деревянные створки»): a small level and placed levels given a shutter.</summary>
+        public static IEnumerable<JsonElement> ReferenceShutterCases => Reference.GetProperty("shutters").EnumerateArray();
+
+        public static JsonElement ReferenceShutterCase(string name) => ReferenceShutterCases.First(c => c.GetProperty("name").GetString() == name);
+
         /// <summary>A placed level from <c>content/rounds/levels/L####.json</c>, with its class, introduction and mechanics.</summary>
         public static RoundLevel Content(int number)
         {
@@ -125,6 +135,24 @@ namespace Bloomlings.Core.Tests.Rounds
                 mechanics.Add("latch");
             }
 
+            RoundChannel? channel = null;
+            if (d.TryGetProperty("channel", out JsonElement ch))
+            {
+                channel = new RoundChannel(ch.GetProperty("spring").GetInt32(), ch.GetProperty("exits").EnumerateArray()
+                    .Select(e => new RoundChannelExit(e.GetProperty("cell").GetInt32(), e.GetProperty("route").EnumerateArray().Select(x => x.GetInt32()).ToArray(), e.GetProperty("rideUs").GetInt64()))
+                    .ToArray());
+                mechanics.Add("canal");
+            }
+
+            RoundShutter[]? shutters = d.TryGetProperty("shutters", out JsonElement sh)
+                ? sh.EnumerateArray().Select(x => new RoundShutter(x.GetProperty("cells").EnumerateArray().Select(c => c.GetInt32()).ToArray(),
+                    (x.TryGetProperty("material", out JsonElement mat) ? mat : x.GetProperty("code")).GetString()![0], x.GetProperty("count").GetInt32())).ToArray()
+                : null;
+            if (shutters != null && shutters.Length > 0)
+            {
+                mechanics.Add("shutters");
+            }
+
             RoundIntroduction? introduction = null;
             if (intro != null)
             {
@@ -134,7 +162,8 @@ namespace Bloomlings.Core.Tests.Rounds
 
             int capacity = d.TryGetProperty("capacity", out JsonElement cap) ? cap.GetInt32() : 5;
             return new RoundLevel(number, d.GetProperty("w").GetInt32(), d.GetProperty("h").GetInt32(), rows, pods, tray, entries, bridge, capacity,
-                ClassOf(cls), introduction: introduction, mechanics: mechanics, exception: exception, hiddenCells: hiddenCells, latches: latches);
+                ClassOf(cls), introduction: introduction, mechanics: mechanics, exception: exception, hiddenCells: hiddenCells, latches: latches,
+                channel: channel, shutters: shutters);
         }
 
         public static RoundClass ClassOf(string cls) => cls switch
@@ -144,8 +173,12 @@ namespace Bloomlings.Core.Tests.Rounds
             _ => RoundClass.Normal,
         };
 
-        public static RoundAction Action(JsonElement a) =>
-            a.GetProperty("type").GetString() == "tap" ? RoundAction.Tap(a.GetProperty("pod").GetInt32()) : RoundAction.BuildBridge(a.GetProperty("choice").GetInt32());
+        public static RoundAction Action(JsonElement a) => a.GetProperty("type").GetString() switch
+        {
+            "tap" => RoundAction.Tap(a.GetProperty("pod").GetInt32()),
+            "channel" => RoundAction.ChooseExit(a.GetProperty("exit").GetInt32()),
+            _ => RoundAction.BuildBridge(a.GetProperty("choice").GetInt32()),
+        };
 
         /// <summary>
         /// A hand-made board from rows written top first (easier to read), with the frame implied: the rows are used as

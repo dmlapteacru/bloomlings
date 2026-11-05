@@ -5,16 +5,20 @@ using Newtonsoft.Json.Linq;
 
 namespace Bloomlings.Content.Rounds
 {
-    /// <summary>The kind of a recorded round command: a pod tap or the choice of a Sprig bridge site.</summary>
+    /// <summary>The kind of a recorded round command: a pod tap, the choice of a Sprig bridge site or of a channel exit.</summary>
     public enum RoundCommandType
     {
         Tap,
         Bridge,
+
+        /// <summary>The choice of a Drop water channel exit (rules 17 §8, 2026-11-05; <c>{"type": "channel", "exit": i}</c>).</summary>
+        Channel,
     }
 
     /// <summary>
-    /// One recorded command with its model time in microseconds (constitution III): a tap of pod <see cref="Index"/>, or
-    /// the bridge choice <see cref="Index"/> (an index into the level's <c>hero.choices</c>).
+    /// One recorded command with its model time in microseconds (constitution III): a tap of pod <see cref="Index"/>, the
+    /// bridge choice <see cref="Index"/> (an index into the level's <c>hero.choices</c>) or the channel exit
+    /// <see cref="Index"/> (an index into <c>board.channel.exits</c>).
     /// </summary>
     public sealed class RoundCommand : IEquatable<RoundCommand>
     {
@@ -27,7 +31,7 @@ namespace Bloomlings.Content.Rounds
 
         public RoundCommandType Type { get; }
 
-        /// <summary>The pod index of a tap, or the choice index of a bridge.</summary>
+        /// <summary>The pod index of a tap, the choice index of a bridge or the exit index of a channel choice.</summary>
         public int Index { get; }
 
         public long AtUs { get; }
@@ -38,7 +42,23 @@ namespace Bloomlings.Content.Rounds
 
         public override int GetHashCode() => ((int)Type * 397) ^ (Index * 31) ^ AtUs.GetHashCode();
 
-        public override string ToString() => Type == RoundCommandType.Tap ? $"tap pod {Index} at {AtUs} µs" : $"bridge {Index} at {AtUs} µs";
+        /// <summary>The replay command of this record (<see cref="RoundInput"/> at <see cref="AtUs"/>).</summary>
+        public RoundInput Input => Type switch
+        {
+            RoundCommandType.Tap => RoundInput.Tap(Index, AtUs),
+            RoundCommandType.Bridge => RoundInput.Bridge(Index, AtUs),
+            _ => RoundInput.Channel(Index, AtUs),
+        };
+
+        /// <summary>The player action of this record.</summary>
+        public RoundAction Action => Type switch
+        {
+            RoundCommandType.Tap => RoundAction.Tap(Index),
+            RoundCommandType.Bridge => RoundAction.BuildBridge(Index),
+            _ => RoundAction.ChooseExit(Index),
+        };
+
+        public override string ToString() => Type == RoundCommandType.Tap ? $"tap pod {Index} at {AtUs} µs" : Type == RoundCommandType.Bridge ? $"bridge {Index} at {AtUs} µs" : $"channel exit {Index} at {AtUs} µs";
     }
 
     /// <summary>The saved solution: the reference's patient replay, each command when all prior work has settled.</summary>
