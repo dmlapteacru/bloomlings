@@ -761,6 +761,15 @@ namespace Bloomlings.Client.Gameplay.Rounds
             }
         }
 
+        // A tap on a calling channel exit (17 §8, FR-069): the channel exit=i command.
+        private void OnExitTapped(int exit)
+        {
+            if (_core != null && !_pause.IsOpen)
+            {
+                _core.ChooseExit(exit);
+            }
+        }
+
         private void OnCellTapped(int cell)
         {
             RoundLevelCore? core = _core;

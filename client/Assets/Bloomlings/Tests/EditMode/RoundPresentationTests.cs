@@ -786,7 +786,17 @@ namespace Bloomlings.Client.Tests
             RoundIntroCard? latchAgain = RoundIntroCards.For(new RoundIntroduction("latch", true));
             Assert.That(latchAgain!.Kind, Is.EqualTo(RoundIntroKind.Reminder));
             Assert.That(latchAgain.Id, Is.EqualTo("round.intro.latch.reminder"));
-            Assert.That(RoundIntroCards.Mechanics, Is.EqualTo(new[] { "hidden", "links", "bridge", "latch" }));
+            Assert.That(RoundIntroCards.Mechanics, Is.EqualTo(new[] { "hidden", "links", "bridge", "latch", "canal", "shutters" }));
+
+            // the water channel (L101, L103) and the wooden shutters (L121, L123), 17 §9
+            RoundIntroCard? canal = RoundIntroCards.For(new RoundIntroduction("canal", false));
+            Assert.That(canal!.Picture, Is.EqualTo(RoundIntroPicture.Channel));
+            Assert.That(canal.LineKeys.Count, Is.EqualTo(3));
+            Assert.That(RoundIntroCards.For("canal", true)!.Id, Is.EqualTo("round.intro.canal.reminder"));
+            RoundIntroCard? shutters = RoundIntroCards.For(new RoundIntroduction("shutters", false));
+            Assert.That(shutters!.Picture, Is.EqualTo(RoundIntroPicture.Shutters));
+            Assert.That(shutters.LineKeys.Count, Is.EqualTo(3));
+            Assert.That(RoundIntroCards.For("shutters", true)!.LineKeys.Count, Is.EqualTo(1));
             Assert.That(RoundIntroCards.For((RoundIntroduction?)null), Is.Null);
 
             // hidden cells (L51, L53) open with no card at all (the owner, 2026-11-01)

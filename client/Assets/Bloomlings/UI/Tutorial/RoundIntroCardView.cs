@@ -155,6 +155,16 @@ namespace Bloomlings.Client.UI.Tutorial
                     break;
                 }
 
+                case RoundIntroPicture.Channel:
+                case RoundIntroPicture.Shutters:
+                {
+                    // The water channel (the exits call, one is chosen, the water runs to it and a bubble rides it) or the wooden
+                    // shutters (the tag counts the green cubes, then the slats pop off), in a loop on a small board of their own
+                    // (17 §8, FR-069, FR-070; the owner's looks A and B of 2026-11-05; the playtest's IntroPicture).
+                    holder.gameObject.AddComponent<MechanicIntroLoop>().Build(holder, area, picture);
+                    break;
+                }
+
                 case RoundIntroPicture.LinkedPair:
                 {
                     Image tube = RoundTubes.Create("LinkTube", holder);
@@ -305,6 +315,120 @@ namespace Bloomlings.Client.UI.Tutorial
                 float r = radius * _look.Lock.Width;
                 BoxLayout.Place(_ring.rectTransform, Box.FromCenter(kx, ky, 2f * r, 2f * r));
                 _ring.color = UiTheme.Of(C.GardenGlow.WithAlpha(ringAlpha));
+            }
+        }
+    }
+
+    /// <summary>
+    /// The channel and shutters cards' loops (<see cref="RoundIntroChannel"/>, <see cref="RoundIntroShutters"/>; the playtest's
+    /// <c>IntroPicture</c>): a small board's surface and cubes with the kit's <c>ChannelView</c> or <c>ShutterView</c> over them,
+    /// played in the card's own unscaled time.
+    /// </summary>
+    public sealed class MechanicIntroLoop : MonoBehaviour
+    {
+        private static readonly IReadOnlyList<int> NoChoices = Array.Empty<int>();
+        private RoundIntroChannel? _channel;
+        private RoundIntroShutters? _shutters;
+        private global::Bloomlings.Client.Gameplay.Board.ChannelView? _channelView;
+        private global::Bloomlings.Client.Gameplay.Board.ShutterView? _shutterView;
+        private readonly Dictionary<int, Image> _cubes = new Dictionary<int, Image>();
+        private Image? _bubble;
+        private Box _grid;
+        private float _start;
+
+        /// <summary>Builds <paramref name="picture"/>'s loop in <paramref name="holder"/>, whose screen box is <paramref name="area"/>.</summary>
+        public void Build(RectTransform holder, Box area, RoundIntroPicture picture)
+        {
+            _start = Time.unscaledTime;
+            RoundBoardLayout board;
+            if (picture == RoundIntroPicture.Channel)
+            {
+                _channel = RoundIntroChannel.In(area);
+                board = _channel.Board;
+            }
+            else
+            {
+                _shutters = RoundIntroShutters.In(area, ShutterLook.TagMin(UiKit.ScreenBox().Width));
+                board = _shutters.Board;
+            }
+
+            _grid = board.Grid;
+            Image surface = UiFactory.CreateImage("Surface", holder, null, Color.white);
+            surface.raycastTarget = false;
+            UiKit.PlaceBox(surface.rectTransform, board.Outer, area);
+            PictureFit.On(surface, (w, h) => RoundSprites.Surface(w, h, 0.1f));
+            RectTransform grid = UiKit.PlaceBox(UiFactory.CreateRect("Grid", holder), board.Grid, area);
+            RectTransform over = UiKit.PlaceBox(UiFactory.CreateRect("Over", holder), board.Grid, area);
+            int px = UiRaster.Quantize(Mathf.Max(8f, board.Cell));
+            int tall = Mathf.Max(8, Mathf.RoundToInt(px * board.Look.PictureShare));
+            for (int y = board.Height - 2; y >= 1; y--)
+            {
+                for (int x = 1; x < board.Width - 1; x++)
+                {
+                    int cell = (y * board.Width) + x;
+                    int m = board.MaterialOf(cell);
+                    if (board.KindOf(cell) != RoundCellKind.Material || m < 0)
+                    {
+                        continue;
+                    }
+
+                    Image cube = UiFactory.CreateImage("Cube", grid, RoundSprites.BoardCube(m, false, px, tall, board.Look), Color.white);
+                    cube.raycastTarget = false;
+                    UiKit.PlaceBox(cube.rectTransform, board.CubeBox(cell), board.Grid);
+                    _cubes[cell] = cube;
+                }
+
+                if (_shutters != null && _shutters.Look.BottomRow == y)
+                {
+                    _shutterView = global::Bloomlings.Client.Gameplay.Board.ShutterView.Create(grid, over, _shutters.Look, board.Grid);
+                }
+            }
+
+            if (_channel != null)
+            {
+                _channelView = global::Bloomlings.Client.Gameplay.Board.ChannelView.Create(over, _channel.Look, board.Grid);
+                _bubble = UiFactory.CreateImage("Bubble", over, null, Color.white);
+                _bubble.raycastTarget = false;
+            }
+
+            Tick();
+        }
+
+        private void Update() => Tick();
+
+        private void Tick()
+        {
+            float seconds = Time.unscaledTime - _start;
+            if (_channel != null && _channelView != null && _bubble != null)
+            {
+                _channelView.Show(RoundIntroChannel.Pose(seconds), seconds, false, NoChoices);
+                bool riding = _channel.Bubble(seconds, out Box bubble);
+                _bubble.gameObject.SetActive(riding);
+                if (riding)
+                {
+                    UiKit.PlaceBox(_bubble.rectTransform, bubble, _grid);
+                    if (_bubble.sprite == null)
+                    {
+                        Rgba color = RoundLook.ColorOf(RoundIntroChannel.BubbleMaterial);
+                        char code = RoundMaterial.All[RoundIntroChannel.BubbleMaterial].Code;
+                        int size = UiRaster.Quantize(_channel.Board.Cell * ChannelLook.BubbleCells);
+                        _bubble.sprite = ProceduralSprites.Picture(UiRaster.ChannelBubbleKey(code), size, size, (w, h) => UiRaster.ChannelBubble(Math.Min(w, h), color));
+                    }
+                }
+            }
+
+            if (_shutters != null && _shutterView != null)
+            {
+                int gone = RoundIntroShutters.Gone(seconds);
+                for (int k = 0; k < _shutters.Counted.Count; k++)
+                {
+                    if (_cubes.TryGetValue(_shutters.Counted[k], out Image? cube))
+                    {
+                        cube.gameObject.SetActive(k >= gone);
+                    }
+                }
+
+                _shutterView.Show(RoundIntroShutters.Count - gone, RoundIntroShutters.SinceCount(seconds), RoundIntroShutters.Open(seconds), seconds, false, null, null);
             }
         }
     }

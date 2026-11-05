@@ -76,8 +76,16 @@ namespace Bloomlings.Client.Gameplay.Board
         private bool _symbols;
         private bool _bursting;
 
+        // The water channel and the wooden shutters (17 §8, FR-069, FR-070; the owner's looks A and B of 2026-11-05).
+        private RoundLevel? _level;
+        private ChannelView? _channel;
+        private readonly List<ShutterView> _shutters = new List<ShutterView>();
+
         /// <summary>A buildable bridge site was tapped (its choice index).</summary>
         public event Action<int>? BridgeTapped;
+
+        /// <summary>A calling channel exit was tapped (its index, the <c>channel exit=i</c> command).</summary>
+        public event Action<int>? ExitTapped;
 
         /// <summary>A cell was tapped while Bloom Burst waits for its target (the rules' cell index).</summary>
         public event Action<int>? CellTapped;
@@ -143,6 +151,10 @@ namespace Bloomlings.Client.Gameplay.Board
             _ringed.Clear();
             _puffs.Clear();
             _layout = layout;
+            _level = level;
+            _channel = null;
+            _shutters.Clear();
+            List<ShutterLook> lids = ShutterLook.For(layout, level, ShutterLook.TagMin(UiKit.ScreenBox().Width));
             _symbols = symbols;
             _ground = new Image?[cells];
             _cube = new Image?[cells];
@@ -215,6 +227,15 @@ namespace Bloomlings.Client.Gameplay.Board
                         _shownCube[cell] = sbyte.MinValue;
                     }
                 }
+
+                // A shutter's crate lid after the cubes of its bottom row, so the nearer rows stand in front of its edge (FR-070).
+                foreach (ShutterLook lid in lids)
+                {
+                    if (lid.BottomRow == y)
+                    {
+                        _shutters.Add(ShutterView.Create(_cubes, _decor, lid, layout.Grid));
+                    }
+                }
             }
 
             foreach (RoundStripPiece piece in layout.StripPieces)
@@ -238,6 +259,14 @@ namespace Bloomlings.Client.Gameplay.Board
                 _keys.Add(key);
                 _keyLooks.Add((RoundLook.KeyMetal(RoundAnimator.KeyMaterial(level, i)), RoundAnimator.LatchPipsOf(level, i)));
                 _keyBacks.Add(null);
+            }
+
+            // The water channel over the cubes (FR-069; the owner's look A of 2026-11-05), its calling exits taking the tap.
+            ChannelLook? channel = ChannelLook.For(layout, level.Channel);
+            if (channel != null)
+            {
+                _channel = ChannelView.Create(_decor, channel, layout.Grid);
+                _channel.ExitTapped += exit => ExitTapped?.Invoke(exit);
             }
 
             foreach (RoundBridgeSite site in layout.Bridges)
@@ -284,6 +313,21 @@ namespace Bloomlings.Client.Gameplay.Board
 
             PlaceBanks();
             PlaceDecor();
+            if (_level != null)
+            {
+                ChannelLook? channel = ChannelLook.For(layout, _level.Channel);
+                if (channel != null)
+                {
+                    _channel?.Relayout(channel, layout.Grid);
+                }
+
+                List<ShutterLook> lids = ShutterLook.For(layout, _level, ShutterLook.TagMin(UiKit.ScreenBox().Width));
+                foreach (ShutterView view in _shutters)
+                {
+                    view.Relayout(lids[view.Look.Index], layout.Grid);
+                }
+            }
+
             int pixels = CellPixels();
             if (Mathf.Abs(pixels - _pixels) > _pixels / 4)
             {
@@ -403,6 +447,7 @@ namespace Bloomlings.Client.Gameplay.Board
 
             SyncSides();
             SyncKeys(a, layout);
+            SyncMechanics(core, layout);
             SyncBridges(core, buildable, uiNow);
             SyncTargets(core, uiNow);
         }
@@ -437,6 +482,36 @@ namespace Bloomlings.Client.Gameplay.Board
                 ShowKeyFace(i, back);
                 PlaceInGrid(key.rectTransform, RoundLook.KeyBox(cell, layout.Surface).Offset(0f, -rise * cell.Width));
                 key.rectTransform.localScale = new Vector3(sx, 1f, 1f);
+            }
+        }
+
+        /// <summary>
+        /// The water channel (its pose at the display clock, its calling exits live while the player may tap, its riders) and
+        /// each shutter (its count, its last counted cube, its opening) as the animator holds them (FR-069, FR-070).
+        /// </summary>
+        private void SyncMechanics(RoundLevelCore core, RoundBoardLayout layout)
+        {
+            RoundAnimator a = core.Animator;
+            float seconds = a.Now / 1_000_000f;
+            if (_channel != null)
+            {
+                bool live = core.HudLive && core.Intro == null && core.Guide == null && !core.Targeting.HasValue;
+                _channel.Show(ChannelLook.Pose(a), seconds, live, core.ChannelChoices());
+                _channel.ShowRiders(a.ShownWalkers, a.Now);
+            }
+
+            foreach (ShutterView view in _shutters)
+            {
+                int i = view.Look.Index;
+                if (!a.ShutterShown(i))
+                {
+                    view.Show(0, -1f, 1f, seconds, _symbols, null, null);
+                    continue;
+                }
+
+                long counted = a.ShutterCountedAt(i);
+                float sinceCount = counted == RoundAnimator.Before ? -1f : (a.Now - counted) / 1_000_000f;
+                view.Show(a.ShutterLeft(i), sinceCount, ShutterLook.OpenShare(a.ShutterOpenSince(i)), seconds, _symbols, a, layout);
             }
         }
 

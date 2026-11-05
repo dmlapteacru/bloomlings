@@ -458,6 +458,35 @@ namespace Bloomlings.Client.Gameplay.Rounds
         /// <summary>The bridge sites the rules let the player build now.</summary>
         public List<int> BuildableBridges() => RoundRules.BridgeChoices(Play.Timeline.State);
 
+        /// <summary>
+        /// A tap on a channel exit (17 §8, FR-069): chosen when the rules accept it (the spring reached, no exit chosen yet). Free:
+        /// it takes no pod and no place, and the game keeps running while the exits call.
+        /// </summary>
+        public bool ChooseExit(int exit)
+        {
+            if (Targeting != null || Intro != null || Guide != null || ExternalPause || !HudLive)
+            {
+                return false;
+            }
+
+            RoundRefusal refusal = Play.Check(RoundAction.ChooseExit(exit));
+            if (refusal != RoundRefusal.None)
+            {
+                LastRefusal = refusal;
+                _host.Sound(SoundCue.Refused);
+                Toasted?.Invoke(RefusalKey(refusal));
+                return false;
+            }
+
+            Play.Commit(RoundAction.ChooseExit(exit));
+            _host.Sound(SoundCue.Special);
+            AfterCommand();
+            return true;
+        }
+
+        /// <summary>The channel exits the rules let the player choose now.</summary>
+        public List<int> ChannelChoices() => RoundRules.ChannelChoices(Play.Timeline.State);
+
         /// <summary>Whether a booster would do something now (FR-012; the bar greys it otherwise).</summary>
         public bool Applicable(BoosterKind kind) => !Won && GuideTour.CanUse(Play.Timeline, kind);
 
@@ -710,6 +739,7 @@ namespace Bloomlings.Client.Gameplay.Rounds
             RoundRefusal.PartnerNotExposed => "refusal.partner_buried",
             RoundRefusal.PairNeedsTwoSlots => "refusal.group",
             RoundRefusal.BridgeNotReady => "round.bridge_not_ready",
+            RoundRefusal.ChannelNotReady => "round.channel_not_ready",
             _ => "refusal.no_free_slot",
         };
 
