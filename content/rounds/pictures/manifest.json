@@ -1575,7 +1575,8 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0061",
-   "note": null
+   "note": null,
+   "usedBy": "L0150"
   },
   {
    "id": "P0091",
