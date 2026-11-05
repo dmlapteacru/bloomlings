@@ -52,7 +52,7 @@ namespace Bloomlings.Playtest.Preview
     /// The scripted states of frames 1–17. They use real levels from the playtest's content and the core's solver for
     /// winning and jamming move lists.
     /// </summary>
-    public static class Fixtures
+    public static partial class Fixtures
     {
         private const float Frame = 1f / 30f;
 

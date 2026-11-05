@@ -443,6 +443,31 @@ namespace Bloomlings.Playtest.Design
         /// <summary>The bridge sites the rules let the player build now.</summary>
         public List<int> BuildableBridges() => RoundRules.BridgeChoices(Play.Timeline.State);
 
+        /// <summary>
+        /// A tap on a channel exit (17 §8, FR-069): chosen when the rules accept it (the spring reached, no exit chosen yet).
+        /// Free: it takes no pod and no place, and the game keeps running while the exits call.
+        /// </summary>
+        public void ChooseExit(int exit)
+        {
+            if (Targeting != null || Intro != null || Guide != null)
+            {
+                return;
+            }
+
+            if (Play.Check(RoundAction.ChooseExit(exit)) != RoundRefusal.None)
+            {
+                _app.Sound.Play(SoundCue.Refused);
+                return;
+            }
+
+            Play.Commit(RoundAction.ChooseExit(exit));
+            _app.Sound.Play(SoundCue.Special);
+            AfterCommand();
+        }
+
+        /// <summary>The channel exits the rules let the player choose now.</summary>
+        public List<int> ChannelChoices() => RoundRules.ChannelChoices(Play.Timeline.State);
+
         /// <summary>Whether a booster would do something now (FR-012; the bar greys it otherwise).</summary>
         public bool Applicable(BoosterKind kind) => !Won && GuideTour.CanUse(Play.Timeline, kind);
 
@@ -731,6 +756,7 @@ namespace Bloomlings.Playtest.Design
             RoundRefusal.PartnerNotExposed => PlaytestText.T("refusal.partner_buried"),
             RoundRefusal.PairNeedsTwoSlots => PlaytestText.T("refusal.group"),
             RoundRefusal.BridgeNotReady => PlaytestText.T("round.bridge_not_ready"),
+            RoundRefusal.ChannelNotReady => PlaytestText.T("round.channel_not_ready"),
             _ => PlaytestText.T("refusal.no_free_slot"),
         };
 

@@ -616,6 +616,17 @@ round.intro.latch.1,A padlocked pod waits in its column
 round.intro.latch.2,It opens when the Bloomlings reach the key of its color on the board
 round.intro.latch.3,"Clear the way to the key, and the pod and the ones behind it are free"
 round.intro.latch.reminder,"Remember: a padlocked pod opens once the way to the key of its color is open"
+round.intro.canal.title,The water channel
+round.intro.canal.1,A spring waits on the board
+round.intro.canal.2,"Clear the way to the spring, then tap a gate: the Drops will ride the water from there"
+round.intro.canal.3,Only one gate opens. Choose it well
+round.intro.canal.reminder,"Remember: clear the way to the spring, then tap the gate you want"
+round.intro.shutters.title,The crate
+round.intro.shutters.1,A crate hides some cubes. Its tag shows a color and a count
+round.intro.shutters.2,Clear the shown cubes to break the crate open
+round.intro.shutters.3,"Every cube of that color counts, anywhere on the board"
+round.intro.shutters.reminder,Remember: clear cubes of the tag's color to break the crate open
+round.channel_not_ready,Clear the way to the spring first
 round.soon.title,New levels soon
 round.soon.body,"You have played all {0} levels. New levels are on the way, come back soon!"
 round.jump.dev,Go

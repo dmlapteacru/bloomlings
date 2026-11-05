@@ -8,12 +8,16 @@ namespace Bloomlings.Client.UI.Design
     /// One walker of a round level (a courier of the live timeline, spec 006 FR-042, FR-048): it leaves the gate at
     /// <see cref="Start"/>, reaches <see cref="Cell"/> at <see cref="Arrive"/>, acts until the rules clear the cell at
     /// <see cref="Clear"/> and is back home at <see cref="Done"/>, walking <see cref="Route"/> (the rules' cell indices, the
-    /// gate first, the target last) out and back. Times are the host's display clock in µs.
+    /// gate first, the target last) out and back. Times are the host's display clock in µs. A walker whose route starts at the
+    /// water channel's chosen exit (rules 17 §8 «Drop Водный канал») rides the channel for <see cref="RideUs"/> before
+    /// <see cref="Start"/> and after it is home (<see cref="RoundAnimator.HomeUs"/>): <see cref="Start"/> and <see cref="Done"/>
+    /// are its walk from and back to the exit, the ride's parts lie outside them (<see cref="ChannelLook.Rider"/>).
     /// </summary>
     public readonly struct RoundWalk
     {
-        public RoundWalk(int id, int pod, int material, int cell, long start, long arrive, long clear, long done, IReadOnlyList<int> route)
+        public RoundWalk(int id, int pod, int material, int cell, long start, long arrive, long clear, long done, IReadOnlyList<int> route, long rideUs = 0)
         {
+            RideUs = rideUs;
             Id = id;
             Pod = pod;
             Material = material;
@@ -45,6 +49,12 @@ namespace Bloomlings.Client.UI.Design
         public long Done { get; }
 
         public IReadOnlyList<int> Route { get; }
+
+        /// <summary>
+        /// Its ride along the water channel each way, display µs (0 unless its route starts at the chosen exit): out from the
+        /// spring to the exit until <see cref="Start"/>, back from the exit to the spring after it is home.
+        /// </summary>
+        public long RideUs { get; }
     }
 
     /// <summary>Where a link tube is drawn: between two pods in the columns, or between their places.</summary>
@@ -201,6 +211,15 @@ namespace Bloomlings.Client.UI.Design
         /// <summary>A cell's clear moment when it was cleared before the animator started (a restored attempt): no animation.</summary>
         public const long Before = long.MinValue / 4;
 
+        /// <summary>The moment of something that has not happened yet (the channel's readiness or choice, a shutter's opening).</summary>
+        public const long NotYet = long.MaxValue / 4;
+
+        /// <summary>
+        /// How long a shutter's opening plays (display µs; <see cref="ShutterLook.OpenSeconds"/>; the owner's look B of 2026-11-05):
+        /// the crate lid's slats pop off one after another with dust and leaves. Its cells are targets from the event on.
+        /// </summary>
+        public const long ShutterOpenUs = 950_000;
+
         private readonly RoundPrepared _prepared;
         private readonly sbyte[] _shown;
         private readonly long[] _clearedAt;
@@ -215,6 +234,15 @@ namespace Bloomlings.Client.UI.Design
         private readonly bool[] _latched;
         private readonly long[] _latchOpenedAt;
         private readonly int[] _latchPips;
+
+        // Water channel (17 §8 «Drop Водный канал»): when it was ready, the chosen exit and when it was chosen.
+        private long _channelReadyAt = NotYet;
+        private int _channelExit = -1;
+        private long _channelOpenAt = NotYet;
+
+        // Wooden shutters (17 §8 «Twig Деревянные створки»): when each opened, and each one's material cells (its count).
+        private readonly long[] _shutterOpenedAt;
+        private readonly int[][] _shutterCells;
         private readonly List<RoundWalk> _walkers = new List<RoundWalk>();
 
         // Walkers the rules have home already whose look still walks back (ClearStyles.LiveLinger), and the list to draw.
@@ -230,6 +258,9 @@ namespace Bloomlings.Client.UI.Design
         /// linger, then home at its way out's pace.
         /// </summary>
         public static long HomeUs(RoundWalk walk) => walk.Clear + LingerUs + Math.Max(walk.Done - walk.Clear, walk.Arrive - walk.Start);
+
+        /// <summary>Until when a walker is drawn, display µs: home (<see cref="HomeUs"/>), then its ride back along the channel.</summary>
+        public static long ShownUntilUs(RoundWalk walk) => HomeUs(walk) + walk.RideUs;
         private readonly long[] _revealedAt;
         private readonly long[] _committedAt;
         private readonly long[] _recalledAt;
@@ -261,6 +292,22 @@ namespace Bloomlings.Client.UI.Design
             _latched = new bool[level.Latches.Count];
             _latchOpenedAt = new long[level.Latches.Count];
             _latchPips = LatchMarks(level);
+            _shutterOpenedAt = new long[level.Shutters.Count];
+            _shutterCells = new int[level.Shutters.Count][];
+            for (int i = 0; i < _shutterCells.Length; i++)
+            {
+                int material = RoundMaterial.IndexOf(level.Shutters[i].Code);
+                var cellsOf = new List<int>();
+                for (int c = 0; c < cells; c++)
+                {
+                    if (_prepared.Board[c] == material && material >= 0)
+                    {
+                        cellsOf.Add(c);
+                    }
+                }
+
+                _shutterCells[i] = cellsOf.ToArray();
+            }
             _revealedAt = new long[pods];
             _committedAt = new long[pods];
             _recalledAt = new long[pods];
@@ -357,6 +404,15 @@ namespace Bloomlings.Client.UI.Design
                 _recalledAt[p] = Before;
             }
 
+            RoundState rs = timeline.State;
+            _channelExit = Level.Channel != null ? rs.Channel : -1;
+            _channelOpenAt = _channelExit >= 0 ? Before : NotYet;
+            _channelReadyAt = Level.Channel != null && (rs.SpringReached || rs.Channel >= 0) ? Before : NotYet;
+            for (int i = 0; i < _shutterOpenedAt.Length; i++)
+            {
+                _shutterOpenedAt[i] = rs.Shut != null && rs.Shut[i] ? NotYet : Before;
+            }
+
             Bridge = timeline.State.Bridge;
             BridgeAt = Before;
             _walkers.Clear();
@@ -364,7 +420,7 @@ namespace Bloomlings.Client.UI.Design
             _drawnDirty = true;
             foreach (RoundCourier j in timeline.Couriers)
             {
-                _walkers.Add(new RoundWalk(j.Id, j.Pod, _prepared.Colours[j.Pod], j.Cell, j.Start + offset, j.Arrive + offset, j.Clear + offset, j.Done + offset, j.Route));
+                _walkers.Add(Walk(j.Id, j.Pod, j.Cell, j.Start + offset, j.Arrive + offset, j.Clear + offset, j.Done + offset, j.Route, j.RideUs));
             }
 
             _leaving = Array.Empty<(int, long)>();
@@ -382,7 +438,7 @@ namespace Bloomlings.Client.UI.Design
             // A walker home in the rules is drawn until its look is home too.
             for (int w = _homing.Count - 1; w >= 0; w--)
             {
-                if (HomeUs(_homing[w]) <= Now)
+                if (ShownUntilUs(_homing[w]) <= Now)
                 {
                     _homing.RemoveAt(w);
                     _drawnDirty = true;
@@ -414,7 +470,7 @@ namespace Bloomlings.Client.UI.Design
                         BridgeAt = at;
                         break;
                     case RoundEventType.Depart:
-                        _walkers.Add(new RoundWalk(e.Id, e.Pod, _prepared.Colours[e.Pod], e.Cell, at, e.ArriveAt + offsetUs, e.ClearAt + offsetUs, e.DoneAt + offsetUs, e.Route ?? Array.Empty<int>()));
+                        _walkers.Add(Walk(e.Id, e.Pod, e.Cell, at, e.ArriveAt + offsetUs, e.ClearAt + offsetUs, e.DoneAt + offsetUs, e.Route ?? Array.Empty<int>(), e.RideUs));
                         _drawnDirty = true;
                         break;
                     case RoundEventType.Clear:
@@ -435,12 +491,26 @@ namespace Bloomlings.Client.UI.Design
                         _latched[e.Latch] = false;
                         _latchOpenedAt[e.Latch] = at;
                         break;
+                    case RoundEventType.ChannelReady:
+                        if (_channelReadyAt == NotYet)
+                        {
+                            _channelReadyAt = at;
+                        }
+
+                        break;
+                    case RoundEventType.ChannelOpen:
+                        _channelExit = e.Exit;
+                        _channelOpenAt = at;
+                        break;
+                    case RoundEventType.ShutterOpen:
+                        _shutterOpenedAt[e.Shutter] = at;
+                        break;
                     case RoundEventType.Return:
                         for (int w = 0; w < _walkers.Count; w++)
                         {
                             if (_walkers[w].Id == e.Id)
                             {
-                                if (HomeUs(_walkers[w]) > Now)
+                                if (ShownUntilUs(_walkers[w]) > Now)
                                 {
                                     _homing.Add(_walkers[w]);
                                 }
@@ -561,6 +631,90 @@ namespace Bloomlings.Client.UI.Design
             }
 
             return (Now - at) / 1_000_000f;
+        }
+
+        // ---- The water channel (17 §8 «Drop Водный канал», FR-069; the owner's look A of 2026-11-05) ----
+
+        /// <summary>Whether the level has the water channel.</summary>
+        public bool HasChannel => Level.Channel != null;
+
+        /// <summary>When the channel became ready (display µs): <see cref="Before"/> when it was before the animator started, <see cref="NotYet"/>.</summary>
+        public long ChannelReadyAt => _channelReadyAt;
+
+        /// <summary>Whether the channel is shown ready now (its spring reached, the exits asking for the choice until one is chosen).</summary>
+        public bool ChannelReady => _channelReadyAt <= Now;
+
+        /// <summary>The chosen exit as shown now (its <c>channelOpen</c> seen and not ahead of <see cref="Now"/>), or -1.</summary>
+        public int ChannelExit => _channelOpenAt <= Now ? _channelExit : -1;
+
+        /// <summary>When the exit was chosen (display µs), <see cref="Before"/> or <see cref="NotYet"/>.</summary>
+        public long ChannelOpenAt => _channelOpenAt;
+
+        /// <summary>Seconds since <paramref name="at"/> at <see cref="Now"/>: a large value for <see cref="Before"/>, negative for <see cref="NotYet"/> or ahead.</summary>
+        public float SecondsSince(long at) => at == Before ? 1000f : at >= NotYet ? -1f : (Now - at) / 1_000_000f;
+
+        // ---- The wooden shutters (17 §8 «Twig Деревянные створки», FR-070; the owner's look B of 2026-11-05) ----
+
+        /// <summary>The level's shutters (<see cref="RoundLevel.Shutters"/>).</summary>
+        public int ShutterCount => _shutterOpenedAt.Length;
+
+        /// <summary>Whether shutter <paramref name="shutter"/> is drawn closed now: its <c>shutterOpen</c> not seen, or still ahead of <see cref="Now"/>.</summary>
+        public bool ShutterClosed(int shutter) => _shutterOpenedAt[shutter] > Now;
+
+        /// <summary>When the shutter opened (display µs), <see cref="Before"/> or <see cref="NotYet"/>.</summary>
+        public long ShutterOpenedAt(int shutter) => _shutterOpenedAt[shutter];
+
+        /// <summary>Seconds since the shutter opened while its opening plays (<see cref="ShutterOpenUs"/>), else -1.</summary>
+        public float ShutterOpenSince(int shutter)
+        {
+            long at = _shutterOpenedAt[shutter];
+            if (at == Before || at > Now || Now - at >= ShutterOpenUs)
+            {
+                return -1f;
+            }
+
+            return (Now - at) / 1_000_000f;
+        }
+
+        /// <summary>Whether the shutter's lid is drawn now: closed, or opening.</summary>
+        public bool ShutterShown(int shutter) => ShutterClosed(shutter) || ShutterOpenSince(shutter) >= 0f;
+
+        /// <summary>The cells of the shutter's material on the level's board (its count counts their clears anywhere).</summary>
+        public IReadOnlyList<int> ShutterCells(int shutter) => _shutterCells[shutter];
+
+        /// <summary>
+        /// The count shown on shutter <paramref name="shutter"/>'s tag now (the rules' <see cref="RoundState.ShutterLeft"/> at the
+        /// display clock): its count less its material's cubes cleared by <see cref="Now"/>, never under 0.
+        /// </summary>
+        public int ShutterLeft(int shutter)
+        {
+            int done = 0;
+            foreach (int c in _shutterCells[shutter])
+            {
+                long at = _clearedAt[c];
+                if (at != -1 && at <= Now)
+                {
+                    done++;
+                }
+            }
+
+            return Math.Max(0, Level.Shutters[shutter].Count - done);
+        }
+
+        /// <summary>When the shutter last counted a cube (display µs, at or before <see cref="Now"/>; <see cref="Before"/> for none since the start).</summary>
+        public long ShutterCountedAt(int shutter)
+        {
+            long last = Before;
+            foreach (int c in _shutterCells[shutter])
+            {
+                long at = _clearedAt[c];
+                if (at != -1 && at <= Now && at > last)
+                {
+                    last = at;
+                }
+            }
+
+            return last;
         }
 
         // ---- Latches and their keys (17 §8, FR-068; the owner's look of 2026-11-01) ----
@@ -980,6 +1134,21 @@ namespace Bloomlings.Client.UI.Design
                 }
             }
 
+            if (_channelExit != (Level.Channel != null ? s.Channel : -1))
+            {
+                difference = Diagnostic("channel: exit {0} shown, the rules hold {1}", _channelExit, s.Channel);
+                return false;
+            }
+
+            for (int i = 0; i < _shutterOpenedAt.Length; i++)
+            {
+                if ((_shutterOpenedAt[i] == NotYet) != (s.Shut != null && s.Shut[i]))
+                {
+                    difference = Diagnostic("shutter {0}: closed {1}, the rules differ", i, _shutterOpenedAt[i] == NotYet);
+                    return false;
+                }
+            }
+
             if (_walkers.Count != timeline.Couriers.Count)
             {
                 difference = Diagnostic("{0} walkers shown, {1} couriers on the way", _walkers.Count, timeline.Couriers.Count);
@@ -993,6 +1162,10 @@ namespace Bloomlings.Client.UI.Design
         // A check's diagnostic for developers (never shown to players).
         private static string Diagnostic(string format, params object[] values) =>
             string.Format(System.Globalization.CultureInfo.InvariantCulture, format, values);
+
+        // A walker's walk: a channel rider walks from the exit after its ride and is home there before its ride back.
+        private RoundWalk Walk(int id, int pod, int cell, long start, long arrive, long clear, long done, IReadOnlyList<int> route, long ride) =>
+            new RoundWalk(id, pod, _prepared.Colours[pod], cell, start + ride, arrive, clear, done - ride, route, ride);
 
         private void EnsureLeaving(int count)
         {

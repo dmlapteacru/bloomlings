@@ -65,6 +65,12 @@ namespace Bloomlings.Playtest.Design
             /// <summary>The linked pairs whose partner waits deeper than the rows show, this frame (RoundAnimator.LinkMarks): their straight tubes.</summary>
             public readonly List<RoundLinkMark> Marks = new List<RoundLinkMark>();
             public readonly bool[] Reachable = new bool[RoundMaterial.Codes.Length];
+
+            /// <summary>The water channel's look on this board (17 §8, FR-069), or null.</summary>
+            public ChannelLook? Channel;
+
+            /// <summary>The wooden shutters' looks on this board (17 §8, FR-070).</summary>
+            public List<ShutterLook> Shutters = new List<ShutterLook>();
         }
 
         private static readonly System.Runtime.CompilerServices.ConditionalWeakTable<RoundLevelScreen, LayoutCache> Caches =
@@ -99,6 +105,8 @@ namespace Bloomlings.Playtest.Design
                 cache.Points.Clear();
                 cache.Lanes.Clear();
                 cache.FrameOf = new Box?[s.Round.Pods.Count];
+                cache.Channel = ChannelLook.For(board, s.Round.Channel);
+                cache.Shutters = ShutterLook.For(board, s.Round, ShutterLook.TagMin(p.Width));
             }
 
             return cache;
@@ -385,6 +393,15 @@ namespace Bloomlings.Playtest.Design
                         BurstPuff(p, board, cell, a.BurstVeiled(cell) ? -2 : a.OriginalMaterial(cell), now - a.ClearedAt(cell));
                     }
                 }
+
+                // A shutter's crate lid after the cubes of its bottom row, so the nearer rows stand in front of its edge (FR-070).
+                foreach (ShutterLook lid in cache.Shutters)
+                {
+                    if (lid.BottomRow == y && a.ShutterShown(lid.Index))
+                    {
+                        Kit.ShutterLid(p, lid, ShutterLook.OpenShare(a.ShutterOpenSince(lid.Index)));
+                    }
+                }
             }
 
             if (bursting)
@@ -441,6 +458,38 @@ namespace Bloomlings.Playtest.Design
                     p.PushAlpha(RoundBoardLayout.ShownBridgeAlpha);
                     Kit.BridgePlank(p, site);
                     p.PopAlpha();
+                }
+            }
+
+            // The water channel over the cubes (17 §8, FR-069; the owner's look A of 2026-11-05): dotted routes, the spring and the
+            // exits; once the spring is reached both exits call and take the tap (the game keeps running); the chosen route's
+            // stream, and the walkers riding it in their bubbles.
+            float shown = a.Now / 1_000_000f;
+            ChannelLook? channel = cache.Channel;
+            if (channel != null)
+            {
+                ChannelPose pose = ChannelLook.Pose(a);
+                Kit.Channel(p, channel, pose, shown);
+                Kit.ChannelRiders(p, channel, a.ShownWalkers, a.Now);
+                if (pose.Calling && s.HudAlpha >= 1f)
+                {
+                    float min = p.U(DesignTokens.Size.TouchMin);
+                    foreach (int exit in s.ChannelChoices())
+                    {
+                        int choice = exit;
+                        p.Hit(channel.Touch(exit, min), () => s.ChooseExit(choice));
+                    }
+                }
+            }
+
+            // The shutters' tags, sparks and opening bits over the cubes and the lids (FR-070; the owner's look B).
+            foreach (ShutterLook lid in cache.Shutters)
+            {
+                if (a.ShutterShown(lid.Index))
+                {
+                    long counted = a.ShutterCountedAt(lid.Index);
+                    float sinceCount = counted == RoundAnimator.Before ? -1f : (a.Now - counted) / 1_000_000f;
+                    Kit.ShutterOver(p, lid, board, a, a.ShutterLeft(lid.Index), sinceCount, ShutterLook.OpenShare(a.ShutterOpenSince(lid.Index)), shown, symbols);
                 }
             }
 
@@ -1226,6 +1275,33 @@ namespace Bloomlings.Playtest.Design
                     break;
                 }
 
+                case RoundIntroPicture.Channel:
+                {
+                    // The water channel (17 §8, FR-069; the owner's look A): the exits call, the straight one is chosen, the water
+                    // runs to it and a walker's bubble rides it, in a loop.
+                    RoundIntroChannel look = RoundIntroChannel.In(area);
+                    IntroCubes(p, look.Board, cell => false);
+                    Kit.Channel(p, look.Look, RoundIntroChannel.Pose(since), since);
+                    if (look.Bubble(since, out Box bubble))
+                    {
+                        Kit.ChannelBubble(p, bubble, RoundIntroChannel.BubbleMaterial);
+                    }
+
+                    break;
+                }
+
+                case RoundIntroPicture.Shutters:
+                {
+                    // The wooden shutters (17 §8, FR-070; the owner's look B): the tag counts the green cubes as they go, then the
+                    // crate's slats pop off, in a loop.
+                    RoundIntroShutters look = RoundIntroShutters.In(area, ShutterLook.TagMin(p.Width));
+                    int gone = RoundIntroShutters.Gone(since);
+                    float open = RoundIntroShutters.Open(since);
+                    IntroCubes(p, look.Board, cell => Gone(look.Counted, cell, gone), look.Look, open);
+                    Kit.ShutterOver(p, look.Look, look.Board, null, RoundIntroShutters.Count - gone, RoundIntroShutters.SinceCount(since), open, since, false);
+                    break;
+                }
+
                 case RoundIntroPicture.LinkedPair:
                 {
                     PodChip a = PodChip.Cube(Box.FromCenter(area.CenterX - ((podW + gap) / 2f), area.CenterY, podW, h * 0.62f));
@@ -1265,6 +1341,44 @@ namespace Bloomlings.Playtest.Design
                     p.PopTransform();
                     p.PopAlpha();
                     break;
+                }
+            }
+        }
+
+        // Whether cell is among the first gone of counted.
+        private static bool Gone(IReadOnlyList<int> counted, int cell, int gone)
+        {
+            for (int k = 0; k < gone && k < counted.Count; k++)
+            {
+                if (counted[k] == cell)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+
+        // An introduction picture's small board: its surface and its cubes far to near (but those <paramref name="gone"/>), and
+        // a shutter's lid after its bottom row.
+        private static void IntroCubes(IPainter p, RoundBoardLayout board, Func<int, bool> gone, ShutterLook? lid = null, float open = 0f)
+        {
+            Kit.BoardSurface(p, board.Outer, board.Cell * 0.3f);
+            for (int y = board.Height - 2; y >= 1; y--)
+            {
+                for (int x = 1; x < board.Width - 1; x++)
+                {
+                    int cell = (y * board.Width) + x;
+                    int m = board.MaterialOf(cell);
+                    if (board.KindOf(cell) == RoundCellKind.Material && m >= 0 && !gone(cell))
+                    {
+                        Kit.BoardCube(p, board.CubeBox(cell), RoundMaterial.All[m], false, board.Look);
+                    }
+                }
+
+                if (lid != null && lid.BottomRow == y && open < 1f)
+                {
+                    Kit.ShutterLid(p, lid, open);
                 }
             }
         }
