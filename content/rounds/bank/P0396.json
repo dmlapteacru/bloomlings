@@ -1,0 +1,32 @@
+{
+ "picture": "P0396",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|links||tune|after-hard|2026-11-05",
+   "tune": {
+    "slot": "after-hard",
+    "t": null,
+    "attempts": 4,
+    "quick": 10,
+    "evaluated": 3,
+    "seconds": 34
+   },
+   "tried": 4,
+   "found": 0,
+   "reasons": {
+    "связки ловушками: очередь сама остаётся выше зоны": 1,
+    "evaluate: не тот класс по быстрой оценке": 3,
+    "связки: доза снижена до минимума (вынужденные решения)": 1,
+    "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
+   }
+  }
+ ],
+ "tune": {
+  "Normal|links|after-hard": {
+   "trap": true,
+   "offset": -1.81
+  }
+ }
+}

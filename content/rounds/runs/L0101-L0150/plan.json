@@ -3,7 +3,7 @@
   101,
   150
  ],
- "created": "2026-11-05T18:33:38.390Z",
+ "created": "2026-11-05T18:34:07.224Z",
  "positions": [
   {
    "level": 101,
@@ -2049,13 +2049,18 @@
    "intro": null,
    "recipe": "links+cells",
    "slot": "after-hard",
-   "picture": "P0363",
-   "title": "Папоротник из каменных пластин",
-   "N": 840,
+   "picture": "P0087",
+   "title": "Водолаз",
+   "N": 1056,
    "band": "800–1200",
-   "pack": "packs-0268-0467 · Доисторические находки",
-   "hidden": 0,
-   "P": 26
+   "pack": "batch-0061",
+   "hidden": 3,
+   "P": 30,
+   "swappedFrom": "P0363",
+   "swaps": 1,
+   "tried": [
+    "P0363"
+   ]
   },
   {
    "level": 107,
@@ -2063,13 +2068,18 @@
    "intro": null,
    "recipe": "canal+links",
    "slot": "regular",
-   "picture": "P0023",
-   "title": "Палатка у костра",
-   "N": 896,
+   "picture": "P1027",
+   "title": "Сандалия из стручка и ленты",
+   "N": 1149,
    "band": "800–1200",
-   "pack": "batch-0011-env",
-   "hidden": 4,
-   "P": 24
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
+   "hidden": 3,
+   "P": 30,
+   "swappedFrom": "P0023",
+   "swaps": 1,
+   "tried": [
+    "P0023"
+   ]
   },
   {
    "level": 108,
@@ -2106,13 +2116,18 @@
    "intro": null,
    "recipe": "links",
    "slot": "after-hard",
-   "picture": "P0396",
-   "title": "Деревянный кубик льда",
-   "N": 863,
+   "picture": "P1010",
+   "title": "Вилка держит пучок лент-дорожек",
+   "N": 1040,
    "band": "800–1200",
-   "pack": "packs-0268-0467 · Обмен свойствами предметов",
-   "hidden": 1,
-   "P": 24
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
+   "hidden": 3,
+   "P": 30,
+   "swappedFrom": "P0396",
+   "swaps": 1,
+   "tried": [
+    "P0396"
+   ]
   },
   {
    "level": 112,
