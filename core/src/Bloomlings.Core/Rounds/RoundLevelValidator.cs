@@ -92,9 +92,12 @@ namespace Bloomlings.Core.Rounds
             ("latch", 61, 63),
         };
 
-        /// <summary>The calendar class of a level number (17 §5).</summary>
+        /// <summary>
+        /// The calendar class of a level number (17 §5): up to L100 every 15th level Super Hard, other multiples of 5 Hard;
+        /// from L101 (the owner, 2026-11-05) every 10th level Super Hard, the other multiples of 5 Hard.
+        /// </summary>
         public static RoundClass ClassOf(int number) =>
-            number % 15 == 0 ? RoundClass.SuperHard : number % 5 == 0 ? RoundClass.Hard : RoundClass.Normal;
+            (number > 100 ? number % 10 == 0 : number % 15 == 0) ? RoundClass.SuperHard : number % 5 == 0 ? RoundClass.Hard : RoundClass.Normal;
 
         /// <summary>Whether the level's exception waives <paramref name="rule"/>.</summary>
         public static bool IsExcepted(RoundLevel level, string rule) =>

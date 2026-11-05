@@ -70,7 +70,9 @@ export function budget(W){return W<400?[9,24]:W<700?[18,30]:W<1000?[24,40]:[30,4
 export function columnsFor(N){return N<700?[3]:N<1000?[3,4]:[4,5];}
 
 // ---- difficulty calendar (§5) and mechanic introductions (§9) ----
-export const classOf=n=>n%15===0?'Super Hard':n%5===0?'Hard':'Normal';
+// the calendar (17 §5): up to L100 every 15th level Super Hard; from L101 every 10th (the owner, 2026-11-05); other
+// multiples of 5 Hard
+export const classOf=n=>(n>100?n%10===0:n%15===0)?'Super Hard':n%5===0?'Hard':'Normal';
 // hidden cells ('cells') at 51/53 (the owner's amendment of 2026-11-01) and latch + acorn key ('latch') at 61/63 (the
 // owner's second amendment of 2026-11-01, wave plan v2: both new mechanics in the wave L51–L100; 17 §9)
 export const INTRO=[['hidden',6,8],['links',11,13],['bridge',16,18],['cells',51,53],['latch',61,63],['canal',101,103],['shutters',151,153],['repair',201,203],['bud',251,253],['seed',301,303],['well',351,353],['stacks',451,453]];

@@ -157,6 +157,13 @@ namespace Bloomlings.Core.Tests.Rounds
         {
             Assert.That(RoundLevelValidator.ClassOf(15), Is.EqualTo(RoundClass.SuperHard));
             Assert.That(RoundLevelValidator.ClassOf(10), Is.EqualTo(RoundClass.Hard));
+            // from L101 every 10th level is Super Hard (the owner, 2026-11-05)
+            Assert.That(RoundLevelValidator.ClassOf(105), Is.EqualTo(RoundClass.Hard));
+            Assert.That(RoundLevelValidator.ClassOf(110), Is.EqualTo(RoundClass.SuperHard));
+            Assert.That(RoundLevelValidator.ClassOf(120), Is.EqualTo(RoundClass.SuperHard));
+            Assert.That(RoundLevelValidator.ClassOf(135), Is.EqualTo(RoundClass.Hard));
+            Assert.That(RoundLevelValidator.ClassOf(90), Is.EqualTo(RoundClass.SuperHard));
+            Assert.That(RoundLevelValidator.ClassOf(80), Is.EqualTo(RoundClass.Hard));
             Assert.That(RoundLevelValidator.ClassOf(11), Is.EqualTo(RoundClass.Normal));
             Assert.That(RoundLevelValidator.Validate(Make(cls: RoundClass.Hard)), Does.Contain(RoundLevelValidator.Calendar));
             // L12 may not use links yet (introduced at 11 and 13); L14 may.
