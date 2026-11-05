@@ -617,205 +617,6 @@
    "difficulty": "Hard"
   },
   {
-   "id": 107,
-   "title": "Манжетка с ночным садом",
-   "subject": "P1004",
-   "w": 41,
-   "h": 38,
-   "rowsBottomFirst": [
-    "####################.####################",
-    "#.......................................#",
-    "#..............COOOOO...................#",
-    "#.N..........COOOOOOOOD.................#",
-    "#.NN.........OYYYYYYYYODDDD.............#",
-    "#.NN.......OOOYYYYYOOYOONNNNNDD.........#",
-    "#.N.....DNNNYYYYNNNNOYOONNNNNNNNN.......#",
-    "#.....DNNNNNYYYONNNNO.OONNNNNNNNNND.....#",
-    "#....NNNNNNNYYYONNOOOOOOONNNNNNNNNND....#",
-    "#...NNNNNNNNYYYONDOYYYYYONNNNNNNNNNND...#",
-    "#..NNNNNNNNNYYYONNYYCCYYYNNNNNNNNNNNND..#",
-    "#..NNNNNNNNNYYYONNNNYYYYDNNNNNNOOONNNN..#",
-    "#..NNONNNNNNYYYONNNNYYYYNNNNNNNYOONNNN..#",
-    "#..NOOONNNNNYYYONNNNYYYYNNNNNN.YYONNNNN.#",
-    "#.NNOYYNNNNNYYYOOOOYYYYYNNNNNNNYYNNNNNN.#",
-    "#.NNYYYNNNNNYCYYYYYYYYYYNNNNNNNNNNNNNND.#",
-    "#..NNYNNNNNNYCCYYYYYYYYDDDDDNNNNNNNNNNN.#",
-    "#..NNNNNNNNNYYYYYYYYGGGGGGMNNNNNNNNNNNN.#",
-    "#..NNNNNNNDDDMMMMGGGGGGGGMMMMDNNNNNNNND.#",
-    "#..NNNNNVVVGGGGGMGGGGGGGGMGGGGGNNNNNNND.#",
-    "#..NNNNVVVVGGGGGGGGGMMMMMMGGGGGVVNNNNN..#",
-    "#..NNPPPVVVVGGGGGGGMMDDMMMMMMGDVVVNNNN..#",
-    "#..NDPPPPVVVDGGGGMMDCCCCDDCCDMMDVVVNNN..#",
-    "#..DDPPPPPDVDMMMMMMCCCCCCCCCCDMMDVVVNN..#",
-    "#..DDPPPPPP.GGGGMMMCCCCCCCCCCCMMGGVVVN..#",
-    "#..DDPPPPPPGGGGMMMMDCCCCCCCCCCMGGGMVVV..#",
-    "#..DDPPPPPPGGGGGGDCCCCCYYYCCCDMMGGMVVV..#",
-    "#...NNPPPPPGGGGGDCCCCCYYYYCCCCDGGGMVVV..#",
-    "#....NNPPPPPPPDDDCCCCCYYYYCCCCCDVVVVVD..#",
-    "#.....NNPPPPPPPGDCCCCCYYYCCCCCCDVVVVV...#",
-    "#......NNNPPPPGGGCCCCCCCCCCCCCCDVVVV....#",
-    "#.......NNNNNPGGGCCCDCCCCCCCCCDVVVD.....#",
-    "#..........NNNGGGGGDDCCCCCCVVVVVV.......#",
-    "#.............GGGGGNNCCCCCCVVV..........#",
-    "#..............DD.NNNDCCCCD.............#",
-    "#.....................DDDD..............#",
-    "#.......................................#",
-    "#########################################"
-   ],
-   "entries": [
-    20
-   ],
-   "capacity": 5,
-   "pods": [
-    {
-     "color": "D",
-     "count": 25
-    },
-    {
-     "color": "D",
-     "count": 25
-    },
-    {
-     "color": "D",
-     "count": 25
-    },
-    {
-     "color": "N",
-     "count": 55
-    },
-    {
-     "color": "N",
-     "count": 55
-    },
-    {
-     "color": "N",
-     "count": 55
-    },
-    {
-     "color": "N",
-     "count": 54
-    },
-    {
-     "color": "N",
-     "count": 54
-    },
-    {
-     "color": "N",
-     "count": 54,
-     "group": "A"
-    },
-    {
-     "color": "C",
-     "count": 42
-    },
-    {
-     "color": "C",
-     "count": 41
-    },
-    {
-     "color": "C",
-     "count": 41
-    },
-    {
-     "color": "G",
-     "count": 35
-    },
-    {
-     "color": "G",
-     "count": 35
-    },
-    {
-     "color": "G",
-     "count": 34
-    },
-    {
-     "color": "V",
-     "count": 22
-    },
-    {
-     "color": "V",
-     "count": 21
-    },
-    {
-     "color": "V",
-     "count": 21
-    },
-    {
-     "color": "P",
-     "count": 27
-    },
-    {
-     "color": "P",
-     "count": 27
-    },
-    {
-     "color": "Y",
-     "count": 41
-    },
-    {
-     "color": "Y",
-     "count": 41
-    },
-    {
-     "color": "Y",
-     "count": 41
-    },
-    {
-     "color": "M",
-     "count": 26,
-     "group": "A"
-    },
-    {
-     "color": "M",
-     "count": 26
-    },
-    {
-     "color": "O",
-     "count": 30
-    },
-    {
-     "color": "O",
-     "count": 29
-    }
-   ],
-   "tray": [
-    [
-     24,
-     13,
-     8,
-     10,
-     19,
-     9,
-     12,
-     1,
-     3
-    ],
-    [
-     14,
-     2,
-     23,
-     7,
-     6,
-     20,
-     18,
-     4,
-     15
-    ],
-    [
-     22,
-     11,
-     21,
-     26,
-     17,
-     16,
-     5,
-     25,
-     0
-    ]
-   ],
-   "difficulty": "Normal"
-  },
-  {
    "id": 108,
    "title": "Робот поливает цветок",
    "subject": "P0020",
@@ -1017,123 +818,56 @@
    ]
   },
   {
-   "id": 115,
-   "title": "Гончарная мастерская в напёрстке",
-   "subject": "P0318",
-   "w": 41,
-   "h": 43,
+   "id": 113,
+   "title": "Прилавок запахов",
+   "subject": "P0349",
+   "w": 35,
+   "h": 35,
    "rowsBottomFirst": [
-    "####################.####################",
-    "#.......................................#",
-    "#...........NNNNNNNNNNNNNNNNN...........#",
-    "#.......NNNNSSNNSSSSSNSSSSSNNNNNN.N.....#",
-    "#....NNNNNSSSSNNSSSSSNNSSSSNNSSSSNNN....#",
-    "#..NNNSSSSSSSSSSSSEEEEESSSSSSSSSSSSSSS..#",
-    "#.NNSSSSEEEEEEEEEEYYYYYEEEEESSSSSSSSSSN.#",
-    "#.NNSSSEPPPPPEEYYYYYYYYYYYYYEEEEEESSSSN.#",
-    "#..NSSSEPPPPPPEYYYYYYYYYYYYEEYYYYYESSSN.#",
-    "#..NSSSEPPPPPPEYYYYYYYYYYYYEYYYYYYESSN..#",
-    "#..NSSSEEPPPPEYYYYEEEEEYYYYEYYYYYYESSN..#",
-    "#..NSSSSEPPPEEYYYYEEEWEYYY..EYYYYEESSN..#",
-    "#..NSSSSEPPPEEEEEYEEWWEYYE..EEYYYESSSN..#",
-    "#..NSSSSEPPPEEVVEEEEEWEVVVVVVEYYYESSSN..#",
-    "#..NSSSSVEEEEVVVVVEEEEEVVVVVVEYYYESSSN..#",
-    "#..NSSSSVVVVVVVCCCCCCCCCCCVVVEEEEESSSN..#",
-    "#..NSSSSVVVVCCCCCCCCCCCCCCCCCVVVVSSSSN..#",
-    "#..NNSSSVVVVCCCCCCEEEEECCCCCCVVVVSSSSN..#",
-    "#...NSSSVVVVVVCCCOOOOOOCCCCVVVVVVSSSNN..#",
-    "#...NSSSVVVVVVVVEOOOOOOOEVVVVVVVVSSSN...#",
-    "#...NSSSVVVVVVVVEOOOOOOOEVVVVVVVVSSSN...#",
-    "#...NSSSVVVVVVVVEEOOOOOEEVVVVVVVVSSSN...#",
-    "#...NSSSVVVVVVVVVEOOOOOEVVVVVVVVVSSSN...#",
-    "#...NSSSVVVVVVVVVVEOOOEVVVVVVVVVVSSSN...#",
-    "#...NSSSVVVVVVVVVVEOOOEVVVVVVVVVVSSSN...#",
-    "#...NSSSVVVVVVVVVVEOOOEVVVVVVVVVVSSSN...#",
-    "#...NSSSVVVVVVVVVVEEEEEVVVV..VVVVSSSN...#",
-    "#...NNSSVVVVVVVVVVVVVVVVVVV..VVVVSSSN...#",
-    "#....NSSVVVVV..VVVVVVVVVVVVVVVVVVSSNN...#",
-    "#....NSSVVVVV..VVVVVVVVVVVVVVVVVVSSN....#",
-    "#....NSSSSSSSSSSSSSSSSSSSSSSSSSSSSSN....#",
-    "#....NSSSSSSSSSBBBBBBBBBBBSSSSSSSSSN....#",
-    "#....NSSSSSBBBBBBBBBBBBBBBBBBBSSSSSN....#",
-    "#....NSSSBBBBBBBBBBBBBBBBBBBBBBBSSSN....#",
-    "#....NSSBBBBBBBBBBBBBBBBBBBBBBBBBSSN....#",
-    "#....NSSBBBBBBBBBBBBBBBBBBBBBBBBBSSN....#",
-    "#....NSSBBBBBBBBBBBBBBBBBBBBBBBBBSSN....#",
-    "#....NNSSBBBBBBBBBBBBBBBBBBBBBBBSSNN....#",
-    "#.....NNNNBBBBBBBBBBBBBBBBBBBBNNNNN.....#",
-    "#.........NNNNNNBBBBBBBBBNNNNNN.........#",
-    "#...............NNNNNNNNN...............#",
-    "#.......................................#",
-    "#########################################"
+    "#################.#################",
+    "#.................................#",
+    "#..AAAAAAAAAAAAAAAAAAAAAAAAAAAAA..#",
+    "#..AAAAAAAAAAAAAAAAAAAAAAAAAAAAA..#",
+    "#..AAAAAAAAAAAAAAAAAAAAAAAAAAAAA..#",
+    "#..AAAAAAAAAAAAAAAAAAAAAAAAAAAAA..#",
+    "#..AKKKKKKKKKKKKK.KKKKKKKKKKKKKA..#",
+    "#..AKKNNNNNNKKKKNNNNNKKKNNNNNNKA..#",
+    "#..AKNBBBBBBKKNNPPPPPNNNSSSSSSNA..#",
+    "#..AKNBBBB.BBNNPPPPPPPNSSSSSSSNA..#",
+    "#..AKNBBBBBBBNNPPPPPPPNSSSSSSSNA..#",
+    "#..AKNBBCCBBBNNPPCCCPPNSSAAAASSA..#",
+    "#..AKNBCCCCBBNNPPCCCPPNSSYYYYSSA..#",
+    "#..AKNBCYYCCBNNPPPCCPPNSSAAAASSA..#",
+    "#..AKNBCCYCCBNNPPPPPPPNSSAAASSSA..#",
+    "#..AKNBBCCCBBNNPPPPPPPNSSSSSSSSA..#",
+    "#..AKNBBBCBBBNNPPPPPPPNSSSSSSSNA..#",
+    "#..AKNBBBBBBBNNPPPPPPPNSSSSSSSNA..#",
+    "#..AKNNBYYYKKKKPPYYYPKKKKYYYSNNA..#",
+    "#..AKKKYYYYKKKKKKYYYKKKKKYYYYKKA..#",
+    "#..AKKKYYYYKKKKKKYYYKKKKKYYYYKKA..#",
+    "#..AKKKYYYYKKKKKKYYYKKKKKYYYYKKA..#",
+    "#..AKKKKKKKKKKKKKKKKKKKKKKKKKKKA..#",
+    "#..ACCCCCKKVVVVVKKKCCCCCKKVVVVVA..#",
+    "#..ACCCCCKKVVVVVVKKCCCCCKKVVVVVA..#",
+    "#..ACCCCCKKVVVVVKKKCCCCC.KVVVVVA..#",
+    "#.VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV.#",
+    "#..VVVVVVVVVWVVVVWWVVVVVVVWWVVVV..#",
+    "#..VVVVVVVVVWVVVVVVVVVVVVVVWVVVV..#",
+    "#...VVVVVVVVVVVVVVVVVVVVVVVVVVV...#",
+    "#...VVVVVVVVVVVVVVVVVVVVVVVVVVV...#",
+    "#....VVVVVVVVVVVVVVVVVVVVVVVVV....#",
+    "#....VVVVVVVVVVVVVVVVVVVVVVVVV....#",
+    "#.................................#",
+    "###################################"
    ],
    "entries": [
-    20
+    17
    ],
    "capacity": 5,
    "pods": [
     {
-     "color": "N",
-     "count": 50,
-     "group": "A"
-    },
-    {
-     "color": "N",
-     "count": 50
-    },
-    {
-     "color": "N",
-     "count": 50
-    },
-    {
-     "color": "B",
-     "count": 45
-    },
-    {
-     "color": "B",
-     "count": 45
-    },
-    {
-     "color": "B",
-     "count": 45
-    },
-    {
-     "color": "B",
-     "count": 45
-    },
-    {
-     "color": "S",
-     "count": 58
-    },
-    {
-     "color": "S",
-     "count": 58
-    },
-    {
-     "color": "S",
-     "count": 58
-    },
-    {
-     "color": "S",
-     "count": 57
-    },
-    {
-     "color": "S",
-     "count": 57
-    },
-    {
      "color": "V",
-     "count": 55,
-     "group": "A"
-    },
-    {
-     "color": "V",
-     "count": 54
-    },
-    {
-     "color": "V",
-     "count": 54,
-     "group": "C"
+     "count": 55
     },
     {
      "color": "V",
@@ -1144,185 +878,423 @@
      "count": 54
     },
     {
-     "color": "E",
-     "count": 42
-    },
-    {
-     "color": "E",
-     "count": 41
-    },
-    {
-     "color": "E",
-     "count": 41
-    },
-    {
-     "color": "O",
-     "count": 20
-    },
-    {
-     "color": "O",
-     "count": 19,
-     "group": "D"
-    },
-    {
-     "color": "C",
-     "count": 24
-    },
-    {
-     "color": "C",
-     "count": 23,
-     "group": "D"
-    },
-    {
-     "color": "Y",
-     "count": 30
-    },
-    {
-     "color": "Y",
-     "count": 30,
-     "group": "C"
-    },
-    {
-     "color": "Y",
-     "count": 30
-    },
-    {
-     "color": "P",
-     "count": 15
-    },
-    {
-     "color": "P",
-     "count": 15,
-     "group": "B"
+     "color": "V",
+     "count": 54
     },
     {
      "color": "W",
-     "count": 4,
-     "group": "B"
+     "count": 7
+    },
+    {
+     "color": "A",
+     "count": 56
+    },
+    {
+     "color": "A",
+     "count": 56
+    },
+    {
+     "color": "A",
+     "count": 55
+    },
+    {
+     "color": "C",
+     "count": 28
+    },
+    {
+     "color": "C",
+     "count": 27
+    },
+    {
+     "color": "K",
+     "count": 51
+    },
+    {
+     "color": "K",
+     "count": 50
+    },
+    {
+     "color": "K",
+     "count": 50
+    },
+    {
+     "color": "Y",
+     "count": 25
+    },
+    {
+     "color": "Y",
+     "count": 24
+    },
+    {
+     "color": "N",
+     "count": 23
+    },
+    {
+     "color": "N",
+     "count": 23
+    },
+    {
+     "color": "N",
+     "count": 22
+    },
+    {
+     "color": "B",
+     "count": 25
+    },
+    {
+     "color": "B",
+     "count": 24
+    },
+    {
+     "color": "P",
+     "count": 21
+    },
+    {
+     "color": "P",
+     "count": 21
+    },
+    {
+     "color": "P",
+     "count": 21
+    },
+    {
+     "color": "S",
+     "count": 20
+    },
+    {
+     "color": "S",
+     "count": 20
+    },
+    {
+     "color": "S",
+     "count": 20
     }
    ],
    "tray": [
     [
-     0,
-     8,
-     13,
+     9,
+     21,
+     19,
+     20,
+     2,
+     7,
      18,
-     15,
-     19
+     0,
+     15
     ],
     [
-     1,
+     5,
+     12,
+     8,
      3,
-     9,
+     11,
+     23,
+     6,
+     1
+    ],
+    [
+     14,
+     17,
+     25,
+     13,
+     4,
      24,
+     10,
      16,
      22
-    ],
-    [
-     10,
-     17,
-     28,
-     6,
-     14,
-     23
-    ],
-    [
-     12,
-     2,
-     26,
-     27,
-     4,
-     20
-    ],
-    [
-     7,
-     11,
-     29,
-     5,
-     25,
-     21
     ]
    ],
-   "difficulty": "Hard",
+   "difficulty": "Normal",
    "hiddenCells": [
-    340,
-    341,
-    342,
-    343,
-    381,
-    382,
-    383,
-    384,
-    422,
-    423,
-    424,
-    425,
-    463,
-    464,
-    465,
-    466,
-    504,
-    505,
-    506,
-    507,
-    628,
-    629,
-    630,
-    631,
-    669,
-    670,
-    671,
-    672,
-    710,
-    711,
-    712,
-    713,
-    751,
-    752,
-    753,
-    754,
-    792,
+    543,
+    544,
+    545,
+    570,
+    571,
+    572,
+    573,
+    578,
+    579,
+    580,
+    581,
+    605,
+    606,
+    607,
+    608,
+    613,
+    614,
+    615,
+    616,
+    640,
+    641,
+    642,
+    643,
+    648,
+    649,
+    650,
+    651,
+    675,
+    676,
+    677,
+    723,
+    724,
+    725,
+    726,
+    727,
+    758,
+    759,
+    760,
+    761,
+    762,
     793,
     794,
     795,
-    833,
-    1082,
-    1083,
-    1084,
-    1085,
-    1123,
-    1124,
-    1125,
-    1126,
-    1164,
-    1165,
-    1166,
-    1167,
-    1204,
-    1205,
-    1206,
-    1207,
-    1208,
-    1246,
-    1247,
-    1248,
-    1249
+    796,
+    797
+   ]
+  },
+  {
+   "id": 120,
+   "title": "Слонёнок с лейкой",
+   "subject": "P0050",
+   "w": 39,
+   "h": 36,
+   "rowsBottomFirst": [
+    "###################.###################",
+    "#.....................................#",
+    "#.MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.#",
+    "#.MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMGMMMM.#",
+    "#.MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMGMMMM.#",
+    "#.MMMMMMMKKKKMMMMMMMKKKMMMMMMMMMGMMMM.#",
+    "#.MOOMPPPKKKKPPPPPPKKKKKMMMMMOOMGMMMM.#",
+    "#.OOOOPPPKKKKKKKKPPKKKKKOOOOOOOOGOOOO.#",
+    "#.OOOOPPKKKKKKKKKKKKKKKKOOOOOOGGGOOOO.#",
+    "#.OOOPPKKKKKKKKKKKKKKKKKOOOOOGGGGOOOO.#",
+    "#.OOPPKKKKKKKK..KKKKKKOOOOOOOOOOGGGGO.#",
+    "#.OOPKKKKKKKKK..KKKKKKKOOOOOOOOOGGGGO.#",
+    "#.OOKKKKKKKKKKKKKKKKKKKOOOOOOOOOGOOOO.#",
+    "#.OPKKKKKKKKKKKKKKKKKKKOOOOOOOOOGOOOO.#",
+    "#.OKKKKKKKKKKKKKKKKKKKKKOOOOOOOOGOOOO.#",
+    "#.OOKKKKKKKKKKKKKKKKKKKKKKOOOORRRRROO.#",
+    "#.OOOKKKKKKKKKPPPPKKKKDDKKKOOORRRRRRO.#",
+    "#.OOOOKKKKKKKPPPPPPKKDKKKKKOORRRYYRRO.#",
+    "#.OOOOOKKKKKKPPPPPPKKKKKKKKKORRRYYRRO.#",
+    "#.OOOOOOOOKKKPPPPPPKKKKKKKKKOORRRRRRO.#",
+    "#.OOOOOOOOOKKPPPPPPKKKDKKKKKKOORRROOO.#",
+    "#.OOOOOOOOOOKPPPPPPKKKDKKKKKKOOOROOOO.#",
+    "#.OOOOOOOOOOKPPPPPPKKKKKKKKKKOOOOOOOO.#",
+    "#.OOOOOYYOOOKKPPPPKKKKKKKKKKKOOOBBBOO.#",
+    "#.OOOYYYYY..OKKKKKKKKKKKK..KKOOOBBBOO.#",
+    "#.OOYYYYFY..OOOKKKKKKKKKK..KKOOOOBOOO.#",
+    "#.OOYYYYFYYOOOOOOOKKKKKOOOOKKKOOOOOOO.#",
+    "#.OOYYYYFYYYOOOOOOOOOOOOOOOOKKKOOBBBO.#",
+    "#.OOYYYYYYYOOOOOOOOOOOOOOOOOKKKOOBBBO.#",
+    "#.OOYYYYYYYOOOOOOOOOOOOOOOOOOOOOOOBOO.#",
+    "#.OOOYYYYYOOOOOOOOOOOOOOOOOOOOBBBOOOO.#",
+    "#.OOOOOOOOOOOOOOOOOOOOOOOOOOOOBBBOOOO.#",
+    "#.OOOOOOOOOOOOOOOOOOOOOOOOOOOOOBOOOOO.#",
+    "#.OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO.#",
+    "#.....................................#",
+    "#######################################"
    ],
+   "entries": [
+    19
+   ],
+   "capacity": 5,
+   "pods": [
+    {
+     "color": "O",
+     "count": 57,
+     "group": "C"
+    },
+    {
+     "color": "O",
+     "count": 57,
+     "group": "D"
+    },
+    {
+     "color": "O",
+     "count": 57,
+     "group": "B"
+    },
+    {
+     "color": "O",
+     "count": 57
+    },
+    {
+     "color": "O",
+     "count": 57,
+     "group": "A"
+    },
+    {
+     "color": "O",
+     "count": 57
+    },
+    {
+     "color": "O",
+     "count": 56
+    },
+    {
+     "color": "O",
+     "count": 56
+    },
+    {
+     "color": "B",
+     "count": 11,
+     "mystery": "depth"
+    },
+    {
+     "color": "B",
+     "count": 10
+    },
+    {
+     "color": "Y",
+     "count": 24,
+     "group": "C"
+    },
+    {
+     "color": "Y",
+     "count": 24,
+     "group": "E"
+    },
+    {
+     "color": "K",
+     "count": 53
+    },
+    {
+     "color": "K",
+     "count": 53,
+     "group": "B"
+    },
+    {
+     "color": "K",
+     "count": 53
+    },
+    {
+     "color": "K",
+     "count": 52
+    },
+    {
+     "color": "K",
+     "count": 52,
+     "group": "E"
+    },
+    {
+     "color": "K",
+     "count": 52
+    },
+    {
+     "color": "F",
+     "count": 3,
+     "group": "F"
+    },
+    {
+     "color": "P",
+     "count": 22,
+     "group": "F"
+    },
+    {
+     "color": "P",
+     "count": 22
+    },
+    {
+     "color": "P",
+     "count": 22,
+     "group": "D"
+    },
+    {
+     "color": "D",
+     "count": 5,
+     "group": "A"
+    },
+    {
+     "color": "R",
+     "count": 16
+    },
+    {
+     "color": "R",
+     "count": 15
+    },
+    {
+     "color": "G",
+     "count": 12
+    },
+    {
+     "color": "G",
+     "count": 11
+    },
+    {
+     "color": "M",
+     "count": 48
+    },
+    {
+     "color": "M",
+     "count": 47,
+     "mystery": "depth"
+    },
+    {
+     "color": "M",
+     "count": 47
+    }
+   ],
+   "tray": [
+    [
+     13,
+     22,
+     7,
+     12,
+     27,
+     6
+    ],
+    [
+     10,
+     14,
+     16,
+     28,
+     29,
+     21
+    ],
+    [
+     23,
+     4,
+     20,
+     17,
+     15,
+     9
+    ],
+    [
+     2,
+     19,
+     25,
+     5,
+     24,
+     3
+    ],
+    [
+     0,
+     18,
+     11,
+     26,
+     8,
+     1
+    ]
+   ],
+   "difficulty": "Super Hard",
    "latches": [
     {
      "column": 0,
-     "depth": 4,
-     "key": 1161
+     "depth": 2,
+     "key": 961
     },
     {
-     "column": 1,
+     "column": 2,
      "depth": 2,
-     "key": 1093
+     "key": 404
     },
     {
      "column": 3,
-     "depth": 2,
-     "key": 477
+     "depth": 3,
+     "key": 946
     }
    ]
   },
@@ -2002,6 +1974,167 @@
    "difficulty": "Normal"
   },
   {
+   "id": 125,
+   "title": "Листовой трон для жёлтого жука",
+   "subject": "P1152",
+   "w": 35,
+   "h": 33,
+   "rowsBottomFirst": [
+    "#################.#################",
+    "#.................................#",
+    "#.........DMMMMMMMMDMMDD..........#",
+    "#........MMMGMMMMMMMMMMMMDM.......#",
+    "#......MMMMDGGMMMMMMMMMMMMMM......#",
+    "#.....DMMDMMMGGMMMMMMMMMMMMMMM....#",
+    "#.....MMMMMMMDGGGMMMGMMMMMMMMMD...#",
+    "#....MMMMMMMMMMMGGGGGMMMMMMMMMM...#",
+    "#....MMMMMMMMMGGGDGGGGGMMMGMMMGD..#",
+    "#...MMMMGMMGGGGOOAOOGGGGGGGGMMGG..#",
+    "#..MMMMGGGGGGDOOOAYOOOODDGGGGGGG..#",
+    "#..MGGGGDDODOOOYYAYYOOOAAAMMMMDG..#",
+    "#.MGGMDMDOOYYOYYYAYYYOOAAAAMMMMG..#",
+    "#.MMMMMMMOOAYOYYYAYYYOYAAMMMMMMGM.#",
+    "#.MMMMMMMODAYYYYYYYYYYYDDMMMMMMGM.#",
+    "#.MGMMMMMOOAAYYYYYYYYYAAMMMMMMMMM.#",
+    "#.MGMMFFMMOAAAAAAAAAAAAAMMMMMMMGM.#",
+    "#.MGMMMMMMMMCCCCYYYCCCCDMMMMGMMGM.#",
+    "#.MGMMMMMMMMCDDDYYYCDDCMMMMMGGGG..#",
+    "#..GMMMMMMMMCDDDYYYDDDCMMMMMMMGG..#",
+    "#..MMMMMMMMMCCDCAAACCCMMMMMMMMG...#",
+    "#...MMMMMMMMMMMAAAAAMMMFMMMMMM....#",
+    "#...MMMMMMMMMMMAAAAAMMFFFMMMMM....#",
+    "#...MGMMMMMMMMMMMAMMMMMMMMMMM.....#",
+    "#....GGMMMMMMMMMMMMMMMMGMMMMM.....#",
+    "#.....GGGMMMMMMMMMMMMMMGGGGG......#",
+    "#......MMMMMMMMMMMMMMMMMGGG.......#",
+    "#.........MMGGGMMMMMMMMM..........#",
+    "#...........MMMGGMMGGG............#",
+    "#..............GGGGGG.............#",
+    "#................MMM..............#",
+    "#.................................#",
+    "###################################"
+   ],
+   "entries": [
+    17
+   ],
+   "capacity": 5,
+   "pods": [
+    {
+     "color": "M",
+     "count": 57
+    },
+    {
+     "color": "M",
+     "count": 56
+    },
+    {
+     "color": "M",
+     "count": 56
+    },
+    {
+     "color": "M",
+     "count": 56
+    },
+    {
+     "color": "M",
+     "count": 56
+    },
+    {
+     "color": "M",
+     "count": 56
+    },
+    {
+     "color": "M",
+     "count": 56
+    },
+    {
+     "color": "G",
+     "count": 36,
+     "group": "A"
+    },
+    {
+     "color": "G",
+     "count": 35
+    },
+    {
+     "color": "G",
+     "count": 35
+    },
+    {
+     "color": "A",
+     "count": 24
+    },
+    {
+     "color": "A",
+     "count": 23,
+     "group": "A"
+    },
+    {
+     "color": "F",
+     "count": 6
+    },
+    {
+     "color": "C",
+     "count": 19
+    },
+    {
+     "color": "D",
+     "count": 19
+    },
+    {
+     "color": "D",
+     "count": 18
+    },
+    {
+     "color": "Y",
+     "count": 25,
+     "group": "B"
+    },
+    {
+     "color": "Y",
+     "count": 25
+    },
+    {
+     "color": "O",
+     "count": 16
+    },
+    {
+     "color": "O",
+     "count": 15,
+     "group": "B"
+    }
+   ],
+   "tray": [
+    [
+     7,
+     10,
+     19,
+     12,
+     3,
+     14,
+     9
+    ],
+    [
+     6,
+     17,
+     16,
+     15,
+     18,
+     5,
+     2
+    ],
+    [
+     11,
+     1,
+     13,
+     0,
+     8,
+     4
+    ]
+   ],
+   "difficulty": "Hard"
+  },
+  {
    "id": 140,
    "title": "Магазин дверных ручек-порталов",
    "subject": "P0399",
@@ -2224,193 +2357,240 @@
    ]
   },
   {
-   "id": 148,
-   "title": "Фонтан в парке",
-   "subject": "P0074",
-   "w": 34,
-   "h": 34,
+   "id": 143,
+   "title": "Ленивец-официант с подносом",
+   "subject": "P0233",
+   "w": 40,
+   "h": 38,
    "rowsBottomFirst": [
-    "#################.################",
-    "#................................#",
-    "#.GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG.#",
-    "#.GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG.#",
-    "#.GGGAAAAAAAAAAAAAAAAAAAAAAAAGGG.#",
-    "#.GGACCCCACCCCAC.CCACCCCACCCCAGG.#",
-    "#.GGACCCCACCCCACCCCACCCCACCCCAGG.#",
-    "#.GGACCCCACCCCACCCCACCCCACCCCAGG.#",
-    "#.GGACCCCACCCCCCCCCCCCCCACCCCAGG.#",
-    "#.GMMCCCC.CCCCCCCCCCCCCCCCCCCMMG.#",
-    "#.MMCCBBBBBBBBBBBBBBBBBBBBBBCCMM.#",
-    "#.MMCCBBBBBBBBBCCAABBBBBBBBBCCMM.#",
-    "#.MMMMBBCCCCCCCCCAACCCCCCCBBMMMM.#",
-    "#.MMMMMBMGGGGCCCCAACCGGGGMBMMMMM.#",
-    "#.MMMMMBBGGGGGGCCAAGGGGGGBBMMMMM.#",
-    "#.MMMMMMBGGGGGGCCAAGGGGGGBMMMMMM.#",
-    "#.MMMMMGBGGGGGGCCAAGGGGGGBGMMMMM.#",
-    "#.MMMMMSSSSSSSAAAAAASSSSSSSMMMMM.#",
-    "#.SSSSSSSSSACCCCCCCCAAASSSSSSSSS.#",
-    "#.SSSSSSSSCCCCCCCCCCCCAASSSSSSSS.#",
-    "#.SSSSSSSSCBBBBBBBBBBBBASSSSSSSS.#",
-    "#.SSSSSSSSSSSSSSBBSSSSSSSSSSSSSS.#",
-    "#.SSSSSSSBSSSSSSBBSSSSSSBSSSSSSS.#",
-    "#.SSSSSSSB..SSSBBBBSSSSBBSSSSSSS.#",
-    "#.SSSSSSSS..SSSBYYBSSSSB.SSSSSSS.#",
-    "#.SSSSSSSSBBSSBBBBBBSSBBSSSSSSSS.#",
-    "#.SSSSSSSSSBBBBSBBSBBBBSSSSSSSSS.#",
-    "#.SSSSSSSSSSSSSSBBSSSSSSSSSSSSSS.#",
-    "#.SSSSSSSSSSSSSSBBSSSSSSSSSSSSSS.#",
-    "#.SSSSSSSSSSSSSSBBSSSSSSSSSSSSSS.#",
-    "#.SSSSSSSSSSSSSSBBSSSSSSSSSSSSSS.#",
-    "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
-    "#................................#",
-    "##################################"
+    "####################.###################",
+    "#......................................#",
+    "#.SSSSSSSSSSSSSAAAAAAAASSSSSSSSSSSSSSS.#",
+    "#.SSSSSSSSSSSAAAAAAAAAAAASSSSSSSSSSSSS.#",
+    "#.SSSSSSSSSSAAAAAAAAAAAAAASSSSSSSSSSSS.#",
+    "#.SSSSSSSSSSAAAAAAAAAAAAAASSSSSSSSSSSS.#",
+    "#.SSSSSSSSSSAAAAAAAAAAAAAASSSCCCSSSSSS.#",
+    "#.SSSSSSSSSSAAARRRRRRRRAAASSSCCCSSSSSS.#",
+    "#.SSSSSSSSSSSAARRRRRRRRAAAAAACCCSSSSSS.#",
+    "#.SSSSSSSSSSSSSAAAAAAAAAAAAAACCCSSSSSS.#",
+    "#.SSSSSSSSSSSSAAAACCAAAAAAAAACCCASSSSS.#",
+    "#.SSSSSSSSSSSAACCCCCCCCAASSAACCCASSSSS.#",
+    "#.SSSSSSSSSSAACCCDDDDCCCAASSSAAAASSSSS.#",
+    "#.SSSSSSSSSSACCCCCDDCCCCCASSSAAAASSSSS.#",
+    "#.SSSSSSSSSAADCCCCDDCCCCDAASSAAAASSSSS.#",
+    "#.SSSSSSSSSAADDDCCCCCCDDDDASSAAAASSSSS.#",
+    "#.SSSSSSSSSAADDDDCCCCDDDDAAYYYYYYYYYYS.#",
+    "#.SSSSSSSSSAADDDDDCCCDDDAAAYYYYYYYYYYS.#",
+    "#.SSSSSSSSSAAACCCCCCCCCCAAASSCOOOCSSSS.#",
+    "#.SSSSSSSSSAAAACCCCCCCCAAAASSCOOOCSSSS.#",
+    "#.SSSSSSSSSSAAAAAAAAAAAAAASSSCOOOCSSSS.#",
+    "#.SSSSSSSSSSAAAAAAAAAAAAAASSSCOOOCSSSS.#",
+    "#.SSSSSSSSSSAAAAAAAAAAAAASSSSCOOOCSSSS.#",
+    "#.SSSSSSSSSSAAAAAAAAAAAASSSSSCCCCCSSSS.#",
+    "#.SSSSSSSSSSAAAAAAAAAASSSSSSSCCCCCSSSS.#",
+    "#.SSSSSSSSSAAAAASSSSSSSSSSSSSSSSRRSSSS.#",
+    "#.SSSSSSSSSAAAASSSSSSSSSSSSSSSSSRRSSSS.#",
+    "#.SSSSSSSSSAAAASSSSSSSSSSSSSSSSSRRSSSS.#",
+    "#.EEEEEEEEAAAAAAEEEEEEEEEEEEEEEEEEEEEE.#",
+    "#.EEEEEEEEAAAAAAEWWEEWWWEEEEEEWWWEEEEE.#",
+    "#.EEEEEEEEAAAAAAEEEEEEEEEEEEEEEEEEEEEE.#",
+    "#.GGGGGGGGGAAAASSSSSSSSSSSSSGGGGGGGGGG.#",
+    "#.GGGGGGGGGGSSSSSSSSSSSSSSSSGGGGGGGGGG.#",
+    "#.GGGGGGGGGGSSSSSSSSSSSSSSSSSGGSGGGGGG.#",
+    "#.SGGGGGGGGSSSSSSSSSSSSSSSSSSSSSSSSGGG.#",
+    "#.SSSSSSGGSSSSSSSSSSSSSSSSSSSSSSSSSSGG.#",
+    "#......................................#",
+    "########################################"
    ],
    "entries": [
-    17
+    20
    ],
    "capacity": 5,
    "pods": [
     {
      "color": "S",
-     "count": 49
+     "count": 56
     },
     {
      "color": "S",
-     "count": 49
+     "count": 56
     },
     {
      "color": "S",
-     "count": 49
+     "count": 56
     },
     {
      "color": "S",
-     "count": 49
+     "count": 55
     },
     {
      "color": "S",
-     "count": 49
+     "count": 55
     },
     {
      "color": "S",
-     "count": 49
+     "count": 55
     },
     {
      "color": "S",
-     "count": 49
+     "count": 55
     },
     {
-     "color": "B",
-     "count": 37
+     "color": "S",
+     "count": 55
     },
     {
-     "color": "B",
-     "count": 37
+     "color": "S",
+     "count": 55
     },
     {
-     "color": "B",
-     "count": 36
+     "color": "S",
+     "count": 55
+    },
+    {
+     "color": "S",
+     "count": 55
+    },
+    {
+     "color": "G",
+     "count": 24
+    },
+    {
+     "color": "G",
+     "count": 24
+    },
+    {
+     "color": "G",
+     "count": 24
+    },
+    {
+     "color": "A",
+     "count": 53
+    },
+    {
+     "color": "A",
+     "count": 52
+    },
+    {
+     "color": "A",
+     "count": 52
+    },
+    {
+     "color": "A",
+     "count": 52
+    },
+    {
+     "color": "A",
+     "count": 52,
+     "group": "A"
+    },
+    {
+     "color": "E",
+     "count": 28
+    },
+    {
+     "color": "E",
+     "count": 27
+    },
+    {
+     "color": "E",
+     "count": 27
+    },
+    {
+     "color": "W",
+     "count": 4
+    },
+    {
+     "color": "W",
+     "count": 4
+    },
+    {
+     "color": "R",
+     "count": 11
+    },
+    {
+     "color": "R",
+     "count": 11
+    },
+    {
+     "color": "C",
+     "count": 35
+    },
+    {
+     "color": "C",
+     "count": 34
+    },
+    {
+     "color": "C",
+     "count": 34
+    },
+    {
+     "color": "O",
+     "count": 15
+    },
+    {
+     "color": "D",
+     "count": 17
+    },
+    {
+     "color": "D",
+     "count": 16,
+     "group": "A"
     },
     {
      "color": "Y",
-     "count": 2
+     "count": 10
     },
     {
-     "color": "C",
-     "count": 41
-    },
-    {
-     "color": "C",
-     "count": 41
-    },
-    {
-     "color": "C",
-     "count": 41
-    },
-    {
-     "color": "C",
-     "count": 40,
-     "group": "A"
-    },
-    {
-     "color": "A",
-     "count": 24
-    },
-    {
-     "color": "A",
-     "count": 24
-    },
-    {
-     "color": "A",
-     "count": 23
-    },
-    {
-     "color": "M",
-     "count": 25
-    },
-    {
-     "color": "M",
-     "count": 25
-    },
-    {
-     "color": "M",
-     "count": 24
-    },
-    {
-     "color": "G",
-     "count": 44
-    },
-    {
-     "color": "G",
-     "count": 43
-    },
-    {
-     "color": "G",
-     "count": 43,
-     "group": "A"
+     "color": "Y",
+     "count": 10
     }
    ],
    "tray": [
     [
-     9,
-     8,
-     5,
+     18,
+     10,
+     33,
+     29,
+     7,
+     32,
+     12,
      11,
-     19,
      1
     ],
     [
-     23,
-     13,
-     4,
+     31,
+     27,
      16,
      22,
-     21
-    ],
-    [
-     17,
-     6,
-     7,
-     3,
-     15,
-     0
-    ],
-    [
-     14,
-     10,
-     12,
      20,
-     2,
-     18
+     13,
+     14,
+     3
+    ],
+    [
+     30,
+     9,
+     8,
+     26,
+     15,
+     24,
+     5,
+     2
+    ],
+    [
+     28,
+     17,
+     21,
+     23,
+     25,
+     6,
+     4,
+     19,
+     0
     ]
    ],
-   "difficulty": "Normal",
-   "latches": [
-    {
-     "column": 2,
-     "depth": 3,
-     "key": 792
-    }
-   ]
+   "difficulty": "Normal"
   }
  ],
  "lessons": {
@@ -2432,28 +2612,22 @@
    "D",
    "Земля собирает Twig. Фуксия собирает Bloom. Румянец собирает Bloom. Это отдельные материалы: команда собирает только свой точный цвет. Этот уровень сложнее: подумай, какие команды отправить раньше и где оставить место. Ретрай бесплатный."
   ],
-  "107": [
-   "Новый цвет: Мох",
-   "sprig",
-   "M",
-   "Мох собирает Sprig. Это отдельные материалы: команда собирает только свой точный цвет."
-  ],
-  "115": [
+  "113": [
    "Новый цвет: Снег",
    "drop",
    "W",
    "Снег собирает Drop. Это отдельные материалы: команда собирает только свой точный цвет."
   ],
-  "140": [
-   "Первый Super Hard",
-   "twig",
-   "E",
-   "Самый трудный тип уровня: очередь и места нужно планировать заранее. Ретрай бесплатный."
+  "120": [
+   "Новый цвет: Мох",
+   "sprig",
+   "M",
+   "Мох собирает Sprig. Это отдельные материалы: команда собирает только свой точный цвет. Самый трудный тип уровня: очередь и места нужно планировать заранее. Ретрай бесплатный."
   ]
  },
  "lessonTags": {
   "105": "ПЕРВЫЙ HARD",
-  "140": "ПЕРВЫЙ SUPER HARD"
+  "120": "ПЕРВЫЙ SUPER HARD"
  },
  "cards": [
   {
@@ -2523,28 +2697,6 @@
    "draft": false
   },
   {
-   "level": 107,
-   "bridgeKind": null,
-   "bridgeSide": null,
-   "overlay": true,
-   "gap": false,
-   "cls": "Normal",
-   "intro": null,
-   "picture": "P1004",
-   "recipe": "canal+links",
-   "N": 982,
-   "colours": 9,
-   "P": 27,
-   "columns": 3,
-   "linked": 2,
-   "hidden": 0,
-   "random": 0.525,
-   "runs": 400,
-   "borderline": true,
-   "seconds": 746.6,
-   "draft": false
-  },
-  {
    "level": 108,
    "bridgeKind": null,
    "bridgeSide": null,
@@ -2568,27 +2720,49 @@
    "draft": false
   },
   {
-   "level": 115,
+   "level": 113,
    "bridgeKind": null,
    "bridgeSide": null,
    "overlay": true,
    "gap": false,
-   "cls": "Hard",
+   "cls": "Normal",
    "intro": null,
-   "picture": "P0318",
-   "recipe": "links+latch+cells",
-   "N": 1223,
+   "picture": "P0349",
+   "recipe": "canal+cells",
+   "N": 886,
+   "colours": 10,
+   "P": 26,
+   "columns": 3,
+   "linked": 0,
+   "hidden": 0,
+   "cells": 45,
+   "random": 0.595,
+   "runs": 400,
+   "borderline": false,
+   "seconds": 406.4,
+   "draft": false
+  },
+  {
+   "level": 120,
+   "bridgeKind": null,
+   "bridgeSide": null,
+   "overlay": true,
+   "gap": false,
+   "cls": "Super Hard",
+   "intro": null,
+   "picture": "P0050",
+   "recipe": "links+latch+hidden",
+   "N": 1108,
    "colours": 10,
    "P": 30,
    "columns": 5,
-   "linked": 8,
-   "hidden": 0,
-   "cells": 62,
+   "linked": 12,
+   "hidden": 2,
    "latches": 3,
-   "random": 0.248,
+   "random": 0.09,
    "runs": 400,
    "borderline": false,
-   "seconds": 562.2,
+   "seconds": 523.8,
    "draft": false
   },
   {
@@ -2659,6 +2833,28 @@
    "draft": false
   },
   {
+   "level": 125,
+   "bridgeKind": null,
+   "bridgeSide": null,
+   "overlay": false,
+   "gap": false,
+   "cls": "Hard",
+   "intro": null,
+   "picture": "P1152",
+   "recipe": "links+shutters",
+   "N": 689,
+   "colours": 8,
+   "P": 20,
+   "columns": 3,
+   "linked": 4,
+   "hidden": 0,
+   "random": 0.273,
+   "runs": 400,
+   "borderline": false,
+   "seconds": 345.8,
+   "draft": false
+  },
+  {
    "level": 140,
    "bridgeKind": null,
    "bridgeSide": null,
@@ -2682,26 +2878,25 @@
    "draft": false
   },
   {
-   "level": 148,
+   "level": 143,
    "bridgeKind": null,
    "bridgeSide": null,
-   "overlay": true,
+   "overlay": false,
    "gap": false,
    "cls": "Normal",
    "intro": null,
-   "picture": "P0074",
-   "recipe": "canal+links+latch",
-   "N": 893,
-   "colours": 7,
-   "P": 24,
+   "picture": "P0233",
+   "recipe": "shutters+links",
+   "N": 1224,
+   "colours": 10,
+   "P": 34,
    "columns": 4,
    "linked": 2,
    "hidden": 0,
-   "latches": 1,
-   "random": 0.61,
+   "random": 0.62,
    "runs": 100,
    "borderline": false,
-   "seconds": 405.8,
+   "seconds": 602.4,
    "draft": false
   }
  ],
@@ -2709,13 +2904,12 @@
   "101": [],
   "103": [],
   "105": [],
-  "107": [],
-  "115": [],
-  "140": [],
-  "148": []
+  "113": [],
+  "120": [],
+  "140": []
  },
  "gap": {},
- "hash": "6ca1e20ec54a42fb107bcf1d8b1d36a358605980409e731db9028979fb88246c",
+ "hash": "a548af28695399441ebb041bf5feb3c1e5d9085e3016c23db94044430587c421",
  "rulesHash": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
  "timelineHash": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
  "paletteHash": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",

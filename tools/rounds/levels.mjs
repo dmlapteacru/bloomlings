@@ -857,7 +857,7 @@ async function place(from,to){const placed={};for(const f of fs.existsSync(LEVEL
   // Normal after the introductions: a mechanic in two of three (17 §7); a third may go without when the last two had one
   const lastRegular=Object.values(placed).filter(L=>L.level<n&&L.cls==='Normal'&&!L.intro&&slotOf(L.level).allowed.length).sort((a,b)=>b.level-a.level).slice(0,2);
   const needMech=!plan&&slot.cls==='Normal'&&!slot.intro&&slot.allowed.length>0&&!(lastRegular.length===2&&lastRegular.every(L=>(L.recipe||'none')!=='none'));
-  const regularSlot=slot.cls==='Normal'&&n>3&&!slot.intro&&!(placed[n-1]&&placed[n-1].cls!=='Normal');
+  const regularSlot=slot.cls==='Normal'&&n>3&&!slot.intro&&!(placed[n-1]&&placed[n-1].cls!=='Normal')&&!(!placed[n-1]&&n>1&&classOf(n-1)!=='Normal');
   // a breather (17 §5 «Передышка», 2026-11-02): a Normal on a picture up to BREATHER_N cells or a position the plan marks
   // breather; its zone 75–90 %, zero or one light mechanic (the plan's, or one plain link pair in its place) without a trap
   // link, only the mandatory checks
@@ -907,7 +907,8 @@ async function place(from,to){const placed={};for(const f of fs.existsSync(LEVEL
   // Normal: the first after a Hard or Super Hard 75–95 %; otherwise steered so the median of the regular Normals stays 50–60 %
   // the median of §5 over any 20 consecutive levels (wave.mjs medianPenalty): a regular Normal is weighed by how far it moves
   // the windows of the wave that hold it out of 50–60 %, and aims at the middle of the zone itself
-  const afterHard=prev[0]&&prev[0].cls!=='Normal',wr=waveRange(n),regW=Object.values(placed).filter(L=>regularNormal(L,placed)&&L.level>=wr[0]&&L.level<=wr[1]);
+  // a hand position before it (a Super Hard built later, 17 §13) counts by the calendar
+  const afterHard=prev[0]?prev[0].cls!=='Normal':(n>1&&!placed[n-1]&&classOf(n-1)!=='Normal'),wr=waveRange(n),regW=Object.values(placed).filter(L=>regularNormal(L,placed)&&L.level>=wr[0]&&L.level<=wr[1]);
   const high=Object.values(placed).filter(L=>regularNormal(L,placed)&&L.level>n-10&&L.random.share>=.95).length;
   const medPen=c=>regularSlot&&!brOf(c)?medianPenalty(n,c.random.share,regW.map(L=>({level:L.level,share:L.random.share})),wr):0;
   const zone=slot.cls==='Normal'?(afterHard?[.75,.95]:[.5,.65]):slot.cls==='Hard'?[.25,.4]:[.07,.15];

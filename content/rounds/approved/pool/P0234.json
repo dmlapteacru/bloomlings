@@ -1,7 +1,7 @@
 {
  "code": "P0234",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0139",
  "version": 1,
  "title": "Утка-детектив с лупой",
  "theme": "Смешные и абсурдные герои",

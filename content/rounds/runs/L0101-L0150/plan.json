@@ -3,7 +3,7 @@
   101,
   150
  ],
- "created": "2026-11-05T19:04:42.559Z",
+ "created": "2026-11-05T19:05:10.865Z",
  "positions": [
   {
    "level": 101,
@@ -2221,17 +2221,20 @@
    "intro": null,
    "recipe": "links+latch+hidden",
    "slot": "Super Hard",
-   "picture": "P0212",
-   "title": "Поросёнок-строитель с кирпичом",
-   "N": 900,
+   "picture": "P0050",
+   "title": "Слонёнок с лейкой",
+   "N": 1120,
    "band": "800–1200",
-   "pack": "batch-0168-C",
+   "pack": "batch-0011-env",
    "hidden": 7,
-   "P": 27,
+   "P": 30,
    "tried": [
     "P0399",
-    "P0349"
-   ]
+    "P0349",
+    "P0212"
+   ],
+   "swappedFrom": "P0212",
+   "swaps": 1
   },
   {
    "level": 121,

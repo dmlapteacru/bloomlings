@@ -877,7 +877,8 @@
    "colours": 9,
    "status": "approved",
    "batch": "batch-0011-env",
-   "note": null
+   "note": null,
+   "usedBy": "L0120"
   },
   {
    "id": "P0051",
@@ -4133,7 +4134,7 @@
    "status": "approved",
    "batch": "batch-0168-D",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0139"
   },
   {
    "id": "P0235",
@@ -6198,7 +6199,7 @@
    "status": "approved",
    "batch": "packs-0268-0467",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0113"
   },
   {
    "id": "P0350",
@@ -7022,7 +7023,7 @@
    "status": "approved",
    "batch": "packs-0268-0467",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0144"
   },
   {
    "id": "P0396",
@@ -13235,7 +13236,7 @@
    "status": "approved",
    "batch": "packs-1083-1182",
    "note": null,
-   "usedBy": null
+   "usedBy": "L0134"
   },
   {
    "id": "P1103",

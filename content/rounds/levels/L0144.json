@@ -1,0 +1,577 @@
+{
+ "level": 144,
+ "cls": "Normal",
+ "intro": null,
+ "gen": "2026-11-05",
+ "picture": "P0395",
+ "candidate": "P0395-Ncanal+cells-g1105-2",
+ "recipe": "canal+cells",
+ "N": 895,
+ "W": 895,
+ "colours": 9,
+ "P": 26,
+ "columns": 3,
+ "linked": 0,
+ "hidden": 0,
+ "cells": 45,
+ "random": {
+  "runs": 100,
+  "wins": 64,
+  "share": 0.64,
+  "wilson95": [
+   0.542,
+   0.727
+  ],
+  "cls": "Normal",
+  "borderline": false,
+  "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+  "seedBase": 1
+ },
+ "solution": {
+  "route": [
+   {
+    "type": "tap",
+    "pod": 22
+   },
+   {
+    "type": "tap",
+    "pod": 4
+   },
+   {
+    "type": "tap",
+    "pod": 7
+   },
+   {
+    "type": "tap",
+    "pod": 18
+   },
+   {
+    "type": "tap",
+    "pod": 9
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 25
+   },
+   {
+    "type": "tap",
+    "pod": 23
+   },
+   {
+    "type": "tap",
+    "pod": 12
+   },
+   {
+    "type": "tap",
+    "pod": 21
+   },
+   {
+    "type": "tap",
+    "pod": 17
+   },
+   {
+    "type": "tap",
+    "pod": 19
+   },
+   {
+    "type": "tap",
+    "pod": 10
+   },
+   {
+    "type": "tap",
+    "pod": 2
+   },
+   {
+    "type": "tap",
+    "pod": 13
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 0
+   },
+   {
+    "type": "channel",
+    "exit": 0
+   },
+   {
+    "type": "tap",
+    "pod": 20
+   },
+   {
+    "type": "tap",
+    "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 16
+   },
+   {
+    "type": "tap",
+    "pod": 11
+   },
+   {
+    "type": "tap",
+    "pod": 14
+   },
+   {
+    "type": "tap",
+    "pod": 3
+   },
+   {
+    "type": "tap",
+    "pod": 24
+   },
+   {
+    "type": "tap",
+    "pod": 15
+   }
+  ],
+  "forks": 4,
+  "singleSafe": 2,
+  "unknown": 0,
+  "fast": {
+   "status": "won",
+   "seconds": 118.7
+  }
+ },
+ "fairness": {
+  "checked": 12,
+  "unfair": 0,
+  "unknown": 0,
+  "fair": true,
+  "note": "перестановки материалов двух скрытых клеток разного цвета"
+ },
+ "strategies": {
+  "left-to-right|left": false,
+  "left-to-right|right": false,
+  "right-to-left|left": false,
+  "right-to-left|right": false,
+  "top-down|left": true,
+  "top-down|right": true,
+  "bottom-up|left": false,
+  "bottom-up|right": false,
+  "diagonal|left": false,
+  "diagonal|right": false,
+  "small-first|left": false,
+  "small-first|right": false,
+  "most-now|left": true,
+  "most-now|right": true,
+  "fast-release|left": true,
+  "fast-release|right": true
+ },
+ "rhythm": {
+  "segments": [
+   {
+    "from": 0,
+    "to": 20,
+    "meanFree": 1.94,
+    "minFree": 0,
+    "fullShare": 0.15,
+    "maxWaiting": 4
+   },
+   {
+    "from": 20,
+    "to": 40,
+    "meanFree": 3.33,
+    "minFree": 1,
+    "fullShare": 0,
+    "maxWaiting": 2
+   },
+   {
+    "from": 40,
+    "to": 60,
+    "meanFree": 4.33,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   },
+   {
+    "from": 60,
+    "to": 80,
+    "meanFree": 4.27,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   },
+   {
+    "from": 80,
+    "to": 100,
+    "meanFree": 4.41,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   }
+  ],
+  "launchesAfter80": 5,
+  "lastLaunchAtW": 97,
+  "seconds": 398.5
+ },
+ "dosePos": 0.4,
+ "checks": {
+  "forced": 0.1,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": false,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.52,
+   "tight": 0.92
+  },
+  "calm": {
+   "runs": 400,
+   "wins": 238,
+   "share": 0.595,
+   "wilson95": [
+    0.546,
+    0.642
+   ],
+   "borderline": false,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 0,
+   "traps": 0,
+   "top": 0
+  },
+  "channel": {
+   "each": [
+    {
+     "exit": 0,
+     "win": true,
+     "share": 0.67
+    },
+    {
+     "exit": 1,
+     "win": true,
+     "share": 0.65
+    }
+   ],
+   "gap": 0.02,
+   "decides": false,
+   "better": 0
+  }
+ },
+ "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+ "definition": {
+  "id": 144,
+  "title": "Гамак между гигантскими карандашами",
+  "subject": "P0395",
+  "w": 34,
+  "h": 34,
+  "rowsBottomFirst": [
+   "#################.################",
+   "#................................#",
+   "#.MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.#",
+   "#.MMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.#",
+   "#.MEEEEEEMMMMMMEEEEMMMMMEEEEEMMM.#",
+   "#.MRRRRREMMMMMPPPPPPMMMEBBBBBEMM.#",
+   "#.SRRRRREMMPPPPPPPPPPEEEBBBBBEMS.#",
+   "#.SRRRRREEPPPPPPPPPPPPPEBBBBBESS.#",
+   "#.SRRRRREEPPPPPPPPPPPPPEBBBBBESS.#",
+   "#.SRRRRREEPPPPPPPPPPPPPPBBBBBESS.#",
+   "#.SRRRRREPPPPPPPPPPPPPP.BBBBBESS.#",
+   "#.SRRRRREPPPPYYYYYYYPPPPPBBBBESS.#",
+   "#.SRRRRRPPPYYYYPPPPYYYPPPBBBBESS.#",
+   "#.SRRRRPPPYYYPPPPPPPPYYPPPBBBESS.#",
+   "#.SRRRRPPYYYYEEEEEEEPPYYPPEBBESS.#",
+   "#.SRRRRPYYYSSSSSSSSSSPYYYPEBBESS.#",
+   "#.SRRREPPPSSSSSSSSSSSSEEPPEBBESS.#",
+   "#.SRRREPPSSSSSSSSSSSSSSEEPEBBESS.#",
+   "#.SRRREEESSSSSSSSSSSSSSEBEEBBESS.#",
+   "#.SRRREEESSSSSSSSSSSSSSEBBEBBESS.#",
+   "#.SRRRRRESSSSSSSSSSSSSSEBBBBBESS.#",
+   "#.SRRRRRESSSSSSSSSSSSSSEBBBBBESS.#",
+   "#.SRRRRRESSSSSSSSSSSSSSEBBBBBESS.#",
+   "#.SRRRRRESSSSSSSSSSSSSSEBBBBBESS.#",
+   "#.SRRRRRE.SSSSSSSSSSSSSEBBBBBESS.#",
+   "#.SECCCCESSSSSSSSSSSSSSSCCCCCESS.#",
+   "#.SECCCCSSSSSSSSSSSSSSSSCCCCESSS.#",
+   "#.SECCCSSSSSSSSSS.SSSSSSCCCCESSS.#",
+   "#.SSSNNSSSSSSSSSSSSSSSSSSENNESSS.#",
+   "#.SSSNNSSSSSSSSSSSSSSSSSSENSSSSS.#",
+   "#.SSSNESSSSSSSSSSSSSSSSSSENSSSSS.#",
+   "#..SSEESSSSSSSSSSSSSSSSSSSSSSSS..#",
+   "#................................#",
+   "##################################"
+  ],
+  "entries": [
+   17
+  ],
+  "capacity": 5,
+  "pods": [
+   {
+    "color": "S",
+    "count": 59
+   },
+   {
+    "color": "S",
+    "count": 58
+   },
+   {
+    "color": "S",
+    "count": 58
+   },
+   {
+    "color": "S",
+    "count": 58
+   },
+   {
+    "color": "S",
+    "count": 58
+   },
+   {
+    "color": "S",
+    "count": 58
+   },
+   {
+    "color": "E",
+    "count": 35
+   },
+   {
+    "color": "E",
+    "count": 34
+   },
+   {
+    "color": "E",
+    "count": 34
+   },
+   {
+    "color": "N",
+    "count": 9
+   },
+   {
+    "color": "C",
+    "count": 12
+   },
+   {
+    "color": "C",
+    "count": 12
+   },
+   {
+    "color": "R",
+    "count": 30
+   },
+   {
+    "color": "R",
+    "count": 30
+   },
+   {
+    "color": "R",
+    "count": 29
+   },
+   {
+    "color": "B",
+    "count": 27
+   },
+   {
+    "color": "B",
+    "count": 27
+   },
+   {
+    "color": "B",
+    "count": 27
+   },
+   {
+    "color": "P",
+    "count": 40
+   },
+   {
+    "color": "P",
+    "count": 40
+   },
+   {
+    "color": "P",
+    "count": 40
+   },
+   {
+    "color": "Y",
+    "count": 16
+   },
+   {
+    "color": "Y",
+    "count": 15
+   },
+   {
+    "color": "M",
+    "count": 30
+   },
+   {
+    "color": "M",
+    "count": 30
+   },
+   {
+    "color": "M",
+    "count": 29
+   }
+  ],
+  "tray": [
+   [
+    22,
+    4,
+    7,
+    18,
+    9,
+    6,
+    25,
+    23,
+    12
+   ],
+   [
+    5,
+    21,
+    17,
+    19,
+    10,
+    2,
+    13,
+    1,
+    0
+   ],
+   [
+    20,
+    8,
+    16,
+    11,
+    14,
+    3,
+    24,
+    15
+   ]
+  ],
+  "recipe": "canal+cells",
+  "overlay": {
+   "walls": [],
+   "sites": [],
+   "keys": [
+    [
+     15,
+     4
+    ],
+    [
+     7,
+     7
+    ],
+    [
+     21,
+     21
+    ]
+   ]
+  },
+  "channel": {
+   "spring": 935,
+   "exits": [
+    {
+     "cell": 825,
+     "route": [
+      935,
+      934,
+      933,
+      932,
+      931,
+      930,
+      929,
+      928,
+      927,
+      893,
+      859,
+      825
+     ],
+     "rideUs": 660000
+    },
+    {
+     "cell": 363,
+     "route": [
+      935,
+      936,
+      937,
+      938,
+      939,
+      940,
+      941,
+      907,
+      873,
+      839,
+      805,
+      771,
+      737,
+      703,
+      669,
+      635,
+      601,
+      567,
+      533,
+      499,
+      465,
+      431,
+      397,
+      363
+     ],
+     "rideUs": 1380000
+    }
+   ]
+  },
+  "hiddenCells": [
+   356,
+   357,
+   358,
+   390,
+   391,
+   392,
+   424,
+   425,
+   426,
+   458,
+   459,
+   460,
+   492,
+   493,
+   494,
+   591,
+   592,
+   593,
+   594,
+   595,
+   625,
+   626,
+   627,
+   628,
+   629,
+   659,
+   660,
+   661,
+   662,
+   663,
+   767,
+   768,
+   769,
+   770,
+   801,
+   802,
+   803,
+   804,
+   835,
+   836,
+   837,
+   838,
+   870,
+   871,
+   872
+  ],
+  "difficulty": "Normal"
+ }
+}

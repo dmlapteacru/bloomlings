@@ -1,7 +1,7 @@
 {
  "code": "P1102",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0134",
  "version": 1,
  "title": "Щит с большим клевером",
  "theme": "100 простых читаемых картинок — 2026-11-02",

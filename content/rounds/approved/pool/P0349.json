@@ -1,7 +1,7 @@
 {
  "code": "P0349",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0113",
  "version": 1,
  "title": "Прилавок запахов",
  "theme": "Необычные магазины",
