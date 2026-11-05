@@ -289,17 +289,22 @@ const ovCache=new Map();const overlayOf=(p,side)=>{const k=p.id+'|'+side;if(!ovC
 // placement chooses among old and new candidates. Resumable: a recorded level not yet placed stays held; one placed after
 // its rebuild is marked done and left alone.
 const lostOf=L=>{const s=L.strategies||{};return !s['most-now|left']&&!s['most-now|right'];};
+const REBUILD_TAKES=3;
 function rebuildStep(a,b,step){const dir=waveDir(a,b),f=path.join(dir,'rebuild.json'),reb=readJSON(f,{tag:GEN,levels:[]}),placed=placedLevels(),wp=mechanicsPlans().find(p=>p.wave[0]===a&&p.wave[1]===b),v=String(arg('--rebuild'));
  const info=L=>{const p=picture(L.picture);return {family:(p&&p.family)||null,motifs:p?motifsOf(p):[],colours:p?measure(p).colours:0};};
  let S;if(v==='auto'){const lv=Object.values(placed).filter(L=>L.level>=a&&L.level<=b).map(L=>({level:L.level,cls:L.cls,intro:!!L.intro,breather:!!L.breather,zoneMiss:!!L.zoneMiss,regular:regularAt(L.level,placed),share:L.random.share,lost:lostOf(L),recipe:L.recipe||'none',gen:L.gen||null,hand:!!L.hand,pinned:!!(wp&&(wp.pin||[]).includes(L.picture)),...info(L)}));
   // the levels a rebuild already took back and not yet placed count as sent back: at the aim and losing «по цветам»
   for(const x of reb.levels)if(x.tag===GEN&&!x.done&&!placed[x.level]&&x.level>=a&&x.level<=b)lv.push({level:x.level,cls:classOf(x.level),intro:false,breather:false,regular:regularAt(x.level,placed)&&!(((wp&&wp.levels)||[]).find(l=>l.level===x.level)||{}).breather,share:MEDIAN.aim,lost:true,recipe:'none',gen:GEN,hand:false,pinned:false,family:null,motifs:[],colours:0});
   const context=Object.values(placed).filter(L=>L.level>=a-20&&L.level<a).map(L=>({level:L.level,...info(L)})),planMap=new Map(((wp&&wp.levels)||[]).map(l=>[l.level,{recipe:l.recipe,breather:!!l.breather}]));
-  // (a level a rebuild placed is left alone, unless it was placed as a regular Normal outside its tuning zone: a fallback)
-  S=rebuildSet(lv,{from:a,to:b,context,plan:planMap,done:new Set(reb.levels.filter(x=>x.done&&x.tag===GEN&&!(x.to&&regularAt(x.level,placed)&&!(x.to.share>=REGULAR_ZONE[0]&&x.to.share<=REGULAR_ZONE[1]))).map(x=>x.level))});}
+  // (a level a rebuild placed is left alone, unless it was placed as a regular Normal outside its tuning zone: a fallback,
+  // or the placement put its old candidate back (nothing new fitted): taken again, with the next seed, at most REBUILD_TAKES
+  // times in a generator revision)
+  const again=x=>x.to&&x.from&&x.to.candidate===x.from.candidate&&(x.takes||1)<REBUILD_TAKES;
+  S=rebuildSet(lv,{from:a,to:b,context,plan:planMap,done:new Set(reb.levels.filter(x=>x.done&&x.tag===GEN&&!again(x)&&!(x.to&&regularAt(x.level,placed)&&!(x.to.share>=REGULAR_ZONE[0]&&x.to.share<=REGULAR_ZONE[1]))).map(x=>x.level))});}
  else S=v.split(',').map(Number).filter(n=>n>=a&&n<=b).map(n=>({level:n,why:['по списку'],reassign:false}));
- const take=[];for(const x of S){const L=placed[x.level],old=reb.levels.find(y=>y.level===x.level&&y.tag===GEN);if(old&&old.done&&v!=='auto')continue;if(old)old.done=false;
-  const e={level:x.level,tag:GEN,why:x.why,reassign:!!x.reassign,at:new Date().toISOString().slice(0,10),...(L?{from:{picture:L.picture,candidate:L.candidate,share:L.random.share,recipe:L.recipe}}:{})};
+ const take=[];for(const x of S){const L=placed[x.level],old=reb.levels.find(y=>y.level===x.level&&y.tag===GEN);if(old&&old.done&&v!=='auto')continue;const wasDone=!!(old&&old.done);if(old)old.done=false;
+  // (takes: how often this generator revision took the level back; the build searches it afresh with seed 1 + takes)
+  const e={level:x.level,tag:GEN,why:x.why,reassign:!!x.reassign,at:new Date().toISOString().slice(0,10),takes:old?(old.takes||1)+(wasDone?1:0):1,...(L?{from:{picture:L.picture,candidate:L.candidate,share:L.random.share,recipe:L.recipe}}:{})};
   if(old)Object.assign(old,e,{from:old.from||e.from});else reb.levels.push(e);if(L)take.push(x.level);}
  reb.tag=GEN;reb.levels.sort((u,v)=>u.level-v.level);writeJSON(f,reb);
  for(const n of take)execFileSync(NODE,[path.join(HERE,'levels.mjs'),'unplace',String(n),String(n)],{cwd:root,env:process.env,stdio:'ignore'});
@@ -394,11 +399,15 @@ async function runWave(a,b){const dir=waveDir(a,b),jobs=+arg('--jobs',Math.max(1
 const PF_MIN={regular:8,wantLoss:10,'after-hard':6,breather:4,intro:6,Hard:15,'Super Hard':15};
 async function buildPictureFirst(a,b,p,dir,jobs,step,needs){const open=new Set(needs.map(x=>x.level)),limit=+arg('--limit',0),swaps=+arg('--swaps',2),placed=placedLevels();
  let todo=p.assign.filter(x=>open.has(x.level));if(limit)todo=todo.slice(0,limit);
+ // a position the rebuild took back (rebuild.json, not yet placed again) searches afresh with the next seed: the bank
+ // remembers the combination as searched, and the same seed would give the same candidates (wave L101–L150, 2026-11-05:
+ // the rebuilt L128 was skipped as «уже искали» and placed with its old candidate)
+ const takes=new Map((readJSON(path.join(dir,'rebuild.json'),{levels:[]}).levels||[]).filter(x=>!x.done&&x.tag===GEN).map(x=>[x.level,x.takes||1]));
  step('сначала картинка: сборка по позициям',{positions:todo.map(x=>`L${x.level} ${x.picture}`),hand:p.hand||[],jobs});
  const inBank=x=>{const bk=readJSON(path.join(BANK,x.picture+'.json'),{candidates:[]});return bk.candidates.filter(c=>c.cls===x.cls&&c.recipe===x.recipe&&!!c.intro===!!x.intro&&(c.inZone||c.inZone===undefined)).length;};
  // (an accent colour does not count in the §2 window of 10+ colour pictures, the owner, 2026-11-02: the accents keep the
  // stage's palette of 10 and the runner no longer lowers it)
- const one=async x=>{const t0=Date.now(),args=[path.join(HERE,'levels.mjs'),'build',x.picture,'--classes',x.cls,'--recipes',x.recipe,'--pairs',`${x.cls}:${x.recipe}`,'--slot',x.slot,'--want','1',...(x.wantLoss?['--want-loss']:[]),...(x.pinRetry?['--fresh','--seed','2']:[]),
+ const one=async x=>{const t0=Date.now(),args=[path.join(HERE,'levels.mjs'),'build',x.picture,'--classes',x.cls,'--recipes',x.recipe,'--pairs',`${x.cls}:${x.recipe}`,'--slot',x.slot,'--want','1',...(x.wantLoss?['--want-loss']:[]),...(x.pinRetry?['--fresh','--seed','2']:takes.has(x.level)?['--fresh','--seed',String(1+takes.get(x.level)+(x.swaps||0))]:[]),
    '--minutes',String(arg('--minutes')||(x.wantLoss&&x.slot==='regular'?PF_MIN.wantLoss:PF_MIN[x.slot])||8),x.intro?'--intro':'--no-intro','--candidates',arg('--candidates','64')];
   const r=await run1(args);fs.appendFileSync(path.join(dir,'build',x.picture+'.log'),r.out);const m=/@@tune (.*)/.exec(r.out),res=m?JSON.parse(m[1]):null;
   return {level:x.level,picture:x.picture,cls:x.cls,slot:x.slot,recipe:x.recipe,seconds:Math.round((Date.now()-t0)/1000),accepted:res?res.accepted:inBank(x),attempts:res?.attempts??null,quick:res?.quick??null,evaluated:res?.evaluated??null,first:res?.first??null,share:res?.share??null,skipped:!res,reasons:res?res.reasons:null};};

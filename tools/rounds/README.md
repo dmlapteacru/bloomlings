@@ -119,7 +119,7 @@ breathers and a picture-first wave. `levels.mjs build` runs it for every non-bri
   planned wave one free picture (`plan.json` `assign`, the table «Картинки волны»; `wave.mjs assignPictures`): the size
   mix per 50 (30 × 800–1200, 10 × 700–900, 5 × 400–700, 5 × 1200–1500, scaled), each free position the band furthest
   behind its even share and never three of one band in a row, pins on their reserved positions, breathers the small
-  band (the smallest pictures up to ~550 cells first), Hard and Super Hard pictures with 3+ colours hidden at the start
+  band (pictures up to ~550 cells, 3–4 colours hidden at the start and the larger first), Hard and Super Hard pictures with 3+ colours hidden at the start
   (more first), a regular Normal 2–4 colours hidden at the start (a weaker picture stays near 100 % with any queue), a
   two-type recipe 16+ pods (§7; `reservePins` checks this too), latch recipes key holes and pods enough for a latch's
   depth and the pods behind it (`latchFits`). Hard rules, never relaxed (the owner, 2026-11-02; shared by the planner, the
@@ -147,13 +147,19 @@ breathers and a picture-first wave. `levels.mjs build` runs it for every non-bri
 - **The rebuild of a built wave** (`rounds.mjs run … --rebuild auto | 59,62,…`, the owner's decisions of 2026-11-02):
   `wave.mjs rebuildSet` picks the placed levels the rules no longer accept: picture repeats and the 10+ window (the later,
   cheaper level of a clash, on another picture: `reassign`; never a pin or a hand level), breathers out of 75–90 % or off
-  their light recipe, regular Normals while a 20-level window's median is out of 50–60 % (the furthest share first, a
-  level sent back counted at the aim), then while «по цветам» is short (a level sent back counted as losing it). Levels
-  built under the current `GEN` stay, and so does a level a rebuild already placed, unless it went in as a regular Normal
-  outside its tuning zone (a fallback); a breather already at one plain link pair or its nearest layout stays. Each is taken off (`levels.mjs unplace`: the old candidate stays in the bank as a
-  fallback) and recorded in `runs/<wave>/rebuild.json` (why, from, later to); the dry placement holds them open
-  (`ROUNDS_HOLD_OPEN`), so they are built again, and the placement chooses among old and new candidates. Resumable: a
-  recorded level not yet placed stays held, one placed again is `done`.
+  their light recipe, regular Normals while a 20-level window's median is out of 50–60 % (the furthest share first, one
+  «по цветам» already loses counted 5 points lower; a level sent back counted at the aim), then while «по цветам» is
+  short (a level sent back counted as losing it). Levels built under the current `GEN` keep their pictures and recipes
+  (repeats, the colour window, a breather's recipe), but the sequence rules take them too (2026-11-05: a wave built
+  wholly under the current `GEN` could otherwise never be fixed). A level a rebuild already placed stays, unless it went
+  in as a regular Normal outside its tuning zone (a fallback) or the placement put its old candidate back (taken again,
+  at most 3 takes per `GEN`, `REBUILD_TAKES`); a breather left out of 75–90 % at one plain link pair or its nearest
+  layout goes to another small picture (`reassign`; the planner's breather prefers 3–4 colours hidden at the start and
+  the larger of the small pictures, as the breathers that landed in L51–L100). Each is taken off (`levels.mjs unplace`:
+  the old candidate stays in the bank as a fallback) and recorded in `runs/<wave>/rebuild.json` (why, from, later to,
+  `takes`); the dry placement holds them open (`ROUNDS_HOLD_OPEN`), so they are built again, searched afresh
+  (`--fresh --seed 1+takes`: the bank remembers the combination as searched), and the placement chooses among old and
+  new candidates. Resumable: a recorded level not yet placed stays held, one placed again is `done`.
   Run it again after a pass to take what is still out (each pass is short: only the levels sent back are built).
 - **Temporary copies**: the dry placement copies `content/rounds` without `approved/`, `daily-2027/` and the runs' logs,
   skips the publish there (`ROUNDS_NO_PUBLISH`) and deletes the copy in a `finally`; every test sandbox deletes itself

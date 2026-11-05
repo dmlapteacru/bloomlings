@@ -85,18 +85,23 @@ export function greedyQuota(regs,from,to){return [[4,24,1/3],[25,1e9,1/2]].map((
 // Which placed levels of a wave the owner's decisions of 2026-11-02 send back to the generator (rounds.mjs run --rebuild
 // auto). levels: [{level, cls, intro, breather, regular, share, lost, recipe, gen, hand, pinned, family, motifs, colours}]
 // of the wave (colours: the picture's own); context: [{level, family, motifs, colours}] of the levels before the wave;
-// plan: level → {recipe, breather}; done: levels a rebuild already placed (left alone). A level built under GEN, a hand
-// level and (for the repeat and colour rules) a pinned picture stay. In this order:
+// plan: level → {recipe, breather}; done: levels a rebuild already placed (left alone). A hand level stays; a level built
+// under GEN stays for the repeat, colour and breather-recipe rules (the planner kept them when it was built), but not for
+// the sequence rules, which only the wave as a whole can break (a freshly built wave would otherwise never be fixed; the
+// rebuild searches it afresh with a new seed, rounds.mjs); a pinned picture stays for the repeat and colour rules. In this
+// order:
 //  1. picture repeats (family or motif twice a wave, 10 levels apart) and the 10+ colour window: the later, cheaper level of
 //     a clash is rebuilt on another picture (reassign; Normal before Hard before Super Hard);
-//  2. breathers out of 75–90 %, with a recipe off the plan, or with two mechanics;
-//  3. regular Normals while a 20-level window's median is out of 50–60 % (the furthest share first; a rebuilt level counts
-//     at the tuning's aim);
+//  2. breathers out of 75–90 %, with a recipe off the plan, or with two mechanics; a breather left at its last fallback
+//     (one plain link pair or the generator's nearest layout) out of the zone goes to another small picture (reassign:
+//     its picture stays above the zone with any queue);
+//  3. regular Normals while a 20-level window's median is out of 50–60 % (the furthest share first, above the range one
+//     «по цветам» already loses counted 5 points lower, so the quota keeps it; a rebuilt level counts at the tuning's aim);
 //  4. regular Normals while «по цветам» loses fewer than about every second from L25 (a rebuilt level counts as one that
 //     loses: it is built with --want-loss), those «по цветам» wins with the share furthest from the aim first.
 // Returns [{level, why, reassign}].
 export function rebuildSet(levels,{from,to,context=[],plan=new Map(),done=new Set()}={}){const S=new Map(),by=new Map(levels.map(L=>[L.level,L]));
- const free=L=>L&&!L.hand&&L.gen!==GEN&&!done.has(L.level),add=(L,why,reassign=false)=>{const x=S.get(L.level);if(x){x.why.push(why);x.reassign=x.reassign||reassign;}else S.set(L.level,{level:L.level,why:[why],reassign});};
+ const free=L=>L&&!L.hand&&L.gen!==GEN&&!done.has(L.level),open=L=>L&&!L.hand&&!done.has(L.level),add=(L,why,reassign=false)=>{const x=S.get(L.level);if(x){x.why.push(why);x.reassign=x.reassign||reassign;}else S.set(L.level,{level:L.level,why:[why],reassign});};
  const cost=L=>(L.cls==='Normal'?0:L.cls==='Hard'?10:20)+(L.breather?1:0)-L.level/1000;
  // 1. repeats and the colour window, against the levels before the wave and the wave's levels not yet sent back
  for(let guard=0;guard<200;guard++){let hit=null;const live=[...context,...levels.filter(L=>!(S.get(L.level)||{}).reassign)];
@@ -106,19 +111,23 @@ export function rebuildSet(levels,{from,to,context=[],plan=new Map(),done=new Se
     if(free(L)&&!L.pinned)ws.push(L);if(ws.length){hit={L:ws.sort((u,v)=>cost(u)-cost(v))[0],why:'третья картинка на 10+ цветов в 20 уровнях (§2)'};break;}}}
   if(!hit)break;add(hit.L,hit.why,true);}
  // 2. breathers
- // (a breather already at its last fallback, one plain link pair or the generator's nearest layout, stays)
- for(const L of levels){if(!L.breather||!free(L)||L.zoneMiss||L.recipe==='links')continue;const pl=plan.get(L.level)||{},why=[];
-  if(!(L.share>=BREATHER_ZONE[0]-1e-9&&L.share<=BREATHER_ZONE[1]+1e-9))why.push(`передышка ${Math.round(L.share*100)} % вне 75–90 %`);
+ // (a breather already at its last fallback, one plain link pair or the generator's nearest layout, out of the zone: its
+ // picture cannot reach the zone, so another small picture; in the zone it stays)
+ const inBreather=L=>L.share>=BREATHER_ZONE[0]-1e-9&&L.share<=BREATHER_ZONE[1]+1e-9;
+ for(const L of levels){if(!L.breather||!open(L)||S.has(L.level))continue;
+  if(L.zoneMiss||L.recipe==='links'){if(!inBreather(L)&&!L.pinned)add(L,`передышка ${Math.round(L.share*100)} % вне 75–90 % и на последнем запасном ходе (${L.zoneMiss?'ближайшая раскладка':'одна связка'}): другая картинка`,true);continue;}
+  if(!free(L))continue;const pl=plan.get(L.level)||{},why=[];
+  if(!inBreather(L))why.push(`передышка ${Math.round(L.share*100)} % вне 75–90 %`);
   if(!breatherRecipeOk(L.recipe,pl.recipe??null))why.push(`передышка: рецепт ${L.recipe}, по плану ${pl.recipe??'—'}`);
   for(const w of why)add(L,w);}
  // 3. the median windows (a level sent back counts at the aim)
  const regs=()=>levels.filter(L=>L.regular).map(L=>({level:L.level,share:S.has(L.level)?MEDIAN.aim:L.share}));
  for(let guard=0;guard<100;guard++){const bad=medianWindows(regs(),from,to).find(w=>w.out);if(!bad)break;const high=bad.median>MEDIAN.hi;
-  const pick=levels.filter(L=>L.regular&&!S.has(L.level)&&free(L)&&L.level>=bad.from&&L.level<=bad.to&&(high?L.share>MEDIAN.hi:L.share<MEDIAN.lo)).sort((u,v)=>high?v.share-u.share:u.share-v.share)[0];
+  const pick=levels.filter(L=>L.regular&&!S.has(L.level)&&open(L)&&L.level>=bad.from&&L.level<=bad.to&&(high?L.share>MEDIAN.hi:L.share<MEDIAN.lo)).sort((u,v)=>high?(v.share-(v.lost?.05:0))-(u.share-(u.lost?.05:0)):u.share-v.share)[0];
   if(!pick)break;add(pick,`медиана L${bad.from}–L${bad.to} ${Math.round(bad.median*100)} % вне 50–60 % (бот ${Math.round(pick.share*100)} %)`);}
  // 4. the «по цветам» quota (a level sent back is built to lose it)
  for(let guard=0;guard<100;guard++){const q=greedyQuota(levels.filter(L=>L.regular).map(L=>({level:L.level,lost:S.has(L.level)||L.lost})),from,to).find(x=>x.lost<x.target);if(!q)break;
-  const pick=levels.filter(L=>L.regular&&!S.has(L.level)&&free(L)&&!L.lost&&L.level>=q.from&&L.level<=q.to).sort((u,v)=>Math.abs(v.share-MEDIAN.aim)-Math.abs(u.share-MEDIAN.aim))[0];
+  const pick=levels.filter(L=>L.regular&&!S.has(L.level)&&open(L)&&!L.lost&&L.level>=q.from&&L.level<=q.to).sort((u,v)=>Math.abs(v.share-MEDIAN.aim)-Math.abs(u.share-MEDIAN.aim))[0];
   if(!pick)break;add(pick,`«по цветам» проигрывает ${q.lost} из ${q.count} (нужно около ${q.target})`);}
  return [...S.values()].sort((u,v)=>u.level-v.level);}
 
@@ -188,8 +197,11 @@ export function assignPictures(positions,pool,{pinned=new Map(),before=[],picOf=
   // any queue, so it prefers 2–4 hidden; the first Normal after a Hard (75–95 %), a breather and an introduction the weaker
   // a regular Normal with a water channel (the trial run of wave L101–L150, 2026-11-05): the chosen exit opens a second
   // entry deep in the picture, so a picture with 2–3 colours hidden stays above the zone with any queue; it prefers 4+
-  const fit=p=>q.canal&&q.cls==='Normal'&&!q.intro&&!q.breather?(p.hidden<4?(4-p.hidden)*.6:0)-p.hidden*.05:q.cls!=='Normal'?-p.hidden:q.intro||q.breather||q.after?(p.hidden>=3?.5:0):p.hidden<2?(2-p.hidden)*.4:p.hidden>4?(p.hidden-4)*.2:0;
-  const score=p=>fit(p)+(q.intro?(p.weak?-.3:0):0)+(q.breather?(p.N<=BREATHER_N?p.N/2000:1+p.N/2000):q.cls==='Normal'&&!q.intro&&p.N<=BREATHER_N?1:0)+.12*(packUse[p.pack]||0)+hash(p.id,q.level+seed)*.05;
+  // a breather (75–90 %; wave L101–L150, 2026-11-05): the smallest pictures with 1–2 colours hidden stayed at 100 % with any
+  // queue and a link pair, while the breathers that landed (L59, L62, L72, L86) had ~380–550 cells and mostly 3–4 hidden:
+  // it prefers 3–4 colours hidden at the start and the larger of the small pictures
+  const fit=p=>q.canal&&q.cls==='Normal'&&!q.intro&&!q.breather?(p.hidden<4?(4-p.hidden)*.6:0)-p.hidden*.05:q.cls!=='Normal'?-p.hidden:q.breather?(p.hidden<3?(3-p.hidden)*.4:p.hidden>4?(p.hidden-4)*.2:0):q.intro||q.after?(p.hidden>=3?.5:0):p.hidden<2?(2-p.hidden)*.4:p.hidden>4?(p.hidden-4)*.2:0;
+  const score=p=>fit(p)+(q.intro?(p.weak?-.3:0):0)+(q.breather?(p.N<=BREATHER_N?(BREATHER_N-p.N)/2000:1+p.N/2000):q.cls==='Normal'&&!q.intro&&p.N<=BREATHER_N?1:0)+.12*(packUse[p.pack]||0)+hash(p.id,q.level+seed)*.05;
   const p=cand.sort((a,b)=>score(a)-score(b))[0];out.set(q.level,{level:q.level,picture:p.id,band,N:p.N,...(relaxed.length?{relaxed}:{})});used.add(p.id);at.set(q.level,p.id);packUse[p.pack]=(packUse[p.pack]||0)+1;}
  return {assign:positions.filter(q=>out.has(q.level)).map(q=>out.get(q.level)),missing,quota};}
 

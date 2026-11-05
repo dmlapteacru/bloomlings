@@ -147,4 +147,9 @@ test('the rebuild of a built wave: repeats on another picture, breathers out of 
  assert.ok(at(54)&&at(54).reassign,'L46 and L54 one family 8 apart: L54 on another picture');assert.ok(at(59)&&at(59).why.length===2,'the breather: out of the zone and off its plan recipe');
  const kept=lv.filter(x=>x.regular&&!at(x.level)).map(x=>({level:x.level,share:x.share})),sent=S.filter(x=>lv.find(y=>y.level===x.level).regular).map(x=>({level:x.level,share:W.MEDIAN.aim}));
  assert.ok(W.medianWindows([...kept,...sent],51,100).every(w=>!w.out),'the median windows come into range when the levels sent back land at the aim');
- assert.equal(W.rebuildSet(lv.map(x=>({...x,gen:W.GEN})),{from:51,to:100}).length,0,'levels built under this generator stay');});
+ const g=W.rebuildSet(lv.map(x=>({...x,gen:W.GEN})),{from:51,to:100,context:[{level:46,family:'veg',motifs:[],colours:7}],plan:new Map([[59,{recipe:'hidden',breather:true}]])});
+ assert.ok(!g.some(x=>x.reassign),'levels built under this generator keep their pictures (repeats, colour window)');assert.ok(!g.some(x=>x.level===59),'a breather of this generator keeps its recipe');
+ assert.ok(g.some(x=>x.why.some(w=>w.startsWith('медиана'))),'the sequence rules take regular Normals of this generator too');
+ const all=new Set(lv.map(x=>x.level));assert.equal(W.rebuildSet(lv.map(x=>({...x,gen:W.GEN})),{from:51,to:100,done:all}).length,0,'levels a rebuild already placed stay');
+ const zm=lv.map(x=>({...x,gen:W.GEN,...(x.level===59?{zoneMiss:true,recipe:'hidden'}:{})}));const b=W.rebuildSet(zm,{from:51,to:100,plan:new Map([[59,{recipe:'hidden',breather:true}]])}).find(x=>x.level===59);
+ assert.ok(b&&b.reassign,'a breather left out of the zone at its nearest layout goes to another picture');});
