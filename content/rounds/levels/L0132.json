@@ -147,7 +147,7 @@
   "lastLaunchAtW": 97,
   "seconds": 173.7
  },
- "dosePos": null,
+ "dosePos": 0.5,
  "checks": {
   "breather": true,
   "forced": 0.14,

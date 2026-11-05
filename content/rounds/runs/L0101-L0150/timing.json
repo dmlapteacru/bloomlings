@@ -1,80 +1,23 @@
 [
  {
-  "level": 109,
-  "picture": "P0373",
-  "cls": "Normal",
-  "slot": "breather",
-  "recipe": "cells",
-  "seconds": 2,
-  "accepted": 1,
-  "attempts": 1,
-  "quick": 6,
-  "evaluated": 1,
-  "first": 2,
-  "share": 0.77,
-  "skipped": false,
-  "reasons": {},
-  "seq": 0
- },
- {
-  "level": 118,
-  "picture": "P0054",
-  "cls": "Normal",
-  "slot": "regular",
-  "recipe": "links+cells",
-  "seconds": 27,
-  "accepted": 1,
-  "attempts": 2,
-  "quick": 12,
-  "evaluated": 2,
-  "first": 27,
-  "share": 0.563,
-  "skipped": false,
-  "reasons": {
-   "вне зоны позиции (проходит фильтры)": 1
-  },
-  "seq": 3
- },
- {
-  "level": 119,
-  "picture": "P0220",
-  "cls": "Normal",
-  "slot": "breather",
-  "recipe": "hidden",
-  "seconds": 6,
-  "accepted": 1,
-  "attempts": 6,
-  "quick": 15,
-  "evaluated": 6,
-  "first": 6,
-  "share": 0.84,
-  "skipped": false,
-  "reasons": {
-   "вне зоны позиции (проходит фильтры)": 5,
-   "передышка: одна обычная связка вместо скрытых (доля выше зоны)": 1
-  },
-  "seq": 1
- },
- {
   "level": 132,
   "picture": "P0384",
   "cls": "Normal",
   "slot": "breather",
   "recipe": "cells",
-  "seconds": 7,
+  "seconds": 6,
   "accepted": 1,
-  "attempts": 4,
-  "quick": 20,
-  "evaluated": 3,
-  "first": 2,
+  "attempts": 3,
+  "quick": 15,
+  "evaluated": 2,
+  "first": 3,
   "share": 1,
   "skipped": false,
   "reasons": {
-   "передышка: одна обычная связка вместо скрытых (доля выше зоны)": 1,
-   "вне зоны позиции (проходит фильтры)": 3,
+   "вне зоны позиции (проходит фильтры)": 2,
    "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
   },
-  "seq": 2
+  "seq": 0
  },
  {
   "level": 134,
@@ -82,18 +25,20 @@
   "cls": "Normal",
   "slot": "regular",
   "recipe": "canal+hidden",
-  "seconds": 67,
-  "accepted": 4,
-  "attempts": 6,
-  "quick": 33,
-  "evaluated": 4,
-  "first": 21,
-  "share": 0.65,
+  "seconds": 182,
+  "accepted": 6,
+  "attempts": 16,
+  "quick": 65,
+  "evaluated": 13,
+  "first": 31,
+  "share": 0.535,
   "skipped": false,
   "reasons": {
-   "быстрая оценка вне зоны после поправок": 2
+   "evaluate: жадная стратегия выигрывает измеренный класс (§5)": 1,
+   "вне зоны позиции (проходит фильтры)": 6,
+   "быстрая оценка вне зоны после поправок": 3
   },
-  "seq": 5
+  "seq": 4
  },
  {
   "level": 138,
@@ -101,20 +46,22 @@
   "cls": "Normal",
   "slot": "regular",
   "recipe": "links+hidden",
-  "seconds": 30,
-  "accepted": 2,
-  "attempts": 6,
-  "quick": 27,
-  "evaluated": 5,
-  "first": 17,
-  "share": 0.62,
+  "seconds": 72,
+  "accepted": 6,
+  "attempts": 14,
+  "quick": 45,
+  "evaluated": 11,
+  "first": 6,
+  "share": 0.555,
   "skipped": false,
   "reasons": {
-   "расстановка: класс Hard": 1,
-   "evaluate: жадная стратегия выигрывает измеренный класс (§5)": 2,
-   "быстрая оценка вне зоны после поправок": 1
+   "вне зоны позиции (проходит фильтры)": 2,
+   "расстановка: спокойная игра: Normal выигрывается в 41 % (не меньше 50 %, §5)": 1,
+   "расстановка: нет пода, держащего место (§6)": 1,
+   "расстановка: спокойная игра: Normal выигрывается в 32 % (не меньше 50 %, §5)": 1,
+   "быстрая оценка вне зоны после поправок": 3
   },
-  "seq": 4
+  "seq": 1
  },
  {
   "level": 139,
@@ -122,63 +69,64 @@
   "cls": "Normal",
   "slot": "regular",
   "recipe": "canal+links",
-  "seconds": 272,
-  "accepted": 4,
+  "seconds": 258,
+  "accepted": 6,
   "attempts": 18,
-  "quick": 74,
+  "quick": 69,
   "evaluated": 14,
-  "first": 46,
-  "share": 0.6,
+  "first": 25,
+  "share": 0.61,
   "skipped": false,
   "reasons": {
-   "evaluate: жадная стратегия выигрывает измеренный класс (§5)": 1,
-   "вне зоны позиции (проходит фильтры)": 4,
-   "расстановка: спокойная игра: Normal выигрывается в 32 % (не меньше 50 %, §5)": 1,
-   "расстановка: спокойная игра: Normal выигрывается в 20 % (не меньше 50 %, §5)": 1,
+   "вне зоны позиции (проходит фильтры)": 2,
+   "evaluate: жадная стратегия выигрывает измеренный класс (§5)": 4,
    "быстрая оценка вне зоны после поправок": 4,
-   "расстановка: спокойная игра: Normal выигрывается в 40 % (не меньше 50 %, §5)": 1,
-   "расстановка: спокойная игра: Normal выигрывается в 39 % (не меньше 50 %, §5)": 1,
-   "расстановка: спокойная игра: Normal выигрывается в 38 % (не меньше 50 %, §5)": 1
+   "evaluate: дозы не подходят фактическому классу: связанных 2 вне 4–4 для Hard": 1,
+   "расстановка: спокойная игра: Normal выигрывается в 32 % (не меньше 50 %, §5)": 1
   },
-  "seq": 8
+  "seq": 5
  },
  {
-  "level": 144,
-  "picture": "P0395",
+  "level": 142,
+  "picture": "P0099",
   "cls": "Normal",
   "slot": "regular",
-  "recipe": "canal+cells",
-  "seconds": 78,
-  "accepted": 4,
-  "attempts": 4,
-  "quick": 4,
-  "evaluated": 4,
-  "first": 24,
-  "share": 0.56,
+  "recipe": "latch+links+hidden",
+  "seconds": 88,
+  "accepted": 6,
+  "attempts": 18,
+  "quick": 74,
+  "evaluated": 15,
+  "first": 8,
+  "share": 0.525,
   "skipped": false,
-  "reasons": {},
-  "seq": 7
+  "reasons": {
+   "evaluate: жадная стратегия выигрывает измеренный класс (§5)": 3,
+   "вне зоны позиции (проходит фильтры)": 2,
+   "evaluate: нет связки-ловушки: у каждой связки материалы открыты с самого начала (§8)": 1,
+   "evaluate: дебют + цвета: выигрывает после первого запуска (§5)": 2,
+   "evaluate: засов: засов 1 (колонка 4): открылся при 89 % W на сохранённом решении, нужно до 80 % (§8)": 1,
+   "быстрая оценка вне зоны после поправок": 3
+  },
+  "seq": 2
  },
  {
   "level": 147,
-  "picture": "P0267",
+  "picture": "P0037",
   "cls": "Normal",
   "slot": "breather",
   "recipe": "hidden",
-  "seconds": 6,
+  "seconds": 3,
   "accepted": 1,
-  "attempts": 6,
-  "quick": 30,
+  "attempts": 3,
+  "quick": 18,
   "evaluated": 3,
-  "first": 2,
-  "share": 0.98,
+  "first": 3,
+  "share": 0.78,
   "skipped": false,
   "reasons": {
-   "передышка: одна обычная связка вместо скрытых (доля выше зоны)": 1,
-   "вне зоны позиции (проходит фильтры)": 3,
-   "связки: каждая следующая пара поднимает вынужденные решения выше 35 % (§5)": 2,
-   "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
+   "вне зоны позиции (проходит фильтры)": 2
   },
-  "seq": 6
+  "seq": 3
  }
 ]

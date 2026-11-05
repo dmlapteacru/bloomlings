@@ -1,7 +1,7 @@
 {
  "code": "P0037",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0147",
  "version": 1,
  "title": "Медальон",
  "theme": "batch-0011",

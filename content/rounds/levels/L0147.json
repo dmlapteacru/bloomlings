@@ -3,25 +3,24 @@
  "cls": "Normal",
  "intro": null,
  "breather": true,
- "zoneMiss": true,
  "gen": "2026-11-05",
- "picture": "P0267",
- "candidate": "P0267-Nhidden-g1105-br-0",
+ "picture": "P0037",
+ "candidate": "P0037-Nhidden-g1105-br-s3-2",
  "recipe": "hidden",
- "N": 314,
- "W": 314,
- "colours": 4,
- "P": 9,
+ "N": 330,
+ "W": 330,
+ "colours": 5,
+ "P": 12,
  "columns": 3,
  "linked": 0,
  "hidden": 2,
  "random": {
   "runs": 100,
-  "wins": 98,
-  "share": 0.98,
+  "wins": 78,
+  "share": 0.78,
   "wilson95": [
-   0.93,
-   0.994
+   0.689,
+   0.85
   ],
   "cls": "Normal",
   "borderline": false,
@@ -32,15 +31,15 @@
   "route": [
    {
     "type": "tap",
-    "pod": 5
+    "pod": 6
    },
    {
     "type": "tap",
-    "pod": 4
+    "pod": 11
    },
    {
     "type": "tap",
-    "pod": 8
+    "pod": 2
    },
    {
     "type": "tap",
@@ -48,15 +47,11 @@
    },
    {
     "type": "tap",
-    "pod": 7
+    "pod": 8
    },
    {
     "type": "tap",
-    "pod": 1
-   },
-   {
-    "type": "tap",
-    "pod": 6
+    "pod": 4
    },
    {
     "type": "tap",
@@ -64,7 +59,23 @@
    },
    {
     "type": "tap",
-    "pod": 2
+    "pod": 10
+   },
+   {
+    "type": "tap",
+    "pod": 9
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 7
    }
   ],
   "forks": 0,
@@ -72,7 +83,7 @@
   "unknown": 0,
   "fast": {
    "status": "won",
-   "seconds": 36.3
+   "seconds": 35.2
   }
  },
  "fairness": {
@@ -88,31 +99,31 @@
    {
     "from": 0,
     "to": 20,
-    "meanFree": 1,
-    "minFree": 1,
-    "fullShare": 0,
-    "maxWaiting": 3
-   },
-   {
-    "from": 20,
-    "to": 40,
-    "meanFree": 1.52,
-    "minFree": 1,
+    "meanFree": 3.23,
+    "minFree": 3,
     "fullShare": 0,
     "maxWaiting": 1
    },
    {
+    "from": 20,
+    "to": 40,
+    "meanFree": 2.85,
+    "minFree": 2,
+    "fullShare": 0,
+    "maxWaiting": 2
+   },
+   {
     "from": 40,
     "to": 60,
-    "meanFree": 4.23,
-    "minFree": 4,
+    "meanFree": 4.16,
+    "minFree": 2,
     "fullShare": 0,
-    "maxWaiting": 0
+    "maxWaiting": 1
    },
    {
     "from": 60,
     "to": 80,
-    "meanFree": 4.34,
+    "meanFree": 4.16,
     "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
@@ -120,20 +131,20 @@
    {
     "from": 80,
     "to": 100,
-    "meanFree": 4.35,
+    "meanFree": 4.4,
     "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
    }
   ],
-  "launchesAfter80": 1,
-  "lastLaunchAtW": 82,
-  "seconds": 89.6
+  "launchesAfter80": 2,
+  "lastLaunchAtW": 95,
+  "seconds": 133.9
  },
  "dosePos": null,
  "checks": {
   "breather": true,
-  "forced": 0.19,
+  "forced": 0.1,
   "opening": null,
   "hold": null,
   "greedyLoses": null,
@@ -141,8 +152,8 @@
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 0.72,
-   "tight": 0.65
+   "stuck": 1.08,
+   "tight": 0.73
   },
   "traps": {
    "links": 0,
@@ -153,35 +164,39 @@
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
  "definition": {
   "id": 147,
-  "title": "Bloom с подозрительным прищуром",
-  "subject": "P0267",
+  "title": "Медальон",
+  "subject": "P0037",
   "w": 24,
-  "h": 26,
+  "h": 30,
   "rowsBottomFirst": [
    "############.###########",
    "#......................#",
-   "#.........RRRR.........#",
-   "#........RRRRRR........#",
-   "#.......RRRRRRRR.......#",
-   "#.......RRRRRRRR.......#",
-   "#..RRRRRRKKKKKKRRRRRR..#",
-   "#..RRRRRKKKKKKKKRRRRR..#",
-   "#.RRRRRKKKKKDDDDKRRRRR.#",
-   "#.RRRRKKKKKKKKKKKKRRRR.#",
-   "#.RRRRKKKKKKKKKKKKRRRR.#",
-   "#..RRKKKKKKKKKKKKKKRR..#",
-   "#...RKKDDDDKKDDDDKKRR..#",
-   "#..RRKKKKKKKKKKKKKKRR..#",
-   "#..RRRKDDDDKKKKKKKRRR..#",
-   "#.RRRRKKKKKKKDDDDKRRRR.#",
-   "#.RRRRRKKKKKKKKKKRRRRR.#",
-   "#.RRRRRRKYYYYYYKRRRRRR.#",
-   "#..RRRRRRYYYYYYRRRRRR..#",
-   "#...RRRRRRYYYYRRRRRRR..#",
-   "#.......RRRYYRRR.......#",
-   "#.......RRRRRRRR.......#",
-   "#........RRRRRR........#",
-   "#.........RRRR.........#",
+   "#.NN.NN..........NN.NN.#",
+   "#.NN.NN..........NN.NN.#",
+   "#..NNNNN........NNNNN..#",
+   "#..NNNNN........NNNNN..#",
+   "#...NNNNN......NNNNN...#",
+   "#...NNNNNOOOOOONNNNN...#",
+   "#....NNOOOOOOOOOONN....#",
+   "#....NOOOYYYYYYOOON....#",
+   "#....OOOYYYYYYYYOOO....#",
+   "#...OOOYYYYYYYYYYOOO...#",
+   "#...OOYYYYYRRYYYYYOO...#",
+   "#..OOYYYYYRRRRYYYYYOO..#",
+   "#..OOYYYYRRRRRRYYYYOO..#",
+   "#..OOYYYRRRRRRRRYYYOO..#",
+   "#..OOYYYRRRRRRRRYYYOO..#",
+   "#..OOYYYYRCCRRRYYYYOO..#",
+   "#..OOYYYYYRCRRYYYYYOO..#",
+   "#...OOYYYYYRRYYYYYOO...#",
+   "#...OOOYYYYYYYYYYOOO...#",
+   "#....OOOYYYYYYYYOOO....#",
+   "#.....OOOYYYYYYOOO.....#",
+   "#......OOOOOOOOOO......#",
+   "#........OOOOOO........#",
+   "#........OO..OO........#",
+   "#........OO..OO........#",
+   "#.........OOOO.........#",
    "#......................#",
    "########################"
   ],
@@ -191,59 +206,74 @@
   "capacity": 5,
   "pods": [
    {
-    "color": "R",
-    "count": 57
-   },
-   {
-    "color": "R",
-    "count": 57,
+    "color": "O",
+    "count": 38,
     "mystery": "depth"
    },
    {
-    "color": "R",
-    "count": 56
+    "color": "O",
+    "count": 37
+   },
+   {
+    "color": "O",
+    "count": 37
    },
    {
     "color": "Y",
-    "count": 18
+    "count": 39
    },
    {
-    "color": "K",
-    "count": 36
-   },
-   {
-    "color": "K",
-    "count": 35
-   },
-   {
-    "color": "K",
-    "count": 35
-   },
-   {
-    "color": "D",
-    "count": 10,
+    "color": "Y",
+    "count": 39,
     "mystery": "depth"
    },
    {
-    "color": "D",
-    "count": 10
+    "color": "Y",
+    "count": 38
+   },
+   {
+    "color": "R",
+    "count": 19
+   },
+   {
+    "color": "R",
+    "count": 18
+   },
+   {
+    "color": "C",
+    "count": 3
+   },
+   {
+    "color": "N",
+    "count": 21
+   },
+   {
+    "color": "N",
+    "count": 21
+   },
+   {
+    "color": "N",
+    "count": 20
    }
   ],
   "tray": [
    [
-    5,
-    4,
-    8
-   ],
-   [
-    0,
-    7,
-    1
-   ],
-   [
     6,
+    11,
+    2,
+    0
+   ],
+   [
+    8,
+    4,
     3,
-    2
+    10
+   ],
+   [
+    9,
+    5,
+    1,
+    7
    ]
   ],
   "recipe": "hidden",

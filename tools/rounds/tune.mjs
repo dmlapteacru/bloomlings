@@ -187,8 +187,12 @@ export async function tuneJob({pic,cls,recipe,slot=null,intro=false,channelKind=
   // (wantLoss keeps going for a level "most work now" loses, up to six accepted; a loser whose class is borderline by
   // Wilson does not stop it: the placer takes a borderline level last, and the losers of «по цветам» sit low in the zone)
   if(accepted.length>=want&&(!wantLoss||accepted.length>=Math.max(want,6)||accepted.some(x=>x.e.checks.greedyLoses&&!x.e.random.borderline)))break;
-  stats.attempts++;const cs=columnsFor(m.N),cols=mem.cols&&cs.includes(mem.cols)&&k%3!==2?mem.cols:cs[k%cs.length],cseed=seed*1000003+k*7919+['Normal','Hard','Super Hard'].indexOf(cls)*31+(intro?17:0);
-  const pos=recipe==='none'||intro||breather?null:trapMode?1:LV.DOSE_CYCLE[k%LV.DOSE_CYCLE.length],rc=recipe;
+  // (wantLoss with links, wave L101–L150, 2026-11-05: every regular Normal that "most work now" lost had its links at the
+  // top of the dose range, most on 4 columns, so every second attempt takes the top dose place and 4 columns where the
+  // size allows; the placer weighs the dose place softly, §7)
+  const lossTry=wantLoss&&!breather&&!intro&&types.includes('links')&&k%2===0;
+  stats.attempts++;const cs=columnsFor(m.N),cols=lossTry&&cs.includes(4)?4:mem.cols&&cs.includes(mem.cols)&&k%3!==2?mem.cols:cs[k%cs.length],cseed=seed*1000003+k*7919+['Normal','Hard','Super Hard'].indexOf(cls)*31+(intro?17:0);
+  const pos=recipe==='none'||intro||breather?null:trapMode||lossTry?1:LV.DOSE_CYCLE[k%LV.DOSE_CYCLE.length],rc=recipe;
   // accents (17 §6), as levels.mjs build: this attempt paints 1–2 accent materials (the level's recolouring); never on a breather
   let av=breather?null:LV.accentVariant(pic,overlay,m,null,cls,intro,k,accentMode,cseed,no,maxColours);
   // (an accent never under a shutter: it must be seen to read as the reason its pod waits; the board keeps the job's objects)

@@ -98,7 +98,8 @@ export function greedyQuota(regs,from,to){return [[4,24,1/3],[25,1e9,1/2]].map((
 //  3. regular Normals while a 20-level window's median is out of 50–60 % (the furthest share first, above the range one
 //     «по цветам» already loses counted 5 points lower, so the quota keeps it; a rebuilt level counts at the tuning's aim);
 //  4. regular Normals while «по цветам» loses fewer than about every second from L25 (a rebuilt level counts as one that
-//     loses: it is built with --want-loss), those «по цветам» wins with the share furthest from the aim first.
+//     loses: it is built with --want-loss), those «по цветам» wins with links first (it almost never loses a level
+//     without), then the share furthest from the aim.
 // Returns [{level, why, reassign}].
 export function rebuildSet(levels,{from,to,context=[],plan=new Map(),done=new Set()}={}){const S=new Map(),by=new Map(levels.map(L=>[L.level,L]));
  const free=L=>L&&!L.hand&&L.gen!==GEN&&!done.has(L.level),open=L=>L&&!L.hand&&!done.has(L.level),add=(L,why,reassign=false)=>{const x=S.get(L.level);if(x){x.why.push(why);x.reassign=x.reassign||reassign;}else S.set(L.level,{level:L.level,why:[why],reassign});};
@@ -127,7 +128,9 @@ export function rebuildSet(levels,{from,to,context=[],plan=new Map(),done=new Se
   if(!pick)break;add(pick,`медиана L${bad.from}–L${bad.to} ${Math.round(bad.median*100)} % вне 50–60 % (бот ${Math.round(pick.share*100)} %)`);}
  // 4. the «по цветам» quota (a level sent back is built to lose it)
  for(let guard=0;guard<100;guard++){const q=greedyQuota(levels.filter(L=>L.regular).map(L=>({level:L.level,lost:S.has(L.level)||L.lost})),from,to).find(x=>x.lost<x.target);if(!q)break;
-  const pick=levels.filter(L=>L.regular&&!S.has(L.level)&&open(L)&&!L.lost&&L.level>=q.from&&L.level<=q.to).sort((u,v)=>Math.abs(v.share-MEDIAN.aim)-Math.abs(u.share-MEDIAN.aim))[0];
+  // (a recipe with links first: of the regular Normals L21–L150 «по цветам» lost, all but one had links)
+  const lk=L=>(L.recipe||'').split('+').includes('links')?0:1;
+  const pick=levels.filter(L=>L.regular&&!S.has(L.level)&&open(L)&&!L.lost&&L.level>=q.from&&L.level<=q.to).sort((u,v)=>lk(u)-lk(v)||Math.abs(v.share-MEDIAN.aim)-Math.abs(u.share-MEDIAN.aim))[0];
   if(!pick)break;add(pick,`«по цветам» проигрывает ${q.lost} из ${q.count} (нужно около ${q.target})`);}
  return [...S.values()].sort((u,v)=>u.level-v.level);}
 

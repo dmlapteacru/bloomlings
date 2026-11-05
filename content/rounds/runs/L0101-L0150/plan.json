@@ -3,7 +3,7 @@
   101,
   150
  ],
- "created": "2026-11-05T19:48:57.619Z",
+ "created": "2026-11-05T20:00:37.548Z",
  "positions": [
   {
    "level": 101,
@@ -225,8 +225,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0373"
   },
   {
    "level": 110,
@@ -459,8 +459,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0054"
   },
   {
    "level": 119,
@@ -485,8 +485,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0220"
   },
   {
    "level": 120,
@@ -1092,8 +1092,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0099"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 143,
@@ -1146,8 +1146,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0395"
   },
   {
    "level": 145,
@@ -1313,16 +1313,13 @@
   }
  ],
  "open": [
-  109,
   110,
-  118,
-  119,
   130,
   132,
   134,
   138,
   139,
-  144,
+  142,
   147,
   150
  ],
@@ -1871,41 +1868,41 @@
   "sides": {}
  },
  "need": {
-  "Normal": 9,
+  "Normal": 6,
   "Hard": 0,
   "Super Hard": 3,
   "intro": 0,
   "bridge": 0
  },
  "supply": {
-  "pictures": 476,
-  "strong": 170,
+  "pictures": 473,
+  "strong": 167,
   "stream": 0,
   "bank": {
-   "знакомство: hidden": 26,
-   "Normal": 359,
+   "знакомство: hidden": 24,
+   "Normal": 369,
    "знакомство: cells": 14,
-   "знакомство: links": 22,
+   "знакомство: links": 20,
    "знакомство: latch": 2,
-   "Hard": 24,
-   "Super Hard": 12
+   "Hard": 25,
+   "Super Hard": 11
   },
   "packs": {
    "owner-0004-0008": 1,
    "owner-0010": 1,
    "batch-0011-env": 5,
-   "batch-0011": 20,
-   "batch-0061": 23,
-   "batch-0168-C": 18,
+   "batch-0011": 19,
+   "batch-0061": 24,
+   "batch-0168-C": 17,
    "batch-0168-D": 15,
    "batch-0168-E": 1,
    "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01": 40,
    "packs-0268-0467 · Необычные магазины": 6,
    "packs-0268-0467 · Музыка": 7,
    "packs-0268-0467 · Праздники и карнавал": 7,
-   "packs-0268-0467 · Доисторические находки": 8,
+   "packs-0268-0467 · Доисторические находки": 7,
    "packs-0268-0467 · Невозможная архитектура": 8,
-   "packs-0268-0467 · Путешествия и походы": 9,
+   "packs-0268-0467 · Путешествия и походы": 8,
    "packs-0268-0467 · Обмен свойствами предметов": 9,
    "packs-0268-0467 · Уютная мистика": 8,
    "packs-0268-0467 · Миниатюрные мастерские": 8,
@@ -1916,9 +1913,10 @@
   },
   "latch": {
    "positions": [
+    142,
     150
    ],
-   "pictures": 191
+   "pictures": 426
   },
   "overlay": {}
  },
@@ -2071,7 +2069,8 @@
    "P": 12,
    "tried": [
     "P0063"
-   ]
+   ],
+   "placed": true
   },
   {
    "level": 111,
@@ -2203,7 +2202,8 @@
    "pack": "batch-0011",
    "hidden": 4,
    "P": 24,
-   "wantLoss": true
+   "wantLoss": true,
+   "placed": true
   },
   {
    "level": 119,
@@ -2220,7 +2220,8 @@
    "P": 13,
    "tried": [
     "P0243"
-   ]
+   ],
+   "placed": true
   },
   {
    "level": 120,
@@ -2419,10 +2420,7 @@
    "band": "400–700",
    "pack": "packs-0268-0467 · Невозможная архитектура",
    "hidden": 3,
-   "P": 13,
-   "tried": [
-    "P0408"
-   ]
+   "P": 13
   },
   {
    "level": 133,
@@ -2591,8 +2589,7 @@
    "pack": "batch-0061",
    "hidden": 4,
    "P": 30,
-   "wantLoss": true,
-   "placed": true
+   "wantLoss": true
   },
   {
    "level": 143,
@@ -2622,7 +2619,8 @@
    "pack": "packs-0268-0467 · Путешествия и походы",
    "hidden": 6,
    "P": 26,
-   "wantLoss": true
+   "wantLoss": true,
+   "placed": true
   },
   {
    "level": 145,
@@ -2665,15 +2663,16 @@
    "intro": null,
    "recipe": "hidden",
    "slot": "breather",
-   "picture": "P0267",
-   "title": "Bloom с подозрительным прищуром",
-   "N": 314,
+   "picture": "P0037",
+   "title": "Медальон",
+   "N": 330,
    "band": "400–700",
-   "pack": "batch-0168-E",
+   "pack": "batch-0011",
    "hidden": 3,
-   "P": 9,
+   "P": 12,
    "tried": [
-    "P1113"
+    "P1113",
+    "P0267"
    ]
   },
   {
@@ -2710,10 +2709,10 @@
  ],
  "assignMissing": [],
  "assignQuota": {
-  "800–1200": 5,
-  "700–900": 2,
+  "800–1200": 4,
+  "700–900": 1,
   "400–700": 1,
-  "1200–1500": 1
+  "1200–1500": 0
  },
  "hand": [
   110,
@@ -2733,7 +2732,7 @@
   },
   "strips": [],
   "scenes": [],
-  "sceneSources": 161,
+  "sceneSources": 158,
   "splits": [],
   "avoidMotifs": [
    "ретро-техника (10)",

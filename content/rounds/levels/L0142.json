@@ -4,7 +4,7 @@
  "intro": null,
  "gen": "2026-11-05",
  "picture": "P0099",
- "candidate": "P0099-Nlatch+links+hidden-g1105-a-7",
+ "candidate": "P0099-Nlatch+links+hidden-g1105-a-s2-7",
  "recipe": "latch+links+hidden",
  "N": 1084,
  "W": 1084,
@@ -16,11 +16,11 @@
  "latches": 1,
  "random": {
   "runs": 100,
-  "wins": 61,
-  "share": 0.61,
+  "wins": 60,
+  "share": 0.6,
   "wilson95": [
-   0.512,
-   0.7
+   0.502,
+   0.691
   ],
   "cls": "Normal",
   "borderline": false,
@@ -31,15 +31,7 @@
   "route": [
    {
     "type": "tap",
-    "pod": 13
-   },
-   {
-    "type": "tap",
-    "pod": 27
-   },
-   {
-    "type": "tap",
-    "pod": 8
+    "pod": 9
    },
    {
     "type": "tap",
@@ -47,19 +39,11 @@
    },
    {
     "type": "tap",
-    "pod": 2
+    "pod": 6
    },
    {
     "type": "tap",
-    "pod": 23
-   },
-   {
-    "type": "tap",
-    "pod": 24
-   },
-   {
-    "type": "tap",
-    "pod": 10
+    "pod": 8
    },
    {
     "type": "tap",
@@ -67,11 +51,7 @@
    },
    {
     "type": "tap",
-    "pod": 18
-   },
-   {
-    "type": "tap",
-    "pod": 14
+    "pod": 17
    },
    {
     "type": "tap",
@@ -79,19 +59,7 @@
    },
    {
     "type": "tap",
-    "pod": 21
-   },
-   {
-    "type": "tap",
-    "pod": 6
-   },
-   {
-    "type": "tap",
-    "pod": 25
-   },
-   {
-    "type": "tap",
-    "pod": 11
+    "pod": 7
    },
    {
     "type": "tap",
@@ -99,15 +67,11 @@
    },
    {
     "type": "tap",
-    "pod": 9
-   },
-   {
-    "type": "tap",
     "pod": 26
    },
    {
     "type": "tap",
-    "pod": 4
+    "pod": 14
    },
    {
     "type": "tap",
@@ -115,27 +79,7 @@
    },
    {
     "type": "tap",
-    "pod": 3
-   },
-   {
-    "type": "tap",
-    "pod": 7
-   },
-   {
-    "type": "tap",
     "pod": 1
-   },
-   {
-    "type": "tap",
-    "pod": 0
-   },
-   {
-    "type": "tap",
-    "pod": 19
-   },
-   {
-    "type": "tap",
-    "pod": 16
    },
    {
     "type": "tap",
@@ -143,19 +87,75 @@
    },
    {
     "type": "tap",
-    "pod": 12
+    "pod": 21
+   },
+   {
+    "type": "tap",
+    "pod": 10
+   },
+   {
+    "type": "tap",
+    "pod": 2
+   },
+   {
+    "type": "tap",
+    "pod": 13
+   },
+   {
+    "type": "tap",
+    "pod": 11
    },
    {
     "type": "tap",
     "pod": 15
+   },
+   {
+    "type": "tap",
+    "pod": 27
+   },
+   {
+    "type": "tap",
+    "pod": 24
+   },
+   {
+    "type": "tap",
+    "pod": 3
+   },
+   {
+    "type": "tap",
+    "pod": 18
+   },
+   {
+    "type": "tap",
+    "pod": 25
+   },
+   {
+    "type": "tap",
+    "pod": 12
+   },
+   {
+    "type": "tap",
+    "pod": 4
+   },
+   {
+    "type": "tap",
+    "pod": 19
+   },
+   {
+    "type": "tap",
+    "pod": 0
+   },
+   {
+    "type": "tap",
+    "pod": 16
    }
   ],
-  "forks": 7,
+  "forks": 0,
   "singleSafe": 0,
   "unknown": 0,
   "fast": {
    "status": "won",
-   "seconds": 156.6
+   "seconds": 119.9
   }
  },
  "fairness": {
@@ -168,16 +168,16 @@
  "strategies": {
   "left-to-right|left": true,
   "left-to-right|right": true,
-  "right-to-left|left": true,
-  "right-to-left|right": true,
+  "right-to-left|left": false,
+  "right-to-left|right": false,
   "top-down|left": false,
   "top-down|right": false,
-  "bottom-up|left": false,
-  "bottom-up|right": false,
-  "diagonal|left": false,
-  "diagonal|right": false,
-  "small-first|left": true,
-  "small-first|right": true,
+  "bottom-up|left": true,
+  "bottom-up|right": true,
+  "diagonal|left": true,
+  "diagonal|right": true,
+  "small-first|left": false,
+  "small-first|right": false,
   "most-now|left": true,
   "most-now|right": true,
   "fast-release|left": true,
@@ -188,51 +188,51 @@
    {
     "from": 0,
     "to": 20,
-    "meanFree": 0.91,
-    "minFree": 0,
-    "fullShare": 0.46,
-    "maxWaiting": 3
+    "meanFree": 2.19,
+    "minFree": 1,
+    "fullShare": 0,
+    "maxWaiting": 2
    },
    {
     "from": 20,
     "to": 40,
-    "meanFree": 1.07,
-    "minFree": 0,
-    "fullShare": 0.4,
-    "maxWaiting": 3
+    "meanFree": 1.42,
+    "minFree": 1,
+    "fullShare": 0,
+    "maxWaiting": 2
    },
    {
     "from": 40,
     "to": 60,
-    "meanFree": 3.31,
-    "minFree": 2,
+    "meanFree": 2.85,
+    "minFree": 1,
     "fullShare": 0,
     "maxWaiting": 2
    },
    {
     "from": 60,
     "to": 80,
-    "meanFree": 2.3,
-    "minFree": 2,
+    "meanFree": 3.24,
+    "minFree": 1,
     "fullShare": 0,
-    "maxWaiting": 2
+    "maxWaiting": 3
    },
    {
     "from": 80,
     "to": 100,
-    "meanFree": 4.36,
-    "minFree": 2,
+    "meanFree": 4.38,
+    "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
    }
   ],
-  "launchesAfter80": 6,
-  "lastLaunchAtW": 98,
-  "seconds": 499.4
+  "launchesAfter80": 5,
+  "lastLaunchAtW": 95,
+  "seconds": 470.2
  },
  "dosePos": 0.8,
  "checks": {
-  "forced": 0.11,
+  "forced": 0.08,
   "opening": null,
   "hold": true,
   "greedyLoses": false,
@@ -240,14 +240,14 @@
    "ok": true,
    "pods": [
     {
-     "pod": 27,
-     "revealAt": 1,
+     "pod": 17,
+     "revealAt": 5,
      "gap": 0,
      "newColour": true
     },
     {
-     "pod": 21,
-     "revealAt": 12,
+     "pod": 27,
+     "revealAt": 20,
      "gap": 0,
      "newColour": true
     }
@@ -256,7 +256,7 @@
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 1.24,
+   "stuck": 1.33,
    "tight": 0.89
   },
   "calm": {
@@ -281,18 +281,18 @@
     {
      "latch": 0,
      "column": 1,
-     "depth": 5,
-     "behind": 2,
-     "key": 392,
-     "atW": 0.469,
-     "command": 15,
-     "waitMs": 0
+     "depth": 3,
+     "behind": 3,
+     "key": 401,
+     "atW": 0.327,
+     "command": 10,
+     "waitMs": 25625
     }
    ],
-   "maxBlocked": 0,
+   "maxBlocked": 1,
    "limit": 3,
-   "lastOpenAtW": 0.469,
-   "waits": false,
+   "lastOpenAtW": 0.327,
+   "waits": true,
    "randomOverLimit": 0,
    "ok": true,
    "problems": [],
@@ -310,20 +310,20 @@
       {
        "pod": 27,
        "count": 2,
-       "row": 1
+       "row": 2
       },
       {
        "pod": 28,
        "count": 2,
-       "row": 3
+       "row": 1
       }
      ]
     }
    ],
    "cells": 4,
    "pressure": {
-    "with": 1.24,
-    "without": 0.63
+    "with": 1.33,
+    "without": 1.19
    }
   }
  },
@@ -344,12 +344,12 @@
    "#.BRBBBBYYYYYYYYYYYYYYYYYBBBBBBBBBBB.#",
    "#.BRRBBYYYYYYRRRYYYYYYYYYYBBBBBBBBBB.#",
    "#.BRRBBOOOOORRRRROOOOOODDDBBBBBBBBBB.#",
-   "#.BRRROOFOOORRRRROOOOODOOODBBBBBBBBB.#",
-   "#.BRRROFFFOO..RROOOOOOOOOOOBBBBBBBBB.#",
-   "#.BRRROOOOOO..OAAOOOOOOOOOOBBBBBBBBB.#",
-   "#.BRRROOOOOOOOOOAOOOCCDOOOOBBBBBBBBB.#",
-   "#.BRRBBOOOOOOOOOOAOOCCDOOOBBBBBBBBBB.#",
-   "#.BRRBBOOOOOOOOOOAAOCCCOOOBBBBBBBBBB.#",
+   "#.BRRROOOOOORRRRROOOOODOOODBBBBBBBBB.#",
+   "#.BRRROOOOOOORRROOOOO..OOOOBBBBBBBBB.#",
+   "#.BRRROOOOOOOOOAAOOOO..OOOOBBBBBBBBB.#",
+   "#.BRRROOOOOOOFOOAOOOCCDOOOOBBBBBBBBB.#",
+   "#.BRRBBOOOOOOFFOOAOOCCDOOOBBBBBBBBBB.#",
+   "#.BRRBBOOOOOOFOOOAAOCCCOOOBBBBBBBBBB.#",
    "#.BRBBBBOOOOOOOOOOAOOOOOOBBBBBBBBBBB.#",
    "#.BBBBBBRRRRRRRRROAAOOOBBBBBBBBBBBBB.#",
    "#.BBBBBBBRRRRRRROOOABBBBBBBBBBBBBBBB.#",
@@ -415,7 +415,8 @@
    },
    {
     "color": "A",
-    "count": 19
+    "count": 19,
+    "group": "A"
    },
    {
     "color": "D",
@@ -431,8 +432,7 @@
    },
    {
     "color": "R",
-    "count": 23,
-    "group": "A"
+    "count": 24
    },
    {
     "color": "R",
@@ -449,7 +449,7 @@
    {
     "color": "B",
     "count": 49,
-    "group": "A"
+    "mystery": "depth"
    },
    {
     "color": "B",
@@ -458,6 +458,14 @@
    {
     "color": "B",
     "count": 49
+   },
+   {
+    "color": "B",
+    "count": 48
+   },
+   {
+    "color": "B",
+    "count": 48
    },
    {
     "color": "B",
@@ -466,19 +474,11 @@
    {
     "color": "B",
     "count": 48,
-    "mystery": "depth"
-   },
-   {
-    "color": "B",
-    "count": 48
-   },
-   {
-    "color": "B",
-    "count": 48
+    "group": "A"
    },
    {
     "color": "O",
-    "count": 42
+    "count": 41
    },
    {
     "color": "O",
@@ -508,45 +508,45 @@
   ],
   "tray": [
    [
-    17,
-    27,
-    8,
+    23,
     22,
-    2,
-    23
-   ],
-   [
-    14,
-    30,
-    21,
     6,
-    25,
-    11,
-    5
-   ],
-   [
-    13,
-    24,
-    10,
+    8,
     29,
-    9,
-    26
+    17
    ],
    [
-    18,
-    4,
-    20,
-    3,
+    30,
     7,
+    5,
+    14,
+    20,
     1
    ],
    [
-    0,
-    19,
-    16,
+    26,
     28,
+    21,
+    10,
+    2,
+    13
+   ],
+   [
+    11,
+    15,
+    27,
+    24,
+    3,
+    18
+   ],
+   [
+    9,
+    25,
     12,
-    15
+    4,
+    19,
+    0,
+    16
    ]
   ],
   "recipe": "latch+links+hidden",
@@ -555,50 +555,50 @@
    "sites": [],
    "keys": [
     [
-     10,
+     19,
      22
     ],
     [
-     11,
+     20,
      22
     ],
     [
-     10,
+     19,
      23
     ],
     [
-     11,
+     20,
      23
     ]
    ]
   },
   "recolor": [
    [
-    5,
-    23,
+    11,
+    19,
     "F"
    ],
    [
-    6,
-    23,
+    11,
+    20,
     "F"
    ],
    [
-    7,
-    23,
+    12,
+    20,
     "F"
    ],
    [
-    6,
-    24,
+    11,
+    21,
     "F"
    ]
   ],
   "latches": [
    {
     "column": 1,
-    "depth": 5,
-    "key": 392
+    "depth": 3,
+    "key": 401
    }
   ],
   "difficulty": "Normal"
