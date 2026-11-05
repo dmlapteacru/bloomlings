@@ -13,6 +13,7 @@
 // the dev row's jump and "new levels soon", from a published round set; RoundsPreview.cs)
 // [--board-cubes <published dir> <level> <out dir>] (only the board cube look-dev sheet of 2026-11-03: the level in each
 // look of BoardCubeLook.Variants; BoardCubeSheet.cs)
+// [--channel-shutters <out dir>] (only the look mock of the water channel and the wooden shutters; ChannelShutterMock.cs)
 // [--board-after <published dir> <out dir> <level>...] (only those levels in the game's cube look, after-*.png)
 // [--board-compare <published dir> <level> <out dir> <ref close-up> <its cell px> <ref screen> <x,y,w,h>] (E, E2, reference)
 using System;
@@ -45,6 +46,7 @@ string? shape = null;
 bool perf = false;
 bool roundsPreview = false;
 (string Rounds, string Out)? latchStills = null;
+string? channelShutters = null;
 (string Rounds, string Out, int Level, string Tag)? linkStills = null;
 (int Level, float Seconds, string Out, string? Style)? clearVideo = null;
 (int Level, float Seconds, string Out, string Look, float From, string? Style)? walkerVideo = null;
@@ -114,6 +116,11 @@ for (int i = 0; i < args.Length; i++)
         // --board-cubes <published dir> <level> <out dir>: the board cube looks side by side (BoardCubeSheet)
         boardCubes = (Path.GetFullPath(args[i + 1]), int.Parse(args[i + 2], System.Globalization.CultureInfo.InvariantCulture), Path.GetFullPath(args[i + 3]));
         i += 3;
+    }
+    else if (args[i] == "--channel-shutters" && i + 1 < args.Length)
+    {
+        // --channel-shutters <out dir>: the look mock of the water channel and the wooden shutters (ChannelShutterMock)
+        channelShutters = Path.GetFullPath(args[++i]);
     }
     else if (args[i] == "--latch-stills" && i + 2 < args.Length)
     {
@@ -308,6 +315,11 @@ if (boardAfter != null)
 if (boardCubes != null)
 {
     return BoardCubeSheet.Write(root, boardCubes.Value.Rounds, boardCubes.Value.Level, boardCubes.Value.Out);
+}
+
+if (channelShutters != null)
+{
+    return ChannelShutterMock.Write(root, channelShutters);
 }
 
 if (latchStills != null)

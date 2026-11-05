@@ -70,6 +70,15 @@ namespace Bloomlings.Playtest.Design
         private static readonly System.Runtime.CompilerServices.ConditionalWeakTable<RoundLevelScreen, LayoutCache> Caches =
             new System.Runtime.CompilerServices.ConditionalWeakTable<RoundLevelScreen, LayoutCache>();
 
+        /// <summary>
+        /// Look mocks only (the preview's review stills, never set by the game): drawn on the board after the stream's banks,
+        /// under the cubes. Null in both APKs, so the game draws nothing more.
+        /// </summary>
+        public static Action<IPainter, RoundLevelScreen, RoundBoardLayout>? MockUnderCubes { get; set; }
+
+        /// <summary>Look mocks only: drawn on the board over the cubes, keys and bridges, under the entry arches and the walkers. Null in the game.</summary>
+        public static Action<IPainter, RoundLevelScreen, RoundBoardLayout>? MockOverCubes { get; set; }
+
         /// <summary>The variant a round material's family is drawn with by hosts that know only variants.</summary>
         public static VariantId FamilyVariant(int material) => RoundLook.WalkerVariant(RoundMaterial.All[material].Family);
 
@@ -307,6 +316,7 @@ namespace Bloomlings.Playtest.Design
 
             // The stone banks along the water, under the cubes (the owner, 2026-10-31).
             Kit.Banks(p, board);
+            MockUnderCubes?.Invoke(p, s, board);
 
             // The cubes, the far (top) row first: each nearer cube hides the front face of the one behind it, so a front shows
             // only on the picture's bottom edge, at its steps and where a cube was eaten (the owner's oblique cubes, FR-064).
@@ -434,6 +444,7 @@ namespace Bloomlings.Playtest.Design
                 }
             }
 
+            MockOverCubes?.Invoke(p, s, board);
             foreach (RoundGate gate in board.Gates)
             {
                 Kit.EntryArch(p, gate.Arch);
