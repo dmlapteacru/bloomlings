@@ -15,7 +15,9 @@ export class Log{constructor(){this.h=crypto.createHash('sha256');this.n=0;}
  // courier's route, the reservations and the veiled cells and latches
  timeline(E,t,full=false){this.add(t.lastEvents);this.add(t.lastClears);this.add(E.R.signature(t.state)+'|'+t.now+'|'+t.status+'|'+t.processedCells);
   if(full){this.add(t.steps);this.add([...t.jobs.values()].map(j=>[j.id,j.route]));this.add(Array.from(t.reserved).join(',')+'|'+Array.from(t.inFlight).join(',')+'|'+Array.from(t.departReady).join(','));
-   this.add([t.state.veiled?Array.from(t.state.veiled):null,t.state.latched?Array.from(t.state.latched):null]);}}
+   this.add([t.state.veiled?Array.from(t.state.veiled):null,t.state.latched?Array.from(t.state.latched):null,
+    // the shutters and the channel (17 §8, 2026-11-05), only on a level with them
+    ...(t.state.shut?[Array.from(t.state.shut)]:[]),...(t.state.meta.channel?[t.state.channel,t.state.springReached]:[])]);}}
  digest(){return this.h.digest('hex');}}
 
 // the saved route on the timeline: patient (all work settled before each command) or tapped as soon as accepted

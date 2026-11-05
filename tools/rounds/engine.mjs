@@ -9,7 +9,9 @@
 // Mechanics it plays: hidden pods (reveal on reaching the top), linked groups, Sprig's bridge, hidden cells (a «?» cell
 // reveals when it gets an open neighbour reachable from an entry, 17 §8; rules.cjs revealCells), the latch with its acorn
 // key (a column element that opens when it is on top and an open path reaches its key, 17 §8; rules.cjs openLatches;
-// tools/rounds/README.md «Latch and key»). Others are listed in
+// tools/rounds/README.md «Latch and key»), the Drop water channel (a chosen exit becomes an extra entry, 17 §8; rules.cjs
+// channelChoices, README «Channel») and the Twig wooden shutters (a lid that opens when the work of its material reaches
+// its count, 17 §8; rules.cjs openShutters, README «Shutters»). Others are listed in
 // lib.mjs SUPPORTED and refused by the level builder until the engine plays them. The playable pilot
 // (tools/gameplay-pilot-v10) embeds these same files.
 import {createRequire} from 'node:module';

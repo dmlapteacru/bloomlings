@@ -6,10 +6,11 @@
 'use strict';
 const fs=require('fs'),path=require('path'),crypto=require('crypto');
 const REF=path.join(__dirname,'..','engine');
-// SHA-256 of the reference files this twin was verified against (verify.mjs, 2026-11-02)
+// SHA-256 of the reference files this twin was verified against (verify.mjs, 2026-11-05: the water channel and the
+// shutters; L1–L100, the fixture's cell, latch, channel and shutter cases, 0 differences)
 const VERIFIED={
- 'rules.cjs':'335db27e3443dd1e0e7a25739b2d9bcede2eaee38d04c5f3021aa9a8b5173a18',
- 'timeline.cjs':'1d0d15678f80d655abea67993cb489d47a7c70b9fe020c6a56491f5ffb291fca',
+ 'rules.cjs':'3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da',
+ 'timeline.cjs':'e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002',
  'idle-rules.cjs':'f72b5310ac4be2e475a2e225f2557ca1d242442a302719852d8fbeb12883eeca'};
 const sha=f=>crypto.createHash('sha256').update(fs.readFileSync(path.join(REF,f))).digest('hex');
 // the reference files whose fingerprints differ from VERIFIED (empty: the twin may be used)

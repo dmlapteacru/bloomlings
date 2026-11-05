@@ -15,6 +15,11 @@
 // - a latchOpen line (latch + acorn key, 17 §8) carries the time of the change that opened it: a commit's (after the
 //   commit lines, before the depth reveals it exposes), a clear's (after that clear's cellReveal lines, then the depth
 //   reveals of the pods it exposes, at the clear's time) or a bridge's; several in increasing latch order;
+// - water channel and shutters (17 §8, 2026-11-05): a channelOpen line carries the commit's time (it is the command's
+//   own line, followed by the cellReveal and latchOpen lines the new entry causes); a channelReady line the time
+//   of the clear or bridge that reached the spring (after that change's cellReveal and latchOpen lines); a shutterOpen line
+//   the time of the clear that reached its count, right after the clear line and before its cellReveal lines; several
+//   shutters in increasing order. A channel command is {type:'channel', exit, atUs};
 // - depart `route=` is the route's cell count (entry … target, both included), the pilot's routeLength;
 // - a step line's time is the step's own time; complete carries the release time;
 // - `steps` in the signature are `atUs:type:idOrPod`, check steps included, in the timeline's step order;
@@ -38,7 +43,12 @@ export function us(ms){const v=ms*1000,r=Math.round(v);if(!Number.isFinite(v)||M
 
 // the engine's level object from a round-level.v1 definition (pods carry `code` on the wire, `color` in the engine)
 export function engineLevel(def){return {id:def.number,w:def.board.w,h:def.board.h,rowsBottomFirst:def.board.rowsBottomFirst,entries:def.board.entries,capacity:def.capacity,
- pods:def.pods.map(p=>({color:p.code,count:p.count,...(p.mystery?{mystery:p.mystery}:{}),...(p.group?{group:p.group}:{})})),tray:def.tray,...(def.board.hero?{hero:def.board.hero}:{}),...(def.board.hiddenCells?{hiddenCells:def.board.hiddenCells}:{}),...(def.latches?{latches:def.latches.map(l=>({column:l.column,depth:l.depth,key:l.key}))}:{})};}
+ pods:def.pods.map(p=>({color:p.code,count:p.count,...(p.mystery?{mystery:p.mystery}:{}),...(p.group?{group:p.group}:{})})),tray:def.tray,...(def.board.hero?{hero:def.board.hero}:{}),...(def.board.hiddenCells?{hiddenCells:def.board.hiddenCells}:{}),...(def.latches?{latches:def.latches.map(l=>({column:l.column,depth:l.depth,key:l.key}))}:{}),
+ // water channel and shutters (17 §8, 2026-11-05): board.channel, board.shutters of round-level.v1
+ ...(def.board.channel?{channel:{spring:def.board.channel.spring,exits:def.board.channel.exits.map(e=>({cell:e.cell,route:e.route.slice(),rideUs:e.rideUs}))}}:{}),
+ ...(def.board.shutters?{shutters:def.board.shutters.map(s=>({cells:s.cells.slice(),material:s.code,count:s.count}))}:{})};}
+// a command of a fixture or a route ({type:'tap',pod} | {type:'bridge',choice} | {type:'channel',exit}) as the engine's action
+export const actionOf=a=>a.type==='bridge'?{type:'bridge',choice:a.choice}:a.type==='channel'?{type:'channel',exit:a.exit}:{type:'tap',pod:a.pod};
 
 // ---- canonical event log (contract table) ----
 // commit, reveal and bridge come from Timeline.commit's result; depart, arrive, clear, return and complete from the
@@ -53,6 +63,11 @@ export function lineOf(e,nowUs){
   case 'cellReveal':return `${e.at!=null?us(e.at):nowUs} cellReveal cell=${e.cell}`;
   // a latch opened (latch + acorn key, 17 §8): the commit's, clear's or bridge's time
   case 'latchOpen':return `${e.at!=null?us(e.at):nowUs} latchOpen latch=${e.latch}`;
+  // water channel (17 §8, 2026-11-05): the exit chosen (the commit's time); the channel ready (a clear's or the commit's time)
+  case 'channelOpen':return `${nowUs} channelOpen exit=${e.exit}`;
+  case 'channelReady':return `${e.at!=null?us(e.at):nowUs} channelReady`;
+  // wooden shutters (17 §8, 2026-11-05): a shutter opened at the time of the clear that reached its count
+  case 'shutterOpen':return `${e.at!=null?us(e.at):nowUs} shutterOpen shutter=${e.shutter}`;
   case 'depart':{const [id,pod,cell,,start,arrive,clear,done,routeLength]=e.plan;return `${us(start)} depart id=${id} pod=${pod} cell=${cell} arrive=${us(arrive)} clear=${us(clear)} done=${us(done)} route=${routeLength}`;}
   case 'arrive':return `${us(e.at)} arrive id=${e.id}`;
   case 'clear':return `${us(e.at)} clear id=${e.id} cell=${e.jobCell}`;
@@ -91,10 +106,10 @@ async function recorder(def){const E=await engine(),{R,T}=E;
   signature:()=>signatureOf(E,t)};}
 
 // ---- the saved solution: the patient replay, each command when all earlier work has settled ----
-// route: [{type:'tap',pod}|{type:'bridge',choice}] → commands with atUs, the windows, outcome, endUs, final signature
+// route: [{type:'tap',pod}|{type:'bridge',choice}|{type:'channel',exit}] → commands with atUs, the windows, outcome, endUs, final signature
 export async function solutionFixture(def,route){const X=await recorder(def),{t}=X,windows=[],commands=[];
  for(const a of route){X.settle();if(windows.length)windows.at(-1).lines.push(...X.cut());
-  const atUs=us(t.now),action=a.type==='bridge'?{type:'bridge',choice:a.choice}:{type:'tap',pod:a.pod};
+  const atUs=us(t.now),action=actionOf(a);
   const r=X.commit(action);if(!r.accepted)throw Error(`L${def.number}: solution command ${commands.length+1} ${JSON.stringify(action)} refused (${r.reason})`);
   const command={...action,atUs};commands.push(command);
   windows.push({command,lines:X.cut(),signature:hashText(X.signature())});}
@@ -129,7 +144,7 @@ export async function randomFixture(def,{seedBase,runs,bridge=null}){const games
 // `drift` lists commands the timeline committed at another µs than atUs (it would mean the engine's clock stood still
 // or ran past the recorded moment); the pilot recorded modelTimeMs as the timeline's time at the commit, so none may occur
 export async function ownerFixture(def,commands){const X=await recorder(def),{t}=X,out=[],drift=[];
- for(const c of commands){const atUs=Math.round(c.modelTimeMs*1000),action=c.type==='bridge'?{type:'bridge',choice:c.choice}:{type:'tap',pod:c.pod};
+ for(const c of commands){const atUs=Math.round(c.modelTimeMs*1000),action=actionOf(c);
   X.advanceTo(atUs/1000);if(us(t.now)!==atUs)drift.push(`${JSON.stringify(action)} at ${atUs} µs committed at ${us(t.now)} µs`);
   const r=X.commit(action);X.cut();
   out.push({...action,atUs,...(r.accepted?{}:{refused:r.reason})});}
@@ -140,7 +155,7 @@ export async function ownerFixture(def,commands){const X=await recorder(def),{t}
 // node tools/rounds/conformance.mjs solution <export>/levels/L####.json [--window k]   (route from ../proofs/L####.json)
 // node tools/rounds/conformance.mjs random <export>/levels/L####.json <seed>   (a bridge level: the proof's randomTest.bridge)
 export async function solutionTrace(def,route){const X=await recorder(def),{t}=X,out=[];
- for(const a of route){X.settle();if(out.length)out.at(-1).lines.push(...X.cut());const r=X.commit(a.type==='bridge'?{type:'bridge',choice:a.choice}:{type:'tap',pod:a.pod});
+ for(const a of route){X.settle();if(out.length)out.at(-1).lines.push(...X.cut());const r=X.commit(actionOf(a));
   if(!r.accepted)throw Error(`refused ${JSON.stringify(a)}: ${r.reason}`);out.push({command:a,lines:X.cut(),signature:X.signature()});}
  X.settle();out.at(-1).lines.push(...X.cut());return {windows:out,final:X.signature()};}
 if(process.argv[1]&&import.meta.url===(await import('node:url')).pathToFileURL(path.resolve(process.argv[1])).href){

@@ -215,6 +215,28 @@
               "minimum": 0
             }
           }
+        },
+        {
+          "type": "object",
+          "additionalProperties": false,
+          "required": [
+            "type",
+            "exit",
+            "atUs"
+          ],
+          "properties": {
+            "type": {
+              "const": "channel"
+            },
+            "exit": {
+              "type": "integer",
+              "minimum": 0
+            },
+            "atUs": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
         }
       ]
     }

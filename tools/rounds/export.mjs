@@ -25,7 +25,7 @@ import {validate} from './schema.mjs';
 const HERE=path.dirname(fileURLToPath(import.meta.url));
 export const POLICY='17§5 extended: uniform over legal actions + wait before a state event';
 export const FIXTURE_POLICY='17§5 extended';
-const MECHANICS=['hidden','links','bridge','cells','latch'];
+const MECHANICS=['hidden','links','bridge','cells','latch','canal','shutters'];
 // owner decisions behind a level's exception string (content/rounds/levels keeps them as a note); the rule names the
 // audit failure it excuses, matched on the audit's own wording
 export const OWNER_EXCEPTIONS={
@@ -61,7 +61,11 @@ export function levelV1(L,engine,definitionVersion=1){const d=L.definition,n=L.l
    // the level's recolouring of its picture (17 §3, §6 accents, 2026-11-01), picture coordinates, applied before the overlay
    ...(d.recolor&&d.recolor.length?{recolor:d.recolor.map(e=>[e[0],e[1],e[2]])}:{}),
    // hidden cells (17 §8 «Скрытые клетки», 2026-11-01): sorted cell indices of the rows (bottom first, y*w+x)
-   ...(d.hiddenCells&&d.hiddenCells.length?{hiddenCells:[...d.hiddenCells].map(Number).sort((a,b)=>a-b)}:{})},
+   ...(d.hiddenCells&&d.hiddenCells.length?{hiddenCells:[...d.hiddenCells].map(Number).sort((a,b)=>a-b)}:{}),
+   // the Drop water channel (17 §8, 2026-11-05): the spring and two exits, each with its route (spring … exit) and ride
+   ...(d.channel?{channel:{spring:d.channel.spring,exits:d.channel.exits.map(e=>({cell:e.cell,route:e.route.slice(),rideUs:e.rideUs}))}}:{}),
+   // the Twig wooden shutters (17 §8, 2026-11-05): each a rectangle of cells, its material and its count
+   ...(d.shutters&&d.shutters.length?{shutters:d.shutters.map(s=>({cells:[...s.cells].sort((a,b)=>a-b),code:s.material,count:s.count}))}:{})},
   capacity:d.capacity??5,
   pods:d.pods.map(p=>({code:p.color,count:p.count,...(p.mystery?{mystery:p.mystery}:{}),...(p.group?{group:p.group}:{})})),
   tray:d.tray,
@@ -115,7 +119,7 @@ export function auditCheck(from,to,levels){const report=path.join(ROUNDS,`audit-
 
 // ---- the pilot's catalog hash (tools/gameplay-pilot-v12/build.mjs): did the owner play these very definitions? ----
 function pilotCatalogHash(levelsInOrder){return sha256(JSON.stringify(levelsInOrder.map(L=>{const d=L.definition;
- return {id:L.level,title:d.title,subject:L.picture,w:d.w,h:d.h,rowsBottomFirst:d.rowsBottomFirst,entries:d.entries,capacity:d.capacity,pods:d.pods,tray:d.tray,difficulty:L.cls,...(d.hero?{hero:d.hero}:{}),...(d.hiddenCells?{hiddenCells:d.hiddenCells}:{}),...(d.latches?{latches:d.latches}:{})};})));}
+ return {id:L.level,title:d.title,subject:L.picture,w:d.w,h:d.h,rowsBottomFirst:d.rowsBottomFirst,entries:d.entries,capacity:d.capacity,pods:d.pods,tray:d.tray,difficulty:L.cls,...(d.hero?{hero:d.hero}:{}),...(d.hiddenCells?{hiddenCells:d.hiddenCells}:{}),...(d.latches?{latches:d.latches}:{}),...(d.channel?{channel:d.channel}:{}),...(d.shutters?{shutters:d.shutters}:{})};})));}
 
 // ---- export ----
 // --repack (the owner, 2026-11-02: «не перегенерировать… записать какое-то исключение»): an already transferred wave,
@@ -175,7 +179,7 @@ export async function exportWave(from,to,{out,ownerResults=[],game=path.join(roo
   for(const x of rnd.nearTies)errors.push(`${lid(n)} random game: near-tie of model times ${x}`);
   // the owner's attempts on this level
   const own=[];for(const o of owner)for(const a of o.res.attempts.filter(a=>a.level===n)){const f=await ownerFixture(def,a.commands);ownerAttempts++;
-   for(const c of f.commands)if(c.refused)errors.push(`${lid(n)} owner attempt ${a.id} (${rel(o.file)}): command ${JSON.stringify({type:c.type,pod:c.pod,choice:c.choice})} at ${c.atUs} µs refused on replay (${c.refused})`);
+   for(const c of f.commands)if(c.refused)errors.push(`${lid(n)} owner attempt ${a.id} (${rel(o.file)}): command ${JSON.stringify({type:c.type,pod:c.pod,choice:c.choice,exit:c.exit})} at ${c.atUs} µs refused on replay (${c.refused})`);
    if(f.outcome!==a.outcome)errors.push(`${lid(n)} owner attempt ${a.id} (${rel(o.file)}): replay ends ${f.outcome}, the results file says ${a.outcome}`);
    for(const x of f.nearTies)errors.push(`${lid(n)} owner attempt ${a.id}: near-tie of model times ${x}`);
    for(const x of f.drift)errors.push(`${lid(n)} owner attempt ${a.id}: ${x}`);
@@ -199,7 +203,7 @@ export async function exportWave(from,to,{out,ownerResults=[],game=path.join(roo
  return {ok:!errors.length,failures:[],errors,manifest};}
 
 // the conformance fixture has no JSON schema; its contract shape is checked here
-export function fixtureShape(f){const e=[],sig=/^sha256:[0-9a-f]{64}$/,int=x=>Number.isInteger(x)&&x>=0,cmd=c=>c&&(c.type==='tap'?int(c.pod):c.type==='bridge'?int(c.choice):false)&&int(c.atUs);
+export function fixtureShape(f){const e=[],sig=/^sha256:[0-9a-f]{64}$/,int=x=>Number.isInteger(x)&&x>=0,cmd=c=>c&&(c.type==='tap'?int(c.pod):c.type==='bridge'?int(c.choice):c.type==='channel'?int(c.exit):false)&&int(c.atUs);
  if(f.format!=='round-conformance.v1')e.push('format');if(!int(f.number)||!int(f.definitionVersion))e.push('number / definitionVersion');
  if(!f.engine||['rules','timeline','palette','clock'].some(k=>!/^[0-9a-f]{64}$/.test(f.engine[k])))e.push('engine');
  const s=f.solution;if(!s||!Array.isArray(s.windows)||!s.windows.length)e.push('solution.windows');

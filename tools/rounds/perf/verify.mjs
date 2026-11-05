@@ -23,10 +23,10 @@ for(let n=a;n<=b;n++){const f=path.join(ROUNDS,'levels',`L${String(n).padStart(4
  items.push({name:`L${n}`,level:L.definition,route:L.solution&&L.solution.route,random:L.random});}
 if(bankN){const all=[];for(const f of fs.readdirSync(path.join(ROUNDS,'bank')).sort()){const B=JSON.parse(fs.readFileSync(path.join(ROUNDS,'bank',f),'utf8'));for(const c of B.candidates||[])all.push(c);}
  const step=all.length/bankN;for(let k=0;k<bankN&&k*step<all.length;k++){const c=all[Math.floor(k*step)];items.push({name:c.id,level:c.level,route:c.solution&&c.solution.route,random:c.random});}}
-// the hidden-cell and latch cases of the C# conformance fixture (small levels and placed levels given cells or latches by a
+// the hidden-cell, latch, channel and shutter cases of the C# conformance fixture (small levels and placed levels given cells or latches by a
 // fixed rule; export-reference.cjs), each with its route and 40 random games
 if(process.argv.includes('--fixtures')){const F=JSON.parse(fs.readFileSync(path.join(ROOT,'core/tests/Bloomlings.Core.Tests/Rounds/Fixtures/reference-rounds.json'),'utf8'));
- for(const c of [...F.cells,...F.latches])items.push({name:'fixture '+c.name,level:{id:1,...c.definition},route:c.route,random:{seedBase:1,runs:40,wins:null}});}
+ for(const c of [...F.cells,...F.latches,...(F.channels||[]),...(F.shutters||[])])items.push({name:'fixture '+c.name,level:{id:1,...c.definition},route:c.route,random:{seedBase:1,runs:40,wins:null}});}
 
 let bad=0,games=0,calms=0,routes=0,solved=0;const t0=performance.now();
 const fail=(it,what,x,y)=>{bad++;console.log(`DIFFERENT ${it.name} ${what}: reference ${JSON.stringify(x)} fast ${JSON.stringify(y)}`);};

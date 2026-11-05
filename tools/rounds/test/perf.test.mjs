@@ -23,9 +23,9 @@ test('fast twin = reference: saved solutions, random and calm games, byte for by
   for(let g=0;g<6;g++){const s=7919+g*104729+1;assert.deepEqual(randomGame(FAST,lv,s,keep(L.random.bridge)),randomGame(REF,lv,s,keep(L.random.bridge)),`L${n} random game ${g}`);}
   for(let g=0;g<3;g++){const s=3*7919+g*104729+5;assert.deepEqual(calmGame(FAST,lv,s,L.random.bridge??null),calmGame(REF,lv,s,L.random.bridge??null),`L${n} calm game ${g}`);}}});
 
-test('fast twin = reference on the hidden-cell and latch cases of the conformance fixture',()=>{
+test('fast twin = reference on the hidden-cell, latch, channel and shutter cases of the conformance fixture',()=>{
  const F=readJSON(path.join(ROOT,'core/tests/Bloomlings.Core.Tests/Rounds/Fixtures/reference-rounds.json'));
- for(const c of [...F.cells,...F.latches]){const lv={id:1,...c.definition};
+ for(const c of [...F.cells,...F.latches,...F.channels,...F.shutters]){const lv={id:1,...c.definition};
   assert.deepEqual(replay(FAST,lv,c.route,true),replay(REF,lv,c.route,true),c.name+' solution');
   for(let g=0;g<4;g++){const s=7919+g*104729+1;assert.deepEqual(randomGame(FAST,lv,s,null),randomGame(REF,lv,s,null),`${c.name} random game ${g}`);}}});
 

@@ -369,6 +369,88 @@ recipe and mechanic name `latch`, «засов и ключ»). The exact contrac
   fades for 0.7 s) and the status line says the latch opened. The first introduction explains the latch, the second
   reminds in one line.
 
+**Channel** (17 §8 «Drop Водный канал», §9: introductions on 101 and 103, the owner, 2026-11-05; mechanic name `canal`,
+«водный канал Drop»; spec 006 FR-069). The exact contract, which the C# port follows:
+
+- *Level data.* The round level's `definition.channel` (exported as `board.channel` of `round-level.v1`; `mechanics`
+  then includes `"canal"`) = `{spring, exits: [{cell, route, rideUs}, {cell, route, rideUs}]}`. `spring` and each exit's
+  `cell` are cell indices `y*w+x` of `rowsBottomFirst` (row 0 at the bottom) of empty `'.'` cells, never an entry, a latch
+  key or one another (an exit may be an enclosed pocket inside the picture, cut like a key's place, or a cell at its
+  edge). `route` is the channel drawn for that exit: its cells from the spring to the exit, both included, each an
+  orthogonal neighbour of the one before, no repeat; it may pass over any cell (the owner, 2026-11-05: drawn over the
+  cubes; the cubes under it stay ordinary work, the rules never read the route). `rideUs` is a walker's ride along that
+  channel, whole milliseconds from 1 ms to 10 s (the builder: 60 ms a step of the route, at least 400 ms). Index `i` of
+  `exits` is exit `i` of the command and the events. A level without a channel has no `channel` key.
+- *Validation* (`R.validate`): `channel` (a bad spring, not exactly two exits), `channel exit` (a bad or repeated exit
+  cell), `channel route`, `channel ride`; then, when the rest is sound, `channel spring unreachable` from the cheap fixed
+  point `R.objectsBlocked(level)` (below). The spring may be reached at the start (the channel is then ready at once); 17
+  §8 wants its approach cleared first, which is the builder's rule.
+- *Readiness.* The channel is ready at the first moment the spring is reached by an open path from an active entry:
+  `reach(state).distance[spring] > 0`, the same search the targets use. `state.springReached` (1 once reached; a function
+  of the board and the choice) only times the event `{type:'channelReady'}` (with `at` on the timeline): after every board
+  change, after its cell reveals and latches — `settle` after each round's clears, cell reveals and latches; `rules.step`
+  after a bridge's; the timeline after a single clear's, at its time, and after a bridge commit's, at the commit time.
+  Reached at the start: silent (part of the start state). `R.channelChoices(state)` lists both exits while ready and no
+  exit is chosen.
+- *The choice.* The command `{type:'channel', exit}` (`R.legal` adds one per exit after the taps and bridges; `R.check`
+  refuses it as `channel-not-ready` before the spring is reached, after a choice or for no such exit): free, no place, no
+  pause, final. `status` stays `Playing` while a choice is open (a jam is no loss: 17 §1), and the auto-tail waits for it
+  (`tailOf`). It sets `state.channel` (−1 before) and emits `{type:'channelOpen', exit}` (the commit's own event, at the
+  commit time), then the cell reveals and latch openings the new entry causes, then the depth reveals and the dispatch.
+- *The new entry.* `reach()` starts its breadth-first search from the level's entries in their order and then from the
+  chosen exit (distance 1). So a walker departs from the nearest active entry by path; among equals the earlier source in
+  that order wins (the BFS parent). A route that starts at the chosen exit rides the channel (`R.rideOf`): the timeline
+  adds the exit's `rideUs` before the walk out (`arrive = start + ride + max(minOut, d × outPerCell)`) and after the walk
+  back (`done = clear + max(minReturn, d × returnPerCell) + ride`); the job carries `ride` (ms) and `couriers` reports such
+  a walker at the exit with `riding: true` during both rides. The ride does not count in "nearest" (the owner may want it
+  to). The unchosen exit never becomes a source; its pocket may join the open area by ordinary clearing and is then a
+  passage. Routes already walking are never rewritten (each is made at its departure).
+- *State, signature, checkpoint.* `signature()` adds `String(state.channel)` after the bridge on a channel level only
+  (`…|bridge|channel|status`); a timeline checkpoint stores `state.channel` (channel levels only) and recomputes
+  `springReached` (`syncChannel`); `view()` adds `channel` and `channelReady` on a channel level. A level without a
+  channel plays byte-identically (every placed level's saved solution, random games and owner attempts replayed on the old
+  and the new engine, and the C# reference fixture regenerated equal).
+- *Conformance lines* (`contracts/conformance-fixture.md`): `<µs> channelReady`, `<µs> channelOpen exit=<i>`; the fixture
+  command `{"type":"channel","exit":i,"atUs":…}`; `round-proof.v1` commands too.
+- *Boosters* (C# only): none chooses an exit; Bloom Burst may open the way to the spring (ready right after the burst's
+  cell reveals and latches).
+- *Not yet*: the builder (`SUPPORTED` in `lib.mjs` does not list `canal`), the §7/§8 doses and placement checks, the
+  pilot, and the look in both clients (the owner's choice A of `product/previews/channel-shutters-2026-11-05/`).
+
+**Shutters** (17 §8 «Twig Деревянные створки», §9: introductions on 121 and 123, the owner, 2026-11-05; mechanic name
+`shutters`, «деревянные створки Twig»; spec 006 FR-070). The exact contract, which the C# port follows:
+
+- *Level data.* `definition.shutters` (exported as `board.shutters` of `round-level.v1`, each `{cells, code, count}`;
+  the engine's level takes `material` for `code`; `mechanics` then includes `"shutters"`) = `[{cells, material, count},
+  …]`: `cells` sorted cell indices `y*w+x` forming a full rectangle of colour cells (any materials; never an entry or a
+  hidden cell, never under another shutter); `material` the exact material it counts; `count` ≥ 1. Index `i` is shutter
+  `i` of the events. A level without shutters has no `shutters` key.
+- *Validation* (`R.validate`): `shutters` (an empty list), `shutter` (bad cells, not a full rectangle, a cell that is not a
+  colour cell or is an entry, a hidden cell or under another shutter, a bad material or count); then, when the rest is
+  sound, `shutter count unreachable` from `R.objectsBlocked`. Doses (§7, §8: area share, counter 20–60 % of the material
+  by class, multiples of 5, at least 10, the material at least 40 units) are the builder's.
+- *The cheap fixed point* (`R.objectsBlocked(level)`, which `latchKeysBlocked` now is a view of): the latch flood, with
+  every cell under a closed shutter a wall; once the spring is flooded both exits flood too (either may be chosen); a
+  closed shutter opens when the flooded cells of its material (never under a closed shutter) are at least its count; until
+  nothing changes. Returns `{latches, shutters}` never opened and whether the spring was reached. Without shutters and a
+  channel it is exactly the old latch check.
+- *Blocking.* `state.shut` (a byte per shutter, 1 = closed; `null` without shutters) and `state.shutLeft`. While closed a
+  shutter's cells are no targets (`reach()` skips them; they are colour cells, so never a passage either): their work
+  waits and a pod of that material keeps its place.
+- *Counting and opening* (`R.openShutters(state, events, at)`). Work done of material `m` = its cells on the start board −
+  its cells now: a courier's clear, and in the game a Bloom Burst cell, so `shut` is a function of the board and the
+  signature is unchanged (`syncShutters` recomputes it at create and on a restored checkpoint). Every closed shutter whose
+  count is reached opens, in increasing order, as `{type:'shutterOpen', shutter}` (`at` on the timeline): `settle` right
+  after each round's clears (before its cell reveals, latches and completes); the timeline right after a single clear, at
+  its time, before that clear's cell reveals. Its cells become targets at once (the reach is dropped), so a waiting pod
+  departs at that very moment. `R.shutterLeft(state, i)` is the count still shown (0 once open); `view()` adds
+  `shutters` (those counts) on a level with shutters. A level without shutters plays byte-identically.
+- *Conformance line*: `<µs> shutterOpen shutter=<i>`.
+- *Boosters* (C# only): none opens a shutter. Bloom Burst leaves the cells under a closed shutter (the material's pods
+  keep that work) but the cells it clears count, so a shutter may open right after the burst, before its cell reveals.
+- *Not yet*: the builder, the doses and the §8 checks on the saved solution (open before 80 % W, a real new front), the
+  pilot, and the look (the owner's choice B of the mock).
+
 **Picture selection** (the owner, 2026-11-01).
 
 - *Pins.* `mechanics.json` may carry `pin: ['P0317', …]`: pictures the wave must use. `rounds.mjs plan` reserves each
@@ -445,7 +527,9 @@ recipe and mechanic name `latch`, «засов и ключ»). The exact contrac
 | `levels.mjs` | §3 pod split, candidates (queue by access depth, doses of §7; a scene's gate and lean; accents of §6), `evaluate` (the checks of one candidate, shared with the scene search), build → bank, calendar placement with the §11 variety rules and the plan's bridge kind, cards |
 | `bridge-scene.mjs` | split pictures (`splitOf`, `splitsFor`, `checkSplit`, `make --mode split`, `preview`) and the older bridge scenes: `scene` (a smaller picture behind a wall with two sites, strips and beds), `stripsOver`, `checkScene`, the search `make` → a draft picture module with the evidence |
 
-The engine plays hidden pods, linked pairs, the bridge, hidden cells and the latch with its acorn key. Canal, shutters,
-repair, bud, seed, well and stacks need engine and pilot work first (`SUPPORTED` in `lib.mjs`). The search behind the saved
+The engine plays hidden pods, linked pairs, the bridge, hidden cells, the latch with its acorn key, the water channel and
+the wooden shutters (the last two since 2026-11-05, rules and game port only: the builder, the pilot and the look come
+next). Repair, bud, seed, well and stacks need engine and pilot work first (`SUPPORTED` in `lib.mjs` lists what the
+builder builds). The search behind the saved
 solution assumes each action's work settles before the next. A search that runs out of budget means "not checked",
 never "impossible".
