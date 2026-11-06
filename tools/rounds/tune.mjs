@@ -209,7 +209,7 @@ export async function tuneJob({pic,cls,recipe,slot=null,intro=false,channelKind=
   const p={sigma:SIGMA[cls],cols,P:cpods.length,hold:slot==='regular'?1:0,links:linkWant,trap:cls!=='Normal'||trapMode,latch:types.includes('latch')?dz.latch[0]:0,accents:!!av};
   // the start t: the picture's memory (± 0.03), else the model's plan; a breather starts from the access order (t = 0)
   let t=breather&&mem.t==null?0:mem.t!=null?clamp(r2(mem.t+(rnd(cseed)()-.5)*.06),0,1):planT(f,p,zone,{model,offset}).t;
-  const make=async t=>{const c=LV.candidate(pic,cboard,cpods,cols,recipe,cls,cseed,intro,pos,{...(cls==='Normal'?{t}:{tStrong:t}),sigma:p.sigma,noLinks:!intro,noInfo:true,noHold:slot!=='regular',...(channelKind==='single'?{channelLean:true}:{}),...(latchWant!=null?{latchWant}:{}),...(av?{accents:av.accents.map(x=>x.code)}:{})});
+  const make=async t=>{const c=LV.candidate(pic,cboard,cpods,cols,recipe,cls,cseed,intro,pos,{...(cls==='Normal'?{t}:{tStrong:t}),sigma:p.sigma,noLinks:!intro,noInfo:true,noHold:slot!=='regular',...(channelKind?{channelLean:true}:{}),...(latchWant!=null?{latchWant}:{}),...(av?{accents:av.accents.map(x=>x.code)}:{})});
    if(c.error)return c;if(!linkWant||intro)return c;let ch=await chooseLinks(c.level,linkWant,cls,rnd(cseed^0x77),{noTrap:breather,trap:trapMode});stats.linkChecks+=ch.checked||0;
    // the dose place cannot hold the forced limit on this queue: the lead's minimum dose instead (the placer weighs the place
    // softly, 17 §7), recorded as dose place 0

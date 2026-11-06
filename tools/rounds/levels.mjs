@@ -598,8 +598,12 @@ export async function evaluate(level,{m,cls,intro=false,fixed=null,kind=null,cha
  // a breather (17 §5 «Передышка», the owner, 2026-11-02): the mandatory checks only
  if(breather)return evaluateBreather(level,{m,tick});
  // a deciding-exit channel (channelKind single, 17 §5, the owner, 2026-11-05): each exit solved alone first; exactly one wins
- let ch=null,exit=null;if(channelKind!==null){if(channelKind!=='single')throw Error('channelKind: только single');if(!level.channel)return {reason:'канал: план single, а на уровне нет канала'};if(cls!=='Super Hard')return {reason:'канал: single только на Super Hard (§5)'};
-  ch=await channelExits(level);tick('выходы канала '+JSON.stringify(ch.each));if(!ch.decides)return {reason:'канал: решает не ровно один выход (single)'};exit=winningExit(ch);}
+ let ch=null,exit=null;if(channelKind!==null){if(channelKind!=='single'&&channelKind!=='better')throw Error('channelKind: single или better');if(!level.channel)return {reason:`канал: план ${channelKind}, а на уровне нет канала`};if(cls!=='Super Hard')return {reason:`канал: ${channelKind} только на Super Hard (§5)`};
+  ch=await channelExits(level);tick('выходы канала '+JSON.stringify(ch.each));
+  if(channelKind==='single'){if(!ch.decides)return {reason:'канал: решает не ровно один выход (single)'};exit=winningExit(ch);}
+  // 'better' (the owner, 2026-11-06, L110 and L130: «один выход лучше»): both exits win, one 10+ points better by the random
+  // games with only that exit (as a Hard's 'better' bridge); the class is measured with the better exit
+  else{if(!ch.each.every(x=>x.win===true))return {reason:'канал: выигрывают не оба выхода (better)'};if(ch.gap<.1)return {reason:`канал: выходы различаются на ${Math.round(ch.gap*100)} пунктов, нужно 10+ (better)`};exit=ch.better;}}
  // a bridge introduction may be the second one, where one bridge only wins: its target is the Normal zone (§9)
  // a bridge level's class is its best bridge's (17 §5, the owner, 2026-10-30): the quick estimate takes the better bridge
  const q=level.hero?Math.max(...await Promise.all(level.hero.choices.map((_,i)=>quickShare(level,40,11,i)))):exit!==null?await quickShare(level,40,11,null,exit):await quickShare(level,40);tick('быстрая оценка '+q);const target=intro&&recipe==='bridge'?[.5,1]:intro?[.9,1]:fixed===1?[1,1]:fixed?[.9,1]:{Normal:[.5,.75],Hard:[.2,.5],'Super Hard':[.05,.2]}[cls];
@@ -718,7 +722,7 @@ export function accentVariant(pic,overlay,m,fixed,cls,intro,k,mode,cseed,no=()=>
  const am=measure(overlaid(pic,overlay,a.recolor)),ab=splitPods(am.volumes,am.N,fixed);if(ab.error){no('акценты: '+ab.error+' (строим без них)');return null;}
  let ps=accentPods(ab.pods,a.accents,ar);if(ps.length>budget(am.N)[1])ps=ab.pods;return {accents:a.accents,recolor:a.recolor,m:am,pods:ps,board:boardOf(pic,overlay,a.recolor)};}
 // the channelKind of a build (--channel-kind single): only a Super Hard whose recipe has the water channel takes it
-const channelKindOf=(cls,recipe)=>{const k=arg('--channel-kind');if(!k)return null;if(k!=='single')throw Error('--channel-kind: только single');return cls==='Super Hard'&&recipe.split('+').includes('canal')?k:null;};
+const channelKindOf=(cls,recipe)=>{const k=arg('--channel-kind');if(!k)return null;if(k!=='single'&&k!=='better')throw Error('--channel-kind: single или better');return cls==='Super Hard'&&recipe.split('+').includes('canal')?k:null;};
 async function build(ids){const accentMode=arg('--accents','auto');if(!['auto','on','off'].includes(accentMode))throw Error('--accents: auto, on или off');const classes=(arg('--classes','Normal,Hard,Super Hard')).split(','),seed0=+arg('--seed',+(process.env.ROUNDS_SEED||1)),sides=arg('--overlay')?arg('--overlay').split(','):null;
  if(sides&&sides.some(x=>x!=='none'&&!SIDES.includes(x)))throw Error(`--overlay: стороны none, ${SIDES.join(', ')}`);
  // --pairs (rounds.mjs run under a mechanics plan): only the planned class:recipe pairs, @side for a wall's side
@@ -1017,6 +1021,9 @@ else if(cmd==='adopt'){const n=+process.argv[3],src=readJSON(path.resolve(proces
  if(plan&&plan.channelKind==='single'){const ch=src.checks&&src.checks.channel;if(!src.definition.channel)errs.push('по плану канал single, а канала нет');
   else if(!ch||!ch.decides)errs.push('канал: решает не ровно один выход (single)');
   else if(src.random.exit!==ch.each.findIndex(x=>x.win===true)||!src.checks||src.checks.channelKind!=='single')errs.push('канал single: класс не измерен с выигрывающим выходом (evaluate channelKind single, §5)');}
+ if(plan&&plan.channelKind==='better'){const ch=src.checks&&src.checks.channel;if(!src.definition.channel)errs.push('по плану канал better, а канала нет');
+  else if(!ch||!ch.each.every(x=>x.win===true)||ch.gap<.1)errs.push('канал better: выигрывают не оба выхода или разница меньше 10 пунктов');
+  else if(src.random.exit!==ch.better||!src.checks||src.checks.channelKind!=='better')errs.push('канал better: класс не измерен с лучшим выходом (evaluate channelKind better, §5)');}
  if(errs.length){console.error('НЕТ:',errs.join('; '));process.exit(1);}
  const {level:_l,cls:_c,intro:_i,definition,...rest}=src,{id:_id,difficulty:_d,...def}=definition;
  const L={level:n,cls:slot.cls,intro:slot.intro,...rest,dosePos:null,...(side?{bridgeSide:side}:{}),hand:true,definition:{...def,id:n,difficulty:slot.cls}};

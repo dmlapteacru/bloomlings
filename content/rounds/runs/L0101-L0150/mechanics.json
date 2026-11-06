@@ -102,9 +102,10 @@
    ],
    "recipe": "links+canal+cells",
    "by": "hand",
-   "channelKind": "single",
+   "channelKind": "better",
    "handNote": "выбор выхода канала решает: выигрывает ровно один выход (строится вручную, как мосты L60, L75)",
-   "accents": true
+   "accents": true,
+   "channelKindNote": "owner 2026-11-06: «Один выход лучше» — both exits win, one 10+ points better, class measured with the better exit (a deciding exit was not found on 5 pictures)"
   },
   {
    "level": 111,
@@ -294,9 +295,10 @@
    ],
    "recipe": "links+canal+shutters",
    "by": "hand",
-   "channelKind": "single",
+   "channelKind": "better",
    "handNote": "выбор выхода канала решает: выигрывает ровно один выход (строится вручную, как мосты L60, L75)",
-   "accents": true
+   "accents": true,
+   "channelKindNote": "owner 2026-11-06: «Один выход лучше» — both exits win, one 10+ points better, class measured with the better exit (a deciding exit was not found on 5 pictures)"
   },
   {
    "level": 131,

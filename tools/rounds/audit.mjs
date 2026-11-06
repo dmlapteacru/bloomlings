@@ -96,7 +96,14 @@ for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
   // a deciding-exit Super Hard (the wave plan's channelKind single, recorded as checks.channelKind and random.exit; the
   // owner, 2026-11-05): exactly one exit wins, and the class (below, by L.random) is the one measured with that exit only
   // (17 §5, as a bridge level's best bridge)
-  {const single=((planOf(n)||{}).channelKind==='single')||(L.checks&&L.checks.channelKind==='single')||(L.random&&L.random.exit!=null);
+  {const better=((planOf(n)||{}).channelKind==='better')||(L.checks&&L.checks.channelKind==='better');
+   // 'better' (the owner, 2026-11-06): both exits win, one 10+ points better, the class measured with the better exit
+   if(better){if(!ch)bad.push('канал better: на уровне нет канала');else{const ce=L._channel;
+    if(!ce.each.every(x=>x.win===true))bad.push(`канал better: выигрывают не оба выхода ${JSON.stringify(ce.each.map(x=>x.win))} (§8)`);
+    else if(L.random.exit!==ce.better)bad.push(`канал better: класс измерен ${L.random.exit==null?'без ограничения выхода':'с выходом '+(L.random.exit+1)}, нужен лучший выход ${ce.better+1} (§5)`);
+    if(ce.gap<.1)soft.push(`канал better: выходы различаются на ${Math.round(ce.gap*100)} пунктов (при сборке было 10+; 60 партий на выход, §8)`);
+    if(L.cls!=='Super Hard')bad.push(`канал better на ${L.cls}: только для Super Hard (§5)`);}}
+   const single=!better&&(((planOf(n)||{}).channelKind==='single')||(L.checks&&L.checks.channelKind==='single')||(L.random&&L.random.exit!=null));
    if(single){if(!ch)bad.push('канал single: на уровне нет канала');else{const ce=L._channel;
     if(!ce.decides)bad.push(`канал: решает не ровно один выход (single) ${JSON.stringify(ce.each.map(x=>x.win))} (§8)`);
     else if(L.random.exit!==ce.each.findIndex(x=>x.win===true))bad.push(`канал single: класс измерен ${L.random.exit==null?'без ограничения выхода':'с выходом '+(L.random.exit+1)}, нужен выигрывающий выход ${ce.each.findIndex(x=>x.win===true)+1} (§5)`);
