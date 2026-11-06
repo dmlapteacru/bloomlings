@@ -1,0 +1,221 @@
+{
+ "format": "round-proof.v1",
+ "number": 149,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 124800000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 124800000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 152050000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 178050000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 198350000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 212550000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 228550000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 249575000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 272725000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 282750000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 293650000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 319750000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 334650000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 350600000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 366550000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 379025000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 398000000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 408975000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 424850000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 439600000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 455900000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 473700000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 482550000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 400,
+  "wins": 222,
+  "share": 0.555,
+  "wilson95": [
+   0.506,
+   0.603
+  ],
+  "classOfShare": "Normal",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.07,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": false,
+  "hiddenMatters": {
+   "ok": false,
+   "pods": [
+    {
+     "pod": 18,
+     "revealAt": 16,
+     "gap": 0,
+     "newColour": true
+    },
+    {
+     "pod": 10,
+     "revealAt": 21,
+     "gap": 0,
+     "newColour": true
+    }
+   ]
+  },
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.08,
+   "tight": 0.93
+  },
+  "calm": {
+   "runs": 200,
+   "wins": 136,
+   "share": 0.68,
+   "wilson95": [
+    0.612,
+    0.741
+   ],
+   "borderline": false,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 0,
+   "traps": 0,
+   "top": 0
+  },
+  "shutters": {
+   "shutters": [
+    {
+     "shutter": 0,
+     "material": "A",
+     "count": 40,
+     "cells": 56,
+     "atW": 0.483,
+     "command": 12,
+     "front": 15
+    }
+   ],
+   "lastOpenAtW": 0.483,
+   "ok": true,
+   "problems": [],
+   "notes": []
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0101-L0150.md",
+  "notes": [
+   "после 80 % W запусков 5 (ориентир 1–4, §10)",
+   "последний запуск при 98 % W (ориентир 80–92 %, §10)"
+  ]
+ },
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

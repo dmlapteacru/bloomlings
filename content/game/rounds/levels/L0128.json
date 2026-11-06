@@ -1,0 +1,210 @@
+{
+ "format": "round-level.v1",
+ "number": 128,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0071",
+  "version": 1
+ },
+ "board": {
+  "w": 32,
+  "h": 44,
+  "rowsBottomFirst": [
+   "################.###############",
+   "#..............................#",
+   "#.....EEEE............EEEE.....#",
+   "#...AACCCAEE........AAACCCEE...#",
+   "#..AACCCCCAEEAAAEEEAAACCCCCEE..#",
+   "#..AACCCCCAAAAAAAAAAAACCCCCAE..#",
+   "#..AACCCCCAAAAACCAAAAACCCCCAE..#",
+   "#..AAACCCAAACCCCCCCCAAACCCAAE..#",
+   "#...AAAAAAACCCCCCCCCCAAAAAAA...#",
+   "#.....AAAAACCCCDBBBBBDAAAA.....#",
+   "#.....EEAACCCCCCBBBBBCAAEE.....#",
+   "#...AAAEEACCCCCDBBBBBDAEEEEE...#",
+   "#..AAAAAEACCCCCCBBBBBCAEAAEEE..#",
+   "#..AAAAAAECCCCCDBBBBBDEAAAAEE..#",
+   "#..AAAAAAECCCCCCCCCCCCEAAAAAE..#",
+   "#..AAAAAAECCCCCCCCCCCCEAAAAAE..#",
+   "#.AAAAAAAEACCCCCCCCCCAEAAAAAEE.#",
+   "#.AAAAAAAEACCCCCCCCCCAEAAAAAEE.#",
+   "#..AAAAAAEAACCCCCCCCAAEAAAAAE..#",
+   "#..AAAAAAEAAAAACCAAAAAEAAAAAE..#",
+   "#..AAAAAAERRAAAAAAAARREAAAAAE..#",
+   "#..AAAAA.ARRRRADDARRRRA.AAAAE..#",
+   "#...AAA...RRRRRDDRRRRR...AAA...#",
+   "#.........RRRRADDARRRR.........#",
+   "#.........RRAAACCAAARR.........#",
+   "#........AAAACCCCCCAAEE........#",
+   "#.......AAAACCCDCDCCAAEE.......#",
+   "#.......AAACCCCCDCCCCAEE.......#",
+   "#......AAAACCCCDDCCCCAAEE......#",
+   "#......AAAAACCDDDDCCAAAEE......#",
+   "#......AAAAAACCDDCCAAAAAE......#",
+   "#......AAAADAAAAAAAADAAAE......#",
+   "#......AAAADAAAAAAAADAAAE......#",
+   "#......AAAAAAAAAAAAAAAAAE......#",
+   "#.......AAAAAAAAAAAAAAAA.......#",
+   "#.....AAAAAAAAAAAAAAAAAAEE.....#",
+   "#....AAACCAAAAAAAAAAAACCAAE....#",
+   "#....AACCCCAAAAAAAAAACCCCAA....#",
+   "#....AACCCAAAAAAAAAAAACCCAA....#",
+   "#....AAACAAA.AAAAAA.AAACAAA....#",
+   "#.....AAAAA..........AAAAA.....#",
+   "#......AAA............AAA......#",
+   "#..............................#",
+   "################################"
+  ],
+  "entries": [
+   16
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "A",
+   "count": 44
+  },
+  {
+   "code": "A",
+   "count": 44,
+   "group": "A"
+  },
+  {
+   "code": "A",
+   "count": 44
+  },
+  {
+   "code": "A",
+   "count": 44
+  },
+  {
+   "code": "A",
+   "count": 44
+  },
+  {
+   "code": "A",
+   "count": 44,
+   "group": "B"
+  },
+  {
+   "code": "A",
+   "count": 44
+  },
+  {
+   "code": "A",
+   "count": 44
+  },
+  {
+   "code": "A",
+   "count": 44
+  },
+  {
+   "code": "A",
+   "count": 44
+  },
+  {
+   "code": "C",
+   "count": 41,
+   "group": "B"
+  },
+  {
+   "code": "C",
+   "count": 41
+  },
+  {
+   "code": "C",
+   "count": 41
+  },
+  {
+   "code": "C",
+   "count": 40,
+   "mystery": "depth"
+  },
+  {
+   "code": "C",
+   "count": 40
+  },
+  {
+   "code": "E",
+   "count": 28
+  },
+  {
+   "code": "E",
+   "count": 28,
+   "group": "A"
+  },
+  {
+   "code": "E",
+   "count": 27
+  },
+  {
+   "code": "D",
+   "count": 14
+  },
+  {
+   "code": "D",
+   "count": 13
+  },
+  {
+   "code": "R",
+   "count": 17
+  },
+  {
+   "code": "R",
+   "count": 17
+  },
+  {
+   "code": "B",
+   "count": 13,
+   "mystery": "depth"
+  },
+  {
+   "code": "B",
+   "count": 12
+  }
+ ],
+ "tray": [
+  [
+   23,
+   12,
+   8,
+   21,
+   7,
+   3,
+   5,
+   16
+  ],
+  [
+   19,
+   13,
+   22,
+   11,
+   20,
+   14,
+   10,
+   1
+  ],
+  [
+   15,
+   18,
+   4,
+   6,
+   9,
+   17,
+   0,
+   2
+  ]
+ ],
+ "mechanics": [
+  "hidden",
+  "links"
+ ],
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

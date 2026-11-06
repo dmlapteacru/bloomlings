@@ -1,0 +1,147 @@
+{
+ "format": "round-proof.v1",
+ "number": 132,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 8925000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 47275000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 47275000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 47275000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 60250000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 117950000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 126325000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 161150000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 176500000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 195600000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 221100000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 231500000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 244900000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 250925000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 260475000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 272125000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 283150000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 295350000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 100,
+  "wins": 89,
+  "share": 0.89,
+  "wilson95": [
+   0.814,
+   0.937
+  ],
+  "classOfShare": "Normal",
+  "borderline": false
+ },
+ "checks": {
+  "breather": true,
+  "forced": 0.1,
+  "opening": null,
+  "hold": null,
+  "greedyLoses": null,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.31,
+   "tight": 0.82
+  },
+  "traps": {
+   "links": 0,
+   "traps": 0,
+   "top": 0
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0101-L0150.md",
+  "notes": [
+   "место дозы не записано (уровень собран до поправки)",
+   "последний запуск при 95 % W (ориентир 80–92 %, §10)"
+  ]
+ },
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

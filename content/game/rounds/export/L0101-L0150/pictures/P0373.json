@@ -1,0 +1,43 @@
+{
+ "format": "round-picture.v1",
+ "id": "P0373",
+ "version": 1,
+ "title": "Янтарь с грозовым облаком",
+ "family": "Доисторический мир",
+ "direction": "Фольклорная фантазия",
+ "subject": "Кусок янтаря хранит древнюю грозу; неровный золотой контур; тёмное облако внутри; яркая молния",
+ "source": "оригинальный",
+ "w": 23,
+ "h": 23,
+ "rows": [
+  ".........EEEEEOOO......",
+  "....OOOOOOOOOOOOOO.....",
+  "....OOOOOOOOYYYOOO.....",
+  "...OOOOYYYYYYYYYOOO....",
+  "..OOOOYYYYYYYYYYOOOO...",
+  ".OOOOYYYYYYYYYYYYOOOO..",
+  "EOOOAYYYYYYYYYYYYYOOO..",
+  "EOOOAYYYYYYVYYYYYYOOOO.",
+  "EOOOAYYYYVVVVVYYYYYOOOO",
+  ".OOOAYYVVVVVVVVVYYYOOO.",
+  ".OOOAYVVVVVVVVVVVYOOOO.",
+  ".OOOAYVVVVVCCCVVVYOOOO.",
+  ".OOOAYYYYYCCCCYYYYOOO..",
+  ".OOOYYYYYYCCCCCYYYOOO..",
+  ".OOOYYYYYCCCCCCYYOOOO..",
+  ".OOOOYYYYYYCCCYYYOOO...",
+  "..OOOOYYYYYCCYYYYOOO...",
+  "...OOOOYYYYCYYYYOOOO...",
+  "....OOOOYYYYYOOOOOO....",
+  ".....OOOOOOOOOOOOOO....",
+  "......OOOOOOOOOOOO.....",
+  ".......OOOOOOOO........",
+  ".......OOOO............"
+ ],
+ "approval": {
+  "status": "approved",
+  "by": "owner",
+  "decidedAt": "2026-11-01"
+ },
+ "rights": "own"
+}

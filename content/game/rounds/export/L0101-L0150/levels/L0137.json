@@ -1,0 +1,274 @@
+{
+ "format": "round-level.v1",
+ "number": 137,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0245",
+  "version": 1
+ },
+ "board": {
+  "w": 36,
+  "h": 32,
+  "rowsBottomFirst": [
+   "##################.#################",
+   "#..................................#",
+   "#.BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB.#",
+   "#.BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB.#",
+   "#.BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB.#",
+   "#.BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSCCCCCCSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSOOCCOOSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSOOCCOOSRRRRRSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSCCCCSSRRRRRSSSSSSS.#",
+   "#.SSSSSSSSSSSSSCCCCCCSRRRRRSSSSSSS.#",
+   "#.SSSSSSSSSSSSCCCCCCCRRYYYRSSSSSSS.#",
+   "#.SSSSSSSSSSSSCCCCCCCRRYYYRRSSSSSS.#",
+   "#.SSSSSSSSSSSSCCCCCCCRRRRRRRSSSSSS.#",
+   "#.SSSSSSSSSSSCCCCCCCCRRRRRRRSSSSSS.#",
+   "#.SSSSSSSSSSSCCCCCCCCCYYYSYSSSSSSS.#",
+   "#.SSSSSSSSSSCCCCCCCCCCYYYSYSSSSSSS.#",
+   "#.SDDDSSSSSCCCCCCCCCCCYYYSYSSSDDDS.#",
+   "#.SDDDDCCSCCCCCC..CCCYYYYYCCCDDDDS.#",
+   "#.SDDDDCCCCCCSCC..DDCYYYYYCCCDDDDS.#",
+   "#.SSDDDCCCCCSSCCCCDDCYSSCCCCCDDDSS.#",
+   "#.SSSSDCCCCSSSSCCCCCCSSSSCCCCDSSSS.#",
+   "#.SSSSSSSCSSSSSCCDDDDSSSSSCSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#..................................#",
+   "####################################"
+  ],
+  "entries": [
+   18
+  ],
+  "overlay": {
+   "walls": [],
+   "sites": [],
+   "keys": [
+    [
+     14,
+     7
+    ],
+    [
+     15,
+     7
+    ],
+    [
+     14,
+     8
+    ],
+    [
+     15,
+     8
+    ]
+   ]
+  },
+  "shutters": [
+   {
+    "cells": [
+     294,
+     295,
+     296,
+     297,
+     298,
+     330,
+     331,
+     332,
+     333,
+     334,
+     366,
+     367,
+     368,
+     369,
+     370,
+     402,
+     403,
+     404,
+     405,
+     406,
+     438,
+     439,
+     440,
+     441,
+     442,
+     474,
+     475,
+     476,
+     477,
+     478,
+     510,
+     511,
+     512,
+     513,
+     514,
+     546,
+     547,
+     548,
+     549,
+     550
+    ],
+    "code": "B",
+    "count": 35
+   }
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "S",
+   "count": 47
+  },
+  {
+   "code": "S",
+   "count": 47
+  },
+  {
+   "code": "S",
+   "count": 47
+  },
+  {
+   "code": "S",
+   "count": 47
+  },
+  {
+   "code": "S",
+   "count": 47
+  },
+  {
+   "code": "S",
+   "count": 47
+  },
+  {
+   "code": "S",
+   "count": 47
+  },
+  {
+   "code": "S",
+   "count": 47
+  },
+  {
+   "code": "S",
+   "count": 47
+  },
+  {
+   "code": "S",
+   "count": 46
+  },
+  {
+   "code": "S",
+   "count": 46,
+   "group": "A"
+  },
+  {
+   "code": "C",
+   "count": 46
+  },
+  {
+   "code": "C",
+   "count": 46
+  },
+  {
+   "code": "C",
+   "count": 46
+  },
+  {
+   "code": "D",
+   "count": 19
+  },
+  {
+   "code": "D",
+   "count": 19
+  },
+  {
+   "code": "Y",
+   "count": 15
+  },
+  {
+   "code": "Y",
+   "count": 14
+  },
+  {
+   "code": "R",
+   "count": 18
+  },
+  {
+   "code": "R",
+   "count": 18
+  },
+  {
+   "code": "O",
+   "count": 8,
+   "group": "A"
+  },
+  {
+   "code": "B",
+   "count": 43
+  },
+  {
+   "code": "B",
+   "count": 43
+  },
+  {
+   "code": "B",
+   "count": 42
+  }
+ ],
+ "tray": [
+  [
+   10,
+   5,
+   9,
+   8,
+   0,
+   12
+  ],
+  [
+   13,
+   17,
+   23,
+   21,
+   11,
+   3
+  ],
+  [
+   6,
+   7,
+   4,
+   18,
+   2,
+   22
+  ],
+  [
+   20,
+   15,
+   19,
+   16,
+   1,
+   14
+  ]
+ ],
+ "latches": [
+  {
+   "column": 1,
+   "depth": 3,
+   "key": 772
+  }
+ ],
+ "mechanics": [
+  "links",
+  "latch",
+  "shutters"
+ ],
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

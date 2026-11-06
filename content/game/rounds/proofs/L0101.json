@@ -1,0 +1,216 @@
+{
+ "format": "round-proof.v1",
+ "number": 101,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 24,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 43650000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 93875000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 93875000
+   },
+   {
+    "type": "channel",
+    "exit": 0,
+    "atUs": 125000000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 125000000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 140975000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 203350000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 220810000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 228010000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 244270000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 275560000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 287870000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 302620000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 318030000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 328105000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 340205000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 378295000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 399395000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 413995000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 429370000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 445270000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 461870000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 477710000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 498285000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 515345000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 100,
+  "wins": 100,
+  "share": 1,
+  "wilson95": [
+   0.963,
+   1
+  ],
+  "classOfShare": "Normal",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.11,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": false,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 0.75,
+   "tight": 0.9
+  },
+  "calm": {
+   "runs": 200,
+   "wins": 199,
+   "share": 0.995,
+   "wilson95": [
+    0.972,
+    0.999
+   ],
+   "borderline": false,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 0,
+   "traps": 0,
+   "top": 0
+  },
+  "channel": {
+   "each": [
+    {
+     "exit": 0,
+     "win": true,
+     "share": 1
+    },
+    {
+     "exit": 1,
+     "win": true,
+     "share": 1
+    }
+   ],
+   "gap": 0,
+   "decides": false,
+   "better": 0
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0101-L0150.md",
+  "notes": [
+   "канал: выходы 1 выигрывает, 2 выигрывает (§8)",
+   "последний запуск при 95 % W (ориентир 80–92 %, §10)",
+   "Normal 100 % — выше предпочтительной зоны 60–90 % (§5)"
+  ]
+ },
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

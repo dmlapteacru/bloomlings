@@ -1,0 +1,465 @@
+{
+ "format": "round-level.v1",
+ "number": 150,
+ "definitionVersion": 1,
+ "class": "Super Hard",
+ "picture": {
+  "id": "P0090",
+  "version": 1
+ },
+ "board": {
+  "w": 40,
+  "h": 42,
+  "rowsBottomFirst": [
+   "####################.###################",
+   "#......................................#",
+   "#.LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL.#",
+   "#.LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL.#",
+   "#.LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL.#",
+   "#.LLLLLLLLLLLLLAAAAAAAAEELLLLLLLLLLLLL.#",
+   "#.LLLLLLLLLLLLLAAAAAAAAEELLELLELLLLLLL.#",
+   "#.SSSSSSSSSSSSSAAAAAAAAEESSESSESSSSSSS.#",
+   "#.SSSSSSSSSSSSSSAAAAAAEESSSEEEESSSSSSS.#",
+   "#.SSSSSSSSSSSSSSAAAAAAEESSSESSESSSSSSS.#",
+   "#.SSSSSSSSSSSSSSAAAAAAEESSSESSESSSSSSS.#",
+   "#.SSSSSSSSSSSSSSAAAAAAEESSSEEEESSSSSSS.#",
+   "#.SSSSSRRRRRR..SAAAAAAEESSSE.SESSSSSSS.#",
+   "#.SSSSSSDSSSD..SSAAAAAESSSSESSESSSSSSS.#",
+   "#.SSSSSSDSSSDSSSSAAAAAESSSSEEEESSSSSSS.#",
+   "#.SSSSSSDSSSDSSSSAAAAEESSSSESSESSSSSSS.#",
+   "#.SSSSSSDSSSDSSSSAAAAEESSSSESSESSSSSSS.#",
+   "#.SSSSSSDSSSDSSSSAAAAEESSSSEEEESSSSSSS.#",
+   "#.SSSSSSDSSSDSSAAAAAAEEESSSESSESSSSSSS.#",
+   "#.SSSSSSDSSSDSAAAEEEEEEEEEEEEEESSSSSSS.#",
+   "#.SSSSSSDSSSDAAAAEEEEEEEEEEEEEESSSSSSS.#",
+   "#.SSSSSSDSAAD..ASSOOOOOOOOEEOESSSSSSSS.#",
+   "#.SSSSSSDAAAD..SMMMOOEEOOOEEOEEMSSSSSS.#",
+   "#.SSSSMMAAAAAMMMGGGOOEEOOOEEOAAMMMSSSS.#",
+   "#.SSSMMGAAAGGMGGGGGOOEEOOO..OGGMMMMSSS.#",
+   "#.SSSGGGGGGGGGGGGGGOOOOOOO..OGGGGMMSSS.#",
+   "#.SSGGGGGGGGGGHGGRRRRRRRRRRRRRRGGMMMSS.#",
+   "#.SSGGGGGGGGGGHGGGRRRRRRRRRRRRGGGGMMSS.#",
+   "#.SSGGGGGGGGGGHGGGGRRRRRRRRRRGGHGGMMSS.#",
+   "#.SSGGGGGGGGGGGGGGGGGRRRRRRGGGGHHGMMSS.#",
+   "#.SSGGGGGGG.GGGGGGGGGGRRRRGGGGGGGGMMSS.#",
+   "#.SSSGGGGGGGGGGGGGGGGGGRRGGGGGGGGGMSSS.#",
+   "#.SSSGGGGGGGGGGGGGGGGGGGGGGGGGGGGGMSSS.#",
+   "#.SSSSGGGGGHHHGGGGGGGGGGGGGGGGGGGSSSSS.#",
+   "#.SSSSSSGGGGGGGGGGGGGGGGGGGGGGGGSSSSSS.#",
+   "#.SSSSSSGGGGGGGGGGGGGG.GGGGGGGGSSSSSSS.#",
+   "#.SSSSSSSGGGGGGGGGGGGGGGGGGGGGMSSSSSSS.#",
+   "#.SSSSSSSGGGGGGGGGGGGGGGGGGGGGMSSSSSSS.#",
+   "#.SSSSSSSSGGGGGGGGGGGGGGGGGGGGSSSSSSSS.#",
+   "#.SSSSSSSSSGGGGGGSSSSSSGGGGGGSSSSSSSSS.#",
+   "#......................................#",
+   "########################################"
+  ],
+  "entries": [
+   20
+  ],
+  "overlay": {
+   "walls": [],
+   "sites": [],
+   "keys": [
+    [
+     20,
+     4
+    ],
+    [
+     9,
+     9
+    ],
+    [
+     26,
+     27
+    ],
+    [
+     11,
+     26
+    ],
+    [
+     12,
+     26
+    ],
+    [
+     11,
+     27
+    ],
+    [
+     12,
+     27
+    ],
+    [
+     24,
+     14
+    ],
+    [
+     25,
+     14
+    ],
+    [
+     24,
+     15
+    ],
+    [
+     25,
+     15
+    ],
+    [
+     11,
+     17
+    ],
+    [
+     12,
+     17
+    ],
+    [
+     11,
+     18
+    ],
+    [
+     12,
+     18
+    ]
+   ]
+  },
+  "recolor": [
+   [
+    9,
+    6,
+    "H"
+   ],
+   [
+    10,
+    6,
+    "H"
+   ],
+   [
+    11,
+    6,
+    "H"
+   ],
+   [
+    29,
+    10,
+    "H"
+   ],
+   [
+    30,
+    10,
+    "H"
+   ],
+   [
+    12,
+    11,
+    "H"
+   ],
+   [
+    29,
+    11,
+    "H"
+   ],
+   [
+    12,
+    12,
+    "H"
+   ],
+   [
+    12,
+    13,
+    "H"
+   ]
+  ],
+  "channel": {
+   "spring": 1422,
+   "exits": [
+    {
+     "cell": 1211,
+     "route": [
+      1422,
+      1421,
+      1420,
+      1419,
+      1418,
+      1417,
+      1416,
+      1415,
+      1414,
+      1413,
+      1412,
+      1411,
+      1371,
+      1331,
+      1291,
+      1251,
+      1211
+     ],
+     "rideUs": 960000
+    },
+    {
+     "cell": 508,
+     "route": [
+      1422,
+      1423,
+      1424,
+      1425,
+      1426,
+      1427,
+      1428,
+      1388,
+      1348,
+      1308,
+      1268,
+      1228,
+      1188,
+      1148,
+      1108,
+      1068,
+      1028,
+      988,
+      948,
+      908,
+      868,
+      828,
+      788,
+      748,
+      708,
+      668,
+      628,
+      588,
+      548,
+      508
+     ],
+     "rideUs": 1740000
+    }
+   ]
+  }
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "S",
+   "count": 57
+  },
+  {
+   "code": "S",
+   "count": 56,
+   "group": "G"
+  },
+  {
+   "code": "S",
+   "count": 56,
+   "group": "C"
+  },
+  {
+   "code": "S",
+   "count": 56,
+   "group": "E"
+  },
+  {
+   "code": "S",
+   "count": 56
+  },
+  {
+   "code": "S",
+   "count": 56
+  },
+  {
+   "code": "S",
+   "count": 56
+  },
+  {
+   "code": "S",
+   "count": 56
+  },
+  {
+   "code": "S",
+   "count": 56,
+   "group": "F"
+  },
+  {
+   "code": "G",
+   "count": 55
+  },
+  {
+   "code": "G",
+   "count": 55,
+   "group": "B"
+  },
+  {
+   "code": "G",
+   "count": 55,
+   "group": "G"
+  },
+  {
+   "code": "G",
+   "count": 54,
+   "group": "F"
+  },
+  {
+   "code": "G",
+   "count": 54
+  },
+  {
+   "code": "G",
+   "count": 54
+  },
+  {
+   "code": "M",
+   "count": 18
+  },
+  {
+   "code": "M",
+   "count": 18
+  },
+  {
+   "code": "H",
+   "count": 5
+  },
+  {
+   "code": "H",
+   "count": 4
+  },
+  {
+   "code": "R",
+   "count": 27,
+   "group": "E"
+  },
+  {
+   "code": "R",
+   "count": 27,
+   "group": "D"
+  },
+  {
+   "code": "O",
+   "count": 18,
+   "group": "B"
+  },
+  {
+   "code": "O",
+   "count": 17
+  },
+  {
+   "code": "A",
+   "count": 35
+  },
+  {
+   "code": "A",
+   "count": 35,
+   "group": "A"
+  },
+  {
+   "code": "A",
+   "count": 35,
+   "group": "A"
+  },
+  {
+   "code": "E",
+   "count": 35
+  },
+  {
+   "code": "E",
+   "count": 35,
+   "group": "D"
+  },
+  {
+   "code": "E",
+   "count": 34
+  },
+  {
+   "code": "D",
+   "count": 10,
+   "group": "C"
+  },
+  {
+   "code": "D",
+   "count": 10
+  },
+  {
+   "code": "L",
+   "count": 53
+  },
+  {
+   "code": "L",
+   "count": 53
+  },
+  {
+   "code": "L",
+   "count": 52
+  }
+ ],
+ "tray": [
+  [
+   8,
+   22,
+   2,
+   19,
+   1,
+   20
+  ],
+  [
+   10,
+   25,
+   29,
+   18,
+   23,
+   26,
+   0
+  ],
+  [
+   12,
+   24,
+   7,
+   3,
+   28,
+   9,
+   31
+  ],
+  [
+   21,
+   30,
+   5,
+   14,
+   11,
+   27,
+   4
+  ],
+  [
+   13,
+   16,
+   17,
+   6,
+   15,
+   33,
+   32
+  ]
+ ],
+ "latches": [
+  {
+   "column": 1,
+   "depth": 3,
+   "key": 986
+  },
+  {
+   "column": 2,
+   "depth": 4,
+   "key": 493
+  },
+  {
+   "column": 4,
+   "depth": 2,
+   "key": 853
+  }
+ ],
+ "mechanics": [
+  "links",
+  "latch",
+  "canal"
+ ],
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

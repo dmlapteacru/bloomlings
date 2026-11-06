@@ -1,0 +1,131 @@
+{
+ "format": "round-level.v1",
+ "number": 147,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0037",
+  "version": 1
+ },
+ "board": {
+  "w": 24,
+  "h": 30,
+  "rowsBottomFirst": [
+   "############.###########",
+   "#......................#",
+   "#.NN.NN..........NN.NN.#",
+   "#.NN.NN..........NN.NN.#",
+   "#..NNNNN........NNNNN..#",
+   "#..NNNNN........NNNNN..#",
+   "#...NNNNN......NNNNN...#",
+   "#...NNNNNOOOOOONNNNN...#",
+   "#....NNOOOOOOOOOONN....#",
+   "#....NOOOYYYYYYOOON....#",
+   "#....OOOYYYYYYYYOOO....#",
+   "#...OOOYYYYYYYYYYOOO...#",
+   "#...OOYYYYYRRYYYYYOO...#",
+   "#..OOYYYYYRRRRYYYYYOO..#",
+   "#..OOYYYYRRRRRRYYYYOO..#",
+   "#..OOYYYRRRRRRRRYYYOO..#",
+   "#..OOYYYRRRRRRRRYYYOO..#",
+   "#..OOYYYYRCCRRRYYYYOO..#",
+   "#..OOYYYYYRCRRYYYYYOO..#",
+   "#...OOYYYYYRRYYYYYOO...#",
+   "#...OOOYYYYYYYYYYOOO...#",
+   "#....OOOYYYYYYYYOOO....#",
+   "#.....OOOYYYYYYOOO.....#",
+   "#......OOOOOOOOOO......#",
+   "#........OOOOOO........#",
+   "#........OO..OO........#",
+   "#........OO..OO........#",
+   "#.........OOOO.........#",
+   "#......................#",
+   "########################"
+  ],
+  "entries": [
+   12
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "O",
+   "count": 38,
+   "mystery": "depth"
+  },
+  {
+   "code": "O",
+   "count": 37
+  },
+  {
+   "code": "O",
+   "count": 37
+  },
+  {
+   "code": "Y",
+   "count": 39
+  },
+  {
+   "code": "Y",
+   "count": 39,
+   "mystery": "depth"
+  },
+  {
+   "code": "Y",
+   "count": 38
+  },
+  {
+   "code": "R",
+   "count": 19
+  },
+  {
+   "code": "R",
+   "count": 18
+  },
+  {
+   "code": "C",
+   "count": 3
+  },
+  {
+   "code": "N",
+   "count": 21
+  },
+  {
+   "code": "N",
+   "count": 21
+  },
+  {
+   "code": "N",
+   "count": 20
+  }
+ ],
+ "tray": [
+  [
+   6,
+   11,
+   2,
+   0
+  ],
+  [
+   8,
+   4,
+   3,
+   10
+  ],
+  [
+   9,
+   5,
+   1,
+   7
+  ]
+ ],
+ "mechanics": [
+  "hidden"
+ ],
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

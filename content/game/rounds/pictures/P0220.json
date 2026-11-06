@@ -1,0 +1,41 @@
+{
+ "format": "round-picture.v1",
+ "id": "P0220",
+ "version": 1,
+ "title": "Гном с киркой",
+ "family": "Герои приключений",
+ "direction": "Миниатюрные мастерские",
+ "subject": "гном в красном колпаке с белой бородой и киркой",
+ "source": "оригинальный",
+ "w": 18,
+ "h": 21,
+ "rows": [
+  "DDDDDDDDDDDDDDDDDD",
+  "DDDDDDDDRRDDDDDDDD",
+  "DDDDDDDRRRRDDDDDDD",
+  "DDDDDDRRRRRRDDDDDD",
+  "DDDDDRRRRRRRRSSSDD",
+  "DDDDRRRRRRRRRRSSSD",
+  "DDDDRRRRRRRRRRADSS",
+  "DDDDDDKKKKKKKAADDD",
+  "DDDDDKDDKKDDKAADDD",
+  "DDDDKKDDKKDDKKADDD",
+  "DDDDDKKKRRKKKKADDD",
+  "DDDDDCCCRRCCKKKDDD",
+  "DDDDDCCCCCCCKKKDDD",
+  "DDDKKKCCCCCCCAADDD",
+  "DDDKKKCCCCCCCAADDD",
+  "DDDDKSCCCCCCCAADDD",
+  "DDDDDSSCCCCSSAADDD",
+  "DDDDDSSSCCSSAAADDD",
+  "DDDDDAAADDAAAAADDD",
+  "DDDDDAAADDAAADDDDD",
+  "DDDDDDDDDDDDDDDDDD"
+ ],
+ "approval": {
+  "status": "approved",
+  "by": "owner",
+  "decidedAt": "2026-11-01"
+ },
+ "rights": "own"
+}

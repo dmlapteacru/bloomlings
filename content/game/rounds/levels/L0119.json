@@ -1,0 +1,131 @@
+{
+ "format": "round-level.v1",
+ "number": 119,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0220",
+  "version": 1
+ },
+ "board": {
+  "w": 22,
+  "h": 25,
+  "rowsBottomFirst": [
+   "###########.##########",
+   "#....................#",
+   "#.DDDDDDDDDDDDDDDDDD.#",
+   "#.DDDDDAAADDAAADDDDD.#",
+   "#.DDDDDAAADDAAAAADDD.#",
+   "#.DDDDDSSSCCSSAAADDD.#",
+   "#.DDDDDSSCCCCSSAADDD.#",
+   "#.DDDDKSCCCCCCCAADDD.#",
+   "#.DDDKKKCCCCCCCAADDD.#",
+   "#.DDDKKKCCCCCCCAADDD.#",
+   "#.DDDDDCCCCCCCKKKDDD.#",
+   "#.DDDDDCCCRRCCKKKDDD.#",
+   "#.DDDDDKKKRRKKKKADDD.#",
+   "#.DDDDKKDDKKDDKKADDD.#",
+   "#.DDDDDKDDKKDDKAADDD.#",
+   "#.DDDDDDKKKKKKKAADDD.#",
+   "#.DDDDRRRRRRRRRRADSS.#",
+   "#.DDDDRRRRRRRRRRSSSD.#",
+   "#.DDDDDRRRRRRRRSSSDD.#",
+   "#.DDDDDDRRRRRRDDDDDD.#",
+   "#.DDDDDDDRRRRDDDDDDD.#",
+   "#.DDDDDDDDRRDDDDDDDD.#",
+   "#.DDDDDDDDDDDDDDDDDD.#",
+   "#....................#",
+   "######################"
+  ],
+  "entries": [
+   11
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "D",
+   "count": 52
+  },
+  {
+   "code": "D",
+   "count": 52,
+   "group": "A"
+  },
+  {
+   "code": "D",
+   "count": 52,
+   "group": "A"
+  },
+  {
+   "code": "D",
+   "count": 52
+  },
+  {
+   "code": "R",
+   "count": 22
+  },
+  {
+   "code": "R",
+   "count": 22
+  },
+  {
+   "code": "S",
+   "count": 18
+  },
+  {
+   "code": "A",
+   "count": 16
+  },
+  {
+   "code": "A",
+   "count": 16
+  },
+  {
+   "code": "K",
+   "count": 19
+  },
+  {
+   "code": "K",
+   "count": 18
+  },
+  {
+   "code": "C",
+   "count": 20
+  },
+  {
+   "code": "C",
+   "count": 19
+  }
+ ],
+ "tray": [
+  [
+   12,
+   11,
+   8,
+   7
+  ],
+  [
+   10,
+   9,
+   4,
+   2
+  ],
+  [
+   0,
+   3,
+   6,
+   1,
+   5
+  ]
+ ],
+ "mechanics": [
+  "links"
+ ],
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

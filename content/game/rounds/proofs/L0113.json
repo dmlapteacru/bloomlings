@@ -1,0 +1,245 @@
+{
+ "format": "round-proof.v1",
+ "number": 113,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 50500000
+   },
+   {
+    "type": "channel",
+    "exit": 0,
+    "atUs": 65850000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 79860000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 79860000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 97680000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 140980000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 158900000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 175195000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 187870000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 207665000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 229785000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 240155000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 261775000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 284915000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 301615000
+   },
+   {
+    "type": "tap",
+    "pod": 25,
+    "atUs": 312060000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 322655000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 340770000
+   },
+   {
+    "type": "tap",
+    "pod": 24,
+    "atUs": 348115000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 361145000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 381615000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 394810000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 406355000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 400,
+  "wins": 238,
+  "share": 0.595,
+  "wilson95": [
+   0.546,
+   0.642
+  ],
+  "classOfShare": "Normal",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.09,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": false,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 2.03,
+   "tight": 0.92
+  },
+  "calm": {
+   "runs": 200,
+   "wins": 120,
+   "share": 0.6,
+   "wilson95": [
+    0.531,
+    0.665
+   ],
+   "borderline": false,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 0,
+   "traps": 0,
+   "top": 0
+  },
+  "channel": {
+   "each": [
+    {
+     "exit": 0,
+     "win": true,
+     "share": 0.57
+    },
+    {
+     "exit": 1,
+     "win": true,
+     "share": 0.45
+    }
+   ],
+   "gap": 0.12,
+   "decides": false,
+   "better": 0
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "W",
+     "name": "Снег",
+     "from": "V",
+     "cells": 7,
+     "clusters": 3,
+     "pods": [
+      {
+       "pod": 4,
+       "count": 7,
+       "row": 4
+      }
+     ]
+    }
+   ],
+   "cells": 7,
+   "pressure": {
+    "with": 2.03,
+    "without": 1.62
+   }
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0101-L0150.md",
+  "notes": [
+   "канал: выходы 1 выигрывает, 2 выигрывает (§8)",
+   "опасных развилок 4 (ориентир 0–2, §5)",
+   "после 80 % W запусков 7 (ориентир 1–4, §10)",
+   "последний запуск при 98 % W (ориентир 80–92 %, §10)"
+  ]
+ },
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

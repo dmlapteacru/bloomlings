@@ -1,0 +1,259 @@
+{
+ "format": "round-proof.v1",
+ "number": 129,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 20825000
+   },
+   {
+    "type": "tap",
+    "pod": 25,
+    "atUs": 37200000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 37200000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 55200000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 77150000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 101050000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 117100000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 135025000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 155500000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 172625000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 183200000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 194825000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 209850000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 227075000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 251575000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 263125000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 280775000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 293800000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 304350000
+   },
+   {
+    "type": "tap",
+    "pod": 27,
+    "atUs": 321325000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 328700000
+   },
+   {
+    "type": "tap",
+    "pod": 26,
+    "atUs": 346625000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 348900000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 368325000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 383125000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 395050000
+   },
+   {
+    "type": "tap",
+    "pod": 24,
+    "atUs": 407400000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 416950000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 100,
+  "wins": 62,
+  "share": 0.62,
+  "wilson95": [
+   0.522,
+   0.709
+  ],
+  "classOfShare": "Normal",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.26,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": true,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 0.68,
+   "tight": 0.83
+  },
+  "calm": {
+   "runs": 200,
+   "wins": 187,
+   "share": 0.935,
+   "wilson95": [
+    0.892,
+    0.962
+   ],
+   "borderline": false,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 1,
+   "traps": 1,
+   "top": 1
+  },
+  "latch": {
+   "latches": [
+    {
+     "latch": 0,
+     "column": 2,
+     "depth": 3,
+     "behind": 4,
+     "key": 612,
+     "atW": 0.776,
+     "command": 22,
+     "waitMs": 53525
+    }
+   ],
+   "maxBlocked": 1,
+   "limit": 2,
+   "lastOpenAtW": 0.776,
+   "waits": true,
+   "randomOverLimit": 0,
+   "ok": true,
+   "problems": [],
+   "notes": []
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "W",
+     "name": "Снег",
+     "from": "N",
+     "cells": 4,
+     "clusters": 2,
+     "pods": [
+      {
+       "pod": 25,
+       "count": 2,
+       "row": 2
+      },
+      {
+       "pod": 26,
+       "count": 2,
+       "row": 3
+      }
+     ]
+    }
+   ],
+   "cells": 4,
+   "pressure": {
+    "with": 0.68,
+    "without": 0.64
+   }
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0101-L0150.md",
+  "notes": [
+   "слой Б: стоят без работы 0.68 < 0.9 (§13, quality.json)",
+   "после 80 % W запусков 6 (ориентир 1–4, §10)",
+   "последний запуск при 97 % W (ориентир 80–92 %, §10)"
+  ]
+ },
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

@@ -1,0 +1,312 @@
+{
+ "format": "round-level.v1",
+ "number": 124,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0415",
+  "version": 1
+ },
+ "board": {
+  "w": 40,
+  "h": 38,
+  "rowsBottomFirst": [
+   "####################.###################",
+   "#......................................#",
+   "#.GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG...#",
+   "#..GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG....#",
+   "#...NNNNNNNNNNNNNNNN...................#",
+   "#..NNNNNNNNNNNNNNNNNN..................#",
+   "#.NNNYYYNNNYYNNNYYYNNN.................#",
+   "#.NNYYYYYNYYYYNNYYYYNNNNNNNNNNNNNN.....#",
+   "#.NNYYYYYNYYYYNYYYYNNNNNNNNNNNNNNNNN...#",
+   "#.NNNYY..NYYYYNNYYNNNNNNNNNNNNNNNNNNN..#",
+   "#..NNNY..NNYYNNNNYNNNYYYNNYYYYNNYYYNNN.#",
+   "#..NNNNNNNNNNNWWNNNNYYYYYNYYYYNYYYYYNN.#",
+   "#..EANNNNNNNNNNNNNNNYYYYYNYYYYNYYYYYNN.#",
+   "#..EAAAAAAAAAAAAAANNNYYYNNYYYYNNYYYNNN.#",
+   "#..EAAAAAAAAAAAAAANNNNNNNNNNNNNNNNNNN..#",
+   "#..EAAAAAAAAAAAAAAANNNNNNWWWNNNNNNNNN..#",
+   "#..EAAAAAAAAAAAAAAAEONNNNNNNNNNNNNNOE..#",
+   "#..EAAAAAAACCCAAAAAEOOOOOOOOOOOOOOOOE..#",
+   "#...AAAAACCCCAAAAEEEOOOOOOOOOOOOOOOOE..#",
+   "#...EAACCCAAAAEE...EOOOOOOOOOOOOOOOOE..#",
+   "#...EACCAAAAAAE....EOOOOOOOOOOOOOOOE...#",
+   "#...EAAAAAACCCE....EOOOOOOOCCOOOOOEE...#",
+   "#...EAAAACCCAAE....EOOOOCCCCOOEEEE.....#",
+   "#...EACCCCAAAAE....EOOCCCOOOOOE........#",
+   "#...EACCVVVVAAE.....OOCOOOOOCOE........#",
+   "#...EAAAVVVVAAE.....EOOOOOCCCOE........#",
+   "#...EAAAVVVVAAE.....EOOOCCCOOOE........#",
+   "#...EAAAVVVVAAE.....EOCCCOOOOOE........#",
+   "#...EAAAVVVVAAE.....EOOVVVVVOOE........#",
+   "#....EAAVVVVAAE.....EOOVVVVVOOE........#",
+   "#....EAAAAAAAAE.....EOOVVVVVOOE........#",
+   "#....EEEEEEEEEE.....EOOVVVVVOOE........#",
+   "#...................EOOVVVVVOOE........#",
+   "#...................EOOOOOOOOOE........#",
+   "#...................EOOOOOOOOOE........#",
+   "#....................EEEEEEEEEE........#",
+   "#......................................#",
+   "########################################"
+  ],
+  "entries": [
+   20
+  ],
+  "overlay": {
+   "walls": [],
+   "sites": [],
+   "keys": [
+    [
+     5,
+     25
+    ],
+    [
+     6,
+     25
+    ],
+    [
+     5,
+     26
+    ],
+    [
+     6,
+     26
+    ]
+   ]
+  },
+  "recolor": [
+   [
+    23,
+    20,
+    "W"
+   ],
+   [
+    24,
+    20,
+    "W"
+   ],
+   [
+    25,
+    20,
+    "W"
+   ],
+   [
+    12,
+    24,
+    "W"
+   ],
+   [
+    13,
+    24,
+    "W"
+   ]
+  ],
+  "hiddenCells": [
+   419,
+   420,
+   421,
+   422,
+   423,
+   459,
+   460,
+   461,
+   462,
+   463,
+   500,
+   501,
+   502,
+   503,
+   825,
+   826,
+   827,
+   828,
+   829,
+   845,
+   846,
+   847,
+   848,
+   849,
+   850,
+   865,
+   866,
+   867,
+   868,
+   869,
+   885,
+   886,
+   887,
+   888,
+   889,
+   890,
+   905,
+   906,
+   907,
+   908,
+   909,
+   928,
+   929,
+   930
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "E",
+   "count": 32
+  },
+  {
+   "code": "E",
+   "count": 31
+  },
+  {
+   "code": "E",
+   "count": 31
+  },
+  {
+   "code": "O",
+   "count": 52
+  },
+  {
+   "code": "O",
+   "count": 51,
+   "group": "A"
+  },
+  {
+   "code": "O",
+   "count": 51
+  },
+  {
+   "code": "V",
+   "count": 25,
+   "group": "B"
+  },
+  {
+   "code": "V",
+   "count": 24
+  },
+  {
+   "code": "A",
+   "count": 49
+  },
+  {
+   "code": "A",
+   "count": 48
+  },
+  {
+   "code": "A",
+   "count": 48
+  },
+  {
+   "code": "C",
+   "count": 22
+  },
+  {
+   "code": "C",
+   "count": 22
+  },
+  {
+   "code": "N",
+   "count": 57
+  },
+  {
+   "code": "N",
+   "count": 57
+  },
+  {
+   "code": "N",
+   "count": 56
+  },
+  {
+   "code": "N",
+   "count": 56
+  },
+  {
+   "code": "W",
+   "count": 3
+  },
+  {
+   "code": "W",
+   "count": 2,
+   "group": "B"
+  },
+  {
+   "code": "Y",
+   "count": 32
+  },
+  {
+   "code": "Y",
+   "count": 31
+  },
+  {
+   "code": "Y",
+   "count": 31,
+   "group": "A"
+  },
+  {
+   "code": "G",
+   "count": 22
+  },
+  {
+   "code": "G",
+   "count": 22
+  },
+  {
+   "code": "G",
+   "count": 22
+  }
+ ],
+ "tray": [
+  [
+   4,
+   5,
+   15,
+   14,
+   3,
+   2,
+   23
+  ],
+  [
+   19,
+   12,
+   7,
+   17,
+   8,
+   0
+  ],
+  [
+   16,
+   20,
+   18,
+   9,
+   24,
+   1
+  ],
+  [
+   21,
+   10,
+   6,
+   11,
+   13,
+   22
+  ]
+ ],
+ "latches": [
+  {
+   "column": 0,
+   "depth": 3,
+   "key": 367
+  }
+ ],
+ "mechanics": [
+  "links",
+  "cells",
+  "latch"
+ ],
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

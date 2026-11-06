@@ -1,0 +1,323 @@
+{
+ "format": "round-level.v1",
+ "number": 117,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0014",
+  "version": 2
+ },
+ "board": {
+  "w": 31,
+  "h": 39,
+  "rowsBottomFirst": [
+   "###############.###############",
+   "#.............................#",
+   "#.BBCCCBBBBCCCBBBBCCCBBBBCCCB.#",
+   "#.BBBBBBBBBBBBBBBBBBBBBBBBBBB.#",
+   "#.BBBAAAAAAAAAAAAAAAAEEEEEEBB.#",
+   "#.BBBAAAAAAAAAAAAAAAAAEEEEBCC.#",
+   "#.BBBBAAAAAAAAAAAAAAAAEEEBBBB.#",
+   "#.SSSSSAAAAAAAAAAAAAAAAASSSSS.#",
+   "#.SSSSSSAAAAAAAAAAAAAAAASSSSS.#",
+   "#.SSSSSSSRRRRRDDDRRRRRSSSSSSS.#",
+   "#.SSSSSSSRRRRRDDDRRRRRSSSSSSS.#",
+   "#.SSSSSSS.RRRRDDDRRRRSSSSSSSS.#",
+   "#.SSSSSSSSCCCCCDCCCCCSSSSSSSS.#",
+   "#.SSSSSSSSCCCCCCCCCCCSSSSSSSS.#",
+   "#.SSSSSSSSCCCCCCCCCCCSSSSSSSS.#",
+   "#.SSSSSSSSRRRRRRRRRRRSSSSSSSS.#",
+   "#.SSSSSSSSRRRRRRRRRRRSSSSSSSS.#",
+   "#.SSSSSSSSRRRRRRRRRRRSSSSSSSS.#",
+   "#.SSSSSSSSRRRRRDRRRRRSSSSSSSS.#",
+   "#.SSSSSSSSSCCCCDCCCCSSSSSSSSS.#",
+   "#.SSSSSSSSSCCCCCCCCCSSSSSSSSS.#",
+   "#.SSSSSSSSSCCCCCCCCCSSSSSSSSS.#",
+   "#.SSSSSSSSSRRRRRRRRRSSSSSSSSS.#",
+   "#.SSSSSSSSSRRRRRRRRRSSSSSSSSS.#",
+   "#.SSSSSSSSSRRRRRRRRRSSSSSSSSS.#",
+   "#.SSSSSSSDDDDDDDDDDDDDSSSSSSS.#",
+   "#.YYYYSSSDDDDDDDDDDDDDSSSYYYY.#",
+   "#.YYYYYYYYYDDYYYYYDDYYYYYYYYY.#",
+   "#.YYYYYYYFYDDYYYYYDDYYYYFYYYY.#",
+   "#.YYYYYYFFYDDYYYYYDDY.YYFYYYY.#",
+   "#.YYYYYYYYYDDDDDDDDDYYYYYYYYY.#",
+   "#.YYYYYSSSSRRRRRRRRRSSSSYYYYY.#",
+   "#.SSSSSSSSSSRR.RRRRSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSRRRSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSDSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSDSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#.............................#",
+   "###############################"
+  ],
+  "entries": [
+   15
+  ],
+  "overlay": {
+   "walls": [],
+   "sites": [],
+   "keys": [
+    [
+     12,
+     4
+    ],
+    [
+     19,
+     7
+    ],
+    [
+     7,
+     25
+    ]
+   ]
+  },
+  "recolor": [
+   [
+    6,
+    7,
+    "F"
+   ],
+   [
+    7,
+    7,
+    "F"
+   ],
+   [
+    22,
+    7,
+    "F"
+   ],
+   [
+    7,
+    8,
+    "F"
+   ],
+   [
+    22,
+    8,
+    "F"
+   ]
+  ],
+  "channel": {
+   "spring": 1006,
+   "exits": [
+    {
+     "cell": 920,
+     "route": [
+      1006,
+      1007,
+      1008,
+      1009,
+      1010,
+      1011,
+      1012,
+      1013,
+      982,
+      951,
+      920
+     ],
+     "rideUs": 600000
+    },
+    {
+     "cell": 350,
+     "route": [
+      1006,
+      1005,
+      1004,
+      1003,
+      1002,
+      1001,
+      970,
+      939,
+      908,
+      877,
+      846,
+      815,
+      784,
+      753,
+      722,
+      691,
+      660,
+      629,
+      598,
+      567,
+      536,
+      505,
+      474,
+      443,
+      412,
+      381,
+      350
+     ],
+     "rideUs": 1560000
+    }
+   ]
+  }
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "S",
+   "count": 55
+  },
+  {
+   "code": "S",
+   "count": 55
+  },
+  {
+   "code": "S",
+   "count": 55,
+   "group": "A"
+  },
+  {
+   "code": "S",
+   "count": 54
+  },
+  {
+   "code": "S",
+   "count": 54
+  },
+  {
+   "code": "S",
+   "count": 54
+  },
+  {
+   "code": "S",
+   "count": 54
+  },
+  {
+   "code": "S",
+   "count": 54
+  },
+  {
+   "code": "D",
+   "count": 21
+  },
+  {
+   "code": "D",
+   "count": 20
+  },
+  {
+   "code": "D",
+   "count": 20
+  },
+  {
+   "code": "R",
+   "count": 39
+  },
+  {
+   "code": "R",
+   "count": 39
+  },
+  {
+   "code": "R",
+   "count": 38
+  },
+  {
+   "code": "Y",
+   "count": 33,
+   "group": "A"
+  },
+  {
+   "code": "Y",
+   "count": 33
+  },
+  {
+   "code": "Y",
+   "count": 33
+  },
+  {
+   "code": "F",
+   "count": 3
+  },
+  {
+   "code": "F",
+   "count": 2
+  },
+  {
+   "code": "C",
+   "count": 24
+  },
+  {
+   "code": "C",
+   "count": 24
+  },
+  {
+   "code": "C",
+   "count": 24
+  },
+  {
+   "code": "A",
+   "count": 28
+  },
+  {
+   "code": "A",
+   "count": 27
+  },
+  {
+   "code": "A",
+   "count": 27
+  },
+  {
+   "code": "B",
+   "count": 30
+  },
+  {
+   "code": "B",
+   "count": 29
+  },
+  {
+   "code": "E",
+   "count": 13
+  }
+ ],
+ "tray": [
+  [
+   14,
+   18,
+   9,
+   8,
+   26,
+   11,
+   20
+  ],
+  [
+   23,
+   3,
+   7,
+   17,
+   12,
+   4,
+   22
+  ],
+  [
+   2,
+   13,
+   5,
+   16,
+   21,
+   15,
+   25
+  ],
+  [
+   10,
+   24,
+   6,
+   1,
+   19,
+   27,
+   0
+  ]
+ ],
+ "mechanics": [
+  "links",
+  "canal"
+ ],
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}
