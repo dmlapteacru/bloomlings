@@ -668,7 +668,7 @@ export async function evaluate(level,{m,cls,intro=false,fixed=null,kind=null,cha
   if(bridgeKind==='single'){bl=early||await bridgeLoss(level,bs.each.indexOf(false));tick('проигрыш с другим мостом '+JSON.stringify(bl));if(!bl.ok&&cls!=='Super Hard'&&rt.cls!=='Super Hard')return {reason:'мост: с другим мостом проигрыш сразу при выборе (§8)'};}}
  const st=await strategies(level),rh=rhythm(sol.trace,W),greedyLoses=!st['most-now|left']&&!st['most-now|right'],hold=await holdPod(level);
  return {random:rt,...(rtAll?{randomAll:rtAll}:{}),solution:{route:sol.route,forks:sol.decisions.forks,singleSafe:sol.decisions.single,unknown:sol.decisions.unknown,fast:sol.fast},fairness:fair,strategies:st,rhythm:rh,...(bc?{bridge:bc}:{}),
-  checks:{forced,opening,hold,greedyLoses,hiddenMatters:hm,bridgeKind,bridgeSingle:bs,...(bl?{bridgeLoss:bl}:{}),pressure:await pressure(level,QUALITY.pressure.games),calm,traps:{links:traps.length,traps:trapN,top:traps.filter(x=>x.trap&&x.row<=2).length},...(lc?{latch:lc}:{}),...(ch?{channel:ch}:{}),...(exit!==null?{channelKind:'single'}:{}),...(sc?{shutters:sc}:{})}};}
+  checks:{forced,opening,hold,greedyLoses,hiddenMatters:hm,bridgeKind,bridgeSingle:bs,...(bl?{bridgeLoss:bl}:{}),pressure:await pressure(level,QUALITY.pressure.games),calm,traps:{links:traps.length,traps:trapN,top:traps.filter(x=>x.trap&&x.row<=2).length},...(lc?{latch:lc}:{}),...(ch?{channel:ch}:{}),...(exit!==null?{channelKind}:{}),...(sc?{shutters:sc}:{})}};}
 
 // A breather (17 §5 «Передышка», the owner, 2026-11-02: «некоторые играются как "передышка", особенно те что < 500–550
 // клеток»): a Normal on a picture up to ~550 cells (BREATHER_N) or a position the wave plan marks `breather`. Zero or one
