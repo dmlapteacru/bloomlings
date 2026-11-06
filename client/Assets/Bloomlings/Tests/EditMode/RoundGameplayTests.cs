@@ -144,7 +144,7 @@ namespace Bloomlings.Client.Tests
         private static RoundProof ProofOf(int level) =>
             RoundJson.ReadProof(File.ReadAllText(Path.Combine(DevContent.RepositoryContentFolder, "game", "rounds", "proofs", "L" + level.ToString("0000") + ".json")));
 
-        private static RoundInput Input(RoundCommand c) => c.Type == RoundCommandType.Tap ? RoundInput.Tap(c.Index, c.AtUs) : RoundInput.Bridge(c.Index, c.AtUs);
+        private static RoundInput Input(RoundCommand c) => c.Type == RoundCommandType.Tap ? RoundInput.Tap(c.Index, c.AtUs) : c.Type == RoundCommandType.Channel ? RoundInput.Channel(c.Index, c.AtUs) : RoundInput.Bridge(c.Index, c.AtUs);
 
         [Test]
         public void ARoundAttempt_AlwaysPlaysOnTheRoundRules_NeverTheDevLevel()
@@ -196,7 +196,12 @@ namespace Bloomlings.Client.Tests
                     }
 
                     Assert.That(core.Play.Timeline.Now, Is.EqualTo(c.AtUs), $"L{n}: {c} comes at its model time");
-                    bool accepted = c.Type == RoundCommandType.Tap ? core.Tap(c.Index) == RoundTapOutcome.Accepted : core.BuildBridge(c.Index);
+                    bool accepted = c.Type switch
+                    {
+                        RoundCommandType.Tap => core.Tap(c.Index) == RoundTapOutcome.Accepted,
+                        RoundCommandType.Channel => core.ChooseExit(c.Index),
+                        _ => core.BuildBridge(c.Index),
+                    };
                     Assert.That(accepted, Is.True, $"L{n}: {c} accepted");
                     Assert.That(core.Animator.ShowsRulesState(core.Play.Timeline, out string after), Is.True, $"L{n} after {c}: {after}");
                 }

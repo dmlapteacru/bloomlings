@@ -55,6 +55,7 @@ namespace Bloomlings.Client.Tests
         {
             RoundCommandType.Tap => RoundInput.Tap(command.Index, command.AtUs),
             RoundCommandType.Bridge => RoundInput.Bridge(command.Index, command.AtUs),
+            RoundCommandType.Channel => RoundInput.Channel(command.Index, command.AtUs),
             _ => throw new ArgumentOutOfRangeException(nameof(command), command.Type, "Unknown round command type."),
         };
 

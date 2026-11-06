@@ -469,7 +469,7 @@ namespace Bloomlings.Playtest.Preview
                 if (onProof)
                 {
                     RoundCommand c = commands[inputs.Count];
-                    next = c.Type == RoundCommandType.Tap ? RoundAction.Tap(c.Index) : RoundAction.BuildBridge(c.Index);
+                    next = c.Type == RoundCommandType.Tap ? RoundAction.Tap(c.Index) : c.Type == RoundCommandType.Channel ? RoundAction.ChooseExit(c.Index) : RoundAction.BuildBridge(c.Index);
                 }
                 else
                 {

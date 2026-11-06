@@ -108,7 +108,7 @@ namespace Bloomlings.Playtest.Check
                         }
                     }
 
-                    play.Apply(c.Type == RoundCommandType.Tap ? RoundInput.Tap(c.Index, 0) : RoundInput.Bridge(c.Index, 0));
+                    play.Apply(c.Type == RoundCommandType.Tap ? RoundInput.Tap(c.Index, 0) : c.Type == RoundCommandType.Channel ? RoundInput.Channel(c.Index, 0) : RoundInput.Bridge(c.Index, 0));
                 }
             }
 
@@ -147,7 +147,7 @@ namespace Bloomlings.Playtest.Check
             return RoundEvents.Signature(replay.Timeline);
         }
 
-        private static RoundInput Input(RoundCommand c) => c.Type == RoundCommandType.Tap ? RoundInput.Tap(c.Index, c.AtUs) : RoundInput.Bridge(c.Index, c.AtUs);
+        private static RoundInput Input(RoundCommand c) => c.Type == RoundCommandType.Tap ? RoundInput.Tap(c.Index, c.AtUs) : c.Type == RoundCommandType.Channel ? RoundInput.Channel(c.Index, c.AtUs) : RoundInput.Bridge(c.Index, c.AtUs);
 
         /// <summary>One frame-by-frame run of the solution, as the level screen plays it; null when it holds.</summary>
         private static string? Animated(RoundLevel level, RoundProof proof, string reference, Func<int, double> frame, int speed)
