@@ -81,12 +81,20 @@ namespace Bloomlings.Core.Rounds
     /// </summary>
     public sealed class RoundOverlay
     {
-        public RoundOverlay(IReadOnlyList<(int X, int Y)> walls, IReadOnlyList<(int X, int Y)> sites, IReadOnlyList<(int X, int Y)>? keys = null)
+        public RoundOverlay(IReadOnlyList<(int X, int Y)> walls, IReadOnlyList<(int X, int Y)> sites, IReadOnlyList<(int X, int Y)>? keys = null, IReadOnlyList<(int X, int Y)>? water = null)
         {
             Walls = walls ?? throw new ArgumentNullException(nameof(walls));
             Sites = sites ?? throw new ArgumentNullException(nameof(sites));
             Keys = keys ?? Array.Empty<(int X, int Y)>();
+            Water = water ?? Array.Empty<(int X, int Y)>();
         }
+
+        /// <summary>
+        /// Picture cells that become water ('#', <c>overlay.water</c>): the ring round a water channel's island (rules 17 §8
+        /// «Остров за водой», the owner, 2026-11-07). The rules read them as any wall; they are drawn as the stream in cream
+        /// stone banks, never as a stone wall, so <see cref="RoundLevel.OverlayCells"/> leaves them out.
+        /// </summary>
+        public IReadOnlyList<(int X, int Y)> Water { get; }
 
         /// <summary>Picture colour cells the level leaves empty ('.') (<c>overlay.keys</c>): latch key spots and a water channel's spring and exits.</summary>
         public IReadOnlyList<(int X, int Y)> Keys { get; }
@@ -403,7 +411,8 @@ namespace Bloomlings.Core.Rounds
         /// <summary>
         /// The board cells the overlay lays (presentation: they are drawn as a stone wall): each wall and site, and where it
         /// stands on the picture's edge the ring cell it closes outward (a corner both), as the reference's <c>boardOf</c>
-        /// closes them. Empty without an overlay.
+        /// closes them. Empty without an overlay. Its water (<see cref="RoundOverlay.Water"/>) is not among them: it is drawn
+        /// as the stream.
         /// </summary>
         public IReadOnlyList<int> OverlayCells()
         {

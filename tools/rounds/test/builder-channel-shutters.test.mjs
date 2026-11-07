@@ -12,6 +12,9 @@ const {engine}=await import('../engine.mjs');const {R,T}=await engine();
 const rnd=s=>{s=s>>>0||1;return()=>{s^=s<<13;s^=s>>>17;s^=s<<5;return(s>>>0)/4294967296;};};
 // a filled 20 × 18 picture of four materials (quadrants), deep enough for a channel (access depth up to 9)
 const TOY={id:'TOY',title:'toy',rows:Array.from({length:18},(_,y)=>Array.from({length:20},(_,x)=>x<10?(y<9?'G':'B'):(y<9?'R':'Y')).join(''))};
+// a 22 × 20 picture with an object in its upper middle (blue and yellow halves round a red core) on a green and a cyan
+// ground: the island behind water of the channel (17 §8 «Остров за водой», 2026-11-07)
+const ISL={id:'ISL',title:'island',rows:Array.from({length:20},(_,y)=>Array.from({length:22},(_,x)=>x>=5&&x<=16&&y>=2&&y<=12?(x>=9&&x<=12&&y>=5&&y<=9?'R':x<11?'B':'Y'):(y<14?'G':'C')).join(''))};
 const pods=b=>{const v={};for(const c of b.rowsBottomFirst.join(''))if(L.CODES.includes(c))v[c]=(v[c]||0)+1;const ps=[];for(const [c,n] of Object.entries(v)){const a=Math.ceil(n/2);ps.push({color:c,count:a},{color:c,count:n-a});}return ps;};
 const levelOf=(b,ps=pods(b))=>({id:1,w:b.w,h:b.h,rowsBottomFirst:b.rowsBottomFirst,entries:b.entries,capacity:5,pods:ps,tray:[ps.map((_,i)=>i).filter(i=>i%2===0),ps.map((_,i)=>i).filter(i=>i%2===1)],...LV.objectsOf(b)});
 
@@ -28,22 +31,28 @@ test('the calendar and the doses: canal and shutters supported, introductions 10
  assert.deepEqual(LV.shutterCounts('Normal',100),[20,25,30,35]);assert.deepEqual(LV.shutterCounts('Hard',41),[15,20]);assert.deepEqual(LV.shutterCounts('Normal',39),[]);
  assert.deepEqual(LV.shutterCounts('Super Hard',50),[20,25,30]);});
 
-test('placeChannel: the spring behind work, two deep exits far apart, carved one cell each, routes of two straight legs, the ride',()=>{
- const pc=LV.placeChannel(TOY,null,rnd(5)),again=LV.placeChannel(TOY,null,rnd(5));assert.ok(pc);assert.deepEqual(again,pc,'deterministic by r');
- const {at,overlay,depth}=pc;assert.equal(overlay.keys.length,3,'spring and exits carved (the toy has no pockets)');
- assert.ok(depth.spring>=2,'behind work');assert.ok(depth.exits.every(d=>d>=Math.max(depth.spring+3,Math.round(LV.CHANNEL.exit*depth.max))),'deep exits');
- const [a,b]=at.exits;assert.ok(Math.hypot(a[0]-b[0],a[1]-b[1])>=LV.CHANNEL.apart*Math.sqrt(20*18)-1e-9,'far apart');
+test('placeIsland: an island of 25–40 % ringed by water, both exits on it on different sides, the spring outside, routes of two straight legs, the ride',()=>{
+ const pc=LV.placeChannel(ISL,null,rnd(5)),again=LV.placeIsland(ISL,null,rnd(5));assert.ok(pc);assert.deepEqual(again,pc,'deterministic by r');
+ const {at,overlay,island}=pc;assert.ok(overlay.water.length>0,'the ring is water');assert.ok(island.colour>=LV.ISLAND.share[0]&&island.colour<=LV.ISLAND.share[1],`island ${island.colour}`);
+ // the water lies round the object (the ring of the blue-yellow-red block), the approved picture stays as it is
+ for(const [x,y] of overlay.water){assert.ok(x>=4&&x<=17&&y>=1&&y<=13);assert.ok(!(x>=5&&x<=16&&y>=2&&y<=12));}
  for(const [i,r] of at.routes.entries()){assert.deepEqual(r[0],at.spring);assert.deepEqual(r.at(-1),at.exits[i]);assert.equal(new Set(r.map(c=>c+'')).size,r.length);
   for(let k=1;k<r.length;k++)assert.equal(Math.abs(r[k][0]-r[k-1][0])+Math.abs(r[k][1]-r[k-1][1]),1);
   const turns=r.slice(2).filter((c,k)=>(c[0]-r[k+1][0])!==(r[k+1][0]-r[k][0])).length;assert.ok(turns<=1,'two straight legs');}
- let b0=L.boardOf(TOY,overlay);const ch=LV.channelOf(b0,at);b0=LV.withObjects(b0,{channel:ch});
- assert.equal(b0.rowsBottomFirst.join('')[ch.spring],'.');for(const e of ch.exits){assert.equal(b0.rowsBottomFirst.join('')[e.cell],'.');assert.equal(e.rideUs,Math.max(400,60*(e.route.length-1))*1000);assert.ok(!b0.entries.includes(e.cell));}
+ let b0=L.boardOf(ISL,overlay);const ch=LV.channelOf(b0,at);b0=LV.withObjects(b0,{channel:ch});
+ assert.deepEqual(b0.overlay.water,overlay.water,'the board keeps the water');assert.equal(b0.stone.length,0,'water is no stone');
+ const g=b0.rowsBottomFirst.join('');assert.equal(g[ch.spring],'.');for(const e of ch.exits){assert.equal(g[e.cell],'.');assert.equal(e.rideUs,Math.max(400,60*(e.route.length-1))*1000);assert.ok(!b0.entries.includes(e.cell));}
  const lv=levelOf(b0);assert.deepEqual(R.validate(lv),[]);assert.deepEqual(R.channelChoices(R.create(lv)),[],'not ready at the start');
- // the key holes never take the channel's cells; carved key spots keep away from them
- assert.deepEqual(LV.keyHoles(b0),[]);const ks=LV.carveKeySpots(TOY,overlay,1,rnd(3),{avoid:LV.channelSpots(at)});
- if(ks){const kb=LV.withObjects(L.boardOf(TOY,ks),{channel:ch});const holes=LV.keyHoles(kb);assert.equal(holes.length,1);assert.ok(!LV.channelCells(kb).has(holes[0].key));}
- // a picture without depth has no channel
- assert.equal(LV.placeChannel({id:'S',title:'s',rows:['GGGG','GGGG','GGGG']},null,rnd(1)),null);});
+ // the island: unreachable without the channel, both exits on it, the spring off it, everything reachable with either exit
+ const isl=M.islandOf(lv);assert.ok(isl.share>=.25&&isl.share<=.4,`island ${isl.share}`);assert.deepEqual(isl.each.map(e=>e.on),[true,true]);assert.deepEqual(isl.each.map(e=>e.miss),[0,0]);assert.equal(isl.springOn,false);
+ // the exits on different sides of the island
+ const [p,q]=at.exits,cx=10.5,cy=7;let da=Math.abs(Math.atan2(p[1]-cy,p[0]-cx)-Math.atan2(q[1]-cy,q[0]-cx));if(da>Math.PI)da=2*Math.PI-da;assert.ok(da*180/Math.PI>=90);
+ // the key holes never take the channel's cells
+ assert.deepEqual(LV.keyHoles(b0),[]);
+ // a picture without depth or without an inner part has no island
+ assert.equal(LV.placeIsland({id:'S',title:'s',rows:['GGGG','GGGG','GGGG']},null,rnd(1)),null);
+ // a picture of few big areas touching its edges takes a round blob cut through them (scored below an outline)
+ const blob=LV.placeIsland(TOY,null,rnd(1));if(blob)assert.ok(blob.island.colour>=.25&&blob.island.colour<=.4);});
 
 test('placeShutters: a full rectangle of colour cells off the start front, nothing closed off, the counter of its material by class',()=>{
  const b=L.boardOf(TOY),g=b.rowsBottomFirst.join('');
@@ -66,25 +75,28 @@ test('placeShutters: a full rectangle of colour cells off the start front, nothi
  const lv=levelOf(LV.withObjects(b,{shutters:[{...LV.shuttersOf([first])[0],count:first.count+1}]}));assert.match(LV.dosesOk({...lv,recipe:'shutters'},'Normal'),/счётчик/);});
 
 test('candidate: the board\'s channel and shutters go into the level; the recipe must match them; hidden cells keep off the shutters',()=>{
- const pc=LV.placeChannel(TOY,null,rnd(5));let b=L.boardOf(TOY,pc.overlay);b=LV.withObjects(b,{channel:LV.channelOf(b,pc.at)});
+ const pc=LV.placeChannel(ISL,null,rnd(5));let b=L.boardOf(ISL,pc.overlay);b=LV.withObjects(b,{channel:LV.channelOf(b,pc.at)});
  const sh=LV.placeShutters(b,{n:1,cls:'Normal',r:rnd(2),avoid:[...LV.channelCells(b)]});b=LV.withObjects(b,{shutters:LV.shuttersOf(sh)});
- const base=LV.splitPods(L.measure(L.overlaid(TOY,pc.overlay)).volumes,L.measure(L.overlaid(TOY,pc.overlay)).N,null).pods;
- const c=LV.candidate(TOY,b,base,3,'canal+shutters','Normal',3,false,null,{});assert.ok(c.level,c.error);assert.deepEqual(c.level.channel,b.channel);assert.deepEqual(c.level.shutters,b.shutters);
+ const base=LV.splitPods(L.measure(L.overlaid(ISL,pc.overlay)).volumes,L.measure(L.overlaid(ISL,pc.overlay)).N,null).pods;
+ const c=LV.candidate(ISL,b,base,3,'canal+shutters','Normal',3,false,null,{});assert.ok(c.level,c.error);assert.deepEqual(c.level.channel,b.channel);assert.deepEqual(c.level.shutters,b.shutters);
  assert.deepEqual(R.validate(c.level),[]);
- assert.match(LV.candidate(TOY,b,base,3,'canal','Normal',3,false).error,/створки/);assert.match(LV.candidate(TOY,L.boardOf(TOY),base,3,'canal','Normal',3,false).error,/канал/);
- const hc=LV.candidate(TOY,b,base,3,'shutters+cells','Normal',4,false);if(hc.level&&hc.level.hiddenCells)assert.ok(!hc.level.hiddenCells.some(i=>sh[0].cells.includes(i)));
+ assert.match(LV.candidate(ISL,b,base,3,'canal','Normal',3,false).error,/створки/);assert.match(LV.candidate(ISL,L.boardOf(ISL),base,3,'canal','Normal',3,false).error,/канал/);
+ const hc=LV.candidate(ISL,b,base,3,'shutters+cells','Normal',4,false);if(hc.level&&hc.level.hiddenCells)assert.ok(!hc.level.hiddenCells.some(i=>sh[0].cells.includes(i)));
  // the export carries both (round-level.v1, the schema)
- const out=X.levelV1({level:101,cls:'Normal',picture:'TOY',recipe:'canal+shutters',definition:c.level},{});assert.ok(out.board.channel&&out.board.shutters);assert.deepEqual(out.mechanics,['canal','shutters']);
- assert.deepEqual(out.board.overlay.keys,pc.overlay.keys);});
+ const out=X.levelV1({level:101,cls:'Normal',picture:'ISL',recipe:'canal+shutters',definition:c.level},{});assert.ok(out.board.channel&&out.board.shutters);assert.deepEqual(out.mechanics,['canal','shutters']);
+ assert.deepEqual(out.board.overlay.keys,pc.overlay.keys);assert.deepEqual(out.board.overlay.water,pc.overlay.water,'the export carries the water');});
 
 test('the saved solution shows the exit choice, each exit is solved alone, the shutters open on the solution, the strategies take the exit',async()=>{
- const pc=LV.placeChannel(TOY,null,rnd(5));let b=L.boardOf(TOY,pc.overlay);b=LV.withObjects(b,{channel:LV.channelOf(b,pc.at)});
+ const pc=LV.placeChannel(ISL,null,rnd(5));let b=L.boardOf(ISL,pc.overlay);b=LV.withObjects(b,{channel:LV.channelOf(b,pc.at)});
  const sh=LV.placeShutters(b,{n:1,cls:'Normal',r:rnd(2),avoid:[...LV.channelCells(b)]});b=LV.withObjects(b,{shutters:LV.shuttersOf(sh)});
- const base=LV.splitPods(L.measure(L.overlaid(TOY,pc.overlay)).volumes,L.measure(L.overlaid(TOY,pc.overlay)).N,null).pods,lv=LV.candidate(TOY,b,base,3,'canal+shutters','Normal',3,false).level;
+ const base=LV.splitPods(L.measure(L.overlaid(ISL,pc.overlay)).volumes,L.measure(L.overlaid(ISL,pc.overlay)).N,null).pods,lv=LV.candidate(ISL,b,base,3,'canal+shutters','Normal',3,false).level;
  const sol=await M.solve(lv);assert.equal(sol.win,true);assert.equal(sol.replay,'won');assert.ok(sol.route.some(a=>a.type==='channel'),'the search tries an exit as soon as one may be chosen');
  const ce=await M.channelExits(lv,10);assert.equal(ce.each.length,2);assert.ok(ce.each.every(x=>typeof x.win==='boolean'||x.win===null));assert.ok(ce.each.some(x=>x.win===true));
  const sc=await M.shutterCheck(lv,sol.route);assert.equal(sc.shutters.length,1);assert.ok(sc.shutters[0].atW>0);assert.equal(sc.ok,sc.shutters[0].atW<.8);
- assert.match((await M.shutterCheck(lv,sol.route.slice(0,1))).problems[0],/не открылись на сохранённом решении/);
+ assert.match((await M.shutterCheck(lv,[])).problems[0],/не открылись на сохранённом решении/);
+ // the island on the saved solution (17 §8 «Остров за водой»): the spring reached and an exit chosen
+ const cc=await M.channelCheck(lv,sol.route);assert.ok(cc.ready&&cc.open,'ready and chosen');assert.ok(cc.island.share>=.25&&cc.island.share<=.4);assert.deepEqual(cc.exitsOn,[true,true]);
+ assert.match((await M.channelCheck(lv,[])).problems.join(' '),/выход не выбран/);
  const st=await M.strategies(lv),gr=await M.greedy(lv);assert.equal(Object.keys(st).length>0,true);assert.equal(Object.keys(gr).length,4);
  const f=await M.forcedShare(lv,4);assert.ok(f>=0&&f<=1);
  // the random test plays the exit as one of the uniform actions (17 §5): some games choose each exit

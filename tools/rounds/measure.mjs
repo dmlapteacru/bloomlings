@@ -167,6 +167,33 @@ export async function channelExits(level,n=60,seed=5){if(!level.channel)return n
  for(let i=0;i<level.channel.exits.length;i++){const win=solver(E,200000,a=>a.type!=='channel'||a.exit===i).winnable(E.idle.create(level,level.capacity||5));
   const sh=(await games('exit',level,{seed,exit:i},{count:n})).filter(Boolean).length;each.push({exit:i,win,share:Math.round(sh/n*100)/100});}
  const sh=each.map(x=>x.share);return {each,gap:Math.round((Math.max(...sh)-Math.min(...sh))*100)/100,decides:each.filter(x=>x.win===true).length===1&&each.filter(x=>x.win===false).length===each.length-1,better:sh.indexOf(Math.max(...sh))};}
+// the island behind water (17 §8 «Остров за водой», the owner, 2026-11-07): the colour cells the entries never reach without
+// the channel (every cell but '#' passable, the channel never chosen) are the island; its share of N is 25–40 %
+// (ISLAND_SHARE), both exits stand on it and the spring off it, and with either exit as the only new entry every colour
+// cell is reachable (outside from the entries, the island from that exit). On the saved solution, replayed patiently on
+// the timeline (as shutterCheck), the spring is reached (channelReady) at 20–30 % W (CHANNEL_READY) and the exit chosen
+// at once or later. Returns {island: {cells, share}, exitsOn, ready: {atW}, open: {exit, atW}, ok, problems, notes}.
+export const ISLAND_SHARE=[.25,.4],CHANNEL_READY=[.2,.3];
+export function islandOf(level){const {w,h,rowsBottomFirst:rows,entries}=level,g=rows.join(''),n=w*h,col=i=>g[i]!=='.'&&g[i]!=='#';
+ const flood=src=>{const seen=new Uint8Array(n),q=[];for(const s of src)if(g[s]!=='#'&&!seen[s]){seen[s]=1;q.push(s);}
+  for(let k=0;k<q.length;k++){const i=q[k],x=i%w;for(const j of [i-w,i+w,x>0?i-1:-1,x<w-1?i+1:-1])if(j>=0&&j<n&&!seen[j]&&g[j]!=='#'){seen[j]=1;q.push(j);}}return seen;};
+ const a0=flood(entries),N=[...g].filter((c,i)=>col(i)).length,island=[];for(let i=0;i<n;i++)if(col(i)&&!a0[i])island.push(i);
+ const ch=level.channel,each=ch?ch.exits.map(e=>{const f=flood([...entries,e.cell]);let miss=0;for(let i=0;i<n;i++)if(col(i)&&!f[i])miss++;return {on:!a0[e.cell],miss};}):[];
+ return {cells:island.length,share:N?Math.round(island.length/N*1000)/1000:0,N,each,springOn:ch?!a0[ch.spring]:null};}
+export async function channelCheck(level,route){const ch=level.channel;if(!ch)return null;const E=await engine(),{R,T}=E;
+ const W=level.pods.reduce((n,p)=>n+p.count,0),t=new T.Timeline(R.create(level,level.capacity||5));let ready=null,open=null;
+ if(R.channelChoices(t.state).length)ready={atW:0};
+ const watch=events=>{for(const e of events){if(e.type==='channelReady'&&!ready)ready={atW:Math.round(t.processedCells/W*1000)/1000};if(e.type==='channelOpen'&&!open)open={exit:e.exit,atW:Math.round(t.processedCells/W*1000)/1000};}};
+ const settle=()=>{while(t.pending){t.advance(Math.max(0,t.steps[0].at-t.now));watch(t.lastEvents);}};
+ for(const a of route||[]){settle();const r=t.commit(a);if(!r.accepted)break;watch(r.events);watch(t.lastEvents);}
+ settle();const isl=islandOf(level),problems=[],notes=[];
+ if(isl.share<ISLAND_SHARE[0]||isl.share>ISLAND_SHARE[1])problems.push(`канал: остров за водой ${Math.round(isl.share*100)} % N, нужно 25–40 % (§8 «Остров за водой»)`);
+ isl.each.forEach((e,i)=>{if(!e.on)problems.push(`канал: выход ${i+1} не на острове (§8)`);if(e.miss)problems.push(`канал: с выходом ${i+1} недоступно цветных клеток ${e.miss} (§8)`);});
+ if(isl.springOn)problems.push('канал: родник на острове (§8)');
+ if(!ready)problems.push('канал: родник не достигнут на сохранённом решении (§8)');
+ else if(ready.atW<CHANNEL_READY[0]||ready.atW>CHANNEL_READY[1])problems.push(`канал: родник открыт при ${Math.round(ready.atW*100)} % W на сохранённом решении, нужно 20–30 % (§8 «Остров за водой»)`);
+ if(!open)problems.push('канал: выход не выбран на сохранённом решении (§8)');
+ return {island:{cells:isl.cells,share:isl.share},exitsOn:isl.each.map(e=>e.on),ready,open,ok:!problems.length,problems,notes};}
 // the exit that alone wins when a channel decides (channelExits(...).decides), else null
 export const winningExit=ch=>ch&&ch.decides?ch.each.findIndex(x=>x.win===true):null;
 // wooden shutters on the saved solution (17 §8 «Twig Деревянные створки»): the solution replayed patiently on the timeline

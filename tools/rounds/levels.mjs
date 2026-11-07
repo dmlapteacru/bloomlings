@@ -38,7 +38,7 @@ import {franchiseBlocked,packOf,waveRange,siteChoice,ROUNDS,PICTURES,LEVELS,BANK
 import {fitness} from './fitness.mjs';import {deltaE,labOf} from './colour-distance.mjs';
 import {tuneJob,ZONES} from './tune.mjs';
 import {GEN,breatherRecipeOk,BREATHER_ZONE,repeatClash,wideClash,medianPenalty,greedyQuota,MEDIAN} from './wave.mjs';
-import {channelExits,winningExit,shutterCheck,latchCheck,LATCH_DEPTH,LATCH_BEHIND,cellsHiddenAtStart,cellFairness,randomTest,quickShare,solve,fairness,strategies,rhythm,bridgeChoicesWin,bridgeChoices,greedy,greedyBeaten,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,bridgeLoss,pressure,calmTest,calmFails,calmBorderline,trapLinks,classKeep} from './measure.mjs';
+import {channelExits,channelCheck,winningExit,shutterCheck,latchCheck,LATCH_DEPTH,LATCH_BEHIND,cellsHiddenAtStart,cellFairness,randomTest,quickShare,solve,fairness,strategies,rhythm,bridgeChoicesWin,bridgeChoices,greedy,greedyBeaten,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,bridgeLoss,pressure,calmTest,calmFails,calmBorderline,trapLinks,classKeep} from './measure.mjs';
 // layer B of 17 §13: the bounds of the metrics of interest (content/rounds/quality.json)
 const QUALITY=readJSON(path.join(ROUNDS,'quality.json'),{pressure:{min:{},games:30,mode:'soft'}});import {engine,rulesSync} from './engine.mjs';import {createRequire as _cr} from 'node:module';
 // the engine synchronously (the latch timing runs inside candidate, which is synchronous)
@@ -373,56 +373,170 @@ export const objectsOf=b=>({...(b&&b.channel?{channel:b.channel}:{}),...(b&&b.sh
 export const channelCells=b=>b&&b.channel?new Set([b.channel.spring,...b.channel.exits.map(e=>e.cell)]):null;
 export const shutterCells=b=>b&&b.shutters?b.shutters.flatMap(s=>s.cells):[];
 export function withObjects(board,{channel=board.channel,shutters=board.shutters}={}){const b={...board};delete b.channel;delete b.shutters;if(channel)b.channel=channel;if(shutters&&shutters.length)b.shutters=shutters;return b;}
-// The channel's places (picture coordinates): the spring's access depth (colour cells to clear before it, depths()) in
-// spring[0]–spring[1] of the deepest colour cell's (and at least 2: it sits behind work, the player clears an approach
-// first, 17 §8); each exit at least `exit` of it and 3 deeper than the spring (inner regions far from the entry); the two
-// exits at least apart × √(picture area) from each other and turned at least `angle` degrees from each other as seen from
-// the spring (different parts of the picture, so the choice matters); channel cells at least `gap` apart (Chebyshev). The
-// ride: stepMs a step of the route, at least minRideMs (README «Channel»).
-export const CHANNEL={spring:[.08,.35],exit:.5,apart:.4,angle:80,gap:3,minDepth:6,stepMs:60,minRideMs:400};
+// The channel's ride: stepMs a step of the route, at least minRideMs (README «Channel»); its places: placeIsland below
+// (ISLAND; the open placement of 2026-11-05, spring in 8–35 % of the depth and two deep exits, retired on 2026-11-07).
+export const CHANNEL={stepMs:60,minRideMs:400};
 export const rideUsOf=route=>Math.max(CHANNEL.minRideMs,CHANNEL.stepMs*(route.length-1))*1000;
 // an orthogonal route from a to b (picture or board coordinates [x, y]): one leg along a row and one along a column, the
 // column first when vertFirst; both ends included, no repeat
 export function channelRoute([x0,y0],[x1,y1],vertFirst=false){const out=[[x0,y0]];let x=x0,y=y0;const sx=Math.sign(x1-x0),sy=Math.sign(y1-y0);
  const vert=()=>{while(y!==y1){y+=sy;out.push([x,y]);}},hor=()=>{while(x!==x1){x+=sx;out.push([x,y]);}};if(vertFirst){vert();hor();}else{hor();vert();}return out;}
-// Places the water channel on a picture (with its overlay): the spring and two exits, each a colour cell enclosed by colour
-// on its four sides that the level takes out (overlay.keys: a pocket of its own, so the start never reaches it and the cubes
-// round an exit are its new front) or an empty pocket of the picture the start does not reach (its holes); the spring in
-// its band, near the middle of it and of the picture's width (the entry's column), the exits the deepest, farthest apart
-// pair, materials round them preferably different; each route two straight legs, the pair overlapping least. Deterministic
-// by r. Returns {overlay (walls and sites kept, keys + the carved cells), at: {spring, exits, routes} (picture
-// coordinates), depth: {spring, exits, max}} or null when the picture has no such places.
-// A picture too thin for the strict pair (no two deep exits that far apart and turned that much) is tried once more with
-// CHANNEL_RELAXED (the result carries relaxed: true).
-export const CHANNEL_RELAXED={exit:.4,apart:.28,angle:55};
-export function placeChannel(pic,overlay=null,r=Math.random,{relaxed=false}={}){const C={...CHANNEL,...(relaxed?CHANNEL_RELAXED:{})},p=overlaid(pic,overlay),rows=p.rows,pw=rows[0].length,ph=rows.length,base=boardOf(pic,overlay),{d}=depths(base,-1),w=base.w,h=base.h;
- const bi=(x,y)=>(h-1-(y+2))*w+x+2,cell=(x,y)=>x<0||y<0||x>=pw||y>=ph?'.':rows[y][x],col=(x,y)=>CODES.includes(cell(x,y)),g=base.rowsBottomFirst.join('');
- const start=new Uint8Array(w*h),q=[];for(const e of base.entries)if(g[e]==='.'){start[e]=1;q.push(e);}
- while(q.length){const i=q.pop(),x=i%w;for(const j of [i-w,i+w,x>0?i-1:-1,x<w-1?i+1:-1])if(j>=0&&j<w*h&&!start[j]&&g[j]==='.'){start[j]=1;q.push(j);}}
- const spots=[];let maxD=0;
- for(let y=0;y<ph;y++)for(let x=0;x<pw;x++){const dd=d[bi(x,y)];if(!(dd<Infinity))continue;if(col(x,y))maxD=Math.max(maxD,dd);
-  if(col(x,y)&&col(x-1,y)&&col(x+1,y)&&col(x,y-1)&&col(x,y+1))spots.push({x,y,d:dd,carve:true});else if(cell(x,y)==='.'&&!start[bi(x,y)])spots.push({x,y,d:dd,carve:false});}
- if(maxD<C.minDepth)return null;
- const sLo=Math.max(2,Math.round(C.spring[0]*maxD)),sHi=Math.max(sLo+1,Math.round(C.spring[1]*maxD)),eLo=Math.max(sLo+3,Math.round(C.exit*maxD));
- const ex=Math.floor((pw+4)/2)-2,aimS=(sLo+sHi)/2,springs=spots.filter(s=>s.d>=sLo&&s.d<=sHi).map(s=>({...s,sc:Math.abs(s.d-aimS)/Math.max(1,sHi-sLo)+.8*Math.abs(s.x-ex)/pw+.3*r()})).sort((a,b)=>a.sc-b.sc).slice(0,6);
- let exits=spots.filter(s=>s.d>=eLo);if(!springs.length||exits.length<2)return null;
- // (a big picture: a fixed sample of the exit places keeps the pair search quick)
- if(exits.length>320){const keep=exits.map(s=>({s,k:r()})).sort((a,b)=>a.k-b.k).slice(0,320).map(x=>x.s);exits=keep;}
- const scale=Math.sqrt(pw*ph),cheb=(a,b)=>Math.max(Math.abs(a.x-b.x),Math.abs(a.y-b.y)),ring=s=>{const m={};for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const c=cell(s.x+dx,s.y+dy);if(CODES.includes(c))m[c]=(m[c]||0)+1;}return Object.entries(m).sort((a,b)=>b[1]-a[1])[0]?.[0]||null;};
- let best=null;
- for(const s of springs){const es=exits.filter(e=>cheb(e,s)>=C.gap);
-  for(let i=0;i<es.length;i++)for(let j=i+1;j<es.length;j++){const a=es[i],b=es[j],sep=Math.hypot(a.x-b.x,a.y-b.y);if(sep<C.apart*scale||cheb(a,b)<C.gap)continue;
-   const va=[a.x-s.x,a.y-s.y],vb=[b.x-s.x,b.y-s.y],cos=(va[0]*vb[0]+va[1]*vb[1])/(Math.hypot(...va)*Math.hypot(...vb)||1);if(cos>Math.cos(C.angle*Math.PI/180))continue;
-   const len=(Math.abs(va[0])+Math.abs(va[1])+Math.abs(vb[0])+Math.abs(vb[1]))/(pw+ph);
-   const sc=-(a.d+b.d)/(2*maxD)-Math.min(1,sep/(.7*scale))-(ring(a)!==ring(b)?.3:0)+.15*len+s.sc*.3+.1*r();
-   if(!best||sc<best.sc)best={sc,s,a,b};}}
- if(!best)return relaxed?null:placeChannel(pic,overlay,r,{relaxed:true});
- // the routes: of the four leg orders, the pair sharing fewest cells beyond the spring, never through the other exit
- const {s,a,b}=best,P=o=>[o.x,o.y];let rt=null;
- for(const va of [false,true])for(const vb of [false,true]){const ra=channelRoute(P(s),P(a),va),rb=channelRoute(P(s),P(b),vb),ka=new Set(ra.slice(1).map(c=>c+'')),shared=rb.slice(1).filter(c=>ka.has(c+'')).length;
-  const through=ra.some(c=>c[0]===b.x&&c[1]===b.y)||rb.some(c=>c[0]===a.x&&c[1]===a.y)?100:0,sc=shared+through+(va===vb?0:.1);if(!rt||sc<rt.sc)rt={sc,ra,rb};}
- const carved=[s,a,b].filter(o=>o.carve).map(P),ov={walls:(overlay&&overlay.walls)||[],sites:(overlay&&overlay.sites)||[],keys:[...((overlay&&overlay.keys)||[]),...carved]};
- return {overlay:ov,at:{spring:P(s),exits:[P(a),P(b)],routes:[rt.ra,rt.rb]},depth:{spring:s.d,exits:[a.d,b.d],max:maxD},...(relaxed?{relaxed:true}:{})};}
+// Places the water channel on a picture (with its overlay) as an island behind water (17 §8 «Остров за водой», the owner,
+// 2026-11-07: «выходы вообще ничего не решали … концептуально я хочу, чтобы он на что-то влиял»). An inner part of the
+// picture, 25–40 % of its colour cells (ISLAND.share), is ringed by water: the one-cell ring round it (8-neighbours, the
+// corners too, so the moat reads as one) becomes '#' water (overlay.water; drawn in cream stone banks, the approved picture
+// stays as it is), so the island is reached only through the channel. The island is a union of whole one-colour areas
+// (4-connected), grown from a seed area by the neighbour sharing the longest border per cell (a compact part of the
+// subject, its outline by the picture's own colours), holes filled; never touching the picture's edge (its ring stays
+// inside; never next to the bottom edge, where the entry is), off the start front (its shallowest colour cell at least
+// ISLAND.front of the deepest one's access depth, or its nearest cell at least ISLAND.away of the farthest colour cell's
+// walking distance from the entry; preferred deeper and farther), every colour
+// cell outside it still reachable from the entry. Preferred: a ring through empty cells and few colour cells (water round
+// the object's silhouette), a share near ISLAND.aim, a compact island with materials of its own. Both exits stand on
+// island cells next to the water, on different sides of it (turned at least ISLAND.angle° from each other as seen from the
+// island's centre), splitting the island into halves of different materials (the choice decides which side opens first);
+// a colour exit cell is carved out (overlay.keys). The spring is outside the island, a colour cell enclosed by colour or
+// water on its four sides (carved) or an empty pocket the start does not reach, behind a short approach: with the outside
+// cleared nearest first (walking distance plus twice the access depth) its first neighbour goes at about ISLAND.beforeAim
+// of N (the candidate's queue is then fitted to 20–30 % W, fitSpring), near the water and between the exits (short
+// routes). A picture of few big areas where no union of whole areas lands in the share takes a round blob of colour cells
+// cut through them (scored below an outline); the island is closed against its ring (a notch or pocket the ring would shut
+// off joins it). Each route two straight legs (row then column or column then
+// row; the pair sharing fewest cells), ride 60 ms a step, at least 400 ms. Deterministic by r. Returns {overlay (walls,
+// sites, keys + the carved cells, water), at: {spring, exits, routes}, island: {cells, ring, share}, depth: {spring, max}}
+// or null when the picture has no such island.
+const DBGS={};const DBG=k=>{if(process.env.ISLAND_DEBUG)DBGS[k]=(DBGS[k]||0)+1;};export const islandDebug=()=>DBGS;
+export const ISLAND={share:[.25,.4],aim:.32,front:.15,away:.15,ringCost:.15,angle:100,gap:3,before:[.12,.3],beforeAim:.2,minDepth:6,balance:.3};
+export function placeIsland(pic,overlay=null,r=Math.random){const p=overlaid(pic,overlay),rows=p.rows,pw=rows[0].length,ph=rows.length,base=boardOf(pic,overlay),{d}=depths(base,-1),w=base.w,h=base.h;
+ const bi=(x,y)=>(h-1-(y+2))*w+x+2,inP=(x,y)=>x>=0&&y>=0&&x<pw&&y<ph,cell=(x,y)=>inP(x,y)?rows[y][x]:'.',col=(x,y)=>CODES.includes(cell(x,y)),pi=(x,y)=>y*pw+x;
+ const N=measure(p).N;let maxD=0;for(let y=0;y<ph;y++)for(let x=0;x<pw;x++)if(col(x,y)&&d[bi(x,y)]<Infinity)maxD=Math.max(maxD,d[bi(x,y)]);if(maxD<ISLAND.minDepth)return null;
+ // one-colour areas (4-connected)
+ const comp=new Int32Array(pw*ph).fill(-1),areas=[];
+ for(let y0=0;y0<ph;y0++)for(let x0=0;x0<pw;x0++){if(comp[pi(x0,y0)]>=0||!col(x0,y0))continue;const k=areas.length,c=cell(x0,y0),cells=[[x0,y0]];comp[pi(x0,y0)]=k;
+  for(let i=0;i<cells.length;i++){const [x,y]=cells[i];for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const u=x+dx,v=y+dy;if(inP(u,v)&&cell(u,v)===c&&comp[pi(u,v)]<0){comp[pi(u,v)]=k;cells.push([u,v]);}}}
+  const edge=cells.some(([x,y])=>x<1||y<1||x>pw-2||y>ph-3);areas.push({k,c,cells,edge,minD:Math.min(...cells.map(([x,y])=>d[bi(x,y)]))});}
+ // shared border (4-neighbour pairs) between areas
+ const border=areas.map(()=>new Map());
+ for(let y=0;y<ph;y++)for(let x=0;x<pw;x++){const a=comp[pi(x,y)];if(a<0)continue;for(const [dx,dy] of [[1,0],[0,1]]){const u=x+dx,v=y+dy;if(!inP(u,v))continue;const b=comp[pi(u,v)];if(b<0||b===a)continue;border[a].set(b,(border[a].get(b)||0)+1);border[b].set(a,(border[b].get(a)||0)+1);}}
+ const vol={};for(const a of areas)vol[a.c]=(vol[a.c]||0)+a.cells.length;
+ const front=Math.max(2,Math.round(ISLAND.front*maxD));
+ // the walking distance from the entry (every cell but a strip passable): the island stands away from the start
+ const geo=new Float64Array(w*h).fill(Infinity),gb=base.rowsBottomFirst.join(''),gq=[];for(const e of base.entries){geo[e]=0;gq.push(e);}
+ for(let i=0;i<gq.length;i++){const c=gq[i],x=c%w;for(const j of [c-w,c+w,x>0?c-1:-1,x<w-1?c+1:-1])if(j>=0&&j<w*h&&geo[j]===Infinity&&gb[j]!=='#'){geo[j]=geo[c]+1;gq.push(j);}}
+ let maxGeo=0;for(let y=0;y<ph;y++)for(let x=0;x<pw;x++)if(col(x,y)&&geo[bi(x,y)]<Infinity)maxGeo=Math.max(maxGeo,geo[bi(x,y)]);
+ // fills the holes of a set of cells (cells not reachable from the picture's border through cells outside the set)
+ const filled=set=>{const out=new Uint8Array(pw*ph),q=[];for(let y=0;y<ph;y++)for(let x=0;x<pw;x++)if((x===0||y===0||x===pw-1||y===ph-1)&&!set[pi(x,y)]){out[pi(x,y)]=1;q.push([x,y]);}
+  while(q.length){const [x,y]=q.pop();for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const u=x+dx,v=y+dy;if(inP(u,v)&&!out[pi(u,v)]&&!set[pi(u,v)]){out[pi(u,v)]=1;q.push([u,v]);}}}
+  const s=new Uint8Array(pw*ph);for(let i=0;i<s.length;i++)s[i]=out[i]?0:1;return s;};
+ // closes a set against its ring: the outside is what the picture's border reaches past the set's one-cell ring (8-neighbours);
+ // everything else but the layer touching the outside is the island, so a narrow notch or a pocket the ring would shut off
+ // joins the island instead of being lost behind water (a '#' of the picture stays a wall)
+ const closed=set=>{const D=new Uint8Array(pw*ph);for(let y=0;y<ph;y++)for(let x=0;x<pw;x++)if(set[pi(x,y)])for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const u=x+dx,v=y+dy;if(inP(u,v))D[pi(u,v)]=1;}
+  const out=new Uint8Array(pw*ph),q=[];for(let y=0;y<ph;y++)for(let x=0;x<pw;x++)if((x===0||y===0||x===pw-1||y===ph-1)&&!D[pi(x,y)]&&cell(x,y)!=='#'){out[pi(x,y)]=1;q.push([x,y]);}
+  while(q.length){const [x,y]=q.pop();for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const u=x+dx,v=y+dy;if(inP(u,v)&&!out[pi(u,v)]&&!D[pi(u,v)]&&cell(u,v)!=='#'){out[pi(u,v)]=1;q.push([u,v]);}}}
+  const isl=new Uint8Array(pw*ph);for(let y=0;y<ph;y++)for(let x=0;x<pw;x++){if(out[pi(x,y)]||cell(x,y)==='#')continue;let edge=false;for(let dy=-1;dy<=1&&!edge;dy++)for(let dx=-1;dx<=1;dx++){const u=x+dx,v=y+dy;if(!inP(u,v)||out[pi(u,v)]){edge=true;break;}}if(!edge)isl[pi(x,y)]=1;}
+  return isl;};
+ const seen=new Set(),cands=[];
+ const consider=(set,blob=null)=>{const key=blob?'blob:'+blob.key:[...set].sort((a,b)=>a-b).join(',');if(seen.has(key))return null;seen.add(key);
+  let mark=blob&&blob.mark;if(!mark){mark=new Uint8Array(pw*ph);for(const k of set)for(const [x,y] of areas[k].cells)mark[pi(x,y)]=1;}const isl=closed(filled(mark));
+  let ic=0,cells=[],touches=false,shallow=Infinity,geoMin=Infinity;for(let y=0;y<ph;y++)for(let x=0;x<pw;x++)if(isl[pi(x,y)]){cells.push([x,y]);if(col(x,y)){ic++;shallow=Math.min(shallow,d[bi(x,y)]);}if(x<1||y<1||x>pw-2||y>ph-3)touches=true;geoMin=Math.min(geoMin,geo[bi(x,y)]);}
+  if(touches||(geoMin<ISLAND.away*maxGeo&&shallow<front)){DBG(touches?'touches':'near entry');return {grow:true};}
+  const ring=[],rset=new Uint8Array(pw*ph);for(const [x,y] of cells)for(let dy=-1;dy<=1;dy++)for(let dx=-1;dx<=1;dx++){const u=x+dx,v=y+dy;if(inP(u,v)&&!isl[pi(u,v)]&&!rset[pi(u,v)]){rset[pi(u,v)]=1;ring.push([u,v]);}}
+  if(!cells.length)return {grow:true};
+  const rc=ring.filter(([x,y])=>col(x,y)).length,n2=N-rc,share=ic/n2;if(share<ISLAND.share[0]){DBG('small');return {grow:true};}if(share>ISLAND.share[1]){DBG('big');return {stop:true};}
+  if(rc/n2>ISLAND.ringCost){DBG('ringcost');return {grow:true};}
+  // materials of its own: the share of the island's colour cells whose material lies mostly (70 %+) on it
+  const im={};for(const [x,y] of cells)if(col(x,y))im[cell(x,y)]=(im[cell(x,y)]||0)+1;const own=Object.entries(im).filter(([c,k])=>k>=.7*vol[c]).reduce((s,[,k])=>s+k,0)/ic;
+  const xs=cells.map(c=>c[0]),ys=cells.map(c=>c[1]),bbox=(Math.max(...xs)-Math.min(...xs)+1)*(Math.max(...ys)-Math.min(...ys)+1),fill=cells.length/bbox;
+  const rim=ring.filter(([x,y])=>x===0||y===0||x===pw-1||y===ph-1).length/ring.length,sc=4*rc/n2+2.5*Math.abs(share-ISLAND.aim)+1.2*(1-fill)+1.5*rim+.5*Math.max(0,1-shallow/front)-.8*Math.min(1,geoMin/maxGeo)-.6*own-.3*Math.min(1,Object.keys(im).length/3)+(blob?.6:0)+.15*r();
+  cands.push({blob:!!blob,set:blob?[]:[...set],isl,cells,ring,rset,share,rc,own,sc,materials:Object.keys(im).length});return {grow:true};};
+ for(const a0 of areas){if(a0.edge||a0.cells.length<4)continue;const set=new Set([a0.k]);
+  for(let step=0;step<14;step++){const res=consider(set);if(res&&res.stop)break;
+   // the next area: the neighbour (not on the edge, off the front) with the longest border per cell
+   let best=null;for(const k of set)for(const [b,n] of border[k]){if(set.has(b)||areas[b].edge)continue;const sc=n/Math.sqrt(areas[b].cells.length);if(!best||sc>best.sc)best={b,sc};}
+   if(!best)break;set.add(best.b);}}
+ // a picture of few big areas (no union of whole areas lands in the share): round blobs of colour cells nearest a seed,
+ // cut through the areas (the ring then crosses them), scored lower than an outline of whole areas
+ if(cands.length<3){const step=Math.max(2,Math.round(Math.sqrt(pw*ph)/9));
+  for(let sy=2;sy<ph-2;sy+=step)for(let sx=1;sx<pw-1;sx+=step){if(!col(sx,sy))continue;const near=[];for(let y=0;y<ph;y++)for(let x=0;x<pw;x++)if(col(x,y))near.push([Math.hypot(x-sx,(y-sy)*1.05),x,y]);near.sort((a,b)=>a[0]-b[0]);
+   for(const f of [.27,.31,.35]){const mark=new Uint8Array(pw*ph),k=Math.round(f*N);for(const [,x,y] of near.slice(0,k))mark[pi(x,y)]=1;consider(null,{key:sx+','+sy+','+f,mark});}}}
+ cands.sort((a,b)=>a.sc-b.sc);DBG('cands '+cands.length);
+ for(const c of cands.slice(0,30)){const out=exitsAndSpring(c);if(out)return out;}
+ return null;
+ function exitsAndSpring(c){const {isl,ring,rset}=c;
+  const water=ring.map(([x,y])=>[x,y]),ov0={walls:(overlay&&overlay.walls)||[],sites:(overlay&&overlay.sites)||[],keys:[...((overlay&&overlay.keys)||[])],water};
+  let b2;try{b2=boardOf(pic,ov0);}catch{return null;}const d2=depths(b2,-1).d;
+  // every colour cell outside the island stays reachable from the entry, none on it is
+  for(let y=0;y<ph;y++)for(let x=0;x<pw;x++){if(!col(x,y)||rset[pi(x,y)])continue;const fin=d2[bi(x,y)]<Infinity;if(fin===!!isl[pi(x,y)]){DBG('reach');return null;}}
+  // exits: island cells next to the water (4-neighbour), different sides, halves of different materials
+  const cx=c.cells.reduce((s,q)=>s+q[0],0)/c.cells.length,cy=c.cells.reduce((s,q)=>s+q[1],0)/c.cells.length;
+  let shore=c.cells.filter(([x,y])=>[[1,0],[-1,0],[0,1],[0,-1]].some(([dx,dy])=>rset[pi(x+dx,y+dy)]));
+  if(shore.length>90){const step=shore.length/90;shore=Array.from({length:90},(_,i)=>shore[Math.floor(i*step)]);}
+  const ang=([x,y])=>Math.atan2(y-cy,x-cx),distIn=(sx,sy)=>{const dd=new Int32Array(pw*ph).fill(-1),q=[[sx,sy]];dd[pi(sx,sy)]=0;for(let i=0;i<q.length;i++){const [x,y]=q[i];for(const [dx,dy] of [[1,0],[-1,0],[0,1],[0,-1]]){const u=x+dx,v=y+dy;if(inP(u,v)&&isl[pi(u,v)]&&dd[pi(u,v)]<0){dd[pi(u,v)]=dd[pi(x,y)]+1;q.push([u,v]);}}}return dd;};
+  const far=new Map(),dOf=q=>{const k=q+'';if(!far.has(k))far.set(k,distIn(q[0],q[1]));return far.get(k);};
+  let pair=null;
+  for(let i=0;i<shore.length;i++)for(let j=i+1;j<shore.length;j++){const a=shore[i],b=shore[j];let da=Math.abs(ang(a)-ang(b));if(da>Math.PI)da=2*Math.PI-da;if(da*180/Math.PI<ISLAND.angle)continue;
+   if(Math.max(Math.abs(a[0]-b[0]),Math.abs(a[1]-b[1]))<ISLAND.gap)continue;
+   pair=pair||[];pair.push({a,b,da});}
+  if(!pair||!pair.length){DBG('no pair');return null;}
+  // the halves: each island colour cell goes to the nearer exit (by the island's own paths); balance and the materials
+  pair=pair.sort((u,v)=>v.da-u.da+.2*(r()-.5)).slice(0,40);let best=null;
+  for(const {a,b,da} of pair){const A=dOf(a),B=dOf(b),ha={},hb={};let na=0,nb=0;for(const [x,y] of c.cells){if(!col(x,y))continue;const k=pi(x,y);if(A[k]<B[k]){na++;ha[cell(x,y)]=(ha[cell(x,y)]||0)+1;}else if(B[k]<A[k]){nb++;hb[cell(x,y)]=(hb[cell(x,y)]||0)+1;}}
+   if(!na||!nb)continue;const bal=Math.min(na,nb)/Math.max(na,nb);if(bal<ISLAND.balance)continue;
+   const ms=new Set([...Object.keys(ha),...Object.keys(hb)]);let diff=0;for(const m of ms)diff+=Math.abs((ha[m]||0)/na-(hb[m]||0)/nb);diff/=2;
+   const sc=-diff-.5*bal-.3*da/Math.PI+.1*r();if(!best||sc<best.sc)best={sc,a,b,diff,bal};}
+  if(!best){DBG('no halves');return null;}
+  // the spring: outside the island, behind a short approach
+  // (when it opens: the outside is modelled as cleared nearest first, by walking distance from the entry plus twice the
+  // access depth; the spring opens when its earliest neighbour goes, at that cell's rank of N)
+  const n2=N-c.rc,geo2=new Float64Array(w*h).fill(Infinity),gq2=[],gs=b2.rowsBottomFirst.join('');for(const e of b2.entries){geo2[e]=0;gq2.push(e);}
+  for(let i=0;i<gq2.length;i++){const k=gq2[i],x=k%w;for(const j of [k-w,k+w,x>0?k-1:-1,x<w-1?k+1:-1])if(j>=0&&j<w*h&&geo2[j]===Infinity&&gs[j]!=='#'){geo2[j]=geo2[k]+1;gq2.push(j);}}
+  const wave=[];for(let y=0;y<ph;y++)for(let x=0;x<pw;x++)if(col(x,y)&&!isl[pi(x,y)]&&!rset[pi(x,y)])wave.push(bi(x,y));wave.sort((u,v)=>geo2[u]+2*d2[u]-geo2[v]-2*d2[v]||u-v);
+  const rank=new Map(wave.map((k,i)=>[k,i/n2]));
+  const shareBelow=(x,y)=>Math.min(...[[1,0],[-1,0],[0,1],[0,-1]].map(([dx,dy])=>rank.has(bi(x+dx,y+dy))&&inP(x+dx,y+dy)?rank.get(bi(x+dx,y+dy)):Infinity));
+  const start=new Uint8Array(w*h),g2=b2.rowsBottomFirst.join(''),q=[];for(const e of b2.entries)if(g2[e]==='.'){start[e]=1;q.push(e);}
+  while(q.length){const i=q.pop(),x=i%w;for(const j of [i-w,i+w,x>0?i-1:-1,x<w-1?i+1:-1])if(j>=0&&j<w*h&&!start[j]&&g2[j]==='.'){start[j]=1;q.push(j);}}
+  const wet=(x,y)=>inP(x,y)&&rset[pi(x,y)],ringDist=(x,y)=>{let m=99;for(const [u,v] of ring){const k=Math.max(Math.abs(u-x),Math.abs(v-y));if(k<m)m=k;}return m;};
+  const mid=[(best.a[0]+best.b[0])/2,(best.a[1]+best.b[1])/2],springs=[];
+  for(let y=0;y<ph;y++)for(let x=0;x<pw;x++){if(isl[pi(x,y)]||rset[pi(x,y)])continue;const dd=d2[bi(x,y)];if(!(dd>=1&&dd<Infinity))continue;
+   const carve=col(x,y)&&[[1,0],[-1,0],[0,1],[0,-1]].every(([dx,dy])=>col(x+dx,y+dy)&&!rset[pi(x+dx,y+dy)]||wet(x+dx,y+dy));
+   if(!carve&&!(cell(x,y)==='.'&&!start[bi(x,y)]))continue;
+   const sb=shareBelow(x,y);if(!(sb<Infinity))continue;
+   if([best.a,best.b].some(([u,v])=>Math.max(Math.abs(u-x),Math.abs(v-y))<ISLAND.gap))continue;
+   const rd=ringDist(x,y),len=Math.abs(x-best.a[0])+Math.abs(y-best.a[1])+Math.abs(x-best.b[0])+Math.abs(y-best.b[1]);
+   springs.push({x,y,d:dd,carve,sb,sc:Math.abs(sb-ISLAND.beforeAim)*6+(sb<ISLAND.before[0]||sb>ISLAND.before[1]?3:0)+.15*Math.min(rd,8)+len/(pw+ph)+.2*Math.hypot(x-mid[0],y-mid[1])/(pw+ph)+.1*r()});}
+  if(!springs.length){DBG('no spring');return null;}springs.sort((u,v)=>u.sc-v.sc);const s=springs[0];
+  const P=o=>Array.isArray(o)?o:[o.x,o.y],a=best.a,b=best.b;let rt=null;
+  for(const va of [false,true])for(const vb of [false,true]){const ra=channelRoute(P(s),a,va),rb=channelRoute(P(s),b,vb),ka=new Set(ra.slice(1).map(q=>q+'')),shared=rb.slice(1).filter(q=>ka.has(q+'')).length;
+   const through=ra.some(q=>q[0]===b[0]&&q[1]===b[1])||rb.some(q=>q[0]===a[0]&&q[1]===a[1])?100:0,sc=shared+through+(va===vb?0:.1);if(!rt||sc<rt.sc)rt={sc,ra,rb};}
+  const carved=[...(s.carve?[P(s)]:[]),...[a,b].filter(([x,y])=>col(x,y))];
+  const ov={walls:ov0.walls,sites:ov0.sites,keys:[...ov0.keys,...carved],water};
+  return {overlay:ov,at:{spring:P(s),exits:[a,b],routes:[rt.ra,rt.rb]},island:{cells:c.cells.length,colour:Math.round(c.share*1000)/1000,ring:ring.length,ringColour:c.rc,materials:c.materials,own:Math.round(c.own*100)/100,halves:{diff:Math.round(best.diff*100)/100,balance:Math.round(best.bal*100)/100}},depth:{spring:s.d,before:Math.round(s.sb*1000)/1000,max:maxD}};}}
+export const placeChannel=placeIsland;
+// When the spring opens on a queue (17 §8 «Остров за водой»: at 20–30 % W of the saved solution): the saved solution's
+// first path, the solver's depth-first search taking the first legal action each time (an exit as soon as one may be
+// chosen, exit 0 first), each action settled. Returns the share of W cleared when the spring is first reached (0 at the
+// start, null when that path never reaches it).
+export function springTiming(level){const {idle:R}=engineSync(),W=level.pods.reduce((n,p)=>n+p.count,0),ch=level.channel;if(!ch)return null;
+ let s=R.create(level,level.capacity||5);const left=st=>{let k=0;for(const v of st.board)if(v>=0)k++;return k;},W0=left(s);
+ if(s.springReached)return 0;
+ for(let g=0;g<4*level.pods.length+4&&s.status==='Playing';g++){const mv=R.legal(s);if(!mv.length)break;const a=mv.find(x=>x.type==='channel')||mv[0];s=R.step(s,a).state;if(s.springReached)return Math.round((W0-left(s))/W*1000)/1000;}
+ return null;}
+// Fits a candidate's queue to the spring's moment (17 §8 «Остров за водой»): while springTiming is out of
+// SPRING_AIM[0]–SPRING_AIM[1], one swap of two unlinked visible pods in the tray, a pod of a material round the spring
+// (the approach) with a pod of another material, the swap that lands nearest SPRING_AIM[2]; at most `rounds` swaps.
+// Returns {level, at} (the level unchanged when nothing helps).
+export const SPRING_AIM=[.2,.3,.24];
+export function fitSpring(level,{rounds=3}={}){if(!level.channel)return {level,at:null};let cur=level,at=springTiming(cur);
+ const g=level.rowsBottomFirst.join(''),w=level.w,sp=level.channel.spring,near=new Set([sp-w,sp+w,sp-1,sp+1].filter(i=>i>=0&&i<g.length&&CODES.includes(g[i])).map(i=>g[i]));
+ const inAim=x=>x!=null&&x>=SPRING_AIM[0]&&x<=SPRING_AIM[1],miss=x=>x==null?9:Math.abs(x-SPRING_AIM[2]);
+ for(let k=0;k<rounds&&!inAim(at);k++){const pods=cur.pods,free=i=>!pods[i].group&&!pods[i].mystery,slots=[];cur.tray.forEach((st,c)=>st.forEach((p,r)=>{if(free(p))slots.push([c,r]);}));
+  let best=null;
+  for(const [c1,r1] of slots){const p=cur.tray[c1][r1];if(!near.has(pods[p].color))continue;
+   for(const [c2,r2] of slots){const q=cur.tray[c2][r2];if(near.has(pods[q].color))continue;
+    const tray=cur.tray.map(st=>st.slice());tray[c1][r1]=q;tray[c2][r2]=p;const lv={...cur,tray},t=springTiming(lv);if(!best||miss(t)<miss(best.t))best={lv,t};}}
+  if(!best||miss(best.t)>=miss(at))break;cur=best.lv;at=best.t;}
+ return {level:cur,at};}
 // the channel of placeChannel's `at` on a board of that picture, in the engine's format (board indices, rideUs)
 export function channelOf(board,at){const bi=([x,y])=>(board.h-1-(y+2))*board.w+x+2;
  return {spring:bi(at.spring),exits:at.exits.map((e,i)=>({cell:bi(e),route:at.routes[i].map(bi),rideUs:rideUsOf(at.routes[i])}))};}
@@ -625,6 +739,9 @@ export async function evaluate(level,{m,cls,intro=false,fixed=null,kind=null,cha
  // of the bot's uniform actions, §5); on both introductions each exit keeps a winning continuation
  if(!ch&&level.channel){ch=await channelExits(level);tick('выходы канала '+JSON.stringify(ch.each));}
  if(ch&&intro&&recipe==='canal'&&!ch.each.every(x=>x.win===true))return {reason:'знакомство с каналом: не каждый выход ведёт к победе (§9)'};
+ // the island behind water (17 §8 «Остров за водой», 2026-11-07): 25–40 % of N reached only through the channel, both exits
+ // on it, the spring reached at 20–30 % W on the saved solution (measure.mjs channelCheck)
+ const cc=level.channel?await channelCheck(level,sol.route):null;if(cc)tick('остров '+JSON.stringify({share:cc.island.share,ready:cc.ready&&cc.ready.atW}));if(cc&&!cc.ok)return {reason:cc.problems[0]};
  // wooden shutters (17 §8): every shutter opens on the saved solution before 80 % W
  const sc=level.shutters?await shutterCheck(level,sol.route):null;if(sc)tick('створки '+JSON.stringify(sc.shutters.map(x=>x.atW)));if(sc&&!sc.ok)return {reason:'створки: '+sc.problems[0]};
  // §5 for a bridge level (the owner, 2026-10-30): the class is measured with the best bridge, the one that alone wins or,
@@ -668,7 +785,7 @@ export async function evaluate(level,{m,cls,intro=false,fixed=null,kind=null,cha
   if(bridgeKind==='single'){bl=early||await bridgeLoss(level,bs.each.indexOf(false));tick('проигрыш с другим мостом '+JSON.stringify(bl));if(!bl.ok&&cls!=='Super Hard'&&rt.cls!=='Super Hard')return {reason:'мост: с другим мостом проигрыш сразу при выборе (§8)'};}}
  const st=await strategies(level),rh=rhythm(sol.trace,W),greedyLoses=!st['most-now|left']&&!st['most-now|right'],hold=await holdPod(level);
  return {random:rt,...(rtAll?{randomAll:rtAll}:{}),solution:{route:sol.route,forks:sol.decisions.forks,singleSafe:sol.decisions.single,unknown:sol.decisions.unknown,fast:sol.fast},fairness:fair,strategies:st,rhythm:rh,...(bc?{bridge:bc}:{}),
-  checks:{forced,opening,hold,greedyLoses,hiddenMatters:hm,bridgeKind,bridgeSingle:bs,...(bl?{bridgeLoss:bl}:{}),pressure:await pressure(level,QUALITY.pressure.games),calm,traps:{links:traps.length,traps:trapN,top:traps.filter(x=>x.trap&&x.row<=2).length},...(lc?{latch:lc}:{}),...(ch?{channel:ch}:{}),...(exit!==null?{channelKind}:{}),...(sc?{shutters:sc}:{})}};}
+  checks:{forced,opening,hold,greedyLoses,hiddenMatters:hm,bridgeKind,bridgeSingle:bs,...(bl?{bridgeLoss:bl}:{}),pressure:await pressure(level,QUALITY.pressure.games),calm,traps:{links:traps.length,traps:trapN,top:traps.filter(x=>x.trap&&x.row<=2).length},...(lc?{latch:lc}:{}),...(ch?{channel:ch}:{}),...(cc?{island:cc}:{}),...(exit!==null?{channelKind}:{}),...(sc?{shutters:sc}:{})}};}
 
 // A breather (17 §5 «Передышка», the owner, 2026-11-02: «некоторые играются как "передышка", особенно те что < 500–550
 // клеток»): a Normal on a picture up to ~550 cells (BREATHER_N) or a position the wave plan marks `breather`. Zero or one

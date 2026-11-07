@@ -127,7 +127,7 @@ namespace Bloomlings.Content.Rounds
             {
                 string overlayPath = JsonDoc.Join(boardPath, "overlay");
                 JObject overlayObject = JsonDoc.Object(overlayToken, overlayPath);
-                JsonDoc.AllowOnly(overlayObject, overlayPath, "walls", "sites", "keys");
+                JsonDoc.AllowOnly(overlayObject, overlayPath, "walls", "sites", "keys", "water");
                 // a bridge's two sites, or none on an overlay of key spots only (the owner's amendment of 2026-11-03)
                 List<(int X, int Y)> sites = PictureCells(JsonDoc.Required(overlayObject, overlayPath, "sites"), JsonDoc.Join(overlayPath, "sites"), w - 4, h - 4, 0, 2);
                 if (sites.Count == 1)
@@ -136,10 +136,13 @@ namespace Bloomlings.Content.Rounds
                 }
 
                 JToken? keysToken = JsonDoc.Optional(overlayObject, "keys");
+                // the water ring round a water channel's island (rules 17 §8 «Остров за водой», 2026-11-07)
+                JToken? waterToken = JsonDoc.Optional(overlayObject, "water");
                 overlay = new RoundOverlay(
                     PictureCells(JsonDoc.Required(overlayObject, overlayPath, "walls"), JsonDoc.Join(overlayPath, "walls"), w - 4, h - 4),
                     sites,
-                    keysToken == null ? null : PictureCells(keysToken, JsonDoc.Join(overlayPath, "keys"), w - 4, h - 4, 1));
+                    keysToken == null ? null : PictureCells(keysToken, JsonDoc.Join(overlayPath, "keys"), w - 4, h - 4, 1),
+                    waterToken == null ? null : PictureCells(waterToken, JsonDoc.Join(overlayPath, "water"), w - 4, h - 4, 1));
             }
 
             // The level's recolouring (rules 17 §3 and §6, 2026-11-01): [x, y, "C"] inside the picture, one entry per cell;
@@ -421,6 +424,11 @@ namespace Bloomlings.Content.Rounds
                 if (level.Overlay.Keys.Count > 0)
                 {
                     overlayJson["keys"] = PictureCells(level.Overlay.Keys);
+                }
+
+                if (level.Overlay.Water.Count > 0)
+                {
+                    overlayJson["water"] = PictureCells(level.Overlay.Water);
                 }
 
                 board["overlay"] = overlayJson;

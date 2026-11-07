@@ -117,11 +117,15 @@ export function recolorErrors(pic,recolor){const errs=[];if(recolor==null)return
 export function recolored(pic,recolor){if(!recolor||!recolor.length)return pic;const errs=recolorErrors(pic,recolor);if(errs.length)throw Error(errs[0]);
  const rows=pic.rows.map(r=>[...r]);for(const [x,y,c] of recolor)rows[y][x]=c;const out=rows.map(r=>r.join(''));return {...pic,rows:out,...measure({rows:out})};}
 export function overlaid(pic,overlay,recolor=null){if(recolor&&recolor.length){const rc=new Set(recolor.map(e=>e[0]+','+e[1]));
-  for(const c of overlay?[...(overlay.walls||[]),...(overlay.sites||[]),...(overlay.keys||[])]:[])if(Array.isArray(c)&&rc.has(c[0]+','+c[1]))throw Error(`перекраска (${c[0]}, ${c[1]}) под стеной оверлея`);
+  for(const c of overlay?[...(overlay.walls||[]),...(overlay.water||[]),...(overlay.sites||[]),...(overlay.keys||[])]:[])if(Array.isArray(c)&&rc.has(c[0]+','+c[1]))throw Error(`перекраска (${c[0]}, ${c[1]}) под стеной оверлея`);
   pic=recolored(pic,recolor);}
  if(!overlay)return pic;const pw=pic.rows[0].length,ph=pic.rows.length,rows=pic.rows.map(r=>[...r]);
  const at=(c,what)=>{if(!Array.isArray(c)||!Number.isInteger(c[0])||!Number.isInteger(c[1])||c[0]<0||c[1]<0||c[0]>=pw||c[1]>=ph)throw Error(`overlay: ${what} ${JSON.stringify(c)} вне картинки ${pw}×${ph}`);return c;};
  for(const c of overlay.walls||[]){const [x,y]=at(c,'стена');rows[y][x]='#';}
+ // water (17 §8 «Остров за водой», the owner, 2026-11-07; levels.mjs placeIsland): picture cells that become a '#' strip
+ // drawn as water in cream stone banks (never stone), the ring round the water channel's island; on the picture's edge
+ // it closes the ring cell outward like any strip cell (below), never a site
+ for(const c of overlay.water||[]){const [x,y]=at(c,'вода');rows[y][x]='#';}
  for(const c of overlay.sites||[]){const [x,y]=at(c,'место моста');if(rows[y][x]!=='#'&&rows[y][x]!=='b')throw Error(`overlay: место моста ${JSON.stringify(c)} не на стене`);rows[y][x]='b';}
  // key spots (17 §8 «Засов», the owner's amendment of 2026-11-03: «убирать какие-то 4 кубика… и вместо них ставить ключ»):
  // colour cells of the picture the level takes out, so a key stands in the empty space; the approved picture stays as it is.
@@ -160,7 +164,7 @@ export function boardOf(pic,overlay=null,recolor=null){const p=overlaid(pic,over
  const stone=[];if(overlay){const ws=[...(overlay.walls||[]),...(overlay.sites||[])],add=(bx,by)=>{const i=idx(bx,by);if(!stone.includes(i))stone.push(i);};
   for(const [x,y] of ws){add(x+2,y+2);if(x===0)add(1,y+2);if(x===pw-1)add(w-2,y+2);if(y===0)add(x+2,1);if(y===ph-1)add(x+2,h-2);}stone.sort((a,b)=>a-b);}
  return {w,h,rowsBottomFirst,entries:[mid],hero:choices.length?{id:'sprig-bridge',choices:choices.map(({cell,anchor,label,dir})=>({cell,anchor,label,dir}))}:undefined,
-  ...(overlay?{overlay:{walls:(overlay.walls||[]).map(c=>[c[0],c[1]]),sites:(overlay.sites||[]).map(c=>[c[0],c[1]]),...(overlay.keys&&overlay.keys.length?{keys:overlay.keys.map(c=>[c[0],c[1]])}:{})},stone}:{}),
+  ...(overlay?{overlay:{walls:(overlay.walls||[]).map(c=>[c[0],c[1]]),sites:(overlay.sites||[]).map(c=>[c[0],c[1]]),...(overlay.keys&&overlay.keys.length?{keys:overlay.keys.map(c=>[c[0],c[1]])}:{}),...(overlay.water&&overlay.water.length?{water:overlay.water.map(c=>[c[0],c[1]])}:{})},stone}:{}),
   // the level's recolouring (picture coordinates), kept with the board so a level built on it stores it (definition.recolor)
   ...(recolor&&recolor.length?{recolor:recolor.map(e=>[e[0],e[1],e[2]])}:{}),
   // a split picture (bridge-scene.mjs make --mode split, 17 §8 «Одна цельная картинка», 2026-10-29): its strip is a gap in

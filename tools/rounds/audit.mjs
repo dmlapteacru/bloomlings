@@ -7,7 +7,7 @@ import fs from 'node:fs';import path from 'node:path';
 import {franchiseBlocked,LEVELS,CODES,readJSON,lid,arg,picture,measure,fitsStage,stageOf,budget,columnsFor,slotOf,SUPPORTED,FIXED_VOLUMES,motifsOf,boardOf,overlaid,recolorErrors} from './lib.mjs';
 import {engine} from './engine.mjs';
 import {run} from '../level-stats/trace.mjs';
-import {channelExits,shutterCheck,latchCheck,cellsHiddenAtStart,bridgeChoicesWin,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,pressure,calmTest,calmFails,calmBorderline,trapLinks,classKeep} from './measure.mjs';
+import {channelExits,channelCheck,shutterCheck,latchCheck,cellsHiddenAtStart,bridgeChoicesWin,openingTest,forcedShare,holdPod,hiddenMatters,bridgeSingle,pressure,calmTest,calmFails,calmBorderline,trapLinks,classKeep} from './measure.mjs';
 import {INTRO,planOf,repeatWindow} from './lib.mjs';
 import {fitness} from './fitness.mjs';
 import {breatherRecipeOk,BREATHER_ZONE,repeatClash,REPEAT_GAP,REPEAT_PER_WAVE,medianWindows,median,greedyQuota} from './wave.mjs';
@@ -91,6 +91,10 @@ for(let n=from;n<=to;n++){const L=levels[n],bad=[],soft=[];
  {const ch=d.channel||null;if(types.includes('canal')!==!!ch)bad.push('рецепт и канал не совпадают');
   if(ch){if(R.channelChoices(s0).length)bad.push('канал: родник доступен сразу, без расчищенного подхода (§8)');
    const ce=await channelExits(d);L._channel=ce;
+   // the island behind water (17 §8 «Остров за водой», the owner, 2026-11-07): 25–40 % of N reached only through the
+   // channel, both exits on it, the spring off it and reached at 20–30 % W on the saved solution (measure.mjs channelCheck)
+   const cc=await channelCheck(d,L.solution.route);L._island=cc;bad.push(...cc.problems);
+   soft.push(`канал: остров ${Math.round(cc.island.share*100)} % N, родник при ${cc.ready?Math.round(cc.ready.atW*100)+' % W':'—'}, выход ${cc.open?cc.open.exit+1+' при '+Math.round(cc.open.atW*100)+' % W':'—'} (§8)`);
    if(slot.intro==='canal'&&!ce.each.every(x=>x.win===true))bad.push(`знакомство с каналом: не каждый выход ведёт к победе ${JSON.stringify(ce.each.map(x=>x.win))} (§9)`);
    else soft.push(`канал: выходы ${ce.each.map(x=>`${x.exit+1} ${x.win===true?'выигрывает':x.win===false?'проигрывает':'не решён'}`).join(', ')}${ce.decides?' — решает ровно один':''} (§8)`);}
   // a deciding-exit Super Hard (the wave plan's channelKind single, recorded as checks.channelKind and random.exit; the

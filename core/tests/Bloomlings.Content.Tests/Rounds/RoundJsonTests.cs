@@ -175,6 +175,32 @@ namespace Bloomlings.Content.Tests.Rounds
             });
         }
 
+        [Test]
+        public void Level_WithOverlayWater_RoundTrips_AndItsWaterIsNoStone()
+        {
+            // 17 §8 «Остров за водой» (2026-11-07): board.overlay.water rings a water channel's island; the rows hold it as
+            // '#', the stone cells of the presentation leave it out.
+            JObject root = JObject.Parse(LevelSample);
+            root["board"]!["overlay"] = new JObject
+            {
+                ["walls"] = JArray.Parse("[[0,1]]"),
+                ["sites"] = new JArray(),
+                ["water"] = JArray.Parse("[[1,1],[2,1]]"),
+            };
+            RoundLevel level = RoundJson.ReadLevel(root.ToString());
+            string written = RoundJson.WriteLevel(level);
+
+            Assert.Multiple(() =>
+            {
+                Assert.That(level.Overlay!.Water, Is.EqualTo(new[] { (1, 1), (2, 1) }));
+                Assert.That(level.OverlayCells(), Does.Contain(level.PictureCell(0, 1)));
+                Assert.That(level.OverlayCells(), Does.Not.Contain(level.PictureCell(1, 1)).And.Not.Contain(level.PictureCell(2, 1)));
+                Assert.That(JObject.Parse(written)["board"]!["overlay"]!["water"]!.ToString(Newtonsoft.Json.Formatting.None), Is.EqualTo("[[1,1],[2,1]]"));
+                Assert.That(RoundJson.WriteLevel(RoundJson.ReadLevel(written)), Is.EqualTo(written));
+                Assert.That(ContractSchemas.IsValidRoundLevel(written), Is.True);
+            });
+        }
+
         [TestCase("[[3,0]]", "board.overlay.walls[0][0]", TestName = "OverlayWallRightOfThePicture_IsRejected")]
         [TestCase("[[0,4]]", "board.overlay.walls[0][1]", TestName = "OverlayWallBelowThePicture_IsRejected")]
         [TestCase("[[-1,0]]", "board.overlay.walls[0][0]", TestName = "OverlayWallLeftOfThePicture_IsRejected")]

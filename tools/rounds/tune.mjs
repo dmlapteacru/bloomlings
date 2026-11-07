@@ -159,10 +159,10 @@ export async function tuneJob({pic,cls,recipe,slot=null,intro=false,channelKind=
  // spots the level takes out of the picture (overlay.keys, levels.mjs carveKeySpots), each with its key
  let overlay=null,latchWant=null,channelAt=null;
  const fail=why=>({banked:[],accepted:[],stats:{attempts:0,quick:0,corrections:0,linkChecks:0,evaluated:0,passed:0,accepted:0,reasons:{[why]:1}},memory});
- // the water channel (17 §8 «Drop Водный канал», the owner, 2026-11-05): the spring behind work and two exits deep in
- // different parts of the picture, carved out where the picture has no pocket (levels.mjs placeChannel); before the keys,
- // which never take its cells
- if(types.includes('canal')){const pc=LV.placeChannel(pic,null,rnd(seed*13+1));if(!pc)return fail('канал: нет места для родника и двух выходов (17 §8)');overlay=pc.overlay;channelAt=pc.at;}
+ // the water channel (17 §8 «Drop Водный канал», «Остров за водой», the owner, 2026-11-07): an island of 25–40 % of the
+ // picture ringed by water, both exits on it, the spring outside behind a short approach (levels.mjs placeIsland); before
+ // the keys, which never take its cells
+ if(types.includes('canal')){const pc=LV.placeChannel(pic,null,rnd(seed*13+1));if(!pc)return fail('канал: нет острова за водой с двумя выходами и родником (17 §8)');overlay=pc.overlay;channelAt=pc.at;}
  if(types.includes('latch')){const tries=intro||cls==='Normal'?[1]:cls==='Hard'?[3,2]:[3];
   for(const n of tries){const ov=LV.carveKeySpots(pic,overlay,n,rnd(seed*7+n),{avoid:LV.channelSpots(channelAt)});if(ov!==false){overlay=ov;latchWant=n;break;}}
   if(latchWant==null)return fail(`засов: нет места для ${tries[tries.length-1]} ключей и не вырезать (17 §8)`);}
@@ -210,11 +210,14 @@ export async function tuneJob({pic,cls,recipe,slot=null,intro=false,channelKind=
   // the start t: the picture's memory (± 0.03), else the model's plan; a breather starts from the access order (t = 0)
   let t=breather&&mem.t==null?0:mem.t!=null?clamp(r2(mem.t+(rnd(cseed)()-.5)*.06),0,1):planT(f,p,zone,{model,offset}).t;
   const make=async t=>{const c=LV.candidate(pic,cboard,cpods,cols,recipe,cls,cseed,intro,pos,{...(cls==='Normal'?{t}:{tStrong:t}),sigma:p.sigma,noLinks:!intro,noInfo:true,noHold:slot!=='regular',...(channelKind?{channelLean:true}:{}),...(latchWant!=null?{latchWant}:{}),...(av?{accents:av.accents.map(x=>x.code)}:{})});
-   if(c.error)return c;if(!linkWant||intro)return c;let ch=await chooseLinks(c.level,linkWant,cls,rnd(cseed^0x77),{noTrap:breather,trap:trapMode});stats.linkChecks+=ch.checked||0;
+   if(c.error)return c;if(!linkWant||intro)return spring(c);let ch=await chooseLinks(c.level,linkWant,cls,rnd(cseed^0x77),{noTrap:breather,trap:trapMode});stats.linkChecks+=ch.checked||0;
    // the dose place cannot hold the forced limit on this queue: the lead's minimum dose instead (the placer weighs the place
    // softly, 17 §7), recorded as dose place 0
    if(ch.error&&linkWant>dz.links[0]){no('связки: доза снижена до минимума (вынужденные решения)');linkWant=dz.links[0];posUsed=0;p.links=linkWant;ch=await chooseLinks(c.level,linkWant,cls,rnd(cseed^0x77),{noTrap:breather,trap:trapMode});stats.linkChecks+=ch.checked||0;}
-   return ch.error?{error:ch.error}:{level:ch.level,links:ch};};
+   return ch.error?{error:ch.error}:spring({level:ch.level,links:ch});};
+  // the island's spring opens at 20–30 % W of the saved solution (17 §8 «Остров за водой»): the approach's pods are moved
+  // in the queue until its first path reaches the spring there (levels.mjs fitSpring)
+  const spring=b=>{if(!b.level||!b.level.channel)return b;const f=LV.fitSpring(b.level);return {...b,level:f.level};};
   let easy=null,hard=null,q=null,level=null,links=null;const steps=[];
   for(let step=0;step<=5;step++){const b=await make(t);if(b.error){no(b.error);level=null;break;}level=b.level;links=b.links||null;q=await M.quickShare(level,40,11);stats.quick++;
    const etaP=MD.eta(model,rowOf(f,{...p,t})),etaO=MD.logit(clamp(q,.025,.975));steps.push({t,q});offset=(offset*nOff+(etaO-etaP))/(nOff+1);nOff=Math.min(nOff+1,4);

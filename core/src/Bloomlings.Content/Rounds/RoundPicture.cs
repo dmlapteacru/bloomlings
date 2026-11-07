@@ -142,7 +142,7 @@ namespace Bloomlings.Content.Rounds
                 Paint(picture, cells, recolor);
                 if (overlay != null)
                 {
-                    foreach ((int x, int y) in overlay.Walls.Concat(overlay.Sites).Concat(overlay.Keys))
+                    foreach ((int x, int y) in overlay.Walls.Concat(overlay.Water).Concat(overlay.Sites).Concat(overlay.Keys))
                     {
                         if (recolor.Any(e => e.X == x && e.Y == y))
                         {
@@ -155,6 +155,7 @@ namespace Bloomlings.Content.Rounds
             if (overlay != null)
             {
                 Lay(overlay.Walls, '#', "wall");
+                Lay(overlay.Water, '#', "water");
                 Lay(overlay.Sites, 'b', "site");
                 Lay(overlay.Keys, '.', "key spot");
             }

@@ -176,6 +176,18 @@ namespace Bloomlings.Content.Tests.Rounds
         }
 
         [Test]
+        public void OverlayWater_RingsAnIsland_AsWallsThatAreNoStone()
+        {
+            // Rules 17 §8 «Остров за водой» (the owner, 2026-11-07): the ring round a water channel's island becomes '#'
+            // like a wall, but it is the stream, so the level's stone cells (RoundLevel.OverlayCells) leave it out.
+            RoundPicture picture = Picture("GGGGG", "GGGGG", "GGPGG", "GGGGG", "GGGGG");
+            var ring = new[] { (1, 1), (2, 1), (3, 1), (1, 2), (3, 2), (1, 3), (2, 3), (3, 3) };
+            var overlay = new RoundOverlay(Array.Empty<(int, int)>(), Array.Empty<(int, int)>(), new[] { (2, 2) }, ring);
+            RoundBoardShape board = RoundPictureBoard.Of(picture, overlay);
+            Assert.That(TopFirst(board).Skip(2).Take(5).Select(r => r.Substring(2, 5)), Is.EqualTo(new[] { "GGGGG", "G###G", "G#.#G", "G###G", "GGGGG" }));
+        }
+
+        [Test]
         public void AnOverlayKeySpotOffAColourCell_IsAnError()
         {
             RoundPicture picture = Picture("GGG", "G.G", "GGG");
