@@ -47,8 +47,9 @@ test('placeIsland: an island of 25–40 % ringed by water, both exits on it on d
  const isl=M.islandOf(lv);assert.ok(isl.share>=.25&&isl.share<=.4,`island ${isl.share}`);assert.deepEqual(isl.each.map(e=>e.on),[true,true]);assert.deepEqual(isl.each.map(e=>e.miss),[0,0]);assert.equal(isl.springOn,false);
  // the exits on different sides of the island
  const [p,q]=at.exits,cx=10.5,cy=7;let da=Math.abs(Math.atan2(p[1]-cy,p[0]-cx)-Math.atan2(q[1]-cy,q[0]-cx));if(da>Math.PI)da=2*Math.PI-da;assert.ok(da*180/Math.PI>=90);
- // the key holes never take the channel's cells
- assert.deepEqual(LV.keyHoles(b0),[]);
+ // the key holes never take the channel's cells; carved key spots keep the water and keep away from the channel
+ assert.deepEqual(LV.keyHoles(b0),[]);const ks=LV.carveKeySpots(ISL,overlay,1,rnd(3),{avoid:LV.channelSpots(at)});
+ if(ks){assert.deepEqual(ks.water,overlay.water,'the water stays');const kb=LV.withObjects(L.boardOf(ISL,ks),{channel:ch});const holes=LV.keyHoles(kb);assert.equal(holes.length,1);assert.ok(!LV.channelCells(kb).has(holes[0].key));}
  // a picture without depth or without an inner part has no island
  assert.equal(LV.placeIsland({id:'S',title:'s',rows:['GGGG','GGGG','GGGG']},null,rnd(1)),null);
  // a picture of few big areas touching its edges takes a round blob cut through them (scored below an outline)
