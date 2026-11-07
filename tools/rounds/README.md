@@ -388,7 +388,9 @@ recipe and mechanic name `latch`, «засов и ключ»). The exact contrac
   orthogonal neighbour of the one before, no repeat; it may pass over any cell (the owner, 2026-11-05: drawn over the
   cubes; the cubes under it stay ordinary work, the rules never read the route). `rideUs` is a walker's ride along that
   channel, whole milliseconds from 1 ms to 10 s (the builder: 60 ms a step of the route, at least 400 ms). Index `i` of
-  `exits` is exit `i` of the command and the events. A level without a channel has no `channel` key.
+  `exits` is exit `i` of the command and the events. A level without a channel has no `channel` key. Since 2026-11-07 the
+  builder rings an island with water (`overlay.water`, «Channel and shutters in the builder»); the rules read the water as
+  any `'#'`, nothing else changes.
 - *Validation* (`R.validate`): `channel` (a bad spring, not exactly two exits), `channel exit` (a bad or repeated exit
   cell), `channel route`, `channel ride`; then, when the rest is sound, `channel spring unreachable` from the cheap fixed
   point `R.objectsBlocked(level)` (below). The spring may be reached at the start (the channel is then ready at once); 17
@@ -462,21 +464,36 @@ revision `wave.mjs` `GEN` 2026-11-05). Both are placed once per job in `tune.mjs
 so the quick tests and every check see them; `levels.mjs candidate` copies the board's `channel` / `shutters` into the
 level (`objectsOf`) and refuses a recipe that does not match them.
 
-- *The channel's places* (`levels.mjs placeChannel`, `CHANNEL`): the spring and each exit is one cell, either a colour
-  cell enclosed by colour on its four sides that the level takes out (it joins `overlay.keys`, the list of the picture's
-  colour cells the level leaves empty; no format change, the C# `RoundPictureBoard` lays them the same way) or an empty
-  pocket of the picture the start does not reach. Access depth (colour cells to clear first, `depths`): the spring in
-  8–35 % of the deepest colour cell's (at least 2: behind work, never ready at the start, which `evaluate` and the audit
-  refuse), near the entry's column; the exits at least 50 % deep and 3 deeper than the spring, at least 0.4 × √(area)
-  apart and turned at least 80° from each other as seen from the spring (two different inner regions), cells of the
-  channel at least 3 apart; preferred: the deepest, farthest pair, different materials round the exits, short routes. A
-  thin picture without such a pair is tried once more relaxed (`CHANNEL_RELAXED`: 40 %, 0.28 × √area, 55°). Each route
-  is two straight legs (row then column or column then row; of the four combinations the pair sharing fewest cells),
-  ride 60 ms a step, at least 400 ms. Latch keys never take a channel cell (`keyHoles` skips them; `carveKeySpots
-  {avoid}` keeps 5 cells away).
+- *The island behind water* (17 §8 «Остров за водой», the owner, 2026-11-07, after playing L101–L150: the exits decided
+  nothing; generator revision `GEN` 2026-11-07; `levels.mjs placeIsland`, alias `placeChannel`, `ISLAND`): an inner part
+  of the picture, 25–40 % of N, is ringed by water and reached only through the channel. The island is a union of whole
+  one-colour areas grown from a seed area by the neighbour sharing the longest border per cell (holes filled, closed
+  against its ring so a notch or pocket joins it); where no union lands in the share (a picture of few big areas) a round
+  blob of colour cells cut through them (scored lower). Never on the picture's edge nor next to its bottom edge (the
+  entry), off the start front (access depth or walking distance), every colour cell outside it still reachable. Its ring
+  (8-neighbours) is `overlay.water`: picture cells that become `'#'` like walls (a ring cell on the picture's edge closes
+  outward like any strip) but are drawn as the stream in cream stone banks, never stone (`boardOf` keeps them out of
+  `stone`; C# `RoundOverlay.Water`, left out of `RoundLevel.OverlayCells`; `board.overlay.water` of `round-level.v1`).
+  Preferred: a ring through empty cells and few colour cells (at most `ringCost` 15 % of N), a share near 32 %, compact,
+  materials of its own. Both exits are island cells next to the water, turned at least 100° apart from the island's
+  centre, splitting it into halves of different materials (a colour exit cell is carved, `overlay.keys`). The spring is
+  outside, carved from colour enclosed by colour or water (or an empty pocket the start does not reach), its first
+  neighbour going at about 20 % of N when the outside is cleared nearest first (walking distance + 2 × access depth),
+  near the water and between the exits. Routes: two straight legs each, the pair sharing fewest cells, ride 60 ms a step,
+  at least 400 ms. The open placement of 2026-11-05 (spring at 8–35 % depth, two deep exits) is retired; a channel
+  candidate without the island check is not placed (`mechOk`).
+- *The spring's moment* (`springTiming`, `fitSpring`, `tune.mjs make`): the saved solution's first path (the solver's
+  depth-first search takes the first legal action, an exit at once, exit 0 first) is simulated on each candidate's queue;
+  while it reaches the spring out of 20–30 % W, one swap of an unlinked visible pod of a material round the spring with a
+  pod of another material (the swap landing nearest 24 %), at most three.
+- *Checks* (`measure.mjs channelCheck`, `islandOf`; `evaluate`, `audit.mjs`): the island (colour cells the entries never
+  reach without the channel) 25–40 % of N, both exits on it and the spring off it, every colour cell reachable with either
+  exit as the only new entry, and on the saved solution (replayed patiently) the spring reached at 20–30 % W and an exit
+  chosen (`checks.island`: `island.share`, `ready.atW`, `open`).
 - *The queue for an exit* (`channelDepths`): the candidate orders its pods as if one exit (drawn per attempt) were chosen
-  the moment the spring is reached (a cell's depth = min(from the entries, spring depth + from the exit)), so that exit's
-  region is played earlier and with the other exit its pods wait: the choice matters.
+  the moment the spring is reached (a cell's depth = min(from the entries, spring depth + from the exit); an island cell
+  only the latter), so that exit's side of the island is played earlier and with the other exit its pods wait: the choice
+  matters.
 - *Shutters* (`placeShutters`, `SHUTTER`; 17 §7, §8): number by `doses` (`SHUTTER_T`: lead Normal 1, Hard 1–2, Super Hard
   2–3, additional 1, introduction 1; in the wave plan L101–L150 every shutter level has one); total area as a share of
   N (lead Normal 3–8 %, Hard 5–12 %, Super Hard 8–15 %, additional 2–5 %, introduction Normal's 3 %), each a full rectangle
@@ -510,9 +527,12 @@ level (`objectsOf`) and refuses a recipe that does not match them.
   every level measures exactly as before. The saved-solution search (`level-stats/solve.mjs` `prefer`) tries an exit as soon as one may be
   chosen, exit 0 then exit 1, so the proof shows the choice; the simple strategies take an exit at once (left the first,
   right the last; `strategies.mjs bridgeFirst`, `perf/games.mjs heroChoices`), and forced decisions count taps only.
-- *Pictures.* Carving one cell for the spring and each exit is enough: no picture needs to be drawn with pockets.
-  `rounds.mjs plan` gives a channel position only a picture `placeChannel` finds places on (pool entries' `channel`,
+- *Pictures.* The water and the carved cells are the level's overlay: no picture needs to be drawn for the channel.
+  `rounds.mjs plan` gives a channel position only a picture `placeIsland` finds an island on (pool entries' `channel`,
   `wave.mjs eligible`).
+- *Stills before a transfer* (`tools/rounds/island-stills.mjs <dir> <level>…` writes round-level.v1 and the saved
+  solution's commands into a work folder; `dotnet run --project playtest/preview -- --island-stills <dir> <out>` renders
+  each at the start, at the spring's readiness and after the solution's exit is chosen, `IslandStills.cs`).
 - *Wave L101–L150* (`content/rounds/runs/L0101-L0150/mechanics.json`, the owner's plan of 2026-11-05): the Super Hards with
   a channel (110, 130, 150) are `by: "hand"` (`channelKind: "single"`: exactly one exit wins), skipped by `place`.
 

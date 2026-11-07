@@ -46,6 +46,7 @@ string? shape = null;
 bool perf = false;
 bool roundsPreview = false;
 (string Rounds, string Out)? latchStills = null;
+(string Levels, string Out)? islandStills = null;
 string? channelShutters = null;
 (string Rounds, string Out, int Level, string Tag)? linkStills = null;
 (int Level, float Seconds, string Out, string? Style)? clearVideo = null;
@@ -121,6 +122,12 @@ for (int i = 0; i < args.Length; i++)
     {
         // --channel-shutters <out dir>: the look mock of the water channel and the wooden shutters (ChannelShutterMock)
         channelShutters = Path.GetFullPath(args[++i]);
+    }
+    else if (args[i] == "--island-stills" && i + 2 < args.Length)
+    {
+        // --island-stills <levels dir> <out dir>: the water channel's island on rebuilt levels for the owner (IslandStills)
+        islandStills = (Path.GetFullPath(args[i + 1]), Path.GetFullPath(args[i + 2]));
+        i += 2;
     }
     else if (args[i] == "--latch-stills" && i + 2 < args.Length)
     {
@@ -320,6 +327,11 @@ if (boardCubes != null)
 if (channelShutters != null)
 {
     return ChannelShutterMock.Write(root, channelShutters);
+}
+
+if (islandStills != null)
+{
+    return IslandStills.Write(islandStills.Value.Levels, islandStills.Value.Out);
 }
 
 if (latchStills != null)
