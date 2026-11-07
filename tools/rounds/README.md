@@ -485,7 +485,9 @@ level (`objectsOf`) and refuses a recipe that does not match them.
 - *The spring's moment* (`springTiming`, `fitSpring`, `tune.mjs make`): the saved solution's first path (the solver's
   depth-first search takes the first legal action, an exit at once, exit 0 first) is simulated on each candidate's queue;
   while it reaches the spring out of 20–30 % W, one swap of an unlinked visible pod of a material round the spring with a
-  pod of another material (the swap landing nearest 24 %), at most three.
+  pod of another material (the swap landing nearest 24 %), at most three. The deciding lean of the queue (`channelLean`, the pods near the
+  drawn exit's side early) is for `channelKind: 'single'` only since 2026-11-07: with the island it made one exit lose,
+  which a `better` level (both win, one 10+ points better) refuses.
 - *Checks* (`measure.mjs channelCheck`, `islandOf`; `evaluate`, `audit.mjs`): the island (colour cells the entries never
   reach without the channel) 25–40 % of N, both exits on it and the spring off it, every colour cell reachable with either
   exit as the only new entry, and on the saved solution (replayed patiently) the spring reached at 20–30 % W and an exit
