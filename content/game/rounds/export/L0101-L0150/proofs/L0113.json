@@ -1,0 +1,234 @@
+{
+ "format": "round-proof.v1",
+ "number": 113,
+ "definitionVersion": 2,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 23425000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 23425000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 23425000
+   },
+   {
+    "type": "channel",
+    "exit": 0,
+    "atUs": 146800000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 146800000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 146800000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 160025000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 194400000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 194400000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 220025000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 235625000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 252725000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 276800000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 314975000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 337975000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 344975000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 371775000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 393250000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 415750000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 426850000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 445700000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 467750000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 486850000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 500025000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 508625000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 400,
+  "wins": 203,
+  "share": 0.507,
+  "wilson95": [
+   0.459,
+   0.556
+  ],
+  "classOfShare": "Normal",
+  "borderline": true
+ },
+ "checks": {
+  "forced": 0.06,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": false,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.54,
+   "tight": 0.93
+  },
+  "calm": {
+   "runs": 200,
+   "wins": 117,
+   "share": 0.585,
+   "wilson95": [
+    0.516,
+    0.651
+   ],
+   "borderline": false,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 0,
+   "traps": 0,
+   "top": 0
+  },
+  "channel": {
+   "each": [
+    {
+     "exit": 0,
+     "win": true,
+     "share": 0.43
+    },
+    {
+     "exit": 1,
+     "win": true,
+     "share": 0.68
+    }
+   ],
+   "gap": 0.25,
+   "decides": false,
+   "better": 1
+  },
+  "island": {
+   "island": {
+    "cells": 208,
+    "share": 0.257
+   },
+   "exitsOn": [
+    true,
+    true
+   ],
+   "ready": {
+    "atW": 0.206
+   },
+   "open": {
+    "exit": 0,
+    "atW": 0.207
+   },
+   "ok": true,
+   "problems": [],
+   "notes": []
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0101-L0150.md",
+  "notes": [
+   "канал: остров 26 % N, родник при 21 % W, выход 1 при 21 % W (§8)",
+   "канал: выходы 1 выигрывает, 2 выигрывает (§8)",
+   "класс на границе по Wilson 46 %–56 % — нужно решение владельца (§5)",
+   "после 80 % W запусков 6 (ориентир 1–4, §10)",
+   "последний запуск при 97 % W (ориентир 80–92 %, §10)",
+   "время быстрых нажатий 29.4 с (ориентир 70–160 с, §12)"
+  ]
+ },
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

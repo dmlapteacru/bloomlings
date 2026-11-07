@@ -1,0 +1,233 @@
+{
+ "format": "round-proof.v1",
+ "number": 124,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 90275000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 161700000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 191400000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 211800000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 260075000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 276250000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 283000000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 305300000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 319075000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 337750000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 337750000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 360250000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 377550000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 396925000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 408425000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 424475000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 458125000
+   },
+   {
+    "type": "tap",
+    "pod": 24,
+    "atUs": 483300000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 490925000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 506925000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 518925000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 537925000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 547125000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 100,
+  "wins": 60,
+  "share": 0.6,
+  "wilson95": [
+   0.502,
+   0.691
+  ],
+  "classOfShare": "Normal",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.2,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": false,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.75,
+   "tight": 0.96
+  },
+  "calm": {
+   "runs": 200,
+   "wins": 129,
+   "share": 0.645,
+   "wilson95": [
+    0.577,
+    0.708
+   ],
+   "borderline": false,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 2,
+   "traps": 2,
+   "top": 1
+  },
+  "latch": {
+   "latches": [
+    {
+     "latch": 0,
+     "column": 0,
+     "depth": 3,
+     "behind": 4,
+     "key": 367,
+     "atW": 0.211,
+     "command": 3,
+     "waitMs": 23650
+    }
+   ],
+   "maxBlocked": 1,
+   "limit": 2,
+   "lastOpenAtW": 0.211,
+   "waits": true,
+   "randomOverLimit": 0,
+   "ok": true,
+   "problems": [],
+   "notes": []
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "W",
+     "name": "Снег",
+     "from": "N",
+     "cells": 5,
+     "clusters": 2,
+     "pods": [
+      {
+       "pod": 17,
+       "count": 3,
+       "row": 3
+      },
+      {
+       "pod": 18,
+       "count": 2,
+       "row": 2
+      }
+     ]
+    }
+   ],
+   "cells": 5,
+   "pressure": {
+    "with": 1.75,
+    "without": 1.54
+   }
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0101-L0150.md",
+  "notes": [
+   "после 80 % W запусков 5 (ориентир 1–4, §10)",
+   "последний запуск при 97 % W (ориентир 80–92 %, §10)"
+  ]
+ },
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

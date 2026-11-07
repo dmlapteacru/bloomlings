@@ -1,127 +1,117 @@
 {
  "format": "round-proof.v1",
  "number": 134,
- "definitionVersion": 1,
+ "definitionVersion": 2,
  "solution": {
   "commands": [
    {
     "type": "tap",
-    "pod": 11,
+    "pod": 0,
     "atUs": 0
    },
    {
     "type": "tap",
     "pod": 1,
-    "atUs": 0
-   },
-   {
-    "type": "tap",
-    "pod": 0,
-    "atUs": 15050000
-   },
-   {
-    "type": "tap",
-    "pod": 7,
-    "atUs": 37025000
-   },
-   {
-    "type": "tap",
-    "pod": 18,
-    "atUs": 68475000
-   },
-   {
-    "type": "tap",
-    "pod": 3,
-    "atUs": 71800000
+    "atUs": 12200000
    },
    {
     "type": "tap",
     "pod": 9,
-    "atUs": 96875000
-   },
-   {
-    "type": "tap",
-    "pod": 12,
-    "atUs": 113600000
-   },
-   {
-    "type": "tap",
-    "pod": 16,
-    "atUs": 142850000
-   },
-   {
-    "type": "tap",
-    "pod": 10,
-    "atUs": 142850000
-   },
-   {
-    "type": "tap",
-    "pod": 14,
-    "atUs": 159525000
-   },
-   {
-    "type": "tap",
-    "pod": 13,
-    "atUs": 174150000
-   },
-   {
-    "type": "tap",
-    "pod": 19,
-    "atUs": 205150000
-   },
-   {
-    "type": "tap",
-    "pod": 4,
-    "atUs": 206800000
-   },
-   {
-    "type": "tap",
-    "pod": 17,
-    "atUs": 220225000
-   },
-   {
-    "type": "tap",
-    "pod": 8,
-    "atUs": 224600000
-   },
-   {
-    "type": "channel",
-    "exit": 0,
-    "atUs": 241725000
-   },
-   {
-    "type": "tap",
-    "pod": 2,
-    "atUs": 241725000
-   },
-   {
-    "type": "tap",
-    "pod": 5,
-    "atUs": 269630000
-   },
-   {
-    "type": "tap",
-    "pod": 15,
-    "atUs": 283315000
+    "atUs": 26425000
    },
    {
     "type": "tap",
     "pod": 6,
-    "atUs": 298555000
+    "atUs": 39775000
+   },
+   {
+    "type": "channel",
+    "exit": 0,
+    "atUs": 52950000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 52950000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 52950000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 52950000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 78940000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 118040000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 128225000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 218450000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 230675000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 232325000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 250645000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 267895000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 301000000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 322925000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 336925000
    }
   ],
   "outcome": "Won",
-  "endUs": 315945000
+  "endUs": 350800000
  },
  "randomTest": {
   "policy": "17§5 extended: uniform over legal actions + wait before a state event",
   "seedBase": 1,
-  "runs": 400,
-  "wins": 238,
-  "share": 0.595,
+  "runs": 100,
+  "wins": 61,
+  "share": 0.61,
   "wilson95": [
-   0.546,
-   0.642
+   0.512,
+   0.7
   ],
   "classOfShare": "Normal",
   "borderline": false
@@ -130,13 +120,13 @@
   "forced": 0.08,
   "opening": null,
   "hold": true,
-  "greedyLoses": false,
+  "greedyLoses": true,
   "hiddenMatters": {
    "ok": true,
    "pods": [
     {
-     "pod": 12,
-     "revealAt": 7,
+     "pod": 15,
+     "revealAt": 9,
      "gap": 0,
      "newColour": true
     }
@@ -145,16 +135,16 @@
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 1.73,
-   "tight": 0.89
+   "stuck": 1.99,
+   "tight": 0.87
   },
   "calm": {
    "runs": 200,
-   "wins": 122,
-   "share": 0.61,
+   "wins": 123,
+   "share": 0.615,
    "wilson95": [
-    0.541,
-    0.675
+    0.546,
+    0.68
    ],
    "borderline": false,
    "protocol": "§5 calm: uniform over legal actions, the board settled before each",
@@ -170,53 +160,47 @@
     {
      "exit": 0,
      "win": true,
-     "share": 0.55
+     "share": 0.52
     },
     {
      "exit": 1,
      "win": true,
-     "share": 0.47
+     "share": 0.62
     }
    ],
-   "gap": 0.08,
+   "gap": 0.1,
    "decides": false,
-   "better": 0
+   "better": 1
   },
-  "accents": {
-   "materials": [
-    {
-     "code": "F",
-     "name": "Фуксия",
-     "from": "G",
-     "cells": 4,
-     "clusters": 1,
-     "pods": [
-      {
-       "pod": 16,
-       "count": 2,
-       "row": 2
-      },
-      {
-       "pod": 17,
-       "count": 2,
-       "row": 1
-      }
-     ]
-    }
+  "island": {
+   "island": {
+    "cells": 184,
+    "share": 0.321
+   },
+   "exitsOn": [
+    true,
+    true
    ],
-   "cells": 4,
-   "pressure": {
-    "with": 1.73,
-    "without": 0.89
-   }
+   "ready": {
+    "atW": 0.226
+   },
+   "open": {
+    "exit": 0,
+    "atW": 0.254
+   },
+   "ok": true,
+   "problems": [],
+   "notes": []
   }
  },
  "audit": {
   "result": "OK",
   "report": "content/rounds/audit-L0101-L0150.md",
   "notes": [
+   "канал: остров 32 % N, родник при 23 % W, выход 1 при 25 % W (§8)",
    "канал: выходы 1 выигрывает, 2 выигрывает (§8)",
-   "последний запуск при 93 % W (ориентир 80–92 %, §10)"
+   "последний запуск при 95 % W (ориентир 80–92 %, §10)",
+   "время быстрых нажатий 140.8 с (ориентир 40–100 с, §12)"
   ]
  },
  "engine": {

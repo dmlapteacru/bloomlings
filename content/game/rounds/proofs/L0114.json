@@ -1,143 +1,138 @@
 {
  "format": "round-proof.v1",
  "number": 114,
- "definitionVersion": 1,
+ "definitionVersion": 2,
  "solution": {
   "commands": [
    {
     "type": "tap",
-    "pod": 22,
+    "pod": 18,
     "atUs": 0
    },
    {
     "type": "tap",
-    "pod": 21,
-    "atUs": 11025000
-   },
-   {
-    "type": "tap",
-    "pod": 16,
-    "atUs": 23225000
-   },
-   {
-    "type": "tap",
-    "pod": 6,
-    "atUs": 37075000
-   },
-   {
-    "type": "tap",
-    "pod": 14,
-    "atUs": 53575000
-   },
-   {
-    "type": "tap",
-    "pod": 7,
-    "atUs": 82500000
-   },
-   {
-    "type": "tap",
-    "pod": 18,
-    "atUs": 100050000
-   },
-   {
-    "type": "tap",
-    "pod": 13,
-    "atUs": 112825000
-   },
-   {
-    "type": "tap",
-    "pod": 5,
-    "atUs": 112825000
-   },
-   {
-    "type": "tap",
-    "pod": 10,
-    "atUs": 134775000
-   },
-   {
-    "type": "tap",
-    "pod": 11,
-    "atUs": 157500000
-   },
-   {
-    "type": "tap",
-    "pod": 25,
-    "atUs": 172925000
-   },
-   {
-    "type": "tap",
-    "pod": 19,
-    "atUs": 177500000
-   },
-   {
-    "type": "tap",
-    "pod": 8,
-    "atUs": 190275000
-   },
-   {
-    "type": "tap",
-    "pod": 12,
-    "atUs": 212300000
+    "pod": 24,
+    "atUs": 0
    },
    {
     "type": "tap",
     "pod": 15,
-    "atUs": 251925000
+    "atUs": 4575000
    },
    {
     "type": "tap",
-    "pod": 24,
-    "atUs": 294950000
+    "pod": 12,
+    "atUs": 4575000
    },
    {
     "type": "tap",
-    "pod": 20,
-    "atUs": 301750000
+    "pod": 7,
+    "atUs": 4575000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 183600000
    },
    {
     "type": "tap",
     "pod": 0,
-    "atUs": 315825000
+    "atUs": 260875000
    },
    {
     "type": "tap",
-    "pod": 2,
-    "atUs": 326025000
+    "pod": 19,
+    "atUs": 271425000
    },
    {
     "type": "tap",
-    "pod": 1,
-    "atUs": 347675000
+    "pod": 9,
+    "atUs": 282700000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 314750000
    },
    {
     "type": "tap",
     "pod": 17,
-    "atUs": 363650000
+    "atUs": 340950000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 360325000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 385325000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 402700000
    },
    {
     "type": "tap",
     "pod": 3,
-    "atUs": 378200000
+    "atUs": 421125000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 440425000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 460250000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 471625000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 485450000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 504850000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 527925000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 540225000
    }
   ],
   "outcome": "Won",
-  "endUs": 398900000
+  "endUs": 553925000
  },
  "randomTest": {
   "policy": "17§5 extended: uniform over legal actions + wait before a state event",
   "seedBase": 1,
   "runs": 100,
-  "wins": 61,
-  "share": 0.61,
+  "wins": 60,
+  "share": 0.6,
   "wilson95": [
-   0.512,
-   0.7
+   0.502,
+   0.691
   ],
   "classOfShare": "Normal",
   "borderline": false
  },
  "checks": {
-  "forced": 0.29,
+  "forced": 0.25,
   "opening": null,
   "hold": true,
   "greedyLoses": false,
@@ -145,16 +140,16 @@
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 1.56,
-   "tight": 0.89
+   "stuck": 1.58,
+   "tight": 0.93
   },
   "calm": {
    "runs": 200,
-   "wins": 115,
-   "share": 0.575,
+   "wins": 123,
+   "share": 0.615,
    "wilson95": [
-    0.506,
-    0.641
+    0.546,
+    0.68
    ],
    "borderline": false,
    "protocol": "§5 calm: uniform over legal actions, the board settled before each",
@@ -162,38 +157,16 @@
   },
   "traps": {
    "links": 3,
-   "traps": 1,
-   "top": 1
-  },
-  "accents": {
-   "materials": [
-    {
-     "code": "W",
-     "name": "Снег",
-     "from": "A",
-     "cells": 2,
-     "clusters": 1,
-     "pods": [
-      {
-       "pod": 13,
-       "count": 2,
-       "row": 1
-      }
-     ]
-    }
-   ],
-   "cells": 2,
-   "pressure": {
-    "with": 1.56,
-    "without": 0.94
-   }
+   "traps": 2,
+   "top": 2
   }
  },
  "audit": {
   "result": "OK",
   "report": "content/rounds/audit-L0101-L0150.md",
   "notes": [
-   "последний запуск при 94 % W (ориентир 80–92 %, §10)"
+   "последний запуск при 97 % W (ориентир 80–92 %, §10)",
+   "время быстрых нажатий 233.3 с (ориентир 70–160 с, §12)"
   ]
  },
  "engine": {

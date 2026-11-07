@@ -1,142 +1,142 @@
 {
  "format": "round-proof.v1",
  "number": 101,
- "definitionVersion": 1,
+ "definitionVersion": 2,
  "solution": {
   "commands": [
    {
     "type": "tap",
-    "pod": 24,
+    "pod": 15,
     "atUs": 0
-   },
-   {
-    "type": "tap",
-    "pod": 8,
-    "atUs": 0
-   },
-   {
-    "type": "tap",
-    "pod": 9,
-    "atUs": 43650000
-   },
-   {
-    "type": "tap",
-    "pod": 10,
-    "atUs": 93875000
-   },
-   {
-    "type": "tap",
-    "pod": 7,
-    "atUs": 93875000
-   },
-   {
-    "type": "channel",
-    "exit": 0,
-    "atUs": 125000000
-   },
-   {
-    "type": "tap",
-    "pod": 12,
-    "atUs": 125000000
    },
    {
     "type": "tap",
     "pod": 6,
-    "atUs": 140975000
-   },
-   {
-    "type": "tap",
-    "pod": 3,
-    "atUs": 203350000
-   },
-   {
-    "type": "tap",
-    "pod": 22,
-    "atUs": 220810000
-   },
-   {
-    "type": "tap",
-    "pod": 5,
-    "atUs": 228010000
-   },
-   {
-    "type": "tap",
-    "pod": 4,
-    "atUs": 244270000
-   },
-   {
-    "type": "tap",
-    "pod": 11,
-    "atUs": 275560000
-   },
-   {
-    "type": "tap",
-    "pod": 13,
-    "atUs": 287870000
-   },
-   {
-    "type": "tap",
-    "pod": 2,
-    "atUs": 302620000
+    "atUs": 86425000
    },
    {
     "type": "tap",
     "pod": 20,
-    "atUs": 318030000
-   },
-   {
-    "type": "tap",
-    "pod": 21,
-    "atUs": 328105000
-   },
-   {
-    "type": "tap",
-    "pod": 1,
-    "atUs": 340205000
-   },
-   {
-    "type": "tap",
-    "pod": 23,
-    "atUs": 378295000
-   },
-   {
-    "type": "tap",
-    "pod": 19,
-    "atUs": 399395000
-   },
-   {
-    "type": "tap",
-    "pod": 18,
-    "atUs": 413995000
-   },
-   {
-    "type": "tap",
-    "pod": 16,
-    "atUs": 429370000
-   },
-   {
-    "type": "tap",
-    "pod": 17,
-    "atUs": 445270000
+    "atUs": 129575000
    },
    {
     "type": "tap",
     "pod": 14,
-    "atUs": 461870000
+    "atUs": 137200000
    },
    {
     "type": "tap",
-    "pod": 15,
-    "atUs": 477710000
+    "pod": 9,
+    "atUs": 152750000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 196300000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 212050000
+   },
+   {
+    "type": "channel",
+    "exit": 0,
+    "atUs": 231700000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 231700000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 231700000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 248925000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 258475000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 269700000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 286775000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 301625000
+   },
+   {
+    "type": "tap",
+    "pod": 24,
+    "atUs": 317000000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 327975000
    },
    {
     "type": "tap",
     "pod": 0,
-    "atUs": 498285000
+    "atUs": 358020000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 372370000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 387120000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 405495000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 430995000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 449350000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 465250000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 483450000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 497305000
    }
   ],
   "outcome": "Won",
-  "endUs": 515345000
+  "endUs": 525000000
  },
  "randomTest": {
   "policy": "17§5 extended: uniform over legal actions + wait before a state event",
@@ -152,16 +152,16 @@
   "borderline": false
  },
  "checks": {
-  "forced": 0.11,
+  "forced": 0.12,
   "opening": null,
-  "hold": true,
+  "hold": false,
   "greedyLoses": false,
   "hiddenMatters": null,
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 0.75,
-   "tight": 0.9
+   "stuck": 0.2,
+   "tight": 0.78
   },
   "calm": {
    "runs": 200,
@@ -196,14 +196,35 @@
    "gap": 0,
    "decides": false,
    "better": 0
+  },
+  "island": {
+   "island": {
+    "cells": 227,
+    "share": 0.254
+   },
+   "exitsOn": [
+    true,
+    true
+   ],
+   "ready": {
+    "atW": 0.226
+   },
+   "open": {
+    "exit": 0,
+    "atW": 0.228
+   },
+   "ok": true,
+   "problems": [],
+   "notes": []
   }
  },
  "audit": {
   "result": "OK",
   "report": "content/rounds/audit-L0101-L0150.md",
   "notes": [
+   "канал: остров 25 % N, родник при 23 % W, выход 1 при 23 % W (§8)",
    "канал: выходы 1 выигрывает, 2 выигрывает (§8)",
-   "последний запуск при 95 % W (ориентир 80–92 %, §10)",
+   "последний запуск при 94 % W (ориентир 80–92 %, §10)",
    "Normal 100 % — выше предпочтительной зоны 60–90 % (§5)"
   ]
  },

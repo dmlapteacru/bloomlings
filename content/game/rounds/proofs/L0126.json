@@ -1,132 +1,112 @@
 {
  "format": "round-proof.v1",
  "number": 126,
- "definitionVersion": 1,
+ "definitionVersion": 2,
  "solution": {
   "commands": [
    {
     "type": "tap",
-    "pod": 0,
+    "pod": 1,
     "atUs": 0
    },
    {
     "type": "tap",
-    "pod": 5,
-    "atUs": 12550000
-   },
-   {
-    "type": "tap",
-    "pod": 13,
-    "atUs": 12550000
-   },
-   {
-    "type": "tap",
-    "pod": 3,
-    "atUs": 73925000
-   },
-   {
-    "type": "tap",
-    "pod": 10,
-    "atUs": 100075000
-   },
-   {
-    "type": "tap",
     "pod": 8,
-    "atUs": 115425000
-   },
-   {
-    "type": "tap",
-    "pod": 22,
-    "atUs": 131300000
-   },
-   {
-    "type": "tap",
-    "pod": 19,
-    "atUs": 137800000
-   },
-   {
-    "type": "tap",
-    "pod": 6,
-    "atUs": 153550000
-   },
-   {
-    "type": "tap",
-    "pod": 4,
-    "atUs": 171800000
-   },
-   {
-    "type": "tap",
-    "pod": 14,
-    "atUs": 213425000
+    "atUs": 11375000
    },
    {
     "type": "tap",
     "pod": 11,
-    "atUs": 229925000
+    "atUs": 32025000
    },
    {
     "type": "tap",
-    "pod": 9,
-    "atUs": 268225000
+    "pod": 6,
+    "atUs": 69500000
    },
    {
     "type": "channel",
     "exit": 0,
-    "atUs": 302300000
-   },
-   {
-    "type": "tap",
-    "pod": 2,
-    "atUs": 302300000
-   },
-   {
-    "type": "tap",
-    "pod": 1,
-    "atUs": 315805000
-   },
-   {
-    "type": "tap",
-    "pod": 23,
-    "atUs": 334975000
-   },
-   {
-    "type": "tap",
-    "pod": 15,
-    "atUs": 341700000
+    "atUs": 94575000
    },
    {
     "type": "tap",
     "pod": 17,
-    "atUs": 355955000
+    "atUs": 94575000
    },
    {
     "type": "tap",
-    "pod": 12,
-    "atUs": 365060000
+    "pod": 15,
+    "atUs": 100600000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 108025000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 108025000
    },
    {
     "type": "tap",
     "pod": 16,
-    "atUs": 379840000
+    "atUs": 128250000
    },
    {
     "type": "tap",
-    "pod": 21,
-    "atUs": 395245000
+    "pod": 3,
+    "atUs": 135975000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 155475000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 187625000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 201275000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 218550000
    },
    {
     "type": "tap",
     "pod": 7,
-    "atUs": 401770000
+    "atUs": 224525000
    },
    {
     "type": "tap",
-    "pod": 20,
-    "atUs": 418900000
+    "pod": 4,
+    "atUs": 263030000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 293995000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 345600000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 359990000
    }
   ],
   "outcome": "Won",
-  "endUs": 426200000
+  "endUs": 404740000
  },
  "randomTest": {
   "policy": "17§5 extended: uniform over legal actions + wait before a state event",
@@ -142,7 +122,7 @@
   "borderline": false
  },
  "checks": {
-  "forced": 0.12,
+  "forced": 0.25,
   "opening": null,
   "hold": true,
   "greedyLoses": false,
@@ -150,16 +130,16 @@
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 0.53,
-   "tight": 0.89
+   "stuck": 0.69,
+   "tight": 0.69
   },
   "calm": {
    "runs": 200,
-   "wins": 167,
-   "share": 0.835,
+   "wins": 159,
+   "share": 0.795,
    "wilson95": [
-    0.777,
-    0.88
+    0.734,
+    0.845
    ],
    "borderline": false,
    "protocol": "§5 calm: uniform over legal actions, the board settled before each",
@@ -168,33 +148,75 @@
   "traps": {
    "links": 1,
    "traps": 1,
-   "top": 1
+   "top": 0
   },
   "channel": {
    "each": [
     {
      "exit": 0,
      "win": true,
-     "share": 0.9
+     "share": 0.67
     },
     {
      "exit": 1,
      "win": true,
-     "share": 0.88
+     "share": 1
     }
    ],
-   "gap": 0.02,
+   "gap": 0.33,
    "decides": false,
-   "better": 0
+   "better": 1
+  },
+  "island": {
+   "island": {
+    "cells": 243,
+    "share": 0.372
+   },
+   "exitsOn": [
+    true,
+    true
+   ],
+   "ready": {
+    "atW": 0.232
+   },
+   "open": {
+    "exit": 0,
+    "atW": 0.245
+   },
+   "ok": true,
+   "problems": [],
+   "notes": []
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "U",
+     "name": "Олива",
+     "from": "P",
+     "cells": 3,
+     "clusters": 1,
+     "pods": [
+      {
+       "pod": 15,
+       "count": 3,
+       "row": 1
+      }
+     ]
+    }
+   ],
+   "cells": 3,
+   "pressure": {
+    "with": 0.69,
+    "without": 0.56
+   }
   }
  },
  "audit": {
   "result": "OK",
   "report": "content/rounds/audit-L0101-L0150.md",
   "notes": [
-   "канал: выходы 1 выигрывает, 2 выигрывает (§8)",
-   "после 80 % W запусков 5 (ориентир 1–4, §10)",
-   "последний запуск при 97 % W (ориентир 80–92 %, §10)"
+   "канал: остров 37 % N, родник при 23 % W, выход 1 при 25 % W (§8)",
+   "канал: выходы 1 выигрывает, 2 выигрывает (§8)"
   ]
  },
  "engine": {

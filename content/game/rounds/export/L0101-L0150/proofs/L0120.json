@@ -1,0 +1,286 @@
+{
+ "format": "round-proof.v1",
+ "number": 120,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 48075000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 104325000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 128225000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 143350000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 164975000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 186100000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 212900000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 251300000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 262400000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 277900000
+   },
+   {
+    "type": "tap",
+    "pod": 28,
+    "atUs": 315225000
+   },
+   {
+    "type": "tap",
+    "pod": 29,
+    "atUs": 328575000
+   },
+   {
+    "type": "tap",
+    "pod": 25,
+    "atUs": 342800000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 351775000
+   },
+   {
+    "type": "tap",
+    "pod": 24,
+    "atUs": 370450000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 385200000
+   },
+   {
+    "type": "tap",
+    "pod": 26,
+    "atUs": 404900000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 412225000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 420775000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 441175000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 462025000
+   },
+   {
+    "type": "tap",
+    "pod": 27,
+    "atUs": 484325000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 500550000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 523825000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 400,
+  "wins": 36,
+  "share": 0.09,
+  "wilson95": [
+   0.066,
+   0.122
+  ],
+  "classOfShare": "Super Hard",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.31,
+  "opening": {
+   "first": {
+    "openings": 3,
+    "wins": 0
+   },
+   "three": {
+    "openings": 14,
+    "wins": 0,
+    "share": 0
+   },
+   "ok": true,
+   "strategies": [
+    "most-now",
+    "fast-release"
+   ]
+  },
+  "hold": true,
+  "greedyLoses": true,
+  "hiddenMatters": {
+   "ok": true,
+   "pods": [
+    {
+     "pod": 28,
+     "revealAt": 11,
+     "gap": 0,
+     "newColour": true
+    },
+    {
+     "pod": 8,
+     "revealAt": 18,
+     "gap": 0,
+     "newColour": true
+    }
+   ]
+  },
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 0.65,
+   "tight": 0.87
+  },
+  "calm": {
+   "runs": 400,
+   "wins": 86,
+   "share": 0.215,
+   "wilson95": [
+    0.178,
+    0.258
+   ],
+   "borderline": true,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 6,
+   "traps": 6,
+   "top": 4
+  },
+  "latch": {
+   "latches": [
+    {
+     "latch": 0,
+     "column": 0,
+     "depth": 2,
+     "behind": 4,
+     "key": 961,
+     "atW": 0.792,
+     "command": 20,
+     "waitMs": 292375
+    },
+    {
+     "latch": 1,
+     "column": 2,
+     "depth": 2,
+     "behind": 4,
+     "key": 404,
+     "atW": 0.235,
+     "command": 5,
+     "waitMs": 0
+    },
+    {
+     "latch": 2,
+     "column": 3,
+     "depth": 3,
+     "behind": 3,
+     "key": 946,
+     "atW": 0.589,
+     "command": 14,
+     "waitMs": 0
+    }
+   ],
+   "maxBlocked": 1,
+   "limit": 3,
+   "lastOpenAtW": 0.792,
+   "waits": true,
+   "randomOverLimit": 0,
+   "ok": true,
+   "problems": [],
+   "notes": []
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "F",
+     "name": "Фуксия",
+     "from": "Y",
+     "cells": 3,
+     "clusters": 1,
+     "pods": [
+      {
+       "pod": 18,
+       "count": 3,
+       "row": 1
+      }
+     ]
+    }
+   ],
+   "cells": 3,
+   "pressure": {
+    "with": 0.65,
+    "without": 0.64
+   }
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0101-L0150.md",
+  "notes": [
+   "спокойная игра 22 % на границе по Wilson — решение человека (§5)",
+   "слой Б: стоят без работы 0.65 < 2 (§13, quality.json)",
+   "опасных развилок 1 (ориентир 3–8, §5)",
+   "последний запуск при 94 % W (ориентир 80–92 %, §10)"
+  ]
+ },
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

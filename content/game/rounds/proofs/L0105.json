@@ -1,7 +1,7 @@
 {
  "format": "round-proof.v1",
  "number": 105,
- "definitionVersion": 1,
+ "definitionVersion": 2,
  "solution": {
   "commands": [
    {
@@ -11,157 +11,157 @@
    },
    {
     "type": "tap",
+    "pod": 7,
+    "atUs": 19500000
+   },
+   {
+    "type": "tap",
     "pod": 27,
-    "atUs": 20425000
+    "atUs": 39175000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 50775000
    },
    {
     "type": "tap",
     "pod": 9,
-    "atUs": 33025000
-   },
-   {
-    "type": "tap",
-    "pod": 6,
-    "atUs": 53200000
-   },
-   {
-    "type": "tap",
-    "pod": 29,
-    "atUs": 74225000
-   },
-   {
-    "type": "tap",
-    "pod": 4,
-    "atUs": 87625000
-   },
-   {
-    "type": "tap",
-    "pod": 20,
-    "atUs": 108475000
-   },
-   {
-    "type": "tap",
-    "pod": 10,
-    "atUs": 116600000
-   },
-   {
-    "type": "tap",
-    "pod": 16,
-    "atUs": 137325000
-   },
-   {
-    "type": "tap",
-    "pod": 17,
-    "atUs": 152875000
-   },
-   {
-    "type": "tap",
-    "pod": 5,
-    "atUs": 169125000
-   },
-   {
-    "type": "tap",
-    "pod": 7,
-    "atUs": 210475000
-   },
-   {
-    "type": "tap",
-    "pod": 13,
-    "atUs": 232375000
-   },
-   {
-    "type": "tap",
-    "pod": 24,
-    "atUs": 251750000
-   },
-   {
-    "type": "tap",
-    "pod": 25,
-    "atUs": 251750000
-   },
-   {
-    "type": "tap",
-    "pod": 2,
-    "atUs": 272375000
-   },
-   {
-    "type": "tap",
-    "pod": 0,
-    "atUs": 294375000
-   },
-   {
-    "type": "tap",
-    "pod": 3,
-    "atUs": 316975000
-   },
-   {
-    "type": "tap",
-    "pod": 15,
-    "atUs": 344950000
+    "atUs": 57650000
    },
    {
     "type": "tap",
     "pod": 26,
-    "atUs": 362875000
-   },
-   {
-    "type": "tap",
-    "pod": 28,
-    "atUs": 369950000
-   },
-   {
-    "type": "tap",
-    "pod": 12,
-    "atUs": 384750000
+    "atUs": 77600000
    },
    {
     "type": "channel",
     "exit": 0,
-    "atUs": 406125000
+    "atUs": 95100000
    },
    {
     "type": "tap",
-    "pod": 18,
-    "atUs": 406125000
+    "pod": 5,
+    "atUs": 95100000
    },
    {
     "type": "tap",
     "pod": 14,
-    "atUs": 422235000
+    "atUs": 115825000
    },
    {
     "type": "tap",
-    "pod": 19,
-    "atUs": 441130000
+    "pod": 6,
+    "atUs": 115825000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 137425000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 178565000
+   },
+   {
+    "type": "tap",
+    "pod": 25,
+    "atUs": 178565000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 220555000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 241430000
+   },
+   {
+    "type": "tap",
+    "pod": 29,
+    "atUs": 250945000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 263345000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 325695000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 348345000
+   },
+   {
+    "type": "tap",
+    "pod": 28,
+    "atUs": 372145000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 385945000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 407570000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 438345000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 455545000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 476545000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 486835000
    }
   ],
   "outcome": "Won",
-  "endUs": 450635000
+  "endUs": 522770000
  },
  "randomTest": {
   "policy": "17§5 extended: uniform over legal actions + wait before a state event",
   "seedBase": 1,
   "runs": 400,
-  "wins": 89,
-  "share": 0.223,
+  "wins": 91,
+  "share": 0.228,
   "wilson95": [
-   0.184,
-   0.266
+   0.189,
+   0.271
   ],
   "classOfShare": "Hard",
   "borderline": true
  },
  "checks": {
-  "forced": 0.26,
+  "forced": 0.2,
   "opening": {
    "first": {
-    "openings": 4,
+    "openings": 3,
     "wins": 0
    },
    "three": {
-    "openings": 56,
-    "wins": 10,
-    "share": 0.18
+    "openings": 34,
+    "wins": 7,
+    "share": 0.21
    },
    "ok": true,
    "strategies": [
@@ -174,16 +174,16 @@
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 1.59,
-   "tight": 0.95
+   "stuck": 1.63,
+   "tight": 0.93
   },
   "calm": {
    "runs": 200,
-   "wins": 70,
-   "share": 0.35,
+   "wins": 27,
+   "share": 0.135,
    "wilson95": [
-    0.287,
-    0.418
+    0.094,
+    0.189
    ],
    "borderline": false,
    "protocol": "§5 calm: uniform over legal actions, the board settled before each",
@@ -192,46 +192,66 @@
   "traps": {
    "links": 5,
    "traps": 4,
-   "top": 1
+   "top": 0
   },
   "channel": {
    "each": [
     {
      "exit": 0,
      "win": true,
-     "share": 0.23
+     "share": 0.43
     },
     {
      "exit": 1,
      "win": true,
-     "share": 0.23
+     "share": 0.05
     }
    ],
-   "gap": 0,
+   "gap": 0.38,
    "decides": false,
    "better": 0
+  },
+  "island": {
+   "island": {
+    "cells": 324,
+    "share": 0.293
+   },
+   "exitsOn": [
+    true,
+    true
+   ],
+   "ready": {
+    "atW": 0.239
+   },
+   "open": {
+    "exit": 0,
+    "atW": 0.244
+   },
+   "ok": true,
+   "problems": [],
+   "notes": []
   },
   "accents": {
    "materials": [
     {
-     "code": "F",
-     "name": "Фуксия",
-     "from": "Y",
-     "cells": 2,
-     "clusters": 1,
+     "code": "W",
+     "name": "Снег",
+     "from": "R",
+     "cells": 5,
+     "clusters": 2,
      "pods": [
       {
-       "pod": 23,
-       "count": 2,
-       "row": 1
+       "pod": 14,
+       "count": 5,
+       "row": 2
       }
      ]
     }
    ],
-   "cells": 2,
+   "cells": 5,
    "pressure": {
-    "with": 1.59,
-    "without": 1.44
+    "with": 1.63,
+    "without": 1.03
    }
   }
  },
@@ -239,11 +259,12 @@
   "result": "OK",
   "report": "content/rounds/audit-L0101-L0150.md",
   "notes": [
+   "канал: остров 29 % N, родник при 24 % W, выход 1 при 24 % W (§8)",
    "канал: выходы 1 выигрывает, 2 выигрывает (§8)",
-   "класс на границе по Wilson 18 %–27 % — нужно решение владельца (§5)",
+   "класс на границе по Wilson 19 %–27 % — нужно решение владельца (§5)",
    "опасных развилок 0 (ориентир 2–5, §5)",
-   "после 80 % W запусков 7 (ориентир 1–4, §10)",
-   "последний запуск при 98 % W (ориентир 80–92 %, §10)"
+   "после 80 % W запусков 5 (ориентир 1–4, §10)",
+   "последний запуск при 95 % W (ориентир 80–92 %, §10)"
   ]
  },
  "engine": {

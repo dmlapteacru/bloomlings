@@ -1,163 +1,153 @@
 {
  "format": "round-proof.v1",
  "number": 113,
- "definitionVersion": 1,
+ "definitionVersion": 2,
  "solution": {
   "commands": [
    {
     "type": "tap",
-    "pod": 9,
-    "atUs": 0
-   },
-   {
-    "type": "tap",
-    "pod": 21,
-    "atUs": 0
-   },
-   {
-    "type": "tap",
-    "pod": 19,
-    "atUs": 0
-   },
-   {
-    "type": "tap",
-    "pod": 20,
-    "atUs": 0
-   },
-   {
-    "type": "tap",
-    "pod": 2,
-    "atUs": 0
-   },
-   {
-    "type": "tap",
-    "pod": 7,
-    "atUs": 50500000
-   },
-   {
-    "type": "channel",
-    "exit": 0,
-    "atUs": 65850000
-   },
-   {
-    "type": "tap",
-    "pod": 18,
-    "atUs": 79860000
-   },
-   {
-    "type": "tap",
-    "pod": 0,
-    "atUs": 79860000
-   },
-   {
-    "type": "tap",
-    "pod": 15,
-    "atUs": 97680000
-   },
-   {
-    "type": "tap",
-    "pod": 5,
-    "atUs": 140980000
-   },
-   {
-    "type": "tap",
-    "pod": 12,
-    "atUs": 158900000
-   },
-   {
-    "type": "tap",
-    "pod": 8,
-    "atUs": 175195000
-   },
-   {
-    "type": "tap",
-    "pod": 3,
-    "atUs": 187870000
-   },
-   {
-    "type": "tap",
-    "pod": 11,
-    "atUs": 207665000
-   },
-   {
-    "type": "tap",
-    "pod": 23,
-    "atUs": 229785000
-   },
-   {
-    "type": "tap",
-    "pod": 6,
-    "atUs": 240155000
-   },
-   {
-    "type": "tap",
     "pod": 1,
-    "atUs": 261775000
+    "atUs": 0
    },
    {
     "type": "tap",
-    "pod": 14,
-    "atUs": 284915000
-   },
-   {
-    "type": "tap",
-    "pod": 17,
-    "atUs": 301615000
-   },
-   {
-    "type": "tap",
-    "pod": 25,
-    "atUs": 312060000
-   },
-   {
-    "type": "tap",
-    "pod": 13,
-    "atUs": 322655000
-   },
-   {
-    "type": "tap",
-    "pod": 4,
-    "atUs": 340770000
-   },
-   {
-    "type": "tap",
-    "pod": 24,
-    "atUs": 348115000
-   },
-   {
-    "type": "tap",
-    "pod": 10,
-    "atUs": 361145000
-   },
-   {
-    "type": "tap",
-    "pod": 16,
-    "atUs": 381615000
+    "pod": 9,
+    "atUs": 23425000
    },
    {
     "type": "tap",
     "pod": 22,
-    "atUs": 394810000
+    "atUs": 23425000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 23425000
+   },
+   {
+    "type": "channel",
+    "exit": 0,
+    "atUs": 146800000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 146800000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 146800000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 160025000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 194400000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 194400000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 220025000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 235625000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 252725000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 276800000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 314975000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 337975000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 344975000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 371775000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 393250000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 415750000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 426850000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 445700000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 467750000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 486850000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 500025000
    }
   ],
   "outcome": "Won",
-  "endUs": 406355000
+  "endUs": 508625000
  },
  "randomTest": {
   "policy": "17§5 extended: uniform over legal actions + wait before a state event",
   "seedBase": 1,
   "runs": 400,
-  "wins": 238,
-  "share": 0.595,
+  "wins": 203,
+  "share": 0.507,
   "wilson95": [
-   0.546,
-   0.642
+   0.459,
+   0.556
   ],
   "classOfShare": "Normal",
-  "borderline": false
+  "borderline": true
  },
  "checks": {
-  "forced": 0.09,
+  "forced": 0.06,
   "opening": null,
   "hold": true,
   "greedyLoses": false,
@@ -165,16 +155,16 @@
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 2.03,
-   "tight": 0.92
+   "stuck": 1.54,
+   "tight": 0.93
   },
   "calm": {
    "runs": 200,
-   "wins": 120,
-   "share": 0.6,
+   "wins": 117,
+   "share": 0.585,
    "wilson95": [
-    0.531,
-    0.665
+    0.516,
+    0.651
    ],
    "borderline": false,
    "protocol": "§5 calm: uniform over legal actions, the board settled before each",
@@ -190,50 +180,49 @@
     {
      "exit": 0,
      "win": true,
-     "share": 0.57
+     "share": 0.43
     },
     {
      "exit": 1,
      "win": true,
-     "share": 0.45
+     "share": 0.68
     }
    ],
-   "gap": 0.12,
+   "gap": 0.25,
    "decides": false,
-   "better": 0
+   "better": 1
   },
-  "accents": {
-   "materials": [
-    {
-     "code": "W",
-     "name": "Снег",
-     "from": "V",
-     "cells": 7,
-     "clusters": 3,
-     "pods": [
-      {
-       "pod": 4,
-       "count": 7,
-       "row": 4
-      }
-     ]
-    }
+  "island": {
+   "island": {
+    "cells": 208,
+    "share": 0.257
+   },
+   "exitsOn": [
+    true,
+    true
    ],
-   "cells": 7,
-   "pressure": {
-    "with": 2.03,
-    "without": 1.62
-   }
+   "ready": {
+    "atW": 0.206
+   },
+   "open": {
+    "exit": 0,
+    "atW": 0.207
+   },
+   "ok": true,
+   "problems": [],
+   "notes": []
   }
  },
  "audit": {
   "result": "OK",
   "report": "content/rounds/audit-L0101-L0150.md",
   "notes": [
+   "канал: остров 26 % N, родник при 21 % W, выход 1 при 21 % W (§8)",
    "канал: выходы 1 выигрывает, 2 выигрывает (§8)",
-   "опасных развилок 4 (ориентир 0–2, §5)",
-   "после 80 % W запусков 7 (ориентир 1–4, §10)",
-   "последний запуск при 98 % W (ориентир 80–92 %, §10)"
+   "класс на границе по Wilson 46 %–56 % — нужно решение владельца (§5)",
+   "после 80 % W запусков 6 (ориентир 1–4, §10)",
+   "последний запуск при 97 % W (ориентир 80–92 %, §10)",
+   "время быстрых нажатий 29.4 с (ориентир 70–160 с, §12)"
   ]
  },
  "engine": {

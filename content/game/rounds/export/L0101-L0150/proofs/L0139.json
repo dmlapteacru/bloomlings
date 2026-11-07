@@ -1,0 +1,258 @@
+{
+ "format": "round-proof.v1",
+ "number": 139,
+ "definitionVersion": 2,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 19725000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 24775000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 24775000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 24775000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 44650000
+   },
+   {
+    "type": "channel",
+    "exit": 0,
+    "atUs": 70050000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 94700000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 105475000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 105475000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 132475000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 132475000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 212200000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 212200000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 233850000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 256725000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 261750000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 278825000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 302325000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 325525000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 364750000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 386200000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 416725000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 428925000
+   },
+   {
+    "type": "tap",
+    "pod": 24,
+    "atUs": 438100000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 447575000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 400,
+  "wins": 208,
+  "share": 0.52,
+  "wilson95": [
+   0.471,
+   0.569
+  ],
+  "classOfShare": "Normal",
+  "borderline": true
+ },
+ "checks": {
+  "forced": 0.09,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": false,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.5,
+   "tight": 0.9
+  },
+  "calm": {
+   "runs": 200,
+   "wins": 132,
+   "share": 0.66,
+   "wilson95": [
+    0.592,
+    0.722
+   ],
+   "borderline": false,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 1,
+   "traps": 0,
+   "top": 0
+  },
+  "channel": {
+   "each": [
+    {
+     "exit": 0,
+     "win": true,
+     "share": 0.18
+    },
+    {
+     "exit": 1,
+     "win": true,
+     "share": 0.85
+    }
+   ],
+   "gap": 0.67,
+   "decides": false,
+   "better": 1
+  },
+  "island": {
+   "island": {
+    "cells": 295,
+    "share": 0.341
+   },
+   "exitsOn": [
+    true,
+    true
+   ],
+   "ready": {
+    "atW": 0.203
+   },
+   "open": {
+    "exit": 0,
+    "atW": 0.228
+   },
+   "ok": true,
+   "problems": [],
+   "notes": []
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "W",
+     "name": "Снег",
+     "from": "N",
+     "cells": 7,
+     "clusters": 2,
+     "pods": [
+      {
+       "pod": 11,
+       "count": 7,
+       "row": 2
+      }
+     ]
+    }
+   ],
+   "cells": 7,
+   "pressure": {
+    "with": 1.5,
+    "without": 1.38
+   }
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0101-L0150.md",
+  "notes": [
+   "канал: остров 34 % N, родник при 20 % W, выход 1 при 23 % W (§8)",
+   "канал: выходы 1 выигрывает, 2 выигрывает (§8)",
+   "класс на границе по Wilson 47 %–57 % — нужно решение владельца (§5)",
+   "опасных развилок 7 (ориентир 0–2, §5)",
+   "после 80 % W запусков 5 (ориентир 1–4, §10)",
+   "последний запуск при 98 % W (ориентир 80–92 %, §10)",
+   "время быстрых нажатий 61.6 с (ориентир 70–160 с, §12)"
+  ]
+ },
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

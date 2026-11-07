@@ -1,0 +1,214 @@
+{
+ "format": "round-proof.v1",
+ "number": 125,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 18700000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 18700000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 34650000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 51650000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 51650000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 80575000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 160175000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 196425000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 196425000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 220425000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 231150000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 242725000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 257000000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 267150000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 289225000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 308500000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 324900000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 345750000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 400,
+  "wins": 109,
+  "share": 0.273,
+  "wilson95": [
+   0.231,
+   0.318
+  ],
+  "classOfShare": "Hard",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.22,
+  "opening": {
+   "first": {
+    "openings": 2,
+    "wins": 0
+   },
+   "three": {
+    "openings": 12,
+    "wins": 1,
+    "share": 0.08
+   },
+   "ok": true,
+   "strategies": [
+    "most-now"
+   ]
+  },
+  "hold": true,
+  "greedyLoses": true,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.9,
+   "tight": 0.94
+  },
+  "calm": {
+   "runs": 400,
+   "wins": 94,
+   "share": 0.235,
+   "wilson95": [
+    0.196,
+    0.279
+   ],
+   "borderline": true,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 2,
+   "traps": 2,
+   "top": 1
+  },
+  "shutters": {
+   "shutters": [
+    {
+     "shutter": 0,
+     "material": "G",
+     "count": 35,
+     "cells": 24,
+     "atW": 0.051,
+     "command": 1,
+     "front": 0
+    }
+   ],
+   "lastOpenAtW": 0.051,
+   "ok": true,
+   "problems": [],
+   "notes": [
+    "створки 1 (G 35): при открытии ни одна клетка под ними не доступна сразу (§8: новый фронт)"
+   ]
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "F",
+     "name": "Фуксия",
+     "from": "M",
+     "cells": 6,
+     "clusters": 2,
+     "pods": [
+      {
+       "pod": 12,
+       "count": 6,
+       "row": 3
+      }
+     ]
+    }
+   ],
+   "cells": 6,
+   "pressure": {
+    "with": 1.9,
+    "without": 1.89
+   }
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0101-L0150.md",
+  "notes": [
+   "створки 1 (G 35): при открытии ни одна клетка под ними не доступна сразу (§8: новый фронт)",
+   "время быстрых нажатий 159.8 с (ориентир 40–100 с, §12)"
+  ]
+ },
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}
