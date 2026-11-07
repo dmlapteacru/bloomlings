@@ -399,15 +399,16 @@ export function channelRoute([x0,y0],[x1,y1],vertFirst=false){const out=[[x0,y0]
 // water on its four sides (carved) or an empty pocket the start does not reach, behind a short approach: with the outside
 // cleared nearest first (walking distance plus twice the access depth) its first neighbour goes at about ISLAND.beforeAim
 // of N (the candidate's queue is then fitted to 20–30 % W, fitSpring), near the water and between the exits (short
-// routes). A picture of few big areas where no union of whole areas lands in the share takes a round blob of colour cells
-// cut through them (scored below an outline); the island is closed against its ring (a notch or pocket the ring would shut
-// off joins it). Each route two straight legs (row then column or column then
+// routes). The island is closed against its ring (a notch or pocket the ring would shut off joins it). With {blob: true}
+// (experiments only) a picture of few big areas where no union of whole areas lands in the share takes a round blob of
+// colour cells cut through them; the builder never asks for it (17 §8: the water outlines the picture's own parts, never a
+// random frame), so such a picture carries no channel and the plan gives the position another picture. Each route two straight legs (row then column or column then
 // row; the pair sharing fewest cells), ride 60 ms a step, at least 400 ms. Deterministic by r. Returns {overlay (walls,
 // sites, keys + the carved cells, water), at: {spring, exits, routes}, island: {cells, ring, share}, depth: {spring, max}}
 // or null when the picture has no such island.
 const DBGS={};const DBG=k=>{if(process.env.ISLAND_DEBUG)DBGS[k]=(DBGS[k]||0)+1;};export const islandDebug=()=>DBGS;
 export const ISLAND={share:[.25,.4],aim:.32,front:.15,away:.15,ringCost:.15,angle:100,gap:3,before:[.12,.3],beforeAim:.2,minDepth:6,balance:.3};
-export function placeIsland(pic,overlay=null,r=Math.random){const p=overlaid(pic,overlay),rows=p.rows,pw=rows[0].length,ph=rows.length,base=boardOf(pic,overlay),{d}=depths(base,-1),w=base.w,h=base.h;
+export function placeIsland(pic,overlay=null,r=Math.random,{blob=false}={}){const p=overlaid(pic,overlay),rows=p.rows,pw=rows[0].length,ph=rows.length,base=boardOf(pic,overlay),{d}=depths(base,-1),w=base.w,h=base.h;
  const bi=(x,y)=>(h-1-(y+2))*w+x+2,inP=(x,y)=>x>=0&&y>=0&&x<pw&&y<ph,cell=(x,y)=>inP(x,y)?rows[y][x]:'.',col=(x,y)=>CODES.includes(cell(x,y)),pi=(x,y)=>y*pw+x;
  const N=measure(p).N;let maxD=0;for(let y=0;y<ph;y++)for(let x=0;x<pw;x++)if(col(x,y)&&d[bi(x,y)]<Infinity)maxD=Math.max(maxD,d[bi(x,y)]);if(maxD<ISLAND.minDepth)return null;
  // one-colour areas (4-connected)
@@ -457,7 +458,7 @@ export function placeIsland(pic,overlay=null,r=Math.random){const p=overlaid(pic
    if(!best)break;set.add(best.b);}}
  // a picture of few big areas (no union of whole areas lands in the share): round blobs of colour cells nearest a seed,
  // cut through the areas (the ring then crosses them), scored lower than an outline of whole areas
- if(cands.length<3){const step=Math.max(2,Math.round(Math.sqrt(pw*ph)/9));
+ if(blob&&cands.length<3){const step=Math.max(2,Math.round(Math.sqrt(pw*ph)/9));
   for(let sy=2;sy<ph-2;sy+=step)for(let sx=1;sx<pw-1;sx+=step){if(!col(sx,sy))continue;const near=[];for(let y=0;y<ph;y++)for(let x=0;x<pw;x++)if(col(x,y))near.push([Math.hypot(x-sx,(y-sy)*1.05),x,y]);near.sort((a,b)=>a[0]-b[0]);
    for(const f of [.27,.31,.35]){const mark=new Uint8Array(pw*ph),k=Math.round(f*N);for(const [,x,y] of near.slice(0,k))mark[pi(x,y)]=1;consider(null,{key:sx+','+sy+','+f,mark});}}}
  cands.sort((a,b)=>a.sc-b.sc);DBG('cands '+cands.length);

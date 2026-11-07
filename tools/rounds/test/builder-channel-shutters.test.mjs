@@ -52,8 +52,8 @@ test('placeIsland: an island of 25–40 % ringed by water, both exits on it on d
  if(ks){assert.deepEqual(ks.water,overlay.water,'the water stays');const kb=LV.withObjects(L.boardOf(ISL,ks),{channel:ch});const holes=LV.keyHoles(kb);assert.equal(holes.length,1);assert.ok(!LV.channelCells(kb).has(holes[0].key));}
  // a picture without depth or without an inner part has no island
  assert.equal(LV.placeIsland({id:'S',title:'s',rows:['GGGG','GGGG','GGGG']},null,rnd(1)),null);
- // a picture of few big areas touching its edges takes a round blob cut through them (scored below an outline)
- const blob=LV.placeIsland(TOY,null,rnd(1));if(blob)assert.ok(blob.island.colour>=.25&&blob.island.colour<=.4);});
+ // a picture of few big areas touching its edges has no island of whole areas (a blob cut through them only on request)
+ assert.equal(LV.placeIsland(TOY,null,rnd(1)),null);const blob=LV.placeIsland(TOY,null,rnd(1),{blob:true});if(blob)assert.ok(blob.island.colour>=.25&&blob.island.colour<=.4);});
 
 test('placeShutters: a full rectangle of colour cells off the start front, nothing closed off, the counter of its material by class',()=>{
  const b=L.boardOf(TOY),g=b.rowsBottomFirst.join('');
