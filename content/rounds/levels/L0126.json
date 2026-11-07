@@ -2,14 +2,14 @@
  "level": 126,
  "cls": "Normal",
  "intro": null,
- "gen": "2026-11-05",
+ "gen": "2026-11-07",
  "picture": "P0362",
- "candidate": "P0362-Ncanal+links-g1105-2",
+ "candidate": "P0362-Ncanal+links-g1107-a-s2-1",
  "recipe": "canal+links",
- "N": 749,
- "W": 749,
- "colours": 8,
- "P": 24,
+ "N": 654,
+ "W": 654,
+ "colours": 9,
+ "P": 20,
  "columns": 3,
  "linked": 2,
  "hidden": 0,
@@ -30,23 +30,7 @@
   "route": [
    {
     "type": "tap",
-    "pod": 0
-   },
-   {
-    "type": "tap",
-    "pod": 5
-   },
-   {
-    "type": "tap",
-    "pod": 13
-   },
-   {
-    "type": "tap",
-    "pod": 3
-   },
-   {
-    "type": "tap",
-    "pod": 10
+    "pod": 1
    },
    {
     "type": "tap",
@@ -54,31 +38,11 @@
    },
    {
     "type": "tap",
-    "pod": 22
-   },
-   {
-    "type": "tap",
-    "pod": 19
-   },
-   {
-    "type": "tap",
-    "pod": 6
-   },
-   {
-    "type": "tap",
-    "pod": 4
-   },
-   {
-    "type": "tap",
-    "pod": 14
-   },
-   {
-    "type": "tap",
     "pod": 11
    },
    {
     "type": "tap",
-    "pod": 9
+    "pod": 6
    },
    {
     "type": "channel",
@@ -86,15 +50,7 @@
    },
    {
     "type": "tap",
-    "pod": 2
-   },
-   {
-    "type": "tap",
-    "pod": 1
-   },
-   {
-    "type": "tap",
-    "pod": 23
+    "pod": 17
    },
    {
     "type": "tap",
@@ -102,11 +58,11 @@
    },
    {
     "type": "tap",
-    "pod": 17
+    "pod": 13
    },
    {
     "type": "tap",
-    "pod": 12
+    "pod": 10
    },
    {
     "type": "tap",
@@ -114,7 +70,23 @@
    },
    {
     "type": "tap",
-    "pod": 21
+    "pod": 3
+   },
+   {
+    "type": "tap",
+    "pod": 12
+   },
+   {
+    "type": "tap",
+    "pod": 2
+   },
+   {
+    "type": "tap",
+    "pod": 0
+   },
+   {
+    "type": "tap",
+    "pod": 18
    },
    {
     "type": "tap",
@@ -122,15 +94,27 @@
    },
    {
     "type": "tap",
-    "pod": 20
+    "pod": 4
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 14
+   },
+   {
+    "type": "tap",
+    "pod": 9
    }
   ],
   "forks": 0,
   "singleSafe": 0,
   "unknown": 0,
   "fast": {
-   "status": "won",
-   "seconds": 109.1
+   "status": "lost",
+   "seconds": 86.6
   }
  },
  "fairness": {
@@ -144,10 +128,10 @@
   "right-to-left|right": true,
   "top-down|left": true,
   "top-down|right": true,
-  "bottom-up|left": true,
+  "bottom-up|left": false,
   "bottom-up|right": true,
-  "diagonal|left": false,
-  "diagonal|right": false,
+  "diagonal|left": true,
+  "diagonal|right": true,
   "small-first|left": true,
   "small-first|right": true,
   "most-now|left": true,
@@ -160,51 +144,51 @@
    {
     "from": 0,
     "to": 20,
-    "meanFree": 2.69,
-    "minFree": 1,
-    "fullShare": 0,
-    "maxWaiting": 2
-   },
-   {
-    "from": 20,
-    "to": 40,
-    "meanFree": 4.38,
+    "meanFree": 4.26,
     "minFree": 4,
     "fullShare": 0,
     "maxWaiting": 0
    },
    {
-    "from": 40,
-    "to": 60,
-    "meanFree": 3.8,
+    "from": 20,
+    "to": 40,
+    "meanFree": 3.89,
     "minFree": 3,
     "fullShare": 0,
     "maxWaiting": 1
    },
    {
+    "from": 40,
+    "to": 60,
+    "meanFree": 2.43,
+    "minFree": 2,
+    "fullShare": 0,
+    "maxWaiting": 2
+   },
+   {
     "from": 60,
     "to": 80,
-    "meanFree": 4.37,
-    "minFree": 4,
+    "meanFree": 3.49,
+    "minFree": 2,
     "fullShare": 0,
-    "maxWaiting": 0
+    "maxWaiting": 1
    },
    {
     "from": 80,
     "to": 100,
-    "meanFree": 4.42,
-    "minFree": 4,
+    "meanFree": 4.27,
+    "minFree": 3,
     "fullShare": 0,
     "maxWaiting": 0
    }
   ],
-  "launchesAfter80": 5,
-  "lastLaunchAtW": 97,
-  "seconds": 426.2
+  "launchesAfter80": 3,
+  "lastLaunchAtW": 91,
+  "seconds": 404.7
  },
  "dosePos": 1,
  "checks": {
-  "forced": 0.12,
+  "forced": 0.25,
   "opening": null,
   "hold": true,
   "greedyLoses": false,
@@ -212,16 +196,16 @@
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 0.53,
-   "tight": 0.89
+   "stuck": 0.69,
+   "tight": 0.69
   },
   "calm": {
    "runs": 200,
-   "wins": 167,
-   "share": 0.835,
+   "wins": 159,
+   "share": 0.795,
    "wilson95": [
-    0.777,
-    0.88
+    0.734,
+    0.845
    ],
    "borderline": false,
    "protocol": "§5 calm: uniform over legal actions, the board settled before each",
@@ -230,24 +214,67 @@
   "traps": {
    "links": 1,
    "traps": 1,
-   "top": 1
+   "top": 0
   },
   "channel": {
    "each": [
     {
      "exit": 0,
      "win": true,
-     "share": 0.9
+     "share": 0.67
     },
     {
      "exit": 1,
      "win": true,
-     "share": 0.88
+     "share": 1
     }
    ],
-   "gap": 0.02,
+   "gap": 0.33,
    "decides": false,
-   "better": 0
+   "better": 1
+  },
+  "island": {
+   "island": {
+    "cells": 243,
+    "share": 0.372
+   },
+   "exitsOn": [
+    true,
+    true
+   ],
+   "ready": {
+    "atW": 0.232
+   },
+   "open": {
+    "exit": 0,
+    "atW": 0.245
+   },
+   "ok": true,
+   "problems": [],
+   "notes": []
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "U",
+     "name": "Олива",
+     "from": "P",
+     "cells": 3,
+     "clusters": 1,
+     "pods": [
+      {
+       "pod": 15,
+       "count": 3,
+       "row": 1
+      }
+     ]
+    }
+   ],
+   "cells": 3,
+   "pressure": {
+    "with": 0.69,
+    "without": 0.56
+   }
   }
  },
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -270,39 +297,39 @@
    "#.................BBBB.AAA...............#",
    "#.................BB.AAAA................#",
    "#...................AAAA.................#",
-   "#..................AAAA..................#",
-   "#.................PPCCPP.................#",
-   "#................PPPCCPPEE...............#",
-   "#...............PPPPCCPPPEE..............#",
-   "#..............PPPPPCCPPPPEE.............#",
-   "#............EEPPPPPCCPPPPPEE............#",
-   "#...........EEPPPPPPCCPPPPPPEE...........#",
-   "#..........EEPPPPPPPCCPPPPPPPEE..........#",
-   "#.........EEPPPPPPPPCCPPPPPPPPEE.........#",
-   "#........EEPPPPPPPPPCCPPPPPPPPPEE........#",
-   "#.......EEPPPPPPPPPPCCPPPPPPPPPPEE.......#",
-   "#......EENNPPPPPPPPPCCPPPPPPPPPNNPE......#",
-   "#.....EEPNNPPPPPPPCCCCCCPPPPPPPNNPEE.....#",
-   "#....PPPPNNPPPPPCCCCCCCCCCPPPPPNNPPPP....#",
-   "#...PPPPPNNPPPPPCCCCYYYCCCCPPPPNNPPPPP...#",
-   "#..ECCCCCNNPCCCCCCYYYYYYCCCCCCCNNPCCCCE..#",
-   "#.EECCCCCNNC.CCCCCYYYYYYCCCCC.CNNCCCCCEE.#",
-   "#..EEPPPPNNPPPCCCCYYYYYYCCCCPPPNNPPPPEE..#",
-   "#...EEPPPNNPPPPCCCYYYYYYCCCPPPPNNPPPEE...#",
-   "#....EEPPNNPPPPCCCCYYYYYCCCPPPPNNPPEE....#",
-   "#.....EEPNNPPPPPCCCCYYCCCCCPPPPNNPEE.....#",
-   "#......ENNNNPPPPPCCCCCCCCPPPPPPPNEE......#",
-   "#.......NNNNPPPPPPPCCCCCPPPPPPPPEE.......#",
-   "#........NNPPP.PPPPPCCPPPPPPPPPEE........#",
-   "#..........PPPPPPPPPCCPPPPPPPPEE.........#",
-   "#...........PPPPPPPPCCPPPPPPPP...........#",
-   "#............PPPPPPPCCPPPPPPP............#",
-   "#.............PPPPPPCCPPPPPP.............#",
-   "#..............PPPPPCCPPPPP..............#",
-   "#...............EEPPCCPPPP...............#",
-   "#................EEPCCPPP................#",
-   "#.................EECCPP.................#",
-   "#..................EEEE..................#",
+   "#..................####..................#",
+   "#.................P#CC#P.................#",
+   "#................PP#CC#PEE...............#",
+   "#...............PPP#CC#PPEE..............#",
+   "#..............PPPP#CC#PPPEE.............#",
+   "#............EEPPPP#CC#PPPPEE............#",
+   "#...........EEPPPPP#CC#PPPPPEE...........#",
+   "#..........EEPPPPPP#CC#PPPPPPEE..........#",
+   "#.........EEPPPPPPP#CC#.PPPPPPEE.........#",
+   "#........EEPPPPPPPP#CC#PPPPPUPPEE........#",
+   "#.......EEPPPPPPPPP#CC#PPPPUUPPPEE.......#",
+   "#......EENNPPPPPP###CC###PPPPPPNNPE......#",
+   "#.....EEPNNPPPP###CCCCCC###PPPPNNPEE.....#",
+   "#....PPPPNNPPPP#CCCCCCCCCC##PPPNNPPPP....#",
+   "#...PPPPPNN#####CCCCYYYCCC.#####NPPPPP...#",
+   "#..ECCCCCN##CCCCCCYYYYYYCCCCCCC#NPCCCCE..#",
+   "#.EECCCCCN#CCCCCCCYYYYYYCCCCCCC#NCCCCCEE.#",
+   "#..EEPPPPN#PPPCCCCYYYYYYCCCC####NPPPPEE..#",
+   "#...EEPPPN#PPPPCCCYYYYYYCCC##PPNNPPPEE...#",
+   "#....EEPPN#PPPPCCCCYYYYYCCC#PPPNNPPEE....#",
+   "#.....EEPN#PPPPPCCCCYYCCCCC#PPPNNPEE.....#",
+   "#......ENN#NPPPPPCCCCCCCC###PPPPNEE......#",
+   "#.......NN#NPPPPPPPCCCCC##PPPPPPEE.......#",
+   "#........N#PPPPPPPPPCC###PPPPPPEE........#",
+   "#.........#.PPPPPPPPCC#PPPPPPPEE.........#",
+   "#.........##PPPPPPPPCC#PPPPPPP...........#",
+   "#..........##PPPPPPPCC#PPPPPP............#",
+   "#...........##PPPPPPCC#PPPPP.............#",
+   "#............##PPPPPCC#PPPP..............#",
+   "#.............####PPCC#PPP...............#",
+   "#................##PCC#PP................#",
+   "#.................##CC#P.................#",
+   "#..................####..................#",
    "#...................EE...................#",
    "#........................................#",
    "##########################################"
@@ -314,93 +341,76 @@
   "pods": [
    {
     "color": "E",
-    "count": 27,
-    "group": "A"
+    "count": 24
    },
    {
     "color": "E",
-    "count": 27
+    "count": 23
    },
    {
     "color": "E",
-    "count": 26
+    "count": 23
    },
    {
     "color": "C",
-    "count": 38
+    "count": 51
    },
    {
     "color": "C",
-    "count": 38
-   },
-   {
-    "color": "C",
-    "count": 38
-   },
-   {
-    "color": "C",
-    "count": 37
-   },
-   {
-    "color": "P",
-    "count": 41
-   },
-   {
-    "color": "P",
-    "count": 41
-   },
-   {
-    "color": "P",
-    "count": 41
-   },
-   {
-    "color": "P",
-    "count": 41
-   },
-   {
-    "color": "P",
-    "count": 41
-   },
-   {
-    "color": "P",
-    "count": 40
-   },
-   {
-    "color": "P",
-    "count": 40
-   },
-   {
-    "color": "P",
-    "count": 40
-   },
-   {
-    "color": "P",
-    "count": 40
-   },
-   {
-    "color": "N",
-    "count": 26
-   },
-   {
-    "color": "N",
-    "count": 25
-   },
-   {
-    "color": "Y",
-    "count": 17,
+    "count": 51,
     "group": "A"
+   },
+   {
+    "color": "C",
+    "count": 50
+   },
+   {
+    "color": "P",
+    "count": 59
+   },
+   {
+    "color": "P",
+    "count": 59
+   },
+   {
+    "color": "P",
+    "count": 59
+   },
+   {
+    "color": "P",
+    "count": 58
+   },
+   {
+    "color": "P",
+    "count": 58
+   },
+   {
+    "color": "N",
+    "count": 19
+   },
+   {
+    "color": "N",
+    "count": 19
    },
    {
     "color": "Y",
     "count": 17
    },
    {
-    "color": "A",
-    "count": 20
+    "color": "Y",
+    "count": 17
+   },
+   {
+    "color": "U",
+    "count": 3
    },
    {
     "color": "A",
-    "count": 19
+    "count": 18
+   },
+   {
+    "color": "A",
+    "count": 17
    },
    {
     "color": "B",
@@ -408,39 +418,36 @@
    },
    {
     "color": "G",
-    "count": 15
+    "count": 15,
+    "group": "A"
    }
   ],
   "tray": [
    [
-    18,
-    5,
-    13,
-    3,
-    10,
+    1,
     8,
-    22,
-    19
-   ],
-   [
+    11,
     6,
     4,
-    14,
-    11,
-    9,
-    2,
-    1,
-    23
+    5,
+    14
    ],
    [
-    0,
-    15,
     17,
-    12,
+    15,
+    13,
+    10,
     16,
-    21,
+    3,
+    12
+   ],
+   [
+    2,
+    0,
+    18,
     7,
-    20
+    19,
+    9
    ]
   ],
   "recipe": "canal+links",
@@ -449,66 +456,515 @@
    "sites": [],
    "keys": [
     [
+     21,
+     25
+    ],
+    [
+     9,
+     9
+    ],
+    [
+     24,
+     19
+    ]
+   ],
+   "water": [
+    [
+     17,
+     1
+    ],
+    [
+     18,
+     1
+    ],
+    [
+     19,
+     1
+    ],
+    [
+     17,
+     2
+    ],
+    [
+     20,
+     1
+    ],
+    [
+     20,
+     2
+    ],
+    [
+     20,
+     3
+    ],
+    [
+     16,
+     2
+    ],
+    [
+     16,
+     3
+    ],
+    [
+     20,
+     4
+    ],
+    [
+     15,
+     3
+    ],
+    [
+     15,
+     4
+    ],
+    [
+     20,
+     5
+    ],
+    [
      12,
-     10
+     4
+    ],
+    [
+     13,
+     4
+    ],
+    [
+     14,
+     4
+    ],
+    [
+     12,
+     5
+    ],
+    [
+     20,
+     6
+    ],
+    [
+     11,
+     5
+    ],
+    [
+     11,
+     6
+    ],
+    [
+     20,
+     7
     ],
     [
      10,
+     6
+    ],
+    [
+     10,
+     7
+    ],
+    [
+     20,
+     8
+    ],
+    [
+     9,
+     7
+    ],
+    [
+     9,
+     8
+    ],
+    [
+     20,
+     9
+    ],
+    [
+     8,
+     8
+    ],
+    [
+     8,
+     9
+    ],
+    [
+     8,
+     10
+    ],
+    [
+     20,
+     10
+    ],
+    [
+     8,
+     11
+    ],
+    [
+     8,
+     12
+    ],
+    [
+     21,
+     10
+    ],
+    [
+     22,
+     10
+    ],
+    [
+     22,
+     11
+    ],
+    [
+     8,
+     13
+    ],
+    [
+     23,
+     11
+    ],
+    [
+     23,
+     12
+    ],
+    [
+     8,
+     14
+    ],
+    [
+     24,
+     12
+    ],
+    [
+     25,
+     12
+    ],
+    [
+     25,
+     13
+    ],
+    [
+     25,
+     14
+    ],
+    [
+     8,
+     15
+    ],
+    [
+     25,
+     15
+    ],
+    [
+     8,
+     16
+    ],
+    [
+     8,
      17
     ],
     [
+     26,
+     15
+    ],
+    [
+     26,
+     16
+    ],
+    [
+     8,
+     18
+    ],
+    [
+     9,
+     18
+    ],
+    [
      27,
+     16
+    ],
+    [
+     28,
+     16
+    ],
+    [
+     29,
+     16
+    ],
+    [
+     29,
      17
+    ],
+    [
+     29,
+     18
+    ],
+    [
+     9,
+     19
+    ],
+    [
+     10,
+     19
+    ],
+    [
+     11,
+     19
+    ],
+    [
+     12,
+     19
+    ],
+    [
+     13,
+     19
+    ],
+    [
+     25,
+     19
+    ],
+    [
+     26,
+     19
+    ],
+    [
+     27,
+     19
+    ],
+    [
+     28,
+     19
+    ],
+    [
+     29,
+     19
+    ],
+    [
+     13,
+     20
+    ],
+    [
+     24,
+     20
+    ],
+    [
+     25,
+     20
+    ],
+    [
+     13,
+     21
+    ],
+    [
+     14,
+     21
+    ],
+    [
+     15,
+     21
+    ],
+    [
+     22,
+     21
+    ],
+    [
+     23,
+     21
+    ],
+    [
+     24,
+     21
+    ],
+    [
+     15,
+     22
+    ],
+    [
+     16,
+     22
+    ],
+    [
+     17,
+     22
+    ],
+    [
+     20,
+     22
+    ],
+    [
+     21,
+     22
+    ],
+    [
+     22,
+     22
+    ],
+    [
+     17,
+     23
+    ],
+    [
+     20,
+     23
+    ],
+    [
+     17,
+     24
+    ],
+    [
+     20,
+     24
+    ],
+    [
+     17,
+     25
+    ],
+    [
+     20,
+     25
+    ],
+    [
+     17,
+     26
+    ],
+    [
+     20,
+     26
+    ],
+    [
+     17,
+     27
+    ],
+    [
+     20,
+     27
+    ],
+    [
+     17,
+     28
+    ],
+    [
+     20,
+     28
+    ],
+    [
+     17,
+     29
+    ],
+    [
+     20,
+     29
+    ],
+    [
+     17,
+     30
+    ],
+    [
+     20,
+     30
+    ],
+    [
+     17,
+     31
+    ],
+    [
+     20,
+     31
+    ],
+    [
+     17,
+     32
+    ],
+    [
+     20,
+     32
+    ],
+    [
+     17,
+     33
+    ],
+    [
+     18,
+     33
+    ],
+    [
+     19,
+     33
+    ],
+    [
+     20,
+     33
     ]
    ]
   },
+  "recolor": [
+   [
+    25,
+    23,
+    "U"
+   ],
+   [
+    26,
+    23,
+    "U"
+   ],
+   [
+    26,
+    24,
+    "U"
+   ]
+  ],
   "channel": {
-   "spring": 1484,
+   "spring": 863,
    "exits": [
     {
-     "cell": 1188,
+     "cell": 1523,
      "route": [
-      1484,
-      1483,
-      1482,
-      1440,
-      1398,
-      1356,
-      1314,
-      1272,
-      1230,
-      1188
+      863,
+      862,
+      861,
+      860,
+      859,
+      858,
+      857,
+      856,
+      855,
+      854,
+      853,
+      852,
+      851,
+      893,
+      935,
+      977,
+      1019,
+      1061,
+      1103,
+      1145,
+      1187,
+      1229,
+      1271,
+      1313,
+      1355,
+      1397,
+      1439,
+      1481,
+      1523
      ],
-     "rideUs": 540000
+     "rideUs": 1680000
     },
     {
-     "cell": 1205,
+     "cell": 1118,
      "route": [
-      1484,
-      1485,
-      1486,
-      1487,
-      1488,
-      1489,
-      1490,
-      1491,
-      1492,
-      1493,
-      1494,
-      1495,
-      1496,
-      1497,
-      1498,
-      1499,
-      1457,
-      1415,
-      1373,
-      1331,
-      1289,
-      1247,
-      1205
+      863,
+      864,
+      865,
+      866,
+      908,
+      950,
+      992,
+      1034,
+      1076,
+      1118
      ],
-     "rideUs": 1320000
+     "rideUs": 540000
     }
    ]
   },

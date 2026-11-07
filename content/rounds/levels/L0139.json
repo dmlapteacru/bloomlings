@@ -2,27 +2,27 @@
  "level": 139,
  "cls": "Normal",
  "intro": null,
- "gen": "2026-11-05",
+ "gen": "2026-11-07",
  "picture": "P0234",
- "candidate": "P0234-Ncanal+links-g1105-s4-0",
+ "candidate": "P0234-Ncanal+links-g1107-a-s2-4",
  "recipe": "canal+links",
- "N": 957,
- "W": 957,
- "colours": 8,
- "P": 27,
- "columns": 4,
+ "N": 865,
+ "W": 865,
+ "colours": 9,
+ "P": 25,
+ "columns": 3,
  "linked": 2,
  "hidden": 0,
  "random": {
-  "runs": 100,
-  "wins": 61,
-  "share": 0.61,
+  "runs": 400,
+  "wins": 208,
+  "share": 0.52,
   "wilson95": [
-   0.512,
-   0.7
+   0.471,
+   0.569
   ],
   "cls": "Normal",
-  "borderline": false,
+  "borderline": true,
   "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
   "seedBase": 1
  },
@@ -30,15 +30,11 @@
   "route": [
    {
     "type": "tap",
-    "pod": 19
+    "pod": 0
    },
    {
     "type": "tap",
-    "pod": 13
-   },
-   {
-    "type": "tap",
-    "pod": 18
+    "pod": 8
    },
    {
     "type": "tap",
@@ -46,19 +42,19 @@
    },
    {
     "type": "tap",
-    "pod": 0
+    "pod": 15
    },
    {
     "type": "tap",
-    "pod": 11
+    "pod": 17
    },
    {
     "type": "tap",
-    "pod": 16
+    "pod": 1
    },
    {
-    "type": "tap",
-    "pod": 9
+    "type": "channel",
+    "exit": 0
    },
    {
     "type": "tap",
@@ -66,11 +62,15 @@
    },
    {
     "type": "tap",
-    "pod": 24
+    "pod": 10
    },
    {
     "type": "tap",
-    "pod": 25
+    "pod": 3
+   },
+   {
+    "type": "tap",
+    "pod": 11
    },
    {
     "type": "tap",
@@ -78,15 +78,19 @@
    },
    {
     "type": "tap",
+    "pod": 13
+   },
+   {
+    "type": "tap",
     "pod": 4
    },
    {
     "type": "tap",
-    "pod": 10
+    "pod": 6
    },
    {
     "type": "tap",
-    "pod": 26
+    "pod": 21
    },
    {
     "type": "tap",
@@ -102,47 +106,35 @@
    },
    {
     "type": "tap",
-    "pod": 21
+    "pod": 18
    },
    {
     "type": "tap",
-    "pod": 3
+    "pod": 9
    },
    {
     "type": "tap",
-    "pod": 15
-   },
-   {
-    "type": "channel",
-    "exit": 0
+    "pod": 14
    },
    {
     "type": "tap",
-    "pod": 8
+    "pod": 16
    },
    {
     "type": "tap",
-    "pod": 1
+    "pod": 19
    },
    {
     "type": "tap",
-    "pod": 2
-   },
-   {
-    "type": "tap",
-    "pod": 17
-   },
-   {
-    "type": "tap",
-    "pod": 6
+    "pod": 24
    }
   ],
-  "forks": 3,
-  "singleSafe": 2,
+  "forks": 7,
+  "singleSafe": 7,
   "unknown": 0,
   "fast": {
    "status": "lost",
-   "seconds": 71.9
+   "seconds": 61.6
   }
  },
  "fairness": {
@@ -152,80 +144,80 @@
  "strategies": {
   "left-to-right|left": false,
   "left-to-right|right": false,
-  "right-to-left|left": true,
-  "right-to-left|right": true,
+  "right-to-left|left": false,
+  "right-to-left|right": false,
   "top-down|left": false,
   "top-down|right": false,
   "bottom-up|left": false,
-  "bottom-up|right": false,
-  "diagonal|left": true,
+  "bottom-up|right": true,
+  "diagonal|left": false,
   "diagonal|right": true,
   "small-first|left": false,
   "small-first|right": false,
   "most-now|left": false,
-  "most-now|right": false,
+  "most-now|right": true,
   "fast-release|left": false,
-  "fast-release|right": false
+  "fast-release|right": true
  },
  "rhythm": {
   "segments": [
    {
     "from": 0,
     "to": 20,
-    "meanFree": 1.07,
+    "meanFree": 1.95,
     "minFree": 0,
-    "fullShare": 0.47,
+    "fullShare": 0.21,
     "maxWaiting": 4
    },
    {
     "from": 20,
     "to": 40,
-    "meanFree": 2.15,
-    "minFree": 1,
-    "fullShare": 0,
-    "maxWaiting": 3
+    "meanFree": 0.99,
+    "minFree": 0,
+    "fullShare": 0.33,
+    "maxWaiting": 4
    },
    {
     "from": 40,
     "to": 60,
-    "meanFree": 1.13,
+    "meanFree": 0.96,
     "minFree": 0,
-    "fullShare": 0.33,
-    "maxWaiting": 3
+    "fullShare": 0.25,
+    "maxWaiting": 4
    },
    {
     "from": 60,
     "to": 80,
-    "meanFree": 2.84,
-    "minFree": 2,
-    "fullShare": 0,
-    "maxWaiting": 1
+    "meanFree": 1.04,
+    "minFree": 0,
+    "fullShare": 0.22,
+    "maxWaiting": 4
    },
    {
     "from": 80,
     "to": 100,
-    "meanFree": 4.29,
-    "minFree": 4,
+    "meanFree": 3.48,
+    "minFree": 3,
     "fullShare": 0,
-    "maxWaiting": 0
+    "maxWaiting": 1
    }
   ],
-  "launchesAfter80": 4,
-  "lastLaunchAtW": 94,
-  "seconds": 350
+  "launchesAfter80": 5,
+  "lastLaunchAtW": 98,
+  "seconds": 447.6
  },
  "dosePos": 1,
  "checks": {
-  "forced": 0.1,
+  "forced": 0.09,
   "opening": null,
   "hold": true,
-  "greedyLoses": true,
+  "greedyLoses": false,
   "hiddenMatters": null,
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 1.22,
-   "tight": 0.87
+   "stuck": 1.5,
+   "tight": 0.9
   },
   "calm": {
    "runs": 200,
@@ -241,25 +233,68 @@
   },
   "traps": {
    "links": 1,
-   "traps": 1,
-   "top": 1
+   "traps": 0,
+   "top": 0
   },
   "channel": {
    "each": [
     {
      "exit": 0,
      "win": true,
-     "share": 0.53
+     "share": 0.18
     },
     {
      "exit": 1,
      "win": true,
-     "share": 0.63
+     "share": 0.85
     }
    ],
-   "gap": 0.1,
+   "gap": 0.67,
    "decides": false,
    "better": 1
+  },
+  "island": {
+   "island": {
+    "cells": 295,
+    "share": 0.341
+   },
+   "exitsOn": [
+    true,
+    true
+   ],
+   "ready": {
+    "atW": 0.203
+   },
+   "open": {
+    "exit": 0,
+    "atW": 0.228
+   },
+   "ok": true,
+   "problems": [],
+   "notes": []
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "W",
+     "name": "Снег",
+     "from": "N",
+     "cells": 7,
+     "clusters": 2,
+     "pods": [
+      {
+       "pod": 11,
+       "count": 7,
+       "row": 2
+      }
+     ]
+    }
+   ],
+   "cells": 7,
+   "pressure": {
+    "with": 1.5,
+    "without": 1.38
+   }
   }
  },
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -273,33 +308,33 @@
    "#################.################",
    "#................................#",
    "#.NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN.#",
-   "#.NNNNNNOOOOONNNOOOOONNNNNNNNNNN.#",
-   "#.NNNAAAAAAAAAAAAAAAAAAAANNNNNNN.#",
-   "#.NNNNAAAAAAAAAAEEAAAAAANNNNNNNN.#",
-   "#.NNNNAAAAAAAAAAEEAAAAAANNNNNNNN.#",
-   "#.NNNNAAAAAAAAAAAAAAAAAANNNEENNN.#",
-   "#.NNNNEEEEEEEEEEEEEEEEEEENEEENNN.#",
-   "#.NNNNEEEEEEEEEEEEEEEEEEEYYYYNNN.#",
-   "#.NNNNNAAA.AAAAAAAAAAAANNYYYYNNN.#",
-   "#.NNNNNNAAAAAAYYAAAAAANNNYYYYNNN.#",
-   "#.NNNNNNAAAAAAYYYAAAAANNNYYYYNNN.#",
-   "#.NNNNNNAAAAAYYYYAAAAANNEEENNNNN.#",
-   "#.NNNNNNNAAAYYYYYYAADDNNEEENNNNN.#",
-   "#.NNNNNOOOOOOOOOYYDDDDDDEENNNNNN.#",
-   "#.NNNNNOOOOOOOOOYSSSSSSSSNNNNNNN.#",
-   "#.NNNNNOOOOOOOOODSSCCCCSSDNNNNNN.#",
-   "#.NNNNNNNYYYYYYYDSCDDDCCSDNNNNNN.#",
-   "#.NNNNNNNYCDDYYDDSCDDDCCSDDNNNNN.#",
-   "#.NNNNNNYYCDDYYDDSCDDDCCSDDNNNNN.#",
-   "#.NNNNNNYYCCCYYYDSCCCCCCSDNNNNNN.#",
-   "#.NNNNNNNYYYYYYYDSSCCCCSSDNNNNNN.#",
-   "#.NNNNNNNYYYYYYYYSSSSSSSSNNNNNNN.#",
-   "#.NNNAAAEEEEEEEEEEDDDDDDAANNNNNN.#",
-   "#.NNNAAAAAAAAAAAAAAADDAAAANNNNNN.#",
-   "#.NNNNNNAAAAAAAAAAAAAANN.NNNNNNN.#",
+   "#.NN######################NNNNNN.#",
+   "#.NN#AAAAAAA.AAAAAAAAAAAA#NNNNNN.#",
+   "#.NN##AAAAAAAAAAEEAAAAAA##NNNNNN.#",
+   "#.NNN#AAAAAAAAAAEEAAAAAA#NNNNNNN.#",
+   "#.NNN#AAAAAAAAAAAAAAAAAA##NEENNN.#",
+   "#.NNN#EEEEEEEEEEEEEEEEEEE#EEENNN.#",
+   "#.NNN#EEEEEEEEEEEEEEEEEEE#YYYNNN.#",
+   "#.NNN##AAAAAAAAAAAAAAAANN#YYYNNN.#",
+   "#.NNNN##AAAAAAYYAAAAAANNN#YYYNNN.#",
+   "#.NNNNN#AAAAAAYYYAAAAANNN#YYYNNN.#",
+   "#.NNNNN#AAAAAYYYYAAAAANN##ENNNNN.#",
+   "#.NNNN##NAAAYYYYYYAADDNN#EENNNNN.#",
+   "#.NNNN#OOOOOOOOOYYDDDDDD#ENNNNNN.#",
+   "#.NNN.#OOOOOOOOOY########NNNNNNN.#",
+   "#.NNNN#OOOOOOOOOD#SCCCCSSDNNNNNN.#",
+   "#.NNNN##NYYYYYYYD#CDDDCCSDNNNNNN.#",
+   "#.NNNNN#NYCDDYYDD#CDDDCCSDDNNNNN.#",
+   "#.NNNNN#YYCDDYYD.#CDDDCCSDDNNNNN.#",
+   "#.NNNNN#YYCCCYYYD#CCCCCCSDNNNNNN.#",
+   "#.NNNNN#NYYYYYYYD#SCCCCSSDNNNNNN.#",
+   "#.NNNNN#NYYYYYYYY##SSSSSSNNNNNNN.#",
+   "#.NNNAA#EEEEEEEEEE#DDDDDAANNNNNN.#",
+   "#.NNNAA############ADDAAAANNNNNN.#",
+   "#.NNNNNNAAAAAAAAAAAAAANNNNNNNNNN.#",
    "#.NNNNNNNAAAAAAAAAAAANNNNNNNNNNN.#",
-   "#.NNNNNNNNNAAAAAAAANNNNNNNNNNNNN.#",
-   "#.NNNNNNNNNNNEEEE.NNNNNNNNNNNNNN.#",
+   "#.NNNNNNNNNAAAAAAAANNNWNNNNNNNNN.#",
+   "#.NNNNNWWWNNNEEEENNNNWWWNNNNNNNN.#",
    "#.NNNNNNNNNNNEEEENNNNNNNNNNNNNNN.#",
    "#.NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN.#",
    "#.NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN.#",
@@ -314,93 +349,85 @@
   "pods": [
    {
     "color": "N",
-    "count": 55
-   },
-   {
-    "color": "N",
-    "count": 55
-   },
-   {
-    "color": "N",
-    "count": 55
-   },
-   {
-    "color": "N",
-    "count": 55
-   },
-   {
-    "color": "N",
-    "count": 55
-   },
-   {
-    "color": "N",
-    "count": 55
-   },
-   {
-    "color": "N",
-    "count": 55
-   },
-   {
-    "color": "N",
-    "count": 54
-   },
-   {
-    "color": "N",
-    "count": 54
-   },
-   {
-    "color": "E",
-    "count": 25
-   },
-   {
-    "color": "E",
-    "count": 24,
+    "count": 56,
     "group": "A"
    },
    {
-    "color": "E",
-    "count": 24
+    "color": "N",
+    "count": 56
    },
    {
-    "color": "A",
-    "count": 46
-   },
-   {
-    "color": "A",
-    "count": 45
-   },
-   {
-    "color": "A",
-    "count": 45,
+    "color": "N",
+    "count": 56,
     "group": "A"
    },
    {
-    "color": "A",
-    "count": 45
+    "color": "N",
+    "count": 55
    },
    {
-    "color": "D",
+    "color": "N",
+    "count": 55
+   },
+   {
+    "color": "N",
+    "count": 55
+   },
+   {
+    "color": "N",
+    "count": 55
+   },
+   {
+    "color": "N",
+    "count": 55
+   },
+   {
+    "color": "E",
     "count": 23
+   },
+   {
+    "color": "E",
+    "count": 23
+   },
+   {
+    "color": "E",
+    "count": 23
+   },
+   {
+    "color": "W",
+    "count": 7
+   },
+   {
+    "color": "A",
+    "count": 56
+   },
+   {
+    "color": "A",
+    "count": 56
+   },
+   {
+    "color": "A",
+    "count": 56
    },
    {
     "color": "D",
     "count": 22
    },
    {
-    "color": "Y",
-    "count": 23
-   },
-   {
-    "color": "Y",
-    "count": 23
+    "color": "D",
+    "count": 21
    },
    {
     "color": "Y",
     "count": 22
    },
    {
-    "color": "S",
-    "count": 16
+    "color": "Y",
+    "count": 21
+   },
+   {
+    "color": "Y",
+    "count": 21
    },
    {
     "color": "S",
@@ -416,48 +443,44 @@
    },
    {
     "color": "O",
-    "count": 19
+    "count": 14
    },
    {
     "color": "O",
-    "count": 18
+    "count": 13
    }
   ],
   "tray": [
    [
-    19,
-    13,
-    18,
+    2,
+    8,
     12,
-    16,
-    9,
-    23
+    15,
+    17,
+    1,
+    23,
+    10
    ],
    [
     0,
+    3,
     11,
-    24,
-    25,
-    5,
-    4
+    21,
+    7,
+    9,
+    14,
+    16,
+    19
    ],
    [
-    14,
-    26,
+    5,
+    13,
+    4,
+    6,
     20,
     22,
-    7,
-    21,
-    3
-   ],
-   [
-    10,
-    15,
-    8,
-    1,
-    2,
-    17,
-    6
+    18,
+    24
    ]
   ],
   "recipe": "canal+links",
@@ -466,71 +489,476 @@
    "sites": [],
    "keys": [
     [
-     15,
-     4
+     3,
+     17
     ],
     [
-     22,
-     7
+     14,
+     13
+    ],
+    [
+     10,
+     29
+    ]
+   ],
+   "water": [
+    [
+     5,
+     8
+    ],
+    [
+     6,
+     8
+    ],
+    [
+     7,
+     8
+    ],
+    [
+     5,
+     9
+    ],
+    [
+     5,
+     10
     ],
     [
      8,
+     8
+    ],
+    [
+     9,
+     8
+    ],
+    [
+     10,
+     8
+    ],
+    [
+     11,
+     8
+    ],
+    [
+     12,
+     8
+    ],
+    [
+     13,
+     8
+    ],
+    [
+     14,
+     8
+    ],
+    [
+     15,
+     8
+    ],
+    [
+     15,
+     10
+    ],
+    [
+     16,
+     8
+    ],
+    [
+     16,
+     9
+    ],
+    [
+     16,
+     10
+    ],
+    [
+     5,
+     11
+    ],
+    [
+     15,
+     11
+    ],
+    [
+     5,
+     12
+    ],
+    [
+     15,
+     12
+    ],
+    [
+     5,
+     13
+    ],
+    [
+     15,
+     13
+    ],
+    [
+     5,
+     14
+    ],
+    [
+     15,
+     14
+    ],
+    [
+     5,
+     15
+    ],
+    [
+     15,
+     15
+    ],
+    [
+     15,
+     16
+    ],
+    [
+     4,
+     15
+    ],
+    [
+     4,
+     16
+    ],
+    [
+     4,
+     17
+    ],
+    [
+     15,
+     17
+    ],
+    [
+     4,
+     18
+    ],
+    [
+     4,
+     19
+    ],
+    [
+     5,
+     19
+    ],
+    [
+     16,
+     17
+    ],
+    [
+     17,
+     17
+    ],
+    [
+     18,
+     17
+    ],
+    [
+     19,
+     17
+    ],
+    [
+     20,
+     17
+    ],
+    [
+     21,
+     17
+    ],
+    [
+     22,
+     17
+    ],
+    [
+     22,
+     18
+    ],
+    [
+     22,
+     19
+    ],
+    [
+     5,
+     20
+    ],
+    [
+     22,
+     20
+    ],
+    [
+     5,
+     21
+    ],
+    [
+     5,
+     22
+    ],
+    [
+     23,
+     20
+    ],
+    [
+     23,
+     21
+    ],
+    [
+     23,
+     22
+    ],
+    [
+     23,
      23
+    ],
+    [
+     4,
+     22
+    ],
+    [
+     4,
+     23
+    ],
+    [
+     23,
+     24
+    ],
+    [
+     3,
+     23
+    ],
+    [
+     3,
+     24
+    ],
+    [
+     3,
+     25
+    ],
+    [
+     23,
+     25
+    ],
+    [
+     3,
+     26
+    ],
+    [
+     22,
+     26
+    ],
+    [
+     23,
+     26
+    ],
+    [
+     3,
+     27
+    ],
+    [
+     22,
+     27
+    ],
+    [
+     3,
+     28
+    ],
+    [
+     22,
+     28
+    ],
+    [
+     2,
+     28
+    ],
+    [
+     2,
+     29
+    ],
+    [
+     2,
+     30
+    ],
+    [
+     3,
+     30
+    ],
+    [
+     4,
+     30
+    ],
+    [
+     5,
+     30
+    ],
+    [
+     6,
+     30
+    ],
+    [
+     7,
+     30
+    ],
+    [
+     8,
+     30
+    ],
+    [
+     9,
+     30
+    ],
+    [
+     10,
+     30
+    ],
+    [
+     11,
+     30
+    ],
+    [
+     12,
+     30
+    ],
+    [
+     13,
+     30
+    ],
+    [
+     14,
+     30
+    ],
+    [
+     15,
+     30
+    ],
+    [
+     16,
+     30
+    ],
+    [
+     17,
+     30
+    ],
+    [
+     18,
+     30
+    ],
+    [
+     19,
+     30
+    ],
+    [
+     20,
+     30
+    ],
+    [
+     21,
+     30
+    ],
+    [
+     22,
+     30
+    ],
+    [
+     23,
+     28
+    ],
+    [
+     23,
+     29
+    ],
+    [
+     23,
+     30
     ]
    ]
   },
+  "recolor": [
+   [
+    5,
+    4,
+    "W"
+   ],
+   [
+    6,
+    4,
+    "W"
+   ],
+   [
+    7,
+    4,
+    "W"
+   ],
+   [
+    19,
+    4,
+    "W"
+   ],
+   [
+    20,
+    4,
+    "W"
+   ],
+   [
+    21,
+    4,
+    "W"
+   ],
+   [
+    20,
+    5,
+    "W"
+   ]
+  ],
   "channel": {
-   "spring": 1003,
+   "spring": 549,
    "exits": [
     {
-     "cell": 908,
+     "cell": 696,
      "route": [
-      1003,
-      1004,
-      1005,
-      1006,
-      1007,
-      1008,
-      1009,
-      1010,
-      976,
-      942,
-      908
+      549,
+      583,
+      617,
+      651,
+      685,
+      686,
+      687,
+      688,
+      689,
+      690,
+      691,
+      692,
+      693,
+      694,
+      695,
+      696
      ],
-     "rideUs": 600000
+     "rideUs": 900000
     },
     {
-     "cell": 350,
+     "cell": 148,
      "route": [
-      1003,
-      1002,
-      1001,
-      1000,
-      999,
-      998,
-      997,
-      996,
-      962,
-      928,
-      894,
-      860,
-      826,
-      792,
-      758,
-      724,
-      690,
-      656,
-      622,
-      588,
-      554,
-      520,
-      486,
-      452,
-      418,
-      384,
-      350
+      549,
+      515,
+      481,
+      447,
+      413,
+      379,
+      345,
+      311,
+      277,
+      243,
+      209,
+      175,
+      141,
+      142,
+      143,
+      144,
+      145,
+      146,
+      147,
+      148
      ],
-     "rideUs": 1560000
+     "rideUs": 1140000
     }
    ]
   },

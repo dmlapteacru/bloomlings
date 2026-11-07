@@ -1,7 +1,7 @@
 {
  "code": "P0395",
- "state": "used",
- "usedBy": "L0144",
+ "state": "free",
+ "usedBy": null,
  "version": 1,
  "title": "Гамак между гигантскими карандашами",
  "theme": "Путешествия и походы",

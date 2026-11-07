@@ -3,7 +3,7 @@
   101,
   150
  ],
- "created": "2026-11-06T10:46:15.473Z",
+ "created": "2026-11-07T10:06:27.025Z",
  "positions": [
   {
    "level": 101,
@@ -174,7 +174,7 @@
     "compact": true
    },
    "placed": true,
-   "picture": "P1004"
+   "picture": "P0235"
   },
   {
    "level": 108,
@@ -904,7 +904,7 @@
     "compact": true
    },
    "placed": true,
-   "picture": "P0209"
+   "picture": "P0272"
   },
   {
    "level": 136,
@@ -1147,7 +1147,7 @@
     "compact": true
    },
    "placed": true,
-   "picture": "P0395"
+   "picture": "P0398"
   },
   {
    "level": 145,
@@ -1255,7 +1255,7 @@
     "compact": true
    },
    "placed": true,
-   "picture": "P0398"
+   "picture": "P0211"
   },
   {
    "level": 149,
@@ -1975,18 +1975,17 @@
    "intro": null,
    "recipe": "canal+links",
    "slot": "regular",
-   "picture": "P1004",
-   "title": "Манжетка с ночным садом",
-   "N": 985,
+   "picture": "P0235",
+   "title": "Носок-путешественник с рюкзаком",
+   "N": 900,
    "band": "800–1200",
-   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
-   "hidden": 3,
-   "P": 28,
-   "swappedFrom": "P1027",
-   "swaps": 2,
+   "pack": "batch-0168-D",
+   "hidden": 7,
+   "P": 26,
    "tried": [
     "P0023",
-    "P1027"
+    "P1027",
+    "P1004"
    ],
    "placed": true
   },
@@ -2072,7 +2071,6 @@
    "pack": "packs-0268-0467 · Необычные магазины",
    "hidden": 7,
    "P": 25,
-   "wantLoss": true,
    "placed": true
   },
   {
@@ -2088,7 +2086,6 @@
    "pack": "packs-0268-0467 · Уютная мистика",
    "hidden": 4,
    "P": 25,
-   "wantLoss": true,
    "placed": true
   },
   {
@@ -2134,9 +2131,6 @@
    "pack": "batch-0011-env",
    "hidden": 4,
    "P": 26,
-   "wantLoss": true,
-   "swappedFrom": "P0415",
-   "swaps": 1,
    "tried": [
     "P0415"
    ],
@@ -2423,13 +2417,20 @@
    "intro": null,
    "recipe": "links+canal+latch",
    "slot": "Hard",
-   "picture": "P0209",
-   "title": "Кот в сапогах",
-   "N": 1216,
+   "picture": "P0272",
+   "title": "Почтовый ящик с северным сиянием",
+   "N": 1218,
    "band": "1200–1500",
-   "pack": "batch-0168-C",
+   "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
    "hidden": 7,
-   "P": 30,
+   "P": 33,
+   "tried": [
+    "P0209",
+    "P0416",
+    "P0278"
+   ],
+   "swappedFrom": "P0278",
+   "swaps": 1,
    "placed": true
   },
   {
@@ -2500,7 +2501,6 @@
    "pack": "batch-0168-D",
    "hidden": 7,
    "P": 27,
-   "wantLoss": true,
    "placed": true
   },
   {
@@ -2580,14 +2580,16 @@
    "intro": null,
    "recipe": "canal+cells",
    "slot": "regular",
-   "picture": "P0395",
-   "title": "Гамак между гигантскими карандашами",
-   "N": 898,
+   "picture": "P0398",
+   "title": "Красильня внутри палитры",
+   "N": 863,
    "band": "800–1200",
-   "pack": "packs-0268-0467 · Путешествия и походы",
-   "hidden": 6,
-   "P": 26,
-   "wantLoss": true,
+   "pack": "packs-0268-0467 · Миниатюрные мастерские",
+   "hidden": 7,
+   "P": 25,
+   "tried": [
+    "P0395"
+   ],
    "placed": true
   },
   {
@@ -2650,19 +2652,19 @@
    "intro": null,
    "recipe": "canal+links+latch",
    "slot": "regular",
-   "picture": "P0398",
-   "title": "Красильня внутри палитры",
-   "N": 863,
+   "picture": "P0211",
+   "title": "Серый Волк в бабушкином чепце",
+   "N": 1152,
    "band": "800–1200",
-   "pack": "packs-0268-0467 · Миниатюрные мастерские",
+   "pack": "batch-0168-C",
    "hidden": 7,
-   "P": 25,
-   "wantLoss": true,
-   "swappedFrom": "P0074",
-   "swaps": 1,
+   "P": 30,
    "tried": [
-    "P0074"
+    "P0074",
+    "P0398",
+    "P0223"
    ],
+   "wantLoss": true,
    "placed": true
   },
   {

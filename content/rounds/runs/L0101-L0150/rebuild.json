@@ -1,6 +1,31 @@
 {
- "tag": "2026-11-05",
+ "tag": "2026-11-07",
  "levels": [
+  {
+   "level": 101,
+   "tag": "2026-11-07",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-07",
+   "takes": 1,
+   "from": {
+    "picture": "P0350",
+    "candidate": "P0350-Ncanal-g1105-0-intro",
+    "share": 1,
+    "recipe": "canal"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0350",
+    "candidate": "P0350-Ncanal-g1107-s2-0-intro",
+    "share": 1,
+    "recipe": "canal",
+    "lost": false,
+    "gen": "2026-11-07"
+   }
+  },
   {
    "level": 102,
    "tag": "2026-11-05",
@@ -24,6 +49,82 @@
     "recipe": "links",
     "lost": true,
     "gen": "2026-11-05"
+   }
+  },
+  {
+   "level": 103,
+   "tag": "2026-11-07",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-07",
+   "takes": 1,
+   "from": {
+    "picture": "P0392",
+    "candidate": "P0392-Ncanal-g1105-0-intro",
+    "share": 1,
+    "recipe": "canal"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0392",
+    "candidate": "P0392-Ncanal-g1107-s2-0-intro",
+    "share": 0.92,
+    "recipe": "canal",
+    "lost": false,
+    "gen": "2026-11-07"
+   }
+  },
+  {
+   "level": 105,
+   "tag": "2026-11-07",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-07",
+   "takes": 1,
+   "from": {
+    "picture": "P0215",
+    "candidate": "P0215-Hlinks+canal-g1105-a-3",
+    "share": 0.223,
+    "recipe": "links+canal"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0215",
+    "candidate": "P0215-Hlinks+canal-g1107-a-s2-61",
+    "share": 0.228,
+    "recipe": "links+canal",
+    "lost": true,
+    "gen": "2026-11-07"
+   }
+  },
+  {
+   "level": 107,
+   "tag": "2026-11-07",
+   "why": [
+    "по списку",
+    "остров только вырезом через области картинки (17 §8: вода по контуру картинки): другая картинка"
+   ],
+   "reassign": true,
+   "at": "2026-11-07",
+   "takes": 1,
+   "from": {
+    "picture": "P1004",
+    "candidate": "P1004-Ncanal+links-g1105-2",
+    "share": 0.525,
+    "recipe": "canal+links"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0235",
+    "candidate": "P0235-Ncanal+links-g1107-s2-9",
+    "share": 0.62,
+    "recipe": "canal+links",
+    "lost": false,
+    "gen": "2026-11-07"
    }
   },
   {
@@ -52,6 +153,31 @@
    }
   },
   {
+   "level": 113,
+   "tag": "2026-11-07",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-07",
+   "takes": 1,
+   "from": {
+    "picture": "P0349",
+    "candidate": "P0349-Ncanal+cells-g1105-a-10",
+    "share": 0.595,
+    "recipe": "canal+cells"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0349",
+    "candidate": "P0349-Ncanal+cells-g1107-s2-18",
+    "share": 0.507,
+    "recipe": "canal+cells",
+    "lost": false,
+    "gen": "2026-11-07"
+   }
+  },
+  {
    "level": 114,
    "tag": "2026-11-05",
    "why": [
@@ -77,6 +203,31 @@
    }
   },
   {
+   "level": 114,
+   "tag": "2026-11-07",
+   "why": [
+    "медиана L101–L120 61 % вне 50–60 % (бот 61 %)"
+   ],
+   "reassign": false,
+   "at": "2026-11-07",
+   "takes": 1,
+   "from": {
+    "picture": "P0417",
+    "candidate": "P0417-Nlinks+cells-g1105-a-s2-7",
+    "share": 0.61,
+    "recipe": "links+cells"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0417",
+    "candidate": "P0417-Nlinks+cells-g1107-s2-0",
+    "share": 0.6,
+    "recipe": "links+cells",
+    "lost": false,
+    "gen": "2026-11-07"
+   }
+  },
+  {
    "level": 117,
    "tag": "2026-11-05",
    "why": [
@@ -99,6 +250,31 @@
     "recipe": "canal+links",
     "lost": true,
     "gen": "2026-11-05"
+   }
+  },
+  {
+   "level": 117,
+   "tag": "2026-11-07",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-07",
+   "takes": 1,
+   "from": {
+    "picture": "P0014",
+    "candidate": "P0014-Ncanal+links-g1105-a-s11-49",
+    "share": 0.605,
+    "recipe": "canal+links"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0014",
+    "candidate": "P0014-Ncanal+links-g1107-s2-5",
+    "share": 0.61,
+    "recipe": "canal+links",
+    "lost": false,
+    "gen": "2026-11-07"
    }
   },
   {
@@ -177,6 +353,31 @@
    }
   },
   {
+   "level": 126,
+   "tag": "2026-11-07",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-07",
+   "takes": 1,
+   "from": {
+    "picture": "P0362",
+    "candidate": "P0362-Ncanal+links-g1105-2",
+    "share": 0.89,
+    "recipe": "canal+links"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0362",
+    "candidate": "P0362-Ncanal+links-g1107-a-s2-1",
+    "share": 0.89,
+    "recipe": "canal+links",
+    "lost": false,
+    "gen": "2026-11-07"
+   }
+  },
+  {
    "level": 128,
    "tag": "2026-11-05",
    "why": [
@@ -248,6 +449,56 @@
     "recipe": "canal+hidden",
     "lost": false,
     "gen": "2026-11-05"
+   }
+  },
+  {
+   "level": 134,
+   "tag": "2026-11-07",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-07",
+   "takes": 1,
+   "from": {
+    "picture": "P1102",
+    "candidate": "P1102-Ncanal+hidden-g1105-a-s3-10",
+    "share": 0.595,
+    "recipe": "canal+hidden"
+   },
+   "done": true,
+   "to": {
+    "picture": "P1102",
+    "candidate": "P1102-Ncanal+hidden-g1107-s2-2",
+    "share": 0.61,
+    "recipe": "canal+hidden",
+    "lost": true,
+    "gen": "2026-11-07"
+   }
+  },
+  {
+   "level": 135,
+   "tag": "2026-11-07",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-07",
+   "takes": 1,
+   "from": {
+    "picture": "P0209",
+    "candidate": "P0209-Hlinks+canal+latch-g1105-a-3",
+    "share": 0.31,
+    "recipe": "links+canal+latch"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0272",
+    "candidate": "P0272-Hlinks+canal+latch-g1107-s3-7",
+    "share": 0.218,
+    "recipe": "links+canal+latch",
+    "lost": true,
+    "gen": "2026-11-07"
    }
   },
   {
@@ -326,6 +577,31 @@
    }
   },
   {
+   "level": 139,
+   "tag": "2026-11-07",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-07",
+   "takes": 1,
+   "from": {
+    "picture": "P0234",
+    "candidate": "P0234-Ncanal+links-g1105-s4-0",
+    "share": 0.61,
+    "recipe": "canal+links"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0234",
+    "candidate": "P0234-Ncanal+links-g1107-a-s2-4",
+    "share": 0.52,
+    "recipe": "canal+links",
+    "lost": false,
+    "gen": "2026-11-07"
+   }
+  },
+  {
    "level": 142,
    "tag": "2026-11-05",
    "why": [
@@ -376,6 +652,32 @@
    }
   },
   {
+   "level": 144,
+   "tag": "2026-11-07",
+   "why": [
+    "по списку",
+    "остров только вырезом через области картинки (17 §8: вода по контуру картинки): другая картинка"
+   ],
+   "reassign": true,
+   "at": "2026-11-07",
+   "takes": 1,
+   "from": {
+    "picture": "P0395",
+    "candidate": "P0395-Ncanal+cells-g1105-0",
+    "share": 0.56,
+    "recipe": "canal+cells"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0398",
+    "candidate": "P0398-Ncanal+cells-g1107-s2-2",
+    "share": 0.6,
+    "recipe": "canal+cells",
+    "lost": false,
+    "gen": "2026-11-07"
+   }
+  },
+  {
    "level": 147,
    "tag": "2026-11-05",
    "why": [
@@ -423,6 +725,31 @@
     "recipe": "canal+links+latch",
     "lost": false,
     "gen": "2026-11-05"
+   }
+  },
+  {
+   "level": 148,
+   "tag": "2026-11-07",
+   "why": [
+    "по списку"
+   ],
+   "reassign": false,
+   "at": "2026-11-07",
+   "takes": 1,
+   "from": {
+    "picture": "P0398",
+    "candidate": "P0398-Ncanal+links+latch-g1105-s3-9",
+    "share": 0.595,
+    "recipe": "canal+links+latch"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0211",
+    "candidate": "P0211-Ncanal+links+latch-g1107-a-s2-19",
+    "share": 0.61,
+    "recipe": "canal+links+latch",
+    "lost": true,
+    "gen": "2026-11-07"
    }
   }
  ]

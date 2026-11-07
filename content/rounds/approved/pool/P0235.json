@@ -1,7 +1,7 @@
 {
  "code": "P0235",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0107",
  "version": 1,
  "title": "Носок-путешественник с рюкзаком",
  "theme": "Смешные и абсурдные герои",

@@ -20,13 +20,13 @@
     "#.EEAAAOOOOOOAAAAAAAAAAAAAAAAAAAAAE....YY.#",
     "#.EEAAAOOOOOOAAAAAAAAAAAAAAAAAAAAAE....YY.#",
     "#.EEAAAOOOOOOAAAAAAAAAAAAAAAAAAAAAE....YY.#",
-    "#.EEAAAOOOOOOAAAAAAAAAAAAAA.AAAAAYYYYYYYY.#",
+    "#.EEAAAOOOOOOAAAAAAAAAAAAAAAAAAAAYYYYYYYY.#",
     "#.EEAAAOOOOOOAAAAAAAAAAAAAAAAAAAAAYYYYYYY.#",
     "#.EEAAAAAAANNNNNNNNNNNNNAAAAAAAAAAE.......#",
     "#..EAAAANNNNNNNNNNNNNNNNNNNYYYAAAAE.......#",
     "#..EAANNNNNNNNYYYYYYYYNNNNNYYYAAAAE.......#",
     "#...AANNNNNNNNYYYYYYYYNNNNNYYYYEEE........#",
-    "#......NNNNNNNNYYYYYYNNNNNNYYYY...........#",
+    "#......NNNNNNNNYY.YYYNNNNNNYYYY...........#",
     "#........NNNNNNNNNNNNNNNNNNYYY............#",
     "#..........................YYY............#",
     "#..........................YYY............#",
@@ -38,23 +38,23 @@
     "#.............C....YYNNSSYYYYY............#",
     "#......S.....CC...YYNNSSSYYYYY............#",
     "#......S.....CCNNNNNSSSSSSN...............#",
-    "#......S....CCCSSSSSS.SSSSNN..............#",
+    "#......S....CCCSSSSSSSSSSSNN..............#",
     "#......SS.NNSCCSSSSSSSSSSSSN..............#",
     "#......SSNNSSCCCSSSSSSSSSSSSN.............#",
-    "#.....SSSSSSSCCCSSSSSSSSSSSSN.............#",
-    "#.....SSSSBBBBBBBBBBBBBSSSSSNN............#",
-    "#....SSSSBBBBBBBBBBBBBBBBBSSSN............#",
-    "#...BBBBBBBBBB.BBBBBBBBBBBBBSN............#",
-    "#...BBBBBBBBBBBBBBBBBBBBBBBBBN............#",
-    "#..BBBBBBBCCCCCCCCCCCCCBBBBBBB............#",
-    "#..BBBBBCCCCCCCCCCCCCCCCCBBBBB............#",
-    "#...BBBBCCCCCCCCCCCCCCCCCBBBBB............#",
-    "#....BBBBCCCCCCCCCCCCCCCCBBBBN............#",
-    "#.....BBBBBCCCCCCCCCCCBBBBBSSN............#",
-    "#.......BBBBBBBBBBBBBBBBBSSSSN............#",
-    "#............BBBBBBBB..NNNNNSN............#",
-    "#..........................NNN............#",
-    "#.........................................#",
+    "#.....SSS###############SSSSN.............#",
+    "#.....SS##BBBBB.BBBBBBB####SNN............#",
+    "#..######BBBBBBBBBBBBBBBBB###N............#",
+    "#..#BBBBBBBBBBBBBBBBBBBBBBBB##............#",
+    "####BBBBBBBBBBBBBBBBBBBBBBBBB##...........#",
+    "###BBBBBBBCCCCCCCCCCCCCBBBBBBB#...........#",
+    "###BBBBBCCCCCCCCCCCCCCCCCBBBBB#...........#",
+    "####BBBBCCCCCCCCCCCCCCCCCBBBBB#...........#",
+    "#..##BBBBCCCCCCCCCCCCCCCCBBBB##...........#",
+    "#...##BBBBBCCCCCCCCCCCBBBBB###............#",
+    "#....###BBBBBBBBBBBBBBBBB###SN............#",
+    "#......######BBBB.BBB#####NNSN............#",
+    "#...........##########.....NNN............#",
+    "#...........##########....................#",
     "###########################################"
    ],
    "entries": [
@@ -64,19 +64,15 @@
    "pods": [
     {
      "color": "N",
-     "count": 43
+     "count": 41
     },
     {
      "color": "N",
-     "count": 43
+     "count": 40
     },
     {
      "color": "N",
-     "count": 42
-    },
-    {
-     "color": "B",
-     "count": 52
+     "count": 40
     },
     {
      "color": "B",
@@ -87,42 +83,46 @@
      "count": 51
     },
     {
-     "color": "S",
-     "count": 33
+     "color": "B",
+     "count": 51
     },
     {
      "color": "S",
-     "count": 33
+     "count": 23
     },
     {
      "color": "S",
+     "count": 23
+    },
+    {
+     "color": "S",
+     "count": 22
+    },
+    {
+     "color": "C",
+     "count": 30
+    },
+    {
+     "color": "C",
+     "count": 30
+    },
+    {
+     "color": "C",
+     "count": 30
+    },
+    {
+     "color": "Y",
+     "count": 33
+    },
+    {
+     "color": "Y",
+     "count": 33
+    },
+    {
+     "color": "Y",
      "count": 32
     },
     {
-     "color": "C",
-     "count": 31
-    },
-    {
-     "color": "C",
-     "count": 31
-    },
-    {
-     "color": "C",
-     "count": 31
-    },
-    {
-     "color": "Y",
-     "count": 33
-    },
-    {
-     "color": "Y",
-     "count": 33
-    },
-    {
-     "color": "Y",
-     "count": 33
-    },
-    {
      "color": "A",
      "count": 53
     },
@@ -140,7 +140,7 @@
     },
     {
      "color": "A",
-     "count": 52
+     "count": 53
     },
     {
      "color": "E",
@@ -165,35 +165,35 @@
    ],
    "tray": [
     [
-     24,
-     8,
-     9,
-     10,
-     7,
-     12,
+     15,
      6,
-     3,
-     22
-    ],
-    [
-     5,
-     4,
-     11,
-     13,
-     2,
      20,
-     21,
-     1
+     14,
+     9,
+     23,
+     2,
+     11
     ],
     [
-     23,
-     19,
-     18,
+     12,
+     21,
+     22,
+     8,
      16,
      17,
-     14,
-     15,
-     0
+     24,
+     4
+    ],
+    [
+     0,
+     13,
+     7,
+     1,
+     3,
+     18,
+     19,
+     10,
+     5
     ]
    ],
    "difficulty": "Normal"
@@ -208,28 +208,28 @@
     "######################.######################",
     "#...........................................#",
     "#....EE.....................................#",
-    "#....EEEE...................................#",
-    "#....EVVVVV.................................#",
-    "#....EVVVVVEEE..............................#",
-    "#....EVVVVVVVEEE............................#",
-    "#.....EVVVVVVVVVEEE.........................#",
-    "#.....EVVVVVVVVVVVEEE.......................#",
-    "#.....EVVVVVVVVVVVVVEEE.......BBBBBBBB......#",
-    "#.....EEVVVVVVVVVVVVVVVEEE.BBBBBBBBBBBB.....#",
-    "#......EVVVVV.VVVVVVV.VVVEBBBBB.....BBBB....#",
-    "#......EVYYYYYVVVVVVVVVVVBBB..........BB....#",
-    "#......EEVYYYYYYYYYYVVVVVE............BBB...#",
-    "#.......EVVYYYYYYYYYVVVVEE.............BB...#",
-    "#.......EVVVYYYYYYYVVVGGGGGGGGGG............#",
-    "#.......EVVVVYYYYYVVVVGGGGGGGGGGGG..........#",
-    "#........EVVVVYGYVVVVEGGGGGGGGGGGGG.........#",
-    "#........EVVVVGGGVVVEE..GGGGGGGGGGGG........#",
-    "#........EVVVVGGGVVEE...GGGGGGGG..GGG.......#",
-    "#........EVVVGGGGGGG....GGGGGGGGG..GGG......#",
-    "#.........EVVGGGGEGGG....GGGGGGGG..GGCCC....#",
-    "#.........EVVGGEEE.GGG...GGGGGGGG...CCCCC...#",
-    "#.........EVGGGEE...GGGG..GGGGGGG..CCCCCCC..#",
-    "#.......BBEEGGGE.....GGGG...GGGGG.CCCYYYCCC.#",
+    "#....#######................................#",
+    "#....#VVVVV####.............................#",
+    "#....#VVVVVEEE###...........................#",
+    "#....#VVVVVVVEE.####........................#",
+    "#....#EVVVVVVVVVEEE###......................#",
+    "#....#EVVVVVVVVVVVEEE###....................#",
+    "#....#EVVVVVVVVVVVVVEEE####...BBBBBBBB......#",
+    "#....#EEVVVVVVVVVVVVVVVEEE#BBBBBBBBBBBB.....#",
+    "#....##EVVVVVVVVVVVVVVVVVE#BBBB.....BBBB....#",
+    "#.....#EVYYYYYVVVVVVVVVVV##B..........BB....#",
+    "#.....#EEVYYYYYYYYYYVVVVV#............BBB...#",
+    "#.....##EVVYYYYYYYYYVVVV##.............BB...#",
+    "#......#EVVVYYYYYYYVVV###GGGGGGG............#",
+    "#......#EVVVVYYYYYVVVV#GGGGGGGGGGG..........#",
+    "#......##EVVVVYGYVVVVE#GGGGGGGGGGGG.........#",
+    "#.......#EVVV.###VVVEE#.GGGGGGGGGGGG........#",
+    "#.......#EVVVV#G#VVEE##.GGGGGGGG..GGG.......#",
+    "#.......#EVVV##G######..GGGGGGGGG..GGG......#",
+    "#.......###VV#GGG.GGG....GGGGGGGG..GGCCC....#",
+    "#.........#VV#GEEE.GGG...GGGGGGGG...CCCCC...#",
+    "#.........#V##GEE...GGGG..GGGGGGG..CCCCCCC..#",
+    "#.......BB###GGE.....GGGG...GGGGG.CCCYYYCCC.#",
     "#.....BBBB.EGGG.......GGGG........CCCYYYCCC.#",
     "#....BBBB..EGG.........GGG........CCCCYCCCC.#",
     "#...BBB.....GG..........GGG.........CCCCC...#",
@@ -241,7 +241,7 @@
     "#.BBB........GPPPPPPPPP......GRRRR..........#",
     "#..BB........PPPPPYYPPPP....RRRRRRRR........#",
     "#..BB........PPPPYYYYPPPP..RRRYYYRRRR.......#",
-    "#..BB........PPPPYY.YPPPP..RRRYYYYRRR.......#",
+    "#..BB........PPPPYYYYPPPP..RRRYYYYRRR.......#",
     "#............PPPPYYYPPPPP..RRRRYYRRR........#",
     "#.............PPPPPPPPPP.....RRRRRR.........#",
     "#...............PPPPPP........RRRR..........#",
@@ -277,7 +277,7 @@
     },
     {
      "color": "Y",
-     "count": 22
+     "count": 23
     },
     {
      "color": "Y",
@@ -289,31 +289,27 @@
     },
     {
      "color": "B",
-     "count": 25
-    },
-    {
-     "color": "B",
-     "count": 25
+     "count": 24
     },
     {
      "color": "B",
      "count": 24
     },
     {
-     "color": "G",
-     "count": 47
+     "color": "B",
+     "count": 23
     },
     {
      "color": "G",
-     "count": 47
+     "count": 56
     },
     {
      "color": "G",
-     "count": 47
+     "count": 56
     },
     {
      "color": "G",
-     "count": 47
+     "count": 55
     },
     {
      "color": "C",
@@ -325,63 +321,52 @@
     },
     {
      "color": "E",
-     "count": 22
+     "count": 25
     },
     {
      "color": "E",
-     "count": 22
-    },
-    {
-     "color": "E",
-     "count": 22
+     "count": 24
     },
     {
      "color": "V",
-     "count": 37
+     "count": 50
     },
     {
      "color": "V",
-     "count": 37
+     "count": 49
     },
     {
      "color": "V",
-     "count": 37
-    },
-    {
-     "color": "V",
-     "count": 36
+     "count": 49
     }
    ],
    "tray": [
     [
      7,
-     22,
-     2,
-     20,
      19,
-     12,
-     15,
-     17
-    ],
-    [
-     6,
-     14,
-     21,
-     13,
+     2,
+     4,
      10,
-     3,
      8,
      11
     ],
     [
-     23,
-     5,
-     4,
+     17,
+     6,
      16,
+     15,
+     12,
+     14,
+     9
+    ],
+    [
+     20,
+     18,
+     5,
+     13,
      1,
-     9,
-     0,
-     18
+     3,
+     0
     ]
    ],
    "difficulty": "Normal"
@@ -591,37 +576,37 @@
     "#.GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG.#",
     "#.GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG.#",
     "#.GGGGGGGGGGGGGGGGGGYYYYYYGGGGGGGG.#",
-    "#.GGGGGGGGGGGGGGGGGYYYYYYYYGGGGGGG.#",
-    "#.GGGGGGGGAAAAAAAAAAYYYYYYGGGGGGGG.#",
-    "#.SSSSSSSSAAAAAAAAAAOOOAAASSSSSSSS.#",
-    "#.SSSSSSSSAAAAAAAAAAYYYAAASSSSSSSS.#",
-    "#.SSSSSSSSAAAAAAAAAAYYYAAASSSSSSSS.#",
-    "#.SSSSSSSSAAAAAAAAAAOOOAAASSSSSSSS.#",
-    "#.SSSSSSSSAAAAAAAAAAYYYAAASSSSSSSS.#",
-    "#.SSSSSSSSAAAAAAAAAAYYYAAASSSSSSSS.#",
-    "#.SSSSSSSSAAAAAAAAAAOOOAA.SSSSSSSS.#",
-    "#.SSSSSSSSAAAAAAAAAAYYYAAASSSSSSSS.#",
-    "#.SSSSSSSSAAAAAAAAAAYYYAAASSSSSSSS.#",
-    "#.SSSSSSSSAAAAAAAAAAOOOAAASSSSSSSS.#",
-    "#.SSSSSSSSAAAAAAAAAAYYYAAASSSSSSSS.#",
-    "#.SSSSSSSSAAAVVVVVVVYYYAAASSSSSSSS.#",
-    "#.SSSSSSSSAADVVVVVVVVVVDAASSSSSSSS.#",
-    "#.SSSSSSSSAADDYYYKKYYYDDAASSSSSSSS.#",
-    "#.SSSSSSSSAADYYYKKKKKYYDAASSSSSSSS.#",
-    "#.SSSSSSSSAADYYKKKKKKYYDAASSSSSSSS.#",
-    "#.SSSSSSSSAADYYDDKKDDYYDAASSSSSSSS.#",
-    "#.SSSSSSSSAADYYDDKKDDYYDAASSSSSSSS.#",
-    "#.SSSSSSSSAADDYYYYYYYYDDAASSSSSSSS.#",
-    "#.SSSSSSSSAADDDYYFFYYDDDAASSSSSSSS.#",
-    "#.SSSSSSSSAAADDDYYYYDDDAAASSSSSSSS.#",
-    "#.SSSSSSSSAAAAAAAAAAAAAAAASSSSSSSS.#",
-    "#.SSSSSSSRRRRRRRRRRRRRRRRRRSSSSSSS.#",
+    "#.GGGGGGG############YYYYYYGGGGGGG.#",
+    "#.GGGGGGG#AAAAAAAAAA#Y#####GGGGGGG.#",
+    "#.SSSSSSS#AAAAAAAAAA#O#AAA#SSSSSSS.#",
+    "#.SSSSSSS#AAAAAAAAAA#Y#AAA#SSSSSSS.#",
+    "#.SSSSSSS#AAAAAAAAA.#Y#AAA#SSSSSSS.#",
+    "#.SSSSSSS#AAAAAAAAAA#O#AAA#SSSSSSS.#",
+    "#.SSSSSSS#AAAAAAAAAA#Y#AAA#SSSSSSS.#",
+    "#.SSSSSSS#AAAAAAAAAA#.#AAA#SSSSSSS.#",
+    "#.SSSSSSS#AAAAAAAAAA#O#AAA#SSSSSSS.#",
+    "#.SSSSSSS#AAAAAAAAAA#Y#AAA#SSSSSSS.#",
+    "#.SSSSSSS#AAAAAAAAAA#Y#AAA#SSSSSSS.#",
+    "#.SSSSSSS#AAAAAAAAAA#O#AAA#SSSSSSS.#",
+    "#.SSSSSSS#AAAAAAAAAA#Y#AAA#SSSSSSS.#",
+    "#.SSSSSSS#AAAVVVVVVV###AAA#SSSSSSS.#",
+    "#.SSSSSSS#AADVVVVVVVVVVDAA#SSSSSSS.#",
+    "#.SSSSSSS#AADDYYYKKYYYDDAA#SSSSSSS.#",
+    "#.SSSSSSS#AADYYYKKKKKYYDAA#SSSSSSS.#",
+    "#.SSSSSSS#AADYYKKKKKKYYDAA#SSSSSSS.#",
+    "#.SSSSSSS#AADYYDDKKDDYYDAA#SSSSSSS.#",
+    "#.SSSSSSS#AADYYDDKKDDYYDAA#SSSSSSS.#",
+    "#.SSSSSSS#AADDYYYYYYYYDDAA#SSSSSSS.#",
+    "#.SSSSSSS#AADDDYYYYYYDDDAA#SSSSSSS.#",
+    "#.SSSSSSS#AAADDDYYYYDDDAAA#SSSSSSS.#",
+    "#.SSSSSSS#AAAAA.AAAAAAAAAA#SSSSSSS.#",
+    "#.SSSSSSS##################SSSSSSS.#",
     "#.SSSSSSSSRRRRRRRRRRRRRRRRSSSSSSSS.#",
-    "#.SSSSSSSS.RRRRRRRRRRRRRRSSSSSSSSS.#",
-    "#.SSSSSSSSSSRRRRRRRRRRRRSSSSSSSSSS.#",
+    "#.SSSSSSSSSRRRRRRRRRRWWRRSSSSSSSSS.#",
+    "#.SSSSSSSSSSRRRWWRRRRWRRSSSSSSSSSS.#",
     "#.SSSSSSSSSSSRRRRRRRRRRSSSSSSSSSSS.#",
     "#.SSSSSSSSSSSSRRRRRRRRSSSSSSSSSSSS.#",
-    "#.SSSSSSSSSSSSSRR.RRRSSSSSSSSSSSSS.#",
+    "#.SSSSSSSSSSSSSRRRRRRSSSSSSSSSSSSS.#",
     "#.SSSSSSSSSSSSSSRRRRSSSSSSSSSSSSSS.#",
     "#.SSSSSSSSSSSSSSSRRSSSSSSSSSSSSSSS.#",
     "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
@@ -636,69 +621,74 @@
    "pods": [
     {
      "color": "S",
-     "count": 56,
+     "count": 52
+    },
+    {
+     "color": "S",
+     "count": 52,
+     "group": "E"
+    },
+    {
+     "color": "S",
+     "count": 52,
+     "group": "B"
+    },
+    {
+     "color": "S",
+     "count": 52,
      "group": "A"
     },
     {
      "color": "S",
-     "count": 56,
+     "count": 52,
+     "group": "E"
+    },
+    {
+     "color": "S",
+     "count": 52
+    },
+    {
+     "color": "S",
+     "count": 52
+    },
+    {
+     "color": "S",
+     "count": 52
+    },
+    {
+     "color": "S",
+     "count": 52
+    },
+    {
+     "color": "S",
+     "count": 51
+    },
+    {
+     "color": "S",
+     "count": 51
+    },
+    {
+     "color": "R",
+     "count": 23
+    },
+    {
+     "color": "R",
+     "count": 22,
      "group": "D"
     },
     {
-     "color": "S",
-     "count": 56
-    },
-    {
-     "color": "S",
-     "count": 56
-    },
-    {
-     "color": "S",
-     "count": 56
-    },
-    {
-     "color": "S",
-     "count": 56
-    },
-    {
-     "color": "S",
-     "count": 56
-    },
-    {
-     "color": "S",
-     "count": 56
-    },
-    {
-     "color": "S",
-     "count": 55,
-     "group": "D"
-    },
-    {
-     "color": "S",
-     "count": 55
-    },
-    {
-     "color": "S",
-     "count": 55,
+     "color": "R",
+     "count": 22,
      "group": "C"
     },
     {
-     "color": "R",
-     "count": 30,
-     "group": "C"
-    },
-    {
-     "color": "R",
-     "count": 30
-    },
-    {
-     "color": "R",
-     "count": 29
+     "color": "W",
+     "count": 5
     },
     {
      "color": "A",
      "count": 53,
-     "group": "B"
+     "group": "A"
     },
     {
      "color": "A",
@@ -710,12 +700,12 @@
     },
     {
      "color": "A",
-     "count": 53
+     "count": 52
     },
     {
      "color": "D",
      "count": 19,
-     "group": "E"
+     "group": "D"
     },
     {
      "color": "D",
@@ -723,26 +713,21 @@
     },
     {
      "color": "Y",
-     "count": 28
-    },
-    {
-     "color": "Y",
-     "count": 28,
-     "group": "E"
-    },
-    {
-     "color": "Y",
-     "count": 27,
+     "count": 20,
      "group": "B"
     },
     {
-     "color": "F",
-     "count": 2,
-     "group": "A"
+     "color": "Y",
+     "count": 20
+    },
+    {
+     "color": "Y",
+     "count": 20
     },
     {
      "color": "K",
-     "count": 17
+     "count": 17,
+     "group": "C"
     },
     {
      "color": "V",
@@ -750,61 +735,59 @@
     },
     {
      "color": "O",
-     "count": 12
+     "count": 4
     },
     {
      "color": "G",
-     "count": 44
+     "count": 40
     },
     {
      "color": "G",
-     "count": 43
+     "count": 39
     },
     {
      "color": "G",
-     "count": 43
+     "count": 39
     }
    ],
    "tray": [
     [
+     1,
+     7,
+     21,
      8,
-     23,
-     3,
-     15,
-     26,
-     22
-    ],
-    [
-     27,
-     9,
-     6,
+     19,
      10,
-     16,
+     13,
      17
     ],
     [
-     29,
-     4,
-     20,
+     27,
+     23,
+     9,
+     26,
+     3,
      11,
-     21,
-     19
+     25,
+     18
     ],
     [
-     1,
+     4,
      5,
-     7,
-     13,
-     24,
-     25
+     14,
+     6,
+     15,
+     20,
+     24
     ],
     [
-     2,
+     29,
      0,
+     2,
      28,
      12,
-     18,
-     14
+     22,
+     16
     ]
    ],
    "difficulty": "Hard"
@@ -1020,38 +1003,38 @@
     "###################.###################",
     "#.....................................#",
     "#..AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.#",
-    "#.AAAANNNNNNNNNNNNNNNNNNNNNNNAAAAAAAA.#",
-    "#.AAANCCCCCCCCCCCCCCCCCCNSSSSNNNNNAAA.#",
-    "#.AAANCCCCCCCCCCCCCCCCCCNSSSSSSSSSNAA.#",
-    "#.VVVNCCCCCCCCCCCCC.CCCCNSSSSSSSSSNVV.#",
-    "#.VVVNCCCNNNNNNNNNNNNNCCNSSSSSSSSSNVV.#",
-    "#.VVVNCCNNNNNNNNNNNNNNCCNSSSSSSSSSNVV.#",
-    "#.VVVNCCNNGOOOOOOOOONNCCNSSSSSSSSSNVV.#",
-    "#.VVVNCCNNGOOOOOOOOONNCCNSSSSSSSSSNVV.#",
-    "#.VVVNCCNNG.OOOOOOOONNCCNSSSSSSSSSNVV.#",
-    "#.VVVNCCNNGGCCOOOOOONNCCNSSSSSBBSSNVV.#",
-    "#.VVVNCCNNGGCCCCCOOONNCCNSSSSSBBSSNVV.#",
-    "#.VVVNCCNNGGGGGCCCCCNNCCNSSSSSBBSSNVV.#",
-    "#.VVVNCCNNGFFGGGGGGGNNCCNSSSSSBBSSNVV.#",
-    "#.VVVNCCNNGGGGGGGGGGNNCCNSSSSSBBSSNVV.#",
-    "#.VVVNCCNNSSSSSSSSSSNNCCNSSSSSBBSSNVV.#",
-    "#.VVVNCCNNSSSSSSSSSSNNCCNSSSSSBBSSNVV.#",
-    "#.VVVNCCNNSSSSSSSSSSNNCCNSSSSSBBSSNVV.#",
-    "#.VVVNCCNNSSSSSSSSSSNNCCNSSSSSBBSSNVV.#",
-    "#.VVVNCCNNSSSSSSSSSSNNCCNSSSSSBBSSNVV.#",
-    "#.VVVNCCNNSSSSYYYYSSNNCCNSSSSSBBSSNVV.#",
-    "#.VVVNCCNNSSSYYYYYYSNNCCNSSSSSBBSSNVV.#",
-    "#.VVVNCCNNSSSYYYYYYSNNCCNSSSSSBBSSNVV.#",
-    "#.VVVNCCNNSSSYYYYYYSNNCCNSS.SSBBSSNVV.#",
-    "#.VVVNCCNNSSSYYYYYYSNNCCNSSSSSSSSSNVV.#",
-    "#.VVVNCCNNSSSSYYYYSSNNCCNSSSSSSSSSNVV.#",
-    "#.VVVNCCNNSSSSSSSSSSNNCCNSSSSSSSSSNVV.#",
-    "#.VVVNCCNNNSSSSSSSSSNNCCNSSSSSSSSSNVV.#",
-    "#.VVVNCCNNNNNNNNNNNNNNCCNSSSSSSSSSNVV.#",
-    "#.VVVNCCCCCCCCCCCCCCCCCCNSSSSSSSSSVVV.#",
-    "#.VVVNCCCCCCCCCCCCCCCCCCNSSSSNNNVVVVV.#",
-    "#.VVVNCCCCCCCCCCCCCCCCCCNSSSSVVVVVVVV.#",
-    "#.VVVNCCCCCCCCCCCCCCCCCCNNNVVVVVVVVVV.#",
+    "#.AAAANNNNNNNNNNNNNNNNNN###########AA.#",
+    "#.AAANCCCCCCCCCCCCCCCCCC#SSSSNNNNN##A.#",
+    "#.AAANCCCCCCCCCCCCCCCCCC#SSSSSSSSSN#A.#",
+    "#.VVVNCCCCCCCCCCCCCCCCCC#SSSSSSSSSN#V.#",
+    "#.VVVNCCCNNNNNNNNNNNNNCC#SSSSSSSSSN#V.#",
+    "#.VVVNCCNNNNNNNNNNNNNNCC#SSSSSSSSSN#V.#",
+    "#.VVVNCCNNGOOOOOOOOONNCC#SSSSSSSSSN#V.#",
+    "#.VVVNCCNNGOOOOOOOOONNCC#SSSSSSSSSN#V.#",
+    "#.VVVNCCNNGGOOOOOOOONNCC#SSSSSSSSSN#V.#",
+    "#.VVVNCCNNGGCCOOOOOONNC.#SSSSSBBSS.#V.#",
+    "#.VVVNCCNNGGCCCCCOOONNCC#SSSSSBBSSN#V.#",
+    "#.VVVNCCNNGGGGGCCCCCNNCC#SSSSSBBSSN#V.#",
+    "#.VVVNCCNNGFFGGGGGGGNNCC#SSSSSBBSSN#V.#",
+    "#.VVVNCCNNGGGGGGGGGGNNCC#SSSSSBBSSN#V.#",
+    "#.VVVNCCNNSSSSSSSSSSNNCC#SSSSSBBSSN#V.#",
+    "#.VVVNCCNNSSSSSSSSSSNNCC#SSSSSBBSSN#V.#",
+    "#.VVVNCCNNSSSSSSSSSSNNCC#SSSSSBBSSN#V.#",
+    "#.VVVNCCNNSSSSSSSSSSNNCC#SSSSSBBSSN#V.#",
+    "#.VVVNCCNNSSSSSSSSSSNNCC#SSSSSBBSSN#V.#",
+    "#.VVVNCCNNSSSSYYYYSSNNCC#SSSSSBBSSN#V.#",
+    "#.VVVNCCNNSSSYYYYYYSNNCC#SSSSSBBSSN#V.#",
+    "#.VVVNCCNNSSSYYYYYYSNNCC#.SSSSBBSSN#V.#",
+    "#.VVVNCCNNSSSYYYYYYSNNCC#SSSSSBBSSN#V.#",
+    "#.VVVNCCNNSSSYYYYYYSNNCC#SSSSSSSSSN#V.#",
+    "#.VVVNCCNNSSSSYYYYSSNNCC#SSSSSSSSSN#V.#",
+    "#.VVVNCCNNSSSSSSSSSSNNCC#SSSSSSSSSN#V.#",
+    "#.VVVNCCNNNSSSSSSSSSNNCC#SSSSSSSSSN#V.#",
+    "#.VVVNCCNNNNNNNNNNNNNNCC#SSSSSSSSSN#V.#",
+    "#.VVVNCCCCCCCCCCCCCCCCCC#SSSSSSSSS##V.#",
+    "#.VVVNCCCCCCCCCCCCCCCCCC#SSSS######VV.#",
+    "#.VVVNCCCCCCCCCCCCCCCCCC#SSSS#VVVVVVV.#",
+    "#.VVVNCCCCCCCCCCCCCCCCCC######VVVVVVV.#",
     "#..VVVNNNNNNNNNNNNNNNNNNNVVVVVVVVVVV..#",
     "#...VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV...#",
     "#.....................................#",
@@ -1064,62 +1047,59 @@
    "pods": [
     {
      "color": "V",
-     "count": 52,
-     "group": "A"
+     "count": 44
     },
     {
      "color": "V",
-     "count": 52
+     "count": 44,
+     "group": "G"
     },
     {
      "color": "V",
-     "count": 52,
+     "count": 43,
      "group": "B"
     },
     {
      "color": "V",
-     "count": 52
+     "count": 43
     },
     {
      "color": "N",
-     "count": 54
+     "count": 56
     },
     {
      "color": "N",
-     "count": 53,
-     "group": "G"
-    },
-    {
-     "color": "N",
-     "count": 53,
-     "group": "F"
-    },
-    {
-     "color": "N",
-     "count": 53
-    },
-    {
-     "color": "N",
-     "count": 53,
+     "count": 56,
      "group": "C"
     },
     {
-     "color": "C",
-     "count": 59,
-     "group": "G"
+     "color": "N",
+     "count": 56
+    },
+    {
+     "color": "N",
+     "count": 56
     },
     {
      "color": "C",
-     "count": 59
+     "count": 47
     },
     {
      "color": "C",
-     "count": 58,
-     "group": "E"
+     "count": 47
     },
     {
      "color": "C",
-     "count": 58
+     "count": 47
+    },
+    {
+     "color": "C",
+     "count": 47,
+     "group": "D"
+    },
+    {
+     "color": "C",
+     "count": 46
     },
     {
      "color": "S",
@@ -1128,11 +1108,17 @@
     {
      "color": "S",
      "count": 54,
-     "group": "E"
+     "group": "G"
     },
     {
      "color": "S",
-     "count": 54
+     "count": 54,
+     "group": "B"
+    },
+    {
+     "color": "S",
+     "count": 54,
+     "group": "C"
     },
     {
      "color": "S",
@@ -1141,21 +1127,16 @@
     },
     {
      "color": "S",
-     "count": 54
-    },
-    {
-     "color": "S",
-     "count": 53,
-     "group": "B"
-    },
-    {
-     "color": "Y",
-     "count": 16
+     "count": 53
     },
     {
      "color": "Y",
      "count": 16,
      "group": "A"
+    },
+    {
+     "color": "Y",
+     "count": 16
     },
     {
      "color": "B",
@@ -1164,17 +1145,16 @@
     {
      "color": "B",
      "count": 14,
+     "group": "E"
+    },
+    {
+     "color": "G",
+     "count": 16
+    },
+    {
+     "color": "G",
+     "count": 15,
      "group": "F"
-    },
-    {
-     "color": "G",
-     "count": 15,
-     "group": "D"
-    },
-    {
-     "color": "G",
-     "count": 15,
-     "group": "C"
     },
     {
      "color": "F",
@@ -1182,7 +1162,8 @@
     },
     {
      "color": "O",
-     "count": 18
+     "count": 18,
+     "group": "E"
     },
     {
      "color": "O",
@@ -1190,116 +1171,116 @@
     },
     {
      "color": "A",
-     "count": 29
+     "count": 24,
+     "group": "A"
     },
     {
      "color": "A",
-     "count": 28
+     "count": 24,
+     "group": "F"
     }
    ],
    "tray": [
     [
-     8,
-     27,
-     17,
-     7,
+     15,
+     9,
      10,
-     3,
-     29,
-     1
+     7,
+     17,
+     26
     ],
     [
-     24,
-     25,
-     23,
-     22,
+     28,
      14,
+     5,
+     24,
      13,
-     4
+     21
     ],
     [
-     0,
-     19,
-     16,
+     12,
+     1,
+     3,
      6,
      11,
-     9,
-     2
+     23
     ],
     [
+     19,
+     0,
+     4,
+     8,
+     27,
+     22
+    ],
+    [
+     2,
+     25,
+     16,
+     29,
      20,
-     12,
-     26,
-     15,
-     21,
-     5,
-     18,
-     28
+     18
     ]
    ],
    "difficulty": "Super Hard",
    "hiddenCells": [
-    486,
-    487,
-    488,
-    489,
-    525,
-    526,
     527,
     528,
-    531,
-    532,
-    533,
-    534,
+    562,
+    563,
     564,
     565,
     566,
     567,
     568,
-    570,
-    571,
-    572,
-    573,
+    601,
+    602,
     603,
     604,
     605,
     606,
     607,
     608,
-    609,
-    610,
-    611,
-    612,
+    640,
+    641,
     642,
     643,
     644,
     645,
     646,
     647,
-    648,
-    649,
-    650,
-    651,
-    958,
-    959,
-    960,
-    961,
-    997,
-    998,
-    999,
-    1000,
-    1036,
-    1037,
-    1038,
-    1039,
-    1075,
-    1076,
-    1077,
-    1078,
-    1114,
-    1115,
-    1116,
-    1117
+    679,
+    680,
+    681,
+    682,
+    683,
+    684,
+    685,
+    686,
+    718,
+    719,
+    720,
+    721,
+    722,
+    723,
+    724,
+    725,
+    757,
+    758,
+    759,
+    760,
+    761,
+    762,
+    763,
+    764,
+    796,
+    797,
+    798,
+    799,
+    800,
+    801,
+    802,
+    803
    ]
   },
   {
@@ -2244,33 +2225,33 @@
     "#.........EESSSBBBSSBBBBBBSSSBBSSSEE.........#",
     "#........EESSSBBBSSBBSBBSBBSSBBBSSSEE........#",
     "#.......SSSSSBBBSSSBBSBBSBBSSSBBBSSSSS.......#",
-    "#......ESSSSBBBSSSSBBSBBSBBSSSSBBBSSSSEE.....#",
-    "#....EEEEEEEBBSSSSBBBSBBSBBBSSSEEEEEEEEEE....#",
-    "#...EEPPPPPPESSSSSBBSSBBSSBBSSSEOOOOOOEEEE...#",
-    "#..EEPPPPPPPESSSSSBBSSBBSSBBSSSEOOOOOOOESSS..#",
-    "#.ESEPPPPPPPESSSSSBBSSBBSSBBSSSEOOOOOOOESSSE.#",
-    "#.ESEPPPPPPPESSSSBBSSSBBSSSBBSSEOOOOOOOESSSE.#",
-    "#.ESEPPCCCPPESSSSBBSSSBBSSSBBSSEO.CCCOOESSSE.#",
-    "#..EEPPCCCPPESSSSBBSSSBBSSSBBSSEOCCCCOOESSSE.#",
-    "#..EEPPCCCPPEEEEEEEEEEBBSSSSBBSEOCCCCOOESSE..#",
-    "#..EEPPCCCPPEEYYYYYYYEEEEEEEEEEEOCCCCOOESSE..#",
-    "#..EEPPPPPPPEEYYYYYYYEEGGGGGGGEEOOOOOOOESSE..#",
-    "#..EEPPPPPPPEEYYYYYYYEEGGHHHGGEEOOOOOOOESSE..#",
-    "#..EEPPPPPPPEEYYCCCYYEEGGGGGGGEEOOOOOOOESEE..#",
-    "#..EERRRRRRRR.YYCCCYYEEGGCCCGGERRRRRRRREEE...#",
-    "#...ERRRRRRREEYYCCCYYEEGGCCCGGEERRRRRRREEE...#",
-    "#....ERRRRREEEYYCCCYYEEGGCCCGGEERRRRRREEE....#",
-    "#....EERRRRESEYYCCCYYEEGGCCCGGEBRRRRREEEE....#",
-    "#.....EERRESSEYYYYYYYEEGGCCCGGEBEERREESEE....#",
-    "#.....EEREESSEYYYYYYYEEGGGGGGGEBEEERESSE.....#",
-    "#......EEESSEEYYYYYYYEEGGGGGGGEBBSEESSE......#",
-    "#......EESSSEERRRRRRREEGGGGGGGEEBSSSSEE......#",
-    "#.......EESSSERRRRRRRERRRRRRRREESSSSEE.......#",
-    "#........EESSSERRRRREEER.RRRRRESSSSEE........#",
-    "#.........EESSEERRREESEERRRRRSSSSSEE.........#",
-    "#..........EEEEEEREESSSEERRRESSSSEE..........#",
-    "#............EEEEEESSSSSERREESEEE............#",
-    "#..............EEEEESSSSEEEEEEE..............#",
+    "#......ESSSSBBBSSSSBBSBBSBBSSS.BBBSSSSEE.....#",
+    "#....EEEEEEEBBSSSSBBBSBBSBBBSSS########EE....#",
+    "#...EEPPPPPPESSSSSBBSSBBSSBBSSS#OOOOOO##EE...#",
+    "#..EEPPPPPPPESSSSSBBSSBBSSBBSSS#OOOOOOO#SSS..#",
+    "#.ESEPPPPPPPESSSSSBBSSBBSSBBSSS#OOOOOOO#SSSE.#",
+    "#.ESEPPPPPPPESSSSBBSSSBBSSSBBSS#OOOOOOO#SSSE.#",
+    "#.ESEPPCCCPPESSSSBBSSSBBSSSBBSS#OCCCCOO#SSSE.#",
+    "#..EEPPCCCPPESSSSBBSSSBBSSSBBSS#OCCCCOO#SSSE.#",
+    "#..EEPPCCCPPEEEEEEEEEEBBSSSSBBS#OCCCCOO#SSE..#",
+    "#..EEPPCCCPPEEYYYYYYYE##########OCCCCOO#SSE..#",
+    "#..EEPPPPPPPEEYYYFFYYE#GGGGG.GEEOOOOOOO#SSE..#",
+    "#..EEPPPPPPPEEYYYYYYYE#GGGGGGGEEOOOOOOO#SSE..#",
+    "#..EEPPPPPPPEEYYCCCYYE#GGGGGGGEEOOOOOOO#SEE..#",
+    "#..EERRRRRRRREYYCCCYYE#GGCCCGGERRRRRRRR#EE...#",
+    "#...ERRRRRRREEYYCCCYYE#GGCCCGGEERRRRRRR#EE...#",
+    "#....ERRRRREEEYYCCCYYE#GGCCCGGEERRRRRRE#E....#",
+    "#....EERRRRESEYYCCCYYE#GGCCCGGEBRRRRREE#E....#",
+    "#.....EERRESSEYYYYYYYE#GGCCCGGEBEERREES#E....#",
+    "#.....EEREESSEYYYYYYYE#GGGGGGGEBEEERESS#.....#",
+    "#......EEESSEEYYYYYYYE#GGGGGGGEBBSEESSE#.....#",
+    "#......EESSSEERRRRRRR##GGGGGGGEEBSSSSEE#.....#",
+    "#.......EESSSERRRRRRR#RRRRRRRREESSSSEE##.....#",
+    "#........EESSSERRRRRE##RRRRRRRESSSSE.##......#",
+    "#.........EESSEERRREES##RRRRRSSSSSEE##.......#",
+    "#..........EEEEEEREESSS##RRRESSSSEE##........#",
+    "#............EEEEEESSSSS#RREES######.........#",
+    "#..............EEEEESSSS#######..............#",
     "#..................EEEEEEEE..................#",
     "#............................................#",
     "##############################################"
@@ -2282,91 +2263,86 @@
    "pods": [
     {
      "color": "E",
-     "count": 57
+     "count": 53,
+     "group": "F"
     },
     {
      "color": "E",
-     "count": 56
-    },
-    {
-     "color": "E",
-     "count": 56,
+     "count": 53,
      "group": "B"
     },
     {
      "color": "E",
-     "count": 56
-    },
-    {
-     "color": "E",
-     "count": 56,
+     "count": 53,
      "group": "G"
     },
     {
      "color": "E",
-     "count": 56
+     "count": 53
     },
     {
-     "color": "S",
-     "count": 51
+     "color": "E",
+     "count": 52,
+     "group": "C"
     },
     {
      "color": "S",
      "count": 51,
-     "group": "D"
-    },
-    {
-     "color": "S",
-     "count": 51
-    },
-    {
-     "color": "S",
-     "count": 51
-    },
-    {
-     "color": "S",
-     "count": 50,
-     "group": "C"
-    },
-    {
-     "color": "R",
-     "count": 35,
      "group": "A"
     },
     {
-     "color": "R",
-     "count": 34,
-     "group": "E"
+     "color": "S",
+     "count": 51
+    },
+    {
+     "color": "S",
+     "count": 51
+    },
+    {
+     "color": "S",
+     "count": 50
+    },
+    {
+     "color": "S",
+     "count": 50
     },
     {
      "color": "R",
-     "count": 34,
-     "group": "C"
+     "count": 35
+    },
+    {
+     "color": "R",
+     "count": 35
+    },
+    {
+     "color": "R",
+     "count": 34
     },
     {
      "color": "G",
-     "count": 30
+     "count": 21,
+     "group": "G"
     },
     {
      "color": "G",
-     "count": 29
+     "count": 20
     },
     {
-     "color": "B",
-     "count": 43
+     "color": "G",
+     "count": 20
     },
     {
      "color": "B",
      "count": 43,
-     "group": "F"
+     "group": "D"
     },
     {
      "color": "B",
      "count": 43
     },
     {
-     "color": "Y",
-     "count": 33
+     "color": "B",
+     "count": 43
     },
     {
      "color": "Y",
@@ -2374,90 +2350,95 @@
     },
     {
      "color": "Y",
-     "count": 32,
-     "group": "F"
+     "count": 32
+    },
+    {
+     "color": "Y",
+     "count": 31
     },
     {
      "color": "C",
-     "count": 29,
-     "group": "E"
+     "count": 29
     },
     {
      "color": "C",
-     "count": 28
+     "count": 29
     },
     {
      "color": "P",
-     "count": 22
+     "count": 22,
+     "group": "D"
     },
     {
      "color": "P",
      "count": 21,
-     "group": "B"
+     "group": "F"
     },
     {
      "color": "P",
-     "count": 21
+     "count": 21,
+     "group": "E"
     },
     {
      "color": "O",
      "count": 20,
-     "group": "G"
-    },
-    {
-     "color": "O",
-     "count": 20
+     "group": "C"
     },
     {
      "color": "O",
      "count": 20,
-     "group": "D"
+     "group": "B"
     },
     {
-     "color": "H",
-     "count": 3,
+     "color": "O",
+     "count": 20,
+     "group": "E"
+    },
+    {
+     "color": "F",
+     "count": 2,
      "group": "A"
     }
    ],
    "tray": [
     [
-     22,
-     19,
-     7,
-     4,
-     6,
-     13,
-     21,
-     9
-    ],
-    [
      25,
-     24,
-     28,
-     27,
      3,
-     10,
+     6,
+     27,
      17,
-     5
-    ],
-    [
-     2,
-     1,
-     29,
-     30,
-     26,
-     0,
      23,
-     18
+     28
     ],
     [
-     12,
      16,
-     8,
-     11,
+     5,
+     2,
+     22,
+     9,
      14,
+     11,
+     26
+    ],
+    [
+     0,
+     19,
      20,
-     15
+     4,
+     10,
+     15,
+     1,
+     29
+    ],
+    [
+     24,
+     30,
+     13,
+     12,
+     21,
+     18,
+     7,
+     8
     ]
    ],
    "difficulty": "Super Hard"
@@ -3163,38 +3144,38 @@
     "#......................................#",
     "#.LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL.#",
     "#.LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL.#",
-    "#.LLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLLL.#",
-    "#.LLLLLLLLLLLLLAAAAAAAAEELLLLLLLLLLLLL.#",
-    "#.LLLLLLLLLLLLLAAAAAAAAEELLELLELLLLLLL.#",
-    "#.SSSSSSSSSSSSSAAAAAAAAEESSESSESSSSSSS.#",
-    "#.SSSSSSSSSSSSSSAAAAAAEESSSEEEESSSSSSS.#",
-    "#.SSSSSSSSSSSSSSAAAAAAEESSSESSESSSSSSS.#",
-    "#.SSSSSSSSSSSSSSAAAAAAEESSSESSESSSSSSS.#",
-    "#.SSSSSSSSSSSSSSAAAAAAEESSSEEEESSSSSSS.#",
-    "#.SSSSSRRRRRR..SAAAAAAEESSSE.SESSSSSSS.#",
-    "#.SSSSSSDSSSD..SSAAAAAESSSSESSESSSSSSS.#",
-    "#.SSSSSSDSSSDSSSSAAAAAESSSSEEEESSSSSSS.#",
-    "#.SSSSSSDSSSDSSSSAAAAEESSSSESSESSSSSSS.#",
-    "#.SSSSSSDSSSDSSSSAAAAEESSSSESSESSSSSSS.#",
-    "#.SSSSSSDSSSDSSSSAAAAEESSSSEEEESSSSSSS.#",
-    "#.SSSSSSDSSSDSSAAAAAAEEESSSESSESSSSSSS.#",
-    "#.SSSSSSDSSSDSAAAEEEEEEEEEEEEEESSSSSSS.#",
-    "#.SSSSSSDSSSDAAAAEEEEEEEEEEEEEESSSSSSS.#",
-    "#.SSSSSSDSAAD..ASSOOOOOOOOEEOESSSSSSSS.#",
-    "#.SSSSSSDAAAD..SMMMOOEEOOOEEOEEMSSSSSS.#",
-    "#.SSSSMMAAAAAMMMGGGOOEEOOOEEOAAMMMSSSS.#",
-    "#.SSSMMGAAAGGMGGGGGOOEEOOO..OGGMMMMSSS.#",
-    "#.SSSGGGGGGGGGGGGGGOOOOOOO..OGGGGMMSSS.#",
-    "#.SSGGGGGGGGGGHGGRRRRRRRRRRRRRRGGMMMSS.#",
-    "#.SSGGGGGGGGGGHGGGRRRRRRRRRRRRGGGGMMSS.#",
-    "#.SSGGGGGGGGGGHGGGGRRRRRRRRRRGGHGGMMSS.#",
-    "#.SSGGGGGGGGGGGGGGGGGRRRRRRGGGGHHGMMSS.#",
-    "#.SSGGGGGGG.GGGGGGGGGGRRRRGGGGGGGGMMSS.#",
-    "#.SSSGGGGGGGGGGGGGGGGGGRRGGGGGGGGGMSSS.#",
-    "#.SSSGGGGGGGGGGGGGGGGGGGGGGGGGGGGGMSSS.#",
-    "#.SSSSGGGGGHHHGGGGGGGGGGGGGGGGGGGSSSSS.#",
+    "#.LLLLLLLLLLLL############LLLLLLLLLLLL.#",
+    "#.LLLLLLLLLLLL#AA.AAAAAEE#######LLLLLL.#",
+    "#.LLLLLLLLLLLL#AAAAAAAAEELLELLE#LLLLLL.#",
+    "#.SSSSSSSSSSSS#AAAAAAAAEESSESSE#SSSSSS.#",
+    "#.SSSS..SSSSSS##AAAAAAEESSSEEEE#SSSSSS.#",
+    "#.SSSS..SSSSSSS#AAAAAAEESSSESSE#SSSSSS.#",
+    "#.SSSSSSSSSSSSS#AAAAAAEESSSESSE#SSSSSS.#",
+    "#.SSSSSSSSSSSS.#AAAAAAEESSSEEEE#SSSSSS.#",
+    "#.SSSSSRRRRRRRS#AAAAAAEESSSESSE#SSSSSS.#",
+    "#.SSSSSSDSSSDSS##AAAAAESSSSESSE#SSSSSS.#",
+    "#.SSSSSSDSSSDSSS#AAAAAESSSSEEEE#SSSSSS.#",
+    "#.SSSSSSDSSSDSSS#AAAAEESSSSESSE#SSSSSS.#",
+    "#.SSSSSSDSSSDSSS#AAAAEESSSSESSE#SSSSSS.#",
+    "#.SSSSSSDSSSDS###AAAAEESSSSEEEE#SSSSSS.#",
+    "#.SSSSSSDSSSD##AAAAAAEEESSSESSE#SSSSSS.#",
+    "#.SSSSSSDSSS##AAAEEEEEEEEEEEEEE#SSSSSS.#",
+    "#.SSSSSSD..S#AAAAEEEEEEEEEEEEEE#SSSSSS.#",
+    "#.SSSSSSD..A#AAASSOOOOOOOOEEOES#SSSSSS.#",
+    "#.SSSSSSDAAA#A#####OOEEOOOEEOEE#SSSSSS.#",
+    "#.SSSSMMAAAA###MGG#OOEEOOOEEO###MMSSSS.#",
+    "#.SSSMMGAAAGGMGGGG#OOEEOOOEEO#GMMMMSSS.#",
+    "#.SSSGGGGGGGGGGG###OOOOOOOOOO###GMMSSS.#",
+    "#.SSGGGGGGGGGGGG#RRRRRRRRRRRRRR#GMMMSS.#",
+    "#.SSGGGGFGGGGGGG##RRRRRRRRRRRR##GGMMSS.#",
+    "#.SSGGGFFGGGGGGGG##RRRRRRRRR.##GGGMMSS.#",
+    "#.SSGGGGFGGGGGGGGG###RRRRRR###GGGGMMSS.#",
+    "#.SSGGGGGGGG..GGGGGG##RRRR##GGGGGGMMSS.#",
+    "#.SSSGGGGGGG..GGGGGGG##RR##GGGGGGGMSSS.#",
+    "#.SSSGGGGGGGGGGGGGGGGG####GGGGGGGGMSSS.#",
+    "#.SSSSGGGGGGGGGGGGGGGGGGGGGGGGGGGSSSSS.#",
     "#.SSSSSSGGGGGGGGGGGGGGGGGGGGGGGGSSSSSS.#",
-    "#.SSSSSSGGGGGGGGGGGGGG.GGGGGGGGSSSSSSS.#",
+    "#.SSSSSSGGGGGGGGGGGGGGGGGGGGGGGSSSSSSS.#",
     "#.SSSSSSSGGGGGGGGGGGGGGGGGGGGGMSSSSSSS.#",
     "#.SSSSSSSGGGGGGGGGGGGGGGGGGGGGMSSSSSSS.#",
     "#.SSSSSSSSGGGGGGGGGGGGGGGGGGGGSSSSSSSS.#",
@@ -3209,217 +3190,202 @@
    "pods": [
     {
      "color": "S",
-     "count": 57
-    },
-    {
-     "color": "S",
-     "count": 56,
-     "group": "G"
-    },
-    {
-     "color": "S",
-     "count": 56,
+     "count": 59,
      "group": "C"
     },
     {
      "color": "S",
-     "count": 56,
-     "group": "E"
+     "count": 59,
+     "group": "A"
     },
     {
      "color": "S",
-     "count": 56
-    },
-    {
-     "color": "S",
-     "count": 56
-    },
-    {
-     "color": "S",
-     "count": 56
-    },
-    {
-     "color": "S",
-     "count": 56
-    },
-    {
-     "color": "S",
-     "count": 56,
-     "group": "F"
-    },
-    {
-     "color": "G",
-     "count": 55
-    },
-    {
-     "color": "G",
-     "count": 55,
-     "group": "B"
-    },
-    {
-     "color": "G",
-     "count": 55,
+     "count": 59,
      "group": "G"
     },
     {
-     "color": "G",
-     "count": 54,
-     "group": "F"
+     "color": "S",
+     "count": 58,
+     "group": "G"
+    },
+    {
+     "color": "S",
+     "count": 58
+    },
+    {
+     "color": "S",
+     "count": 58
+    },
+    {
+     "color": "S",
+     "count": 58
+    },
+    {
+     "color": "S",
+     "count": 58
     },
     {
      "color": "G",
-     "count": 54
+     "count": 59,
+     "group": "D"
     },
     {
      "color": "G",
-     "count": 54
+     "count": 59
+    },
+    {
+     "color": "G",
+     "count": 59
+    },
+    {
+     "color": "G",
+     "count": 58
+    },
+    {
+     "color": "G",
+     "count": 58
     },
     {
      "color": "M",
-     "count": 18
-    },
-    {
-     "color": "M",
-     "count": 18
-    },
-    {
-     "color": "H",
-     "count": 5
-    },
-    {
-     "color": "H",
-     "count": 4
-    },
-    {
-     "color": "R",
-     "count": 27,
+     "count": 15,
      "group": "E"
     },
     {
+     "color": "M",
+     "count": 14
+    },
+    {
+     "color": "R",
+     "count": 27
+    },
+    {
      "color": "R",
      "count": 27,
-     "group": "D"
+     "group": "F"
+    },
+    {
+     "color": "F",
+     "count": 2,
+     "group": "C"
+    },
+    {
+     "color": "F",
+     "count": 2
+    },
+    {
+     "color": "O",
+     "count": 19,
+     "group": "A"
     },
     {
      "color": "O",
      "count": 18,
-     "group": "B"
-    },
-    {
-     "color": "O",
-     "count": 17
-    },
-    {
-     "color": "A",
-     "count": 35
-    },
-    {
-     "color": "A",
-     "count": 35,
-     "group": "A"
-    },
-    {
-     "color": "A",
-     "count": 35,
-     "group": "A"
-    },
-    {
-     "color": "E",
-     "count": 35
-    },
-    {
-     "color": "E",
-     "count": 35,
      "group": "D"
     },
     {
-     "color": "E",
+     "color": "A",
+     "count": 35,
+     "group": "E"
+    },
+    {
+     "color": "A",
      "count": 34
     },
     {
-     "color": "D",
-     "count": 10,
-     "group": "C"
+     "color": "A",
+     "count": 34
+    },
+    {
+     "color": "E",
+     "count": 36,
+     "group": "B"
+    },
+    {
+     "color": "E",
+     "count": 35
+    },
+    {
+     "color": "E",
+     "count": 35
     },
     {
      "color": "D",
-     "count": 10
+     "count": 16,
+     "group": "B"
     },
     {
      "color": "L",
-     "count": 53
+     "count": 46,
+     "group": "F"
     },
     {
      "color": "L",
-     "count": 53
+     "count": 45
     },
     {
      "color": "L",
-     "count": 52
+     "count": 45
     }
    ],
    "tray": [
     [
-     8,
-     22,
      2,
-     19,
-     1,
-     20
-    ],
-    [
-     10,
-     25,
-     29,
-     18,
-     23,
-     26,
-     0
-    ],
-    [
-     12,
-     24,
-     7,
-     3,
-     28,
-     9,
-     31
-    ],
-    [
-     21,
-     30,
-     5,
-     14,
-     11,
-     27,
-     4
-    ],
-    [
-     13,
-     16,
      17,
-     6,
+     1,
+     8,
+     24,
+     13
+    ],
+    [
+     3,
+     0,
+     25,
+     11,
+     5,
      15,
-     33,
-     32
+     22
+    ],
+    [
+     28,
+     10,
+     30,
+     14,
+     26,
+     23
+    ],
+    [
+     4,
+     18,
+     19,
+     20,
+     27,
+     21
+    ],
+    [
+     16,
+     29,
+     9,
+     7,
+     6,
+     12
     ]
    ],
    "difficulty": "Super Hard",
    "latches": [
     {
      "column": 1,
-     "depth": 3,
-     "key": 986
+     "depth": 2,
+     "key": 326
     },
     {
      "column": 2,
      "depth": 4,
-     "key": 493
+     "key": 809
     },
     {
      "column": 4,
-     "depth": 2,
-     "key": 853
+     "depth": 3,
+     "key": 1212
     }
    ]
   }
@@ -3439,27 +3405,21 @@
   ],
   "105": [
    "Новые цвета",
-   "twig",
-   "D",
-   "Земля собирает Twig. Фуксия собирает Bloom. Румянец собирает Bloom. Это отдельные материалы: команда собирает только свой точный цвет. Этот уровень сложнее: подумай, какие команды отправить раньше и где оставить место. Ретрай бесплатный."
+   "drop",
+   "W",
+   "Снег собирает Drop. Земля собирает Twig. Румянец собирает Bloom. Это отдельные материалы: команда собирает только свой точный цвет. Этот уровень сложнее: подумай, какие команды отправить раньше и где оставить место. Ретрай бесплатный."
   ],
   "110": [
-   "Первый Super Hard",
+   "Новый цвет: Фуксия",
    "bloom",
-   "V",
-   "Самый трудный тип уровня: очередь и места нужно планировать заранее. Ретрай бесплатный."
+   "F",
+   "Фуксия собирает Bloom. Это отдельные материалы: команда собирает только свой точный цвет. Самый трудный тип уровня: очередь и места нужно планировать заранее. Ретрай бесплатный."
   ],
   "120": [
    "Новый цвет: Мох",
    "sprig",
    "M",
    "Мох собирает Sprig. Это отдельные материалы: команда собирает только свой точный цвет."
-  ],
-  "130": [
-   "Новый цвет: Лаванда",
-   "bloom",
-   "H",
-   "Лаванда собирает Bloom. Это отдельные материалы: команда собирает только свой точный цвет."
   ],
   "145": [
    "Новый цвет: Лайм",
@@ -3483,7 +3443,7 @@
    "intro": "canal",
    "picture": "P0350",
    "recipe": "canal",
-   "N": 936,
+   "N": 895,
    "colours": 8,
    "P": 25,
    "columns": 3,
@@ -3492,7 +3452,7 @@
    "random": 1,
    "runs": 100,
    "borderline": false,
-   "seconds": 515.3,
+   "seconds": 525,
    "draft": false
   },
   {
@@ -3505,16 +3465,16 @@
    "intro": "canal",
    "picture": "P0392",
    "recipe": "canal",
-   "N": 722,
+   "N": 683,
    "colours": 8,
-   "P": 24,
+   "P": 21,
    "columns": 3,
    "linked": 0,
    "hidden": 0,
-   "random": 1,
+   "random": 0.92,
    "runs": 100,
    "borderline": false,
-   "seconds": 376.3,
+   "seconds": 389,
    "draft": false
   },
   {
@@ -3549,16 +3509,16 @@
    "intro": null,
    "picture": "P0215",
    "recipe": "links+canal",
-   "N": 1213,
+   "N": 1107,
    "colours": 10,
    "P": 30,
-   "columns": 5,
+   "columns": 4,
    "linked": 10,
    "hidden": 0,
-   "random": 0.223,
+   "random": 0.228,
    "runs": 400,
    "borderline": true,
-   "seconds": 450.6,
+   "seconds": 522.8,
    "draft": false
   },
   {
@@ -3594,17 +3554,17 @@
    "intro": null,
    "picture": "P0285",
    "recipe": "links+canal+cells",
-   "N": 1215,
+   "N": 1131,
    "colours": 10,
    "P": 30,
-   "columns": 4,
+   "columns": 5,
    "linked": 14,
    "hidden": 0,
-   "cells": 61,
-   "random": 0.145,
+   "cells": 57,
+   "random": 0.175,
    "runs": 400,
-   "borderline": false,
-   "seconds": 460.9,
+   "borderline": true,
+   "seconds": 457.6,
    "draft": false
   },
   {
@@ -3707,16 +3667,16 @@
    "intro": null,
    "picture": "P0404",
    "recipe": "links+canal+shutters",
-   "N": 1163,
+   "N": 1090,
    "colours": 10,
    "P": 31,
    "columns": 4,
    "linked": 14,
    "hidden": 0,
-   "random": 0.148,
+   "random": 0.075,
    "runs": 400,
    "borderline": false,
-   "seconds": 589.9,
+   "seconds": 506.8,
    "draft": false
   },
   {
@@ -3797,17 +3757,17 @@
    "intro": null,
    "picture": "P0090",
    "recipe": "links+canal+latch",
-   "N": 1353,
+   "N": 1245,
    "colours": 10,
-   "P": 34,
+   "P": 31,
    "columns": 5,
    "linked": 14,
    "hidden": 0,
    "latches": 3,
-   "random": 0.14,
-   "runs": 400,
+   "random": 0.12,
+   "runs": 100,
    "borderline": false,
-   "seconds": 598.4,
+   "seconds": 592.9,
    "draft": false
   }
  ],
@@ -3822,7 +3782,7 @@
   "150": []
  },
  "gap": {},
- "hash": "798c918f82b53b5f78cee20dbf698d92b33938d4b8d90b2fbf6ce71daeb4ef98",
+ "hash": "47b82a6b9f7881b879c46ed5ba96dc304aa23cbe6b1e87eff107b5331255d565",
  "rulesHash": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
  "timelineHash": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
  "paletteHash": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",

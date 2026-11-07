@@ -2,25 +2,25 @@
  "level": 114,
  "cls": "Normal",
  "intro": null,
- "gen": "2026-11-05",
+ "gen": "2026-11-07",
  "picture": "P0417",
- "candidate": "P0417-Nlinks+cells-g1105-a-s2-7",
+ "candidate": "P0417-Nlinks+cells-g1107-s2-0",
  "recipe": "links+cells",
  "N": 908,
  "W": 908,
- "colours": 9,
- "P": 26,
+ "colours": 8,
+ "P": 25,
  "columns": 4,
  "linked": 6,
  "hidden": 0,
  "cells": 46,
  "random": {
   "runs": 100,
-  "wins": 61,
-  "share": 0.61,
+  "wins": 60,
+  "share": 0.6,
   "wilson95": [
-   0.512,
-   0.7
+   0.502,
+   0.691
   ],
   "cls": "Normal",
   "borderline": false,
@@ -31,67 +31,7 @@
   "route": [
    {
     "type": "tap",
-    "pod": 22
-   },
-   {
-    "type": "tap",
-    "pod": 21
-   },
-   {
-    "type": "tap",
-    "pod": 16
-   },
-   {
-    "type": "tap",
-    "pod": 6
-   },
-   {
-    "type": "tap",
-    "pod": 14
-   },
-   {
-    "type": "tap",
-    "pod": 7
-   },
-   {
-    "type": "tap",
     "pod": 18
-   },
-   {
-    "type": "tap",
-    "pod": 13
-   },
-   {
-    "type": "tap",
-    "pod": 5
-   },
-   {
-    "type": "tap",
-    "pod": 10
-   },
-   {
-    "type": "tap",
-    "pod": 11
-   },
-   {
-    "type": "tap",
-    "pod": 25
-   },
-   {
-    "type": "tap",
-    "pod": 19
-   },
-   {
-    "type": "tap",
-    "pod": 8
-   },
-   {
-    "type": "tap",
-    "pod": 12
-   },
-   {
-    "type": "tap",
-    "pod": 15
    },
    {
     "type": "tap",
@@ -99,7 +39,19 @@
    },
    {
     "type": "tap",
-    "pod": 20
+    "pod": 15
+   },
+   {
+    "type": "tap",
+    "pod": 12
+   },
+   {
+    "type": "tap",
+    "pod": 7
+   },
+   {
+    "type": "tap",
+    "pod": 16
    },
    {
     "type": "tap",
@@ -107,11 +59,15 @@
    },
    {
     "type": "tap",
-    "pod": 2
+    "pod": 19
    },
    {
     "type": "tap",
-    "pod": 1
+    "pod": 9
+   },
+   {
+    "type": "tap",
+    "pod": 14
    },
    {
     "type": "tap",
@@ -119,15 +75,55 @@
    },
    {
     "type": "tap",
+    "pod": 11
+   },
+   {
+    "type": "tap",
+    "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
     "pod": 3
+   },
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 20
+   },
+   {
+    "type": "tap",
+    "pod": 21
+   },
+   {
+    "type": "tap",
+    "pod": 4
+   },
+   {
+    "type": "tap",
+    "pod": 10
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 2
    }
   ],
-  "forks": 0,
-  "singleSafe": 0,
+  "forks": 2,
+  "singleSafe": 2,
   "unknown": 0,
   "fast": {
    "status": "won",
-   "seconds": 106
+   "seconds": 233.3
   }
  },
  "fairness": {
@@ -138,18 +134,18 @@
   "note": "перестановки материалов двух скрытых клеток разного цвета"
  },
  "strategies": {
-  "left-to-right|left": true,
-  "left-to-right|right": true,
+  "left-to-right|left": false,
+  "left-to-right|right": false,
   "right-to-left|left": true,
   "right-to-left|right": true,
   "top-down|left": true,
   "top-down|right": true,
-  "bottom-up|left": true,
-  "bottom-up|right": true,
+  "bottom-up|left": false,
+  "bottom-up|right": false,
   "diagonal|left": false,
   "diagonal|right": false,
-  "small-first|left": true,
-  "small-first|right": true,
+  "small-first|left": false,
+  "small-first|right": false,
   "most-now|left": true,
   "most-now|right": true,
   "fast-release|left": true,
@@ -160,51 +156,51 @@
    {
     "from": 0,
     "to": 20,
-    "meanFree": 2.3,
-    "minFree": 2,
-    "fullShare": 0,
-    "maxWaiting": 1
+    "meanFree": 1.67,
+    "minFree": 0,
+    "fullShare": 0.07,
+    "maxWaiting": 4
    },
    {
     "from": 20,
     "to": 40,
-    "meanFree": 3.69,
-    "minFree": 2,
+    "meanFree": 4.01,
+    "minFree": 3,
     "fullShare": 0,
-    "maxWaiting": 1
+    "maxWaiting": 0
    },
    {
     "from": 40,
     "to": 60,
-    "meanFree": 3.14,
-    "minFree": 2,
+    "meanFree": 4.25,
+    "minFree": 3,
     "fullShare": 0,
-    "maxWaiting": 1
+    "maxWaiting": 0
    },
    {
     "from": 60,
     "to": 80,
-    "meanFree": 3.02,
-    "minFree": 2,
+    "meanFree": 4.25,
+    "minFree": 3,
     "fullShare": 0,
-    "maxWaiting": 2
+    "maxWaiting": 0
    },
    {
     "from": 80,
     "to": 100,
-    "meanFree": 4.12,
-    "minFree": 2,
+    "meanFree": 4.43,
+    "minFree": 4,
     "fullShare": 0,
-    "maxWaiting": 1
+    "maxWaiting": 0
    }
   ],
-  "launchesAfter80": 3,
-  "lastLaunchAtW": 94,
-  "seconds": 398.9
+  "launchesAfter80": 4,
+  "lastLaunchAtW": 97,
+  "seconds": 553.9
  },
- "dosePos": 0.8,
+ "dosePos": 0.5,
  "checks": {
-  "forced": 0.29,
+  "forced": 0.25,
   "opening": null,
   "hold": true,
   "greedyLoses": false,
@@ -212,16 +208,16 @@
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 1.56,
-   "tight": 0.89
+   "stuck": 1.58,
+   "tight": 0.93
   },
   "calm": {
    "runs": 200,
-   "wins": 115,
-   "share": 0.575,
+   "wins": 123,
+   "share": 0.615,
    "wilson95": [
-    0.506,
-    0.641
+    0.546,
+    0.68
    ],
    "borderline": false,
    "protocol": "§5 calm: uniform over legal actions, the board settled before each",
@@ -229,31 +225,8 @@
   },
   "traps": {
    "links": 3,
-   "traps": 1,
-   "top": 1
-  },
-  "accents": {
-   "materials": [
-    {
-     "code": "W",
-     "name": "Снег",
-     "from": "A",
-     "cells": 2,
-     "clusters": 1,
-     "pods": [
-      {
-       "pod": 13,
-       "count": 2,
-       "row": 1
-      }
-     ]
-    }
-   ],
-   "cells": 2,
-   "pressure": {
-    "with": 1.56,
-    "without": 0.94
-   }
+   "traps": 2,
+   "top": 2
   }
  },
  "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
@@ -294,7 +267,7 @@
    "#..EAAAAAAAAAACAAAAACCAAAAAAAAA..#",
    "#..EAAAAAAAAACCAAAAACCAAAAAAAAA..#",
    "#...AAAAAAAAACCAAAAAACAAAAAAAA...#",
-   "#....AAAAAAAACCAWWAAACCAAAAAA....#",
+   "#....AAAAAAAACCAAAAAACCAAAAAA....#",
    "#.....AAAAAAACAAAAAAACCAAAAA.....#",
    "#......AAAAAAAAAAAAAAAAAAAA......#",
    "#........EEEAAAAAAAAAAAAA........#",
@@ -317,8 +290,11 @@
    },
    {
     "color": "E",
-    "count": 26,
-    "group": "B"
+    "count": 26
+   },
+   {
+    "color": "A",
+    "count": 54
    },
    {
     "color": "A",
@@ -343,13 +319,8 @@
    },
    {
     "color": "A",
-    "count": 53,
-    "group": "C"
-   },
-   {
-    "color": "A",
-    "count": 53,
-    "group": "C"
+    "count": 54,
+    "group": "A"
    },
    {
     "color": "A",
@@ -364,12 +335,9 @@
     "count": 28
    },
    {
-    "color": "W",
-    "count": 2
-   },
-   {
     "color": "S",
-    "count": 33
+    "count": 33,
+    "group": "A"
    },
    {
     "color": "S",
@@ -389,7 +357,8 @@
    },
    {
     "color": "B",
-    "count": 31
+    "count": 31,
+    "group": "C"
    },
    {
     "color": "V",
@@ -401,17 +370,17 @@
    },
    {
     "color": "V",
-    "count": 37,
-    "group": "A"
+    "count": 37
    },
    {
     "color": "P",
     "count": 9,
-    "group": "A"
+    "group": "C"
    },
    {
     "color": "Y",
-    "count": 15
+    "count": 15,
+    "group": "B"
    },
    {
     "color": "Y",
@@ -421,99 +390,86 @@
   "tray": [
    [
     22,
-    21,
+    24,
+    15,
     16,
-    6,
+    0,
+    19
+   ],
+   [
+    13,
     14,
-    7
+    17,
+    11,
+    5,
+    3
    ],
    [
     18,
-    13,
-    5,
-    10,
-    2,
-    1
-   ],
-   [
-    11,
-    25,
-    8,
     12,
-    15,
-    24,
-    20
+    7,
+    8,
+    23,
+    6
    ],
    [
-    23,
-    19,
     9,
-    0,
+    20,
+    21,
     4,
-    17,
-    3
+    10,
+    1,
+    2
    ]
   ],
   "recipe": "links+cells",
-  "recolor": [
-   [
-    14,
-    4,
-    "W"
-   ],
-   [
-    15,
-    4,
-    "W"
-   ]
-  ],
   "hiddenCells": [
+   495,
+   496,
+   497,
+   498,
+   529,
    530,
    531,
    532,
-   533,
-   534,
+   563,
    564,
    565,
    566,
-   567,
-   568,
    598,
    599,
    600,
-   601,
-   602,
-   632,
-   633,
-   634,
-   635,
-   666,
-   667,
-   668,
-   669,
-   700,
-   701,
-   702,
+   671,
    703,
-   734,
-   735,
-   736,
+   704,
+   705,
    737,
-   871,
-   872,
-   873,
-   905,
-   906,
-   907,
-   939,
-   940,
-   941,
-   973,
-   974,
-   975,
-   1007,
-   1008,
-   1009
+   738,
+   739,
+   771,
+   772,
+   773,
+   805,
+   806,
+   807,
+   839,
+   840,
+   841,
+   859,
+   860,
+   861,
+   862,
+   863,
+   893,
+   894,
+   895,
+   896,
+   897,
+   927,
+   928,
+   929,
+   930,
+   931
   ],
   "difficulty": "Normal"
  }

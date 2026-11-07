@@ -9654,6 +9654,550 @@
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 3,
    "attempt": 15
+  },
+  {
+   "id": "P1102-Ncanal+hidden-g1105-a-s3-10",
+   "picture": "P1102",
+   "requested": "Normal",
+   "cls": "Normal",
+   "intro": false,
+   "recipe": "canal+hidden",
+   "level": {
+    "id": 1,
+    "title": "Щит с большим клевером",
+    "subject": "P1102",
+    "w": 32,
+    "h": 36,
+    "rowsBottomFirst": [
+     "################.###############",
+     "#..............................#",
+     "#.............CCC..............#",
+     "#............YYYYYY............#",
+     "#..........YYYYYYYYYY..........#",
+     "#.........YYYYYYYYYYYY.........#",
+     "#........YYYYYYYYYNYYYY........#",
+     "#.......YYYYNNOOOONNYYYY.......#",
+     "#......YYYNNNNOOOONNNYYYY......#",
+     "#.....YYYYNNNNOOOONNNNYYYY.....#",
+     "#.....YYYNNNNNOOONNNNNNYYYY....#",
+     "#....YYYNNNNNNNNNNNNNNNNYYY....#",
+     "#....YYNNNGGGGNNDNLLGGNNNYY....#",
+     "#...YYYNNNGGGGGNDLLLLGGNNYYY...#",
+     "#...YYYNLLGGGGGGGLLLLGGGNYYY...#",
+     "#...YYNNLLLGGGGGLLLLGGGGNNYYO..#",
+     "#...YYNNLLLLGGGGLLLLGGGGNNYYO..#",
+     "#..YYYNNLLLLLGGGLLGGGGGGNNYYO..#",
+     "#..YYNNNNLLLLLGGLGGFGGGNNNNYY..#",
+     "#..YYNNNNNDGGGGLLGFFGDNNNNNYY..#",
+     "#.OYYNNNNLLLLLGGGGGFGGGNNNNYYO.#",
+     "#.OYYNNNLLLLLLGGLLGGGG.GNNNYYO.#",
+     "#.OYYNNNLLLLLGGGLLLGGGGGNNNYYO.#",
+     "#.OYYNNNL.LLGGGGLLLLGGGGNNNYYO.#",
+     "#.OYYNNNLLLGGGGGLLLLLGGGNNNYYO.#",
+     "#.OYYNNNNNLGGGGNNLLLLLGNNNNYYO.#",
+     "#.OYOONNNNLLGGGNNNLLLNNNNNYYYO.#",
+     "#.OYYOYNNNNNNNNNNNNNNNNNNYYYYO.#",
+     "#.OYYYYYYYNNNNNNN.NNNNYYYYYYYO.#",
+     "#..OOOOYYYYYNNNYYNNYYYYYYOOOO..#",
+     "#......OOOYYYYYYYYYYYYOOO......#",
+     "#...........YYYYYYYYY..........#",
+     "#............YYYYYY............#",
+     "#..............YY..............#",
+     "#..............................#",
+     "################################"
+    ],
+    "entries": [
+     16
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "Y",
+      "count": 52
+     },
+     {
+      "color": "Y",
+      "count": 51
+     },
+     {
+      "color": "Y",
+      "count": 51
+     },
+     {
+      "color": "Y",
+      "count": 51
+     },
+     {
+      "color": "O",
+      "count": 27
+     },
+     {
+      "color": "O",
+      "count": 26
+     },
+     {
+      "color": "N",
+      "count": 46
+     },
+     {
+      "color": "N",
+      "count": 46
+     },
+     {
+      "color": "N",
+      "count": 46
+     },
+     {
+      "color": "N",
+      "count": 45
+     },
+     {
+      "color": "L",
+      "count": 30
+     },
+     {
+      "color": "L",
+      "count": 30
+     },
+     {
+      "color": "L",
+      "count": 29,
+      "mystery": "depth"
+     },
+     {
+      "color": "G",
+      "count": 37
+     },
+     {
+      "color": "G",
+      "count": 36
+     },
+     {
+      "color": "G",
+      "count": 36
+     },
+     {
+      "color": "F",
+      "count": 2
+     },
+     {
+      "color": "F",
+      "count": 2
+     },
+     {
+      "color": "D",
+      "count": 4
+     },
+     {
+      "color": "C",
+      "count": 3
+     }
+    ],
+    "tray": [
+     [
+      11,
+      1,
+      0,
+      7,
+      18,
+      3
+     ],
+     [
+      9,
+      12,
+      16,
+      10,
+      14,
+      13,
+      19
+     ],
+     [
+      4,
+      17,
+      8,
+      2,
+      5,
+      15,
+      6
+     ]
+    ],
+    "recipe": "canal+hidden",
+    "overlay": {
+     "walls": [],
+     "sites": [],
+     "keys": [
+      [
+       15,
+       5
+      ],
+      [
+       7,
+       10
+      ],
+      [
+       20,
+       12
+      ]
+     ]
+    },
+    "recolor": [
+     [
+      17,
+      13,
+      "F"
+     ],
+     [
+      16,
+      14,
+      "F"
+     ],
+     [
+      17,
+      14,
+      "F"
+     ],
+     [
+      17,
+      15,
+      "F"
+     ]
+    ],
+    "channel": {
+     "spring": 913,
+     "exits": [
+      {
+       "cell": 745,
+       "route": [
+        913,
+        912,
+        911,
+        910,
+        909,
+        908,
+        907,
+        906,
+        905,
+        873,
+        841,
+        809,
+        777,
+        745
+       ],
+       "rideUs": 780000
+      },
+      {
+       "cell": 694,
+       "route": [
+        913,
+        914,
+        915,
+        916,
+        917,
+        918,
+        886,
+        854,
+        822,
+        790,
+        758,
+        726,
+        694
+       ],
+       "rideUs": 720000
+      }
+     ]
+    }
+   },
+   "N": 650,
+   "W": 650,
+   "colours": 8,
+   "P": 20,
+   "columns": 3,
+   "linked": 0,
+   "hidden": 1,
+   "random": {
+    "runs": 400,
+    "wins": 238,
+    "share": 0.595,
+    "wilson95": [
+     0.546,
+     0.642
+    ],
+    "cls": "Normal",
+    "borderline": false,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 11
+     },
+     {
+      "type": "tap",
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 18
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 16
+     },
+     {
+      "type": "tap",
+      "pod": 10
+     },
+     {
+      "type": "tap",
+      "pod": 14
+     },
+     {
+      "type": "tap",
+      "pod": 13
+     },
+     {
+      "type": "tap",
+      "pod": 19
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 17
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "channel",
+      "exit": 0
+     },
+     {
+      "type": "tap",
+      "pod": 2
+     },
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 15
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     }
+    ],
+    "forks": 0,
+    "singleSafe": 0,
+    "unknown": 0,
+    "fast": {
+     "status": "won",
+     "seconds": 97.7
+    }
+   },
+   "fairness": {
+    "checked": 0,
+    "fair": true,
+    "note": "одна скрытая — нечего переставлять"
+   },
+   "strategies": {
+    "left-to-right|left": true,
+    "left-to-right|right": true,
+    "right-to-left|left": true,
+    "right-to-left|right": true,
+    "top-down|left": false,
+    "top-down|right": false,
+    "bottom-up|left": true,
+    "bottom-up|right": true,
+    "diagonal|left": true,
+    "diagonal|right": true,
+    "small-first|left": false,
+    "small-first|right": false,
+    "most-now|left": true,
+    "most-now|right": true,
+    "fast-release|left": true,
+    "fast-release|right": true
+   },
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 3.25,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 1
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 2.91,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 2
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 2.57,
+      "minFree": 1,
+      "fullShare": 0,
+      "maxWaiting": 3
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 4.32,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 4.36,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     }
+    ],
+    "launchesAfter80": 3,
+    "lastLaunchAtW": 93,
+    "seconds": 315.9
+   },
+   "dosePos": 1,
+   "gen": "2026-11-05",
+   "overlay": {
+    "walls": [],
+    "sites": [],
+    "keys": [
+     [
+      15,
+      5
+     ],
+     [
+      7,
+      10
+     ],
+     [
+      20,
+      12
+     ]
+    ]
+   },
+   "checks": {
+    "forced": 0.08,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": false,
+    "hiddenMatters": {
+     "ok": true,
+     "pods": [
+      {
+       "pod": 12,
+       "revealAt": 7,
+       "gap": 0,
+       "newColour": true
+      }
+     ]
+    },
+    "bridgeKind": null,
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.73,
+     "tight": 0.89
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 122,
+     "share": 0.61,
+     "wilson95": [
+      0.541,
+      0.675
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 0,
+     "traps": 0,
+     "top": 0
+    },
+    "channel": {
+     "each": [
+      {
+       "exit": 0,
+       "win": true,
+       "share": 0.55
+      },
+      {
+       "exit": 1,
+       "win": true,
+       "share": 0.47
+      }
+     ],
+     "gap": 0.08,
+     "decides": false,
+     "better": 0
+    },
+    "accents": {
+     "materials": [
+      {
+       "code": "F",
+       "name": "Фуксия",
+       "from": "G",
+       "cells": 4,
+       "clusters": 1,
+       "pods": [
+        {
+         "pod": 16,
+         "count": 2,
+         "row": 2
+        },
+        {
+         "pod": 17,
+         "count": 2,
+         "row": 1
+        }
+       ]
+      }
+     ],
+     "cells": 4,
+     "pressure": {
+      "with": 1.73,
+      "without": 0.89
+     }
+    }
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)"
   }
  ],
  "rejected": [],
@@ -9709,18 +10253,35 @@
     "вне зоны позиции (проходит фильтры)": 6,
     "быстрая оценка вне зоны после поправок": 3
    }
+  },
+  {
+   "combo": "Normal|canal+hidden||tune|2026-11-07",
+   "tune": {
+    "slot": "regular",
+    "t": 0.54,
+    "attempts": 3,
+    "quick": 6,
+    "evaluated": 3,
+    "seconds": 20
+   },
+   "tried": 3,
+   "found": 1,
+   "reasons": {
+    "evaluate: жадная стратегия выигрывает измеренный класс (§5)": 1,
+    "evaluate: канал: родник открыт при 20 % W на сохранённом решении, нужно 20–30 % (§8 «Остров за водой»)": 1
+   }
   }
  ],
  "tune": {
   "Normal|canal+hidden|regular": {
-   "t": 0.53,
+   "t": 0.54,
    "cols": 3,
-   "offset": -2.94,
-   "quick": 0.525,
-   "at": "2026-11-05"
+   "offset": -2.81,
+   "quick": 0.625,
+   "at": "2026-11-07"
   }
  },
  "placed": [
-  "P1102-Ncanal+hidden-g1105-a-s3-10"
+  "P1102-Ncanal+hidden-g1107-s2-2"
  ]
 }
