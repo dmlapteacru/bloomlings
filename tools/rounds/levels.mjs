@@ -934,6 +934,9 @@ function greedyOk(c,n,br=false){const k=c.checks||{};if(br)return c.cls==='Norma
 // bridge level the wave plan's bridgeKind (single: exactly one wins and the loss with the other comes later; better: both
 // win, one 10+ points better; any: either of the two), single without a plan; a hidden-pod introduction needs a hidden pod that matters
 export function mechOk(c,n,slot,plan=null){const k=c.checks||{},second=slot.intro&&INTRO.some(([m,,b])=>m===slot.intro&&b===n);
+ // a water channel is an island behind water since 2026-11-07 (17 §8 «Остров за водой»): a candidate of the open placement
+ // (no island check passed) is no longer placed
+ if((c.recipe||'').split('+').includes('canal')&&!(k.island&&k.island.ok))return false;
  if(c.recipe.includes('bridge')){if(slot.intro==='bridge'&&!second)return k.bridgeKind==='first';const want=(!slot.intro&&plan&&plan.bridgeKind)||'single';
   const ok=want==='any'?['single','better'].includes(k.bridgeKind):k.bridgeKind===want;
   return ok&&(k.bridgeKind!=='single'||!k.bridgeLoss||k.bridgeLoss.ok||c.cls==='Super Hard');}
