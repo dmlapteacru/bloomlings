@@ -1,7 +1,7 @@
 {
  "code": "P0331",
- "state": "used",
- "usedBy": "L0173",
+ "state": "free",
+ "usedBy": null,
  "version": 1,
  "title": "Факс печатает бумажный город",
  "theme": "Ретрофутуризм",

@@ -2,6 +2,22 @@
  "tag": "2026-11-07",
  "levels": [
   {
+   "level": 152,
+   "tag": "2026-11-07",
+   "why": [
+    "«по цветам» проигрывает 12 из 25 (нужно около 13)"
+   ],
+   "reassign": false,
+   "at": "2026-11-13",
+   "takes": 1,
+   "from": {
+    "picture": "P0212",
+    "candidate": "P0212-Ncanal+links-g1107-a-1",
+    "share": 0.538,
+    "recipe": "canal+links"
+   }
+  },
+  {
    "level": 159,
    "tag": "2026-11-07",
    "why": [
@@ -102,21 +118,53 @@
    }
   },
   {
+   "level": 173,
+   "tag": "2026-11-07",
+   "why": [
+    "«по цветам» проигрывает 10 из 25 (нужно около 13)"
+   ],
+   "reassign": false,
+   "at": "2026-11-13",
+   "takes": 1,
+   "from": {
+    "picture": "P0331",
+    "candidate": "P0331-Nlatch+links+cells-g1107-6",
+    "share": 0.6,
+    "recipe": "latch+links+cells"
+   }
+  },
+  {
+   "level": 174,
+   "tag": "2026-11-07",
+   "why": [
+    "«по цветам» проигрывает 9 из 25 (нужно около 13)"
+   ],
+   "reassign": false,
+   "at": "2026-11-13",
+   "takes": 1,
+   "from": {
+    "picture": "P0229",
+    "candidate": "P0229-Ncanal+links-g1107-5",
+    "share": 0.613,
+    "recipe": "canal+links"
+   }
+  },
+  {
    "level": 182,
    "tag": "2026-11-07",
    "why": [
-    "передышка 100 % вне 75–90 % и на последнем запасном ходе (одна связка): другая картинка"
+    "передышка 100 % вне 75–90 % и на последнем запасном ходе (ближайшая раскладка): другая картинка"
    ],
    "reassign": true,
    "at": "2026-11-13",
-   "takes": 1,
+   "takes": 2,
    "from": {
     "picture": "P0267",
     "candidate": "P0267-Nlinks-g1105-br-s2-3",
     "share": 1,
     "recipe": "links"
    },
-   "done": true,
+   "done": false,
    "to": {
     "picture": "P0384",
     "candidate": "P0384-Ncells-g1105-br-0",
@@ -124,6 +172,22 @@
     "recipe": "cells",
     "lost": true,
     "gen": "2026-11-05"
+   }
+  },
+  {
+   "level": 183,
+   "tag": "2026-11-07",
+   "why": [
+    "«по цветам» проигрывает 11 из 25 (нужно около 13)"
+   ],
+   "reassign": false,
+   "at": "2026-11-13",
+   "takes": 1,
+   "from": {
+    "picture": "P0947",
+    "candidate": "P0947-Nshutters+links-g1107-4",
+    "share": 0.593,
+    "recipe": "shutters+links"
    }
   },
   {
