@@ -14685,6 +14685,24 @@
    "batch": "batch-1183-castle-bridge",
    "note": null,
    "usedBy": "L0075"
+  },
+  {
+   "id": "P1184",
+   "seq": 1184,
+   "version": 1,
+   "title": "Воздушный шар над лугом",
+   "theme": "bridge-contour",
+   "family": "Воздушный транспорт",
+   "direction": null,
+   "forLevel": 175,
+   "w": 34,
+   "h": 38,
+   "N": 1218,
+   "colours": 9,
+   "status": "draft",
+   "batch": "batch-1184-contour-bridge",
+   "note": null,
+   "usedBy": null
   }
  ]
 }
