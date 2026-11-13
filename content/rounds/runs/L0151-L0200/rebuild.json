@@ -15,6 +15,15 @@
     "candidate": "P1174-Nlinks-g1107-br-1",
     "share": 0.97,
     "recipe": "links"
+   },
+   "done": true,
+   "to": {
+    "picture": "P1144",
+    "candidate": "P1144-Ncells-g1107-br-s2-0",
+    "share": 0.86,
+    "recipe": "cells",
+    "lost": true,
+    "gen": "2026-11-07"
    }
   },
   {
@@ -31,6 +40,15 @@
     "candidate": "P0359-Nlatch+links+hidden-g1107-21",
     "share": 0.65,
     "recipe": "latch+links+hidden"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0359",
+    "candidate": "P0359-Nlatch+links+hidden-g1107-s2-14",
+    "share": 0.6,
+    "recipe": "latch+links+hidden",
+    "lost": true,
+    "gen": "2026-11-07"
    }
   },
   {
@@ -47,6 +65,15 @@
     "candidate": "P0368-Ncanal+links-g1107-a-1",
     "share": 0.63,
     "recipe": "canal+links"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0368",
+    "candidate": "P0368-Ncanal+links-g1107-s2-5",
+    "share": 0.57,
+    "recipe": "canal+links",
+    "lost": false,
+    "gen": "2026-11-07"
    }
   },
   {
@@ -63,6 +90,15 @@
     "candidate": "P0305-Nshutters+cells-g1107-17",
     "share": 0.71,
     "recipe": "shutters+cells"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0305",
+    "candidate": "P0305-Nshutters+cells-g1107-s2-9",
+    "share": 0.563,
+    "recipe": "shutters+cells",
+    "lost": false,
+    "gen": "2026-11-07"
    }
   },
   {
@@ -79,6 +115,15 @@
     "candidate": "P0267-Nlinks-g1105-br-s2-3",
     "share": 1,
     "recipe": "links"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0384",
+    "candidate": "P0384-Ncells-g1105-br-0",
+    "share": 1,
+    "recipe": "cells",
+    "lost": true,
+    "gen": "2026-11-05"
    }
   },
   {
@@ -95,6 +140,15 @@
     "candidate": "P0990-Nshutters+cells-g1107-9",
     "share": 0.64,
     "recipe": "shutters+cells"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0990",
+    "candidate": "P0990-Nshutters+cells-g1107-s2-2",
+    "share": 0.63,
+    "recipe": "shutters+cells",
+    "lost": true,
+    "gen": "2026-11-07"
    }
   },
   {
@@ -111,6 +165,15 @@
     "candidate": "P0042-Ncanal+links+latch-g1107-21",
     "share": 0.63,
     "recipe": "canal+links+latch"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0042",
+    "candidate": "P0042-Ncanal+links+latch-g1107-s2-21",
+    "share": 0.568,
+    "recipe": "canal+links+latch",
+    "lost": false,
+    "gen": "2026-11-07"
    }
   },
   {
@@ -127,6 +190,15 @@
     "candidate": "P1129-Nlinks-g1107-br-1",
     "share": 0.94,
     "recipe": "links"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0370",
+    "candidate": "P0370-Nhidden-g1107-br-s2-1",
+    "share": 0.77,
+    "recipe": "hidden",
+    "lost": true,
+    "gen": "2026-11-07"
    }
   },
   {
@@ -143,6 +215,15 @@
     "candidate": "P0335-Nshutters+links-g1107-3",
     "share": 0.5,
     "recipe": "shutters+links"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0335",
+    "candidate": "P0335-Nshutters+links-g1107-s2-12",
+    "share": 0.56,
+    "recipe": "shutters+links",
+    "lost": false,
+    "gen": "2026-11-07"
    }
   }
  ]

@@ -4,6 +4,12 @@
  "rejected": [],
  "searched": [],
  "tune": {
-  "Super Hard|links+canal+shutters|Super Hard": {}
+  "Super Hard|links+canal+shutters|Super Hard": {
+   "t": 0.17,
+   "cols": 5,
+   "offset": -3.34,
+   "quick": 0.125,
+   "at": "2026-11-13"
+  }
  }
 }

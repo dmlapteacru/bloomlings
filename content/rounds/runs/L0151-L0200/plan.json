@@ -2099,20 +2099,21 @@
    "intro": null,
    "recipe": "latch+links+cells",
    "slot": "regular",
-   "picture": "P0343",
-   "title": "Следы динозавра на куске Луны",
-   "N": 869,
+   "picture": "P1008",
+   "title": "Радужный ластик-качалка",
+   "N": 877,
    "band": "800–1200",
-   "pack": "packs-0268-0467 · Доисторические находки",
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
    "hidden": 3,
    "P": 24,
    "tried": [
     "P0304",
     "P1017",
-    "P0413"
+    "P0413",
+    "P0343"
    ],
-   "swappedFrom": "P0413",
-   "swaps": 1
+   "swappedFrom": "P0343",
+   "swaps": 2
   },
   {
    "level": 158,
@@ -2404,18 +2405,21 @@
    "intro": null,
    "recipe": "shutters+hidden",
    "slot": "regular",
-   "picture": "P0281",
-   "title": "Самовар-вулкан",
-   "N": 899,
+   "picture": "P0011",
+   "title": "Кит",
+   "N": 896,
    "band": "700–900",
-   "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
-   "hidden": 4,
+   "pack": "batch-0011-env",
+   "hidden": 3,
    "P": 24,
    "tried": [
     "P0313",
-    "P0048"
+    "P0048",
+    "P0281"
    ],
-   "wantLoss": true
+   "wantLoss": true,
+   "swappedFrom": "P0281",
+   "swaps": 1
   },
   {
    "level": 178,
@@ -2460,17 +2464,21 @@
    "intro": null,
    "recipe": "links+latch+hidden",
    "slot": "Super Hard",
-   "picture": "P0222",
-   "title": "Белый Кролик с часами",
-   "N": 832,
+   "picture": "P0089",
+   "title": "Хрустальный шар с замком",
+   "N": 882,
    "band": "700–900",
-   "pack": "batch-0168-C",
-   "hidden": 6,
+   "pack": "batch-0061",
+   "hidden": 5,
    "P": 24,
    "tried": [
     "P0221",
-    "P0298"
-   ]
+    "P0298",
+    "P0222",
+    "P0236"
+   ],
+   "swappedFrom": "P0236",
+   "swaps": 2
   },
   {
    "level": 181,

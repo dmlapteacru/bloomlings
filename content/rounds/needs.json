@@ -47,32 +47,6 @@
    "recipe": "latch+links+cells"
   },
   {
-   "level": 177,
-   "cls": "Normal",
-   "intro": null,
-   "allowed": [
-    "hidden",
-    "links",
-    "bridge",
-    "cells",
-    "latch",
-    "canal",
-    "shutters"
-   ],
-   "stage": {
-    "cells": [
-     400,
-     1500
-    ],
-    "colours": [
-     4,
-     10
-    ],
-    "compact": true
-   },
-   "recipe": "shutters+hidden"
-  },
-  {
    "level": 180,
    "cls": "Super Hard",
    "intro": null,
