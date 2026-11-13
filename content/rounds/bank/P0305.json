@@ -35668,10 +35668,10 @@
    "at": "2026-11-02"
   },
   "Normal|shutters+cells|regular": {
-   "t": 0.73,
+   "t": 0.72,
    "cols": 4,
-   "offset": -2.96,
-   "quick": 0.625,
+   "offset": -3.02,
+   "quick": 0.5,
    "at": "2026-11-13"
   }
  },

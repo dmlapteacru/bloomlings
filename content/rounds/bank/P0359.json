@@ -15540,10 +15540,10 @@
  ],
  "tune": {
   "Normal|latch+links+hidden|regular": {
-   "t": 0.51,
+   "t": 0.5,
    "cols": 4,
-   "offset": -0.7,
-   "quick": 0.525,
+   "offset": -0.17,
+   "quick": 0.55,
    "at": "2026-11-13"
   }
  },

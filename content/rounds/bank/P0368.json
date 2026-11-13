@@ -2404,10 +2404,10 @@
  ],
  "tune": {
   "Normal|canal+links|regular": {
-   "t": 0.26,
+   "t": 0.08,
    "cols": 4,
-   "offset": -1.93,
-   "quick": 0.55,
+   "offset": -3.32,
+   "quick": 0.5,
    "at": "2026-11-13"
   }
  },
