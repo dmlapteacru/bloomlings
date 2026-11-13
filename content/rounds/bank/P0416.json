@@ -1572,6 +1572,13 @@
    "offset": 0.93,
    "quick": 0.325,
    "at": "2026-11-07"
+  },
+  "Hard|links+canal+cells|Hard": {
+   "t": 0,
+   "cols": 4,
+   "offset": -3.66,
+   "quick": 0.5,
+   "at": "2026-11-13"
   }
  }
 }

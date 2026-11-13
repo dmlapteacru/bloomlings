@@ -3,7 +3,7 @@
   151,
   200
  ],
- "created": "2026-11-13T22:21:24.810Z",
+ "created": "2026-11-13T22:22:02.971Z",
  "positions": [
   {
    "level": 151,
@@ -2060,14 +2060,19 @@
    "intro": null,
    "recipe": "shutters+cells",
    "slot": "regular",
-   "picture": "P0023",
-   "title": "Палатка у костра",
-   "N": 896,
+   "picture": "P0948",
+   "title": "Колпак с садовым вихрем",
+   "N": 886,
    "band": "700–900",
-   "pack": "batch-0011-env",
-   "hidden": 4,
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
+   "hidden": 2,
    "P": 24,
-   "wantLoss": true
+   "wantLoss": true,
+   "swappedFrom": "P0023",
+   "swaps": 1,
+   "tried": [
+    "P0023"
+   ]
   },
   {
    "level": 154,
@@ -2075,13 +2080,18 @@
    "intro": null,
    "recipe": "links+hidden",
    "slot": "regular",
-   "picture": "P0403",
-   "title": "Метеорит с древним папоротником",
-   "N": 865,
+   "picture": "P0074",
+   "title": "Фонтан в парке",
+   "N": 900,
    "band": "800–1200",
-   "pack": "packs-0268-0467 · Доисторические находки",
-   "hidden": 4,
-   "P": 24
+   "pack": "batch-0061",
+   "hidden": 3,
+   "P": 24,
+   "swappedFrom": "P0403",
+   "swaps": 1,
+   "tried": [
+    "P0403"
+   ]
   },
   {
    "level": 155,
@@ -2103,20 +2113,6 @@
    "intro": null,
    "recipe": "links",
    "slot": "after-hard",
-   "picture": "P0076",
-   "title": "Паровозик",
-   "N": 906,
-   "band": "800–1200",
-   "pack": "batch-0061",
-   "hidden": 0,
-   "P": 24
-  },
-  {
-   "level": 157,
-   "cls": "Normal",
-   "intro": null,
-   "recipe": "latch+links+cells",
-   "slot": "regular",
    "picture": "P0304",
    "title": "Ступеньки из падающих домино",
    "N": 861,
@@ -2124,7 +2120,31 @@
    "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
    "hidden": 3,
    "P": 24,
-   "wantLoss": true
+   "swappedFrom": "P0076",
+   "swaps": 1,
+   "tried": [
+    "P0076"
+   ]
+  },
+  {
+   "level": 157,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "latch+links+cells",
+   "slot": "regular",
+   "picture": "P1017",
+   "title": "Папоротник-гармошка из ткани",
+   "N": 1180,
+   "band": "800–1200",
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
+   "hidden": 2,
+   "P": 30,
+   "wantLoss": true,
+   "swappedFrom": "P0304",
+   "swaps": 1,
+   "tried": [
+    "P0304"
+   ]
   },
   {
    "level": 158,
