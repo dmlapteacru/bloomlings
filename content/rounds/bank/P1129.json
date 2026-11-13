@@ -22247,6 +22247,337 @@
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 1,
    "attempt": 63
+  },
+  {
+   "id": "P1129-Nlinks-g1107-br-1",
+   "picture": "P1129",
+   "requested": "Normal",
+   "cls": "Normal",
+   "intro": false,
+   "recipe": "links",
+   "level": {
+    "id": 1,
+    "title": "Жёлтая куртка-дождевик",
+    "subject": "P1129",
+    "w": 30,
+    "h": 32,
+    "rowsBottomFirst": [
+     "###############.##############",
+     "#............................#",
+     "#...........OOOOOO...........#",
+     "#......YYYYYYYYYYOYYYYY......#",
+     "#....YYYYYYYYYYYYOYYYYYYY....#",
+     "#....YYYYYYYYYYYYOYYYYYYY....#",
+     "#....YYYRRRYYYYYYOYRRRRYY....#",
+     "#....OYRRRRRYYCCYOYRRRRYY....#",
+     "#....OORRRRRYYCCYORRRRRYYY...#",
+     "#..YYYORRRRRYYYYYORRRRRYYYY..#",
+     "#.YYYYORRRRRYYYYYORRRRRYYYYY.#",
+     "#.YYYYOYRRRRYYYYYORRRRYYYYYY.#",
+     "#..YYYYYYYYYYYCCYOYYYYYYYYY..#",
+     "#..YYYYYYYYYYYYCYOYYYYYYYYY..#",
+     "#...YYYYYYYYYYYYYOYYYYYYYY...#",
+     "#...YYYYYYYYYYYCYOYYYYYYYY...#",
+     "#....YYYYYYYYYCCYOYYYYYYY....#",
+     "#.....YYYYYYYYYYYOYYYYYY.....#",
+     "#......YYYYYYYYYYOYYYYYY.....#",
+     "#.......YYYYYYNNYYYYYYY......#",
+     "#.......YYYNNNNNNNNYYYY......#",
+     "#......YYNNNNNNNNNNNNYY......#",
+     "#......YYNNNNNNNNNNNNYY......#",
+     "#......YYNNNNNNNNNNNNYY......#",
+     "#......YYYNNNNNNNNNNYYY......#",
+     "#.......YYYYNNNNNNNYYY.......#",
+     "#........YYYYYYYYYYYY........#",
+     "#.........YYYYYYYYYY.........#",
+     "#..........YYYYYYYY..........#",
+     "#............OOOO............#",
+     "#............................#",
+     "##############################"
+    ],
+    "entries": [
+     15
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "O",
+      "count": 16
+     },
+     {
+      "color": "O",
+      "count": 16
+     },
+     {
+      "color": "Y",
+      "count": 33
+     },
+     {
+      "color": "Y",
+      "count": 33
+     },
+     {
+      "color": "Y",
+      "count": 33
+     },
+     {
+      "color": "Y",
+      "count": 33
+     },
+     {
+      "color": "Y",
+      "count": 33
+     },
+     {
+      "color": "Y",
+      "count": 33
+     },
+     {
+      "color": "Y",
+      "count": 33
+     },
+     {
+      "color": "Y",
+      "count": 33
+     },
+     {
+      "color": "Y",
+      "count": 33,
+      "group": "A"
+     },
+     {
+      "color": "Y",
+      "count": 32,
+      "group": "A"
+     },
+     {
+      "color": "N",
+      "count": 21
+     },
+     {
+      "color": "N",
+      "count": 21
+     },
+     {
+      "color": "N",
+      "count": 21
+     },
+     {
+      "color": "C",
+      "count": 10
+     },
+     {
+      "color": "R",
+      "count": 27
+     },
+     {
+      "color": "R",
+      "count": 27
+     }
+    ],
+    "tray": [
+     [
+      10,
+      1,
+      8,
+      16,
+      5,
+      3
+     ],
+     [
+      15,
+      14,
+      13,
+      12,
+      4,
+      0
+     ],
+     [
+      11,
+      17,
+      9,
+      7,
+      6,
+      2
+     ]
+    ],
+    "recipe": "links"
+   },
+   "N": 488,
+   "W": 488,
+   "colours": 5,
+   "P": 18,
+   "columns": 3,
+   "linked": 2,
+   "hidden": 0,
+   "random": {
+    "runs": 100,
+    "wins": 94,
+    "share": 0.94,
+    "wilson95": [
+     0.875,
+     0.972
+    ],
+    "cls": "Normal",
+    "borderline": false,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 10
+     },
+     {
+      "type": "tap",
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
+      "pod": 16
+     },
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 15
+     },
+     {
+      "type": "tap",
+      "pod": 14
+     },
+     {
+      "type": "tap",
+      "pod": 13
+     },
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 17
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     },
+     {
+      "type": "tap",
+      "pod": 2
+     }
+    ],
+    "forks": 0,
+    "singleSafe": 0,
+    "unknown": 0,
+    "fast": {
+     "status": "won",
+     "seconds": 54.4
+    }
+   },
+   "fairness": {
+    "fair": true,
+    "checked": 0
+   },
+   "strategies": {},
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 4.12,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 4.24,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 4.39,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 4.45,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 4.41,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     }
+    ],
+    "launchesAfter80": 2,
+    "lastLaunchAtW": 93,
+    "seconds": 196.6
+   },
+   "dosePos": 0.8,
+   "gen": "2026-11-07",
+   "zoneMiss": true,
+   "breather": true,
+   "checks": {
+    "breather": true,
+    "forced": 0.11,
+    "opening": null,
+    "hold": null,
+    "greedyLoses": null,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.19,
+     "tight": 0.81
+    },
+    "traps": {
+     "links": 1,
+     "traps": 0,
+     "top": 0
+    }
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)"
   }
  ],
  "rejected": [],
@@ -22279,7 +22610,5 @@
    "at": "2026-11-13"
   }
  },
- "placed": [
-  "P1129-Nlinks-g1107-br-1"
- ]
+ "placed": []
 }

@@ -1,7 +1,7 @@
 {
  "code": "P0368",
- "state": "used",
- "usedBy": "L0167",
+ "state": "free",
+ "usedBy": null,
  "version": 1,
  "title": "Стеклодувная мастерская в бусине",
  "theme": "Миниатюрные мастерские",

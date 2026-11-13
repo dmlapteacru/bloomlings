@@ -1,7 +1,7 @@
 {
  "code": "P1174",
- "state": "used",
- "usedBy": "L0159",
+ "state": "free",
+ "usedBy": null,
  "version": 1,
  "title": "Долька карамболы с листом",
  "theme": "100 простых читаемых картинок — 2026-11-02",

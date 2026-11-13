@@ -1,7 +1,7 @@
 {
  "code": "P0359",
- "state": "used",
- "usedBy": "L0164",
+ "state": "free",
+ "usedBy": null,
  "version": 1,
  "title": "Булочная съедобных облаков",
  "theme": "Необычные магазины",

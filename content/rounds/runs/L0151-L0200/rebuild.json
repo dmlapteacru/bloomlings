@@ -1,0 +1,149 @@
+{
+ "tag": "2026-11-07",
+ "levels": [
+  {
+   "level": 159,
+   "tag": "2026-11-07",
+   "why": [
+    "передышка 97 % вне 75–90 % и на последнем запасном ходе (ближайшая раскладка): другая картинка"
+   ],
+   "reassign": true,
+   "at": "2026-11-13",
+   "takes": 1,
+   "from": {
+    "picture": "P1174",
+    "candidate": "P1174-Nlinks-g1107-br-1",
+    "share": 0.97,
+    "recipe": "links"
+   }
+  },
+  {
+   "level": 164,
+   "tag": "2026-11-07",
+   "why": [
+    "«по цветам» проигрывает 8 из 24 (нужно около 12)"
+   ],
+   "reassign": false,
+   "at": "2026-11-13",
+   "takes": 1,
+   "from": {
+    "picture": "P0359",
+    "candidate": "P0359-Nlatch+links+hidden-g1107-21",
+    "share": 0.65,
+    "recipe": "latch+links+hidden"
+   }
+  },
+  {
+   "level": 167,
+   "tag": "2026-11-07",
+   "why": [
+    "«по цветам» проигрывает 9 из 24 (нужно около 12)"
+   ],
+   "reassign": false,
+   "at": "2026-11-13",
+   "takes": 1,
+   "from": {
+    "picture": "P0368",
+    "candidate": "P0368-Ncanal+links-g1107-a-1",
+    "share": 0.63,
+    "recipe": "canal+links"
+   }
+  },
+  {
+   "level": 172,
+   "tag": "2026-11-07",
+   "why": [
+    "медиана L155–L174 61 % вне 50–60 % (бот 71 %)"
+   ],
+   "reassign": false,
+   "at": "2026-11-13",
+   "takes": 1,
+   "from": {
+    "picture": "P0305",
+    "candidate": "P0305-Nshutters+cells-g1107-17",
+    "share": 0.71,
+    "recipe": "shutters+cells"
+   }
+  },
+  {
+   "level": 182,
+   "tag": "2026-11-07",
+   "why": [
+    "передышка 100 % вне 75–90 % и на последнем запасном ходе (одна связка): другая картинка"
+   ],
+   "reassign": true,
+   "at": "2026-11-13",
+   "takes": 1,
+   "from": {
+    "picture": "P0267",
+    "candidate": "P0267-Nlinks-g1105-br-s2-3",
+    "share": 1,
+    "recipe": "links"
+   }
+  },
+  {
+   "level": 192,
+   "tag": "2026-11-07",
+   "why": [
+    "медиана L174–L193 60 % вне 50–60 % (бот 64 %)"
+   ],
+   "reassign": false,
+   "at": "2026-11-13",
+   "takes": 1,
+   "from": {
+    "picture": "P0990",
+    "candidate": "P0990-Nshutters+cells-g1107-9",
+    "share": 0.64,
+    "recipe": "shutters+cells"
+   }
+  },
+  {
+   "level": 193,
+   "tag": "2026-11-07",
+   "why": [
+    "«по цветам» проигрывает 10 из 24 (нужно около 12)"
+   ],
+   "reassign": false,
+   "at": "2026-11-13",
+   "takes": 1,
+   "from": {
+    "picture": "P0042",
+    "candidate": "P0042-Ncanal+links+latch-g1107-21",
+    "share": 0.63,
+    "recipe": "canal+links+latch"
+   }
+  },
+  {
+   "level": 197,
+   "tag": "2026-11-07",
+   "why": [
+    "передышка 94 % вне 75–90 % и на последнем запасном ходе (ближайшая раскладка): другая картинка"
+   ],
+   "reassign": true,
+   "at": "2026-11-13",
+   "takes": 1,
+   "from": {
+    "picture": "P1129",
+    "candidate": "P1129-Nlinks-g1107-br-1",
+    "share": 0.94,
+    "recipe": "links"
+   }
+  },
+  {
+   "level": 198,
+   "tag": "2026-11-07",
+   "why": [
+    "«по цветам» проигрывает 11 из 24 (нужно около 12)"
+   ],
+   "reassign": false,
+   "at": "2026-11-13",
+   "takes": 1,
+   "from": {
+    "picture": "P0335",
+    "candidate": "P0335-Nshutters+links-g1107-3",
+    "share": 0.5,
+    "recipe": "shutters+links"
+   }
+  }
+ ]
+}
