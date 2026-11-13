@@ -1,0 +1,33 @@
+{
+ "picture": "P0325",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|canal+cells||tune|2026-11-07",
+   "tune": {
+    "slot": "regular",
+    "t": 0.3,
+    "attempts": 1,
+    "quick": 3,
+    "evaluated": 1,
+    "seconds": 28
+   },
+   "tried": 1,
+   "found": 1,
+   "reasons": {}
+  }
+ ],
+ "tune": {
+  "Normal|canal+cells|regular": {
+   "t": 0.3,
+   "cols": 3,
+   "offset": -3.93,
+   "quick": 0.525,
+   "at": "2026-11-13"
+  }
+ },
+ "placed": [
+  "P0325-Ncanal+cells-g1107-0"
+ ]
+}

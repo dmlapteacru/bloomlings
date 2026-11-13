@@ -1,7 +1,7 @@
 {
  "code": "P0403",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0187",
  "version": 1,
  "title": "Метеорит с древним папоротником",
  "theme": "Доисторические находки",

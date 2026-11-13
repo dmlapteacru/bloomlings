@@ -1,7 +1,7 @@
 {
  "code": "P0352",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0162",
  "version": 1,
  "title": "Венок из карманных часов",
  "theme": "Праздники и карнавал",

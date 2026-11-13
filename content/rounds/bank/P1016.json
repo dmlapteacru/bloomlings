@@ -1,0 +1,35 @@
+{
+ "picture": "P1016",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|links+hidden||tune|after-hard|2026-11-07",
+   "tune": {
+    "slot": "after-hard",
+    "t": 0.18,
+    "attempts": 2,
+    "quick": 5,
+    "evaluated": 2,
+    "seconds": 7
+   },
+   "tried": 2,
+   "found": 1,
+   "reasons": {
+    "evaluate: не тот класс по быстрой оценке": 1
+   }
+  }
+ ],
+ "tune": {
+  "Normal|links+hidden|after-hard": {
+   "t": 0.18,
+   "cols": 4,
+   "offset": -3.36,
+   "quick": 0.875,
+   "at": "2026-11-13"
+  }
+ },
+ "placed": [
+  "P1016-Nlinks+hidden-g1107-a-1"
+ ]
+}

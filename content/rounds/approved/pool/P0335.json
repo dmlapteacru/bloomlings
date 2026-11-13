@@ -1,7 +1,7 @@
 {
  "code": "P0335",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0198",
  "version": 1,
  "title": "Подзорная труба с тропинкой внутри",
  "theme": "Путешествия и походы",

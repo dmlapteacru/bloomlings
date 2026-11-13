@@ -2060,18 +2060,19 @@
    "intro": null,
    "recipe": "shutters+cells",
    "slot": "regular",
-   "picture": "P0948",
-   "title": "Колпак с садовым вихрем",
-   "N": 886,
+   "picture": "P0989",
+   "title": "Почтовый конверт с крыльями-листьями",
+   "N": 868,
    "band": "700–900",
    "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
-   "hidden": 2,
+   "hidden": 3,
    "P": 24,
    "wantLoss": true,
-   "swappedFrom": "P0023",
-   "swaps": 1,
+   "swappedFrom": "P0948",
+   "swaps": 2,
    "tried": [
-    "P0023"
+    "P0023",
+    "P0948"
    ]
   },
   {
@@ -2132,18 +2133,19 @@
    "intro": null,
    "recipe": "latch+links+cells",
    "slot": "regular",
-   "picture": "P1017",
-   "title": "Папоротник-гармошка из ткани",
-   "N": 1180,
+   "picture": "P0413",
+   "title": "Аммонит с часовым механизмом",
+   "N": 882,
    "band": "800–1200",
-   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
-   "hidden": 2,
-   "P": 30,
+   "pack": "packs-0268-0467 · Доисторические находки",
+   "hidden": 4,
+   "P": 24,
    "wantLoss": true,
-   "swappedFrom": "P0304",
-   "swaps": 1,
+   "swappedFrom": "P1017",
+   "swaps": 2,
    "tried": [
-    "P0304"
+    "P0304",
+    "P1017"
    ]
   },
   {
@@ -2194,13 +2196,18 @@
    "intro": null,
    "recipe": "links+cells",
    "slot": "after-hard",
-   "picture": "P0035",
-   "title": "Остров в облаках",
-   "N": 1153,
+   "picture": "P1013",
+   "title": "Пухлый корги и огромный бантик-лист",
+   "N": 921,
    "band": "800–1200",
-   "pack": "batch-0011",
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
    "hidden": 2,
-   "P": 30
+   "P": 25,
+   "swappedFrom": "P0035",
+   "swaps": 1,
+   "tried": [
+    "P0035"
+   ]
   },
   {
    "level": 162,
@@ -2266,13 +2273,18 @@
    "intro": null,
    "recipe": "links",
    "slot": "after-hard",
-   "picture": "P0380",
-   "title": "Рояль с клавишами-домино",
-   "N": 905,
+   "picture": "P0320",
+   "title": "Виолончель с приливом внутри",
+   "N": 895,
    "band": "800–1200",
    "pack": "packs-0268-0467 · Музыка",
-   "hidden": 2,
-   "P": 24
+   "hidden": 3,
+   "P": 24,
+   "swappedFrom": "P0380",
+   "swaps": 1,
+   "tried": [
+    "P0380"
+   ]
   },
   {
    "level": 167,
@@ -2294,14 +2306,19 @@
    "intro": null,
    "recipe": "links+cells",
    "slot": "regular",
-   "picture": "P1027",
-   "title": "Сандалия из стручка и ленты",
-   "N": 1149,
+   "picture": "P1004",
+   "title": "Манжетка с ночным садом",
+   "N": 985,
    "band": "800–1200",
    "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
    "hidden": 3,
-   "P": 30,
-   "wantLoss": true
+   "P": 28,
+   "wantLoss": true,
+   "swappedFrom": "P1027",
+   "swaps": 1,
+   "tried": [
+    "P1027"
+   ]
   },
   {
    "level": 169,
@@ -2323,13 +2340,18 @@
    "intro": null,
    "recipe": "links+hidden",
    "slot": "after-hard",
-   "picture": "P0084",
-   "title": "Ёжик-повар",
-   "N": 944,
+   "picture": "P1016",
+   "title": "Палитра с морковным водопадом",
+   "N": 1093,
    "band": "800–1200",
-   "pack": "batch-0061",
-   "hidden": 1,
-   "P": 24
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
+   "hidden": 3,
+   "P": 30,
+   "swappedFrom": "P0084",
+   "swaps": 1,
+   "tried": [
+    "P0084"
+   ]
   },
   {
    "level": 172,
@@ -2337,13 +2359,19 @@
    "intro": null,
    "recipe": "shutters+cells",
    "slot": "regular",
-   "picture": "P0354",
-   "title": "Башня, сшитая из лоскутов",
-   "N": 880,
+   "picture": "P0305",
+   "title": "Раковина — орбитальная станция",
+   "N": 1083,
    "band": "800–1200",
-   "pack": "packs-0268-0467 · Невозможная архитектура",
-   "hidden": 4,
-   "P": 24
+   "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
+   "hidden": 3,
+   "P": 30,
+   "swappedFrom": "P0035",
+   "swaps": 2,
+   "tried": [
+    "P0354",
+    "P0035"
+   ]
   },
   {
    "level": 173,
@@ -2394,14 +2422,20 @@
    "intro": null,
    "recipe": "shutters+hidden",
    "slot": "regular",
-   "picture": "P0313",
-   "title": "Кекс с собственной погодой",
-   "N": 886,
+   "picture": "P0281",
+   "title": "Самовар-вулкан",
+   "N": 899,
    "band": "700–900",
    "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
-   "hidden": 2,
-   "P": 25,
-   "wantLoss": true
+   "hidden": 4,
+   "P": 24,
+   "wantLoss": true,
+   "swappedFrom": "P0048",
+   "swaps": 2,
+   "tried": [
+    "P0313",
+    "P0048"
+   ]
   },
   {
    "level": 178,
@@ -2409,13 +2443,19 @@
    "intro": null,
    "recipe": "links+hidden",
    "slot": "regular",
-   "picture": "P0011",
-   "title": "Кит",
-   "N": 896,
+   "picture": "P1015",
+   "title": "Сундук для одной большой снежинки",
+   "N": 1018,
    "band": "800–1200",
-   "pack": "batch-0011-env",
-   "hidden": 3,
-   "P": 24
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
+   "hidden": 2,
+   "P": 30,
+   "swappedFrom": "P0023",
+   "swaps": 2,
+   "tried": [
+    "P0011",
+    "P0023"
+   ]
   },
   {
    "level": 179,
@@ -2438,13 +2478,19 @@
    "intro": null,
    "recipe": "links+latch+hidden",
    "slot": "Super Hard",
-   "picture": "P0221",
-   "title": "Безумный Шляпник",
-   "N": 896,
+   "picture": "P0222",
+   "title": "Белый Кролик с часами",
+   "N": 832,
    "band": "700–900",
    "pack": "batch-0168-C",
-   "hidden": 7,
-   "P": 25
+   "hidden": 6,
+   "P": 24,
+   "swappedFrom": "P0298",
+   "swaps": 2,
+   "tried": [
+    "P0221",
+    "P0298"
+   ]
   },
   {
    "level": 181,
@@ -2480,13 +2526,18 @@
    "intro": null,
    "recipe": "shutters+links",
    "slot": "regular",
-   "picture": "P0413",
-   "title": "Аммонит с часовым механизмом",
-   "N": 882,
+   "picture": "P0947",
+   "title": "Сырная расчёска",
+   "N": 1170,
    "band": "800–1200",
-   "pack": "packs-0268-0467 · Доисторические находки",
-   "hidden": 4,
-   "P": 24
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
+   "hidden": 3,
+   "P": 30,
+   "swappedFrom": "P0413",
+   "swaps": 1,
+   "tried": [
+    "P0413"
+   ]
   },
   {
    "level": 184,
@@ -2523,13 +2574,19 @@
    "intro": null,
    "recipe": "links+cells",
    "slot": "after-hard",
-   "picture": "P0390",
-   "title": "Арфа из колосьев",
-   "N": 855,
+   "picture": "P1031",
+   "title": "Плетёный шлем с сахарной звездой",
+   "N": 1122,
    "band": "800–1200",
-   "pack": "packs-0268-0467 · Музыка",
-   "hidden": 0,
-   "P": 24
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
+   "hidden": 4,
+   "P": 30,
+   "swappedFrom": "P0380",
+   "swaps": 2,
+   "tried": [
+    "P0390",
+    "P0380"
+   ]
   },
   {
    "level": 187,
@@ -2537,13 +2594,18 @@
    "intro": null,
    "recipe": "latch+links+hidden",
    "slot": "regular",
-   "picture": "P1008",
-   "title": "Радужный ластик-качалка",
-   "N": 877,
+   "picture": "P0403",
+   "title": "Метеорит с древним папоротником",
+   "N": 865,
    "band": "700–900",
-   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
-   "hidden": 3,
-   "P": 24
+   "pack": "packs-0268-0467 · Доисторические находки",
+   "hidden": 4,
+   "P": 24,
+   "swappedFrom": "P1008",
+   "swaps": 1,
+   "tried": [
+    "P1008"
+   ]
   },
   {
    "level": 188,
@@ -2580,13 +2642,18 @@
    "intro": null,
    "recipe": "links+hidden",
    "slot": "after-hard",
-   "picture": "P0010",
-   "title": "Дракончик на книге",
-   "N": 778,
+   "picture": "P0313",
+   "title": "Кекс с собственной погодой",
+   "N": 886,
    "band": "700–900",
-   "pack": "owner-0010",
-   "hidden": 0,
-   "P": 24
+   "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
+   "hidden": 2,
+   "P": 25,
+   "swappedFrom": "P0010",
+   "swaps": 1,
+   "tried": [
+    "P0010"
+   ]
   },
   {
    "level": 192,
@@ -2594,14 +2661,20 @@
    "intro": null,
    "recipe": "shutters+cells",
    "slot": "regular",
-   "picture": "P1031",
-   "title": "Плетёный шлем с сахарной звездой",
-   "N": 1122,
+   "picture": "P0990",
+   "title": "Зелёный желудёвый лифт",
+   "N": 1018,
    "band": "800–1200",
    "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
-   "hidden": 4,
+   "hidden": 3,
    "P": 30,
-   "wantLoss": true
+   "wantLoss": true,
+   "swappedFrom": "P0934",
+   "swaps": 2,
+   "tried": [
+    "P1031",
+    "P0934"
+   ]
   },
   {
    "level": 193,
@@ -2609,13 +2682,18 @@
    "intro": null,
    "recipe": "canal+links+latch",
    "slot": "regular",
-   "picture": "P0244",
-   "title": "Сыр и мыши в дырках",
+   "picture": "P0042",
+   "title": "Космонавт поливает цветок на астероиде",
    "N": 1152,
    "band": "800–1200",
-   "pack": "batch-0168-D",
+   "pack": "batch-0011-env",
    "hidden": 6,
-   "P": 30
+   "P": 30,
+   "swappedFrom": "P0244",
+   "swaps": 1,
+   "tried": [
+    "P0244"
+   ]
   },
   {
    "level": 194,
@@ -2638,13 +2716,19 @@
    "intro": null,
    "recipe": "links+canal+latch",
    "slot": "Hard",
-   "picture": "P0042",
-   "title": "Космонавт поливает цветок на астероиде",
+   "picture": "P0244",
+   "title": "Сыр и мыши в дырках",
    "N": 1152,
    "band": "800–1200",
-   "pack": "batch-0011-env",
+   "pack": "batch-0168-D",
    "hidden": 6,
-   "P": 30
+   "P": 30,
+   "swappedFrom": "P0236",
+   "swaps": 2,
+   "tried": [
+    "P0042",
+    "P0236"
+   ]
   },
   {
    "level": 196,
@@ -2652,13 +2736,18 @@
    "intro": null,
    "recipe": "links",
    "slot": "after-hard",
-   "picture": "P0038",
-   "title": "Котёл с зельем",
-   "N": 873,
+   "picture": "P0364",
+   "title": "Дом-гармошка",
+   "N": 876,
    "band": "800–1200",
-   "pack": "batch-0011",
-   "hidden": 1,
-   "P": 24
+   "pack": "packs-0268-0467 · Невозможная архитектура",
+   "hidden": 4,
+   "P": 24,
+   "swappedFrom": "P0038",
+   "swaps": 1,
+   "tried": [
+    "P0038"
+   ]
   },
   {
    "level": 197,
@@ -2680,13 +2769,19 @@
    "intro": null,
    "recipe": "shutters+links",
    "slot": "regular",
-   "picture": "P0281",
-   "title": "Самовар-вулкан",
-   "N": 899,
+   "picture": "P0335",
+   "title": "Подзорная труба с тропинкой внутри",
+   "N": 893,
    "band": "700–900",
-   "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
-   "hidden": 4,
-   "P": 24
+   "pack": "packs-0268-0467 · Путешествия и походы",
+   "hidden": 3,
+   "P": 24,
+   "swappedFrom": "P1008",
+   "swaps": 2,
+   "tried": [
+    "P0281",
+    "P1008"
+   ]
   },
   {
    "level": 199,
@@ -2709,13 +2804,19 @@
    "intro": null,
    "recipe": "links+shutters+latch",
    "slot": "Super Hard",
-   "picture": "P0239",
-   "title": "Курица на роликах",
-   "N": 900,
+   "picture": "P0298",
+   "title": "Капля воды с пустыней внутри",
+   "N": 889,
    "band": "800–1200",
-   "pack": "batch-0168-D",
+   "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
    "hidden": 6,
-   "P": 24
+   "P": 24,
+   "swappedFrom": "P0058",
+   "swaps": 2,
+   "tried": [
+    "P0239",
+    "P0058"
+   ]
   }
  ],
  "assignMissing": [],

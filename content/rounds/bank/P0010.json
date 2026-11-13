@@ -2698,11 +2698,33 @@
     "evaluate: не тот класс по быстрой оценке": 3,
     "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
    }
+  },
+  {
+   "combo": "Normal|links+hidden||tune|after-hard|2026-11-07",
+   "tune": {
+    "slot": "after-hard",
+    "t": null,
+    "attempts": 4,
+    "quick": 4,
+    "evaluated": 3,
+    "seconds": 7
+   },
+   "tried": 4,
+   "found": 0,
+   "reasons": {
+    "связки ловушками: очередь сама остаётся выше зоны": 1,
+    "evaluate: не тот класс по быстрой оценке": 3,
+    "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
+   }
   }
  ],
  "placed": [],
  "tune": {
   "Normal|links|after-hard": {
+   "trap": true,
+   "offset": 0.04
+  },
+  "Normal|links+hidden|after-hard": {
    "trap": true,
    "offset": 0.04
   }

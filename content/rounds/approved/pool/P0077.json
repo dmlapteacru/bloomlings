@@ -1,7 +1,7 @@
 {
  "code": "P0077",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0188",
  "version": 1,
  "title": "Подводная лодка",
  "theme": "batch-0061",

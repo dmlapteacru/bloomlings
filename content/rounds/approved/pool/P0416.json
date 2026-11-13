@@ -1,7 +1,7 @@
 {
  "code": "P0416",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0155",
  "version": 1,
  "title": "Каменный воздушный шар",
  "theme": "Обмен свойствами предметов",

@@ -50,6 +50,42 @@
     "быстрая оценка вне зоны после поправок": 3,
     "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
    }
+  },
+  {
+   "combo": "Normal|links+cells||tune|after-hard|2026-11-07",
+   "tune": {
+    "slot": "after-hard",
+    "t": null,
+    "attempts": 4,
+    "quick": 8,
+    "evaluated": 3,
+    "seconds": 27
+   },
+   "tried": 4,
+   "found": 0,
+   "reasons": {
+    "связки ловушками: очередь сама остаётся выше зоны": 1,
+    "evaluate: не тот класс по быстрой оценке": 3,
+    "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
+   }
+  },
+  {
+   "combo": "Normal|shutters+cells||tune|2026-11-07",
+   "tune": {
+    "slot": "regular",
+    "t": null,
+    "attempts": 3,
+    "quick": 6,
+    "evaluated": 0,
+    "seconds": 11
+   },
+   "tried": 3,
+   "found": 0,
+   "reasons": {
+    "быстрая оценка вне зоны после поправок": 2,
+    "акценты: под створками (строим без них)": 1,
+    "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
+   }
   }
  ],
  "tune": {
@@ -60,6 +96,13 @@
   "Normal|canal+links|regular": {
    "trap": true,
    "offset": 0.66
+  },
+  "Normal|links+cells|after-hard": {
+   "trap": true,
+   "offset": 1.28
+  },
+  "Normal|shutters+cells|regular": {
+   "offset": 0.19
   }
  }
 }

@@ -1,0 +1,39 @@
+{
+ "picture": "P0335",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|shutters+links||tune|2026-11-07",
+   "tune": {
+    "slot": "regular",
+    "t": 0.61,
+    "attempts": 4,
+    "quick": 7,
+    "evaluated": 3,
+    "seconds": 49
+   },
+   "tried": 4,
+   "found": 1,
+   "reasons": {
+    "связки ловушками: очередь сама остаётся выше зоны": 1,
+    "быстрая оценка вне зоны после поправок": 1,
+    "evaluate: жадная стратегия выигрывает измеренный класс (§5)": 1,
+    "evaluate: дебют + цвета: больше 35 % после трёх запусков (§5)": 1
+   }
+  }
+ ],
+ "tune": {
+  "Normal|shutters+links|regular": {
+   "trap": true,
+   "t": 0.61,
+   "cols": 3,
+   "offset": -0.93,
+   "quick": 0.525,
+   "at": "2026-11-13"
+  }
+ },
+ "placed": [
+  "P0335-Nshutters+links-g1107-3"
+ ]
+}

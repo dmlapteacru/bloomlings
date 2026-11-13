@@ -1,0 +1,40 @@
+{
+ "picture": "P0381",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Super Hard|links+shutters+cells||tune|2026-11-07",
+   "tune": {
+    "slot": "Super Hard",
+    "t": 0.59,
+    "attempts": 10,
+    "quick": 20,
+    "evaluated": 6,
+    "seconds": 180
+   },
+   "tried": 10,
+   "found": 1,
+   "reasons": {
+    "связки: доза снижена до минимума (вынужденные решения)": 2,
+    "связки: каждая следующая пара поднимает вынужденные решения выше 35 % (§5)": 4,
+    "evaluate: ниже 5 %": 2,
+    "evaluate: спокойная игра: Super Hard выигрывается в 52 % (не больше 25 %, §5)": 1,
+    "evaluate: дозы не подходят фактическому классу: связанных 12 вне 6–8 для Hard": 1,
+    "evaluate: нет решения": 1
+   }
+  }
+ ],
+ "tune": {
+  "Super Hard|links+shutters+cells|Super Hard": {
+   "t": 0.59,
+   "cols": 4,
+   "offset": -2.64,
+   "quick": 0.125,
+   "at": "2026-11-13"
+  }
+ },
+ "placed": [
+  "P0381-Slinks+shutters+cells-g1107-a-9"
+ ]
+}

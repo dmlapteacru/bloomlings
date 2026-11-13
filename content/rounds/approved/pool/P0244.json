@@ -1,7 +1,7 @@
 {
  "code": "P0244",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0195",
  "version": 1,
  "title": "Сыр и мыши в дырках",
  "theme": "Смешные и абсурдные герои",

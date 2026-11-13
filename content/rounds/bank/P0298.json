@@ -1,0 +1,63 @@
+{
+ "picture": "P0298",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Super Hard|links+latch+hidden||tune|2026-11-07",
+   "tune": {
+    "slot": "Super Hard",
+    "t": 0.5,
+    "attempts": 64,
+    "quick": 9,
+    "evaluated": 1,
+    "seconds": 137
+   },
+   "tried": 64,
+   "found": 0,
+   "reasons": {
+    "засов: ключ недоступен (материал пути заперт за засовом) или не хватило колонок нужной глубины": 11,
+    "связки: каждая следующая пара поднимает вынужденные решения выше 35 % (§5)": 52,
+    "связки: доза снижена до минимума (вынужденные решения)": 9,
+    "evaluate: нет решения": 1
+   }
+  },
+  {
+   "combo": "Super Hard|links+shutters+latch||tune|2026-11-07",
+   "tune": {
+    "slot": "Super Hard",
+    "t": 0.5,
+    "attempts": 8,
+    "quick": 3,
+    "evaluated": 1,
+    "seconds": 51
+   },
+   "tried": 8,
+   "found": 1,
+   "reasons": {
+    "засов: ключ недоступен (материал пути заперт за засовом) или не хватило колонок нужной глубины": 2,
+    "связки: каждая следующая пара поднимает вынужденные решения выше 35 % (§5)": 5,
+    "акценты: под створками (строим без них)": 2
+   }
+  }
+ ],
+ "tune": {
+  "Super Hard|links+latch+hidden|Super Hard": {
+   "t": 0.5,
+   "cols": 4,
+   "offset": 0.7,
+   "quick": 0.1,
+   "at": "2026-11-13"
+  },
+  "Super Hard|links+shutters+latch|Super Hard": {
+   "t": 0.5,
+   "cols": 4,
+   "offset": 0.62,
+   "quick": 0.125,
+   "at": "2026-11-13"
+  }
+ },
+ "placed": [
+  "P0298-Slinks+shutters+latch-g1107-a-7"
+ ]
+}

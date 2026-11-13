@@ -38,6 +38,23 @@
     "быстрая оценка вне зоны после поправок": 2,
     "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
    }
+  },
+  {
+   "combo": "Normal|shutters+cells||tune|2026-11-07",
+   "tune": {
+    "slot": "regular",
+    "t": null,
+    "attempts": 3,
+    "quick": 8,
+    "evaluated": 0,
+    "seconds": 9
+   },
+   "tried": 3,
+   "found": 0,
+   "reasons": {
+    "быстрая оценка вне зоны после поправок": 2,
+    "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
+   }
   }
  ],
  "tune": {
@@ -47,6 +64,9 @@
   },
   "Normal|canal+cells|regular": {
    "offset": 0.23
+  },
+  "Normal|shutters+cells|regular": {
+   "offset": -0.01
   }
  }
 }

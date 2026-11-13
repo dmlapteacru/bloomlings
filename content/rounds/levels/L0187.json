@@ -1,0 +1,559 @@
+{
+ "level": 187,
+ "cls": "Normal",
+ "intro": null,
+ "gen": "2026-11-07",
+ "picture": "P0403",
+ "candidate": "P0403-Nlatch+links+hidden-g1107-a-13",
+ "recipe": "latch+links+hidden",
+ "N": 861,
+ "W": 861,
+ "colours": 9,
+ "P": 24,
+ "columns": 4,
+ "linked": 2,
+ "hidden": 2,
+ "latches": 1,
+ "random": {
+  "runs": 400,
+  "wins": 230,
+  "share": 0.575,
+  "wilson95": [
+   0.526,
+   0.623
+  ],
+  "cls": "Normal",
+  "borderline": false,
+  "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+  "seedBase": 1
+ },
+ "solution": {
+  "route": [
+   {
+    "type": "tap",
+    "pod": 18
+   },
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 12
+   },
+   {
+    "type": "tap",
+    "pod": 0
+   },
+   {
+    "type": "tap",
+    "pod": 14
+   },
+   {
+    "type": "tap",
+    "pod": 4
+   },
+   {
+    "type": "tap",
+    "pod": 22
+   },
+   {
+    "type": "tap",
+    "pod": 7
+   },
+   {
+    "type": "tap",
+    "pod": 11
+   },
+   {
+    "type": "tap",
+    "pod": 20
+   },
+   {
+    "type": "tap",
+    "pod": 3
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 16
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 13
+   },
+   {
+    "type": "tap",
+    "pod": 15
+   },
+   {
+    "type": "tap",
+    "pod": 21
+   },
+   {
+    "type": "tap",
+    "pod": 23
+   },
+   {
+    "type": "tap",
+    "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 2
+   },
+   {
+    "type": "tap",
+    "pod": 9
+   },
+   {
+    "type": "tap",
+    "pod": 10
+   },
+   {
+    "type": "tap",
+    "pod": 17
+   }
+  ],
+  "forks": 0,
+  "singleSafe": 0,
+  "unknown": 0,
+  "fast": {
+   "status": "won",
+   "seconds": 98.5
+  }
+ },
+ "fairness": {
+  "checked": 1,
+  "unfair": 0,
+  "unknown": 0,
+  "fair": true,
+  "note": "перестановки материала и числа между скрытыми подами с тем же балансом"
+ },
+ "strategies": {
+  "left-to-right|left": true,
+  "left-to-right|right": true,
+  "right-to-left|left": true,
+  "right-to-left|right": true,
+  "top-down|left": false,
+  "top-down|right": false,
+  "bottom-up|left": true,
+  "bottom-up|right": true,
+  "diagonal|left": true,
+  "diagonal|right": true,
+  "small-first|left": false,
+  "small-first|right": false,
+  "most-now|left": false,
+  "most-now|right": false,
+  "fast-release|left": true,
+  "fast-release|right": true
+ },
+ "rhythm": {
+  "segments": [
+   {
+    "from": 0,
+    "to": 20,
+    "meanFree": 2.49,
+    "minFree": 2,
+    "fullShare": 0,
+    "maxWaiting": 2
+   },
+   {
+    "from": 20,
+    "to": 40,
+    "meanFree": 2.38,
+    "minFree": 2,
+    "fullShare": 0,
+    "maxWaiting": 1
+   },
+   {
+    "from": 40,
+    "to": 60,
+    "meanFree": 2.74,
+    "minFree": 2,
+    "fullShare": 0,
+    "maxWaiting": 1
+   },
+   {
+    "from": 60,
+    "to": 80,
+    "meanFree": 4.21,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   },
+   {
+    "from": 80,
+    "to": 100,
+    "meanFree": 4.41,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   }
+  ],
+  "launchesAfter80": 4,
+  "lastLaunchAtW": 97,
+  "seconds": 437.1
+ },
+ "dosePos": 1,
+ "checks": {
+  "forced": 0.19,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": true,
+  "hiddenMatters": {
+   "ok": false,
+   "pods": [
+    {
+     "pod": 12,
+     "revealAt": 2,
+     "gap": 0,
+     "newColour": false
+    },
+    {
+     "pod": 14,
+     "revealAt": 4,
+     "gap": 0,
+     "newColour": false
+    }
+   ]
+  },
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.51,
+   "tight": 0.88
+  },
+  "calm": {
+   "runs": 400,
+   "wins": 202,
+   "share": 0.505,
+   "wilson95": [
+    0.456,
+    0.554
+   ],
+   "borderline": true,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 1,
+   "traps": 1,
+   "top": 1
+  },
+  "latch": {
+   "latches": [
+    {
+     "latch": 0,
+     "column": 1,
+     "depth": 3,
+     "behind": 3,
+     "key": 722,
+     "atW": 0.76,
+     "command": 19,
+     "waitMs": 194775
+    }
+   ],
+   "maxBlocked": 1,
+   "limit": 2,
+   "lastOpenAtW": 0.76,
+   "waits": true,
+   "randomOverLimit": 0,
+   "ok": true,
+   "problems": [],
+   "notes": []
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "H",
+     "name": "Лаванда",
+     "from": "G",
+     "cells": 7,
+     "clusters": 2,
+     "pods": [
+      {
+       "pod": 7,
+       "count": 7,
+       "row": 1
+      }
+     ]
+    }
+   ],
+   "cells": 7,
+   "pressure": {
+    "with": 1.51,
+    "without": 1.05
+   }
+  }
+ },
+ "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+ "definition": {
+  "id": 187,
+  "title": "Метеорит с древним папоротником",
+  "subject": "P0403",
+  "w": 41,
+  "h": 44,
+  "rowsBottomFirst": [
+   "####################.####################",
+   "#.......................................#",
+   "#....................EEEEEEEEEE.........#",
+   "#.........EEEEEEEEEEEEENNNNNNNNE........#",
+   "#........NNNNNNNNNNNNNNNNNNNNNNEE.......#",
+   "#.......NNNNNNNNNNNNNNNNNNNNNNNNE.......#",
+   "#......NNNNNNNNNNNNNNNNNNNNNSNNNNN......#",
+   "#.....NNNNNNNNNNNNNYYNNNNNSSSSSNNNE.....#",
+   "#....NNNNNNVVVNNNNYYYYNNNNSSSSSNNNEE....#",
+   "#...NNNNNVVVVVVVNNYYYYNNNSSSSSSNNNNE....#",
+   "#..NNNNNNVVVVVVVVNYYYYNNNSSSSSSSNNNNE...#",
+   "#.ENNNNNVVVVVVVVVNNNNNNNNSSSSSSNNNNNEE..#",
+   "#.EENNNNNVVVVVVVVNNNNNNNNNSSSSSNNNNNNE..#",
+   "#..ENNNNNVVVVVVVNNNNNNNNNNSSSSSNNNNNNNN.#",
+   "#..ENNNNNNNVVVNNNNNNNNNNNNNNSNNNNNNNNE..#",
+   "#..EENNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNEE..#",
+   "#...ENNNNNNNNNNNNNAANNNNNNNNNNNNNNNEE...#",
+   "#...ENNNNNNNNNNNNNAANNNNN..NNNNNNNEE....#",
+   "#....NNNNNNNNNNNNNAANNNNN..NNNNNNNE.....#",
+   "#.....NNNNGGGGGGNNAANNNNNNNNNNNNNN......#",
+   "#......NNNGGGGGGGGAANNNNNNNNNNNNN.......#",
+   "#.......EEGGGGGGHGGANNMMMMMNNNNN........#",
+   "#........EGGGGGGHHGGMMMMMMMMNNN.........#",
+   "#..........GGGGGGGGMMMMMMMMMNN..........#",
+   "#..........GGGGGGGMMMMMMMMMM............#",
+   "#..........GGGGGGGMMMMMMMMM.............#",
+   "#...........GGGGGGMMMMMMMMM.............#",
+   "#............GGGGGGGMMMMMM..............#",
+   "#............GGGGGGGGMMMMMMMM...........#",
+   "#............GGGGGHHGGMMMMMMM...........#",
+   "#............GGGGGHHGMMMMMMMM...........#",
+   "#.............GGGGGGGMMMMMMMM...........#",
+   "#..............GGGGGGGGGMMMMM...........#",
+   "#...............GGGGGGGGGGMM............#",
+   "#.................GGGGGGGGGMMMMMMM......#",
+   "#..................GGGGGGGGMMMMMMM......#",
+   "#..................GGGGGGGMMMMMMMM......#",
+   "#...................GGGGGGMMMMMMM.......#",
+   "#....................GGGGMMMMMMMM.......#",
+   "#.......................GMMMMMMM........#",
+   "#........................MMMMMM.........#",
+   "#.........................MMMM..........#",
+   "#.......................................#",
+   "#########################################"
+  ],
+  "entries": [
+   20
+  ],
+  "capacity": 5,
+  "pods": [
+   {
+    "color": "M",
+    "count": 37
+   },
+   {
+    "color": "M",
+    "count": 37
+   },
+   {
+    "color": "M",
+    "count": 37
+   },
+   {
+    "color": "M",
+    "count": 37
+   },
+   {
+    "color": "G",
+    "count": 49
+   },
+   {
+    "color": "G",
+    "count": 49
+   },
+   {
+    "color": "G",
+    "count": 49
+   },
+   {
+    "color": "H",
+    "count": 7
+   },
+   {
+    "color": "N",
+    "count": 50
+   },
+   {
+    "color": "N",
+    "count": 49
+   },
+   {
+    "color": "N",
+    "count": 49
+   },
+   {
+    "color": "N",
+    "count": 49
+   },
+   {
+    "color": "N",
+    "count": 49,
+    "mystery": "depth"
+   },
+   {
+    "color": "N",
+    "count": 49
+   },
+   {
+    "color": "N",
+    "count": 49,
+    "mystery": "depth"
+   },
+   {
+    "color": "N",
+    "count": 49
+   },
+   {
+    "color": "E",
+    "count": 28
+   },
+   {
+    "color": "E",
+    "count": 27
+   },
+   {
+    "color": "A",
+    "count": 11,
+    "group": "A"
+   },
+   {
+    "color": "V",
+    "count": 23,
+    "group": "A"
+   },
+   {
+    "color": "V",
+    "count": 22
+   },
+   {
+    "color": "S",
+    "count": 21
+   },
+   {
+    "color": "S",
+    "count": 20
+   },
+   {
+    "color": "Y",
+    "count": 14
+   }
+  ],
+  "tray": [
+   [
+    19,
+    6,
+    12,
+    0,
+    14,
+    4
+   ],
+   [
+    22,
+    7,
+    11,
+    2,
+    9,
+    10
+   ],
+   [
+    18,
+    20,
+    3,
+    1,
+    16,
+    5
+   ],
+   [
+    13,
+    15,
+    21,
+    23,
+    8,
+    17
+   ]
+  ],
+  "recipe": "latch+links+hidden",
+  "overlay": {
+   "walls": [],
+   "sites": [],
+   "keys": [
+    [
+     23,
+     23
+    ],
+    [
+     24,
+     23
+    ],
+    [
+     23,
+     24
+    ],
+    [
+     24,
+     24
+    ]
+   ]
+  },
+  "recolor": [
+   [
+    16,
+    11,
+    "H"
+   ],
+   [
+    17,
+    11,
+    "H"
+   ],
+   [
+    16,
+    12,
+    "H"
+   ],
+   [
+    17,
+    12,
+    "H"
+   ],
+   [
+    14,
+    19,
+    "H"
+   ],
+   [
+    15,
+    19,
+    "H"
+   ],
+   [
+    14,
+    20,
+    "H"
+   ]
+  ],
+  "latches": [
+   {
+    "column": 1,
+    "depth": 3,
+    "key": 722
+   }
+  ],
+  "difficulty": "Normal"
+ }
+}

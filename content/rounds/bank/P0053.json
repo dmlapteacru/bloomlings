@@ -2260,6 +2260,36 @@
    "reasons": {
     "не тот класс по быстрой оценке": 28
    }
+  },
+  {
+   "combo": "Normal|links||tune|after-hard|2026-11-07",
+   "tune": {
+    "slot": "after-hard",
+    "t": 0.62,
+    "attempts": 2,
+    "quick": 4,
+    "evaluated": 2,
+    "seconds": 8
+   },
+   "tried": 2,
+   "found": 1,
+   "reasons": {
+    "связки ловушками: очередь сама остаётся выше зоны": 1,
+    "evaluate: не тот класс по быстрой оценке": 1
+   }
   }
+ ],
+ "tune": {
+  "Normal|links|after-hard": {
+   "trap": true,
+   "t": 0.62,
+   "cols": 4,
+   "offset": -1.62,
+   "quick": 0.8,
+   "at": "2026-11-13"
+  }
+ },
+ "placed": [
+  "P0053-Nlinks-g1107-a-1"
  ]
 }

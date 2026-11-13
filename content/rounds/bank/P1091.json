@@ -1,0 +1,37 @@
+{
+ "picture": "P1091",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Normal|links+cells||tune|after-hard|2026-11-07",
+   "tune": {
+    "slot": "after-hard",
+    "t": 0.87,
+    "attempts": 2,
+    "quick": 5,
+    "evaluated": 2,
+    "seconds": 6
+   },
+   "tried": 2,
+   "found": 1,
+   "reasons": {
+    "связки ловушками: очередь сама остаётся выше зоны": 1,
+    "evaluate: не тот класс по быстрой оценке": 1
+   }
+  }
+ ],
+ "tune": {
+  "Normal|links+cells|after-hard": {
+   "trap": true,
+   "t": 0.87,
+   "cols": 3,
+   "offset": -3.29,
+   "quick": 0.775,
+   "at": "2026-11-13"
+  }
+ },
+ "placed": [
+  "P1091-Nlinks+cells-g1107-a-1"
+ ]
+}

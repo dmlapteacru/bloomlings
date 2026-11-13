@@ -20,12 +20,40 @@
     "evaluate: не тот класс по быстрой оценке": 4,
     "картинка слишком лёгкая для зоны: выше даже с обратным порядком (t = 1)": 1
    }
+  },
+  {
+   "combo": "Normal|links+cells||tune|2026-11-07",
+   "tune": {
+    "slot": "regular",
+    "t": 0.62,
+    "attempts": 4,
+    "quick": 10,
+    "evaluated": 1,
+    "seconds": 21
+   },
+   "tried": 4,
+   "found": 1,
+   "reasons": {
+    "связки ловушками: очередь сама остаётся выше зоны": 1,
+    "быстрая оценка вне зоны после поправок": 3
+   }
   }
  ],
  "tune": {
   "Normal|links+cells|after-hard": {
    "trap": true,
    "offset": 0.66
+  },
+  "Normal|links+cells|regular": {
+   "trap": true,
+   "t": 0.62,
+   "cols": 4,
+   "offset": 0.19,
+   "quick": 0.55,
+   "at": "2026-11-13"
   }
- }
+ },
+ "placed": [
+  "P0299-Nlinks+cells-g1107-3"
+ ]
 }

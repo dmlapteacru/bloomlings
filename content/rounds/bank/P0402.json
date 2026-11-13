@@ -1,0 +1,33 @@
+{
+ "picture": "P0402",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Hard|links+shutters+hidden||tune|2026-11-07",
+   "tune": {
+    "slot": "Hard",
+    "t": 0.32,
+    "attempts": 1,
+    "quick": 1,
+    "evaluated": 1,
+    "seconds": 15
+   },
+   "tried": 1,
+   "found": 1,
+   "reasons": {}
+  }
+ ],
+ "tune": {
+  "Hard|links+shutters+hidden|Hard": {
+   "t": 0.32,
+   "cols": 4,
+   "offset": 0.52,
+   "quick": 0.45,
+   "at": "2026-11-13"
+  }
+ },
+ "placed": [
+  "P0402-Hlinks+shutters+hidden-g1107-a-0"
+ ]
+}

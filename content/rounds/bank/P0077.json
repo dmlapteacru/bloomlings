@@ -2710,6 +2710,5752 @@
    "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
    "seed": 1,
    "attempt": 2
+  },
+  {
+   "id": "P0077-Ncanal+links-g1107-3",
+   "picture": "P0077",
+   "requested": "Normal",
+   "cls": "Normal",
+   "intro": false,
+   "recipe": "canal+links",
+   "gen": "2026-11-07",
+   "level": {
+    "id": 1,
+    "title": "Подводная лодка",
+    "subject": "P0077",
+    "w": 38,
+    "h": 36,
+    "rowsBottomFirst": [
+     "###################.##################",
+     "#....................................#",
+     "#.CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.#",
+     "#.CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.#",
+     "#.CCCGCCCGCCCCCCCCCCCCCCCCCCCCCCCCCC.#",
+     "#.BBGGCCBGGBBBBBBBBBBBBBBRBBBRRRRBBB.#",
+     "#.BBGGCBBGGBBBBBBBBBBBBBBRRBRRRRRRBB.#",
+     "#.BBGGBBBGGBBBBBBBBBBBBBBRRRRRRRRDRB.#",
+     "#.BBGGBBBGGBBBBBBBBBBBBBBRRBRRRRRRBB.#",
+     "#.BBGGBOOOBBBBBBBBOOOOOBBRBBBRRRRBBB.#",
+     "#.BBGGBOOOOBBBOOO.OOOOOOOOOBBBBBBBBB.#",
+     "#.BBBGGBOOOBOOOOOOOOOOOOOOOOOBBBBBBB.#",
+     "#.BRRB##########################BBBB.#",
+     "#.BRR##YYYYYYYYYY.YYYYYYYYYYYYY##BBB.#",
+     "#.BRR#YYYYYYYDDDYYYDDDYYYDDDYYYY#BBB.#",
+     "#.BRR#DYYYYYDSSSDYDSSSDYDSSSDYYY#BBB.#",
+     "#.BRR#DYYYYYDSSSDYDSSSDYDSSSDYYY#BBB.#",
+     "#.BRR#YYYYYYDCSSDYDCSSDYDCSSDYYY#BBB.#",
+     "#.BRR##YYYYYYDDDYYYDDDYYYDDDYYY##BBB.#",
+     "#.BRRB#BOOYYYYYYYYYYYYYYYYYYYY##BBBB.#",
+     "#.BBB##BOOOBYYYYYYYYYYYYYYYYY##BBBBB.#",
+     "#.BB##SOOOO###YYYYYYYYYYYYY###BBBBBB.#",
+     "#.BB#SSOOO##B#YYYYYYYYYYY###BBBBBBBB.#",
+     "#.BB#SSS###BB#YYYYYYYYYYY#BBBBBBBBBB.#",
+     "#.BB##S##BBBB#YYYYYYYYYYY#BBBBBBBBBB.#",
+     "#.BBB###BBBBB#YYYYYYYYYYY#BBBBBBBBBB.#",
+     "#.BBSBBBBBBBB##OOOO.OOOO##BOOOOBBBOB.#",
+     "#.BSSSBBBBBBBB###########BOOOOOOBOOB.#",
+     "#.BBSBBBBBBBBBBBBBBBDDBBBODOOOOOOOOB.#",
+     "#.BBBBBBBBBBBBBBBBBBDDBBBBOOOOOOBOOB.#",
+     "#.BBBBSSBBBBBBBBBBBBDDBBBBBOOOOBBBOB.#",
+     "#.BBBSSSSBBBBBBBBBBBDDDDDDBBBBBBBBBB.#",
+     "#.BBBBSSBBBBBBBBBBBBDDDDDDBBBBBBBBBB.#",
+     "#.BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB.#",
+     "#....................................#",
+     "######################################"
+    ],
+    "entries": [
+     19
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "B",
+      "count": 54
+     },
+     {
+      "color": "B",
+      "count": 54
+     },
+     {
+      "color": "B",
+      "count": 54
+     },
+     {
+      "color": "B",
+      "count": 53,
+      "group": "A"
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "S",
+      "count": 22
+     },
+     {
+      "color": "S",
+      "count": 22
+     },
+     {
+      "color": "D",
+      "count": 29
+     },
+     {
+      "color": "D",
+      "count": 29
+     },
+     {
+      "color": "O",
+      "count": 33
+     },
+     {
+      "color": "O",
+      "count": 33
+     },
+     {
+      "color": "O",
+      "count": 33
+     },
+     {
+      "color": "Y",
+      "count": 60
+     },
+     {
+      "color": "Y",
+      "count": 60
+     },
+     {
+      "color": "Y",
+      "count": 60
+     },
+     {
+      "color": "R",
+      "count": 26
+     },
+     {
+      "color": "R",
+      "count": 25
+     },
+     {
+      "color": "C",
+      "count": 36
+     },
+     {
+      "color": "C",
+      "count": 35
+     },
+     {
+      "color": "C",
+      "count": 35
+     },
+     {
+      "color": "G",
+      "count": 12,
+      "group": "A"
+     },
+     {
+      "color": "G",
+      "count": 12
+     }
+    ],
+    "tray": [
+     [
+      6,
+      18,
+      8,
+      0,
+      21,
+      15,
+      17
+     ],
+     [
+      23,
+      10,
+      12,
+      11,
+      19,
+      9
+     ],
+     [
+      3,
+      5,
+      13,
+      22,
+      14,
+      16
+     ],
+     [
+      1,
+      20,
+      24,
+      7,
+      4,
+      2
+     ]
+    ],
+    "recipe": "canal+links",
+    "overlay": {
+     "walls": [],
+     "sites": [],
+     "keys": [
+      [
+       15,
+       23
+      ],
+      [
+       17,
+       7
+      ],
+      [
+       15,
+       20
+      ]
+     ],
+     "water": [
+      [
+       12,
+       6
+      ],
+      [
+       13,
+       6
+      ],
+      [
+       14,
+       6
+      ],
+      [
+       12,
+       7
+      ],
+      [
+       15,
+       6
+      ],
+      [
+       16,
+       6
+      ],
+      [
+       17,
+       6
+      ],
+      [
+       18,
+       6
+      ],
+      [
+       19,
+       6
+      ],
+      [
+       20,
+       6
+      ],
+      [
+       21,
+       6
+      ],
+      [
+       22,
+       6
+      ],
+      [
+       22,
+       7
+      ],
+      [
+       11,
+       7
+      ],
+      [
+       11,
+       8
+      ],
+      [
+       11,
+       9
+      ],
+      [
+       23,
+       7
+      ],
+      [
+       23,
+       8
+      ],
+      [
+       23,
+       9
+      ],
+      [
+       3,
+       8
+      ],
+      [
+       4,
+       8
+      ],
+      [
+       5,
+       8
+      ],
+      [
+       3,
+       9
+      ],
+      [
+       5,
+       9
+      ],
+      [
+       11,
+       10
+      ],
+      [
+       23,
+       10
+      ],
+      [
+       2,
+       9
+      ],
+      [
+       2,
+       10
+      ],
+      [
+       2,
+       11
+      ],
+      [
+       6,
+       9
+      ],
+      [
+       6,
+       10
+      ],
+      [
+       11,
+       11
+      ],
+      [
+       23,
+       11
+      ],
+      [
+       2,
+       12
+      ],
+      [
+       3,
+       12
+      ],
+      [
+       7,
+       10
+      ],
+      [
+       8,
+       10
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       11,
+       12
+      ],
+      [
+       3,
+       13
+      ],
+      [
+       4,
+       13
+      ],
+      [
+       9,
+       11
+      ],
+      [
+       9,
+       12
+      ],
+      [
+       24,
+       11
+      ],
+      [
+       25,
+       11
+      ],
+      [
+       25,
+       12
+      ],
+      [
+       4,
+       14
+      ],
+      [
+       10,
+       12
+      ],
+      [
+       26,
+       12
+      ],
+      [
+       27,
+       12
+      ],
+      [
+       27,
+       13
+      ],
+      [
+       4,
+       15
+      ],
+      [
+       28,
+       13
+      ],
+      [
+       28,
+       14
+      ],
+      [
+       29,
+       14
+      ],
+      [
+       29,
+       15
+      ],
+      [
+       3,
+       15
+      ],
+      [
+       3,
+       16
+      ],
+      [
+       3,
+       17
+      ],
+      [
+       30,
+       15
+      ],
+      [
+       30,
+       16
+      ],
+      [
+       30,
+       17
+      ],
+      [
+       3,
+       18
+      ],
+      [
+       30,
+       18
+      ],
+      [
+       3,
+       19
+      ],
+      [
+       30,
+       19
+      ],
+      [
+       3,
+       20
+      ],
+      [
+       4,
+       20
+      ],
+      [
+       29,
+       20
+      ],
+      [
+       30,
+       20
+      ],
+      [
+       4,
+       21
+      ],
+      [
+       5,
+       21
+      ],
+      [
+       6,
+       21
+      ],
+      [
+       7,
+       21
+      ],
+      [
+       8,
+       21
+      ],
+      [
+       9,
+       21
+      ],
+      [
+       10,
+       21
+      ],
+      [
+       11,
+       21
+      ],
+      [
+       12,
+       21
+      ],
+      [
+       13,
+       21
+      ],
+      [
+       14,
+       21
+      ],
+      [
+       15,
+       21
+      ],
+      [
+       16,
+       21
+      ],
+      [
+       17,
+       21
+      ],
+      [
+       18,
+       21
+      ],
+      [
+       19,
+       21
+      ],
+      [
+       20,
+       21
+      ],
+      [
+       21,
+       21
+      ],
+      [
+       22,
+       21
+      ],
+      [
+       23,
+       21
+      ],
+      [
+       24,
+       21
+      ],
+      [
+       25,
+       21
+      ],
+      [
+       26,
+       21
+      ],
+      [
+       27,
+       21
+      ],
+      [
+       28,
+       21
+      ],
+      [
+       29,
+       21
+      ]
+     ]
+    },
+    "channel": {
+     "spring": 397,
+     "exits": [
+      {
+       "cell": 1007,
+       "route": [
+        397,
+        398,
+        399,
+        437,
+        475,
+        513,
+        551,
+        589,
+        627,
+        665,
+        703,
+        741,
+        779,
+        817,
+        855,
+        893,
+        931,
+        969,
+        1007
+       ],
+       "rideUs": 1080000
+      },
+      {
+       "cell": 511,
+       "route": [
+        397,
+        435,
+        473,
+        511
+       ],
+       "rideUs": 400000
+      }
+     ]
+    }
+   },
+   "N": 989,
+   "W": 989,
+   "colours": 8,
+   "P": 25,
+   "columns": 4,
+   "linked": 2,
+   "hidden": 0,
+   "channel": true,
+   "slot": "regular",
+   "inZone": true,
+   "random": {
+    "runs": 400,
+    "wins": 201,
+    "share": 0.502,
+    "wilson95": [
+     0.454,
+     0.551
+    ],
+    "cls": "Normal",
+    "borderline": true,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 6
+     },
+     {
+      "type": "tap",
+      "pod": 18
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 21
+     },
+     {
+      "type": "tap",
+      "pod": 15
+     },
+     {
+      "type": "tap",
+      "pod": 17
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     },
+     {
+      "type": "channel",
+      "exit": 0
+     },
+     {
+      "type": "tap",
+      "pod": 10
+     },
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 11
+     },
+     {
+      "type": "tap",
+      "pod": 19
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 13
+     },
+     {
+      "type": "tap",
+      "pod": 22
+     },
+     {
+      "type": "tap",
+      "pod": 14
+     },
+     {
+      "type": "tap",
+      "pod": 16
+     },
+     {
+      "type": "tap",
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 20
+     },
+     {
+      "type": "tap",
+      "pod": 24
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 2
+     }
+    ],
+    "forks": 0,
+    "singleSafe": 0,
+    "unknown": 0,
+    "fast": {
+     "status": "won",
+     "seconds": 162
+    }
+   },
+   "fairness": {
+    "fair": true,
+    "checked": 0
+   },
+   "strategies": {
+    "left-to-right|left": true,
+    "left-to-right|right": true,
+    "right-to-left|left": false,
+    "right-to-left|right": true,
+    "top-down|left": true,
+    "top-down|right": true,
+    "bottom-up|left": false,
+    "bottom-up|right": false,
+    "diagonal|left": false,
+    "diagonal|right": false,
+    "small-first|left": true,
+    "small-first|right": true,
+    "most-now|left": true,
+    "most-now|right": true,
+    "fast-release|left": true,
+    "fast-release|right": true
+   },
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 3.64,
+      "minFree": 0,
+      "fullShare": 0.06,
+      "maxWaiting": 3
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 2.2,
+      "minFree": 0,
+      "fullShare": 0.13,
+      "maxWaiting": 3
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 3.11,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 2
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 2.25,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 2
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 3.67,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 2
+     }
+    ],
+    "launchesAfter80": 3,
+    "lastLaunchAtW": 95,
+    "seconds": 487.9
+   },
+   "dosePos": 0.7,
+   "blend": 0.43,
+   "tune": {
+    "steps": [
+     {
+      "t": 0.62,
+      "q": 0.3
+     },
+     {
+      "t": 0.43,
+      "q": 0.5
+     }
+    ],
+    "links": {
+     "pairs": 1,
+     "traps": 1,
+     "forced": 0.08,
+     "greedy": null
+    },
+    "seconds": 75
+   },
+   "checks": {
+    "forced": 0.08,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": false,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.25,
+     "tight": 0.88
+    },
+    "calm": {
+     "runs": 400,
+     "wins": 186,
+     "share": 0.465,
+     "wilson95": [
+      0.417,
+      0.514
+     ],
+     "borderline": true,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 1,
+     "traps": 1,
+     "top": 1
+    },
+    "channel": {
+     "each": [
+      {
+       "exit": 0,
+       "win": true,
+       "share": 0.42
+      },
+      {
+       "exit": 1,
+       "win": true,
+       "share": 0.7
+      }
+     ],
+     "gap": 0.28,
+     "decides": false,
+     "better": 1
+    },
+    "island": {
+     "island": {
+      "cells": 275,
+      "share": 0.278
+     },
+     "exitsOn": [
+      true,
+      true
+     ],
+     "ready": {
+      "atW": 0.228
+     },
+     "open": {
+      "exit": 0,
+      "atW": 0.241
+     },
+     "ok": true,
+     "problems": [],
+     "notes": []
+    }
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "seed": 1,
+   "attempt": 3
+  },
+  {
+   "id": "P0077-Ncanal+links-g1107-a-4",
+   "picture": "P0077",
+   "requested": "Normal",
+   "cls": "Normal",
+   "intro": false,
+   "recipe": "canal+links",
+   "gen": "2026-11-07",
+   "level": {
+    "id": 1,
+    "title": "Подводная лодка",
+    "subject": "P0077",
+    "w": 38,
+    "h": 36,
+    "rowsBottomFirst": [
+     "###################.##################",
+     "#....................................#",
+     "#.CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.#",
+     "#.CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.#",
+     "#.CCCGCCCGCCCCCCCCCCCCCCCCCCCCCCCCCC.#",
+     "#.BBGGCCBGGBBBBBBBBBBBBBBRBBBRRRRBBB.#",
+     "#.BBGGCBBGGBBBBBBBBBBBBBBRRBRRRRRRBB.#",
+     "#.BBGGBBBGGBBBBBBBBBBBBBBRRRRRRRRDRB.#",
+     "#.BBGGBBBGGBBBBBBBBBBBBBBRRBRRRRRRBB.#",
+     "#.BBGGBOOOBBBBBBBBOOOOOBBRBBBRRRRBBB.#",
+     "#.BBGGBOOOOBBBOOO.OOFFOOOOOBBBBBBBBB.#",
+     "#.BBBGGBOOOBOOOOOOOOOOOOOOOOOBBBBBBB.#",
+     "#.BRRB##########################BBBB.#",
+     "#.BRR##YYYYYYYYYY.YYYYYYYYYYYYY##BBB.#",
+     "#.BRR#YYYYYYYDDDYYYDDDYYYDDDYYYY#BBB.#",
+     "#.BRR#DYYYYYDSSSDYDSSSDYDSSSDYYY#BBB.#",
+     "#.BRR#DYYYYYDSSSDYDSSSDYDSSSDYYY#BBB.#",
+     "#.BRR#YYYYYYDCSSDYDCSSDYDCSSDYYY#BBB.#",
+     "#.BRR##YYYYYYDDDYYYDDDYYYDDDYYY##BBB.#",
+     "#.BRRB#BOOYYYYYYYYYYYYYYYYYYYY##BBBB.#",
+     "#.BBB##BOOOBYYYYYYYYYYYYYYYYY##BBBBB.#",
+     "#.BB##SOOOO###YYYYYYYYYYYYY###BBBBBB.#",
+     "#.BB#SSOOO##B#YYYYYYYYYYY###BBBBBBBB.#",
+     "#.BB#SSS###BB#YYYYYYYYYYY#BBBBBBBBBB.#",
+     "#.BB##S##BBBB#YYYYYYYYYYY#BBBBBBBBBB.#",
+     "#.BBB###BBBBB#YYYYYYYYYYY#BBBBBBBBBB.#",
+     "#.BBSBBBBBBBB##OOOO.OOOO##BOOOOBBBOB.#",
+     "#.BSSSBBBBBBBB###########BOOOOOOBOOB.#",
+     "#.BBSBBBBBBBBBBBBBBBDDBBBODOOOOOOOOB.#",
+     "#.BBBBBBBBBBBBBBBBBBDDBBBBOOFFOOBOOB.#",
+     "#.BBBBSSBBBBBBBBBBBBDDBBBBBOOOOBBBOB.#",
+     "#.BBBSSSSBBBBBBBBBBBDDDDDDBBBBBBBBBB.#",
+     "#.BBBBSSBBBBBBBBBBBBDDDDDDBBBBBBBBBB.#",
+     "#.BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB.#",
+     "#....................................#",
+     "######################################"
+    ],
+    "entries": [
+     19
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "B",
+      "count": 54
+     },
+     {
+      "color": "B",
+      "count": 54
+     },
+     {
+      "color": "B",
+      "count": 54
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "S",
+      "count": 22,
+      "group": "A"
+     },
+     {
+      "color": "S",
+      "count": 22
+     },
+     {
+      "color": "D",
+      "count": 29
+     },
+     {
+      "color": "D",
+      "count": 29
+     },
+     {
+      "color": "O",
+      "count": 32
+     },
+     {
+      "color": "O",
+      "count": 32
+     },
+     {
+      "color": "O",
+      "count": 31
+     },
+     {
+      "color": "F",
+      "count": 4
+     },
+     {
+      "color": "Y",
+      "count": 60
+     },
+     {
+      "color": "Y",
+      "count": 60
+     },
+     {
+      "color": "Y",
+      "count": 60
+     },
+     {
+      "color": "R",
+      "count": 26
+     },
+     {
+      "color": "R",
+      "count": 25
+     },
+     {
+      "color": "C",
+      "count": 36
+     },
+     {
+      "color": "C",
+      "count": 35
+     },
+     {
+      "color": "C",
+      "count": 35
+     },
+     {
+      "color": "G",
+      "count": 12,
+      "group": "A"
+     },
+     {
+      "color": "G",
+      "count": 12
+     }
+    ],
+    "tray": [
+     [
+      4,
+      14,
+      3,
+      21,
+      7,
+      11,
+      12
+     ],
+     [
+      24,
+      0,
+      10,
+      9,
+      23,
+      5,
+      13
+     ],
+     [
+      8,
+      16,
+      20,
+      15,
+      18,
+      25
+     ],
+     [
+      22,
+      6,
+      1,
+      2,
+      19,
+      17
+     ]
+    ],
+    "recipe": "canal+links",
+    "overlay": {
+     "walls": [],
+     "sites": [],
+     "keys": [
+      [
+       15,
+       23
+      ],
+      [
+       17,
+       7
+      ],
+      [
+       15,
+       20
+      ]
+     ],
+     "water": [
+      [
+       12,
+       6
+      ],
+      [
+       13,
+       6
+      ],
+      [
+       14,
+       6
+      ],
+      [
+       12,
+       7
+      ],
+      [
+       15,
+       6
+      ],
+      [
+       16,
+       6
+      ],
+      [
+       17,
+       6
+      ],
+      [
+       18,
+       6
+      ],
+      [
+       19,
+       6
+      ],
+      [
+       20,
+       6
+      ],
+      [
+       21,
+       6
+      ],
+      [
+       22,
+       6
+      ],
+      [
+       22,
+       7
+      ],
+      [
+       11,
+       7
+      ],
+      [
+       11,
+       8
+      ],
+      [
+       11,
+       9
+      ],
+      [
+       23,
+       7
+      ],
+      [
+       23,
+       8
+      ],
+      [
+       23,
+       9
+      ],
+      [
+       3,
+       8
+      ],
+      [
+       4,
+       8
+      ],
+      [
+       5,
+       8
+      ],
+      [
+       3,
+       9
+      ],
+      [
+       5,
+       9
+      ],
+      [
+       11,
+       10
+      ],
+      [
+       23,
+       10
+      ],
+      [
+       2,
+       9
+      ],
+      [
+       2,
+       10
+      ],
+      [
+       2,
+       11
+      ],
+      [
+       6,
+       9
+      ],
+      [
+       6,
+       10
+      ],
+      [
+       11,
+       11
+      ],
+      [
+       23,
+       11
+      ],
+      [
+       2,
+       12
+      ],
+      [
+       3,
+       12
+      ],
+      [
+       7,
+       10
+      ],
+      [
+       8,
+       10
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       11,
+       12
+      ],
+      [
+       3,
+       13
+      ],
+      [
+       4,
+       13
+      ],
+      [
+       9,
+       11
+      ],
+      [
+       9,
+       12
+      ],
+      [
+       24,
+       11
+      ],
+      [
+       25,
+       11
+      ],
+      [
+       25,
+       12
+      ],
+      [
+       4,
+       14
+      ],
+      [
+       10,
+       12
+      ],
+      [
+       26,
+       12
+      ],
+      [
+       27,
+       12
+      ],
+      [
+       27,
+       13
+      ],
+      [
+       4,
+       15
+      ],
+      [
+       28,
+       13
+      ],
+      [
+       28,
+       14
+      ],
+      [
+       29,
+       14
+      ],
+      [
+       29,
+       15
+      ],
+      [
+       3,
+       15
+      ],
+      [
+       3,
+       16
+      ],
+      [
+       3,
+       17
+      ],
+      [
+       30,
+       15
+      ],
+      [
+       30,
+       16
+      ],
+      [
+       30,
+       17
+      ],
+      [
+       3,
+       18
+      ],
+      [
+       30,
+       18
+      ],
+      [
+       3,
+       19
+      ],
+      [
+       30,
+       19
+      ],
+      [
+       3,
+       20
+      ],
+      [
+       4,
+       20
+      ],
+      [
+       29,
+       20
+      ],
+      [
+       30,
+       20
+      ],
+      [
+       4,
+       21
+      ],
+      [
+       5,
+       21
+      ],
+      [
+       6,
+       21
+      ],
+      [
+       7,
+       21
+      ],
+      [
+       8,
+       21
+      ],
+      [
+       9,
+       21
+      ],
+      [
+       10,
+       21
+      ],
+      [
+       11,
+       21
+      ],
+      [
+       12,
+       21
+      ],
+      [
+       13,
+       21
+      ],
+      [
+       14,
+       21
+      ],
+      [
+       15,
+       21
+      ],
+      [
+       16,
+       21
+      ],
+      [
+       17,
+       21
+      ],
+      [
+       18,
+       21
+      ],
+      [
+       19,
+       21
+      ],
+      [
+       20,
+       21
+      ],
+      [
+       21,
+       21
+      ],
+      [
+       22,
+       21
+      ],
+      [
+       23,
+       21
+      ],
+      [
+       24,
+       21
+      ],
+      [
+       25,
+       21
+      ],
+      [
+       26,
+       21
+      ],
+      [
+       27,
+       21
+      ],
+      [
+       28,
+       21
+      ],
+      [
+       29,
+       21
+      ]
+     ]
+    },
+    "recolor": [
+     [
+      26,
+      4,
+      "F"
+     ],
+     [
+      27,
+      4,
+      "F"
+     ],
+     [
+      18,
+      23,
+      "F"
+     ],
+     [
+      19,
+      23,
+      "F"
+     ]
+    ],
+    "channel": {
+     "spring": 397,
+     "exits": [
+      {
+       "cell": 1007,
+       "route": [
+        397,
+        398,
+        399,
+        437,
+        475,
+        513,
+        551,
+        589,
+        627,
+        665,
+        703,
+        741,
+        779,
+        817,
+        855,
+        893,
+        931,
+        969,
+        1007
+       ],
+       "rideUs": 1080000
+      },
+      {
+       "cell": 511,
+       "route": [
+        397,
+        435,
+        473,
+        511
+       ],
+       "rideUs": 400000
+      }
+     ]
+    }
+   },
+   "N": 989,
+   "W": 989,
+   "colours": 9,
+   "P": 26,
+   "columns": 4,
+   "linked": 2,
+   "hidden": 0,
+   "channel": true,
+   "slot": "regular",
+   "inZone": true,
+   "random": {
+    "runs": 100,
+    "wins": 60,
+    "share": 0.6,
+    "wilson95": [
+     0.502,
+     0.691
+    ],
+    "cls": "Normal",
+    "borderline": false,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 14
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 21
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "channel",
+      "exit": 0
+     },
+     {
+      "type": "tap",
+      "pod": 11
+     },
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 10
+     },
+     {
+      "type": "tap",
+      "pod": 16
+     },
+     {
+      "type": "tap",
+      "pod": 20
+     },
+     {
+      "type": "tap",
+      "pod": 15
+     },
+     {
+      "type": "tap",
+      "pod": 18
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 23
+     },
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 13
+     },
+     {
+      "type": "tap",
+      "pod": 25
+     },
+     {
+      "type": "tap",
+      "pod": 22
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     },
+     {
+      "type": "tap",
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 2
+     },
+     {
+      "type": "tap",
+      "pod": 19
+     },
+     {
+      "type": "tap",
+      "pod": 17
+     }
+    ],
+    "forks": 4,
+    "singleSafe": 0,
+    "unknown": 0,
+    "fast": {
+     "status": "lost",
+     "seconds": 67.1
+    }
+   },
+   "fairness": {
+    "fair": true,
+    "checked": 0
+   },
+   "strategies": {
+    "left-to-right|left": false,
+    "left-to-right|right": false,
+    "right-to-left|left": true,
+    "right-to-left|right": true,
+    "top-down|left": false,
+    "top-down|right": false,
+    "bottom-up|left": true,
+    "bottom-up|right": true,
+    "diagonal|left": false,
+    "diagonal|right": true,
+    "small-first|left": false,
+    "small-first|right": false,
+    "most-now|left": true,
+    "most-now|right": true,
+    "fast-release|left": true,
+    "fast-release|right": true
+   },
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 4.03,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 1
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 2.08,
+      "minFree": 0,
+      "fullShare": 0.16,
+      "maxWaiting": 3
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 1.5,
+      "minFree": 0,
+      "fullShare": 0.25,
+      "maxWaiting": 3
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 2.91,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 2
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 3.32,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 2
+     }
+    ],
+    "launchesAfter80": 4,
+    "lastLaunchAtW": 94,
+    "seconds": 519.4
+   },
+   "dosePos": 1,
+   "blend": 0.47,
+   "tune": {
+    "steps": [
+     {
+      "t": 0.4,
+      "q": 0.75
+     },
+     {
+      "t": 0.51,
+      "q": 0.15
+     },
+     {
+      "t": 0.43,
+      "q": 0.7
+     },
+     {
+      "t": 0.45,
+      "q": 0.7
+     },
+     {
+      "t": 0.46,
+      "q": 0.675
+     },
+     {
+      "t": 0.47,
+      "q": 0.7
+     }
+    ],
+    "links": {
+     "pairs": 1,
+     "traps": 1,
+     "forced": 0.11,
+     "greedy": null
+    },
+    "seconds": 105
+   },
+   "checks": {
+    "forced": 0.05,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": false,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.35,
+     "tight": 0.87
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 122,
+     "share": 0.61,
+     "wilson95": [
+      0.541,
+      0.675
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 1,
+     "traps": 1,
+     "top": 1
+    },
+    "channel": {
+     "each": [
+      {
+       "exit": 0,
+       "win": true,
+       "share": 0.48
+      },
+      {
+       "exit": 1,
+       "win": true,
+       "share": 0.75
+      }
+     ],
+     "gap": 0.27,
+     "decides": false,
+     "better": 1
+    },
+    "island": {
+     "island": {
+      "cells": 275,
+      "share": 0.278
+     },
+     "exitsOn": [
+      true,
+      true
+     ],
+     "ready": {
+      "atW": 0.215
+     },
+     "open": {
+      "exit": 0,
+      "atW": 0.229
+     },
+     "ok": true,
+     "problems": [],
+     "notes": []
+    },
+    "accents": {
+     "materials": [
+      {
+       "code": "F",
+       "name": "Фуксия",
+       "from": "O",
+       "cells": 4,
+       "clusters": 2,
+       "pods": [
+        {
+         "pod": 15,
+         "count": 4,
+         "row": 3
+        }
+       ]
+      }
+     ],
+     "cells": 4,
+     "pressure": {
+      "with": 1.35,
+      "without": 1.07
+     }
+    }
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "seed": 1,
+   "attempt": 4
+  },
+  {
+   "id": "P0077-Ncanal+links-g1107-5",
+   "picture": "P0077",
+   "requested": "Normal",
+   "cls": "Normal",
+   "intro": false,
+   "recipe": "canal+links",
+   "gen": "2026-11-07",
+   "level": {
+    "id": 1,
+    "title": "Подводная лодка",
+    "subject": "P0077",
+    "w": 38,
+    "h": 36,
+    "rowsBottomFirst": [
+     "###################.##################",
+     "#....................................#",
+     "#.CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.#",
+     "#.CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.#",
+     "#.CCCGCCCGCCCCCCCCCCCCCCCCCCCCCCCCCC.#",
+     "#.BBGGCCBGGBBBBBBBBBBBBBBRBBBRRRRBBB.#",
+     "#.BBGGCBBGGBBBBBBBBBBBBBBRRBRRRRRRBB.#",
+     "#.BBGGBBBGGBBBBBBBBBBBBBBRRRRRRRRDRB.#",
+     "#.BBGGBBBGGBBBBBBBBBBBBBBRRBRRRRRRBB.#",
+     "#.BBGGBOOOBBBBBBBBOOOOOBBRBBBRRRRBBB.#",
+     "#.BBGGBOOOOBBBOOO.OOOOOOOOOBBBBBBBBB.#",
+     "#.BBBGGBOOOBOOOOOOOOOOOOOOOOOBBBBBBB.#",
+     "#.BRRB##########################BBBB.#",
+     "#.BRR##YYYYYYYYYY.YYYYYYYYYYYYY##BBB.#",
+     "#.BRR#YYYYYYYDDDYYYDDDYYYDDDYYYY#BBB.#",
+     "#.BRR#DYYYYYDSSSDYDSSSDYDSSSDYYY#BBB.#",
+     "#.BRR#DYYYYYDSSSDYDSSSDYDSSSDYYY#BBB.#",
+     "#.BRR#YYYYYYDCSSDYDCSSDYDCSSDYYY#BBB.#",
+     "#.BRR##YYYYYYDDDYYYDDDYYYDDDYYY##BBB.#",
+     "#.BRRB#BOOYYYYYYYYYYYYYYYYYYYY##BBBB.#",
+     "#.BBB##BOOOBYYYYYYYYYYYYYYYYY##BBBBB.#",
+     "#.BB##SOOOO###YYYYYYYYYYYYY###BBBBBB.#",
+     "#.BB#SSOOO##B#YYYYYYYYYYY###BBBBBBBB.#",
+     "#.BB#SSS###BB#YYYYYYYYYYY#BBBBBBBBBB.#",
+     "#.BB##S##BBBB#YYYYYYYYYYY#BBBBBBBBBB.#",
+     "#.BBB###BBBBB#YYYYYYYYYYY#BBBBBBBBBB.#",
+     "#.BBSBBBBBBBB##OOOO.OOOO##BOOOOBBBOB.#",
+     "#.BSSSBBBBBBBB###########BOOOOOOBOOB.#",
+     "#.BBSBBBBBBBBBBBBBBBDDBBBODOOOOOOOOB.#",
+     "#.BBBBBBBBBBBBBBBBBBDDBBBBOOOOOOBOOB.#",
+     "#.BBBBSSBBBBBBBBBBBBDDBBBBBOOOOBBBOB.#",
+     "#.BBBSSSSBBBBBBBBBBBDDDDDDBBBBBBBBBB.#",
+     "#.BBBBSSBBBBBBBBBBBBDDDDDDBBBBBBBBBB.#",
+     "#.BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB.#",
+     "#....................................#",
+     "######################################"
+    ],
+    "entries": [
+     19
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "B",
+      "count": 54
+     },
+     {
+      "color": "B",
+      "count": 54
+     },
+     {
+      "color": "B",
+      "count": 54
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "S",
+      "count": 22
+     },
+     {
+      "color": "S",
+      "count": 22
+     },
+     {
+      "color": "D",
+      "count": 29
+     },
+     {
+      "color": "D",
+      "count": 29
+     },
+     {
+      "color": "O",
+      "count": 33
+     },
+     {
+      "color": "O",
+      "count": 33
+     },
+     {
+      "color": "O",
+      "count": 33
+     },
+     {
+      "color": "Y",
+      "count": 60
+     },
+     {
+      "color": "Y",
+      "count": 60
+     },
+     {
+      "color": "Y",
+      "count": 60
+     },
+     {
+      "color": "R",
+      "count": 26
+     },
+     {
+      "color": "R",
+      "count": 25
+     },
+     {
+      "color": "C",
+      "count": 36
+     },
+     {
+      "color": "C",
+      "count": 35
+     },
+     {
+      "color": "C",
+      "count": 35,
+      "group": "A"
+     },
+     {
+      "color": "G",
+      "count": 12,
+      "group": "A"
+     },
+     {
+      "color": "G",
+      "count": 12
+     }
+    ],
+    "tray": [
+     [
+      1,
+      24,
+      5,
+      8,
+      15,
+      16,
+      9
+     ],
+     [
+      23,
+      21,
+      2,
+      20,
+      3,
+      18
+     ],
+     [
+      4,
+      14,
+      13,
+      7,
+      19,
+      11
+     ],
+     [
+      22,
+      0,
+      12,
+      6,
+      10,
+      17
+     ]
+    ],
+    "recipe": "canal+links",
+    "overlay": {
+     "walls": [],
+     "sites": [],
+     "keys": [
+      [
+       15,
+       23
+      ],
+      [
+       17,
+       7
+      ],
+      [
+       15,
+       20
+      ]
+     ],
+     "water": [
+      [
+       12,
+       6
+      ],
+      [
+       13,
+       6
+      ],
+      [
+       14,
+       6
+      ],
+      [
+       12,
+       7
+      ],
+      [
+       15,
+       6
+      ],
+      [
+       16,
+       6
+      ],
+      [
+       17,
+       6
+      ],
+      [
+       18,
+       6
+      ],
+      [
+       19,
+       6
+      ],
+      [
+       20,
+       6
+      ],
+      [
+       21,
+       6
+      ],
+      [
+       22,
+       6
+      ],
+      [
+       22,
+       7
+      ],
+      [
+       11,
+       7
+      ],
+      [
+       11,
+       8
+      ],
+      [
+       11,
+       9
+      ],
+      [
+       23,
+       7
+      ],
+      [
+       23,
+       8
+      ],
+      [
+       23,
+       9
+      ],
+      [
+       3,
+       8
+      ],
+      [
+       4,
+       8
+      ],
+      [
+       5,
+       8
+      ],
+      [
+       3,
+       9
+      ],
+      [
+       5,
+       9
+      ],
+      [
+       11,
+       10
+      ],
+      [
+       23,
+       10
+      ],
+      [
+       2,
+       9
+      ],
+      [
+       2,
+       10
+      ],
+      [
+       2,
+       11
+      ],
+      [
+       6,
+       9
+      ],
+      [
+       6,
+       10
+      ],
+      [
+       11,
+       11
+      ],
+      [
+       23,
+       11
+      ],
+      [
+       2,
+       12
+      ],
+      [
+       3,
+       12
+      ],
+      [
+       7,
+       10
+      ],
+      [
+       8,
+       10
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       11,
+       12
+      ],
+      [
+       3,
+       13
+      ],
+      [
+       4,
+       13
+      ],
+      [
+       9,
+       11
+      ],
+      [
+       9,
+       12
+      ],
+      [
+       24,
+       11
+      ],
+      [
+       25,
+       11
+      ],
+      [
+       25,
+       12
+      ],
+      [
+       4,
+       14
+      ],
+      [
+       10,
+       12
+      ],
+      [
+       26,
+       12
+      ],
+      [
+       27,
+       12
+      ],
+      [
+       27,
+       13
+      ],
+      [
+       4,
+       15
+      ],
+      [
+       28,
+       13
+      ],
+      [
+       28,
+       14
+      ],
+      [
+       29,
+       14
+      ],
+      [
+       29,
+       15
+      ],
+      [
+       3,
+       15
+      ],
+      [
+       3,
+       16
+      ],
+      [
+       3,
+       17
+      ],
+      [
+       30,
+       15
+      ],
+      [
+       30,
+       16
+      ],
+      [
+       30,
+       17
+      ],
+      [
+       3,
+       18
+      ],
+      [
+       30,
+       18
+      ],
+      [
+       3,
+       19
+      ],
+      [
+       30,
+       19
+      ],
+      [
+       3,
+       20
+      ],
+      [
+       4,
+       20
+      ],
+      [
+       29,
+       20
+      ],
+      [
+       30,
+       20
+      ],
+      [
+       4,
+       21
+      ],
+      [
+       5,
+       21
+      ],
+      [
+       6,
+       21
+      ],
+      [
+       7,
+       21
+      ],
+      [
+       8,
+       21
+      ],
+      [
+       9,
+       21
+      ],
+      [
+       10,
+       21
+      ],
+      [
+       11,
+       21
+      ],
+      [
+       12,
+       21
+      ],
+      [
+       13,
+       21
+      ],
+      [
+       14,
+       21
+      ],
+      [
+       15,
+       21
+      ],
+      [
+       16,
+       21
+      ],
+      [
+       17,
+       21
+      ],
+      [
+       18,
+       21
+      ],
+      [
+       19,
+       21
+      ],
+      [
+       20,
+       21
+      ],
+      [
+       21,
+       21
+      ],
+      [
+       22,
+       21
+      ],
+      [
+       23,
+       21
+      ],
+      [
+       24,
+       21
+      ],
+      [
+       25,
+       21
+      ],
+      [
+       26,
+       21
+      ],
+      [
+       27,
+       21
+      ],
+      [
+       28,
+       21
+      ],
+      [
+       29,
+       21
+      ]
+     ]
+    },
+    "channel": {
+     "spring": 397,
+     "exits": [
+      {
+       "cell": 1007,
+       "route": [
+        397,
+        398,
+        399,
+        437,
+        475,
+        513,
+        551,
+        589,
+        627,
+        665,
+        703,
+        741,
+        779,
+        817,
+        855,
+        893,
+        931,
+        969,
+        1007
+       ],
+       "rideUs": 1080000
+      },
+      {
+       "cell": 511,
+       "route": [
+        397,
+        435,
+        473,
+        511
+       ],
+       "rideUs": 400000
+      }
+     ]
+    }
+   },
+   "N": 989,
+   "W": 989,
+   "colours": 8,
+   "P": 25,
+   "columns": 4,
+   "linked": 2,
+   "hidden": 0,
+   "channel": true,
+   "slot": "regular",
+   "inZone": true,
+   "random": {
+    "runs": 100,
+    "wins": 62,
+    "share": 0.62,
+    "wilson95": [
+     0.522,
+     0.709
+    ],
+    "cls": "Normal",
+    "borderline": false,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 24
+     },
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
+      "pod": 15
+     },
+     {
+      "type": "tap",
+      "pod": 16
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 14
+     },
+     {
+      "type": "tap",
+      "pod": 13
+     },
+     {
+      "type": "channel",
+      "exit": 0
+     },
+     {
+      "type": "tap",
+      "pod": 22
+     },
+     {
+      "type": "tap",
+      "pod": 21
+     },
+     {
+      "type": "tap",
+      "pod": 2
+     },
+     {
+      "type": "tap",
+      "pod": 20
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 18
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 19
+     },
+     {
+      "type": "tap",
+      "pod": 11
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     },
+     {
+      "type": "tap",
+      "pod": 10
+     },
+     {
+      "type": "tap",
+      "pod": 17
+     }
+    ],
+    "forks": 0,
+    "singleSafe": 0,
+    "unknown": 0,
+    "fast": {
+     "status": "won",
+     "seconds": 198.7
+    }
+   },
+   "fairness": {
+    "fair": true,
+    "checked": 0
+   },
+   "strategies": {
+    "left-to-right|left": true,
+    "left-to-right|right": true,
+    "right-to-left|left": false,
+    "right-to-left|right": true,
+    "top-down|left": false,
+    "top-down|right": false,
+    "bottom-up|left": true,
+    "bottom-up|right": true,
+    "diagonal|left": true,
+    "diagonal|right": true,
+    "small-first|left": false,
+    "small-first|right": false,
+    "most-now|left": true,
+    "most-now|right": true,
+    "fast-release|left": true,
+    "fast-release|right": false
+   },
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 2.57,
+      "minFree": 0,
+      "fullShare": 0.29,
+      "maxWaiting": 4
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 0.84,
+      "minFree": 0,
+      "fullShare": 0.33,
+      "maxWaiting": 4
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 1.9,
+      "minFree": 1,
+      "fullShare": 0,
+      "maxWaiting": 3
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 2.08,
+      "minFree": 1,
+      "fullShare": 0,
+      "maxWaiting": 3
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 3.89,
+      "minFree": 3,
+      "fullShare": 0,
+      "maxWaiting": 1
+     }
+    ],
+    "launchesAfter80": 4,
+    "lastLaunchAtW": 94,
+    "seconds": 485.3
+   },
+   "dosePos": 0.6,
+   "blend": 0.43,
+   "tune": {
+    "steps": [
+     {
+      "t": 0.43,
+      "q": 0.575
+     }
+    ],
+    "links": {
+     "pairs": 1,
+     "traps": 1,
+     "forced": 0.09,
+     "greedy": null
+    },
+    "seconds": 122
+   },
+   "checks": {
+    "forced": 0.07,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": false,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 0.99,
+     "tight": 0.84
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 149,
+     "share": 0.745,
+     "wilson95": [
+      0.68,
+      0.8
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 1,
+     "traps": 1,
+     "top": 1
+    },
+    "channel": {
+     "each": [
+      {
+       "exit": 0,
+       "win": true,
+       "share": 0.5
+      },
+      {
+       "exit": 1,
+       "win": true,
+       "share": 0.73
+      }
+     ],
+     "gap": 0.23,
+     "decides": false,
+     "better": 1
+    },
+    "island": {
+     "island": {
+      "cells": 275,
+      "share": 0.278
+     },
+     "exitsOn": [
+      true,
+      true
+     ],
+     "ready": {
+      "atW": 0.228
+     },
+     "open": {
+      "exit": 0,
+      "atW": 0.246
+     },
+     "ok": true,
+     "problems": [],
+     "notes": []
+    }
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "seed": 1,
+   "attempt": 5
+  },
+  {
+   "id": "P0077-Ncanal+links-g1107-a-7",
+   "picture": "P0077",
+   "requested": "Normal",
+   "cls": "Normal",
+   "intro": false,
+   "recipe": "canal+links",
+   "gen": "2026-11-07",
+   "level": {
+    "id": 1,
+    "title": "Подводная лодка",
+    "subject": "P0077",
+    "w": 38,
+    "h": 36,
+    "rowsBottomFirst": [
+     "###################.##################",
+     "#....................................#",
+     "#.CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.#",
+     "#.CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.#",
+     "#.CCCGCCCGCCCCCCCCCCCCCCCCCCCCCCCCCC.#",
+     "#.BBGGCCBGGBBBBBBBBBBBBBBRBBBRRRRBBB.#",
+     "#.BBGGCBBGGBBBBBBBBBBBBBBRRBRRRRRRBB.#",
+     "#.BBGGBBBGGBBBBBBBBBBBBBBRRRRRRRRDRB.#",
+     "#.BBGGBBBGGBBBBBBBBBBBBBBRRBRRRRRRBB.#",
+     "#.BBGGBOOOBBBBBBBBOOOOOBBRBBBRRRRBBB.#",
+     "#.BBGGBOOOOBBBOOO.OOOOOOOOOBBBBBBBBB.#",
+     "#.BBBGGBOOOBOOOOOOOOOOOOOOOOOBBBBBBB.#",
+     "#.BRRB##########################BBBB.#",
+     "#.BRR##YYYYYYYYYY.YYYYYYYYYYYYY##BBB.#",
+     "#.BRR#YYYYYYYDDDYYYDDDYYYDDDYYYY#BBB.#",
+     "#.BRR#DYYYYYDSSSDYDSSSDYDSSSDYYY#BBB.#",
+     "#.BRR#DYYYYYDSSSDYDSSSDYDSSSDYYY#BBB.#",
+     "#.BRR#YYYYYYDCSSDYDCSSDYDCSSDYYY#BBB.#",
+     "#.BRR##YYYYYYDDDYYYDDDYYYDDDYYY##BBB.#",
+     "#.BRRB#BOOYYYYYYYYYYYYYYYYYYYY##BBBB.#",
+     "#.BBB##BOOOBYYYYYYYYYYYYYYYYY##BBBBB.#",
+     "#.BB##SOOOO###YYYYYYYYYYYYY###BBBBBB.#",
+     "#.BB#SSOOO##B#YYYYYYYYYYY###BBBBBBBB.#",
+     "#.BB#SSS###BB#YYYYYYYYYYY#BBBBBBBBBB.#",
+     "#.BB##S##BBBB#YYYYYYYYYYY#BBBBBBBBBB.#",
+     "#.BBB###BBBBB#YYYYYYYYYYY#BBBBBBBBBB.#",
+     "#.BBSBBBBBBBB##OOOO.OOOO##BOOOOBBBOB.#",
+     "#.BSSSBBBBBBBB###########BOOFFOOBOOB.#",
+     "#.BBSBBBBBBBBBBBBBBBDDBBBODOFFOOOOOB.#",
+     "#.BBBBBBBBBBBBBBBBBBDDBBBBOOOOOOBOOB.#",
+     "#.BBBBSSBBBBBBBBBBBBDDBBBBBOOOOBBBOB.#",
+     "#.BBBSSSSBBBBBBBBBBBDDDDDDBBBBBBBBBB.#",
+     "#.BBBBSSBBBBBBBBBBBBDDDDDDBBBBBBBBBB.#",
+     "#.BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB.#",
+     "#....................................#",
+     "######################################"
+    ],
+    "entries": [
+     19
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "B",
+      "count": 54
+     },
+     {
+      "color": "B",
+      "count": 54
+     },
+     {
+      "color": "B",
+      "count": 54,
+      "group": "A"
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "S",
+      "count": 22
+     },
+     {
+      "color": "S",
+      "count": 22
+     },
+     {
+      "color": "D",
+      "count": 29
+     },
+     {
+      "color": "D",
+      "count": 29
+     },
+     {
+      "color": "O",
+      "count": 32
+     },
+     {
+      "color": "O",
+      "count": 32
+     },
+     {
+      "color": "O",
+      "count": 31
+     },
+     {
+      "color": "F",
+      "count": 2
+     },
+     {
+      "color": "F",
+      "count": 2
+     },
+     {
+      "color": "Y",
+      "count": 60
+     },
+     {
+      "color": "Y",
+      "count": 60
+     },
+     {
+      "color": "Y",
+      "count": 60
+     },
+     {
+      "color": "R",
+      "count": 26,
+      "group": "A"
+     },
+     {
+      "color": "R",
+      "count": 25
+     },
+     {
+      "color": "C",
+      "count": 36
+     },
+     {
+      "color": "C",
+      "count": 35
+     },
+     {
+      "color": "C",
+      "count": 35
+     },
+     {
+      "color": "G",
+      "count": 12
+     },
+     {
+      "color": "G",
+      "count": 12
+     }
+    ],
+    "tray": [
+     [
+      12,
+      10,
+      5,
+      16,
+      6,
+      22,
+      0
+     ],
+     [
+      2,
+      24,
+      17,
+      21,
+      7,
+      13,
+      11
+     ],
+     [
+      3,
+      26,
+      8,
+      18,
+      19,
+      1,
+      9
+     ],
+     [
+      20,
+      23,
+      15,
+      4,
+      25,
+      14
+     ]
+    ],
+    "recipe": "canal+links",
+    "overlay": {
+     "walls": [],
+     "sites": [],
+     "keys": [
+      [
+       15,
+       23
+      ],
+      [
+       17,
+       7
+      ],
+      [
+       15,
+       20
+      ]
+     ],
+     "water": [
+      [
+       12,
+       6
+      ],
+      [
+       13,
+       6
+      ],
+      [
+       14,
+       6
+      ],
+      [
+       12,
+       7
+      ],
+      [
+       15,
+       6
+      ],
+      [
+       16,
+       6
+      ],
+      [
+       17,
+       6
+      ],
+      [
+       18,
+       6
+      ],
+      [
+       19,
+       6
+      ],
+      [
+       20,
+       6
+      ],
+      [
+       21,
+       6
+      ],
+      [
+       22,
+       6
+      ],
+      [
+       22,
+       7
+      ],
+      [
+       11,
+       7
+      ],
+      [
+       11,
+       8
+      ],
+      [
+       11,
+       9
+      ],
+      [
+       23,
+       7
+      ],
+      [
+       23,
+       8
+      ],
+      [
+       23,
+       9
+      ],
+      [
+       3,
+       8
+      ],
+      [
+       4,
+       8
+      ],
+      [
+       5,
+       8
+      ],
+      [
+       3,
+       9
+      ],
+      [
+       5,
+       9
+      ],
+      [
+       11,
+       10
+      ],
+      [
+       23,
+       10
+      ],
+      [
+       2,
+       9
+      ],
+      [
+       2,
+       10
+      ],
+      [
+       2,
+       11
+      ],
+      [
+       6,
+       9
+      ],
+      [
+       6,
+       10
+      ],
+      [
+       11,
+       11
+      ],
+      [
+       23,
+       11
+      ],
+      [
+       2,
+       12
+      ],
+      [
+       3,
+       12
+      ],
+      [
+       7,
+       10
+      ],
+      [
+       8,
+       10
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       11,
+       12
+      ],
+      [
+       3,
+       13
+      ],
+      [
+       4,
+       13
+      ],
+      [
+       9,
+       11
+      ],
+      [
+       9,
+       12
+      ],
+      [
+       24,
+       11
+      ],
+      [
+       25,
+       11
+      ],
+      [
+       25,
+       12
+      ],
+      [
+       4,
+       14
+      ],
+      [
+       10,
+       12
+      ],
+      [
+       26,
+       12
+      ],
+      [
+       27,
+       12
+      ],
+      [
+       27,
+       13
+      ],
+      [
+       4,
+       15
+      ],
+      [
+       28,
+       13
+      ],
+      [
+       28,
+       14
+      ],
+      [
+       29,
+       14
+      ],
+      [
+       29,
+       15
+      ],
+      [
+       3,
+       15
+      ],
+      [
+       3,
+       16
+      ],
+      [
+       3,
+       17
+      ],
+      [
+       30,
+       15
+      ],
+      [
+       30,
+       16
+      ],
+      [
+       30,
+       17
+      ],
+      [
+       3,
+       18
+      ],
+      [
+       30,
+       18
+      ],
+      [
+       3,
+       19
+      ],
+      [
+       30,
+       19
+      ],
+      [
+       3,
+       20
+      ],
+      [
+       4,
+       20
+      ],
+      [
+       29,
+       20
+      ],
+      [
+       30,
+       20
+      ],
+      [
+       4,
+       21
+      ],
+      [
+       5,
+       21
+      ],
+      [
+       6,
+       21
+      ],
+      [
+       7,
+       21
+      ],
+      [
+       8,
+       21
+      ],
+      [
+       9,
+       21
+      ],
+      [
+       10,
+       21
+      ],
+      [
+       11,
+       21
+      ],
+      [
+       12,
+       21
+      ],
+      [
+       13,
+       21
+      ],
+      [
+       14,
+       21
+      ],
+      [
+       15,
+       21
+      ],
+      [
+       16,
+       21
+      ],
+      [
+       17,
+       21
+      ],
+      [
+       18,
+       21
+      ],
+      [
+       19,
+       21
+      ],
+      [
+       20,
+       21
+      ],
+      [
+       21,
+       21
+      ],
+      [
+       22,
+       21
+      ],
+      [
+       23,
+       21
+      ],
+      [
+       24,
+       21
+      ],
+      [
+       25,
+       21
+      ],
+      [
+       26,
+       21
+      ],
+      [
+       27,
+       21
+      ],
+      [
+       28,
+       21
+      ],
+      [
+       29,
+       21
+      ]
+     ]
+    },
+    "recolor": [
+     [
+      26,
+      5,
+      "F"
+     ],
+     [
+      27,
+      5,
+      "F"
+     ],
+     [
+      26,
+      6,
+      "F"
+     ],
+     [
+      27,
+      6,
+      "F"
+     ]
+    ],
+    "channel": {
+     "spring": 397,
+     "exits": [
+      {
+       "cell": 1007,
+       "route": [
+        397,
+        398,
+        399,
+        437,
+        475,
+        513,
+        551,
+        589,
+        627,
+        665,
+        703,
+        741,
+        779,
+        817,
+        855,
+        893,
+        931,
+        969,
+        1007
+       ],
+       "rideUs": 1080000
+      },
+      {
+       "cell": 511,
+       "route": [
+        397,
+        435,
+        473,
+        511
+       ],
+       "rideUs": 400000
+      }
+     ]
+    }
+   },
+   "N": 989,
+   "W": 989,
+   "colours": 9,
+   "P": 27,
+   "columns": 4,
+   "linked": 2,
+   "hidden": 0,
+   "channel": true,
+   "slot": "regular",
+   "inZone": false,
+   "random": {
+    "runs": 100,
+    "wins": 79,
+    "share": 0.79,
+    "wilson95": [
+     0.7,
+     0.858
+    ],
+    "cls": "Normal",
+    "borderline": false,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 10
+     },
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 16
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     },
+     {
+      "type": "tap",
+      "pod": 22
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "channel",
+      "exit": 0
+     },
+     {
+      "type": "tap",
+      "pod": 2
+     },
+     {
+      "type": "tap",
+      "pod": 24
+     },
+     {
+      "type": "tap",
+      "pod": 17
+     },
+     {
+      "type": "tap",
+      "pod": 21
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 13
+     },
+     {
+      "type": "tap",
+      "pod": 11
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 26
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
+      "pod": 18
+     },
+     {
+      "type": "tap",
+      "pod": 19
+     },
+     {
+      "type": "tap",
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 23
+     },
+     {
+      "type": "tap",
+      "pod": 15
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "tap",
+      "pod": 25
+     },
+     {
+      "type": "tap",
+      "pod": 14
+     }
+    ],
+    "forks": 0,
+    "singleSafe": 0,
+    "unknown": 0,
+    "fast": {
+     "status": "lost",
+     "seconds": 156.9
+    }
+   },
+   "fairness": {
+    "fair": true,
+    "checked": 0
+   },
+   "strategies": {
+    "left-to-right|left": true,
+    "left-to-right|right": true,
+    "right-to-left|left": false,
+    "right-to-left|right": false,
+    "top-down|left": false,
+    "top-down|right": false,
+    "bottom-up|left": true,
+    "bottom-up|right": true,
+    "diagonal|left": true,
+    "diagonal|right": true,
+    "small-first|left": true,
+    "small-first|right": true,
+    "most-now|left": false,
+    "most-now|right": false,
+    "fast-release|left": true,
+    "fast-release|right": false
+   },
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 2.3,
+      "minFree": 1,
+      "fullShare": 0,
+      "maxWaiting": 3
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 2.99,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 1
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 3.15,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 2
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 3.04,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 2
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 2.52,
+      "minFree": 1,
+      "fullShare": 0,
+      "maxWaiting": 3
+     }
+    ],
+    "launchesAfter80": 6,
+    "lastLaunchAtW": 96,
+    "seconds": 493.7
+   },
+   "dosePos": 0.8,
+   "blend": 0.44,
+   "tune": {
+    "steps": [
+     {
+      "t": 0.38,
+      "q": 0.675
+     },
+     {
+      "t": 0.44,
+      "q": 0.65
+     }
+    ],
+    "links": {
+     "pairs": 1,
+     "traps": 1,
+     "forced": 0.05,
+     "greedy": null
+    },
+    "seconds": 175
+   },
+   "checks": {
+    "forced": 0.11,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": true,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.83,
+     "tight": 0.84
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 174,
+     "share": 0.87,
+     "wilson95": [
+      0.816,
+      0.91
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 1,
+     "traps": 1,
+     "top": 1
+    },
+    "channel": {
+     "each": [
+      {
+       "exit": 0,
+       "win": true,
+       "share": 0.75
+      },
+      {
+       "exit": 1,
+       "win": true,
+       "share": 0.88
+      }
+     ],
+     "gap": 0.13,
+     "decides": false,
+     "better": 1
+    },
+    "island": {
+     "island": {
+      "cells": 275,
+      "share": 0.278
+     },
+     "exitsOn": [
+      true,
+      true
+     ],
+     "ready": {
+      "atW": 0.218
+     },
+     "open": {
+      "exit": 0,
+      "atW": 0.233
+     },
+     "ok": true,
+     "problems": [],
+     "notes": []
+    },
+    "accents": {
+     "materials": [
+      {
+       "code": "F",
+       "name": "Фуксия",
+       "from": "O",
+       "cells": 4,
+       "clusters": 1,
+       "pods": [
+        {
+         "pod": 15,
+         "count": 2,
+         "row": 2
+        },
+        {
+         "pod": 16,
+         "count": 2,
+         "row": 3
+        }
+       ]
+      }
+     ],
+     "cells": 4,
+     "pressure": {
+      "with": 1.83,
+      "without": 0.87
+     }
+    }
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "seed": 1,
+   "attempt": 7
+  },
+  {
+   "id": "P0077-Ncanal+links-g1107-8",
+   "picture": "P0077",
+   "requested": "Normal",
+   "cls": "Normal",
+   "intro": false,
+   "recipe": "canal+links",
+   "gen": "2026-11-07",
+   "level": {
+    "id": 1,
+    "title": "Подводная лодка",
+    "subject": "P0077",
+    "w": 38,
+    "h": 36,
+    "rowsBottomFirst": [
+     "###################.##################",
+     "#....................................#",
+     "#.CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.#",
+     "#.CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.#",
+     "#.CCCGCCCGCCCCCCCCCCCCCCCCCCCCCCCCCC.#",
+     "#.BBGGCCBGGBBBBBBBBBBBBBBRBBBRRRRBBB.#",
+     "#.BBGGCBBGGBBBBBBBBBBBBBBRRBRRRRRRBB.#",
+     "#.BBGGBBBGGBBBBBBBBBBBBBBRRRRRRRRDRB.#",
+     "#.BBGGBBBGGBBBBBBBBBBBBBBRRBRRRRRRBB.#",
+     "#.BBGGBOOOBBBBBBBBOOOOOBBRBBBRRRRBBB.#",
+     "#.BBGGBOOOOBBBOOO.OOOOOOOOOBBBBBBBBB.#",
+     "#.BBBGGBOOOBOOOOOOOOOOOOOOOOOBBBBBBB.#",
+     "#.BRRB##########################BBBB.#",
+     "#.BRR##YYYYYYYYYY.YYYYYYYYYYYYY##BBB.#",
+     "#.BRR#YYYYYYYDDDYYYDDDYYYDDDYYYY#BBB.#",
+     "#.BRR#DYYYYYDSSSDYDSSSDYDSSSDYYY#BBB.#",
+     "#.BRR#DYYYYYDSSSDYDSSSDYDSSSDYYY#BBB.#",
+     "#.BRR#YYYYYYDCSSDYDCSSDYDCSSDYYY#BBB.#",
+     "#.BRR##YYYYYYDDDYYYDDDYYYDDDYYY##BBB.#",
+     "#.BRRB#BOOYYYYYYYYYYYYYYYYYYYY##BBBB.#",
+     "#.BBB##BOOOBYYYYYYYYYYYYYYYYY##BBBBB.#",
+     "#.BB##SOOOO###YYYYYYYYYYYYY###BBBBBB.#",
+     "#.BB#SSOOO##B#YYYYYYYYYYY###BBBBBBBB.#",
+     "#.BB#SSS###BB#YYYYYYYYYYY#BBBBBBBBBB.#",
+     "#.BB##S##BBBB#YYYYYYYYYYY#BBBBBBBBBB.#",
+     "#.BBB###BBBBB#YYYYYYYYYYY#BBBBBBBBBB.#",
+     "#.BBSBBBBBBBB##OOOO.OOOO##BOOOOBBBOB.#",
+     "#.BSSSBBBBBBBB###########BOOOOOOBOOB.#",
+     "#.BBSBBBBBBBBBBBBBBBDDBBBODOOOOOOOOB.#",
+     "#.BBBBBBBBBBBBBBBBBBDDBBBBOOOOOOBOOB.#",
+     "#.BBBBSSBBBBBBBBBBBBDDBBBBBOOOOBBBOB.#",
+     "#.BBBSSSSBBBBBBBBBBBDDDDDDBBBBBBBBBB.#",
+     "#.BBBBSSBBBBBBBBBBBBDDDDDDBBBBBBBBBB.#",
+     "#.BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB.#",
+     "#....................................#",
+     "######################################"
+    ],
+    "entries": [
+     19
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "B",
+      "count": 54
+     },
+     {
+      "color": "B",
+      "count": 54
+     },
+     {
+      "color": "B",
+      "count": 54
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "S",
+      "count": 22
+     },
+     {
+      "color": "S",
+      "count": 22
+     },
+     {
+      "color": "D",
+      "count": 29
+     },
+     {
+      "color": "D",
+      "count": 29
+     },
+     {
+      "color": "O",
+      "count": 33
+     },
+     {
+      "color": "O",
+      "count": 33
+     },
+     {
+      "color": "O",
+      "count": 33
+     },
+     {
+      "color": "Y",
+      "count": 60
+     },
+     {
+      "color": "Y",
+      "count": 60
+     },
+     {
+      "color": "Y",
+      "count": 60
+     },
+     {
+      "color": "R",
+      "count": 26,
+      "group": "A"
+     },
+     {
+      "color": "R",
+      "count": 25
+     },
+     {
+      "color": "C",
+      "count": 36
+     },
+     {
+      "color": "C",
+      "count": 35
+     },
+     {
+      "color": "C",
+      "count": 35
+     },
+     {
+      "color": "G",
+      "count": 12,
+      "group": "A"
+     },
+     {
+      "color": "G",
+      "count": 12
+     }
+    ],
+    "tray": [
+     [
+      7,
+      2,
+      24,
+      23,
+      13,
+      15
+     ],
+     [
+      5,
+      21,
+      4,
+      6,
+      16,
+      14
+     ],
+     [
+      0,
+      8,
+      19,
+      20,
+      9,
+      11
+     ],
+     [
+      3,
+      12,
+      10,
+      18,
+      1,
+      22,
+      17
+     ]
+    ],
+    "recipe": "canal+links",
+    "overlay": {
+     "walls": [],
+     "sites": [],
+     "keys": [
+      [
+       15,
+       23
+      ],
+      [
+       17,
+       7
+      ],
+      [
+       15,
+       20
+      ]
+     ],
+     "water": [
+      [
+       12,
+       6
+      ],
+      [
+       13,
+       6
+      ],
+      [
+       14,
+       6
+      ],
+      [
+       12,
+       7
+      ],
+      [
+       15,
+       6
+      ],
+      [
+       16,
+       6
+      ],
+      [
+       17,
+       6
+      ],
+      [
+       18,
+       6
+      ],
+      [
+       19,
+       6
+      ],
+      [
+       20,
+       6
+      ],
+      [
+       21,
+       6
+      ],
+      [
+       22,
+       6
+      ],
+      [
+       22,
+       7
+      ],
+      [
+       11,
+       7
+      ],
+      [
+       11,
+       8
+      ],
+      [
+       11,
+       9
+      ],
+      [
+       23,
+       7
+      ],
+      [
+       23,
+       8
+      ],
+      [
+       23,
+       9
+      ],
+      [
+       3,
+       8
+      ],
+      [
+       4,
+       8
+      ],
+      [
+       5,
+       8
+      ],
+      [
+       3,
+       9
+      ],
+      [
+       5,
+       9
+      ],
+      [
+       11,
+       10
+      ],
+      [
+       23,
+       10
+      ],
+      [
+       2,
+       9
+      ],
+      [
+       2,
+       10
+      ],
+      [
+       2,
+       11
+      ],
+      [
+       6,
+       9
+      ],
+      [
+       6,
+       10
+      ],
+      [
+       11,
+       11
+      ],
+      [
+       23,
+       11
+      ],
+      [
+       2,
+       12
+      ],
+      [
+       3,
+       12
+      ],
+      [
+       7,
+       10
+      ],
+      [
+       8,
+       10
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       11,
+       12
+      ],
+      [
+       3,
+       13
+      ],
+      [
+       4,
+       13
+      ],
+      [
+       9,
+       11
+      ],
+      [
+       9,
+       12
+      ],
+      [
+       24,
+       11
+      ],
+      [
+       25,
+       11
+      ],
+      [
+       25,
+       12
+      ],
+      [
+       4,
+       14
+      ],
+      [
+       10,
+       12
+      ],
+      [
+       26,
+       12
+      ],
+      [
+       27,
+       12
+      ],
+      [
+       27,
+       13
+      ],
+      [
+       4,
+       15
+      ],
+      [
+       28,
+       13
+      ],
+      [
+       28,
+       14
+      ],
+      [
+       29,
+       14
+      ],
+      [
+       29,
+       15
+      ],
+      [
+       3,
+       15
+      ],
+      [
+       3,
+       16
+      ],
+      [
+       3,
+       17
+      ],
+      [
+       30,
+       15
+      ],
+      [
+       30,
+       16
+      ],
+      [
+       30,
+       17
+      ],
+      [
+       3,
+       18
+      ],
+      [
+       30,
+       18
+      ],
+      [
+       3,
+       19
+      ],
+      [
+       30,
+       19
+      ],
+      [
+       3,
+       20
+      ],
+      [
+       4,
+       20
+      ],
+      [
+       29,
+       20
+      ],
+      [
+       30,
+       20
+      ],
+      [
+       4,
+       21
+      ],
+      [
+       5,
+       21
+      ],
+      [
+       6,
+       21
+      ],
+      [
+       7,
+       21
+      ],
+      [
+       8,
+       21
+      ],
+      [
+       9,
+       21
+      ],
+      [
+       10,
+       21
+      ],
+      [
+       11,
+       21
+      ],
+      [
+       12,
+       21
+      ],
+      [
+       13,
+       21
+      ],
+      [
+       14,
+       21
+      ],
+      [
+       15,
+       21
+      ],
+      [
+       16,
+       21
+      ],
+      [
+       17,
+       21
+      ],
+      [
+       18,
+       21
+      ],
+      [
+       19,
+       21
+      ],
+      [
+       20,
+       21
+      ],
+      [
+       21,
+       21
+      ],
+      [
+       22,
+       21
+      ],
+      [
+       23,
+       21
+      ],
+      [
+       24,
+       21
+      ],
+      [
+       25,
+       21
+      ],
+      [
+       26,
+       21
+      ],
+      [
+       27,
+       21
+      ],
+      [
+       28,
+       21
+      ],
+      [
+       29,
+       21
+      ]
+     ]
+    },
+    "channel": {
+     "spring": 397,
+     "exits": [
+      {
+       "cell": 1007,
+       "route": [
+        397,
+        398,
+        399,
+        437,
+        475,
+        513,
+        551,
+        589,
+        627,
+        665,
+        703,
+        741,
+        779,
+        817,
+        855,
+        893,
+        931,
+        969,
+        1007
+       ],
+       "rideUs": 1080000
+      },
+      {
+       "cell": 511,
+       "route": [
+        397,
+        435,
+        473,
+        511
+       ],
+       "rideUs": 400000
+      }
+     ]
+    }
+   },
+   "N": 989,
+   "W": 989,
+   "colours": 8,
+   "P": 25,
+   "columns": 4,
+   "linked": 2,
+   "hidden": 0,
+   "channel": true,
+   "slot": "regular",
+   "inZone": true,
+   "random": {
+    "runs": 400,
+    "wins": 203,
+    "share": 0.507,
+    "wilson95": [
+     0.459,
+     0.556
+    ],
+    "cls": "Normal",
+    "borderline": true,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 2
+     },
+     {
+      "type": "tap",
+      "pod": 24
+     },
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 21
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "channel",
+      "exit": 0
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     },
+     {
+      "type": "tap",
+      "pod": 16
+     },
+     {
+      "type": "tap",
+      "pod": 14
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
+      "pod": 19
+     },
+     {
+      "type": "tap",
+      "pod": 20
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 11
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 10
+     },
+     {
+      "type": "tap",
+      "pod": 18
+     },
+     {
+      "type": "tap",
+      "pod": 13
+     },
+     {
+      "type": "tap",
+      "pod": 15
+     },
+     {
+      "type": "tap",
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 22
+     },
+     {
+      "type": "tap",
+      "pod": 17
+     }
+    ],
+    "forks": 2,
+    "singleSafe": 2,
+    "unknown": 0,
+    "fast": {
+     "status": "won",
+     "seconds": 118.3
+    }
+   },
+   "fairness": {
+    "fair": true,
+    "checked": 0
+   },
+   "strategies": {
+    "left-to-right|left": true,
+    "left-to-right|right": true,
+    "right-to-left|left": false,
+    "right-to-left|right": true,
+    "top-down|left": false,
+    "top-down|right": true,
+    "bottom-up|left": true,
+    "bottom-up|right": true,
+    "diagonal|left": false,
+    "diagonal|right": true,
+    "small-first|left": false,
+    "small-first|right": true,
+    "most-now|left": false,
+    "most-now|right": true,
+    "fast-release|left": false,
+    "fast-release|right": true
+   },
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 4.35,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 4.24,
+      "minFree": 4,
+      "fullShare": 0,
+      "maxWaiting": 0
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 3.3,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 2
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 1.53,
+      "minFree": 0,
+      "fullShare": 0.21,
+      "maxWaiting": 4
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 2.71,
+      "minFree": 1,
+      "fullShare": 0,
+      "maxWaiting": 3
+     }
+    ],
+    "launchesAfter80": 3,
+    "lastLaunchAtW": 94,
+    "seconds": 458.1
+   },
+   "dosePos": 1,
+   "blend": 0.46,
+   "tune": {
+    "steps": [
+     {
+      "t": 0.46,
+      "q": 0.575
+     }
+    ],
+    "links": {
+     "pairs": 1,
+     "traps": 1,
+     "forced": 0.18,
+     "greedy": null
+    },
+    "seconds": 200
+   },
+   "checks": {
+    "forced": 0.18,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": false,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.31,
+     "tight": 0.92
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 135,
+     "share": 0.675,
+     "wilson95": [
+      0.607,
+      0.736
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 1,
+     "traps": 1,
+     "top": 0
+    },
+    "channel": {
+     "each": [
+      {
+       "exit": 0,
+       "win": true,
+       "share": 0.1
+      },
+      {
+       "exit": 1,
+       "win": true,
+       "share": 1
+      }
+     ],
+     "gap": 0.9,
+     "decides": false,
+     "better": 1
+    },
+    "island": {
+     "island": {
+      "cells": 275,
+      "share": 0.278
+     },
+     "exitsOn": [
+      true,
+      true
+     ],
+     "ready": {
+      "atW": 0.25
+     },
+     "open": {
+      "exit": 0,
+      "atW": 0.263
+     },
+     "ok": true,
+     "problems": [],
+     "notes": []
+    }
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "seed": 1,
+   "attempt": 8
+  },
+  {
+   "id": "P0077-Ncanal+links-g1107-11",
+   "picture": "P0077",
+   "requested": "Normal",
+   "cls": "Normal",
+   "intro": false,
+   "recipe": "canal+links",
+   "gen": "2026-11-07",
+   "level": {
+    "id": 1,
+    "title": "Подводная лодка",
+    "subject": "P0077",
+    "w": 38,
+    "h": 36,
+    "rowsBottomFirst": [
+     "###################.##################",
+     "#....................................#",
+     "#.CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.#",
+     "#.CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.#",
+     "#.CCCGCCCGCCCCCCCCCCCCCCCCCCCCCCCCCC.#",
+     "#.BBGGCCBGGBBBBBBBBBBBBBBRBBBRRRRBBB.#",
+     "#.BBGGCBBGGBBBBBBBBBBBBBBRRBRRRRRRBB.#",
+     "#.BBGGBBBGGBBBBBBBBBBBBBBRRRRRRRRDRB.#",
+     "#.BBGGBBBGGBBBBBBBBBBBBBBRRBRRRRRRBB.#",
+     "#.BBGGBOOOBBBBBBBBOOOOOBBRBBBRRRRBBB.#",
+     "#.BBGGBOOOOBBBOOO.OOOOOOOOOBBBBBBBBB.#",
+     "#.BBBGGBOOOBOOOOOOOOOOOOOOOOOBBBBBBB.#",
+     "#.BRRB##########################BBBB.#",
+     "#.BRR##YYYYYYYYYY.YYYYYYYYYYYYY##BBB.#",
+     "#.BRR#YYYYYYYDDDYYYDDDYYYDDDYYYY#BBB.#",
+     "#.BRR#DYYYYYDSSSDYDSSSDYDSSSDYYY#BBB.#",
+     "#.BRR#DYYYYYDSSSDYDSSSDYDSSSDYYY#BBB.#",
+     "#.BRR#YYYYYYDCSSDYDCSSDYDCSSDYYY#BBB.#",
+     "#.BRR##YYYYYYDDDYYYDDDYYYDDDYYY##BBB.#",
+     "#.BRRB#BOOYYYYYYYYYYYYYYYYYYYY##BBBB.#",
+     "#.BBB##BOOOBYYYYYYYYYYYYYYYYY##BBBBB.#",
+     "#.BB##SOOOO###YYYYYYYYYYYYY###BBBBBB.#",
+     "#.BB#SSOOO##B#YYYYYYYYYYY###BBBBBBBB.#",
+     "#.BB#SSS###BB#YYYYYYYYYYY#BBBBBBBBBB.#",
+     "#.BB##S##BBBB#YYYYYYYYYYY#BBBBBBBBBB.#",
+     "#.BBB###BBBBB#YYYYYYYYYYY#BBBBBBBBBB.#",
+     "#.BBSBBBBBBBB##OOOO.OOOO##BOOOOBBBOB.#",
+     "#.BSSSBBBBBBBB###########BOOOOOOBOOB.#",
+     "#.BBSBBBBBBBBBBBBBBBDDBBBODOOOOOOOOB.#",
+     "#.BBBBBBBBBBBBBBBBBBDDBBBBOOOOOOBOOB.#",
+     "#.BBBBSSBBBBBBBBBBBBDDBBBBBOOOOBBBOB.#",
+     "#.BBBSSSSBBBBBBBBBBBDDDDDDBBBBBBBBBB.#",
+     "#.BBBBSSBBBBBBBBBBBBDDDDDDBBBBBBBBBB.#",
+     "#.BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB.#",
+     "#....................................#",
+     "######################################"
+    ],
+    "entries": [
+     19
+    ],
+    "capacity": 5,
+    "pods": [
+     {
+      "color": "B",
+      "count": 54,
+      "group": "A"
+     },
+     {
+      "color": "B",
+      "count": 54
+     },
+     {
+      "color": "B",
+      "count": 54
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "B",
+      "count": 53
+     },
+     {
+      "color": "S",
+      "count": 22
+     },
+     {
+      "color": "S",
+      "count": 22
+     },
+     {
+      "color": "D",
+      "count": 29
+     },
+     {
+      "color": "D",
+      "count": 29
+     },
+     {
+      "color": "O",
+      "count": 33
+     },
+     {
+      "color": "O",
+      "count": 33
+     },
+     {
+      "color": "O",
+      "count": 33
+     },
+     {
+      "color": "Y",
+      "count": 60
+     },
+     {
+      "color": "Y",
+      "count": 60
+     },
+     {
+      "color": "Y",
+      "count": 60
+     },
+     {
+      "color": "R",
+      "count": 26
+     },
+     {
+      "color": "R",
+      "count": 25
+     },
+     {
+      "color": "C",
+      "count": 36,
+      "group": "A"
+     },
+     {
+      "color": "C",
+      "count": 35
+     },
+     {
+      "color": "C",
+      "count": 35
+     },
+     {
+      "color": "G",
+      "count": 12
+     },
+     {
+      "color": "G",
+      "count": 12
+     }
+    ],
+    "tray": [
+     [
+      2,
+      18,
+      6,
+      10,
+      13,
+      15
+     ],
+     [
+      21,
+      4,
+      3,
+      24,
+      8,
+      11
+     ],
+     [
+      20,
+      23,
+      12,
+      22,
+      14,
+      9
+     ],
+     [
+      0,
+      1,
+      19,
+      5,
+      7,
+      16,
+      17
+     ]
+    ],
+    "recipe": "canal+links",
+    "overlay": {
+     "walls": [],
+     "sites": [],
+     "keys": [
+      [
+       15,
+       23
+      ],
+      [
+       17,
+       7
+      ],
+      [
+       15,
+       20
+      ]
+     ],
+     "water": [
+      [
+       12,
+       6
+      ],
+      [
+       13,
+       6
+      ],
+      [
+       14,
+       6
+      ],
+      [
+       12,
+       7
+      ],
+      [
+       15,
+       6
+      ],
+      [
+       16,
+       6
+      ],
+      [
+       17,
+       6
+      ],
+      [
+       18,
+       6
+      ],
+      [
+       19,
+       6
+      ],
+      [
+       20,
+       6
+      ],
+      [
+       21,
+       6
+      ],
+      [
+       22,
+       6
+      ],
+      [
+       22,
+       7
+      ],
+      [
+       11,
+       7
+      ],
+      [
+       11,
+       8
+      ],
+      [
+       11,
+       9
+      ],
+      [
+       23,
+       7
+      ],
+      [
+       23,
+       8
+      ],
+      [
+       23,
+       9
+      ],
+      [
+       3,
+       8
+      ],
+      [
+       4,
+       8
+      ],
+      [
+       5,
+       8
+      ],
+      [
+       3,
+       9
+      ],
+      [
+       5,
+       9
+      ],
+      [
+       11,
+       10
+      ],
+      [
+       23,
+       10
+      ],
+      [
+       2,
+       9
+      ],
+      [
+       2,
+       10
+      ],
+      [
+       2,
+       11
+      ],
+      [
+       6,
+       9
+      ],
+      [
+       6,
+       10
+      ],
+      [
+       11,
+       11
+      ],
+      [
+       23,
+       11
+      ],
+      [
+       2,
+       12
+      ],
+      [
+       3,
+       12
+      ],
+      [
+       7,
+       10
+      ],
+      [
+       8,
+       10
+      ],
+      [
+       8,
+       11
+      ],
+      [
+       11,
+       12
+      ],
+      [
+       3,
+       13
+      ],
+      [
+       4,
+       13
+      ],
+      [
+       9,
+       11
+      ],
+      [
+       9,
+       12
+      ],
+      [
+       24,
+       11
+      ],
+      [
+       25,
+       11
+      ],
+      [
+       25,
+       12
+      ],
+      [
+       4,
+       14
+      ],
+      [
+       10,
+       12
+      ],
+      [
+       26,
+       12
+      ],
+      [
+       27,
+       12
+      ],
+      [
+       27,
+       13
+      ],
+      [
+       4,
+       15
+      ],
+      [
+       28,
+       13
+      ],
+      [
+       28,
+       14
+      ],
+      [
+       29,
+       14
+      ],
+      [
+       29,
+       15
+      ],
+      [
+       3,
+       15
+      ],
+      [
+       3,
+       16
+      ],
+      [
+       3,
+       17
+      ],
+      [
+       30,
+       15
+      ],
+      [
+       30,
+       16
+      ],
+      [
+       30,
+       17
+      ],
+      [
+       3,
+       18
+      ],
+      [
+       30,
+       18
+      ],
+      [
+       3,
+       19
+      ],
+      [
+       30,
+       19
+      ],
+      [
+       3,
+       20
+      ],
+      [
+       4,
+       20
+      ],
+      [
+       29,
+       20
+      ],
+      [
+       30,
+       20
+      ],
+      [
+       4,
+       21
+      ],
+      [
+       5,
+       21
+      ],
+      [
+       6,
+       21
+      ],
+      [
+       7,
+       21
+      ],
+      [
+       8,
+       21
+      ],
+      [
+       9,
+       21
+      ],
+      [
+       10,
+       21
+      ],
+      [
+       11,
+       21
+      ],
+      [
+       12,
+       21
+      ],
+      [
+       13,
+       21
+      ],
+      [
+       14,
+       21
+      ],
+      [
+       15,
+       21
+      ],
+      [
+       16,
+       21
+      ],
+      [
+       17,
+       21
+      ],
+      [
+       18,
+       21
+      ],
+      [
+       19,
+       21
+      ],
+      [
+       20,
+       21
+      ],
+      [
+       21,
+       21
+      ],
+      [
+       22,
+       21
+      ],
+      [
+       23,
+       21
+      ],
+      [
+       24,
+       21
+      ],
+      [
+       25,
+       21
+      ],
+      [
+       26,
+       21
+      ],
+      [
+       27,
+       21
+      ],
+      [
+       28,
+       21
+      ],
+      [
+       29,
+       21
+      ]
+     ]
+    },
+    "channel": {
+     "spring": 397,
+     "exits": [
+      {
+       "cell": 1007,
+       "route": [
+        397,
+        398,
+        399,
+        437,
+        475,
+        513,
+        551,
+        589,
+        627,
+        665,
+        703,
+        741,
+        779,
+        817,
+        855,
+        893,
+        931,
+        969,
+        1007
+       ],
+       "rideUs": 1080000
+      },
+      {
+       "cell": 511,
+       "route": [
+        397,
+        435,
+        473,
+        511
+       ],
+       "rideUs": 400000
+      }
+     ]
+    }
+   },
+   "N": 989,
+   "W": 989,
+   "colours": 8,
+   "P": 25,
+   "columns": 4,
+   "linked": 2,
+   "hidden": 0,
+   "channel": true,
+   "slot": "regular",
+   "inZone": true,
+   "random": {
+    "runs": 400,
+    "wins": 234,
+    "share": 0.585,
+    "wilson95": [
+     0.536,
+     0.632
+    ],
+    "cls": "Normal",
+    "borderline": false,
+    "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+    "seedBase": 1
+   },
+   "solution": {
+    "route": [
+     {
+      "type": "tap",
+      "pod": 2
+     },
+     {
+      "type": "tap",
+      "pod": 18
+     },
+     {
+      "type": "tap",
+      "pod": 6
+     },
+     {
+      "type": "tap",
+      "pod": 10
+     },
+     {
+      "type": "tap",
+      "pod": 13
+     },
+     {
+      "type": "tap",
+      "pod": 15
+     },
+     {
+      "type": "tap",
+      "pod": 21
+     },
+     {
+      "type": "tap",
+      "pod": 4
+     },
+     {
+      "type": "channel",
+      "exit": 0
+     },
+     {
+      "type": "tap",
+      "pod": 3
+     },
+     {
+      "type": "tap",
+      "pod": 24
+     },
+     {
+      "type": "tap",
+      "pod": 8
+     },
+     {
+      "type": "tap",
+      "pod": 11
+     },
+     {
+      "type": "tap",
+      "pod": 0
+     },
+     {
+      "type": "tap",
+      "pod": 23
+     },
+     {
+      "type": "tap",
+      "pod": 12
+     },
+     {
+      "type": "tap",
+      "pod": 1
+     },
+     {
+      "type": "tap",
+      "pod": 19
+     },
+     {
+      "type": "tap",
+      "pod": 5
+     },
+     {
+      "type": "tap",
+      "pod": 7
+     },
+     {
+      "type": "tap",
+      "pod": 16
+     },
+     {
+      "type": "tap",
+      "pod": 22
+     },
+     {
+      "type": "tap",
+      "pod": 14
+     },
+     {
+      "type": "tap",
+      "pod": 9
+     },
+     {
+      "type": "tap",
+      "pod": 17
+     }
+    ],
+    "forks": 5,
+    "singleSafe": 5,
+    "unknown": 0,
+    "fast": {
+     "status": "won",
+     "seconds": 143.9
+    }
+   },
+   "fairness": {
+    "fair": true,
+    "checked": 0
+   },
+   "strategies": {
+    "left-to-right|left": false,
+    "left-to-right|right": true,
+    "right-to-left|left": true,
+    "right-to-left|right": true,
+    "top-down|left": true,
+    "top-down|right": true,
+    "bottom-up|left": false,
+    "bottom-up|right": true,
+    "diagonal|left": false,
+    "diagonal|right": false,
+    "small-first|left": false,
+    "small-first|right": true,
+    "most-now|left": true,
+    "most-now|right": false,
+    "fast-release|left": true,
+    "fast-release|right": false
+   },
+   "rhythm": {
+    "segments": [
+     {
+      "from": 0,
+      "to": 20,
+      "meanFree": 3.71,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 2
+     },
+     {
+      "from": 20,
+      "to": 40,
+      "meanFree": 3.11,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 2
+     },
+     {
+      "from": 40,
+      "to": 60,
+      "meanFree": 1.5,
+      "minFree": 0,
+      "fullShare": 0.17,
+      "maxWaiting": 3
+     },
+     {
+      "from": 60,
+      "to": 80,
+      "meanFree": 1.48,
+      "minFree": 0,
+      "fullShare": 0.06,
+      "maxWaiting": 4
+     },
+     {
+      "from": 80,
+      "to": 100,
+      "meanFree": 3.02,
+      "minFree": 2,
+      "fullShare": 0,
+      "maxWaiting": 2
+     }
+    ],
+    "launchesAfter80": 4,
+    "lastLaunchAtW": 94,
+    "seconds": 500.4
+   },
+   "dosePos": 0.6,
+   "blend": 0.11,
+   "tune": {
+    "steps": [
+     {
+      "t": 0.01,
+      "q": 0.8
+     },
+     {
+      "t": 0.11,
+      "q": 0.6
+     }
+    ],
+    "links": {
+     "pairs": 1,
+     "traps": 0,
+     "forced": 0.11,
+     "greedy": null
+    },
+    "seconds": 269
+   },
+   "checks": {
+    "forced": 0.11,
+    "opening": null,
+    "hold": true,
+    "greedyLoses": false,
+    "hiddenMatters": null,
+    "bridgeKind": null,
+    "bridgeSingle": null,
+    "pressure": {
+     "stuck": 1.13,
+     "tight": 0.89
+    },
+    "calm": {
+     "runs": 200,
+     "wins": 125,
+     "share": 0.625,
+     "wilson95": [
+      0.556,
+      0.689
+     ],
+     "borderline": false,
+     "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+     "seedBase": 3
+    },
+    "traps": {
+     "links": 1,
+     "traps": 0,
+     "top": 0
+    },
+    "channel": {
+     "each": [
+      {
+       "exit": 0,
+       "win": true,
+       "share": 0.52
+      },
+      {
+       "exit": 1,
+       "win": true,
+       "share": 0.77
+      }
+     ],
+     "gap": 0.25,
+     "decides": false,
+     "better": 1
+    },
+    "island": {
+     "island": {
+      "cells": 275,
+      "share": 0.278
+     },
+     "exitsOn": [
+      true,
+      true
+     ],
+     "ready": {
+      "atW": 0.245
+     },
+     "open": {
+      "exit": 0,
+      "atW": 0.258
+     },
+     "ok": true,
+     "problems": [],
+     "notes": []
+    }
+   },
+   "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+   "seed": 1,
+   "attempt": 11
   }
  ],
  "rejected": [],
@@ -2764,6 +8510,25 @@
    "reasons": {
     "evaluate: жадная стратегия выигрывает измеренный класс (§5)": 1
    }
+  },
+  {
+   "combo": "Normal|canal+links||tune|2026-11-07",
+   "tune": {
+    "slot": "regular",
+    "t": 0.11,
+    "attempts": 12,
+    "quick": 39,
+    "evaluated": 12,
+    "seconds": 269
+   },
+   "tried": 12,
+   "found": 6,
+   "reasons": {
+    "evaluate: дебют + цвета: выигрывает после первого запуска (§5)": 1,
+    "evaluate: жадная стратегия выигрывает измеренный класс (§5)": 3,
+    "evaluate: канал: родник открыт при 8 % W на сохранённом решении, нужно 20–30 % (§8 «Остров за водой»)": 1,
+    "вне зоны позиции (проходит фильтры)": 1
+   }
   }
  ],
  "tune": {
@@ -2773,6 +8538,16 @@
    "offset": 1.17,
    "quick": 0.625,
    "at": "2026-11-02"
+  },
+  "Normal|canal+links|regular": {
+   "t": 0.11,
+   "cols": 4,
+   "offset": -2.48,
+   "quick": 0.6,
+   "at": "2026-11-13"
   }
- }
+ },
+ "placed": [
+  "P0077-Ncanal+links-g1107-6"
+ ]
 }
