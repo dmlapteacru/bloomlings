@@ -1,0 +1,481 @@
+{
+ "format": "bloomlings-wave-mechanics-1",
+ "wave": [
+  151,
+  200
+ ],
+ "approved": "2026-11-13",
+ "approvedBy": "owner",
+ "plan": "product/plans/wave-L151-L200-mechanics-plan-2026-11-13.md",
+ "note": "The owner approved the plan on 2026-11-13 («Делай»). No new mechanic (repair of the fifth place comes on 201/203). The water channel always with its island behind water (17 §8, 2026-11-07). One bridge returns (owner, 2026-11-05: «Вернём позже на 1»): Hard L175 bridge+links, a contour picture, one deciding bridge, built by hand. Hand Super Hards with a channel: L170 single (exactly one exit wins, as L150), L190 better (as L130). Accents on every Hard and Super Hard.",
+ "levels": [
+  {
+   "level": 151,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [],
+   "recipe": "links"
+  },
+  {
+   "level": 152,
+   "cls": "Normal",
+   "lead": "canal",
+   "add": [
+    "links"
+   ],
+   "recipe": "canal+links"
+  },
+  {
+   "level": 153,
+   "cls": "Normal",
+   "lead": "shutters",
+   "add": [
+    "cells"
+   ],
+   "recipe": "shutters+cells"
+  },
+  {
+   "level": 154,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "hidden"
+   ],
+   "recipe": "links+hidden"
+  },
+  {
+   "level": 155,
+   "cls": "Hard",
+   "lead": "links",
+   "add": [
+    "canal",
+    "cells"
+   ],
+   "recipe": "links+canal+cells",
+   "accents": true
+  },
+  {
+   "level": 156,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [],
+   "recipe": "links"
+  },
+  {
+   "level": 157,
+   "cls": "Normal",
+   "lead": "latch",
+   "add": [
+    "links",
+    "cells"
+   ],
+   "recipe": "latch+links+cells"
+  },
+  {
+   "level": 158,
+   "cls": "Normal",
+   "lead": "canal",
+   "add": [
+    "hidden"
+   ],
+   "recipe": "canal+hidden"
+  },
+  {
+   "level": 159,
+   "cls": "Normal",
+   "lead": "cells",
+   "add": [],
+   "recipe": "cells",
+   "breather": true
+  },
+  {
+   "level": 160,
+   "cls": "Super Hard",
+   "lead": "links",
+   "add": [
+    "shutters",
+    "cells"
+   ],
+   "recipe": "links+shutters+cells",
+   "accents": true
+  },
+  {
+   "level": 161,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells"
+  },
+  {
+   "level": 162,
+   "cls": "Normal",
+   "lead": "shutters",
+   "add": [
+    "links"
+   ],
+   "recipe": "shutters+links"
+  },
+  {
+   "level": 163,
+   "cls": "Normal",
+   "lead": "canal",
+   "add": [
+    "cells"
+   ],
+   "recipe": "canal+cells"
+  },
+  {
+   "level": 164,
+   "cls": "Normal",
+   "lead": "latch",
+   "add": [
+    "links",
+    "hidden"
+   ],
+   "recipe": "latch+links+hidden"
+  },
+  {
+   "level": 165,
+   "cls": "Hard",
+   "lead": "links",
+   "add": [
+    "latch",
+    "cells"
+   ],
+   "recipe": "links+latch+cells",
+   "accents": true
+  },
+  {
+   "level": 166,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [],
+   "recipe": "links"
+  },
+  {
+   "level": 167,
+   "cls": "Normal",
+   "lead": "canal",
+   "add": [
+    "links"
+   ],
+   "recipe": "canal+links"
+  },
+  {
+   "level": 168,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells"
+  },
+  {
+   "level": 169,
+   "cls": "Normal",
+   "lead": "hidden",
+   "add": [],
+   "recipe": "hidden",
+   "breather": true
+  },
+  {
+   "level": 170,
+   "cls": "Super Hard",
+   "lead": "links",
+   "add": [
+    "canal",
+    "latch"
+   ],
+   "recipe": "links+canal+latch",
+   "accents": true,
+   "by": "hand",
+   "channelKind": "single"
+  },
+  {
+   "level": 171,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "hidden"
+   ],
+   "recipe": "links+hidden"
+  },
+  {
+   "level": 172,
+   "cls": "Normal",
+   "lead": "shutters",
+   "add": [
+    "cells"
+   ],
+   "recipe": "shutters+cells"
+  },
+  {
+   "level": 173,
+   "cls": "Normal",
+   "lead": "latch",
+   "add": [
+    "links",
+    "cells"
+   ],
+   "recipe": "latch+links+cells"
+  },
+  {
+   "level": 174,
+   "cls": "Normal",
+   "lead": "canal",
+   "add": [
+    "links"
+   ],
+   "recipe": "canal+links"
+  },
+  {
+   "level": 175,
+   "cls": "Hard",
+   "lead": "bridge",
+   "add": [
+    "links"
+   ],
+   "recipe": "bridge+links",
+   "accents": true,
+   "by": "hand",
+   "bridgeSide": "two",
+   "strip": "gap",
+   "bridgeKind": "single"
+  },
+  {
+   "level": 176,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells"
+  },
+  {
+   "level": 177,
+   "cls": "Normal",
+   "lead": "shutters",
+   "add": [
+    "hidden"
+   ],
+   "recipe": "shutters+hidden"
+  },
+  {
+   "level": 178,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "hidden"
+   ],
+   "recipe": "links+hidden"
+  },
+  {
+   "level": 179,
+   "cls": "Normal",
+   "lead": "canal",
+   "add": [
+    "cells"
+   ],
+   "recipe": "canal+cells"
+  },
+  {
+   "level": 180,
+   "cls": "Super Hard",
+   "lead": "links",
+   "add": [
+    "latch",
+    "hidden"
+   ],
+   "recipe": "links+latch+hidden",
+   "accents": true
+  },
+  {
+   "level": 181,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [],
+   "recipe": "links"
+  },
+  {
+   "level": 182,
+   "cls": "Normal",
+   "lead": "cells",
+   "add": [],
+   "recipe": "cells",
+   "breather": true
+  },
+  {
+   "level": 183,
+   "cls": "Normal",
+   "lead": "shutters",
+   "add": [
+    "links"
+   ],
+   "recipe": "shutters+links"
+  },
+  {
+   "level": 184,
+   "cls": "Normal",
+   "lead": "canal",
+   "add": [
+    "hidden"
+   ],
+   "recipe": "canal+hidden"
+  },
+  {
+   "level": 185,
+   "cls": "Hard",
+   "lead": "links",
+   "add": [
+    "shutters",
+    "hidden"
+   ],
+   "recipe": "links+shutters+hidden",
+   "accents": true
+  },
+  {
+   "level": 186,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells"
+  },
+  {
+   "level": 187,
+   "cls": "Normal",
+   "lead": "latch",
+   "add": [
+    "links",
+    "hidden"
+   ],
+   "recipe": "latch+links+hidden"
+  },
+  {
+   "level": 188,
+   "cls": "Normal",
+   "lead": "canal",
+   "add": [
+    "links"
+   ],
+   "recipe": "canal+links"
+  },
+  {
+   "level": 189,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells"
+  },
+  {
+   "level": 190,
+   "cls": "Super Hard",
+   "lead": "links",
+   "add": [
+    "canal",
+    "shutters"
+   ],
+   "recipe": "links+canal+shutters",
+   "accents": true,
+   "by": "hand",
+   "channelKind": "better"
+  },
+  {
+   "level": 191,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "hidden"
+   ],
+   "recipe": "links+hidden"
+  },
+  {
+   "level": 192,
+   "cls": "Normal",
+   "lead": "shutters",
+   "add": [
+    "cells"
+   ],
+   "recipe": "shutters+cells"
+  },
+  {
+   "level": 193,
+   "cls": "Normal",
+   "lead": "canal",
+   "add": [
+    "links",
+    "latch"
+   ],
+   "recipe": "canal+links+latch"
+  },
+  {
+   "level": 194,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [
+    "cells"
+   ],
+   "recipe": "links+cells"
+  },
+  {
+   "level": 195,
+   "cls": "Hard",
+   "lead": "links",
+   "add": [
+    "canal",
+    "latch"
+   ],
+   "recipe": "links+canal+latch",
+   "accents": true
+  },
+  {
+   "level": 196,
+   "cls": "Normal",
+   "lead": "links",
+   "add": [],
+   "recipe": "links"
+  },
+  {
+   "level": 197,
+   "cls": "Normal",
+   "lead": "hidden",
+   "add": [],
+   "recipe": "hidden",
+   "breather": true
+  },
+  {
+   "level": 198,
+   "cls": "Normal",
+   "lead": "shutters",
+   "add": [
+    "links"
+   ],
+   "recipe": "shutters+links"
+  },
+  {
+   "level": 199,
+   "cls": "Normal",
+   "lead": "canal",
+   "add": [
+    "cells"
+   ],
+   "recipe": "canal+cells"
+  },
+  {
+   "level": 200,
+   "cls": "Super Hard",
+   "lead": "links",
+   "add": [
+    "shutters",
+    "latch"
+   ],
+   "recipe": "links+shutters+latch",
+   "accents": true
+  }
+ ]
+}

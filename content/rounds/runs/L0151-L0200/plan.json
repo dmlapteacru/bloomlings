@@ -1,0 +1,2785 @@
+{
+ "range": [
+  151,
+  200
+ ],
+ "created": "2026-11-13T22:21:24.810Z",
+ "positions": [
+  {
+   "level": 151,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 152,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 153,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 154,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 155,
+   "cls": "Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 156,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 157,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 158,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 159,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 160,
+   "cls": "Super Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 161,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 162,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 163,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 164,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 165,
+   "cls": "Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 166,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 167,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 168,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 169,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 170,
+   "cls": "Super Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 171,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 172,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 173,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 174,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 175,
+   "cls": "Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 176,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 177,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 178,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 179,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 180,
+   "cls": "Super Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 181,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 182,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 183,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 184,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 185,
+   "cls": "Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 186,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 187,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 188,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 189,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 190,
+   "cls": "Super Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 191,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 192,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 193,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 194,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 195,
+   "cls": "Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 196,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 197,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 198,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 199,
+   "cls": "Normal",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  },
+  {
+   "level": 200,
+   "cls": "Super Hard",
+   "intro": null,
+   "allowed": [
+    "hidden",
+    "links",
+    "bridge",
+    "cells",
+    "latch",
+    "canal",
+    "shutters"
+   ],
+   "stage": {
+    "cells": [
+     400,
+     1500
+    ],
+    "colours": [
+     4,
+     10
+    ],
+    "compact": true
+   },
+   "placed": false,
+   "picture": null
+  }
+ ],
+ "open": [
+  151,
+  152,
+  153,
+  154,
+  155,
+  156,
+  157,
+  158,
+  159,
+  160,
+  161,
+  162,
+  163,
+  164,
+  165,
+  166,
+  167,
+  168,
+  169,
+  170,
+  171,
+  172,
+  173,
+  174,
+  175,
+  176,
+  177,
+  178,
+  179,
+  180,
+  181,
+  182,
+  183,
+  184,
+  185,
+  186,
+  187,
+  188,
+  189,
+  190,
+  191,
+  192,
+  193,
+  194,
+  195,
+  196,
+  197,
+  198,
+  199,
+  200
+ ],
+ "blockers": [],
+ "mechanics": {
+  "levels": [
+   {
+    "level": 151,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [],
+    "recipe": "links",
+    "doses": "связки 10–30 % P (4–6 при P = 24)"
+   },
+   {
+    "level": 152,
+    "cls": "Normal",
+    "lead": "canal",
+    "add": [
+     "links"
+    ],
+    "recipe": "canal+links",
+    "doses": "канал: 1 канал, 2 выхода; связки доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 153,
+    "cls": "Normal",
+    "lead": "shutters",
+    "add": [
+     "cells"
+    ],
+    "recipe": "shutters+cells",
+    "doses": "створки 1 шт., счётчик 20–35 % работы материала; скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 154,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "hidden"
+    ],
+    "recipe": "links+hidden",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 155,
+    "cls": "Hard",
+    "lead": "links",
+    "add": [
+     "canal",
+     "cells"
+    ],
+    "recipe": "links+canal+cells",
+    "doses": "связки 20–32.5 % P (6 при P = 24); канал: 1 канал, 2 выхода; скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 156,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [],
+    "recipe": "links",
+    "doses": "связки 10–30 % P (4–6 при P = 24)"
+   },
+   {
+    "level": 157,
+    "cls": "Normal",
+    "lead": "latch",
+    "add": [
+     "links",
+     "cells"
+    ],
+    "recipe": "latch+links+cells",
+    "doses": "засов и ключ 1 пара; связки доп. 5 % P (2 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 158,
+    "cls": "Normal",
+    "lead": "canal",
+    "add": [
+     "hidden"
+    ],
+    "recipe": "canal+hidden",
+    "doses": "канал: 1 канал, 2 выхода; скрытые доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 159,
+    "cls": "Normal",
+    "lead": "cells",
+    "add": [],
+    "recipe": "cells",
+    "doses": "скрытые клетки 5–10 % N (35–70 при N = 700)"
+   },
+   {
+    "level": 160,
+    "cls": "Super Hard",
+    "lead": "links",
+    "add": [
+     "shutters",
+     "cells"
+    ],
+    "recipe": "links+shutters+cells",
+    "doses": "связки 35–47.5 % P (10 при P = 24); створки доп. 1 шт., счётчик 40 % работы материала; скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 161,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 162,
+    "cls": "Normal",
+    "lead": "shutters",
+    "add": [
+     "links"
+    ],
+    "recipe": "shutters+links",
+    "doses": "створки 1 шт., счётчик 20–35 % работы материала; связки доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 163,
+    "cls": "Normal",
+    "lead": "canal",
+    "add": [
+     "cells"
+    ],
+    "recipe": "canal+cells",
+    "doses": "канал: 1 канал, 2 выхода; скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 164,
+    "cls": "Normal",
+    "lead": "latch",
+    "add": [
+     "links",
+     "hidden"
+    ],
+    "recipe": "latch+links+hidden",
+    "doses": "засов и ключ 1 пара; связки доп. 5 % P (2 при P = 24); скрытые доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 165,
+    "cls": "Hard",
+    "lead": "links",
+    "add": [
+     "latch",
+     "cells"
+    ],
+    "recipe": "links+latch+cells",
+    "doses": "связки 20–32.5 % P (6 при P = 24); засов и ключ доп. 2 пары; скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 166,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [],
+    "recipe": "links",
+    "doses": "связки 10–30 % P (4–6 при P = 24)"
+   },
+   {
+    "level": 167,
+    "cls": "Normal",
+    "lead": "canal",
+    "add": [
+     "links"
+    ],
+    "recipe": "canal+links",
+    "doses": "канал: 1 канал, 2 выхода; связки доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 168,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 169,
+    "cls": "Normal",
+    "lead": "hidden",
+    "add": [],
+    "recipe": "hidden",
+    "doses": "скрытые 5–15 % P (2–3 при P = 24)"
+   },
+   {
+    "level": 170,
+    "cls": "Super Hard",
+    "lead": "links",
+    "add": [
+     "canal",
+     "latch"
+    ],
+    "recipe": "links+canal+latch",
+    "doses": "связки 35–47.5 % P (10 при P = 24); канал: 1 канал, 2 выхода; засов и ключ доп. 3 пары"
+   },
+   {
+    "level": 171,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "hidden"
+    ],
+    "recipe": "links+hidden",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 172,
+    "cls": "Normal",
+    "lead": "shutters",
+    "add": [
+     "cells"
+    ],
+    "recipe": "shutters+cells",
+    "doses": "створки 1 шт., счётчик 20–35 % работы материала; скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 173,
+    "cls": "Normal",
+    "lead": "latch",
+    "add": [
+     "links",
+     "cells"
+    ],
+    "recipe": "latch+links+cells",
+    "doses": "засов и ключ 1 пара; связки доп. 5 % P (2 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 174,
+    "cls": "Normal",
+    "lead": "canal",
+    "add": [
+     "links"
+    ],
+    "recipe": "canal+links",
+    "doses": "канал: 1 канал, 2 выхода; связки доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 175,
+    "cls": "Hard",
+    "lead": "bridge",
+    "add": [
+     "links"
+    ],
+    "recipe": "bridge+links",
+    "doses": "мост: 1 выбор из 2 мест; связки 20–45 % P (6–10 при P = 24)",
+    "bridgeSide": "two",
+    "strip": "gap"
+   },
+   {
+    "level": 176,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 177,
+    "cls": "Normal",
+    "lead": "shutters",
+    "add": [
+     "hidden"
+    ],
+    "recipe": "shutters+hidden",
+    "doses": "створки 1 шт., счётчик 20–35 % работы материала; скрытые доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 178,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "hidden"
+    ],
+    "recipe": "links+hidden",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 179,
+    "cls": "Normal",
+    "lead": "canal",
+    "add": [
+     "cells"
+    ],
+    "recipe": "canal+cells",
+    "doses": "канал: 1 канал, 2 выхода; скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 180,
+    "cls": "Super Hard",
+    "lead": "links",
+    "add": [
+     "latch",
+     "hidden"
+    ],
+    "recipe": "links+latch+hidden",
+    "doses": "связки 35–47.5 % P (10 при P = 24); засов и ключ доп. 3 пары; скрытые доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 181,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [],
+    "recipe": "links",
+    "doses": "связки 10–30 % P (4–6 при P = 24)"
+   },
+   {
+    "level": 182,
+    "cls": "Normal",
+    "lead": "cells",
+    "add": [],
+    "recipe": "cells",
+    "doses": "скрытые клетки 5–10 % N (35–70 при N = 700)"
+   },
+   {
+    "level": 183,
+    "cls": "Normal",
+    "lead": "shutters",
+    "add": [
+     "links"
+    ],
+    "recipe": "shutters+links",
+    "doses": "створки 1 шт., счётчик 20–35 % работы материала; связки доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 184,
+    "cls": "Normal",
+    "lead": "canal",
+    "add": [
+     "hidden"
+    ],
+    "recipe": "canal+hidden",
+    "doses": "канал: 1 канал, 2 выхода; скрытые доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 185,
+    "cls": "Hard",
+    "lead": "links",
+    "add": [
+     "shutters",
+     "hidden"
+    ],
+    "recipe": "links+shutters+hidden",
+    "doses": "связки 20–32.5 % P (6 при P = 24); створки доп. 1 шт., счётчик 30 % работы материала; скрытые доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 186,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 187,
+    "cls": "Normal",
+    "lead": "latch",
+    "add": [
+     "links",
+     "hidden"
+    ],
+    "recipe": "latch+links+hidden",
+    "doses": "засов и ключ 1 пара; связки доп. 5 % P (2 при P = 24); скрытые доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 188,
+    "cls": "Normal",
+    "lead": "canal",
+    "add": [
+     "links"
+    ],
+    "recipe": "canal+links",
+    "doses": "канал: 1 канал, 2 выхода; связки доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 189,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 190,
+    "cls": "Super Hard",
+    "lead": "links",
+    "add": [
+     "canal",
+     "shutters"
+    ],
+    "recipe": "links+canal+shutters",
+    "doses": "связки 35–47.5 % P (10 при P = 24); канал: 1 канал, 2 выхода; створки доп. 1 шт., счётчик 40 % работы материала"
+   },
+   {
+    "level": 191,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "hidden"
+    ],
+    "recipe": "links+hidden",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 192,
+    "cls": "Normal",
+    "lead": "shutters",
+    "add": [
+     "cells"
+    ],
+    "recipe": "shutters+cells",
+    "doses": "створки 1 шт., счётчик 20–35 % работы материала; скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 193,
+    "cls": "Normal",
+    "lead": "canal",
+    "add": [
+     "links",
+     "latch"
+    ],
+    "recipe": "canal+links+latch",
+    "doses": "канал: 1 канал, 2 выхода; связки доп. 5 % P (2 при P = 24); засов и ключ доп. 1 пара"
+   },
+   {
+    "level": 194,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [
+     "cells"
+    ],
+    "recipe": "links+cells",
+    "doses": "связки 10–30 % P (4–6 при P = 24); скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 195,
+    "cls": "Hard",
+    "lead": "links",
+    "add": [
+     "canal",
+     "latch"
+    ],
+    "recipe": "links+canal+latch",
+    "doses": "связки 20–32.5 % P (6 при P = 24); канал: 1 канал, 2 выхода; засов и ключ доп. 2 пары"
+   },
+   {
+    "level": 196,
+    "cls": "Normal",
+    "lead": "links",
+    "add": [],
+    "recipe": "links",
+    "doses": "связки 10–30 % P (4–6 при P = 24)"
+   },
+   {
+    "level": 197,
+    "cls": "Normal",
+    "lead": "hidden",
+    "add": [],
+    "recipe": "hidden",
+    "doses": "скрытые 5–15 % P (2–3 при P = 24)"
+   },
+   {
+    "level": 198,
+    "cls": "Normal",
+    "lead": "shutters",
+    "add": [
+     "links"
+    ],
+    "recipe": "shutters+links",
+    "doses": "створки 1 шт., счётчик 20–35 % работы материала; связки доп. 5 % P (2 при P = 24)"
+   },
+   {
+    "level": 199,
+    "cls": "Normal",
+    "lead": "canal",
+    "add": [
+     "cells"
+    ],
+    "recipe": "canal+cells",
+    "doses": "канал: 1 канал, 2 выхода; скрытые клетки доп. 5 % N (35 при N = 700)"
+   },
+   {
+    "level": 200,
+    "cls": "Super Hard",
+    "lead": "links",
+    "add": [
+     "shutters",
+     "latch"
+    ],
+    "recipe": "links+shutters+latch",
+    "doses": "связки 35–47.5 % P (10 при P = 24); створки доп. 1 шт., счётчик 40 % работы материала; засов и ключ доп. 3 пары"
+   }
+  ],
+  "shares": {
+   "bridge": {
+    "levels": 1,
+    "share": 0.02,
+    "lead": 1
+   },
+   "links": {
+    "levels": 37,
+    "share": 0.74,
+    "lead": 24
+   },
+   "hidden": {
+    "levels": 13,
+    "share": 0.26,
+    "lead": 2
+   },
+   "cells": {
+    "levels": 19,
+    "share": 0.38,
+    "lead": 2
+   },
+   "latch": {
+    "levels": 10,
+    "share": 0.2,
+    "lead": 4
+   },
+   "canal": {
+    "levels": 14,
+    "share": 0.28,
+    "lead": 10
+   },
+   "shutters": {
+    "levels": 11,
+    "share": 0.22,
+    "lead": 7
+   },
+   "none": {
+    "levels": 0,
+    "share": 0
+   }
+  },
+  "normalWithMechanic": [
+   40,
+   40
+  ],
+  "types": {
+   "one": 9,
+   "two": 27,
+   "three": 14
+  },
+  "sides": {
+   "two": 1
+  }
+ },
+ "need": {
+  "Normal": 40,
+  "Hard": 4,
+  "Super Hard": 5,
+  "intro": 0,
+  "bridge": 0
+ },
+ "supply": {
+  "pictures": 464,
+  "strong": 157,
+  "stream": 0,
+  "bank": {
+   "знакомство: hidden": 26,
+   "Normal": 328,
+   "знакомство: cells": 14,
+   "знакомство: links": 22,
+   "знакомство: latch": 2,
+   "Hard": 26,
+   "Super Hard": 12
+  },
+  "packs": {
+   "owner-0004-0008": 1,
+   "owner-0010": 1,
+   "batch-0011-env": 5,
+   "batch-0011": 18,
+   "batch-0061": 23,
+   "batch-0168-C": 17,
+   "batch-0168-D": 13,
+   "batch-0168-E": 1,
+   "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01": 38,
+   "packs-0268-0467 · Необычные магазины": 6,
+   "packs-0268-0467 · Музыка": 7,
+   "packs-0268-0467 · Праздники и карнавал": 7,
+   "packs-0268-0467 · Доисторические находки": 8,
+   "packs-0268-0467 · Невозможная архитектура": 7,
+   "packs-0268-0467 · Путешествия и походы": 8,
+   "packs-0268-0467 · Обмен свойствами предметов": 9,
+   "packs-0268-0467 · Уютная мистика": 8,
+   "packs-0268-0467 · Миниатюрные мастерские": 7,
+   "packs-0268-0467 · Ретрофутуризм": 7,
+   "packs-0268-0467 · Новые герои игр": 1,
+   "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01": 179,
+   "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02": 93
+  },
+  "latch": {
+   "positions": [
+    157,
+    164,
+    165,
+    170,
+    173,
+    180,
+    187,
+    193,
+    195,
+    200
+   ],
+   "pictures": 418
+  },
+  "overlay": {}
+ },
+ "assign": [
+  {
+   "level": 151,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links",
+   "slot": "after-hard",
+   "picture": "P1001",
+   "title": "Водяная мельница из пуговицы",
+   "N": 1133,
+   "band": "800–1200",
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
+   "hidden": 1,
+   "P": 30
+  },
+  {
+   "level": 152,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "canal+links",
+   "slot": "regular",
+   "picture": "P0212",
+   "title": "Поросёнок-строитель с кирпичом",
+   "N": 900,
+   "band": "800–1200",
+   "pack": "batch-0168-C",
+   "hidden": 7,
+   "P": 27
+  },
+  {
+   "level": 153,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "shutters+cells",
+   "slot": "regular",
+   "picture": "P0023",
+   "title": "Палатка у костра",
+   "N": 896,
+   "band": "700–900",
+   "pack": "batch-0011-env",
+   "hidden": 4,
+   "P": 24,
+   "wantLoss": true
+  },
+  {
+   "level": 154,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+hidden",
+   "slot": "regular",
+   "picture": "P0403",
+   "title": "Метеорит с древним папоротником",
+   "N": 865,
+   "band": "800–1200",
+   "pack": "packs-0268-0467 · Доисторические находки",
+   "hidden": 4,
+   "P": 24
+  },
+  {
+   "level": 155,
+   "cls": "Hard",
+   "intro": null,
+   "recipe": "links+canal+cells",
+   "slot": "Hard",
+   "picture": "P0416",
+   "title": "Каменный воздушный шар",
+   "N": 1224,
+   "band": "1200–1500",
+   "pack": "packs-0268-0467 · Обмен свойствами предметов",
+   "hidden": 7,
+   "P": 30
+  },
+  {
+   "level": 156,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links",
+   "slot": "after-hard",
+   "picture": "P0076",
+   "title": "Паровозик",
+   "N": 906,
+   "band": "800–1200",
+   "pack": "batch-0061",
+   "hidden": 0,
+   "P": 24
+  },
+  {
+   "level": 157,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "latch+links+cells",
+   "slot": "regular",
+   "picture": "P0304",
+   "title": "Ступеньки из падающих домино",
+   "N": 861,
+   "band": "800–1200",
+   "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
+   "hidden": 3,
+   "P": 24,
+   "wantLoss": true
+  },
+  {
+   "level": 158,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "canal+hidden",
+   "slot": "regular",
+   "picture": "P0387",
+   "title": "Часы с растущими стрелками",
+   "N": 898,
+   "band": "700–900",
+   "pack": "packs-0268-0467 · Уютная мистика",
+   "hidden": 6,
+   "P": 25
+  },
+  {
+   "level": 159,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "cells",
+   "slot": "breather",
+   "picture": "P1174",
+   "title": "Долька карамболы с листом",
+   "N": 510,
+   "band": "400–700",
+   "pack": "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02",
+   "hidden": 3,
+   "P": 18
+  },
+  {
+   "level": 160,
+   "cls": "Super Hard",
+   "intro": null,
+   "recipe": "links+shutters+cells",
+   "slot": "Super Hard",
+   "picture": "P0381",
+   "title": "Калькулятор с грядками вместо кнопок",
+   "N": 876,
+   "band": "800–1200",
+   "pack": "packs-0268-0467 · Ретрофутуризм",
+   "hidden": 7,
+   "P": 25
+  },
+  {
+   "level": 161,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+cells",
+   "slot": "after-hard",
+   "picture": "P0035",
+   "title": "Остров в облаках",
+   "N": 1153,
+   "band": "800–1200",
+   "pack": "batch-0011",
+   "hidden": 2,
+   "P": 30
+  },
+  {
+   "level": 162,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "shutters+links",
+   "slot": "regular",
+   "picture": "P0352",
+   "title": "Венок из карманных часов",
+   "N": 862,
+   "band": "700–900",
+   "pack": "packs-0268-0467 · Праздники и карнавал",
+   "hidden": 3,
+   "P": 24,
+   "wantLoss": true
+  },
+  {
+   "level": 163,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "canal+cells",
+   "slot": "regular",
+   "picture": "P0325",
+   "title": "Пикник на гигантской кувшинке",
+   "N": 874,
+   "band": "800–1200",
+   "pack": "packs-0268-0467 · Путешествия и походы",
+   "hidden": 6,
+   "P": 24
+  },
+  {
+   "level": 164,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "latch+links+hidden",
+   "slot": "regular",
+   "picture": "P0359",
+   "title": "Булочная съедобных облаков",
+   "N": 1254,
+   "band": "1200–1500",
+   "pack": "packs-0268-0467 · Необычные магазины",
+   "hidden": 4,
+   "P": 30,
+   "wantLoss": true
+  },
+  {
+   "level": 165,
+   "cls": "Hard",
+   "intro": null,
+   "recipe": "links+latch+cells",
+   "slot": "Hard",
+   "picture": "P0223",
+   "title": "Дюймовочка в тюльпане",
+   "N": 837,
+   "band": "800–1200",
+   "pack": "batch-0168-C",
+   "hidden": 7,
+   "P": 25
+  },
+  {
+   "level": 166,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links",
+   "slot": "after-hard",
+   "picture": "P0380",
+   "title": "Рояль с клавишами-домино",
+   "N": 905,
+   "band": "800–1200",
+   "pack": "packs-0268-0467 · Музыка",
+   "hidden": 2,
+   "P": 24
+  },
+  {
+   "level": 167,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "canal+links",
+   "slot": "regular",
+   "picture": "P0368",
+   "title": "Стеклодувная мастерская в бусине",
+   "N": 885,
+   "band": "700–900",
+   "pack": "packs-0268-0467 · Миниатюрные мастерские",
+   "hidden": 6,
+   "P": 25
+  },
+  {
+   "level": 168,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+cells",
+   "slot": "regular",
+   "picture": "P1027",
+   "title": "Сандалия из стручка и ленты",
+   "N": 1149,
+   "band": "800–1200",
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
+   "hidden": 3,
+   "P": 30,
+   "wantLoss": true
+  },
+  {
+   "level": 169,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "hidden",
+   "slot": "breather",
+   "picture": "P0231",
+   "title": "Брокколи в тёмных очках",
+   "N": 371,
+   "band": "400–700",
+   "pack": "batch-0168-D",
+   "hidden": 3,
+   "P": 12
+  },
+  {
+   "level": 171,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+hidden",
+   "slot": "after-hard",
+   "picture": "P0084",
+   "title": "Ёжик-повар",
+   "N": 944,
+   "band": "800–1200",
+   "pack": "batch-0061",
+   "hidden": 1,
+   "P": 24
+  },
+  {
+   "level": 172,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "shutters+cells",
+   "slot": "regular",
+   "picture": "P0354",
+   "title": "Башня, сшитая из лоскутов",
+   "N": 880,
+   "band": "800–1200",
+   "pack": "packs-0268-0467 · Невозможная архитектура",
+   "hidden": 4,
+   "P": 24
+  },
+  {
+   "level": 173,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "latch+links+cells",
+   "slot": "regular",
+   "picture": "P0331",
+   "title": "Факс печатает бумажный город",
+   "N": 1224,
+   "band": "1200–1500",
+   "pack": "packs-0268-0467 · Ретрофутуризм",
+   "hidden": 4,
+   "P": 32,
+   "wantLoss": true
+  },
+  {
+   "level": 174,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "canal+links",
+   "slot": "regular",
+   "picture": "P0229",
+   "title": "Банан-супергерой в плаще",
+   "N": 960,
+   "band": "800–1200",
+   "pack": "batch-0168-D",
+   "hidden": 7,
+   "P": 25
+  },
+  {
+   "level": 176,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+cells",
+   "slot": "after-hard",
+   "picture": "P1091",
+   "title": "Золотой дверной молоток-лев",
+   "N": 611,
+   "band": "400–700",
+   "pack": "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02",
+   "hidden": 1,
+   "P": 18
+  },
+  {
+   "level": 177,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "shutters+hidden",
+   "slot": "regular",
+   "picture": "P0313",
+   "title": "Кекс с собственной погодой",
+   "N": 886,
+   "band": "700–900",
+   "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
+   "hidden": 2,
+   "P": 25,
+   "wantLoss": true
+  },
+  {
+   "level": 178,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+hidden",
+   "slot": "regular",
+   "picture": "P0011",
+   "title": "Кит",
+   "N": 896,
+   "band": "800–1200",
+   "pack": "batch-0011-env",
+   "hidden": 3,
+   "P": 24
+  },
+  {
+   "level": 179,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "canal+cells",
+   "slot": "regular",
+   "picture": "P0319",
+   "title": "Витрина потерянных теней",
+   "N": 899,
+   "band": "800–1200",
+   "pack": "packs-0268-0467 · Необычные магазины",
+   "hidden": 6,
+   "P": 24,
+   "wantLoss": true
+  },
+  {
+   "level": 180,
+   "cls": "Super Hard",
+   "intro": null,
+   "recipe": "links+latch+hidden",
+   "slot": "Super Hard",
+   "picture": "P0221",
+   "title": "Безумный Шляпник",
+   "N": 896,
+   "band": "700–900",
+   "pack": "batch-0168-C",
+   "hidden": 7,
+   "P": 25
+  },
+  {
+   "level": 181,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links",
+   "slot": "after-hard",
+   "picture": "P0053",
+   "title": "Фургончик-кофейня",
+   "N": 931,
+   "band": "800–1200",
+   "pack": "batch-0011",
+   "hidden": 1,
+   "P": 24
+  },
+  {
+   "level": 182,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "cells",
+   "slot": "breather",
+   "picture": "P0267",
+   "title": "Bloom с подозрительным прищуром",
+   "N": 314,
+   "band": "400–700",
+   "pack": "batch-0168-E",
+   "hidden": 3,
+   "P": 9
+  },
+  {
+   "level": 183,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "shutters+links",
+   "slot": "regular",
+   "picture": "P0413",
+   "title": "Аммонит с часовым механизмом",
+   "N": 882,
+   "band": "800–1200",
+   "pack": "packs-0268-0467 · Доисторические находки",
+   "hidden": 4,
+   "P": 24
+  },
+  {
+   "level": 184,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "canal+hidden",
+   "slot": "regular",
+   "picture": "P0366",
+   "title": "Стеклянный хлеб с клубничным вареньем",
+   "N": 1196,
+   "band": "800–1200",
+   "pack": "packs-0268-0467 · Обмен свойствами предметов",
+   "hidden": 5,
+   "P": 30,
+   "wantLoss": true
+  },
+  {
+   "level": 185,
+   "cls": "Hard",
+   "intro": null,
+   "recipe": "links+shutters+hidden",
+   "slot": "Hard",
+   "picture": "P0402",
+   "title": "Подарочная коробка с бальным залом",
+   "N": 1225,
+   "band": "1200–1500",
+   "pack": "packs-0268-0467 · Праздники и карнавал",
+   "hidden": 7,
+   "P": 30
+  },
+  {
+   "level": 186,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+cells",
+   "slot": "after-hard",
+   "picture": "P0390",
+   "title": "Арфа из колосьев",
+   "N": 855,
+   "band": "800–1200",
+   "pack": "packs-0268-0467 · Музыка",
+   "hidden": 0,
+   "P": 24
+  },
+  {
+   "level": 187,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "latch+links+hidden",
+   "slot": "regular",
+   "picture": "P1008",
+   "title": "Радужный ластик-качалка",
+   "N": 877,
+   "band": "700–900",
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
+   "hidden": 3,
+   "P": 24
+  },
+  {
+   "level": 188,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "canal+links",
+   "slot": "regular",
+   "picture": "P0077",
+   "title": "Подводная лодка",
+   "N": 1088,
+   "band": "800–1200",
+   "pack": "batch-0061",
+   "hidden": 6,
+   "P": 30,
+   "wantLoss": true
+  },
+  {
+   "level": 189,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+cells",
+   "slot": "regular",
+   "picture": "P0299",
+   "title": "Лес в спичечном коробке",
+   "N": 957,
+   "band": "800–1200",
+   "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
+   "hidden": 2,
+   "P": 24
+  },
+  {
+   "level": 191,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+hidden",
+   "slot": "after-hard",
+   "picture": "P0010",
+   "title": "Дракончик на книге",
+   "N": 778,
+   "band": "700–900",
+   "pack": "owner-0010",
+   "hidden": 0,
+   "P": 24
+  },
+  {
+   "level": 192,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "shutters+cells",
+   "slot": "regular",
+   "picture": "P1031",
+   "title": "Плетёный шлем с сахарной звездой",
+   "N": 1122,
+   "band": "800–1200",
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
+   "hidden": 4,
+   "P": 30,
+   "wantLoss": true
+  },
+  {
+   "level": 193,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "canal+links+latch",
+   "slot": "regular",
+   "picture": "P0244",
+   "title": "Сыр и мыши в дырках",
+   "N": 1152,
+   "band": "800–1200",
+   "pack": "batch-0168-D",
+   "hidden": 6,
+   "P": 30
+  },
+  {
+   "level": 194,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links+cells",
+   "slot": "regular",
+   "picture": "P0064",
+   "title": "Жираф у дерева",
+   "N": 1258,
+   "band": "1200–1500",
+   "pack": "batch-0061",
+   "hidden": 3,
+   "P": 30,
+   "wantLoss": true
+  },
+  {
+   "level": 195,
+   "cls": "Hard",
+   "intro": null,
+   "recipe": "links+canal+latch",
+   "slot": "Hard",
+   "picture": "P0042",
+   "title": "Космонавт поливает цветок на астероиде",
+   "N": 1152,
+   "band": "800–1200",
+   "pack": "batch-0011-env",
+   "hidden": 6,
+   "P": 30
+  },
+  {
+   "level": 196,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "links",
+   "slot": "after-hard",
+   "picture": "P0038",
+   "title": "Котёл с зельем",
+   "N": 873,
+   "band": "800–1200",
+   "pack": "batch-0011",
+   "hidden": 1,
+   "P": 24
+  },
+  {
+   "level": 197,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "hidden",
+   "slot": "breather",
+   "picture": "P1129",
+   "title": "Жёлтая куртка-дождевик",
+   "N": 488,
+   "band": "400–700",
+   "pack": "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02",
+   "hidden": 3,
+   "P": 18
+  },
+  {
+   "level": 198,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "shutters+links",
+   "slot": "regular",
+   "picture": "P0281",
+   "title": "Самовар-вулкан",
+   "N": 899,
+   "band": "700–900",
+   "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
+   "hidden": 4,
+   "P": 24
+  },
+  {
+   "level": 199,
+   "cls": "Normal",
+   "intro": null,
+   "recipe": "canal+cells",
+   "slot": "regular",
+   "picture": "P0214",
+   "title": "Питер Пэн",
+   "N": 896,
+   "band": "800–1200",
+   "pack": "batch-0168-C",
+   "hidden": 6,
+   "P": 24,
+   "wantLoss": true
+  },
+  {
+   "level": 200,
+   "cls": "Super Hard",
+   "intro": null,
+   "recipe": "links+shutters+latch",
+   "slot": "Super Hard",
+   "picture": "P0239",
+   "title": "Курица на роликах",
+   "N": 900,
+   "band": "800–1200",
+   "pack": "batch-0168-D",
+   "hidden": 6,
+   "P": 24
+  }
+ ],
+ "assignMissing": [],
+ "assignQuota": {
+  "800–1200": 28,
+  "700–900": 9,
+  "400–700": 5,
+  "1200–1500": 5
+ },
+ "hand": [
+  170,
+  175,
+  190
+ ],
+ "order": {
+  "total": 0,
+  "strong": 0,
+  "streams": 0,
+  "latch": 0,
+  "byStage": {},
+  "sizeMix": {
+   "200–499": 0,
+   "500–999": 0,
+   "1000–1400": 0
+  },
+  "strips": [],
+  "scenes": [],
+  "sceneSources": 155,
+  "splits": [
+   {
+    "level": 175,
+    "cls": "Hard",
+    "side": "two",
+    "kind": "single",
+    "recipe": "bridge+links",
+    "have": 0,
+    "sources": [
+     "P0011",
+     "P0023",
+     "P0026"
+    ],
+    "command": "node tools/rounds/bridge-scene.mjs make --mode split --from P0011,P0023,P0026 --side two --kind single --cls \"Hard\" --recipe bridge+links --level 175 --out content/rounds/pictures/src/split-L0175.mjs"
+   }
+  ],
+  "avoidMotifs": [
+   "ретро-техника (10)",
+   "лампы и фонари (5)",
+   "сундуки (3)",
+   "инструменты музыки (6)",
+   "драконы (3)",
+   "книги (5)",
+   "рыбы (9)",
+   "подводный мир (6)",
+   "космонавты и ракеты (7)",
+   "облака с лицом (3)",
+   "полив цветка (4)",
+   "роботы (4)",
+   "цветок в горшке (3)",
+   "совы (3)",
+   "чашки и кружки (5)",
+   "динозавры (5)",
+   "домики-сказки (11)",
+   "корабли и лодки (4)",
+   "торты и пончики (3)",
+   "привидения и духи (3)",
+   "печенье и выпечка (4)",
+   "зонты (9)",
+   "собаки (12)",
+   "кошки (9)",
+   "воздушные шары (4)"
+  ],
+  "suggestFamilies": [
+   "Герои и мир Bloomlings (0)",
+   "Водный транспорт (1)",
+   "Хлеб и выпечка (2)",
+   "Подводные экспедиции (2)",
+   "Сказочные жилища (2)",
+   "Книги, учёба и открытия (4)",
+   "Воздушный транспорт (6)",
+   "Городские пространства (7)",
+   "Грибы и лесные находки (8)",
+   "Камни, минералы и кристаллы (8)",
+   "Космос (8)",
+   "Цветы и букеты (10)"
+  ]
+ }
+}
