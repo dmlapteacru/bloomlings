@@ -191,11 +191,11 @@
     "share": 0.613,
     "recipe": "canal+links"
    },
-   "done": false,
+   "done": true,
    "to": {
     "picture": "P0229",
-    "candidate": "P0229-Ncanal+links-g1107-5",
-    "share": 0.613,
+    "candidate": "P0229-Ncanal+links-g1107-a-s3-1",
+    "share": 0.638,
     "recipe": "canal+links",
     "lost": false,
     "gen": "2026-11-07"
@@ -216,7 +216,7 @@
     "share": 1,
     "recipe": "links"
    },
-   "done": false,
+   "done": true,
    "to": {
     "picture": "P1129",
     "candidate": "P1129-Nlinks-g1107-br-1",

@@ -3,7 +3,7 @@
   151,
   200
  ],
- "created": "2026-11-14T00:09:48.743Z",
+ "created": "2026-11-14T00:50:45.061Z",
  "positions": [
   {
    "level": 151,
@@ -56,8 +56,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0212"
   },
   {
    "level": 153,
@@ -191,8 +191,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0982"
   },
   {
    "level": 158,
@@ -812,8 +812,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0983"
   },
   {
    "level": 181,
@@ -1055,8 +1055,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0299"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 190,
@@ -1357,13 +1357,11 @@
   }
  ],
  "open": [
-  152,
-  157,
   170,
   174,
   175,
-  180,
   182,
+  189,
   190
  ],
  "blockers": [],
@@ -1923,19 +1921,19 @@
   }
  },
  "need": {
-  "Normal": 4,
+  "Normal": 3,
   "Hard": 0,
-  "Super Hard": 3,
+  "Super Hard": 2,
   "intro": 0,
   "bridge": 0
  },
  "supply": {
-  "pictures": 422,
-  "strong": 127,
+  "pictures": 420,
+  "strong": 126,
   "stream": 0,
   "bank": {
    "знакомство: hidden": 24,
-   "Normal": 332,
+   "Normal": 309,
    "знакомство: cells": 12,
    "знакомство: links": 20,
    "знакомство: latch": 2,
@@ -1948,10 +1946,10 @@
    "batch-0011-env": 3,
    "batch-0011": 17,
    "batch-0061": 20,
-   "batch-0168-C": 15,
+   "batch-0168-C": 14,
    "batch-0168-D": 11,
    "batch-0168-E": 1,
-   "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01": 33,
+   "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01": 34,
    "packs-0268-0467 · Праздники и карнавал": 5,
    "packs-0268-0467 · Доисторические находки": 7,
    "packs-0268-0467 · Невозможная архитектура": 6,
@@ -1963,16 +1961,14 @@
    "packs-0268-0467 · Ретрофутуризм": 5,
    "packs-0268-0467 · Путешествия и походы": 6,
    "packs-0268-0467 · Новые герои игр": 1,
-   "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01": 170,
+   "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01": 168,
    "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02": 91
   },
   "latch": {
    "positions": [
-    157,
-    170,
-    180
+    170
    ],
-   "pictures": 378
+   "pictures": 95
   },
   "overlay": {}
  },
@@ -2005,7 +2001,8 @@
    "pack": "batch-0168-C",
    "hidden": 7,
    "P": 27,
-   "wantLoss": true
+   "wantLoss": true,
+   "placed": true
   },
   {
    "level": 153,
@@ -2105,7 +2102,8 @@
     "P1008",
     "P1027"
    ],
-   "wantLoss": true
+   "wantLoss": true,
+   "placed": true
   },
   {
    "level": 158,
@@ -2479,7 +2477,8 @@
     "P0281"
    ],
    "swappedFrom": "P0281",
-   "swaps": 2
+   "swaps": 2,
+   "placed": true
   },
   {
    "level": 181,
@@ -2623,14 +2622,20 @@
    "intro": null,
    "recipe": "links+cells",
    "slot": "regular",
-   "picture": "P0299",
-   "title": "Лес в спичечном коробке",
-   "N": 957,
+   "picture": "P1027",
+   "title": "Сандалия из стручка и ленты",
+   "N": 1149,
    "band": "800–1200",
-   "pack": "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01",
-   "hidden": 2,
-   "P": 24,
-   "placed": true
+   "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
+   "hidden": 3,
+   "P": 30,
+   "wantLoss": true,
+   "swappedFrom": "P0281",
+   "swaps": 2,
+   "tried": [
+    "P0299",
+    "P0281"
+   ]
   },
   {
    "level": 191,
@@ -2826,9 +2831,9 @@
  ],
  "assignMissing": [],
  "assignQuota": {
-  "800–1200": 3,
+  "800–1200": 2,
   "700–900": 1,
-  "400–700": 1,
+  "400–700": 0,
   "1200–1500": 0
  },
  "hand": [

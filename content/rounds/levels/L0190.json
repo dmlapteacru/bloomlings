@@ -1,0 +1,1137 @@
+{
+ "level": 190,
+ "cls": "Super Hard",
+ "intro": null,
+ "id": "P0286-Slinks+canal+shutters-g1107-a-39",
+ "picture": "P0286",
+ "requested": "Super Hard",
+ "recipe": "links+canal+shutters",
+ "gen": "2026-11-07",
+ "N": 1115,
+ "W": 1115,
+ "colours": 10,
+ "P": 31,
+ "columns": 4,
+ "linked": 14,
+ "hidden": 0,
+ "channel": true,
+ "shutters": 1,
+ "slot": "Super Hard",
+ "inZone": true,
+ "random": {
+  "runs": 100,
+  "wins": 12,
+  "share": 0.12,
+  "wilson95": [
+   0.07,
+   0.198
+  ],
+  "cls": "Super Hard",
+  "borderline": false,
+  "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+  "seedBase": 1,
+  "exit": 1
+ },
+ "solution": {
+  "route": [
+   {
+    "type": "tap",
+    "pod": 2
+   },
+   {
+    "type": "tap",
+    "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   },
+   {
+    "type": "tap",
+    "pod": 25
+   },
+   {
+    "type": "tap",
+    "pod": 14
+   },
+   {
+    "type": "tap",
+    "pod": 17
+   },
+   {
+    "type": "channel",
+    "exit": 1
+   },
+   {
+    "type": "tap",
+    "pod": 16
+   },
+   {
+    "type": "tap",
+    "pod": 7
+   },
+   {
+    "type": "tap",
+    "pod": 30
+   },
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 0
+   },
+   {
+    "type": "tap",
+    "pod": 29
+   },
+   {
+    "type": "tap",
+    "pod": 4
+   },
+   {
+    "type": "tap",
+    "pod": 24
+   },
+   {
+    "type": "tap",
+    "pod": 19
+   },
+   {
+    "type": "tap",
+    "pod": 3
+   },
+   {
+    "type": "tap",
+    "pod": 21
+   },
+   {
+    "type": "tap",
+    "pod": 20
+   },
+   {
+    "type": "tap",
+    "pod": 22
+   },
+   {
+    "type": "tap",
+    "pod": 9
+   },
+   {
+    "type": "tap",
+    "pod": 27
+   },
+   {
+    "type": "tap",
+    "pod": 10
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 12
+   }
+  ],
+  "forks": 1,
+  "singleSafe": 1,
+  "unknown": 0,
+  "fast": {
+   "status": "won",
+   "seconds": 186.9
+  }
+ },
+ "fairness": {
+  "fair": true,
+  "checked": 0
+ },
+ "strategies": {
+  "left-to-right|left": false,
+  "left-to-right|right": false,
+  "right-to-left|left": false,
+  "right-to-left|right": false,
+  "top-down|left": false,
+  "top-down|right": false,
+  "bottom-up|left": false,
+  "bottom-up|right": false,
+  "diagonal|left": false,
+  "diagonal|right": true,
+  "small-first|left": false,
+  "small-first|right": false,
+  "most-now|left": false,
+  "most-now|right": false,
+  "fast-release|left": false,
+  "fast-release|right": false
+ },
+ "rhythm": {
+  "segments": [
+   {
+    "from": 0,
+    "to": 20,
+    "meanFree": 2.06,
+    "minFree": 0,
+    "fullShare": 0.01,
+    "maxWaiting": 3
+   },
+   {
+    "from": 20,
+    "to": 40,
+    "meanFree": 2.38,
+    "minFree": 0,
+    "fullShare": 0.24,
+    "maxWaiting": 3
+   },
+   {
+    "from": 40,
+    "to": 60,
+    "meanFree": 3.37,
+    "minFree": 1,
+    "fullShare": 0,
+    "maxWaiting": 1
+   },
+   {
+    "from": 60,
+    "to": 80,
+    "meanFree": 3.63,
+    "minFree": 1,
+    "fullShare": 0,
+    "maxWaiting": 1
+   },
+   {
+    "from": 80,
+    "to": 100,
+    "meanFree": 4.21,
+    "minFree": 3,
+    "fullShare": 0,
+    "maxWaiting": 0
+   }
+  ],
+  "launchesAfter80": 4,
+  "lastLaunchAtW": 95,
+  "seconds": 533.7
+ },
+ "dosePos": null,
+ "blend": 0,
+ "tune": {
+  "steps": [
+   {
+    "t": 0.03,
+    "q": 0
+   },
+   {
+    "t": 0,
+    "q": 0.15
+   }
+  ],
+  "links": {
+   "pairs": 7,
+   "traps": 7,
+   "forced": 0.08,
+   "greedy": 0.27982062780269057
+  },
+  "seconds": 2520
+ },
+ "checks": {
+  "forced": 0.08,
+  "opening": {
+   "first": {
+    "openings": 2,
+    "wins": 0
+   },
+   "three": {
+    "openings": 16,
+    "wins": 0,
+    "share": 0
+   },
+   "ok": true,
+   "strategies": [
+    "most-now",
+    "fast-release"
+   ]
+  },
+  "hold": true,
+  "greedyLoses": true,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.41,
+   "tight": 0.98
+  },
+  "calm": {
+   "runs": 200,
+   "wins": 23,
+   "share": 0.115,
+   "wilson95": [
+    0.078,
+    0.167
+   ],
+   "borderline": false,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3,
+   "exit": 1
+  },
+  "traps": {
+   "links": 7,
+   "traps": 7,
+   "top": 2
+  },
+  "channel": {
+   "each": [
+    {
+     "exit": 0,
+     "win": true,
+     "share": 0
+    },
+    {
+     "exit": 1,
+     "win": true,
+     "share": 0.23
+    }
+   ],
+   "gap": 0.23,
+   "decides": false,
+   "better": 1
+  },
+  "island": {
+   "island": {
+    "cells": 317,
+    "share": 0.284
+   },
+   "exitsOn": [
+    true,
+    true
+   ],
+   "ready": {
+    "atW": 0.229
+   },
+   "open": {
+    "exit": 1,
+    "atW": 0.231
+   },
+   "ok": true,
+   "problems": [],
+   "notes": []
+  },
+  "channelKind": "better",
+  "shutters": {
+   "shutters": [
+    {
+     "shutter": 0,
+     "material": "S",
+     "count": 170,
+     "cells": 42,
+     "atW": 0.371,
+     "command": 11,
+     "front": 17
+    }
+   ],
+   "lastOpenAtW": 0.371,
+   "ok": true,
+   "problems": [],
+   "notes": []
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "F",
+     "name": "Фуксия",
+     "from": "C",
+     "cells": 3,
+     "clusters": 1,
+     "pods": [
+      {
+       "pod": 13,
+       "count": 3,
+       "row": 2
+      }
+     ]
+    }
+   ],
+   "cells": 3,
+   "pressure": {
+    "with": 1.41,
+    "without": 1.26
+   }
+  }
+ },
+ "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+ "seed": 1,
+ "attempt": 39,
+ "hand": true,
+ "definition": {
+  "title": "Поезд из цветных карандашей",
+  "subject": "P0286",
+  "w": 39,
+  "h": 39,
+  "rowsBottomFirst": [
+   "###################.###################",
+   "#.....................................#",
+   "#..MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.#",
+   "#.MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM.#",
+   "#.AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA.#",
+   "#.MAAAAAAAAAAA#######AAAAAAAAAAAAAAAM.#",
+   "#.MMMDDDDDMMM##DDDDD##MMMDDDDDMMMMMMM.#",
+   "#.MMDNNNNNDMM#DDNNNND#####NNNN###MMMM.#",
+   "#.SSDNNNNNDSS#DNNNNNDSSSD#NNNN#D#SSSS.#",
+   "#.SSDNNNNNDSS#DNNNNNDSSSD#NNN##D##SSS.#",
+   "#.SSDNNNNNDD##DNNNNNDDDSD##.N#DDD##SS.#",
+   "#.SDDDNNNRRR#DDDNNNDDYYDDD####DVVD#SS.#",
+   "#.SDRRDDDRRR#DYYDDDYYYYDVVDDDDVVVD#SS.#",
+   "#.SDRRRRRRRR#DYYYYYYYYYDVVVVVVVVVD#SS.#",
+   "#.SDRRRRRRRR#DYYYYYYYYYDVVVVVVVVVD#SS.#",
+   "#.SDRRCCCCCR#.YYCCCCCYYDVVCCCCCCVD#SS.#",
+   "#.SDRRCCCCCR#DYYCCCCCYYDVVCCCCCCVD#SS.#",
+   "#.SDRRCCCCCR#DYYCCCCCYYDVVCCCCCCV.#SS.#",
+   "#.SDRRCCCCCR#DYYCCCCCYYDVVCCCCCCVD#SS.#",
+   "#.SDRRRRRRRR#DYYYYYYYYYDVVVVVVVVVD#SS.#",
+   "#.SDRRRRRRRR#DYYYYYYYYYDVVVVVVVVVD#SS.#",
+   "#.SDRRRRRRRR#DYYYYYYYYYDVVVVVVVVVD#SS.#",
+   "#.SDCCCCCCCC#D#########DCCCCCCCCCD#SS.#",
+   "#.SSCCCFCCCC###CCCCCCC###CCCCCCCC##SS.#",
+   "#.SSSCCFCCCCSSSCCCCCCCSS#CCCCCCC##SSS.#",
+   "#.SSSSCFCCCSSSSSCCCCCCSS##CCCCCC#SSSS.#",
+   "#.SSSSCCCCCSSSSSCCCCCSSSS#CCCCC##SSSS.#",
+   "#.SSSSSCCCSSSSSSSCCCCSSSS##CCCC#SSSSS.#",
+   "#.SSSSSDDDSSSSSSSDDDSSSSSS######SSSSS.#",
+   "#.SSSSSDDSSSSSSSSSDDSSSSSSSSDDSSSSSSS.#",
+   "#.SSSSSSDSSSSSSSSSDSSSSSSSSSDSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#..SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS..#",
+   "#...SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS...#",
+   "#.....................................#",
+   "#######################################"
+  ],
+  "entries": [
+   19
+  ],
+  "capacity": 5,
+  "pods": [
+   {
+    "color": "S",
+    "count": 60
+   },
+   {
+    "color": "S",
+    "count": 60,
+    "group": "G"
+   },
+   {
+    "color": "S",
+    "count": 60,
+    "group": "B"
+   },
+   {
+    "color": "S",
+    "count": 60,
+    "group": "E"
+   },
+   {
+    "color": "S",
+    "count": 60,
+    "group": "F"
+   },
+   {
+    "color": "S",
+    "count": 59
+   },
+   {
+    "color": "S",
+    "count": 59
+   },
+   {
+    "color": "D",
+    "count": 41
+   },
+   {
+    "color": "D",
+    "count": 41
+   },
+   {
+    "color": "D",
+    "count": 41,
+    "group": "D"
+   },
+   {
+    "color": "C",
+    "count": 55
+   },
+   {
+    "color": "C",
+    "count": 55,
+    "group": "E"
+   },
+   {
+    "color": "C",
+    "count": 55
+   },
+   {
+    "color": "F",
+    "count": 3,
+    "group": "F"
+   },
+   {
+    "color": "R",
+    "count": 20
+   },
+   {
+    "color": "R",
+    "count": 20,
+    "group": "B"
+   },
+   {
+    "color": "R",
+    "count": 20
+   },
+   {
+    "color": "Y",
+    "count": 23,
+    "group": "A"
+   },
+   {
+    "color": "Y",
+    "count": 23,
+    "group": "D"
+   },
+   {
+    "color": "Y",
+    "count": 23,
+    "group": "C"
+   },
+   {
+    "color": "V",
+    "count": 22
+   },
+   {
+    "color": "V",
+    "count": 21
+   },
+   {
+    "color": "V",
+    "count": 21
+   },
+   {
+    "color": "N",
+    "count": 29,
+    "group": "G"
+   },
+   {
+    "color": "N",
+    "count": 28
+   },
+   {
+    "color": "M",
+    "count": 32
+   },
+   {
+    "color": "M",
+    "count": 32,
+    "group": "C"
+   },
+   {
+    "color": "M",
+    "count": 31
+   },
+   {
+    "color": "A",
+    "count": 21,
+    "group": "A"
+   },
+   {
+    "color": "A",
+    "count": 20
+   },
+   {
+    "color": "A",
+    "count": 20
+   }
+  ],
+  "tray": [
+   [
+    15,
+    8,
+    13,
+    24,
+    19,
+    11,
+    21,
+    20
+   ],
+   [
+    23,
+    25,
+    17,
+    16,
+    7,
+    30,
+    6,
+    18
+   ],
+   [
+    1,
+    14,
+    28,
+    0,
+    26,
+    3,
+    22,
+    9
+   ],
+   [
+    2,
+    29,
+    4,
+    27,
+    10,
+    5,
+    12
+   ]
+  ],
+  "recipe": "links+canal+shutters",
+  "overlay": {
+   "walls": [],
+   "sites": [],
+   "keys": [
+    [
+     25,
+     26
+    ],
+    [
+     31,
+     19
+    ],
+    [
+     11,
+     21
+    ]
+   ],
+   "water": [
+    [
+     24,
+     8
+    ],
+    [
+     25,
+     8
+    ],
+    [
+     26,
+     8
+    ],
+    [
+     24,
+     9
+    ],
+    [
+     27,
+     8
+    ],
+    [
+     28,
+     8
+    ],
+    [
+     29,
+     8
+    ],
+    [
+     29,
+     9
+    ],
+    [
+     29,
+     10
+    ],
+    [
+     23,
+     9
+    ],
+    [
+     23,
+     10
+    ],
+    [
+     23,
+     11
+    ],
+    [
+     30,
+     10
+    ],
+    [
+     30,
+     11
+    ],
+    [
+     30,
+     12
+    ],
+    [
+     22,
+     11
+    ],
+    [
+     22,
+     12
+    ],
+    [
+     22,
+     13
+    ],
+    [
+     31,
+     12
+    ],
+    [
+     31,
+     13
+    ],
+    [
+     10,
+     13
+    ],
+    [
+     11,
+     13
+    ],
+    [
+     12,
+     13
+    ],
+    [
+     10,
+     14
+    ],
+    [
+     12,
+     14
+    ],
+    [
+     10,
+     15
+    ],
+    [
+     20,
+     13
+    ],
+    [
+     21,
+     13
+    ],
+    [
+     20,
+     14
+    ],
+    [
+     32,
+     13
+    ],
+    [
+     32,
+     14
+    ],
+    [
+     32,
+     15
+    ],
+    [
+     10,
+     16
+    ],
+    [
+     13,
+     14
+    ],
+    [
+     14,
+     14
+    ],
+    [
+     15,
+     14
+    ],
+    [
+     16,
+     14
+    ],
+    [
+     17,
+     14
+    ],
+    [
+     18,
+     14
+    ],
+    [
+     19,
+     14
+    ],
+    [
+     32,
+     16
+    ],
+    [
+     10,
+     17
+    ],
+    [
+     32,
+     17
+    ],
+    [
+     10,
+     18
+    ],
+    [
+     32,
+     18
+    ],
+    [
+     10,
+     19
+    ],
+    [
+     32,
+     19
+    ],
+    [
+     10,
+     20
+    ],
+    [
+     32,
+     20
+    ],
+    [
+     10,
+     21
+    ],
+    [
+     32,
+     21
+    ],
+    [
+     10,
+     22
+    ],
+    [
+     32,
+     22
+    ],
+    [
+     10,
+     23
+    ],
+    [
+     32,
+     23
+    ],
+    [
+     10,
+     24
+    ],
+    [
+     32,
+     24
+    ],
+    [
+     10,
+     25
+    ],
+    [
+     24,
+     25
+    ],
+    [
+     25,
+     25
+    ],
+    [
+     26,
+     25
+    ],
+    [
+     27,
+     25
+    ],
+    [
+     32,
+     25
+    ],
+    [
+     10,
+     26
+    ],
+    [
+     11,
+     26
+    ],
+    [
+     23,
+     26
+    ],
+    [
+     24,
+     26
+    ],
+    [
+     27,
+     26
+    ],
+    [
+     31,
+     26
+    ],
+    [
+     32,
+     26
+    ],
+    [
+     11,
+     27
+    ],
+    [
+     23,
+     27
+    ],
+    [
+     27,
+     27
+    ],
+    [
+     28,
+     27
+    ],
+    [
+     30,
+     27
+    ],
+    [
+     31,
+     27
+    ],
+    [
+     11,
+     28
+    ],
+    [
+     23,
+     28
+    ],
+    [
+     28,
+     28
+    ],
+    [
+     30,
+     28
+    ],
+    [
+     11,
+     29
+    ],
+    [
+     19,
+     29
+    ],
+    [
+     20,
+     29
+    ],
+    [
+     21,
+     29
+    ],
+    [
+     22,
+     29
+    ],
+    [
+     23,
+     29
+    ],
+    [
+     28,
+     29
+    ],
+    [
+     29,
+     29
+    ],
+    [
+     30,
+     29
+    ],
+    [
+     11,
+     30
+    ],
+    [
+     12,
+     30
+    ],
+    [
+     18,
+     30
+    ],
+    [
+     19,
+     30
+    ],
+    [
+     12,
+     31
+    ],
+    [
+     13,
+     31
+    ],
+    [
+     14,
+     31
+    ],
+    [
+     15,
+     31
+    ],
+    [
+     16,
+     31
+    ],
+    [
+     17,
+     31
+    ],
+    [
+     18,
+     31
+    ]
+   ]
+  },
+  "recolor": [
+   [
+    5,
+    11,
+    "F"
+   ],
+   [
+    5,
+    12,
+    "F"
+   ],
+   [
+    5,
+    13,
+    "F"
+   ]
+  ],
+  "channel": {
+   "spring": 417,
+   "exits": [
+    {
+     "cell": 696,
+     "route": [
+      417,
+      418,
+      419,
+      420,
+      421,
+      422,
+      423,
+      462,
+      501,
+      540,
+      579,
+      618,
+      657,
+      696
+     ],
+     "rideUs": 780000
+    },
+    {
+     "cell": 598,
+     "route": [
+      417,
+      416,
+      415,
+      414,
+      413,
+      412,
+      411,
+      410,
+      409,
+      408,
+      407,
+      406,
+      405,
+      404,
+      403,
+      442,
+      481,
+      520,
+      559,
+      598
+     ],
+     "rideUs": 1140000
+    }
+   ]
+  },
+  "shutters": [
+   {
+    "cells": [
+     317,
+     318,
+     319,
+     320,
+     321,
+     322,
+     323,
+     356,
+     357,
+     358,
+     359,
+     360,
+     361,
+     362,
+     395,
+     396,
+     397,
+     398,
+     399,
+     400,
+     401,
+     434,
+     435,
+     436,
+     437,
+     438,
+     439,
+     440,
+     473,
+     474,
+     475,
+     476,
+     477,
+     478,
+     479,
+     512,
+     513,
+     514,
+     515,
+     516,
+     517,
+     518
+    ],
+    "material": "S",
+    "count": 170
+   }
+  ],
+  "id": 190,
+  "difficulty": "Super Hard"
+ }
+}

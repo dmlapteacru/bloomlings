@@ -1,7 +1,7 @@
 {
  "code": "P0278",
- "state": "free",
- "usedBy": null,
+ "state": "used",
+ "usedBy": "L0170",
  "version": 1,
  "title": "Горы на клавиатуре",
  "theme": "50 новых невозможных предметов и миров — 2026-11-01",
