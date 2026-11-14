@@ -1,7 +1,7 @@
 {
  "code": "P1129",
- "state": "used",
- "usedBy": "L0182",
+ "state": "free",
+ "usedBy": null,
  "version": 1,
  "title": "Жёлтая куртка-дождевик",
  "theme": "100 простых читаемых картинок — 2026-11-02",
