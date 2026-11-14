@@ -1,0 +1,171 @@
+{
+ "format": "round-proof.v1",
+ "number": 176,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 7300000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 64775000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 111375000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 143900000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 143900000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 274775000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 282275000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 303850000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 324000000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 354525000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 371450000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 389525000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 405275000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 424425000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 439925000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 457250000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 100,
+  "wins": 80,
+  "share": 0.8,
+  "wilson95": [
+   0.711,
+   0.867
+  ],
+  "classOfShare": "Normal",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.25,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": false,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.22,
+   "tight": 0.89
+  },
+  "calm": {
+   "runs": 200,
+   "wins": 167,
+   "share": 0.835,
+   "wilson95": [
+    0.777,
+    0.88
+   ],
+   "borderline": false,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 2,
+   "traps": 2,
+   "top": 2
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "F",
+     "name": "Фуксия",
+     "from": "Y",
+     "cells": 7,
+     "clusters": 2,
+     "pods": [
+      {
+       "pod": 13,
+       "count": 7,
+       "row": 1
+      }
+     ]
+    }
+   ],
+   "cells": 7,
+   "pressure": {
+    "with": 1.22,
+    "without": 1.11
+   }
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0151-L0200.md",
+  "notes": [
+   "последний запуск при 93 % W (ориентир 80–92 %, §10)",
+   "время быстрых нажатий 148.9 с (ориентир 40–100 с, §12)"
+  ]
+ },
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

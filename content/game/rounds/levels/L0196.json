@@ -1,0 +1,201 @@
+{
+ "format": "round-level.v1",
+ "number": 196,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0364",
+  "version": 1
+ },
+ "board": {
+  "w": 38,
+  "h": 36,
+  "rowsBottomFirst": [
+   "###################.##################",
+   "#....................................#",
+   "#.......EEE.............EEEE.........#",
+   "#.....AACCCCC.........CCCCCCEEE......#",
+   "#...EEAAAACCCCC.....CCCCCCCCCCCEEE...#",
+   "#..EECCAAACCCCCEEEEECCCCCCCCCCCCCCE..#",
+   "#.ECCCCAAACCCCCCCYYYCCCCCCCCCCCCCPE..#",
+   "#.ECCCCAAACCCCCYYYYYCCCCCCCCCCCPPPE..#",
+   "#.ECCCCAAACCCYYYYYYYCCCCCCCCCPPPPPE..#",
+   "#.ECCCCCCCCYYYYYYYYYCCCCCCCCPPPPPPE..#",
+   "#.ECCCCCCCCYYYYYYYYYCCCCCCCCPPPPPPE..#",
+   "#.ECCCCCCCCYYYYCEEYYCCEEEECCPPEEEPE..#",
+   "#.ECEBCBECCYYENCNEYYCEBCCBECPECCEPE..#",
+   "#.ECEBCBECCYYENCNNYYCEBCCBECPECCEPE..#",
+   "#.ECEBCBECCYYENCCNYYCEBCCBECPECCEPE..#",
+   "#.ECCCCCCCCYYCCCCCYYCCCCCCCCPCCCCPE..#",
+   "#.ECECCEECCYYECCNNYYCCCCCEECPECCEPE..#",
+   "#.ECECCEECCYYECCNNYYCCCCCEECPECCEPE..#",
+   "#.ECEECEECCYYEECCYYYCCCCCEECPECCEPE..#",
+   "#.ECCCCCCCCYYYYYYYYYCCCCCCCCPPPPPPE..#",
+   "#.ECCCCCCCCYYYYYYYYYCCCCCCCCPPPPPPE..#",
+   "#.ECCCCCCCCYYYYYYYYYCCCCCCCCPPPPPPE..#",
+   "#.ECCCCCCCCYYYYYYYYYCCCCCCCCPPPPPPE..#",
+   "#.ECCCCCCCCYYYYYYYYRCCCCCCCCPPPPPPEE.#",
+   "#.RRRCCCCCCYYYYYRRRRRRRCCCCCPPPPPRR..#",
+   "#.RRRRRCCCCYYYRRRRRRRRRRRCCCPPPRRRR..#",
+   "#..RRRRRRRCYRRRRRRRRRRRRRRRCPRRRRR...#",
+   "#..RRRRRRRRRR.RRRRRRRRRRR.RRRRRRRR...#",
+   "#...RRRRRRRR...RRRRRRRRR...RRRRRR....#",
+   "#....RRRRRRR....RRRRRRR....RRRRR.....#",
+   "#....RRRRRR......RRRRR......RRRR.....#",
+   "#.....RRRR........RRR.......RRR......#",
+   "#.....RRR..........R.........RR......#",
+   "#......R.....................R.......#",
+   "#....................................#",
+   "######################################"
+  ],
+  "entries": [
+   19
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "R",
+   "count": 41
+  },
+  {
+   "code": "R",
+   "count": 41,
+   "group": "C"
+  },
+  {
+   "code": "R",
+   "count": 41
+  },
+  {
+   "code": "R",
+   "count": 41
+  },
+  {
+   "code": "C",
+   "count": 45
+  },
+  {
+   "code": "C",
+   "count": 45,
+   "group": "B"
+  },
+  {
+   "code": "C",
+   "count": 45
+  },
+  {
+   "code": "C",
+   "count": 45
+  },
+  {
+   "code": "C",
+   "count": 44
+  },
+  {
+   "code": "C",
+   "count": 44
+  },
+  {
+   "code": "C",
+   "count": 44
+  },
+  {
+   "code": "C",
+   "count": 44
+  },
+  {
+   "code": "Y",
+   "count": 41,
+   "group": "B"
+  },
+  {
+   "code": "Y",
+   "count": 40
+  },
+  {
+   "code": "Y",
+   "count": 40,
+   "group": "A"
+  },
+  {
+   "code": "P",
+   "count": 26,
+   "group": "C"
+  },
+  {
+   "code": "P",
+   "count": 26
+  },
+  {
+   "code": "P",
+   "count": 25
+  },
+  {
+   "code": "E",
+   "count": 39
+  },
+  {
+   "code": "E",
+   "count": 39
+  },
+  {
+   "code": "E",
+   "count": 39
+  },
+  {
+   "code": "N",
+   "count": 11,
+   "group": "A"
+  },
+  {
+   "code": "B",
+   "count": 12
+  },
+  {
+   "code": "A",
+   "count": 18
+  }
+ ],
+ "tray": [
+  [
+   11,
+   22,
+   9,
+   17,
+   16,
+   5,
+   15,
+   0
+  ],
+  [
+   21,
+   10,
+   13,
+   7,
+   6,
+   12,
+   1,
+   18
+  ],
+  [
+   14,
+   20,
+   8,
+   3,
+   23,
+   2,
+   19,
+   4
+  ]
+ ],
+ "mechanics": [
+  "links"
+ ],
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

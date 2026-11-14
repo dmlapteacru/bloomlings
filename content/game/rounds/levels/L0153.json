@@ -1,0 +1,370 @@
+{
+ "format": "round-level.v1",
+ "number": 153,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0989",
+  "version": 1
+ },
+ "board": {
+  "w": 47,
+  "h": 48,
+  "rowsBottomFirst": [
+   "#######################.#######################",
+   "#.............................................#",
+   "#..................................NNNN.......#",
+   "#.............................................#",
+   "#.............................................#",
+   "#.............................................#",
+   "#.............................................#",
+   "#....................................NNN......#",
+   "#.................................NNNNNN......#",
+   "#................................NNNNNN.......#",
+   "#..............................BBBBBNNN.......#",
+   "#.............................BBBBBBBB........#",
+   "#............................BBBBBBBBB....NN..#",
+   "#...........................NBBBBBBNN....NNN..#",
+   "#................DDD.......NNBBBNNNNNNNNNNNN..#",
+   "#................DCDDD....NNNNNNNNNNNNNBBBNNN.#",
+   "#...............DCCCCCDD..NNNNNNN...NNNBBBNN..#",
+   "#...............DCCCCCCCDDNNNNNN.....NNNNNN...#",
+   "#..........DDMMDDCCCCCCCCCDDDNNN..............#",
+   "#........DDMMMMDCCCCCCCCCCCCCDDD..............#",
+   "#......DDGMMMMMDCCCCCCCCCCCCCCCDDD............#",
+   "#.....DGGGGMMMMDCCCCCCCCCCCCCCCCCCDDD.........#",
+   "#.....DGGGGGMMDCCCCCCCCCCCCCCCCCCCCCCDD.......#",
+   "#....DDGGMMMMMDCCCCCCCCCCCCCCCCCCCCCCCD.......#",
+   "#...DGGGGGMMMDCCCCCCCCCCCCPPCCCCCCCCCCD.......#",
+   "#..DGGFFGGGGMDCCCCCCCCCPPPPPCCCCCCCCCD........#",
+   "#..DGGGFGGGMMDCCCCCCCCCPPPPPPCCCCCCCCDD.......#",
+   "#..DGGGGGGMMDCCCCCCCCCCPPPPPPCCCCCCCCMMDD.....#",
+   "#.DDGGGGGGGMDCCCCCCCCCCRRRPPPCCCCCCCCDMMMD....#",
+   "#.DGGGGGFGGDDDCCCCCCCCCCCCPPPCCCCCCCDMGGGG....#",
+   "#.DGGGGGFGGGDCCCCCCCCCCCCCCCCCCCCCCCMMGGGGD...#",
+   "#.GGGGGGFGGGGDDCCCCCCCCCCCCCCCCCCCCDMMGGGGG...#",
+   "#.GGGGGGGGGGDD.DDDCCCCCCCCCCCCCCCCCDMMMMMGMD..#",
+   "#.GGGGGGGGDD......DDDCCCCCCCCCCCCCCDMMMMMMMD..#",
+   "#.GGGGDDDD...........DDCCCCCCCCCCCDMMGGGGGMM..#",
+   "#.GDD..................DDDCCCCCCCCDMMGGGGGGM..#",
+   "#.D.......................DDDCCCCDMMGMGGGGGM..#",
+   "#...........................DDDCCDMMGMGGGGGD..#",
+   "#..............................DDGGMGMMGGGGD..#",
+   "#..............................DGGGGGGGGGGGG..#",
+   "#...............................DGGGGGGGGGGG..#",
+   "#................................DGGGGGFGGGG..#",
+   "#.................................DGGGGFGGGG..#",
+   "#..................................DDGGGGGGD..#",
+   "#....................................DDGGGGD..#",
+   "#......................................DDGG...#",
+   "#.............................................#",
+   "###############################################"
+  ],
+  "entries": [
+   23
+  ],
+  "recolor": [
+   [
+    37,
+    3,
+    "F"
+   ],
+   [
+    37,
+    4,
+    "F"
+   ],
+   [
+    6,
+    14,
+    "F"
+   ],
+   [
+    6,
+    15,
+    "F"
+   ],
+   [
+    6,
+    16,
+    "F"
+   ],
+   [
+    5,
+    19,
+    "F"
+   ],
+   [
+    4,
+    20,
+    "F"
+   ],
+   [
+    5,
+    20,
+    "F"
+   ]
+  ],
+  "hiddenCells": [
+   920,
+   921,
+   922,
+   967,
+   968,
+   969,
+   970,
+   1014,
+   1015,
+   1016,
+   1017,
+   1061,
+   1062,
+   1063,
+   1064,
+   1136,
+   1137,
+   1138,
+   1183,
+   1184,
+   1185,
+   1230,
+   1231,
+   1232,
+   1276,
+   1277,
+   1278,
+   1279,
+   1280,
+   1490,
+   1491,
+   1492,
+   1536,
+   1537,
+   1538,
+   1539,
+   1583,
+   1584,
+   1585,
+   1586,
+   1630,
+   1631,
+   1632,
+   1633
+  ],
+  "shutters": [
+   {
+    "cells": [
+     904,
+     905,
+     906,
+     907,
+     908,
+     909,
+     910,
+     951,
+     952,
+     953,
+     954,
+     955,
+     956,
+     957,
+     998,
+     999,
+     1000,
+     1001,
+     1002,
+     1003,
+     1004,
+     1045,
+     1046,
+     1047,
+     1048,
+     1049,
+     1050,
+     1051,
+     1092,
+     1093,
+     1094,
+     1095,
+     1096,
+     1097,
+     1098,
+     1139,
+     1140,
+     1141,
+     1142,
+     1143,
+     1144,
+     1145,
+     1186,
+     1187,
+     1188,
+     1189,
+     1190,
+     1191,
+     1192,
+     1233,
+     1234,
+     1235,
+     1236,
+     1237,
+     1238,
+     1239
+    ],
+    "code": "G",
+    "count": 45
+   }
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "D",
+   "count": 43
+  },
+  {
+   "code": "D",
+   "count": 42
+  },
+  {
+   "code": "D",
+   "count": 42
+  },
+  {
+   "code": "G",
+   "count": 47
+  },
+  {
+   "code": "G",
+   "count": 47
+  },
+  {
+   "code": "G",
+   "count": 46
+  },
+  {
+   "code": "G",
+   "count": 46
+  },
+  {
+   "code": "F",
+   "count": 4
+  },
+  {
+   "code": "F",
+   "count": 4
+  },
+  {
+   "code": "M",
+   "count": 24
+  },
+  {
+   "code": "M",
+   "count": 24
+  },
+  {
+   "code": "M",
+   "count": 23
+  },
+  {
+   "code": "C",
+   "count": 54
+  },
+  {
+   "code": "C",
+   "count": 54
+  },
+  {
+   "code": "C",
+   "count": 54
+  },
+  {
+   "code": "C",
+   "count": 54
+  },
+  {
+   "code": "C",
+   "count": 54
+  },
+  {
+   "code": "C",
+   "count": 54
+  },
+  {
+   "code": "P",
+   "count": 13
+  },
+  {
+   "code": "P",
+   "count": 12
+  },
+  {
+   "code": "R",
+   "count": 3
+  },
+  {
+   "code": "N",
+   "count": 29
+  },
+  {
+   "code": "N",
+   "count": 29
+  },
+  {
+   "code": "N",
+   "count": 29
+  },
+  {
+   "code": "B",
+   "count": 19
+  },
+  {
+   "code": "B",
+   "count": 18
+  }
+ ],
+ "tray": [
+  [
+   17,
+   16,
+   6,
+   8,
+   13,
+   25,
+   22,
+   24
+  ],
+  [
+   19,
+   20,
+   15,
+   2,
+   7,
+   12,
+   9,
+   3,
+   0
+  ],
+  [
+   21,
+   11,
+   10,
+   14,
+   5,
+   4,
+   23,
+   18,
+   1
+  ]
+ ],
+ "mechanics": [
+  "cells",
+  "shutters"
+ ],
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

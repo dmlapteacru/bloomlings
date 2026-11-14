@@ -1,0 +1,329 @@
+{
+ "format": "round-level.v1",
+ "number": 192,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0990",
+  "version": 1
+ },
+ "board": {
+  "w": 43,
+  "h": 41,
+  "rowsBottomFirst": [
+   "#####################.#####################",
+   "#.........................................#",
+   "#...................DDDDD.................#",
+   "#..............DDAAAAAAAAADDDD............#",
+   "#...........DDDAAAAAAAAAAAAAADD...........#",
+   "#..........DAAAAAAAAAAAAAAAACADD..........#",
+   "#.........AAAAAAAAAAACCCCCCCCAAA..........#",
+   "#.......DAAAAAAAAACCCCCCCCAACCAAA.........#",
+   "#.......AAAAAAACCCCAAAAAAAAAACCAAD........#",
+   "#......DAAAAACCCAAAAAAAAAAAAAACAAAD.......#",
+   "#.....DAAAAACCAAAEEEEEEEEEEEEEECAAD.......#",
+   "#.....AAAAACCCYYEEYYYYYYEEYYEYYCCAA.......#",
+   "#....DAAAACCOYYYYEYYYYYYYYYYYYYCCAAD......#",
+   "#....DAAACCOOYYYYYYDYYYYYYYYYYYYCCAD......#",
+   "#....AAAACCOOYYYYYYGGGGGGGGDOOOOCCAD......#",
+   "#...DAAACCCOYYYDMMGGGGGGGGGGAEYOOCAD......#",
+   "#...DAAACCAOYMMMMMGGGGGGGGGGAEYOOCAD......#",
+   "#...DAAACAAAMMMMMGGGGGGGGGGDAEYOECCD.DDD..#",
+   "#...DAACCAAAMMMMMGGGGGGGGGGDAEYYEEEDPPPPP.#",
+   "#..EEEACCAAAMMMMMGMMMMMMMMGDAEYYEECDPPPPP.#",
+   "#.DAAEECCAAAMMMMMGDDDDDDMMGDAAYYCCCDPPPPP.#",
+   "#.DAEEECCAAAMMMMMGDDDDDDMMGMACCCCCCDPPPPP.#",
+   "#.DEEAAECCAAMMMMMGDDDDDDMMGMACCCCCCD..PP..#",
+   "#.DAEAAEECCAMMMGMGDDDDDMMMMMACCCCCCD......#",
+   "#.DAAAAEAECCDMGGGGGDDDDMMMAAACCCCCD.......#",
+   "#..AAEAEAEECCDGGGGGGGGGGGGAACCCCCCD.......#",
+   "#..EEEAAAAAACCDGGGGGGGGAAAAACCCCCCD.......#",
+   "#..DAAAAAAAAAACCAAAAAAAAAAAACCCCCD........#",
+   "#...AAAAAAAAAAACCAAAAAAAAAAACCCCCD........#",
+   "#...DAAAAAAAAAAACCCAAAAAAAAAACACC.........#",
+   "#....DAAAAAAAAOOOACCCAAAAAAAAAACE.........#",
+   "#.....AAAAAAAAOOOAAAACCAAAAAAACCE.........#",
+   "#......DAAAAAAAOOAOOOAAACCCCCCCEE.........#",
+   "#.......DAAAAAAAAAOOOAAAAEEEEEEAA.........#",
+   "#........DDAAAAOOOAOOAOOOAAAAAEAA.........#",
+   "#...........DAAOOOAAOAOOOAAAAADD..........#",
+   "#............DEEAAOOOOAAAOOAAAD...........#",
+   "#...........DEEAADOOOOAAAOOAD.............#",
+   "#..........DDEEEAD...EEEEE................#",
+   "#.........................................#",
+   "###########################################"
+  ],
+  "entries": [
+   21
+  ],
+  "hiddenCells": [
+   326,
+   367,
+   368,
+   369,
+   370,
+   410,
+   411,
+   412,
+   413,
+   453,
+   454,
+   455,
+   456,
+   490,
+   491,
+   492,
+   493,
+   496,
+   497,
+   498,
+   499,
+   533,
+   534,
+   535,
+   536,
+   576,
+   577,
+   578,
+   579,
+   619,
+   620,
+   621,
+   622,
+   665,
+   1130,
+   1131,
+   1132,
+   1172,
+   1173,
+   1174,
+   1175,
+   1215,
+   1216,
+   1217,
+   1218,
+   1259,
+   1260,
+   1261,
+   1302,
+   1303,
+   1304
+  ],
+  "shutters": [
+   {
+    "cells": [
+     1176,
+     1177,
+     1178,
+     1179,
+     1180,
+     1219,
+     1220,
+     1221,
+     1222,
+     1223,
+     1262,
+     1263,
+     1264,
+     1265,
+     1266,
+     1305,
+     1306,
+     1307,
+     1308,
+     1309,
+     1348,
+     1349,
+     1350,
+     1351,
+     1352,
+     1391,
+     1392,
+     1393,
+     1394,
+     1395,
+     1434,
+     1435,
+     1436,
+     1437,
+     1438
+    ],
+    "code": "D",
+    "count": 35
+   }
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "D",
+   "count": 37
+  },
+  {
+   "code": "D",
+   "count": 37
+  },
+  {
+   "code": "D",
+   "count": 37
+  },
+  {
+   "code": "E",
+   "count": 26
+  },
+  {
+   "code": "E",
+   "count": 26
+  },
+  {
+   "code": "E",
+   "count": 25
+  },
+  {
+   "code": "A",
+   "count": 49
+  },
+  {
+   "code": "A",
+   "count": 48
+  },
+  {
+   "code": "A",
+   "count": 48
+  },
+  {
+   "code": "A",
+   "count": 48
+  },
+  {
+   "code": "A",
+   "count": 48
+  },
+  {
+   "code": "A",
+   "count": 48
+  },
+  {
+   "code": "A",
+   "count": 48
+  },
+  {
+   "code": "A",
+   "count": 48
+  },
+  {
+   "code": "O",
+   "count": 29
+  },
+  {
+   "code": "O",
+   "count": 28
+  },
+  {
+   "code": "C",
+   "count": 51
+  },
+  {
+   "code": "C",
+   "count": 50
+  },
+  {
+   "code": "C",
+   "count": 50
+  },
+  {
+   "code": "G",
+   "count": 28
+  },
+  {
+   "code": "G",
+   "count": 28
+  },
+  {
+   "code": "G",
+   "count": 27
+  },
+  {
+   "code": "M",
+   "count": 22
+  },
+  {
+   "code": "M",
+   "count": 22
+  },
+  {
+   "code": "M",
+   "count": 22
+  },
+  {
+   "code": "P",
+   "count": 11
+  },
+  {
+   "code": "P",
+   "count": 11
+  },
+  {
+   "code": "Y",
+   "count": 22
+  },
+  {
+   "code": "Y",
+   "count": 22
+  },
+  {
+   "code": "Y",
+   "count": 22
+  }
+ ],
+ "tray": [
+  [
+   8,
+   12,
+   23,
+   3,
+   20,
+   1,
+   26
+  ],
+  [
+   10,
+   28,
+   6,
+   21,
+   4,
+   7,
+   25
+  ],
+  [
+   15,
+   11,
+   24,
+   18,
+   0,
+   9,
+   27,
+   22
+  ],
+  [
+   19,
+   29,
+   17,
+   14,
+   2,
+   5,
+   13,
+   16
+  ]
+ ],
+ "mechanics": [
+  "cells",
+  "shutters"
+ ],
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

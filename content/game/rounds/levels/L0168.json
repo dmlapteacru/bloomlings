@@ -1,0 +1,280 @@
+{
+ "format": "round-level.v1",
+ "number": 168,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P1004",
+  "version": 1
+ },
+ "board": {
+  "w": 41,
+  "h": 38,
+  "rowsBottomFirst": [
+   "####################.####################",
+   "#.......................................#",
+   "#..............COOOOO...................#",
+   "#.N..........COOOOOOOOD.................#",
+   "#.NN.........OYYYYYYYYODDDD.............#",
+   "#.NN.......OOOYYYYYOOYOONNNNNDD.........#",
+   "#.N.....DNNNYYYYNNNNOYOONNNNNNNNN.......#",
+   "#.....DNNNNNYYYONNNNOOOONNNNNNNNNND.....#",
+   "#....NNNNNNNYYYONNOOOOOOONNNNNNNNNND....#",
+   "#...NNNNNNNNYYYONDOYYYYYONNNNNNNNNNND...#",
+   "#..NNNNNNNNNYYYONNYYCCYYYNNNNNNNNNNNND..#",
+   "#..NNNNNNNNNYYYONNNNYYYYDNNNNNNOOONNNN..#",
+   "#..NNONNNNNNYYYONNNNYYYYNNNNNNNYOONNNN..#",
+   "#..NOOONNNNNYYYONNNNYYYYNNNNNNNYYONNNNN.#",
+   "#.NNOYYNNNNNYYYOOOOYYYYYNNNNNNNYYNNNNNN.#",
+   "#.NNYYYNNNNNYCYYYYYYYYYYNNNNNNNNNNNNNND.#",
+   "#..NNYNNNNNNYCCYYYYYYYYDDDDDNNNNNNNNNNN.#",
+   "#..NNNNNNNNNYYYYYYYYGGGGGGMNNNNNNNNNNNN.#",
+   "#..NNNNNNNDDDMMMMGGGGGGGGMMMMDNNNNNNNND.#",
+   "#..NNNNNVVVGGGGGMGGGGGGGGMGGGGGNNNNNNND.#",
+   "#..NNNNVVVVGGGGGGGGGMMMMMMGGGGGVVNNNNN..#",
+   "#..NNPPPVVVVGGGGGGGMMDDMMMMMMGDVVVNNNN..#",
+   "#..NDPPPPVVVDGGGGMMDCCCCDDCCDMMDVVVNNN..#",
+   "#..DDPPPPPDVDMMMMMMCCCCCCCCCCDMMDVVVNN..#",
+   "#..DDPPPPPPDGGGGMMMCCCCCCCCCCCMMGGVVVN..#",
+   "#..DDPPPPPPGGGGMMMMDCCCCCCCCCCMGGGMVVV..#",
+   "#..DDPPPPPPGGGGGGDCCCCCYYYCCCDMMGGMVVV..#",
+   "#...NNPPPPPGGGGGDCCCCCYYYYCCCCDGGGMVVV..#",
+   "#....NNPPPPPPPDDDCCCCCYYYYCCCCCDVVVVVD..#",
+   "#.....NNPPPPPPPGDCCCCCYYYCCCCCCDVVVVV...#",
+   "#......NNNPPPPGGGCCCCCCCCCCCCCCDVVVV....#",
+   "#.......NNNNNPGGGCCCDCCCCCCCCCDVVVD.....#",
+   "#..........NNNGGGGGDDCCCCCCVVVVVV.......#",
+   "#.............GGGGGNNCCCCCCVVV..........#",
+   "#..............DD.NNNDCCCCD.............#",
+   "#.....................DDDD..............#",
+   "#.......................................#",
+   "#########################################"
+  ],
+  "entries": [
+   20
+  ],
+  "hiddenCells": [
+   562,
+   602,
+   603,
+   604,
+   605,
+   643,
+   644,
+   645,
+   646,
+   670,
+   671,
+   672,
+   684,
+   685,
+   686,
+   687,
+   711,
+   712,
+   713,
+   725,
+   726,
+   727,
+   728,
+   752,
+   753,
+   754,
+   793,
+   794,
+   795,
+   834,
+   835,
+   836,
+   877,
+   929,
+   930,
+   931,
+   970,
+   971,
+   972,
+   1010,
+   1011,
+   1012,
+   1013,
+   1051,
+   1052,
+   1053,
+   1054,
+   1093,
+   1094,
+   1095
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "D",
+   "count": 26
+  },
+  {
+   "code": "D",
+   "count": 25
+  },
+  {
+   "code": "D",
+   "count": 25
+  },
+  {
+   "code": "N",
+   "count": 55
+  },
+  {
+   "code": "N",
+   "count": 55,
+   "group": "C"
+  },
+  {
+   "code": "N",
+   "count": 55
+  },
+  {
+   "code": "N",
+   "count": 55
+  },
+  {
+   "code": "N",
+   "count": 54
+  },
+  {
+   "code": "N",
+   "count": 54
+  },
+  {
+   "code": "C",
+   "count": 42,
+   "group": "D"
+  },
+  {
+   "code": "C",
+   "count": 41
+  },
+  {
+   "code": "C",
+   "count": 41,
+   "group": "A"
+  },
+  {
+   "code": "G",
+   "count": 35
+  },
+  {
+   "code": "G",
+   "count": 35
+  },
+  {
+   "code": "G",
+   "count": 34
+  },
+  {
+   "code": "V",
+   "count": 22
+  },
+  {
+   "code": "V",
+   "count": 21
+  },
+  {
+   "code": "V",
+   "count": 21
+  },
+  {
+   "code": "P",
+   "count": 27,
+   "group": "C"
+  },
+  {
+   "code": "P",
+   "count": 27
+  },
+  {
+   "code": "Y",
+   "count": 41,
+   "group": "D"
+  },
+  {
+   "code": "Y",
+   "count": 41,
+   "group": "B"
+  },
+  {
+   "code": "Y",
+   "count": 41
+  },
+  {
+   "code": "M",
+   "count": 26
+  },
+  {
+   "code": "M",
+   "count": 26,
+   "group": "A"
+  },
+  {
+   "code": "O",
+   "count": 20
+  },
+  {
+   "code": "O",
+   "count": 20
+  },
+  {
+   "code": "O",
+   "count": 20,
+   "group": "B"
+  }
+ ],
+ "tray": [
+  [
+   11,
+   8,
+   27,
+   19,
+   1,
+   4,
+   3
+  ],
+  [
+   22,
+   23,
+   21,
+   6,
+   26,
+   18,
+   0
+  ],
+  [
+   14,
+   13,
+   7,
+   12,
+   9,
+   5,
+   25
+  ],
+  [
+   24,
+   2,
+   17,
+   10,
+   20,
+   16,
+   15
+  ]
+ ],
+ "mechanics": [
+  "links",
+  "cells"
+ ],
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

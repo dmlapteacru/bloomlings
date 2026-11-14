@@ -1,0 +1,602 @@
+{
+ "format": "round-level.v1",
+ "number": 199,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0214",
+  "version": 1
+ },
+ "board": {
+  "w": 32,
+  "h": 36,
+  "rowsBottomFirst": [
+   "################.###############",
+   "#..............................#",
+   "#.DDDDDDDDDDDDDDDDDDDDDDDDDDDD.#",
+   "#.DDDDDDDDDDDDDYYDDDDDDDDDDDDD.#",
+   "#.DDYYDDDDDDDDDYYDDDDDDDDDYYDD.#",
+   "#.DDYYDDDDVDDDDDDDDDDVDDDDYYDD.#",
+   "#.DDDDDDDDVVVDDDDDDVVVDDDDDDDD.#",
+   "#.VDDDDDDVVAAAADDAAAAVVDDDDDDV.#",
+   "#.VVDDDDVVVAAAAVVAAAAVVVDDDDVV.#",
+   "#.VVVDDVVVVVVMMVVMMVVVVVVDDVVV.#",
+   "#.VVVVVVVVVVVMMV.MMVVVVVVVVVVV.#",
+   "#.VVVVVVVVVVVMMVVMMVVVVVVVVVVV.#",
+   "#.VVVVVVVV##########VVVVVVVVVV.#",
+   "#.VVVVVVVV#GGMM.VMG###VVVVVVVV.#",
+   "#.VVVVVVVV#GGGGGGGGGG#VVVVVVVV.#",
+   "#.VVVVVVV##GGGGGGGGGG##VVVVVVV.#",
+   "#.VVVVVV##KKAAAAAAAAKK##VVVVVV.#",
+   "#.VVVVV##GKKGGGGGGGGKKG##VVVVV.#",
+   "#.VVVVV#GGGGGGGGGGGGGGGG#VVVVV.#",
+   "#.VVVVV#VYGGGGGGGGGGGGYV#VVVVV.#",
+   "#.VVVVV#YYYGGGGGGGGGGYYY#VVVVV.#",
+   "#.VVVVV#YYYYGGGGGGGGYYYY#VVVVV.#",
+   "#.VVVVV#YYYYYYKKKKYYYYYY#VVVVV.#",
+   "#.VVVVV#YYYYYKKKKKKYYYYY#VVVVV.#",
+   "#.VVVVV#YYYYKKDDKDDKYYYY#VVVVV.#",
+   "#.VVVVV#YYYYKKDDKDDKYYYY#VVVVV.#",
+   "#.VVVVV##YYYKKKK.KKKYYY##VVVVV.#",
+   "#.VVVVVV#YYY########YYY#VVVVVV.#",
+   "#.VVVVVV##YY#GGGGGG#YY##VVVVVV.#",
+   "#.VVVVVVV##Y#RGGGGG#Y##VVVVVVV.#",
+   "#.VVVVVVVV###RRGGGG###VVVVVVVV.#",
+   "#.VVVVVVVVVRRRGGGGGGGGGVVVVVVV.#",
+   "#.VVVVVVVVRRRVVVGVVVVVVVVVVVVV.#",
+   "#.VVVVVVVVVVVVVVVVVVVVVVVVVVVV.#",
+   "#..............................#",
+   "################################"
+  ],
+  "entries": [
+   16
+  ],
+  "overlay": {
+   "walls": [],
+   "sites": [],
+   "keys": [
+    [
+     14,
+     23
+    ],
+    [
+     14,
+     7
+    ],
+    [
+     13,
+     20
+    ]
+   ],
+   "water": [
+    [
+     8,
+     3
+    ],
+    [
+     9,
+     3
+    ],
+    [
+     10,
+     3
+    ],
+    [
+     8,
+     4
+    ],
+    [
+     10,
+     4
+    ],
+    [
+     10,
+     5
+    ],
+    [
+     17,
+     3
+    ],
+    [
+     18,
+     3
+    ],
+    [
+     19,
+     3
+    ],
+    [
+     17,
+     4
+    ],
+    [
+     19,
+     4
+    ],
+    [
+     17,
+     5
+    ],
+    [
+     7,
+     4
+    ],
+    [
+     7,
+     5
+    ],
+    [
+     10,
+     6
+    ],
+    [
+     17,
+     6
+    ],
+    [
+     20,
+     4
+    ],
+    [
+     20,
+     5
+    ],
+    [
+     6,
+     5
+    ],
+    [
+     6,
+     6
+    ],
+    [
+     6,
+     7
+    ],
+    [
+     21,
+     5
+    ],
+    [
+     21,
+     6
+    ],
+    [
+     21,
+     7
+    ],
+    [
+     11,
+     6
+    ],
+    [
+     12,
+     6
+    ],
+    [
+     13,
+     6
+    ],
+    [
+     14,
+     6
+    ],
+    [
+     15,
+     6
+    ],
+    [
+     16,
+     6
+    ],
+    [
+     5,
+     7
+    ],
+    [
+     5,
+     8
+    ],
+    [
+     5,
+     9
+    ],
+    [
+     22,
+     7
+    ],
+    [
+     22,
+     8
+    ],
+    [
+     22,
+     9
+    ],
+    [
+     5,
+     10
+    ],
+    [
+     22,
+     10
+    ],
+    [
+     5,
+     11
+    ],
+    [
+     22,
+     11
+    ],
+    [
+     5,
+     12
+    ],
+    [
+     22,
+     12
+    ],
+    [
+     5,
+     13
+    ],
+    [
+     22,
+     13
+    ],
+    [
+     5,
+     14
+    ],
+    [
+     22,
+     14
+    ],
+    [
+     5,
+     15
+    ],
+    [
+     22,
+     15
+    ],
+    [
+     5,
+     16
+    ],
+    [
+     6,
+     16
+    ],
+    [
+     21,
+     16
+    ],
+    [
+     22,
+     16
+    ],
+    [
+     6,
+     17
+    ],
+    [
+     7,
+     17
+    ],
+    [
+     20,
+     17
+    ],
+    [
+     21,
+     17
+    ],
+    [
+     7,
+     18
+    ],
+    [
+     8,
+     18
+    ],
+    [
+     19,
+     18
+    ],
+    [
+     20,
+     18
+    ],
+    [
+     8,
+     19
+    ],
+    [
+     19,
+     19
+    ],
+    [
+     8,
+     20
+    ],
+    [
+     17,
+     20
+    ],
+    [
+     18,
+     20
+    ],
+    [
+     19,
+     20
+    ],
+    [
+     8,
+     21
+    ],
+    [
+     9,
+     21
+    ],
+    [
+     10,
+     21
+    ],
+    [
+     11,
+     21
+    ],
+    [
+     12,
+     21
+    ],
+    [
+     13,
+     21
+    ],
+    [
+     14,
+     21
+    ],
+    [
+     15,
+     21
+    ],
+    [
+     16,
+     21
+    ],
+    [
+     17,
+     21
+    ]
+   ]
+  },
+  "hiddenCells": [
+   171,
+   172,
+   201,
+   202,
+   203,
+   204,
+   233,
+   234,
+   235,
+   236,
+   265,
+   266,
+   267,
+   268,
+   308,
+   309,
+   310,
+   311,
+   339,
+   340,
+   341,
+   342,
+   343,
+   371,
+   372,
+   373,
+   374,
+   375,
+   729,
+   730,
+   731,
+   761,
+   762,
+   763,
+   793,
+   794,
+   795,
+   825,
+   826,
+   857,
+   858
+  ],
+  "channel": {
+   "spring": 336,
+   "exits": [
+    {
+     "cell": 848,
+     "route": [
+      336,
+      368,
+      400,
+      432,
+      464,
+      496,
+      528,
+      560,
+      592,
+      624,
+      656,
+      688,
+      720,
+      752,
+      784,
+      816,
+      848
+     ],
+     "rideUs": 960000
+    },
+    {
+     "cell": 431,
+     "route": [
+      336,
+      335,
+      367,
+      399,
+      431
+     ],
+     "rideUs": 400000
+    }
+   ]
+  }
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "V",
+   "count": 50
+  },
+  {
+   "code": "V",
+   "count": 50
+  },
+  {
+   "code": "V",
+   "count": 49
+  },
+  {
+   "code": "V",
+   "count": 49
+  },
+  {
+   "code": "V",
+   "count": 49
+  },
+  {
+   "code": "V",
+   "count": 49
+  },
+  {
+   "code": "V",
+   "count": 49
+  },
+  {
+   "code": "V",
+   "count": 49
+  },
+  {
+   "code": "R",
+   "count": 9
+  },
+  {
+   "code": "G",
+   "count": 35
+  },
+  {
+   "code": "G",
+   "count": 35
+  },
+  {
+   "code": "G",
+   "count": 34
+  },
+  {
+   "code": "Y",
+   "count": 28
+  },
+  {
+   "code": "Y",
+   "count": 28
+  },
+  {
+   "code": "Y",
+   "count": 28
+  },
+  {
+   "code": "K",
+   "count": 17
+  },
+  {
+   "code": "K",
+   "count": 16
+  },
+  {
+   "code": "D",
+   "count": 39
+  },
+  {
+   "code": "D",
+   "count": 39
+  },
+  {
+   "code": "D",
+   "count": 38
+  },
+  {
+   "code": "D",
+   "count": 38
+  },
+  {
+   "code": "A",
+   "count": 12
+  },
+  {
+   "code": "A",
+   "count": 12
+  },
+  {
+   "code": "M",
+   "count": 15
+  }
+ ],
+ "tray": [
+  [
+   1,
+   2,
+   0,
+   18,
+   23,
+   22,
+   10,
+   13
+  ],
+  [
+   19,
+   4,
+   6,
+   3,
+   9,
+   12,
+   11,
+   16
+  ],
+  [
+   8,
+   17,
+   21,
+   5,
+   7,
+   20,
+   15,
+   14
+  ]
+ ],
+ "mechanics": [
+  "cells",
+  "canal"
+ ],
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

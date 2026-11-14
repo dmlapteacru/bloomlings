@@ -1,0 +1,738 @@
+{
+ "format": "round-level.v1",
+ "number": 174,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0229",
+  "version": 1
+ },
+ "board": {
+  "w": 34,
+  "h": 36,
+  "rowsBottomFirst": [
+   "#################.################",
+   "#................................#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#.SSSRSSSSRSSSSSSSSSSSSSSSSSSSSS.#",
+   "#.SSSRRSSRRREEESSSSSCCCCSSSSSSSS.#",
+   "#.SSSRRRRRRREE###SSSCCCCCCCCCCCS.#",
+   "#.SSRRRRR######.##SSCCCCCCCCCCCS.#",
+   "#.SSRRRR##YYYYYYY###CCCCCCCCCCCS.#",
+   "#.SRRRRR#YYYYYYYYYA#SSCCCCFFCCCS.#",
+   "#.SRRRR##YYYYYYYYYA#S.CCCCFCCCCS.#",
+   "#.SRRRR#AYYYYYYYYYA##SSCCCCCCCCS.#",
+   "#.SSRRR#AYYYYYYYYYYA#SSSSSSSSSSS.#",
+   "#.SSRRR#AYYYYYYYYYYA#SSSSSSSSSSS.#",
+   "#.SSRRR#AYYYYYYYYYYA#SSSSSSSSSSS.#",
+   "#.SSRRR#AYYYYYYYYYYY#SSSSSSSSSSS.#",
+   "#.SSRRR#AYYYYYYYYYYY##SSSSSSSSSS.#",
+   "#.SSRRR#AYYYYYYDDDDDD##SSSSSSSSS.#",
+   "#.SSRRR#AYYYYYDDDDDDDD#SSSSSSSSS.#",
+   "#.SSSRR#AYYYYYDDYYYYDD#SSSSSSSSS.#",
+   "#.SSSSR#NNNYYYYYYYYYYY#SSSSSSSSS.#",
+   "#.SSSSS#NNNNNNNNNNNNNN#SSSSSSSSS.#",
+   "#.SSSSS#RNNNNNNDDNNNDD##SSSSSSSS.#",
+   "#.SSSSS#RNNNNNNDDNNNDDN##SSSSSSS.#",
+   "#.SSSSS#NNNNNNNNNNNNNNNY###SSSSS.#",
+   "#.SSSSS#NNNNYYYYYYYYYYYYYA##SSSS.#",
+   "#.SSSSS#N####YYYYYYYYYYYYAA##SSS.#",
+   "#.SSSSS###SS##YYYYYYYYYYYYAA###S.#",
+   "#.SSSCCCCCCCS##YYYYYYYYYYYYAAA#S.#",
+   "#.SSCCFFFCCCSS##YYYYYYYYAYYYYY#S.#",
+   "#.SSCCCFCCCCSSS#Y.YYY#####YYYY#S.#",
+   "#.SSSCCCCCCCSSS####YY#EES#YYYY#S.#",
+   "#.SSSSSCCCCSSSSSSS####EES#YYYY#S.#",
+   "#.SSSSSSCCSSSSSSSSSSSSSSS######S.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#................................#",
+   "##################################"
+  ],
+  "entries": [
+   17
+  ],
+  "overlay": {
+   "walls": [],
+   "sites": [],
+   "keys": [
+    [
+     19,
+     24
+    ],
+    [
+     15,
+     4
+    ],
+    [
+     13,
+     27
+    ]
+   ],
+   "water": [
+    [
+     23,
+     1
+    ],
+    [
+     24,
+     1
+    ],
+    [
+     25,
+     1
+    ],
+    [
+     23,
+     2
+    ],
+    [
+     23,
+     3
+    ],
+    [
+     26,
+     1
+    ],
+    [
+     27,
+     1
+    ],
+    [
+     28,
+     1
+    ],
+    [
+     28,
+     2
+    ],
+    [
+     28,
+     3
+    ],
+    [
+     16,
+     2
+    ],
+    [
+     17,
+     2
+    ],
+    [
+     18,
+     2
+    ],
+    [
+     16,
+     3
+    ],
+    [
+     19,
+     2
+    ],
+    [
+     19,
+     3
+    ],
+    [
+     19,
+     4
+    ],
+    [
+     23,
+     4
+    ],
+    [
+     28,
+     4
+    ],
+    [
+     13,
+     3
+    ],
+    [
+     14,
+     3
+    ],
+    [
+     15,
+     3
+    ],
+    [
+     13,
+     4
+    ],
+    [
+     13,
+     5
+    ],
+    [
+     28,
+     5
+    ],
+    [
+     20,
+     4
+    ],
+    [
+     21,
+     4
+    ],
+    [
+     22,
+     4
+    ],
+    [
+     28,
+     6
+    ],
+    [
+     12,
+     5
+    ],
+    [
+     12,
+     6
+    ],
+    [
+     26,
+     7
+    ],
+    [
+     27,
+     7
+    ],
+    [
+     28,
+     7
+    ],
+    [
+     11,
+     6
+    ],
+    [
+     11,
+     7
+    ],
+    [
+     25,
+     8
+    ],
+    [
+     26,
+     8
+    ],
+    [
+     5,
+     7
+    ],
+    [
+     6,
+     7
+    ],
+    [
+     7,
+     7
+    ],
+    [
+     5,
+     8
+    ],
+    [
+     7,
+     8
+    ],
+    [
+     5,
+     9
+    ],
+    [
+     10,
+     7
+    ],
+    [
+     10,
+     8
+    ],
+    [
+     24,
+     9
+    ],
+    [
+     25,
+     9
+    ],
+    [
+     5,
+     10
+    ],
+    [
+     8,
+     8
+    ],
+    [
+     9,
+     8
+    ],
+    [
+     22,
+     10
+    ],
+    [
+     23,
+     10
+    ],
+    [
+     24,
+     10
+    ],
+    [
+     5,
+     11
+    ],
+    [
+     21,
+     11
+    ],
+    [
+     22,
+     11
+    ],
+    [
+     5,
+     12
+    ],
+    [
+     20,
+     12
+    ],
+    [
+     21,
+     12
+    ],
+    [
+     5,
+     13
+    ],
+    [
+     20,
+     13
+    ],
+    [
+     5,
+     14
+    ],
+    [
+     20,
+     14
+    ],
+    [
+     5,
+     15
+    ],
+    [
+     20,
+     15
+    ],
+    [
+     5,
+     16
+    ],
+    [
+     20,
+     16
+    ],
+    [
+     5,
+     17
+    ],
+    [
+     19,
+     17
+    ],
+    [
+     20,
+     17
+    ],
+    [
+     5,
+     18
+    ],
+    [
+     18,
+     18
+    ],
+    [
+     19,
+     18
+    ],
+    [
+     5,
+     19
+    ],
+    [
+     18,
+     19
+    ],
+    [
+     5,
+     20
+    ],
+    [
+     18,
+     20
+    ],
+    [
+     5,
+     21
+    ],
+    [
+     18,
+     21
+    ],
+    [
+     5,
+     22
+    ],
+    [
+     18,
+     22
+    ],
+    [
+     5,
+     23
+    ],
+    [
+     17,
+     23
+    ],
+    [
+     18,
+     23
+    ],
+    [
+     5,
+     24
+    ],
+    [
+     6,
+     24
+    ],
+    [
+     17,
+     24
+    ],
+    [
+     6,
+     25
+    ],
+    [
+     17,
+     25
+    ],
+    [
+     6,
+     26
+    ],
+    [
+     7,
+     26
+    ],
+    [
+     15,
+     26
+    ],
+    [
+     16,
+     26
+    ],
+    [
+     17,
+     26
+    ],
+    [
+     7,
+     27
+    ],
+    [
+     8,
+     27
+    ],
+    [
+     9,
+     27
+    ],
+    [
+     10,
+     27
+    ],
+    [
+     11,
+     27
+    ],
+    [
+     12,
+     27
+    ],
+    [
+     14,
+     27
+    ],
+    [
+     15,
+     27
+    ],
+    [
+     12,
+     28
+    ],
+    [
+     13,
+     28
+    ],
+    [
+     14,
+     28
+    ]
+   ]
+  },
+  "recolor": [
+   [
+    5,
+    4,
+    "F"
+   ],
+   [
+    4,
+    5,
+    "F"
+   ],
+   [
+    5,
+    5,
+    "F"
+   ],
+   [
+    6,
+    5,
+    "F"
+   ],
+   [
+    24,
+    24,
+    "F"
+   ],
+   [
+    24,
+    25,
+    "F"
+   ],
+   [
+    25,
+    25,
+    "F"
+   ]
+  ],
+  "channel": {
+   "spring": 327,
+   "exits": [
+    {
+     "cell": 1003,
+     "route": [
+      327,
+      361,
+      395,
+      429,
+      463,
+      497,
+      531,
+      565,
+      599,
+      633,
+      667,
+      701,
+      735,
+      769,
+      803,
+      837,
+      871,
+      905,
+      939,
+      973,
+      1007,
+      1006,
+      1005,
+      1004,
+      1003
+     ],
+     "rideUs": 1440000
+    },
+    {
+     "cell": 219,
+     "route": [
+      327,
+      293,
+      259,
+      225,
+      224,
+      223,
+      222,
+      221,
+      220,
+      219
+     ],
+     "rideUs": 540000
+    }
+   ]
+  }
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "S",
+   "count": 54,
+   "group": "A"
+  },
+  {
+   "code": "S",
+   "count": 54,
+   "group": "A"
+  },
+  {
+   "code": "S",
+   "count": 54
+  },
+  {
+   "code": "S",
+   "count": 54
+  },
+  {
+   "code": "S",
+   "count": 54
+  },
+  {
+   "code": "S",
+   "count": 54
+  },
+  {
+   "code": "S",
+   "count": 53
+  },
+  {
+   "code": "C",
+   "count": 31
+  },
+  {
+   "code": "C",
+   "count": 31
+  },
+  {
+   "code": "C",
+   "count": 30
+  },
+  {
+   "code": "E",
+   "count": 9
+  },
+  {
+   "code": "Y",
+   "count": 50
+  },
+  {
+   "code": "Y",
+   "count": 50
+  },
+  {
+   "code": "Y",
+   "count": 49
+  },
+  {
+   "code": "Y",
+   "count": 49
+  },
+  {
+   "code": "F",
+   "count": 7
+  },
+  {
+   "code": "A",
+   "count": 12
+  },
+  {
+   "code": "A",
+   "count": 12
+  },
+  {
+   "code": "N",
+   "count": 28
+  },
+  {
+   "code": "N",
+   "count": 28
+  },
+  {
+   "code": "R",
+   "count": 21
+  },
+  {
+   "code": "R",
+   "count": 21
+  },
+  {
+   "code": "R",
+   "count": 20
+  },
+  {
+   "code": "D",
+   "count": 13
+  },
+  {
+   "code": "D",
+   "count": 13
+  }
+ ],
+ "tray": [
+  [
+   0,
+   5,
+   7,
+   15,
+   12,
+   14,
+   17
+  ],
+  [
+   10,
+   21,
+   6,
+   22,
+   16,
+   18
+  ],
+  [
+   2,
+   20,
+   9,
+   11,
+   23,
+   24
+  ],
+  [
+   1,
+   3,
+   4,
+   8,
+   19,
+   13
+  ]
+ ],
+ "mechanics": [
+  "links",
+  "canal"
+ ],
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

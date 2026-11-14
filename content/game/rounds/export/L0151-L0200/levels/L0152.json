@@ -1,0 +1,594 @@
+{
+ "format": "round-level.v1",
+ "number": 152,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0212",
+  "version": 1
+ },
+ "board": {
+  "w": 34,
+  "h": 34,
+  "rowsBottomFirst": [
+   "#################.################",
+   "#................................#",
+   "#.GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG.#",
+   "#.GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG.#",
+   "#.GGGGGGG#####G#####GGGGGGGGGGGG.#",
+   "#.GGGGGGG#DDD#G#DDD#GGGGGGGGGGGG.#",
+   "#.GGGGG###PP.###PPP##GGGGGGGGGGG.#",
+   "#.GGGGG#NNPPPNNNPPPN##CCCCCCCCCG.#",
+   "#.SSSSS#NNNNNNNNNNNNN#CCCCCCCCCS.#",
+   "#.SSSS##NNNNNNNNNNNNN#RCRRRCRRRS.#",
+   "#.SSSS#PNNNNNNNNNNNNP#.CRRRCRRRS.#",
+   "#.SSSS#PNNNNNNNNNNNNP#CCCCCCCCCS.#",
+   "#.SSSS#PNNPRRRRRRPNNP#RRRCRRRCCS.#",
+   "#.SSSS#PPPPPRRRRPPPPP#RRRCRRRCCS.#",
+   "#.SSSS#PPPPRRRRRRPPPP#CCCCCCCCCS.#",
+   "#.SSSS##PPPPPPPPPPPP##RCRRRCRRRS.#",
+   "#.SSSSS#SPPKDKKDKPPS#RRCRRRCRRRS.#",
+   "#.SSSSS#SPPKDKKDKPPS#CCCCCCCCCCS.#",
+   "#.SSSSS#PPPKDKKDKPPP#SSSSSSSSSSS.#",
+   "#.SSS###PPPKKKKKKPPP###SSSSSSSSS.#",
+   "#.SSS#PPPPDDPPPPDDPPPP#SSSSSSSSS.#",
+   "#.SSS#PPPPDDPPPPDDPPPP#SSSSSSSSS.#",
+   "#.SSS##PPPPPPPPP.PPPP##SSSSSSSSS.#",
+   "#.SSSS################SSSSSSSSSS.#",
+   "#.SSSSSSYYYYYYYYYYYYSSSSSSSSSSSS.#",
+   "#.SSSSSSSYYYYYYYYYYSSSSSSSSSSSSS.#",
+   "#.SSSSSSSYYYYYYYYYYSSSSSSSSSSSSS.#",
+   "#.SSSSSSSYYYYYYYYYYSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSYYYYYYYYSSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSYYYYYYSSSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#.SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.#",
+   "#................................#",
+   "##################################"
+  ],
+  "entries": [
+   17
+  ],
+  "overlay": {
+   "walls": [],
+   "sites": [],
+   "keys": [
+    [
+     20,
+     21
+    ],
+    [
+     14,
+     9
+    ],
+    [
+     10,
+     25
+    ]
+   ],
+   "water": [
+    [
+     4,
+     8
+    ],
+    [
+     5,
+     8
+    ],
+    [
+     6,
+     8
+    ],
+    [
+     4,
+     9
+    ],
+    [
+     7,
+     8
+    ],
+    [
+     8,
+     8
+    ],
+    [
+     9,
+     8
+    ],
+    [
+     10,
+     8
+    ],
+    [
+     11,
+     8
+    ],
+    [
+     12,
+     8
+    ],
+    [
+     13,
+     8
+    ],
+    [
+     14,
+     8
+    ],
+    [
+     15,
+     8
+    ],
+    [
+     16,
+     8
+    ],
+    [
+     17,
+     8
+    ],
+    [
+     18,
+     8
+    ],
+    [
+     19,
+     8
+    ],
+    [
+     19,
+     9
+    ],
+    [
+     3,
+     9
+    ],
+    [
+     3,
+     10
+    ],
+    [
+     3,
+     11
+    ],
+    [
+     20,
+     9
+    ],
+    [
+     20,
+     10
+    ],
+    [
+     20,
+     11
+    ],
+    [
+     3,
+     12
+    ],
+    [
+     4,
+     12
+    ],
+    [
+     5,
+     12
+    ],
+    [
+     18,
+     12
+    ],
+    [
+     19,
+     12
+    ],
+    [
+     20,
+     12
+    ],
+    [
+     5,
+     13
+    ],
+    [
+     18,
+     13
+    ],
+    [
+     5,
+     14
+    ],
+    [
+     18,
+     14
+    ],
+    [
+     5,
+     15
+    ],
+    [
+     18,
+     15
+    ],
+    [
+     5,
+     16
+    ],
+    [
+     18,
+     16
+    ],
+    [
+     4,
+     16
+    ],
+    [
+     4,
+     17
+    ],
+    [
+     4,
+     18
+    ],
+    [
+     19,
+     16
+    ],
+    [
+     19,
+     17
+    ],
+    [
+     19,
+     18
+    ],
+    [
+     4,
+     19
+    ],
+    [
+     19,
+     19
+    ],
+    [
+     4,
+     20
+    ],
+    [
+     19,
+     20
+    ],
+    [
+     4,
+     21
+    ],
+    [
+     19,
+     21
+    ],
+    [
+     4,
+     22
+    ],
+    [
+     5,
+     22
+    ],
+    [
+     19,
+     22
+    ],
+    [
+     5,
+     23
+    ],
+    [
+     19,
+     23
+    ],
+    [
+     5,
+     24
+    ],
+    [
+     18,
+     24
+    ],
+    [
+     19,
+     24
+    ],
+    [
+     5,
+     25
+    ],
+    [
+     6,
+     25
+    ],
+    [
+     7,
+     25
+    ],
+    [
+     11,
+     25
+    ],
+    [
+     12,
+     25
+    ],
+    [
+     13,
+     25
+    ],
+    [
+     17,
+     25
+    ],
+    [
+     18,
+     25
+    ],
+    [
+     7,
+     26
+    ],
+    [
+     11,
+     26
+    ],
+    [
+     13,
+     26
+    ],
+    [
+     17,
+     26
+    ],
+    [
+     7,
+     27
+    ],
+    [
+     8,
+     27
+    ],
+    [
+     9,
+     27
+    ],
+    [
+     10,
+     27
+    ],
+    [
+     11,
+     27
+    ],
+    [
+     13,
+     27
+    ],
+    [
+     14,
+     27
+    ],
+    [
+     15,
+     27
+    ],
+    [
+     16,
+     27
+    ],
+    [
+     17,
+     27
+    ]
+   ]
+  },
+  "channel": {
+   "spring": 362,
+   "exits": [
+    {
+     "cell": 764,
+     "route": [
+      362,
+      396,
+      430,
+      464,
+      498,
+      532,
+      566,
+      600,
+      634,
+      668,
+      702,
+      736,
+      770,
+      769,
+      768,
+      767,
+      766,
+      765,
+      764
+     ],
+     "rideUs": 1080000
+    },
+    {
+     "cell": 216,
+     "route": [
+      362,
+      328,
+      294,
+      260,
+      226,
+      225,
+      224,
+      223,
+      222,
+      221,
+      220,
+      219,
+      218,
+      217,
+      216
+     ],
+     "rideUs": 840000
+    }
+   ]
+  }
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "S",
+   "count": 54
+  },
+  {
+   "code": "S",
+   "count": 53
+  },
+  {
+   "code": "S",
+   "count": 53
+  },
+  {
+   "code": "S",
+   "count": 53
+  },
+  {
+   "code": "S",
+   "count": 53
+  },
+  {
+   "code": "S",
+   "count": 53
+  },
+  {
+   "code": "Y",
+   "count": 28
+  },
+  {
+   "code": "Y",
+   "count": 28
+  },
+  {
+   "code": "P",
+   "count": 36
+  },
+  {
+   "code": "P",
+   "count": 35
+  },
+  {
+   "code": "P",
+   "count": 35,
+   "group": "A"
+  },
+  {
+   "code": "D",
+   "count": 10
+  },
+  {
+   "code": "D",
+   "count": 10,
+   "group": "A"
+  },
+  {
+   "code": "K",
+   "count": 18
+  },
+  {
+   "code": "C",
+   "count": 20
+  },
+  {
+   "code": "C",
+   "count": 20
+  },
+  {
+   "code": "C",
+   "count": 20
+  },
+  {
+   "code": "R",
+   "count": 28
+  },
+  {
+   "code": "R",
+   "count": 28
+  },
+  {
+   "code": "N",
+   "count": 20
+  },
+  {
+   "code": "N",
+   "count": 20
+  },
+  {
+   "code": "N",
+   "count": 20
+  },
+  {
+   "code": "G",
+   "count": 41
+  },
+  {
+   "code": "G",
+   "count": 41
+  },
+  {
+   "code": "G",
+   "count": 40
+  }
+ ],
+ "tray": [
+  [
+   22,
+   17,
+   15,
+   5,
+   13,
+   12
+  ],
+  [
+   24,
+   16,
+   4,
+   11,
+   18,
+   20
+  ],
+  [
+   23,
+   0,
+   1,
+   2,
+   8,
+   10
+  ],
+  [
+   14,
+   6,
+   3,
+   7,
+   9,
+   19,
+   21
+  ]
+ ],
+ "mechanics": [
+  "links",
+  "canal"
+ ],
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

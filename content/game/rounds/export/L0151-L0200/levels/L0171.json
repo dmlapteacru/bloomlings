@@ -1,0 +1,290 @@
+{
+ "format": "round-level.v1",
+ "number": 171,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P1016",
+  "version": 1
+ },
+ "board": {
+  "w": 42,
+  "h": 41,
+  "rowsBottomFirst": [
+   "#####################.####################",
+   "#........................................#",
+   "#.........EEEEEEEE.......................#",
+   "#......AAAAAAAAAAAAEEE...................#",
+   "#....AAAAAAAAAAAAAAAAAAA.................#",
+   "#...AAAAOOOOOOOOOOOOAAAAAA...............#",
+   "#...AAOOOOPPPPPPPOOOOOOAAAAA.............#",
+   "#..EOOOOOOPPPPPPPPPOOOOOOAAAA............#",
+   "#..EOOOPPPPPPPPPPPPOOOOOOOAAAA...........#",
+   "#..EOOOPPCPPPPPPPPPOOOFOOOOOAAA..........#",
+   "#..EOOOPCCPPPPPPPPOOOOFOOOOOOAAA.........#",
+   "#..EOOOAPPPPPPOOOOOOOOFOOOOOOOAAA........#",
+   "#...OOAAAOOOOYYYYOOOOOOOOOOOOOOAAA.......#",
+   "#...OOOAAOOOYYYOOOYYYOOOOOOOOOOOAAA......#",
+   "#...OOOAAAOOYYOYYYOOOOOOOOOOOOOOOAA......#",
+   "#....OOOAAAOOOOOOOOYYOOOOOOOOEOOOOAA.....#",
+   "#.....OOOAAAAOOOOOOOYOOOOOOOEEOOOOAA.....#",
+   "#....AAOOOAAAAEEEOOOOOOOOOEEEEOOOOOAA....#",
+   "#...AAAOOOOOAAAAEOOOOOOOOOEEEEOOFOOAAE...#",
+   "#..OAAOOOOOOOAAAAOOOOOOOOOEAAAOOFOOOAE...#",
+   "#..OOOOOOOOOOOOAAOOOOOOOOOEAAOOOFOOOOE...#",
+   "#.EOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOEE..#",
+   "#.EOOOOOOOOOOOOOOAOOOYOOOOAOOOOOOOOOOEE..#",
+   "#.EOOOOOOOOOOOOOOAOOOYYOOOAOOOAAAAAOOOE..#",
+   "#.EOOOOOO...OOOOOAOYOYYOOOAOOOOOOOOOOOO..#",
+   "#.EOOOOOO.....OOOAOYOOYOOOAAOOOAAAOOOOO..#",
+   "#..OOOOOAA....EOOOAYYOYOOOAAAAOOOOOOOOO..#",
+   "#..OOOOOAAA...EOOOAYYYYOOOOOOOOOOOOOOOO..#",
+   "#...OOOOAAAEEEEOOOAYCYYCOOOOOOOOOOOAOOO..#",
+   "#...OOAAOAAAAAEOOOOOCYYCOYOOOOOOAAAAOOE..#",
+   "#....AAOOOOAAAOOOOOOCCYYYYOOOOOOEAAAAAE..#",
+   "#.....OOOOOOOOOOOOOOOCYYYYYOOOOOEEMMDAE..#",
+   "#......OOOOOOOOOOOEEOOYOYYYOOOOODMMMDDD..#",
+   "#.......OOOOOOOOOOEEEOOOOOOOFFOOMMMMMMMD.#",
+   "#........OOOOOOOOOAAEEOOOOOOOOOGGGMMGGGD.#",
+   "#.........OOOOOOOOAAAAOOOOOOOMMMGGGGGGD..#",
+   "#...........OOOOOOOOAAADDOOMMMMMGGGGGGD..#",
+   "#.............OOOOOOOOADGGGMMMMMMGGGGD...#",
+   "#...............EEEOOOAAGGGMMMMMMMMMMD...#",
+   "#........................................#",
+   "##########################################"
+  ],
+  "entries": [
+   21
+  ],
+  "recolor": [
+   [
+    26,
+    5,
+    "F"
+   ],
+   [
+    27,
+    5,
+    "F"
+   ],
+   [
+    30,
+    18,
+    "F"
+   ],
+   [
+    30,
+    19,
+    "F"
+   ],
+   [
+    30,
+    20,
+    "F"
+   ],
+   [
+    20,
+    27,
+    "F"
+   ],
+   [
+    20,
+    28,
+    "F"
+   ],
+   [
+    20,
+    29,
+    "F"
+   ]
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "E",
+   "count": 23
+  },
+  {
+   "code": "E",
+   "count": 23
+  },
+  {
+   "code": "E",
+   "count": 23
+  },
+  {
+   "code": "O",
+   "count": 53,
+   "group": "A"
+  },
+  {
+   "code": "O",
+   "count": 53
+  },
+  {
+   "code": "O",
+   "count": 53,
+   "mystery": "depth"
+  },
+  {
+   "code": "O",
+   "count": 53
+  },
+  {
+   "code": "O",
+   "count": 53
+  },
+  {
+   "code": "O",
+   "count": 52
+  },
+  {
+   "code": "O",
+   "count": 52
+  },
+  {
+   "code": "O",
+   "count": 52,
+   "group": "D"
+  },
+  {
+   "code": "O",
+   "count": 52
+  },
+  {
+   "code": "O",
+   "count": 52
+  },
+  {
+   "code": "O",
+   "count": 52,
+   "group": "C"
+  },
+  {
+   "code": "O",
+   "count": 52
+  },
+  {
+   "code": "A",
+   "count": 48
+  },
+  {
+   "code": "A",
+   "count": 48
+  },
+  {
+   "code": "A",
+   "count": 48,
+   "group": "B"
+  },
+  {
+   "code": "A",
+   "count": 47
+  },
+  {
+   "code": "G",
+   "count": 14,
+   "mystery": "depth"
+  },
+  {
+   "code": "G",
+   "count": 14
+  },
+  {
+   "code": "M",
+   "count": 19,
+   "group": "A"
+  },
+  {
+   "code": "M",
+   "count": 19
+  },
+  {
+   "code": "D",
+   "count": 14
+  },
+  {
+   "code": "F",
+   "count": 4
+  },
+  {
+   "code": "F",
+   "count": 4
+  },
+  {
+   "code": "Y",
+   "count": 26
+  },
+  {
+   "code": "Y",
+   "count": 26,
+   "group": "C"
+  },
+  {
+   "code": "C",
+   "count": 10
+  },
+  {
+   "code": "P",
+   "count": 27,
+   "group": "B"
+  },
+  {
+   "code": "P",
+   "count": 27,
+   "group": "D"
+  }
+ ],
+ "tray": [
+  [
+   3,
+   25,
+   24,
+   7,
+   18,
+   9,
+   12,
+   13
+  ],
+  [
+   4,
+   23,
+   29,
+   8,
+   30,
+   2,
+   28,
+   27
+  ],
+  [
+   21,
+   16,
+   17,
+   6,
+   10,
+   11,
+   0
+  ],
+  [
+   15,
+   22,
+   1,
+   19,
+   20,
+   5,
+   26,
+   14
+  ]
+ ],
+ "mechanics": [
+  "hidden",
+  "links"
+ ],
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

@@ -1,0 +1,279 @@
+{
+ "format": "round-proof.v1",
+ "number": 155,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 16875000
+   },
+   {
+    "type": "tap",
+    "pod": 24,
+    "atUs": 44450000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 66825000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 82475000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 99850000
+   },
+   {
+    "type": "tap",
+    "pod": 26,
+    "atUs": 99850000
+   },
+   {
+    "type": "tap",
+    "pod": 29,
+    "atUs": 178475000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 185325000
+   },
+   {
+    "type": "channel",
+    "exit": 1,
+    "atUs": 201675000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 225400000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 242275000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 259685000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 277085000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 295185000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 313910000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 313910000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 394195000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 405120000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 426720000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 450420000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 467575000
+   },
+   {
+    "type": "tap",
+    "pod": 27,
+    "atUs": 476500000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 484500000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 515150000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 532680000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 554245000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 585515000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 100,
+  "wins": 40,
+  "share": 0.4,
+  "wilson95": [
+   0.309,
+   0.498
+  ],
+  "classOfShare": "Hard",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.28,
+  "opening": {
+   "first": {
+    "openings": 4,
+    "wins": 0
+   },
+   "three": {
+    "openings": 45,
+    "wins": 0,
+    "share": 0
+   },
+   "ok": true,
+   "strategies": [
+    "most-now"
+   ]
+  },
+  "hold": true,
+  "greedyLoses": true,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.59,
+   "tight": 0.93
+  },
+  "calm": {
+   "runs": 200,
+   "wins": 79,
+   "share": 0.395,
+   "wilson95": [
+    0.33,
+    0.464
+   ],
+   "borderline": false,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 4,
+   "traps": 4,
+   "top": 1
+  },
+  "channel": {
+   "each": [
+    {
+     "exit": 0,
+     "win": false,
+     "share": 0
+    },
+    {
+     "exit": 1,
+     "win": true,
+     "share": 0.75
+    }
+   ],
+   "gap": 0.75,
+   "decides": true,
+   "better": 1
+  },
+  "island": {
+   "island": {
+    "cells": 356,
+    "share": 0.318
+   },
+   "exitsOn": [
+    true,
+    true
+   ],
+   "ready": {
+    "atW": 0.245
+   },
+   "open": {
+    "exit": 1,
+    "atW": 0.288
+   },
+   "ok": true,
+   "problems": [],
+   "notes": []
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "W",
+     "name": "Снег",
+     "from": "N",
+     "cells": 3,
+     "clusters": 1,
+     "pods": [
+      {
+       "pod": 23,
+       "count": 3,
+       "row": 2
+      }
+     ]
+    }
+   ],
+   "cells": 3,
+   "pressure": {
+    "with": 1.59,
+    "without": 1.58
+   }
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0151-L0200.md",
+  "notes": [
+   "канал: остров 32 % N, родник при 25 % W, выход 2 при 29 % W (§8)",
+   "канал: выходы 1 проигрывает, 2 выигрывает — решает ровно один (§8)",
+   "опасных развилок 1 (ориентир 2–5, §5)",
+   "последний запуск при 96 % W (ориентир 80–92 %, §10)"
+  ]
+ },
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

@@ -1,0 +1,137 @@
+{
+ "format": "round-level.v1",
+ "number": 197,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0370",
+  "version": 1
+ },
+ "board": {
+  "w": 28,
+  "h": 32,
+  "rowsBottomFirst": [
+   "##############.#############",
+   "#..........................#",
+   "#......EEEEEEEEEEEEEEE.....#",
+   "#.....EEEEEEEEEEEEEEEEE....#",
+   "#.EEEEEEEEEEEEEEEEEEEEEEEE.#",
+   "#.EAAAAAAAAAAAAAAAAAAAAAAE.#",
+   "#..AAAAAAAAAAAAAAAAAAAAAA..#",
+   "#..AAAAAAAAAAAAAAAAAAAAAA..#",
+   "#...AAARRRRRRRRRRRRRAAAA...#",
+   "#...AAARRRRRRRRRRRRRRAAA...#",
+   "#....AARRRRRRRRRRRRRRAA....#",
+   "#....AARNRCCCCCCCCRRAAA....#",
+   "#.....AANNCCCCCCCCNAAAA....#",
+   "#.....AANNCCCCCCCCNAAA.....#",
+   "#.....AAANCCCCCCCNNAAA.....#",
+   "#......AANNCCCCCCNAAA......#",
+   "#......AAANCCCCCNNAAA......#",
+   "#.......AANNCCCCNNAA.......#",
+   "#.......AAANCCCCNAAA.......#",
+   "#........AANCCCNNAA........#",
+   "#........AANNCCNAAA........#",
+   "#.........AANCCNAA.........#",
+   "#.........AANNNNAA.........#",
+   "#..........AANNAAA.........#",
+   "#..........YYYYYY..........#",
+   "#...........YYYYY..........#",
+   "#...........YYYY...........#",
+   "#...........YYYY...........#",
+   "#............EE............#",
+   "#............EE............#",
+   "#..........................#",
+   "############################"
+  ],
+  "entries": [
+   14
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "E",
+   "count": 21
+  },
+  {
+   "code": "E",
+   "count": 21
+  },
+  {
+   "code": "E",
+   "count": 20
+  },
+  {
+   "code": "Y",
+   "count": 19
+  },
+  {
+   "code": "A",
+   "count": 50,
+   "mystery": "depth"
+  },
+  {
+   "code": "A",
+   "count": 49
+  },
+  {
+   "code": "A",
+   "count": 49
+  },
+  {
+   "code": "N",
+   "count": 18
+  },
+  {
+   "code": "N",
+   "count": 18
+  },
+  {
+   "code": "C",
+   "count": 29
+  },
+  {
+   "code": "C",
+   "count": 28
+  },
+  {
+   "code": "R",
+   "count": 23
+  },
+  {
+   "code": "R",
+   "count": 22
+  }
+ ],
+ "tray": [
+  [
+   0,
+   6,
+   5,
+   3,
+   4
+  ],
+  [
+   10,
+   11,
+   2,
+   1
+  ],
+  [
+   9,
+   8,
+   7,
+   12
+  ]
+ ],
+ "mechanics": [
+  "hidden"
+ ],
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

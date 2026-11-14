@@ -1,0 +1,232 @@
+{
+ "format": "round-proof.v1",
+ "number": 194,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 12925000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 29750000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 45125000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 84400000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 118700000
+   },
+   {
+    "type": "tap",
+    "pod": 24,
+    "atUs": 135800000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 135800000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 153425000
+   },
+   {
+    "type": "tap",
+    "pod": 30,
+    "atUs": 165725000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 174225000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 192625000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 217200000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 241825000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 260750000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 280375000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 297575000
+   },
+   {
+    "type": "tap",
+    "pod": 28,
+    "atUs": 317925000
+   },
+   {
+    "type": "tap",
+    "pod": 26,
+    "atUs": 341800000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 341800000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 367275000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 387525000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 433925000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 455425000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 476275000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 497400000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 519575000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 543975000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 400,
+  "wins": 221,
+  "share": 0.553,
+  "wilson95": [
+   0.504,
+   0.6
+  ],
+  "classOfShare": "Normal",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.26,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": true,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 0.71,
+   "tight": 0.95
+  },
+  "calm": {
+   "runs": 200,
+   "wins": 124,
+   "share": 0.62,
+   "wilson95": [
+    0.551,
+    0.684
+   ],
+   "borderline": false,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 4,
+   "traps": 3,
+   "top": 0
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "F",
+     "name": "Фуксия",
+     "from": "G",
+     "cells": 6,
+     "clusters": 3,
+     "pods": [
+      {
+       "pod": 25,
+       "count": 3,
+       "row": 2
+      },
+      {
+       "pod": 26,
+       "count": 3,
+       "row": 3
+      }
+     ]
+    }
+   ],
+   "cells": 6,
+   "pressure": {
+    "with": 0.71,
+    "without": 0.48
+   }
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0151-L0200.md",
+  "notes": [
+   "слой Б: стоят без работы 0.71 < 0.9 (§13, quality.json)",
+   "опасных развилок 6 (ориентир 0–2, §5)",
+   "последний запуск при 96 % W (ориентир 80–92 %, §10)"
+  ]
+ },
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

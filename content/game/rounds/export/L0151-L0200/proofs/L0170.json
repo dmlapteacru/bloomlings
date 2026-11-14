@@ -1,0 +1,312 @@
+{
+ "format": "round-proof.v1",
+ "number": 170,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 15900000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 85775000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 110450000
+   },
+   {
+    "type": "channel",
+    "exit": 0,
+    "atUs": 146925000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 163235000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 188585000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 219435000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 236895000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 278320000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 297170000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 310125000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 358955000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 371085000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 403205000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 434880000
+   },
+   {
+    "type": "tap",
+    "pod": 24,
+    "atUs": 462425000
+   },
+   {
+    "type": "tap",
+    "pod": 26,
+    "atUs": 480475000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 491225000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 509350000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 628365000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 678665000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 698535000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 726100000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 754375000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 400,
+  "wins": 37,
+  "share": 0.093,
+  "wilson95": [
+   0.068,
+   0.125
+  ],
+  "classOfShare": "Super Hard",
+  "borderline": false,
+  "exit": 0
+ },
+ "checks": {
+  "forced": 0.12,
+  "opening": {
+   "first": {
+    "openings": 3,
+    "wins": 0
+   },
+   "three": {
+    "openings": 17,
+    "wins": 0,
+    "share": 0
+   },
+   "ok": true,
+   "strategies": [
+    "most-now",
+    "fast-release"
+   ]
+  },
+  "hold": true,
+  "greedyLoses": true,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.55,
+   "tight": 0.96
+  },
+  "calm": {
+   "runs": 200,
+   "wins": 7,
+   "share": 0.035,
+   "wilson95": [
+    0.017,
+    0.07
+   ],
+   "borderline": false,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3,
+   "exit": 0
+  },
+  "traps": {
+   "links": 7,
+   "traps": 7,
+   "top": 4
+  },
+  "latch": {
+   "latches": [
+    {
+     "latch": 0,
+     "column": 2,
+     "depth": 3,
+     "behind": 3,
+     "key": 1239,
+     "atW": 0.688,
+     "command": 15,
+     "waitMs": 260370
+    },
+    {
+     "latch": 1,
+     "column": 3,
+     "depth": 2,
+     "behind": 4,
+     "key": 476,
+     "atW": 0.749,
+     "command": 17,
+     "waitMs": 233480
+    },
+    {
+     "latch": 2,
+     "column": 4,
+     "depth": 3,
+     "behind": 3,
+     "key": 326,
+     "atW": 0.434,
+     "command": 10,
+     "waitMs": 0
+    }
+   ],
+   "maxBlocked": 2,
+   "limit": 3,
+   "lastOpenAtW": 0.749,
+   "waits": true,
+   "randomOverLimit": 0,
+   "ok": true,
+   "problems": [],
+   "notes": []
+  },
+  "channel": {
+   "each": [
+    {
+     "exit": 0,
+     "win": true,
+     "share": 0.03
+    },
+    {
+     "exit": 1,
+     "win": false,
+     "share": 0
+    }
+   ],
+   "gap": 0.03,
+   "decides": true,
+   "better": 0
+  },
+  "island": {
+   "island": {
+    "cells": 389,
+    "share": 0.364
+   },
+   "exitsOn": [
+    true,
+    true
+   ],
+   "ready": {
+    "atW": 0.228
+   },
+   "open": {
+    "exit": 0,
+    "atW": 0.239
+   },
+   "ok": true,
+   "problems": [],
+   "notes": []
+  },
+  "channelKind": "single",
+  "accents": {
+   "materials": [
+    {
+     "code": "Y",
+     "name": "Солнце",
+     "from": "N",
+     "cells": 2,
+     "clusters": 1,
+     "pods": [
+      {
+       "pod": 27,
+       "count": 2,
+       "row": 2
+      }
+     ]
+    }
+   ],
+   "cells": 2,
+   "pressure": {
+    "with": 1.55,
+    "without": 1.56
+   }
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0151-L0200.md",
+  "notes": [
+   "канал: остров 36 % N, родник при 23 % W, выход 1 при 24 % W (§8)",
+   "канал: выходы 1 выигрывает, 2 проигрывает — решает ровно один (§8)",
+   "слой Б: стоят без работы 1.55 < 2 (§13, quality.json)",
+   "место дозы не записано (уровень собран до поправки)",
+   "последний запуск при 96 % W (ориентир 80–92 %, §10)",
+   "время быстрых нажатий 277.2 с (ориентир 100–210 с, §12)"
+  ]
+ },
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

@@ -1,0 +1,247 @@
+{
+ "format": "round-proof.v1",
+ "number": 171,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 25,
+    "atUs": 28750000
+   },
+   {
+    "type": "tap",
+    "pod": 24,
+    "atUs": 28750000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 28750000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 50775000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 65350000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 80825000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 97000000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 114125000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 139575000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 157200000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 199075000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 216650000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 235000000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 253625000
+   },
+   {
+    "type": "tap",
+    "pod": 28,
+    "atUs": 263600000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 270475000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 289975000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 321050000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 333300000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 394225000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 421325000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 441225000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 454375000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 468175000
+   },
+   {
+    "type": "tap",
+    "pod": 26,
+    "atUs": 488625000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 505100000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 528825000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 100,
+  "wins": 86,
+  "share": 0.86,
+  "wilson95": [
+   0.779,
+   0.915
+  ],
+  "classOfShare": "Normal",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.31,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": false,
+  "hiddenMatters": {
+   "ok": false,
+   "pods": [
+    {
+     "pod": 19,
+     "revealAt": 22,
+     "gap": 0,
+     "newColour": true
+    },
+    {
+     "pod": 5,
+     "revealAt": 24,
+     "gap": 0,
+     "newColour": true
+    }
+   ]
+  },
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.25,
+   "tight": 0.89
+  },
+  "calm": {
+   "runs": 200,
+   "wins": 189,
+   "share": 0.945,
+   "wilson95": [
+    0.904,
+    0.969
+   ],
+   "borderline": false,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 4,
+   "traps": 3,
+   "top": 0
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "F",
+     "name": "Фуксия",
+     "from": "O",
+     "cells": 8,
+     "clusters": 3,
+     "pods": [
+      {
+       "pod": 24,
+       "count": 4,
+       "row": 2
+      },
+      {
+       "pod": 25,
+       "count": 4,
+       "row": 1
+      }
+     ]
+    }
+   ],
+   "cells": 8,
+   "pressure": {
+    "with": 1.25,
+    "without": 0.09
+   }
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0151-L0200.md",
+  "notes": [
+   "после 80 % W запусков 7 (ориентир 1–4, §10)",
+   "последний запуск при 95 % W (ориентир 80–92 %, §10)"
+  ]
+ },
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

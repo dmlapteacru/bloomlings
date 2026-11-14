@@ -1,0 +1,260 @@
+{
+ "format": "round-level.v1",
+ "number": 162,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0352",
+  "version": 1
+ },
+ "board": {
+  "w": 39,
+  "h": 40,
+  "rowsBottomFirst": [
+   "###################.###################",
+   "#.....................................#",
+   "#..........EEE...........EEE..........#",
+   "#..........ERREEE......RRRRE..........#",
+   "#..........ERRRRRRR..EERRRRE..........#",
+   "#..........ERRRRRRPPPERRRRRE..........#",
+   "#.......EEEERRRRRRPPPRRRRRREEEE.......#",
+   "#......YYYYERRRRREPPPEERRRREYYYY......#",
+   "#.....EYYSSERRREEEGGGGEERRRESSYYE.....#",
+   "#.....EYSSSEREEEEGGGGGGEEERESSNYE.....#",
+   "#.....EYSSSEEEYYECCCCCCYYSEENNNYE.....#",
+   "#.....EYSSNNNSYYECCCCCCYYSSNNSSYE.....#",
+   "#.....EYSSNNSSYYECCCCCCYYSSNNSSYE.....#",
+   "#.....EYYSNNSYYECCCCCCCEYYSNNSYYE.....#",
+   "#.....EEYYYYYYEECCCCCCCEEYYYYYYEE.....#",
+   "#....EGGGGYYYEECCCCCCCCCEEYYYYYGGE....#",
+   "#....EGGGGEEECCCCCCCCCCCCCCCCGGGGE....#",
+   "#....EGGGGGCCCCCCCCCCCCCCCCCCGGGGE....#",
+   "#....EGGGGCCCCCCCCCCCCCCCCCCCGGGGE....#",
+   "#...EEEYEEECCCCCCCCCCCCCCCCCEEEYEEE...#",
+   "#..EEYYYYYEECCCCCCCCCCCCCCCEEYYYYYYY..#",
+   "#..EYYSSSYYECCCCCCCCCCCCCCCEYYSSSYYY..#",
+   "#.EYYSSSSNYYECCCCCCCCCCCCCEYYSSSSNYYE.#",
+   "#.EYSSSNNNNYECCCCCCCCCCCCCEYSSSNNNNYE.#",
+   "#.EYSSSNNSSYECCCCCCCCCCCCCEYSSSNNSSYE.#",
+   "#.EYYSSNSSYYECCCCCCCCCCCCCEYYSSNSSYYE.#",
+   "#..YYSSNSSYEEGCCCCCCCCCCCCGYYSSNSSYYE.#",
+   "#..YYYYYYYYEGGGCCCCCCCCCGGGYYYYYYYYY..#",
+   "#...YYYYYEEGGGGGGEEEEEGGGGGGEEYYYYY...#",
+   "#.....EEEEGGGGGGYYYYYYEEGGGGGEEEE.....#",
+   "#.........GGGGGYYYSSSYYEGGGGG.........#",
+   "#..........GGGEYYSSSSSYYEGGG..........#",
+   "#............EEYSSSNNNNYEE............#",
+   "#.............EYSSSNNSSYE.............#",
+   "#.............EYYSSNSSSYE.............#",
+   "#.............EYYSSNSSYYE.............#",
+   "#..............YYYYYYYYY..............#",
+   "#...............YYYYYYY...............#",
+   "#.....................................#",
+   "#######################################"
+  ],
+  "entries": [
+   19
+  ],
+  "shutters": [
+   {
+    "cells": [
+     369,
+     370,
+     371,
+     372,
+     373,
+     374,
+     375,
+     376,
+     408,
+     409,
+     410,
+     411,
+     412,
+     413,
+     414,
+     415,
+     447,
+     448,
+     449,
+     450,
+     451,
+     452,
+     453,
+     454,
+     486,
+     487,
+     488,
+     489,
+     490,
+     491,
+     492,
+     493,
+     525,
+     526,
+     527,
+     528,
+     529,
+     530,
+     531,
+     532,
+     564,
+     565,
+     566,
+     567,
+     568,
+     569,
+     570,
+     571
+    ],
+    "code": "N",
+    "count": 15
+   }
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "Y",
+   "count": 46
+  },
+  {
+   "code": "Y",
+   "count": 46
+  },
+  {
+   "code": "Y",
+   "count": 46
+  },
+  {
+   "code": "Y",
+   "count": 45
+  },
+  {
+   "code": "E",
+   "count": 42,
+   "group": "A"
+  },
+  {
+   "code": "E",
+   "count": 41
+  },
+  {
+   "code": "E",
+   "count": 41
+  },
+  {
+   "code": "E",
+   "count": 41
+  },
+  {
+   "code": "S",
+   "count": 35
+  },
+  {
+   "code": "S",
+   "count": 34
+  },
+  {
+   "code": "S",
+   "count": 34
+  },
+  {
+   "code": "N",
+   "count": 22
+  },
+  {
+   "code": "N",
+   "count": 21
+  },
+  {
+   "code": "G",
+   "count": 30
+  },
+  {
+   "code": "G",
+   "count": 29
+  },
+  {
+   "code": "G",
+   "count": 29
+  },
+  {
+   "code": "C",
+   "count": 43
+  },
+  {
+   "code": "C",
+   "count": 43
+  },
+  {
+   "code": "C",
+   "count": 43
+  },
+  {
+   "code": "C",
+   "count": 43
+  },
+  {
+   "code": "C",
+   "count": 42,
+   "group": "A"
+  },
+  {
+   "code": "R",
+   "count": 29
+  },
+  {
+   "code": "R",
+   "count": 28
+  },
+  {
+   "code": "P",
+   "count": 9
+  }
+ ],
+ "tray": [
+  [
+   20,
+   3,
+   14,
+   2,
+   19,
+   0
+  ],
+  [
+   4,
+   7,
+   10,
+   16,
+   1,
+   8
+  ],
+  [
+   17,
+   6,
+   13,
+   22,
+   11,
+   23
+  ],
+  [
+   18,
+   9,
+   15,
+   12,
+   5,
+   21
+  ]
+ ],
+ "mechanics": [
+  "links",
+  "shutters"
+ ],
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

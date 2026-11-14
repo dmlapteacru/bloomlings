@@ -1,0 +1,261 @@
+{
+ "format": "round-proof.v1",
+ "number": 165,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 17575000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 35950000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 57725000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 77450000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 84425000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 124675000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 135100000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 156650000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 169000000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 181375000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 202725000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 212350000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 220125000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 231350000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 242850000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 259500000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 272475000
+   },
+   {
+    "type": "tap",
+    "pod": 24,
+    "atUs": 285800000
+   },
+   {
+    "type": "tap",
+    "pod": 25,
+    "atUs": 291225000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 297875000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 320450000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 329100000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 100,
+  "wins": 31,
+  "share": 0.31,
+  "wilson95": [
+   0.228,
+   0.406
+  ],
+  "classOfShare": "Hard",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.27,
+  "opening": {
+   "first": {
+    "openings": 2,
+    "wins": 0
+   },
+   "three": {
+    "openings": 7,
+    "wins": 1,
+    "share": 0.14
+   },
+   "ok": true,
+   "strategies": [
+    "most-now"
+   ]
+  },
+  "hold": true,
+  "greedyLoses": true,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.67,
+   "tight": 0.94
+  },
+  "calm": {
+   "runs": 200,
+   "wins": 65,
+   "share": 0.325,
+   "wilson95": [
+    0.264,
+    0.393
+   ],
+   "borderline": false,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 4,
+   "traps": 2,
+   "top": 2
+  },
+  "latch": {
+   "latches": [
+    {
+     "latch": 0,
+     "column": 1,
+     "depth": 2,
+     "behind": 4,
+     "key": 395,
+     "atW": 0.355,
+     "command": 4,
+     "waitMs": 0
+    },
+    {
+     "latch": 1,
+     "column": 2,
+     "depth": 3,
+     "behind": 4,
+     "key": 829,
+     "atW": 0.693,
+     "command": 13,
+     "waitMs": 0
+    },
+    {
+     "latch": 2,
+     "column": 3,
+     "depth": 2,
+     "behind": 5,
+     "key": 474,
+     "atW": 0.467,
+     "command": 7,
+     "waitMs": 69950
+    }
+   ],
+   "maxBlocked": 1,
+   "limit": 2,
+   "lastOpenAtW": 0.693,
+   "waits": true,
+   "randomOverLimit": 0.03,
+   "ok": true,
+   "problems": [],
+   "notes": [
+    "в 1 из 30 случайных партий засовы перекрывали больше 2 колонок сразу (§8)"
+   ]
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "F",
+     "name": "Фуксия",
+     "from": "Y",
+     "cells": 3,
+     "clusters": 1,
+     "pods": [
+      {
+       "pod": 13,
+       "count": 3,
+       "row": 1
+      }
+     ]
+    }
+   ],
+   "cells": 3,
+   "pressure": {
+    "with": 1.67,
+    "without": 1.58
+   }
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0151-L0200.md",
+  "notes": [
+   "в 1 из 30 случайных партий засовы перекрывали больше 2 колонок сразу (§8)",
+   "после 80 % W запусков 5 (ориентир 1–4, §10)",
+   "последний запуск при 98 % W (ориентир 80–92 %, §10)",
+   "время быстрых нажатий 36.6 с (ориентир 70–160 с, §12)"
+  ]
+ },
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

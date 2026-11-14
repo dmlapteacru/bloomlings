@@ -1,0 +1,257 @@
+{
+ "format": "round-proof.v1",
+ "number": 174,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 18950000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 38250000
+   },
+   {
+    "type": "channel",
+    "exit": 0,
+    "atUs": 48475000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 48475000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 48475000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 71000000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 103190000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 111685000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 115035000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 124685000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 143835000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 154110000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 174810000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 198060000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 247910000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 262285000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 294875000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 294875000
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 346895000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 360245000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 384370000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 409520000
+   },
+   {
+    "type": "tap",
+    "pod": 24,
+    "atUs": 417950000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 428770000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 460415000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 400,
+  "wins": 233,
+  "share": 0.583,
+  "wilson95": [
+   0.534,
+   0.63
+  ],
+  "classOfShare": "Normal",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.06,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": false,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.6,
+   "tight": 0.81
+  },
+  "calm": {
+   "runs": 200,
+   "wins": 114,
+   "share": 0.57,
+   "wilson95": [
+    0.501,
+    0.637
+   ],
+   "borderline": false,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 1,
+   "traps": 0,
+   "top": 0
+  },
+  "channel": {
+   "each": [
+    {
+     "exit": 0,
+     "win": true,
+     "share": 0.63
+    },
+    {
+     "exit": 1,
+     "win": true,
+     "share": 0.55
+    }
+   ],
+   "gap": 0.08,
+   "decides": false,
+   "better": 0
+  },
+  "island": {
+   "island": {
+    "cells": 306,
+    "share": 0.36
+   },
+   "exitsOn": [
+    true,
+    true
+   ],
+   "ready": {
+    "atW": 0.226
+   },
+   "open": {
+    "exit": 0,
+    "atW": 0.227
+   },
+   "ok": true,
+   "problems": [],
+   "notes": []
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "F",
+     "name": "Фуксия",
+     "from": "C",
+     "cells": 7,
+     "clusters": 2,
+     "pods": [
+      {
+       "pod": 15,
+       "count": 7,
+       "row": 3
+      }
+     ]
+    }
+   ],
+   "cells": 7,
+   "pressure": {
+    "with": 1.6,
+    "without": 1.35
+   }
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0151-L0200.md",
+  "notes": [
+   "канал: остров 36 % N, родник при 23 % W, выход 1 при 23 % W (§8)",
+   "канал: выходы 1 выигрывает, 2 выигрывает (§8)",
+   "опасных развилок 6 (ориентир 0–2, §5)",
+   "после 80 % W запусков 5 (ориентир 1–4, §10)",
+   "последний запуск при 94 % W (ориентир 80–92 %, §10)",
+   "время быстрых нажатий 222.5 с (ориентир 70–160 с, §12)"
+  ]
+ },
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

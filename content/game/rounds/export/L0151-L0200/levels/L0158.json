@@ -1,0 +1,580 @@
+{
+ "format": "round-level.v1",
+ "number": 158,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0387",
+  "version": 1
+ },
+ "board": {
+  "w": 37,
+  "h": 38,
+  "rowsBottomFirst": [
+   "##################.##################",
+   "#...................................#",
+   "#......AAAA...............AAAA......#",
+   "#......AAAA...EEEEEEEEE...AAAA......#",
+   "#......AAAAEEEAAAAAAAAAEEEAAAA......#",
+   "#......AAAAEAAAAAAAAAAAAAEAAAA......#",
+   "#.......EEAAAAAAANNNNAAAAAAAA.......#",
+   "#......EEAAAAAAAANNNNAAAAAAAAA......#",
+   "#.....EEAAAAAAACCNNNCCAAAAAAAAE.....#",
+   "#....EEAAAAACCCCCCCCCCCCCAAAAAEE....#",
+   "#....EAAAAACCCCCCCCCCCCCCCAAAAAEE...#",
+   "#...AAAAAACCCCCCCCCC.CCCCCCAAAAAE...#",
+   "#...AAAAACCCCCCCCCCCC#######AAAAAE..#",
+   "#..AAAAAACCCCCCCCCCCC#GGGGG###AAAE..#",
+   "#..AAAAACCCCCCCCCCCCC#GGGGGGG##AAE..#",
+   "#.EAAAAACCCCCCCCCCCCC#GGGGGGGG#AAAE.#",
+   "#.EAAAACCCCCCCCC######MGGGGGGG#AAAE.#",
+   "#.EANNACCCCCCCC##YY.MMMGGGGGGG#NNAE.#",
+   "#.EANNNCCCCCCCC#YYYYYMMCGGGGGG#NNAE.#",
+   "#.EANNNCCCCCCCC#YYYYYCCCCGGGGG#NNAE.#",
+   "#.EANNNCCCCCCCC#YYYYYCCCCCCCCC#NNAE.#",
+   "#.EAAAACCCCCCCC##YYYCCCCCCCCCC#AAAE.#",
+   "#.EAAAACCCCCCCCC#MMMCCCCCCCCCC#AAAE.#",
+   "#.EAAAAACCCCCCCC#MMMCCCCCCCCCC#AAAE.#",
+   "#..AAAAACCCCCC###MMMCCCCCCCCC##AAE..#",
+   "#..AAAAAACCCCC#GGGMMCCCCCCCCC#AAAE..#",
+   "#...AAAAACCCCC#GPPGGCCCCCCCC##AAAE..#",
+   "#...AAAAAACCC##PPPGGGCCCCCC##AAAA...#",
+   "#....EAAAAACC#PPYPPPGGCCC.##AAAE....#",
+   "#....EEAAAAAA#PPYYPPGGCCC##AAAEE....#",
+   "#.....EEAAAAA#PPPPPNGGG###AAAAE.....#",
+   "#......EEAAAA##PPPNNNGG#AAAAEE......#",
+   "#.......EEAAAA###NNNNGG#AAAEE.......#",
+   "#.........EEAAAA########AEE.........#",
+   "#..........EEEAAAAAAAAAEEE..........#",
+   "#.............EEEEEEEEE.............#",
+   "#...................................#",
+   "#####################################"
+  ],
+  "entries": [
+   18
+  ],
+  "overlay": {
+   "walls": [],
+   "sites": [],
+   "keys": [
+    [
+     18,
+     24
+    ],
+    [
+     23,
+     7
+    ],
+    [
+     17,
+     18
+    ]
+   ],
+   "water": [
+    [
+     14,
+     2
+    ],
+    [
+     15,
+     2
+    ],
+    [
+     16,
+     2
+    ],
+    [
+     14,
+     3
+    ],
+    [
+     17,
+     2
+    ],
+    [
+     18,
+     2
+    ],
+    [
+     19,
+     2
+    ],
+    [
+     20,
+     2
+    ],
+    [
+     21,
+     2
+    ],
+    [
+     21,
+     3
+    ],
+    [
+     21,
+     4
+    ],
+    [
+     12,
+     3
+    ],
+    [
+     13,
+     3
+    ],
+    [
+     12,
+     4
+    ],
+    [
+     21,
+     5
+    ],
+    [
+     11,
+     4
+    ],
+    [
+     11,
+     5
+    ],
+    [
+     11,
+     6
+    ],
+    [
+     11,
+     7
+    ],
+    [
+     22,
+     5
+    ],
+    [
+     23,
+     5
+    ],
+    [
+     23,
+     6
+    ],
+    [
+     11,
+     8
+    ],
+    [
+     12,
+     8
+    ],
+    [
+     24,
+     6
+    ],
+    [
+     24,
+     7
+    ],
+    [
+     12,
+     9
+    ],
+    [
+     25,
+     7
+    ],
+    [
+     25,
+     8
+    ],
+    [
+     12,
+     10
+    ],
+    [
+     26,
+     8
+    ],
+    [
+     26,
+     9
+    ],
+    [
+     12,
+     11
+    ],
+    [
+     13,
+     11
+    ],
+    [
+     14,
+     11
+    ],
+    [
+     27,
+     9
+    ],
+    [
+     27,
+     10
+    ],
+    [
+     27,
+     11
+    ],
+    [
+     14,
+     12
+    ],
+    [
+     14,
+     13
+    ],
+    [
+     28,
+     11
+    ],
+    [
+     28,
+     12
+    ],
+    [
+     28,
+     13
+    ],
+    [
+     14,
+     14
+    ],
+    [
+     28,
+     14
+    ],
+    [
+     28,
+     15
+    ],
+    [
+     13,
+     14
+    ],
+    [
+     13,
+     15
+    ],
+    [
+     13,
+     16
+    ],
+    [
+     28,
+     16
+    ],
+    [
+     13,
+     17
+    ],
+    [
+     28,
+     17
+    ],
+    [
+     13,
+     18
+    ],
+    [
+     14,
+     18
+    ],
+    [
+     28,
+     18
+    ],
+    [
+     14,
+     19
+    ],
+    [
+     15,
+     19
+    ],
+    [
+     16,
+     19
+    ],
+    [
+     17,
+     19
+    ],
+    [
+     18,
+     19
+    ],
+    [
+     19,
+     19
+    ],
+    [
+     28,
+     19
+    ],
+    [
+     19,
+     20
+    ],
+    [
+     28,
+     20
+    ],
+    [
+     19,
+     21
+    ],
+    [
+     27,
+     21
+    ],
+    [
+     28,
+     21
+    ],
+    [
+     19,
+     22
+    ],
+    [
+     25,
+     22
+    ],
+    [
+     26,
+     22
+    ],
+    [
+     27,
+     22
+    ],
+    [
+     19,
+     23
+    ],
+    [
+     20,
+     23
+    ],
+    [
+     21,
+     23
+    ],
+    [
+     22,
+     23
+    ],
+    [
+     23,
+     23
+    ],
+    [
+     24,
+     23
+    ],
+    [
+     25,
+     23
+    ]
+   ]
+  },
+  "channel": {
+   "spring": 427,
+   "exits": [
+    {
+     "cell": 1061,
+     "route": [
+      427,
+      428,
+      429,
+      430,
+      431,
+      432,
+      469,
+      506,
+      543,
+      580,
+      617,
+      654,
+      691,
+      728,
+      765,
+      802,
+      839,
+      876,
+      913,
+      950,
+      987,
+      1024,
+      1061
+     ],
+     "rideUs": 1320000
+    },
+    {
+     "cell": 648,
+     "route": [
+      427,
+      426,
+      463,
+      500,
+      537,
+      574,
+      611,
+      648
+     ],
+     "rideUs": 420000
+    }
+   ]
+  }
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "E",
+   "count": 31
+  },
+  {
+   "code": "E",
+   "count": 31
+  },
+  {
+   "code": "E",
+   "count": 30
+  },
+  {
+   "code": "A",
+   "count": 49,
+   "mystery": "depth"
+  },
+  {
+   "code": "A",
+   "count": 49
+  },
+  {
+   "code": "A",
+   "count": 49
+  },
+  {
+   "code": "A",
+   "count": 49
+  },
+  {
+   "code": "A",
+   "count": 49
+  },
+  {
+   "code": "A",
+   "count": 48
+  },
+  {
+   "code": "N",
+   "count": 19
+  },
+  {
+   "code": "N",
+   "count": 19,
+   "mystery": "depth"
+  },
+  {
+   "code": "G",
+   "count": 22
+  },
+  {
+   "code": "G",
+   "count": 22
+  },
+  {
+   "code": "G",
+   "count": 21
+  },
+  {
+   "code": "P",
+   "count": 11
+  },
+  {
+   "code": "P",
+   "count": 11
+  },
+  {
+   "code": "Y",
+   "count": 12
+  },
+  {
+   "code": "Y",
+   "count": 11
+  },
+  {
+   "code": "C",
+   "count": 54
+  },
+  {
+   "code": "C",
+   "count": 54
+  },
+  {
+   "code": "C",
+   "count": 53
+  },
+  {
+   "code": "C",
+   "count": 53
+  },
+  {
+   "code": "C",
+   "count": 53
+  },
+  {
+   "code": "M",
+   "count": 17
+  }
+ ],
+ "tray": [
+  [
+   1,
+   4,
+   7,
+   16,
+   17,
+   9,
+   0,
+   10
+  ],
+  [
+   19,
+   8,
+   12,
+   2,
+   15,
+   18,
+   3,
+   23
+  ],
+  [
+   6,
+   21,
+   11,
+   5,
+   13,
+   14,
+   22,
+   20
+  ]
+ ],
+ "mechanics": [
+  "hidden",
+  "canal"
+ ],
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

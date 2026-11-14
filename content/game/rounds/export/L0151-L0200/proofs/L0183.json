@@ -1,0 +1,261 @@
+{
+ "format": "round-proof.v1",
+ "number": 183,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 28000000
+   },
+   {
+    "type": "tap",
+    "pod": 24,
+    "atUs": 28000000
+   },
+   {
+    "type": "tap",
+    "pod": 30,
+    "atUs": 62550000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 62550000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 80925000
+   },
+   {
+    "type": "tap",
+    "pod": 26,
+    "atUs": 101450000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 108425000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 144725000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 184975000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 191050000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 191050000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 191050000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 238275000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 263475000
+   },
+   {
+    "type": "tap",
+    "pod": 28,
+    "atUs": 315900000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 327700000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 341975000
+   },
+   {
+    "type": "tap",
+    "pod": 29,
+    "atUs": 362100000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 377875000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 438600000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 461800000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 471375000
+   },
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 491775000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 529150000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 550325000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 566200000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 578900000
+   },
+   {
+    "type": "tap",
+    "pod": 27,
+    "atUs": 603675000
+   },
+   {
+    "type": "tap",
+    "pod": 25,
+    "atUs": 620625000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 630050000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 400,
+  "wins": 227,
+  "share": 0.568,
+  "wilson95": [
+   0.519,
+   0.615
+  ],
+  "classOfShare": "Normal",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.1,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": false,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.52,
+   "tight": 0.92
+  },
+  "calm": {
+   "runs": 200,
+   "wins": 135,
+   "share": 0.675,
+   "wilson95": [
+    0.607,
+    0.736
+   ],
+   "borderline": false,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 1,
+   "traps": 1,
+   "top": 1
+  },
+  "shutters": {
+   "shutters": [
+    {
+     "shutter": 0,
+     "material": "E",
+     "count": 40,
+     "cells": 40,
+     "atW": 0.227,
+     "command": 8,
+     "front": 0
+    }
+   ],
+   "lastOpenAtW": 0.227,
+   "ok": true,
+   "problems": [],
+   "notes": [
+    "створки 1 (E 40): при открытии ни одна клетка под ними не доступна сразу (§8: новый фронт)"
+   ]
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "F",
+     "name": "Фуксия",
+     "from": "G",
+     "cells": 2,
+     "clusters": 1,
+     "pods": [
+      {
+       "pod": 30,
+       "count": 2,
+       "row": 3
+      }
+     ]
+    }
+   ],
+   "cells": 2,
+   "pressure": {
+    "with": 1.52,
+    "without": 1.4
+   }
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0151-L0200.md",
+  "notes": [
+   "створки 1 (E 40): при открытии ни одна клетка под ними не доступна сразу (§8: новый фронт)",
+   "после 80 % W запусков 6 (ориентир 1–4, §10)",
+   "последний запуск при 98 % W (ориентир 80–92 %, §10)"
+  ]
+ },
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

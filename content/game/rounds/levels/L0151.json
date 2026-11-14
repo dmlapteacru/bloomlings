@@ -1,0 +1,244 @@
+{
+ "format": "round-level.v1",
+ "number": 151,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P1001",
+  "version": 1
+ },
+ "board": {
+  "w": 44,
+  "h": 43,
+  "rowsBottomFirst": [
+   "######################.#####################",
+   "#..........................................#",
+   "#.............AAAAAAAAAAAAAAAAA............#",
+   "#.......AAAAAACCCCCCCCCCCCCCCCCAAAA........#",
+   "#...CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC....#",
+   "#..CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC...#",
+   "#..CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC..#",
+   "#..CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC..#",
+   "#.ACCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC..#",
+   "#.ACCCCCCCCCCCCBBBBBBBBBBBBCCCCCCCCCCCCCCA.#",
+   "#.ACCCCCBBBBBBBBBBBBBBBBBBBPPPPPBBBCCCCCCA.#",
+   "#.ACCCCBBBBBBNNDNNNNNNNNNNBPPPPPPSSSCCCCCA.#",
+   "#.CCCCCCNNNNNNYYYYYYYYYYYDBPPPPPPPSSSCCCCA.#",
+   "#..CCCCCCCCDYYYYYYYYYYYYYAAPPPPPPPPCCCCCCA.#",
+   "#..PPPPPCCDYYYYYYYYYYYYYYYAAPPPPPPPCCCCC...#",
+   "#..PPPPPPYYYYYYYYNNYYYYYYYAAPPPPPPPCCC.....#",
+   "#..PPPPPPYYYYYYYONNNYYYYYYYAPPPPPPP........#",
+   "#...PPPPYYYYYYYYONNNNYYYYYYAPPPPPPPPP......#",
+   "#...PPPPYYYYYYYYONNNYYYYYYYYPPPPPPP...SS...#",
+   "#...PPPPYYYYYYYYYNNNYYYYYYYYPPPPPPP..SSSS..#",
+   "#...PPPYYYYYYNNYYYOYYYNNNYYYPPPPPPP..SSSS..#",
+   "#...PPPYYYYYNNNNYOOOYNNNNYYYYPPPPPB...SS...#",
+   "#...DPPYYYYNNNNNOOOOYNNNNNYYYOOOBBB........#",
+   "#.....YYYYYNNNNNYYYOYNNNNYYYYOOOBBB..B.....#",
+   "#......YYYYYNNNYYYYYYYNNNYYYYOOOBBB.BBB....#",
+   "#......YYYOYYYYYYYNYYYYYYYYYYOOOBBB.SBB....#",
+   "#.......YYOYYYYYYNNNYYYYYYYYOOOBBBB.SSS....#",
+   "#.......YYOYYYYYYNNNYYYYYYYYOOOSBB..SSS....#",
+   "#.......YYYYYYYYYNNNYYYYYYYYYYOSBB...SS....#",
+   "#.......YYYYYYYYYNNNYYYYYYYYYYSSSB.........#",
+   "#........DYYYYYYYYYYYYYYYYYBBBBSS..........#",
+   "#.........DYYYOOOYYYYYYSSSSSSSSDD..........#",
+   "#..........DYYYYYYYYYYYSSSSSSSSD...........#",
+   "#...........DYYYYYYYYYSSSSBBNNN............#",
+   "#.............NNNCCCBSSSBBBBNNN............#",
+   "#.................CCBBBNNBBBBNN............#",
+   "#...................B..NNBBBBNNDNNNNNN.....#",
+   "#...................BB.NBBBBSNNNNNNNNN.....#",
+   "#...................B..NSBBSSNNNNNNNNN.....#",
+   "#.......................SSSSSSNNNNNNNN.....#",
+   "#.......................SSSSSSSSSSSNNN.....#",
+   "#..........................................#",
+   "############################################"
+  ],
+  "entries": [
+   22
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "S",
+   "count": 26
+  },
+  {
+   "code": "S",
+   "count": 26
+  },
+  {
+   "code": "S",
+   "count": 26
+  },
+  {
+   "code": "N",
+   "count": 46
+  },
+  {
+   "code": "N",
+   "count": 46
+  },
+  {
+   "code": "N",
+   "count": 46
+  },
+  {
+   "code": "B",
+   "count": 34,
+   "group": "D"
+  },
+  {
+   "code": "B",
+   "count": 34
+  },
+  {
+   "code": "B",
+   "count": 34
+  },
+  {
+   "code": "D",
+   "count": 13
+  },
+  {
+   "code": "C",
+   "count": 48
+  },
+  {
+   "code": "C",
+   "count": 48
+  },
+  {
+   "code": "C",
+   "count": 48
+  },
+  {
+   "code": "C",
+   "count": 48
+  },
+  {
+   "code": "C",
+   "count": 48,
+   "group": "B"
+  },
+  {
+   "code": "C",
+   "count": 48,
+   "group": "C"
+  },
+  {
+   "code": "Y",
+   "count": 45
+  },
+  {
+   "code": "Y",
+   "count": 45
+  },
+  {
+   "code": "Y",
+   "count": 45,
+   "group": "A"
+  },
+  {
+   "code": "Y",
+   "count": 45
+  },
+  {
+   "code": "Y",
+   "count": 45
+  },
+  {
+   "code": "Y",
+   "count": 45
+  },
+  {
+   "code": "Y",
+   "count": 44
+  },
+  {
+   "code": "O",
+   "count": 19,
+   "group": "A"
+  },
+  {
+   "code": "O",
+   "count": 18,
+   "group": "C"
+  },
+  {
+   "code": "P",
+   "count": 40,
+   "group": "B"
+  },
+  {
+   "code": "P",
+   "count": 40
+  },
+  {
+   "code": "P",
+   "count": 39
+  },
+  {
+   "code": "A",
+   "count": 22,
+   "group": "D"
+  },
+  {
+   "code": "A",
+   "count": 22
+  }
+ ],
+ "tray": [
+  [
+   6,
+   29,
+   16,
+   19,
+   4,
+   22
+  ],
+  [
+   3,
+   12,
+   27,
+   2,
+   9,
+   8
+  ],
+  [
+   1,
+   14,
+   17,
+   23,
+   21,
+   15
+  ],
+  [
+   28,
+   25,
+   26,
+   18,
+   20,
+   24
+  ],
+  [
+   0,
+   10,
+   11,
+   13,
+   7,
+   5
+  ]
+ ],
+ "mechanics": [
+  "links"
+ ],
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

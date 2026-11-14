@@ -1,0 +1,238 @@
+{
+ "format": "round-proof.v1",
+ "number": 172,
+ "definitionVersion": 1,
+ "solution": {
+  "commands": [
+   {
+    "type": "tap",
+    "pod": 14,
+    "atUs": 0
+   },
+   {
+    "type": "tap",
+    "pod": 20,
+    "atUs": 71650000
+   },
+   {
+    "type": "tap",
+    "pod": 22,
+    "atUs": 71650000
+   },
+   {
+    "type": "tap",
+    "pod": 23,
+    "atUs": 71650000
+   },
+   {
+    "type": "tap",
+    "pod": 17,
+    "atUs": 71650000
+   },
+   {
+    "type": "tap",
+    "pod": 9,
+    "atUs": 108050000
+   },
+   {
+    "type": "tap",
+    "pod": 1,
+    "atUs": 130525000
+   },
+   {
+    "type": "tap",
+    "pod": 16,
+    "atUs": 141925000
+   },
+   {
+    "type": "tap",
+    "pod": 7,
+    "atUs": 160825000
+   },
+   {
+    "type": "tap",
+    "pod": 27,
+    "atUs": 183850000
+   },
+   {
+    "type": "tap",
+    "pod": 8,
+    "atUs": 183850000
+   },
+   {
+    "type": "tap",
+    "pod": 13,
+    "atUs": 234175000
+   },
+   {
+    "type": "tap",
+    "pod": 21,
+    "atUs": 250875000
+   },
+   {
+    "type": "tap",
+    "pod": 10,
+    "atUs": 270575000
+   },
+   {
+    "type": "tap",
+    "pod": 19,
+    "atUs": 288300000
+   },
+   {
+    "type": "tap",
+    "pod": 6,
+    "atUs": 306075000
+   },
+   {
+    "type": "tap",
+    "pod": 4,
+    "atUs": 322600000
+   },
+   {
+    "type": "tap",
+    "pod": 26,
+    "atUs": 333075000
+   },
+   {
+    "type": "tap",
+    "pod": 24,
+    "atUs": 347100000
+   },
+   {
+    "type": "tap",
+    "pod": 2,
+    "atUs": 374875000
+   },
+   {
+    "type": "tap",
+    "pod": 28,
+    "atUs": 386125000
+   },
+   {
+    "type": "tap",
+    "pod": 29,
+    "atUs": 395850000
+   },
+   {
+    "type": "tap",
+    "pod": 12,
+    "atUs": 401775000
+   },
+   {
+    "type": "tap",
+    "pod": 15,
+    "atUs": 419775000
+   },
+   {
+    "type": "tap",
+    "pod": 25,
+    "atUs": 438575000
+   },
+   {
+    "type": "tap",
+    "pod": 5,
+    "atUs": 453650000
+   },
+   {
+    "type": "tap",
+    "pod": 11,
+    "atUs": 475425000
+   },
+   {
+    "type": "tap",
+    "pod": 0,
+    "atUs": 497675000
+   },
+   {
+    "type": "tap",
+    "pod": 3,
+    "atUs": 514225000
+   },
+   {
+    "type": "tap",
+    "pod": 18,
+    "atUs": 531825000
+   }
+  ],
+  "outcome": "Won",
+  "endUs": 550550000
+ },
+ "randomTest": {
+  "policy": "17§5 extended: uniform over legal actions + wait before a state event",
+  "seedBase": 1,
+  "runs": 400,
+  "wins": 225,
+  "share": 0.563,
+  "wilson95": [
+   0.514,
+   0.61
+  ],
+  "classOfShare": "Normal",
+  "borderline": false
+ },
+ "checks": {
+  "forced": 0.05,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": false,
+  "hiddenMatters": null,
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.9,
+   "tight": 0.93
+  },
+  "calm": {
+   "runs": 200,
+   "wins": 122,
+   "share": 0.61,
+   "wilson95": [
+    0.541,
+    0.675
+   ],
+   "borderline": false,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 0,
+   "traps": 0,
+   "top": 0
+  },
+  "shutters": {
+   "shutters": [
+    {
+     "shutter": 0,
+     "material": "B",
+     "count": 60,
+     "cells": 32,
+     "atW": 0.133,
+     "command": 5,
+     "front": 0
+    }
+   ],
+   "lastOpenAtW": 0.133,
+   "ok": true,
+   "problems": [],
+   "notes": [
+    "створки 1 (B 60): при открытии ни одна клетка под ними не доступна сразу (§8: новый фронт)"
+   ]
+  }
+ },
+ "audit": {
+  "result": "OK",
+  "report": "content/rounds/audit-L0151-L0200.md",
+  "notes": [
+   "створки 1 (B 60): при открытии ни одна клетка под ними не доступна сразу (§8: новый фронт)",
+   "после 80 % W запусков 6 (ориентир 1–4, §10)",
+   "последний запуск при 97 % W (ориентир 80–92 %, §10)"
+  ]
+ },
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}

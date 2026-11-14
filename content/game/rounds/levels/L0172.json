@@ -1,0 +1,333 @@
+{
+ "format": "round-level.v1",
+ "number": 172,
+ "definitionVersion": 1,
+ "class": "Normal",
+ "picture": {
+  "id": "P0305",
+  "version": 1
+ },
+ "board": {
+  "w": 48,
+  "h": 42,
+  "rowsBottomFirst": [
+   "########################.#######################",
+   "#..............................................#",
+   "#........................Y.....................#",
+   "#.......................YYY....................#",
+   "#......................YYYYY...................#",
+   "#...................YYYYYYYYYNN................#",
+   "#.................NNCCCCCCCCCCNN...............#",
+   "#.................NCCCCCCCCCCCCNN..............#",
+   "#................NNCCCCCCCCCCCCCN..............#",
+   "#................NNCCCCVVVVCCCCCN..............#",
+   "#................NNCCCVVVVVVCCCCN..............#",
+   "#................NNCCCVVVVVVCCCCN..............#",
+   "#................NNCCCVVVVVVCCCCN..............#",
+   "#...............NNNCCCVVVVVVCCCNNNN............#",
+   "#..............OOOONNNNVVVVNNNNOOONN...........#",
+   "#..DDDDDDDDDD.OOOOOAAAAAAAOOOOOOOOONDDDDDDDDD..#",
+   "#.DDBBBSBBBBBDOOOAAAAAAAAAAOOOOOOOODDBBBSBBBDD.#",
+   "#.DBBBBSBBBBBDOOAAAAAAAAAAAAOOOOOOODBBBBSBBBBD.#",
+   "#.DBBBBSBBBBBDOAAAAAOOOOAAAAAAOOOOODBBBBSBBBBD.#",
+   "#.DBBBBSBBBBBDOAAAAOOOOOOOAAAAAOOOADBBBBSBBBBD.#",
+   "#.DBBBBSBBBBBDAAAAOOOOOOOOOAAAAAOAADBBBBSBBBBD.#",
+   "#.DBBBBSBBBBBDAAAOOOOAAAAOOOAAAAOAADBBBBSBBBBD.#",
+   "#.DBBBBSBBBBBDAAAOOOAAAAAAAOOAAAAAADBBBBSBBBBD.#",
+   "#.DBSSSSSSSSBDAAAOOOAAAAAAAAOOAAAAADBSSSSSSSBD.#",
+   "#.DBSSSSSSSSBDAAOOOAAAAOAAAAOOAAAAADBSSSSSSSBD.#",
+   "#.DBBBBSBBBBBDAAOOOAAAOOOOAOOOOAAAADBBBBSBBBBD.#",
+   "#.DBBBBSBBBBBDAAOOOAAAOOOOOOOOAAAAADBBBBSBBBBD.#",
+   "#.DBBBBSBBBBBDAAOOOAAAAOOOOOOOAAAAADBBBBSBBBBD.#",
+   "#.DBBBBSBBBBBDAAOOOAAAAOOOOOAAAAAAADBBBBSBBBBD.#",
+   "#.DBBBBSBBBBBDAAOOOOAAAOOOAAAAAAAAADBBBBSBBBBD.#",
+   "#.DBBBBSBBBBBDAAAOOOAAAAAAAAAAAAAAADBBBBSBBBBD.#",
+   "#.DDBBBDBBBBDDAAAOOOOAAAAAAAAOOAAAADDBBBDBBBDD.#",
+   "#..DDDDDDDDDDAAAAAOOOOAAAAAOOOOAAAAODDDDDDDDD..#",
+   "#............AAAAAAOOOOOOOOOOAAAAAOOO..........#",
+   "#.............AAAAAAAAAAAAAAAAAAAOON...........#",
+   "#..............AAAAAAAAAAAAAAAAAOONN...........#",
+   "#...............AAAAAACCCCCCAAOOONN............#",
+   "#................NNNNACCCCCCOOOONN.............#",
+   "#.................NNNNCCCCCCCOOO...............#",
+   "#...................NNCCCCCCCC.................#",
+   "#..............................................#",
+   "################################################"
+  ],
+  "entries": [
+   24
+  ],
+  "hiddenCells": [
+   738,
+   739,
+   740,
+   741,
+   742,
+   786,
+   787,
+   788,
+   789,
+   790,
+   834,
+   835,
+   836,
+   837,
+   838,
+   882,
+   883,
+   884,
+   885,
+   886,
+   930,
+   931,
+   932,
+   933,
+   934,
+   979,
+   980,
+   981,
+   982,
+   1027,
+   1028,
+   1029,
+   1030,
+   1075,
+   1076,
+   1077,
+   1078,
+   1114,
+   1115,
+   1116,
+   1117,
+   1118,
+   1119,
+   1162,
+   1163,
+   1164,
+   1165,
+   1166,
+   1167,
+   1210,
+   1211,
+   1212,
+   1213,
+   1214,
+   1215
+  ],
+  "shutters": [
+   {
+    "cells": [
+     455,
+     456,
+     457,
+     458,
+     503,
+     504,
+     505,
+     506,
+     551,
+     552,
+     553,
+     554,
+     599,
+     600,
+     601,
+     602,
+     647,
+     648,
+     649,
+     650,
+     695,
+     696,
+     697,
+     698,
+     743,
+     744,
+     745,
+     746,
+     791,
+     792,
+     793,
+     794
+    ],
+    "code": "B",
+    "count": 60
+   }
+  ]
+ },
+ "capacity": 5,
+ "pods": [
+  {
+   "code": "N",
+   "count": 30
+  },
+  {
+   "code": "N",
+   "count": 29
+  },
+  {
+   "code": "C",
+   "count": 33
+  },
+  {
+   "code": "C",
+   "count": 33
+  },
+  {
+   "code": "C",
+   "count": 32
+  },
+  {
+   "code": "O",
+   "count": 38
+  },
+  {
+   "code": "O",
+   "count": 38
+  },
+  {
+   "code": "O",
+   "count": 38
+  },
+  {
+   "code": "O",
+   "count": 37
+  },
+  {
+   "code": "O",
+   "count": 37
+  },
+  {
+   "code": "A",
+   "count": 47
+  },
+  {
+   "code": "A",
+   "count": 47
+  },
+  {
+   "code": "A",
+   "count": 47
+  },
+  {
+   "code": "A",
+   "count": 47
+  },
+  {
+   "code": "A",
+   "count": 47
+  },
+  {
+   "code": "A",
+   "count": 47
+  },
+  {
+   "code": "D",
+   "count": 37
+  },
+  {
+   "code": "D",
+   "count": 37
+  },
+  {
+   "code": "D",
+   "count": 37
+  },
+  {
+   "code": "B",
+   "count": 40
+  },
+  {
+   "code": "B",
+   "count": 40
+  },
+  {
+   "code": "B",
+   "count": 40
+  },
+  {
+   "code": "B",
+   "count": 40
+  },
+  {
+   "code": "B",
+   "count": 40
+  },
+  {
+   "code": "B",
+   "count": 39
+  },
+  {
+   "code": "S",
+   "count": 28
+  },
+  {
+   "code": "S",
+   "count": 28
+  },
+  {
+   "code": "V",
+   "count": 16
+  },
+  {
+   "code": "V",
+   "count": 16
+  },
+  {
+   "code": "Y",
+   "count": 18
+  }
+ ],
+ "tray": [
+  [
+   14,
+   20,
+   22,
+   23,
+   17,
+   9
+  ],
+  [
+   1,
+   16,
+   7,
+   27,
+   8,
+   13
+  ],
+  [
+   21,
+   10,
+   19,
+   6,
+   4,
+   26
+  ],
+  [
+   24,
+   2,
+   28,
+   29,
+   12,
+   15
+  ],
+  [
+   25,
+   5,
+   11,
+   0,
+   3,
+   18
+  ]
+ ],
+ "mechanics": [
+  "cells",
+  "shutters"
+ ],
+ "engine": {
+  "rules": "3b0db65d328185592842db0d610b788e5751aa361c3949bd1cecec78f038f1da",
+  "timeline": "e07412da4e294971c2efced807ad558783a67416b5e31d33caf209e6b7de8002",
+  "palette": "0b20966371a32c1e91dc5f446360f241a437e1f25ccd745e56d17e583a02cddf",
+  "clock": "6e92f23f672a4bf196e0031999ba8155788529552468edc7fbdadb797222928e"
+ }
+}
