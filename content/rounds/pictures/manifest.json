@@ -7347,7 +7347,8 @@
    "colours": 6,
    "status": "approved",
    "batch": "packs-0268-0467",
-   "note": null
+   "note": null,
+   "usedBy": "L0154"
   },
   {
    "id": "P0414",

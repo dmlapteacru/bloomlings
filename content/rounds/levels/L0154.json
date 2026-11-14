@@ -1,0 +1,529 @@
+{
+ "level": 154,
+ "cls": "Normal",
+ "intro": null,
+ "gen": "2026-11-07",
+ "picture": "P0413",
+ "candidate": "P0413-Nlinks+hidden-g1107-a-s4-58",
+ "recipe": "links+hidden",
+ "N": 882,
+ "W": 882,
+ "colours": 8,
+ "P": 24,
+ "columns": 4,
+ "linked": 6,
+ "hidden": 2,
+ "random": {
+  "runs": 400,
+  "wins": 234,
+  "share": 0.585,
+  "wilson95": [
+   0.536,
+   0.632
+  ],
+  "cls": "Normal",
+  "borderline": false,
+  "protocol": "§5 extended: uniform over legal actions + wait before a scheduled event, ×1",
+  "seedBase": 1
+ },
+ "solution": {
+  "route": [
+   {
+    "type": "tap",
+    "pod": 18
+   },
+   {
+    "type": "tap",
+    "pod": 10
+   },
+   {
+    "type": "tap",
+    "pod": 11
+   },
+   {
+    "type": "tap",
+    "pod": 20
+   },
+   {
+    "type": "tap",
+    "pod": 15
+   },
+   {
+    "type": "tap",
+    "pod": 16
+   },
+   {
+    "type": "tap",
+    "pod": 22
+   },
+   {
+    "type": "tap",
+    "pod": 21
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 2
+   },
+   {
+    "type": "tap",
+    "pod": 14
+   },
+   {
+    "type": "tap",
+    "pod": 6
+   },
+   {
+    "type": "tap",
+    "pod": 4
+   },
+   {
+    "type": "tap",
+    "pod": 9
+   },
+   {
+    "type": "tap",
+    "pod": 8
+   },
+   {
+    "type": "tap",
+    "pod": 13
+   },
+   {
+    "type": "tap",
+    "pod": 3
+   },
+   {
+    "type": "tap",
+    "pod": 0
+   },
+   {
+    "type": "tap",
+    "pod": 7
+   },
+   {
+    "type": "tap",
+    "pod": 12
+   },
+   {
+    "type": "tap",
+    "pod": 1
+   }
+  ],
+  "forks": 2,
+  "singleSafe": 0,
+  "unknown": 0,
+  "fast": {
+   "status": "won",
+   "seconds": 99.1
+  }
+ },
+ "fairness": {
+  "checked": 1,
+  "unfair": 0,
+  "unknown": 0,
+  "fair": true,
+  "note": "перестановки материала и числа между скрытыми подами с тем же балансом"
+ },
+ "strategies": {
+  "left-to-right|left": true,
+  "left-to-right|right": true,
+  "right-to-left|left": true,
+  "right-to-left|right": true,
+  "top-down|left": true,
+  "top-down|right": true,
+  "bottom-up|left": true,
+  "bottom-up|right": true,
+  "diagonal|left": false,
+  "diagonal|right": false,
+  "small-first|left": true,
+  "small-first|right": true,
+  "most-now|left": false,
+  "most-now|right": false,
+  "fast-release|left": false,
+  "fast-release|right": false
+ },
+ "rhythm": {
+  "segments": [
+   {
+    "from": 0,
+    "to": 20,
+    "meanFree": 1.83,
+    "minFree": 0,
+    "fullShare": 0.24,
+    "maxWaiting": 3
+   },
+   {
+    "from": 20,
+    "to": 40,
+    "meanFree": 3.13,
+    "minFree": 1,
+    "fullShare": 0,
+    "maxWaiting": 1
+   },
+   {
+    "from": 40,
+    "to": 60,
+    "meanFree": 3.58,
+    "minFree": 3,
+    "fullShare": 0,
+    "maxWaiting": 1
+   },
+   {
+    "from": 60,
+    "to": 80,
+    "meanFree": 4.11,
+    "minFree": 3,
+    "fullShare": 0,
+    "maxWaiting": 0
+   },
+   {
+    "from": 80,
+    "to": 100,
+    "meanFree": 4.45,
+    "minFree": 4,
+    "fullShare": 0,
+    "maxWaiting": 0
+   }
+  ],
+  "launchesAfter80": 4,
+  "lastLaunchAtW": 97,
+  "seconds": 318.6
+ },
+ "dosePos": 1,
+ "checks": {
+  "forced": 0.21,
+  "opening": null,
+  "hold": true,
+  "greedyLoses": true,
+  "hiddenMatters": {
+   "ok": false,
+   "pods": [
+    {
+     "pod": 5,
+     "revealAt": 8,
+     "gap": 0,
+     "newColour": false
+    },
+    {
+     "pod": 9,
+     "revealAt": 3,
+     "gap": 10,
+     "newColour": true
+    }
+   ]
+  },
+  "bridgeKind": null,
+  "bridgeSingle": null,
+  "pressure": {
+   "stuck": 1.25,
+   "tight": 0.85
+  },
+  "calm": {
+   "runs": 400,
+   "wins": 222,
+   "share": 0.555,
+   "wilson95": [
+    0.506,
+    0.603
+   ],
+   "borderline": false,
+   "protocol": "§5 calm: uniform over legal actions, the board settled before each",
+   "seedBase": 3
+  },
+  "traps": {
+   "links": 3,
+   "traps": 3,
+   "top": 1
+  },
+  "accents": {
+   "materials": [
+    {
+     "code": "F",
+     "name": "Фуксия",
+     "from": "Y",
+     "cells": 3,
+     "clusters": 1,
+     "pods": [
+      {
+       "pod": 23,
+       "count": 3,
+       "row": 2
+      }
+     ]
+    },
+    {
+     "code": "W",
+     "name": "Снег",
+     "from": "A",
+     "cells": 8,
+     "clusters": 2,
+     "pods": [
+      {
+       "pod": 16,
+       "count": 8,
+       "row": 1
+      }
+     ]
+    }
+   ],
+   "cells": 11,
+   "pressure": {
+    "with": 1.25,
+    "without": 0.71
+   }
+  }
+ },
+ "engine": "tools/rounds/engine.mjs (pilot v9 + §8 link rule)",
+ "definition": {
+  "id": 154,
+  "title": "Аммонит с часовым механизмом",
+  "subject": "P0413",
+  "w": 38,
+  "h": 36,
+  "rowsBottomFirst": [
+   "###################.##################",
+   "#....................................#",
+   "#............EEEEEEE.................#",
+   "#.........EEEAAAAAAAAEEEE............#",
+   "#.......EEAAAAAAAAAAAAAAAEEE.........#",
+   "#......EEAAAAAAAYYAAAAAAAAAAEE.......#",
+   "#.....AAAAAYYYYYYYYYYYYYYAAAAEE......#",
+   "#.....AAACCCYYYYAAYYYYYYYYYYAEE......#",
+   "#....AAACCCCCCAAAAAAAAYYYYYYYYAAA....#",
+   "#...EAAACCCCCCAAAYYYYYYYFFFYYYAAAA...#",
+   "#...EAACCCCCCCCAYYYYSSSYYYYYYAAAAA...#",
+   "#...EAACCCCCCCYYYYSSSSSSSSAYYYAAAAA..#",
+   "#..EAAAYCCCCCCYYYSSSSSSSSSAAAYYAAAA..#",
+   "#..EAAYYYCCCCAYYSSSSSSSRRRAAAYYYAAAE.#",
+   "#..EAAYYAAAAAAYYSSSSSRRRRSSAAAYYAAAE.#",
+   "#..AAAYYAAAAAAYYSSSSSRRSSSSAAAYYAAAE.#",
+   "#.EAAAYYAAAAAAYYASSSSRSSSSAAAAYYYAAE.#",
+   "#.EAAAYYAAAAAAYYAASSSRSSSSAAAAAYYAAE.#",
+   "#.EAAAYYYAAWAAYYAASSSRSSSSAAAAAYYAAE.#",
+   "#.EAAAAYYAWWWAYYYAAASRSASAAAAAAYYAAE.#",
+   "#.EAAAAYYAAAAAAYYYYYYYSAAAAAAAAYYAAE.#",
+   "#.EAAAAYYAAAAAAAYYYYYYAAAAAAAAYYAAAE.#",
+   "#..EAAAYYAAAAAAAAAAAAAAAAAAAAAYYAAAE.#",
+   "#..EAAAAYYAAAAAAAAAAAAAAAAAAAAYYAAA..#",
+   "#..EAAAAYYYAAAAAAAAAAAAWAAAAAYYYAAA..#",
+   "#...AAAAAYYYAAAAAAAAAAAWWAAAYYYAAAA..#",
+   "#...AAAAAAYYYAAAAAAAAAAWAAAYYYAAAA...#",
+   "#....AAAAAAYYYYAAAAAAAAAAYYYYAAAAA...#",
+   "#.....AAAAAAYYYYYYYYYYYYYYYYAAAAE....#",
+   "#......EEAAAAAYYYYYYYYYYYYAAAAAEE....#",
+   "#.......EEAAAAAAAAAYYYAAAAAAAAEE.....#",
+   "#.........AAAAAAAAAAAAAAAAAAAEE......#",
+   "#...........EEEAAAAAAAAAAAAAA........#",
+   "#...............EEEEEEEEEEE..........#",
+   "#....................................#",
+   "######################################"
+  ],
+  "entries": [
+   19
+  ],
+  "capacity": 5,
+  "pods": [
+   {
+    "color": "E",
+    "count": 26
+   },
+   {
+    "color": "E",
+    "count": 26
+   },
+   {
+    "color": "E",
+    "count": 25
+   },
+   {
+    "color": "A",
+    "count": 52
+   },
+   {
+    "color": "A",
+    "count": 52
+   },
+   {
+    "color": "A",
+    "count": 52,
+    "mystery": "depth"
+   },
+   {
+    "color": "A",
+    "count": 52
+   },
+   {
+    "color": "A",
+    "count": 52
+   },
+   {
+    "color": "A",
+    "count": 52,
+    "group": "B"
+   },
+   {
+    "color": "A",
+    "count": 52,
+    "mystery": "depth"
+   },
+   {
+    "color": "A",
+    "count": 52
+   },
+   {
+    "color": "A",
+    "count": 52,
+    "group": "A"
+   },
+   {
+    "color": "Y",
+    "count": 51
+   },
+   {
+    "color": "Y",
+    "count": 51
+   },
+   {
+    "color": "Y",
+    "count": 51
+   },
+   {
+    "color": "Y",
+    "count": 51
+   },
+   {
+    "color": "W",
+    "count": 8
+   },
+   {
+    "color": "S",
+    "count": 23,
+    "group": "B"
+   },
+   {
+    "color": "S",
+    "count": 23
+   },
+   {
+    "color": "S",
+    "count": 23,
+    "group": "A"
+   },
+   {
+    "color": "R",
+    "count": 13
+   },
+   {
+    "color": "C",
+    "count": 20
+   },
+   {
+    "color": "C",
+    "count": 20,
+    "group": "C"
+   },
+   {
+    "color": "F",
+    "count": 3,
+    "group": "C"
+   }
+  ],
+  "tray": [
+   [
+    18,
+    10,
+    17,
+    13,
+    3,
+    0
+   ],
+   [
+    19,
+    16,
+    22,
+    21,
+    5,
+    2
+   ],
+   [
+    20,
+    15,
+    23,
+    14,
+    6,
+    4
+   ],
+   [
+    11,
+    9,
+    8,
+    7,
+    12,
+    1
+   ]
+  ],
+  "recipe": "links+hidden",
+  "recolor": [
+   [
+    21,
+    7,
+    "W"
+   ],
+   [
+    21,
+    8,
+    "W"
+   ],
+   [
+    22,
+    8,
+    "W"
+   ],
+   [
+    21,
+    9,
+    "W"
+   ],
+   [
+    8,
+    14,
+    "W"
+   ],
+   [
+    9,
+    14,
+    "W"
+   ],
+   [
+    10,
+    14,
+    "W"
+   ],
+   [
+    9,
+    15,
+    "W"
+   ],
+   [
+    22,
+    24,
+    "F"
+   ],
+   [
+    23,
+    24,
+    "F"
+   ],
+   [
+    24,
+    24,
+    "F"
+   ]
+  ],
+  "difficulty": "Normal"
+ }
+}

@@ -40,6 +40,15 @@
     "candidate": "P0074-Nlinks+hidden-g1107-a-16",
     "share": 0.55,
     "recipe": "links+hidden"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0413",
+    "candidate": "P0413-Nlinks+hidden-g1107-a-s4-58",
+    "share": 0.585,
+    "recipe": "links+hidden",
+    "lost": true,
+    "gen": "2026-11-07"
    }
   },
   {
