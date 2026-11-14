@@ -1,0 +1,104 @@
+{
+ "code": "P1066",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Птичья Личность",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Rick and Morty · Adult Swim: Birdperson from Rick and Morty, canonical adult character: long dark hair, a distinctive golden-brown feathered BIRD headdress, angular human face with a prominent hooked nose and stoic expression, broad WHITE feathered wings folded behind the shoulders. Big head-and-shoulders composition, bird headdress and wings clearly recognizable, not a generic bird mascot.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 32,
+ "N": 1024,
+ "colours": 9,
+ "volumes": {
+  "D": {
+   "cells": 446,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 160,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "V": {
+   "cells": 156,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "Y": {
+   "cells": 97,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 62,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "O": {
+   "cells": 56,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "R": {
+   "cells": 21,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "M": {
+   "cells": 19,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "B": {
+   "cells": 7,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "VVVVVVVVDDDDDDVVVVVVVVVVVVVVVVVV",
+  "VVVVVVVVDDDDDDDYYYYYYVVVVVVVVVVV",
+  "VVVVVVDDDDDDDDDDYYYYYYYVVVVVVVRR",
+  "VVVVVDDDDDDDDDDDDYYYYYYYVVVRRRRR",
+  "RRVRDDDDDDDDDDDDDDYYYYYYYVVVVVVV",
+  "RRRRDDDDDDDCDDDDDDDYYYYYYYVVVVVV",
+  "VVVDDDDDDDDDDDDDDDDYYYYYYYYVVVVR",
+  "VVVDDDDDDDDDDCDDDDDDYDYYYYYVVVRR",
+  "VVVDDDDDDDDDDDDDDDDDDDYYYYYYVVVV",
+  "VVDDCDDDDDDDDDDDYDDDDYYYYYYYVVVV",
+  "OVDDDDDDDDDDDDDYYYDDDDYYOOOOOVVV",
+  "OODDDDDDDDCCDDDYYYDDDDOOYYYYYVVV",
+  "RODDDDDDDDCDCCDDYYDDDDOOOYYYYVVO",
+  "RRDDCDDDDDCDCCDCYYDDDDOOOOOOOOOO",
+  "ORDDCDDDDDDCDDDCDYDDDDOOOOOOOVOO",
+  "OODDDDDDDDDCCCCCCDCCDDOOOYYYYVVV",
+  "DDDDDDDDDDCCCCCCCDCCDDOOOOOOVVVV",
+  "DDDDDDDDDDCCCCCCCDCCDDOOOOOOVVVV",
+  "DDDDDDDDDDCCCCCDCDCDDDOOVVOOVVVG",
+  "DDDDDDDDDDCCCCCCDDCDDDVVVVVVGGGG",
+  "DDDDDDDDDDCCCCDDDCCDDVVVVVVGGGGG",
+  "DCDDDDDDDDCCCCCCCCDDDVVVVVGGGGGG",
+  "DDDDDDDDDDDCCCCCCCDDDDVVVGGGMGGG",
+  "DDDCCDDDDDCDCCCCCCDDDDVVGGGGMGGM",
+  "DCCCCCDDDDDCCDDDDDDDDDVVGGGGMGMM",
+  "DDCCCCCCDBBDCCCCDDDCCDDGGGGMGGGG",
+  "DDCCCCCCCDBBDCCDDDCCCDDDGGGMGGMM",
+  "DCDDCCCCCCDBBDYDDDCCCCDDDGGMGMMM",
+  "DDDDCDDCCCCDBDYDDCCCDDDDDDGGGGGM",
+  "DDDDDDDCCCCCDYYYDCCCCDDDDDGGGMMD",
+  "DDDDDDDDDCCCCYYYCCCDDDDDDDDGGGMD",
+  "DDDDDDDDDDCCCDYDCCCDDDDDCDDDGGMD"
+ ]
+}

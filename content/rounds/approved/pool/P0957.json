@@ -1,0 +1,114 @@
+{
+ "code": "P0957",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Пуговица превращается в садовую карусель",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Одежда и аксессуары",
+ "direction": "Перевёрнутый масштаб",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна огромная синяя пуговица стоит как карусель, четыре больших отверстия стали круглыми зелёными сиденьями, золотая центральная ось и розовый круглый навес",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 41,
+ "h": 42,
+ "N": 1189,
+ "colours": 9,
+ "volumes": {
+  "P": {
+   "cells": 281,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "N": {
+   "cells": 253,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "B": {
+   "cells": 191,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "M": {
+   "cells": 116,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "C": {
+   "cells": 89,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 89,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 68,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 58,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "L": {
+   "cells": 44,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...................CCCC..................",
+  "..................YYYYY..................",
+  "..................YYYYYY.................",
+  "..................YYYYYY.................",
+  "...............PPPYYYDPPPPP..............",
+  ".............PPPPPDDDDPCPPPPP............",
+  "...........PPPPPCCCPPPPCCCPPPPP..........",
+  "........PPPPPPPCCCPPPPPCCCCPPPPPPP.......",
+  "......PPPPPPPCCCCCPPPPPPCCCCPPPPPPPP.....",
+  "....PPPPPPPPCCCCCCPPPPPPCCCCCPPPPPPPPD...",
+  "....PPPPPPPCCCCCCPPPPPPPCCCCCCCPPPPPPD...",
+  "....PPPPPPCCCCCCCPPPPPPPPCCCCCCCPPPPPD...",
+  "....PPPPPCCCCCCCPPPPPPPPPCCCCCCCCPPPPD...",
+  "....PPPPPPPCCCCCPPPPPPPPPPCCCCPPPPPPPD...",
+  "....PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP....",
+  ".....PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP.....",
+  ".........PPPPPPPPPPPPPPPPPPPPPPPP........",
+  "...........PPPP..PPPPPPPP.PPPPP..........",
+  "..................YYYYD..................",
+  ".........DGGGGGG...YYYD..GGGGGGG.........",
+  "........MMMMMGGGGDDYYYD.DMMMMGGGG........",
+  ".......DMMMMMMMMGGDYYYDDGMMMMGMMGD.......",
+  ".......DGMMMMMMMGMNYYYDDGGMMMMMMGMD......",
+  ".....BBDGGLLLLMMMMNYYYDDGGGGGGGGMMNNN....",
+  "...BBBBNDGGGGMMMMDNYYYDNGGGGGGMMMNNBBB...",
+  "..BBBBNNNDGGGMMNNNNYYYDNNNNDDMMMDNBBBBB..",
+  ".BBBBBDMLLLLLMDNNNYYYYDNNNNMMLLLLDDBBBBB.",
+  ".BBBBDMMMMMGGGLLBBYYYYYNNDLMMMMGGMLLBBBBN",
+  "NBBBDLMMMMMGGMMLDBDYYYYBBLLMMMMGGMMLDBBBN",
+  "NBBBDLLMMMMMMMMMDBBBBBBBBLLMMMMMMMLLMBBBN",
+  "NBBBDGGLLLLLLLMMDBBBBBBNNGGLLLLLLLLMMBBBN",
+  "NNBBBGGGGGGGGMMMBBBBBBBBNDGGGGGGGMMMBBBNN",
+  "NNNBBBDGGGGMMMDBBBBNNNNBBDDDGGGMMMDBBBNNN",
+  "NNNNNBBBDDDNNNBBBBBNNNBBBBBDDDDDDBBBBNNNN",
+  ".NNNNNBBBBBBBBBBBBBBBBBBBBBBBBBBBBBNNNNNN",
+  ".NNNNNNNNBBBBBBBBBBBBBBBBBBBBBBBBNNNNNNN.",
+  "..NNNNNNNNBBNNBBBBBBBBBBBBBBNNNNNNNNNNNN.",
+  "...NNNNNNNBBNNNNNNNNNNNNNNNNNNNNNNNNNNN..",
+  "....NNNNNNBBNNNNNNNNNNNNNNNNNNNNNNNNNN...",
+  "......NNNNBBNNNNNNNNNNNNNNNNNNNNNNNN.....",
+  "........NNNNNNNNNNNNNNNNNNNNNNNNNN.......",
+  ".............NNNNNNNNNNNNNNN............."
+ ]
+}

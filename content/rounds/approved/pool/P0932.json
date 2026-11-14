@@ -1,0 +1,114 @@
+{
+ "code": "P0932",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Фарфоровый дракон хранит землянику",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Волшебные существа",
+ "direction": "Уютный сюрреализм",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один оригинальный милый кремовый фарфоровый дракон с короткими золотыми рожками свернулся вокруг трёх крупных красных ягод земляники, розовый живот и зелёные листья подчёркивают округлый силуэт",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 43,
+ "h": 43,
+ "N": 1400,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 475,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 385,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "P": {
+   "cells": 185,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "G": {
+   "cells": 134,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 76,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "Y": {
+   "cells": 57,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "K": {
+   "cells": 45,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "E": {
+   "cells": 38,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "D": {
+   "cells": 5,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............YY..........PP...............",
+  ".............YYYY..YYY...PPPP..............",
+  "..............YYYYYYYY.PPPPPR..P...........",
+  ".........YYY...YYYYYYYYRRRPPRPPPP..........",
+  ".........YYYY...CCCCCYYCCCCCRPPPP..........",
+  "..........YYYYYYCCCCCCYCCCCCCCPPP..........",
+  "..........EYYYCYCCCCCCCCCCCCCCCCPPP........",
+  "........KKEEYYYYYCCCCCCCCCCCCCCCCPPP.......",
+  "........KKKCYYYYYCCCCCCCCCCCCCCCCCPP.......",
+  "........PPKKCCYYCCCCCCCCCCCECCCCCCPP.......",
+  "......PCCPPKCCCCCCCCCCCCCEEECCCCCCCPPP.....",
+  "....PPPEEEPPCCCCCCCCCCCCCECCPPCCCCCCPPP....",
+  "....PPPCKKKPPCCCCCCECCCCCCCCCPGGCCCCPPP....",
+  "....RPCCKKPPPCCCCEEEEECCCCCCCPGGGCCCCPP....",
+  "....RRCCCKPPPRCCCECCCECCCCCCCMMMMMMMCPP....",
+  "...PPCCCCCPPPRCCCCPCCCCCCCCCCGGGMGGMCCPP...",
+  "..PPCCCCCCKPPRRCCCPPCCCCCCRRRRRGMMGMCCPPP..",
+  ".PPCCCCCCCKKRREEECCCCCCCRRRRRRRRRRGGGCCGGG.",
+  ".PPCCCCKPPPPCCCCCEEEEEMMRRRCRRRRRRRGGGMGGG.",
+  ".RRCCCCKKPPCCCCCCCEMMMMMRRRRRRRRRRRGGGMGGG.",
+  ".RRCCCKKPPCCCCCCCCRRMMMRRRRRRRRRRRRRMMMMGG.",
+  ".PCCCCKKPPCCCCCCCRRRRMMRRRRRRRRRRRRRRMMGGG.",
+  "PPCCCCPPPPCCEEERGRRRRRRRRRRRRRRRRRRRRMMGG..",
+  "PCCCCCPGGGRRRRRRGGRRRRRRRRRRRRRRRRRRRMMGG..",
+  ".CCCGGGGGGRRRCRRRRRRRRRRRRRRRRRRRRRRRMMCC..",
+  ".CCCGGGGGGRRRCRRRRRRRRRRRRGGRRRRRRRRCCCCCC.",
+  ".CCCGGGMMMRRRRRRRRRRRRRRRGGGGGGRRRRCCCCCCR.",
+  ".PCCGGGMMMRRRRRRRRRRRRRRRGGGGGGRRRCCCCCCCRR",
+  ".PRCCGGMMMRRRRRRRRRRRRRRRRGGMMMRRCCCCCCCCRR",
+  ".PRCCCMMGGGRRRRRRRRRRCCRRRGGGGMGGCCCCCCCCR.",
+  "..RCCCDMGGGGRRRRRRRRRCRRRRGGGGGGGCCCCCCCCR.",
+  "..PPCCCDGGGGMRGGRRRRRRRRRRRRRGMMMCCCCCCCRR.",
+  "...PCCCCGGMMMGGGRRRRRRRRRRRRRRRRMMCCCPCCRR.",
+  "...PPCCCCMMMGGGGGRRRRRRRRRRRRRRRMMCCCPRRRR.",
+  "...CCCCCCCDMGMGGGGGRRRRRRRRRRRREECCCPPRRR..",
+  ".....PCCCCCCMMMMGGGGRRRRRRRRRRRECCCPPPPP...",
+  ".....PPCCCCCCCMMGGGGRRRRRRRRRRRCPPPPPPP....",
+  "......PPKKCCCCCCDDGGRRRRRRRCCCCPPPPPPPP....",
+  ".......PKKKKKCCCCCCCCCCCCCCCCCPPPPPPPP.....",
+  "........PPPPKKKCCCCCCCCCCCCCCCPPPPPPPP.....",
+  ".........PPPPKKKKKKKKKCCCCCCCC.RRRRRRR.....",
+  "............PPPPPPKKPPPCCCCC.....EEEE......",
+  ".................RRRRRRR..................."
+ ]
+}

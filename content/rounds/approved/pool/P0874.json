@@ -1,0 +1,110 @@
+{
+ "code": "P0874",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Леденец с лыжным спуском",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Десерты и сладости",
+ "direction": "Перевёрнутый масштаб",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Большой круглый розово-кремовый леденец в разрезе стал горным склоном, по широкой кремовой спирали спускаются две синие лыжи без персонажа, длинная палочка внизу",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 41,
+ "h": 44,
+ "N": 1278,
+ "colours": 8,
+ "volumes": {
+  "C": {
+   "cells": 488,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 416,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "K": {
+   "cells": 152,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "N": {
+   "cells": 60,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "S": {
+   "cells": 59,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "R": {
+   "cells": 57,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "A": {
+   "cells": 37,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "O": {
+   "cells": 9,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................PPPPPPPP................",
+  "..............CCCCCPPPPPPPPP.............",
+  "............CCCCCCPPPPPPPPPPPP...........",
+  "...........CC.CCCCPPPPPPPPCCCCC..........",
+  ".........CCCSSSCCCCCPPPPPKCCCCCCC........",
+  ".......RRRCCSSSSCCCCCCCCKKKCCCCCCC.......",
+  ".....CCCCCCCCCCPPCCCCCSSCCCCCPPPPP.......",
+  "....CCCCCCCCCCCCPPPPCSSSSCCCCCPPPPP......",
+  "....CCCCCCCCCPPPPPPPPPSSSCCCCCCCCCPR.....",
+  "...CCCCCCCCPPPPPPPPPCCCCCCCCCCCCCCPR.....",
+  "..PPCCCCCPPPPPPPPCCCCCCCCKKCCCCCCCCRR....",
+  "..PPCCCCCPPPPPPPCCCCCCPPPPKKCCCCCCCCCC...",
+  "..PPCCCCPPPPPPPPCCCCCPPPPPKKPCCCSCCCCC...",
+  ".RPPCCCCPPPPPPPPCCCCCCPPPKKKPPCCSSCCCCC..",
+  ".RPPCCCCPPPPPPPPCCCCCCCCCKKPPPCCCSCCCCC..",
+  ".RPPCCCCCPPPPPPPPPCCCCCCCCCCPPCCCSCCCCCC.",
+  "RPPPCCCCCPPPPPPPPPPPPCCCCCCCCCCCCSCCCCCC.",
+  "RPPPPCCCCCPPPPPPPPPPPPPNNCNNCCCCSSCCCCCC.",
+  "RPPPPPCCCCCCPPPCSPPPPPPNNCNNCCCSSCCCCCCC.",
+  "RPPPPPCCCCCCCCCSSPPPPPNNNNNNCCSSCCCCCCCPR",
+  "RPPPPPPCCCCCCCSSSCCPPNNNCNNNSCCCCCCCCCCPR",
+  "RPPPPPPPPCCCCCCCCCCCCNNNNNNCSCCCCCCCCCPPR",
+  ".RPPP.CSSCCCCCCCCCCNNNNNNNNSSCCCCCCCKPPPR",
+  ".RPPPSSSSCCCCCCCNNNNNNCNNNSSCCCCCCCKKPPRR",
+  ".RPPPPPCCCCCCCCCNNNNNNNNNCCCCCCCCKKKKKPR.",
+  "..RRPPCCCCCCCSCCCNNCNNNNCCCCCCPPPPKKKKPR.",
+  "..RRPCCCCCCCSSCCCCCCCNNCCCPPPPPPPPKKKKPR.",
+  ".SSRRCCCCCCCCKKKKKKKKKKKKKPPPPPPPPKKKKP..",
+  ".SSSRCCCCKKKPPPPPPPKKKKKKKKPPPPPPPPKKKP..",
+  ".SSSRCCCCCPPPPPPPPPPPPKKKKKKPPPPPPPKKK...",
+  "..SSRCCCCPPPPPPPPPPPPPPKKKKKPPPPPPKKKK...",
+  ".....CCCCPPPPPPKKKPPPPPKKKKKPPPPPPKKK....",
+  "......CCCPPPPPKKKKKPPPPPKKKKPPPPPKKK.....",
+  "......CCCPPPPKKKKKKPPPPKKKKKPPPPPKK......",
+  ".......CCCPPPKKKKKPPPPPKKKKPPPPPPAA......",
+  ".........PPPRRKKKKKKKKKKKKKPPPPPPAAA.....",
+  "..........RRRRRKKKKKKKKKKPPPPPPAAAAAO....",
+  ".............RRKKKKPPPPPRPRRR..AAAAAO....",
+  "................RRRPPPPRRRR.....AAAAOO...",
+  ".................................AAAOOO..",
+  "..................................AAAOO..",
+  "..................................AAAAAA.",
+  "...................................AAAA..",
+  "....................................AA..."
+ ]
+}

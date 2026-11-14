@@ -1,0 +1,90 @@
+{
+ "code": "P1126",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Зелёный квадроцикл",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Наземный транспорт",
+ "direction": "Доброе будущее",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One compact green ATV toy in three-quarter front view, two huge front dark tires and smaller rear tires visible close behind, gold fenders, cream headlight and blue seat. No rider or scenery.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 33,
+ "h": 27,
+ "N": 615,
+ "colours": 7,
+ "volumes": {
+  "D": {
+   "cells": 362,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 84,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 72,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 29,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "N": {
+   "cells": 27,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 23,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 18,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".......MMMD......................",
+  "......MGGDDDD.....DDDGGGM........",
+  "......MMGDDDDDDDDDDDDGGGM........",
+  "...........DDDDDDDDD..MMM........",
+  "..........MMMMMDDDD..............",
+  ".........GGGGGGGGG...NNNNNMMM....",
+  "........GGMMMMGGGGGDNNNNNNNMM....",
+  ".......GGCCCCCGGGGGMNNNNNNNOOOO..",
+  ".......GC.CCCCGGGGMMMNNNNNYYYYYY.",
+  "....YYYGCCCCCGGGGGYYYNNNGYYYYYYY.",
+  "...YYYYGCCCCCGGGYYYYYYGGGYYYYOOO.",
+  "..OYYYYGGCCCGGGYYYYYYYYGGYYYDD...",
+  "..OOYYYGGGGGGGYYYYYDDYYOGYYDDDD..",
+  "...DDYYGGGGGGYYYYDDDDDOOYYYDDDDD.",
+  "..DDDDDDDDDDDYYDDDDDDDDODYYDDDDD.",
+  ".DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  ".DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDDODDDDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDOOODDDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDYYYDDDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDYYYDDDDDDDDDD",
+  "DDDDDDDDDD..DDDDDDDDYYYDDDDDDDDD.",
+  ".DDDDDDDDD...DDDDDDDYYDD..DDDDD..",
+  ".DDDDDDDD.....DDDDDDDDDD.........",
+  "..DDDDDD......DDDDDDDDDD.........",
+  "...............DDDDDDDD..........",
+  "................DDDDD............"
+ ]
+}

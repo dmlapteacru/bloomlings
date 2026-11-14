@@ -1,0 +1,106 @@
+{
+ "code": "P1037",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Мипо",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Dota 2 · Valve: Meepo from Dota 2, ONE character only: compact blue-gray goblin with a very large nose and pointed ears, brown hood and cream scarf, mischievous adult face; a broad metal shovel held across his chest. Keep the large ears, hood, blue-gray face and shovel clear, no cloned duplicates.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 34,
+ "N": 1058,
+ "colours": 9,
+ "volumes": {
+  "D": {
+   "cells": 466,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "A": {
+   "cells": 119,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "S": {
+   "cells": 118,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "E": {
+   "cells": 94,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 90,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 62,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "R": {
+   "cells": 49,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "K": {
+   "cells": 31,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "O": {
+   "cells": 29,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................DD.....DAA...DD...",
+  "..............DAAAAAAD..AAADDOOD...",
+  "DDDDD.....DDAAAAAAAAAAADDEEDOORD...",
+  ".RROOOOD.EEAAAAAAAAAAAAADEEOORRD...",
+  ".DRRROOOODEEAAAAAAAADDDAADOORRRD...",
+  "..RRRROOOODEEAAAAADNNNDDAAOORRRD...",
+  "..DRRRROOOCDAAAADNNNNNNNDADDRRRE...",
+  "...RRRRREODDAAANNNSSSSSNNDDDRREED..",
+  "...DRRREEDDAAAASSSSSSSSSNDDDRREE...",
+  "....RRRENNDAADASSSSSSSSSDDDDRDED...",
+  "....DRREDNAAADDDDDSSSSSDDDDARDED...",
+  ".....DOODDAADDDDCDDDDDDDCDDADEEDDD.",
+  "...DDDDODDAAKKDDDDKCCCDDDDDADDCDSS.",
+  ".EEDDDDDDAADKKKKKKKCCCRDDDDDDDDDSSD",
+  "EEEEDDDDDAADDKKDKKKCCRRDDDDDDDDDDSD",
+  "EEEEEDCDDAADDKKKDKKCDRRDDDDDDDDDDSD",
+  "EEEEDDCCDDADDDKKKCCCDDDDDDDDDDDDDSS",
+  "EEECCCCCCDADEDDKKKKKKDDDDDDDDDDDDSS",
+  "EECCCCCCCDDDEEDDDKKSSDDDDDDDDDDDDSS",
+  "EECDDDDCCCCDDEEDDDSSDDDDDDDDDDDDDSS",
+  "EECDDDDDCCCCCDEEDDDDDDDDDDDDDDDDDSD",
+  "DECDDDDDCCCCCCCDDDDDCCCDDDDDDDDDDSD",
+  "EEDDDSSNCDCCCCCCCCCCCCDDADDDDDDDSS.",
+  "EEEDSSSNNCCCCCCCCCCCDDDAAEDDDDDDSD.",
+  "DEEDSSSNDDDCCCCCCCDDDSSDEEDDDDSSS..",
+  "DDDSSSSNDDEDCCCCDDDDSSSSDDEDDDDSD..",
+  "DDDSSSSDDEEDDDDDDDDSSSSSDEEDDDDDEE.",
+  "DDSSSSSDDDEDDDDDDDSSSSSNNDDDDDDDEE.",
+  "DDSSSSSDDDDDCDDDDDDSSNNNNADDDDDDEE.",
+  "DDSSSSSAAAADDDDDAAADNNNNNAADSSNDED.",
+  "DSSSSSDAAAADDDDAAADDNNNNDAADSSNND..",
+  "DDNNSSAAAADDDDAAADDDDDDDEEESSSNND..",
+  ".DNNNNEEEDDDAAAEEDDDDDDDDEDNNNNND..",
+  "..DDNDEEEDDDAAEEDDDDDDDDDDNNNNNN..."
+ ]
+}

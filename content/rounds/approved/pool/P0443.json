@@ -1,0 +1,100 @@
+{
+ "code": "P0443",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Кураж — в дверном проёме",
+ "theme": "Новые герои мультфильмов",
+ "family": "Домашние животные",
+ "direction": "Театр эмоций",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Кураж испуганно выглядывает из двери; розовый корпус; длинные тёмные уши; огромные белые глаза и чёрный нос",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Courage the Cowardly Dog",
+  "url": "https://en.wikipedia.org/wiki/Courage_the_Cowardly_Dog",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 32,
+ "N": 896,
+ "colours": 7,
+ "volumes": {
+  "A": {
+   "cells": 281,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "P": {
+   "cells": 198,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "D": {
+   "cells": 152,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "V": {
+   "cells": 112,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "C": {
+   "cells": 97,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 52,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "R": {
+   "cells": 4,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAVVVVVVVVVVVVVVVVVVVVAAAA",
+  "AAAAVVVVVVVDDDDDDDDVVVVVAAAA",
+  "AAAAVVVVVVVPPPPPPPPDDDVVAAAA",
+  "AAAAVVVVDPPPPPPPPPPPPDDDAAAA",
+  "AAAAVVVDDPPPCCCPPCCCPDDDAAAA",
+  "AAAAVVDDDPPCCCCPPCCCCDDDDAAA",
+  "AAAAVVDDDPPCDDCCCCDDCDDDDAAA",
+  "AAAAVVDDDPPCDDCCCCDDCDDDDDAA",
+  "AAAAVVDDDDPCDDCCCCDDCDDDDDAA",
+  "AAAAVVDDDDPCCDCCDDDDDDDDDDAA",
+  "AAAAVVDDDDPPCCCCDDDDDDDDPDAA",
+  "AAAAVDDDDPPPCCCCCDDDDPDDPDAA",
+  "AAAAVDDDDPPPCCCCCCCCCPPPPAAA",
+  "AAAAVVDDDPPPPCDDDCCCPPPPDAAA",
+  "AAAADDDDDPPPPDDCCCDPPPPDDAPP",
+  "AAAPPPDDVPPPPDDDRDDDPPDDAAAP",
+  "AAAPPPPDVVDDDDDRRRDPPPPDAAAP",
+  "AAAPPPPDVVDPPPPDDDDPPPPDAAPP",
+  "AAAPPPVVVVDPPPPCCCCCCPPPPPPP",
+  "AAAAVVVVVVDPPPPCCCCCCPPPPPAA",
+  "AAAAVVVVVVDPPPPCCCCCCPPPPAAA",
+  "AAAAVVVVVVDPPPPCCCCCCPPPAAAA",
+  "AAAAVVVVVVVPPPPCCCCCCPPPAAAA",
+  "AAAAVVVVVVVPPPPPCCCCPPPPAAAA",
+  "AAAAAVVVVVVVPPPPPCCPPPPPAAAA",
+  "AAAAAAAAAAAPPPPPPPPPPPPPAAAA",
+  "AAAAAAAAAAPPPPPPPPPPPPPPPAAA",
+  "EEEEEEEEEEEEPPEEEEEEEPPEEEEE"
+ ]
+}

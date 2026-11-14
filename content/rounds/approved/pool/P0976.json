@@ -1,0 +1,115 @@
+{
+ "code": "P0976",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Дорожный конус с цветочным вихрем",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Городские пространства",
+ "direction": "Домашняя магия",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой оранжевый дорожный конус с кремовой полосой выпускает из верхушки три толстых зелёных листа и один крупный розовый цветок, широкое синее основание",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 41,
+ "h": 43,
+ "N": 1139,
+ "colours": 9,
+ "volumes": {
+  "N": {
+   "cells": 233,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "O": {
+   "cells": 226,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "P": {
+   "cells": 185,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "G": {
+   "cells": 173,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 150,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "C": {
+   "cells": 74,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 38,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 30,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 30,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "........................PPPPP............",
+  "..........MMMD...RRRRR.PPPPPPP...........",
+  ".........GGGGGD..PPPPPPPPPPPPPR..........",
+  "..........MGGGGGRPPPPPPPPPPPPPR..PP......",
+  "..........MGGGGGRPPPPPPPPPPPPPRRRPPRR....",
+  ".....CMMM.MMGGGGRPPPPPPPOOOPPPPPPPPPRR...",
+  "....GGGGGGMMMGGMMPPPPPPOOOOOPPPPPPPPPR...",
+  "...DGGGGGGGGGMMMMPPPPPPOOOOOOPPPPPPPPR...",
+  "..GGGGGGGGGGGGMMMMRRPPPOOOOOOOPPPPPPPR...",
+  "..GGGGGGGGGGGGGGMMMRRPPOOOOOOOPPPPPPP....",
+  ".MGGGGGGGGGMMMMGGMMPPPPPOOOOOOPPPRRR.....",
+  ".MGGGGGGGMMMMMMMGMMPPPPPPPOOOPPPPPPR.....",
+  ".MGGGGGGMMMMDMMMGGMRPPPPPPPPPPPPPPPP.....",
+  "GGGGGGGMMMM...DMMGDRRPPPPPPRPPPPPPPPMD...",
+  "GGGGGGMMMM...EEMMGGMRPPPPPRRPPPPPPMMMMM..",
+  "DGGGGGMMMD...EOMMMMMDOORRRMMMMPPPPMMMGM..",
+  "GGGGGMMM.....EOOOEEEOOOEMMMMMMMMMMMMGGGM.",
+  ".GGGMMM.....EOOOOOOOOOOEMMMMMMMMMGGMMGGM.",
+  ".GGGMD......EOOOOOOOOOOEMDDMMMMGGGGGMGGM.",
+  "..MMM.......EOOOOOOOOOOOE..DMMMMGGGGGGGM.",
+  "..MM........OOOOOOOOOOOOE...MMMMGGGGGGGG.",
+  "...........EOOOOOOOOOOOOE....MMMMGGGGGGGD",
+  "...........ECOOOOOOOOOOOC......DMMGGGGGG.",
+  "...........ECCCCOOOOOCCCCE.......DGGGGGG.",
+  "..........ECCCCCCCCCCCCCCE.........GGGMD.",
+  "..........ECCCCCCCCCCCCCCE..........MMM..",
+  "..........ECCCCCCCCCCCCCCCE..............",
+  "..........ECCCCCCCCCCCCCCOE..............",
+  "..........EOOOOCCCCCCOOOOOE..............",
+  ".........OOOOOOOOOOOOOOOOOONN............",
+  ".......NNOOOOOOOOOOOOOOOOOONNNN..........",
+  "......NNNOOOOOOOOOOOOOOOOOONNNNN.........",
+  ".....NNNNOOOOOOOOOOOOOOOOOONNNNNN........",
+  "....NNNNNNOOOOOOOOOOOOOOOONNNNNNNN.......",
+  "...NNNNNNNNNNOOOOOOOOOOONNNNNNNNNN.......",
+  "...NNNNDDDDNNNNNNNNNNNNNNNNNNNNNNN.......",
+  "...NNNNNNNDDDDNNNNNNNNNNNNNNNNNNNN.......",
+  "...NNNNNNNNNNNDDDDNNNNNNNNNNNNNNNN.......",
+  "...NNNNNNNNNNNNNNNNNNNNNNNNNNNNN.........",
+  ".....NNNNNNNNNNNNNNNNNNNNNNNNN...........",
+  "........NNNNNNNNNNNNNNNNNNNN.............",
+  "............NNNNNNNNNNNNN................",
+  ".................NNNNN..................."
+ ]
+}

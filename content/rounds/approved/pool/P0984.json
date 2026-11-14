@@ -1,0 +1,98 @@
+{
+ "code": "P0984",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Жёлтый патиссон-подушка",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Овощи и урожай",
+ "direction": "Предметные гибриды",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой золотой патиссон стал пухлой округлой подушкой с широким волнистым краем, зелёный черенок-петелька и розовая заплатка-сердце на боку",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 39,
+ "h": 35,
+ "N": 961,
+ "colours": 7,
+ "volumes": {
+  "Y": {
+   "cells": 541,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 184,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 87,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "P": {
+   "cells": 70,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "M": {
+   "cells": 38,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 37,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "L": {
+   "cells": 4,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....................DDDDD.............",
+  "....................DLLLLGD............",
+  "...................DGGGGGGGD...........",
+  "..................DGGMMMMMGG...........",
+  ".................DGGMMD..DGG...........",
+  "...............DDDGGMMD..DGG...........",
+  "............DDYYYGGMMDYDDGGD...........",
+  "..........DYYYYYYGGMMYYDMMMYYY.........",
+  ".........DYYYYYYYGGMMYYYYYYYYYYD.......",
+  "......DDYYOOOYYYDMGMMDYYYYYYYOOO.......",
+  "....DYYYYYYYYYYDMMMMMMMYYYYYYYYYYD.....",
+  "...DYYYYYYYYYYYDGGGGMMMMYYYYYYYYYYYD...",
+  "...YYYYYYYYYYYYDGGGGMMMOOOYYYYYYYYYY...",
+  "..DYYYYYYYYYYYYYYDMMMDYYYYYYYYYYYYYYD..",
+  ".DYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYD.",
+  ".OYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY.",
+  "DOYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYY.",
+  "DOYYOOYYYYYYYYYYYYYYYYYYYYYYPPPPYYOOYOD",
+  "DOOOOYYYYYYYYYYYYYYYYYYPPPYPPPPPYYYOOOD",
+  "DOOOYYYYYYYYYYYYYYYYYYPPPPPPPPPPYYYOOOD",
+  ".OOYYYYYYYYYYYYYYYYYYYPPPPPPPPPPPYYYOO.",
+  ".DOYYYYYYYYYYYYYYYYYYYPPPPPPPPPPYYYYYD.",
+  ".DYYYYYYYYYYYYYYYYYYYYPPPPPPPPPPYYYYYD.",
+  "DYYYYYYYYOYYYYYYYYYYYYYPPPPPPPPYYYYYYD.",
+  "DOOYYYYYYOYYYYYYYYYYYYYYYPPPPPPYYYYYYD.",
+  "DOOOOYYYOOYYYYYYYYYYOYYYYYYYPPPYYYYYYD.",
+  ".OOOOOOOOOYYYYYYYYYYOYYYYYYYYYOYYYYYY..",
+  ".DOOOOOOOOOYYYYYYYYYOYYYYYYYYYOOOOYYD..",
+  "..OOOYYYYYOYYYYYYYYOOOYYYYYYYYOOOOOO...",
+  "...OOOOOOOOOOYOYYYOOOOOYYYYYYOOOOOO....",
+  "....DOOOOOOOOOOOOOOOOOOOOYOOOOODDD.....",
+  ".........DOOOOOOOOOOOOOOOOOOOOOD.......",
+  "..........DOOOOOOOOOOOOOOOOOOOD........",
+  "...........DOOOOOOODDDOOOOOODD.........",
+  ".............DDDDD.....DDDD............"
+ ]
+}

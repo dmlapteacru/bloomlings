@@ -1,0 +1,115 @@
+{
+ "code": "P0887",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Перец-калейдоскоп",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Овощи и урожай",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Большой красный сладкий перец разрезан вертикально, в разрезе три крупных синих золотых и кремовых геометрических сектора как цветное стекло, зелёный черенок и толстый красный контур",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 39,
+ "h": 44,
+ "N": 1258,
+ "colours": 9,
+ "volumes": {
+  "R": {
+   "cells": 481,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 385,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 124,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "B": {
+   "cells": 76,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 63,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "O": {
+   "cells": 45,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "G": {
+   "cells": 43,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 21,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "M": {
+   "cells": 20,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "....................GGGGGGGD...........",
+  "...................GGGGGGGMD...........",
+  "..................CGGGGMMMM............",
+  "..................DGGGDD...............",
+  "...........RRRRRRRGGGMDDDDD............",
+  ".........RRRRRRRRRGGGMDRRRRRRRRRR......",
+  "......RRRRRRRRRRRMGGGMMRRRRRRRRRRRR....",
+  "....RRRRRRRRRRRMMMGGGMMMMRRRRRRRRRRR...",
+  "...RRCCCRRRRRRRRGGGGGGMMRRRRRRRRRRRRR..",
+  "...RRCCCRRRRRRRRGGRRGGMRRRRRRRRRRRRRR..",
+  "..RRRCCRRYYYCRRRRRRRRRRRYYYCCCRRRRRRRR.",
+  ".RRRRRRRYYYNNCCCCCCCCCCYYOOCCCRRRRRRRR.",
+  ".RRRRRRCYNNNNNNCCCCCCYCOOOOOOORCRRRRRR.",
+  ".RRRRRCCYNNNBBBBNNCCYYYYYYYOOOOCRRRRRRR",
+  ".RRRRRCCNNNBBBBBBNCCYYYYYYYYOOOCRRRRRRR",
+  "DRRRRRCNNNBBBBBBBNCCYYYYYYYYOOOCCRRRRRR",
+  "DRRRRCCNNBBBBBBBBNCCYYYYYYYYYOOCCRRRRRR",
+  "DRRRRCCNNBBBBBBBBNCCYYYYYYYYYYOCCRRRRRR",
+  "DRRRRCCNBBBBBBBBBNCCYYYYYYYYYYOCCRRRRRR",
+  "DRRRRCCNNBBBBBBBBNCCYYYYYYYYYYOOCRRRRRR",
+  "DRRRRCCNNBBBBBBBBNCCYYYYYYYYYYOOCRRRRRR",
+  ".RRRRCCNNBBBBBBBNNCCYYYYYYYYYYOORRRRRRR",
+  ".RRRRRCYNBBBBBBNNCCCCYYYYYYYYYOCRRRRRR.",
+  ".RRRRRCYNBBBBNNNCCCCCCOOYYYYYOOCRRRRRR.",
+  ".RRRRRCYNNBNNNNCCCCCCCCOOYYYYOYYRRRRRR.",
+  "..RRRRCCNNNNNCCCCCCCCCCCCOOOOOYRRRRRRR.",
+  "..RRRRRCNNNNCCCCCCCCCCCCCCOOOYYRRRRRR..",
+  "...RRRRCCNNCCCCCCCCCCCCCCCCCCYRRRRRRR..",
+  "...RRRRCCCCCCCCCCCCCCCCCCCCCCYRRRRRRR..",
+  "...RRRRRCCCCCCCCCCCCCCCCCCCCCRRRRRRR...",
+  "....RRRRCCCCCCCCCCCCCCCCCCCCRRRRRRRR...",
+  "....RRRRRCCCCCCCCCCCCCCCCCCCRRRRRRR....",
+  ".....RRRRCCCCCCCCCCCCCCCCCCCRRRRRRR....",
+  ".....RRRRCCCCCCCCCCCCCCCCCCCRRRRRR.....",
+  "......RRRRCCCCCCCCCCCCCCCCCRRRRRRC.....",
+  "....CCCRRRRCCCCCCCCCCCCCCCRRRRRRCCCC...",
+  "....CCCCRRRRCCCCRRRRCCCCCRRRRRRCCCCC...",
+  "....CCCCCRRRRRRRRRRRRRRRRRRRRRCCCCCC...",
+  ".....CCCCCCRRRRRCCCCRRRRRRRCCCCCCCC....",
+  ".........CCCCCCCCCCCCCDDDDCCCCC........",
+  ".......................................",
+  ".......................................",
+  "..............RRRR.....RRR.............",
+  ".............RRRCCC...CCCRR............"
+ ]
+}

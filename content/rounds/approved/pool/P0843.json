@@ -1,0 +1,92 @@
+{
+ "code": "P0843",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Ленивец на сушилке макарон",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Лесные и горные животные",
+ "direction": "Обмен ролями",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один улыбающийся ленивец висит на широкой деревянной перекладине сушилки для пасты, рядом с лапами свисают четыре толстые золотые ленты макарон",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 43,
+ "h": 41,
+ "N": 1363,
+ "colours": 5,
+ "volumes": {
+  "A": {
+   "cells": 429,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 383,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 231,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 211,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 109,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..CYYYYYYYCCCCCEOOOOOOOOOOEEECCEEEAYYYYYYYY",
+  "EEEAYYYYYYAECCCEAAAAAAAEEEEEEEEEEEAYYYYYYY.",
+  "EEEAYYYYYYAEEEEEEEEEEEE.....EEEAEOAYYYYYYC.",
+  "EEEAYYYYYYAEEEE......E.A....EAAAAOOYYYYYY..",
+  "..COYYYYYYAAAAE.....AAAAA...EAAAAEOYYYYYY..",
+  "..OOYYYYYYAAAAE..AAAAAAAAA.CEAAAAEOYYYYYYC.",
+  "..COYYYYYYAAAAEEAAAAAAAAAAAAAAAAAEOYYYYYY..",
+  "..OOYYYYYYAAAAEAACCCCAACAAAAAAAAAEOYYYYYY..",
+  "..OOYYYYYYAAAEAACCCCCCCCCCAAAAAAAEOYYOYYY..",
+  "..OOYYYYYYAAEEACCECCCCCCCCCCAAAAAEOYYOYYY..",
+  "..OOYYYYYYAAEACEEEECCCCCEECCAAAAAEOYYOYYY..",
+  "..OOYYYYYYAEEAEEEEECEECCEEECCAAAAEOYYOOYYC.",
+  "..OOYYYYYYAEEAEEEECCEEECEEEECAAAAEOYYAOYYY.",
+  "..OOYYYYYYAEAAECCCCCEECCCEEEAAAAAEOYYAAYYY.",
+  "..OOYYYYYYAEEAACCCCCCECCCCCEAAAAAEOYYAAYYY.",
+  ".YYOYYYYYYYEEAACCCCCCCCCCCCEAEAAAOOYYAAYYY.",
+  "..YOYYYOYYYEEAAACCCCCCCCCCAAAEAAEOOYYCAYYY.",
+  "..YOYYYOYYYEEEAAAAACCCCCAAAAAEAAEOOYYCAYYY.",
+  "..YOYYYOYYYAAEEAAAAAAAAAAAAAAAAEEOOYYCAYYY.",
+  "..OOYYYYYYYAAAAAAAAAAAAAAAAAAAAECOOYYAAYYY.",
+  "..OOYYYYYYYAAAAAAACCCCCCCCAAAAAECOOYYAAYYY.",
+  "..OOYYYCYYYAAAAAACCCCCCCCCCCAAEE.OOYYAAYYY.",
+  "..OOYYYCYYYEAAAACCCCCCCCCCCCAAE..OOYYYOYY..",
+  "..OOYYYCYYYEAAAACCCCCCCCCCCCCAE..OOYYYOOO..",
+  ".OOOYYYYYYYEEAAACCCCCCCCCCCCCAAA..OYYYYYY..",
+  ".OOOYYYYYYYEAAAACCCCCCCCCCCCCAAAAAYYYYYYY..",
+  ".OOOYYYYYYYEAAAACCCCAAAAACCCAAAAAAC.OOOYYA.",
+  ".OOOYYYYYYYEAAAAACCAAAAAAACCEAAAAAE...YYYA.",
+  "....CYYYYYYCEAAAAAAAAAAAAAAAEAAAAAE...CYYA.",
+  ".....YYYYYYCEAAAAAAAAAAAAAAAEEAAAAE....YY..",
+  ".....YYYYYY.EAAAAAAAAAAAAAAEEAAAAAE........",
+  ".....OOOYYY.EEAAAAAAAAAAAAEEEAAAAAE........",
+  ".......OYYY..EEAAAAAAAEAAAAEEEEEAA.........",
+  ".......YYYY..EEEAAAAAEEEAACCEEECEE.........",
+  ".......YYYY...EEAAAAAAEEAECCEECCCE.........",
+  ".......YYYY....EEEAAAEEEEEEEEACAE..........",
+  "......YYYY......EEEEAEEEEEEEEAAAE..........",
+  ".....YYYYY.........EEEEC..EEAAAAE..........",
+  ".....YYYYY................EEAAAA...........",
+  ".......YY.................EEAAA............",
+  "...........................EEE............."
+ ]
+}

@@ -1,0 +1,107 @@
+{
+ "code": "P1035",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Кристал Мейден",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Dota 2 · Valve: Crystal Maiden from Dota 2: adult fair-skinned blonde ice mage under a large BLUE hood with thick WHITE fur trim, blue cloak and a short thick ice-tipped staff held close beside her cheek; elegant determined face, unmistakable blue-and-white winter outfit, large head-and-shoulders portrait.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 34,
+ "N": 971,
+ "colours": 9,
+ "volumes": {
+  "N": {
+   "cells": 289,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 243,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "S": {
+   "cells": 124,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "B": {
+   "cells": 123,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "A": {
+   "cells": 63,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 57,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 52,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "O": {
+   "cells": 17,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 3,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "............NBBBBB..............B.",
+  "..........NNNBBBBBCC...........BB.",
+  ".........NNNNNNBBCCCCC.........BBN",
+  "........NNNNNCCCCCCCCCC.......BBBN",
+  ".......NNNNNCCCCCCNNNNCC..BB.BBSBN",
+  "......NNNNCCCCCAAAANNNCC..BBBBBSBB",
+  "......NNNNCCCAAACCCNNNNSC.BBBBBSBB",
+  ".....NNNNCCCAAAAAAAAANNSS.BBBBBSSB",
+  "....NNNNCCCCCYYCAAAAACYNS.BBBBBBBB",
+  "...NNNNCCCCCCYYAACCCAAYNSSSBBBBBB.",
+  "...NNNNCCCCCCCAACCCCCAYNSS.BBBBBNN",
+  "..NNNNCCCSCCCDDDCCCCCAYNSS.NNNBBNN",
+  "..NNNCCCSSDDDDDDDCCDDAYNNS.DDNNNN.",
+  "..NNNCCCSOOODDDDCCCDDAYNNSSNNNNN..",
+  "...NSSCSDOOOCCCCCCDDDAYYNS.NNNN...",
+  "..DNNSCSCCCACCCCCCCCCAEYNSDNNNND..",
+  "..NNSSSSCCAACCCCCCCCCAEYNSSNYNND..",
+  ".NNSSSSAOAAACCCCCCCCOOEYNSSNYNN...",
+  "NNNNSSSAOAAACCCCCCCDOOONNSSNYD....",
+  "NNNNSSSAOACCCACCCCDOOONNNNSNND....",
+  "NNNCCCCCDACCCACCCNAAYYNNNNNNND....",
+  "CCCCCCCCCCDCCAAADNAYYYYNNSNNNSS...",
+  "CCCCCSCCCCCDCCCADNAYYYYCCSNNSCS...",
+  "SCCSSSSSSCCCDYYADNNYCYDCSSNNSSS...",
+  "SSSSNNSSSSSCCYYYNNNNYYDSCCCDSSSS..",
+  "SSSNNNNNNSSSCCYYNYNNYYSSCCCCCSNN..",
+  "SSNNNNNNNNSSSCDYYYYNNNSSCCCCCNNNN.",
+  "SNNNBBBBBNNSSSYYYYYYYYNNCCCCCNNNN.",
+  "NNNNBBBBCCCCNNYNNNNYYNNDCCCCCSNNNN",
+  "NNNBBBBCCCSSNNBBNNNBBNNNNDAADSCNNN",
+  "NNNBBBCCCCSNNBBBBBBBBNNBBNAADSCCNN",
+  "NNBBBCCCSSDNNNBBBBBBBNDBNNDNNSSCCN",
+  "NNBBCCSSSNNNNNNBBBBBNNBBNNDNNNSSSC",
+  "NNBCC.SSNNNNNNNNBBBBNNBBNNNNNNNSS."
+ ]
+}

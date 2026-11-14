@@ -1,0 +1,107 @@
+{
+ "code": "P0451",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Дональд Дак — сердитый топот",
+ "theme": "Новые герои мультфильмов",
+ "family": "Птицы",
+ "direction": "Театр эмоций",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Дональд сердито топает; белая голова с оранжевым клювом; синяя матроска с красным бантом; большие плоские лапы",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Donald Duck",
+  "url": "https://en.wikipedia.org/wiki/Donald_Duck",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 35,
+ "h": 36,
+ "N": 1225,
+ "colours": 8,
+ "volumes": {
+  "S": {
+   "cells": 483,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 193,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 165,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "O": {
+   "cells": 165,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "B": {
+   "cells": 141,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "A": {
+   "cells": 57,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 11,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "R": {
+   "cells": 10,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..SSSSSSSSSSSDDDDDDDDDSSSSSSSSSSS..",
+  ".SSSSSSSSSSSSBBBBBBBBBBBSSSSSSSSSS.",
+  "SSSSSSSSSSBBBBBBBBBBBBBBDDSSSSSSSSS",
+  "SSSSSSSSSDBBBBBBBBBBBBBBBDSSSSSSSSS",
+  "SSSSSSSSSDDBBBBBBBBBBBBBBDSSSSSSSSS",
+  "SSSSSSSSSSDDBNNNNNNNNNNNDSSSSSSSSSS",
+  "SSSSSSSSSSDDDDDDDDDDDDDDDSSSSSSSSSS",
+  "SSSSSSSSSDDCDDDCCCCCCDDDCDSSSSSSSSS",
+  "SSSSSSSSSDCCCCDDDCCDDDCCCDSSSSSSSSS",
+  "SSSSSSSSSDCCCCDDDCCDDCCCCDSSSSSSSSS",
+  "SSSSSSSSDCCCCCDDCCCDDCCCCCDSSSSSSSS",
+  "SSSSSSSSDCCCCCDDCCCDDCCCCCDSSSSSSSS",
+  "SSSSSSSSDCCCCCCDCCCDDCCCCCDSSSSSSSS",
+  "SSSSSSSSDCCCCDDDDDDDDDCCCCDSSSSSSSS",
+  "SSSSSSSSSDDDDOOOOOOOOOODDDSSSSSSSSS",
+  "SSSSSSSSDDOOOOOOOOOOOOOOODDSSSCSSSS",
+  "SSSSSSSSDOOOOOOOOOOOOOOOOODDCCCCSSS",
+  "SSSSSSSSDOOOOOOOOOOOOOOOOOOCCCCSSSS",
+  "SSSSSSSSDODDDDDDDDDDDDDDDCCCCCSSSSS",
+  "SSSSSSSSDDCCCOOOOOOOOOOOCCCCCSSSSSS",
+  "SSSSSSSSSCCCCOOOOOOOOOOOCCCSSSSSSSS",
+  "SSSSSSSSCCCCCCDDDDDDDDDDCCDSSSSSSSS",
+  "SSSSSSSCCCCBBCCCBBBBCCCBBBDSSSSSSSS",
+  "SSSSSCCCCCBBBBCCRRRRRBBBBBDSSSSSSSS",
+  "SSSSCCCCCBBBBBBBRRRRRBBBBBBDSSSSSSS",
+  "SSSSCCCSSBBBBBBBBBBBBBBBBBBDSCCSSSS",
+  "SSSSSSSSSBBBBBBBBBBBBBBBBBBDCCCSSSS",
+  "SSSSSSSSSBBBBBBBBBBBBBBBBBBBCCSSSSS",
+  "SSSSSSSSSDDDDDDDDDDDDDDDDDDDOOOOOSS",
+  "SSSSSSSSSSDCCCCCCCCCCCCCCCCOOOOOOOS",
+  "SSSSSSSSSSDDCOCCCCCCCCOOOOOOOOOOOAS",
+  "AAAAAAAAAAADOOOCCCCCCCOOOOOOOOOOAAA",
+  "AAAAAOOOOOOOOOCCCCCCCCCOOOOOOOOAAAA",
+  "AAAAOOOOOOOOOOCCCCCCCCAAAAAAAAAAAAA",
+  ".AAAOOOOOOOOOOODDDDDDDAAAAAAAAAAAAA",
+  ".....OOOOOOO......................."
+ ]
+}

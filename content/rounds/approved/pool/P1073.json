@@ -1,0 +1,98 @@
+{
+ "code": "P1073",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Клауд Страйф",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Final Fantasy VII · Square Enix: Cloud Strife: adult fantasy character with huge spiky golden hair, blue eyes, navy high-neck sweater and one broad silver shoulder plate. Calm confident head-and-shoulders portrait.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 35,
+ "N": 838,
+ "colours": 7,
+ "volumes": {
+  "Y": {
+   "cells": 314,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 225,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 119,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 85,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 39,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "S": {
+   "cells": 33,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "A": {
+   "cells": 23,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "......YYYYYY..YYY..................",
+  ".......EYYYYYYYYYY.Y...............",
+  ".......EOYYYYYYYYYCYY..............",
+  ".......EOOYYYYYYYYYYYYY............",
+  "..YYYYYYYOOYYYYYYYYYYYYYY..........",
+  "...YYYYYYYYYYYYYYYYYYYYYY..........",
+  "....YYYYYYYYYOOYYYYYYYYYYY.........",
+  ".....OOYYYYYYYOYOYYYYYYYYYOO.......",
+  ".....OOYYYYYYYYOOYYYYYYYYOO........",
+  "....YYYYYYYYYYYYYYYYYYYYYYYYY......",
+  "..YYYYYYYYYYYYYYYYYYYYYYYYYYYYYY...",
+  "OOOOOOOYYYYYYYYYCCYYYYYYYYYYYYY....",
+  "..OOOOYYYYYYYYCCCCYYYYYOOYYOOO.....",
+  "....YYYYYYYYYYCCCCCYYYYOOOOOOOO....",
+  "...YYYYOYYYYYCCCCCCYYYYYYCOOO......",
+  "...YYYYOYYYOYCCCDDDDYYYYYCCOO......",
+  "..YYYYOOYYYOOCCCDDDDYYYYYCCOOO.....",
+  ".AYYCOOOYYDDDCCCCCCCCYYOCCCOO......",
+  "AA..OOOYYYDDDCCCCCCCCYYOCDEO.......",
+  "....OOOYYEDDCCCCCCCCCYYOEEE........",
+  "....O..YYEDDCCCCCCCCCCYOEEE........",
+  "...OO..YYEAACCCCCCCCCAYYEEE........",
+  "...O...YAEAACCCCCCCCCAYYCDDD.......",
+  ".......AA.AAACCCCCCCAAYDDDDD.......",
+  ".......AA.OOADCCCCCCAAYDDDDD.......",
+  "...........OA.DDCCDDDDYDDDDDDD...DD",
+  "...........OO.DDDDDDDDDDDDDDDDDDDDD",
+  "............O.DDDDDDDDDDDDDDDSSSDDD",
+  "............ODDDDDDDDDDDDDDDSSSSSDD",
+  "..........DDEDDDDDDDDDDDDDDSSSSSSSS",
+  "......DDDDEEEDDDDDDDDDDDDDDDDSSSSSS",
+  "....CCCDDDEEDDDDDDDDDDEDDDDDDDSSSSS",
+  "...CCCCDDEEDDDDDDDDDDEEDDDDDDDDSSSS",
+  "..CCCCDDDEEDDDDDDDDDDEEDDDDDDDDDDSS",
+  ".CCCCCDDEEDDDDDDDDDDEEEEEDDDDDDDDDD"
+ ]
+}

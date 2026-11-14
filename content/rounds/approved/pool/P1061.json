@@ -1,0 +1,89 @@
+{
+ "code": "P1061",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Уитли",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Роботы и механизмы",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Portal 2 · Valve: Wheatley from Portal 2: one large spherical WHITE personality core with blue-gray segmented housing, a SINGLE huge bright BLUE mechanical eye inside a dark round ring, two chunky white side handles and a short mounting bracket below. Expressive tilted pose, recognizable broken-round core silhouette, no human face or limbs.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 32,
+ "N": 1024,
+ "colours": 6,
+ "volumes": {
+  "V": {
+   "cells": 404,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "D": {
+   "cells": 320,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 184,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "K": {
+   "cells": 68,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "N": {
+   "cells": 39,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "B": {
+   "cells": 9,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "VVVVVVVVVVVVVVVVVVVVVDVVVVVVVVVV",
+  "VVVVVVVVVVVVVVDDDDDCCCDVVVVVVVVV",
+  "VVVVVVVVVDDDDDDDDDDDDDDVVVVVVVVV",
+  "VVVVVVVDDDDDDDDVVVVVVDCVVVVVVVVV",
+  "VVVVVDDDDDDVVVVVVVVVVDCDVVVVVVVV",
+  "VVVVDCDDVVVVDDDDCCCDDDDDVVVVVVVV",
+  "VVDCCDVVVVDCCCDDDDCCCCDDVVVVVVVV",
+  "VVCDDVVVDDCCCCCDDCCCCCCDVVVVVVVV",
+  "VDCDVVVDDCCCCCCCDCCCCCCCDVVVVVVV",
+  "VVCCVVDCCCCCCCCCDDDDDCCCCDVVVVVV",
+  "VVDCDVDCCDCCCCDDDDDDDDDCCDDVVVVV",
+  "VVDCDDCCDDCCCDDDDDDDDDDCCCDVVVVV",
+  "VVDCCDDCCDDCDDDDDDDDDDDDCCDDVVVV",
+  "VVVDDDDCCDDCDDDBBBNNDDDDCCDDVVVV",
+  "VVVDDDCCCCCDDDNNNBNNNDDDDCDDVVVV",
+  "VVVDDCCCCCCDDDNNNNBBNDDDDDDDVVVV",
+  "VVDCDDCCCCCDDDNNNNBBNDDDDDCDVVVV",
+  "VVCCCDCCCCCCDDNNNNBNNDDDCCCDVVVV",
+  "VVCCCDCCCCCCDDNNNNNNDDDDCCKDVVVV",
+  "VVDDCDDNCCCCDDDDNNNDDDDDCKKDVVVV",
+  "VVDDCCDNCCCCCCDDDDDDDDDCCKDDDVVV",
+  "VVDDCCDNCKCCCCCDDDDDDDCCKKDDCDVV",
+  "VVDDDKDNCKKCCCCCCCCDDCKKKKVVCCVV",
+  "VVVDKKDNKKKKKDKCCCCKDKKKKDVVDCDV",
+  "VVVDKKDNKKKKKDKKKKKKDKKKDVVDDCDV",
+  "VVVVDDDKKKDDKKKKKKKDDDKDVVDDDDDV",
+  "VVVVVVVDKKDCDKKKKKKDDDDDDDDDDVVV",
+  "VVVVVVVVDKDCDKKKKKDDDDDDDDVVVVVV",
+  "VVVVVVVVVVDCCDDDDDDDDDDDVVVVVVVV",
+  "VVVVVVVVVVVDCCCDDDDDDVVVVVVVVVVV",
+  "VVVVVVVVVVVDDDDDVVVVVVVVVVVVVVVV",
+  "VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV"
+ ]
+}

@@ -1,0 +1,107 @@
+{
+ "code": "P0865",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Крокет с гигантской черникой",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Спорт и активные игры",
+ "direction": "Перевёрнутый масштаб",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Широкий деревянный молоток для крокета толкает одну огромную синюю ягоду через яркую розовую арку, три больших зелёных листа образуют площадку",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 34,
+ "h": 36,
+ "N": 1224,
+ "colours": 9,
+ "volumes": {
+  "M": {
+   "cells": 314,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 281,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "N": {
+   "cells": 151,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "Y": {
+   "cells": 146,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "S": {
+   "cells": 85,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "R": {
+   "cells": 78,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "L": {
+   "cells": 72,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "D": {
+   "cells": 54,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 43,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "GGYYYSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "GGYYYSSGGGGGSSSSSSSSSSSSSSSSSSSSSS",
+  "GGYYYGGGGGGGGGSSGGGGGGGSSSSSSSSSSS",
+  "GGDYYYGGGGGGGGGGGGGGGGGMMMMSSSSSSS",
+  "GGDYYYMMCCCCMMGGGMMMMGMMGGGSSSSSSS",
+  "MGDYYYMMCCCCMMGGGGMMGGGMMGMMMSGGGS",
+  "MMMYYYMMMCCCMMMGGMMMGGMMMMMMMGGGGG",
+  "MMCYYYMMMCCMMMMMMMMMMGMMCCMMMGGGGG",
+  "MMCYYYMMMMMMGMMMCMMMMMMDDDMMMMCCMG",
+  "MGMMYYYMMMMMGGMCCCMMRRRRRRRMMMCCMG",
+  "MGGMYYYMMMMMMMMCCCMRRRRRRRRRMMCCMM",
+  "MMMMMYYMMMMMMMMMCMRRRRMMMRRRRMMMMM",
+  "MMMMMYYMMMMMMMMMMMRRRMMMMMMRRRMMMC",
+  "MMMMMYYYMMMMMMMMMRRRMMMMMMMMRRRMCC",
+  "MMMMMYYYDMMMMMMMMRRRMMMMMMMMRRRMMM",
+  "MMMMMYYYDDYDDYYMMRRRGGGMMMMMMRRDMM",
+  "MMMMMMYYYYYYDDYMMRRRGMGGGMMMMRRDMM",
+  "MMMMMYYYYYYYYDYYRRRRMMNGGGGMMRRDMM",
+  "MMYYDDYYYYYYYDDYNNNNNNNNGGMGGRRDGG",
+  "DYYYYDYYYYYYYYDNNNNNNNNNNMMGGRRDGG",
+  "DYYYYDDYYYYYYYNNNNNNNNNNNNGGMRRDMM",
+  "DYYYYYDYYYYYYYNNSSNNNNNNNNNMMRRDMM",
+  "DYYYYYDYYYYYYNNNSNNNNNNNNNNCCRRDMM",
+  "DYYYYYDDYYYYYNNNNNNNNNNNNNNCCRRDLL",
+  "DYYYYYDDYYYYYNNNNNNNNNNNNNNCCRRDLL",
+  "GGYYYYDDGGGGGNNNNNNNNNNNNNNLLRRDLL",
+  "LGDDDDGGGGGLLNNNNNNNNNNNNNNLGRRDGG",
+  "LLLGGGGGGGGMLNNNNNNNNNNNNNLGGRRGGG",
+  "LLLLGGGGGGGMMMNNNNNNNNNNNDLLLLLLGG",
+  "LLMGGGGGMMMMGGMNNNNNNNNNDMMMMMLLLL",
+  "LLMGGGGGMMMGGMMMNNNNNNNMMMGGGGGLLL",
+  "LLMMGGGMMMGGGMGGGMMMMMGGGGGGGGGLLL",
+  "LLLMGGMMMGGGGGGGGGGGMMGGMGGGGGGGGG",
+  "LCCLLLLGGGGGGGGGGLLLLMMMMGGGGGGGGG",
+  "GGGGLGLLGGGGGGLLLGCGGLLLGGGGGGGGGG",
+  "GGGGGGLLGGGGLLLLLGGGGGLGGGGGGGGGGG"
+ ]
+}

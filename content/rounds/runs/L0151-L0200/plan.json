@@ -3,7 +3,7 @@
   151,
   200
  ],
- "created": "2026-11-13T23:29:45.729Z",
+ "created": "2026-11-13T23:50:47.433Z",
  "positions": [
   {
    "level": 151,
@@ -56,8 +56,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0212"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 153,
@@ -245,8 +245,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P1144"
   },
   {
    "level": 160,
@@ -380,8 +380,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0359"
   },
   {
    "level": 165,
@@ -461,8 +461,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0368"
   },
   {
    "level": 168,
@@ -596,8 +596,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0305"
   },
   {
    "level": 173,
@@ -623,8 +623,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0331"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 174,
@@ -650,8 +650,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0229"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 175,
@@ -731,8 +731,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0011"
   },
   {
    "level": 178,
@@ -893,8 +893,8 @@
     ],
     "compact": true
    },
-   "placed": true,
-   "picture": "P0947"
+   "placed": false,
+   "picture": null
   },
   {
    "level": 184,
@@ -1136,8 +1136,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0990"
   },
   {
    "level": 193,
@@ -1163,8 +1163,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0042"
   },
   {
    "level": 194,
@@ -1271,8 +1271,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0370"
   },
   {
    "level": 198,
@@ -1298,8 +1298,8 @@
     ],
     "compact": true
    },
-   "placed": false,
-   "picture": null
+   "placed": true,
+   "picture": "P0335"
   },
   {
    "level": 199,
@@ -1357,21 +1357,16 @@
   }
  ],
  "open": [
+  152,
   157,
-  159,
-  164,
-  167,
   170,
-  172,
+  173,
+  174,
   175,
-  177,
   180,
   182,
-  190,
-  192,
-  193,
-  197,
-  198
+  183,
+  190
  ],
  "blockers": [],
  "mechanics": {
@@ -1930,58 +1925,57 @@
   }
  },
  "need": {
-  "Normal": 11,
+  "Normal": 6,
   "Hard": 0,
   "Super Hard": 3,
   "intro": 0,
   "bridge": 0
  },
  "supply": {
-  "pictures": 429,
-  "strong": 132,
+  "pictures": 424,
+  "strong": 128,
   "stream": 0,
   "bank": {
    "знакомство: hidden": 24,
-   "Normal": 422,
-   "знакомство: cells": 14,
+   "Normal": 322,
+   "знакомство: cells": 12,
    "знакомство: links": 20,
    "знакомство: latch": 2,
-   "Hard": 22,
-   "Super Hard": 8
+   "Hard": 18,
+   "Super Hard": 7
   },
   "packs": {
    "owner-0004-0008": 1,
    "owner-0010": 1,
-   "batch-0011-env": 5,
+   "batch-0011-env": 3,
    "batch-0011": 17,
    "batch-0061": 20,
-   "batch-0168-C": 14,
-   "batch-0168-D": 10,
+   "batch-0168-C": 15,
+   "batch-0168-D": 11,
    "batch-0168-E": 1,
-   "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01": 34,
+   "packs-0268-0467 · 50 новых невозможных предметов и миров — 2026-11-01": 33,
    "packs-0268-0467 · Праздники и карнавал": 5,
    "packs-0268-0467 · Доисторические находки": 7,
    "packs-0268-0467 · Невозможная архитектура": 6,
    "packs-0268-0467 · Обмен свойствами предметов": 7,
    "packs-0268-0467 · Уютная мистика": 7,
-   "packs-0268-0467 · Миниатюрные мастерские": 7,
-   "packs-0268-0467 · Музыка": 6,
-   "packs-0268-0467 · Путешествия и походы": 7,
-   "packs-0268-0467 · Необычные магазины": 5,
-   "packs-0268-0467 · Ретрофутуризм": 5,
+   "packs-0268-0467 · Миниатюрные мастерские": 6,
+   "packs-0268-0467 · Музыка": 5,
+   "packs-0268-0467 · Ретрофутуризм": 6,
+   "packs-0268-0467 · Необычные магазины": 4,
+   "packs-0268-0467 · Путешествия и походы": 6,
    "packs-0268-0467 · Новые герои игр": 1,
    "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01": 171,
-   "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02": 92
+   "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02": 91
   },
   "latch": {
    "positions": [
     157,
-    164,
     170,
-    180,
-    193
+    173,
+    180
    ],
-   "pictures": 384
+   "pictures": 380
   },
   "overlay": {}
  },
@@ -2013,8 +2007,7 @@
    "band": "800–1200",
    "pack": "batch-0168-C",
    "hidden": 7,
-   "P": 27,
-   "placed": true
+   "P": 27
   },
   {
    "level": 153,
@@ -2099,20 +2092,23 @@
    "intro": null,
    "recipe": "latch+links+cells",
    "slot": "regular",
-   "picture": "P1008",
-   "title": "Радужный ластик-качалка",
-   "N": 877,
+   "picture": "P0982",
+   "title": "Большая шишка в пуховике",
+   "N": 1108,
    "band": "800–1200",
    "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
    "hidden": 3,
-   "P": 24,
+   "P": 30,
    "tried": [
     "P0304",
     "P1017",
     "P0413",
-    "P0343"
+    "P0343",
+    "P1008",
+    "P1027"
    ],
-   "swappedFrom": "P0343",
+   "wantLoss": true,
+   "swappedFrom": "P1027",
    "swaps": 2
   },
   {
@@ -2145,7 +2141,8 @@
    "P": 18,
    "tried": [
     "P1174"
-   ]
+   ],
+   "placed": true
   },
   {
    "level": 160,
@@ -2226,7 +2223,8 @@
    "pack": "packs-0268-0467 · Необычные магазины",
    "hidden": 4,
    "P": 30,
-   "wantLoss": true
+   "wantLoss": true,
+   "placed": true
   },
   {
    "level": 165,
@@ -2276,7 +2274,8 @@
    "pack": "packs-0268-0467 · Миниатюрные мастерские",
    "hidden": 6,
    "P": 25,
-   "wantLoss": true
+   "wantLoss": true,
+   "placed": true
   },
   {
    "level": 168,
@@ -2351,7 +2350,8 @@
     "P0354",
     "P0035"
    ],
-   "wantLoss": true
+   "wantLoss": true,
+   "placed": true
   },
   {
    "level": 173,
@@ -2366,8 +2366,7 @@
    "pack": "packs-0268-0467 · Ретрофутуризм",
    "hidden": 4,
    "P": 32,
-   "wantLoss": true,
-   "placed": true
+   "wantLoss": true
   },
   {
    "level": 174,
@@ -2382,7 +2381,7 @@
    "pack": "batch-0168-D",
    "hidden": 7,
    "P": 25,
-   "placed": true
+   "wantLoss": true
   },
   {
    "level": 176,
@@ -2419,7 +2418,8 @@
    ],
    "wantLoss": true,
    "swappedFrom": "P0281",
-   "swaps": 1
+   "swaps": 1,
+   "placed": true
   },
   {
    "level": 178,
@@ -2464,20 +2464,22 @@
    "intro": null,
    "recipe": "links+latch+hidden",
    "slot": "Super Hard",
-   "picture": "P0089",
-   "title": "Хрустальный шар с замком",
-   "N": 882,
+   "picture": "P0354",
+   "title": "Башня, сшитая из лоскутов",
+   "N": 880,
    "band": "700–900",
-   "pack": "batch-0061",
-   "hidden": 5,
+   "pack": "packs-0268-0467 · Невозможная архитектура",
+   "hidden": 4,
    "P": 24,
    "tried": [
     "P0221",
     "P0298",
     "P0222",
-    "P0236"
+    "P0236",
+    "P0089",
+    "P0344"
    ],
-   "swappedFrom": "P0236",
+   "swappedFrom": "P0344",
    "swaps": 2
   },
   {
@@ -2501,15 +2503,16 @@
    "intro": null,
    "recipe": "cells",
    "slot": "breather",
-   "picture": "P0384",
-   "title": "Башня стоит на собственном ключе",
-   "N": 385,
+   "picture": "P1129",
+   "title": "Жёлтая куртка-дождевик",
+   "N": 488,
    "band": "400–700",
-   "pack": "packs-0268-0467 · Невозможная архитектура",
+   "pack": "packs-1083-1182 · 100 простых читаемых картинок — 2026-11-02",
    "hidden": 3,
-   "P": 13,
+   "P": 18,
    "tried": [
-    "P0267"
+    "P0267",
+    "P0384"
    ]
   },
   {
@@ -2525,12 +2528,10 @@
    "pack": "packs-0833-1082 · 100 новых картинок основной кампании — 2026-11-01",
    "hidden": 3,
    "P": 30,
-   "swappedFrom": "P0413",
-   "swaps": 1,
    "tried": [
     "P0413"
    ],
-   "placed": true
+   "wantLoss": true
   },
   {
    "level": 184,
@@ -2672,7 +2673,8 @@
     "P1031",
     "P0934"
    ],
-   "wantLoss": true
+   "wantLoss": true,
+   "placed": true
   },
   {
    "level": 193,
@@ -2690,7 +2692,8 @@
    "tried": [
     "P0244"
    ],
-   "wantLoss": true
+   "wantLoss": true,
+   "placed": true
   },
   {
    "level": 194,
@@ -2764,7 +2767,8 @@
    "P": 13,
    "tried": [
     "P1129"
-   ]
+   ],
+   "placed": true
   },
   {
    "level": 198,
@@ -2783,7 +2787,8 @@
     "P0281",
     "P1008"
    ],
-   "wantLoss": true
+   "wantLoss": true,
+   "placed": true
   },
   {
    "level": 199,
@@ -2825,8 +2830,8 @@
  ],
  "assignMissing": [],
  "assignQuota": {
-  "800–1200": 7,
-  "700–900": 3,
+  "800–1200": 4,
+  "700–900": 1,
   "400–700": 1,
   "1200–1500": 1
  },
@@ -2848,7 +2853,7 @@
   },
   "strips": [],
   "scenes": [],
-  "sceneSources": 153,
+  "sceneSources": 151,
   "splits": [
    {
     "level": 175,
@@ -2858,11 +2863,11 @@
     "recipe": "bridge+links",
     "have": 0,
     "sources": [
-     "P0011",
      "P0023",
-     "P0026"
+     "P0026",
+     "P0032"
     ],
-    "command": "node tools/rounds/bridge-scene.mjs make --mode split --from P0011,P0023,P0026 --side two --kind single --cls \"Hard\" --recipe bridge+links --level 175 --out content/rounds/pictures/src/split-L0175.mjs"
+    "command": "node tools/rounds/bridge-scene.mjs make --mode split --from P0023,P0026,P0032 --side two --kind single --cls \"Hard\" --recipe bridge+links --level 175 --out content/rounds/pictures/src/split-L0175.mjs"
    }
   ],
   "avoidMotifs": [

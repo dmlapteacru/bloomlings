@@ -1,0 +1,116 @@
+{
+ "code": "P0461",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Стив — кирка и блок земли",
+ "theme": "Новые герои игр",
+ "family": "Профессии и увлечения",
+ "direction": "Миниатюрные мастерские",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Стив держит кирку; квадратная голова с тёмными волосами и бородой; голубая футболка и синие штаны; земляной блок с травой",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Minecraft",
+  "url": "https://en.wikipedia.org/wiki/Steve_(Minecraft)",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 39,
+ "h": 38,
+ "N": 869,
+ "colours": 9,
+ "volumes": {
+  "E": {
+   "cells": 255,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 219,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "B": {
+   "cells": 132,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 109,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "S": {
+   "cells": 56,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "G": {
+   "cells": 52,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 30,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 12,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 4,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "............EEEEEEEEEEEEEEEE...........",
+  "............EEEEEEEEEEEEEEEE...........",
+  "............EEEEEEEEEEEEEEEE...........",
+  "............EEEEEEEEEEEEEEEE..SS.......",
+  "............EEEEEEEEEEEEEEEEDDSSSS.....",
+  "............EEEAAAAAAAAAAEEDDSSSSSSS...",
+  "............EEEAAAAAAAAAADDSSSSSSSSSDD.",
+  "............EEEACCNNAANCCDDSSSSSSSSSSDD",
+  "............EEEACCNNANNCCEDSSSSSSSSSSSD",
+  "............EEEACCNOOONCCEEDSSDDDSSSSSD",
+  "............EEEAAAAAOAAAAEEDDD...SSSSSD",
+  "............EEAAAEEEEEEEAAEED...EEEDDSD",
+  "............EAAAAEEEEEEEAAAE....EEE.DDD",
+  "............EAAAEEEEEEEEEAAE...EEE.....",
+  "............EEEEEEEEEEEEEAAA...EEE.....",
+  "............EBBBBBBBBBBBAAAAA.EEE......",
+  "..........AAAABBBBBBBBBBBAAAAAEEE......",
+  "..........AAAABBBBBBBBBBBAAAAEEE.......",
+  "..........AAAABBBBBBBBBBBBAAAEEE.......",
+  "..........AAAABBBBBBBBBBBBEAEEE........",
+  "..........AAAABBBBBBBBBBBBEEEEEA.......",
+  "..........AAAABBBBBBBBBBBBEEEEAAA......",
+  "..........AAAABBBBBBBBBBBBEEEEAAAA.....",
+  "..........AAAABBBBBBBBBBBBEEE.AAAA.....",
+  ".GGGGGGGGGGGGGBBBBBBBBBBBBE...AAAA.....",
+  ".GGGGGGGGGGGGGBBBBBBBBBBBBE....AA......",
+  "EGGGGGGGGGGGGGENNNBBBNNNNNE............",
+  "EGGGGGGGGGGGGGENNNNNNNNNNNE............",
+  "EAAAAAAAAAAAAAENNNN..NNNNN.............",
+  "EAAAAAAAAAAAAAENNNN..NNNNN.............",
+  "EAAEEEEAAAAAAAENNNN..NNNNN.............",
+  "EAAEEEEAAAAAAAENNNN..NNNNN.............",
+  "EAAEEEEAAAAAAAENNNN..NNNNN.............",
+  "EAAAAAAAAEEEAAENNNN..NNNNN.............",
+  "EAAAAAAAAEEEAAENNNN..NNNNN.............",
+  "EAAAAAAAAEEEAAENNNN..NNNNN.............",
+  "EAAAAAAAAAAAAAENNNN..NNNNN.............",
+  "EEEEEEEEEEEEEE........................."
+ ]
+}

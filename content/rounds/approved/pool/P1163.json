@@ -1,0 +1,81 @@
+{
+ "code": "P1163",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Полярная сова с закрытым крылом",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Птицы",
+ "direction": "Театр эмоций",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One huge snowy owl portrait, cream round face and body with broad blue-gray folded wings, enormous gold eyes with dark pupils and small orange beak. Two dark markings only, no branch or night sky.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 23,
+ "h": 25,
+ "N": 454,
+ "colours": 6,
+ "volumes": {
+  "C": {
+   "cells": 229,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "B": {
+   "cells": 79,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "D": {
+   "cells": 58,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "N": {
+   "cells": 57,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "O": {
+   "cells": 24,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 7,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........BBBB..........",
+  "......BBBBBBBBBB.......",
+  "....CCCCCBBBBCCCCC.....",
+  "...CCCCCCCBBCCCCCCC....",
+  "..CCCCCCCCCCCCCCCCC....",
+  "..CCCDDDCCCCCDDDDCCC...",
+  "..CCDYDDDCCCCDDDYDCC...",
+  ".CCCDYDDDCCCCDDDYDCC...",
+  ".CCCDYDDDCOOCDDYYDCCN..",
+  ".CCCCDDDDCOOCDDDDCCCN..",
+  ".NCCCCCCCCOOCCCCCCCNN..",
+  ".NNCCCCCCCCCCCCCCCBBB..",
+  ".BBBCCCCCCCCCCCCCBBBBB.",
+  ".NNBBCCCCCCCCCCCCBBNNB.",
+  "NNBBBCCDDCCCCCDCCBBBNBN",
+  "NBBBBCCDDDCCCDDCNBNBBBN",
+  "NBBBBBCCDCCCCDCCNBNNBBN",
+  ".NBBBBCCCCDDCCCCNBBBBBN",
+  ".NBBBBCCDDCDCDDCCBBBBBN",
+  ".NNNNNCCCDCCCDDCCBBNNN.",
+  "..NNNNCCCCCCCCCCCCNNNN.",
+  "..NNNCCCCCCCCCCCCCCNN..",
+  "...NNCCCCCCCCCCCCCCNN..",
+  "....NCOOOOCCOOOOOCNN...",
+  "......OOOO..OOOOO......"
+ ]
+}

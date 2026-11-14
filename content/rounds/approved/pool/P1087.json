@@ -1,0 +1,92 @@
+{
+ "code": "P1087",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Пион с крупными лепестками",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Цветы и букеты",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One enormous pink peony bloom seen at slight angle, only three broad rings of big rounded petals, dark rose center and two chunky green leaves tucked behind the flower. No stem or vase.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 29,
+ "N": 686,
+ "colours": 7,
+ "volumes": {
+  "P": {
+   "cells": 271,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "R": {
+   "cells": 193,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "K": {
+   "cells": 124,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "M": {
+   "cells": 49,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 36,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 10,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 3,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............K...............",
+  "...MMM.....KKKKKK..K..........",
+  ".MGGGGGG.PPKKKPKKKKKKKK.......",
+  ".MGGGGGGPPPPPPPKKKPPKKKK......",
+  ".MGGGGGGPPRPRRRPPPPPPPKK......",
+  "..MGGGMRPRRRKKRRRRRPPPPKRR....",
+  "..MGMMMRRRKKKKRRRRRRRRRRRPP...",
+  "..MMMKKPRRKKKRRRRRPPPPRRRPPP..",
+  "...MKKPPRPPKRRRRRRRRPPPRRPPP..",
+  "..PPKKKKPPPKRRYRYRRRRPPPRPPP..",
+  ".PPPPKKKPPPKRRYYYYRRRRPKKRPP..",
+  "RPPPPKKKRPPKRRROOYYYRRRKKRRRR.",
+  "RPPPPPKKRPPKRRRORRRYRRPKKKRRPP",
+  "RPPPPPPKRRPPRKKRRRRRRPPPKKRRPP",
+  "RPPPPPPKRRKKKKKKRRRPPPPPKRRPPP",
+  "RPPPPPPKRRKKKKKKKKRPPPPPPRRPPP",
+  ".PPPPPPPRKKPPPKKKKKRPPPPRRPPP.",
+  ".MPPPRPPPPKPPPKPKKKRPPPRRPPPP.",
+  ".MMRRRRPRPPPPPPPPKKRRRRKKKPR..",
+  ".MMMMKKKRRPPPPPPPKKRRKKKKKRRR.",
+  ".GGMMPPKRRRPPPPPPPPRKKKPPPRPR.",
+  ".GGMMPPPRRRRPPPPPPKKKPPPPRRPP.",
+  ".GGGMMPPPRRRRRPPPPKKPPPRRRPPP.",
+  ".GGGMMMPPPPPRRRRRPPPPRRRRPPP..",
+  "..GGMMMPPPPPPPRRRRRRRRRRPPPP..",
+  "..GGMMM.PPPPPPRPRRRRRRPPPP....",
+  "...MMM....PPMMMPPPRRPPPP......",
+  "....M.......MMMPPPPPPPP.......",
+  "..............M..RRRRR........"
+ ]
+}

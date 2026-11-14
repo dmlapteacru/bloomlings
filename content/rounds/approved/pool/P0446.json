@@ -1,0 +1,117 @@
+{
+ "code": "P0446",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Финн — меч и рюкзак",
+ "theme": "Новые герои мультфильмов",
+ "family": "Герои приключений",
+ "direction": "Фольклорная фантазия",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Финн с мечом и рюкзаком; белая шапка с двумя ушками; голубая футболка и тёмные шорты; крупный меч",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Adventure Time",
+  "url": "https://en.wikipedia.org/wiki/Finn_the_Human",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 39,
+ "N": 879,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 213,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 203,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "B": {
+   "cells": 85,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "S": {
+   "cells": 79,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "K": {
+   "cells": 74,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "G": {
+   "cells": 69,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "N": {
+   "cells": 65,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "L": {
+   "cells": 55,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "Y": {
+   "cells": 36,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...............................DD..",
+  "..............................DDDD.",
+  "........DDDDDD......DDDDDD...DDSSD.",
+  "........DCCCCCD.....CCCCCD..DDSSSSD",
+  "........DCCCCCD....DCCCCCD..DSSSSSD",
+  "........DCCCCCDDDDDDCCCCCD..DSSSSSD",
+  "........DCCCCCCCCCCCCCCCCD..DSSSSSD",
+  "........DCCCCCCCCCCCCCCCCD..DSSSSSD",
+  "........DCCCCCKKKKKKKCCCCD..DSSSSSD",
+  "........DCCCCKKKKKKKKKCCCD..DSSSSSD",
+  "........DCCCKKDKKKKKDKKCCD..DSSSSSD",
+  "........DCCKKDDDKKKDDDKKCD..DSSSSSD",
+  "........DCCKKDDDKKKDDDKKCD..DSSSSSD",
+  ".....DDDDCCKKKKKKKKKKKKKCD..DSSSSS.",
+  "....GGGGDCCCKKKDKKKDKKKCCD..DSSSSD.",
+  "...GGGGGDCCCKKKDDDDDKKKCCD..DSSSSD.",
+  "..GGGGGGDCCCCCKKDDDKKCCCCD..DSSSSD.",
+  ".DGGGGGGDCCCCCCCKKKCCCCCD...DSSSSD.",
+  ".DGGLLLLDDCCCCCCCCCCCCCDD...DSSSSD.",
+  ".DGLLLLLLDDCCCCCCCCCCCDDD...DYSSSD.",
+  "DGLLLLLLLDDDCCCCCCCCCDDBD..YYYYYYYY",
+  "DGLLLLLLLLDCDDDDCCDDDBBBCCCYYYYYYYY",
+  "DGLLLLLLLCCCCBBBBBBBBBBCCCCCYYYYYYY",
+  "DGLLLLLLCCCCBBBBBBBBBBBBCC....YYY..",
+  "DGLLLLLCCCCBBBBBBBBBBBBBD.....YYY..",
+  "DGLLLCCCCCDBBBBBBBBBBBBBD.....YYY..",
+  "DGLLCCCCLGDBBBBBBBBBBBBBD.....YYY..",
+  ".DGLCCCLLGDBBBBBBBBBBBBBD..........",
+  ".DGGCLLLGGDNNNNNBBBBNNNNN..........",
+  ".DGGGGGGGGDNNNNNNBBBNNNNN..........",
+  "..GGGGGGGGGNNNNNNNNNNNNNN..........",
+  "...GGGGGGGGNNNNNN..NNNNNN..........",
+  "....GGGGGGDNNNNNN...NNNNN..........",
+  ".....DDDDDDNNCCNN...NCCNN..........",
+  "............CCC......CCC...........",
+  "............CCC......CCC...........",
+  "...........DDDC......CCDDD.........",
+  "..........DDDDDD.....DDDDDD........",
+  "..........DDDDDD.....DDDDDD........"
+ ]
+}

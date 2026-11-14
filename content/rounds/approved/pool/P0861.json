@@ -1,0 +1,106 @@
+{
+ "code": "P0861",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Коралл из карандашей",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Рисование и ремёсла",
+ "direction": "Предметные гибриды",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Три толстых цветных карандаша разветвляются как коралл, крупные заточенные кончики смотрят в разные стороны, всё стоит в маленькой золотой подставке без моря",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 35,
+ "h": 35,
+ "N": 1225,
+ "colours": 9,
+ "volumes": {
+  "N": {
+   "cells": 369,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "O": {
+   "cells": 207,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 140,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 110,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 104,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "P": {
+   "cells": 88,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "R": {
+   "cells": 86,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 64,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 57,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "PPPPCCCCPPPPPPPPPRRPPPPPPPPPPPPPCCC",
+  "CPPPCCCCNNNNNNNNNRRNNNNNNNPPPPPPCCC",
+  "CPPNNNNNNNNNNNNNRRRNNNNNNNPPPPPPCCP",
+  "CNNNNNNNNNNNNNNNCCCCNNNNNNPPPPPNNCP",
+  "CNNNNNNNNNNNNNNCCCCCNNNNNNPPPNNNNCP",
+  "CNNNNRRNNNNNNNNCCCCONNNNNNPPCCNNNCP",
+  "CNNNNRRRNNNNNNYYYCCONNNNNNCCCCCNPPP",
+  "CNNNNNRCCNNNNNOOYYYOONNNNNCCCCODPPA",
+  "CNNNNNCCCCCNNNOOYYYOONNNNNNCCOOPPPA",
+  "CNNNNNCCCCRRNNOOYYYOONNNNNNNCOOPPAA",
+  "CNNNNNCCCCRRNNOOOYYOONNDNNNNNOONNEE",
+  "CCNNNNNRRRRRNNDOOYYYONDDNNNNNNNNNEE",
+  "CCNNNNNRRRRRRRRROOYYOODNNNNNNNNNEEE",
+  "CDDNNNNRRRRRRRRROOYYOONNNNNNPNNNEEE",
+  "DDDDDNNNRRRRRRRRROOYYONNNNNPPNNNEOE",
+  "DDDDDDNNNRRRRRRRRROYYONNNNNPPNNNEOE",
+  "DDDDDDDNNNNRRRRRRRRYYONNNNNPPPNNEOE",
+  "DDDDDDDNNNNNNRRRRRRYYONNNNNPPPCNEEE",
+  "DDDNNNNNNNNNNNRRRRRYYONNNNNPPCCCCCD",
+  "DDDDDNNNNNNNNNRRRRRYOONNNYYPPCCCCCC",
+  "DDDDDDNNNNNNYYRRRRYYONNNDYYPPCCCCCC",
+  "DDDDDDDNNNNNYYYYCYYYYCYYOAAPPCCCCCC",
+  "AADDDDDNNNNNYAAYYOOOYYYOOAYPPCCCCCC",
+  "OAANNDDNNNNNYAAYYOOOOYYOOAYNNCCCCCC",
+  "OOONNNDNNNNNAAAAYOOOOOYOOAYNNCCCCCC",
+  "OONNNNNNNNNNAAAAYOOYYOOOOOYNNCCCCCC",
+  "OONNNNNNNNNNAAAAYYOYYOOOOOYNACCCCCC",
+  "OONNNNNNNNAAAAYYYOYYYYOOOOOAAACCCCC",
+  "OANNNAAAAAAAAAYYYOYYYYOOOOOOOOAAAAA",
+  "AAAAAAAOOOOAAAAAYOYYYOOOOOAAAAAAAOO",
+  "AAOOOOOOOOOOOEAAOOOYYOYAAAAAAAOOOOO",
+  "OOOOOAAAOAAEEEAAAOOOOOYYYAAOOOOOOOO",
+  "OOOOOOOOAAAEEEAAYYAAACYYOOOOOOOOEEE",
+  "EEOOOOOOOOOAAAAOYYYYYYYOOOOOOEEEEEE",
+  "EEEEEEOOOOOOOOOOEEEEEEOOOOOEEEEEEEE"
+ ]
+}

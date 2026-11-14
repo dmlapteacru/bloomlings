@@ -1,0 +1,110 @@
+{
+ "code": "P1026",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Оранжевый дождевик для груши",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Одежда и аксессуары",
+ "direction": "Театр эмоций",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна крупная зелёная груша с добрыми глазами одета в большой оранжевый дождевик с синими застёжками, зелёный лист выглядывает из капюшона, кремовая низкая площадка",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 38,
+ "N": 1078,
+ "colours": 9,
+ "volumes": {
+  "O": {
+   "cells": 526,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "L": {
+   "cells": 139,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "C": {
+   "cells": 131,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 69,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "D": {
+   "cells": 67,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "G": {
+   "cells": 53,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "N": {
+   "cells": 36,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "M": {
+   "cells": 34,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "A": {
+   "cells": 23,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..........OOOOOOOOOOODMMMMMMGGD...",
+  ".........OOLOOOOEEOOOOMMMMMMGGGD..",
+  "........OOLLOOEEEEEOOOOMMMMGGGGD..",
+  ".......OOOOOOOODEDGGGOOOMMMGGGGGD.",
+  "......OOOOOGGGLLLLLGGDOOOMMMGGGGD.",
+  ".....OOOOOOGGLLLLLLLLLOOOOMMMMMGD.",
+  "....OOOOOGGGLDLLLLLLLLLOOOODDDMM..",
+  "...OOOOOOGGLLLLLLLLLLLLDOOOO...D..",
+  "...OOOOOOGGLLLLLLLLLCCLLEEOOO.....",
+  "..OOOOOEDGLLCCCLLLLLCDDLEEOOO.....",
+  "..OOOOEEGGLCCDDDLLLLDDDLLOOOOO....",
+  ".EOOOOEDGLLCCDDDLLLLCDDLLDOOOO....",
+  ".EOOOOEGGLLCCDDDLLLLCDDLLLDOOO....",
+  ".EOOOOEGGLLCCDDDLLLLDCCLLLDOOE....",
+  ".EOOOOOGLLLLCCDLLDDDLLLLLLOOOE....",
+  "..OOOOOOLLLLLLLLLDDDLLLLLOOOOE....",
+  "..OOOOOOOLLLLLLLLLLLLLLLOOOOO.....",
+  "...OOOOOOOOEEEELLLLLLLOOOOOOOO....",
+  "....EEOOOOOOOOOOOOOOOOOOOOOOOOO...",
+  "....EOOOOOOOOOOOOOOOOOOOOOOOOOOO..",
+  "...OOOOOOOOOOOOOOOOOOOOOOOOOOOOOO.",
+  "..OOOOOOOOOOOOOOODOOOONOOOOOOOOOO.",
+  "..OOOOOOOOOOOOOOONNNNNNNOOOOOOOOOE",
+  ".OOOOOOOOOOOOOOODNNNNNNNOOOOOOOOOE",
+  "EOOOOOOOOOOOOOOOONNOOONOOOOOOOOOEE",
+  "EOEEEOOOOOOOOOOOOOOOOOOOOOOOOOAAA.",
+  "EAAAEEOOOOOOOOOOOOOOOONOOOOOOEAA..",
+  ".AAAAAOOOOOOOOOODNNNNNNNOOOOOEE...",
+  "..AAAAEOOOOOOOOODNNNNNNNOOOOOOE...",
+  "...EEEEOOOOOOOOOONNOEONOOOOOOOE...",
+  "..OOOOOOOOOOOOOOOOOOEOOOOOOOOOE...",
+  ".CCOOOOOOOOOOOOOOOOOEOOOOOOOCCCC..",
+  "CCCCCOOOOOOOOOOOOOOOEOOOOOOCCCCCC.",
+  "CCCCCCDDDEEEEEEEEEEGGGGDDDDCCCCCC.",
+  ".CCCCCCCDDMMMMMGGGGDDCDDCCCCCCCC..",
+  "..CCCCCCCCCCCCCCCCCCCCCCCCCCCCC...",
+  "...CCCCCCCCCCCCCCCCCCCCCCCCAAA....",
+  "........CCCCCCCCCCCCCAAA.........."
+ ]
+}

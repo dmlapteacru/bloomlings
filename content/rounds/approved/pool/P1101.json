@@ -1,0 +1,80 @@
+{
+ "code": "P1101",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Панда с бамбуковой палочкой",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Саванна и джунгли",
+ "direction": "Театр эмоций",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "Close-up large friendly panda head and round shoulders, cream-white face, dark round ears and large distinct dark eye patches, two paws hold one thick green bamboo stem. Two big visible pupils, no scenery.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 27,
+ "N": 638,
+ "colours": 5,
+ "volumes": {
+  "D": {
+   "cells": 304,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 242,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 75,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 11,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "R": {
+   "cells": 6,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...DDDD.............DDD.......",
+  "..DDDDDD...CCCCC...DDDDD......",
+  ".DDDDDDDCCCCCCCCCCDDDDDDD.....",
+  ".DDDDDDDCCCCCCCCCCDDDDDDD.....",
+  ".DDDDDDCCCCCCCCCCCCCDDDDDD....",
+  ".DDDDDCCCCCCCCCCCCCCCDDDDD....",
+  ".DDDDCCCCCCCCCCCCCCCCCDDD.....",
+  "...DCCCCDDDCCCCCDDDCCCDD......",
+  "...CCCCDDDDDCCCDDDDDCCCC......",
+  "..CCCCDDDDDDCCCDDDDDDCCC......",
+  "..CCCDDDDDDDCCCDDDCDDCCC......",
+  ".CCCCDDCDDDCCCCDDDCDDDCCC.....",
+  ".CCCCDDDDDDCDDDCDDCDDDCCC.....",
+  ".CCCCDDDDDCCDDDCCDDDDDCCC.....",
+  ".CCCCDDDDCCCCDCCDCDDDCCCC.G...",
+  "..CCCCCCCCDDDDDDDCCCCCCCCGG...",
+  "..CCCCCCCCCCRRRDCCCCCCCCGGG...",
+  "...DCCCCCCCCRRRCCCCMMMCCGGG...",
+  "..DDDDCCCCCCCCCCCGGGGGDCGG....",
+  ".DDDDDDDDCCCCCGGGGGGGGDMGGGG..",
+  "DDDDDDDDDDDCGGGGGGDDDDDMMGGGG.",
+  "DDDDDDDDDDGGGGGGGDDDDDDDD.GGG.",
+  "DDDDDDDDDDGGGGGGDDDDDDDDD...GG",
+  "DDDDDDDDDDGGGGGGDDDDDDDDDD....",
+  "DDDDDDDDDDGGGGGCDDDDDDDDDD....",
+  ".DGGGDDDDMMMCCCCCDDDDDDDDD....",
+  ".GGGGGDDMMCCCCCCCCDDDDDDD....."
+ ]
+}

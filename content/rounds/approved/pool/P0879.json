@@ -1,0 +1,114 @@
+{
+ "code": "P0879",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Виноградная карусель",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Ярмарки и праздники",
+ "direction": "Кулинарная фантастика",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Компактная карусель: круглая зелёная крыша-лист, под ней три крупные фиолетовые виноградины-кабинки, золотая центральная ось и розовая площадка",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 43,
+ "h": 43,
+ "N": 1333,
+ "colours": 9,
+ "volumes": {
+  "V": {
+   "cells": 371,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "G": {
+   "cells": 284,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "P": {
+   "cells": 251,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "D": {
+   "cells": 111,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "M": {
+   "cells": 111,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "R": {
+   "cells": 88,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "O": {
+   "cells": 62,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 32,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 23,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...................OOOOO...................",
+  ".................DDOOOOOD..................",
+  "..............DDMMMAAAAAMMMMDDD............",
+  "........DDDGGGGGGMGGGGMMMMMMMMMMMDD........",
+  "......DGGGGGGMMMMGGGGGMMMMMMMMMMGGGGDD.....",
+  "....DGGGGMMMMMMMGGGGGGGMMMMGGMMMMMGGGGD....",
+  "...DGGGMMMMMMMGGGGGGGGGGMMMMGGGMMMMMGGGD...",
+  "..DGGGGGGMMGGGGGGGGGGGGGMGGMGGGGGMMMMGGGG..",
+  ".DGGGGGGGMGGGGGGGGGGGGGGGGGGMGGGGGMMMMGGGD.",
+  ".GGGGGGGGGGGGGGGGGGGGGGGGGGGMGGGGGGMMMMGGG.",
+  "DGGGGGGGGGGGDDGGGGGGGGGGGGGGMDDGGGGMMMMMGGD",
+  "DGGMMMGMMMDD.DGGGGGGGDGGGGGGMD.DDGGMMMMDGGD",
+  "DGD.DDDDD....DGGGGGDDDDGGGGGMD....ADDDD.DDD",
+  "......AAA.....DGGDMMMDADMDDDD.....AOA......",
+  "......AAO......D.DMMMOAMMD........AOA......",
+  "......AOO........DDDAOA...........AOA......",
+  "....DOOOOO........C.AOA.........DDOOGGD....",
+  "...DGGGOGGGD......DDAOADD......GGGGGGGGG...",
+  "..DGGGGDGGGGD....DGGAOAGGG....DGGGGDGGGGD..",
+  "..DGGDVVVGGGD...VGGGAOADGGV...DGGDDDVDGGD..",
+  ".VVDVVVVVVDVV..VVVDDAOAVVVVV..VVVVVVVVVVV..",
+  ".VVVVVVVVVVVVV.VVVVDOODDVVVV.VVVVVVVVVVVVV.",
+  ".VVVVVVVVVVVVV.VVVVVVGGGDVVVVVVVVVVVVVVVVV.",
+  ".VVVVVVVVVVVVV.VVVVVVDGGGVVV.VVVVVVVVVVVVV.",
+  ".VVVVVVVVVVVVV.VVVVVVVDGGVVV.VVVVVVVVVVVVV.",
+  ".VVVVVVVVVVVVD.VVVVVVVVVVVVV..VVVVVVVVVVV..",
+  ".VVVVVVVVVVVV..VVVVVVVVVVVVV..VVVVVVVVVVV..",
+  "..VVVVVVVVVV...VVVVVVVVVVVVV...VVVVVVVVV...",
+  "..VVVVVVVVV....VVVVVVVVVVVVV....VVVVVVV....",
+  "....VVVVVV....VVVVVVVVVVVVVVV...CVVVV......",
+  ".......OOORRRPPVVVVVVVVVVVVPPPRRROO........",
+  "......OOOORRRRPPVVVVVVVVVVVPPPPPOOOO.......",
+  "....PPPOOORRRPPPPVVVVVVVVVPPPPPPOOOOPPP....",
+  "..PPPPPPPRRRRPPPPPPVVVVVPPPPPPPPRRRPPPPP...",
+  "..RPPPPPPPPPPPPPPPPPOOOPPPPPPPPPRRPPPPPPR..",
+  "..RPCCPPPPPPPPPPPPPPOOOPPPPPPPPPPPPPCCCPR..",
+  "..RPPPPCCCCPPPPPPPPPOOOPPPPPPPPCPPPPPPPPR..",
+  "..RPPPPPPPPPCCCCCCPPPPPPPCCCCCPPPPPPPPPPR..",
+  "..RRRPPPPPPPPPPPPPPPPPPPPPPPPPPPRPPPPRRR...",
+  "...RRRPPPPPPPPPPPPPPPPPPPPPPPPPRRRPPRRRR...",
+  ".....RRRRPPPPPPPPPPPPPPPRRRPPPRRRRRRR......",
+  ".........RRRPRRRPPPRRPRRRRRRRRRRRR.........",
+  "..................RRRRRRR.................."
+ ]
+}

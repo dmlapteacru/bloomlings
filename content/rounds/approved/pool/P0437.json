@@ -1,0 +1,80 @@
+{
+ "code": "P0437",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Снупи — на крыше будки",
+ "theme": "Новые герои мультфильмов",
+ "family": "Домашние животные",
+ "direction": "Уютный сюрреализм",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Снупи лежит на своей будке; белая вытянутая мордочка и чёрное ухо; красная крыша; лапы и маленький хвост",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Peanuts",
+  "url": "https://en.wikipedia.org/wiki/Snoopy",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 24,
+ "h": 23,
+ "N": 382,
+ "colours": 5,
+ "volumes": {
+  "A": {
+   "cells": 118,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 105,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 92,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 50,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "E": {
+   "cells": 17,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...............DDDD.....",
+  "............CCCCCCCCC...",
+  "............CCCCCCCCCD..",
+  "...........CCCDCCCCCCDD.",
+  "...........CCDDDCCCCCDD.",
+  ".CC.DDDDCCCCCDDDCCCCCCD.",
+  "..CCDDCCCCCDDDDDCCCCCC..",
+  "..DCDDDCCCCCCDDDDDDDD...",
+  "..DDDDDCCCCCCCCRR.......",
+  "...DDDCCCCCCCCCRRRR.....",
+  "...RRDDCCDDDRRCCRRRRR...",
+  ".ERRRRRCCRRRRRCCRRRRREE.",
+  "EERRRRRRRRRRRRRRRRRRRREE",
+  "...AAAAAAAAAAAAAAAAAE...",
+  "...AAAAAAAAAAAAAAAAAE...",
+  "...AAAAAAADDDDAAAAAAE...",
+  "...AAAAAADDDDDDAAAAAE...",
+  "...AAAAAADDDDDDDAAAAE...",
+  "...AAAAAADDDDDDDAAAAE...",
+  "...AAAAAADDDDDDDAAAAE...",
+  "...AAAAAADDDDDDDAAAAE...",
+  "...AAAAAADDDDDDDAAAAE...",
+  "...AAAAAADDDDDDDAAAAE..."
+ ]
+}

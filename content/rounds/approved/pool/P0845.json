@@ -1,0 +1,106 @@
+{
+ "code": "P0845",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Мозаика в раскрытой пудренице",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Одежда и аксессуары",
+ "direction": "Миры внутри предметов",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Раскрытая круглая пудреница с золотым ободком, в нижней половине компактный цветочный мозаичный сад, в верхней крышке отражён один большой розовый цветок",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 35,
+ "h": 35,
+ "N": 1225,
+ "colours": 9,
+ "volumes": {
+  "N": {
+   "cells": 319,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "P": {
+   "cells": 286,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "Y": {
+   "cells": 173,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 95,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "S": {
+   "cells": 90,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "M": {
+   "cells": 87,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "A": {
+   "cells": 69,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 55,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "O": {
+   "cells": 51,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "PPPPPPPPPPPPPYYYYYYYYYPPPPPPPPNYYNN",
+  "PPPMMPPPPPPYYYCYAAAAYYYPPPPPPPNYONN",
+  "PPMMMCCPPPYYYYSSSSSSSSYYPPPPPNNYONN",
+  "PMMMCCCPPYYYSSSSSSSSSSYYYPPPPNNYOSS",
+  "PDPPCCCPPYYSSSSSPPPPSSSYYPPPPNNYOSS",
+  "MMPCMMPPYYSSSSSPPPPPPSSSYPPPPNNYYSN",
+  "MMCCCMPPYYSSPPPPPPPPPPSSYPPPPNNYYNN",
+  "MMCCCMPYYSSSPPPPPPPPPPSSSAYPPPNOYNN",
+  "MMCCCMMOYSSPPPPPPOPPPPPSSAYPPPNOYNS",
+  "MDMMMOOOASSPPPPPCOOPPPPPSAYPPPNOONS",
+  "MMMMPDDYASSPPPPPCCCPPPPPSAYPPPNNOSS",
+  "MMMMPPPYASSMPPPPCCCPPPPPSYPPPPPNOOO",
+  "MMMDPPPYASMMPPPPPPPPPPPSYYPPPAANNOO",
+  "MMDCCCPPASSMPPPPPPPPPPSSYYPPPAYNNNN",
+  "DDDDCCPPAMMMMMPPPPPPPPSYYPPPPAYNNNN",
+  "CCCCCCPPMMMMSMMPPPPPPYYYYPPDCYYDDNN",
+  "SCCCCPPPPSSSSMMMMMMMMYYYNNNCCCCCCNN",
+  "SCCCCNNPPDSSSMMMMMMYYYYNNNNCSCNNNNN",
+  "SSCCNNNNNNNYYYAAAAYYYYNNNNNCSCNNNNN",
+  "SSCNNNNNNNNDYYYYYYYYYYYYNNNNSCNNCNN",
+  "NNNNNNNNNYYYYNNNNNPPPCCCYYYNNCCCNNN",
+  "NNNNNNNNYYDDNNPNNMDPPCCCDYYYNNNNNYY",
+  "NNNNNNNYYDDMMPPPNMMDCCCCCYYYYNNNNYY",
+  "NNNNNNDYYPPMMDPPPDPPCCCCDDDDYNNNNNN",
+  "NNNAAAYYYPPCMMDDPPPPPDDPPPPDCYNNNNN",
+  "AAAANNDYYYCCCMMPPPPPPMMPPPPPYYNNNNN",
+  "ANNNNNOYYYCCCDPDPPPPDMMPPPPDYNNNNNN",
+  "NNNNNNOOYYCCCPPPPDDDDDDDDYYNNNNNNNN",
+  "NNNNNNNYYYYYYPPPMMDDOODDDYYAANNNNNN",
+  "NNNNNNNYYYOYYYPPMMDDOOYYYYAAANNNNNN",
+  "ONNNNNNNYYOOOYYYCCCCCOOOAAAANNNNNNN",
+  "OONNNNNNNNOOOOOYAAAAAAOOAAANNNNNNNN",
+  "NNNNNNNNNNNOOOOYAYYYYYOOADNNNNNNNNA",
+  "NNNNNNNNNNNNNAAAAAAAAAANNNNNNNNNAAA",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNAAAAA"
+ ]
+}

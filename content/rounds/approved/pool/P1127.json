@@ -1,0 +1,83 @@
+{
+ "code": "P1127",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Алый гибискус с крупной серединой",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Цветы и букеты",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One enormous red hibiscus flower with five broad rounded petals, dark red base and one short thick gold central stamen, two green leaves tucked under the flower. No long spindly stem or pot.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 31,
+ "h": 30,
+ "N": 682,
+ "colours": 5,
+ "volumes": {
+  "R": {
+   "cells": 544,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "G": {
+   "cells": 65,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 32,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "E": {
+   "cells": 22,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 19,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................RRR...........",
+  "...............RRRRRRR.........",
+  ".........RR...RRRRRRRRR........",
+  "......RRRRRR..RRRRRRRRR........",
+  "....RRRRRRRRRRRRRRRRRRRR.......",
+  "...RRRRRRRRRRRRRRRRRRRRR.......",
+  "..RRRRRRRRRRRRRRRYYRRRRR.......",
+  "..RRRRRRRRRRRRRRYYRRRRRRRRRR...",
+  ".RRRRRRRRRRRRRRRYYYRRRRRRRRRR..",
+  ".RRRRRRRRRRRRRRRYYRRRRRRRRRRRR.",
+  "..RRRRRRRRRRRRRRYYYRRRRRRRRRRR.",
+  "..RRRRRRRRRRRRRRYRRRRRRRRRRRRRR",
+  "...RRRRRRRRRREEYYRRRRRRRRRRRRRR",
+  "...RRRRRRRRREEEYERERRRRRRRRRRRR",
+  "..RRRRRRRRRREEYYEEERRRRRRRRRRR.",
+  ".RRRRRRRRRRREEYEEERRRRRRRRRRRR.",
+  ".RRRRRRRRRRRREEEERRRRRRRRRRRR..",
+  "RRRRRRRRRRRRRERRRRRRRRRRRRRR...",
+  "RRRRRRRRRRRRRRRRRRRRRRRRRMM....",
+  "RRRRRRRRRRRRRRRRRRRRRRRRRMMM...",
+  ".RRRRRRRRRRRRRRRRRRRRRRRRRGGG..",
+  "..RRRRRRRRRRRRRRRRRRRRRRRRGGG..",
+  "..RRRRRRRRMRRRRRRRRRRRRRRMGGGG.",
+  ".GGGMMMRMMMMRRRRRRRRRRRRRMGGGG.",
+  ".GGGGMGGMMMMRRRRRRRRRRRRRMGGGG.",
+  ".GGGGGGGGGM..RRRRRRRRRRRMGGGGG.",
+  ".GGGGGGGGG....RRRRRRRRR.MMMGGG.",
+  ".GGGGGGGG.......RRRRRR.....MMM.",
+  ".GGGMMM...........RRR..........",
+  ".G............................."
+ ]
+}

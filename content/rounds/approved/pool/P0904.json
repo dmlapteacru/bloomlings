@@ -1,0 +1,112 @@
+{
+ "code": "P0904",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Репка-король",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Маски и костюмы",
+ "direction": "Фольклорная фантазия",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один округлый кремовый сказочный персонаж-репка в большой золотой короне и розовой мантии, зелёные листья как волосы, дружелюбные глаза и короткие лапки",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 42,
+ "h": 41,
+ "N": 1390,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 538,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 213,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "E": {
+   "cells": 135,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "R": {
+   "cells": 113,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 108,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 101,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "M": {
+   "cells": 92,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "S": {
+   "cells": 46,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "A": {
+   "cells": 44,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "................EYEE......DGDDDDDD........",
+  "...............EEYYEE....GGGGGGGGGD.......",
+  "...............ECYYYY...GGGGGGGGGGDD......",
+  ".....DDGGGGDD..EYYYYY..DGGGGGGGGGGGGGD....",
+  "....DGGGGGGGGGD.YYYYYY.DYYMMMGGGGGGGGGD...",
+  "....DGGGGGGGMGGDYYYYYYYYYYMMGGGGGGGMMMDD..",
+  "....DGGGGGGGMMMDYYYRRYYYYYMGGMMGGGMMMMMM..",
+  "...DGGGGGGGGGYYYYYYRRYYYYYMMMMMMMMMMMMMM..",
+  "..DGGGGGGGGAAYYYYYYYYYYYYYMMMMDGMMMMMMM...",
+  "..GGGGMMGGGMAAAAYYYYYYYYYYDMMGGGGGMMMM....",
+  "..MGGMMMDMMMMAAYYYYYYYYYYYDMMMMMGGGGC.....",
+  ".DMMMMMMDDDMMAAAYYYYYYYYEEEMGGGGGGGGD.....",
+  "..MMMMMDDDDDMAAAAYEEECCCCCCCCGGGGGGGD.....",
+  "...DDDDDGGMMMAAAACCCCCCCCCCCCCGGGGGGD.....",
+  "....C.DGGMMGGCCCCCCCCCCCCCCCCCCCGGGGGD....",
+  "....DGGGGMGGGDCCCCCCCCCCCCCCDDCCCDGGMD....",
+  "...GGGGGGGGGGDCCCCCCCCCCCCCCDDDCCCDMM.....",
+  "..DGGGGGGGGGGCCCCCDDDCCCCCCDDDDCCCCC......",
+  "..DGGGGGGGGGGCCCCDDCCCCCCCCCDDDCCCCC......",
+  "..DGGGGGGGGGCCCCCDDDEECCCCCCDDDCRRCCC.....",
+  "..DGGGGGGDCCCCCCCDDDEECCCCCCCCCCRRCCCC....",
+  "..DGGGGGDDACCCCCCCEEECCEEEEEECCCRRCCCCC...",
+  "..DGGGDDDDACCCCCRRRCCCCEEEEEECCCCCCCCCC...",
+  "..DDDD.CCCACCCCCRRRCCCCCRRRECCCCCCCCCCC...",
+  "....D..CCCCCCCCCRRRCCCCCRRRRCCCCCCCCCCC...",
+  ".......CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCE...",
+  ".......CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCEE..",
+  ".......RCCCCCCCCCCCCCCCCCCCCCCCCCCCCCRRE..",
+  "......RRRRCCCCCCCCCCCCCCCYYYYCCCCCCCCRRR..",
+  "......RRRRRREEECCCCCCCCCEYYCYYCCEEECCRRR..",
+  ".....RRRRRRRRRRCCCCEEEEEEYYYYYEEEECCCRRRE.",
+  "....RRRRRRRRRRRCCCCEEAAACYYYCCCCEEECCCRRE.",
+  "..EERRRRRRRRRRCCCCEEECCCCCCCCCCCCEECCCRRE.",
+  ".CCERRRRRRRRRRCCCCEECCCCCCCCCCCCCEEECCCRE.",
+  "ECCERRRRRRRRCCCCCEECCCCCCCCCCCCCEEEECCCCCC",
+  "ECCCRRRRRRRCCCCCEAACCCCCCCCCCCCEERREECCCCC",
+  "ECCCCCCCCCCCCCCEEEACCCCCCCCCCCEEEERRECCCCC",
+  ".CCCCCCCCCCCCCEEEEAAEECCCCCEEAAE..EEEECCC.",
+  "..CCCCCCCCCCCCSSEAAAAEEESSEEAAAESSSSS.CC..",
+  "....EEECCEEESSSSSAAAASSSSSSEEAEESSSSSS....",
+  ".........SSSSSSSSEEEESSSSSSSSSSSS........."
+ ]
+}

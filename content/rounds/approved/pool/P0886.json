@@ -1,0 +1,114 @@
+{
+ "code": "P0886",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Бегемот раздаёт полотенца",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Саванна и джунгли",
+ "direction": "Обмен ролями",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Крупный добродушный фиолетовый бегемот несёт стопку из трёх толстых полотенец, розового, кремового и синего, широкая морда и маленькие округлые уши",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 40,
+ "h": 43,
+ "N": 1310,
+ "colours": 9,
+ "volumes": {
+  "V": {
+   "cells": 713,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "C": {
+   "cells": 199,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "B": {
+   "cells": 115,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "P": {
+   "cells": 91,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "R": {
+   "cells": 73,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 65,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "N": {
+   "cells": 43,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "K": {
+   "cells": 7,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "E": {
+   "cells": 4,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...............VVVV.....................",
+  "...............VVVV..VVVV......VV.......",
+  "...............VVVVVVVVVVVVD..VVVV......",
+  "...............DVVVVVVVVVVVVVVVVVVV.....",
+  "...............VVVVVVVVVVVVVVVVVVVD.....",
+  "..............VVCVVVVVVVVVVVVVVVVV......",
+  ".............VVDDDVVVVVVCCCVVVVVD.......",
+  "........VVVVVVVDDDVVVVVDDDCVVVVV........",
+  "......VVVVVVVVVVVVVVVVVDDDCVVVVVD.......",
+  ".....VVVVVVVVVVVVVVVVVVDDDCVVVVVD.......",
+  "....VVVDVVVVVVVVVVVVVVVVCCVVVVVVV.......",
+  "....VVVVVVVVVVVVDVVVVVVVVVVVVVVVV.......",
+  "...VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV......",
+  "...VVVVVVVVVVVVVVVVVVVVVVVVVVVVVVV......",
+  "...VVVVVVVVVVVVVVVVVVVVVDDVVVVVVVV......",
+  "...VVVVVVVVVVVVVVVVVVVVVEVVVVVVVVV......",
+  "...DVVVVVVVVVVVVVVVVVVVEEVVVVVVVVVV.....",
+  "....VVVVVVVVVVVVVVVVVVVVEVVVVVVVVVVD....",
+  ".....VVVVVVVVVVVVVVVRRPPVVVVVVVVVVVV....",
+  "......DVVRRRVVVVVVDDRPPVVVVVVVVVVVVVV...",
+  ".....PPPPPPPPPPPPPPPPPPVVVVVVVVVVVVVVV..",
+  "....PPPPPPKKKKKKKPPPPPPPPPPPPVVVVVVVVV..",
+  "....PPPPPPPPPPPPPPPPPPPPPPRRRRRVVVVVVVV.",
+  "....RPRPPPPPPPPPPPPPPPPPRRRRRRRVVVVVVVV.",
+  "....RRRRRRRRRRRRPPPPPPPPRRRRRRRVVVVVVVV.",
+  "...DDCCRRRRRRRRRRRRRRPPPRRRRRVVVVVVVVVV.",
+  "..VVCCCCCCCCCCCCRRRRRRRRRRRVVVVVVVVVVVVD",
+  ".VVDCCCCCCCCCCCCCCCCCCCRRRRVVVVVVVVVVVVV",
+  ".VVDCCCCCCCCCCCCCCCCCCCCCCVVVVVVVVVVVVVV",
+  "VVVVCCCCCCCCCCCCCCCCCCCCCCDVVVVVVVVVVVVV",
+  "VVVVCCCCCCCCCCCCCCCCCCCCCCVVVVVVVVVVVVVV",
+  "VVVVBBBBBBBBNNNCCCCCCCCCCCVVVVVVVVVVVVVD",
+  ".VVNBBBBBBBBBBBBNNNNNCCCCCDVVVVVVVVVVVV.",
+  ".VVNBBBBBBBBBBBBBBBBBBBBBNNNVVVVVVVVVVV.",
+  "...NBBBBBBBBBBBBBBBBBBBBBNNNNVNVVVVVVVV.",
+  "....BBBNBBBBBBBBBBBBBBBBNNNNNNNVVVVVVV..",
+  "......NNNNBBBBNNNBBBBBBBBBBBNNNVVVVVVD..",
+  "........DVVVVNNNNBBBBBBBBBBBNNVVVVVVD...",
+  "........VVVVVVVVVVVBBBBBBBBVVVVVVVVV....",
+  "......CDVVVVVVVVVVCCCCCCCCDVVVVVVVVVD...",
+  "....CCCCDCCCCCVVVDCCCCCCCCDVVVCVVVVVDCCC",
+  "....CCCCDDDDDDVDDCCCCCCCCCCDDCCVCVVDCCCC",
+  ".......CCCCCCCCCCCCCCCCCCCCCDDDDDDCCC..."
+ ]
+}

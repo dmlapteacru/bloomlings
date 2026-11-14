@@ -1,0 +1,96 @@
+{
+ "code": "P1052",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Папирус",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Undertale · Toby Fox: Papyrus from Undertale: smiling WHITE cartoon skeleton with a long broad skull and large square teeth, iconic RED scarf, rounded white chest armor with gold trim, red gloves and blue shorts partly visible. Proud hands-on-hips chibi bust, large skull and scarf, no human skin or realistic bones, no other characters.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 39,
+ "h": 39,
+ "N": 1100,
+ "colours": 6,
+ "volumes": {
+  "D": {
+   "cells": 429,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 311,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 260,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 53,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 38,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 9,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...............DDDDDDDDD...............",
+  "..............DDCCCCCCCCD..............",
+  ".............DCCCCCCCCCCCD.............",
+  "............DDCCCDCCCCCCCDD............",
+  "............DCCCDCDCCCCCCCD............",
+  "............DCCCCDDDCCCCDCD............",
+  "............DCCCCDDCCCDDDCD............",
+  "............DCCCCDDCCCDDCCD............",
+  "...........DDCCCCDDCCCDDCDD............",
+  "...........DCCCCCDDCCDDDCD.............",
+  "...........DCCDDCCCCDDCCCDD.........DDD",
+  "............DDDDCCCCDDCCCDD..DDD..DRRRR",
+  ".............DCDDDDCCCCDDD..DRRRRRRRRRR",
+  ".............DCDDCDDDDDDD..DRRRRRRRRRRD",
+  "........DDDD.DDDDDDCDCDD.DDRRRRRRRRRRR.",
+  "......DDRRRDDDDDDDDDDDDDDDRREERRRRRRRRD",
+  "......DRRRRDDDDCDCDCDDDDDDDDERRRRRRRRRR",
+  "...DDDDDDRRRRDDCDDDDDDDDEERRRDDERRDDRRR",
+  ".DDCCCCCCDRRRRDDCCCCCCDDDEDRRDDEERD.DRR",
+  "DDCCCCCCCCDRRRRDDDDDDDDDDRRRRDDDDD....D",
+  "DCCCCCCCCCCDRRRRRRRDDDDRRRRRDDCCCDD....",
+  "CCCCCCCCCCCDDRRRRRRRRRRRRRRRDDCCCCD....",
+  "CCCCCCCCCCCDORRRRRRRRRRRRRRRDDCCCCCD...",
+  "COOOCCCCCCCDODRRRRRRRRRRRRRRDCDCCCCD...",
+  "DYYYYYCCCCCDOCDDRRRRRRRRRRDDCCDCCCCD...",
+  "DDDYYOOCCCDDOCCCDDRRRRRRDDCCCCDCCCCD...",
+  "DDDDDOOOCDDOCCCCCCDDDDDDCCRRRCDCCCYD...",
+  "DDDDDOOODDOOCCCCCCCCCCCCCCRRRCDDDYYDD..",
+  "DDDDDODDDDOCCCCCCCCCCCCCCCCRCCDDDYDDDD.",
+  "DDDDD...DDDCCCCCCCCCCCCCCCCCCCDDDDDDDDD",
+  "DDDYD...DDDCCCCCCCCCCCCCCCCCCD....DDDDD",
+  "DYYYYD...DDDCCCCCCCYYYYOOCCCDD....YYYDD",
+  "YYYYRRD.DDDDDDCCCOYYYYYYOOCDD....DDYYYD",
+  "OYYRRRRDRRDDDDDDOODDDDDDDODD....DRRRYYO",
+  "OORRRRRRRRRRDDDDODDDDDDDDDDDDRRDRRRRROO",
+  "DDRRRRRRRRRRD..DDDDDDDDDDD.DRRRRRRRRRDD",
+  ".DRRRRRRRRRRD.DDDDDDDDDDDDDRRRRRRRRRDD.",
+  "...DDRRRRRRDDDDOYDDDDDDDYYDDRRRRRRRD...",
+  "....DDRRRRRDDDOOYYYYYYYYYYDDRRRRRRD...."
+ ]
+}

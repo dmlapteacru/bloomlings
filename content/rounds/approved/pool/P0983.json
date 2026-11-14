@@ -1,0 +1,110 @@
+{
+ "code": "P0983",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Пеликан сортирует конверты",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Птицы",
+ "direction": "Обмен ролями",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один дружелюбный кремовый пеликан с большим золотым клювом держит два крупных синих конверта с розовыми сердечками в широком горловом мешке, компактное круглое тело",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 37,
+ "h": 37,
+ "N": 894,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 246,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 239,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 125,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "O": {
+   "cells": 86,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "S": {
+   "cells": 83,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "N": {
+   "cells": 66,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "P": {
+   "cells": 20,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "A": {
+   "cells": 15,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "B": {
+   "cells": 14,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "......................CC.............",
+  "....................DDCCCDD..........",
+  "...................DCCCCCCCD.........",
+  "..................DCCCCCCCCCD........",
+  ".................DCCCCDDDCCCD........",
+  "..............DDDYCCCDDDCDCCCD.......",
+  "............YYYYYYYCCDDDCDCCCC.......",
+  ".........YYYYYCYYYYYCDDDCCCCCCD......",
+  ".....DDYYYYYYYYYYYYYCCDDCPCCCD.......",
+  "...DDYYYYYYYYYYYYYYYCCCCPPCCD........",
+  "..DYYYYYYYYYYYDDAAAOOOCCCCCCD........",
+  ".YYYYYYYDAAAANNAAAAOOOYCCCCC.........",
+  "DYYYYYYYSSANNNSSAAAOOOYCCCCD.........",
+  ".DD..SSSSSNNNSSSSSSOOOYCCCCD.........",
+  "....SSSSSSSNNSSSSSSSOOYYCCD..........",
+  "...SSSSSSSSSSSSSSSSSSYYCCC..DDD......",
+  ".SSSSSSPPPSSSSPPSSSBBYYCCDDDCCCCD....",
+  "DSSSSSPPPPSSSSPPPPBBYYYCCDCCCCCCCD...",
+  "YYSSSSSPPBBSSSBPPYYYYODCCCCCCCCCCCD..",
+  "DYYSSSSSSBBBBBBYYYYYOODCCCCCCCCCCCD..",
+  "DOYYYYYYYYBYYYYYYYOOOODCCCCCCCCCCCND.",
+  ".OOOYYYYYYYYYYYYYYYYOOCCCCCCCCCCCNNN.",
+  ".OYYYYYYYYYYYYYYYYYOODCCCCCCCCCCNNNN.",
+  ".DYYYYYYYYYYYYYYYYYOODCCCCCCCCCCNNNND",
+  "..YYYYYYYYYYYYYYYYOOOCCCDCCCCCCCNNNNN",
+  "..YYYYYYYYYYYYYYYYOODCCCCDCCCNCNNNNND",
+  "...YYYYYYYYYYYYYYOODCCCCCDNCCNNNNNND.",
+  "...DYYYYYYYYYOOYOOOCCCCCCCNNNNNNNNND.",
+  "....DYYOOOOOOOOOOOCCCCCCCCDNNNNNNNND.",
+  ".....DOOOOOOOOOODCCCCCCCCCCCNNNNNND..",
+  ".......DOOOOOODDCCCCCCCCCCCCCDNNND...",
+  "..........DDDDCCCCCCCCCCCCCCDDD......",
+  "..............DDODDCCCDDDDOOD........",
+  ".............DOOOOODDD.DDDOOO........",
+  "...........DYYYYYOOD..DYYYYYYD.......",
+  "............DDYYOOD..DDDYYYYYD.......",
+  "...............D........YY..........."
+ ]
+}

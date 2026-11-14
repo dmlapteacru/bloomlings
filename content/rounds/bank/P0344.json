@@ -1,0 +1,30 @@
+{
+ "picture": "P0344",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Super Hard|links+latch+hidden||tune|2026-11-07",
+   "tune": {
+    "slot": "Super Hard",
+    "t": null,
+    "attempts": 64,
+    "quick": 3,
+    "evaluated": 0,
+    "seconds": 175
+   },
+   "tried": 64,
+   "found": 0,
+   "reasons": {
+    "связки: доза снижена до минимума (вынужденные решения)": 18,
+    "связки: каждая следующая пара поднимает вынужденные решения выше 35 % (§5)": 59,
+    "засов: ключ недоступен (материал пути заперт за засовом) или не хватило колонок нужной глубины": 5
+   }
+  }
+ ],
+ "tune": {
+  "Super Hard|links+latch+hidden|Super Hard": {
+   "offset": -1.78
+  }
+ }
+}

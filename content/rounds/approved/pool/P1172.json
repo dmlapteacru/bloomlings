@@ -1,0 +1,81 @@
+{
+ "code": "P1172",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Каравай из сыра на колёсиках",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Блюда и напитки",
+ "direction": "Кулинарная фантастика",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One large round yellow cheese wheel with a single wedge cut out, three broad dark-orange holes, mounted on two small red toy wheels and a blue chunky axle. Clearly cheese first, no tiny props or scene.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 28,
+ "N": 669,
+ "colours": 5,
+ "volumes": {
+  "Y": {
+   "cells": 365,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 143,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "R": {
+   "cells": 115,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "N": {
+   "cells": 41,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 5,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........OOOOOOOO...........",
+  "......OOOOYYYYYYYYYYOOO.......",
+  "....YYYYYYYYYYYYYYYYYYYYY.....",
+  "...YYYYYOOYYYYYYYYOOYYYYYY....",
+  "..YYYYYOOOOYYYYYYOOOOYYYYYY...",
+  ".YYYYYOOOOOOYYYYYOOOOYYYYYYO..",
+  ".YYYYYYOOOOYYYYYYYOOYYYYYYYO..",
+  "OYYYYYYYYYYYYYYOYYYYYYYYYYYO..",
+  "OYYYYYYYYYYYOYYOOOYYYYYYYYYO..",
+  "OYYYYYYYYYYOOYYOOOYYYYYYYYOO..",
+  "OYYYYYYYYYYYYYYYOOOYYYYYYYOO..",
+  "OYYYYYYYYYYYYYYYYOOYYYYYYYOO..",
+  "OYYYOOOYYYYYYYYYYOOOYOOYYYOO..",
+  "OYYOOOOOYYYYYYYYYOOOOOOOYYOO..",
+  "OYYOOOOOYYYYYYYYYOOOOOOYYYOO..",
+  "OYYOOOOOYYYYYYYYYOYYYYYYYYOO..",
+  ".YYYOOOOYYYYYOYYYOYYYYYYYYOO..",
+  ".YYYYYYYYYYYOOOYYOYYYYYYYYOO..",
+  "..YYYYYYYYYYOOOYYOYYYYYYYRRRR.",
+  "..RRRRRRYYYYYYYYYO..NNYYRRRRRR",
+  ".RRRRRRRYYYYYYYYYONNNNNNRRRRRR",
+  "RRRRRRRRRYYYYYYYYONNNNNNNRRRRR",
+  "RRRDRRRRRNNNNNNNNNNNNNNNDRRRRR",
+  "RRDDRRRRRNNNNNNNNN...RRDRRRRRR",
+  "RRRRRRRRRNN...........RRRRRRR.",
+  ".RRRRRRRR.............RRRRRRR.",
+  "..RRRRRR................RRR...",
+  "...RRRR......................."
+ ]
+}

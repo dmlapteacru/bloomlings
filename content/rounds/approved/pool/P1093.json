@@ -1,0 +1,85 @@
+{
+ "code": "P1093",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Коала обнимает лист",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Саванна и джунгли",
+ "direction": "Театр эмоций",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "Large close-up friendly gray-blue koala, two huge fluffy round cream ears, very broad dark nose and big eyes; two chunky paws hug ONE large green eucalyptus leaf below the chin. No scenery.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 24,
+ "h": 24,
+ "N": 429,
+ "colours": 7,
+ "volumes": {
+  "S": {
+   "cells": 125,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 108,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 106,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "G": {
+   "cells": 62,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "B": {
+   "cells": 15,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "M": {
+   "cells": 10,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "K": {
+   "cells": 3,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....SS..........SSS....",
+  "...SSSSSS.......SSSSSS..",
+  ".CCCCCCSS..DDD.SSSCCCSS.",
+  ".DCCCCCCDSSSSSSDDCCCCCD.",
+  ".CCCCKCCSSSSSSSSDCCCCCC.",
+  "CCCCCKCSSSSSSSSSSCCCCCCD",
+  ".CCCCKSSSSSSSSSSSSCCCCC.",
+  "CCCCCCSSCCSSSSSCCSDCCCCD",
+  "DCCCCCSCDDSDDSCDDCSCCCCD",
+  ".CCCCSCDDDDDDDDDDCSCCCD.",
+  "..DCDSCDDDDDDDDDDCSDCDD.",
+  "...DDSSCDCDDDDCDCSSDD...",
+  ".....SSSCCDDDDCCSSS.....",
+  ".....DSSSCCDDDCCGGGGGG..",
+  ".....DDDDCCDDCGGGGGGG...",
+  "....SSSDDDDDCGGGGGGG....",
+  "....SSSSSDDGGGMMGGGDD...",
+  "...BSSSSSSDGGMMGDSSSS...",
+  "...BSSSSSDDGMMGGDSSSSD..",
+  "...BBSSSDDDGMGGDDSSSSD..",
+  "...BBBBDDDGMGGGGDDSSBD..",
+  "....DBBDDGGMMGGGDDBBB...",
+  ".....DDGGGGGGGGGGDBD....",
+  ".......GGGGGG.G........."
+ ]
+}

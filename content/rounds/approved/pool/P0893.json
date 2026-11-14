@@ -1,0 +1,107 @@
+{
+ "code": "P0893",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Жук-носорог и воздушный шарик",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Насекомые и маленькие существа",
+ "direction": "Театр эмоций",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один округлый синий жук-носорог осторожно держит один огромный розовый шарик на короткой золотой верёвке, крупный изогнутый рог и радостная мордочка",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 34,
+ "h": 36,
+ "N": 1224,
+ "colours": 9,
+ "volumes": {
+  "N": {
+   "cells": 321,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "G": {
+   "cells": 208,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 202,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "P": {
+   "cells": 157,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "C": {
+   "cells": 156,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "B": {
+   "cells": 84,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "D": {
+   "cells": 45,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "S": {
+   "cells": 35,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "L": {
+   "cells": 16,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "BBBBBSSBBBBBBBBBBPPCCCCPPPPPPPPBBM",
+  "GGBBSSSBBDDCBBBBBPPCCCCPPPPPPPPBMM",
+  "GGGGGSSSDCCCDBBBPPPCCPPPPPPPPPPPMM",
+  "GGGGGGSDCCCCCSSNPPCCCPPPPPPPPPPPMM",
+  "GGGGGGGCCCCCCSSNNNCCPPPPPPPPPPPPMM",
+  "MGGGGGGDCCCCCCSNNNNPPPPPPPPPPPPPDM",
+  "MGGGGGGMCCCCCCMNNNNPPPPPPPPPPPPPDM",
+  "MGGGGGGMCCCCCCMMNNNNPPPPPPPPPPPPDG",
+  "MGGMMMMMDCCCCCMMNNNNPPPPPPPPPPPPDG",
+  "MMBBBBBMMCCCCCMMNNNNPPPPPPPPPPPPGG",
+  "MBBBBBBBMCCCCCMMMNNNNPPPPPPPPPPGGG",
+  "BBBBNBBBBCCCCCMMMNNNNPPPPPPPPPPGGM",
+  "BBBNNBBNBBCCCMMMNNNNNPPPPPPPPPGGMM",
+  "BBBBNNNNBNCCDMMMNNNNNPPPPPPPMMGGGG",
+  "CCCCNNNNNNNNNMMNNNNNNBBMDDDMMMGMGG",
+  "CCCCCNNNNNNNNNNNNNNNNBMMDDMMMMGMMM",
+  "CCCCCCCNNNNNNNNNNNNNNMMMMMMMMSSSMM",
+  "CCCCCCCCNNNNNNNNNNNNMMMMMMMMSSBSSM",
+  "CCCCCCCDNNNNNCDDNNNNNMMMMMMMSSBBSS",
+  "GGGCCCCDNNNNNCDDNNNNNMMDDMMMSSBBSB",
+  "GGMCCDNNNNNNNCDDNNNNNMMDDSSSSSBBBB",
+  "MMMMCNNNNNNNNNCNNNNNNMDNSSBMGGGGBB",
+  "MCCMMNNNNNNNNNNNNNNNNDNNNBBMGGGGBB",
+  "MCCMNNNNNNNNNNNNNNNNNNNNNGMMMMMMBB",
+  "MMMMNNNNNNNNNNNNNNNNNNNNGGGMMMMMMM",
+  "MMMDNNNNNNNNNNNNNNNNNNMMGMMMMMMMMM",
+  "MMMNNNNNNNNNNNNNNNNMMDMMMMMMMMMMMM",
+  "MMMNNNNNNNNNNNNNNNNDMDDMMMMCCCCMMM",
+  "LLLDNNNNNNNNNNNNNNNDMMMMMMCCCCCMMM",
+  "LLCCNNNNNNNNNNDLNDLLLLGGMMMCCCCMGG",
+  "GCCCNNNNNNNNNNLLNNLLLLGGGGMMMCMGGG",
+  "GGCGDNNDNNNDGNGGNNNGGGCCCGGMMMMGMM",
+  "GGGGNNMMMNNNGGGGNNNGGGCCCGGGGCMGMM",
+  "GGGGGGGGGGDGGCCGGGGGGGGCGGGGCCCGGG",
+  "GGGGGGGGGGGGCCCGGGGGGGGGGGGGGCGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+ ]
+}

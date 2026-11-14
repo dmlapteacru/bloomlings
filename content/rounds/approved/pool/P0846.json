@@ -1,0 +1,112 @@
+{
+ "code": "P0846",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Грузчик желудей",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Профессии и увлечения",
+ "direction": "Перевёрнутый масштаб",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Маленький круглый жук-грузчик толкает тачку с одним гигантским жёлудем, крупные глаза, рог и колесо тачки хорошо различимы",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 44,
+ "h": 41,
+ "N": 1219,
+ "colours": 9,
+ "volumes": {
+  "D": {
+   "cells": 399,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "A": {
+   "cells": 280,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "O": {
+   "cells": 187,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 169,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "G": {
+   "cells": 111,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 51,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 12,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "P": {
+   "cells": 7,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "K": {
+   "cells": 3,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..................DDD.......................",
+  "..................DDDD......................",
+  "...................DDDD.....................",
+  "...................DDDDD....................",
+  "...................DDDDD....................",
+  "...................DDDDK....................",
+  "...................DDDDKD...................",
+  ".............DDD...DDDDKD.....MMM...........",
+  "...........DDDDD...DDDDDD.....GGGG..........",
+  ".........DAAADDD..DDDDDDD..MMMMGGGGD........",
+  "........DAAAAAADDDDDDDDDD.GGGGMGGGGG........",
+  ".......DAAAAAAAADDDDDDDDD.GGGGGGGGGGD.......",
+  "......DAAAAAAAAAAADDDDDDD..GGGEEEMMMD.......",
+  "......DAAAAADCCDDAADDDDD....DEEAAAAMD.EE....",
+  ".....DDAAAADCCDCCAAAAADD...EEAAAAAAEEEEE....",
+  ".....DAAAAACCDDDCAAAADDD..EEEAAAAAAAAEEE....",
+  ".....DAAAAACCDDDDAAAACCD..EEEAAAAAAAAEAE....",
+  "...OODAAEEPCCDDDDAAACDDD.EEOOOEEAAAAAAAEED..",
+  "..DOOODAEPPPCDDDCAAACDDDDEOOOOOEEAAAAEEEEEE.",
+  ".OOOCODAEPPPACCCDDAACDDDDOOOOOOOOAAAAAAEEAE.",
+  ".OOOCOODEEEEAAAADDDDADDDOOOOCOOOOOEEAAAEEAE.",
+  ".OOCOOOODAAAAAAAADDAACDDOOOCCOOOOOOEEAEEEAEE",
+  "DOOCOOOODDDAAAAAAADAAADDOOOCOOOOOOOAAEEEEEEE",
+  "DOOOOOODDDDDDDAAAAAAAADOOOOOOOOOOOOOAAEEEEEE",
+  "EOOOOODAADDDDDDDDDDDDDEOOOOOOOOOOOOOOAAEEEEE",
+  "EOOOODAAADDDDDDDDCDDD.EOOOOOOOOOOOOOAAAEEEE.",
+  "EOOOOAAAAADDDDOOODDDDDEOOOOOOOOOOOOOAAAEEEE.",
+  "DOOODAAAADEDDDDDODDDDCCOOOOOOOOOOOOAAAAAEE..",
+  "DOOODAAADEEEEDDDDDDDAAACOOOOOOOOOOAAAAAE....",
+  ".OOODAADDDEEEEEEDDDDDAAAACCCCOOOOOAAAAEED...",
+  ".DODAADDDDEEEEEDD...DAAAAAACCOOOOAAAAAEEEEE.",
+  "..DDAADDDDEEEEDD....DEAAAAAAACCEEEEECCCCEEE.",
+  "...DDDDDDDEEEDDDD....EAAAAAAAAAAEEEDDDDDEE..",
+  "...DDDDDDDDDDDDDDD...EAAAAAAAAAAAEEDDDDDD...",
+  "..DDDDD.......DDDD....DAAAAAAAAAEEDDDDDDD...",
+  ".DDDDD....G...DDDDD....EDAAAAAAAEEDDDDDDD...",
+  ".DDDDD..GGGGG..DDDD...EE.DDDAAAEEDDDAADDD...",
+  ".DDDD.CGGGGGGGGDDDDGG.EEEEEEDAAEDDDAAADDD...",
+  "..DDDDGGGGGGGGGGDDGGGGDEEEED.DDDCDDDDDDDD...",
+  ".GGGGGGGGGGGGGGGGGGGGGGEEEDGGGDGGDDDDDDDCGG.",
+  "........GGGGGGG........GGGGGGGGGGGDDDDDGGGG."
+ ]
+}

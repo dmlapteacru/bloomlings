@@ -1,0 +1,116 @@
+{
+ "code": "P0941",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Редиска с музыкальной пружиной",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Овощи и урожай",
+ "direction": "Заводная сказка",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Большая красно-кремовая редиска улыбается, из её зелёной ботвы выходит широкая золотая заводная пружина с одним синим флажком на конце, без нот и музыкальных инструментов",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 42,
+ "h": 44,
+ "N": 1126,
+ "colours": 9,
+ "volumes": {
+  "G": {
+   "cells": 286,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "R": {
+   "cells": 232,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 205,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 110,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 102,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 63,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "M": {
+   "cells": 49,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "B": {
+   "cells": 42,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 37,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............................EEE.........",
+  ".............................EYYE.........",
+  ".........GGDD..DDGD..........EYYENNNN.....",
+  "........MGGGGCCDGGGD.........EYYNBBBBB....",
+  "........MGGGGDDMGGGD...EEEC..EYYNNBBBBBB..",
+  "........MGGGGDDMMGGG..YYYYYYYYYBNNBBBBBBNN",
+  "....DDDDDGGGGDDMMMGD.EYYYYYYYYYBBNBBBBBBNN",
+  "..DDDGGGDMMGGGGMMGGD.EYEEEEYYYYNNNBBBBBNN.",
+  ".DDGGGGGGDMMGGGMMGD..EYYEEEEEE..NNNBBBNN..",
+  ".DGGGGGGGGDMGGGMMG...EEYYYYYYEC..NNBBBBN..",
+  "DGGGGGGGGGMMMGGMMD..EEEYYYYYYYY...NNNBBN..",
+  "DGGGGMGMMMMMDDGDDD..EEC..EEEYYYE....NNBBN.",
+  "DGGGMMMMMMMMGDGDDGD.EYYYC.CCYYYE......NNN.",
+  ".DDDDDGMGGGDGGDDGGDCEYYYYYYYYYYE..........",
+  "..DDDDGGGGGMMGGGGGDEEYYYYYYYYYEE..........",
+  ".....DGGGGDDMGGDGGYYEC.YYYYYEE............",
+  ".....DDDDD.DDMGDGGYYEE.CCYYYE.............",
+  "............DMMDGGDYYYEEEYYYE.............",
+  "............DMMMGGGYYYYYYYYY..............",
+  "............DDDDGGGGEEEEERRRR.............",
+  "...........DDDDDRGGGRRRRRRRRRR............",
+  "............DDRRRRRRRRRRRRRRRRR...........",
+  "...........RRRRRRRRRRRRRRRRRRRRR..........",
+  "..........RRRRRRRRRRRRRRRRRCCCCRR.........",
+  "..........RRRRRRRRRRRRRRRRRCDDCCRR........",
+  ".........RRRRRRRRRRRCCRRRCCDDDDCRR........",
+  ".........RRRRRRRRRRCDDCCCCCCDDDCCR........",
+  "........RRRRRRRRRRCCDDDCCCCCDDCRRR........",
+  "........RRRRRRRRRRCDDDDCCCEECCRRRR........",
+  "........RRRRRRRRRRCCDDDCRRRECCRRCR........",
+  "........RRRRRRRRRRCCDDCCRRRCCCCCCR........",
+  "........RRRRRRRRCCCRRRCCCRCCCCCCRR........",
+  "........RRRRRRRCCCRRRRCCCCCCCCCCR.........",
+  ".........RRRRRCCCCCCCCCCCCCCCCCCR.........",
+  ".........RRRRCCCCCCCCCCCCCCCCCCR..........",
+  "..........RRCCCCCCCCCCCCCCCCCCRR..........",
+  "..........RRCCCCCCCCCCCCCCCCCCRC..........",
+  "......GGGGGRRCCCCCCCCCCCCCCCRRGGGGGGG.....",
+  "...GGGGGGGGGGGGCCCCCCCCCCCCCRGGGGGGGGGG...",
+  ".GGGGGGGGGGGGGGRRRCCCCCCCCCCRGGGGGGGGGGGG.",
+  "..GGGGGGGGGGGGGGGGGGGGGGCCCCRGGGGGGGGGGGG.",
+  "...GGGGGGGGGGGGGGGGGGGGGGGGGCCRGGGGGGGG...",
+  ".......GGGGGGGGGGGGGGGGGGGGGGRRGGGGG......",
+  "................GGGGGGGG.................."
+ ]
+}

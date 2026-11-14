@@ -1,0 +1,106 @@
+{
+ "code": "P0968",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Сливовая крепость",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Фрукты и ягоды",
+ "direction": "Кулинарная фантастика",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна крупная разрезанная фиолетовая слива стала крепостью с тремя толстыми кремовыми зубцами, золотая косточка служит круглыми воротами, зелёный лист сверху",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 33,
+ "h": 33,
+ "N": 886,
+ "colours": 9,
+ "volumes": {
+  "V": {
+   "cells": 454,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "C": {
+   "cells": 149,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 123,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 53,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 24,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 24,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "A": {
+   "cells": 22,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 20,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 17,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "............EEE...DGGGGGGGGGGM...",
+  ".............EED..DDGGGGGGGGMMD..",
+  "..........VVVDEEVVVVVGGGGGGMMMM..",
+  ".......VVVVVVDEEVVVVVVDMMMMMMMM..",
+  "......VVVVVVVVVVVVVVVVVVVDMMMMMM.",
+  "....VVVVVVVVVVCCCVVVVCCCCVVDDMMM.",
+  "...VVVVVVVVVCCCCCVVVCCCCCCVVD..D.",
+  "...VVVVVVVVVCCCCCVVVCCCCCCVVV....",
+  "..VVVVVCCCVVCCCCCVVVCCCCCCVCCC...",
+  "..VVVCCCCCVVCCCCCVVVCCCCCVVCCCC..",
+  ".VVVVCCCCCCCCCCCCCCCCCCCCCCCCCC..",
+  ".VVVVVCCCCCCCCCCCCCCCCCCCCCCCCCV.",
+  ".VVVVVCCCCCCCCCCVVVVVVVCCCCCCCCV.",
+  "DVVVVVCCCCCCVVVVVEEEEVVVVVCCCCVV.",
+  ".VVVVVVVCVVVVVVVYYYEOOVVVVVVVVVVV",
+  ".VVVVVVVVVVVVVVYYYYYAOOVVVVVVVVVV",
+  ".VVVVVVVVVVVVVOYYYYYAOOOVVVVVVVVV",
+  ".VVVVVVVVVVVVOOYYYYYAOOOVVVVVVVVV",
+  ".VVVVVVVYVVVVOYYYYYOAAOOOVVVVVAVV",
+  ".VVVVVVVYYVVOOYYYYYOOAOOOVVVVVAVV",
+  ".VVVVVVVYYVVOYYYYYOOOAOOOVVVVVAVV",
+  ".VVVVVVVYYVVOYYYYYOOOAOOOEVVVVAVV",
+  ".VVVVVCCYYVVOOYYYYOOOAOOOEVVVCCVV",
+  "..VVVVVVVVVVOOYOYOOOOAOOOEVVVVVV.",
+  "..VVVVVVVVVVOOOOOOOOOAOOOVVVVVVV.",
+  "...VVVVVVVVVOOOOOOOOOAOOOVVVVVVV.",
+  "...DVVVVVVVVOOOOOOOOAAOOOVVVVVV..",
+  "....VVVVVVVVVOOOOOOOAOOOVVVVVVV..",
+  ".....VVVVVVVVVOOOOOOAOOOVVVVVV...",
+  "......VVVVVVVVOOOOOOAOOVVVVVV....",
+  ".......VVVVVVVVVOOOOAVVVVVVD.....",
+  ".........DVVVVVVVVDDDVVVV........",
+  "............VVVVV................"
+ ]
+}

@@ -1,0 +1,114 @@
+{
+ "code": "P0977",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Носорог на мягком коврике-пазле",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Саванна и джунгли",
+ "direction": "Уютный сюрреализм",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один сидящий маленький синий носорог с большим округлым носом и коротким кремовым рогом собирает две большие розовые детали коврика-пазла, морда и лапы крупные",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 42,
+ "h": 42,
+ "N": 1156,
+ "colours": 9,
+ "volumes": {
+  "B": {
+   "cells": 510,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "P": {
+   "cells": 227,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "N": {
+   "cells": 180,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 143,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 45,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 30,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "S": {
+   "cells": 10,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "A": {
+   "cells": 8,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 3,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........BB......N...BBBB...............",
+  "...........BBB....NNNNNBBBBB..............",
+  "..........NBBBN..NNBNNNBBPBBB.............",
+  "..........NBBBNNNBBBBBBBPPPBB.............",
+  "..........NBBBNBBBBBBBBBPPPBBN............",
+  "..........NNBBBBBBBBBBBBPPPBBNN...........",
+  "...........NNBBBBBBBBBBBBPPBBNN...........",
+  "...........NNBBBBBBBBBBBBPPBBNBB..........",
+  "...........BBBBBBBBBBBBBBBBBNBBB..........",
+  "......C....BBBBBBBBBNNBBBBBNNBBBB.........",
+  ".....ACC...BBBBBBBBBNNBBBBBBBBBBB.........",
+  ".....ACCC.CCDCBBBBBCCCBBBBBBBBBBBB........",
+  ".....ACCCCCDDDBBBBCCDCCCBBBBBBBBBB........",
+  ".....ACCCCCSSSBBBBCDDDCCBBBBBBBBBBN.......",
+  ".....ACCCCCSSSSBBBDDDDDCBBBBBNBBBBN.......",
+  ".....ACCCCCBBSSSBBDDDDDCBBBBBNBBBBN.......",
+  ".....ACCCCCBBBBBBBBDDDDCBBBBNNBBBBN.......",
+  ".....ACCCCCBBBBBBBBDDDCCBBBBNBBBBBN.......",
+  "......CCCCBBBBBBBBBBCCBBBBBBNNNBBBBB......",
+  "......BBBBBBBBBBBBBBBBBBBBBNNBBBBBBB......",
+  "......BBBBBBBBBBBBDBBBBBBNNNBBBBBBBBB.....",
+  ".......BBBBBBBBBBBBBBBBBNNBBBBBBBBBBBN....",
+  ".......BBBBBBBBBBDBBBBBBBBBBBBBBBBBBBN....",
+  ".......BBBBBBBBBDBBBBNNBBBBBBBBBBBBBBN....",
+  ".......BBBNNBBBDBBNNNNBBBBBBBBBBBBBBBBN...",
+  "......BBBBNNPPNNNNPNNCCCBBBBBBBNBBBBBBNNN.",
+  "......BBCCNPPPNNDPPPPCCCCBBBBBBNBBBBBBNNNN",
+  "......BCCCNPPPPPPPPPPCCCCCBBBNNNNNBBBBBNNN",
+  "......CCCCNPPPPPPPPPPCCCCCBBNNBBBBBBBBBNNN",
+  "......CCCNPPPPPPPPPPPPPCCNNNNCCBBBBBBBBNNN",
+  ".......NNNPPPPPPPPPPPPPNNNNNCCCCCBBBNBNNN.",
+  ".........NPPPPPPPPPPPPPRNNNCCCCCCBBBNNNNN.",
+  ".......PPNPPPPPPPPPPPPPRNNNCCCCCCCBBNNNN..",
+  "...PPPPPPPPPPPPPPPPPPPPRNNNCCCCCCCBBNNN...",
+  ".RPPPPPPPPPPPPPPPPPPPPPNNNNCCCCCCCBNNNN...",
+  "RRPPPPPPPPPPPPPPPPPPPPPNNNNCCCCCCCBNNN....",
+  "PPPPPPPPPPPPPPPPPPPPPPPRENNNCCCCCNNNN.....",
+  "PPPPPPPPPPPPPRRRRPPPPPPRE..NCCCCCNNN......",
+  "PPPPPPPPPPPPPPPR..PPPRRRE...NNNNNN........",
+  "RRRPRRRRPPPRRRR.....RRRR..................",
+  ".RRRR..RPPPRRRR...........................",
+  ".......RRRRR.............................."
+ ]
+}

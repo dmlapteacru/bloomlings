@@ -1,0 +1,101 @@
+{
+ "code": "P1131",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Большой ключ с крылатой головкой",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Магические предметы",
+ "direction": "Фольклорная фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One chunky golden magical key angled diagonally, round bow with large blue center and two short broad red wing-like decorations, thick shaft and two clear teeth. No sparkles or background.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 38,
+ "h": 38,
+ "N": 626,
+ "colours": 7,
+ "volumes": {
+  "Y": {
+   "cells": 218,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 145,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "E": {
+   "cells": 82,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 79,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "B": {
+   "cells": 68,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "C": {
+   "cells": 26,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 8,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "................RR....................",
+  "...............RRRR...................",
+  "..............RRRRR...................",
+  ".............ERRRRRR..................",
+  ".............ERRRRRRE...EEEEEEE.......",
+  ".............EERRRRRE.YYCCCYYYYY......",
+  "............RRRRRRRREEYYYYYYYYYYY.....",
+  "............RRRRRRRRYYYYYOOOOYYYYY....",
+  "............RRRRRRRYYYDDDBBBDYYYYYY...",
+  "............RRRRRRYYYYDBBBBBBBYYYYY...",
+  "............RRRRRRYYYYB...BBBBBYYYOE..",
+  ".............RRRREYYYBB..BBBBBBEYYOE..",
+  ".............RRRREYYYBBBBBBBBBBEYYOE..",
+  ".............DRRREYYYBBBBBBBBBBEYYOE..",
+  "..............RRREYYYBBBBBBBBBBEYOOE..",
+  "................CEYYYYBBBBBBBBYYYOE...",
+  "................EEEYYYYBBBBBBYYYOOE...",
+  "................CCCYYYYYYEEEYYYYOEEE..",
+  "...............YYYYYYYYYYYYYYYOORRRRR.",
+  "..............YYYOYYYOOYYYYYOOORRRRRRE",
+  ".............YYYYOOOOOEOOOOORRRRRRRRRE",
+  "............YYYYYOOOOEEERRRRRRRRRRRRRE",
+  "...........YYCYYOOEEE..ERRRRRRRRRRRRR.",
+  "..........YYYYYEOO.....ERRRRRRRRREEE..",
+  "........YYYYYYEE........RRRRRRRRRE....",
+  ".......CCCYYOOO..........EEEERRRRE....",
+  "......YCCYYOOOD..............EEE......",
+  "....YYYCYYOOYYY.......................",
+  "...CCCYYYOOYYYYY......................",
+  "..CCCYYYOYYYYYYYY.....................",
+  ".CCCYYYOOYEEYYYYYY....................",
+  "YCCYYOOOYYEEDYYOOY....................",
+  "YYYYOOOYYYE..EOOO.....................",
+  ".OOOOOOYYYYY.EEE......................",
+  "..EEECOOYYYYY.........................",
+  "......OOYYYYY.........................",
+  ".......OOOOO..........................",
+  "........EEE..........................."
+ ]
+}

@@ -1,0 +1,108 @@
+{
+ "code": "P0878",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Весы для облачной ваты",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Лаборатории и изобретения",
+ "direction": "Заводная сказка",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Компактные золотые чашечные весы сравнивают большой розовый комок сахарной ваты и одну синюю каплю, обе чаши крупные, кремовая основа снизу",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 36,
+ "h": 37,
+ "N": 1330,
+ "colours": 9,
+ "volumes": {
+  "P": {
+   "cells": 550,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "K": {
+   "cells": 148,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "S": {
+   "cells": 132,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "Y": {
+   "cells": 115,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "B": {
+   "cells": 110,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 86,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 80,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 70,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 39,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "PPPPPPPPPPPPNNNNNNNNNNNPPPPPPPPPPPPP",
+  "PPPPPPPPPPNNNBBBBSSSSSNNNPPPPPPPPPNP",
+  "SSPPPPPPNNNBBBBBBSSSSBBNNNNPPPPPPPNN",
+  "SSSPPPPNNSSSBBBBSSSSBBBBBSNNPPPPPNNN",
+  "PPPPPPNNSSSSBBBBSSSBBBBBSSSNNPPPPKKK",
+  "PPPPPNNNSSKKBBBSSSSBBBBBSSSSNPPPPKKK",
+  "PPPPPNNKKKKKKKKSSSBBBBBSSSSSNNPPPPPP",
+  "PPPPNNKKKKKKKKKKSBBBBBBSSSBBSNPPPPPP",
+  "PCCPKKKKKKKKKKKPBBBBBBSSSSBBSNPPPPSS",
+  "PPPPKKKKKKKKKKKPPBBDSSSSSSSSSNNPPSSS",
+  "PPPPKKKKKKPPPPPKKKKDSSSSSSSSSSNPPSSS",
+  "PPPPKKKKKKPKPPPKKKKDSSSSSSNNNSNPOOOO",
+  "PPPKKKKKKKKKKKKKKKYYSSSSSBNNNSNPPKPP",
+  "BBKKKKKKKKKKKKKPPPYYSSSSBBNNNNNPKKPP",
+  "BBKKKKKKKKKKKKKPPPSYDSSSBBBBNNNPKKKK",
+  "CCKKKKKKKKKKKKKPPPSYDSSNB.BBNNNKKPPP",
+  "CCPPPKPKKKKKKPPPPPSYDSSNBBBNNNNKKKKK",
+  "CCPPPPPPPKKKPPPPPPSYDSSNBBNNNBNYYYDK",
+  "PPPPPPPPPPPPPPPPDDSYDDYYBNNNBBYYYYDD",
+  "PPPPPPPPPPPPPPPODDSYDDYYYYYYYYYYYDDP",
+  "PPPPPYYYYYOOOOOODDYYDDYYYYYYOOOOOPPP",
+  "BBPPPYYYYYOOOOOOYYYYYBYYYYYYOOOOPPPP",
+  "BBBPPPPPPOOSSSDDDYYOOBDDYYYYOOOPPPPP",
+  "PPPPPPPPPOOSSSSSSYYOOBBBBBBBBPPPPPPP",
+  "PPPPOOOPPPSSSSBBBYYYYBBBBBBBBPPPPPPP",
+  "PPPOOOOPPPPPPPPCCCCCCCCCPPPPPPPPPPPP",
+  "COOOOOOOPPPPPPPCCCCPPCCCPPPPPPPPPPPP",
+  "OOOOOOOOOPPDDDDCCCPPPPCCCDDDPPPPPPPP",
+  "PPPPPPPPPPCCCCCCCPPPPPCCCCCCCPPPPPPP",
+  "OOPPPPPPYYCCCCCCCCCPPCCCCCCCCYPPPPPP",
+  "OOOPPPPPYYCCCCCCCCCPCCCCCCCCCYYPPPPP",
+  "OPPPPPPPYYYYYYYYYYYYYYYYYYYOOYYPPPPP",
+  "PPPPPPPPDDDYYYYYYYYYYYYYYYYOOPPPPPPP",
+  "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+  "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+  "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+  ".PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP"
+ ]
+}

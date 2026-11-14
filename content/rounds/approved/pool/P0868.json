@@ -1,0 +1,111 @@
+{
+ "code": "P0868",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Качели в половинке грецкого ореха",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Игрушки и настольные игры",
+ "direction": "Миры внутри предметов",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Крупная открытая скорлупа грецкого ореха стоит как арка, внутри висит одно широкое розовое сиденье качелей на двух толстых верёвках, зелёная подушка мха снизу",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 42,
+ "h": 40,
+ "N": 1380,
+ "colours": 9,
+ "volumes": {
+  "E": {
+   "cells": 365,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 329,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "O": {
+   "cells": 291,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "G": {
+   "cells": 109,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 104,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "P": {
+   "cells": 69,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "C": {
+   "cells": 65,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "K": {
+   "cells": 33,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "D": {
+   "cells": 15,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............OOOOEEEEOOOOOOO..............",
+  "............OOOOOEEEEEOOOOOOA.............",
+  "..........OOOOOOEEEEEEOOOOOAAACC..........",
+  "........OOOOOOOEEEAAAAEOOOOOOAOOO.........",
+  "........OOOOOOEEEEEEEEEEEOOOOOOOA.........",
+  ".......OOOOOOEEEEEEEEEEEAOOOOOOAAA........",
+  "......OOOOOOAAAEEEEEEEEEAAOOOOOOAOOO......",
+  ".....OOOOOOEAACEEEEEEEECCCAOOOOOOOOA......",
+  "....AAOOOOEEECEEEEEEAAAECAAEOOOOOOOAA.....",
+  "....AAOOOEEEEEEEEEEAAAAECCAEOOOOOAAAAA....",
+  "...AAAOOOEEEEEEEEEAAAAEEEEEEEOOOAAAAOOO...",
+  "...AAOOOEEEECCEEAAAAEEEEECEEEEOOAOOAOOO...",
+  "..AAAOOOEEEECCEEEAAAEEAEECEEEEOOAOOOAOA...",
+  ".OOOOOOEEEEECEEEEAAAEAAAECCEEEOOOOOOAAAA..",
+  ".OOOOOEAEEEECEEEAAAAAAAEECCEEEOOAAOOAAAA..",
+  ".OOOOOEAAEEECEEAAAAAAAAEECCEEEOOOAAAAAAOO.",
+  ".AAOOEEAAEECCEAAAAAAAAAEECCEEEEOOAAAAOOOA.",
+  "EAAOOEAAAEECCEAAAAAAAAEEEECEEEEOOOAOOOOAA.",
+  "EOOOOEAAAEECCEEAAAAAEAEGEECEEEEEOOOAOOOAA.",
+  "EOAOOOAAEEECEEEAAAAAEMGGGCCEEEEEEOOAOOAAA.",
+  "AAAOOOAAEEECEEEEEEEEEMMMMMCEEMMEEOOAAAAAAE",
+  "AOAOOEEAEEECEEPPPPKKKPPPEECEEMMDEOOAAAAOAE",
+  "AOAOOEEEEEECEPPPKKKKKKKPPECEEMMMEOOOAAAOAE",
+  "AOAOOEEEEPCCEPKKKKKKKKKKPPCEPPMMEOOOAAAOAE",
+  "EAAOOEEEPPCCPPKKKKKKKKKKPPCCPPPMEEOOAAAAAE",
+  "EAAOOOEEPPCCPPPPPPPKKKPPPPCCPPPDEEOOOAAAA.",
+  "EAAAOOEEEECCCPPPPPPPPPPPPPCCPPEDMMOOOAAAA.",
+  ".AAAOOEEEEECEAAAPPPPPPPPPECCEEEMMMOOOAAAA.",
+  ".AAAOOEEEEEEEAAAAAAAAAAPPECCEEEEGMOOOAAA..",
+  ".AAAAOOEEEEEEEAAAAAAAAAAEEAAEEGGGGOOAAAA..",
+  "..AAAOOEEEEEDEEEEEEAAAAAEEAADDGGGMOOAAAA..",
+  "...AAAOOEEEGGGGEEEEEEEEEEEEEDGGGGMMOAAA...",
+  "...AAAAOOODGGGGMMEEEEEEEEDMEGGGGGMAAAA....",
+  "....AAAAOOOOGGMMMMEEEGGGMMMGGGGGMMAAA.....",
+  "...GGAAAAAOODMMGGMGGGGGGGMMGGGGMMMAMMG....",
+  "...GMMAAAAAOODMGGGGGGGGGGGMMMMMMMMMMMGG...",
+  "...GGMMAAAAAOOOMDGGGGGGGMMMMMMMMMMMMGGG...",
+  "....GGGAAAAAAAOMMGMMMMGMMMMMMMDGGGGGG.....",
+  "..........AAEEEEMDMMMMMMMDGGGGGGGG........",
+  ".............GGGGGMMMMMMGGGG.............."
+ ]
+}
