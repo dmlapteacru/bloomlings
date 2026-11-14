@@ -47,6 +47,8 @@ for(let k=0;k<N;k++){
  const cols=+(E.COLS||4),mid=keyed(MID,1.2),out=keyed(OUT,1.4);
  const apOrder=E.APFIRST?[E.APFIRST,...APPROACH.filter(c=>c!==E.APFIRST)]:(r()<.5||APPROACH.length<2?APPROACH:[...APPROACH].reverse());
  const gapN=Math.floor(r()*(+(E.APGAP||0)+1));let ap=apOrder.flatMap((c,i)=>[...(i===1?out.splice(0,gapN):[]),...split(c,per(c))]);
+ // APINS=k (L175): the second approach colour's pods go in after k pods of the first (the sky first, the path among it)
+ if(E.APINS&&apOrder.length===2){const a=ap.filter(p=>p.color===apOrder[0]),b=ap.filter(p=>p.color===apOrder[1]),o=ap.filter(p=>!apOrder.includes(p.color));const k=Math.min(a.length,+E.APINS+Math.floor(r()*(+(E.APINSR||0)+1)));ap=[...a.slice(0,k),...b,...o,...a.slice(k)];}
  // APMIX: the approaches' pods alternate (one of each colour in the first row), so the bot opens either site first
  if(E.APMIX){const qs=apOrder.map(c=>ap.filter(p=>p.color===c)),rest0=ap.filter(p=>!apOrder.includes(p.color));ap=[];for(let i=0;qs.some(q=>q.length);i++)for(const q of qs)if(q.length)ap.push(q.shift());ap.splice(apOrder.length,0,...rest0);}
  const slip=Math.floor(out.length*(+(E.SLIP||.3))*r()),lp=+(E.LPLO||.5)+(+(E.LPHI||.9)-(+(E.LPLO||.5)))*r();
