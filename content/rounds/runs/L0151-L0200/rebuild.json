@@ -180,18 +180,18 @@
    "level": 174,
    "tag": "2026-11-07",
    "why": [
-    "«по цветам» проигрывает 11 из 26 (нужно около 13)"
+    "«по цветам» проигрывает 12 из 26 (нужно около 13)"
    ],
    "reassign": false,
    "at": "2026-11-14",
-   "takes": 2,
+   "takes": 3,
    "from": {
     "picture": "P0229",
     "candidate": "P0229-Ncanal+links-g1107-5",
     "share": 0.613,
     "recipe": "canal+links"
    },
-   "done": true,
+   "done": false,
    "to": {
     "picture": "P0229",
     "candidate": "P0229-Ncanal+links-g1107-a-s3-1",
