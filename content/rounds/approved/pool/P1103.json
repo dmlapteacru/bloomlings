@@ -1,0 +1,83 @@
+{
+ "code": "P1103",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Рыжий кролик с длинными ушами",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Домашние животные",
+ "direction": "Театр эмоций",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One large orange bunny portrait with two broad upright ears, cream face and belly patch, big dark eyes and a small purple neck bow. Head and ears fill most of square, no extra object.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 22,
+ "h": 27,
+ "N": 457,
+ "colours": 6,
+ "volumes": {
+  "O": {
+   "cells": 242,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 129,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "K": {
+   "cells": 36,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "V": {
+   "cells": 28,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "E": {
+   "cells": 21,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "D": {
+   "cells": 1,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..OO..............OO..",
+  ".OOOOO...........OOOO.",
+  "OOOOOOO.........OOOOOO",
+  "OOOOOOO........OOOOOOO",
+  "OOKKKOOO......OOOOKKOO",
+  "OOKKKOOO......OOOKKKOO",
+  ".OKKKKOOO.....OOKKKKO.",
+  ".OOKKKOOO....OOOKKKOO.",
+  ".OOKKKKOOOOOOOOOKKKOO.",
+  "..OOKKOOOOOOOOOOKKOO..",
+  "..OOOOOOOOOOOOOOOOOO..",
+  "...OOOOCOOOOOOCOOOO...",
+  "...OOOCCCOOOOCCCOOO...",
+  "..OOOCEECOOOOCEECOO...",
+  "..OOCEEECOOOOCCEEOOO..",
+  ".OOOCEEEEOOOOCEEECOO..",
+  ".OOOCCEECCCCCCEEECOOO.",
+  "OOOCCCCCCCCCCCCCCCCOO.",
+  "OOCCCCCCCCDCCCCCCCCCOO",
+  "OOCCCCCCCCCCCCCCCCCOOO",
+  ".OOCCCCCCCCCCCCCCCCOO.",
+  ".OOOCCCVVVCCVVVCCOOO..",
+  "...OOOOVVVVVVVVOOOO...",
+  "...OOOOVVVVVVVVOOOO...",
+  "..OOOOCVVVCCVVVCOOOO..",
+  ".OOOOCCCCCCCCCCCCOOO..",
+  ".OOOOCCCCCCCCCCCCOOO.."
+ ]
+}

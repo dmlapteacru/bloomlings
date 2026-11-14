@@ -1,0 +1,112 @@
+{
+ "code": "P0903",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Крыжовник-планетарий",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Фрукты и ягоды",
+ "direction": "Миры внутри предметов",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна большая зелёная ягода крыжовника открывается круглой дверцей, внутри тёмно-синий купол с одной золотой планетой и двумя крупными кремовыми звёздами",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 42,
+ "h": 41,
+ "N": 1347,
+ "colours": 9,
+ "volumes": {
+  "M": {
+   "cells": 292,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "L": {
+   "cells": 244,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "N": {
+   "cells": 215,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 171,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "G": {
+   "cells": 143,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "A": {
+   "cells": 121,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 67,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "S": {
+   "cells": 50,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 44,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............AAAAA.....DMMMDD............",
+  "..............AAAAA...DMMMMMMMMD..........",
+  "..............AAAADDDDMMMMMMGGGDD.........",
+  "...............DAADDMMMMMMMMMMMMMD........",
+  "...............DAAADDDMMMGMGGMMMMM........",
+  ".............DDDAAADDDDMMGGGGGMMMMM.......",
+  "..........DDGGGLLLLLLLLMMMMMMGMMMMMD......",
+  ".........DLGGLLLLLLLLLLLMMDMMMMMMD........",
+  ".......DLLLLLLLLLLLLLLLLLLLDDDD...........",
+  "......DLLLLLLLLLLLLLLLLLLLLLDD............",
+  ".....DLLLLLLLLLLLLLLLLLLLLLLLLD...........",
+  "....DGLLLLLLLLLLLLDDDDDDLLLLLLL...........",
+  "...DGGLLLLLLLLLLDDNNNNNDNDLLLLLDDDDDDD....",
+  "...GGLLLLLLLLDDNNDNNNNNNNDDDLLLLMMMMLLL...",
+  "..DGLLLLLLLLDDNNNNNNNNNNNDDDAALMMMMMMLLD..",
+  "..GGLLGLLLLLDNNNNNNNNNNNDCDDDADMMMMMMMLLD.",
+  ".DGGLLGLLLLADNNNNDDDNNDNCCCDDDMMMMMMMMLLD.",
+  ".DGLLLGLLLAANNNYYYYYDCCDCCCNNDMMMMMMMMMLL.",
+  ".GGLLGLLLLADNNYYYYCYYDCDDCCNNDMMMMMMMMMLLD",
+  "DGGLLGLLLAANNDYYYYYYYCNNNNNNNDMMMMMMMMMLL.",
+  "DGGLLGLLLAANNDYYYYYCCDNNNNNNNDMMMMMMMMMLLD",
+  "DGGLLGLLLAANNCYYYCCCYNNNNNNNNMMMMMMMMMMLLD",
+  "DGLLLGLLLAANCDCCCCYYYNNNNNNNNMMMMMMMMMMLLD",
+  "DGLLLLLLLAANCCCDDDYYNNNNNNNNNMMMMMMYYMMLLD",
+  "DGGGGGLLLAANNNNNDDDNNNNNCNNNNMMMMMMYYYMLDD",
+  "DGGGGGLLLAANNNNNNNNNNNNDCCNNNMMMMMMYYYMLDD",
+  ".GMGGGLLLAANNNNNNNNNNNCCCCCNNMMMMMMMMMMLDD",
+  ".MMGGGLLLAANNNNNNNNNNNNCCCCNNMMMMMMMMMMLLD",
+  ".DMGGGGLLADNNNNNNNNNNNNCCCCNNMMMMMMMMMMLLD",
+  ".DMGGGGGGAANNNNNNNNNNNNNNNNNNMMMMMMMMMMLLD",
+  "..MMGGGGGGANNNNNNNNNNNNNNNNNNMMMMMMMMMMLLD",
+  "..DMGGGGGGANNDDAAAAAAANNNNNNNDMMMMMMMMMLL.",
+  "...MMGGGGGAAAAAAAAAAAAAAAADDDDMMMMMMMMLLD.",
+  "...DMGGGGGGYAAAAAAAAAAAAAAADDDMMMMMMMMGGD.",
+  "....DGGGGGGYYAAAAAAAAAAAAAAYYMMMMMMMMMGG..",
+  ".....DGGGGGGYYAAAAAAAAAAAYYYMMDMMMMMMGGD..",
+  "......DGGGGGGYYYYAAAAAAYYYYYDD.DMMMMGGD...",
+  ".......DGMMGGGGGYYYYYYYYGGGSS...DMMDDD....",
+  ".....SSSSDMMMGMGGGGMGGGMMMDSSSS...........",
+  "....SSSSSSSSDDMMMGMMGGGDSSSSSSSS..........",
+  "......SSSSSSSSSSSSSSSSSSSSSSSS............"
+ ]
+}

@@ -1,0 +1,105 @@
+{
+ "code": "P1033",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Пудж",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Волшебные существа",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Dota 2 · Valve: Pudge, the iconic Dota 2 butcher: huge round pale green body and bald green head, crooked grin, small dark eyes, red-brown apron and broad visible stitched seam on the belly; one LARGE clean curved iron meat hook held beside his shoulder, passive funny pose, no blood or gore. Big head-and-torso chibi portrait, not a generic green ogre.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 32,
+ "N": 827,
+ "colours": 9,
+ "volumes": {
+  "L": {
+   "cells": 313,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "D": {
+   "cells": 210,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 144,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 51,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 39,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 30,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "K": {
+   "cells": 15,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "R": {
+   "cells": 13,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "G": {
+   "cells": 12,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....DDDDD......................",
+  "...DKKKCKKKD....................",
+  "..DKKDDDDDKKD...................",
+  ".DDKDDDDDDDKK...................",
+  ".DDKDD....DDK...DLLLLLD.........",
+  ".DDDD......DD..DLLLLLLLL........",
+  ".DDDD......D..DLLLLLLLLLL.......",
+  ".DDDD.....DD.DLLLLLLLLLLLD......",
+  ".DDDD.....DDDDLLLLLLLLLLLL......",
+  ".DDDD....GGDDLLLDDDLLLLLLLD.....",
+  "..DDDD.DDGGDDLLLDDDLLLDDLLDD....",
+  "...DDDDLLDLDDLLDDDDCLLDDLLDDD...",
+  "..DDDDDLLLLLLLLDDDDDDCCCLLDDEE..",
+  ".DLDDDDLLLELLLLLCDCCCCDDDLDEED..",
+  ".LLDAADLLLELDLLLCCCCCCCLLLDEELLD",
+  "LLLDAEELLLEAALLLLLLLLLLLLLDELLLL",
+  "LLDDAEELLLEAADLLLLLLLLLLLLEELLLL",
+  "DLLLLLDLLLEAALLLLLLLLLLLDDEELLLL",
+  "LLLLLLDDLLEDDLLLDDLLLLDLLLEELLLL",
+  "LLLLLLDEDLEDDLLLLLLGGGGLLLEEDLLL",
+  "LLLLLLDELLEDDDLLLLLLLLLLLLEEELLL",
+  "LLLLLDDELRRDDAALLLLLLLLLLDEEELLL",
+  "LLLLDDDDLRRRAAAAAAEEEEEEEEEEEEGG",
+  "LLLLDDDDRRRREAAAAEEEEEEEEEEEEEGG",
+  "LDDDDDDEERRREAAACCCCCCCCCEEEEEDD",
+  "DDDDDEEEEEREEAACCCCCCCCCCYYEEEED",
+  "DDDDEEEEEEEEEAAECCCCCCCCCYYLEEED",
+  "DDDDEEEEEELLEEAEYYYYYCCCYYYLLEEE",
+  "DDDDDEEEELLLCEEEYYYYYYYEEYYYLEEE",
+  "DDDDEEEELLLLLLEYYYYYYYYEEYYLLLEE",
+  "DDDDEEEELLLLLLEELYYYYYYYECLLLLEE",
+  "DDDDEEEEELLLLLEELLLLLLLLDCLLLLED"
+ ]
+}

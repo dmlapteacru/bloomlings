@@ -1,0 +1,94 @@
+{
+ "code": "P1122",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Подарочный барабан-сюрприз",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Ярмарки и праздники",
+ "direction": "Домашняя магия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One round purple gift box with large blue side panels and gold base, lid tilted open with one huge red bow on it, one big green ribbon curl rising from the opening. No tiny presents or lettering.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 31,
+ "h": 31,
+ "N": 694,
+ "colours": 7,
+ "volumes": {
+  "R": {
+   "cells": 170,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "V": {
+   "cells": 162,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "B": {
+   "cells": 121,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "Y": {
+   "cells": 110,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 75,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "N": {
+   "cells": 55,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 1,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........RRR.................",
+  "..........RRRRR................",
+  "..........RRRRRR...............",
+  ".........RRRRRRR.VVVV..........",
+  ".........RRRRRRRRVVVV.....GGC..",
+  ".........RRRRRRRRVVVVV..GGGGGG.",
+  "........RRRRRRRRVVVVVV..GGGGGG.",
+  "..RRRRRRRRRRRRRVVVVVVVV.GGG.GGG",
+  ".RRRRRRRRRRRRRRVVVVVVV.....GGGG",
+  "RRRRRRRRRRRRRRRRRVVVV.....GGGGG",
+  "RRRRRRRRRRRRRRRRRVVVV..GGGGGGG.",
+  "RRRRRRRRRVVVRRRRRVVV.GGGGGGGGG.",
+  ".RRRRRRRRVVVVRRRVVV.GGGGGGGGG..",
+  ".RRRRRRRRVVVVVRVVVVGGGGGG......",
+  "..VRVRRRRVVVVVVVVVVGGGGVVVVV...",
+  ".VVVVRRRRVVVVVVVVVGGGGVVVVVVVV.",
+  ".VVVVRRRRVVVVVVVVVGGGGVVVVVVVV.",
+  ".VVVVRRRRVVVVVVVVVGGGVVVVVVVVN.",
+  ".VVVVRRRNNBVYYYYVVVVVVVYYYBBNN.",
+  ".VVVVRNNNBBBBYYYBBBBBBBYYYBBNN.",
+  "..VVNNNNNBBBBYYYBBBBBBBBYYBBNN.",
+  "....NNNNBBBBBYYYBBBBBBBBYYBBNN.",
+  "....NNNBBBBBBYYYBBBBBBBBYYBBNN.",
+  "....NNNBBBBBBYYYBBBBBBBBYYBBNN.",
+  "....NNNNBBBBBYYYBBBBBBBBYYBBNN.",
+  "....NNNNBBBBBYYYBBBBBBBBYYBBNN.",
+  "....NNNNBBBBBYYYBBBBBBBBYYYYYY.",
+  ".....NYYYYYYYYYYNNNNNBYYYYYYY..",
+  ".....YYYYYYYYYYYYYYYYYYYYYYY...",
+  "........YYYYYYYYYYYYYYYYYY.....",
+  ".............RRRRRRRRR........."
+ ]
+}

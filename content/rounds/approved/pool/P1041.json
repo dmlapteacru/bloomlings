@@ -1,0 +1,100 @@
+{
+ "code": "P1041",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Иллидан",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Warcraft · Blizzard Entertainment: Illidan Stormrage from Warcraft: adult purple-skinned night elf with enormous curved dark horns, long dark hair, BLACK blindfold covering his eyes, bright GREEN fel markings and ONE broad curved green warglaive held tightly across his chest. Large angular face and horns, no visible pupils through blindfold, wings folded out of view.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 33,
+ "N": 1025,
+ "colours": 8,
+ "volumes": {
+  "D": {
+   "cells": 638,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "V": {
+   "cells": 241,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "G": {
+   "cells": 46,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 41,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "L": {
+   "cells": 38,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "A": {
+   "cells": 12,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "K": {
+   "cells": 8,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "C": {
+   "cells": 1,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..DDDDDD..DDDDDD..DDDDDD....DDDDD.",
+  ".DDDDDD..DDDDDDDDDDDDDDDD....DDDDD",
+  ".DDDDDD..DDDDDDDDDDDDDDDD....DDDDD",
+  "DDDDDD..DDDDDDDDDDDDDDDD.....DDDDD",
+  "DDDDDD..DDDDDDDDDDDDDDDD.....DDDDD",
+  "DDDDDD.DDDDDDDDDDDDDDDDDD....DDDDD",
+  "DDDDDD.DDDDDDDDDDDDDDDDDD....DDDDD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDD.DDDDDD",
+  ".DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  ".DDDDDDDDDDDDDDDDVVDDDDDDDDDDDDDD.",
+  "..DDDDDDDDDDDDDDVVVVVVVDDDDDDDDDD.",
+  ".DDDDDDDDDDDDDDDVVVVVVVDDDDDDDDD..",
+  ".VVVVVVVVVDDDDDDDDVVVVVDDDDDDDD.D.",
+  "..DVVVVVVVDDDDDDDDDDDDDDDDDDDD..L.",
+  "...DDVVVVVDDDDDDDDDDDDDDDV......LD",
+  "..DDDDDVVVDDDDVVDDVVDDDDDVVV...LLL",
+  "DDDDDDDDDDDDDVVVVVVVVVDDVVV....LLL",
+  "DDDDDDDDDDDDVVVVVVVVVDDDDD....MMLL",
+  "DDDDDDDDDDDDVVVVVVVVVDDDDDD..DMMLL",
+  "DDDDDDKDDDDVVVVVVVVVDDDDDDDDDMMML.",
+  "DDDDDKKDDDDVVVVVVVVDDDDDDDDDMMMLL.",
+  "DDVVVVVVDDDVVVVVVVDDDDDDDDGGMMMLL.",
+  "VVVVVGGVVDDDVVVVVVDDDDDDGGGMMMMLL.",
+  "VGGVVVGGGDDDDVVVVVDDVDGGMMMMMMLLD.",
+  "GGVVVVGGVDDDDVVVVVVDVVGGMMMMMMLLD.",
+  "GVVVVVGGVVDDDVVVVVVDCDGDMMMGGLLLDD",
+  "GGVGGGGVVVDDVVDDVVDDDDDDMMLLGGLDDD",
+  "GGGGGVVVVVDDKKDAADDDDDDMMLLVVDDDDD",
+  "VGGVVVVDVVVKKKDAAADDDDDMMLLVVDDDDD",
+  "VVVVVVVDVVVDDDDDDADDDDMMGGLVVVDDDD",
+  "VVVLLVVDVVVDDDADDAADDDMGGGDVVVVDDD",
+  "VVLLVVVDVVDDDDADDADDDDDDDVVVVVVVDD",
+  "VVVVVVVDVDDDDDADDDDDDDDDDDVVVVVVVD"
+ ]
+}

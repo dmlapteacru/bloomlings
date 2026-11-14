@@ -1,0 +1,107 @@
+{
+ "code": "P1022",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Барсук в тапочках из листьев",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Лесные и горные животные",
+ "direction": "Театр эмоций",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один оригинальный сидящий барсук с широкой кремово-тёмной полосатой мордой надел две огромные зелёные тапочки из листьев, держит розовую подушку на коленях, короткое округлое тело",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 39,
+ "h": 40,
+ "N": 1161,
+ "colours": 8,
+ "volumes": {
+  "D": {
+   "cells": 597,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 214,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 165,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "P": {
+   "cells": 107,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "M": {
+   "cells": 58,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "R": {
+   "cells": 13,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "E": {
+   "cells": 4,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "L": {
+   "cells": 3,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..........DDDD.........................",
+  ".........DCCCDDDDDDDDDDDD..............",
+  "........DDDDDCDDDCCCCCCDDDDDDDD........",
+  "........DCDDDDDDCCCCCCCDDDDCCCCD.......",
+  "........DCDDDDDDCCCCCCDDDDDCDDCCD......",
+  "........DDDDDDDCCCCCCDDDDDDDDDDCD......",
+  "........DDDDDDDCCCCCCDDDDDDDDDDCD......",
+  "........DDCCDDDCCCCCDDDDDDDDDDDCD......",
+  ".......DDCCDDDDCCCCCDDDDDDDDDDDD.......",
+  ".......DCCDDDDCCCCCDDDDDCCCDDDDD.......",
+  "......DCCDDDDDCCCCCDDDDDDCCCDDDD.......",
+  ".....DDCCDDDDDCCCCCDDDDDDCCCCDDDD......",
+  ".....DCCCDDDCCCCCCDDDDDDDCCCCCDDD......",
+  ".....DDCCCDDCDDDDCCDDDDDDCCCCCCDDD.....",
+  "......DCCCCCCDDDDCCCDDDDCCCCCCCCDD.....",
+  ".......DCCCCDCDDCCDCCCCCCCCCCCCDD......",
+  "........DCCCCCCCCCCCCCCCCCCCCDDDDD.....",
+  ".......DDDDDCCCCCCCCCCCCCCDDDDDDDD.....",
+  "......DDDDDDDCCCCCCCDDDDDDDDDDDDDDD....",
+  ".....DDDDDDPPPPPEEEEDDDDDDDDDDDDDDD....",
+  "....DDDDPPPPPPPPPPPPPPDDDDDDDDDDDDDD...",
+  "....DDDDPPPPPPPPPPPPPPPPDDDDDDDDDDDD...",
+  "...DDDDDDDPPPPPPPPPPPPPDDCCCDDDDDDDD...",
+  "...DDDDDDDPPPPPPPPPPPDDDDCCCDDDDDDDDD..",
+  "...DDDDDDDPPPPPPPPPDDDDDDDCCCDDDDDDDD..",
+  "...DDDDDDDPPPPPPPPPDDDDDDDCCDDDDDDDDD..",
+  "..DDDDGDDDPPPPPPPPPDDDDDDDDDDDDDDDDDD..",
+  "..GGGGGGDDPPPPPPPPPDDDDLLLGDDDDDDDDDDD.",
+  ".DGGGGGGGGDDPPPPPPPDDGGMMMGGDDDDDDDDDDD",
+  ".GGGGGGGGGGDDRRPRRRDGGGGGGGGGDDDDDDDDCD",
+  "DGGGGGGGGGGDDDRRRRRDGGGGGGGMGDDDDDDDCCD",
+  "DGGGGGGGGGGDDDDRRRDGGGGGGGGMGGDDDDDDCCD",
+  "DGGGGGGGGGGGDDDDDDDGGGGGGGGMGGDDDDDDCD.",
+  ".DGGGGGGGGGGDDDDDDGGGGGGGGGGGGPDDDDCCD.",
+  ".DGGGGMGGGGGDDDDDDGGGGMGGGGGGDPDDDDDD..",
+  "..DGMMMGMGGGMDDDDDGGGMMMMMGGGPPDDDDD...",
+  "..DGGGGMMGGMMDDDDDGGMMGGGGGGDDDDDD.....",
+  "...DMMMMMMMMMMDDDDMMMMMGMMMDDDDDD......",
+  ".....DDMMMMMMMD...DMMMMMMMMDDDD........",
+  "........DDDDD......DDDDDDMD............"
+ ]
+}

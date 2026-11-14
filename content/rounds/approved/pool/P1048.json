@@ -1,0 +1,97 @@
+{
+ "code": "P1048",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "2B",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "NieR:Automata · Square Enix: 2B from NieR:Automata: adult pale woman with a short WHITE bob haircut, black hairband and BLACK blindfold over her eyes, high-collared black dress with large cream feather-like sleeve cuffs; one gloved hand near the collar and a short silver sword hilt behind a shoulder. Large face and bob silhouette, no visible eyes through blindfold, modest chest-up portrait.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 29,
+ "h": 29,
+ "N": 841,
+ "colours": 8,
+ "volumes": {
+  "D": {
+   "cells": 398,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 204,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "V": {
+   "cells": 84,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "Y": {
+   "cells": 65,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "M": {
+   "cells": 43,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 32,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "R": {
+   "cells": 8,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "B": {
+   "cells": 7,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "DDDVVVVVVVVVVVVVVVVVVVVVVVVVV",
+  "DDDVVVVVYYYYYYYYYYYVVVVVVVVVV",
+  "MMMGGVVYYYYYYYYYYYYYYVVVVVVVV",
+  "MMMGVVVDDDDDDDDYYYYYYYVVVDVVV",
+  "MMMGDDCDDDDCCCDDYYYYYDCCCDDVV",
+  "GGDGDCDDDCCCCCCCDYYBDCCCCCCDV",
+  "GGGDCCDDCCCCCCCCCYYBDCCCCCCDV",
+  "DDDCCDDCCCDCCCCCCDYBDCCCCCCDD",
+  "DDDCCDCCCCDDCCCCCCYBDCCCCCCDD",
+  "DDCCCDCCCDDDCCCCCCYBDCCCDDCDD",
+  "DDCCCDCCCDDDDCCCCCDBDCCDRRRDD",
+  "DCCCCCCCCDDDDCCCCCDBDCCDRRRDD",
+  "DCCCCCCCDDDDDDCCCCDDDCCCRRDDD",
+  "DDCCCCCCDDDDDDDDCCDDDCCCCCCDD",
+  "DDCCCCCCDDDDCCDDCCDDDCCCCCCDD",
+  "DDCCCCCCDDCCCCCDCCYDDDCCCCCDD",
+  "DDDCCCCCDCCCCCCCCCYYDDDDDDDDD",
+  "DDDDDCCCDCCCCCDCDDYYDDDDDDDDD",
+  "MMMDDDDDDCDDDDDDDYYDCDDDDDDDD",
+  "MMMDDDDDDDDDDDYYYDDDDDDDDDDDD",
+  "MMMDDDDDDDDDYYYYYYDDDDDVVVDDD",
+  "MDDDDDDDDDDDYYYYGGGGDDDVVVDDD",
+  "DDDDDDDDDDDDDDYDDGGGDDDVVVDDD",
+  "DDDDDDDDDDDDDDDDDDDGGDDVVVDVV",
+  "DDDDDDDDDDDDDDDDDDDDGVVVMMVVV",
+  "DDDDDDDDDDDDDDDDDDDDGGGMMMGMM",
+  "DDDDDDDDDDDDDDDDDDDDDGGMGGGMM",
+  "DDDDDDDDDDDDDDDDDDDDDGGMMMGMM",
+  "DDDDDDDDDDDDDDDDDDDDMMMMMMMMM"
+ ]
+}

@@ -1,0 +1,109 @@
+{
+ "code": "P0897",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Рынок больших пуговиц",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Магазины и витрины",
+ "direction": "Перевёрнутый масштаб",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один маленький прилавок с розово-кремовым навесом торгует тремя огромными разноцветными пуговицами, у каждой четыре больших отверстия, без продавца и надписей",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 39,
+ "h": 38,
+ "N": 1240,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 335,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 318,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "E": {
+   "cells": 186,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "R": {
+   "cells": 140,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 96,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "B": {
+   "cells": 76,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "A": {
+   "cells": 64,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 13,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 12,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "......PPPPCCCCCPPPPPPCCCCPPPPPEEEE.....",
+  ".....PPPPPCCCCCPPPPPCCCCCPPPPPCCCCC....",
+  "....PPPPPCCCCCCPPPPPCCCCCCPPPPPCCCC....",
+  "...PPPPPPCCCCCPPPPPPCCCCCCPPPPPCCCCC...",
+  "...PPPPPCCCCCCPPPPPPCCCCCCPPPPPPCCCCC..",
+  "..PPPPPPCCCCCCPPPPPPCCCCCCPPPPPPCCCCC..",
+  ".PPPPPPCCCCCCCPPPPPPCCCCCCCPPPPPPCCCCC.",
+  "EPPPPPPCCCCCCCPPPPPPCCCCCCCPPPPPPCCCCCE",
+  "ERPPPPPCCCCCCCPPPPPPCCCCCCCRRPPPPCCCCCE",
+  "ERRPPPPCCCCCCCPPPPPPCCCCCCCRRPPPPCCCCCE",
+  "ERRRPPECCCCCCCPPPPPPCCCCCCCRRPPPPECCCCE",
+  ".RRRREEECCCCC.RRRRRR.CCCCC.RRRRREEECCC.",
+  "..EEEEEEEEE....EEE....EEE....EEEEEEEE..",
+  "..EEEEEE.......................EEEEEE..",
+  "..EAEEEE.......................EAEEAA..",
+  "..AAEEEE.......................EAEEAA..",
+  "..AAEEEERRRRR.....AAA.....BBBBBBAEEAA..",
+  "..AAEERRRRRRRR..YYYYYYY..BBBBBBBBDEAA..",
+  "..AAERRRRRRRRRRYYYYYYYYYYBBBBBBBBBEAA..",
+  "..AAERRRRRRRRRRYYYYYYYYYYBBDBBDBBBNAA..",
+  "..AAERRRRRRRRRYYYYYYYYYYYBBDBBDBBBNAA..",
+  "..AAERRRRRRRRRYYYYYYYYYYYBBBBBBBBBNAA..",
+  "..AAERRRRRRRRRYYYYYYYYYYYBBDDBDBBBNAA..",
+  "..AAERRRRRRRRRYYYYYYYYYYYBBBBBDBBBNAA..",
+  "..AAERRRRRRRRRRYYYYYYYYYYBBBBBBBBBEAA..",
+  "..AAEERRRRRRRREYYYYYYYYYEBBBBBBBNDEAA..",
+  "..AAEEEERRRREEEEEYYYYYYEEENNNNNNNEEAAA.",
+  ".CCCCCCEEEEECCCCEEAAACCAAACCDDCCCCCCCC.",
+  ".CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.",
+  ".EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.",
+  "..RRRPPPPCCCCCPPPPPPPPPCCCPPPPPPPRRRP..",
+  "..RRRRRPCCCCCCRRRRPPPCCCCCPRRRPPRRRRP..",
+  "..PPPPPPCCCCCCPPPPPPCCCCCCPPPPPPPPPPP..",
+  "..PPPPPPCCCCCCPPPPPPCCCCCCPPPPPPPPPPP..",
+  "..PPPPPPCCCCCCPPPPPPCCCCCCPPPPPPPPPPP..",
+  "..PPPPPPCCCCCCPPPPPPCCCCCCPPPPPPPPPPP..",
+  "..PPPPPPCCCCCCPPPPPPCCCCCCPPPPPPPPPPP..",
+  "..EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.."
+ ]
+}

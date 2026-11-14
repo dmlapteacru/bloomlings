@@ -1,0 +1,94 @@
+{
+ "code": "P1151",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Розовая пудреница с зеркалом",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Одежда и аксессуары",
+ "direction": "Домашняя магия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One round open pink compact makeup case, large pale-blue mirror in a cream lid, golden hinge and simple purple powder circle in base. Clear clamshell silhouette, no face or lettering.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 31,
+ "N": 606,
+ "colours": 7,
+ "volumes": {
+  "P": {
+   "cells": 175,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "S": {
+   "cells": 143,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 88,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 86,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "V": {
+   "cells": 72,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "O": {
+   "cells": 27,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 15,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "................OOOOP.......",
+  "...........PPPPOYYYOPPP.....",
+  "..........PPPPPOOOOPPPPP....",
+  ".........PPPPPCCCCCCCPPPP...",
+  "........PPPPCCSSSSSCCRRPPP..",
+  ".......PPCCCSSSSSSSSSCRRPPR.",
+  "......PPPCCSSSSSSSSSSSCRPPR.",
+  "......PPRCSSSSSSSSSSSSSCPPR.",
+  "......PPRCSSSSSSSSSSSSSCPPPR",
+  "......PPRCSSSSSSSSSSSSSCCRPR",
+  "......PPRCSSSSSSSSSSSSSSCRPR",
+  "......PPRCSSSSSSSSSSSSSSCRPR",
+  "......PPRCSSSSSSSSSSSSSSCRPR",
+  "......PPPPSSSSSSSSSSSSSCPPPR",
+  ".......PPPCSSSSSSSSSSSSCPPP.",
+  "........PPCCCSSSSSSSSSCPPPP.",
+  "........PPPYYYCCCCSSSCPPPP..",
+  "......PPPPPYYYOOOOCCPPPPP...",
+  "....PPPPPPPOOOOOOOPPPPPP....",
+  "..PPPPRRRCCCCCCOOOPPPP......",
+  ".PPPCCCCCVVVVVVCCCCCPPP.....",
+  ".PPCCCVVVVVVVVVVVVCCPPPP....",
+  "RPPCCVVVVVVVVVVVVVVVCPPP....",
+  "RPPCCVVVVVVVVVVVVVVVCPPP....",
+  "RPPCCVVVVVVVVVVVVVVCPPPR....",
+  "RRPPPCCVVVVVVVVVVCCPPPRR....",
+  ".RRRPPPPCCCCCCCCCPPPPRRR....",
+  ".RRRRRPPYYYPPPPPPPRRRRR.....",
+  "..RRRRRRYYYPPPPRRRRRRR......",
+  "....RRRROOORRRRRRRRR........",
+  "........RRRRRRRRR..........."
+ ]
+}

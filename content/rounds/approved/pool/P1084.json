@@ -1,0 +1,82 @@
+{
+ "code": "P1084",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Манго с открытой золотой мякотью",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Фрукты и ягоды",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One ripe oval mango in orange and red skin, a large half cut away revealing bright gold flesh, one short green leaf. Compact chunky fruit silhouette, no plate or face.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 26,
+ "h": 26,
+ "N": 495,
+ "colours": 6,
+ "volumes": {
+  "O": {
+   "cells": 148,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 147,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 144,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "M": {
+   "cells": 32,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 18,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 6,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....MMMM.D...............",
+  "...GGGGGGMDD..............",
+  "..GGGGMMMMDDRRRRRRR.......",
+  ".GGGMMMMM.ODOORRRRRRR.....",
+  ".GGMMMMOOOOYOYYYYRRRRR....",
+  "MGGMMMOOOOYYYYYYYYYRRRR...",
+  "MGMMMOOOOYYOYYYYYYYYRRRR..",
+  "MMM..OOOOYYOYYYYYYYYYRRR..",
+  "MM..OOOOOYYOYYYYYYYYYRRRR.",
+  "M...OOOOOOYOOYYYYYYYYYRRR.",
+  "...OOOOOOOOOOYYYYYYYYYRRR.",
+  "...OOOOOOOOOOYYYYYYYYYYRRR",
+  "...OOOOOOOOOOOYYYYYYYYYRRR",
+  "...ROOOOOOOOOOYYYYYYYYYYRR",
+  "...ROOOOOOOOOOOYYYYYYYYYRR",
+  "...RROOOOOOOOOOOYYYYYYYYRR",
+  "...RRRROOOOOOOOOYYYYYYYYRR",
+  "....RRRRROORROOOOYYYYYYYYR",
+  "....RRRRRRORROOOOOYYYYYYYR",
+  ".....RRRRRRRRROOOOOYYYYYYR",
+  "......RRRRRRRRROOOOOYYYYYR",
+  ".......RRRRRRRRROOOOOOYYRR",
+  "........RRRRRRRROOOOOOOOR.",
+  "..........RRRRRRRROOOORR..",
+  "............RRRRRRRRRRR...",
+  "................RRRR......"
+ ]
+}

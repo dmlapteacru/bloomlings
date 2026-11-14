@@ -1,0 +1,112 @@
+{
+ "code": "P1017",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Папоротник-гармошка из ткани",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Деревья, листья и плоды",
+ "direction": "Предметные гибриды",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один крупный зелёный папоротник сложен широкими складками как тканевая гармошка, золотая центральная ось и розовая мягкая подставка, без музыкальных клавиш и кнопок",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 42,
+ "h": 40,
+ "N": 1180,
+ "colours": 9,
+ "volumes": {
+  "M": {
+   "cells": 441,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 256,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "P": {
+   "cells": 144,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "D": {
+   "cells": 132,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 83,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "L": {
+   "cells": 41,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "R": {
+   "cells": 40,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "E": {
+   "cells": 39,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "K": {
+   "cells": 4,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...DDDDDD.................................",
+  "..DLLLLLLLD...............................",
+  ".DLLGGGGGGGD..............................",
+  ".LLMMMMMGGGMD.DGGD........................",
+  "DLLMGDMMMYMMMDGGMM........................",
+  "DLGGGDDGMYMMMGGMMMD..DDD..................",
+  "DDGGGGGGGYYMMGGMMMMDDGMMD.................",
+  ".DMMMDMMMMYMMGGMMMMDGGMMM.................",
+  "..DDDDMGDDYYDGGMMMMGGMMMMD..DD............",
+  "....GGGGGGYYDGGMMMDGGMMMMDDGGDD...........",
+  "...DMMMMMMMYYYMMMMGGMMMMMMGGMMM...........",
+  "...DMMMMMMMYYYMMMMGGMMMMMGGGMMMD..........",
+  "....DGGGGGGDYYMMMGGLMMMMMGGLMMMD..DD......",
+  "...DGGGGGGGYYYMMMGGLMMMMGGLLMMMDDDDDD.....",
+  "..DMMMMMMMMMYYMMMGYLMMMMGGLMMMMMGGLMD.....",
+  "..DMMMMMMMMMMYYMDGYMMMMGGGMMMMMGGLLMD.....",
+  "...DMMMMGGGYDYYDDGYMMMMGGMMMMMGGLLMMM.....",
+  "....DMGGGGGYYYYYDGYMMMGGGMMMMMGGLMMMMD....",
+  "...DGGGGGGMGGGGYYYMMMMGGGMMMMGGMMMMMMDDD..",
+  "..DGGMMMMMMMMMMYYYMMMDGGGMMMGGMMMMMMMLLLD.",
+  "..DGMMMMMMMMMMMMYYMMMMGGMMMMGGMMMMLLLLLLDD",
+  "..DMMMMMMMMMGDYYDYYYDGGGMMMGGGMMMLLGGGGLLD",
+  "...DMMMMMGGGGGGYYYYYDGGMMMMGGMMMMGGMMMGGLG",
+  "....DDDGGGGGGGGGGGYYYGGMMMDGMMMMGGMMDDGGGG",
+  ".....GGGGMMMMMMMMMMMYYYMMMMGMMMGGMMDGGGGGG",
+  "....DGGGMMMMMMMMMMMMDYYMMMGGMMMGMMDDGGGGGD",
+  "....DGGMMMMMMMMMGGGGGYYYYMGMMMMMMD.DGGGGG.",
+  "....DMMMMMMMMMGGGGGGGGMYYYGMMMMMD...DDDD..",
+  ".....DMMMMMMGGGGGMMMMMMDYYYMMMMMRR........",
+  "....PPPDMMMGGGMMMMMMMMGGYYYMMMMDRRR.......",
+  "....PPPDDDDGGMMMMMMMGGGGYYYYMMDRRRPP......",
+  "...PPPPPPPDGGMMMMMMGGGMMMMYYEMDRPPPPE.....",
+  "...PPKKKKPPMMMMMMMGGMMMMMMYYEEPPPPPPE.....",
+  "...PPPPPPPPPDMMDDDGGMMMMDPEEEPPPPPPPE.....",
+  "...PPPPPPPPPPPPPPPDMMMDPPPPPPPPPPPPRE.....",
+  "...PPPPPPPPPPPPPPPPDDPPPPPPPPPPPPPRRE.....",
+  "....PPPPRPPPPPPPPPPPPPPPPPPPPPPRRRRR......",
+  ".....EEERRRPPPPPPRRPPPPPPPPPPRRREEE.......",
+  ".........EEEERRRRRRRRRRRRRREEEE...........",
+  ".............EEEEEEEEEEEEEE..............."
+ ]
+}

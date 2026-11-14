@@ -1,0 +1,89 @@
+{
+ "code": "P1086",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Жёлтая бетономешалка",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Наземный транспорт",
+ "direction": "Доброе будущее",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One compact yellow cement-mixer toy truck in side three-quarter view, enormous tilted orange drum, blue cab window and two large dark wheels. Everything thick and rounded, no text or road.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 26,
+ "N": 606,
+ "colours": 7,
+ "volumes": {
+  "Y": {
+   "cells": 213,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 162,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "O": {
+   "cells": 154,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 35,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "B": {
+   "cells": 22,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 19,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 1,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "................AAAAA.........",
+  ".............OOOOOOOOOAAA.....",
+  "...........OOYYOOOOOOOOAAYY...",
+  "..........OOOOYOOOOOOOOOAYYY..",
+  ".....OOOODDDDOOYOOOOOOOOAAYY..",
+  "....YYYYYYDDDDOYYOOOOOOOAAYY..",
+  "...YYYYYYYYYYDOOYOOOOOOOOAYYO.",
+  "..OYBBYYYYYYYYDOYYOOOOOOOAYYO.",
+  "..OYBBBBYYYNNYDOOYOOOOOOOAYYO.",
+  "..ONBBBBBYNNNYYDOOOOOOOOOAYY..",
+  "..ONBBBBYYNNNYYDOOOOOOOOOAYY..",
+  "..ONBBBBYYNNNYYDOOOOOOOOAADC..",
+  ".YYYYBBBYYNNNYYDOOOOOOAAAYYYY.",
+  ".YYYYYYYYYNNYYYDOOOOAAAADYYOO.",
+  ".YYYYYYYYYYYYYYDOOOAAAADYOOOO.",
+  ".YYYYYYYYYYYYYYYDOAADYYYYYYYO.",
+  ".YDDDYYYYYYYYDDYYYYYYYYDDDDYYO",
+  "OODDDYYYYYYDDDDDDYYYYYDDDDDDYO",
+  "OYYDDYYYYYYDDDDDDYYYYYDDDDDDDO",
+  "OOYYYYYYYYDDDDDDDDYYYDDDDDDDDD",
+  ".OYYYYYYYDDDDOODDDOOODDDDYYDD.",
+  "..DYYYYYYDDDDOYYDDOOODDDDYYDD.",
+  "..DDDYYYYDDDDYYDDD..DDDDDDDDD.",
+  "...DDDDDDDDDDDDDD....DDDDDDD..",
+  ".....DD...DDDDDDD......DDDD...",
+  "...........DDDDD.............."
+ ]
+}

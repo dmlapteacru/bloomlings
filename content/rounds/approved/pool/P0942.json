@@ -1,0 +1,113 @@
+{
+ "code": "P0942",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Канатная дорога из варежек",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Одежда и аксессуары",
+ "direction": "Перевёрнутый масштаб",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Две крупные пухлые розовая и синяя варежки висят как кабинки на одной короткой толстой золотой перекладине, снизу широкая зелёная опора, кремовые манжеты похожи на окна",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 41,
+ "h": 41,
+ "N": 1199,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 251,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 234,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "P": {
+   "cells": 176,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "M": {
+   "cells": 118,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "D": {
+   "cells": 110,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "B": {
+   "cells": 93,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "A": {
+   "cells": 79,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 73,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "Y": {
+   "cells": 65,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..................AAAAA..................",
+  ".................YYCCYYY.................",
+  "......AAA........YYYYYYYA.......AAA......",
+  ".....YYCYAAAAAAAAYYYYYYAAAAAAAAAACYY.....",
+  ".....YYYYYYYYYYYYYYYYYAAYYYYYYYAAYYYY....",
+  ".....AAAAAAAYYYYAAAAAAAAAAAAAAAAAAAY.....",
+  "......AAAYAC.....AAAAAAA......CYAAA......",
+  "........CYY.......AAAAA.......CY.........",
+  ".....CCCCYCC.......MMMD.....CCCYCCCCC....",
+  "...CCCCCCYCCCCC....GMMD..CCCCCCYCCCCCCC..",
+  "..CCCCCCCCCCCCCC...GGGD.CCCCCCCCCCCCCCC..",
+  "..CCCCCCCCCCCCCCC..GGGD.CCCCCCCCCCCCCCC..",
+  "..CCCCCCCCCCCCCCC..GGGD.CCCCCCCCCCCCCCC..",
+  "..CCCCCCCCCCCCCCC..GGGD.CCCCCCCCCCCCCCC..",
+  "..CCCCCCCCCCCCCCC..GGGD.CCCCCCCCCCCCCCC..",
+  "...PPPPPPPCCPPPP...GGGD.CCCCCCNNNCNNNN...",
+  "..PPPPPPPPPPPPPP...GGGD..DDNNNBBBBBBBBN..",
+  "..PPPPCDCCPPPPPP...GGGD...NNBBBCCCCBBBN..",
+  ".PPPPCDDDDCPPPPP...GGGD..NNNBBCDDCDCBBN..",
+  ".PPPCDDDDDDPPPPPP..GGGD..NBBBBCDDCDDCBBN.",
+  ".PPPCCCCCCCCPPPPPP.GGGD.BBBBBBCDDCDDCBBN.",
+  "PPPPCDDDDDDPPPPPPPDGGGDNBBBBBBCDDCDDCBBN.",
+  "PPPPCDDDDDDPPPPPPPDGGGDNBBBBBBDDDDDDCBBBN",
+  "PPPPPCDCCDCPPPPPPPDGGGDNNBBNBBCDDCDDCBBNN",
+  "PPPPPPPPPPPPPPPPPP.GGGDNNNNNBBCCCCCCBBBBN",
+  ".PPPPPPPPPPPPPPPP..GGGD.NNNNBBBBBBBBBBBNN",
+  ".PPPPPPPPPPPPP.....GGGD....NBBBBBBBBBBBN.",
+  ".PPPPPPPPPPPP....DDGGDDDD..NNNBBBBBBNNNN.",
+  "..PPPPPPPPPPP...DGGGGDGGGD..NNNBBBNNNNN..",
+  "....PPPPPPP....DGGGMMGGGGGD..NNNNBNNNN...",
+  "......PPP.....DGGGGGMGGGGGD...NNNNNN.....",
+  "..........DDDDGGGGGGGGMMMGDDDDD..........",
+  "........DDGGGGGGGGGGGMMMMMDDGGGD.........",
+  "........DGMMMGGGGGGGGMMMMMDDMGGGMGGC.....",
+  "....MMMDGGMMDGGGGGGGGMGGGGGMMMGGMMGGG....",
+  "...GMMMGGGMMGGGGGGMMMGGGGGGMMMMGGMMMM....",
+  "..GGGMMGGMMMGGGMMMMMMGGMGGGMDMMMGDMGGGG..",
+  "..GGGGMGMMMMGMMMMMMMMGMMMMMDMMMMMMGGGGG..",
+  "....GGGGGGGMMMMMMMMMMMMMMMMMMGGGGGGGG....",
+  ".......GGGGGGGGGGGGGDMMMMMMGGGGGG........",
+  "............GGGGGGGGGGGGGGGG............."
+ ]
+}

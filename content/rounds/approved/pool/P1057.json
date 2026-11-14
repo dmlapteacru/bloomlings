@@ -1,0 +1,105 @@
+{
+ "code": "P1057",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Хэви и сэндвич",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Team Fortress 2 · Valve: Heavy from Team Fortress 2: huge broad-shouldered adult bald man with a square jaw and cheerful grin, RED shirt under dark vest and thick golden ammunition belt; holding ONE giant layered sandvich with cream bread, green lettuce and red filling. Bust portrait, oversized head and sandwich close together, no gunfire.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 33,
+ "h": 33,
+ "N": 1084,
+ "colours": 9,
+ "volumes": {
+  "D": {
+   "cells": 348,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "P": {
+   "cells": 278,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "A": {
+   "cells": 100,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 90,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 90,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "R": {
+   "cells": 69,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 57,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 37,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "G": {
+   "cells": 15,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+  "PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPP",
+  "PPPPPPPPPPPPPPPDDCCCCDPPPPPPPPPPP",
+  "PPPPPPPPPPPPPPAAOCCCCCCPPPPPPPPPP",
+  "PPPPPPPPPPPPPAAOOCDCCCCCPPPPPPPPP",
+  "PPPPPPPPPPPDCAAOODDDCCCCDPPPPPPPP",
+  "PPPPPPPPPPCCCAOOODDDDCCDDPPPPPPPP",
+  "PPPPPPPPPDCCCAOOODD.OODDDPPPPPPPP",
+  "PPPPPPPPPDCCAAOOOOOOOODDDPPPPPPPP",
+  "PPPPPPPPDODCAAEEAAOOOOADDPPPPPPPP",
+  "PPPPPDDDOOOAAAEEDAAAADADDPPPPPPPP",
+  "PPPPDEDOOOOAAAAOD.DAAAAADPPPPPPPP",
+  "PPDDDEDOOOOAAAAOOD..CDAADPPPPPPPP",
+  "DYYDDEEDOOOAAAAAOODD.DDADDPPPPPPP",
+  "YYYDDDEDOOOAAAAAAAOOOOOADDDDPPPPP",
+  "DDYYYDDEDOOOAAAAAAAAAAAADEDDDDPPP",
+  "DDYYDDDEEDOOOAAAAAAAAAAADEDDDDDPP",
+  "DDDDDYYDEEDOOOEEAAAAAAAADEDDDDDRP",
+  "DDDDYYDDDEEDOOEEEEEEAAADDDDDDDDRR",
+  "DADDYDDYDDEEOOOAAEEEEDDDDDDDDDDDR",
+  "AADDDYYYYDDEEOOOAAAADDDDDDCCCCCDR",
+  "DDDDDDYDDDDDERROOAADDDCCCCCCCCCCD",
+  "RDAADDDDYYYDERRRRDDCCCCCCCCCCGGGD",
+  "RDADDDDYYYYDDRRRRYYYCCCCCCCCGGGGD",
+  "RRDDDDDDDDDYDDDRRDYYCCCCCCCCRRRRD",
+  "RRRDDDDDDYYYDDDDDDDDDGGCCCDCDDRRD",
+  "RRRDDDDDDYYDDDYDDDRRRGGGGDDCCOODD",
+  "RRRRDDDDDDDDYYYDDDRRRRRGGDDDOOODD",
+  "RRRRDDDDDDDYYYDDDDCCRRRRDCOODODDD",
+  "RRRRDDDDDDDDDDDYYDDCCCCDDCOOODDDD",
+  "RRRRDDDDDDDDDDYYYDDDDDDDCCDOODDDD",
+  "RRRRDDDDDDDDDDYDDDYYDDDDOOODDDDDD",
+  "RRRRDDDDDDDDDDDDDYYYDDDDDOODDDDDD"
+ ]
+}

@@ -1,0 +1,82 @@
+{
+ "code": "P1145",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Игральный кубик на двух фишках",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Игрушки и настольные игры",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One huge cream game die in three-quarter view resting on two thick stacked red and blue checker chips. Large dark round pips, broad orange shadow face, compact composition, no board or letters.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 25,
+ "h": 28,
+ "N": 560,
+ "colours": 5,
+ "volumes": {
+  "C": {
+   "cells": 242,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 91,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "R": {
+   "cells": 83,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "O": {
+   "cells": 79,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 65,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........CCCCC.........",
+  ".........CCCCDDCCC.......",
+  ".......CCCCCDDDDCCCC.....",
+  ".....CCCCCCCDDDCCCCCC....",
+  "....CCCDDDCCCCCCCCCCCC...",
+  "...CCCDDDDCCCCCCCCCCCC...",
+  "..CCCCCDDDCCDDCCCCCCOO...",
+  "..CCCCCCCCCDDDDCCCCOOO...",
+  "..CCCCCCCCCDDDCCCOOOOO...",
+  "..CCDDCCCCCCCCCCOOODDO...",
+  "..CCDDCCCCCCCCOOOOODDO...",
+  "..CCDDCCCCCCCOOOOOODOO...",
+  "..CCCCCCCCCCCOODDOOOOO...",
+  "..CCCCDDCCCCCOODDOOOOO...",
+  "..CCCCDDDCCCCOOOOOODDOR..",
+  ".RRCCCCDCCCCCOOOOOODDORR.",
+  "RRRCCCCCCDDCCOODDOOOOORRR",
+  "RCCRRCCCCDDDCOODDOOORRCCR",
+  "RCCRRRRCCDDCCOODOOORRRCCR",
+  "RCRRRRRRRCCCCOOOORRRRRRCR",
+  ".RRRRRCCCRRCCOORRCCRRRRRN",
+  "NNRRRRCCCRRRRRRRCCCCRRRNN",
+  "NNNNNRCCCRRRRRRRCCCNNNNNN",
+  "NNNNNCNNNNRRRRRRNNNNNNNNN",
+  "NNNNCCCCNNNNNNNNCCCNNNNNN",
+  ".NNNCCCCNNNNNNNNCCCCNNN..",
+  "...NNCCNNNNNNNNNCCCNNN...",
+  "........NNNNNNNNNNN......"
+ ]
+}

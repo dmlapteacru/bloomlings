@@ -1,0 +1,84 @@
+{
+ "code": "P1083",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Щенок-бигль с большим ухом",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Домашние животные",
+ "direction": "Театр эмоций",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "Close-up adorable beagle puppy head, one enormous floppy brown ear on each side, cream muzzle, big dark eyes and wide orange collar. Face fills almost the whole square, no body or background.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 27,
+ "h": 23,
+ "N": 454,
+ "colours": 7,
+ "volumes": {
+  "A": {
+   "cells": 184,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 69,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 68,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 62,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "D": {
+   "cells": 56,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 9,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "P": {
+   "cells": 6,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "............EEEEE..........",
+  ".........AAAACAAAAA........",
+  ".......AAAAAACCAAAAA.......",
+  "......AAAAAAACCAAOAAA......",
+  ".....AAAAAOOACCAOOOOAA.....",
+  "....AAAAAOOOACCAOOOOAAA....",
+  "...AAAAAOOOOOCCOODDDAAAA...",
+  "...AAAAAODDOOCCCODDDAAAA...",
+  "...AAAAADDDDOOCCODDDDAAAA..",
+  "..AAAAAADDDDOCCCCDDDOAAAA..",
+  ".AAAAAAADDDDCCCDDCCCOAAEAA.",
+  ".AAEAAAAOCDDCCDDDDCCOAAEEE.",
+  "EAEEEAAAOOOCCCDDDDCCCAAEEEA",
+  "EAEEEEAAAOCCCCCDDCCCCAAEEEA",
+  "EAEEEEAAACCDCCCDDDDCCAAEEEA",
+  "EAEEEEAAACCCDDDDDDCCAAAEEEA",
+  ".AEEEEAAAACCDDPPPDCEAAAEEEA",
+  ".AAEEEAAAACCCDPPPCEEAAAEEE.",
+  ".AAAAAAAAOOOOCCCCEEOEAAAAA.",
+  "...AAAAAAOOOOYYYYOOOEEAAA..",
+  "....AAAA.OOOOYOOYOOO..AA...",
+  ".....AA...OOOYOOYOO........",
+  ".............YOOO.........."
+ ]
+}

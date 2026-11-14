@@ -1,0 +1,76 @@
+{
+ "code": "P1158",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Пухлый оранжевый тритон",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Морские и пресноводные обитатели",
+ "direction": "Театр эмоций",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One cute orange salamander curled into a compact C shape, enormous rounded head with large dark eyes, cream belly and short chunky four legs, red broad dorsal spots. No water scene or thin toes.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 26,
+ "h": 25,
+ "N": 446,
+ "colours": 5,
+ "volumes": {
+  "O": {
+   "cells": 333,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "R": {
+   "cells": 39,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 30,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 24,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "A": {
+   "cells": 20,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "............OOOO..........",
+  ".........OOOOOOOOO........",
+  "......OOOOORRROOOOOO......",
+  ".....OOOOOOOROOOOOOOO.....",
+  "....RRROOOOOOOOOORROOOOO..",
+  "...ORRROORROOOOOORROOOOOO.",
+  "..OOOROOOROOOOOOOOOOOODDD.",
+  "..OOOOOOOOOOOOOOOOOOOODDD.",
+  ".OORROOOCOOOODDDOOOOOODDDO",
+  ".ORRROCCCCOOCDDDDOOOOODDDO",
+  ".OOROCCCCCCOCDDDOOOOOOOOOO",
+  "AOOOOCOOOCCOOCDDOOOOOOOOO.",
+  "AORROCOOOCCOOOOOOOOOOOOO..",
+  "AORROOOOOCCOOOOOOOOOOOO...",
+  "AOOOOOOOOOO..OCCCCCCCOO...",
+  "AOOOOOOOOOA.....OOOOOOOO..",
+  ".OOROOOOOAA.OO......OOOO..",
+  ".OORROOOC..OOOA....OOOOAA.",
+  "..OOOOOOO.OOOOA.....OOAA..",
+  "..OOOORROOOOOAA...........",
+  "...OOORROOOOOO....OOO.....",
+  "....OOOOOORROOOOOOOOO.....",
+  ".....OOOOORROOOOOOOO......",
+  "......OOOOOOOOOOOOO.......",
+  "..........OOAAAA.........."
+ ]
+}

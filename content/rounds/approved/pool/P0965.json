@@ -1,0 +1,113 @@
+{
+ "code": "P0965",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Каска-цветочная клумба",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Профессии и увлечения",
+ "direction": "Миры внутри предметов",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна большая перевёрнутая золотая строительная каска хранит три крупных розовых и синих цветка с зелёными листьями, толстый край и синий ремешок хорошо видны",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 37,
+ "h": 41,
+ "N": 1023,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 340,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 133,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "P": {
+   "cells": 118,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "B": {
+   "cells": 112,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "M": {
+   "cells": 102,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "O": {
+   "cells": 97,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "N": {
+   "cells": 71,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 46,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 4,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..................G..................",
+  "...........PP....GGGG................",
+  "..........PPPPP..GGGGG...............",
+  ".........PPPPPP..DGGGGD....G.........",
+  "......PPPPPPPPPPPDGGGGG..GGGM....GG..",
+  ".....PPPPPPPPPPPPPGGGGGGGGGGM...GGGM.",
+  ".....PPPPPPYPPPPPPPBBBBBGGMMM.DGGGGM.",
+  ".....PPPPPYYYPPPPPPBBBBBBBBBDDGGMGGM.",
+  ".....PPPPPYYYPPPPPDBBBBBBBBBBNGMMMMD.",
+  ".MMMDPPPPPYYPPPPPDDBBBBBBBBBBNMMMMM..",
+  "GGGGGMDPPPPPPPPPPBBBBBBYBBBBBNMMMMD..",
+  ".GGGMMPPPPPPPPPPBBBBBYYYYBBBBMMMMD...",
+  "..GGGMPPPPPPPPPPBBBBBYYYYBBBBMMMMM...",
+  "..MMMMDPPPPMDPPPBBBBBYYYBBBBBNDMGGGG.",
+  ".YYMMGGGGDMMDGGGGNNNBBBBBBBBBNMMGGGY.",
+  "YYYYYGGGGMMMGGGGGMDBBBBBBBBBBNMGGGYYY",
+  "YYYYYYYYMMMMGGGGGMMBBBBBBBBBNNMGGYYYY",
+  "CYYYYYYYYYMMGGGGDDMBBBBNMMMMMMDYYYYYY",
+  "YYOOYYYYYYYYMMMDDGGMNNNNMMGMMMMYYYYYY",
+  "YYOYYYYYYYYYYYDDDGMMMMDMMMGGDMYYYYYY.",
+  "CYOYYYYYYYYYYYYYYYDMMMMMMDDYYYYYYYY..",
+  ".YOYYYYYYYOYYYYYYYYYNNNNNYYYYYYYYYY..",
+  ".OOYYYYYYYOYYYYYYYYYYNNBNNYYYYYYYOY..",
+  "..YYYYYYYYOYYYYYYYYYYDBBBNYYYYOOOO...",
+  "..YYYYYYYYOYYYYYYYYYOOBBBNOOOOOOOO...",
+  "...YYYYYYYOYYYYYYYYYOONNNNOOOOOOOO...",
+  "...YYYYYYYOYYYYYYYYYYONNNCCOOOOOO....",
+  "...YYYYYYYOYYYYYYYYYYODYNNNNOOOOO....",
+  "....YYYYYYOYYYYYYYYYYODYNNNNOOOO.....",
+  "....YYYYYYYYYYYYYYYYYODYNNNNOOO......",
+  ".....YYYYYYYYYYYYYYYOONNDNNOOO.......",
+  "......YYYYYYYYYYYYYOOONNNNNOO........",
+  ".......YYYYYOOYYYYOOOONNNNNN.........",
+  "........YYYYYOOOOOOOOONNNN...........",
+  "..........YYYOOOOOOOONNNNN...........",
+  "..............O..O...N...............",
+  ".....................................",
+  ".........................G...........",
+  "....................GGGGGGGGG........",
+  "............DDD...MGGGGGGGGGGG.......",
+  "...........DDDD..MMGMMMMGGGGGGGD....."
+ ]
+}

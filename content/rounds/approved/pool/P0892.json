@@ -1,0 +1,113 @@
+{
+ "code": "P0892",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Снегоуборщик из вафли",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Наземный транспорт",
+ "direction": "Кулинарная фантастика",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Маленький компактный трактор из золотой вафли с синей кабиной сгребает широким розовым ковшом кремовый взбитый снег, два крупных шоколадных колеса",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 44,
+ "h": 42,
+ "N": 1364,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 470,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 266,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "R": {
+   "cells": 141,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "N": {
+   "cells": 131,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "Y": {
+   "cells": 130,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 124,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "P": {
+   "cells": 50,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "S": {
+   "cells": 44,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "D": {
+   "cells": 8,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........................NNNN.............",
+  ".......................NNNNNNNNSNNNNN.......",
+  "......................NSSSSSSNSSNNNNNNN.....",
+  "......................NNNNNNNSSSNNNNNNN.....",
+  "................EEE...NNNNNNNNNNNNNNNND.....",
+  "...............EEEEE..NNCCCCCNNNNCCCNN......",
+  "...............EEEEE..NNCCCCCNSNNCCCNN......",
+  "...............EEEE...NNCCCCCNSNNCCCCNN.....",
+  "...............EEEE..NNCCCCCCNSNCCCCCNN.....",
+  "...............EEEE..NNCCCCCCNSNCCCCCNN.....",
+  "............YYYEEEEOOONDDCCCCNSNCCCCCNN.....",
+  "..........YYYYYYEEEOYYYYYYDDCNSNCCCCNNN.....",
+  ".........YYYYCYYYYYYYYYYYYOODNSNNNNNNNNN....",
+  "........YYOYYYYCYYYYYYOOOOOOONNNNNNNNNNNO...",
+  "........YYOYYOOYYYYOOOOOOOOOONNNNYYYYOOOOO..",
+  "........YYOYYOOYOOYOOOOOOOOOONNNYYYYEEEOOO..",
+  "........YYYYYYYYOOYOOOOOOOOOONNYYEEEEEEEEE..",
+  "........YYYYYOYYYYYOOOOOOOOOONYYEEEEEEEEEE..",
+  "....RRR.YYYYOOOYOOYOOOOOOOOOOYYYEEEEEEEEEEE.",
+  "...PPPPPPRRROOYYOOYOOOOOOOOOOYYEEEEEEEEEEEE.",
+  "..PPPPPPPPPPPRRRYYYOOOOOOOOOOOYEEEEEEEEYYEEE",
+  "..PPRRRRRRPPPPPPPPRRROOOOEEEEEEEEEEEEEYYYEEE",
+  ".PPRRCCRRRRRRRRPPPPPPROOEEEEEEEEEEEEEEYYYEEE",
+  ".RRRCCCCRRRRRRRRRRPPPROEEEEEEEEEEEEEEEYYYEEE",
+  "RRCCCCCCRRRRRRRRRRRPRRREEEEEEEEEEEEEEEYYYEEE",
+  "CCCCCCCCCCCCRRRRRRRPRRREEEEEEEEEEEEEEEYYYEE.",
+  "CCCCCCCCCCCCCCRRRRPPRRREEEEEEOYEEEEEEEEYEEE.",
+  "CCCCCCCCCCCCCCRRRRPPRRRREEEECOYEEEEEEEEEEEE.",
+  "CCCCCCCCCCCCCCRRRRPRRRRREEEEYOYEEEEEEEEEEEC.",
+  "CCCCCCCCCCCCCCRRRRPRRRRREEEEYYEEEEEEEEEEEDCC",
+  "CCCCCCCCCCCCCCCCRPPRRRRREEEEEEEEECCDEEEECCCC",
+  "CCCCCCCCCCCCCCCCCPRRRRRREEEEEEEECCCCCCCCCC..",
+  "CCCCCCCCCCCCCCCCCPRRRRRRCEEEEEECCCCCCCCC....",
+  "CCCCCCCCCCCCCCCCRRRRRRRCCCCCEECCCCCCCCCCC...",
+  "CCCCCCCCCCCCCCCCRRRRRRRCCCCCCCCCCCCCCCCCCC..",
+  "CCCCCCCCCCCCCCCCRRRRRCCCCCCCCCCC...CCCCCCC..",
+  "CCCCCCCCCCCCCCCCCCRRCCCCCCCCCCCCCC.SSCCCC...",
+  "CCCCCCCCCCCCCCCCCCCSCCCCCCCCCCCCCCCS........",
+  "CCCCCCCCCCCCCCCCCCSSSCCCCCCCCCCCCCCS........",
+  "CCCCCCC...CCCCCCSCS..CCCCCC..CCCCCCS........",
+  "CCCCCCC.....SSSSSS...CCCCCCC...SSS..........",
+  ".CCCC.................SSSSS................."
+ ]
+}

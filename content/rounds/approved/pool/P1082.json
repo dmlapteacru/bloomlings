@@ -1,0 +1,106 @@
+{
+ "code": "P1082",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Король Дидиди",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Волшебные существа",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Kirby · Nintendo: King Dedede: round blue penguin king with broad golden-yellow beak, cheerful dark eyes, red royal cap with cream fur trim and pompom, red coat and gold collar. Large cheerful head-and-shoulders portrait.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 39,
+ "h": 39,
+ "N": 1087,
+ "colours": 8,
+ "volumes": {
+  "C": {
+   "cells": 396,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 272,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 188,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "N": {
+   "cells": 155,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 30,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 23,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 19,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 4,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........CCC.........................",
+  ".........CCCCCC........................",
+  "........CCCCCCCC.......................",
+  ".......CCCCCCCCRRRRRRR.................",
+  ".......CCCCCCRRRRRRRYYYY...............",
+  "......CCCCCRRRRRRRRYYYCCC..............",
+  "......CCCCRRRRRRRRRYYYYCCC.............",
+  ".......CCRRRRRRRRRYYYYYCCYY............",
+  "........RRRRRRRRCCYOYYYYYYCC...........",
+  "........RRRRRRCCCCYOYYYYYYCCC..........",
+  ".......RRRRRRCCCCCOOOYYYYYYYCC.........",
+  ".......RRRRCCCCYYYYOOOOYYYYYYC.........",
+  "......RRRRCCCCYYNNNNOOOOOOOYYCC........",
+  "......RRRCCCCNNNCCCCCYYYNCCNNCC........",
+  "......RRCCCCCNNNCDDCCNNNNDCCNCCC.......",
+  "......CCCCCCNNNNCDDDCNNNDDDCNNN........",
+  ".....CCCCCCNNNNCDD.DCNNNDDDCNNN........",
+  ".....CCCCCNNNNNCDDDDCNNNDDDCNN.........",
+  ".....CCCCCNNNNNCDNDDCNYCCDDCNNN........",
+  ".....CCCCNNNNNNNCNNDCYYCCCYCNYN........",
+  ".....CCCNNNNNYYCCNNYYYYYYYYYYYYC.......",
+  "....CCCNNNNNNYYYYYYYYYYYYYYYYYYCCC.....",
+  "...CCCCCCNNNYYYYYYYYEEEEEEEEYYYCCC.....",
+  "..CCCCCCCCNNYYYYEEEEEEEEEEEYYYYCCCC....",
+  "..CCCCCCCCCNNYYYYERRRRRRREEYYYCCCCC....",
+  "..RCCCCCCCCCNNYYYYRRRRRRREYYYCCCCCC....",
+  ".RRRRRCCCCCCCNNNNYYRRRRRRYYNNNCCCCCRR..",
+  "RRRRRRRCCCCCCCNNNYYYRRRRYYYNNNCCCCCRRR.",
+  "RRRRRRRRCCCCCCNNNNYYYYYYYYNNNNCCCCCRRR.",
+  "RRRRRRRRRCCCCCCYYNNNNOOONNNNNNCCCCCRRRR",
+  "RRRRRRRRRRCCCCCYYYNNNNNNNNNNNCCCCCCCRRR",
+  "RRRRRRRRRRRCCCCYYYYYNNNNNNNNDCCCDCCCRRR",
+  "RRRRRRRRRRRCCCCYYYYYCCCCCCCCCYYNNCCCCRR",
+  "RRRRRRRRRRRRCCCCYYYYYYYYYYYYYYNNCCCCCRR",
+  "YYRRRRRRRRRRCCCCCCCNNNNNNNNNNCCCCCCCCCR",
+  "YYYYRRRRRRRRCCCCACCCCCCCCCCCCCRRCCCCCCR",
+  "CYYYYRRRRRRRRCCCACRRCCCCRRCCCCRRCCCCCCR",
+  "CCCYYRRRRRRRRCCCARRRRCCCRRRCCCRRRRRCCCC",
+  "CCCCYRRRRRRRRCCCARRRRCCRRRRCCRRRRRRCCCC"
+ ]
+}

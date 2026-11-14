@@ -1,0 +1,91 @@
+{
+ "code": "P1156",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Красный педальный автомобиль",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Наземный транспорт",
+ "direction": "Доброе будущее",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One chunky red child's pedal car in three-quarter view, round cream hood, large blue windscreen, gold steering wheel and two broad dark wheels. No driver or road, simple toy silhouette.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 33,
+ "h": 28,
+ "N": 602,
+ "colours": 7,
+ "volumes": {
+  "R": {
+   "cells": 192,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 132,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 108,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 59,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "N": {
+   "cells": 50,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "B": {
+   "cells": 32,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "S": {
+   "cells": 29,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "................YYYYY............",
+  "...............YYYYYYYY..........",
+  "...............YY..YYYY..........",
+  "...............YYCYY..YY.........",
+  "..........RRRRRCDDDY..YY.........",
+  "........RRRSSRRRRRDYY.YY.........",
+  "........RBBSSBBBRRRRYYYNNNN......",
+  "........RBSSBBBSSBRRNNNNNNNRR....",
+  ".......RRSSBBBSSBBBRRNNNNNNNRR...",
+  "....RRRRCCBBBSSBBBBRRNNNNNNNRRR..",
+  "...RRRCCCCCCCCCBBBBRRNNNNNRRRRR..",
+  "..RRCCCCCCCCCCCRRBBRRRNNRRRRRRR..",
+  ".RRRCCCCCCCCCCCRRRRRRRRRRRRRRRRR.",
+  ".RRRCCCCCCCCCRRRRRRRRRRRRRRRDDDD.",
+  "RYCRCCCCCCCCRRRRRRRRRRRRRRRRDDDD.",
+  "RYCRSSSSSCCCRRRRRRRRRRRRRRRDDDDDD",
+  "RYYRSNNNSSRCCYRRRRRRRRRRRRRDDDYDD",
+  ".RRRSNNNNSRCCYRRRDDDDRRRRRRDDDYDD",
+  ".RRRSNNNNSRYYYRRDBBDDDRRRRRDDDYDD",
+  "CCCCSNNNNSRRYRRDDBDDDDRRRCDDDDYDD",
+  "CCCCCCNNNSRRRRRDDDDYDDDRCCDDDDDD.",
+  ".CCCCCCCCCRRRRDDDDDYYDDCC.DDDDDD.",
+  ".DDDCCCCCCCCCCDDDDYYYDD....DDDD..",
+  "..DDDDDCCCCCCCDDDDYYYDD..........",
+  "...DDDD.CCCCCCDDDDDYDD...........",
+  "..............DDDDDDDD...........",
+  "..............DDDDDDD............",
+  "................DDD.............."
+ ]
+}

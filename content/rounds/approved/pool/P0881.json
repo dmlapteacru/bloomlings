@@ -1,0 +1,106 @@
+{
+ "code": "P0881",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Кружевная гора из сыра",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Блюда и напитки",
+ "direction": "Кулинарная фантастика",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Большой треугольный кусок золотого сыра с тремя крупными отверстиями напоминает гору, внутри нижнего отверстия одна розовая туристическая палатка",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 36,
+ "h": 35,
+ "N": 1259,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 349,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 219,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 170,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "R": {
+   "cells": 151,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "A": {
+   "cells": 144,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "B": {
+   "cells": 115,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "S": {
+   "cells": 71,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 22,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 18,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "BBBBBBBBBBBBBBBBBBYYYBBBBBBBBBBBBBBB",
+  "SSSSBBBBBBBBBBBBYYYYYBBBBBBBBBBBBBBB",
+  "SSSSSBBBBBBBBBYYYYYYYYBBBBBBBSSSBBBB",
+  "SSSSSSSBBBBBBYYYYYAAYYBBBBBBSSSSSBMB",
+  "SSSSSSSSBBBBBYYYYAAAAYBBSSSSSSSSSMMM",
+  "MSSSSSSBGGGYYYYYYAAAAYYSSSSSSSSSSMMM",
+  "MMSSSBBBGGGYYYYYYAAAAYYYBSSSSSSSSMMM",
+  "MMGGGBBMMMYYYYYYYYAAYYYYBBBSSGGGSMMD",
+  "MMGGGGGMMYYYYYYYYYYYYYYYBBBBGGGGMMDD",
+  "MMGMMGGGYYYYYYAYYYYYYYYYYGGGGGMMMMDD",
+  "MMMMMMMMYYYYAAAAAYYYYYYYYYYMMMMMMDDD",
+  "MMMMMMMYYYYYAAAAAYYYYYYYYYYMMMMMMMMD",
+  "DDMMMMMYYYYAAAAAAAYYYYYYYYYYYMMDMDDD",
+  "GMMMMMYYYYYAAAAAAAYYYYYYYYYYYYGGDDGG",
+  "GGDMMYYYYYYAAAAAAYYYYAAAYYYYYYGGMMGG",
+  "GGMMMYYYYYYYAAAAAYYAAAAAAYYYYYGGMMMG",
+  "GMMMYYYYYYYYYYYYYYAAAAAAAAYYYYYMMMMM",
+  "MMMMYYYYAAAYYYYYYYAAAAAAAAAYYYYYGGGG",
+  "MGGYYYYAAAAAYYYYAAAARRRRAAAAYYYYGGGG",
+  "GGYYYYAAAAAAYYYYAAARRRRRRAAAYYYYYGGG",
+  "GYYYYYAAAAAAYYYYAARRRRRRRRAAYYYYYYYG",
+  "GYYYYYAAAAAAYYYYARRRRRRRRRRAAYYYYYYY",
+  "YYYYYYYAAAAAYYYAARRARRRRRRRAAYYYYYYY",
+  "YYYYYYYYYAYYYYYARRAAARRRRRRRYYYYYYMM",
+  "CYGYYYYYYYYYYYYARRAAARRRRRRRYYYYYMMC",
+  "CCGGGGGGYYYMMYYYYYYYYYYYYGGGGGGGGGCC",
+  "CCCGCCGGGGGMMMMYGGYYYYYYYGGGGGGGGGGG",
+  "CCGGCCGGGGGRRRMGGGGGGGGGGGGGGGGGCCGG",
+  "GGGGGGGRRRRRRRRRRRRRRRRGGGGGGGGGGGGG",
+  "GGGMMRRRRRRRRRRRRRRRRRRRRRRRRGGGGGGG",
+  "GGMMMMRRRRRRRRRRRRRRRRRRRRRRGGGMMMGG",
+  "GGMMMMMMRRRCRRRRRRRRRRRRRRRRGGMMMMMG",
+  "GGGMMMMMMMCCCGGGRRRRRRRRRRGGGMMMMMMM",
+  "GGGGMMMMMMGCGGGGGGGGGGRRGGGGGMMMMMMM",
+  "GG.MMMMMMMGGGGGGGGGGGGGGGGGGGGMMMMMM"
+ ]
+}

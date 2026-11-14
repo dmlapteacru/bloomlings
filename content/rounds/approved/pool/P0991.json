@@ -1,0 +1,113 @@
+{
+ "code": "P0991",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Леденцовый молоточек для ветра",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Десерты и сладости",
+ "direction": "Домашняя магия",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой сине-розовый круглый леденец на короткой золотой ручке ударяет по широкой кремовой спирали ветра, компактная зелёная подставка снизу",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 42,
+ "h": 41,
+ "N": 1125,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 543,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 164,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "N": {
+   "cells": 124,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 64,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "M": {
+   "cells": 63,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 59,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "B": {
+   "cells": 49,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "Y": {
+   "cells": 46,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "K": {
+   "cells": 13,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............CCCCC..CCCCCCCCCCCCCCCC......",
+  "............CC.....CCCCCCCCCCCCCCCCCC.....",
+  "...................CCCCCCCCCCCCCCCCCCC....",
+  ".......NNNNNNNPP..CCCCCCCCCCCCCCCCCCCCC...",
+  "......BBBBKKKPPPPPCCCCCCCCCCCCCCCCCCCCCC..",
+  "....BBBBBBKPPPPPPPDCCCCCCCCCCCCCCCCCCCCC..",
+  "...BBBBBBBNNNPPPPPPDCCCCCC..CCCCCCCCCCCCC.",
+  "..BBBBBBNNNNNNPPPPPPCCC........CCCCCCCCCC.",
+  "..BBBBBBNNNNNNNPPPPPP...........CCCCCCCCCC",
+  ".BBBBBKKPPPPNNNNPPPPPN...CCCC...CCCCCCCCCC",
+  ".BBBKKKPPPPPPNNNNPPPPN..CCCCCCC..CCCCCCCCC",
+  "NBBPKKPPPPNPPPNNNPPPNNCCCCCCCCCC.CCCCCCCCC",
+  "NBBPKPPPNNNNNPNNNPPPNNCCCCCCCCCC..CCCCCCCC",
+  "NBPPKPPBNNNPPNNNNPPPNNDCCCCCCCCC..CCCCCCCC",
+  "NBPPPPBBNNPPPNNNPPPPNNCCCC..CCCC..CCCCCCCC",
+  "NBPPPNBBNPPPPPPPPPPNNNCCC..CCCCC.CCCCCCCCC",
+  ".PPPPNNNNPPPPPPPPPNNNNCCCC..CCC..CCCCCCCCC",
+  ".PPPPNNNNPPPPPPPNNNNNNCCCC......CCCCCCCCC.",
+  ".PPPPNNNNNPPPPPNNNNNN.CCCCC....CCCCCCCCCC.",
+  "..PPPPNNNNPPPYYYYYNN...CCCCCCCCCCCCCCCCC..",
+  "...PPPNNNNNDYYYPPYD.....CCCCCCCCCCCCCCCC..",
+  "....PPPNNNNYYYYYPDD.....CCCCCCCCCCCCCCCCC.",
+  ".....DPPNNNYYYYYPDD..CC...CCCCCCCCCCCCCCCC",
+  ".......PNNDPPYYYYD...CC....CCCCCCCCCCCCCCC",
+  "...........DPDYYYY...CCC............CCCCCC",
+  "....CC........DYYYD...CCC...........CCCCCC",
+  "....CCC........YYYD...CCCCC.......CCCCCCCC",
+  ".....CCC....CC.DYYY....CCCCCCC..CCCCCCCCC.",
+  "......CCCCCCCC.DYYYD...CCCCCCCCCCCCCCCCCC.",
+  ".......CCCCCCC.DDYYPPD...CCCCCCCCCCCCCCC..",
+  ".........CCC.CDDDYYPPPD...CCCCCCCCCCCCC...",
+  ".............DDGGYYYGMDD....CCCCCCCCC.....",
+  "...........DDDDGGGGGGMDMMDD...............",
+  "..........DGGGMMMGGGMMMMMGGD..............",
+  ".........DGGGGGGGDGDDGGGGGGD..............",
+  ".........DMGGGGGGGGGGGGGGGMM..............",
+  ".........DMMMMMGGGGGGGGMMMMM..............",
+  ".........DMMMMMGGMMMMMMMMMMM..............",
+  "..........DMMMGGGMMMMMMMMMMD..............",
+  "...........DDDDMMMMMMMMMDD................",
+  "...............DDDDDDDD..................."
+ ]
+}

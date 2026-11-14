@@ -1,0 +1,113 @@
+{
+ "code": "P0907",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Потайной сад за молнией куртки",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Одежда и аксессуары",
+ "direction": "Миры через портал",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Большая синяя куртка с крупной золотой молнией расстёгнута, внутри видны один зелёный холм и большое розовое дерево, рукава компактно согнуты",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 43,
+ "h": 42,
+ "N": 1384,
+ "colours": 9,
+ "volumes": {
+  "N": {
+   "cells": 867,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "S": {
+   "cells": 98,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "K": {
+   "cells": 79,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "P": {
+   "cells": 78,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "D": {
+   "cells": 72,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 65,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 46,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "L": {
+   "cells": 40,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "E": {
+   "cells": 39,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............NNNNNNNN.....................",
+  "...........NNNNNNNNNNNNNN..................",
+  ".........NNNNNNNNNNNNNNNNNNNNNN............",
+  "........DNNNNNNNNNNNNNNNNNNNNNNNNN.........",
+  "........NNNNNNNNNNNNNNNNNNNNNNNNNNN........",
+  "......NNNNNNNNNSSSNNNNNNNNNNNNNNNNND.......",
+  "....NNNNNNNNNNSSSSSNNNNNNNNNNNNNNNNN.......",
+  "....NNNNNNNNSNSSSSSSSNNNKKKNNNNNNNNNN......",
+  "...NNNNNNNNSSSSSSSSSSSNKKKKKKNNNNNNNN......",
+  "...NNNNNNNNSSSSSSSSSPPPKKKKKKKKNNNNNNN.....",
+  "..NNNNNNNNNNSSSSSSSKKKKKKKKKKKKPNNNNNNN....",
+  "..NNNNNNNNNNDSSSSSSKKKKKKKKKKKKPNNNNNNN....",
+  "..NNNNNNNNNNNSSSSSPKKKPKKKKPKKPPNNNNNNN....",
+  "..NNNNNNNNNNNDSSSSPPKPPKKKPPKKKKDNNNNNN....",
+  ".NNNNNNNNNNNNDSSSKKKKKKKKKPKKKKKDNNNNNN....",
+  ".NNNNNNNNNNNNNDSSKKKPPPPKKPPPPPPDDNNNN.....",
+  ".NNNNNNNNNNNNNSSSKKPPPPPPPPPPPPPNNNNNND....",
+  ".NNNNNNNNNNNNNYSSPPPPPPPPEPPPPPYYNNNNNNN...",
+  "..NNNNNNNNNNNNYSSPPPPPPPEEPPPPPYYNNNNNNNN..",
+  "..DNNNNNNNNNNNYYSSSPPPPEEEPPPPPYNNNNNNNNN..",
+  "...NNNNNNNNNNNNYSSSSSSPEEEEPPPYYNNNNNNNNN..",
+  "..DNNNNNNNNNNNNNSSSSSSSSEEESSSYYNNNNNNNNN..",
+  "..NNNNNNNNNNNNNNYEDDDSSSSEESSEYNNNNNNNNNN..",
+  ".NNNNNNNNNNNNNNNYEDDDDDSEEEDDEYNNNNNNNNNND.",
+  "DNNNNNNNNNNNNNNNYEDDDDDSEEEDDEYNNNNNNNNNNN.",
+  "NNNNNNNNNNNNNNNNNEDDDDDLLLDDYYNNNNNNNNNNNN.",
+  "NNNNNNNNNNNNNNNNNEDDDLLLLLLLYYNNNNNNNNNNNND",
+  "NNNNNNNNNNNNNNNNNNNELLLLLLLLYNNNNNNNNNNNNND",
+  "NNNNNNNNNNNNNNNNNNNELLLLLLLLNNNNDNCCNNNNNNN",
+  "NNNNNNNNNCCCCNNNNNNELLLLLLLNNNNNCNCCCCNNNN.",
+  "NNNNNNNCCCCCCCNNNNNYLLLLDLLNNNNNNNDNCCCNNN.",
+  "DNNNNNCCCCCDNNNNNNNYYDDLDDYNNNNNNNNNNCCNND.",
+  ".DNNNCCCNNNNNNNNNNNNYDDDDYYNNNNNNNNNDDCDD..",
+  "..NNNCCCNNNNNNNNNNNNYYYYYYNNNNNNNNNNNNCC...",
+  "..NNNCCNNNNNNNNNNNNNNYYYEENNNNNNNNNNNCC....",
+  "..DNNCCNNNNNNNNNNNNNNYYYENNNNNNNNNDNDDD....",
+  "...NNNCNNNNNNNNNNNNNNYYYYNNNNNNNND.........",
+  ".....DCCNNDNNNNNNNNNNYYYYNNNNNNND..........",
+  "............NNNNNNNNNYYYYNNNNNN............",
+  "................NNNNNYYYYY.N...............",
+  ".....................YYYY..................",
+  ".....................EEEE.................."
+ ]
+}

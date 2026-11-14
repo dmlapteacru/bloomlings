@@ -1,0 +1,114 @@
+{
+ "code": "P0875",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Теннисный мяч с вулканом",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Спорт и активные игры",
+ "direction": "Миры внутри предметов",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Крупный зелёный теннисный мяч раскрывается как круглая диорама, внутри маленький оранжевый вулкан с широкой розовой струёй лавы, белая дуга мяча сохранена",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 42,
+ "h": 43,
+ "N": 1363,
+ "colours": 9,
+ "volumes": {
+  "G": {
+   "cells": 263,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 254,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "L": {
+   "cells": 245,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "D": {
+   "cells": 210,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "M": {
+   "cells": 156,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "P": {
+   "cells": 96,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "O": {
+   "cells": 55,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "K": {
+   "cells": 45,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "A": {
+   "cells": 39,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............MMMLLLLLLLLLLLLLL............",
+  "...........LLLLLLLLLLLLLLLLLLLLL..........",
+  ".........CCLLLLLLLLLLLLLLLLLLLLLLL........",
+  "........CCCCCLLLLLLLLLLLCCCCCCCCCCC.......",
+  ".......LLLLCCLLLLLLLLLCCCCCCCCCCCCCC......",
+  "......LLLLLLCCLLLLLLCCCCCMMMMMMMCCCC......",
+  ".....LLLLLLLCCLLLLCCCCCMMMMMMMMMMMCCC.....",
+  "....LLLLLLLLCCLLCCCCCMMMMMMMMMMMMMCCD.....",
+  "...LLLLLLLLLLCCCCCCMMMKKMMKKKPMMMMMCC.....",
+  "...LLLLLLLLLLCCCCCMMMMKKKKKKKPMMMMMCC.....",
+  "..DLLLLLLLLLLCCCCMMMMKKKKKKPPPPKPMMCC.....",
+  "..LLLLLLLLLLCCCDMMPPDKKKKKKKPPKKPMCCC.....",
+  ".DLLLLLLLLLCCCDDDKKPPKKKKKKPPPPPPPCCD.....",
+  ".DLLLLLLLLCCCDDDDKPPPPKPKKPPPPPPPDCC......",
+  ".LLLLLLLLCCCDDDDDPPPPPPPKPPPPDDPDCCD......",
+  "MLLLLLLLLCCDDDDDDDDPPPPPPPPDDDDMMCC.......",
+  "MLLLLLLCCCCDDDDDDDDDDDDPPPPDDDMMCCD.......",
+  "MGLLLLLCCCDDDDDDDDDDDDDPPPPDDDMCCD........",
+  "MGGLLLCCCDDDDDDDDDDDDDDPPPPDDMMCD.........",
+  "MGGGGGCCCDDDDDDDLLDDDPKKKKPPPMCCC.........",
+  "MGGGGGCCDDDDDDDLLLDDDPPPPPPPPDDDGGD.......",
+  "MGGGGCCCDDDDDLLLMDDDOOOPOPPOPPGGGGMDMM....",
+  ".GGGGCCDDGGGDLDMMDDOOOPPOOPOPPDDDMMMMCC...",
+  ".GGGGCCDDGGGGDDMDDOOOOPOOOPOAAADDDDMMDCC..",
+  ".DGGGCDDMGMMMMDDDOOOOPPOAOPAAAAADDDMMMDCC.",
+  "..DGGCDDMMMMMMMDOOOOOPPOAOPAAAAADDMMMMDCC.",
+  "..DGGDDDDMDMMMMMOAAAAPOAAAOOOAAAADDDDDDDCM",
+  "...DDCCCCDDDMMMMMMAAOOOOAAOOOAAAADDDDDDCCM",
+  "....DLLCCCCCMDDMMMDOOOGGMOOOAAAAGGGDDDCCCM",
+  "....GGLLLCCCCCDMMMMOMMGMMMDOOADMGMGDDCCCGD",
+  ".....GLLLLLCCCCCCCMMMMMMMMMOODDMMMCCCCCGG.",
+  ".....GGLLLLLLLCCCCCCCCCCCCCCCCCCCCCCCGGGG.",
+  ".....DGGLLLLLLCCCCCCCCCCCCCCCCCCCCCGGGGG..",
+  "......GGGLLLLLCCGGGLLLCCCCCCCCGGGGGGGGGG..",
+  ".......GGGLLLCCGGGGGGGGGGGGGGGGGGGGGGGG...",
+  ".......DGGGGGCCGGGGGGGGGGGGGGGGGGGGGGG....",
+  "........DGGGGCCGGGGGGGGGGGGGGGGGGGGGGD....",
+  ".........GGGGGCCGGGGGGGGGGGGGGGGGGGGD.....",
+  "..........GGGGCCGGGGGGGGGGGGGGGGGGG.......",
+  "...........GGGGCCGGGGGGGGGGGGGGGGG........",
+  ".............DGCCCGGGGGGGGGGGGGD..........",
+  "...............DDDDGGGGGGGGGGD............",
+  "....................DDDMMMM..............."
+ ]
+}

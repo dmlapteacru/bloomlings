@@ -1,0 +1,113 @@
+{
+ "code": "P1002",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Снежная лопата выращивает тюльпан",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Профессии и увлечения",
+ "direction": "Домашняя магия",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна большая синяя снежная лопата держит широкий комок кремового снега, из снега вырос один огромный красный тюльпан с двумя зелёными листьями, ручка короткая золотая",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 43,
+ "h": 41,
+ "N": 1187,
+ "colours": 9,
+ "volumes": {
+  "N": {
+   "cells": 310,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 229,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 209,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "G": {
+   "cells": 120,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "B": {
+   "cells": 107,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "D": {
+   "cells": 73,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "M": {
+   "cells": 70,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "Y": {
+   "cells": 43,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 26,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".......RRRRRRRRRRRRRRRRR.....NNNN...DNNNNN.",
+  "......DRRRRRRRRRRRRRRRRR.....NNNN...NNNNN..",
+  "......DRRRRRRRRRRRRRRRRRD....NNNNNNNNNNNN..",
+  "......DRRRRRRRRRRRRRRRRRD.....NNNBBBNNNN...",
+  "......DRRRRRRRRRRRRRRRRRD.....DYYYNNNNNN...",
+  "......DRRRRRRRRRRRRRRRRRD.....YYYYONNNN....",
+  "......DRRRRRRRRRRRRRRRRRD....YYYYOO........",
+  "......DRRRRRRRRRRRRRRRRR.....YYYYOO........",
+  ".......RRRRRRRRRRRRRRRRR.....YYYOOO........",
+  ".......RRRRRRRRRRRRRRRR.....CYYYOO.........",
+  "...D....RRRRRRRRRRRRRRR.....YYYYOO........D",
+  "..DMMDD.RRRRRRRRRRRRRR..DDDCYYYOO.........D",
+  "..DMMMDDDDRRRRRRRRRRR.DDGGDYYYYOO.........D",
+  "..DMMMMMDD.DDDDDDD...GGGGGDYYYOOO.........D",
+  "..DGGMMGGGD...DMMD..DGGGGGDYYYOO..........D",
+  "..DGGMMGGGGD..DMGM.DGGGGGGDYYYOO..........D",
+  "..DGGGGGGGGGD.MMGMDGGGGGGGDYYOOO...........",
+  "...DGGGGGGGGG.MGGMGGMGGGGDNNNNN............",
+  "...DGGGGGMMGGDDGGMMMMGGGGNNNNNNNNN.........",
+  "....DGGGGMMGGGDGGMMMGGGGDNNNNBBBBBBB.......",
+  "....DGGGGGMMGGGGGMMMMGCCCCNNNNNNBBBBB......",
+  ".....DGGGMMMMGGGGMMMMCCCCCCCNNNNNNBBBN.....",
+  ".....NNMMMMMMGGGGMMMMCCCC.CCNNNNNNBBBN.....",
+  "....NNNNNDMMMMGGGMMBBCCCCCCCCNNNNNBBNN.....",
+  "...NNNNNNCCCMMGGMMBBBCCCCCCCCNNNNNBBNN.....",
+  "..NNNNNNCCCCCCGGGMBCCCCCCCCCCCCNNBBNNN.....",
+  "..NNNNNCCCCCCCCCCDCCCCCCCCCCCCCNNBBNNN.....",
+  ".NNNNNCCCCCCCCCCCCCCCCCCCCCCCCCNBBNNNN.....",
+  ".NNNCCCCCCCCCCCCCCCCCCCCBBBCCCNNBNNNNN.....",
+  "NBNNCCCCCCCCCCCCCCCCCCCCCBBBBBNBBNNNNN.....",
+  "NBNNCCCCCCCCCCCCCCCCCCCCCCBBBNNBNNNNN......",
+  "NBBBBBCCCCCCCCCCCCCCCCCCCCCBBNBBNNNNN......",
+  "NNNBBBNNNNNCCCCCCCCCCCCCCCCCBBBNNNNN.......",
+  ".NNNNNBBBNBNNNCNNCCCCCCCCCCCBBNNNNNN.......",
+  "..NNNNNNNBBBNBBNNNNCCCBCCCCNBBNNNNN........",
+  "....NNNNNNNNNBBBBBNNNNBBCCNNBNNNNN.........",
+  "........NNNNNNNNNBBBBBBNNNNBBNNNN..........",
+  "...........NNNNNNNNNBBBBBBBBNNNN...........",
+  "..............NNNNNNNNNNNNNNNNN............",
+  ".................NNNNNNNNNNNN..............",
+  ".......................NNNN................"
+ ]
+}

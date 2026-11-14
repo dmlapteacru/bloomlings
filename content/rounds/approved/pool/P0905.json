@@ -1,0 +1,113 @@
+{
+ "code": "P0905",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Вилка вяжет облачный шарф",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Посуда и кухонные вещи",
+ "direction": "Обмен ролями",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Две большие золотые вилки служат спицами и держат широкий кремово-синий вязаный шарф из облачной пряжи, крупный розовый клубок у основания",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 43,
+ "h": 42,
+ "N": 1263,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 339,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 268,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "Y": {
+   "cells": 252,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "B": {
+   "cells": 200,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 116,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "E": {
+   "cells": 41,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "D": {
+   "cells": 37,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "O": {
+   "cells": 7,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "K": {
+   "cells": 3,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "........Y............................Y.....",
+  ".....C..YY...........................Y.....",
+  ".....YY.YY..........................YY.EE..",
+  ".....YYCYYY........................CYE.EE.E",
+  "..YYCEYCCYY........................YYEEEEEE",
+  "..YYEEYYCEYY......................YYYCYECYE",
+  "...YYCEYEEYYY....................YYYYYYEEYY",
+  "...YYEEYYEYYY................NNNYYYYYYEEYYY",
+  "...YYYCYYYYYYY.CCC..........CCCCYYYYYYEEYY.",
+  "....YYYYYYYYYYNCCCCCCCCN.CCCCCCCYYYYYYYYYY.",
+  "....YYYYYYYYYNNCCCNNCCCNNCCCCCCCYYYYYYYYY..",
+  "....YYYYYYYYYNNCCNNNCCCBBCCCNNCCDYYYYYYYY..",
+  ".....YYYYYYYYBBCCNNNCCCBNCCCNNNNNYYYYYYY...",
+  "......YYOOOYYBBNNNNNCCNNNCCCNNBNYYYOOOO....",
+  ".........DNNDBBBBBBNNNBNNNNNBBBBYNNN.......",
+  ".........NNNDCCBCCCBNBBNBNBBBBBBYNNND......",
+  "........NNNNDCCCCCCBBBBNBBBBBBCCNNNND......",
+  "........DYNNCCCCCCCCCCCNBBBBBCCCDDYYY......",
+  ".......YYYNNBBBBBBCCCCCNCCCCCCCCD.YYYY.....",
+  ".......YYYNBBBBBBBBCCCCDCCCCCCCCN.YYYY.....",
+  "......YYYYDBBBBBBBBBBBNDCCCCCCCNN..YYYY....",
+  ".....YYYYYCCCBBCCCBBBBNNCCCCCBBNN..YYYYY...",
+  "....YYYYYYCCCCCCCCBBBBNNNBBBBBBNND..YYYY...",
+  "....YYYYYDCCCCCCCCCCCBNNNBBBBBBNCD..YYYYY..",
+  "...YYYYYYDCCCCCCCCCCCCNDNBBBBBCCCCDYYYYYYE.",
+  "..EYYYYY.BBBBBBBCCCCCCCDNNCCCCCPPPPPPYYYYE.",
+  "..EYYYYYDBBBBBBBBBCCCCD..CCCCPPPPPPPPPPPYE.",
+  "..EYYYYYBBBBBBBBBBBBBCD..CCCPPPPPPPPPPPPPP.",
+  "..EYYEDDBBBBBBBBBBBBBBD..CCPPPPPPPPPPPPPPP.",
+  "...EEEDCCCBBCCCCBBBBBND..CPPPPPPPPPPPPPPPPP",
+  "......DCCCCCCCCCBBBBBND...PPPPPPPPPPPPPPPPP",
+  ".....CCCCCCCCCCCCCCBBN....PPPPPPPPPPPPPPPPP",
+  "....BBBBBCCCCCCCCCCCBN...PPPPPPPPPPPPPPPPPP",
+  "...BBBNBBBBBBCCCCCCCCD...KPPPPPPPPPPPPPPPPP",
+  ".CCCCNNBBBBBBBBCCCCCCPPP.KPPPPPPPPPPPPPPPPP",
+  "CCCCCCCBBBBBBBBBBBBCDPPPPKPPPPPPPPPPPPPPPPP",
+  "DCCDCCCCCCCBBBBNBBBNCPPPPCPPPPPPPPPPPPPPPPP",
+  ".CCDCCCCCCCCCCNNCBNNCPPPPCPPPPPPPPPPPPPPPP.",
+  "...CCCCCCCCCCCNCCCNCCPPPPPPPPPPPPPPPPPPPPP.",
+  "....NNNCCCCCCCCCCCN..PPPPPPPPPPPPPPPPPPPP..",
+  ".......CCCCCCCCCCD.....PPP.CCPPPPPPPPPP....",
+  "...........CC.CCC.........................."
+ ]
+}

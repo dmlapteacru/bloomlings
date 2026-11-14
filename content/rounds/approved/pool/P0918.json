@@ -1,0 +1,112 @@
+{
+ "code": "P0918",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Палатка из раскрытого цветка",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Походы и отдых на природе",
+ "direction": "Живая архитектура",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой фиолетовый колокольчик лежит боком и служит палаткой, розовый спальный мешок внутри виден через широкое отверстие, два зелёных листа у входа",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 43,
+ "h": 41,
+ "N": 1308,
+ "colours": 9,
+ "volumes": {
+  "V": {
+   "cells": 611,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "G": {
+   "cells": 271,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "P": {
+   "cells": 142,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "M": {
+   "cells": 89,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "D": {
+   "cells": 69,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "N": {
+   "cells": 59,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 30,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 23,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "K": {
+   "cells": 14,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "....................................MMM....",
+  "....................................MGG....",
+  "...................................DGGGG...",
+  "..................................MGGGGG...",
+  "................................DDMGGGGD...",
+  "............................MMMGGMMGGGG....",
+  "........VVVVVVVVV........DGGGGGGGGGGGGD....",
+  "........VVVVVVVVVVV.....VVVVDGGGGGGGGDD....",
+  ".......VVVVVVVVVVVVVVVVVVVVVDGGGGGGGGGM....",
+  ".......VVVVVVVVVVVVVVVVVVVVVDGGDVVGGGGM....",
+  "......VVVVVVVVVVVVVVVVVVVVVVVVVVVVGGGGMD...",
+  ".....VVVVVVVVNVVVVVVVVVVVVVVVVVVVVGGGGGM...",
+  "....VVVVVVVNNNVVVVVVVVVVVVVVVVVVVVVGGGGM...",
+  "....VVVVVVVNNNVVNNNVVVVVVVVVVVVVVVVDGDGM...",
+  "...VVVVVVVVNVVVVNNNNVVVVVVVVVVVVVVVVDVGM...",
+  "..VVVVVVVVVNVVVVNNNNVVVVVVVVVVVVVVVVVVMG...",
+  "..VVVVVVVVVVVNVVNNNDNVVVVVVVVVVVVVVVVVMG...",
+  "..VVVVVVVVVVVNNNNNNNNNVVVVVVVVVVVVVVVVMGD..",
+  "..VVVVVVVVVVVNVNNNNNNNNVVVVVVVVVVVVVVVMMMD.",
+  "..VVVVVVVVVVVVVVNNNNDDNDDVVVVVVVVVVVVVMMMD.",
+  "..VVVVVVVVVVVVVVVNNDDDDRDVVVVVVVVVVVVVVDD..",
+  "..VVVVVVVVVVVVNNNDCCCCCRRRVVVVVVVVVVVV.....",
+  "..VVVVVVVVVVVNNNDCCCCCCCCCVVVVVVVVVVVV.....",
+  "..VVVVVVVVVVVNNNCCCCCCCCCCVVVVVVVVVVVV.....",
+  "..VVVVVVVVVVVPPPPPPPPPPCCCVVVVVVVVVVVV.....",
+  "..VVVVVVVVVVPPPPPPPPPPPPPCVVVVVVVVVVVV.....",
+  "..DVVVVVVVPPPPPPRRRPPPPPPRVVVVVVVVVVVMM....",
+  "..DMVVVVVPPPPPPPPPPPPPPPRRRVVVVVVVVVVMMD...",
+  ".DGMGDVVRPPPPPPPPPPPPPPPRRMVVVVVVVVVVMMM...",
+  ".DGMGGDRRKKKRRRPPPPPPPPPDMMMVVVVVVVVVDMMG..",
+  "GGGMGGGDDPKKKKKPPPPPPPPDMMMMVVVVVVVVVVMMGC.",
+  "GGGGGGGGDPPPPKKKKPPPPPDMMMGMMVVVVVVVVVMGGGG",
+  "DGGGGGGGDPPPPPPPKKPPPPGGGGGMMMVVVVVVVVVGGGG",
+  "DGGGGGGGGPPPPPPPPPPRRDGGGGGGGMMVVVVVVVVVVGG",
+  "GGGGGGGGGDPPPPPPPPPRDGGGGGGGGMDVVVVVVVVVVV.",
+  ".DGGGGMGGDPPPPPPPPPRGGGGGGGGDDMMVVVVVVVVV..",
+  ".DGGGGMMGDPPPPPPPPPGGGGGGGGMDDMMMVVVVVVVG..",
+  "GGGDGGMMGMGGGGGDDPPDGGGGGMMMMGGGMMMMGGGGGG.",
+  ".GGGGDMMMMGGGGGGGMMMGGGGGDGGGGGGGGGGGGGGG..",
+  "....CGGGGGGGGG..GGGGGGGGGGGGGG..GGGGGGG....",
+  ".................GGGDGGG..................."
+ ]
+}

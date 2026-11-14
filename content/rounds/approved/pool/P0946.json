@@ -1,0 +1,111 @@
+{
+ "code": "P0946",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Ботинок-почтовый ящик",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Багаж и навигация",
+ "direction": "Предметные гибриды",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один крупный красный резиновый ботинок стал почтовым ящиком, из широкой синей прорези на голенище выглядывает кремовый конверт с розовым сердцем, золотая ручка сверху",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 37,
+ "h": 44,
+ "N": 1071,
+ "colours": 8,
+ "volumes": {
+  "R": {
+   "cells": 530,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 197,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 110,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 96,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "N": {
+   "cells": 58,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "P": {
+   "cells": 39,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "Y": {
+   "cells": 24,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 17,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........................EEE.........",
+  ".......................YYYYYY........",
+  "......................YYYYYOOO.......",
+  ".....................YYYYYYOOOO......",
+  "....................EYYEY..OOOO......",
+  "....................EYYE....OOOE.....",
+  "..............EEEEPEEYYERRRROOOEEEE..",
+  ".............RRRRRPPEEEERRRRRRRRRRRR.",
+  "............ERRRRRRPPPPRRRRRRRRRRRRRE",
+  "............ERRRRRRRRRRRRRRRRRRRRRRRE",
+  "............ERRRRRRRRRRRRRRRRNNNNNRRE",
+  ".............ERRRRRRRRNNNNNNNNNNNNNNE",
+  ".............ERRRRRRNNNNNNNNNDDDDDNN.",
+  ".............ERRNNNDNDDDDDDDDCCCCDNNN",
+  ".............ERRNNDDDDCCCCCCCCCCCCNNN",
+  ".............ERRNNDDCCCCCCCCCCCCCCNNN",
+  ".............ERRNNDDCCCCCCCCCCCCCCDN.",
+  ".............ERRNNNDCCCCCCRRRRRCCCEEE",
+  ".............ERRRNNNECCCCCRRRRRCCCCE.",
+  "..............ERRPNNECCCCCRRRRCCCCCE.",
+  "..............ERRPPRECCCCCCRRRCCCCCC.",
+  "..............ERRPPRRECCCCCCCCCCCCCE.",
+  "..............ERRPPRRECCCCCCCCCEEEEE.",
+  "..............ERRRPRRECCCCEEEERRRRE..",
+  "..............ERRRRRRREEERRRRRRRRRE..",
+  ".............EERRRRRRRRRRRRRRRRRRRE..",
+  ".............ERRRPRRRRRRRRRRRRRRRRE..",
+  "......EEEEEEERRRPPPRRRRRRRRRRRRRRRE..",
+  "....EEERRRRRRRRPPPPRRRRRRRRRRRRRRRE..",
+  "...RRRRRRRRRRRRPPPRRRRRRRRRRRRRRRRE..",
+  "..RRRRRPPRRRRRRRRRRRRRRRRRRRRRRRRRRE.",
+  ".RRRRRPPPPRRRRRRRRRRRRRRRRRRRRRRRRRE.",
+  ".RRRRRPPPPRRRRRRRRRRRRRRRRRRRRRRRRRE.",
+  ".RRRRRPPPRRRRRRRRRRRRRRRRRRRRRRRRRRE.",
+  ".RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRED",
+  ".RRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRDDD",
+  "DRRRRRRRRRRRRRRRRRRRRRRRRRREEEDDDDDDD",
+  "DDRRRRRRRRRRRRRRRRRRRRRDDDDDDDDDDDDDD",
+  "DDDDRRRRRRRRRRRRRRRRRRDDDDDDDDDDDDDDD",
+  "DDDDDDDDDDDRRRRRRDDDDDDDDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD.",
+  "..DDDDDDDDDDDDDDDDDDDDDD...DDDDDD....",
+  "...DDDDDDDDDDDDDDDDDDD...............",
+  ".......DDDDDDDDDDD..................."
+ ]
+}

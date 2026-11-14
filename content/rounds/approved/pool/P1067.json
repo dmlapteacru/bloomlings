@@ -1,0 +1,100 @@
+{
+ "code": "P1067",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Аид",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Hercules · Disney: Hades from Disney's animated Hercules, the exact iconic villain: long angular BLUE-GRAY face with a pointed chin and huge sly toothy grin, bright BLUE FLAME hair rising in broad shapes, yellowish eyes with dark eyelids, black toga with a round skull clasp. Large face-and-shoulders portrait, one small blue flame above his raised palm, sarcastic charismatic expression, NOT the Hades video-game character.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 33,
+ "h": 33,
+ "N": 1089,
+ "colours": 8,
+ "volumes": {
+  "V": {
+   "cells": 407,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "D": {
+   "cells": 266,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "S": {
+   "cells": 207,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "N": {
+   "cells": 107,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "B": {
+   "cells": 82,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "K": {
+   "cells": 14,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "Y": {
+   "cells": 4,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 2,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "VVVVVVVVVNNNBBBNNBBBBBBVVVVVVVVVV",
+  "VVVVVVVVVNNBBBBNNNBBBBBBVVVVVVVVV",
+  "VVVVVVVVVBBBBBNNNNNNBBBBVVVVVVVVV",
+  "VVVVVVVVBBBBBBNNNNNNNNBBVVVVVVVVV",
+  "VVVVVVVVBBBBNBNNSSSNNNNBVVVVVVVVV",
+  "VVVVVVVVVBBNNNNNSSSSNNNBVVVVVVVVV",
+  "VVVVVVVVVBBNNNNSSSSSNNNBVVVVVVVVV",
+  "VVVVVVVVVVBNNNNSSSSSSSNBVVVVVVVVV",
+  "VVVVVVVVVBBNNNSSNSSSSSNBVVVVVVVVV",
+  "VVVVVVVVBBNNNNSNNNSSSSNVVVVVVVVVV",
+  "VVVVVVVVVBNNSSSNBBDSSSSVVVVVVVVVV",
+  "VVVVVVVVVBNNSSSNDBNSSSDVVVVVVVVVV",
+  "VVVVVVVVVVNNNSSSSSNSSSVVVVVVVVVVV",
+  "VVVVVVVVVNNSSSSSSNNSDSVVVVVVVVVVV",
+  "VVVVVVVVVNNSSSSDSSSSSSSVVVVVVVVVV",
+  "VVVVVVVVVNSSSNSDDSSSSSVVVVVVVVVVV",
+  "VVVVVVVVSSSSSNSDCDDSDVVVVVVVVVVVV",
+  "VVVVVVVVSSSSSNSSDYCDDVVVVVVVVVVVV",
+  "VVVVVVDDSSSSSSSSSYYYDVVVVVVVVVVVV",
+  "VVVVVDDDSSSSBSSSSSDDDVVVVVVVVVVVV",
+  "VVDDDDDDSSSSBSSSSSSSDDVVVVVVVVVVV",
+  "DDDDDDDDDSSSBSSSSSSSBBDDVVVVVVVVV",
+  "DDDDDDDDDDSSBSSSSSSSBBDDDDVVVVVVV",
+  "DDDDDDDDDDSSBBSSSSSSSSBDDDDDDVVVV",
+  "DDDDDDDDDDDSSBSSSSSSSSBDDDDDDDDDV",
+  "DDDDDDDKKKDSSBSSSSSSSSBBDDDDDDNNN",
+  "DDNDDDKKKDDSSSSSSSDDSSBBDDDDDDDDN",
+  "DDNNDDKDKKDDSSSSSSSSSSBBDDDDDDDDD",
+  "DNNNDDDKKKDDDSSSSSSSSBBDDDDDDDDDD",
+  "DNNNDDDDKKDDDDSSSSSSSDDDDDDDDDDDD",
+  "NNNDDDDDDDDDDDDDDSDDDDDDDDDDDDDDD",
+  "NNNDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "NNNDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+ ]
+}

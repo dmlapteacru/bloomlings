@@ -4,24 +4,24 @@
  "intro": null,
  "gen": "2026-11-07",
  "picture": "P0982",
- "candidate": "P0982-Nlatch+links+cells-g1107-a-16",
+ "candidate": "P0982-Nlatch+links+cells-g1107-a-s2-7",
  "recipe": "latch+links+cells",
  "N": 1104,
  "W": 1104,
  "colours": 10,
  "P": 31,
- "columns": 4,
+ "columns": 5,
  "linked": 2,
  "hidden": 0,
  "cells": 56,
  "latches": 1,
  "random": {
-  "runs": 100,
-  "wins": 62,
-  "share": 0.62,
+  "runs": 400,
+  "wins": 229,
+  "share": 0.573,
   "wilson95": [
-   0.522,
-   0.709
+   0.524,
+   0.62
   ],
   "cls": "Normal",
   "borderline": false,
@@ -32,11 +32,59 @@
   "route": [
    {
     "type": "tap",
+    "pod": 13
+   },
+   {
+    "type": "tap",
+    "pod": 26
+   },
+   {
+    "type": "tap",
+    "pod": 27
+   },
+   {
+    "type": "tap",
+    "pod": 30
+   },
+   {
+    "type": "tap",
+    "pod": 24
+   },
+   {
+    "type": "tap",
+    "pod": 0
+   },
+   {
+    "type": "tap",
     "pod": 12
    },
    {
     "type": "tap",
-    "pod": 15
+    "pod": 16
+   },
+   {
+    "type": "tap",
+    "pod": 25
+   },
+   {
+    "type": "tap",
+    "pod": 3
+   },
+   {
+    "type": "tap",
+    "pod": 21
+   },
+   {
+    "type": "tap",
+    "pod": 5
+   },
+   {
+    "type": "tap",
+    "pod": 18
+   },
+   {
+    "type": "tap",
+    "pod": 17
    },
    {
     "type": "tap",
@@ -44,15 +92,15 @@
    },
    {
     "type": "tap",
+    "pod": 7
+   },
+   {
+    "type": "tap",
     "pod": 14
    },
    {
     "type": "tap",
-    "pod": 9
-   },
-   {
-    "type": "tap",
-    "pod": 3
+    "pod": 8
    },
    {
     "type": "tap",
@@ -64,35 +112,11 @@
    },
    {
     "type": "tap",
-    "pod": 11
-   },
-   {
-    "type": "tap",
-    "pod": 27
-   },
-   {
-    "type": "tap",
-    "pod": 25
-   },
-   {
-    "type": "tap",
-    "pod": 7
-   },
-   {
-    "type": "tap",
-    "pod": 24
-   },
-   {
-    "type": "tap",
-    "pod": 29
-   },
-   {
-    "type": "tap",
-    "pod": 0
-   },
-   {
-    "type": "tap",
     "pod": 23
+   },
+   {
+    "type": "tap",
+    "pod": 15
    },
    {
     "type": "tap",
@@ -100,7 +124,15 @@
    },
    {
     "type": "tap",
-    "pod": 16
+    "pod": 9
+   },
+   {
+    "type": "tap",
+    "pod": 29
+   },
+   {
+    "type": "tap",
+    "pod": 11
    },
    {
     "type": "tap",
@@ -108,15 +140,7 @@
    },
    {
     "type": "tap",
-    "pod": 30
-   },
-   {
-    "type": "tap",
     "pod": 6
-   },
-   {
-    "type": "tap",
-    "pod": 8
    },
    {
     "type": "tap",
@@ -124,39 +148,15 @@
    },
    {
     "type": "tap",
-    "pod": 26
-   },
-   {
-    "type": "tap",
-    "pod": 28
-   },
-   {
-    "type": "tap",
-    "pod": 18
-   },
-   {
-    "type": "tap",
-    "pod": 21
-   },
-   {
-    "type": "tap",
-    "pod": 13
-   },
-   {
-    "type": "tap",
-    "pod": 5
-   },
-   {
-    "type": "tap",
     "pod": 1
    }
   ],
-  "forks": 0,
+  "forks": 2,
   "singleSafe": 0,
   "unknown": 0,
   "fast": {
    "status": "won",
-   "seconds": 224.3
+   "seconds": 287.3
   }
  },
  "fairness": {
@@ -169,88 +169,88 @@
  "strategies": {
   "left-to-right|left": true,
   "left-to-right|right": true,
-  "right-to-left|left": false,
-  "right-to-left|right": false,
-  "top-down|left": false,
-  "top-down|right": false,
+  "right-to-left|left": true,
+  "right-to-left|right": true,
+  "top-down|left": true,
+  "top-down|right": true,
   "bottom-up|left": true,
   "bottom-up|right": true,
-  "diagonal|left": true,
-  "diagonal|right": true,
-  "small-first|left": true,
-  "small-first|right": true,
-  "most-now|left": true,
-  "most-now|right": true,
-  "fast-release|left": true,
-  "fast-release|right": true
+  "diagonal|left": false,
+  "diagonal|right": false,
+  "small-first|left": false,
+  "small-first|right": false,
+  "most-now|left": false,
+  "most-now|right": false,
+  "fast-release|left": false,
+  "fast-release|right": false
  },
  "rhythm": {
   "segments": [
    {
     "from": 0,
     "to": 20,
-    "meanFree": 1.91,
+    "meanFree": 2.24,
     "minFree": 0,
-    "fullShare": 0.08,
-    "maxWaiting": 3
+    "fullShare": 0.04,
+    "maxWaiting": 4
    },
    {
     "from": 20,
     "to": 40,
-    "meanFree": 1.62,
-    "minFree": 1,
-    "fullShare": 0,
-    "maxWaiting": 2
+    "meanFree": 2.31,
+    "minFree": 0,
+    "fullShare": 0.09,
+    "maxWaiting": 4
    },
    {
     "from": 40,
     "to": 60,
-    "meanFree": 4.2,
-    "minFree": 2,
+    "meanFree": 4.14,
+    "minFree": 3,
     "fullShare": 0,
-    "maxWaiting": 0
+    "maxWaiting": 1
    },
    {
     "from": 60,
     "to": 80,
-    "meanFree": 4.31,
-    "minFree": 4,
+    "meanFree": 3.75,
+    "minFree": 3,
     "fullShare": 0,
-    "maxWaiting": 0
+    "maxWaiting": 1
    },
    {
     "from": 80,
     "to": 100,
-    "meanFree": 4.25,
+    "meanFree": 4.3,
     "minFree": 3,
     "fullShare": 0,
     "maxWaiting": 1
    }
   ],
-  "launchesAfter80": 7,
+  "launchesAfter80": 4,
   "lastLaunchAtW": 96,
-  "seconds": 751
+  "seconds": 796.5
  },
  "dosePos": 1,
  "checks": {
-  "forced": 0.06,
+  "forced": 0.14,
   "opening": null,
   "hold": true,
-  "greedyLoses": false,
+  "greedyLoses": true,
   "hiddenMatters": null,
   "bridgeKind": null,
   "bridgeSingle": null,
   "pressure": {
-   "stuck": 1.37,
-   "tight": 0.94
+   "stuck": 1.33,
+   "tight": 0.95
   },
   "calm": {
    "runs": 200,
-   "wins": 130,
-   "share": 0.65,
+   "wins": 139,
+   "share": 0.695,
    "wilson95": [
-    0.582,
-    0.713
+    0.628,
+    0.755
    ],
    "borderline": false,
    "protocol": "§5 calm: uniform over legal actions, the board settled before each",
@@ -265,18 +265,18 @@
    "latches": [
     {
      "latch": 0,
-     "column": 0,
+     "column": 3,
      "depth": 3,
-     "behind": 4,
-     "key": 1060,
-     "atW": 0.093,
-     "command": 3,
+     "behind": 3,
+     "key": 664,
+     "atW": 0.688,
+     "command": 22,
      "waitMs": 0
     }
    ],
    "maxBlocked": 0,
-   "limit": 2,
-   "lastOpenAtW": 0.093,
+   "limit": 3,
+   "lastOpenAtW": 0.688,
    "waits": false,
    "randomOverLimit": 0,
    "ok": true,
@@ -289,26 +289,26 @@
      "code": "W",
      "name": "Снег",
      "from": "N",
-     "cells": 7,
-     "clusters": 3,
+     "cells": 5,
+     "clusters": 2,
      "pods": [
       {
        "pod": 27,
-       "count": 4,
+       "count": 3,
        "row": 2
       },
       {
        "pod": 28,
-       "count": 3,
-       "row": 2
+       "count": 2,
+       "row": 1
       }
      ]
     }
    ],
-   "cells": 7,
+   "cells": 5,
    "pressure": {
-    "with": 1.37,
-    "without": 0.69
+    "with": 1.33,
+    "without": 1.06
    }
   }
  },
@@ -333,19 +333,19 @@
    "#.......DNNNNNBBBNNNNPPPPPPNNNNNNNN.......#",
    "#......NNNNNBBBBBBNNNPPPPPPNBBBBNNNN......#",
    "#.....DNBBBNBBBNNNNNNNNNEENNNBBBBNBND.....#",
-   "#.....DNBBBNNNNNNNWNNNNNEENNNNNNNBBBD.....#",
-   "#...DDEDNNNNNNNBNNWWNPPNEENNWNNNNNNND.....#",
-   "#..DEEEEDNBBNBBBBNNNNPPPPPPNWNBBBNNNDEE...#",
-   "#.DAAAAEEBBBNBBBNNNNNPPPEEPNNNBBBNNNEEEE..#",
+   "#.....DNBBBNNNNNNWWWNNNNEENNNNNNNBBBD.....#",
+   "#...DDEDNNNNNNNBNNNNNPPNEENNWNNNNNNND.....#",
+   "#..DEEEEDNBBNBBBBNN..PPPPPPNWNBBBNNNDEE...#",
+   "#.DAAAAEEBBBNBBBNNN..PPPEEPNNNBBBNNNEEEE..#",
    "#.DAAAAAENNNNNNNNNNBBBBEEEEENNNNNNNNEAAAD.#",
-   "#..OOOAAEDNNNNNNNNNDDDEEEEEDNNNNWWNDEAAAD.#",
+   "#..OOOAAEDNNNNNNNNNDDDEEEEEDNNNNNNNDEAAAD.#",
    "#..DAAANNNNNBBBBBDAAEEEAAAEEEEDNNNNNEAAD..#",
    "#...DDDNNBBBBBBBAAAAAAAAAAAAAADDBBBNNAAD..#",
    "#....DNBBBBBBDAAAAAAAAAADAAAAAADDBBNND....#",
    "#....DNBBBDDAPPAAAAAAAADPPAAAAAAADBBB.....#",
    "#.....NBEEEAAPPPACCCAADPPPDAAAAAAAADD.....#",
-   "#.....DAAEEEAAPCCCCDDADPPPDA..CAPPPDDD....#",
-   "#.....DAAAAEEAACCCDDDADDDDDC..DAPPAAAD....#",
+   "#.....DAAEEEAAPCCCCDDADPPPDACCCAPPPDDD....#",
+   "#.....DAAAAEEAACCCDDDADDDDDCCDDAPPAAAD....#",
    "#.....OAAAAAEEACCCDDDAAAAAACDDDDAEAADD....#",
    "#.....OOAAAEEEACCCDDDAAAAACCDDDDAEDDD.....#",
    "#.....DDDDEEEEACCCDDDAAAAACCDDDDAEE.......#",
@@ -376,7 +376,7 @@
   "pods": [
    {
     "color": "D",
-    "count": 48
+    "count": 49
    },
    {
     "color": "D",
@@ -408,24 +408,27 @@
    },
    {
     "color": "A",
-    "count": 58
+    "count": 48
    },
    {
     "color": "A",
-    "count": 58
+    "count": 48
    },
    {
     "color": "A",
-    "count": 57
+    "count": 48
    },
    {
     "color": "A",
-    "count": 57
+    "count": 48
    },
    {
     "color": "A",
-    "count": 57,
-    "group": "A"
+    "count": 48
+   },
+   {
+    "color": "A",
+    "count": 47
    },
    {
     "color": "E",
@@ -441,36 +444,32 @@
    },
    {
     "color": "C",
-    "count": 19
+    "count": 21
    },
    {
     "color": "C",
-    "count": 19,
+    "count": 20
+   },
+   {
+    "color": "P",
+    "count": 22
+   },
+   {
+    "color": "P",
+    "count": 22
+   },
+   {
+    "color": "N",
+    "count": 58
+   },
+   {
+    "color": "N",
+    "count": 57
+   },
+   {
+    "color": "N",
+    "count": 57,
     "group": "A"
-   },
-   {
-    "color": "P",
-    "count": 22
-   },
-   {
-    "color": "P",
-    "count": 22
-   },
-   {
-    "color": "N",
-    "count": 44
-   },
-   {
-    "color": "N",
-    "count": 44
-   },
-   {
-    "color": "N",
-    "count": 43
-   },
-   {
-    "color": "N",
-    "count": 43
    },
    {
     "color": "B",
@@ -486,11 +485,12 @@
    },
    {
     "color": "W",
-    "count": 4
+    "count": 3
    },
    {
     "color": "W",
-    "count": 3
+    "count": 2,
+    "group": "A"
    },
    {
     "color": "Y",
@@ -503,42 +503,44 @@
   ],
   "tray": [
    [
-    12,
-    15,
-    22,
-    14,
-    9,
-    3,
-    20
-   ],
-   [
-    4,
-    11,
+    13,
+    26,
     27,
-    25,
-    7,
+    30,
     24,
-    29,
     0
    ],
    [
-    23,
-    19,
+    12,
     16,
-    10,
-    30,
-    6,
-    8,
-    2
+    25,
+    3,
+    21,
+    5
    ],
    [
-    17,
-    26,
-    28,
     18,
-    21,
-    13,
-    5,
+    17,
+    22,
+    7,
+    14,
+    8
+   ],
+   [
+    20,
+    28,
+    15,
+    19,
+    9,
+    29
+   ],
+   [
+    4,
+    23,
+    11,
+    10,
+    6,
+    2,
     1
    ]
   ],
@@ -548,124 +550,114 @@
    "sites": [],
    "keys": [
     [
-     26,
-     20
+     17,
+     29
     ],
     [
-     27,
-     20
+     18,
+     29
     ],
     [
-     26,
-     21
+     17,
+     30
     ],
     [
-     27,
-     21
+     18,
+     30
     ]
    ]
   },
   "recolor": [
    [
-    30,
-    27,
-    "W"
-   ],
-   [
-    31,
-    27,
-    "W"
-   ],
-   [
     26,
     30,
     "W"
    ],
    [
-    16,
-    31,
-    "W"
-   ],
-   [
-    17,
-    31,
-    "W"
-   ],
-   [
     26,
     31,
+    "W"
+   ],
+   [
+    15,
+    32,
     "W"
    ],
    [
     16,
     32,
     "W"
+   ],
+   [
+    17,
+    32,
+    "W"
    ]
   ],
   "latches": [
    {
-    "column": 0,
+    "column": 3,
     "depth": 3,
-    "key": 1060
+    "key": 664
    }
   ],
   "hiddenCells": [
-   657,
-   658,
-   659,
-   660,
-   661,
-   662,
-   700,
-   701,
-   702,
-   703,
-   704,
-   705,
-   743,
-   744,
-   745,
-   746,
-   747,
-   748,
-   790,
-   913,
-   914,
-   915,
-   916,
-   927,
-   928,
-   929,
-   955,
-   956,
-   957,
-   958,
-   959,
-   970,
+   671,
+   672,
+   714,
+   715,
+   716,
+   757,
+   758,
+   759,
+   792,
+   793,
+   794,
+   795,
+   800,
+   801,
+   802,
+   835,
+   836,
+   837,
+   838,
+   839,
+   843,
+   844,
+   845,
+   878,
+   879,
+   880,
+   881,
+   882,
+   886,
+   887,
+   888,
+   921,
+   922,
+   923,
+   924,
+   930,
+   931,
    971,
    972,
    973,
-   998,
-   999,
-   1000,
-   1001,
-   1002,
-   1013,
+   974,
+   975,
    1014,
    1015,
    1016,
-   1042,
-   1043,
-   1044,
-   1045,
-   1056,
+   1017,
+   1018,
    1057,
    1058,
    1059,
-   1099,
-   1100,
+   1060,
+   1061,
    1101,
-   1102
+   1102,
+   1103,
+   1104
   ],
   "difficulty": "Normal"
  }

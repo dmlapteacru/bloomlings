@@ -1,0 +1,92 @@
+{
+ "code": "P1068",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Мулан",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Mulan (1998) · Disney: Mulan from Disney's 1998 animated film: adult East Asian heroine with straight BLACK hair in a high warrior bun tied with a RED ribbon, one loose side lock, large almond-shaped brown eyes and determined gentle expression, green training robe with dark shoulder armor and a broad RED sash. Waist-up chibi portrait, one broad silver sword edge beside her shoulder, no Mushu or other characters.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 29,
+ "h": 29,
+ "N": 841,
+ "colours": 7,
+ "volumes": {
+  "P": {
+   "cells": 321,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "D": {
+   "cells": 315,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 97,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 57,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "R": {
+   "cells": 28,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "E": {
+   "cells": 20,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 3,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "PPPPPPPPDDDDDRRRDDPPPPPPPPPPP",
+  "PPPPPPPDDDDDDDDDDDDDDPPPPPPPP",
+  "PPPPPPPDDDDDDDDDDDDDDDDPPPPPP",
+  "PPPPPPPPDDDDDDDDDDDDDDDPPPPPP",
+  "PPPPPPPPDDDDDDDDDDDDDDDDPPPPP",
+  "PPPPPPPDRDDDDDDDDDDDDDDDDPPPP",
+  "PPPPPPDRRDDDDDDDDCCDDCDDDPPPP",
+  "PPPPPPRRDDDDDDDDCCDDCCDDDDPPP",
+  "PPPPPPPPDDDDDDDDCDDCCCCDDDPPP",
+  "PPPPPPPDDDDDDDDCDCCCCDDDDDPPP",
+  "PPPPPPPDDDDDCDDDCCCDDCCDDPPPP",
+  "PPPPPPPPDCDDCCDDCCCCDDDDDPPPP",
+  "PPPPPPPPPDDCCCCCCCCDDCDDPPPPP",
+  "PPPPPPPPPDDDCCCCCCCCCCDPPPPPP",
+  "PPPPPPPPDDPDCCCCCCCCCCDPPPPPP",
+  "PPPPPPPPDPPPCCCCCCCCCDPPPPPPP",
+  "PPPPPPPPPPPPCCCCCCCCDPPDPPPPP",
+  "PPPPPPPPPPDDCCCCCCCDPPPDPPPPP",
+  "PPPPPPPPPPMMCCCCCDDPPPDPPPPPP",
+  "PPPPPPPPDDMMMCCAADDPPPPPPPPPP",
+  "PPPPPPDDDDDMMMCCADMDDDPPPPPPP",
+  "PPPPDEEEEDDDMMMCCDMMDDDDDPPPP",
+  "PPPDDDDEEEDDDMMMCCMMDDDDDDPPP",
+  "PPDDDDDDEEDDDDMMMCMMMDDDDDDPP",
+  "PDDDDDDDDEEDDDDMMDMMMDDDDDDDP",
+  "DDDDDDDEDEEDDDDDMMMMMDDDDDDPP",
+  "DDDDDDEEDDEDDDDDMMDMMDDDDDMDP",
+  "DMMMDEEDMDEDDDRRRRRRRRDDDMMMP",
+  "MMMMMDDMMDDRRRRRRRRRRRRDDMMMD"
+ ]
+}

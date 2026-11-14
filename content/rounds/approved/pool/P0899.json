@@ -1,0 +1,112 @@
+{
+ "code": "P0899",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Цирк в раскрытой ракушке",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Ярмарки и праздники",
+ "direction": "Миры внутри предметов",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Крупная розовая морская раковина раскрыта как сцена, внутри один золотой круглый подиум и синий акробатический обруч, без воды и рыб",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 42,
+ "h": 41,
+ "N": 1348,
+ "colours": 9,
+ "volumes": {
+  "P": {
+   "cells": 772,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "K": {
+   "cells": 139,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "R": {
+   "cells": 113,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 97,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 88,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 45,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 42,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "N": {
+   "cells": 30,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 22,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "....................KKK...................",
+  "..............KKKPKKKCCKKKKKK.............",
+  "............PKKKKPKKKCKKKKKKKKK...........",
+  ".........KKPPKKKKPCCCCCCCKKKKKPPPK........",
+  ".......KKKKPPCCCCCCPPPPCCCKKCCPPKKKK......",
+  "......KKKKKCCCCCCCPPPPPPPCCCCCCCKKKKK.....",
+  "......PPKCCPPPPPPPPPPPPPPPPPPPPKKKKKP.....",
+  "....PPPPPCPPPPPPPPPPPPDPPPPPPPPPKKKPPPP...",
+  "...KKPPPKPPPPPPPPPPPPPCPPPPPPPPPPKPPPKKK..",
+  "..KKKCKKKPPPPPPPPCPPPPPDPPPPPPPPPKCKKKKKK.",
+  "..PKKKKPPPPPPPPPPPPPPPPPPCPPPPPPPPPPKKKPP.",
+  ".PPKKPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPKPP.",
+  ".PPKPPPPPPPPPPPPPPPPPPPPPPCPPPPPPPPPPPKKP.",
+  ".PPKPPPPPPPPPPPPPPPPPPPPPPNPPPPPPPPPPPPKP.",
+  ".PKKPPPPPPPPPPNPPPPPPPPPPPNCPPPPPPPPPPPKKK",
+  "EPPPPPPPPPPPPPNNPPPPPPPPPPNCNPPPPPPPPPPPKK",
+  "EPPPPPPPPPPPPPDNPPPPPPPPPPNNNPPPPPPPPPPPPK",
+  "EPPPPPPPPPPPPPDDPPPPPPPPPPNNNPPPPPPPPPPPPP",
+  ".PPPPPPPPPPPPPDDPPPPPPPPPPNNNPPPPPPPPPPPP.",
+  ".PPPPPPPPPPPPPDDPPPPPPPPPPNNPPPPPPPPPPPPP.",
+  "..PPPPPPPPPPPPDDPPPPPPPPPPNNPPPPPPPPPPPP..",
+  "...PPPPPPPPPPPDDPPPPPPPPPPNPPPPPPPPPPPP...",
+  "....PPPPPPPPPPPDPPPPPPPPPPNPPPPPPPPPPP....",
+  "......KKPPPPPPPPPPPPPPPPPPPPPPPPPPPP......",
+  ".......KPPRPPPPPPPPPPPPPNCPPPPPPPPP.......",
+  ".......KPPRRPPPPYCCPPPPNNNPPPPPPPPP.......",
+  ".....PPPPPPYYYYYYDDDDDNNNYYYYYPPPPPPP.....",
+  "..KKPPPPPEYYYYYOOOODDDYYYYYYYYYYPPPPPPPP..",
+  ".KKKPPPPPEYYYYYYYYYYYYYYYYYYYYYYPPPPPPPKK.",
+  ".CCPPPPPPEEEOYYYYYYYYYYYYYYYYOOOOPPPPPPKKK",
+  ".CCCPPPPPEEEOOOOOYYYYCCCYYYOOOOOOPPPPPCCKK",
+  ".RRCCCCPPEEEOOOOOOOYYYYYYYYOOOOOEPPCCCCRR.",
+  ".RRRRRCCPPEEOOOOOOOYYYYYYYYOOEEEEPCCRRRRR.",
+  "..RRRRRCCCCCCCEEEEOEEEEEEEEECCPCCCRRRRRR..",
+  "...RRRRRRPPPCCCCCCCCKKKCCCCCCPPPPRRRRRR...",
+  "....RRRRRPPPPRPPPPPKKKKPPPPPRPPPPRRRRR....",
+  ".....EEERRPPPRRPPPPPKPPRPPPPRPPPRRRRR.....",
+  "........RRRPRRRRPPPPPPPRPPPRRRPRRRR.......",
+  ".........RRRRRRRRPRRRPRRRRRRRRRRR.........",
+  "............EEEERRRRRRRRRREEEE............",
+  "..................RR.R...................."
+ ]
+}

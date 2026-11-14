@@ -1,0 +1,107 @@
+{
+ "code": "P0938",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Сердце с тайным лабиринтом",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Фигуры, знаки и эмблемы",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одно большое розовое сердце в разрезе хранит широкий золотой лабиринт с одним синим центральным кругом, толстые стенки и ясная форма сердца, без надписей",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 34,
+ "N": 912,
+ "colours": 9,
+ "volumes": {
+  "R": {
+   "cells": 299,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 246,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "P": {
+   "cells": 179,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "O": {
+   "cells": 74,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "S": {
+   "cells": 64,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "B": {
+   "cells": 14,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "A": {
+   "cells": 13,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 12,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 11,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........RRRR..........RRRR........",
+  "......PPPPPPPPP.....PPCCCCCPP......",
+  "....PPPPPPPPPPPP..PPPPPPPPPPPPP....",
+  "...PPPPRRRRRRRRPPPPPRRRRRRRRRPPP...",
+  "..PPPRRRRRYYYRRRPPPRRYYYYYRRRRPPP..",
+  "..PPRRRYYYYOYYRRRPRRRYOOOYYYRRRPP..",
+  ".PPRRRYYOOOOYYCCRRRCCYYYOOYYYRRRPP.",
+  ".PPRRYYAAAYYYYYYRRYYYYYYYOYYYYRRPP.",
+  "RPPRYYAAYYYYYYYYRROOOOOOYYRRYYYRPPR",
+  "RPRRYRRROOAAYYYYYYYYYYOOYYRRYYYRRPR",
+  "RPRYYRRYOOAAYYYYYYYYYYYYYYRYYYYYRPR",
+  "RPRYYRRYRRRYYOOBBBBYYYYYYYYYYRYYRPR",
+  "RPPYYYYYRRYYYONBBBBNYYYYYOOYYRYYRPR",
+  "RPPYYYYYRRYYRRNBBBBNROOOOOOYYRYYPPR",
+  "RPPYYYYYYCYYRRNNBBNNRRYYRRRYOYYPPR.",
+  ".RPPYRRYYYYYYRRNNNNRRYYYRRYYOOPPPR.",
+  ".RRPYRRYOOOOYYYRRRRYYYYYCYYYYOPPRR.",
+  ".RRPPRRYYRROOOYYYRYYAAYYYYYRRPPPRR.",
+  "..RRPPRYYYRROOOYYYYYAAYYOYYRPPPRR..",
+  "..RRRPPYYYYYYYYYYYYYOOOOOOPPPPRRR..",
+  "...RRRPPPYYYOYYYYYYYOOORRRPPRRRR...",
+  "...RRRPPPPOOOOOYYYYOOOORRPPRRRRR...",
+  "....RRPPPPPRRROOOYYYOORRPPRRRRRS...",
+  "...SSRPPRRPPRRROYYYYPPPPPRRRRRSS...",
+  "...SSRPPRRRPPRRRYYYYPPPPRRRRRSSS...",
+  "....SSSRRRRRPPPPPPPPPPRRRRRRSSS....",
+  ".....SSSRRRRPRPPPPPPPRRRRRRSSS.....",
+  "......SSSRRRPRRRPPPRRRRRRRSSS......",
+  ".......SSSRRPRRRPRRRRRRRRSSS.......",
+  "........SSSSRRRRPRRRRRRSSSS........",
+  "..........SSSRRRPRRRRRSSS..........",
+  "...........SSSRRPRRRSSSS...........",
+  ".............SSSRRRSSS.............",
+  "................SSS................"
+ ]
+}

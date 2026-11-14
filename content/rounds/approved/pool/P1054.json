@@ -1,0 +1,90 @@
+{
+ "code": "P1054",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Агнец",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Волшебные существа",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Cult of the Lamb · Massive Monster: The Lamb from Cult of the Lamb: small WHITE woolly lamb with charcoal face, huge dark eyes with pale sclera, a RED cape with one white bell-like clasp, and the iconic floating BLACK crown with a single bright RED eye. Chibi full figure, crown kept close to the head, friendly impish expression, no ritual or violence.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 37,
+ "N": 896,
+ "colours": 5,
+ "volumes": {
+  "D": {
+   "cells": 529,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 202,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 140,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 20,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 5,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............DDD..DDD...............",
+  ".............DDDDDDDD...............",
+  ".............DDDDDDDD...............",
+  ".............DDDRRDDD...............",
+  ".............DDRRRRRD...............",
+  ".............DDRRRRRD...............",
+  ".........DD..DDDRRDDD..DD...........",
+  "........DAAD.DDDDDDDD.DDDD..........",
+  "........DAADDDCDDCCCCDDDDD..........",
+  "........DADDDCCCCCCCCCCDDD..........",
+  ".......DDDDCCCCCCCCCCCCCDDDD........",
+  "......DDCDCCCCCCCCCCCCCCCCCCD.......",
+  ".....DDCCCCCCCCCCCCDCCDCCCCCD.......",
+  "....DDCCCCCCCCDCCCCDDDDDDDCCDD......",
+  "...DCCCCCCCDDDDDCCCDDDDDDDDCCDD.....",
+  "..DDCCCCCCDDDDDDDDDDDDDDDDDDCCDD....",
+  "..DDCCCCCDDDDDDDDDDDDDDDCDDDCDDDDD..",
+  "...DCCCCDDDDCDDDDDDDDDDDDCDDCDDDDD..",
+  "...DDCCCDDDCDDDDDDDDDDDDDCDDCDDDDDD.",
+  "..DDDCCCDDDCDDDDDDDDDDDDDCDDCCDDDDDD",
+  "..DDDCCCDDDCDDDDDDDDDDDDDCDDCCCDDDDD",
+  ".DDDDDCCDDDCDDDDDDDDDDDDCDDDCCCDDDDD",
+  ".DDDDDCCDDDCCDDDDDDDDDDDDDDDCCDDDDD.",
+  "DDDDDDCCCDDDCCDDDDDDDDDDDDDCCDD.....",
+  "DDDDDDCCCDDDDDDDDDDDDDDDCCCCCD......",
+  "DDDDDDCCCCDDDDDDDDDDDDCCCDDCDD......",
+  ".DDD.DDCDCCCCCDDDDCYYDDDDDRDD.......",
+  "......DDDCCDDCCDYYCYYYRRRRRRD.......",
+  ".......DRDDRRRRDYYYYYYDRRRRRDD......",
+  ".......RRRRRRRRDYYDDYDDRRRRRRRD.....",
+  ".....DDRRRRRRRRRYYYDYDDRRRRRRRRDD...",
+  "...DDRRRRRRRRRRRDDDDDDDRRRRRRRRCDD..",
+  "..DDRRRRRRRRRRRDCDDDDCDDRRRRRRRRDDD.",
+  ".DDDDRRRRRRRRRDCCCCCCCCDRRRRRRRDDDD.",
+  ".DDDDDRRRRRRRRDCCCCCCCCDDRRRDDRD....",
+  "..DDDDRDDRRRRDDDDDDDDDDDDDRRDDD.....",
+  "...DDDDDDRRRDDDDDDDDDDDDDDDRDDD....."
+ ]
+}

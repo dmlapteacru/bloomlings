@@ -1,0 +1,99 @@
+{
+ "code": "P1177",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Красный клён в низком горшке",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Деревья, листья и плоды",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One compact bonsai-like red maple with ONLY three enormous red leaf clusters, thick brown forked trunk and a broad turquoise shallow pot with cream rim. No tiny leaves, roots or scene.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 33,
+ "h": 36,
+ "N": 655,
+ "colours": 7,
+ "volumes": {
+  "R": {
+   "cells": 351,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "B": {
+   "cells": 77,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "D": {
+   "cells": 68,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 62,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 52,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 37,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "S": {
+   "cells": 8,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..................R..............",
+  "............RR...RRR.............",
+  "............RRR.RRRR.............",
+  "...........RRRRRRRRR.RR..........",
+  "...........RRRRRRRRRRRR..........",
+  "......RRRRRRRRRRRRRRRRR..........",
+  ".......RRRRRRRRRRRRRRR...........",
+  "........RRRRRRRRRRRRRR.....R.....",
+  ".........RRRRRRRRRRRRRR...RR.....",
+  ".......RRRRRRRRRRRRRRR..RRRR.....",
+  "........RRRRRRRERRRR...RRRRR.....",
+  "..........RRRRRE..RRRRRRRRRR.....",
+  "...RR..RR..RRR.EE...RRRRRRRRRRRRR",
+  "..RRRRRRRR.....EEE..RRRRRRRRRRRR.",
+  "...RRRRRRRR..E..EEE.RRRRRRRRRRR..",
+  "...RRRRRRRR.EE..EAE.RRRRRRRRRRR..",
+  "...RRRRRRREEEE...AAEERRRRRRRRR...",
+  ".RRRRRRRRRREEAA..AAEEERRRRRRRRR..",
+  "RRRRRRRRRRRRCAAEAAEE..RRRRRRRRRR.",
+  "RRRRRRRRRRRR..EEAAE...RRRRRRRRRR.",
+  "...RRRRRRRRR..EAAEE....RRRRRRRRRR",
+  "...RRRRRRRR...EAAEE......RRR.....",
+  "...RRRRRRRR..EAAAEEE......RR.....",
+  "...RRR..RR.DDEAAAAEEE............",
+  "........DDDEEEAAAAAEEEEED........",
+  ".....CCCEEDDEAAAAAAAEDEEECDD.....",
+  ".....CCCEDDDDADDDDDDDDDDCCCC.....",
+  ".....CCCCCCCCCCCCCCCCCCCCCCC.....",
+  ".....DCDCCCCCCCCCCCCCCCCDDDD.....",
+  ".....DBBBDBBDBBDDDDDDDDBBBB......",
+  "......BSSSSBBBBBBBBBBBBBBBB......",
+  "......DBSSSBBBBBBBBBBBBBBBD......",
+  ".......BBSBBBBBBBBBBBBBBBB.......",
+  ".......DDBBBBBBBBBBBBBBBD........",
+  ".........DDDDDDDDDDDDDDD.........",
+  "..........DDD.......DDD.........."
+ ]
+}

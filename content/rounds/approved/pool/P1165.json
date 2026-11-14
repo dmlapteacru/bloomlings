@@ -1,0 +1,89 @@
+{
+ "code": "P1165",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Заводная черепашка с ключом",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Игрушки и настольные игры",
+ "direction": "Заводная сказка",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One squat green wind-up turtle toy side view, enormous yellow domed shell divided into four broad red panels, large friendly cream eye and a thick blue winding key sticking from its side. No scenery.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 25,
+ "N": 561,
+ "colours": 7,
+ "volumes": {
+  "G": {
+   "cells": 156,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 136,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 117,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "M": {
+   "cells": 65,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "D": {
+   "cells": 42,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "N": {
+   "cells": 35,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 10,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............YYYY..............",
+  "............YYYYYYYYY...........",
+  "..........YYRRRRRYYRRR..........",
+  ".........YYRRRRRRYRRRRR.........",
+  "........YYYRRRRRRYRRRRRR........",
+  "...GGGGGYYYRRRRRRYRRRRRRR.DDDNN.",
+  "..GGGGGGGYYYRRRRYYRRRRRRR.DDNND.",
+  ".GGGGGGGGGYYYYYYYYYRRRRRYNDNNNDN",
+  ".GGGCCCGGGYYYRRRRYYYYYRRYNDD.NDN",
+  ".GGGDDCCGGGYYRRRRYYRRRYYYNNDDDDN",
+  ".GGGDDDCGGGYRRRRRYYRRRRYYNNDDDD.",
+  "GGGGDDDCGGGYRRRRRYYRRRRRYNNDDDD.",
+  "GGGGDDCGGGYYRRRRRYYRRRRRYNNDNNDN",
+  ".GGDGGGGGGYYYRRRRYYRRRRRYNND.NDN",
+  ".GGGGGGGGMYYYYYRRYYRRRRYYNNDNNDN",
+  "..GGGGGGMMYYYYYYYYYYYYYYYYCDNND.",
+  "...MMMMMMMMMYYYYYYYYYYYYYY......",
+  "....CMMMMMMMGYYYYYYYYYYMMMM.....",
+  "....MMMMMMGGGGYYYYYYYYGGGGG.....",
+  "....GGMMMGGGGGGMMMMMMMGGGGGG....",
+  "...GGGMMMGGGGGGMMMMMMMGGGGGG....",
+  "...GGMMMGGGGGGG...MMMMGGGGGGG...",
+  "....MMMMGGGGGGG.......GGGGGGG...",
+  "........GGGGGG........GGGGGG....",
+  ".........MMMMM.................."
+ ]
+}

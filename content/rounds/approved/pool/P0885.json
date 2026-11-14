@@ -1,0 +1,114 @@
+{
+ "code": "P0885",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Ботинок оставляет цветочные следы",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Одежда и аксессуары",
+ "direction": "Домашняя магия",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой синий походный ботинок шагает по компактному кремовому участку земли, за пяткой три крупных разноцветных цветка вместо отпечатков",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 43,
+ "h": 43,
+ "N": 1235,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 290,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 278,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "B": {
+   "cells": 235,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "D": {
+   "cells": 206,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 98,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "M": {
+   "cells": 60,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "P": {
+   "cells": 35,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "G": {
+   "cells": 25,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "R": {
+   "cells": 8,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "....................NNNNN.........DND......",
+  "...................NNNNNNNNNN....DNNNNN....",
+  "...................NNNNBBBNNNNNNNNNNNNN....",
+  "..................NNNNBBBBNNNNNNNNNDNNN....",
+  "..................NNNNBBBBNNNNNNNNNNNN.....",
+  "..................DNNNBBBNNNNNNNNNNNND.....",
+  ".................YYYYNNNNNNNNNNNNNNND......",
+  ".................YNDYYYNBBNNNNNNNNNN.......",
+  ".................DNNDYYNBBBBBBNNNNND.......",
+  "................DDDDNNNNBBBBBBBBBNN........",
+  "................DNDDDDNBBBBBBBBBBNN........",
+  "...............DDNNDDNNBBBBBBBBBNND........",
+  "......DDBBBD.DDNYYNNNNBBBBBBBBBBNN.........",
+  "....BBBBBBBBNDDNNYNNNBBBBBBBBBBBNN.........",
+  "...NBBBBBBBNNDDDNYYNNBBBBBBBBBBBNN.........",
+  "..DNBBBBBBBNNNNNNBBBBBBBBBBBBBBBND.........",
+  "..DNBBBBBBBBNNNNNBBBBBBBBBBNNNCCD..........",
+  ".CCCCCBBBBBBBNNNBBBBBBBBBNNNNNCYY..........",
+  ".DCCCCCCBBBBBNNNNBBBBBBBNNNNNNNNYY.........",
+  "DDDDDCCCCCBBNNNNNNBBBBBNNNNNNDNNYY.........",
+  "DDDDDDCCCCCNNNNNNNBBBBBNNNNNNNNNNY.........",
+  "DDDDDDDCCCCNNNNNNNNBBBNNNNNNNNNNDYCGG......",
+  ".DDDDDDDCCCCCNNNNNNBNNNNNNNNNNNNDYMGGCMMM..",
+  "..DDDDDDDCCCCCNNNNNNNNNNNDNNNCCCYYMGGPPPM..",
+  "...DDDDDDDDCCCCCCCCDCCCCDDNCCCCCYYMMMPPPPP.",
+  "....DDDDDDDDCCCCCCCCCCCCDDDCCCCDYYDPPRRPPPP",
+  ".....DDDDDDDDDDCCCCCDDCDDDCCDDDDYYPPPRYYPPP",
+  "........DDDDDDDDDCDDDDDDDCCCDDDYYYMPPRYRPP.",
+  ".........CDDDDDDDDCDDDDDDCCDDDDYYYMMPPRRPPP",
+  ".....CCCCCCCCDDDDCCDDDDDDDDDYYYYYYMMPPPRPPP",
+  ".CCCCCCCCCCCCCCCCCCDDDDDDDDYYYYYYYYYDDDDD..",
+  "CCCCCCCCCCCCCCCCCCCCDDDDDDDYYYYYYYYYMMMMM..",
+  ".CCCCCCCCCCCCCCCCCCCCCCDDDDDYYYYYYYYMMBDGG.",
+  "....CCCCCCCCCCCCCCCDDCCCCMMYYYYYYYYDDBBBGG.",
+  "....CCCCCCCCCCCCCCCDDDCCGGMYYYYYYYBBBBBBBB.",
+  ".......CCCCCCCCCCCCCCCCGGMMMYYYYYYBBBBYBBBB",
+  ".........CCCCCCCCCCCCCCGGGGMMMMMYDBBBYYBBBB",
+  ".........CCCCCCCCCCCCCCMMMMMCGMMMMMBBBBBBDB",
+  ".............CCCCCCCCCCCCCCCCGGGMMMBBBBBBBB",
+  "....................CCCCCCCCCGGGMCMBBBBBBB.",
+  ".....................CCCCCCCCCCCCCCBBMMDDM.",
+  ".............................CCCCCCCMMMMMM.",
+  "......................................MMMM."
+ ]
+}

@@ -1,0 +1,105 @@
+{
+ "code": "P0970",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Скамейка из двух абрикосов",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Мебель и уютные уголки",
+ "direction": "Кулинарная фантастика",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Две большие оранжевые половинки абрикоса образуют спинку и сиденье низкой скамьи, толстые зелёные ножки и розовая подушка, круглые углубления от косточек различимы",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 41,
+ "h": 33,
+ "N": 1014,
+ "colours": 9,
+ "volumes": {
+  "O": {
+   "cells": 455,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "P": {
+   "cells": 142,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "M": {
+   "cells": 93,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 89,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 85,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 83,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "R": {
+   "cells": 34,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 27,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 6,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "........AAAAAAA..........................",
+  "......OYYYYYOOOOO...........AAAAAA.......",
+  ".....OOYYYOOOOOOOOO......CYYYYYOOOOO.....",
+  "...OOOYYOOOOOOOOOOOO....YYYYYYOYYYOOOO...",
+  "..COOYYOOOOOOOOOOOOO..CYYYYOOOOOOYYOOOO..",
+  "..OOOYOOOOOOOOOOOOOOOAYYYOOOOOOOOOOOOOO..",
+  ".OOOYYOOOOAOOOOOOOOOOAYYOOOOOOOOOOOOYOOO.",
+  ".OOOYYOOOAAAAOOOOOOOOAYOOOOOOOOOOOOOYYOO.",
+  ".OOOYOOOOAAAAOOOOOOOOOOOOOOOOAAAOOOOOYOOA",
+  "AOOOYOOOOAAAAAOOOOOOOOAOOOOOAAAAOOOOOYOOA",
+  "AOOOYOOOOAAAOOOOOOOOOOAOOOOAAAAAOOOOOYOOA",
+  "AOOOYOOOOAAOOOOOOOOOOOAOOOOAAAAOOOOOOYOOA",
+  "AOOOYOOOOAAAOORRRRRRRRRRRRRAAAOOOOOOOYOOA",
+  "AOOOYYOOOAAPPPRPPPPPPPPPPPPPPRRROOOOOYOOA",
+  "AOOOOYOOPPPPPPPPPPPPPPPPPPPPPPPPPPPOOOOOA",
+  ".OOOOYOPPPPPPPPPPPPPPPPPPPPPPPPPPPPOOOOO.",
+  ".OOOOOOPPPPPPPPPPPPPPPPPPPPPPPPPPPPPOOOO.",
+  "..OOOOORRRPPPPPPPPPPPPPPPPPPPPPPPPPPOAA..",
+  "..GGGGDOYYYRRRRPPPPPPPPPPPPPPPRRRRROOAGG.",
+  "..DGGGDOOOOYYYYRRRRROOOOYYYYYYYYYYYOOAGG.",
+  "..GGGMMOOOOOOOOYYYOOOOOOOOOYYYOOOOOOMMGG.",
+  "..GGGMMDOOOOOOOOOOOOOOOOOOOOOOOOOOOOMMGG.",
+  "..GGMMMGGGOOOOOOOOOOOOOOOOOOOOOOOOOGMMGM.",
+  "..GGMMMGGGGOOOOOOOOOOOOOOOOOOOOOMMGGGMMM.",
+  "...MMMMGGGMMDAAAAOOCDDDDDMMMDCDDMMGGGMM..",
+  "....MDGGGGMMD...........MMMMD..DMMGGGM...",
+  ".....GGGGGMMM...........MMMM...MMMGGGG...",
+  ".....GGGGMMMD...........DMMD....MMMGGGM..",
+  "....GGGGGMMMD............DC.....MMMGGGM..",
+  "....GGGGGMMM....................MMMMGGM..",
+  "....GGGGMMMM......................MMMGM..",
+  "....GGGMMMD........................DMD...",
+  ".....DMMD................................"
+ ]
+}

@@ -1,0 +1,104 @@
+{
+ "code": "P0978",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Сердечная печать из свёклы",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Овощи и урожай",
+ "direction": "Миниатюрные мастерские",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна большая половинка фиолетовой свёклы с широкими зелёными листьями используется как штамп, рядом на толстом кремовом листе один крупный розовый отпечаток-сердце",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 36,
+ "N": 881,
+ "colours": 8,
+ "volumes": {
+  "C": {
+   "cells": 310,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 208,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "R": {
+   "cells": 120,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "G": {
+   "cells": 118,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 75,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "E": {
+   "cells": 24,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "D": {
+   "cells": 23,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "A": {
+   "cells": 3,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...GGGGGMMGGGGMMGGGGG...............",
+  "..GGGGGGGMMGGGMMGGGGGG..............",
+  ".GGGGGGGGMMMGMMGGGGGGGGG............",
+  ".GGGGGGGGDMMGMMGGGGGGGGGG...........",
+  "GGGGGGGGGDDMGDGGGGGGGGGGGG..........",
+  "GGGGGGMGGGDMMGGGGGMMMMMGGG..........",
+  ".MGMMMMMDGDMMGGGGDMMMMMMMD..........",
+  ".MMMMMMMMDDDDGGMMMMDMMMMD...........",
+  "...MMMMMMDPDPGGDMMD.DMD.............",
+  "...MMM.DMDPPPGGMMM..................",
+  "....MEEEPPPPPPPM....................",
+  "....PPPPPPPPPPPPP...................",
+  "...PPPPPPPPPPPPPPP..................",
+  "..PPPPPPPPPPPPPPPPP.................",
+  ".PPPPPPPPPPPPPPPPPPPCCCCC...........",
+  ".PPPPPPPPPPPPPPPPPPPCCCCCCCCCCC.....",
+  "EPPPPPPPPPPPPPPRRPPPCCCCCCCCCCCCCCCC",
+  "EPPPPPPPPRRRPRRRRPPPCCCCCCCCCCCCCCCC",
+  "EPPPPPPPRRRRRRRRRPPCCCCCCCCCCCCCCCCC",
+  "EPPPPPPPRRRRRRRRRPPCCCCCCCCCCCCCCCCC",
+  ".PPPPPPPRRRRRRRRPPCCCCRRCCCCCCCCCCC.",
+  ".PPPPPPPRRRRRRRPPPCCRRRRRCCCPCCCCCC.",
+  "..PPPPPPPRRRRRPPPCCCRRRRRCRPPRRCCCC.",
+  "...PPPPPPPRRRPPPCCCRRRRRRRRPPRRCCC..",
+  "....EEPPPPPRPPPCCCCRRRRRRRPPRRRCCC..",
+  "...EEEEPPPPPPCCCCCCCRRRRRRPPRRCCCC..",
+  "..EEEECCPPPPCCCCCCCCRRRRRRRRRCCCC...",
+  "..EEECCCCCCCCCCCCCCCRRRRRRRRCCCCC...",
+  "..EECCCCCCCCCCCCCCCCCRRRRRCCCCCC....",
+  "..EECCCCCCCCCCCCCCCCCRRRRCCCCCCC....",
+  "....CCCCCCCCCCCCCCCCCCCCCCCCCCCC....",
+  ".........CCCCCCCCCCCCCCCCCCCCCC.....",
+  ".............AAACCCCCCCCCCCCCCC.....",
+  "..................CCCCCCCCCCCCC.....",
+  "......................CCCCCCCC......",
+  "...........................CCC......"
+ ]
+}

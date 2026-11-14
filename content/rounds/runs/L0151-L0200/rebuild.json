@@ -16,7 +16,15 @@
     "share": 0.538,
     "recipe": "canal+links"
    },
-   "done": false
+   "done": true,
+   "to": {
+    "picture": "P0212",
+    "candidate": "P0212-Ncanal+links-g1107-s2-27",
+    "share": 0.553,
+    "recipe": "canal+links",
+    "lost": false,
+    "gen": "2026-11-07"
+   }
   },
   {
    "level": 157,
@@ -32,6 +40,15 @@
     "candidate": "P0982-Nlatch+links+cells-g1107-a-16",
     "share": 0.62,
     "recipe": "latch+links+cells"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0982",
+    "candidate": "P0982-Nlatch+links+cells-g1107-a-s2-7",
+    "share": 0.573,
+    "recipe": "latch+links+cells",
+    "lost": true,
+    "gen": "2026-11-07"
    }
   },
   {
@@ -148,6 +165,15 @@
     "candidate": "P0331-Nlatch+links+cells-g1107-6",
     "share": 0.6,
     "recipe": "latch+links+cells"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0331",
+    "candidate": "P0331-Nlatch+links+cells-g1107-s2-0",
+    "share": 0.515,
+    "recipe": "latch+links+cells",
+    "lost": true,
+    "gen": "2026-11-07"
    }
   },
   {
@@ -165,7 +191,15 @@
     "share": 0.613,
     "recipe": "canal+links"
    },
-   "done": false
+   "done": true,
+   "to": {
+    "picture": "P0229",
+    "candidate": "P0229-Ncanal+links-g1107-5",
+    "share": 0.613,
+    "recipe": "canal+links",
+    "lost": false,
+    "gen": "2026-11-07"
+   }
   },
   {
    "level": 182,
@@ -182,14 +216,14 @@
     "share": 1,
     "recipe": "links"
    },
-   "done": false,
+   "done": true,
    "to": {
-    "picture": "P0384",
-    "candidate": "P0384-Ncells-g1105-br-0",
-    "share": 1,
-    "recipe": "cells",
+    "picture": "P1129",
+    "candidate": "P1129-Nlinks-g1107-br-1",
+    "share": 0.94,
+    "recipe": "links",
     "lost": true,
-    "gen": "2026-11-05"
+    "gen": "2026-11-07"
    }
   },
   {
@@ -206,6 +240,15 @@
     "candidate": "P0947-Nshutters+links-g1107-4",
     "share": 0.593,
     "recipe": "shutters+links"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0947",
+    "candidate": "P0947-Nshutters+links-g1107-a-s2-16",
+    "share": 0.568,
+    "recipe": "shutters+links",
+    "lost": false,
+    "gen": "2026-11-07"
    }
   },
   {

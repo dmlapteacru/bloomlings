@@ -1,0 +1,95 @@
+{
+ "code": "P1135",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Пирамидка из пяти колец",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Игрушки и настольные игры",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One classic stacking-ring toy, five thick red, orange, gold, green and blue rings narrowing upward, cream round base and chunky purple cap. Clear side silhouette, no tiny details or letters.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 27,
+ "h": 31,
+ "N": 556,
+ "colours": 7,
+ "volumes": {
+  "O": {
+   "cells": 114,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "R": {
+   "cells": 103,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 91,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 68,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 65,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 63,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "B": {
+   "cells": 52,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "............DDDD...........",
+  "...........DDDDDD..........",
+  "..........DDDDDDDD.........",
+  "..........DDDDDDDD.........",
+  ".........DDDDDDDDD.........",
+  "........BBBDDDDDDBB........",
+  ".......BBBBBBBBBBBBB.......",
+  ".......BBBBBBBBBBBBB.......",
+  ".......DBBBBBBBBBBBB.......",
+  "......DDDBBBBBBBBBGGD......",
+  ".....DGGGGGDDDDDGGGGGD.....",
+  ".....DGGGGGGGGGGGGGGGD.....",
+  ".....DGGGGGGGGGGGGGGGD.....",
+  ".....YYGGGGGGGGGGGGGGOO....",
+  "....DYYYYGGGGGGGGGYYYOO....",
+  "....DYYYCYYYYYYYYYYYYOO....",
+  "....DYYYYYYYYYYYYYYYYOO....",
+  "....OYYYYYYYYYYYYYYOOOOO...",
+  "...OOOYYYYYYYYYYYOOOOOOOD..",
+  "..DOOYYOOOOOOOOOOOOOOOOOD..",
+  "..DOOOYOOOOOOOOOOOOOOOOOD..",
+  "..DOOOOOOOOOOOOOOOOOOOOOD..",
+  ".DRROOOOOOOOOOOOOOOOOOORRR.",
+  ".DRRRRRROOOOOOOOOOORRRRRRR.",
+  ".DRRRRRRRRRRRRRRRRRRRRRRRR.",
+  "CCRRRRRRRRRRRRRRRRRRRRRRRCD",
+  "CCCRRRRRRRRRRRRRRRRRRRRRCCD",
+  "DCCCCRRRRRRRRRRRRRRRRRCCCCD",
+  ".CCCCCCCCCCCCCCCCCCCCCCCCC.",
+  "..DCCCCCCCCCCCCCCCCCCCCCD..",
+  "......DDDDDDDDDDDDDDD......"
+ ]
+}

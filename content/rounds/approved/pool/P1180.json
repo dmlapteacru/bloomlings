@@ -1,0 +1,97 @@
+{
+ "code": "P1180",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Свёкла с тремя большими листьями",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Овощи и урожай",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One plump deep pink beetroot with short thick orange root tip, three very broad green leaves fanning above, large cream highlight and purple shaded side. No face or soil scene.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 31,
+ "h": 33,
+ "N": 574,
+ "colours": 7,
+ "volumes": {
+  "R": {
+   "cells": 200,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "M": {
+   "cells": 142,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 99,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "L": {
+   "cells": 60,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "V": {
+   "cells": 49,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "C": {
+   "cells": 14,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 10,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................MMMM..........",
+  "..............GGGGGGM..........",
+  ".............MGGGGGGGM.........",
+  "...LLLLL....MMGGGGGGGM.........",
+  ".LLLLLLLLL..MGGGGGGGGM.........",
+  "MLLGGMLLLLM.MGGGGGGGGM.........",
+  "MLGGMMMLLLMMGGGMGGGGM..LLLLLLL.",
+  "MGGGGGMMLLLMMGMMGGGMMMMLLLLLLL.",
+  "MMGGGGMMMMLMMMMMGGMMMLLLLGGLLLM",
+  ".MMGGGGGMMLMMMMGGMMMLLLLGGGLLGM",
+  "...MGGMMMMMMMMMGMMMLLMMMGGGGGGM",
+  "...MMMMMMMMMMMMGMMLLMMMGGGGGMM.",
+  "....MMMMM..MMMMGMMMMMMMMGGGGM..",
+  ".........RRRRMMGMMMMMMMMMGGGM..",
+  ".......RRRRRRRRRMM...MMMMMMMM..",
+  ".....RRRCCRRRRRRRRRR.....MMM...",
+  "....RRRCCCCRRRRRRRRVV..........",
+  "....RRCCCCRRRRRRRRRRVV.........",
+  "...RRRCCCRRRRRRRRRRRVVV........",
+  "...RRRRRRRRRRRRRRRRRRVV........",
+  "...RRCRRRRRRRRRRRRRRRVVV.......",
+  "...RRRRRRRRRRRRRRRRRRVVV.......",
+  "...RRRRRRRRRRRRRRRRRVVV........",
+  "....RRRRRRRRRRRRRRRRVVV........",
+  "....RRRRRRRRRRRRRRRVVV.........",
+  "....RRRRRRRRRRRRRRVVVV.........",
+  "......RRRRRRRRVVVVVVV..........",
+  ".......RRRRRVVVVVVVV...........",
+  "........RORRVVVVVV.............",
+  "........RORRRR.................",
+  ".......OOOR....................",
+  ".......OOO.....................",
+  "......OO......................."
+ ]
+}

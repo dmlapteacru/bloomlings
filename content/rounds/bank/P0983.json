@@ -1,0 +1,38 @@
+{
+ "picture": "P0983",
+ "candidates": [],
+ "rejected": [],
+ "searched": [
+  {
+   "combo": "Super Hard|links+latch+hidden||tune|2026-11-07",
+   "tune": {
+    "slot": "Super Hard",
+    "t": 0.64,
+    "attempts": 13,
+    "quick": 2,
+    "evaluated": 2,
+    "seconds": 82
+   },
+   "tried": 13,
+   "found": 1,
+   "reasons": {
+    "связки: доза снижена до минимума (вынужденные решения)": 9,
+    "связки: каждая следующая пара поднимает вынужденные решения выше 35 % (§5)": 10,
+    "засов: ключ недоступен (материал пути заперт за засовом) или не хватило колонок нужной глубины": 1,
+    "evaluate: дозы не подходят фактическому классу: связанных 10 вне 6–8 для Hard": 1
+   }
+  }
+ ],
+ "tune": {
+  "Super Hard|links+latch+hidden|Super Hard": {
+   "t": 0.64,
+   "cols": 4,
+   "offset": -2.74,
+   "quick": 0.05,
+   "at": "2026-11-14"
+  }
+ },
+ "placed": [
+  "P0983-Slinks+latch+hidden-g1107-a-12"
+ ]
+}
