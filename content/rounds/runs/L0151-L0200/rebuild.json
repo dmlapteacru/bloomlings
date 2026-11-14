@@ -27,6 +27,22 @@
    }
   },
   {
+   "level": 154,
+   "tag": "2026-11-07",
+   "why": [
+    "«по цветам» проигрывает 12 из 26 (нужно около 13)"
+   ],
+   "reassign": false,
+   "at": "2026-11-14",
+   "takes": 1,
+   "from": {
+    "picture": "P0074",
+    "candidate": "P0074-Nlinks+hidden-g1107-a-16",
+    "share": 0.55,
+    "recipe": "links+hidden"
+   }
+  },
+  {
    "level": 157,
    "tag": "2026-11-07",
    "why": [
