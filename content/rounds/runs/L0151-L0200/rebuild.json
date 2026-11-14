@@ -191,11 +191,11 @@
     "share": 0.613,
     "recipe": "canal+links"
    },
-   "done": false,
+   "done": true,
    "to": {
     "picture": "P0229",
-    "candidate": "P0229-Ncanal+links-g1107-a-s3-1",
-    "share": 0.638,
+    "candidate": "P0229-Ncanal+links-g1107-a-s4-28",
+    "share": 0.583,
     "recipe": "canal+links",
     "lost": false,
     "gen": "2026-11-07"
@@ -265,6 +265,15 @@
     "candidate": "P0299-Nlinks+cells-g1107-3",
     "share": 0.543,
     "recipe": "links+cells"
+   },
+   "done": true,
+   "to": {
+    "picture": "P0935",
+    "candidate": "P0935-Nlinks+cells-g1107-s4-17",
+    "share": 0.6,
+    "recipe": "links+cells",
+    "lost": true,
+    "gen": "2026-11-07"
    }
   },
   {
