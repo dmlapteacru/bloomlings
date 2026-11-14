@@ -1,0 +1,108 @@
+{
+ "code": "P1184",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Воздушный шар над лугом",
+ "theme": "bridge-contour",
+ "family": "Воздушный транспорт",
+ "device": "сцена с переправой",
+ "subject": "полосатый воздушный шар с плетёной корзиной в небе над лугом; шар с корзиной обведены нейтральным контуром, к корзине снизу ведёт гравийная тропинка, справа у шара стоит тополь",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 34,
+ "h": 38,
+ "N": 1218,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 620,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "G": {
+   "cells": 180,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "O": {
+   "cells": 105,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 100,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 74,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 47,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 42,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "E": {
+   "cells": 28,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "X": {
+   "cells": 22,
+   "name": "Туман",
+   "hex": "#8E959D"
+  }
+ },
+ "approvedAt": "2026-11-14",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSS#######SSSSSSSSSSSSSSS",
+  "SSSSSSSSSS##YOOYOOR##SSSSSSSSSSSSS",
+  "SSSSSSSSS#YYOORYYOORR#SSSSSSSSSSSS",
+  "SSSSSSSS#YYOOORYYOOORR#SSSSSSSSSSS",
+  "SSSSSSS#CCCCCCCCCCCCCCC#SSSSSSSSSS",
+  "SSSSSS#CCCCCCCCCCCCCCCCC#SSSSSSSSS",
+  "SSSSSS#YOOOOORRYYYOOOOOR#SSSSSSSSS",
+  "SSSSS#YOOOOORRRYYYYOOOOOR#SSSSSSSS",
+  "SSSSS#OOOOOORRRYYYYOOOOOO#SSSSSSSS",
+  "SSSSS#OOOOORRRRYYYYYOOOOO#SSSSSSSS",
+  "SSSSS#OOOOORRRRYYYYYOOOOO#SSSSSSSS",
+  "SSSSS#OOOORRRRRYYYYYYOOOO#SSSSSSSS",
+  "SSSSS#OOOORRRRRYYYYYYOOOObSSSSSSSS",
+  "SSSSS#OOOORRRRRYYYYYYOOOO#SSSSSSSS",
+  "SSSSSS#OORRRRRRYYYYYYYOO#SSSSSSSSS",
+  "SSSSSS#OORRRRRRYYYYYYYOO#SSSSSMSSS",
+  "SSSSSSS#CCCCCCCCCCCCCCC#SSSSSMMMSS",
+  "SSSSSSSS#RRRRRRYYYYYYY#SSSSSMMMMSS",
+  "SSSSSSSSS#RRRRRYYYYYY#SSSSSSMMMMSS",
+  "SSSSSSSSSS#RRRRYYYYY#SSSSSSSMMMMSS",
+  "SSSSSSSSSSS#RRRYYYY#SSSSSSSSMMMMSS",
+  "SSSSSSSSSSSS#RRYYY#SSSSSSSSSMMMMSS",
+  "SSSSSSSSSSSS#RRYYY#SSSSSSSSSMMMMSS",
+  "SSSSSSSSSSSS#EEEEE#SSSSSSSSSMMMMSS",
+  "SSSSSSSSSSSS#ESSSE#SSSSSSSSSMMMMSS",
+  "SSSSSSSSSSSS#ESSSE#SSSSSSSSSMMMMSS",
+  "SSSSSSSSSSS#OOOOOOO#SSSSSSSSSMEMSS",
+  "SSSSSSSSSSS#EEYEEYE#SSSSSSSSSSESSS",
+  "SSSSSSSSSSS#EYEEYEE#SSSSSSSSSSESSS",
+  "SSSSSSSSSSS#YEEYEEY#SSSSSSSSSSESSS",
+  "SSSSSSSGGGGG###b###SSSSGGGGSSSESSS",
+  "SSSSGGGGGGGGGGXSSSSGGGGGGGGGGGGSSS",
+  "GGGGGGGGGGGGGGXXXGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGXXXGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGXXXXXGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGXXXXXGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGXXXXXGGGGGGGGGGGGGGGG"
+ ]
+}

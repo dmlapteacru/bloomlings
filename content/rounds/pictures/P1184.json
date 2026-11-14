@@ -64,8 +64,10 @@
   "G": 180,
   "X": 22
  },
- "status": "draft",
+ "status": "approved",
  "batch": "batch-1184-contour-bridge",
  "createdAt": "2026-11-13",
- "history": []
+ "history": [],
+ "note": null,
+ "decidedAt": "2026-11-14"
 }
