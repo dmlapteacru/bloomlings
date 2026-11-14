@@ -1,0 +1,92 @@
+{
+ "code": "P0195",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Свинка Пеппа в луже",
+ "theme": "Герои мультфильмов",
+ "family": "Домашние животные",
+ "subject": "розовая свинка Пеппа в красном платье, голова в профиль, прыгает в грязную лужу",
+ "source": "сторонняя вселенная",
+ "reference": "Peppa Pig — Peppa Pig",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 30,
+ "N": 900,
+ "colours": 7,
+ "volumes": {
+  "S": {
+   "cells": 445,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "K": {
+   "cells": 185,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "G": {
+   "cells": 88,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "R": {
+   "cells": 87,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "A": {
+   "cells": 52,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "P": {
+   "cells": 25,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "D": {
+   "cells": 18,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSKSSSKKSSSSSSSSSPSSSSSS",
+  "SSSSSSSSKKSSKKSSSSSSSSSPPPSSSS",
+  "SSSSSSSSKKKKKKSSSKKDDKKPPPSSSS",
+  "SSSSSSSSKKKKKKKDDKKDDKKPPPSSSS",
+  "SSSSSSSKKKKKKKKDDKKKKKKPPPPSSS",
+  "SSSSSSKKKKKKKKKKKKKKKKKKPPSSSS",
+  "SSSSSKKKKKKKKKKKKKKKKKKKSSSSSS",
+  "SSSSSKKKKKKKKKKKKKKKKKSSSSSSSS",
+  "SSSSSKKKPPPKKKKKKKKKSSSSSSSSSS",
+  "SSSSSKKKPPPKKKKKKKKKSSSSSSSSSS",
+  "SSSSSKKKPPPKKKDDDDSSSSSSSSSSSS",
+  "SSSSSSKKKKKKKKKKKSSSSSSSSSSSSS",
+  "SSSSSSSKKKKKKKKKSSSSSSSSSSSSSS",
+  "SSSSSSSSSKKKKKSSSSSSSSSSSSSSSS",
+  "SSSKKSSSSRRRRRRRSSSSKKSSSSSSSS",
+  "SSSKKSSSSRRRRRRRSSSSKKSSSSSSSS",
+  "SSSKKKKKRRRRRRRRRKKKKKSSSSSSSS",
+  "SSSSKKKKRRRRRRRRRKKKKSSSSSSSSS",
+  "SSSSSSSSRRRRRRRRRSSSSSSSSSSSSS",
+  "SSSSSSSRRRRRRRRRRRSSSSSSSSSSSS",
+  "SSSSSSSRRRRRRRRRRRSSAASSSSSSSS",
+  "SSSSSSSRRRRRRRRRRRSSAASSSSSSSS",
+  "SSSSSSRRRRRRRRRRRRRGGGSAASSSSS",
+  "SSAAGGGGGKKGGGKKGGGGGGGAAGGSSS",
+  "GGAAGGGGGKKGGGKKGGGGGGGGGGGGGG",
+  "GGGGGGAADDDAAADDDAAAGGGGGGGGGG",
+  "GGGGAAAAAAAAAAAAAAAAAAGGGGGGGG",
+  "GGGGGGAAAAAAAAAAAAAAGGGGGGGGGG"
+ ]
+}

@@ -1,0 +1,109 @@
+{
+ "code": "P0035",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Остров в облаках",
+ "theme": "batch-0011",
+ "family": "Дома и архитектура",
+ "direction": "Невесомый мир",
+ "subject": "парящий остров с домиком и деревом",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 43,
+ "h": 43,
+ "N": 1153,
+ "colours": 8,
+ "volumes": {
+  "M": {
+   "cells": 245,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "A": {
+   "cells": 233,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 218,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "G": {
+   "cells": 206,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 106,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 97,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "O": {
+   "cells": 32,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "B": {
+   "cells": 16,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "...........R...................MM..........",
+  "..........RRR..EE...........MMMMMMMM.......",
+  ".........RRRRR.EE..........MGGGGMMMMM......",
+  "........RRRRRRREE.........MGGGGGGMMMMM.....",
+  ".......RRRRRRRREE........MGGGGGGGGMMMMM....",
+  "......RRRRRRRRREE........MGGGGGGGGMMMMM....",
+  ".....RRRRRRRRRRRRR......MMGGGGGGGGMMMMMM...",
+  "....RRRRRRRRRRRRRRR.....MMGGGGGGGGMMMMMM...",
+  "...RRRRRRRRRRRRRRRRR...MMGGGGGGGGGMMMMMMM..",
+  "..RRRRRRRRRRRRRRRRRRR..MGGGGGGGGGMMMMMMMMM.",
+  ".....CCCCCCCCCCCCCC...MMGGGGGMMMMMMMMMMMMM.",
+  ".....CCCCCCCCCCCCCC...MMMGGGGMMMMMMMMMMMMM.",
+  ".....CCCCCCCCBBBBCC...MMMMGGMMMMMMMMMMMMMM.",
+  ".....CCOOOOCCBBBBCC....MMMMMMMMMMMMMMMMMM..",
+  ".....CCOOOOCCBBBBCC....MMMMMMMMMMMMMMMMMM..",
+  ".....CCOOOOCCBBBBCC......MMMMMMMMMMMMMM....",
+  ".....CCOOOOCCCCCCCC...........EEEE.........",
+  ".....CCOOOOCCCCCCCC...........EEEE.........",
+  ".....CCOOOOCCCCCCCCGGGGGGGGGGGEEEE.........",
+  ".....CCOOOOCCCCCCCCGGGGGGGGGGGEEEEGGGG.....",
+  ".GGGGCCOOOOCCCCCCCCGGGGGGGGGGGEEEEGGGGGGGG.",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "..MMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMM..",
+  ".AAAAAMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMMAAAAA.",
+  ".AAAAAAAAAAAAAAAAAMMMMMMMEEEEEEEEEEEEEEEEE.",
+  "..AAAAAAAAAAAAAAAAAAAAAAEEEEEEEEEEEEEEEEE..",
+  "...AAAAAAAAAAAAAAAAAAAAAEEEEEEEEEEEEEEEE...",
+  "....AAAAAAAAAAAAAAAAAAAAEEEEEEEEEEEEEEEE...",
+  ".....AAAAAAAAAAAAAAAAAAAEEEEEEEEEEEEEEE....",
+  "......AAAAAAAAAAAAAAAAAAEEEEEEEEEEEEEE.....",
+  ".......AAAAAAAAAAAAAAAAAEEEEEEEEEEEEE......",
+  "........AAEEAAAAAAAAAAAAEEEEEEEEEEEE.......",
+  "..........EEAAAAAAAAAAAAEEEEEEEEEEE........",
+  "..........EAAAAAAAAAAAAAEEEEEEEEEE.........",
+  ".........EE..AAAAAAAAAAAAEEEEEEEE..........",
+  ".........EE...AAAAAAAAAAAEEEEEEEE..........",
+  "........EE......AAAAAAAAAEEEEE.EE..........",
+  "........EE........AAAAAAAEEE....EE.........",
+  "........E...........AAAAAE......EE.........",
+  "......................AA.........EE........",
+  "......................AA...................",
+  "......................AA..................."
+ ]
+}

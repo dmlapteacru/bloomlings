@@ -1,0 +1,78 @@
+{
+ "code": "P0308",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Банковская карта с водопадом вместо чипа",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Багаж и навигация",
+ "direction": "Предметные гибриды",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Из чипа банковской карты льётся водопад; широкая прямоугольная карта без цифр; золотой чип; голубая струя и бассейн",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 21,
+ "h": 21,
+ "N": 354,
+ "colours": 6,
+ "volumes": {
+  "V": {
+   "cells": 172,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "B": {
+   "cells": 85,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 56,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 26,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 12,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 3,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".NNNNNNNNNNNNNNNNNNN.",
+  "NVVVVVVVVVVVVVVVVVVVN",
+  "NVVVVVVVVVVVVVVVVVVVN",
+  "NVVVVVAVVVVVVVVVVVVVN",
+  "NVVVYYAYYVVVVVVVVVVVN",
+  "NVVVYYAYYVVVVVVVVVVVN",
+  "NVVVYBBBYVVVVVVVVVVVN",
+  "NVVVYBBBYVVVVVVVVVVVN",
+  "NVVVBBCBVVVVVVVVVVVVN",
+  "NVVVBBCBVVVVVVVVVVVVN",
+  "NVVVBBCBVVVVVVVVVVVVN",
+  "NVVVBBCBVVVVVVVVVVVVN",
+  ".NNNBBCBNNNNNNNNNNNN.",
+  "....BBCB.............",
+  "....BBCB.............",
+  "....BBCBB............",
+  "....BBBBBBBBBBB......",
+  "...BBBBBCCCCCCCCCBB..",
+  "..BBBBBBCCCCCCCCCBBB.",
+  "...BBBBBBBBBBBBBBBBB.",
+  "......BBBBBBBBBB....."
+ ]
+}

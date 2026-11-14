@@ -1,0 +1,97 @@
+{
+ "code": "P1046",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Мастер Чиф",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Маски и костюмы",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Halo · Xbox Game Studios: Master Chief from Halo: large recognizable OLIVE GREEN Mjolnir helmet with a broad mirrored GOLD visor, heavy green shoulder plates and dark undersuit. Heroic chest-up portrait, one gloved hand raised in a calm greeting, no visible human eyes through the visor, no firearm or shooting.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 35,
+ "N": 1001,
+ "colours": 7,
+ "volumes": {
+  "D": {
+   "cells": 492,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "M": {
+   "cells": 312,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 96,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 86,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 10,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 3,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 2,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "............DMGGDDDD...............",
+  "..........DDDMGGGMMMMDMDD..........",
+  ".........DMMMMGGGMMMMMMGGD.........",
+  "........DMMMMMMGGDDDMMMMGG.........",
+  "........DMDMMMMGGDGGGGGDMGD........",
+  ".......DDMMMMMDDDDDDGGGGMGGD.......",
+  "......DMMMMDDDDDDDDDDDDMMGGGD......",
+  ".....DMMMDDDDYYYYYYDDDDDDDDGD......",
+  ".....DMMDDYYYYCCYYYAAAYYDDDDD......",
+  ".....DMMDDYYYYYYYYYYYYYYYDDD.......",
+  "....DDMDDDDYYYYYYYYYYYYOYDD........",
+  "...DMMMDDDDYYYYYYYYYYYOOYDD........",
+  "...DMMMMMDDYYYYYYYYYYYOOYDD........",
+  ".DDDMMDDMMDDDYYYYYYYYYOYYDD........",
+  "MMMDMMDDMMMMMDYYYYYYYOOYDDD..DD....",
+  "MMMDDMDDMMMMMGGDDDDDDOODDDD.DDD.DD.",
+  "DMDDDDDDMDDMMMGGDDDDDDGGGDD.DDDDDD.",
+  "DMMMMDDMMDDDMMMMGGGGDGGMMDDDDDDDDD.",
+  "DDDDDDDDDDDDMMMMMDDDDMMMMDD.DDDDDDD",
+  "DMMMMMDDDDDDMMMMMMMMMMDDDDD.DDDDDDD",
+  "DMMGGMMDDDDDMMMMMMMMMMDDDD..DDDDDDD",
+  "DDMMGGGGDDDDDDDMMMMMMDDDDDD.DDDDDDD",
+  "DDDMMMMMMDDDDDDDMMMDDDD.DDDDDDDDDDD",
+  "DDDDMMDDMDDDDDDDDDDDMMMDDDDDDDDDDDD",
+  "MDDDDDDDDDDDDDDDDDDDMGGGDDDDDDDDDDD",
+  "MMMDDDDGGGGDDDDDDDDDDDGGDDDDDDDDDD.",
+  "MMMDDDMGGGGGDDDDDDDDDDDDDDDDDDDDDD.",
+  "MMMMDDMGGGGGGDDDDDDDDDDDDDDDDDDDDDD",
+  "MMMDDDMMGMMGGGDDDDDDDMGGDDDDDDDDDDD",
+  "MMMDDDMMGMMMMMDDGGGGMMGGGDDMDDDDDMM",
+  "MMMDDDMMMMMMMMDDDDDDDMGGGGDMMGGGGMM",
+  "MMDDDMMMMMMMMMMDDDDDDMMMMMDMMMMMMMM",
+  "MDDDDMMMMMMMMMMDDDDDMMMMMMDMMMMMMMM",
+  "DDDDDMMMMMMMMMMDMGGGMDMMMMDMMMMMMMM",
+  "DDDDDMMMMMMMMMMDMMM.MD.MMMDDM.MMMMM"
+ ]
+}

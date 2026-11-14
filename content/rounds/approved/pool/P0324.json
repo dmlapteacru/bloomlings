@@ -1,0 +1,104 @@
+{
+ "code": "P0324",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Замок из стопки чемоданов",
+ "theme": "Невозможная архитектура",
+ "family": "Дома и архитектура",
+ "direction": "Невесомый мир",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Чемоданы сложены в замок; три широких яруса; боковые башни с ручками; ворота на центральном чемодане",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 39,
+ "h": 38,
+ "N": 1209,
+ "colours": 8,
+ "volumes": {
+  "V": {
+   "cells": 312,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "E": {
+   "cells": 200,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "B": {
+   "cells": 141,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "C": {
+   "cells": 137,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 126,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "Y": {
+   "cells": 100,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 97,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 96,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...................E...................",
+  "................YYYEYYY................",
+  "................YYYEYYY................",
+  "............EEEEYYYEYYYEEEE............",
+  "...........EBBBBYYYEYYYBBBBE...........",
+  "...........EBBBBBBBBBBBBBBBE...........",
+  "...........EBBBBBBBBBBBBBBBE...........",
+  "...........EBBBBBBBBBBBBBBBE...........",
+  "...........EBBBBBBBBBBBBBBBE...........",
+  "...........EBBBBBBBBBBBBBBBE...........",
+  ".CCCCCCCC..EBBBBBBBBBBBBBBBEE.CCCCCCCC.",
+  ".CCCCCCCCEEEBBBBBBBBBBBBBBBEEECCCCCCCC.",
+  "ECCCCCCCCPPPBBBBBBBBBBBBBBBPPPCCCCCCCCE",
+  "ECCCCCCCCEPPPBBBBBBBBBBBBBPPPECCCCCCCCE",
+  "ECCCCCCCCECCCCCCCCCCCCCCCCCCCECCCCCCCCE",
+  "EVVVVVVVVECCCCCCCCCCCCCCCCCCCEVVVVVVVVE",
+  "EVVVVVVVVECCCCCCCCCCCCCCCCCCCEVVVVVVVVE",
+  "EVVVVVVVVEPPPPPPPPPPPPPPPPPPPEVVVVVVVVE",
+  "EVVVVVVVVEPPPPPPPPPPPPPPPPPPPEVVVVVVVVE",
+  "EVVVVVVVVEPPPPPPPPPPPPPPPPPPPEVVVVVVVVE",
+  "EVVVYYYVVEPPPPPPPPPPPPPPPPPPPEVVYYYVVVE",
+  "EVVVYYYVVEPPPPPPPPPPPPPPPPPPPEVVYYYVVVE",
+  "EVVVYYYVVEPPPPPPPPPPPPPPPPPPPEVVYYYVVVE",
+  "EVVVYYYVVEYYYYYYYYYYYYYYYYYYYEVVYYYVVVE",
+  "EVVVVVVVVEYYYYYYYYYYYYYYYYYYYEVVVVVVVVE",
+  "EVVVVVVVVEYYYYYYYEEEEEYYYYYYYEVVVVVVVVE",
+  "EVVVVVVVVEAAAAAANNNNNNNAAAAAAEVVVVVVVVE",
+  "EVVVVVVVVEAAAAANNNNNNNNAAAAAAEVVVVVVVVE",
+  "EVVVVVVVVEAAAAENNNNNNNNNEAAAAEVVVVVVVVE",
+  "EVVVVVVVVEAAAAENNNNNNNNNEAAAAEVVVVVVVVE",
+  "EVVVVVVVVEAAAAENNNNNNNNNEAAAAEVVVVVVVVE",
+  "EVVVVVVVVEAAAAENNNNNNNNNEAAAAEVVVVVVVVE",
+  "EVVVVVVVVEAAAAENNNNNNNNNEAAAAEVVVVVVVVE",
+  "EVVVVVVVVEAAAAENNNNNNNNNEAAAAEVVVVVVVVE",
+  "EVVVVVVVVEAAAAENNNNNNNNNEAAAAEVVVVVVVVE",
+  "EVVVVVVVVEAAAAENNNNNNNNNEAAAAEVVVVVVVVE",
+  ".EEEEEEEEAAAAAENNNNNNNNNEAAAAAEEEEEEEE.",
+  "...EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE..."
+ ]
+}

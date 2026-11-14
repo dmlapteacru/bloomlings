@@ -1,0 +1,73 @@
+{
+ "code": "P0414",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Дом с крышей-качелями",
+ "theme": "Невозможная архитектура",
+ "family": "Дома и архитектура",
+ "direction": "Невесомый мир",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Крыша дома служит качелями; два высоких столба; подвешенная наклонная крыша; светлый домик снизу",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 22,
+ "h": 21,
+ "N": 392,
+ "colours": 5,
+ "volumes": {
+  "E": {
+   "cells": 129,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 124,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 94,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 37,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "B": {
+   "cells": 8,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "EEEEEEEEEEEEEEEEEEEEEE",
+  "EAAAAAAAAAAAAAAAAAAAAE",
+  "EAAAAEAAAAAAAAAAEAAAAE",
+  "EAA..E..........E..AAE",
+  "EAA..E....EEE...E..AAE",
+  "EAA..E..RRRRRRR.E..AAE",
+  "EAA..EEERRRRRRRRE..AAE",
+  "EAA..ERRRRRRRRRRRREEAE",
+  "EAAEERRRRRRRRRREEEEEAE",
+  "EAEEEEEEEEE........AAE",
+  "EAE..EEEEEEEEEEEE..AAE",
+  "EAA.ECCCCCCCCCCCCE.AAE",
+  "EAA.ECCCCCCCCCCCCE.AAE",
+  "EAA.ECCBBCCCCCCCCE.AAE",
+  "EAA.ECCBBBCCCCCCCE.AAE",
+  "EAA.ECCBBBCCCAAACE.AAE",
+  "EAA.ECCCCCCCCAAACE.AAE",
+  "EAA.ECCCCCCCCAAACE.AAE",
+  "EAA.ECCCCCCCCAAACE.AAE",
+  "EAA.ECCCCCCCCAAACE.AAE",
+  "EAA.ECCCCCCCCAAACE.AAE"
+ ]
+}

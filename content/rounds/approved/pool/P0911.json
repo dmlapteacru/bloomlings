@@ -1,0 +1,110 @@
+{
+ "code": "P0911",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Мандарин с арбузным сердцем",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Фрукты и ягоды",
+ "direction": "Предметные гибриды",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой мандарин с толстой золотой сегментированной кожурой раскрывает ярко-розовую арбузную мякоть с крупными тёмными семечками, зелёный лист и один вырезанный арбузный ломтик спереди",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 42,
+ "h": 44,
+ "N": 1363,
+ "colours": 8,
+ "volumes": {
+  "Y": {
+   "cells": 429,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 262,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "O": {
+   "cells": 190,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "G": {
+   "cells": 166,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 163,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 118,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "D": {
+   "cells": 29,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "A": {
+   "cells": 6,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........................MMM..............",
+  "....CGGGGGGGMMM........DGGGG..............",
+  "...GGGGGGGGGGGGGG.....DGGGGD..............",
+  "...GGGGGGGGGGGGGGG...DGGMMCCCMMM..........",
+  "....GGGGGGGGGGGGGG..DGGMMMMMMGGGGG........",
+  "....GGGGGGGGGGGGGGM.GGG..CMGMMGGGGG.......",
+  "....GGGGGGGGGMMGGMMMGG....MGGGGGGGGG......",
+  "....DMGGGGGGGMMMMMMGGG....MGGGGGGGGGM.....",
+  "...MMMMGGGGGGMMYYYYGGGYYYCMMGGGGGGGGM.....",
+  "..MMMMMMMGGYYYYYYYYYYYYYYYYMGGGGGGGGM.....",
+  ".MMMMMMMMYYYYYYYYYYYCCYYYYYYYGGMGGMGGM....",
+  ".MMMMMMMYYYYYYYYCYYRCCCCYYYYYYMMMGMMMM....",
+  "MMMMMMYYYYYYYCYYYYYRRRRCCCYYYYYMMGMMMM....",
+  "MMMMMYYYYYYYYYYYYYYRRRRRRCCYYYYYMMMMMM....",
+  "..MMYYYYYYYCYYYYYYYRRRRRRRCCYYYYYCDMMM....",
+  "...CYYYYYYYYYYYYYYYYRRRRRRRCCYYYYY........",
+  "...YYYYYCYYYYYYYYYYYRRRRRRRRCCYYYY........",
+  "..YYYYYOOOYCYYYYYYYYRRRDRRRRRCCYYYO.......",
+  "..YYYYOOOYYCYYYYYYYYRRDDRRRRRRCYYOO.......",
+  "..YYYYYYYYYYCYYYYYYYRRRRRRRRRRCCYOO.......",
+  ".OYYYYYYYYYYYYYYYYYYYRRRRRRRRRRCYOOO...C..",
+  ".OOYYYYYYYYYYYYYYOOYYRRRRDRRRRRCYOOC.CCCD.",
+  ".OOOYYYYYYYYYYYOOOOOYRRRRRRRRRRRCORRRRCCC.",
+  ".OOOOYYYYYYYYYOOYYYYYYRRRRRRRRRRRRRRRRCCC.",
+  ".OOOOYYYYYYYYYOYYYYYYYRRRRRRRRRRRRRRRRRCY.",
+  ".OOOOYYYYYYYOYYYYYYYYYRRRRRRRRRRRRRRRRRCYY",
+  ".AOOOOYYYYYYOYYYYYYYYYYRRRRRRRRRRRRRRRRCYD",
+  ".AOOOYYYYYYYOYYYYYYYYYRRRRRRRRRRRDDRRRRCYY",
+  ".AOOOYOOOYYYOOYOOOOCCRRRRRRRRRRRRRDRRRCCYY",
+  "..OOOYOOOOOYOOOOOYYCCRRRRRRDRRDDRRRRRRCCY.",
+  "..OOOOOOOOOYOOOOYYYYCCRRRRRDRRRDRRRRRRCCY.",
+  "...OOOOOOOOYYOOOYYYYCCRRRRRRRRRRRRRRRCCCC.",
+  "...OOOOOOOOOYOOOYYYYYCCRRRRRRRRRRRRRCCCCC.",
+  "....OOOOOOOOYOOOYYYYYYCCCRRRRRRRRRRCCCCC..",
+  ".....OOOOOOYYYYOYYYYYYYCCCCRRRRRRCCCYYDD..",
+  ".....COOOOYYOOOOOYYOOOYYYCCCCCCCCCCYYDD...",
+  "......COOOYOOOOOOYYYYYYYYYYYCCCCCYYYDD....",
+  "....CCCCCOOOOOOOOOOYYYOOOOYYYYYYYYYYDC....",
+  ".....CCCCCCAAAOOOOOOOOOOOOOOOOYYYYDCCC....",
+  ".........CCCCCCCCCCCCCCCOOOOOMMMCCCC......",
+  "..............CCCCCCCCCCCCCCC.CC..........",
+  "..........................................",
+  "..........................................",
+  ".................MMMM........MMMM........."
+ ]
+}

@@ -1,0 +1,100 @@
+{
+ "code": "P0085",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Микроскоп",
+ "theme": "batch-0061",
+ "family": "Лаборатории и изобретения",
+ "subject": "классический микроскоп с окуляром, револьвером объективов и предметным стеклом",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 44,
+ "N": 751,
+ "colours": 6,
+ "volumes": {
+  "D": {
+   "cells": 291,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "N": {
+   "cells": 275,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "B": {
+   "cells": 117,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "C": {
+   "cells": 44,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "S": {
+   "cells": 20,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "P": {
+   "cells": 4,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "..CCCCCCC.....................",
+  "..CCCCCCC.....................",
+  "..CCCCCCC.....................",
+  "..DDDDDDD.....................",
+  "..DDDDDDDD....................",
+  "..DDDDDDDD....................",
+  "..BDDDDDDD....................",
+  "..BDDDDDDNNBNNNN..............",
+  "...BDDDDBBNNNNNNNN............",
+  "...BBBBBBBNNNNNNNNNN..........",
+  "...BBBBBBBNNNNNNNNNNNNN.......",
+  "....BBBBBBBNNNNNNNNNNNNNN.....",
+  "....BBBBBBBNBNNNNNNNNNNNN.....",
+  "....BBBBBBBNNBBNNNNNNNNNN.....",
+  ".....BBBBBBBN...BNNNNNNNNN....",
+  ".....BBBBBBBN....BBNNNNNNN....",
+  ".....BBBBBBBNN....BNNNNNNN....",
+  "......BBBBBBBN....BNNNNNNN....",
+  "......BBBBBBBN....BBNNNNNNN...",
+  "......BBBBBBBNN....BNNNNNNN...",
+  ".......BDDDDDDDD...BNNNNDDD...",
+  "......DDDDDDDDDDDD.BBNNDDDDD..",
+  ".......DDDDDDDDDD..BBNNDCCCD..",
+  "........CCCDDCCC....BNNDDCCD..",
+  "........CCC..CCC....BNNDDDDD..",
+  "........CCC..CCC....BNNNNDDN..",
+  "....................BNNNNNNN..",
+  "....................BNNNNNNN..",
+  "NNNNNSSSSSSPPSSSSNNNNNNNNNNN..",
+  ".NNNNNSSSSSPPSSSSSNNNNNNNNNN..",
+  "..NNNNNNNNNNNNNNNNNNNNNNNNNN..",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDNNN..",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDNNN..",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDNNN..",
+  "....................BNNNNNNN..",
+  "....................BNNNNNNN..",
+  "....................BNNNNNNN..",
+  "...................BBNNNNNNN..",
+  "...................BBNNNNNNN..",
+  ".DDDDDDDDDDDDDDDDDDDBNNNNNNNDD",
+  ".DDDDDDDDDDDDDDDDDDDBBNNNNNDDD",
+  ".DDDDDDDDDDDDDDDDDDDDBBNNNDDDD",
+  ".DDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  ".DDDDDDDDDDDDDDDDDDDDDDDDDDDD."
+ ]
+}

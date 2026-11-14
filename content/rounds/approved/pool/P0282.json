@@ -1,0 +1,85 @@
+{
+ "code": "P0282",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Бумажный самолёт из воды",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Воздушный транспорт",
+ "direction": "Предметные гибриды",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Самолёт сложен из воды; треугольные крылья со сгибом; прозрачные голубые плоскости; крупные капли",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 33,
+ "h": 32,
+ "N": 853,
+ "colours": 5,
+ "volumes": {
+  "N": {
+   "cells": 427,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "S": {
+   "cells": 204,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "B": {
+   "cells": 144,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "C": {
+   "cells": 41,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 37,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "............NNNNNNNNNN...........",
+  "..........NNNNNNNNNNNNNN.........",
+  "....YYYYYNNNNNNNNNNNNNNNNN.......",
+  "...YYYYYYNNNNNNNNNNNNNNNNNNBBBBB.",
+  "...YYYYYYYNNNNNNNNNNNNBBBBSSSSSB.",
+  "...YYYYYYYNNNNNNNBBBBBSSSSSSSSB..",
+  "...YYYYYYYNNNBBBBSSSSSSSSSSSSSB..",
+  "...YYYYYBBBBSSSSSSSSSSSSBBBSSBB..",
+  "...BBBBBSSSSSSSSSSSSSSCCBBSSSBN..",
+  ".BBSSSSSSSSSSSSSSSSSCCCBBSSSNNNN.",
+  ".BBSSSSSSSSSSSSSSSCCCBBBSSSSNNNN.",
+  ".NNNNSSSSSSSSSSSCCCCBBBSSSSNNNNNN",
+  ".NNNNBBBSSSSSSCCCCBBBBSSSSSNNNNNN",
+  ".NNNNNNBBSSSCCCCCBBBBSSSSSNNNNNNN",
+  ".NNNNNNNNBBSSCCBBBBBSSSSSSNNNNNNN",
+  ".CCNNNNNNNBSSSSBBBBBSSSSSNNNNNNNN",
+  ".CCCCNNNNNSSSSSBBBBBSSSSSNNNNNNNN",
+  ".NNCCCCNNBSSSSSSBBBBSSSSNNNNNNNNN",
+  ".NNNNNCNNBSSSSSSBBBBSSSSNNNNNNNNN",
+  ".NNNNNNNNBSSNNNBBBBBSSSNNNNNNNNNN",
+  "CCCCNNNNNBBBNNNBBBBBSSSNNNNNNNNNN",
+  ".CCCNNNBBNNNNNNNBBBBSSNNNNNNNNNN.",
+  "..NNNNNBBNNNNNNNNBBBSSNNNNNNNNNN.",
+  "...NNNBBBBNNNNNNNNBBBBNNNNNNNNN..",
+  "...NNNBBBBNNNNNNNNNBBBNNNNNNNNN..",
+  "....NNBBBBNNNNNNNNNNBNNNSNNNNN...",
+  ".....NBBBBNNNNNNNNNNNNNNSNNNN....",
+  "......BBBBNNNNNNNNNNNNNSSSNN.....",
+  ".......NNNNNNNNNNNNNNNNSSSS......",
+  "........NNNNNNNNNNNNNNNSSSS......",
+  "..........NNNNNNNNNNNNNNSS.......",
+  "............NNNNNNNNNN..........."
+ ]
+}

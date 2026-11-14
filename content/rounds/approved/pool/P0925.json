@@ -1,0 +1,101 @@
+{
+ "code": "P0925",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Пружинный чайный пакетик",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Блюда и напитки",
+ "direction": "Заводная сказка",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой кремовый чайный пакетик с добрым лицом стоит на толстой золотой пружине, розовый ярлычок на короткой нитке служит флажком, рядом один зелёный лист",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 35,
+ "h": 35,
+ "N": 1225,
+ "colours": 8,
+ "volumes": {
+  "M": {
+   "cells": 466,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "C": {
+   "cells": 183,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 173,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 115,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "A": {
+   "cells": 103,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 93,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "O": {
+   "cells": 49,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "P": {
+   "cells": 43,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "MMGGMMMMMMMMMMMMMMCMMMMMMMGGGGGMMMM",
+  "MMGGMMMMMMMMMMMMCDDDCMMMMMGGGMMMMMM",
+  "MMMMMMMMMMDMDCCCCCDMMCMMPPPPPPMMMMM",
+  "MMMMMYYYYYYYCCCCCCCMMMDCPPPPPPPMMMM",
+  "MMYYYYMDDMDCCCCCCCCCMMDPPPPPPPMMMMM",
+  "AYYDMMMMMMDCCCCCCCCCCDMPPPPPPPMMMMM",
+  "AYMMMMMMMMCCCCCCCCCCCMMMPPPPPPMMMMM",
+  "AYMMMMMMMMCCCCCCCCCCCCMMMDPPPMMMMMM",
+  "AYMMMMMMMCACCCCCCCDDDCMMDDMMMMMMMMM",
+  "AYYMGMMMMCACCDDCCCDDDCDCCCMMMMMMMMM",
+  "OOYMGGMMMCACCDDDCCDDDCDDCCMMMMMMMMM",
+  "OOYMGGGMMCACCDDDCCCDPPCDDDMMMMMGGMM",
+  "OOYMGGGMMCACCCDCCCCCPPCMMMMMMGGGGMM",
+  "DOYMMGGGMAAAPPCCCCCCCCCDMMMMGGGGGMM",
+  "MOOMMGGGAAAACPCCCCCCCCCMMMGGGGGGGMM",
+  "MOOYMMCCCCCACCCCCCCCCCCCMMGGGGGGGMM",
+  "MOOYMMCCCDCCCCCCCCCCCCCCMGGGGMGGGMM",
+  "MOOYMMCCMMAACCCCCCCCCCDDDGGGMMGGMMM",
+  "MOOYMMMMMMACCCCCCCDDDDDDGGGGMMMGMMM",
+  "MOOYMMMMMMMMCCCCCDDDDDDDGGMMMMMMMMM",
+  "MOOYMMMMMMMMMMMMYYYDDDDDGMMMMMMMMMM",
+  "MMAAMMMMMMMMMMAADDDDDDDDGGMMMMMMMMM",
+  "MMAAMMMYOOOAAAAAAYYYDAAAGGMMMMMMMMM",
+  "MMMMYYYYAAAAADDOADDDDDDDDGMMMAMMMMM",
+  "MMMMYYYDMMMMMMDOOYYMMMMMMMDDMAAAMMM",
+  "MMMMAAYMMMMMMMMMMYYMMMMMMMDDYYYYOOM",
+  "MMMMAAAAAYYYMMMMYYMMYYYYYYYYYYYYOAM",
+  "MMMMAAAAAAAAYYYCYYYYYYYYYYYYYYYCOAM",
+  "MMMMAAAAAAAAAOYCYYYYYYYYYYYYGYYYOAM",
+  "MMMMAAAMAAAAAOYYYYYYYYYYYYGGGYYYOAM",
+  "MMMMAMAMAMMMAOYYYYGGGGYYYGGGGYYYODM",
+  "MMMMAMMMMMMMAOYYYYGGGGGYYGGGYYGYOAM",
+  "MMMMAAMMMMMAAOYYYYYGGGGGYGYYYGGYOAM",
+  "MMMMAAMMAAAOOOYYYYYYGGGGYYYYGGGYOAM",
+  "MMMMAAMMMMAOOOYYYYYYYYYYYYYYGGYYODM"
+ ]
+}

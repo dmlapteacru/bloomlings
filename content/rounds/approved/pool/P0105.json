@@ -1,0 +1,101 @@
+{
+ "code": "P0105",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Инопланетянин из «Истории игрушек»",
+ "theme": "batch-0061",
+ "family": "Игрушки и настольные игры",
+ "subject": "трёхглазый зелёный инопланетянин с антенной в синем костюме",
+ "source": "сторонняя вселенная",
+ "reference": "История игрушек — Little Green Men (Aliens)",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 44,
+ "N": 738,
+ "colours": 6,
+ "volumes": {
+  "G": {
+   "cells": 272,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "B": {
+   "cells": 193,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 127,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 91,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 31,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 24,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "................GG................",
+  "...............GGGG...............",
+  "...............GGGG...............",
+  "................GG................",
+  "...............GGG................",
+  "..............GGGGG...............",
+  ".............GGGGGGGG.............",
+  "..........GGGGGGGGGGGGGG..........",
+  "........GGGGGGGGCCGGGGGGG.........",
+  ".......GGGGGGGCCCCCGGGGGGGG.......",
+  "......GGCCCGGGCCCCCCGGGCCGGG......",
+  ".....GGCCCCCGGCCDDDCGCCCCCGG......",
+  ".....GGCCCCCCGCCDDDCGCCCCCCGG.....",
+  ".....GGCCDDCCGCCDDDGGCCCDDCGG.....",
+  "....GGGCCDDCCGGCCCGGGCCCDDCGG.....",
+  ".....GGCCCCCGGGGGGGGGGCCCCGGG.....",
+  ".....GGGCCCGGGGGGGGGGGGCCGGGG.....",
+  ".....GGGGGGGGGGGGGGGGGGGGGGG......",
+  "......GGGGGGGDGGGGGGDGGGGGGG......",
+  ".......GGGGGGDDDDDDDDGGGGGG.......",
+  "........GGGGGGGDDDDGGGGGGG........",
+  "..........GGGGGGGGGGGGGG..........",
+  "..........NNGGGGGGGGGNNN..........",
+  ".........BNNNNNNNNNNNNNNB.........",
+  "........BBBNNNNNNNNNNNNNNB........",
+  ".......BBBBBBBBBBBBBBBBNNB........",
+  "......BBBBBBBBBBBBBBBBBNNBB.......",
+  "......BBBBBBBBBRRRRBBBBNNBBB......",
+  ".....BBBBBBBBBRRRRRRBBBNNBBBB.....",
+  "....BBBBBBBBCCCCCCCCCCBNNBBBB.....",
+  "....BBBBBBBBBBRRRRRRBBBNN.BBBB....",
+  "...GGBB.BBBBBBRRRRRBBBBNN.BBBGB...",
+  "..GGGGB.BBBBBBBRRRBBBBBNN..BGGGG..",
+  "..GGGG..BBBBBBBBBBBBBBBNN..GGGGG..",
+  "..GGGG...BBBBBBBBBBBBBBNN...GGGG..",
+  "...GG...NNNNNNNNNNNNNNNNN...GGG...",
+  "........NNNNNNNNNNNNNNNNN.........",
+  "..........BBBBB...BBBBB...........",
+  "..........BBBBB...BBBBB...........",
+  "..........BBBBB...BBBBB...........",
+  ".........NNNNNN...NNNNNN..........",
+  ".........NNNNNNN..NNNNNNN.........",
+  ".........NNNNNNN..NNNNNNN.........",
+  ".................................."
+ ]
+}

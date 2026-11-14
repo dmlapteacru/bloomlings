@@ -1,0 +1,92 @@
+{
+ "code": "P0094",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Лягушка под листом",
+ "theme": "batch-0061",
+ "family": "Времена года и погода",
+ "direction": "Перевёрнутый масштаб",
+ "subject": "лягушка под листом-зонтиком в дождь",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 30,
+ "N": 900,
+ "colours": 7,
+ "volumes": {
+  "S": {
+   "cells": 412,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "M": {
+   "cells": 213,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 119,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "B": {
+   "cells": 113,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "L": {
+   "cells": 30,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "D": {
+   "cells": 7,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 6,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "SBSSSSSBSSSSSBSSSSSBSSSSSBSSSS",
+  "SBSSSSSBSSSSSBSSSSSBSSSSSBSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSMMMMMMMMMMMMSSSSSSSSSS",
+  "SSSSBMMMMMMMMMGMMMMMMMMSSSSSMS",
+  "SSSSMMMMMMMMMMGMMMMMMMMMSMMMMS",
+  "SSSMMMMMMMGMMMGMMMGMMMMMMMMMSS",
+  "SSMMMMMMMMMGMMGMMGMMMMMMMMMMSS",
+  "SMMMMMGMMMMMGMGMGMMMMMGMMMMSSS",
+  "SMMMMMMGMMMMMMGMMMMMMGMMMMMSSS",
+  "SMMMMMMMMMMMMMMMMMMMMMMMMMMSSS",
+  "SMMMMMMMMMMMMMMMMMMMMMMMMMMSSS",
+  "SSMMMMMMSSSSSMMSSSSSMMMMMMSSBS",
+  "SSSMSSSSSSSSSSMSSSSSSSSSMSSSBS",
+  "SSSSSSSSSGGGSSMSGGGSSSSSSSSSSS",
+  "SSSSSSSSSGCCSSMSGCCSSSSSSSSSSS",
+  "SBSSSSSSSGCDGGGGGDCSSSSSSSSSSS",
+  "SBSSSSSSSGGGGGGGGGGSSSSSSSSSSS",
+  "SSSSSSSSSGGGGGGGGGGSSSSSSSSSSS",
+  "SSSSSSSSSGGGGGGGGGGSSSSSSSSSSS",
+  "SSSSSSSSSGGGDDDDDGGSSSSSSSSSBS",
+  "SSSSSSSSGGGGGGGGGGGGSSSSSSSSBS",
+  "SSSSSSSSGGGLLLLLLGGGSSSSSSSSSS",
+  "SSSSSSSSGGLLLLLLLLGGSSSSSSSSSS",
+  "SBSSSSGGGGLLLLLLLLGGGGBBSSSSSS",
+  "SBSBBGGGGGGLLLLLLGGGGGGBBBBSSS",
+  "SBBBBBGGGGBGGLLGGBGGGGBBBBBBBS",
+  "SBBBBBBBBBBBBBBBBBBBBBBBBBBBBS",
+  "SSSBBBBBBBBBBBBBBBBBBBBBBBBSBS",
+  "SSSSSSBBBBBBBBBBBBBBBBBBSSSSBS"
+ ]
+}

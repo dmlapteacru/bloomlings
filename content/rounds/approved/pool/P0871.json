@@ -1,0 +1,110 @@
+{
+ "code": "P0871",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Ворота в оранжевый закат",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Городские пространства",
+ "direction": "Миры через портал",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Две толстые кремовые садовые колонны обрамляют открытые розовые ворота, внутри цельный оранжевый солнечный диск над синим холмом, снаружи пусто",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 42,
+ "h": 39,
+ "N": 1346,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 651,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 195,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "M": {
+   "cells": 151,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "R": {
+   "cells": 100,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "O": {
+   "cells": 76,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "N": {
+   "cells": 61,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "B": {
+   "cells": 59,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "G": {
+   "cells": 49,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 4,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "......CCC.........................CCC.....",
+  ".....CCCCC.......................CCCCC....",
+  "....CCCCCCC.....................CCCCCCC...",
+  "....CCCCCCC.....................CCCCCCC...",
+  "....CCCCCCC.....................CCCCCCC...",
+  ".....CCCCC......................CCCCCC....",
+  "...CCCCCCCCC........CCCC.......CCCCCCCCC..",
+  "..CCCCCCCCCC.PP..CCCCCCCCC.....CCCCCCCCCC.",
+  "..CCCCCCCCCCPPPCCCCCCCCCCCCCPP.CCCCCCCCCC.",
+  "..CCCCCCCCCCPPPCCCCCCCCCCCCCPPPCCCCCCMMC..",
+  "...CCCCCCCCCPPPRCCCCCCCCCCCCPPP.CCCCCMMC..",
+  "...CCCCCCCCPPPPRCCCCCCCCCCCCPPPPCCCCCCMM..",
+  "..PPMMMCCCCPPPRRCCCCCCCCCCCCPPPPCCCCCCMM..",
+  ".PPPPMMCCCCPPPRRCCCCCCCCCCCCPPPPCCCCMMMD..",
+  ".PPPPMMCCCCPPPRRCCCCCCCCCCCCPPPPCCCCMPPP..",
+  ".PPPPMCCCCOOPPRRCCCOOOOOCCCCPPPPCCCCCPPPP.",
+  ".MPMMMMCCCOPPPRRCCOOOOOOOCCCPPPPCCCMMPPPP.",
+  "MMMMMDCCCCCPPPRRCCOOOOOOOOCCPPPRCCCCMMPP..",
+  "..MMCCCCCCCPPPRRCOOOOOOOOOCCPPPRRCCCMMCMM.",
+  ".MMMCCCCCCCPRPRRCOOOOOOOOOCCPPRRRCCCCMCM..",
+  ".MMPCCCCCCCPRPRRCCOOOOOOOOCCPPRRRCCCCCMM..",
+  "..PPPCCCCCCPRPRRBCOOOOOOOBBBPPRRRCCCCCMMM.",
+  ".PPPPCCCCCCPRRRRBBBOOOOBBBBBOORRRCCCCCMMM.",
+  "..PPPCCCCCCPPRRRBBBBBBBBBBBBOORRRCCCCMMM..",
+  ".MMPMMCCCCCPPRRRBBBBBBBBBBBBRRRRRCCCMMPP..",
+  ".MMCMMCCCCCPRPRRBBBBBBBBBBBBPPRRRCCCMPPPR.",
+  "..DMMCCCCCCPRPRRNNNNBBBBBBBBPPPRRCCMPPPPR.",
+  "..MMCCCCCCCPRPRRNNNNNNBBBNNNPPPRRCMMMPPPR.",
+  ".MMCCCCCCCCPRPRRNNNNNNNNNNNNPPPRRCCCMPPPMM",
+  "..MCCCCCCCOORPRRNNNNNNNNNNNNPPPOOCCCMMCDM.",
+  "..MCCCCCCCOORPRRNNNNNNNNNNNNPPPOOCCCCCMM..",
+  ".MMCCCCCCCOORPRRNNNNNNNNNNNNPPPOOCCCCCCMM.",
+  ".GGGMCCCCCCPRRPRCCCCCCCCCCCCPPPPCCCCCCCGM.",
+  "MGGGMCCCCCCPPPPRCCCCCCCCCCCCPPPRCCCCGGGGGM",
+  "MGGGMCCCCCCPPPRRCCCCCCCCCCCCPPPRCCCCGGGGGM",
+  "MMGGGGGGCCCCCCCCCCCCCCCCCCCCMMMRCCCGGGGGMM",
+  "MMMGGGGGGMMMCCCCCCCCCCCCCCCCCCCMMMGGGGGMMM",
+  "MMMMMMGGGMMCCCCCCCCCCCCCCCCCCCCCMGGGGMMMMM",
+  ".MMMMMMMMMCCCCCCCCCCCCCCCCCCCCCCCMMMMMMMM."
+ ]
+}

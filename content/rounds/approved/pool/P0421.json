@@ -1,0 +1,87 @@
+{
+ "code": "P0421",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "БиМО — игровой вечер",
+ "theme": "Новые версии знакомых героев",
+ "family": "Роботы и механизмы",
+ "direction": "Ожившие вещи",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "БиМО держит контроллер; зелёный прямоугольный корпус; светлый экран с улыбкой; разноцветные кнопки",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Adventure Time",
+  "url": "https://en.wikipedia.org/wiki/BMO_(Adventure_Time)",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 22,
+ "h": 25,
+ "N": 377,
+ "colours": 6,
+ "volumes": {
+  "G": {
+   "cells": 140,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 112,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 71,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "B": {
+   "cells": 42,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "R": {
+   "cells": 9,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 3,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....DDDDDDDDDDDDDD...",
+  "....GGGGGGGGGGGGGGGD..",
+  "....GGGGGGGGGGGGGGGD..",
+  "....GGGGGGGGGGGGGGGD..",
+  "....GGGCCCCCCCCCCGGD..",
+  "....GGGCCCCCCCCCCGGD..",
+  "....GGGCCDCCCCCCCGGD..",
+  "....GGGCCDCCCCCCCGGD..",
+  "....GGGCCDDCDDCCCGGD..",
+  "....GGGCCCCDDCCCCGGD..",
+  "....GGGCCCCCCCCCCGGD..",
+  "....GGGGCGGGGGGGGGGD..",
+  "...BBGGGGGGGGGGGGGBB..",
+  "...BBGGGGGGDDDGRRRGBB.",
+  "..BBGGGGGGGDDDGRRRGBB.",
+  ".BBBGGGGGGGDDDGGGGGDBB",
+  ".B..GGDDDDDDDDDDDDDDDB",
+  "BB..GDCCDCCCCCCCRRCCCD",
+  "....GDCCDDCCCCCCCRCYCD",
+  "....DDCCDCCCCCCCCCYYCD",
+  ".....DDCCCCCCCCCCCCCC.",
+  ".......B.......BB.....",
+  "......BB.......BB.....",
+  ".....BBBB......BBBB...",
+  ".....BBB........BBB..."
+ ]
+}

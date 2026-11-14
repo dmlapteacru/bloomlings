@@ -1,0 +1,109 @@
+{
+ "code": "P1009",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Витрина трёх больших росинок",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Магазины и витрины",
+ "direction": "Перевёрнутый масштаб",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один маленький широкий золотой прилавок с зелёным навесом выставляет три большие синюю розовую и кремовую капли росы на фиолетовых подушках, без надписей и продавца",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 36,
+ "N": 974,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 264,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "M": {
+   "cells": 142,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "E": {
+   "cells": 123,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "V": {
+   "cells": 121,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "L": {
+   "cells": 74,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "C": {
+   "cells": 70,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 65,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "G": {
+   "cells": 65,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "B": {
+   "cells": 50,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........DDDDDDDDDDDDDDDDDD.........",
+  ".EYYY..DMMLLMMMMLLLLMMMMLLLLD...YYY.",
+  ".EYYY.DMMLLLMMMMLLLLMMMMLLLLMMDDYYY.",
+  ".EEEDMMMLLLMMMMMLLLLLMMMMLLLMMMDYYD.",
+  "..MMMGGLLLLGMMMMLLLLLMMMMLLLLLMMMDD.",
+  ".DMMMGLLLLGGGGMLLLLLLMMMMMLLLLMMMMD.",
+  "DMMMMLLLLLMGGGMLLLLLGMMMMMGLLLLMMMMD",
+  "DMMMMGGGGGMMMMMMGGGGGMMMMMGGGGGMMMMD",
+  "DMMMMGGGGGMMMMMMGGGGGMMMMMGGGGGMMMMD",
+  "DMMMMGGGGGDMMMMMGGGGGMMMMMGGGGGDMMMD",
+  ".DMMEDGGGDDDMMD.DGGD.DMMMDDDGGDEDMD.",
+  "..EEE..........................EYY..",
+  "..EEE...B........VV........CC..EYY..",
+  "..EYE..BBB.......VVV......CCCC.EYY..",
+  "..EYE.BBBBD.....VVVV......CCCC.EYY..",
+  "..EYEDBBBBB....VVVVVV....CCCCCEEYY..",
+  "..EYEBBBBBBB..EVCCVVVV..CCCCCCCEYY..",
+  "..EYVBBBBBBB..EVCVVVVV..CCCCCCCEYY..",
+  "..EYVBBBBBBBDDEVVVVVVVDDCCCCCCCCYY..",
+  "..EVVBBBBBBBVVVCVVVCCVVVCCCCCCCCVV..",
+  ".VVVVBBBBBBVVVVCCCCCCVVVVCCCCCCVVVV.",
+  ".VVVVVVBBBVVVVVVCCCVVVVVVVCCCCVVVVV.",
+  "EYVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVE",
+  "EYYEEEEEEEEEEEEEEEEEEEEYEEEEEEEEEYYE",
+  "EYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYEE",
+  "EYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYEE",
+  ".EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.",
+  "..EEEYYYYYYYYYYYYYYYYYYYYYYYYYYYYY..",
+  "..EEEYYYYYYYYYYYYYYYYYYYYYYYYYYYYY..",
+  "..EEEYYYYYYYYYYYYYYYYYYYYYYYYYYYYY..",
+  ".YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYE.",
+  ".YYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYE.",
+  "..YYY..........................EEEE.",
+  "....................................",
+  "....................................",
+  "................DDDD................"
+ ]
+}

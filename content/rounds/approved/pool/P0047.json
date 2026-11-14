@@ -1,0 +1,110 @@
+{
+ "code": "P0047",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Маяк внутри лампы",
+ "theme": "batch-0011",
+ "family": "Свет и домашний декор",
+ "direction": "Миры внутри предметов",
+ "subject": "лампочка с маяком на скале и волной внутри",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 43,
+ "N": 980,
+ "colours": 8,
+ "volumes": {
+  "S": {
+   "cells": 417,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "B": {
+   "cells": 182,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 94,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "E": {
+   "cells": 88,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 71,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 70,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "R": {
+   "cells": 46,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 12,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "..........BBBBBBBBBBBBBB..........",
+  ".........BBBBSSSSSSSSBBBB.........",
+  ".......BBBBSSSSSSSSSSSSBBBB.......",
+  "......BBBSSSSSSSRRSSSSSSSBBB......",
+  ".....BBBSSSSSSSRRRRSSSSSSSBBB.....",
+  "....BBBSSSCSSSSYYYYSSSSSSSSBBB....",
+  "....BBSSSCSSSSSYYYYSSSSSSSSSBB....",
+  "...BBSSSCSSSSSSYYYYSSSSSSSSSSBB...",
+  "...BBSSSCSSSSEEEEEEEESSSSSSSSBB...",
+  "..BBSSSCSSSSSEEEEEEEESSSSSSSSSBB..",
+  "..BBSSSCSSSSSSCSSCCSSSSSSSSSSSBB..",
+  "..BBSSSCSSSSSSRRRRRRSSSSSSSSSSBB..",
+  ".BBSSSSSSSSSSSRRRRRRSSSSSSSSSSSBB.",
+  ".BBSSSSSSSSSSSRRRRRRSSSSSSSSSSSBB.",
+  ".BBSSSSSSSSSSSCCCCCCSSSSSSSSSSSBB.",
+  ".BBSSSSSSSSSSSCCCCCCSSSSSSSSSSSBB.",
+  ".BBSSSSSSSSSSSCCCCCCSSSSSSSSSSSBB.",
+  ".BBSSSSSSSSSSSCCCCCCSSSSSSSSSSSBB.",
+  ".BBSSSSSSSSSSSRRRRRRSSSSSSSSSSSBB.",
+  ".BBSSSSSSSSSSRRRRRRRRSSSSSSSSSSBB.",
+  "..BBSSSSSSSSSRRRRRRRRSSSSSSSSSBB..",
+  "..BBSSSSSSSSSCCCCCCCCSSSSSSSSSBB..",
+  "..BBSSSSSSSSSCCCCCCCCSSSSSSSSSBB..",
+  "...BBSSSCCSSSCCCCCCCCCSSSSCCSBB...",
+  "...BBSSNNNNSSCCCCCCCCNNSSNNNNBB...",
+  "....BBNNNNNNEEEEEEEEEENNNNNNBB....",
+  "....BBBNNNNNEEEEEEEEEENNNNNBBB....",
+  ".....BBBNNNNNEEEEEEEEENNNNBBB.....",
+  "......BBBNNNNNNNNEEENNNNNBBB......",
+  ".......BBBBNNNNNNNNNNNNBBBB.......",
+  ".........BBBNNNNNNNNNNBBB.........",
+  "..........BBNNNNNNNNNNBB..........",
+  "..........BBBNNNNNNNNBBB..........",
+  "...........BBBBBBBBBBBB...........",
+  "..........AAAAAAAAAAAAAA..........",
+  "..........AAAAAAAAAAAAAA..........",
+  "..........EEEEEEEEEEEEEE..........",
+  "..........AAAAAAAAAAAAAA..........",
+  "..........AAAAAAAAAAAAAA..........",
+  "..........EEEEEEEEEEEEEE..........",
+  "..........AAAAAAAAAAAAAA..........",
+  "..............EEEEEE..............",
+  "..............EEEEEE.............."
+ ]
+}

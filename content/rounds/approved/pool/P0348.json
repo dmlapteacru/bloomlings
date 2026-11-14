@@ -1,0 +1,116 @@
+{
+ "code": "P0348",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Ателье в игольном ушке",
+ "theme": "Миниатюрные мастерские",
+ "family": "Кафе и мастерские",
+ "direction": "Миниатюрные мастерские",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Гигантское игольное ушко обрамляет ателье; металлическая петля; швейная машинка; висящий отрез ткани",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 44,
+ "N": 1101,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 380,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "V": {
+   "cells": 248,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "E": {
+   "cells": 130,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "N": {
+   "cells": 96,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 95,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "P": {
+   "cells": 57,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "G": {
+   "cells": 52,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 35,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 8,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "............NNNNNNNNNN.............",
+  ".........NNNNSSSSSSSSNNNNN.........",
+  "......NNNSSSSSSSSSSSSSSSSNNN.......",
+  ".....NNSSSSSSSSSSSSSSSSSSSSNN......",
+  "....NNSSSSSSSSSSSSSSSSSSSSSSNN.....",
+  "...NSSSSSSSSSSSSSSSSSSSSSSSSSSN....",
+  "..NNSSSSSSSVVVVVVVVVVVVSSSSSSSNN...",
+  "..NSSSSSSVVVVVVVVVVVVVVVVSSSSSSN...",
+  ".NSSSSSSVVVVVVVVVVVVVVVVVVSSSSSSS..",
+  ".NSSSSSVVVVVVVVVVVVVVVVVVVVSSSSSS..",
+  "NNSSSSVVVVVVVVVVVVVVVVVVVVVVSSSSSN.",
+  "NSSSSSVVVVVVVVVVVVVVVVVVVVVVSSSSSN.",
+  "NSSSSVVVVVVVVVVVVVVVVVVVVVVVVSSSSN.",
+  "NSSSSVVVVVVVVVVVVVVVVVVVVVVVVSSSSN.",
+  "NSSSSVVVVVVVVVVVVVVVVVYVVVVVVSSSSN.",
+  "NSSSSVVVVVVVVVVVVVVVYYYYYVVVVSSSSNN",
+  "NSSSSVVEEEEEEEEEEEEYYYYYYYVVVSSSSSN",
+  "NSSSSVVEPPPPPPPPPPPYYYYYYYVVVSSSSSN",
+  "NSSSSSVEPPPPPPPPPPPYYYYYYYVVSSSSSS.",
+  "NNSSSSSEPPPPPPPPPPPPYYYYYVVVSSSSSS.",
+  ".NSSSSSEPPPPPEEEEEPPPYYYVVVSSSSSN..",
+  ".NNSSSSEPPPCPEVVVEPPPPPEEVSSSSSNN..",
+  "..NSSSSEPPPCCEVVVEEEEEEEEVSSSSSN...",
+  "...SSSSEPPPCCEVVVVVVVVVVVSSSSSS....",
+  "...SSSSEEEECEEVVVVVVVVVVGGGGGSS....",
+  "....SSEEEEECEEEEEEEEEEEEGGGGGG.....",
+  "....SEEAAAACAAAAAAAAAAAAGGGGGG.....",
+  ".....EAAAAAAAAAAAAAAAAAAGGGGG......",
+  ".....EAAAAAAAAAAAAAAAAAAGGGGG......",
+  ".....EEAAAAAAAAAAAAAAAAAGGGGG......",
+  "......EEAAEEEEEEEEEEEEEEGGGGG......",
+  ".......EAAEESSSSSSSSSSSEGGGGG......",
+  ".......EAAEESSSSSSSSSSSEGGGGG......",
+  ".......EAAEESSSSSSSSSSSEGGGGG......",
+  ".......EAAEESSSSSSSSSSSEAAE........",
+  ".......EAAEESSNNNNNNSSSEAAE........",
+  ".......EAAEESSNNNNNNSSSEAAE........",
+  ".......EAAEESSSNNNNSSSEEAAE........",
+  ".......EEAEESSSSSSSSSSEEAEE........",
+  "........EEE.NSSSSSSSSN.EEE.........",
+  "............NNSSSSSSNN.............",
+  ".............NSSSSSSN..............",
+  "..............SSSSSS...............",
+  "...............SSSS................"
+ ]
+}

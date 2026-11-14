@@ -1,0 +1,78 @@
+{
+ "code": "P0041",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Клубок с вязанием",
+ "theme": "batch-0011",
+ "family": "Рисование и ремёсла",
+ "subject": "клубок пряжи со спицами",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 25,
+ "h": 28,
+ "N": 332,
+ "colours": 5,
+ "volumes": {
+  "B": {
+   "cells": 186,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "S": {
+   "cells": 57,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "N": {
+   "cells": 47,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 30,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 12,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "..YYY.........YYY........",
+  "..YYY.........YYY........",
+  "....AA.......AA..........",
+  ".....AA.....AA...........",
+  "......AA...AA............",
+  ".......AA.AA.............",
+  "........AAA..............",
+  "........AAA..............",
+  ".......AA.AA.............",
+  "......AABBBAA............",
+  ".....BBSBBBBBBB..........",
+  "...BBBSBBBBBBBBN.........",
+  "..BBBSBSBBBBBSSNN........",
+  "..BBSBBBSSSSSBBNN........",
+  ".BBBSBBBBBBBBBBBNN.......",
+  ".BBSBBBBBBBBBBBBNN.......",
+  "BBBSSSBBBBBBBBBSSNN......",
+  "BBBSBBSSSSSSSSSBBNN......",
+  "BBBSBBBBBBBBBBBBBNN......",
+  "BBBSBBBBBBBBBBBBBNN......",
+  "BBBSSSBBBBBBBBBSSNN......",
+  ".BBBSBSSSSSSSSSBNN.......",
+  ".BBBSBBBBBBBBBBNNN.......",
+  "..BBBSBSBBBBBSNNNBB......",
+  "..BBBBSBSSSSSNNNNBB.....B",
+  "...BBBBSBBBNNNNN..BB...BB",
+  ".....BBBNNNNNN.....BBBBB.",
+  ".......NNNNN............."
+ ]
+}

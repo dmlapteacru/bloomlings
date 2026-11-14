@@ -1,0 +1,99 @@
+{
+ "code": "P0236",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Морковка-балерина",
+ "theme": "Смешные и абсурдные герои",
+ "family": "Овощи и урожай",
+ "direction": "Визуальные каламбуры",
+ "subject": "морковка в розовой пачке стоит на пуантах на кончике, ботва как причёска",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 32,
+ "N": 896,
+ "colours": 8,
+ "volumes": {
+  "N": {
+   "cells": 252,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "R": {
+   "cells": 231,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "A": {
+   "cells": 140,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "O": {
+   "cells": 100,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "P": {
+   "cells": 74,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "G": {
+   "cells": 57,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "K": {
+   "cells": 30,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "D": {
+   "cells": 12,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "RRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+  "RRRRRRRRRRRRRRRRRRRRRRRRRRRR",
+  "RRRNRRRRRRRRRGGGRRRRRRRRNRRR",
+  "RRRNNRRGGGRRNGGGRRGGGRRNNRRR",
+  "RRRNNNNNGGGNNGGGNNGGGGNNNRRR",
+  "RRRNNNNNNGGGNGGGNNGGGNNNNRRR",
+  "RRRNOONNNNGGNGGNNGGGNNOONRRR",
+  "RRRNOONNNNGGGGGNGGGNNNOONRRR",
+  "RRRNOONNNNNGGGGNGGNNNNOONRRR",
+  "RRRNOONNNNNNGGGGGNNNNNOONRRR",
+  "RRRNOOONOOOOOOOOOOOONOOONRRR",
+  "RRRNNOOOOOOOOOOOOOOOOOONNRRR",
+  "RRRNNNNOOOODDOODDOOOONNNNRRR",
+  "RRRNNNNNOOODDOODDOOONNNNNRRR",
+  "RRRNNNNNNOOOOOOOOOONNNNNNRRR",
+  "RRRNNNNNNOKKOOOOKKONNNNNNRRR",
+  "RRRNNNNNNPKKDDDDKKPNNNNNNRRR",
+  "RRRNNPPPPPPPPPPPPPPPPPPNNRRR",
+  "RRRNNPPPPPPPPPPPPPPPPPPNNRRR",
+  "RRRNNPPPPPPPPPPPPPPPPPPNNRRR",
+  "RRRNNKKKKPPPPPPPPPPKKKKNNRRR",
+  "RRRNNNNKKKKKKKKKKKKKKNNNNRRR",
+  "RRRNNNNNNNNOOOOOONNNNNNNNRRR",
+  "RRRNNNNNNNNNOOOONNNNNNNNNRRR",
+  "RRRNNNNNNNNNOOOONNNNNNNNNRRR",
+  "RRRNNNNNNNNNPPPPNNNNNNNNNRRR",
+  "RRRNNNNNNNNNPPPPNNNNNNNNNRRR",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+  "AAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+ ]
+}

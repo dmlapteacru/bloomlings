@@ -1,0 +1,94 @@
+{
+ "code": "P1155",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Плюшевый зайчик с пуговицей",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Игрушки и настольные игры",
+ "direction": "Театр эмоций",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One compact turquoise plush bunny with short thick upright ears, big cream muzzle, two dark button eyes and one enormous red heart-shaped button on belly. Broad friendly toy shape, no seams or tiny stitches.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 25,
+ "h": 30,
+ "N": 572,
+ "colours": 7,
+ "volumes": {
+  "B": {
+   "cells": 332,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "R": {
+   "cells": 86,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 76,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "K": {
+   "cells": 28,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "D": {
+   "cells": 23,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "P": {
+   "cells": 19,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "E": {
+   "cells": 8,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "....BBBB.........BBBB....",
+  "...BBBBBB.......BBBBBB...",
+  "..BBBKKBBB.....BBBBKBBB..",
+  "..BBBPKBBB.....BBBKKKBB..",
+  "..BBPPKKBBB...BBBBKKKBB..",
+  "..BBBKKKBBB...BBBKKKBBB..",
+  "..BBBKKKBBBBBBBBBKKKBBB..",
+  "...BBBKKBBBBBBBBBKKBBB...",
+  "....BBBBBBBBBBBBBBBBB....",
+  "....BBBBBBBBBBBBBBBBB....",
+  "....BBBBBBBBBBBBBBBBB....",
+  "....BBBDDDBBBBBDDDBBB....",
+  "...BBBBDDDCCCCCDDDBBBB...",
+  "...BBBBDDDCCCCCDDDBBBB...",
+  "...BBBCCCCDCDCCCCCCBBB...",
+  "...BBBCCCCCDDDCCCCBBBB...",
+  "....BBBBCCCCCCCCCCBBB....",
+  "...BBBBBBBRCCCRBBBBBBB...",
+  "..BBBBBRRRRRRRRRRRBBBBB..",
+  ".BBBBBBRRRRRRRRRRRBBBBBB.",
+  ".BBBBBRRRRRRRRRRRRRBBBBB.",
+  ".BBBBBRRRREEREERRRRBBBBB.",
+  "..BBBBBRRREEREERRRBBBBB..",
+  ".BBCCBBRRRRRRRRRRRBBCCBB.",
+  "BBCCCCBBRRRRRRRRRBBCCCCBB",
+  "BBCPPCCBBRRRRRRRBBCCPPCCB",
+  "BBCPPPCBBBRRRRRBBBCPPPCBB",
+  ".BCPPPCBBBBBRBBBBBCPPPCB.",
+  ".BBCCCBBBBBBBBBBBBBCCCBB.",
+  "...BBBBB..........BBBB..."
+ ]
+}

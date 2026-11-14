@@ -1,0 +1,92 @@
+{
+ "code": "P1181",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Синий мешочек с золотой застёжкой",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Магические предметы",
+ "direction": "Фольклорная фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One broad round blue magical drawstring pouch, gold folded rim and a HUGE red oval jewel clasp at the neck, one short cream tassel and purple lower shadow. No stars, coins or text.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 29,
+ "N": 603,
+ "colours": 7,
+ "volumes": {
+  "N": {
+   "cells": 212,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "Y": {
+   "cells": 93,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "B": {
+   "cells": 77,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "V": {
+   "cells": 71,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "O": {
+   "cells": 60,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 60,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 30,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "............OOOO............",
+  "........OOOOYYYYYOOO........",
+  "......YOOOYYYOOYYYYYYY......",
+  "....YYYOOOOOOOOOOOOOOYYY....",
+  "....YYYYCCCOOOOOOOOCYYYY....",
+  "....YYYYYYCCCCCCOOCYYYYY....",
+  ".....OOOOYYYYYYYYYYYOOO.....",
+  "......OOOYYYYYYYYYYNOO......",
+  "......ONNNNNYRRRYYNNNO......",
+  "......YYYNNYRRRRRYYYYY......",
+  "......YYYYOYRCRRROYYYNN.....",
+  "....NNBNNOOYRRRRROOCNNNN....",
+  "....NBBNNNNYRRRRRNCCCNNNN...",
+  "...NBBBNBNNYRRRRNNNCCCNNNN..",
+  "..NNBBBBBNNYRRRRNNNNCCNNNN..",
+  ".NNBBBBBBBNNYYYYNNNNNCNNNNN.",
+  ".NNBBNBBBBNNNNNNNNNNNCYNNNN.",
+  "NNNBBNBBBBNNBBBBNNNNNYYNNNNN",
+  "NNNBNNBBBBBBBBBBNNNNNCCCNNNN",
+  "NNNNNNBBBBBBBBBBNNNNNCCCCNNN",
+  "NVVNNNNBBBBBBBBBNNNNCCCCCNNN",
+  "VVVNNNNBBBBBBBBNNNNNCCCCCCNN",
+  ".VVVNNNNNBBBBNNNNNNNCCCCCCC.",
+  ".VVVNNNNNNNNNNNNNNNNCCCCCCC.",
+  "..VVVVVNNNNNNNNNNNNNCCCCCV..",
+  "...VVVVVNNNNNNNNNNNNNNNNVV..",
+  "....VVVVVVVVVVVNNVVVVVVVV...",
+  ".....VVVVVVVVVVVVVVVVVV.....",
+  ".........VVVVVVVVVV........."
+ ]
+}

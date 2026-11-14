@@ -1,0 +1,108 @@
+{
+ "code": "P0067",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Торт со свечами",
+ "theme": "batch-0061",
+ "family": "Десерты и сладости",
+ "subject": "двухъярусный праздничный торт с подтёками глазури, ягодами и тремя горящими свечами",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 39,
+ "h": 42,
+ "N": 971,
+ "colours": 8,
+ "volumes": {
+  "P": {
+   "cells": 434,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "C": {
+   "cells": 235,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "B": {
+   "cells": 108,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "R": {
+   "cells": 81,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "K": {
+   "cells": 69,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "Y": {
+   "cells": 26,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 12,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 6,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "...................Y...................",
+  "..............Y....Y....Y..............",
+  ".............YY...YY....YY.............",
+  "............YYYY..YYY..YYY.............",
+  "............YOOY..OOY..YOOY............",
+  ".............OO...OOY...OO.............",
+  ".............DD...DD....DD.............",
+  ".............BB...BB....BB.............",
+  ".............BB...BB....BB.............",
+  ".........R...CC...CC....CC..RR.........",
+  "........RRRR.BB...BB....BB.RRRR........",
+  "........RCRR.BB...BB....BB.RCRR........",
+  "........RRRR.CC...CC....CC.RRRR........",
+  ".......CCRRCCBBCCCBBCCCCBBCCRRC........",
+  ".......CCCCCCCCCCCCCCCCCCCCCCCCC.......",
+  ".......CCCCCCCCCCCCCCCCCCCCCCCCC.......",
+  "........KKCCPPPCCPPCCCPPCCPPPPP........",
+  "........KKCCPPPCPPPCCCPPCCPPPPP........",
+  "........KKCCPPPPPPPCCCPPPPPPPPP........",
+  "........KKCKPPPPPPPCCPPPPPPPPPP........",
+  "........KKKKPPPPPPPPPPPPPPPPPPP........",
+  "........KKKKPPPPPPPPPPPPPPPPPPP........",
+  "....RRRRKRRRPPPPPPPPPPPPPPRRRRPRRR.....",
+  "....RCRRKRCRRPPPPPPPPPPPPPRCRRPRCRR....",
+  "....RRRRKRRRRPPPPPPPPPPPPPRRRRPRRRR....",
+  "...CCRRCCRRRCCCCCCCCCCCCCCCRRCCRRRCC...",
+  "...CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC...",
+  "...CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC...",
+  "...KCCCKPCCPPPCCPPPCCCPPPCCPPPCCPPP....",
+  "...KCCCKPPCPPPCCPPPCCCPPPCCPPPCCPPP....",
+  "...KCCCKPPPPPPCCPPPPPPPPPCCPPPPPPPP....",
+  "...KKCKKPPPPPPCCPPPPPPPPPCCPPPPPPPP....",
+  "...KKKKKPPPPPPPPPPPPPPPPPPPPPPPPPPP....",
+  "...KKKKKPPPPPPPPPPPPPPPPPPPPPPPPPPP....",
+  "...KKKKKPPPPPPPPPPPPPPPPPPPPPPPPPPP....",
+  "...KKKKKPPPPPPPPPPPPPPPPPPPPPPPPPPP....",
+  "...KKKKKPPPPPPPPPPPPPPPPPPPPPPPPPPP....",
+  "...KKKKKPPPPPPPPPPPPPPPPPPPPPPPPPPP....",
+  "...KKKKKPPPPPPPPPPPPPPPPPPPPPPPPPPP....",
+  "....KKKKPPPPPPPPPPPPPPPPPPPPPPPPPPP....",
+  "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
+ ]
+}

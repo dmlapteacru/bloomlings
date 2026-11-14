@@ -1,0 +1,112 @@
+{
+ "code": "P1027",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Сандалия из стручка и ленты",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Рисование и ремёсла",
+ "direction": "Предметные гибриды",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один крупный раскрытый зелёный стручок стал округлой сандалией с широкой розовой лентой-ремешком, три золотые горошины как подушки стельки и толстая синяя подошва, без ноги",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 43,
+ "h": 40,
+ "N": 1149,
+ "colours": 9,
+ "volumes": {
+  "P": {
+   "cells": 260,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "N": {
+   "cells": 242,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "Y": {
+   "cells": 174,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "M": {
+   "cells": 131,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "L": {
+   "cells": 113,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "G": {
+   "cells": 107,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 92,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "K": {
+   "cells": 19,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "C": {
+   "cells": 11,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....................................DLL...",
+  "....................................DLLLD..",
+  "...................................DGGGGD..",
+  "...................................DGGGGD..",
+  "...............................DDDDDGMGDD..",
+  "............................DDLLLLLLMMDD...",
+  "..........................DLLLMMMMMLLLDD...",
+  "........................DDLLMMMMMMMMMLDD...",
+  "...................PP..DDDMMMMMMMMMMMLLG...",
+  "................PPPPPPKKDDMMMMPPPMMMMLLGD..",
+  "...............PPPPPPPKKMMMMYYYYYYYMMLLGG..",
+  ".............PPPPPPPKKKPPPMYYYCYYYYYMLGGG..",
+  "............PPPPPPKKKKPPPPPYYCCYYYYYMLGGGD.",
+  "...........PPPPPPKKKKPPPPPPPYYYYYYYYLLGGGD.",
+  "..........PPPPPPPKKPPPPPPPPPYYYYYYYLLLGGGD.",
+  "..........PPPPPPKKPPPPPPPPPPPYYYYYYLLGGGGD.",
+  ".........DMMMMMPPPPPPPPPPPPPPPYYYYLLLGGGGD.",
+  ".......DLLLMMMMPPPPPPPPPPPPPPPYYYLLLLGGGG..",
+  ".....DLLLLLMMMYYYYPPPPPPPPPPPPPPLLLMMGGGD..",
+  "...DLLLMMMMMMYYCYYYPPPPPPPPPPPPPLLMMMGGGD..",
+  "..DLLYYYYYMMYYCCCYYPPPPPPPPPPPPPGGGGGGGGNN.",
+  ".DLLMYYYYYYYYYYCYYYYPPPPPPPPPPPPGMGGGGGDNNN",
+  "DLLMMYYCYYYYYYYYYYYYYPPPPPPPPPPPMMGMMGGNNNN",
+  "LLMMYYCCYYYYYYYYYYYYYPPPPPPPPPPPPGGMMGDNNNN",
+  "LLMMYYYYYYYYYYYYYYYYYPPPPPPPPPPPPGMMDDNNNNN",
+  "LLMMYYYYYYYYYPYYYYYYYDPPPPPPPPPPPGGGDNNNNNN",
+  "LLDDYYYYYYYYYPPYYYYLLLPPPPPPPPPPPGGDNNNNNND",
+  "LLLDYYYYYYYYYDDLLLLLLLPPPPPPPPPPPDDNNNNNNN.",
+  "LLLLLLYYYYYYYLLLLLLLLMMPPPPPPPPPNNNNNNNNNN.",
+  "DGGLLLLMMMMMLLLLGGGMMMMPPPPPPNNNNNNNNNNNN..",
+  "DDGGGGLLLLLLGGGGGGGMMMMPPPPPNNNNNNNNNNNN...",
+  "NNDGGGGGGGGGGGGGGMMMMMMPPNNNNNNNNNNNNNN....",
+  "NNNDMMMGGGGGGGMMMMMMMMDNNNNNNNNNNNNNN......",
+  "NNNNNDDMMMMMMMMMMMDNNNNNNNNNNNNNNNN........",
+  "NNNNNNNNNNDDDDNNNNNNNNNNNNNNNNNN...........",
+  ".NNNNNNNNDDDDDDDDDNNNNNNNNNNNN.............",
+  ".NNNNNNNNNNNNNNNNNNNNNNNNNN................",
+  "..NNNNNNNNNNNNNNNNNNNNNDN..................",
+  "....NNNNNNNNNNNNNNNNNNN....................",
+  ".......DDDNDDDNDDD........................."
+ ]
+}

@@ -1,0 +1,105 @@
+{
+ "code": "P0032",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Лодка в чашке",
+ "theme": "batch-0011",
+ "family": "Посуда и кухонные вещи",
+ "direction": "Перевёрнутый масштаб",
+ "subject": "парусник на чае в чашке с блюдцем",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 41,
+ "h": 38,
+ "N": 874,
+ "colours": 8,
+ "volumes": {
+  "S": {
+   "cells": 388,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "B": {
+   "cells": 204,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "A": {
+   "cells": 65,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 60,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "N": {
+   "cells": 60,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "R": {
+   "cells": 36,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 34,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 27,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "....................EERR.................",
+  "....................EERRR................",
+  "....................EE...................",
+  "....................EEC..................",
+  "...................YEECC.................",
+  "...................YEECC.................",
+  "..................YYEECCC................",
+  ".................YYYEECCCC...............",
+  "................YYYYEECCCC...............",
+  "...............YYYYYEECCCCC..............",
+  "...............YYYYYEECCCCCC.............",
+  "..............YYYYYYEECCCCCCC............",
+  ".........SSSSSSSEEEEEEEESSSSSSS..........",
+  "......SSSEEEEEERRRRRRRRRRREEEEESSS.......",
+  "....SSEEEEEEEEERRRRRRRRRRREEEEEEEESS.....",
+  "....SSAAAAAAAAAARRRRRRRRRAAAAAAAAABBSS...",
+  "....SSSAAAAAAAAAAAAAAAAAAAAAAAAAABBBSSS..",
+  "....SSSSSSAAAAAAAAAAAAAAAAAAAABBBBBBSSSS.",
+  "....SSSSSSSSSSSSSSSSSSSSSSSSSBBBBBBB.SSSS",
+  ".....NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN...SSS",
+  ".....NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN...SSS",
+  ".....SSSSSSSSSSSSSSSSSSSSSSSBBBBBBB...SSS",
+  "......SSSSSSSSSSSSSSSSSSSSSBBBBBBB...SSSS",
+  "......SSSSSSSSSSSSSSSSSSSSSBBBBBBBSSSSSS.",
+  ".......SSSSSSSSSSSSSSSSSSSSBBBBBBSSSSSS..",
+  ".......SSSSSSSSSSSSSSSSSSSBBBBBBBSSSS....",
+  "........SSSSSSSSSSSSSSSSSSBBBBBB.........",
+  ".........SSSSSSSSSSSSSSSSSBBBBB..........",
+  "..........SSSSSSSSSSSSSSSBBBBB...........",
+  "............SSSSSSSSSSSSSBBB.............",
+  "............BBSSSSSSSSSSSBBB.............",
+  "....SSSSSSSSBBBBBSSSSSSBBBBBSSSSSSSS.....",
+  ".SSSSSSSSSSSBBBBBBBBBBBBBBBBSSSSSSSSSSS..",
+  "SSSSSSSSSSSSBBBBBBBBBBBBBBBBSSSSSSSSSSSS.",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.",
+  ".BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB..",
+  "....BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB.....",
+  "............BBBBBBBBBBBBBBBB............."
+ ]
+}

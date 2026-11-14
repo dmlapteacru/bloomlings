@@ -1,0 +1,85 @@
+{
+ "code": "P0397",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Перчатка хранит зимний ветер",
+ "theme": "Уютная мистика",
+ "family": "Свет и домашний декор",
+ "direction": "Уютная мистика",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Из варежки выходит зимний ветер; мягкая варежка с большим пальцем; светлая манжета; три изогнутые ледяные струи",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 24,
+ "h": 28,
+ "N": 387,
+ "colours": 6,
+ "volumes": {
+  "P": {
+   "cells": 195,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "S": {
+   "cells": 76,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 76,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 18,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "V": {
+   "cells": 16,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "B": {
+   "cells": 6,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "......S.................",
+  "...SSSSSS.....S.........",
+  "..SSSS.SS....SS...BBB...",
+  ".SSS...SS.....SS..BBB...",
+  ".SS.....S.....SS........",
+  ".SS...........SS........",
+  ".SS...........SS.....SS.",
+  "..SSS........SS......SS.",
+  "...SSSEEEE..SS........SS",
+  "..PPSPPPPPSSS.........SS",
+  "..PPPPPPPPSSS........SS.",
+  ".PPPPPPPPPPPE.......SSS.",
+  ".PPPPPPPPPPPEEEPPSSSSS..",
+  ".PPPPVPPPVPPPEPPSSSS....",
+  "EPPPPVPPPVPPPPPPPSPPP...",
+  "EPPPPVPPPVPPPPPPPPPPP...",
+  "EPPPPVPPPVPPPPPPPPPP....",
+  "EPPPPVPPPVPPPPPPPPPP....",
+  "EPPPPVPPPVPPPPPPPPP.....",
+  "EPPPPVPPPVPPPPPPPP......",
+  "EPPPPVPPPVPPPPPPP.......",
+  "EPPPPPPPPPPPPPPP........",
+  "EPPPPPPPPPPPPPPP........",
+  ".CCCCCCCCCCCCCC.........",
+  "CCCCCCCCCCCCCCCC........",
+  "CCCCCCCCCCCCCCCC........",
+  "CCCCCCCCCCCCCCCC........",
+  ".CCCCCCCCCCCCCC........."
+ ]
+}

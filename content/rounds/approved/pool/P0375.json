@@ -1,0 +1,84 @@
+{
+ "code": "P0375",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Походный костёр из цветных мелков",
+ "theme": "Путешествия и походы",
+ "family": "Походы и отдых на природе",
+ "direction": "Миры через портал",
+ "device": "Контраст миров по сторонам проёма",
+ "subject": "Костёр сложен из мелков; три толстых цветных полена; восковые заострённые концы; яркое пламя",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 25,
+ "h": 27,
+ "N": 390,
+ "colours": 6,
+ "volumes": {
+  "O": {
+   "cells": 185,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 66,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "R": {
+   "cells": 53,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 36,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "B": {
+   "cells": 32,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "C": {
+   "cells": 18,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............EE.........",
+  "..............EOO........",
+  "..............EOOO.......",
+  "..............EOOOO......",
+  "..............EOOOO......",
+  "..............EOOOOO.....",
+  ".........O....OOOOOOO....",
+  "........OO...OOOOOOOO....",
+  ".......OOOE..OOOOOOOOE...",
+  "......OOOOE.OOOOOOOOOE...",
+  ".....OOOOOEEOOOOOOOOOE...",
+  ".....OOOOOOOYOOOOOOOOE...",
+  "....EOOOOOOYYOOOOOOOOE...",
+  "....EOOOOOYYYOOOOOOOOE...",
+  "....EOOOOYYYYOOOOOOOOE...",
+  "....EOOOOYYYYYOOOOOOOE...",
+  "..EEEOOOOYYYYYYYOOOOOCC..",
+  ".CCCBOOOOYYYYYYYOOOOECCC.",
+  "ECCCBOOOOOYYYYYOOOOEECCCE",
+  "ECCCBBOOOOOOYYOOOORRRCEEE",
+  "EEEBBBBROOOOOOOOOORRREE..",
+  "..EEERRRRREEEEEEBBBBBEE..",
+  ".ERRRRRRRRRRRRRRBBBBBBE..",
+  ".EERRRRRRRRRRRBBBBBBBBE..",
+  "..ERRRRRRRRR..EEEBBBBB...",
+  "...RRRRRRR........EEE....",
+  "....EEE.................."
+ ]
+}

@@ -1,0 +1,85 @@
+{
+ "code": "P0188",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Чебурашка",
+ "theme": "Герои мультфильмов",
+ "family": "Волшебные существа",
+ "subject": "Чебурашка: огромные круглые уши, коричневый мех, большие глаза",
+ "source": "сторонняя вселенная",
+ "reference": "Крокодил Гена и Чебурашка — Чебурашка",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 28,
+ "N": 980,
+ "colours": 6,
+ "volumes": {
+  "S": {
+   "cells": 339,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "A": {
+   "cells": 217,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 151,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 108,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "G": {
+   "cells": 108,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 57,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSEEESSSSSSSSSSSSSSSSSEEESSSSSS",
+  "SSSSSSAAAAASSSSSSSSSSSSSSSAAAAASSSS",
+  "SSSAAAAAAAAEESSSSSSSSSEEAAAAAAASSSS",
+  "SSEAAAAAAAAAESEEEEEEESEAAAAAAAAASSS",
+  "SEEAAACCCCAAAAAAAAAAAAAAACCCCAAAAES",
+  "SEAAACCCCCCAAAAAAAAAAAAACCCCCCAAAES",
+  "SEAAACCCCCCAAAAAAAAAAAAACCCCCCCAAES",
+  "SEAACCCCCCCAAAAAAAAAAAAACCCCCCCAAES",
+  "SEAAACCCCCCAADDDCCCDDDAAACCCCCAAAES",
+  "SSAAACCCCCAADCCDDCDCCDDAACCCCCAASSS",
+  "SSAAAAACCAAADCCDDCDCCDDAAACCAAAASSS",
+  "SSSEEAAAAAACDDDDDCDDDDDCAAAAAAEESSS",
+  "SSSSEEEEEEACDDDDDCDDDDDCAEEEEEESSSS",
+  "SSSSSSSSSEACCDDDCCCDDDCCAESSSSSSSSS",
+  "SSSSSSSSSEECCCCCDDDCCCCCEESSSSSSSSS",
+  "SSSSSSSSSSECCCCCDDDCCCCEESSSSSSSSSS",
+  "SSSSSSSSSSSECCCDCCCDCCEEESSSSSSSSSS",
+  "SSSSSSSSSSEEECCDDDDDCEEEESSSSSSSSSS",
+  "SSSSSSSSSEAAEEAAAAAAAEEAAESSSSSSSSS",
+  "SSSSSSSSSEAAAAAACCCAAAAAAESSSSSSSSS",
+  "SSSSSSSSSEAAAAACCCCCAAAAAESSSSSSSSS",
+  "SSSSSSSSSEEAAACCCCCCCAAAEESSSSSSSSS",
+  "SSSSSSSSSSSSEAACCCCCAAESSSSSSSSSSSS",
+  "GGGGGGGGGGGGEEAACCCAAEEGGGGGGGGGGGG",
+  "GGGGGGGGGGGEEEEEEEEEEEEEGGGGGGGGGGG",
+  "GGGGGGGGGGGGEEEEGGGEEEEGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+ ]
+}

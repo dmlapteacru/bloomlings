@@ -1,0 +1,116 @@
+{
+ "code": "P0920",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Домино с садовыми граблями",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Игрушки и настольные игры",
+ "direction": "Ожившие вещи",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна большая кремовая костяшка домино с синими крупными точками стала добрым садовником, держит широкие золотые грабли над компактной грядкой с розовым ростком",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 44,
+ "h": 44,
+ "N": 1200,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 477,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 186,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "D": {
+   "cells": 184,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "A": {
+   "cells": 88,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 78,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "Y": {
+   "cells": 69,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 66,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "P": {
+   "cells": 26,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "M": {
+   "cells": 26,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........CCCCC............................",
+  "..........CCCCCCCCC.........................",
+  ".........CCCCCCCCCCCCC.C....................",
+  ".........CCCCCCCCCCCCCCCCCC.................",
+  "........CCCCCCCNNCCCCCCCCCCC................",
+  "........CCCCCCNNNNCCCCCCCCCCC...............",
+  ".......CCCCCCCNNNNCCCCCCCCCCC...............",
+  ".......CCCCCCCNNNCCCCCCNNNCCA...............",
+  ".......CCCCCCCCNCCCCCCCNNNCCA...............",
+  ".......CCCCCCCCCCCCCCCCNNNCCA...............",
+  "......ACCCCCCCCCCCCCCCCNNCCCA...............",
+  "......ACCCCCCCDDDCCCCCCCCCCC................",
+  "......ACCCCCCCDDDCCCCCCCCCCC................",
+  "....DDDCCCCCCDDDDCCCCDDDCCCC................",
+  "...DDDDCCCCCCDDDDCCCCDDDCCCC................",
+  "..DDDDDCCCCCCCDDCCCCCDDDCCA.................",
+  "..DDDDCCCCCCCCCCCEEECDDDCCA.................",
+  "..DDDDDCCCCNNNCCCCCCCCCCCCA.................",
+  "..DDDDDDDCCCCCCNNNCCCCCCCCDD................",
+  "....DDDDDDCCNNCCCCNNNCCCCCDDD...............",
+  "....DDDDDDDNNNNCCCCCCCCCCCDDD...............",
+  "....CCDDDDDNNNNCCCCCNNCCC.DDDD..............",
+  "....CCDDDDDCCCCCCCCNNNCCCCDDDD..............",
+  "...ACCCDDDCCCCCCCCCNNNCCDDDDD...............",
+  "...ACCCCCCCCCCCYYCCNNNDDDDDDD...............",
+  "...ACCCCCCCCCCCYYYYYCDDDDDDD......C.........",
+  "..ACCCCCCCNNCCCCCYYYYDDDDDD......CCCP...MMMM",
+  "..ACCCCCCNNNNCCCCCYYDDDDDD......PPCCP..DMGGM",
+  "..ACCCCCCNNNNCCCCNNNYYYDD...Y...PPCCPPDGGGGM",
+  "...CCCCCCNNNCCCCCNNNYYYYYAAAYY..PPPCPPGGGGG.",
+  "...CCCCCCCCCCCCCCNNNCCAYYYYYYYY..PPPPPGGGGG.",
+  ".....DCCCCCCCCCCCCNCCAAYYYYYYYY..PPPPMMGGG..",
+  ".....DDDDAAACCCCCCCCYYYYYYYYAAAC.PPPPMMMM...",
+  "..GGDDDD..C..DDDCCCCYYYYYYEYAAAEEEE.MMMD.G..",
+  ".GGGDDDDDCCDDDDDDDC.YYYDYYEYYDEEEEEEGMDEEGG.",
+  "GGMMDDDDDMMMDDDDDDEEEYYEEYEEEEEEAEEEGDAAEEG.",
+  "GGGMDDDDDMMMDDDDDEEEEYYEDEEEEEEAAAEEGEAAAAE.",
+  ".GGGGGGGGGGGGGGEEEEEEYYEEEAAAEEAAAEEEEEAAAE.",
+  "..GGGGGGGGGGEEEEEAAAEEEAEEAAAAEEEEEEAAEEEEE.",
+  "....GGGGGGEEEEEEEAAAEEAAAEEAEEEEEEAAAAAEEEE.",
+  ".........EEEEEEEEEEEEEEAAAEEEAAAEEAEEEEEE...",
+  "..........EEEEEEEEEAAAEEAAEEAAAAEEEEEEEE....",
+  "...........C.EEEEEEEEEEEEEEEEEEEEEEE..C.....",
+  "..................EEEEE.....EEEEE..........."
+ ]
+}

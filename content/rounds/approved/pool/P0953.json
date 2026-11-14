@@ -1,0 +1,110 @@
+{
+ "code": "P0953",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Альпака в шапке-землянике",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Саванна и джунгли",
+ "direction": "Театр эмоций",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна сидящая кремовая альпака с крупной доброй мордой надела огромную красную шапку в форме земляники с зелёными листьями, розовые щёки и синие короткие копытца",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 31,
+ "h": 37,
+ "N": 928,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 464,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 203,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 64,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "N": {
+   "cells": 64,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "E": {
+   "cells": 54,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "G": {
+   "cells": 53,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "P": {
+   "cells": 17,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "K": {
+   "cells": 5,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "M": {
+   "cells": 4,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........GGGGGGGGGMDDD.......",
+  "......CCC.GGGGGGGGGMMMGGGG.....",
+  ".....CCCCEEDGGGGGGGGGGGGGGG....",
+  ".....CCCCERRGGGGGGDGGGGDDD.....",
+  "....CCCPCCRRRRRRRRRGGGGDDDDCC..",
+  "....CCPPCRRRRRRRRRRRDGGDDCCCCE.",
+  ".....CCRRRRRRRRRRCRRRRRRCCCCCE.",
+  ".....RRRRRRRRRRRCCRRRRRRCCCPCE.",
+  "....RRRRRRRRRRRRRRRRRRRRCCPPCE.",
+  "...RRRRRRRRRRRRRRRRRRRRRRRPCC..",
+  "..RRRRRRRCCCCCCCCRRRRRRRRRCCC..",
+  "..RRRRRCCCCCCCCCCCRRRRRRRRCRRE.",
+  ".ERRRRCCCCCCCCCCCCCCRRRRRRRRRE.",
+  ".ERRRECCDDCCCCCCCCCCCRRRRRRRRE.",
+  ".ERRRECCDDDCCCCCCDDCCCRRRRRRRE.",
+  ".ERREECCDDDCCCCCDDDDCCCRRRRRRE.",
+  "..RRRECPDDDCCCCCDDDDCCCRRRRRRE.",
+  "..RRECPPPCCCCDCCCDDCCCCCRRRRRE.",
+  "...EECCPCCCCCCCCCCPPCCCCERRRRE.",
+  "....EECCCCCCCCCCCCPPPCCCERRRR..",
+  ".....ECCCCCCCCCCCCCCCCCEERRRR..",
+  "......CCCCCCCCCCCCCCCKKERRRR...",
+  ".....CCCCCCCCCCCCCCCCKKKEEE....",
+  "....ECCCCCCCCCCCCCCCCCCCC......",
+  "....ECCCCCCCCCCCCCCCCCCCCCCCC..",
+  "....ECCCCCCCCCCCCCCCCCCCCCCCCC.",
+  "....ECCCCCCCCCCCCCCCCCCCCCCCCC.",
+  "...ECCCCCCCCCCCCCCCCCCCCCCCCCCC",
+  "..EECCCCCCCCCCCCCCCCCCCCCCCCCCC",
+  ".CCCCCCCCCCCCCCCCCCCCCCCCCCCCC.",
+  "ECCCCCCCCCCCCCCCCCCCCCCCCCCCCC.",
+  "ECNNNCCCCCCCCCCCCCCCCDNNCCCCE..",
+  "ENNNNDCCCCCCCCCCCCCCDNNNNDCCE..",
+  ".NNNNDCNNNNNCCNNNNNCDNNNNNCEE..",
+  ".DNNNNDNNNNNNNNNNNNDDNNNNDEE...",
+  "...DN.DNNNNN..NNNNDDDDNNDD.....",
+  "........DDD....DDD............."
+ ]
+}

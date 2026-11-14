@@ -1,0 +1,88 @@
+{
+ "code": "P1109",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Сапоги с жёлтыми отворотами",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Одежда и аксессуары",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "A single compact PAIR of bright blue rain boots, one slightly behind the other, broad yellow cuffs, red soles and one cream circular patch. Large clear boot shapes, no puddle or flower.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "61+"
+ ],
+ "w": 27,
+ "h": 26,
+ "N": 502,
+ "colours": 7,
+ "volumes": {
+  "B": {
+   "cells": 180,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "Y": {
+   "cells": 111,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 87,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "N": {
+   "cells": 74,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 24,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "S": {
+   "cells": 14,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 12,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........YYYYYYYY........",
+  "........YYAAAAAYYYYA.......",
+  "........YYAAAAAYYYAA.......",
+  "........YYYYYYYYYYYYYYYYYY.",
+  "........YYYYYYYYYAAAAAAAAY.",
+  "........YYYYYYYYYYYYYYYYYYA",
+  "........NYYYYYYYYYYYYYYYYYA",
+  "........NBBNNNYYYYYYYYYYYYA",
+  "........NBBBBBNYYYYYYYYYYY.",
+  "........NBBBBBNNNYYYYYYNNN.",
+  "........NBBBBBNNBBNNNNNNNN.",
+  "........NBBBBBNNBBBBBBBBNN.",
+  "........NBBBBBNNBBBBBCCBNN.",
+  ".......BBBBBBBNNBBBBCCCCNN.",
+  "...NNNBBBBBBBNNNBBBBCCCCNN.",
+  "..NNBBBBBBBBBNNBBBBBBCCBNN.",
+  ".SSSSBBBBBBBNNBBBBBBBBBBNN.",
+  "SSSBBBBBBBNNNBBBBBBBBBBBBN.",
+  "RRBBBBBBBBBBBBBBBBBBBBBBNN.",
+  "RRRBBBBBBSSSSBBBBBBBBBBBNNR",
+  "RRRRRRRRSSSBBBBBBBBBBNNNRRR",
+  ".RRRRRRRRBBBBBBBBBBBRRRRRRR",
+  "...RRRRRRNNNBBBNNNRRRRRRRRR",
+  ".......RRRRRRRRRRRRRRRRRRR.",
+  "........RRRRRRRRRRR..RRR...",
+  "..........RRRRRRR.........."
+ ]
+}

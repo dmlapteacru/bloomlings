@@ -1,0 +1,93 @@
+{
+ "code": "P1166",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Ручная тележка с одной тыквой",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Багаж и навигация",
+ "direction": "Доброе будущее",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One short wooden handcart with two huge dark wheels, thick blue raised handle and ONE giant orange pumpkin resting securely in its cream bed, a big green leaf on pumpkin. Tight connected composition.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 30,
+ "N": 641,
+ "colours": 7,
+ "volumes": {
+  "O": {
+   "cells": 191,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 157,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 100,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 74,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 46,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "G": {
+   "cells": 40,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 33,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "......MMMM....................",
+  "....GGGGGGM..AAA..............",
+  "...GGGGGMMMM.AAA..............",
+  "...GGGGMMMMMAAA........NDDDDDN",
+  "....GGGMGMMMAAA........NNNNNNN",
+  "...GGGGGGMMMAAOOOOO....NNNNNNN",
+  "...GGGGGGGMOOOOOOOOO....NNNN..",
+  "..MGGGGGGMOOOOOOOOOOO...NNN...",
+  "..MGGMMMMMOOOOOOOOOOO...NNN...",
+  "..MMMOOOOOOOOOOOOOOOOO.NNN....",
+  "..OOOOOOOOOOOOOOOOOOOO.NNN....",
+  ".AOOOOOOOOOOOOOOOOOOOONNNN....",
+  ".AOOOOOOOOOOOOOOOOOOOONNN.....",
+  ".AOOOOOOOOOOOOOOOOOOOONNNAA...",
+  "ACOOOOOOOOOOOOOOOOOOOONNNAAAA.",
+  "ACCCOOOOOOOOOOOOOOOOOONCCCCAA.",
+  "AACCCCCCCOOOOOOOCCCCCCCCCCCAA.",
+  "AACCCCCCCCCAACCCCCCCCCCCCCCA..",
+  ".ACCCCCCCCCAACCCCCCCCCCCCCCA..",
+  ".ACCDDDDDCCAACCCCCDDDDDDCCCA..",
+  ".ACDDDDDDDCAACCCCDDDDDDDDCCA..",
+  ".AADDDDDDDDAACCCCDDDDDDDDAAA..",
+  ".ADDDOODDDDAACCCDDDDDDDDDDAA..",
+  "..DDDOODDDDAACAADDDDDOODDD....",
+  "..DDDOODDDDAAAAADDDDOOODDD....",
+  "..DDDDDDDDDAAAAADDDDDOODDD....",
+  "...DDDDDDDD.....DDDDDDDDD.....",
+  "...DDDDDDD.......DDDDDDDD.....",
+  ".....DDDD........DDDDDDD......",
+  "...................DDDD......."
+ ]
+}

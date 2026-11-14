@@ -1,0 +1,108 @@
+{
+ "code": "P0934",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Клубничный экскаватор",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Наземный транспорт",
+ "direction": "Кулинарная фантастика",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Компактная большая красная клубника стала экскаватором на двух широких синих гусеницах, зелёный лист служит ковшом на короткой золотой стреле, одно кремовое окно кабины",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 38,
+ "h": 35,
+ "N": 982,
+ "colours": 9,
+ "volumes": {
+  "R": {
+   "cells": 236,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "N": {
+   "cells": 196,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 139,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "G": {
+   "cells": 107,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 82,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 65,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 55,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "M": {
+   "cells": 52,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "S": {
+   "cells": 50,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..........DD..........................",
+  ".........DGGG.........................",
+  ".........DGGGG..DD..........YY........",
+  ".........DGGGDDDGD.........YYYY.......",
+  ".....DDGDDGGGDDGGD........AYYYYY......",
+  "...DGGGGGMMMGGGGGD.......AAYDYYY......",
+  "...DGGGGGMDDRRRRRRRR....YYAYYYYYY.....",
+  "...DGGGGGDRRRRRRRRRRR..YYYAAYYYYY.....",
+  "....RDGGRRRRRCCCCCCRRRYYYYAAAYYYY.....",
+  "...RRRDDRRRRRCCCCC.CRRYYYYA..YYYYY....",
+  "..RRRRRRRRRRRCCCCCC.RRYYYYA..YYYYY....",
+  "..RRRRRRRRRRRCCCCCC.CRRYYY....YYYYA...",
+  "..RRRRRRRRRRRCCCCCC..RRYYY....YYYAA...",
+  ".RRRRRRRRRRRRCCCCCCC.CRYY......AAYYY..",
+  ".RRRRRRRRRRRRCCCCCCC.CRR.......ADDYY..",
+  ".RRRRRRRRRRRRCCCCCCCCCRR......DDDDYYY.",
+  "..RRRRRRRRRRRRCCCCCCCRRR.....DMMDYYMM.",
+  "..RRRRRRRRRRRRRRRRRRRRRR....DGMMGGDMM.",
+  "..RRRRRRRRRRRRRRRRRRRRRR...DGGMMGGMMGG",
+  "...RRRRRRRRRRRRRRRRRRRRR..DGGMMDGGGGGG",
+  "....RRRRRRRRRRRRRRRRRRRR..DGGMMGGGGGGG",
+  "...NNNRRRRRRRRRRRRRRNNNNNN.GGMMGMMGGGG",
+  "..NNNNNNNNRNRRRNNNNNNNNNNN.DGMDGMMGMGG",
+  ".NNNNNNNNNNNSSSNNNSSNNNNNNN.GMGGMGGMGG",
+  ".NNNSNNNNNNNSNNNNNSSSNNNNNN.DMGMGGMMGG",
+  "NNNSSSNNNNNNNNSSSSSSSNNNNNN..DGMGMMMM.",
+  "NNNSSSNNNSSSNNSNNNNSSNNNNNN..MMMMMMMD.",
+  "NNNSSSNNNSNSNNNSSSNSSNNNNNN.DMMMMMD...",
+  ".NNSSSNNNNNSNNNNSNNNNNNNNNA..DDDD.....",
+  ".NNNNNNNNSSSNNNNNNNNNNNNNAAACD...A....",
+  "AAANNNNNNSSSNNNNNNNAAAAAAAAAAA.CAAA...",
+  ".AAAAANNNNNNNNNNNNAAAAAAAAAAAAAAAAAAA.",
+  ".GGGGAAAANNNNNNNAAAAAAGAAAAAAAAAAAAAA.",
+  "GGGGGAAAAAAAAAAAAAAAAAGGAAAAAAAAAAAAA.",
+  "....GA...AAAAAAAAAAAAAGGGAAAAAAAA....."
+ ]
+}

@@ -1,0 +1,96 @@
+{
+ "code": "P0204",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Гнев",
+ "theme": "Герои мультфильмов",
+ "family": "Мемные реакции и типажи",
+ "direction": "Театр эмоций",
+ "subject": "маленький красный кирпичик Гнев с пламенем на голове, в белой рубашке и галстуке",
+ "source": "сторонняя вселенная",
+ "reference": "Головоломка — Anger",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 28,
+ "N": 784,
+ "colours": 8,
+ "volumes": {
+  "V": {
+   "cells": 378,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "R": {
+   "cells": 98,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 88,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 70,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "N": {
+   "cells": 68,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "O": {
+   "cells": 34,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 34,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 14,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "VVVVVVVVVVVVVVVVVVVVVVVVVVVV",
+  "VVVVVVVVVVVVVVVVVVVVVVVVVVVV",
+  "VVVVVVVVVVOVVOOVVOVVVVVVVVVV",
+  "VVVVVVVVVVOOVOOVOOVVVVVVVVVV",
+  "VVVVVVVOVVOOYOOYOOVVOVVVVVVV",
+  "VVVVVVVOOOOOYYYYOOOOOVVVVVVV",
+  "VVVVVVVOOOYYYYYYYYOOOVVVVVVV",
+  "VVVVVVVRRRRRRRRRRRRRRVVVVVVV",
+  "VVVVVVVRRRRRRRRRRRRRRVVVVVVV",
+  "VVVVVVVRDDDRRRRRRDDDRVVVVVVV",
+  "VVVVVVVRRDDDDRRDDDDRRVVVVVVV",
+  "VVVVVVVRRRRDDDDDDRRRRVVVVVVV",
+  "VVVVVVVRCCDDRRRRDDCCRVVVVVVV",
+  "VVVVVVVRCCDDRRRRDDCCRVVVVVVV",
+  "VVVVVVVRRRDDDDDDDDRRRVVVVVVV",
+  "VVVVVVVRRRDCCCCCCDRRRVVVVVVV",
+  "VVVVVVVRRRDDDDDDDDRRRVVVVVVV",
+  "VVVVCCCCCCCCCDDCCCCCCCCCVVVV",
+  "VVVVCCCCCCCCCDDCCCCCCCCCVVVV",
+  "VVVVRRRCCCCCCDDCCCCCCRRRVVVV",
+  "VVVVRRRCCCCCCDDCCCCCCRRRVVVV",
+  "VVVVRRRCCCCCCCCCCCCCCRRRVVVV",
+  "VVVVVVVEEEEEEEEEEEEEEVVVVVVV",
+  "VVVVVVVEEEEEEEEEEEEEEVVVVVVV",
+  "VVVVVVVVVEEEVVVVEEEVVVVVVVVV",
+  "NNNNNNNNDDDDNNNNDDDDNNNNNNNN",
+  "NNNNNNNNDDDDNNNNDDDDNNNNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+ ]
+}

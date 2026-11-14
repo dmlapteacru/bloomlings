@@ -1,0 +1,79 @@
+{
+ "code": "P0358",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Кузница в колокольчике",
+ "theme": "Миниатюрные мастерские",
+ "family": "Кафе и мастерские",
+ "direction": "Миниатюрные мастерские",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Внутри колокольчика маленькая кузница; округлый золотой купол; наковальня; красный огонь",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 25,
+ "h": 27,
+ "N": 377,
+ "colours": 5,
+ "volumes": {
+  "Y": {
+   "cells": 153,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 105,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "S": {
+   "cells": 61,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "A": {
+   "cells": 41,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "R": {
+   "cells": 17,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........AAA...........",
+  "..........AAAAA..........",
+  ".........AAAAAAA.........",
+  ".......YYYYAAAYYYY.......",
+  "......YYYYYYYYYYYYY......",
+  ".....YYYYYYYYYYYYYYY.....",
+  ".....YYYYYYYYYYYYYYY.....",
+  "....EYYYYYYYYYYRYYYYE....",
+  "....EYYYYYYYYYYRRYRYE....",
+  "....EYYYYYYYYYYRRRRYE....",
+  "....EYYYYYYYYYRRRRRYE....",
+  "....EYEEEEEEEEERRRRYE....",
+  "....EEEEEEEEEEEEEEEEE....",
+  "....EESSSSSSSSSSSSSEE....",
+  "....EESSSSSSSSSSSSEEEE...",
+  "...EYESSSSSSSSSSSSEEYE...",
+  "...EYEEESSSSSSSSEEEEYE...",
+  "...EYEEEEESSSSEEEEEEYE...",
+  "..YYYEEEESSSSSSEEEEEYYY..",
+  "..YYYEEEESSSSSSEEEEEYYYY.",
+  ".EYYYYYEEEEEEEEEEEYYYYYY.",
+  "EEYYYYYYYYYYYYYYYYYYYYYYY",
+  "...........AAA...........",
+  "..........AAAAA..........",
+  ".........AAAAAAA.........",
+  "..........AAAAA..........",
+  "...........AAA..........."
+ ]
+}

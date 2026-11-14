@@ -1,0 +1,99 @@
+{
+ "code": "P0059",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Сердитое облачко с зонтом",
+ "theme": "batch-0011",
+ "family": "Времена года и погода",
+ "direction": "Театр эмоций",
+ "subject": "хмурая дождевая тучка под красным зонтом",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 42,
+ "N": 675,
+ "colours": 6,
+ "volumes": {
+  "S": {
+   "cells": 287,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "R": {
+   "cells": 211,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "B": {
+   "cells": 62,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 51,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 41,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "K": {
+   "cells": 23,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "...................................",
+  "................DD.................",
+  "................DD.................",
+  "...........RRRRRRRRRRRR............",
+  ".........RKKKRRRRRRRRRRRR..........",
+  ".......RKKKKRRRRRRRRRRRRRRR........",
+  ".....RRKKKKRRRRRRRRRRRRRRRRRR......",
+  "....RRKKKRRRRRRRRRRRRRRRRRRRRR.....",
+  "...RRKKKRRRRRRRRRRRRRRRRRRRRRRR....",
+  "..RRKKKRRRRRRRRRRRRRRRRRRRRRRRRR...",
+  "..RRKKRRRRRRRRRRRRRRRRRRRRRRRRRR...",
+  ".RRRKRRRRRRRRRRRRRRRRRRRRRRRRRRRR..",
+  ".RR....RRRR....RRRR....RRRR....RR..",
+  "................DD.................",
+  "................DD.................",
+  "................DD.................",
+  "................DD.................",
+  ".............SS.DDSSSSSS...........",
+  "...........SSSSSSSSSSSSSSS.........",
+  "..........SSSSSSSSSSSSSSSSS........",
+  ".........SSSSSSSSSSSSSSSSSS........",
+  "........SSDDSSSSSSSSSSSDDSSS.......",
+  ".......SSSSSDDSSSSSSSDDSSSSSS......",
+  ".....SSSSSSSSSSSSSSSSSSSSSSSSSS....",
+  "....SSSSSSSDDDSSSSSSSDDDSSSSSSSS...",
+  "....SSSSSSSDDDSSSSSSSDDDSSSSSSSS...",
+  "...SSSSSSSSSSSSSSSSSSSSSSSSSSSSSB..",
+  "...BSSSSSSSSSSSSSSSSSSSSSSSSSSSSB..",
+  "...BSSSSSSSSSSSDDDDDSSSSSSSSSSSB...",
+  "....BSSSSSSSSSDSSSSSDSSSSSSSSSBB...",
+  "....BBSSSSSSSSSSSSSSSSSSSSSSSBBB...",
+  ".....BBBBBBBBBBBBBBBBBBBBBBBBBB....",
+  "......BBBBBBBBBBBBBBBBBBBBBBB......",
+  "...................................",
+  "........N..........................",
+  ".......NNN.................N.......",
+  "......NNNNN...............NNN......",
+  "......NNNNN......N.......NNNNN.....",
+  ".......NNN......NNN......NNNNN.....",
+  "...............NNNNN......NNN......",
+  "...............NNNNN...............",
+  "................NNN................"
+ ]
+}

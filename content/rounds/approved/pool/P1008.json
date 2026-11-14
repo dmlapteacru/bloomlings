@@ -1,0 +1,110 @@
+{
+ "code": "P1008",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Радужный ластик-качалка",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Рисование и ремёсла",
+ "direction": "Предметные гибриды",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой прямоугольный ластик из широких розовой синей и золотой полос стал низкой качалкой на двух зелёных дугах, кремовая подушка сверху",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 38,
+ "h": 37,
+ "N": 877,
+ "colours": 9,
+ "volumes": {
+  "P": {
+   "cells": 238,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "C": {
+   "cells": 216,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 121,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "D": {
+   "cells": 105,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "N": {
+   "cells": 49,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "B": {
+   "cells": 47,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "G": {
+   "cells": 39,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 33,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 29,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................DDDDD................",
+  "...............CCCCCCCCC..............",
+  "..........DDDCCCCCCCCCCCC.............",
+  "........CCCCCCCCCCCCCCCCCC............",
+  ".......DCCCCCCCCCCCCCCCCCCCC..........",
+  ".......DCCCCCCCCCCCCCCCCCCCCC.........",
+  "....DPPDCCCCCCCCCCCCCCCCCCCCC.........",
+  "..DPPPPPCCCCCCCCCCCCCCCCCCCCCC........",
+  ".DPPPPPPPCCCCCCCCCCCCCCCCCCCCCD.......",
+  ".PPPPPPPPPCCCCCCCCCCCCCCCCCCCPPDD.....",
+  ".PPPPPPPPPPCCCCCCCCCCCCCCCCCCPPPPD....",
+  ".PPPPPPPPPPPCCCCCCCCCCCCCCCCYPPPPPD...",
+  ".PPPPPPPPPPPCCCCCCCCCCBBBYYYYYYPPPPD..",
+  ".PPPPPPPPPPPPCCCCCCCCBBBBYYYYYYYPPPPD.",
+  ".DPPPPPPPPPPPPPPPBBBBBBBBBYYYYYYYPPPP.",
+  "..DPPPPPPPPPPPPPPPBBBBBBBBBYYYYYYYPPP.",
+  "...DDPPPPPPPPPPPPPPBBBBBBBBBYYYYYOPPP.",
+  "..DDDMPPPPPPPPPPPPPPBBBBBBBBNOOOOOPPP.",
+  ".MMMMMMPPPPPPPPPPPPPPBBBBBNNNOOOOOPPP.",
+  "DMMMMMMDPPPPPPPPPPPPPNNNNNNNNOOOOOPPD.",
+  "DMMGMMMDDDPPPPPPPPPPPNNNNNNNNOOOOOPPD.",
+  ".MMGGM....DPPPPPPPPPPNNNNNNNNOOOOODD..",
+  ".DMMGGD....DPPPPPPPPPNNNNNNNNOOOMMDDG.",
+  "..MMMGGD....DPPPPPPPPNNNNNNNNN.DMDMGGD",
+  "..DMMMGGD..DMMDPPPPPPNNNNDDDDDDDDMMGGD",
+  "...DMMMGGGDMMMMDDPPPDDD..DMMMGGGMMMMDD",
+  "....DMMMGGGMMMMD..........DMMMMMMMMMD.",
+  ".....MMMMGGMMMD......D......DDMMMMDD..",
+  "......MMMMMMMMGDDDDGGGD.......DDDD....",
+  ".......DMMMMMMGGGGMMGGG...............",
+  "........DMMMMMMMMMMMGGG...............",
+  "..........DMMMMMMMMMMMD...............",
+  ".............DDMMMMMDD................",
+  "................DDD...................",
+  "......................................",
+  "......................................",
+  "........................CDDD.........."
+ ]
+}

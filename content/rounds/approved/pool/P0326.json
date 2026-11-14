@@ -1,0 +1,97 @@
+{
+ "code": "P0326",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Мягкий дорожный конус",
+ "theme": "Обмен свойствами предметов",
+ "family": "Лаборатории и изобретения",
+ "direction": "Предметные гибриды",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Конус стал мягким как ткань; согнутая вершина; две светлые полосы; расплющенное основание",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 39,
+ "h": 39,
+ "N": 873,
+ "colours": 6,
+ "volumes": {
+  "O": {
+   "cells": 358,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 156,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "N": {
+   "cells": 147,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 143,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "B": {
+   "cells": 54,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "R": {
+   "cells": 15,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...................EEEEEEEE............",
+  "..................OOOOOOOOEEE..........",
+  ".................OOOOOOOOOOOEE.........",
+  "................EOOOOOOOOOOOOEE........",
+  "...............EEOOOOOOOOOOOOOEE.......",
+  "...............EOOOOOOOOOOOOOOOE.......",
+  "...............EOOOOOOOOOOOOOOOEE......",
+  "..............EOOOOOOOOOOOOOOOOOE......",
+  "..............EOOOOOOOOOOOOOOOOOE......",
+  "..............ECCCCCCCCCCEOOOOOO.......",
+  ".............EOCCCCCCCCCCEEOOOOO.......",
+  ".............EOCCCCCCCCCCE.OOOO........",
+  ".............EOCCCCCCCCCCE..OO.........",
+  "............EECCCCCCCCCCCE.............",
+  "............EOOOOOOOOOOOOE.............",
+  "............EOOOOOOOOOOOOE.............",
+  "...........EOOOOOOOOOOOOOEE............",
+  "...........EOOOOOOOOOOOOOOE............",
+  "...........EOOOOOOOOOOOOOOCC...........",
+  "..........EECCCCCCCCCCCCCCCC...........",
+  "..........ECCCCCCCCCCCCCCCCCC..........",
+  "..........ECCCCCCCCCCCCCCCCCC..........",
+  ".........ECCCCCCCCCCCCCCCCCCCE.........",
+  ".........ECCCCCCCCCCCCCCCCCCCE.........",
+  ".........EOOOOOOOOOOOOOOOOOOOE.........",
+  "........EEOOOOOOOOOOOOOOOOROOOO........",
+  "........EOOOOOOOOOOOOOORRRRRRRO........",
+  "........EOOOOOOOOOOOOORRROOORROO.......",
+  "........EOOOOOOOOOOOOORROOOOOOOO.......",
+  ".......EOOOOOOOOOOOOOOOOOOOOOOOOE......",
+  "...EEEEEOOOOOOOOOOOOOOOOOOOOOOOOEEEE...",
+  ".EENNNEEOOOOOOOOOOOOOOOOOOOOOOOOEENNEE.",
+  "EENNNNNNEEEEEEEEEEEEEEEEEEEEEEEENNNNNEE",
+  "ENNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNE",
+  "ENNNNNBBBBBBBBBBBBBBBBBBBBBBBBBBBNNNNNE",
+  "ENNNNNBBBBBBBBBBBBBBBBBBBBBBBBBBBNNNNNE",
+  "ENNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNE",
+  ".NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN.",
+  "..EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE.."
+ ]
+}

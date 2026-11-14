@@ -1,0 +1,95 @@
+{
+ "code": "P0256",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Бонека Амбалабу",
+ "theme": "Мемные и абсурдные герои",
+ "family": "AI-brainrot и абсурдные гибриды",
+ "direction": "Предметные гибриды",
+ "subject": "голова лягушки на автомобильной шине с человеческими ногами",
+ "source": "интернет-мем/тренд",
+ "reference": "Italian brainrot — Boneca Ambalabu",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 32,
+ "N": 896,
+ "colours": 7,
+ "volumes": {
+  "S": {
+   "cells": 484,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "G": {
+   "cells": 152,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 146,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 50,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "L": {
+   "cells": 34,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "R": {
+   "cells": 16,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "K": {
+   "cells": 14,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSCCSSSSSSSCCSSSSSSSSS",
+  "SSSSSSSGCCCGSSSSGCCCGSSSSSSS",
+  "SSSSSSSGCDDGGGGGGCDDGSSSSSSS",
+  "SSSSSSSGCDDGGGGGGCDDGSSSSSSS",
+  "SSSSSSGGGGGGGGGGGGGGGGSSSSSS",
+  "SSSSSSGGGGGGGGGGGGGGGGSSSSSS",
+  "SSSSSSGGGGGGGGGGGGGGGGSSSSSS",
+  "SSSSSSGDDDDDDDDDDDDDDGSSSSSS",
+  "SSSSSSGGLLLLLLLLLLLLGGSSSSSS",
+  "SSSSSSSSLLLLLLLLLLLLSSSSSSSS",
+  "SSSSSSSSSLLLLLLLLLLSSSSSSSSS",
+  "SSSSSSSSDDDDDDDDDDDDSSSSSSSS",
+  "SSSSSSSSDDDDDDDDDDDDSSSSSSSS",
+  "SSSSSSSDDDDDCCCCDDDDDSSSSSSS",
+  "SSSSSSSDDDDCCCCCCDDDDSSSSSSS",
+  "SSSSSSSDDDDCCCCCCDDDDSSSSSSS",
+  "SSSSSSSDDDCCCDDCCCDDDSSSSSSS",
+  "SSSSSSSDDDDCCDDCCDDDDSSSSSSS",
+  "SSSSSSSDDDDCCCCCCDDDDSSSSSSS",
+  "SSSSSSSDDDDDCCCCDDDDDSSSSSSS",
+  "SSSSSSSSDDDDDDDDDDDDSSSSSSSS",
+  "SSSSSSSSDDDDDDDDDDDDSSSSSSSS",
+  "SSSSSSSSSSDDDDDDDDSSSSSSSSSS",
+  "SSSSSSSSSSKDDDDDDKSSSSSSSSSS",
+  "SSSSSSSSSSKKKSSKKKSSSSSSSSSS",
+  "SSSSSSSSSSKKKSSKKKSSSSSSSSSS",
+  "SSSSSSSSRRRRRSSRRRRRSSSSSSSS",
+  "GGGGGGGGGRRRGGGGRRRGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+ ]
+}

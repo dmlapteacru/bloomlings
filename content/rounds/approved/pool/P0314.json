@@ -1,0 +1,77 @@
+{
+ "code": "P0314",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Корона из канцелярских скрепок",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Фигуры, знаки и эмблемы",
+ "direction": "Предметные гибриды",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Корона собрана из скрепок; три вытянутые петли; общее основание; крупные цветные вставки",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 25,
+ "h": 25,
+ "N": 397,
+ "colours": 5,
+ "volumes": {
+  "Y": {
+   "cells": 170,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 128,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 73,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "B": {
+   "cells": 16,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "R": {
+   "cells": 10,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........YYYYYYY.........",
+  ".........YYYYYYYY........",
+  "..YYYYY.YYY...EYY.YYYYY..",
+  ".YYYYYYYYYE...EYYYYYYYYY.",
+  ".YYEEEYYYYE...EYYYYEEEYY.",
+  "EYY...YYYYE...EYYYE...YYY",
+  "EYY....YYYE...EYYYE...YYY",
+  "EYY....YYYE...EYYYE...YY.",
+  "EYY....YYYE...EYYYE..EYY.",
+  ".YYE...EYYE...EYYY...EYY.",
+  ".YYE...EYYE...EYYY...EYE.",
+  ".EYE...EYYE...EYYY...EYE.",
+  ".EYE...EYYE...EYYE...YYE.",
+  ".EYY...EYYE...EYYE...YYE.",
+  ".EYY....YYE...EYYE..EYY..",
+  "..YYE...YYE...EYYE..EYY..",
+  "..YYE...YYE...EYYE..EYE..",
+  "..EYE...EYE...EYY...EYE..",
+  "..EEEEEEEEEEEEEEEEEEEEE..",
+  "..EAAAAAAAAAAAAAAAAAAAE..",
+  "..AAAABBAAARRRAAABBBAAE..",
+  "..AAABBBAAARRRRAABBBAAE..",
+  "..AAAABBAAARRRAAABBBAAE..",
+  "..AAAAAAAAAAAAAAAAAAAAE..",
+  "...EEEEEEEEEEEEEEEEEEE..."
+ ]
+}

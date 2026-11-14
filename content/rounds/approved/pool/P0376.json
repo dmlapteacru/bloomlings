@@ -1,0 +1,79 @@
+{
+ "code": "P0376",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Текучие ножницы",
+ "theme": "Обмен свойствами предметов",
+ "family": "Лаборатории и изобретения",
+ "direction": "Предметные гибриды",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Ножницы текут как вода; две круглые ручки; широкие синие лезвия; капли вместо острых концов",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 25,
+ "h": 27,
+ "N": 371,
+ "colours": 5,
+ "volumes": {
+  "Y": {
+   "cells": 159,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "S": {
+   "cells": 84,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "B": {
+   "cells": 71,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 30,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 27,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...YYYYYY........YYYYY...",
+  "..YYYYYYYY.....YYYYYYYY..",
+  ".YYYYYYYYYY....YYYYYYYYY.",
+  ".YYYYCCYYYY...YYYYCCYYYYN",
+  ".YYYCCCCYYYN..YYYCCCCYYYN",
+  "YYYYCCCCYYYN..YYYCCCCYYYN",
+  ".YYYCCCCYYYN..YYYYCCCYYYN",
+  ".YYYYYYYYYY...YYYYYYYYYYN",
+  ".YYYYYYYYYY....YYYYYYYYY.",
+  "..YYYYNBNN......SSYYYYY..",
+  "....NNNBBN......SSSNNN...",
+  ".....NBBBBB....SSSSSN....",
+  "......BBBBBYYYYSSSSS.....",
+  ".......BBBBYYYYSSSS......",
+  "........BBBBYYYSSS.......",
+  ".........BBBSSSSSS.......",
+  "..........SSSSSSS........",
+  ".........SSSSSSS.........",
+  "........SSSSSSBBB........",
+  "........SSSSSBBBBB.......",
+  ".......SSSSSSSBBBBB......",
+  "......SSSSSN..NBBBBB.....",
+  ".....NSSSSSN..NBBBBB.....",
+  ".....NSSSSSN..NBBBBB.....",
+  ".....NSSSSS...NBBBBB.....",
+  "......SSSBBBBBBBBBB......",
+  "........S..BBB..B........"
+ ]
+}

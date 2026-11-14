@@ -1,0 +1,104 @@
+{
+ "code": "P0440",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Вуди Вудпекер — из дупла",
+ "theme": "Новые герои мультфильмов",
+ "family": "Птицы",
+ "direction": "Театр эмоций",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Вуди выглядывает из дупла; красный зубчатый хохол; длинный жёлтый клюв; синее тело и белые перчатки",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Woody Woodpecker",
+  "url": "https://en.wikipedia.org/wiki/Woody_Woodpecker",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 29,
+ "h": 31,
+ "N": 858,
+ "colours": 8,
+ "volumes": {
+  "S": {
+   "cells": 200,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "D": {
+   "cells": 162,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 133,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "A": {
+   "cells": 127,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 72,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "B": {
+   "cells": 67,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "E": {
+   "cells": 54,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 43,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...............R...EEEEEEEEE.",
+  ".SSSSSDDSSSSSSRRSSAAAAAAAAAAA",
+  "SSSSSSDRRRSSSRRRSSAAAEAAAAAAA",
+  "SSSSSSSRRRDDDRRRRDAAAEAAAAAAA",
+  "SSSSSSSDRRRRRRRRRDAAAEAAAAAAA",
+  "SSSSDDDDRRRRRRRRRDAAAEAAAAAAA",
+  "SSSSRRRRRRRRRRRRRRAAAEAAAAAAA",
+  "SSSSRRRRRRRRRRRRRRAAAEAAAAAAA",
+  "SSSSRRRRRRCCRRRCCRRDEEEEAAAAA",
+  "SSSSRRRRRCCCRRCCCCRDDDDDAAAAA",
+  "SSSSSDRRRCDDRRCCDDRRDDDDDAAAA",
+  "SSSSSDRRRCDDRRCCDDRRDDDDDDAAA",
+  "SSSSSDRRRCCDRRCCDDRRDDDDDDAAA",
+  "SSSSSDRRRRCRRRDDDDDDDDDDDDDEA",
+  "SSSSSSRRRRRRRRDYYYYYYYYYYDDEE",
+  "SSSSSSRRRRRRRRDYYYYYYYYYDDDEE",
+  "SSSSSSSDDRRRRRDYYYYYYYYDDDDDE",
+  "SSSSSSSSDDDRRRDDYDYYYYDDDDDDE",
+  "SSSSSSSSDBBBDDDDDDDYDDDDDDDDE",
+  "SSSSSSSSDBBBCCCDDBBBDDDDDDDDE",
+  "SSSSSSSSBBBBCCCCCCBDCCCDDDDEE",
+  "SSSSYYSSBBBCCCCCCCBDCCCDDDDEE",
+  "SSSSYYSSBBBCCCCCCCBDCCCDDDDEA",
+  "SSSSSYSSDBBBCCCCCBBBDDDDDDEAA",
+  "SSSSSSSSDBBBCCCCCBBBDDDDDDEAA",
+  "SSSSSSSSDBBBCCCCCBBBDDDDDEEAA",
+  "SSSYYSSSSBBBBCCCBBBDDDDEEEEAA",
+  "SSYYYSSSSBBBBBBBBBBDEEEAAAEAA",
+  "SSSSSSSSSSSSBBBBBBBAAAAAAAAAA",
+  ".SSSSSSSSSSSBBBDDDAAAAAAAAAAA",
+  "...................EEEEEEEEE."
+ ]
+}

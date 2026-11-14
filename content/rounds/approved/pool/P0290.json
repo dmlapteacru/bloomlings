@@ -1,0 +1,109 @@
+{
+ "code": "P0290",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Сад на шахматной ладье",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Игрушки и настольные игры",
+ "direction": "Перевёрнутый масштаб",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Шахматная ладья стала садом; три зубца крепостной верхушки; светлый сужающийся ствол; цветы на грядке",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 33,
+ "h": 42,
+ "N": 1020,
+ "colours": 8,
+ "volumes": {
+  "C": {
+   "cells": 404,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 141,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 135,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "M": {
+   "cells": 87,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "A": {
+   "cells": 82,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "G": {
+   "cells": 72,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "R": {
+   "cells": 50,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "P": {
+   "cells": 49,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....................RRRR........",
+  "........PPP.........RRRRR........",
+  ".......PPPPP.......RRRRRRR.......",
+  "......PPPPPPP.....RRRYYYRRR......",
+  ".....PPPYYYPPP....RRRYYYRRR......",
+  ".....PPPYYYPPP....RRRYYYRRR......",
+  ".....PPPYYYPPP.....RRRRRRR.......",
+  ".....PPPPPPPP.......RRRRR........",
+  ".EEEEEEPPPPPEEEEEEEEGRRRREEEEEE..",
+  ".ECCCCCCPPPGECCCCCCEGGGECCCCCCE..",
+  ".ECCCCCCEGGGECCGGGCEGGGECCCCCCE..",
+  ".ECCCCCCEGGGEGGGGGCEGGGECCCCCCE..",
+  ".ECCCCCCEGGGGGGGGGCEGGGECCCCCCE..",
+  ".ECCCCCCCGGGGGGGGGCCGGGCCCCCCCE..",
+  ".ECCCMMMMGGGGGGGGGMMGGGMMMMCCCE..",
+  ".ECCCMMMMGGGGGGGMMMMGGGMMMMCCCE..",
+  ".ECCCMMMMMMMGMMMMMMMMMMMMMMCCCE..",
+  ".ECCCMMMMMMMMMMMMMMMMMMMMMMCCCE..",
+  ".EEEEMMMMMMMMMMMMMMMMMMMMMMEEEE..",
+  ".......CCCCCCCCCCCCCCCCCE........",
+  ".......CCCCCCCCCCCCCCCCCEE.......",
+  "......ECCCCCCCCCCCCCCCCCCE.......",
+  "......ECCCCYYYYYYYYYYCCCCE.......",
+  "......ECCCCYYYYYYYYYYCCCCE.......",
+  "......ECCCCYYYYYYYYYYYCCCE.......",
+  ".....EECCCCYYYYYYYYYYYCCCCE......",
+  ".....ECCCCCYYYYYYYYYYYCCCCE......",
+  ".....ECCCCCYYYYYYYYYYYCCCCE......",
+  ".....ECCCCCYYYYYYYYYYYCCCCE......",
+  "....EECCCCCYYYYYYYYYYYCCCCEE.....",
+  "....ECCCCCCYYYYYYYYYYYCCCCCE.....",
+  "....ECCCCCCYYYYYYYYYYCCCCCCE.....",
+  "...EECCCCCCYYYYYYYYYYCCCCCCCE....",
+  "..EECCCCCCCCCCCCCCCCCCCCCCCCEE...",
+  "..ECCCCCCCCCCCCCCCCCCCCCCCCCCE...",
+  ".CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC..",
+  "ECAAAAAAAAAAAAAAAAAAAAAAAAAAAACE.",
+  "ECAAAAAAAAAAAAAAAAAAAAAAAAAAAACEE",
+  "ECCAAAAAAAAAAAAAAAAAAAAAAAAAACCCE",
+  "ECCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCE",
+  "ECCCCCCCCCCCCCCCCCCCCCCCCCCCCCCEE",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE."
+ ]
+}

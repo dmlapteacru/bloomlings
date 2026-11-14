@@ -1,0 +1,58 @@
+{
+ "code": "P0178",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Пухля",
+ "theme": "Герои мультсериалов",
+ "family": "Домашние животные",
+ "subject": "поросёнок Пухля: розовый, с закрученным хвостиком",
+ "source": "сторонняя вселенная",
+ "reference": "Гравити Фолз — Waddles",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 27,
+ "h": 17,
+ "N": 347,
+ "colours": 3,
+ "volumes": {
+  "K": {
+   "cells": 221,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "P": {
+   "cells": 108,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "D": {
+   "cells": 18,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................PPPPP.....",
+  ".PP....PPPPPPPPPPPPPPKPP...",
+  "PPPP.PPPKKKKKKKKKKKKKKKPP..",
+  "P..PPKKKKKKKKKKKKKKKKKKKP..",
+  "P.PPKKKKKKKKKKKKKKKKKKKKKP.",
+  "PPPKKKKKKKKKKKKKKKKKDDKKPP.",
+  ".PPPKKKKKKKKKKKKKKKKDDKPPPP",
+  ".PPKKKKKKKKKKKKKKKKKKKKPPPP",
+  ".PKKKKKKKKKKKKKKKKKKKKKPPP.",
+  "..KKKKKKKKKKKKKKKKKKKKKKP..",
+  "..KKKKKKKKKKKKKKKKKKKKPP...",
+  "...KKKKKKKKKKKKKKKKKKPP....",
+  "....PPKKKKKKKKKKKKKKKP.....",
+  ".....PKKPKKKKKKKKKPKKP.....",
+  ".....PDDPPDDPPPPDDPDDP.....",
+  ".....PDPPPDDP.PPDPPDDP.....",
+  ".....PPPPPPPP..PPPPPPP....."
+ ]
+}

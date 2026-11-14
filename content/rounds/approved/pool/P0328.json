@@ -1,0 +1,114 @@
+{
+ "code": "P0328",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Ремонтная станция в наручных часах",
+ "theme": "Миниатюрные мастерские",
+ "family": "Кафе и мастерские",
+ "direction": "Миниатюрные мастерские",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Корпус часов служит верстаком; широкий ремешок; две открытые шестерёнки; отвёртка на столе",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 38,
+ "h": 42,
+ "N": 1159,
+ "colours": 9,
+ "volumes": {
+  "Y": {
+   "cells": 270,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "V": {
+   "cells": 234,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "S": {
+   "cells": 137,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "N": {
+   "cells": 125,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "E": {
+   "cells": 122,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 94,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 84,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 74,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "R": {
+   "cells": 19,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............AEAAAAAAEAA.............",
+  ".............AAEEAAAAEEAA.............",
+  "............AAAEEAAAAEEAAA............",
+  "............AAAEEAAAAEEAAA............",
+  "............NNNNNNNNNNNNNN............",
+  "..........NNNYYYYYYYYYYYYNNN..........",
+  ".........NNYYYYYYYYYYYYYYYYNNN........",
+  ".......NNYYYYYYYYYYYYYYYYYYYYNN.......",
+  "......NNYYYYYYYVVVVVVVVYYYYYYYNN......",
+  ".....NYYYYYYVVVVVVVVVVVSSSYYYYYYY.....",
+  "....NNYYYYVVVVVVVVVVSSVSSSSSSYYYYN....",
+  "...NNYYYYVVVVVVVVVVSSSSSSSSSSSYYYNN...",
+  "...NYYYYVVVVVVVVVVVSSSSSSSSSSSYYYYN...",
+  "..NYYYYVVVVVVOOVVVVVSSSSSSSSSSSYYYYY..",
+  "..NYYYYVVVOVOOOOOVSSSSSSEESSSSSYYYYY..",
+  ".NNYYYVVVOOOOOOOOOSSSSSEEESSSSSVYYYYN.",
+  ".NYYYYVVVOOOOOOOOOSSSSSEEESSSSSVYYYYN.",
+  ".NYYYVVVOOOOOOOOOOOSSSSSSSSSSVVVVYYYN.",
+  ".NYYYVVVOOOOEEEOOOOSSSSSSSSSSSVVVYYYNN",
+  "NNYYYVVVOOOOOEEOOOOSSSSSSSSSSSVVVYYYYN",
+  "NNYYYVVVVOOOOOOOOOVVSSSSSSVSSVVVVYYYYN",
+  "NNYYYVVVVOOOOOOOOOVVVVNNNSVVVVVVVYYYYN",
+  "NNYYYVVVVOOOOOOOOOVVVNNSNNVVVVVVVYYYYN",
+  ".NYYYVVVVVVVOOOVVVVVVNSSSNNVVVVVVYYYNN",
+  ".NYYYVVVVVVVVVVVVVVVVVSSSSSVVVVVVYYYN.",
+  ".NYYYYVVVVVVVVVVVVVVVVESSSSSVVVVYYYYN.",
+  ".NYYYYEEEEEEEEEEEEEEEEECNNSSSNNYYYYYN.",
+  "..YYYYECCCCCCCCCCCCCCCCCCNNSSSNRYYYY..",
+  "..YYYYECCCCCCCCCCCCCCCCCCCNNSRRRRRRY..",
+  "...NYYECCCCCCCCCCCCCCCCCCCCNNRRRRRR...",
+  "...NNYYEECCEEEEEEEEEEEEEEEECCRRRRRR...",
+  "....NNYYECCEVVVVVVVVVVVVVVECCENNNN....",
+  ".....NYYECCEVVVVVVVVVVVVVVECCEYYN.....",
+  "......YYECCEEYVVVVVVVVVVYYECCEYY......",
+  ".......EECCEEYYYYYYYYYYYYYECCEE.......",
+  "........ECCEEYYYYYYYYYYYYYECCE........",
+  "........ECCEEYYYYYYYYYYYYEECCE........",
+  "........ECCEENNNNNYYNNNNNNECCE........",
+  "........ECCEEAAENNNNNNEAAAECCE........",
+  ".........EEEAAAEEAAAAEEAAAEEEE........",
+  ".............AAEAAAAAAEAA.............",
+  ".............AAAAAAAAAAAA............."
+ ]
+}

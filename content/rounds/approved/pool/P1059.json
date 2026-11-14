@@ -1,0 +1,88 @@
+{
+ "code": "P1059",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Пили",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Волшебные существа",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Fortnite · Epic Games: Peely from Fortnite, the exact iconic banana character: one tall broad curved YELLOW banana body with a dark brown stem and tips, small black oval eyes and simple cheerful mouth, banana-yellow arms and short legs. Compact chibi proportions, one hand waving, no extra costume, no peeled white banana flesh and no other characters.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 30,
+ "N": 900,
+ "colours": 6,
+ "volumes": {
+  "G": {
+   "cells": 413,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 346,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 107,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "O": {
+   "cells": 18,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 12,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "R": {
+   "cells": 4,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "GGGGGGGGGGGGGDDEEDGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGDEEEEDGGGGGGGGGGG",
+  "GGGGGGGGGGGGGYYEEEEGGGGGGGGGGG",
+  "GGGGGGGGGGGGDYYYEEDGGGGGGGGGGG",
+  "GGGGGGGGGGGGYYYYYOGGGGGGGGGGGG",
+  "GGGGGGGGGDDDYYYYYOGGGGGGGGGGGG",
+  "GGGGGGGGDYYYYYYYYOGGGGGGGGGGGG",
+  "GGGGGGGDYYYYYYYYYYDDGGGGGGGGGG",
+  "GGGGGGDYYYDYYYYYYYYYYDGGGGGGGG",
+  "GGGGGGDYDDDYYYYYYYYDYYDGGGGGGG",
+  "GGGGGGDDDGYYYYYYYYYDDYYGGGGGGG",
+  "GGGGGGDDGGYYYYYYYYYYDYYDGGGGGG",
+  "GGGGGGGGGDYYYYYYYDDYDDYDGGGGGG",
+  "GGGGGGGGGDYYDDDYYDDDDGDDGGGGGG",
+  "GGGGGGGGGYYYDDDYYDDDYGGGGYDDGG",
+  "GGGGGGGGGYYYDDDYYYDDYGGGGYDYDG",
+  "GGGGGGGGDYYYDDDYYYYYYDGDDYYYYD",
+  "GGGGGGGGYYYYYDYYDDDYYDGDYYYYYD",
+  "GGGGGGGGYYYYYYYDRRYYYYGGDYYYDG",
+  "GGGGGGGDYYYYYYYYRRYYYYGGGYYDGG",
+  "GGGGGDYYYYYYYYYYYYYYYYYGGYYDGG",
+  "GGGGDYYYYYYYYYYYYYYYYYYYDYYDGG",
+  "GGGDYYYYYYYYYYYYYYYYYYYYYYYDGG",
+  "GGDYYYYYYYYYYYYYYYYYYOOYYYYGGG",
+  "GDYYYYYDDYYYYYYYYYYYYODOOODGGG",
+  "GDYYYYGGYYYYYYYYYYYYYOGDOODGGG",
+  "GDYYYYGGYYYYYYYYYYYYOOGGGGGGGG",
+  "GGYYYYDDYYYYYYYYYYYYODGGGGGGGG",
+  "GGDYYYYDYYYYYYYYYYYYODGGGGGGGG",
+  "GGGDYYYYYYYYYYYYYYYOOGGGGGGGGG"
+ ]
+}

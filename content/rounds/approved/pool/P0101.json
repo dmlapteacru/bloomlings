@@ -1,0 +1,107 @@
+{
+ "code": "P0101",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Губка Боб",
+ "theme": "batch-0061",
+ "family": "Морские и пресноводные обитатели",
+ "subject": "Губка Боб под водой: жёлтая губка, рубашка, галстук, штаны",
+ "source": "сторонняя вселенная",
+ "reference": "Губка Боб Квадратные Штаны — SpongeBob",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 36,
+ "N": 1080,
+ "colours": 9,
+ "volumes": {
+  "B": {
+   "cells": 377,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "Y": {
+   "cells": 261,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 202,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 120,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 58,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "L": {
+   "cells": 26,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "R": {
+   "cells": 20,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "S": {
+   "cells": 8,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "K": {
+   "cells": 8,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  "BBBBBYYYYYYYYYYYYYYYYYYYYBBBBB",
+  "BBBBYLLYYDYDYYYYYYDYDYYYYYBBBB",
+  "BBBBYLLYYDYDYDYYDYDYDYYYYYBBBB",
+  "BBBBYLLYYYCCCYYYYCCCYYYYYBBBBB",
+  "BSBBYYYYYCCCCCYYCCCCCYYYYYBBBB",
+  "SBSBBYYYCCBBBCCCCBBBCCYYYYBBBB",
+  "BSBBYYYYCCBDBCCCCBDBCCYYYYBBBB",
+  "BBBBYYYYCCBBBCCCCBBBCCLLYYBBBB",
+  "BBBBYYYYYCCCCCYYCCCCCYLLYBBBBB",
+  "BBBBYYYYYYCCCYYYYCCCYYLLYYBBSB",
+  "BBBBYYYYYYYYYYLLYYYYYYYYYYBSBS",
+  "BBBBBYKKYYYYYYYYYYYYYYKKYYBBSB",
+  "BBBBYYKKDYYYYYYYYYYYYDKKYYBBBB",
+  "BBBBYLLYYDYYYYYYYYYYDYLLYYBBBB",
+  "BBBBYLLYYYDDDDDDDDDDYYLLYBBBBB",
+  "BBBBYLLYYYYYCCYYCCYYYYLLYYBBBB",
+  "BBBBYYYYYYYYCCYYCCYYYYYYYYBBBB",
+  "BBCCCCCCCCCCYCRRCYCCCCCCCCCCBB",
+  "BBCCCCCCCCCCCRRRRCCCCCCCCCCCBB",
+  "BBYYAAAAAAAAARRRRAAAAAAAAAYYBB",
+  "BBYYADDADDADDRRRRDDADDADDAYYBB",
+  "BBYYAAAAAAAAAARRAAAAAAAAAAYYBB",
+  "BBYYAAAAAAAAAAAAAAAAAAAAAAYYBB",
+  "BYYYAAAAAAAAAAAAAAAAAAAAAAYYYB",
+  "BYYYAAAAAAAAAAAAAAAAAAAAAAYYYB",
+  "BBBBBBBAAAAABBBBBBAAAAABBBBBBB",
+  "BBBBBBBBBYYBBBBBBBBYYBBBBBBBBB",
+  "BBBBBBBBBCCBBBBBBBBCCBBBBBBBBB",
+  "BBBBBBBBBRRBBBBBBBBRRBBBBBBBBB",
+  "BBBBBBBBDDDDBBBBBBDDDDBBBBBBBB",
+  "BBBBBBDDDDDDBBBBBBDDDDDDBBBBBB",
+  "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+  "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+  "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"
+ ]
+}

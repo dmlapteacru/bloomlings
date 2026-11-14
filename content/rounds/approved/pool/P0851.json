@@ -1,0 +1,114 @@
+{
+ "code": "P0851",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Портал в веере павлина",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Птицы",
+ "direction": "Миры через портал",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Дружелюбный оригинальный павлин смотрит вперёд, раскрытый хвост образует круглое окно с оранжевым солнцем и зелёными холмами внутри",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 43,
+ "h": 43,
+ "N": 1346,
+ "colours": 9,
+ "volumes": {
+  "N": {
+   "cells": 289,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 235,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "G": {
+   "cells": 193,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 184,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "Y": {
+   "cells": 165,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "S": {
+   "cells": 90,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "O": {
+   "cells": 76,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 66,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "L": {
+   "cells": 48,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...................DDDDD...................",
+  "..................DGGGGGD..................",
+  ".................DGGYYYGGD..DDD............",
+  "...........DDDDD.DGYYNYYGDDDGGGD...........",
+  "..........DYYYGGDDGYYNNYGDDGYYYDD..........",
+  ".........DGYYNGGGGGGGNNYGGGGYNYYGD.........",
+  ".........DGYNNNGGDGGGGDDDDGGYNNYGD.........",
+  "......DDDDGGNNOGGDSSSSSSSDGGYNNYGDDDD......",
+  ".....DGGGDMGGOOSSSSSSSSSSSSSSSSSDDGGGDD....",
+  "....DGYYYYMMMSSSSSSSSSSSSSSSSSSSDYYYYDD....",
+  "....DGYNNMMMSSSSSSSOOOOOOSSSSSSDYYYNYYD....",
+  "....DGYNNOMNNNNNNNOOOOOOOOOSSSSSYYNNYYD....",
+  "....DGGGOONNNNNNNNOOOOOOOOOOSSCCCCNNYYD....",
+  "...DDDGGGSNNNNNNNNOOOOOOOOOOCCCCCCGGGMDD...",
+  "..DDDDDMMSNNNNNDNNNYOOOOOOOOOSSCCSSMMMDDD..",
+  ".DYYYYMMSSSNNDNDNNNYYYOOOOOOOSSSSSSMMYYYDD.",
+  ".DYYYYMMSSSSDDDDNNNYYYYOOOOOCSSSSSSMMYYYYY.",
+  ".DYYNNCCCCCCCNNNNYYYYYYYOOOCCCCSSCCCMYYYYY.",
+  ".DYNNNCCCCCCNNNNNNNYYYYYOCCCCGGMMCCCMYYYMD.",
+  "..YNNNGGGGCCCNNNCCCYYYYYOCCGGGGMMMMCMMMMM..",
+  "..DDDGGGGGCCDDCNCDDCYYYYGGGGGGMMMMMMGGGDD..",
+  ".DGGGDMGGGCDDDCNCDDDNGGGGGGGMMMMMMMMMMMGGD.",
+  "DDYYYYMGGGCDDDDYYDDDNLLLLLLMMMMMMMMMMGGYGMD",
+  "DMYYNMMDLNNCDDCDYYCCNLLLLLLLLLLMMMMDMGYYYMD",
+  "DMYNNGGGLLNCCCCDDDNNNLLGGGLLLLLLLLMMMGNNYMD",
+  ".MYYYYGGDLNNNNNNNNNNLLGGGGGLLMMMLLDMGGNNYM.",
+  ".DDDDGGGMLLNNNNNNNNGGGGGMMMMMMMMLLMGGGDDDD.",
+  "..DDDDDMMMLLNNNNNNNGGGGMMMMMMMMMMMMMDDDDD..",
+  "..DYYYMMMDLLLLNNNNNGMMMMMMMGMMMMMDMMYYYDD..",
+  ".DDYYYYGGMDDLLNNNNNNNNDMMGGGGGMDDMGGNNYYDD.",
+  ".DDYYYYGGMMMDNNNNNNNNNNNGGGGGGDMMMGGNNYYDD.",
+  ".DDYYYYMMDDDNNNNNNNNNNNNNGGGDDMMDMGGYYYMD..",
+  "..DMMMMMMMNNNNNNNNNNNNNNNNDDDGGGGMMMMMMMD..",
+  "...DDMDYYNNNNNNNNNNNNNNNNNMMGGGGGGMMDMDD...",
+  ".....DDYYYNNNNNNNNNNNNNNNNNMGGGGNNYMD......",
+  "......DYYYNNNNNNNNNNNNNNNNNDGGGGNNYMM......",
+  "......DYMMMMNNNNNNNNNNNNNNNNDGGGYYYMD......",
+  ".......DMMMMDNNNNNNNNNNNNNNNDDMMMMMD.......",
+  "........DDD...DNNNNNNNNN.NND...DDDD........",
+  "...............DDNNNNDND...................",
+  ".............DOOODDDDOOD...................",
+  ".............DDOOD.DOODDD..................",
+  "...............D....DDD...................."
+ ]
+}

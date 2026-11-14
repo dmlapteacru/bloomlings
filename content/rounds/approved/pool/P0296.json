@@ -1,0 +1,103 @@
+{
+ "code": "P0296",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Шарф из дождя",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Одежда и аксессуары",
+ "direction": "Домашняя магия",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Дождь превращается в вязаный шарф; большая туча; синие нити дождя; розовое полотно с бахромой",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 33,
+ "h": 40,
+ "N": 857,
+ "colours": 7,
+ "volumes": {
+  "S": {
+   "cells": 286,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "P": {
+   "cells": 174,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "A": {
+   "cells": 97,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "B": {
+   "cells": 90,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "V": {
+   "cells": 88,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "K": {
+   "cells": 65,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "N": {
+   "cells": 57,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............NNNNN...............",
+  "..........NNNSSSSSNNN............",
+  "........NNSSSSSSSSSSSNN..........",
+  ".......NNSSSSSSSSSSSSSNN.........",
+  "......NNSSSSSSSSSSSSSSSNN........",
+  "....NNNSSSSSSSSSSSSSSSSSNNN......",
+  "..SSSSSSSSSSSSSSSSSSSSSSSSSSS....",
+  ".SSSSSSSSSSSSSSSSSSSSSSSSSSSSS...",
+  "NSSSSSSSSSSSSSSSSSSSSSSSSSSSSSN..",
+  "NSSSSSSSSSSSSSSSSSSSSSSSSSSSSSN..",
+  "NSSSSSSSSSSSSSSSSSSSSSSSSSSSSSN..",
+  "NSSSSSSSSSSSSSSSSSSSSSSSSSSSSSN..",
+  "NNSSBBSSSSSSSSSSSSSSSSSSSSBBSNN..",
+  ".NNSBBBSSSSSBSSSSSSBSSSSSSBBNN...",
+  "...BBBBSSSSBBBSSSSBBBSSSSBBB.....",
+  "....BBBNNNNBBBNNNNBBBNNNNBBB.....",
+  "....BBB....BBB....BBB.....BB.....",
+  "....BBB....BBB....BBB.....BB.....",
+  "...AABB....BBB....BBB.....BB.....",
+  "....AAA....BBB....BBB.....BBAAA..",
+  "....BBAAAA.BBB....BBB....AAAAA...",
+  "....BBVVAAAABB....VBB..AAAAV.....",
+  "...VVVVVVVAAAAVVVVVVVAAAAVVVVV...",
+  "..VPPPPPPPPPPAAAAAAAAAPPPPPPPV...",
+  "..VPPPPPPPPPPPPAAAAAPPPPPPPPPV...",
+  "..VPPKKKKKKKKKAAAAAAAKKKKKKKPV...",
+  "..VPPKKKKKKAAAAPPPPPAAAAKKKPPV...",
+  "..VPPPPPPAAAAPPPPPPPPPAAAAPPPV...",
+  "..VPPPAAAAPPPPPPPPPPPPPPPAAAPV...",
+  "..VPAAAAKKKKKKKKKKKKKKKKKKKAAAA..",
+  ".AAAAAKKKKKKKKKKKKKKKKKKKKKPPAAAA",
+  "AAAPPPPPPPPPPPPPPPPPPPPPPPPPPV...",
+  "..VVPPPPPPPPPPPPPPPPPPPPPPPPPV...",
+  "...VVVVVVVVVVVVVVVVVPPPPPPPPPV...",
+  "...................VPPPPPPPPPV...",
+  "...................VPPPPPPPPPV...",
+  "...................VVPPPVPPPVV...",
+  "...................VVVVVVVVVVV...",
+  "....................VV..VV..VV...",
+  "....................V...V...VV..."
+ ]
+}

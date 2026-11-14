@@ -1,0 +1,107 @@
+{
+ "code": "P0089",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Хрустальный шар с замком",
+ "theme": "batch-0061",
+ "family": "Магические предметы",
+ "direction": "Миры внутри предметов",
+ "subject": "хрустальный шар на резной подставке с крошечным замком внутри",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 40,
+ "N": 882,
+ "colours": 8,
+ "volumes": {
+  "S": {
+   "cells": 270,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "P": {
+   "cells": 158,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "A": {
+   "cells": 132,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "G": {
+   "cells": 85,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "V": {
+   "cells": 81,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "B": {
+   "cells": 72,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "Y": {
+   "cells": 56,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 28,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "..........BBBBBBBBBB..........",
+  ".......BBBSSSSSSSSSSBBB.......",
+  "......BBSSCCSSSVYYSSSSBB......",
+  ".....BSSCCCCSSSVSSSSSSSSB.....",
+  "....BSSCCCSSSSSVSSSSSSSSSB....",
+  "...BSCCCCSSSSSVVSSSSSSSSSSB...",
+  "..BSSCCSSSSSSVVVVSSSSSSSSSSB..",
+  ".BBSCCSSSSSSSVVVVSSSSSSSSSSBB.",
+  ".BSCCCSSVSSSVVVVVVSSSVSSSSSSB.",
+  ".BSCCSSSVVSVVVVVVVVSVVSSSSSSB.",
+  "BSCCSSSVVVSVVVVVVVVSVVVSSSSSSB",
+  "BSCCSSSVVVVSPPPPPPSVVVVSSSSSSB",
+  "BSCCSSVVVVVSPPPPPPSVVVVVSSSSSB",
+  "BSSSSSPPPPPSPPVVPPSPPPPSSSSSSB",
+  "BSSSSSPPPPPSPPVVPPSPPPPSSSSSSB",
+  "BSSSSSPPVPPSPPPPPPSPPVPSSSSSSB",
+  "BSSSSSPPVPPSPPPPPPSPPVPSSSSSSB",
+  "BSSSSSPPPPPPPPPPPPPPPPPSSSSSSB",
+  "BSSSSSPPPPPPPPPPPPPPPPPSSSSSSB",
+  "BSSSSSPPPPPPPPVVPPPPPPPSSSSSSB",
+  ".BSSSSPPPPPPPPVVPPPPPPPSSSSSB.",
+  ".BSSSSPPPPPPPPVVPPPPPPPSSSSSB.",
+  ".BBSSGPPPPPPPPVVPPPPPPPGGSSBB.",
+  "..BSGGGGGGGGGGGGGGGGGGGGGGSB..",
+  "...BGGGGGGGGGGGGGGGGGGGGGGB...",
+  "....BGGGGGGGGGGGGGGGGGGGGB....",
+  ".....BGGGGGGGGGGGGGGGGGGB.....",
+  "......YYYYYYYYYYYYYYYYYY......",
+  "......AAAAAAAAAAAAAAAAAA......",
+  ".......AAAAAAAAAAAAAAAA.......",
+  "........AAAAAAAAAAAAAA........",
+  "........AAAAAAAAAAAAAA........",
+  "............YYYYYY............",
+  "............YYYYYY............",
+  "............YYYYYY............",
+  "........AAAAAAAAAAAAAA........",
+  ".......AAAAAAAAAAAAAAAA.......",
+  "......YYYYYYYYYYYYYYYYYY......",
+  ".....AAAAAAAAAAAAAAAAAAAA.....",
+  ".....AAAAAAAAAAAAAAAAAAAA....."
+ ]
+}

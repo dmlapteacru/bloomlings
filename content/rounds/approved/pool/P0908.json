@@ -1,0 +1,105 @@
+{
+ "code": "P0908",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Тостер для осенних листьев",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Посуда и кухонные вещи",
+ "direction": "Домашняя магия",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Округлый кремовый тостер выпускает два крупных золотисто-красных кленовых листа вместо хлеба, широкая синяя ручка и розовые кнопки, без проводов и надписей",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 40,
+ "h": 44,
+ "N": 1388,
+ "colours": 7,
+ "volumes": {
+  "C": {
+   "cells": 670,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 287,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "R": {
+   "cells": 187,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "N": {
+   "cells": 111,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 61,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 59,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "K": {
+   "cells": 13,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "................................R.......",
+  "........O......................RRE......",
+  "........OOO........OO......RR.RRRE......",
+  "........OOOOOO...COOO......RRRRRRE......",
+  "........OOOOOOO.OOOOOC...RRRRRRRRE......",
+  ".......OOOOOOOOCOOOEEER.ERRRRRRRRE......",
+  "......RROOOOOOOOOOOERRR.ERRRRRRRRRR.....",
+  "......ROOOOOOOOOOOOERRREERRRRRRRRRR.....",
+  ".......OOOOOOOOOOOOERRRRERRORRRRRRR.....",
+  ".......OOOOOOOOOOOORRRRRRROOOOORRR......",
+  ".......COOOOOOOOOOORRRRRRROOOOORRRRR....",
+  "...OOOOOOOOOOOOOOOORRROOOOOOOOORRRRREEE.",
+  ".OOOOOOOOOOOOOOOORRRRRROOOOOOORRRRRRRRRR",
+  "..OOOOOOOOOOOOOOORRRRROOOOOOOOOORRRRRRR.",
+  "...OOOOOOOOOOOOOOORRROOOOOOOOOOOORRRRR..",
+  "...OOOOOOOOOOOOOOOORRROOOOOOOOOORRRRR...",
+  "....OOOOOOOOOOOOOOOERROOOOOOOOOOOOORR...",
+  "...OOOOOOOOOOEEEEEEERRREOOOOOOOOOORRR...",
+  "....EEOCCCCCCCCCCCCCCEEEOEEEEOOOOECC....",
+  "....ECCCCCCCCCCCEEECCCCCCDDEECCEEECC....",
+  "...CCCCCCCCCCCCCCCCCCCCCCCDDECCCCCCCC...",
+  "..CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC..",
+  "..CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCDDC..",
+  ".CCCCCCCCCCCCCCCCCCCCCCC.CCCCCCNNNNNNNN.",
+  ".CCCCCCCCCCCCCCCCCCCCCCCCCCCCCNNNNNNNNN.",
+  ".CCCCCCCCCCCCCCCCCCCCCCCCCCCCCNNNNNNNNN.",
+  ".CCCCCCCCCCCCCCCCCCCCCCCCCCCCCDNNNNNNND.",
+  ".CCCCCCCCCCCCCCCCCCCCRRCCCCCCCCCDDDDCCCE",
+  "ECCCCCCCCCCCCCCCCCCCRRRRCCCCCCCCCDDDCCCE",
+  "ECCCCCCCCCCCCCCCCCCCRRRRCCCCCCCCCDDDCCCE",
+  "ECCCCCCCCCCCCCCCCCCCRRRCCCCCCCCCCDDNCCCC",
+  "ECCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCDDNCCCC",
+  "ECCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCDDNCCCC",
+  "ECCCCCCCCCCCCCCCCCCCCRRCCCCCCCCCCDDNCCCD",
+  "ECCCCCCCCCCCCCCCCCCCRRRRCCCCCCCCCDDNCCCC",
+  "ECCCCCCCCCCCCCCCCCCCRRRRCCCCCCCCCDDCCCCC",
+  ".NNCCCCCCCCCCCCCCCCCRRRRCCCCCCCCCCCCCCCD",
+  ".DNNNNNCCCCCCCCCCCCCRRRCCCCCCCCCCCCCCCCD",
+  "..DNNNNNNNNNCCCCCCCCCCCCCCCCCCCCCCCCNNN.",
+  ".NNNDDDKKDDDNNNNNNCCCCCCCCCCCCCCNNNNNDD.",
+  "......CKKKKKDDDNNNNNNNNNNNNNNNNNNNNNNDDC",
+  "...........CCCCCCDDDDNNNNNNNNNDKKKDDDD..",
+  "..............C.CCCCCDDNNNNDCCKKK.......",
+  "......................DNNNNN............"
+ ]
+}

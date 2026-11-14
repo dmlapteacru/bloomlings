@@ -1,0 +1,112 @@
+{
+ "code": "P0436",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Гарфилд — лазанья",
+ "theme": "Новые герои мультфильмов",
+ "family": "Блюда и напитки",
+ "direction": "Театр эмоций",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Гарфилд обнимает лазанью; широкая оранжевая голова; полуприкрытые глаза; полосатый хвост и большая форма",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Garfield",
+  "url": "https://en.wikipedia.org/wiki/Garfield_(character)",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 39,
+ "h": 41,
+ "N": 1244,
+ "colours": 8,
+ "volumes": {
+  "O": {
+   "cells": 512,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 255,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 147,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "B": {
+   "cells": 118,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "E": {
+   "cells": 114,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "R": {
+   "cells": 41,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 35,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 22,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................................E.....",
+  ".....E.........................EEEE....",
+  "....EEEE.....................EEOOOE....",
+  "....EEOOOO.................EEEOOOOE....",
+  "....EEOOOOOO.............EEEOOOOOOE....",
+  "....EEOOOOOOOO.EDDEEEEEEEEOOOOOOOOE....",
+  "....EEOOOOOOOOEEDDOOOOOOODDOOOOOOOE....",
+  "....EEOOODDOOOOODDOOOOOOODDOOOOOOOE....",
+  "....EEOOODDOOOOODDOOOOOODDOOOOOOOOE....",
+  "....EEOOOODDOOOODDOOOOOODDOOOOOOOOE....",
+  "....EEOOOOODDOOOODOOOOOODOOOOOOOOOEE...",
+  "....EOOOOOODOOOOOOOOOOOOOOOOOOOOOOOE...",
+  "....EOOOOOOOOOOOOOOOOOOOOOOOOOOOOOOE...",
+  "....EOOOOOODDDDDDDDDODDDDDDDDDDOOOOE...",
+  "....EOOOOODDDDDDDDDDODDDDDDDDDDOOOOOE..",
+  "...EOOOOOOOCCDDDDCCOOOCCDDDDCCOOOOOOE..",
+  "...EOOOOOOOCCDDDDCCOOOCCDDDDCCOOOOOOE..",
+  "...EOOOOOOOCCDDDDCCOOOCCDDDDCCOOODDDE..",
+  "...EOODDDOOOCCDDDCCDDDCCDDDCCOODDDDDE..",
+  "....EOODDDDOOCYYYYDDDDDYYYYCCODDDDOOE..",
+  "....EOOOOOOOYYYYYYYDDDYYYYYYYOOOOOOOE..",
+  "....EOOOOOOOYYYYYYYYYYYYYYYYYOOOOOOO...",
+  ".....OOOOOOOYYYYDYYYYYYYDYYYYOOOOOOO...",
+  "......EOOOOOOYYYDDDDDDDDDYYYOOOOOOE....",
+  "......EEOOOOOOOOODDDDDDDOOOOOOOOOEE....",
+  ".....OOOOOOOOOOOOOOOOOOOOOOOOOOOOOOO...",
+  ".....OOOOOEEEEOOOOOOOOOOOOOEEEEOOOOO...",
+  "...DDDDDOOOOOEEEEEEEEEEEEEEEOOOOOODDDD.",
+  "..DDOOODDDDDDDDDDDDDDDDDDDDDDDDDDDOOODD",
+  "..DOOOOODBBBBBBBBBBBBBGGGBBBBBBBDOOOOOD",
+  "..DOOOOODYYYYYYYYYYYGGGGGGYYYYYYDOOOOOD",
+  ".ODOOOOODYYYYYYYYYYYGGGGGYYYYYYYDOOOOOD",
+  ".OODDODDRRRRRRRRRRRRGGGGGRRRRRRRRDDOOO.",
+  "OOOODDDBYYYYYYYYYYYYGGGYYYYYYYYYYYDDD..",
+  "OOODDDBBYYYYYYYYYYYYYYYYYYYYYYYYYBBBD..",
+  "OOOODDBBYYRRRRRRRRRRRRRRRRRRRRRYYBBBD..",
+  "OOOODDBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBD..",
+  "OOOOODBBBBBBBBBBBBBBBBBBBBBBBBBBBBBDD..",
+  ".OOOODDBBBBBBBBBBBBBBBBBBBBBBBBBBBBD...",
+  ".OOOOODDDDDDDDDDDDDDDDDDDDDDDDDDDDD....",
+  "..OOOOOOOOOOOO..EEEEEEEEE.............."
+ ]
+}

@@ -1,0 +1,105 @@
+{
+ "code": "P0294",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Айсберг в вафельном рожке",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Десерты и сладости",
+ "direction": "Кулинарная фантастика",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Вместо мороженого в рожке айсберг; острые снежные вершины; голубая ледяная грань; вафельная сетка",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 41,
+ "h": 42,
+ "N": 828,
+ "colours": 7,
+ "volumes": {
+  "S": {
+   "cells": 277,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "B": {
+   "cells": 149,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "C": {
+   "cells": 144,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 111,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 68,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 59,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 20,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "......................N..................",
+  ".....................NNN.................",
+  "....................NNCN.................",
+  "....................NCCNN................",
+  "...................NCCCCCN...............",
+  "..................NNCCCCCNN..............",
+  "..................NCCCCCCSN..............",
+  ".................NNCCCCCCSSN.............",
+  "........NN.......NCCCCCCCCSNN............",
+  ".......NNCC.....CCCCCCCCCCSSN.....NN.....",
+  ".......NCCCC....CCCCCSBBCCSSSN.NNNBNN....",
+  "......NNCCCCC..NCCCCSSBBBBBSSNNNBBBSN....",
+  "......NCCCCCCNNNCCCCSSBBBBBBBBBBBBBSN....",
+  ".....CCCCCCCCCNCCCCSSSBBBBBBBBBBBBSSSN...",
+  ".....CCCCCCCCCCCCCCSSSBBBBBBBBBBBBSSSN...",
+  "....NCCCCCCCCCCCCCSSSSBBBBBBBBBBBBSSSNN..",
+  "...NNCCCCCCCCCCCCCSSSSBBBBBBBBBBBSSSSSN..",
+  "...NSCCCSSSCCCCCCSSSSSBBBBBBBBBBBSSSSSN..",
+  "..NNSCCSSSSSSCCCSSSSSSBBBBBBBBBBBSSSSSSN.",
+  "..NSSCSSSSSSSSSCSSSSSSBBBBBBBBBBSSSSSSSN.",
+  ".NSSSSSSSSSSSSSSSSSSSSBBBBBBBBBBSSSSSSSN.",
+  "NNSSSSSSSSSSSSSSSSSSSSBBBBBBBBBBSSSSSSSSN",
+  "NNSSSSSSSSSSSSSSSSSSSSBBBBBBBBBSSSSSSSSNN",
+  "..SSSSSSSSSSSSSSSSSSSSBBBBBBBBSSSSSSSSS..",
+  "....NNNSSSSSSSSSSSSSSSBBBBBBSSSSSSSSS....",
+  "......NNNSSSSSSSSSSSSSBBBSSSSSSSNNN......",
+  "........NNNSSSSSSSSSSSNSSSSSSSNNN........",
+  "..........NNNNNNNNNNNNNNNNNNNN...........",
+  "...........YYYAAAAAAYYYYYAAAAA...........",
+  "...........YYYYAAAAAYYYYYAAAA............",
+  "............YYAAAAAAAAYYAAAE.............",
+  "............AAAAYYYAAAAAAAEE.............",
+  ".............AAYYYYYYAAAAAE..............",
+  "..............YYYYYYYAAAAE...............",
+  "...............YYYYYAAAYEE...............",
+  "...............YYYYAAAYYE................",
+  "................AAAAAYYE.................",
+  ".................AAYYYEE.................",
+  ".................AAYYYE..................",
+  "..................EYYE...................",
+  "..................EEEE...................",
+  "...................EE...................."
+ ]
+}

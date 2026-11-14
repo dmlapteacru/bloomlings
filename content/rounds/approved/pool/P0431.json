@@ -1,0 +1,113 @@
+{
+ "code": "P0431",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Салли — за дверью",
+ "theme": "Новые версии знакомых героев",
+ "family": "Волшебные существа",
+ "direction": "Театр эмоций",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Салли выглядывает из двери; широкая голубая голова с двумя рожками; фиолетовые пятна; большой корпус и лапа на косяке",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Monsters, Inc.",
+  "url": "https://en.wikipedia.org/wiki/James_P._Sullivan",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 34,
+ "h": 37,
+ "N": 1256,
+ "colours": 9,
+ "volumes": {
+  "B": {
+   "cells": 392,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "Y": {
+   "cells": 237,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 183,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "P": {
+   "cells": 143,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "D": {
+   "cells": 100,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "V": {
+   "cells": 84,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "S": {
+   "cells": 69,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 42,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 6,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE",
+  "EYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYYE",
+  "EYYYYYYYYYYYYYYYYYYYYYYYYYYYDDYYYE",
+  "EYYYYYDDYYYYYYYYYYYYYYYYYYYBBDYYYE",
+  "EYEEEEDCCCVVVVVVVVVVVVVVVDDBBDYYYE",
+  "EYEPPPPCCCCVVVDDDDDDDDVVDDBBCDYYYE",
+  "EYEPPPPPPCCDDDDBBBBBBBBBBBBBCDYYYE",
+  "EYEPPPPPPECCDBBBBBBBBBBBBBBCCDYYYE",
+  "EYEPPPPPPEEVVVBBBBBBBBBBBBBCCCYYYE",
+  "EYEPPPPPPEVVVVBBBBBBBBBBBBBBBYYYYE",
+  "EYEPPPPPPEBVVVBBBBBBBBBBBBBBBYYYYE",
+  "EYEPPPPPPEBBBCCCBBBBBBCCCBBBBYYYYE",
+  "EYEPPPPPPEBBCCDCBBBBBBCDCCBBBYYYYE",
+  "EYEPPPPPPEBBCCDDBBBBBBDDCCBBBDYYYE",
+  "EYEPPPPPPEBBCCDBBBBBBBDDCCBBBDYYYE",
+  "EYEPPPPPPEBBBCCBBBBBBBBCCBBBBDYYYE",
+  "EYEPPPPPPEBBBBBBBVVVBBBBBBBBBDYYYE",
+  "EYEPPPPPPEBBBBBBVVVVVVBBBBBBBDYYYE",
+  "EYEPPYYPPEBBBBBBVVVVVVBBBBBBBDYYYE",
+  "EYEPPYYDDDDBBBBBDDDDDDBBBBBBBDYYYE",
+  "EYEPPDDBBBDDBBBDDDDDDDBBBBBBDDYYYE",
+  "EYEPPDBBBBBDBBBDDRRRRBBBBBBBDDYYYE",
+  "EYEPPBBBBBBBDBBBBBRRBBBBBBBBBBDYYE",
+  "EYEPPBBBBBBDDBBBBBBBBBBBBVVVBBDYYE",
+  "EYEPPBBBBBBDDDDDBBBBBDDDVVVVVBDYYE",
+  "EYEPPPPPBBBSSSSSDDDDDBBBVVVVVBDYYE",
+  "EYEPPPPPPESSSSSSSSSSBBBBVVVVVBDYYE",
+  "EYEPPPPPPESSSSSSSSSSBBBBVVVVVBDYYE",
+  "EYEPPPPPPESSSSSSSSSSBBBBBBBBBBDYYE",
+  "EYEPPPPPPEBSSSSSSSSSBBVBBBBBBBDYYE",
+  "EYEPPPPPPEBSSSSSSSSBVVVVVBBBBBDYYE",
+  "EYEPPPPPPEBBSSSSSSSBVVVVVVBBBYYYYE",
+  "EYEPPPPPPEBBSSSSSSBBBVVVVBBBBYYYYE",
+  "EYEEEPPPPEBBBSSSSBBBBBBBBBBBYYYYYE",
+  "EYYYYEEEEEDBBBBBBBBBBBBBBBBYYYYYYE",
+  "EYYYYYYYYYDDBBBBBBBBBBBBBBBYYYYYYE",
+  ".EEEEEEEEEEEBBBBBBBBBBBBBBEEEEEEEE"
+ ]
+}

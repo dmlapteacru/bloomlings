@@ -1,0 +1,113 @@
+{
+ "code": "P0834",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Сад в скорлупе фисташки",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Деревья, листья и плоды",
+ "direction": "Миры внутри предметов",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Раскрытая большая фисташковая скорлупа хранит зелёный террасный сад и маленькую розовую беседку, чёткий разрез скорлупы отделяет сад от пустого фона",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 42,
+ "h": 42,
+ "N": 1298,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 591,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 207,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 157,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "O": {
+   "cells": 93,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "L": {
+   "cells": 86,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "A": {
+   "cells": 68,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 39,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "P": {
+   "cells": 32,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "D": {
+   "cells": 25,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "........................AAAAAA............",
+  "....................AAACCCCCCCCCC.........",
+  ".................CCCCCCCCCCCCCCCC.........",
+  "...............CCCCCCCCCCCCCMMGGEE........",
+  ".............CCCCCCCCCCCCCGGMGGGEE........",
+  "............CCCCCCCCCCCMMGGGGGGGCE........",
+  "..........CCCCCCCCCCCCMMMGGGGGGGAE........",
+  ".........CCCCCCCCCCCCMMGGGGGCCGGAE........",
+  "........CCCCCCCCCCCCGMMGGGGGCCGAA.........",
+  ".......CCCCCCCCCCCMMGGGGGGGPPPPAA.........",
+  "......CCCCCCCCCCCMMMGGGGGPCPPPPPP.........",
+  ".....CCCCCCCCCCCMMMGGGGGPPCCPPPPPP........",
+  "....CCCCCCCCCCCMMMGGGGGGCCPPPPPPCCC.D.....",
+  "....CCCCCCCCCCCMMGGGGGGDCCPPPPPPPCCMM.....",
+  "...CCCCCCCCCCGMMGGGGGMDDCEECCCCCCC.MMD....",
+  "...CCCCCCCCCCGGGGGGMGMMDCEECCCCMMCDMMM....",
+  "..CCCCCCCCCCGGGGGGMMGMMMCEECEECMCCMMMMD...",
+  "..CCCCCCCCCGGGGMGGGMMMDDCEECEECCCCDMMMD...",
+  ".CCCCCCCCCMMGGGMMGMMMDDCCCCCCCCCCCLLMDCC..",
+  ".CCCCCCCCCMMMGMMMMLMCCCCCCCCCCLLLLMLLLCCC.",
+  ".CCCCCCCCGGGMDMLLLLLCCCCCCLLLLLLLMMMLLLCC.",
+  "ECCCCCCCGGMMMMDLLLLLLLCCCCCMMGGGGMMMMMMCCE",
+  "ECCCCCCCGGMMMMDMGGGGLCCCCCCMMMGGMMMMMMCCCE",
+  "ECCCCCMMGMMMMMMMMGMMMCCCCCLLCLLLLLMMDCCCCE",
+  "ECCCCCMMMMMLCLMMDMMMMCCCLLLLLLLLLLLCCCCOCE",
+  "ECCCCCMLLLLLCLLMDDMMCCCGGGMMLMGGGGCCCCCOCE",
+  "EAACCCLLLLLLLLLLLLMCCCCGGMMMMMMMMCCCCCCOO.",
+  "EAACMMMMMMGGMMMLLLCCCCGGGMMMMMMCCCCCCCOOO.",
+  ".AACMMMMMMMGMMMMMCCCCMGGMMMMDCCCCCCCCCOOO.",
+  ".AACMMMDMMMMMMMMCCCCCMGMMMMCCCCCCCCCCCOOO.",
+  ".CCCMMMDCGGLCLLCCCAAAMMMMCCCCCCCCCCCCCOO..",
+  "..CCMMGGGGGLLLLLLLCCAMCCCCCCCCCCCCCCCOOO..",
+  "..CCMMGGGCCGGGGGGGCCCCCCCCCCCCCCCCCCCOO...",
+  "...CCCCCGGGGGGGCCCCCCCCCCCCCCCCCCCCOOOO...",
+  "...CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCOOOOO....",
+  ".....AAAACCCOOOCCCCCCCCCCCCCCCCOOOOCC.....",
+  "......AAAOOOOOOCCCCCCCCCCCCCCCOOOOOO......",
+  ".......AAAOOOOOOOCCCCCOOCCCCCOOOOOO.......",
+  ".........AAAAOOOOOOOCOOOAAAOOOOOOO........",
+  "...........AAAAAOOOOAAAAAOOOOOOO..........",
+  "..............AAAAAAAAAAAAAAOO............",
+  ".................CEEEEEEEE................"
+ ]
+}

@@ -1,0 +1,112 @@
+{
+ "code": "P0900",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Ластик стирает зиму",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Рисование и ремёсла",
+ "direction": "Домашняя магия",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Большой розово-синий ластик проходит по компактному бело-кремовому снежному холму, за ним открываются зелёная трава и один крупный красный цветок",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 42,
+ "h": 41,
+ "N": 1395,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 355,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 256,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "G": {
+   "cells": 226,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "S": {
+   "cells": 182,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "M": {
+   "cells": 114,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "B": {
+   "cells": 103,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "R": {
+   "cells": 72,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "N": {
+   "cells": 71,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 16,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........................NNNNNN.........",
+  ".........................BBBBBBBBBBB......",
+  "........................BBBBBBBBBBBBB.....",
+  ".......................BBBBBBBBBBBBBBN....",
+  "......................BBBBBBBBBBBBBBNN....",
+  ".....................BBBBBBBBBBBBBBNNN....",
+  "....................BBBBBBBBBBBBBBNNNN....",
+  "..................PPBBBBBBBBBBBBBNNNNN....",
+  ".................PPPPPPPBBBBBBBNNNNNNN....",
+  "................PPPPPPPPPPPBBBNNNNNNNN....",
+  "...............PPPPPPPPPPPPPPPNNNNNNNN....",
+  "...SS.........PPPPPPPPPPPPPPPPNNNNNNN.....",
+  ".SSSSSSS.....PPPPPPPPPPPPPPPPPNNNNNNSSSSSS",
+  "SSSCCCSSSSSSPPPPPPPPPPPPPPPPPPNNNNNSSSSCCS",
+  "SSCCCCCCCCSPPPPPPPPPPPPPPPPPPPNNNNSSSSSCCC",
+  "CCCCCCCCCPPPPPPPPPPPPPPPPPPPPPNNNSSMSSSSSC",
+  "CCCCCCCCCPPPPPPPPPPPPPPPPPPPPPNNMMMMSMMSSS",
+  "CCCCCCSSPPPPPPCCCPPPPPPPPPPPPPDMMMMMMMMMSS",
+  "CCCCSSSSPPPPPPPPPPPPPPPPPPPPPMMMMMMMGGMGGG",
+  "CCCCCCSSPPPPPPPPPPPPPPPPPPPPMMMMMRRRGGGGGG",
+  "CCCCSSCCPPPPPPPPPPPPPPPPPPPMMMMMRRRRRGGGGG",
+  "CCCSSCCCCPPPPPPPPPPPPPCCSPMMRRRRRRRRRRRGGG",
+  "SSSSSCCCCCCCPPPPPPPPPPCSSDMMRRRRRGGRRRRRGG",
+  "SSSSSSCCCCCCCCCCPPPPC.SSSMMMRRRRGGGRRRRRGG",
+  "CSSCSSSSCCCCCCCCCPPSSSMMMMGGGRRRRRRRRRRGGG",
+  "CCCCCCCCCCCCCCCCCCSDSMMMGGGGGRRRRRRRRRGGGG",
+  "CCCCCCCCCCCCCCCCSSSGGGGGGGGGGRRRRRRRRRGGGG",
+  "CCCCCCCCCCCCCCCSSSSGGGGGGGGGGRRRGDRRRGGGGG",
+  "CCCCCCCCCCCCSCCSSSGGGGGGGGGGGGGGGDDGGGMDGG",
+  "CCCCCCCCSSSSSSSSGGGGGGGGGGGGGGMMGGMGMMMMDG",
+  "CCCCCCCCCCSSSSSGGGGGGGGMGGMGGGMMMDMDMMMMDG",
+  "CCCCCCCCCCCSMMGGGSCCSGGMMMMMGGMMMDMMMMMDGG",
+  "CCCCCCCCCCCSSMGGGSSSSGGMMMMMCCCMMMDDMMMMGG",
+  "CCSSSCCCCCCCCCCCGSMMGGGGMMMSCCCCSMDMMMMMGG",
+  "SSCCSSSCCCCCCCCCCCCMGGGMMMSSCCSSSCCMMMGGGG",
+  "SCCCCCSSSSCCCCCCCCCCGGGGGMSSSSSSSCCMGGGGGG",
+  ".CCCCCCCCCCCCCCCCCCCCSGGGGGSSSSSSSSGGGGGGG",
+  ".CCCCCCCCCCCCCCCSCCCSSSGGGGGGGGGGGGGGGGGG.",
+  ".CCSCCCCCCCCCCSSSSSCCCCCCCCGGGGGGGGGGGGGG.",
+  "..SSSSCCCCCCCCCCCCCCCCCCCCCCCGGGGGGGGGGG..",
+  "....SSSSS..CCCCCCCCCSSSCCCCCC..GGG.GG....."
+ ]
+}

@@ -1,0 +1,80 @@
+{
+ "code": "P0293",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Персик с замочной скважиной",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Фрукты и ягоды",
+ "direction": "Уютная мистика",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Персик скрывает дверь с замочной скважиной; два округлых бока; крупная тёмная скважина; зелёный лист",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 21,
+ "h": 23,
+ "N": 354,
+ "colours": 6,
+ "volumes": {
+  "P": {
+   "cells": 176,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "O": {
+   "cells": 72,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "G": {
+   "cells": 43,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "E": {
+   "cells": 41,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 15,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 7,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............GGGG....",
+  "...........GGGGGGG...",
+  "..........GGGGGGG....",
+  "..........GGGGGGG....",
+  "....EEEE..GGGGGGG....",
+  "..PPPPPPPGGGGGGGPPP..",
+  "..PPPPOOOOGGGGPPPPPP.",
+  ".PPPOOOOOOPPPPPPPPPP.",
+  "PPPOOOOOOOPPPPPPPPPPP",
+  "PPOOOOOOOOPPPPPPPPPPP",
+  "PPOCOOOOOOPPPPPPPPPPP",
+  "PPOCOOOOOEEEEPPPPPPPP",
+  "PPOCOOOOYEEEEPPPPPPPP",
+  "PPOCOOOOYEEEEEPPPPPPP",
+  "PPOCOOOOYEEEEYPPPPPPP",
+  "PPPCCOOOOEEEEYPPPPPPP",
+  "PPPOOOOOOEEEEYPPPPPP.",
+  ".PPPOOOOYEEEEYPPPPPP.",
+  "..PPPOOOYEEEEEPPPPP..",
+  "...PPPOOYYYYYYPPPP...",
+  "....PPPPPPPPPPPPP....",
+  "......PPPPPPPPP......",
+  ".........EEE........."
+ ]
+}

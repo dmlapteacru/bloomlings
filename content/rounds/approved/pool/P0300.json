@@ -1,0 +1,111 @@
+{
+ "code": "P0300",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Фен надувает облачный шар",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Свет и домашний декор",
+ "direction": "Домашняя магия",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Фен надувает облако как воздушный шар; корпус с соплом; облачный пузырь; нить от горловины",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 40,
+ "h": 38,
+ "N": 660,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 205,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 163,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "B": {
+   "cells": 61,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 59,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "V": {
+   "cells": 43,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "Y": {
+   "cells": 40,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 38,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 28,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "S": {
+   "cells": 23,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "........................BBBBBB..........",
+  ".....................BBBCCCCCBBB........",
+  "....................BBCCCCCCCCCCC.......",
+  "...................BBCCCCCCCCCCCCC......",
+  ".................BBBCCCCCCCCCCCCCCBBB...",
+  "...............BBCCCCCCCCCCCCCCCCCCCBB..",
+  "..............BBCCCCCCCCCCCCCCCCCCCCCCB.",
+  "..............BCCCCCCCCCCCCCCCCCCCCCCCBB",
+  "..............BCCCCCCCCCCCCCCCCCCCCCCCCB",
+  "..............BCCCCCCCCCCCCCCCCCCCCCCCBB",
+  "..............BBCCCCCCCCCCCCCCCCCCCCCCB.",
+  "...............BBCCCCCCCCCCCCCCCCCCCCC..",
+  ".................BBBBBBBBBBBBBBBBBBB....",
+  "........................................",
+  ".......................CCCCC............",
+  ".......................SSCCC............",
+  ".......................SSAA.............",
+  ".NNNNNNNNNNNNNNNNNN...SS.AAA............",
+  "NPPPPPPPPPPPPPPPPPNYYSS...ASAA..........",
+  "NPPPPPPPPPPPPPPPPYYYSS....SSSAA.........",
+  "NPPVVVVVVVVPPPPPPYYYYY...SSS.AAA........",
+  "NPVVVVVVVVVPPPPPPYYYYY.SSS....AA........",
+  "NPVVVVVVVVVPPPPPPYYYYYSSS......AA.......",
+  "NPVVVVVVVVVPPPPPPYYYYY.........AA.......",
+  "NPPVVVVVVVVPPPPPPYYYYY..........AA......",
+  "NPPPPPPPPPPPPPPPPYYYYY..........AA......",
+  ".NNPPPPPPPPPPPPPPPYYYY..........AA......",
+  "..NNPPPPPPPPPPPPPPN..Y..........AA......",
+  "...NPPPPPPNNNNNNNNN.............AA......",
+  "...NPPPPPPPN...................AA.......",
+  "...NPPPPPPPN...................AA.......",
+  "....NPPPPPPN..................AAA.......",
+  "....NPPPPPPNN.................AA........",
+  "....NPPPPPPPN.....EE....................",
+  "....NPPPPPPPN....EEE....................",
+  ".....NPPEEEEEEEEEEE.....................",
+  ".....NNNEEEEEEEEEE......................",
+  ".............EE........................."
+ ]
+}

@@ -1,0 +1,99 @@
+{
+ "code": "P0242",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Гриб поёт в караоке",
+ "theme": "Смешные и абсурдные герои",
+ "family": "Грибы и лесные находки",
+ "direction": "Театр эмоций",
+ "subject": "красный гриб в белых пятнах поёт в микрофон на сцене под прожектором",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 32,
+ "N": 960,
+ "colours": 8,
+ "volumes": {
+  "V": {
+   "cells": 365,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "R": {
+   "cells": 143,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "N": {
+   "cells": 133,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 128,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 89,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 63,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "D": {
+   "cells": 30,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "P": {
+   "cells": 9,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "VVVVVVVVVYYYYYYYYYYYYVVVVVVVVV",
+  "VVVVVVVVYYYYYYYYYYYYYYVVVVVVVV",
+  "VVVVVVVYYYYYYYYYYYYYYYYVVVVVVV",
+  "VVVVVVYYYYEEEEEEEEEEYYYYVVVVVV",
+  "VVVVVVYYYYRRRRRRCCRRRRYYVVVVVV",
+  "VVVVVRRRRRRRRRRRCCRRRRRRVVVVVV",
+  "VVVVVRRRRCCRRRRRCCRRRRRRVVVVVV",
+  "VVVVVRRRCCCCRRRRRRRRRRRRVVVVVV",
+  "VVVVRRRRCCCCRRRRRRRRCCRRRVVVVV",
+  "VVVVRRRRRCCRRRRRRRRCCCCRRVVVVV",
+  "VVVERRRRRRRRRCCRRRRCCCCRRREVVV",
+  "VVVERRRRRRRRRCCRRRRRCCRRRREVVV",
+  "VVVERRRRRRRRRRRRRRRRRRRRRREVVV",
+  "VVVEEEEEEEEEEEEEEEEEEEEEEEEVVV",
+  "VVVVVVYYYEECCCCCCCCEEYYYVVVVVV",
+  "VVVVVVVYYECCCCCCCCCCEYYVVVVVVV",
+  "VVVVVVVVYECDDDCCCDDDEYVVVVVVVV",
+  "VVVVVVVVVECDCDCCCDCDEVVVVVVVVV",
+  "VVVVVVVVVECCCCCCCCCCEVVVVVVVVV",
+  "VVVVVVVVVENNNNDDDCCCEVVVVVVVVV",
+  "VVVVVVVVVENNNNDDDDCCEVVVVVVVVV",
+  "VVVVVVVVVENNNNDDDDCCEVVVVVVVVV",
+  "VVVVVVVVVCCCNNPPPDCCEVVVVVVVVV",
+  "VVVVVVVVVCCCCCPPPDCCEVVVVVVVVV",
+  "VVVVVVVVVCCCCCPPPCCCEVVVVVVVVV",
+  "VVVVVVVVDDCCCCCCCCCCEVVVVVVVVV",
+  "VVVVVVVDDDCCCCCCCCCCEYVVVVVVVV",
+  "NNNNNNNDDYCCCCCCCCCYYYYYNNNNNN",
+  "NNNNNNNNYYYYYYYYYYYYYYNNNNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNN"
+ ]
+}

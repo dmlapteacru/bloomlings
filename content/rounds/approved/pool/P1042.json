@@ -1,0 +1,104 @@
+{
+ "code": "P1042",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Кратос",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "God of War · Santa Monica Studio: Kratos from God of War: adult bald pale warrior with a thick dark beard and broad RED tattoo stripe crossing his scalp and one eye, brown leather shoulder strap, stern face; one wide blue-gray Leviathan axe head beside his shoulder. Head-and-torso portrait with huge readable face, no fighting, blood or wounds.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 37,
+ "h": 37,
+ "N": 1080,
+ "colours": 8,
+ "volumes": {
+  "D": {
+   "cells": 474,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 216,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 215,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "R": {
+   "cells": 83,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "K": {
+   "cells": 35,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "A": {
+   "cells": 34,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "S": {
+   "cells": 16,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "B": {
+   "cells": 7,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............CCCCCCCCRRR.............",
+  "............CCCCCCCCCRRRR............",
+  "...........CCCCCCCCCCRRRC............",
+  "...........CCCCCCCCCCRRRCC...........",
+  "...........CCCCCCCCCCRRCCC...........",
+  "..........EKCCCCCCCCRRRCCC...........",
+  ".........EEKCCCCCCCCRRRCCC...........",
+  ".........ECKCCDDCCCCRRRCCC...........",
+  "........KEEDCCDDDCCCCRRDDDE..........",
+  "........KKEDCCDDDDDCCRDDDDE..........",
+  "........KKDDCCCCDDDCCDDDDDE.DD.......",
+  ".........DDDCCCCCCCCCCRRCDD.DDD......",
+  ".........DDDDCCCCCCCCCRRDD.DBBDDD....",
+  ".........DDDDDCCCCCCCCCRDD.DBDDDDDDD.",
+  "...DEED.DDDDDDCDDDDDDDCRDDSSSDDDDDDDD",
+  ".DEEEEEDDDDDDDDDDDDDDDDDDDDSSDDDDDDDD",
+  "EEEEEEEEDDDDDDDDDDCDDDDDDDDSSDDDDDDSS",
+  "EEEEEEEEAADDDDDDDDDDDDDDDD.SDDDDDDDDS",
+  "EEEEEEEEEAADDDDDDDDDDDDDDD.SD...DDDDD",
+  "EEEEEEEEEEADDDDDDDDDDDDDDKDDD...DDDDD",
+  "EEEEEEEEEEEDDDDDDDDDDDDDDKRRRR.DDDDDD",
+  ".EAEEEEEEEEEADDDDDDDDDDDKKRRRKKDDDDDD",
+  "AAAEEEEEEEEDAADDDDDDDDDDKKRRRCKDDDDDD",
+  "DEAAEEEEEEDDDDDDDDDDDDDKKRRRCCDDDDDDD",
+  ".EDAAEEEEDDDDDEEDDDDDDDCCRRRCCDDDDDDD",
+  "EEEDAAAEAADDEEDEEDDDDCCCCRRRCDDDDDDDD",
+  "EEEEDAAAAEDDEEDDEDDDDCCCRRRCCDDDDDDD.",
+  "EEEEEDDDDEEDDDDDEEEEDCCCRRRCDDDSSDDD.",
+  "DAAAEEDDEEEDDDDEEEEEEDDRRRRCDDDSSDDDD",
+  "DDDAADDEEEDDEEEEEEEEEEEERRRDDDBBDDRRR",
+  "DDDDDDDDEEKKKDEEDEEEEEEEERRDDDBBDRRRR",
+  "DDEEEDDDEKKCCCCDEEDEEEEEEEDDDDDDRRRCC",
+  "CCDDDDDDDKKKCCCDDDEEEEEEEDDAAADRRRCCC",
+  "CCCCCDDDKKKKCCCCDDDDEDDDDDDAEEDRRCCCC",
+  "CCCCDDDDDDCKCDDDDDDEEEEDDCCDEEDRCCCCC",
+  "CCDEEEDDDDDDDEEEEDEEEEEDCCCCDDDDKCCCC",
+  "CDEEEEDDDDDEEEEEEDEEEEDCCCCCCCDDKKCCC"
+ ]
+}

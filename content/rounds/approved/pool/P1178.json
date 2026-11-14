@@ -1,0 +1,75 @@
+{
+ "code": "P1178",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Павлиний глаз бабочки",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Насекомые и маленькие существа",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One large butterfly with four broad rounded red-orange wings, each wing has ONE huge blue and cream eye marking, dark stout body and two short thick antennae. Symmetric recognizable silhouette, no flower.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 25,
+ "h": 24,
+ "N": 425,
+ "colours": 5,
+ "volumes": {
+  "R": {
+   "cells": 143,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "O": {
+   "cells": 116,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 70,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 59,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "N": {
+   "cells": 37,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "........DD.....DD........",
+  ".......DDD.....DDD.......",
+  ".RRRR...DD.....DD...RRRR.",
+  "RRROOOO...D...D...OOOORRR",
+  "RROOOOOO..DD..D..OOOOOORR",
+  "RROCCCCCC..D.D..OCCCCCOOR",
+  "RROCNNNCOO.DDD.OOCNNNCCOR",
+  "RROCNNNCOOODDD.OOCNNNCCOR",
+  ".ROCNNCCOOODDDOOOCCNNCOR.",
+  ".ROOCCCOOOODDDOOOOCCCOOR.",
+  ".RROOOOORRRDDDRRROOOOORR.",
+  "..RRROOORRRDDDRRRROORRR..",
+  "....RRRRRRRDDDRRRRRRR....",
+  "....RROOORRDDDRROOORR....",
+  "...RROOOORRDDDRRROOOOO...",
+  "..RRCCCCOORDDDROOCCCOOR..",
+  "..RCCNNNCOORDDOOCCNNCORR.",
+  ".RRCCNNNCOORDDROCNNNNCOR.",
+  ".RRCCNNNCORRDDROCCNNNCOR.",
+  "..RCCNNCOOR.DDRROCCNCCOR.",
+  "..RRCCCOORR....ROOCCCRR..",
+  "...RRRRRRR.....RRROOORR..",
+  "....RRRRR.......RRRRRR...",
+  ".....RRR..........RR....."
+ ]
+}

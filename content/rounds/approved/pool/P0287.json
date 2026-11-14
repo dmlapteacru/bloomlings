@@ -1,0 +1,113 @@
+{
+ "code": "P0287",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Арбуз с зимним катком",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Фрукты и ягоды",
+ "direction": "Миры внутри предметов",
+ "device": "Вместилище и внутренний мир",
+ "subject": "В срезе арбуза расположен ледяной каток; зелёная корка с красным ободком; голубой лёд; пара коньков",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 42,
+ "h": 42,
+ "N": 1261,
+ "colours": 9,
+ "volumes": {
+  "G": {
+   "cells": 414,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "R": {
+   "cells": 191,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 175,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "S": {
+   "cells": 137,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "M": {
+   "cells": 111,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "N": {
+   "cells": 74,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "V": {
+   "cells": 59,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "P": {
+   "cells": 55,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "D": {
+   "cells": 45,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..................GGGG....................",
+  "................GGGGGG....................",
+  "...............GGGGGGG....................",
+  "..............GGGGGGGG....................",
+  "..............GGGGGGGG....................",
+  ".............GGGGGGGGGMMMMMM..............",
+  "...........MMGGGGGGGGGGGGGGMMMM...........",
+  "..........MMGGGGGGGGGGGGGGGGGGMM..........",
+  "........MMGGGGGGGGGGGGGGGGGGGGGGGG........",
+  ".......MMGGGGGGGRRRRRRRRRRGGGGGGGGG.......",
+  "......GGGGGGGRRRRRRRRRRRRRRRRGGGGGGMM.....",
+  ".....GGGGGGGRRRRRCCCCCCCCRRRRRRGGGGGM.....",
+  "....MGGGGGRRRRCCCCCCCCCCCCCCRRRRGGGGGG....",
+  "...MMGGGGRRRCCCCCCSSSSSSCCCCCCRRRGGGGGM...",
+  "...MGGGGRRRCCCCSSSSSSSSSSSSCCCCRRRGGGGMM..",
+  "..GGGGGRRRCCCSSSSSSSSSSSSSSSSCCCRRRGGGGM..",
+  "..GGGGRRRCCCSSSSSSSSSSSSSSSSSSCCCRRRGGGMM.",
+  ".MGGGGRRCCCSSSSSSCCCCCCCCSSSSSSCCCRRGGGGM.",
+  ".MGGGRRRCCSSSSSCCCCCCCCCCCCSSSSSCCRRRGGGM.",
+  ".MGGGRRCCCSSSCCCCSSSSSNNNNNNNSSSCCCRRGGGMM",
+  "MGGGGRRCCSSSNNNNNNNSSSNPPPPPNSSSSCCRRGGGGM",
+  "MGGGGRRCCSSSNVVVVVNSSSNPPPPPNSSSSCCRRGGGGM",
+  "MGGGGRRCCSSSNVVVVVNSSSNPPPPPNSSSSCCRRRGGGM",
+  "MGGGGRRCCSSSNVVVVVNSSSNPPPPPNSSSSCCRRRGGGM",
+  "MGGGGRRCCSSSNVVVVVNSSNNPPPPPPNNNNCCRRGGGGM",
+  "MGGGGRRCCSSSNVVVVVNSSNPPPPPPPPPPNCCRRGGGGM",
+  ".MGGGRRCCCSSNVVVVVNNNNPPPPPPPPPPNCCRRGGGGM",
+  ".MGGGRRRCCCNNVVVVVVVVVNPPPPPPPPPNCRRRGGGM.",
+  ".MGGGGRRCCCNVVVVVVVVVVNNNNNNNNNNNCRRGGGGM.",
+  ".MMGGGRRRCCNVVVVVVVVVVDDDDDDDDDDDDRRGGGGM.",
+  "..MGGGGRRRCCNNNNNNNNNNNDDDDDDDDDDDRGGGGM..",
+  "..MMGGGGRRRCDDDDDDDDDDDCCCCCCCCRRRGGGGMM..",
+  "...MGGGGGRRRDDDDDDDDDDDCCCCCCCRRRRGGGGM...",
+  "....MGGGGGRRRRCCCCCCCCCCCCCCRRRRGGGGGM....",
+  "....MMGGGGGRRRRRCCCCCCCCCCRRRRRGGGGGMM....",
+  ".....MMGGGGGGRRRRRRRRRRRRRRRRGGGGGGMM.....",
+  "......MMGGGGGGGRRRRRRRRRRRRGGGGGGGMM......",
+  "........MMGGGGGGGGGGGGGGGGGGGGGGGG........",
+  ".........MMGGGGGGGGGGGGGGGGGGGGGG.........",
+  "...........MMMGGGGGGGGGGGGGGMMM...........",
+  ".............MMMMMGGGGGGMMMMM.............",
+  ".................MMMMMMMM................."
+ ]
+}

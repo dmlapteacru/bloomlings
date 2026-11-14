@@ -1,0 +1,106 @@
+{
+ "code": "P0355",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Палатка с летом внутри зимы",
+ "theme": "Путешествия и походы",
+ "family": "Походы и отдых на природе",
+ "direction": "Миры через портал",
+ "device": "Контраст миров по сторонам проёма",
+ "subject": "В зимнем пейзаже палатка открыта в лето; снежная земля; яркий треугольник ткани; зелёный солнечный пейзаж внутри",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 36,
+ "h": 35,
+ "N": 1219,
+ "colours": 9,
+ "volumes": {
+  "N": {
+   "cells": 558,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 206,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 133,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "O": {
+   "cells": 122,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 56,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "G": {
+   "cells": 55,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "S": {
+   "cells": 41,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "Y": {
+   "cells": 26,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "M": {
+   "cells": 22,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN...",
+  ".NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN..",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN.",
+  "NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN.",
+  "NNNNNNNNNNNNNNNNRRNNNNNNNNNNNNNNNNN.",
+  "NNNNNNNNNNNNNNNNRRONNNNNNNNNNNNNNNN.",
+  "NNNNNNNNNNNNNNNRRRONNNNNNNNNCCCNNNN.",
+  "NNNNNNNNNNNNNNNRRROONNNNNNNNCCCNNNN.",
+  "NNNNNNNNNNNNNNRRRROONNNNNNNNCCCNNNN.",
+  "NNNNNNNNNNNNNNRRRROOONNNNNNNNNNNNNN.",
+  "NNNNNNNNNNNNNRRRRROOOONNNNNNNNNNNNN.",
+  "NNNNNNNNNNNNNRRRRROOOONNNNNNNNNNNNN.",
+  "NNNNNNNNNNNNRRRRRSSOOOONNNNNNNNNNNN.",
+  "NNNNNNNNNNNNRRRRRSSOOOONNNNNNNNNNNN.",
+  "NNNNNNNNNNNRRRRRRSSSOOOONNNNNNNNNNN.",
+  "NNNNNNNNNNNRRRRRRSSSOOOOONNNNNNNNNN.",
+  "NNNNGNNNNNRRRRRRSSSYOOOOONNNNNNNNNN.",
+  "NNNNGMNNNNRRRRRRSYYYYOOOOONNNNNNNNN.",
+  "NNNGGMNNNRRRRRRRSYYYYYOOOONNNNNNNNN.",
+  "NNNGGMMNNRRRRRRSYYYYYYOOOOONNNNNNNN.",
+  "NNMGGMMNRRRRRRRSSYYYYYOOOOOONNNNNNN.",
+  "NNMGGMMNRRRRRRRSSYYYYYSOOOOONNNNNNN.",
+  "NMMMMMMRRRRRRRSSSSSSSSSOOOOOONNNNNN.",
+  "NMMMMMMRRRRRRRSSSSSSSSSSOOOOONNNNNN.",
+  "NNNNEEERRRRRRRGGGGGGGGGSOOOOOOENNNN.",
+  "NCCCEEERRRRRRRGGGGGGGGGGGOOOOOEECCC.",
+  "CCCCEEERRRRRRGGGGGGGGGGGGOOOOOOECCC.",
+  "CCCCCRRRRRRRRGGGGGGGGGGGGGOOOOOOCCC.",
+  "CCCCCERROOOOOOOOOOOOOOOOOOOOOOOOECC.",
+  "CCCCEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEC.",
+  "CCCEECCCCCCCCCCCCCCCCCCCCCCCCCCCCEE.",
+  "CCEECCCCCCCCCCCCCCCCCCCCCCCCCCCCCCE.",
+  "CEECCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCEE",
+  "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC.",
+  ".CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC."
+ ]
+}

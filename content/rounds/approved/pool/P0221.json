@@ -1,0 +1,104 @@
+{
+ "code": "P0221",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Безумный Шляпник",
+ "theme": "Сказочные герои",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "subject": "чудак в огромном цилиндре с ярлычком, с бабочкой и широкой улыбкой",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 32,
+ "N": 896,
+ "colours": 9,
+ "volumes": {
+  "L": {
+   "cells": 418,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "V": {
+   "cells": 144,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "M": {
+   "cells": 108,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "C": {
+   "cells": 56,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 49,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "K": {
+   "cells": 44,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "R": {
+   "cells": 33,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 24,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 20,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "LLLLLLLLLLLLLLLLLLLLLLLLLLLL",
+  "LLLLLLLLLLLLLLLLLLLLLLLLLLLL",
+  "LLLLLLVVVVVVVVVVVVVVVVLLLLLL",
+  "LLLLLLVVVVVVVVVVVVVVVVLLLLLL",
+  "LLLLLLLVVVVVVVVVVVVVVVLLLLLL",
+  "LLLLLLLVVVVVVVVVVVVVVLLLLLLL",
+  "LLLLLLLVVVVVVVVVCCCCCLLLLLLL",
+  "LLLLLLLVVVVVVVVVCCCCCLLLLLLL",
+  "LLLLLLLVVVVVVVVVCCCCCLLLLLLL",
+  "LLLLLLLRRRRRRRRRCCCCCLLLLLLL",
+  "LLLLLLLLRRRRRRRRCCCCCLLLLLLL",
+  "LLLLLLLLRRRRRRRRRRRRLLLLLLLL",
+  "LLLLLVVVVVVVVVVVVVVVVVVLLLLL",
+  "LLLLVVVVVVVVVVVVVVVVVVVVLLLL",
+  "LLLLOVVVVVVVVVVVVVVVVVVOLLLL",
+  "LLLOOOOLLLKKKKKKKKLLLOOOOLLL",
+  "LLLOOOOLLCCCKKKKCCLLLOOOOLLL",
+  "LLLOOOOLKCCDDKKDDCCKLOOOOLLL",
+  "LLOOOOOLKCCDDKKDDCCKLLOOOOLL",
+  "LLOOOOLLKKCCKKKKCCKKLLOOOOLL",
+  "LLLOOOLLKKKKKKKKKKKKLLOOOLLL",
+  "LLLLLLLLKKCCCCCCCCKKLLLLLLLL",
+  "LLLLLLLLLLDDDDDDDDLLLLLLLLLL",
+  "LLLLLLLLLLDDDDDDDDLLLLLLLLLL",
+  "LLLLLLLLLLCLLLLLLCLLLLLLLLLL",
+  "LLLLLLLLYYCCLLLLCCYYLLLLLLLL",
+  "LLLLLLLMYYYYYRRYYYYYMLLLLLLL",
+  "LLLLMMMMYYYMMRRMMYYYMMMMLLLL",
+  "LLLMMMMMMMMMMMMMMMMMMMMMMLLL",
+  "LLMMMMMMMMMMMMMMMMMMMMMMMMLL",
+  "LLMMMMMMMMMMMMMMMMMMMMMMMMLL",
+  "LLMMMMMMMMMMMMMMMMMMMMMMMMLL"
+ ]
+}

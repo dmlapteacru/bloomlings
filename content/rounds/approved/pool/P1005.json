@@ -1,0 +1,107 @@
+{
+ "code": "P1005",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Киви с пружинными крыльями",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Фрукты и ягоды",
+ "direction": "Ожившие вещи",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой зелёный срез киви с добрыми глазами летит на двух толстых золотых пружинах-крыльях, коричневая кожура и розовые маленькие лапки, без неба и облаков",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 44,
+ "h": 35,
+ "N": 1038,
+ "colours": 9,
+ "volumes": {
+  "L": {
+   "cells": 317,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "E": {
+   "cells": 156,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 150,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 135,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "G": {
+   "cells": 88,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 70,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 45,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 42,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "P": {
+   "cells": 35,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........................CCC..............",
+  ".....EEEE..............EEEEAAAAGG...........",
+  "....YYYYYY...........OOOOOLLLLGGGGG.........",
+  "..YYYYYYYYY........ELLLLLLLLLLLLGGGG........",
+  ".YYYYOOOYYYY......ALLLLLLLLLLLLLLGLGD.......",
+  ".YYYAAAAYYYYY....AALLLLLLLLLLLLLLLLGGG......",
+  "EOYYY..AAOYYYE..AAALLLLLLLLLLLGLLLLGGGD.....",
+  "EOYY....COOYYEEEAALLLLLLLLLLLLGGLLLGGGG.....",
+  "EOYYY.AA.OOOYYEAAALLLLLLLLLLLLLLLLLLLGGD....",
+  "EOYYYYAAAOOOYAAAALLLLLLLLLLLLLLLLLLLLLGG....",
+  ".OYYYYYAYYOOOAAAALLLLLLDLLLLLLLLLLLGGGGGE...",
+  "..YYYYYYYYOOAAAAALLLLLLDLLLLLLLLLLLLLLLGE...",
+  "..YYYYYYYYYOAAAAALLLDDCDDLLLLLLLDDDDLGGGE...",
+  "..YYYCAAAAAEAAAAALLLDCDDDDCLLLLLDDCCLLLGE...",
+  "..YYYCCCCAEEAAAAELLDCCDDDDCCCLCDDDDCDLLGE..Y",
+  "..YYYYYYYEEEAAAAELLDCCDDDDCCCCCCDDDCDLGGEEYY",
+  "..YYYYYYYEEEAAAAELLDCCEEEECEEEDCEEECDLGGEYYY",
+  "....EOOOOEEAAAAAALLLCCCCCCLEEEELCCCCLLLGEECC",
+  "....EOOOCEEEAAAAALLLLCCCLLLEPPELLLGGLGGEECCC",
+  "....EYYYYYEEAAAAALLLLLLLLLLLPLLLLLGGLLGOYYYY",
+  "....EYYYYYEEEAAAALLLLLLLLLLLLLLLLLLLLLLOYYYY",
+  ".....YYYEEEEAAAAAALLLLLGGLLLLLLLLLLLLLLOYYYY",
+  "..........CEEEAEAALLLLGGLLLLLLLLLLLGGGOOCAYY",
+  "...........EEEEEAAALLLLLLGGLLLLLLGLLGGYYAAYY",
+  "...........ECCEEAAAALLLLLGLGLLLLLGGGGGYYYYYY",
+  "..........PCCCCPEAAAALLLLGLGGLLGGGGEEAAYYYYY",
+  "..........PCCCPPEEAAAAAAGGLGLLLGGEEEEAYYEE..",
+  ".........PPPPPPEEEAAAAAAAGGGGEEEEEEYYYYYE...",
+  ".........PPPPEEEEEEEAAAAAEAAAEEEECEOOOOO....",
+  "..........PPPP...EEEEEEEEEEEEEEE...EEEE.....",
+  "....................EEEEECCEEE..............",
+  "......................EPPCCEE...............",
+  "......................PPPPPP................",
+  "......................PPPPP.................",
+  "......................EEEE.................."
+ ]
+}

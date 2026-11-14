@@ -1,0 +1,104 @@
+{
+ "code": "P0401",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Телефонная будка — лифт между сезонами",
+ "theme": "Ретрофутуризм",
+ "family": "Ретро-техника и ностальгия",
+ "direction": "Ретрофутуристические приключения",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Телефонная будка стала лифтом сезонов; красный корпус; вертикальная шахта; снег сверху и летний пейзаж внизу",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 26,
+ "h": 36,
+ "N": 874,
+ "colours": 8,
+ "volumes": {
+  "R": {
+   "cells": 240,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 141,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 127,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 106,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "N": {
+   "cells": 104,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "S": {
+   "cells": 65,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "G": {
+   "cells": 59,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 32,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "YYYYYYYYYYYYYYYYYYYYYYYYYY",
+  "YYYYYYYYYYYYYYYYYYYYYYYYYY",
+  "YYYYYYYYYYYYYYYYYYYYYYYYYY",
+  "YYYYYYYYYYYYYYYYYYYYYYYYYY",
+  "YYYYYYYYYYYYYYYYYYYYYYYYYY",
+  ".ERRRRRRRRRRRRRRRRRRRRRRE.",
+  ".ERRRRRRRRRREERRRRRRRRRRE.",
+  ".ERRRNNNNNNNEENNNNNNNRRRE.",
+  ".ERRRNNNNNNNEENNNNNNNRRRE.",
+  ".ERRRNNSSSSSEESSSSSNNRRRE.",
+  ".ERRRNNSSSSSEESSSSSNNRRRE.",
+  ".ERRRNNSSSCCEESSSSSNNRRRE.",
+  ".ERRRNNSSSCCEESSSSSNNRRRE.",
+  ".ERRRNNSSCCCEESSSSSNNRRRE.",
+  ".ERRRNNSCCCCEESSSSSNNRRRE.",
+  ".ERRRNNSCCCCEESSSSSNNRRRE.",
+  ".ERRRNNSSSSSEESSSSSNNRRRE.",
+  ".ERRRAAAAAAAEEAAAAAAAARRE.",
+  ".ERRRAAAAAAAEEAAAAACAARRE.",
+  ".ERRRAAAAAAAEEAAAAACCARRE.",
+  ".ERRRAAAAAAAEEAAAAACCARRE.",
+  ".ERRRNNGGGGGEEYYGGGCCRRRE.",
+  ".ERRRNNGGGGGEEYYYGGCCRRRE.",
+  ".ERRRNNGGGGGEEYYYGGCCRRRE.",
+  ".ERRRNNGGGGGEEYYGGGCCRRRE.",
+  ".ERRRNNGGGGGEEYGGGGCCRRRE.",
+  ".ERRRNNGGGGGEEGGGGGCCRRRE.",
+  ".ERRRNNGGGGGEEGGGGGNNRRRE.",
+  ".ERRRNNNNNNNEENNNNNNNRRRE.",
+  ".ERRRNNNNNNNEENNNNNNNRRRE.",
+  ".ERRRRRRRRRREERRRRRRRRRRE.",
+  ".ERRRRRRRRRRRRRRRRRRRRRRE.",
+  ".ERRRRRRRRRRRRRRRRRRRRRRE.",
+  ".AAAAAAAAAAAAAAAAAAAAAAAA.",
+  ".AAAAAAAAAAAAAAAAAAAAAAAA.",
+  ".AAAAAAAAAAAAAAAAAAAAAAAA."
+ ]
+}

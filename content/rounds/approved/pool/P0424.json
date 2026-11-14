@@ -1,0 +1,103 @@
+{
+ "code": "P0424",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Тоторо — лесной росток",
+ "theme": "Новые версии знакомых героев",
+ "family": "Лесные и горные животные",
+ "direction": "Фольклорная фантазия",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Тоторо бережно держит росток; два высоких уха; большое светлое брюшко с шевронами; крошечный зелёный росток",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "My Neighbor Totoro",
+  "url": "https://en.wikipedia.org/wiki/My_Neighbor_Totoro",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 35,
+ "h": 37,
+ "N": 1244,
+ "colours": 7,
+ "volumes": {
+  "D": {
+   "cells": 367,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "S": {
+   "cells": 242,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "E": {
+   "cells": 172,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 170,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "G": {
+   "cells": 143,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 82,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 68,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".AAAAGGGGGGGG......................",
+  "AAAGGGGGGGEEEESSSSSSSSSSSSEESSSSS..",
+  "AAGGGGGEEEDDDESSSSSSSSSSSSEDDDSSSS.",
+  "AGGGGGGEDDDDDESSSSSSSSSSSSDDDDESSSS",
+  "GGGGGGGGDDDDDDESSSSSSSSSSEDDDDESSSS",
+  "GGGGGGGGEDDDDDESSSSSSSSSSEDDDDESSSS",
+  "GGGGGGGGEDDDDDESSSSSSSSSSEDDDDESSSS",
+  "GGGGGGGGEDDDDDDESSSSSSSSSEDDDDESSSS",
+  "GGGGGGGGEDDDDDDESSEEEEEEEDDDDESSSSS",
+  "GGGGGGGGEDDDDDDEEEDDDDDDEDDDDESSSSS",
+  "GGGGGGGGEDDDDDDEEDDDDDDDDDDDDESSSSS",
+  "GGGGGSSSEDDDDDDDDDDDDDDDDDDDDESSSSS",
+  "AAAAASSSEDDDDDDDDDDDDDDDDDDDDSSSSSS",
+  "AAAAASSSEDDDDDDDDDDDDDDDDDDDESSSSSS",
+  "AAAAASSSEDDDDCCCDDDDDDDCCCDDESSSSSS",
+  "AAAAASSEDDDDDCDDCDDDDDDCDDDDESSSSSS",
+  "AAAAASSEDDDDDCDDCDDDDDDCDDDDESSSSSS",
+  "AAAAASSEDDDDDDCCCCCDDDCCCCDDESSSSSS",
+  "AAAAASSEDDDDDCCCCCCDDCCCCDDDDESSSSS",
+  "AAAAASSDDDDDCCCCCCCCCCGGGGCDDESSSSS",
+  "AAAAASEDDDDCCCCCCCCGGGGGGGCCDESSSSS",
+  "AAAAASEDDDCCCCCCGGGGGGGGGGCCDDESSSS",
+  "AAAAASEDDDDDCDDGGGGGGGGGGCCDDDESSSS",
+  "AAAAASEDEEDDEEDGGGGGGGGGEDDDDEESSSS",
+  "AAAAASEDEDDDDEEGGGGGGCCCEDDDDDESSSS",
+  "AAAAASEEDDDDDDEGGGCCGCCCEDDDDDDSSSS",
+  "AAAAASEEDDDDDDEDDDCGGCCCEDDDDDDESSS",
+  "AAAAASEEDDDDDDEDDDDGGCCEEDDDDDDESSS",
+  "AAAAASEEDDDDDDEEEEEGGEEEEDDDDDDESSS",
+  "AAAAASSEDDDDDDEEAAAAAAAAAEDDDDDESSS",
+  "AAAAAMMEDDDDDDEEAAAAAAAAAEDDDDMMMMM",
+  "AAAAAMMEEDDDDCCEAAAAAAAAAEDDDDMMMMM",
+  "MAAAAMMMEEEEECCEAAAAAAAAAEEEEEMMMMM",
+  "MMAAMMMMMEDDDDCEAAAAAAAAAEDDEEMMMMM",
+  "MMMMMMMMMMDDDDDEAAAAAAAAAEDEEMMMMMM",
+  ".MMMMMMMMMMEEEDEEEEEEEEEEEEEMMMMMMM",
+  "..............EEEEEEEEEEE.........."
+ ]
+}

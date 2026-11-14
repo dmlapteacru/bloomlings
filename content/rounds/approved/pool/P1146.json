@@ -1,0 +1,91 @@
+{
+ "code": "P1146",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Белый почтовый скутер",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Наземный транспорт",
+ "direction": "Доброе будущее",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One rounded cream delivery scooter seen side view, red front fairing, blue seat, enormous gold parcel box on rear and two dark wheels. No rider or lettering, compact friendly silhouette.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 28,
+ "N": 621,
+ "colours": 7,
+ "volumes": {
+  "D": {
+   "cells": 183,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 171,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 91,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "O": {
+   "cells": 62,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 47,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "N": {
+   "cells": 43,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 24,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..........DDD...................",
+  ".........DDDD...................",
+  "........DDDDD.......OOOOYAAOOOOO",
+  "......RRRDD........OYYYYYYAAYYYO",
+  ".....CCRRRR.......OOOOOYYYAAYYYO",
+  "....CCCORRRDDD.....OOOOOYYAAAOOO",
+  "....CCCORRDDDD....OOOOOYYYAAYYYO",
+  ".....CCORR.DD......OOOOOYYAAYYYO",
+  ".....CCRRCC.......OOOOOOYYAAYYYO",
+  "......RRRCC...NNNNNNNNOOYYAAYYYO",
+  ".....RRRCCC..NNNNNNNNNNOYYAAYYYO",
+  ".....RRRCCC..NNNNNNNNNNOOOAAYYYO",
+  "....RRRRCCC..NNNNNNNNNNOOOAAAOOO",
+  "....RRRRCCC...NNNNNCCCCDDDDDDDD.",
+  "....RRRRCCCC...DDDCCCCCCCCCDDD..",
+  "...RRRRRCCCC...DDCCCCCCCCCCCRR..",
+  ".RRRRRRRRCCC...DDCCCCCCCCCCCCRR.",
+  ".RRRRRRRRCCCC.DDDCCCCCCCCCCCCRR.",
+  "RRRRRRRRRRCCCDDDDCCCCCCCCCCCCCR.",
+  ".RRDDDDRRRCCCDDDDCCCCCDDDDDDCCRR",
+  ".DDDDDDDRRCCCCCCCCCCCDDDDDDDDCCR",
+  "DDDDCDDDDRRCCCCCCCCCDDDDDDDDDDCR",
+  "DDDCCDDCDDRCCCCCCCCDDDDDDDCDDD..",
+  "DDDCCDDCDDRRCCCCCCCDDDDDDDCDD...",
+  "DDDDCCCDDD...C......DDDCCCDDD...",
+  ".DDDDDDDDD..........DDDDDDDDD...",
+  "..DDDDDDD............DDDDDDD....",
+  "...DDDDD..............DDDDD....."
+ ]
+}

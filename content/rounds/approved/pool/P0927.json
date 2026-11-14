@@ -1,0 +1,112 @@
+{
+ "code": "P0927",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Черепаха с пиксельным лоскутным панцирем",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Морские и пресноводные обитатели",
+ "direction": "Уютный сюрреализм",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна оригинальная зелёная сухопутная черепаха с большой доброй головой несёт высокий округлый панцирь из четырёх крупных цветных тканевых лоскутов, толстые золотые швы и короткие лапки",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 44,
+ "h": 41,
+ "N": 1380,
+ "colours": 9,
+ "volumes": {
+  "G": {
+   "cells": 283,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "O": {
+   "cells": 241,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 197,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "P": {
+   "cells": 163,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "L": {
+   "cells": 141,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "V": {
+   "cells": 116,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "B": {
+   "cells": 112,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "Y": {
+   "cells": 99,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 28,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "........................VVVVVV..............",
+  ".....................ODBBBBBBBBB............",
+  ".................PPPOOOCCYBBBBBBVVV.........",
+  "................PPPPPPPYYYBBBBBBBBBB........",
+  "..............PPCCPPPPPPPPBBBBBBBBBBB.......",
+  ".............PPCCCPPPPPPPPCYBBBBBBBBBB......",
+  ".............PPCCCPPPPPPPCYYBBBBBBBBBB......",
+  "............PPPCPPPPPPPPPPPBBBBBBBBBBBB.....",
+  "...........PPPPPPPPPPPPPPPPBBBBBBBBBBBB.....",
+  "..........YPPPPPPPPPPPPPPPPCYBBBBBBBBBYY....",
+  ".........YYYPPPPPPPPPPPPPPYYYBBBBBBBDDYY....",
+  ".....DDDDDDDDPPPPPPPPPPPPPPPBBBBBBBDDOOO....",
+  "....GLLLGGGGGGDPPPPPPPPPPPPPBBBBBDOOOOOOO...",
+  "...DGLLLLLGLLLDDPPPPPPPPPPPPBBBBOOOOOOOOO...",
+  "..DDGLLLLLLLLLLDDPPPPPPPPYPPOOOOOOOOOOOOOO..",
+  "..DDDLLLLLLLLLLLGPPPPPPPPYVVVOOOOOOOOOOOOO..",
+  ".DDDDLLLLLLCCCLLGDPPPPPDVYVVVOOOOOOOOOOOOO..",
+  ".DDDDLLLLLDDDCCLGDVVVVPVVVVVVOOOOOOOOOOOOO..",
+  "CDDDDLLLLLDDDDCLGDVVVVVVVVVVVOOOOOOOOOOOOO..",
+  "GYYLLLLLLLDDDDCLGDVVVVVVVVVVCOOOOOOOOOOOOO..",
+  "GYYLLDLLLLDDDCCLGDVVVVVVVVVVVOOOOOOOOOOOOO..",
+  "GLLLLLLLLLLCCCLLGDVVVVVVVVVVVVOOOOOOOOOOOOO.",
+  ".DLLLLLLLLLLOOLLGDVVVVVVVVVVVVOOOOOOOOOOOODD",
+  ".DLLLLLLLLLLOOLGGYYYVVVVVVVVVYYYOOOOOOOOOODD",
+  "..LLLLLLLLLLLGGGGGYYDVVVVVVVVYYOOOOOOOOOOODD",
+  "...DDDLLLLLGGGGGGGYYDDYVVVVVVVYOOOOOOOOOODD.",
+  "....DDGGGGGGGGGGGGGDDYYVVVVVVVYOOOOOOOOOODD.",
+  ".......GGDGGGGGGGGDDDYYDYYYVVYYOOOOOYYOOOO..",
+  "......DGGDDGGGGGGDDDDDDDDYYVYYDOOYYYYYOOO...",
+  ".....DGGGDDDGGGDOODDGGGGGYOOYYYOOYYOOOOOO...",
+  ".....DGGGDOODDDDOODGGGGGGDDOYYOOOYYOOOGGGDD.",
+  "....DGGGGGOOOOOOOOOGGLLGGDDDDDDDDDGGGGGGGDD.",
+  "...DGGGGGGGOOOOOODDGLLLGGDDDDDDDDDGGGGGGGDD.",
+  "...DGGGGGGGDOOOODDDGLLLLGGDDDDDDDDGGGLLGD...",
+  "..DYYGGGGGDD.DDDDDDGLLLLGGDDDDDD.DGGGLLGD...",
+  "..DYYYYGGDD..GGGGDDGGGLLGGDDDGG..DGGLLLYD...",
+  "..GDYYGGGDGGGGGGGGDGGGGLGGDGGGGGGDYYYYYYDG..",
+  "..GGGDDDGGGGGGGGGGGYYYYYYGDGGGGGGGGGYGGGGGG.",
+  "....GGGGGGGGGGGGGGGDYYYYYGGGGGGGGGGGGGGGG...",
+  "........GGGGGGGGGGGGYDDGGGGGGGGGGGGGG.......",
+  "...................GGGGGGGG................."
+ ]
+}

@@ -1,0 +1,107 @@
+{
+ "code": "P0386",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Металлический лист с магнитными прожилками",
+ "theme": "Обмен свойствами предметов",
+ "family": "Лаборатории и изобретения",
+ "direction": "Предметные гибриды",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Лист сделан из металла и магнитов; широкий листовой силуэт; стальной стебель; красно-синие разветвления",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 39,
+ "N": 882,
+ "colours": 8,
+ "volumes": {
+  "S": {
+   "cells": 458,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "B": {
+   "cells": 116,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "A": {
+   "cells": 94,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 87,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "R": {
+   "cells": 87,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 15,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 15,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "V": {
+   "cells": 10,
+   "name": "Слива",
+   "hex": "#7851A5"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".................................NNN",
+  ".............................NNNNSSN",
+  "..........................NNNNSSSSSN",
+  ".......................NNNSSSSSSSSSN",
+  ".....................SSSSSSSSSSSSSSN",
+  "..................NNNSSSSSSSSSSSSSSN",
+  "................NNRRSSSSSSSSSSSSSSSN",
+  "..............NNNRRRSSSSSSSSSSSSSSSN",
+  ".............NNSSRRRSSSSSSAAASSSSSSN",
+  "...........SSSSSSRRRSSSSSAAAASSSSSSN",
+  "..........RRSSSSSRRRSSSSSAAAASSSSSSN",
+  "........NNRRRSSSSRRRSSSSAAAASSSSSSSN",
+  ".......NNSRRRSSSSRRRSSSAAAASSSSSSSSN",
+  "......NNSSRRRSSSSRRRSSAAAASSSSSSSSSN",
+  ".....NNSSSSRRSSSSRRRSAAAASSSSSSSSSNN",
+  ".....NCCSSSRRSSSSRRRAAAASSSSSSSSSSN.",
+  "....CCCCCSSRRRSSSRRRAAASSSSSSSSSSSN.",
+  "...SSCCCCSSRRRSSSRBBBBBSSSSSSSSSSSN.",
+  "...SSSCCCSSRRRSSSBBBBBBBBBBBBBBBBBN.",
+  "..SSSSRCRSSRRRSSAABBBBBBBBBBBBBBBB..",
+  "..SSSSRRRSSSRRSAAAASSSSSSSSSBBBBBB..",
+  ".NSSSSRRRSSSRRAAAAASSSSSSSSSSSSSS...",
+  ".NSSSSSRRSSSRBBAAASSSSSSSSSSSSSSS...",
+  ".NSSSSSRRSSSBBBBBBBBBBBBBBYYYSSS....",
+  ".NSSSSSRRSSSABBBBBBBBBBBBBYYYYSS....",
+  "NSSSSSSRRSSAAAASSSSSSBBBBBYYYYY.....",
+  "NSSSSSSRRRAAAASSSSSSSSSSSSSYYY......",
+  "NSSSSSSRRRAVASSSSSSSSSSSSSSSN.......",
+  "NSSSSSSBBVVVBBBBBBBBBBSSSSSNN.......",
+  "NSSSSSSBVVVBBBBBBBBBBBBBSSS.........",
+  "NSSSSSAAVVVSSSBBBBBBBBBBSS..........",
+  ".NSSSAAAASSSSSSSSSSSSSBB............",
+  ".NSSAAAASSSSSSSSSSSNNN..............",
+  ".NSAAAASSSSSSSSNNNNN................",
+  ".NAAAANNNNNNNNNN....................",
+  ".AAAAA..............................",
+  "AAAAA...............................",
+  "AAAA................................",
+  "AAA................................."
+ ]
+}

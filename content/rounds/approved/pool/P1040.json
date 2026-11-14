@@ -1,0 +1,91 @@
+{
+ "code": "P1040",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Король-лич",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Warcraft · Blizzard Entertainment: Arthas as the Lich King from Warcraft: large imposing DARK STEEL horned crown-helmet, two bright icy BLUE glowing eyes, white hair emerging beside the helmet, heavy dark blue spiked shoulder armor; one broad Frostmourne blade edge rests vertically close to his chest. Bust portrait, simplify tiny armor details but preserve the helmet and icy eyes, no gore.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 33,
+ "N": 970,
+ "colours": 6,
+ "volumes": {
+  "D": {
+   "cells": 794,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "S": {
+   "cells": 67,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "N": {
+   "cells": 61,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 26,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "B": {
+   "cells": 15,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "K": {
+   "cells": 7,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..SDDD....D.....DDD.....D.........",
+  "..SDDD...DD..D..DDD..D..DD........",
+  ".DSDDDD..DD..DDDDDDDDD..DD........",
+  "..SDDB...DD.DDDDDDDDDDDDDD........",
+  "..DSDB...DDDDDDDDBDDDDDDDD........",
+  "..DSNBD..DDDDDDDBBBDDDDDDD........",
+  "..SSNBD..DDDDDDDBBBDDDDDDD....D...",
+  "...SNBB..DDDDDDDDBDDDDDDDD...DD...",
+  "...SNNB...DDDDDDDDDDDDDDDD...DD...",
+  "...SNNND.DDDDDDDDDDDDDDDDD...DDD..",
+  ".D.SNNNDDDDDDDDDDDDDDDDDDDD.DDDDD.",
+  ".D.SSNNSDDDDDNNDDDDDDDDDDDDDDDDDD.",
+  "DD.DSNNSDDDDDNNNDDDDDDDDDKDDDDDDD.",
+  "DDDDSNNSDDDDDDNNDDDDDDDDKKDDDDDDDD",
+  "DDDSSNNSSDCDDDSSDDDDDDDDCKKDDDDDDD",
+  "DDDDSNNNSDCDDDDSDDDDDDDDCCKKDDDDDD",
+  "DDDDSNNNSDCDDDDSDDDDDDDCCDDDDDDDDD",
+  "SSSDSSNNNDDDDDDDDDDDDDCCCDDDDDDDDD",
+  "DDDDSNNNNDDDCDDDDDDDDDCCCDDDDDDDDD",
+  "DDDDSNNNNDDCDDDDDDDDDDCCCCDDDDDDDD",
+  "DDDDDSNNNDDDDDDDDDDDDDCDDCDDDDDDDD",
+  "DDDDDSNNNDDDDDDDDDDDDCCDDDDDDDDDDD",
+  "DDDDDSNNNNDDDDDDDDDDDCDDDDDDDDDDDD",
+  "DDDDDSNNNNDDDDDDDDDDDDDDDDDDDDDDDD",
+  "DDDDDDNSSDDDDDDDDDDDDDCDDDDDDDNNND",
+  "DDDDDDSSSSSDDDDDDDDDDDDDDSDDDDDDDD",
+  "DDDDDDSSSSDDDDDDDDDDDDDDDSDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDSDDSDDDDD",
+  "DDDDDDDDDSDDDDDDDDDDDDDDDDDDSSDDDD",
+  "DDDDDDDDSSDDDDDDDDDDDDDSDDDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDDSSSDDDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDDDDSDDDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD"
+ ]
+}

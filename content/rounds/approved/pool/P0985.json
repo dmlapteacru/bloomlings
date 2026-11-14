@@ -1,0 +1,110 @@
+{
+ "code": "P0985",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Мольберт из двух больших перьев",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Рисование и ремёсла",
+ "direction": "Предметные гибриды",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Два широких синих пера держат как мольберт большой кремовый лист с одним красным яблоком, золотая перекладина и розовый мазок-кисть у основания",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 38,
+ "N": 1066,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 291,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 276,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "R": {
+   "cells": 147,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 111,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 84,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 48,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "B": {
+   "cells": 47,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "O": {
+   "cells": 32,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "P": {
+   "cells": 30,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....NN.............................",
+  "....NNN......................NNN....",
+  "...NNNNN....................NNNNN...",
+  "..NNNNNNN...................NNNNN...",
+  "..NNNNNNN..................NNNNNNN..",
+  "..NNNNNNNEEEEEEDD..........NNNNNBBD.",
+  ".NBNNNNNNCCCCCCCCCCCCCDDEEENNNNNBBN.",
+  ".NBNNNNNCCCCCCCCCCCCCCCCCCCCCCNNBBN.",
+  ".NBBNNNNCCCCCCCCCCCCCCCCCCCCCNNBBBN.",
+  ".NBBNNNNCCCCCCCCCCCCYYYYCCCCCNNBBNN.",
+  ".NBBBNNNDCCCCCCCCECYYYYYCCCCCNNBBNN.",
+  "NNNBNNNNCCCCCCCCCEEYYYYCCCCCCNNBNNNN",
+  "NBNNNNNNCCCCCCCCCEEYYYYCCCCCCNNNNNNN",
+  "NBBNNNNNCCCCCRRRREECCCCCCCCCCNNNNNNN",
+  "NBBNNNNDCCCCRRRRRRRRRRRCCCCCCNNNNNBN",
+  "NNBBYNNDCCCRRCRRRRRRRRRCCCCCCNNNNBBB",
+  "NNNBYNNDCCRRCCRRRRRRRRRRCCCCCNNNBBBN",
+  ".NNNYNNCCCRRRRRRRRRRRRRRCCCCDNNNBBNN",
+  "NNNNYNNCCCRRRRRRRRRRRRRRCCCCDNNBBBNN",
+  "NNNNYNNCCCRRRRRRRRRRRRRRCCCCNNNBBNNN",
+  "NNNNNNDCCCCRRRRRRRRRRRRRCCCCDNNBNNN.",
+  "NNNNNNDCCCCRRRRRRRRRRRRCCCCCDNNYNNNN",
+  ".NNYNNCCCCCRRRRRRRRRRRRCCCCCNNNYNNNN",
+  ".NNYNNDCCCCCRRRRRRRRRRCCCCCCNNNYNNNN",
+  "..NYNNCCCCCCCRRRRRRRRCCCCCCDNNNYNNN.",
+  "..DYNDCCCCCCCCCCCCCCCCCCCCCDNNNYNNN.",
+  "..DYNDCCCCCCCCCCCCCCCCCCCCCENNNYNNN.",
+  "..YYYYYYEEEEEECCCCCCCCCCCCCEENNYNN..",
+  ".DYYYYYYYYYYYYYYYYYEEEEECCCEEDNYYD..",
+  ".DOOEEEEYYYYYYYYYYYYYYYYYYYYYDDDYD..",
+  ".DYODDD......EEEEEEOOOOOOYYYYDDDYD..",
+  ".DYODD....EEEDDDDDDDDYYYYOOYYDDDYY..",
+  ".DYODD...PPPRRRYYYYYDDOOOOODDDDDYYD.",
+  ".DDD...PPPPPPRRYYYOODDOOOOO.DDDDYYD.",
+  "......PPPPPPPRROOOOOD........DDDYYD.",
+  "....DPPPPPPPPRROOD..............DDD.",
+  "....DPPPPPPRRR......................",
+  "........EEE........................."
+ ]
+}

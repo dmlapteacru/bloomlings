@@ -1,0 +1,102 @@
+{
+ "code": "P0251",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Брр Брр Патапим",
+ "theme": "Мемные и абсурдные герои",
+ "family": "AI-brainrot и абсурдные гибриды",
+ "direction": "Предметные гибриды",
+ "subject": "обезьяна из древесного ствола с большим носом, огромными ступнями и маленькой шляпой",
+ "source": "интернет-мем/тренд",
+ "reference": "Italian brainrot — Brr Brr Patapim",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 34,
+ "N": 952,
+ "colours": 8,
+ "volumes": {
+  "S": {
+   "cells": 472,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "G": {
+   "cells": 156,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "A": {
+   "cells": 118,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "K": {
+   "cells": 100,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "E": {
+   "cells": 50,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 30,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "M": {
+   "cells": 18,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "D": {
+   "cells": 8,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSMMMMMSSSSSSSSSSS",
+  "SSSSSSSSSSSSMMMMMSSSSSSSSSSS",
+  "SSGGSSSSSSMMMMMMMMSSSSSSGGSS",
+  "SGGGGSSSSSAAAAAAAASSSSSGGGGS",
+  "SGGGGSSSSAAAAAAAAAASSSSGGGGS",
+  "SGGGGSSSSAAKKKKKKAASSSSGGGGS",
+  "SSGGSSSSSAKDDKKDDKASSSSSGGSS",
+  "SSEESSSKKKKDDOODDKKKKSSSEESS",
+  "SSSEGGKKKKKKKOOKKKKKKKGGEESS",
+  "SSSEGGKKKKKKKOOKKKKKKKGGESSS",
+  "SSSEGGSSSAKKOOOOKKASSSGGESSS",
+  "SSSEEEESSAKOOOOOOKASSEEEESSS",
+  "SSSSSEEEEAAOOOOOOAAEEEESSSSS",
+  "SSSSSSEEEAAOOOOOOAAEEESSSSSS",
+  "SSSSSSSSEAAAAOOAAAAESSSSSSSS",
+  "SSSSSSSSSAAAEEEEEAASSSSSSSSS",
+  "SSSSSSSSSAAEAAAAEAASSSSSSSSS",
+  "SSSSSSSSSAAEAAAAEAASSSSSSSSS",
+  "SSSSSSSSSAAEAAAAEAASSSSSSSSS",
+  "SSSSSSSSSAAEAAAAEAASSSSSSSSS",
+  "SSSSSSSSSAAEAAAAEAASSSSSSSSS",
+  "SSSSSSSSSAAAAAAAAAASSSSSSSSS",
+  "SSSSSSSSSSAASSSSAASSSSSSSSSS",
+  "SSSSSSSSSSAASSSSAAASSSSSSSSS",
+  "SSSSSSSSSAAASSSSAAASSSSSSSSS",
+  "SSSSSSSSSAASSSSSSAASSSSSSSSS",
+  "SSSKKKKKKKKSSSSSSKKKKKKKKSSS",
+  "SSSKKKKKKKKKSSSSKKKKKKKKKSSS",
+  "SSSSKKKKKKKSSSSSSKKKKKKKSSSS",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+ ]
+}

@@ -1,0 +1,99 @@
+{
+ "code": "P0229",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Банан-супергерой в плаще",
+ "theme": "Смешные и абсурдные герои",
+ "family": "Фрукты и ягоды",
+ "direction": "Обмен ролями",
+ "subject": "банан в красном плаще и синей маске летит, подняв кулак",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 32,
+ "N": 960,
+ "colours": 8,
+ "volumes": {
+  "S": {
+   "cells": 432,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "Y": {
+   "cells": 200,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 99,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 82,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "N": {
+   "cells": 56,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 47,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 26,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 18,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSCCSSSSSSSSSSSSSSSSAAAASS",
+  "SSSSSCCCCSSSSSSSSSSEEESAYYYYAS",
+  "SSSCCCCCCCSSSSSSSYYEEESAYYYYAS",
+  "SSCCCCCCCCSSSSYYYYYEEEAAYYYYAS",
+  "SSCCCCCCCCSSAAYYYYYYYYAYYYYYAS",
+  "SSSCCCCCCCSAAYYYYYYYYYYYYAAASS",
+  "SSSSSSSSSSAAYYYYYYYYYYYYAASSSS",
+  "SSSSSSNSSAAYYYYYYYYYYYYAASSSSS",
+  "SSSSSSNNNNYYYYYYYYYYYYYASSSSSS",
+  "SSSSSSNNNNNNNNNNNNNNNYSSSSSSSS",
+  "SSSSSSRNNNNNNDDNNNDDNSSSSSSSSS",
+  "SSSSSRRNNNNNNDDNNNDDASSSSSSSSS",
+  "SSSSSRNNNNNNNNNNNNNNASSSSSSSSS",
+  "SSSSRRNNNYYYYYYYYYYYASSSSSSSSS",
+  "SSSRRRAYYYYYDDYYYYDDSSSSSSSSSS",
+  "SSRRRRAYYYYYDDDDDDDDSSSSSSSSSS",
+  "SSRRRRAYYYYYYDDDDDDSSSSSSSSSSS",
+  "SSRRRRAYYYYYYYYYYYSSSSSSSSSSSS",
+  "SSRRRRAYYYYYYYYYYYSSSSSSSSSSSS",
+  "SSRRRRAYYYYYYYYYYASSSSSSSSSSSS",
+  "SSRRRRAYYYYYYYYYYASSSSSSSSSSSS",
+  "SSRRRRAYYYYYYYYYYASSSSSSSSSSSS",
+  "SRRRRRAYYYYYYYYYASSSSCCCCCCCCS",
+  "SRRRRRRYYYYYYYYYASSSCCCCCCCCCS",
+  "SRRRRRRYYYYYYYYYASSSCCCCCCCCCS",
+  "SSRRRRRRYYYYYYYSSSCCCCCCCCCCCS",
+  "SSRRRRRRRREEEYSSSSCCCCCCCCCCCS",
+  "SSSRRRRRRREEESSSSSCCCCCCCCCCCS",
+  "SSSRRSSRRREEESSSSSCCCCSSSSSSSS",
+  "SSSRSSSSRSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS"
+ ]
+}

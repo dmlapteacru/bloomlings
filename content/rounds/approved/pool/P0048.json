@@ -1,0 +1,104 @@
+{
+ "code": "P0048",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Чемодан-путешественник",
+ "theme": "batch-0011",
+ "family": "Багаж и навигация",
+ "direction": "Ожившие вещи",
+ "subject": "весёлый чемодан с лицом, наклейками и ножками",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 37,
+ "N": 784,
+ "colours": 8,
+ "volumes": {
+  "O": {
+   "cells": 499,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 98,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 56,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 46,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "B": {
+   "cells": 29,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "P": {
+   "cells": 24,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "Y": {
+   "cells": 22,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 10,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "...................................",
+  "...................................",
+  "............EEEEEEEEEEE............",
+  "............EE.......EE............",
+  "............EE.......EE............",
+  "............EE.......EE............",
+  "...OBBBOOAOOOOOOOOOOOOOOOAOOOOOA...",
+  "..OBBBBBOAOOOOOOOOOOOOOOOAOOYYOOA..",
+  "..OBBCCBBAOOOOOOOOOOOOOOOAOOYYOOA..",
+  "..BBCCCBBAOOOOOOOOOOOOOOOAYYYYYYA..",
+  "..OBCCCBBAOOOOOOOOOOOOOOOAOYYYYOA..",
+  "..OBBBBBBAOOOOOOOOOOOOOOOAOYYYYOA..",
+  "..OOBBBBOAOOOOOOOOOOOOOOOAYYOOYYA..",
+  "..OOOOOOOAOOOOOOOOOOOOOOOAOOOOOOA..",
+  "..OOOOOOOAOOOCDOOOOOCDOOOAOOOOOOA..",
+  "..OOOOOOOAOOODDOOOOODDOOOAOOOOOOA..",
+  "..OOOOOOOAOOOOOOOOOOOOOOOAOOOOOOA..",
+  "..OOOOOOOAOOOOOOOOOOOOOOOAOOOOOOA..",
+  "..OOOOOOOAOOOOOOOOOOOOOOOAOOOOOOA..",
+  "..OOOOOOOAOPPOOOOOOOOOOPPAOOOOOOA..",
+  "..OOOOOOOAOOODDDDDDDDDOOOAOOOOOOA..",
+  "..OOOOOOOAOOOODDDDDDDOOOOAOOOOOOA..",
+  "..OPPPPPOAOOOOODDDDDOOOOOAOOOOOOA..",
+  "..OPPPPPOAOOOOOOOOOOOOOOOAOOOOOOA..",
+  "..OPPPPPOAOOOOOOOOOOOOOOOAOOOOOOA..",
+  "..OPPPPPOAOOOOOOOOOOOOOOOAOOOOOOA..",
+  "..OOOOOOOAOOOOOOOOOOOOOOOAOOOOOAA..",
+  "..OOOOOOOAOOOOOOOOOOOOOOOAOOOOAAA..",
+  "...AAAAAAAAAAAAAAAAAAAAAAAAAAAAA...",
+  "........EEE.............EEE........",
+  "........EEE.............EEEE.......",
+  ".......EEE...............EEE.......",
+  ".......EEE................EDDDD....",
+  "....DDDDD.................DDDDDD...",
+  "....DDDDD..................DDDD....",
+  "....DDDDD..........................",
+  "..................................."
+ ]
+}

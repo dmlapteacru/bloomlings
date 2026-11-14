@@ -1,0 +1,93 @@
+{
+ "code": "P0024",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Глобус",
+ "theme": "batch-0011",
+ "family": "Книги, учёба и открытия",
+ "subject": "настольный глобус на подставке с материками и меридианным кольцом",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 27,
+ "h": 37,
+ "N": 628,
+ "colours": 6,
+ "volumes": {
+  "B": {
+   "cells": 206,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "G": {
+   "cells": 175,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 102,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 64,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 63,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "E": {
+   "cells": 18,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "........YYYYYYYY...........",
+  "......YYYYY...YY...........",
+  ".....YYYY...BBYYBB.........",
+  "....YYY..BBBBBBBBBBBB......",
+  "...YYY..GGGBBBBBBBBGGB.....",
+  "..YYY..GGGGGGBBBBGGGGGG....",
+  "..YY..GGGGGGGGBBBGGGGGGG...",
+  ".YYY.GGGGGGGGGBBBGGGGGGGG..",
+  ".YY.BGGGGGGGGGBBBGGGGGGGGG.",
+  "YYY.BGGGGGGGGGBBBBBGGBBBBN.",
+  "YY..BBGGGGGGGBBBBBBBBBBBBN.",
+  "YY.BBBBBGGGBBBBBBBBGGGGBBNN",
+  "YY.BBBBBBGGBBBBBBBGGGGGGBNN",
+  "YY.BBBBBBBGBBBBBBBGGGGGGBNN",
+  "YY.BBBBBBBBBBBBBBBGGGGGGNNN",
+  "YY.BBBBBBBBGGGBBBBGGGGGGNNN",
+  "YY.BBBBBBBGGGGGBBBGGGGGGNNN",
+  "YY..BBBBBBGGGGGBBBGGGGGGNN.",
+  "YYY.BBBBBBGGGGGBBBBGGGGNNN.",
+  ".YY.BBBBBBGGGGGBBBBBGGNNNN.",
+  ".YYY.BBBBBGGGGGBBBBBBNNNN..",
+  "..YY..BBBBGGGGGBBBBBNNNN...",
+  "..YYY..BBBBGGGBBBBNNNNN....",
+  "...YYY..NNBBGBBNNNNNNN.....",
+  "....YYY..NNNGNNNNNNNN......",
+  ".....YYYY...NNYYNN.........",
+  "......YYYYY...YY...........",
+  "........YYYYYYYY...........",
+  "..........YYYYYY...........",
+  ".............AAAA..........",
+  ".............AAAA..........",
+  ".............AAAA..........",
+  ".............AAAA..........",
+  ".......AAAAAAAAAAAAAAAA....",
+  ".......AAAAAAAAAAAAAAAA....",
+  ".......AAAAAAAAAAAAAAAA....",
+  "......EEEEEEEEEEEEEEEEEE..."
+ ]
+}

@@ -1,0 +1,104 @@
+{
+ "code": "P1036",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Тини",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Камни, минералы и кристаллы",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Dota 2 · Valve: Tiny from Dota 2: squat chunky stone golem made of large blue-gray rock slabs, moss on his head and shoulders, deep glowing golden eyes and heavy rocky brow; one short thick tree trunk club resting on a shoulder. Broad friendly-stubborn face and compact blocky torso, no other creatures.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 32,
+ "N": 1022,
+ "colours": 9,
+ "volumes": {
+  "D": {
+   "cells": 612,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 84,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 81,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "G": {
+   "cells": 78,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "B": {
+   "cells": 58,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "S": {
+   "cells": 38,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "Y": {
+   "cells": 30,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "M": {
+   "cells": 22,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "A": {
+   "cells": 19,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "BBBBBBBBBBBBBBBBBMMMMMMMMDDDMMMD",
+  "BBCCBBBBBBBDBBBBBBBMBMGGGDDDDDDD",
+  "BCCCCCBBDGGGGDDBBBBBBMMGMDDEDDDD",
+  "CCSSCCDDGGGGGGCCDDDBBBBMMBDEEDDD",
+  "SSSSDDDMMMMGGGGCCCCDDDDBBBDEEDEE",
+  "SSSDDDDDDCCCGGGGCCCDDDDDDBBDEEEE",
+  "BBDDDDDDDDDDDGDDDDDCDDDCDDBDEEEA",
+  "BDDCCDDGGGDDDDDDDDDDDDDDDDBDEEEA",
+  "DDDDDDDGGDCDDGCDDDDDDDDCDDDDEEEA",
+  "DDDDDDDGDDDDSGCCDDDDDDDCCGGDEAEE",
+  "DDDDDDDDDSSSSGSSCDDDDDGGGGGDEAAE",
+  "DDDDDDDDDDDDSGSSDDDCDCCDDGGDEAAE",
+  "DDDDDDDDDDDDDDDSSDDDDSSDCGCDDEAE",
+  "DDDDCDDDDY.YYYDDDDDDSSDDSSCCDEEA",
+  "DDDDDDDCDYYYYYDDDDDDDDDSSSSDDEEA",
+  "DDDDDDDDDYYYYYDDDDDDDDDDDDSSDEEA",
+  "DDDDDDDDDDYYYYDDDDDDY.YYDDDDEEEE",
+  "DCGDDDDDDDDDDDDDDDDDYYYYDDDDEEEE",
+  "DDGGDDDDDDDDDDDDDDDDYYYYDDDDDEEE",
+  "DDGGDDDDDDDDDDDDDDDDDDDYDDDDDEEE",
+  "DDGGDDDDDCCDDDDDDDDDDDDDDDDDAAEE",
+  "DDDGDDDDDDCCCCCCDDDDDDDDDDDDAEEE",
+  "DDDGDDDDDDDCCCCCCCCDDDDDDDDEEEEE",
+  "DDDDDDDDDDDDDDCCCCCCCDDDDDDEEGGE",
+  "CDDDDDDDDDDDCSDDDDCCDDDDDDDEEGGE",
+  "DDDDDDDDDDDSSSDCCDDDDCDDDDDDEGEE",
+  "DDDDDDDDDDDDSDDDDCDDDDDDDDCCDEEE",
+  "DDDDDDCDDDDDDDDDDDDDDDDDDDDDDEAE",
+  "DDDGGCCCDDDDDDDDDDDDDDDDDDDDDEAA",
+  "DDGGGDCGGDDDDDDDDDDDDDDDDDDDDDEA",
+  "DDGGGDDGGDDDDDDDDDDDDGGGGDDDDDEE",
+  "DDDGGDDDCDDDDDDDDDDDDDGGGDDDEEEE"
+ ]
+}

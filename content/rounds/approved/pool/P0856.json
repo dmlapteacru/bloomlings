@@ -1,0 +1,113 @@
+{
+ "code": "P0856",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Улитка с ланчбоксом вместо раковины",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Насекомые и маленькие существа",
+ "direction": "Предметные гибриды",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Крупная дружелюбная улитка несёт округлый открытый ланчбокс вместо раковины, внутри видны одно яблоко и два больших треугольника бутерброда, широкие глаза на коротких стебельках",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 41,
+ "h": 42,
+ "N": 1362,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 441,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 352,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "G": {
+   "cells": 149,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 105,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 78,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "E": {
+   "cells": 65,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 62,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 56,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "B": {
+   "cells": 54,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "....................CCBBBBBNNN...........",
+  "...................CCCBBBBBBBBBBB........",
+  "..................CCCDYYYYYYBBBBBBB......",
+  "..................DNNNNNNNNYYYYYYBBB.....",
+  "..CEEE....EEE.....DNNNNNNNNNNDYYYBBBB....",
+  ".CCCCC...CCCCC....DNNNNNNNNNNNNDYYNNN....",
+  ".CCDDDC.CCCDDCE...DNNNNNNNNNNNNNNYYNNN...",
+  "CCCDDDCCCCDDDDE...NNNNNNNNNNNNNNNNYNNNN..",
+  "CCCDDDC.CCDDDDE....NNNNNNNNDDNNNNNNYNNN..",
+  ".CCDDDD.CCCDDC.....NNNNEENGGGGDNNNNYNNN..",
+  "..CCCC...CCCC......DNNNEEDGGGGDNNNNYYNNN.",
+  "...CCC...CCC......RRRRREEGGGGDNNNNNNYNNN.",
+  "....CC..CCE......DRCRRREEEEEENNNDDDNYNNN.",
+  "....CCCCCCE....DNRRRCRREERRRRENDCCNNYNNN.",
+  "...CCCCCCCE...NNNRRRRRRRRRRRREECCONNNYNN.",
+  "..CCCCCCCCC..NNDCCRRRRRRRRRRRCCCCONNNYNN.",
+  "..CDCCCECCCCNNNOCCCCCRRRRRRCCCCCCOODNYNN.",
+  ".CCEECEECCCDNDGOOCCCCCRRRRCCCCCCCORGGDNN.",
+  ".CCCEEECCCCDBGGCOCCCCCCCCCCCCCCCCORGGDN..",
+  ".CCCEEEDCCCDBDGOOOCCCCCCCCCCCCCCCORGGDN..",
+  ".CCCCDCCCCCDBDDDCCCCCCCCCCCCCCCCCOGGNNN..",
+  ".CCCCCCCCCCDNDDDDYCCCCCCCEDDCCCCCOGGNNNN.",
+  "..CCCCCCCCCDNDDDDYGCCCCEEEYYRRROOOGGNNNN.",
+  "..CCCCCCCCCDNNDDYYGGCCEEEYYDRRRRRGGGDNNN.",
+  "..CCCCCCCCCNNBBBDDDGOYYYRRRDDRRRRGGDDNN..",
+  "...CCCCCCCCNNBBBBDDDDYYYRRREDEERRDDBBNN..",
+  "...CCCCCCCCNNBBNNNNDDYYRRRREEEEDDBBBNNN..",
+  "...CCCCCCCCCDBBNNNNNNNNBBBDYYYYNNNNNNNN..",
+  "....CCCCCCCCCBBNNNNNNNNNNNNYEEYNNNNNNNN..",
+  "....CCCCCCCCCDNNNNNNNNNNNNNYEEYNNNNNNN...",
+  "....CCCCCCCCCDDNNNNNNNNNNNYYYYYNNNNNNN...",
+  ".....CCCCCCCCCCNNNNNNNNNNNNYYYNNNNNNN....",
+  ".....CCCCCCCCCCNNNNNNNNNNNNNNNNNNNNN.....",
+  "......CCCCCCCCCCCDNNNNNNNNNNNNNNNNNNN....",
+  "......CCCCCCCCCCCOONNNNNNNNNNNNNNDOOCCC..",
+  "...GG..CCCCCCCCCCCOOODNNNNNNNNNOOOOOCCCC.",
+  "..GGGCGGCCCCCCCCCCCCCOOOOOOOOOOOOOOOCCCC.",
+  "..GGGGGGGCCCCCCCCCCCCCCCCOOOOOCCCOCOOOGGG",
+  "..GGGGGGGGCCCCCCCCCCCCCCCCCCCCCCEEEGGGGGG",
+  ".GGGGGGGGGGGGGGCCCCCCCCCEEEEGGGGGGGGGGGG.",
+  "....GGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGGG...",
+  "..........GGGGGGGGGGGGGGGGGGGGG.........."
+ ]
+}

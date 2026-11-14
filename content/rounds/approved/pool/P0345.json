@@ -1,0 +1,103 @@
+{
+ "code": "P0345",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Складной стул с парусом",
+ "theme": "Путешествия и походы",
+ "family": "Походы и отдых на природе",
+ "direction": "Миры через портал",
+ "device": "Контраст миров по сторонам проёма",
+ "subject": "Походный стул обзавёлся парусом; скрещённые ножки; цветное сиденье; большой тканевый парус",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 30,
+ "N": 898,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 388,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "Y": {
+   "cells": 154,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 138,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "E": {
+   "cells": 71,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "P": {
+   "cells": 54,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "C": {
+   "cells": 41,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "B": {
+   "cells": 26,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "O": {
+   "cells": 15,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 11,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".SSSSSSSSSSSSSSSSSSSSSSSSSSSS.",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSBSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSBBBSSSSSS",
+  "SSSSSSEEEEEEEEEEEEESSBBBSSSSSS",
+  "SSSSSSGGGGGGGGGGGGGGSBBBBSSSSS",
+  "SSSSSSGGGGGGGGGGGGGGBBBBBCSSSS",
+  "SSSSSSGGGGGGGGGGGGGGECCCCCSSSS",
+  "SSSSSSGGGGGGGGGGGGGGECCCCCCSSS",
+  "SSSSSSEGGGGGGGGGGGGGECCCCCCSSS",
+  "SSSSSSEGGGGGGGGGGGGGGCCCCCCCSS",
+  "SSSSSSEGGGGGGGGGGGGGGCCCCCCCCS",
+  "SSSSSEEGGGGGGGGGGGGGGCCCCCCCCB",
+  "SSSSSEEGGGGGGGGGGGGGGBBBBBBBBB",
+  "SSSSSSEGGGGGGGGGGGGGAASSSSSSSS",
+  "SSSSSSSPPPPPPPPPPPPPAASSSSSSSS",
+  "SSSSSSSPPPPPPPPPPPPPPASSSSSSSS",
+  "SSSSSSSPPPPPPPPPPPPPPASSSSSSSS",
+  "SSSSSSSSPPPPPPPPPPPPPASSSSSSSS",
+  "SSSSSSSSSSSSEEEESSSSSASSSSSSSS",
+  "SSSSSSSSSSSSEEEESSSSSASSSSSSSS",
+  "YYYYYYYYYYEEEEEEEYYYYAYYYYYYYY",
+  "YYYYYYYYYEEEYYYEEEYYYAYYYYYYYY",
+  "YYYYYYYYOEEYYYYYEEEYYYYYYYYYYY",
+  "YYYOOOOOOEYYYYYYYEEEYYYYOOOOYY",
+  "YYYYYYEEEYYYYYYYYYEEEYYYOOOOYY",
+  "YYYYYEEEYYYYYYYYYYYEEEYYYYYYYY",
+  "YYYYEEEYYYYYYYYYYYYYEEYYYYYYYY"
+ ]
+}

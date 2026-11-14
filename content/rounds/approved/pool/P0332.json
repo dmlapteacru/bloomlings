@@ -1,0 +1,85 @@
+{
+ "code": "P0332",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Праздничный колпак с радугой внутри",
+ "theme": "Праздники и карнавал",
+ "family": "Ярмарки и праздники",
+ "direction": "Уютный сюрреализм",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "В колпаке видна радуга; наклонённый конус; раскрытый цветной нижний край; круглый помпон",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 25,
+ "h": 28,
+ "N": 371,
+ "colours": 6,
+ "volumes": {
+  "Y": {
+   "cells": 110,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "P": {
+   "cells": 98,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "V": {
+   "cells": 70,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "E": {
+   "cells": 34,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "B": {
+   "cells": 33,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "G": {
+   "cells": 26,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........YYY...........",
+  "...........YYYY..........",
+  "..........YYYYY..........",
+  "...........YYY...........",
+  "..........PPYVV..........",
+  "..........PPPVV..........",
+  ".........PPPPVVV.........",
+  ".........PPPPVVV.........",
+  "........PPPPPVVVV........",
+  "........PPPPPVVVV........",
+  ".......PPPPPPVVVVV.......",
+  ".......PPPPPPVVVVV.......",
+  "......PPPPPPPVVVVVV......",
+  ".....PPPPPPPPVVVVVV......",
+  ".....PPPPPPPPYVVVVVV.....",
+  "....PYYYYYYYYYYVVVVV.....",
+  "....PPPPPPPPPPPVVVVVV....",
+  "...PPPPPPPPPPPPVVVVVV....",
+  "...PPPPPPPPPPPPPVVVVVE...",
+  "..EPPPEEEEEEEEEEEEEVVE...",
+  "..EEEYYYYYYYYYYYYYYYEEE..",
+  ".YYYYYYBBBBBBBBBBBYYYYYY.",
+  "YYYYBBBBGGGGGGGGGGBBBYYYY",
+  "YYYYBBBGGGGGGGGGGGBBBYYYY",
+  ".YYYYYBBBBGGGGGBBBBBYYYY.",
+  "..YYYYYYYYYYYYYYYYYYYYY..",
+  "....EEEEYYYYYYYYYYEEE....",
+  "..........EEEEE.........."
+ ]
+}

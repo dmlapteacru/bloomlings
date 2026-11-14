@@ -1,0 +1,101 @@
+{
+ "code": "P0344",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Дом с крышей из одеяла",
+ "theme": "Невозможная архитектура",
+ "family": "Дома и архитектура",
+ "direction": "Невесомый мир",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Крыша дома сделана из мягкого одеяла; объёмные свисающие края; лоскутные полосы; два окна и дверь",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 37,
+ "h": 33,
+ "N": 877,
+ "colours": 8,
+ "volumes": {
+  "P": {
+   "cells": 236,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "Y": {
+   "cells": 181,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "V": {
+   "cells": 158,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "E": {
+   "cells": 123,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 89,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 38,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "B": {
+   "cells": 28,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 24,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..................P..................",
+  "..............EEEPPPEEE..............",
+  ".............EEVVVVVVEEE.............",
+  "............VVVVVVVVVVVEE............",
+  "...........PVVVVVVVVVVVVVV...........",
+  "........EEEPVVVVVVVVVVVVVPEEEE.......",
+  "......PPPPPPVVVVVVVVVVVVVPPPPPPP.....",
+  ".....PPPPPPPVVVVVVVVVVVVVVPPPPPPP....",
+  "....PPPPPCCCCVVVVVVVVVVVVCPPPPPPPP...",
+  "...PPPCCCCCCCCCVVVVVVVVCCCCCCCPPPPP..",
+  "..PPPCCCCPPVVCVVVVVVVVVVCCCCCCCCPPP..",
+  "..PPCCCPPPPVVVVVVVVVVVVVVVPPPPCCCPPP.",
+  ".PPCCPPPPPPVVVVVVVVVVVVVVVPPPPPCCCPP.",
+  ".PPPPPPPPPPVVVVVVVVVVVVVVVPPPPPPCCPPE",
+  "PPPPPPPPPPPVVPPPVVVVVPPPPPPPPPPPPPPPE",
+  "PPPPPPPPPPPPPPPPPVVVPPPPPPPPPPPPPPPPE",
+  ".PPPPPPPPPPEYYEPPPPPPPYYYEPPPPPPPPPP.",
+  "..PPPPPPPPEEYYEEEPPPPPYYYEEPPPPPPPP..",
+  "...PPPPPPBBCCBBEEEEEYYNNNCNPPPPPPP...",
+  "....EEPPEBBBCBBBEYYYYYNNNCNNEPPEE....",
+  ".....EEEEBBBCBBBEYYYYYNNNCNNEEEE.....",
+  ".....EYYCCCCCCCCYYYYYYCCCCCCCYYE.....",
+  ".....EYYECCCCCCCEYYYYYCCCCCCCYYE.....",
+  ".....EYYEBBBCBBBEYYYYYNNNCNNEYYE.....",
+  ".....EYYEBBBCBBBEAAAAANNNCNNEYYE.....",
+  ".....EYYEEEECEEEAAAAAAEEECEEEYYE.....",
+  ".....EYYYYYYYYYYYAAAAAYYYYYYYYYE.....",
+  ".....EYYYYYYYYYYYAAAAYYYYYYYYYYE.....",
+  ".....EYYYYYYYYYYYAAAAYYYYYYYYYYE.....",
+  ".....EYYYYYYYYYYYAAAAYYYYYYYYYYE.....",
+  ".....EYYYYYYYYYYYAAAAAYYYYYYYYYE.....",
+  ".....EYYYYYYYYYYYAAAAAYYYYYYYYYE.....",
+  "......EEEEEEEEEEEEEEEEEEEEEEEEEE....."
+ ]
+}

@@ -1,0 +1,80 @@
+{
+ "code": "P0276",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Горячий лёд на сковороде",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Посуда и кухонные вещи",
+ "direction": "Визуальные каламбуры",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "На сковороде жарятся кубики льда; чёрная сковорода; голубые кубики; оранжевое пламя внутри льда",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 23,
+ "N": 389,
+ "colours": 6,
+ "volumes": {
+  "B": {
+   "cells": 118,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 113,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "E": {
+   "cells": 72,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "S": {
+   "cells": 46,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "D": {
+   "cells": 26,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "O": {
+   "cells": 14,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "......SSSSSSSSSSSSSSSS........",
+  "....SSSSSSSSNNSSSSSSS.........",
+  "...SSSSSSSSNNSSSSSSS..........",
+  "..NNBBBBBBNNNBBBBBBB..........",
+  ".NNNBBBBBBBNBBBBBBBBB.........",
+  "DNNNBBBOBBBNBBBBOBBBB.........",
+  "DNNNBBBOBBBNBBBBOBBBND........",
+  "DNNNBBBOOBBNBBBOOBBBND........",
+  "NNNNBBOOOBBNBBBOOOBBND........",
+  "NNNNBBBBBBBNBBBBBBBBND........",
+  "NNNNBBBBBBBNBBBBBBBBND........",
+  "NNNNBBBBBBNNNBBBBBBEDD........",
+  ".NNNNNNNNNNNNNNNNNEEEEE.......",
+  "..DNNNNNNNNNNNNNNNEEEEEE......",
+  "..DDNNNNNNNNNNNNNNEEEEEEE.....",
+  "....NNNNNNNNNNNNDDDEEEEEEE....",
+  "......DDDNNNDDDD...EEEEEEEE...",
+  "....................EEEEEEEE..",
+  ".....................EEEEEEEE.",
+  "......................EEEEEEEE",
+  ".......................EEEEEEE",
+  "........................EEEEED",
+  "..........................EEDD"
+ ]
+}

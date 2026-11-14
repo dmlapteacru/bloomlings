@@ -1,0 +1,86 @@
+{
+ "code": "P0322",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Бенгальский огонь-снежинка",
+ "theme": "Праздники и карнавал",
+ "family": "Ярмарки и праздники",
+ "direction": "Уютный сюрреализм",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Бенгальский огонь горит снежинкой; диагональная ручка; шесть ледяных лучей; золотой центр",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 27,
+ "h": 29,
+ "N": 379,
+ "colours": 6,
+ "volumes": {
+  "S": {
+   "cells": 191,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "N": {
+   "cells": 110,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 31,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 28,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 13,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 6,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............NN...........",
+  "..........NNN.NSN.SS.......",
+  "........S.NSSNNSNNSSN......",
+  ".......NSS.SSSSSSSSNNSN....",
+  ".......NSS..SSSSSSS.NSN....",
+  ".....NNNSS...SSSN...NSNNN..",
+  ".....NSNSSS...NSN...NSNSSS.",
+  ".....NSSSSS...NSN...NSSSSS.",
+  ".....NNSSSSS..NSN.SSSSSSS..",
+  "....SSSSSSSSSSYYYYSSSSSSSNN",
+  "....SSSSS.SSSYYYYYSSS.SSSSN",
+  "....NN.....YYYCCCYY.....NNN",
+  "....NN.....YYYCCCYY.....NN.",
+  "....SSSSS.SSSYYYYYSSS.SSSSN",
+  "....SSSSSSSSSSYYYYSSSSSSSNN",
+  ".....NNSSSSAAANSN.SSSSSNN..",
+  ".....NSSSSAAAANSN...NSSSNN.",
+  ".....NSNSSAAAANSN...NSNSSN.",
+  ".....NNNSSAAASSSN...NSNNN..",
+  ".......NSSAASSSSSSS.NSN....",
+  ".......NSNASSSSSSSSNNSN....",
+  "......AANNNSSNNSNSSSNN.....",
+  ".....AAAA.NNN.NSNNNN.......",
+  ".....RAA......NN...........",
+  "...RRRA....................",
+  "..RRRR.....................",
+  "..RRR......................",
+  "AARR.......................",
+  "AAA........................"
+ ]
+}

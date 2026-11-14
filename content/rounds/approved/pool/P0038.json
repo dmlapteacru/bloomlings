@@ -1,0 +1,90 @@
+{
+ "code": "P0038",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Котёл с зельем",
+ "theme": "batch-0011",
+ "family": "Магические предметы",
+ "direction": "Домашняя магия",
+ "subject": "котёл с зельем",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 38,
+ "h": 38,
+ "N": 873,
+ "colours": 5,
+ "volumes": {
+  "D": {
+   "cells": 646,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "G": {
+   "cells": 84,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "L": {
+   "cells": 83,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "A": {
+   "cells": 38,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "V": {
+   "cells": 22,
+   "name": "Слива",
+   "hex": "#7851A5"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  ".................................A....",
+  "................................AAAA..",
+  "..................GGGG..........AAAA..",
+  ".................GGLLGG.........AAAA..",
+  ".................GLLLLG........AAAA...",
+  "................GGLLLLGG.......AAA....",
+  "..........GG.....GLLLLG.......AAA.....",
+  ".........GLLG....GGLLGG.......AAA.....",
+  "........GLLLLG....GGGG...GG..AAA......",
+  "........GLLLLG..G.......GGGG.AAA......",
+  ".........GLLG..GGG.......GG.AAA.......",
+  "..........GG...GGG..........AAA.......",
+  ".......GGGGGGGGLGLLLLLLGGGGGGGG.......",
+  "...GGGGLLLLLLLLLLLLLLLLLLLLLLLLGGGG...",
+  "...GGGGLLLLLLLLLLLLLLLLLLLLLLLLGGGG...",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  "DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD",
+  ".....DDDDDDDDDDDDDDDDDDDDDDDDDDDD.....",
+  "....DDDVDDDDDDDDDDDDDDDDDDDDDDDDDD....",
+  "....DDVDDDDDDDDDDDDDDDDDDDDDDDDDDD....",
+  "...DDVVDDDDDDDDDDDDDDDDDDDDDDDDDDDD...",
+  "...DDVVDDDDDDDDDDDDDDDDDDDDDDDDDDDD...",
+  "...DDVVDDDDDDDDDDDDDDDDDDDDDDDDDDDD...",
+  "...DDVVDDDDDDDDDDDDDDDDDDDDDDDDDDDD...",
+  "...DDVVDDDDDDDDDDDDDDDDDDDDDDDDDDDD...",
+  "...DDVVVDDDDDDDDDDDDDDDDDDDDDDDDDDD...",
+  "...DDVVVDDDDDDDDDDDDDDDDDDDDDDDDDDD...",
+  "....DDVVVVDDDDDDDDDDDDDDDDDDDDDDDD....",
+  "....DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD....",
+  ".....DDDDDDDDDDDDDDDDDDDDDDDDDDDD.....",
+  ".......DDDDDDDDDDDDDDDDDDDDDDDD.......",
+  "......DDDDDDDDDDDDDDDDDDDDDDDDDD......",
+  "......DDDDDDDDDDDDDDDDDDDDDDDDDD......",
+  "......DDDDD...DDDDDDDDDD...DDDDD......",
+  "......DDDDD................DDDDD......",
+  "......DDDDD................DDDDD......"
+ ]
+}

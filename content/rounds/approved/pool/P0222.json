@@ -1,0 +1,99 @@
+{
+ "code": "P0222",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Белый Кролик с часами",
+ "theme": "Сказочные герои",
+ "family": "Домашние животные",
+ "direction": "Уютный сюрреализм",
+ "subject": "белый кролик в жилете с большими карманными часами",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 26,
+ "h": 32,
+ "N": 832,
+ "colours": 8,
+ "volumes": {
+  "M": {
+   "cells": 404,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "C": {
+   "cells": 178,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 124,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "R": {
+   "cells": 50,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 31,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "K": {
+   "cells": 18,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "N": {
+   "cells": 14,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 13,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "MMMMMMMMMMMMMMMMMMMMMMMMMM",
+  "MMMMMMMCCMMMMCCMMMMMMMMMMM",
+  "MMMMMMMCCMMMMCCMMMMMMMMMMM",
+  "MMMMMMMCCCMMCCCMMMMMMMMMMM",
+  "MMMMMMMKKCMMCKKMMMMMMMMMMM",
+  "MMMMMMMKKCMMCKKMMMMMMMMMMM",
+  "MMMMMMMCKCMMCKCMMMMMMMMMMM",
+  "MMMMMMMCKCCCCKCMMMMMMMMMMM",
+  "MMMMMMMCKCCCCKCMMMMMMMMMMM",
+  "MMMMMMMCCCCCCCCMMMMMMMMMMM",
+  "MMMMMMMCCCCCCCCMMMMMMMMMMM",
+  "MMMMMMCCCCCCCCCCMMMMMMMMMM",
+  "MMMMMMCCDDCCDDCCMMMMMMMMMM",
+  "MMMMMMCCDDCCDDCCMMMMMMMMMM",
+  "MMMMMMCCCCCCCCCCMMMMMMMMMM",
+  "MMMMMMMCCCKKCCCMMMMMYYMMMM",
+  "MMMMMMMCCCKKCCCMMMMYYYMMMM",
+  "MMMMMMMNNNCCNNNMMYYYYYYYMM",
+  "MMMMMMMNNNCCNNNMMYCCDCCYMM",
+  "MMMMMMCNRRCCRRNCCCCCDCCYYM",
+  "MMMMMMCCRRCCRRRCCCCCDDDYYM",
+  "MMMMMMCCRRRRRRRCCCCCCCCYYM",
+  "MMMMMMCCRRRRRRRRCYCCCCCYMM",
+  "MMMMMCCRRRRRRRRRMYYYCYYYMM",
+  "MMMMMCCRRRRRRRRCMMMYYYMMMM",
+  "MMMMMMCRRRRRRRRCMMMMMMMMMM",
+  "GGGGGGCCCCCRCCCCCGGGGGGGGG",
+  "GGGGGCCCCCCCCCCCCGGGGGGGGG",
+  "GGGGGGCCCCGGCCCCCGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGG"
+ ]
+}

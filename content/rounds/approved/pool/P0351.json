@@ -1,0 +1,108 @@
+{
+ "code": "P0351",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Магнитофон с водяными колёсами",
+ "theme": "Ретрофутуризм",
+ "family": "Ретро-техника и ностальгия",
+ "direction": "Ретрофутуристические приключения",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Катушки магнитофона стали водяными колёсами; два голубых ротора; деревянный корпус; вода между лопастями",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 39,
+ "h": 37,
+ "N": 1271,
+ "colours": 9,
+ "volumes": {
+  "B": {
+   "cells": 278,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "A": {
+   "cells": 258,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 214,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "V": {
+   "cells": 169,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "N": {
+   "cells": 134,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "S": {
+   "cells": 90,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "E": {
+   "cells": 67,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 49,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 12,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "........NNNNN.............NNNNNN.......",
+  ".....NNNBBBBBBB.........BBBBBBBNNN.....",
+  "....NNBBBBBBBBBNN.....NNBBBBBBBBBBB....",
+  "...BBBBBBYYBBBBBNN...NNBBBBBYYBBBBBB...",
+  "..BBBBBBBYYYBBBBBNN.NNBBBBBYYYBBBBBBB..",
+  ".NBBBYYYBYYYBYYYBBNNNBBBYYBYYYBYYYBBBB.",
+  ".NBBBYYYYYYYYYYYBBBNBBBYYYYYYYYYYYBBBB.",
+  ".NBBBYYYYYYYYYYBBBBNBBBBYYYYYYYYYYBBBBN",
+  "NBBBBBYYYNNNYYYBBBBNBBBBYYYNNNYYYBBBBBN",
+  "NBBYYYYYNNNNNYYYYBBNBBYYYYNNNNNYYYYYBBN",
+  "NBBYYYYYNNNNNYYYYYBNBBYYYYNNNNNYYYYYBBN",
+  "NBBYYYYYNNNNNYYYYBBNBBYYYYYNNNNYYYYYBBN",
+  "NBBBBBYYYNNNYYYBBBBNBBBBYYYNNNYYYBBBBBN",
+  ".NBBBYYYYYYYYYYYBBBNBBBYYYYYYYYYYYBBBNN",
+  ".NBBBYYYYYYYYYYYBBBNNBBYYYYYYYYYYYBBBN.",
+  ".NNBBYYBBYYYBYYBBBNANBBBYYBYYYBBYYBBNN.",
+  "..NBBBBBBYYYBBBBBNNAANBBBBBYYYBBBBBBN..",
+  "..EBBBBBSSSSSSSSSNAAANNBBBBBYBBBBBBBB..",
+  "..EESSSSSSSSSSSSSSSSAAABBBBBBBBBBBBBB..",
+  "..EESSSSSSSNNNSSSSSSSAAANNNNBBNNNAASS..",
+  "..ESSSSAANNNAAAAAASSSSSAAAANNNAAAASSS..",
+  "..ESSAAAAAAAAAAAAAAASSSSSAAAAAASSSSSS..",
+  "..EAAAAAAAAAAAAAAAAAASSSSSSSSSSSSSSAE..",
+  "..EAAAAAAAAAAAAAAAAAAAASSSSSSSSSSAAAE..",
+  "..EAAAAVVVVVVVVVVVVVVVVVVVVVVVVVAAAAE..",
+  "..EAAAAVVVVVVVVVVVVVVVVVVVVVVVVVAAAAE..",
+  "..EAAAAVVVVVVVVVVVVVVVVVVVVVVVVVAAAAE..",
+  "..EAAAAVVVVCCCCCCCCCCCCCCCCCVVVVAAAAE..",
+  "..EAAAAVVVVCCCCCCCCCCCCCCCCCVVVVAAAAE..",
+  "..EAAAAVVVVVCCCCCCCCCCCCCCCVVVVVAAAAE..",
+  "..EAAAAVVVVVVVVVVVVVVVVVVVVVVVVVAAAAE..",
+  "..EAAAAVVVVVVVVVVVVVVVVVVVVVVVVVAAAAE..",
+  "..EAAAAAAAVVGGGGVVVVVVVVVVVVVVVVAAAAE..",
+  "..EAAAAAAAAAGGGGAAAAAAAAAAAAAAAAAAAAE..",
+  "..EAAAAAAAAAGGGGAAAAAAAAAAAAAAAAAAAAE..",
+  "...AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAEE..",
+  "....EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE..."
+ ]
+}

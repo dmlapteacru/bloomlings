@@ -1,0 +1,94 @@
+{
+ "code": "P1071",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Гарри Дюбуа",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Disco Elysium · ZA/UM: Harry Du Bois: adult middle-aged detective, huge brown mutton-chop sideburns joined to a moustache, wavy dark hair swept back, bulbous nose, expressive tired blue eyes. Green jacket with broad lapels, cream shirt and colorful orange-red tie. Wry friendly smile.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 32,
+ "N": 1024,
+ "colours": 7,
+ "volumes": {
+  "D": {
+   "cells": 394,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "M": {
+   "cells": 226,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "E": {
+   "cells": 184,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 104,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 88,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 20,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "R": {
+   "cells": 8,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "MMMMMMMMMMMMMMEEEEEEEDEMMMMMMMDD",
+  "MMMMMMMMMMEEEEEEEDEEEEEMMMMMMMDD",
+  "MMMMMMMMMEEEEEEEEEDEEEEDMMMMMMDD",
+  "MMMMMMMMMDEEEEEECCCEEDDDMMMMMMDD",
+  "DMMMMMMMMEEEEEACCCCCCCADDMMMMMDD",
+  "DDMMMMEEEEEEEAACCCCCCCAAMMMMMMDD",
+  "DMMMMMMEEEEEDAACCCCCCCAAMMMMMDDD",
+  "DMMMMEEEEEDEEAEEEEEACCAADMMMMDDD",
+  "DDMMEEEEAEEEAAAAAEAAAAAADMMMDDDD",
+  "DDMMEDEDAEEEAAADDAAAAAAADMMMDDDD",
+  "DDMMDEDDAEEEOOAAAAAADAADDDMMDDDD",
+  "DDMMMEDDEEEEAOOOOARAACADDDMMDDMD",
+  "MDMDDEDDEEEEAAOORRRRAAADDDMMDMMD",
+  "MMMDDDDDEEEEEEEEERRRAAADDDMMDMMD",
+  "MMMMDDDDEEEEEDEEEDDDEEDDMDMMDMDD",
+  "MMMMDDDDEEEEDAAAADDEEEDEMMMMDMDD",
+  "MMMDDDDDDEEEDAAAAAAEDEEEDMMMMMDD",
+  "MDDDDDDDCDEDAAAAEEEEDEEEDMMMMMDD",
+  "DDDDMDDDCCAAAAAAAAADDEEDMMMMMMDD",
+  "DDDDMDDDDCAAAAAAAAADDDDDDMMMDMDM",
+  "DDDMMDDDDCCOOAEEEAEDDDDDDDDMDMMM",
+  "DDDMDDDDDCCCOAAEEEECDDDDDDDDDMMM",
+  "DDMMDDDDDCCCCAAAEEECCDDDDDDDDDDM",
+  "DDMMDDDDDCCCCCAAEECCCDDDDDMDDDDD",
+  "DMMMDDDDDDCCDECAAECDDCDDDDMMDDDD",
+  "DDMMMMDDDDCDEECAAEEEDDDDDDDMMDDD",
+  "DDDDDDMMDDCEEEEOOOEEDDDDDDDDDDDD",
+  "DDDDDDMMDDDCCEEOOOECCDDDDDDDDDDD",
+  "DDDDDDDDDDDCCCCOOOECCDDDDDDDDDDD",
+  "DDMMDDDDDDDCCCCEEEECCCDDDDDDMMDD",
+  "DDDMDDDDDDDCCCCEEEECCCDDDDDDDMDD",
+  "DDDMDDDDDDDDCCCEEEEECCDDDDDDDMDD"
+ ]
+}

@@ -1,0 +1,115 @@
+{
+ "code": "P0859",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Груша-тележка с урожаем",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Наземный транспорт",
+ "direction": "Кулинарная фантастика",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Разрезанная вдоль большая зелёная груша стала тележкой на двух коричневых колёсах, внутри лежат три крупных красных помидора, черенок служит ручкой",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 44,
+ "h": 44,
+ "N": 1235,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 237,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 222,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "G": {
+   "cells": 208,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "E": {
+   "cells": 194,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "L": {
+   "cells": 137,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "A": {
+   "cells": 88,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "M": {
+   "cells": 87,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "D": {
+   "cells": 50,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 12,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "........................................EEE.",
+  ".......................................AAEE.",
+  "......................................AAAEEE",
+  ".....................................AAAEEEE",
+  ".....................................AAEE...",
+  "....................................AAEE....",
+  "....................................EEE.....",
+  "...............................CCCCEEEE.....",
+  ".............................CCCCCCEEEE.....",
+  "............................CCCCCCCCCCGG....",
+  "...........................CCCCCCCCCCCGGG...",
+  "..........................CCCCCCCCCCCCGGG...",
+  ".........................CCCCCCCCCCCCCCGGM..",
+  "..........G..MM.......MCCCCCCCCCCCCCCCGGGM..",
+  "..........MM.MM.......MMMCCCCCCCCCCCCCGGGM..",
+  "........CCDMMMMRRR..MMMMMCCCCDCCCCCCCCGGGM..",
+  "........DMMMMMMRRRRCCMMMMMMCCCCCCCCCCCGGG...",
+  ".......RRRMMMMRRRRRCCRMMMMMMRRRCCCCCCGGGG...",
+  "......RRRRRRRRRRRRRRRRRRRRRRRRRRCCCCCGGGG...",
+  "....EERCCRRRRRRRRRGGRRRRRRRRAARRRCCCCGGGD...",
+  "...CCERCCRRRRRRRRGGGGGRRRRRRAARRRCCCCGGGD...",
+  "..CCCERRRRRRRRRRRGGGGGRRRRRRRRRRRCCCLLGGG...",
+  ".CCCCERRRRRRRRCCRRRRRRRRRRRRRRRRRDCCLLGGG...",
+  ".CCCCCRRRRRRRRCCRRRRRRRRRRRRRRRRRCCCGGLGG...",
+  "DCCCCCCRRRRRRRRRRRRRRRRRRRRRRRRRCCCLGLLGGC..",
+  "DGCCCCCCCCRRRRRRRRRRRRRRRRRRRRCCCCLLGLLGGC..",
+  "DGLLCCCCCCCCCCRRRRRRRRRRRRRRCCCCCLLLLGGGGD..",
+  "DGLLLLLLEEECCCCCCCRRRRRRRCCCCCCCLLLLGGGGGC..",
+  ".GLLLLLLEEELLLCCCCCCCCCCCCCCCLLLLLLLGGGGD...",
+  ".GGLLLLLGGLLLLLLLLLLCCCCLLLLLLLLGLLLGGGGG...",
+  ".GGLLLLLGLLLLLLLLLLLLLLLLLLLLLLLGLGGGGGGD...",
+  "..GGGGLLGLLLLDEEELLLLLLLLLLLLLLGGEEEGGGG....",
+  "..DGGGGLGGGDEEEAAAELLLLLLLLLLLEEEEEAAEGG....",
+  "...GGGGGGGDEEEEEAEEEGLLLLLGGGGEEEEEAAEE.....",
+  "...DGGGGGGEEEEEEAEEEGGLGGGGGGDEAEEEAAEED....",
+  "....DGGGGDEAAEEEEEAAGGGGGGGGGEEAEEEEEAAE....",
+  "....EEDGGDEAAEEYYEAADGGGGGGGGEEAAEYYYAAE....",
+  "....EEEDDDEEEEYYYEEEDGGGGGGGGEEAEEYYYAAE....",
+  ".....EEEEEEAAAEYEEAAAGGGGGGGDEEAAAEEEAAE....",
+  ".....EEEEEEAAAEEEEAADDDDDDEEEEEAAAEEEAAE....",
+  "....GCEEEEEAEEAEAEAADMMMMMEEEEEAEEEAEEA.....",
+  "..GGGMMMDDDAEEAEAEAAMMMMMMMMDMDEAAAAAEMMGG..",
+  "..GGGGGMMMMDEEAAAEEMMMMMMMMMMMMEEEEEEDMGGG..",
+  ".......GGG.MMMDDDDGGGGG......CMMMDDEE......."
+ ]
+}

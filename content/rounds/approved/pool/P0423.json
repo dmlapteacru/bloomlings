@@ -1,0 +1,109 @@
+{
+ "code": "P0423",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Перри — задание под прикрытием",
+ "theme": "Новые версии знакомых героев",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Агент Перри прячется за чемоданом; широкая шляпа; плоский оранжевый клюв; бирюзовое тело и хвост",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Phineas and Ferb",
+  "url": "https://en.wikipedia.org/wiki/Perry_the_Platypus",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 36,
+ "N": 885,
+ "colours": 8,
+ "volumes": {
+  "R": {
+   "cells": 191,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "E": {
+   "cells": 163,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 161,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 122,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 102,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "B": {
+   "cells": 72,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "D": {
+   "cells": 54,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 20,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........EEEEEEEEEEEEEE...........",
+  ".........EAAAAAAAAAAAAEE..........",
+  "........AAAAAAAAAAAAAAAE..........",
+  "........AAAAAAAAAAAAAAAAA.........",
+  ".......AAAAAAAAAAAAAAAAAA.........",
+  "......AAAAEEEEEEEEEEEEAAAA........",
+  ".....AAAAAAAAAAAAAAAAAAAAAA.......",
+  ".....AAAAAAAAAAAAAAAAAAAAAAA......",
+  ".....AAAAAAAAAAAAAAAAAAAAAAA......",
+  ".....AAAAAAAAAAAAAAAAAAAAAAA......",
+  ".......DBBBBCCDDBBCCCCBBBD........",
+  ".......DBBBCCCDDBBCCDDBBBD........",
+  ".......DBBBCCCDDBBCCDDBBBD........",
+  ".......DBBBBEEEEEBCCCCBBBD........",
+  ".......EEEEOOOOOOOEEEEBBBD........",
+  "......OOOOOOOOOOOOOOOOEEBDD.......",
+  ".....OOOOOOOOOOOOOOOOOOEEDBB......",
+  ".....OOOOOOOOOOOOOOOOOOOEDBB......",
+  ".....OOOOOOOOOOOOOOOOOOEEDBBD.....",
+  "......OOOOOOOOOOOOOOOOEEDDBBD.....",
+  ".......EEEEOOOOOOOOEEEEEBBBBD.....",
+  ".........YYYYYYYYYDDDDDDBBBBD.....",
+  "........YYYYYYYYYBBBBBDDDDEEEEEE..",
+  ".EEEEEEEYYYYYYYYYEEEEDBBBBDYYYYYY.",
+  "ERRRRRRRYYYYYYYYRRRRRDBBBBDEYYYYY.",
+  "ERRRRRRRRRRRRRRRRRRRRDBBBBDEEYYEYE",
+  "ERRRRRRRRRRRRRRRRRRRRDDBBDDYEEEEYE",
+  "YYYYYYYYYYYEEEEYYYYYYYDDDDYYYEEYYE",
+  "YYYYYYYYYYYEEEEYYYYYYYYYYYYYEEEEYE",
+  "ERRRRRRRRRREEEERRRRRRRRRREYEEYYEEE",
+  "ERRRRRRRRRRRRRRRRRRRRRRRREYYYYYYYE",
+  "ERRRRRRRRRRRRRRRRRRRRRRRREYYYYYYYE",
+  "ERRRRRRRRRRRRRRRRRRRRRRRREEYYYYYYE",
+  "ERRRRRRRRRRRRRRRRRRRRRRRRE.EEEEEEE",
+  "ERRRRRRRRRRRRRRRRRRRRRRRE.........",
+  ".EEEEEEEEEEEEEEEEEEEEEEEE........."
+ ]
+}

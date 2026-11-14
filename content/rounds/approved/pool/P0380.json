@@ -1,0 +1,96 @@
+{
+ "code": "P0380",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Рояль с клавишами-домино",
+ "theme": "Музыка",
+ "family": "Музыка",
+ "direction": "Предметные гибриды",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Клавиши рояля превращаются в домино; узнаваемый крыловидный корпус; ряд клавиш; три падающие костяшки",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 37,
+ "h": 38,
+ "N": 905,
+ "colours": 6,
+ "volumes": {
+  "N": {
+   "cells": 496,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 213,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 132,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 52,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "R": {
+   "cells": 9,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "B": {
+   "cells": 3,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "................EEEEEEEEE............",
+  ".............EEENNNNNNNNEEEE.........",
+  "...........NNNNNNNNNNNNNNNNEE........",
+  ".........EENNNNNNNNNNNNNNNNNNEE......",
+  "........EENNNNNNNNNNNNNNNNNNNNE......",
+  ".......NNNNNNNNNNNNNNNNNNNNNNNNN.....",
+  "......NNNNNNNNNNNNNNNNNNNNNNNNNNE....",
+  ".....NNNNNNNNNNNNNNNNNNNNNNNNNNNE....",
+  "....NNNNNNNNNNNNNNNNNNNNNNNNNNNNE....",
+  "...NNNNNNNNNNNNNNNNNNNNNNNNNNNNNE....",
+  "..ENNNNNNNNNNNNNNNNNNNNNNNNNNNNNE....",
+  ".EENNNNNNNNNNNNNNNNNNNNNNNNNNNNNE....",
+  ".ENNNNNNNNNNNNNNNNNNNNNNNNNNNNNNE....",
+  "ENNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNE....",
+  "ENNNNNNNNNNNNNNNNNNNNNNNNNNNNNNNE....",
+  "ENNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN.....",
+  "ENNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN.....",
+  "ENNNNNNNNNNNNNNNNNNNNNNNNNNNNNN......",
+  "ENNNNNNNNNNNNNNNNNNNNNNEEENNNNN......",
+  "ENNNNNNNNNNNNNNNNNNEEEECCENNNN.......",
+  "ENNCCCCECCCCECCCCEEECCCCCEENN........",
+  "ENNCCCCECCCCECCCCEECCCCCCCEE.........",
+  ".NNCCCCECCCCECCCCEEECCRREECE.........",
+  "...CCCCECCCCECCCCECECCREECCCC........",
+  "...CCCCECCCCECCCCECECCCCCCCCCC.......",
+  "..AACCCECCCCECCCCECECECCCCRCCC.......",
+  "..AAACCCCCCCECCCCECCEECCCRRCCCC......",
+  "..AAA...............ECCCCEEEECCE.....",
+  "..AAA...............ECCECECCCEEEE....",
+  "..AAA...............EECEEECCCCCEE....",
+  "..AAA...............AEEEECCCCCCCCCC..",
+  "..AAA...............AAA.ECCRRCCCCCCEE",
+  "..AAA...............AAAECCCCRCCBCCCCE",
+  "..AAA...............AAAEECCCCCCBBCCC.",
+  "..AAA...............AAA.EEECCCCCCCCC.",
+  "..AAA...............AAA....CCCCCCCC..",
+  "..AA.................AA......CCCCCC..",
+  "...............................EEE..."
+ ]
+}

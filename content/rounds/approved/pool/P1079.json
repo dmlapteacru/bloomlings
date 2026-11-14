@@ -1,0 +1,90 @@
+{
+ "code": "P1079",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Вирт",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Over the Garden Wall · Cartoon Network: Wirt from Over the Garden Wall: pale face with large curious dark eyes and short brown hair, very tall pointed RED gnome-like cap, broad dark BLUE cape with two large cream buttons, cream shirt collar. Compact large-headed portrait, shy uncertain expression, cap and cape clearly readable, no Greg or lantern.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 37,
+ "N": 909,
+ "colours": 5,
+ "volumes": {
+  "C": {
+   "cells": 304,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 189,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "R": {
+   "cells": 168,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "E": {
+   "cells": 155,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "D": {
+   "cells": 93,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...RRRRRRRRRRRRRRRRR................",
+  "...RRRRRRRRRRRRRRRRRRR..............",
+  "....RRRRRRRRRRRRRRRRRRR.............",
+  "....RRRRRRRRRRRRRRRRRRRR............",
+  "....RRRRRRRRRRRRRRRRRRRRR...........",
+  "....ERRRRRRRRRRRRREEEERRRR..........",
+  "....ERRRRRRRRRREEEEEEEEEERE.........",
+  "....ERRRRRRRREEEEEEEEEEEEEEEEE......",
+  "....ERRRRRRREEEEEEEEEEECEEEEEE......",
+  ".....RRRRRREEECEEEEEEEECCEEEE.......",
+  ".....RRRRREEEECCEEEEEEECCCEEEE......",
+  ".....RRRRREEECCCCEEEEECCCCDEEEE.....",
+  ".....ERRREEEECCDCCCEECCCCCCEEEE.....",
+  ".....ERRREEECCCCCCCECCCCCDCEEEEE....",
+  ".....ERREEEECCCCCCCCCCCCCCCCEE......",
+  ".....ERREEEECCCCCCCCCCCCCDDCEEE.....",
+  "......RREEEECCCCDDCCCCCCCDDDECCC....",
+  "......EREEECCCCDDDDCCCCCCDDDCCCC....",
+  "......EEEEECCCCDDDDCCCCCCDDCCCCC....",
+  ".....CCCEEECCCCDDDDCCCCCCCDCCCCC....",
+  "....ECCCCCECCCCCDDCCCCCCCCCCCCCC....",
+  "....ECCCCCEECCCCCCCCCCCCCCCCCCC.....",
+  "....ECCCCCCECCCCCCCCCCCCCCCCCC......",
+  ".....CCCCCCCCCCCCCCCCCCCCCCC........",
+  "......CCCCCCCCCCCCCCCCCCCCC.........",
+  ".......CCCCCCCCCCCCCCCCCCC..........",
+  "...........DDCCCCCCCCCCCCNND........",
+  "..........NNDDDDDCCCCCDDDDNND.......",
+  ".........DNNDDDDDDCCDDDDDNNND.......",
+  ".........DNNNNDDCCDCDCDNNNND........",
+  ".......DNNNNNNNNNCDDCDNNNNNNND......",
+  ".....DNNNNNNNNNNNNDDDNNNNNNNNNND....",
+  "....NNNNNNNNNNNNNNDDNNNNNNNNNNNND...",
+  "...NNNNNNNNNNNNCCNDDDNCCNNNNNNNNND..",
+  "..NNNNNNNNNNNNNCCDDDDCCCNNNNNNNNNND.",
+  ".NNNNNNNNNNNNNNDDNDCNNDNNNNNNNNNNNN.",
+  "DNNNNNNNNNNNNNNNNNDCDNNNNNNNNNNNNNND"
+ ]
+}

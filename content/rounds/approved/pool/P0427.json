@@ -1,0 +1,96 @@
+{
+ "code": "P0427",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Пикачу — электрическая искра",
+ "theme": "Новые версии знакомых героев",
+ "family": "Игровая интернет-культура",
+ "direction": "Театр эмоций",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Пикачу выпускает искру; длинные уши с чёрными концами; красные щёки; зигзагообразный хвост",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Pokémon",
+  "url": "https://en.wikipedia.org/wiki/Pikachu",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 37,
+ "h": 38,
+ "N": 895,
+ "colours": 5,
+ "volumes": {
+  "Y": {
+   "cells": 602,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 200,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "O": {
+   "cells": 46,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "R": {
+   "cells": 32,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "E": {
+   "cells": 15,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "......DD..................DD.........",
+  "...DDDDDD................DDDDD.......",
+  "...DDDDDDD...............DDDDDD......",
+  "...DDDDDDD..............DDDDDDD......",
+  "....DDDDDDD.............DDDDDDD......",
+  "....DDDDDDD............YYDDDDDD......",
+  "....DDDDDDYD...........YYDDDDD.......",
+  ".....YYYYYYDDDDDDDDDD.DYYYYYYD.......",
+  ".....YYYYYYYYYYYYYYYYDDYYYYYYD.......",
+  "...O..DDDYYYYYYYYYYYYYYYYYYYD........",
+  "..O...DDYYYYYYYYYYYYYYYYYYYYD........",
+  ".OO..DDYYYYYYYYYYYYYYYYYYYDYD........",
+  "OOO..DYYYYYYYYYYYYYYYYYYYYDDD..DDD...",
+  ".OOOOOYYYYDYYYYYYYYYYDDYYYYD..DDYD...",
+  "..OOOOYYYDDDYYYYYYYYDDDDYYYD..DYYYD..",
+  "..OOOYYYYDDDYYYYYYYYDDDDYYYYDDYYYYDD.",
+  ".OOODYYYYDDDYYYYYYYYDDDYYYYYDYYYYYYD.",
+  ".OO.DYYYYYYYYYYYYYYYYYYYYYYDDYYYYYYYY",
+  "....DRRRYYYYYYYYYYYYYYYYRRRDYYYYYYYYY",
+  "....RRRRRYYYYDYYYYDYYYYRRRRRYYYYYYYY.",
+  "....RRRRRYYYYDDYYDDYYYYRRRRRYYYYYYY..",
+  ".....RRRYYYYYYDDDDYYYYYYRRRYYYYYYY...",
+  "..YY...DYYYYYYYYYYYYYYYYDDYYYYYYY....",
+  ".YYYYYYDDDYYYYYYYYYYYYDDDDYYYYYYY....",
+  ".YYYYYYYYYDDDYYYYYYDDDYYDDYYYYYYYY...",
+  "...YYYYYYYYYYYYYOOYYYYYYYDYYYYYYYYY..",
+  "......YYYYYYYYYYOOOYYYYYYYYYYYYYYYYD.",
+  ".......DYYYYYYYOOOOYYYYYYEEEYYYYYYDD.",
+  ".......DYYYYYYYOOOOYYYYYYEEEEYYYYY...",
+  ".......DYYYYYYYOOOOYYYYYEYYYYYYY.....",
+  ".......DYYYYYYYYOOOYYYYYEEEEYY.......",
+  "........YYYYYYYYOOYYYYYDDEEE.........",
+  "........YYYYYYYYYYYYYYYD.............",
+  ".........YYYYYYYYYYYYYY..............",
+  ".........YYYYYYYYYYYYYY..............",
+  "........YYYYYYYYYYYYYYYYY............",
+  ".......YYYYYYYDDDDDYYYYYY............",
+  ".........YYY........YYYY............."
+ ]
+}

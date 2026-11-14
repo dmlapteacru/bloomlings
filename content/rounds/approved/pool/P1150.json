@@ -1,0 +1,89 @@
+{
+ "code": "P1150",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Зелёный артишок",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Овощи и урожай",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One large artichoke head made of three tiers of thick pointed lime and dark-green leaf plates, a broad purple center and short cream stalk. Large compact oval silhouette, no scene or face.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 27,
+ "h": 30,
+ "N": 560,
+ "colours": 6,
+ "volumes": {
+  "M": {
+   "cells": 268,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "L": {
+   "cells": 162,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "V": {
+   "cells": 65,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "G": {
+   "cells": 28,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 20,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 17,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............LL............",
+  "...........LLLLLM..........",
+  ".........MMLLLLMMMM........",
+  ".......MMMMLVVVMMMMM.......",
+  ".....GGMMMMVVVVVMMMMMCC....",
+  "....LLGMMMVVVVVVVMMMMLL....",
+  "...LLLLMMMVVVVVVVVMMMLLL...",
+  "...LLLLMMVVVVVVVVVVMLLLLL..",
+  "...LLLLLLLVVVVVVVVLLLLLLL..",
+  "..LLLLLLLLVVVVVVVLLLLLLLL..",
+  "..MLLLLLLLLVVVVVVLLLLLLLLM.",
+  ".MMGGLLLLLLVVVVVLLLLLLLLMM.",
+  ".MMMGLLLMLLLVVVLLLMMLLMMMMM",
+  "GLMMMLLMMMLLVVVLLMMMLLMMMMG",
+  "GLLMMLMMMMMMMLLMMMMMMLMMMLG",
+  "GLLLMMMMMMMMLLLLMMMMMMMLLLG",
+  "GLLMMMMMMMMLLLLLLMMMMMLLMLG",
+  "GLMMMMMMMMLLLLLLLMMMMMMMMLG",
+  ".MMMMMMMMLLLLMMLLLMMMMMMML.",
+  ".MMMMMMMMLLMMMMMMLMMMMMMMM.",
+  "..MMMMMMMLMMMMMMMLMMMMMMM..",
+  "..MMMMMMMMMMMMMMMMMMMMMMM..",
+  "...DMMMMMMMMMMMMMMMMMMMD...",
+  "....DMMMMDMMMMMMMMMMMMM....",
+  ".....MDMMDMMMMMMMDMMDD.....",
+  ".......MDDCCMDMCDDD........",
+  ".........DGCCCCCGG.........",
+  ".........DGCCCCCG..........",
+  "..........GCCCCCG..........",
+  "...........GGGGG..........."
+ ]
+}

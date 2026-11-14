@@ -1,0 +1,94 @@
+{
+ "code": "P0198",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Маша",
+ "theme": "Герои мультфильмов",
+ "family": "Герои приключений",
+ "subject": "девочка Маша в розовом платке и розовом сарафане, большие глаза",
+ "source": "сторонняя вселенная",
+ "reference": "Маша и Медведь — Маша",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 32,
+ "N": 896,
+ "colours": 7,
+ "volumes": {
+  "S": {
+   "cells": 426,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "P": {
+   "cells": 189,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "G": {
+   "cells": 142,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "K": {
+   "cells": 73,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "Y": {
+   "cells": 34,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 24,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 8,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSPPPPPPSSSSSSSSSSS",
+  "SSSSSSSSSPPPPPPPPPPSSSSSSSSS",
+  "SSSSSSSSPPPPPPPPPPPPSSSSSSSS",
+  "SSSSSSSPPPPPPPPPPPPPPSSSSSSS",
+  "SSSSSSSPPPPYYYYYYPPPPSSSSSSS",
+  "SSSSSSPPPYYYYYYYYYYPPPSSSSSS",
+  "SSSSSSPPYYYYYYYYYYYYPPSSSSSS",
+  "SSSSSSPPYKKYYKKYYKKYPPSSSSSS",
+  "SSSSSSPPKKKKKKKKKKKKPPSSSSSS",
+  "SSSSSSPPKGGGGKKGGGGKPPSSSSSS",
+  "SSSSSSPPKGDDGKKGDDGKPPSSSSSS",
+  "SSSSSSPPKGDDGKKGDDGKPPKKSSSS",
+  "SSSSSSSPPKKKKKKKKKKPPKKKSSSS",
+  "SSSSSSSPPKKKKKKKKKKPPPKSSSSS",
+  "SSSSSSSSPPKKRRRRKKPPPPSSSSSS",
+  "SSSSSSSSSPPPPRRPPPPPPSSSSSSS",
+  "SSSSSSSSPPPPPPPPPPPSSSSSSSSS",
+  "SSSSSSPPPPPPPPPPPPSSSSSSSSSS",
+  "SSSSKKKPSPPPPPPPPPPSSSSSSSSS",
+  "SSSSKKKSSPPPPPPPPPPSSSSSSSSS",
+  "SSSSSSSSPPPPPPPPPPPPSSSSSSSS",
+  "SSSSSSSPPPPPPPPPPPPPPSSSSSSS",
+  "SSSSSSSPPPPPPPPPPPPPPSSSSSSS",
+  "SSSSSSSSSSSKKSSKKKSSSSSSSSSS",
+  "SSSSSSSSSSRRKSSKRRSSSSSSSSSS",
+  "GGGGGGGGGRRRRGGRRRRGGGGGGGGG",
+  "GGGGGGGGGGRRRGGRRRGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+ ]
+}

@@ -1,0 +1,61 @@
+{
+ "code": "P0083",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Футбольный мяч",
+ "theme": "batch-0061",
+ "family": "Спорт и активные игры",
+ "subject": "классический чёрно-белый футбольный мяч с пятиугольниками",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 21,
+ "h": 21,
+ "N": 341,
+ "colours": 3,
+ "volumes": {
+  "C": {
+   "cells": 175,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 144,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "S": {
+   "cells": 22,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "........DDDDD........",
+  ".....DDDDDDDDDDD.....",
+  "....DCCCDDDDDCCCD....",
+  "...DCCCCCDDDCCCCCD...",
+  "..DCCCCCCCDCCCCCCCD..",
+  ".DCCCCCCCCCCCCCCCCCD.",
+  ".DDCCCCCCCCCCCCCCCDD.",
+  ".DDDCCCCCDDDCCCCCDDD.",
+  "DDDDDCCCDDDDDCCCDDDDD",
+  "DDDDCCCDDDDDDDCCCDDDD",
+  "DDDCCCCDDDDDDDCCCCDDD",
+  "DCCCCCCCDDDDDCCCCSSSD",
+  "DCCCCCCCCDDDCCCCSSSSD",
+  ".DCCCCCCCCCCCCCSSSSD.",
+  ".DCCCDCCCCCCCCCDSSSD.",
+  ".DCCDDCCCCCCCCSDDSSD.",
+  "..DDDDDCCCCCCCDDDDD..",
+  "...DDDDCCCCCCSDDDD...",
+  "....DCCCCCCCCSSSD....",
+  ".....DDDCCCCSDDD.....",
+  "........DDDDD........"
+ ]
+}

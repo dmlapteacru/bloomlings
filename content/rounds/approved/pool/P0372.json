@@ -1,0 +1,102 @@
+{
+ "code": "P0372",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Шествие заводных хлопушек",
+ "theme": "Праздники и карнавал",
+ "family": "Ярмарки и праздники",
+ "direction": "Уютный сюрреализм",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Три заводные хлопушки идут на пружинах; яркие конические корпуса; золотые заводные ключи; пружинные ножки",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 43,
+ "h": 33,
+ "N": 567,
+ "colours": 8,
+ "volumes": {
+  "N": {
+   "cells": 108,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "E": {
+   "cells": 105,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 91,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 86,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 65,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "G": {
+   "cells": 43,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "B": {
+   "cells": 35,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "P": {
+   "cells": 34,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....................EE....................",
+  ".....................EEE...................",
+  "....................BBBE......AA...........",
+  "....................BBBEE....AAA...........",
+  "...................BBBBBE....AAAA..........",
+  "...................BBBBBEE...AAA...........",
+  "..................EBBBBBBE.AAAAA...........",
+  ".......EE.........EBBBBBBEE..AAA...........",
+  "......PPEE.......EEBBBBBBBE..AAAA..........",
+  "......PPPE.....AAEYYYYYYYYYE.AAA...........",
+  ".....PPPPEE....AEEYYYYYYYYYE..AA.EE........",
+  ".....PPPPPE....AEEYYYYYYYYYEE....EEE.......",
+  "....PPPPPPEE.AAAEEEEEEEENEEEE...EEGE......A",
+  "....PPPPPPPE.AAAAA.NN...NN......EGGGG.....A",
+  "...YPPPPPPPEE..AAANN....NN.....GGGGGG....AA",
+  "...YYYYYYYYYE..AANN......NN....GGGGGGG...AA",
+  "..EYYYYYYYYYEE.AANN......NN...GGGGGGGG.AAAA",
+  "..EYYYYYYYYYEE..A.NNN...NN....GGGGGGGGG..AA",
+  ".EEEYYYYYYYYEE.....NNN.NN....EYGGGGGGGG..AA",
+  "..EEENEEENNEEE.....NN..NN....EYYYYYYYYYE..A",
+  "....NN....N.......NN....NN..EEYYYYYYYYYE..A",
+  "....N.....NN.....NN......NN.EEYYYYYYYYYEE..",
+  "...NN......NN....N........N.EEEEEEEENEEEE..",
+  "...NN.....NNN..................NN...NN.....",
+  "....NNN..NN...................NN.....N.....",
+  ".....NN.NN....................N......NN....",
+  "....NNN..NN..................NN......NN....",
+  "...NNN....NN..................NNN...NN.....",
+  "...NC......NN..................CNNCNNC.....",
+  "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC..",
+  ".CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC...",
+  ".............................CC......NN....",
+  "......................................N...."
+ ]
+}

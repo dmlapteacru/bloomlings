@@ -1,0 +1,103 @@
+{
+ "code": "P0429",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Микки Маус — ученик чародея",
+ "theme": "Новые версии знакомых героев",
+ "family": "Маски и костюмы",
+ "direction": "Заводная сказка",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Микки в костюме чародея; круглые чёрные уши и светлая мордочка; синяя остроконечная шляпа; красная мантия и метла",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Fantasia",
+  "url": "https://en.wikipedia.org/wiki/The_Sorcerer%27s_Apprentice_(Fantasia)",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 35,
+ "h": 37,
+ "N": 1229,
+ "colours": 7,
+ "volumes": {
+  "V": {
+   "cells": 415,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "D": {
+   "cells": 300,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 131,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 129,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 105,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 78,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 71,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "................NND................",
+  "..VVVVVVVVVVVVVNNNDDVVVVVVVVVVVVV..",
+  ".VVVVVVVVVVVVVNNNNNDVVVVVVVVVVVVVV.",
+  "VVVVVVVVVVVVVDNNNNNNVVVVVVVVVVVVVVV",
+  "VVVVVVVVVVVVDDNNNCNNVVVVVVVVVVVVVVV",
+  "VVVVVVVVVVVDDNNNCCCNNVVVVVVVVVVVVVV",
+  "VVVVVVVVVVDDNNNNNCNNNNDVVVVVVVVVVVV",
+  "VVVVVDDDDDDNNNNNNNNNNNDDDDDDVVVVVVV",
+  "VVVVDDDDDDNNNNNNNNNNNNNDDDDDDVVVVVV",
+  "VVVDDDDDDDDDNNNNNNNNNNNNDDDDDVVVVVV",
+  "VVVDDDDDDDDDDDDDDDDDDDDDDDDDDDVVVVV",
+  "VVVDDDDDDDDDCCCCDCCCCDDDDDDDDDAVVVV",
+  "VVVDDDDDDDDCCCCCDCCCCCDDDDDDDAAAVVV",
+  "VVVDDDDDDDDCCCCCCCCCCCDDDDDDDAAAVVV",
+  "VVVVDDDDDDDCCCDDCCDDCCDDDDDDVAAAVVV",
+  "VVVVVVDDDDDCCCDDCCCDCCDDDDVVVAAAVVV",
+  "VVVVVVVDDDDCCCCCCCCCCCDDDDVVVAAAVVV",
+  "VVVVVVVVDDCCCCCCDDDCCCCDDDVVVAAAVVV",
+  "VVVVVVVVDDCCCCCDDDDDCCCDDVVVVAAAVVV",
+  "VVVVVVVVDDCCCCCCDDDDCCCDDVVVVAAAVVV",
+  "VVVVVVVVVDDCCDDCCCDDCCDDVVVVVAAAVVV",
+  "VVVVVVVVVVDDCCDDDDDCCCDVVVVVVAAAVVV",
+  "VVVVDDDVVVDDDDDDDDDDDDDDVVVVVAAAVVV",
+  "VVVCCCCVVVDRRRRRRRRRRRRDVVDDDDAAVVV",
+  "VVVCCCCCDVRRRRRRRRRRRRRRDDCCCDDAVVV",
+  "VVVCCCCCDDRRRRRRRRRRRRRRDDCCCCDAVVV",
+  "VVVCCCCDDDRRRRRRRRRRRRRRRDCCCCDAVVV",
+  "VVVVDDDVDYYYYYYYYYYYYYYYYDCCCDAAVVV",
+  "VVVVVVVVDYYYYYYYYYYYYYYYYYDDDDAAVVV",
+  "VVVVVVVDRRYYYYYYYYYYYYYYYYDDDAAAVVV",
+  "VVVVVVVDRRRRRRRRRRRRRRRRRRYYYYYYYYV",
+  "VVVVVVDDRRRRRRRRRRRRRRRRRRYYYYYYYYV",
+  "AAAAAADRRRRRRRRRRRRRRRRRRYYYYYYYYYY",
+  "AAAAAADRRRRRRRRRRRRRRRRRRYYYYYYYYYY",
+  "AAAAAADDDDDDDDDDDDDDDDDDDYYYYYYYYYY",
+  ".AAAAAADDDDDDAAAAAAAADDDDYYYYYYYYYY",
+  "........DDDD..........DDDD........."
+ ]
+}

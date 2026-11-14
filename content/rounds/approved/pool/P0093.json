@@ -1,0 +1,68 @@
+{
+ "code": "P0093",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Рыцарский щит",
+ "theme": "batch-0061",
+ "family": "Фигуры, знаки и эмблемы",
+ "subject": "геральдический щит с цветком",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 19,
+ "h": 23,
+ "N": 359,
+ "colours": 4,
+ "volumes": {
+  "Y": {
+   "cells": 143,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 85,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "N": {
+   "cells": 85,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 46,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  ".YYYYYYYYYYYYYYYYY.",
+  "YYYYYYYYYYYYYYYYYYY",
+  "YYRRRRRRRYNNNNNNNYY",
+  "YYRRRRRRRYNNNNNNNYY",
+  "YYRRRRRRRYNNNNNNNYY",
+  "YYRRRRRRRCNNNNNNNYY",
+  "YYRRRRRRRCNNNNNNNYY",
+  "YYRRRRRRCCCNNNNNNYY",
+  "YYRRRRCCCCCCCNNNNYY",
+  "YYRRRCCCCCCCCCNNNYY",
+  "YYRRRRCCCCCCCNNNNYY",
+  "YYRRRRRCCCCCNNNNNYY",
+  "YYYRRRRCCCCCNNNNYYY",
+  ".YYRRRCCCYCCCNNNYY.",
+  ".YYRRRCRRYNNCNNNYY.",
+  ".YYYRRRRRYNNNNNYYY.",
+  "..YYYRRRRYNNNNYYY..",
+  "...YYYRRRYNNNYYY...",
+  "....YYRRRYNNNYY....",
+  ".....YYYRYNYYY.....",
+  "......YYYYYYY......",
+  ".......YYYYY.......",
+  "........YYY........"
+ ]
+}

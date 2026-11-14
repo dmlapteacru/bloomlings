@@ -1,0 +1,100 @@
+{
+ "code": "P0462",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Крипер — из-за травяного блока",
+ "theme": "Новые герои игр",
+ "family": "Игровая интернет-культура",
+ "direction": "Театр эмоций",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Крипер выглядывает из-за блока; прямоугольная зелёная голова; пиксельное тёмное лицо; четыре квадратные опоры без рук",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Minecraft",
+  "url": "https://en.wikipedia.org/wiki/Creeper_(Minecraft)",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 37,
+ "N": 898,
+ "colours": 6,
+ "volumes": {
+  "G": {
+   "cells": 277,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "L": {
+   "cells": 247,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "A": {
+   "cells": 124,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 96,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 82,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "M": {
+   "cells": 72,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............MMMMMMMMMMMMMMMMMMMM..",
+  "............MLLLLLLLLLLLLLLLLLLLM..",
+  "............MLGGGGLLLLLLLLLLLLLLM..",
+  "............MLGGGGLLLLLLLLLLLLLLM..",
+  "............MLGGGGLLLLLLLLLLLLLLM..",
+  "............MLGGGGLLLLLLLLLLLLLLM..",
+  "............MLLGGDDDDLLLLLDDDLLLM..",
+  "............MLLLLDDDDLLLLLDDDLLLM..",
+  "............MLLLLDDDDLLLLLDDDLLLM..",
+  "............MLLLLLLLLDDDDDLDGGLLM..",
+  "............MLLLLLLLLDDDDDLLGGGLM..",
+  "............MLLLLLLLLDDDDDLLGGGLM..",
+  "............MLLLLLDDDDDDDDDDGGGLM..",
+  "............MLLLLLDDDDDDDDDDDGGLM..",
+  "............MLLLLLDDDDLLLDDDDGGLM..",
+  "............MLLLLLLLLLLLLLLLGGGLM..",
+  "............MLLLLLLLLLLLLLLLLLLLM..",
+  ".............MMMMMMMMMMMMMMMMMMMM..",
+  ".................DGGGGGGGGGGD......",
+  ".................DGGGGGGGGGGD......",
+  ".................DGGGGGGGGGGD......",
+  ".GGGGGGGGGGGGGGGGDGGGGGGGGGGD......",
+  "EGGGGGGGGGGGGGGGGEGGGGGGGGGGD......",
+  "EGGGGGGGGGGGGGGGGEGGGGGGGGGGD......",
+  "EGGGGGGGGGGGGGGGGEGGGGGGGGGGD......",
+  "EGGGGGGGGGGGGGGGGEGGGGGGGGGGD......",
+  "EAAAAAAAAAAAAAAAAEGGGGGGGGGGD......",
+  "EAAAAAAAAAAAAAAAAEGGGGGGGGGGD......",
+  "EAAEEEEEAAAAAAAAAEGGGGGGGGGGG......",
+  "EAAEEEEEAAAAAAAAAEGGGGGGGGGGGGG....",
+  "EAAEEEEEAAAEEEEAAEGGGGGGGGGGGGG....",
+  "EAAAAAAAAAAEEEEAAEGGLLLLLGGGGGGLLLL",
+  "EAAAAAAAAAAEEEEAAEGGLLLLLLGGGGLLLLL",
+  "EAAAAAEEEEAAAAAAAEGGLLLLLLGGGGLLLLL",
+  "EAAAAAEEEEEAAAAAAEDDDDLLLLGGDDDDLLL",
+  "EAAAAAAAAAAAAAAAAEDDDDLLLLGGDDDDLLL",
+  "EEEEEEEEEEEEEEEEEE................."
+ ]
+}

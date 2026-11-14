@@ -1,0 +1,115 @@
+{
+ "code": "P0299",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Лес в спичечном коробке",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Деревья, листья и плоды",
+ "direction": "Миры внутри предметов",
+ "device": "Вместилище и внутренний мир",
+ "subject": "Из выдвинутого спичечного коробка растёт лес; красный футляр; деревянный лоток; сосны со спичечными головками",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 41,
+ "h": 42,
+ "N": 957,
+ "colours": 9,
+ "volumes": {
+  "A": {
+   "cells": 175,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "R": {
+   "cells": 151,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 149,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 146,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "M": {
+   "cells": 118,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "E": {
+   "cells": 106,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "G": {
+   "cells": 42,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "O": {
+   "cells": 37,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "N": {
+   "cells": 33,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".....................OOOO................",
+  ".....................OOOO................",
+  "......................OOO................",
+  "......................GM.................",
+  "......................GMM................",
+  ".....................GGMM................",
+  "............OOO......GGMMM...............",
+  "............OOO......GGMMM...............",
+  "...........OOOO.....GGGMMM...............",
+  "............OOO.....GGGMMMM...OO.........",
+  ".............O.....MGGGMMMM..OOOO........",
+  "............GMM....MGGGMMMMM.OOOO........",
+  "............GMM....MGGGMMMMM..OO.........",
+  "...........GGMMM..MMMMMMMMMM..GM.........",
+  "...........GGMMM..MMMMMMMMMMM.GM.........",
+  "..........MGGMMM.MMMMMMMMMMMMMGMM........",
+  "..........MGGMMMMRRRRRAAEEE..GGMM........",
+  ".........MMMMMMMMRRRRRAARREEMGGMMM.......",
+  "...........RRARRRRRRRRAARRRRMGGMMM.......",
+  ".........RRRRARRRRRYYYAARRRMMMMMMMM......",
+  ".......RRRRRRARRRYYYYYYAYYRRRRARRRREEEE..",
+  "....EEERRRRRRAYYYYYYYYYYYYYYYRARRRRRRREEE",
+  "..EEERRRRRRYYYYYYYYYYYYYYYYYYYAARRRRRRRAE",
+  ".EERRRRRRYYYYYYYYYYYYYYYYYYYYYYYYYRRRAAAE",
+  "ECRRRRRRYYYYYYYYYYYYYYYYYYYYYYYYRRRAAAAAE",
+  "ECCCRRRRRRYYYYYYYYYYYYYYYYYYYYRRRAAAAAAAE",
+  "ECCCCCCRRRRRYYYYYYYYYYYYYYYYRRRAAAAAAAAAE",
+  "ECCCCCCCCCRRRRRYYYYYYYYYYYRRRAAAAAAAAAAAE",
+  "ECCCCCCCCCCNRRRRRRYYYYYYRRRAAAAAAEEEAAAAE",
+  "ECCCCNNNNNNNNNNNRRRRYYRRRRAAAAAEEEEEAAAAE",
+  "ECCCCNNNNNNNNNNNCRRRRRRRAAAAAEEEEEAAAAAAE",
+  "ECCCCNNNNNNNNNNCCCCCRRAAAAAEEEEEAAAAAAAAE",
+  "ECCCCCCCCCCCCCCCCCCCCAAAAEEEEEAAAAAAAAAEE",
+  "EECCCCCCCCCCCCCCCCCCCAAAEEEEAAAAAAAAAAA..",
+  "..EEECCCCCCCCCCCCCCCCAAEEEAAAAAAAAEEE....",
+  ".....EEECCCCCCCCCCCCCAAAAAAAAAAAEEE......",
+  ".......EEECCCCCCCCCCCAAAAAAAAAEEE........",
+  "..........EEECCCCCCCCAAAAAAAEEE..........",
+  "............EEECCCCCCAAAAAAA.............",
+  "...............EEECCCAAAAA...............",
+  ".................EEECAAA.................",
+  "....................CC..................."
+ ]
+}

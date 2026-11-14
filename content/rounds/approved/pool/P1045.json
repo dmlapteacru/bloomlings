@@ -1,0 +1,88 @@
+{
+ "code": "P1045",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Скорпион",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Маски и костюмы",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Mortal Kombat · NetherRealm Studios: Scorpion from Mortal Kombat: classic YELLOW-and-BLACK hooded ninja with an iconic yellow face mask, intense WHITE eyes visible above it, broad dark shoulder armor; ONE clean golden kunai on a short thick chain curled beside his chest. Close-up bust, no unmasked skull, no fire attack, no injuries.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 35,
+ "N": 979,
+ "colours": 5,
+ "volumes": {
+  "D": {
+   "cells": 697,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 217,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 33,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 24,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 8,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........DDDDDDDDDDD.............",
+  ".........DDDDDDDDDDDDYY............",
+  "........DDDDDDDDDDDDDDYY...........",
+  ".......DDDDDDDDDDDDDDDYYD..........",
+  "......DDDDDDDDDDDDDDDYYYYD.........",
+  "......DDDDDDDDDDDDDYYYYYYD.........",
+  "......DDDDDDDDDDDYYYDDDDYY.........",
+  ".....DDDDDDDDDDYYYDDDDDDDYD........",
+  "....DDDDDDDDDYYYDDDDDDDDDYY........",
+  "....DDDDDDDYYYYDDDDDDDDDDDYD.......",
+  "...DDDDDDDDYYDDDAAAAADDDDDYD.......",
+  "..DDDDDDDDYYDDDDDCCCCCCDDDDD.......",
+  ".DDDDDDDDYYDADDDDDDCCDDDDDDD.......",
+  ".DDDDDDDDYYDAADDDDDCDDDDDDDDD......",
+  ".DDDDDDDYYDDYDDDDCDDDDDDDDDDD......",
+  "..DDDDDYYDDDYYDDDDYYYDDDDDDDD......",
+  "DDDDDDDYYDDDOYYYYYYYYYDDDDDDD.....D",
+  "YYYYDDDDYDDDODYYYYYYYYYDDDDDD...DDD",
+  "DDYYYYDDDDDDOYYDYYYDYDYDDDDD...DCOD",
+  "DDDYYYDDDDDDDYDDYYYDYYDDDDDD.DDYCOD",
+  "YYDDYYYDDDDDDYDDYYDYYDDDDDD.DDYYOOD",
+  "YYYDDYYYDDDDDDDYYYDYDDDDDD.DCYYOOO.",
+  "YYYYDDYYDDDDDDDYYYYYDDDDD.DCCYCOOD.",
+  "DYYYYDYYDDDDDDDDDYDDDDDDDD.OOOOOOD.",
+  "DDYYYDDDDDDCDDDDDDDDDDDDDDDDOCOOOD.",
+  "DDYYDDDDDDDDCDDDDDDDDDDYDDDDOOOOO..",
+  "DDDDDDDDDDDDCCDDDDDDDDDYYDDYOODD...",
+  "DDDYYYDDDDDDDDDDDDDDDDYYYDYYODD....",
+  "DDYYYYDDDDDDDCDDDDDDDDYYDDYDDDDD...",
+  "DYYDYDDDDDDDDDDDYDDDDYYYDDDDDDDYD..",
+  "DDDDDDDDDDDDDDYYYYYDDYYYDDDDDDDYYD.",
+  "DDDDDDDDDDDDDDDDYDDYYYDYYYYDDDYYYDD",
+  "YDDDDDDDDDDDDDDDDDDYDDDDYDYDDDYYDDD",
+  "YYDDDDDDDDDDDDDDDDDDYDODDYYDDYYDDDD",
+  "DYDDDDDDDDDCDDDDDDDYYOOCYYYDDYYDDDD"
+ ]
+}

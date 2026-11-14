@@ -1,0 +1,84 @@
+{
+ "code": "P1159",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Большая пряжка ремня-солнце",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Одежда и аксессуары",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One short wide brown belt looped compactly, a HUGE circular gold sun-shaped buckle in the center with a red round jewel, cream belt edge and dark blue inside loop. No text or fine leather texture.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "61+"
+ ],
+ "w": 29,
+ "h": 22,
+ "N": 509,
+ "colours": 7,
+ "volumes": {
+  "D": {
+   "cells": 135,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 132,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 100,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 67,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 40,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "E": {
+   "cells": 32,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 3,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........CCCCCCCCCCC.........",
+  ".....CCCCDDDDDDDDDDDDDCC.....",
+  "..CCCDDDDDDDDDDDDDDDDDDDDCC..",
+  ".CCDDDDDDDDDDDDDDDDDDDDDDDCC.",
+  ".CDDDDDDDDDDDDDDDDDDDDDDDDDCC",
+  "CCDDDDDDDDDDDYYDDDDDDDDDDDDCC",
+  "ECDDDDDDDDDDAYYYDDDDDDDDDDDCE",
+  "EACCDDDDDYYAAYYYYYYYDDDDDCCAE",
+  "EAAACCCCYYYYYYYYYYYYCCCCCAAAE",
+  "EAAAAAAEEYYYYYYYYYYYEEAAAAAAE",
+  "EAAAAAAEYYYYYRRRYYYYEEAAAAAAE",
+  "EAAAAAYYYAYRRRRRRYYYYYAEAAAAE",
+  "EAAAAAYYYAYRRRRRRRYYYYYEAAAAE",
+  "AAAAAAYYYAYRRRRRRRYYYYEEAAAAA",
+  "CCAAAAEYYAYRRRRRRRYYYEAAAAAAC",
+  ".CCAAAEEYAYRRRRRRYYYYEAAAACC.",
+  "..CCCAEYYYYYRRRRYYYYYEACCCC..",
+  "....CCAYYYYYYYYYYYYYYYCCC....",
+  "......AAAAYYYOOOYYAAAA.......",
+  "..........YYYYYYYYA..........",
+  "..........YYY..YYYA..........",
+  "..........YY....YY..........."
+ ]
+}

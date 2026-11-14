@@ -1,0 +1,106 @@
+{
+ "code": "P0837",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Морской ёж-подсолнух",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Цветы и букеты",
+ "direction": "Предметные гибриды",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один крупный подсолнух с тёмной сердцевиной и большими золотыми лепестками растёт из округлой колючей формы морского ежа, короткий стебель с двумя листьями",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 35,
+ "h": 35,
+ "N": 1225,
+ "colours": 9,
+ "volumes": {
+  "P": {
+   "cells": 244,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "A": {
+   "cells": 180,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "M": {
+   "cells": 158,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "Y": {
+   "cells": 148,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 125,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "V": {
+   "cells": 121,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "D": {
+   "cells": 90,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "G": {
+   "cells": 83,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "E": {
+   "cells": 76,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "MMGGMMMMPPMMPPPPPPPPPPPPPDDDDAAGGGG",
+  "DMGMMMMMPPMMPPPPYYPPPPPPPDDPPADGGGD",
+  "AAAAAGGGPPPMPYYYYYYPYYAPPPDPMMMAMMM",
+  "AAAAADGMPPPPAYYYYYYYYYAAAPPPGGGAAMM",
+  "AAAAMMMMPYYAAYYYYYYYYYYYYPPPGGGDDGG",
+  "AAAADPPPPPYYYYYYYEEYYYYYYPPPMMMMMGM",
+  "AAAADPPMMPYYYYYEEEEEEYYYYYYPMMMMMMM",
+  "MAAAPPMMMPYYYYEEEEEEEEYYYYYPPMMMMDD",
+  "MMMMGPPPYYYYYEEEEEEEEEEYYYYPPMMPPPD",
+  "MMMMGGPPYYYYYEEEEEEEEEEAAYYYPDPPPPD",
+  "MMMMMGPPYYYYYEEEEEEEEEEAYYYYPPPPMMD",
+  "MMDDMMPPPAAYYYEEEEEEEEEAYYYPPPPMMMD",
+  "GGDDMPPPPAYYYYEEEEEEEEYYYYYPPPPPMMD",
+  "GGGMMMMPPYYYYYYYYEEEYYYYYYYPPPMMDDD",
+  "GGMMMMMPPPPDMYYYYYYYYYAYYYPPPPMMDPD",
+  "DMMDMMMPPDMMMYYYYYYYYYAAAAPPPPMMPPD",
+  "DMDDDPPPGGMMMPYYDYDDYYAPPPPPPPPPPVD",
+  "ADADDPPDGGMMDPPPDMMDPPDMMMPPPPDVVVD",
+  "AAAGGGPGGGMMPPPPPMGPPPMMMMGPPPPVVVV",
+  "AADGGGPGGDPPPPVVVGGVVDPPMGGDPPPVVVV",
+  "MMDDGPPDPPPVPVVVVVVVVVVPPDGDPPPPCCC",
+  "MMMDMMMAPPPVVVVVVVVVVVVVPPPPPPPDCCC",
+  "MMMGGMMAAAVVVVVVVVVVVVVVVPPPPPMMCCC",
+  "GGGDGGMAADDVVVVVVVVVVVVVVDAAAAMMDCC",
+  "GGDDDGMCCDVVVVVVVVVVVVVVVDCCAAAAACC",
+  "AGGGGDCCCVVVVVVVVVVVVVVVVCCDCAAAAVV",
+  "AGGGMDCCCVVVVVVVVVVVVVVVVCCCCCCCAVV",
+  "AAMMMGMPPCPCCCCCCCCCCCCCCCPPPACCAAA",
+  "MAMDGGMPPPPPCCPPCCCCCPPCCCPPAACCAAA",
+  "MMDDGGMPPCPCCCCPCPPCCCPCCCPPCCCEAAA",
+  "DDDEEEEEPPPCCCCCCPCPPCCCCCPPCAAEAAA",
+  "DDAAAAAAACPPCCCPPPPPCCCCCCAAAAAEAAA",
+  "DDMMMAAAAACCCCCPPCCCCCCCCAAAAAAEEAA",
+  "AMMGGAAAAAAAACCCCCCCCCCCAAAAAAAAAAA",
+  "AAGGDAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA"
+ ]
+}

@@ -1,0 +1,96 @@
+{
+ "code": "P0117",
+ "state": "used",
+ "usedBy": "L0009",
+ "version": 1,
+ "title": "Голова льва",
+ "theme": "batch-0116",
+ "family": "Саванна и джунгли",
+ "subject": "добродушная морда льва с гривой на фоне саванны и солнца",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 24,
+ "h": 24,
+ "N": 576,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 192,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "G": {
+   "cells": 98,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 96,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "O": {
+   "cells": 76,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 74,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 20,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "K": {
+   "cells": 8,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "D": {
+   "cells": 6,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 6,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-10-27",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSAAAASSSSSSSSSS",
+  "SSSSSYYYAAAAAAAAYYYSSSSS",
+  "SSSSYKKYYOOOOOOYYKKYSSSS",
+  "SSSSYKKYYOOOOOOYYKKYSSSS",
+  "SSSSYYYYOOYYYYOOYYYYSSSS",
+  "SSSSAOOOYYYYYYYYOOOASSSS",
+  "SSSAAOOYYYYYYYYYYOOAASSS",
+  "SSSAAOOYYYYYYYYYYOOAASSS",
+  "SSSAOOYYYDYYYYDYYYOOASSS",
+  "SSSAOOYYYDYYYYDYYYOOASSS",
+  "SSSAOOYYYYEEEEYYYYOOASSS",
+  "SSSAAOOYYCCEECCYYOOAASSS",
+  "SSSAAOOYCCCCCCCCYOOAASSS",
+  "SSSSAAOOYCCDDCCYOOAASSSS",
+  "SSSSAAOOOYCCCCYOOOAASSSS",
+  "GGGGGAAOOOOOOOOOOAAGGGGG",
+  "GGGGGGAAAOOOOOOAAAGGGGGG",
+  "GGGGGGAAAAAAAAAAAAGGGGGG",
+  "GGGGGGGGAAAAAAAAGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGG"
+ ]
+}

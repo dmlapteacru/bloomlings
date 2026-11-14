@@ -1,0 +1,106 @@
+{
+ "code": "P0833",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Опоссум с чемоданом-каштаном",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Лесные и горные животные",
+ "direction": "Уютный сюрреализм",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один милый серо-кремовый опоссум с длинной светлой мордой и большими розовыми ушами держит раскрытый каштан-чемодан с зелёной подкладкой и синей ручкой, короткий розовый хвост закручен сбоку, под лапами компактная осенняя тропинка",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 35,
+ "h": 35,
+ "N": 1225,
+ "colours": 9,
+ "volumes": {
+  "O": {
+   "cells": 197,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "A": {
+   "cells": 173,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 166,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 146,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "K": {
+   "cells": 129,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "Y": {
+   "cells": 124,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "M": {
+   "cells": 114,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "B": {
+   "cells": 93,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "C": {
+   "cells": 83,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "YYBBBOYYYYYBBBBBBBBBBBBBBBBBBDDOOOD",
+  "OYEBBOOYYYYBBDDDBBBBBBBBBBBBBYDOODD",
+  "OEEBOOYYYYYBBDDDDBBBBBBDKKBBBYYDODD",
+  "OEBBOOOAYYBBBDDDDDBBBBDCKKKBBYYDDDD",
+  "OOBOOBAABBBBBDDDKDDKDDDCKKKBBYYDDDD",
+  "OOOOBBAABDKKKDDKKKKKKKKKKKKBBBOOODD",
+  "OOOODAABBKKKKCDDCKKKKCCDKKKBBBOOOEE",
+  "OOOOOOABDKKKKKCCCCCKCCCCDKKBAAAAOOE",
+  "OOYOOOOODKKKKKCCCCCCCCDDCDOOAAAOOOO",
+  "YYYYOOOOOKKKKKDCCCCCCCDDCDDOAAAOOOO",
+  "YOOYAOOOOYKKKKCCCDDCCCDDCCOOOAAAAAA",
+  "YOYYAAOOOYYDDCCCDDDCCCCDCCOOAAYYYYA",
+  "YOOYAAAOYYDDKCCCCDDCCCCCCCAAAYYYYYY",
+  "OOOYYYYAOODDKCCCCCCCCCKKAAAAYYYOOYY",
+  "OOOOOYYAODDKKKCCCCCDCCKKDDDAYYYYOYY",
+  "OOOOYYYAODDDDDDCCCCCCEKDDEEEEEYYYYY",
+  "OOOYYYYADDKKDDDDKKKKEEEEEEEEEEYYYYY",
+  "OYYYYOODDDKKDDKKKEEEEEEEEEMMMEAAAYA",
+  "OOOAAOODDDKDDDEEEEEEDMMMMMMMMEEAAAA",
+  "AAAAAAODDKKDDDEEEMMMMMMMMMMMMEEOAAA",
+  "AAAAAADDKKKKDDEEEMMMMMMMMMMMMEOOOOO",
+  "AOOOODDDKDKKKKEEOMMMMMMMMMMMMEOOOOO",
+  "OOOOKKDDDKKKKKEEOMMMMMMMMMMMMMOEEAA",
+  "OOKKKKKDDDKKKKEEOMMMMMMMMMMMMMEEEAA",
+  "AKKKKKEDDDKKDKKEOMMMMMMMMMMMMMMEAAA",
+  "AKKEEEEDDDDDDKKEEEMMMMMMMMMMMMMMEEA",
+  "AKEEEEEDDDDDDDDDEEDMMMMMMMMMDDEEEEA",
+  "AAEEEEEEADDDDDDDCEEMMMMDAAAAAEEEAAA",
+  "YYKKKKEAAADDDDDDEEEEEAAAEEAAABEEEAA",
+  "YYAAAAAAAADDDDEEEEEEEAAAEBBBBBEEEEO",
+  "AAAAAAYYYAAAEEEEAEEEEAAAEBBBBEEEOOO",
+  "AAAAYYYYAAAAOOOOAAEEEAAAEEEEEEEOOOO",
+  "OOOYYOYYYYAAAAAAOOOEEEEEAAAAYYYOOAA",
+  "OOOOOOYYYOOOOOAAOOOOOAAAAAKKYYYOOOA",
+  "OOOOOOYYYOOOOAAAAAOOOAAAAAKKYYYOOOA"
+ ]
+}

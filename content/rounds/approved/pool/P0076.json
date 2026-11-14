@@ -1,0 +1,99 @@
+{
+ "code": "P0076",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Паровозик",
+ "theme": "batch-0061",
+ "family": "Наземный транспорт",
+ "subject": "паровозик с клубом дыма из трубы, кабиной и красными колёсами",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 42,
+ "h": 33,
+ "N": 906,
+ "colours": 8,
+ "volumes": {
+  "D": {
+   "cells": 212,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 168,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "G": {
+   "cells": 131,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "S": {
+   "cells": 124,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "B": {
+   "cells": 88,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "Y": {
+   "cells": 75,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "M": {
+   "cells": 56,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "N": {
+   "cells": 52,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  ".......................S..................",
+  "......................SSS....SSSS.........",
+  ".....................SSSSS..SSSSSS........",
+  ".....................SSSSS.SSSSSSSSS......",
+  "......................SSSSSSSSSSSSSSS.....",
+  "......................SSS.SSSSSSSSSSS.....",
+  ".RRRRRRRRRRRRRRRR.........SSSSSSSSSSS.....",
+  ".RRRRRRRRRRRRRRRR..........SSSSSSSSS......",
+  ".RRRRRRRRRRRRRRRR.........DDDDDDDDD.......",
+  "..BBBBBBBBBBBBB............DDDDDDDD.......",
+  "..BBBSSSSSSSBBB.............DDDDDD........",
+  "..BBBSSSSSSSBBB.............DDDDDD........",
+  "..BBBSSSSSSSBBB........YYYY.DDDDD.........",
+  "..BBBSSSSSSSBBB........YYYY.DDDDD.........",
+  "..BBBSSSSSSSBBB........YYYY.DDDDD.........",
+  "..BBBSSSSSSSBBBGGGGGGMGGYYGGGMGGGGGGDDYY..",
+  "..BBBBBBBBBBBBBGGGGGGMGGGGGGGMGGGGGGDDYYY.",
+  "..BBBBBBBBBBBBBGGGGGGMGGGGGGGMGGGGGGDDDY..",
+  "..BBBBBBBBBBBBBGGGGGGMGGGGGGGMGGGGGGDDDD..",
+  "..NNNNNNNNNNNNNGGGGGGMGGGGGGGMGGGGGGDDDD..",
+  "..NNNNNNNNNNNNNGGGGGGMGGGGGGGMGGGGGGDDDD..",
+  "..NNNNNNNNNNNNNGGGGGGMGGGGGGGMGGGGGGDDDD..",
+  "..NNNNDDDDDNNNNMMMMMMMMMMMMMMMMMMMMMDDDD..",
+  "..NNNDRRRRRDDNNMMMMMMMMMMMMMMMMMMMMMDDDD..",
+  "DDDDDRRRRRRRDDDDDDDDDDDDDDDDDDDDDDDDDDDRR.",
+  "DDDDRRRRRRRRRDDDDDDDDDDDDDDDDDDDDDDDDDDRR.",
+  "DDDDRRRRYRRRRDDDDDDDDRRRRDDDDDDRRRRDDDDRR.",
+  "...DRRRYYYRRRD.....DDRRRRRD..DRRRRRDD..RR.",
+  "...DRRRRYYYYYYYYYYYYYYYYYYYYYYYYYYRRD..RRR",
+  "...DRRRRRYYYYYYYYYYYYYYYYYYYYYYYYYRRD..RRR",
+  "....DRRRRRRRDD.....DRRRRRRDDDDRRRRRRD..RRR",
+  "....DDRRRRRDD.......DRRRRRD..DRRRRRD...RRR",
+  "......DDDDDD.........DDDDD....DDDDD......."
+ ]
+}

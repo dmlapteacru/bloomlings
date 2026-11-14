@@ -1,0 +1,111 @@
+{
+ "code": "P0902",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Дикобраз примеряет бигуди",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Лесные и горные животные",
+ "direction": "Театр эмоций",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Крупный дружелюбный дикобраз с кремовой мордой надел на свои толстые иголки пять больших разноцветных бигуди, выражение гордое и смешное, без зеркала",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 41,
+ "h": 40,
+ "N": 1276,
+ "colours": 9,
+ "volumes": {
+  "E": {
+   "cells": 440,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 288,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 211,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "P": {
+   "cells": 77,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "B": {
+   "cells": 69,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "V": {
+   "cells": 66,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "D": {
+   "cells": 49,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 40,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 36,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "................EE..D.EA...A.............",
+  "............CCCCEEDDDDAAAAAA.............",
+  "........EEEE.AAAEEDBBBBBDAAA.EEE.........",
+  "........EEAAAAAAAEBBBBBBBDAEEAAE.........",
+  ".........EEAAAEEEDBBBBBBBBDEAAAEEEE......",
+  "....AAAAEEEEEEEEEDBBBBBBDVBEAAEEEEE......",
+  ".....EEPPPPEEEEEEDVVBBBDVVBEEEEEEEE......",
+  ".....EPPPPPPPPEEEEDVVBBVVVBEEEVVVVVVV....",
+  "...EEEPPPPPPPPPPEEEEDBBDVVEEEVVVVVVVV....",
+  "...EEEPPPPPPPPPPEEEEEEDEDDEEEVVVVVVVVV...",
+  "....EEPPPPPPPPPPEEEAEEEEAEEAEVVVVVVVVV...",
+  "..EEEEPPPPPPPPPPEEEAAAAEAAAAAAVVVVVVVV...",
+  ".EEEEEPPPPPPPPPEEEEEAAAAAAAAAAVVVVVVVV...",
+  "..EEEEEPPPPPPPPEEEAAAAAAAAAAAAEEEVVVVV...",
+  "..EAAEEEEEPPPPEEEEACCCCCAAAACCEEEEEEEEE..",
+  ".AAAAEEEEEEEEEEAAACCCCCCCCACCCCEEEEEEE...",
+  "EEEEEEEEEEEEEAEAACCCCCCCCCCCCCCCEEEDDDD..",
+  ".CEEEYYYYYYEEAAAACCCCCCCCCCCCCCCEGGGGGDD.",
+  ".EEEYYYYYYYYYAAACCCCDDDCCCCCCDDCEGGGGGGDD",
+  "EEEEYYYYYYYAYYAACCCDDCCDCCCCDDCDCGGGGGGGD",
+  "EEEEAAAYYYAAAYAACCCCCCCCCCCEECCCCCGGGGGGD",
+  "..AEAAAAYYAAAYACCCCCCCCCCCDEEDCCCCGGGGGGD",
+  ".AAEAAAAYYAAYYACCCCCCCCCECCDECCCCCGGGGGG.",
+  "EEEEEEAAAYAYAAACCCCCCCCCEEEECCCCCCEDDDD..",
+  "EEEEEEEEAYYYAAACCCCCCCCCPPEECCCCCEEEEE...",
+  "..AAEEEEEEEEAAAACCCCCCCCCPPCCCCCEEEEEEE..",
+  ".AAEEEEEEEEAAAAAACCCCCCCCCCCCCCEEEEEE....",
+  ".EEEEEEEEAAAAAAAAACCCCCCCCCCCEEEEEEEEE...",
+  ".ECEEEEEEEEAAAAAAAACCCCCCCCCCEAAEEEEEE...",
+  "..EEEEEEEAAAAAEAAEECCCCCCCCCCEAAEEEE.E...",
+  "..EEEEEEAAAAAAEEEECCCCCCCCCCCEEEEEEE.....",
+  "..EEEEEEEEEAAAAAACCCCCCCCCCCCEEEEEEE.....",
+  "....EEEEEEEAAAACCCCCCCCCCCCCEEEEEE.E.....",
+  "....EEEEEEEAAAACCCCCCCCCCCCCEEEEEE.......",
+  "....EEEEEEEEAACCCCCCCCCCCCCEEEEEEE.......",
+  "....E.EEEEEEEEEECCCCCCCCCCEEEEE..........",
+  "......EE.EEEEEEEEECCCCEEEEE.E............",
+  "............EEAAAEEEEBEEAAAA.............",
+  ".......BBBBBBAAAAEBBBBBEEEEBBBB..........",
+  ".........BBBBBEEEBBBBBBBBBBBB............"
+ ]
+}

@@ -1,0 +1,99 @@
+{
+ "code": "P0302",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Вулкан попкорна в красном ведёрке",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Десерты и сладости",
+ "direction": "Кулинарная фантастика",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Ведёрко попкорна извергается как вулкан; красно-белые полосы; гора кукурузы; горячий поток и летящие хлопья",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 41,
+ "h": 42,
+ "N": 1044,
+ "colours": 6,
+ "volumes": {
+  "R": {
+   "cells": 329,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 243,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 202,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 190,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 56,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 24,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...................AAAA..................",
+  ".................AACCCCAA................",
+  ".................ACCCCCCAA....AAAA.......",
+  "................AACCCCCCAA...AACCAA......",
+  ".....AAA.........AAAAAAAA...ACCCCCCAA....",
+  "....AACCAA.................AACCCCCCAA....",
+  "..AACCCCCAA.................AAAAAAAA.....",
+  "..ACCCCCCCA.....AAAAAAAAAAA..............",
+  "...AACCCCAA....AOOOOOOOOOAA..............",
+  "....AAAAA.....AAOOOOOOOOOOAA.............",
+  "..............AYOORRRRRROOYA.............",
+  ".............AAYYORRRRRRRYYYY............",
+  ".............AYYYYYRRRRRRYYYY.....AAAA...",
+  "............YYYYYYYRRRRRRYYYYY...AACCCAA.",
+  "............YYYYYYYRRRRRRYYYYY..ACCCCCCAA",
+  "...AAA.....YYYYYYYYRRRRRRYYYYYAAACCCCCCCA",
+  ".AAACAAA..YYYYYYYYYYRRRRRYYYYYYAAAAAAAAA.",
+  "AACCCCCAAAYYYYYYYYYYRRRRRYYYYYYYA........",
+  "ACCCCCCCAYYYYYYYYYYYRRRRRYYYYYYYYY.......",
+  "AACCCCCAAYYYYYYYYYYYYRRRRYYYYYYYYYY......",
+  "..AAAAAYYYYYYYYYYYYYYRRRRYYYYYYYYYYY.....",
+  ".....AYYYYYYYYYYYYYYYRRRYYYYYYYYYYYYY....",
+  "....YYYYYYYYYYYYYYYYRRRRYYYYYYYYYYYYYY...",
+  "...AYYYYYYYYYYYYYYYYRRRYYYYYYYYYYYYYYYA..",
+  "..AAAAAAAAAAAAAAAAAARRRRAAAAAAAAAAAAAAAA.",
+  "....AAAARRRRRACCCCRRRRRRACCCARRRRRAAAAA..",
+  "......EERRRRRRCCCCRRRRRRRCCCCRRRRRRR.....",
+  ".......ERRRRRRCCCCRRRRRRRCCCCRRRRRE......",
+  ".......ERRRRRRCCCCRRRRRRRRCCRRRRRRE......",
+  ".......ERRRRRRCCCCRRRRRRRRCCRRRRRRE......",
+  ".......EERRRRRCCCCRRRRRRRRCCRRRRRRE......",
+  "........ERRRRRCCCCRRRRRRRCCCRRRRRE.......",
+  "........ERRRRRCCCCRRRRRRCCCCRRRRRE.......",
+  "........ERRRRRCCCCRRRRRRCCCCRRRRRE.......",
+  "........EERRRRCCCCCRRRRRCCCCRRRRRE.......",
+  ".........ERRRRCCCCCRRRRRCCCCRRRRE........",
+  ".........ERRRRCCCCCRRRRCCCCCRRRRE........",
+  ".........ERRRRCCCCCRRRRCCCCCRRRRE........",
+  ".........EERRRCCCCCRRRRCCCCCRRREE........",
+  "..........ERRRRCCCCRRRRCCCCRRRRE.........",
+  "..........ERRRRRRRRRRRRRRRRRRRRE.........",
+  "..........EEEEEEEEEEEEEEEEEEEEEE........."
+ ]
+}

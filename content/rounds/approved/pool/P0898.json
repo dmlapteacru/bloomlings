@@ -1,0 +1,112 @@
+{
+ "code": "P0898",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Сыроварня в тыквенном семечке",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Кафе и мастерские",
+ "direction": "Миниатюрные мастерские",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Крупное раскрытое зелёно-кремовое тыквенное семечко стало компактной мастерской, внутри один золотой круг сыра на синем столике и большая деревянная ложка",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 40,
+ "h": 41,
+ "N": 1304,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 300,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 268,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "A": {
+   "cells": 197,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "M": {
+   "cells": 178,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "Y": {
+   "cells": 96,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "G": {
+   "cells": 95,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "E": {
+   "cells": 63,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "L": {
+   "cells": 54,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "N": {
+   "cells": 53,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...............................DD.......",
+  ".............................DAACD......",
+  ".............DDDLLLLLLDDD...DAAAADD.....",
+  "..........DDLLLLLLLLLLLLLGGAAAAAAAD.....",
+  ".........DGLLLLLLLGGGGGLLGGAAAADDD......",
+  "........GGGGLGGGGGGGGGGCCCCCACAD........",
+  "......DLGGGLLLGGGGGGGCCCCCCAACCD........",
+  ".....DLLLLLLLLGGGGCCCCCCCCDDACCDD.......",
+  "....DDLLLLLLCCCCCCCCCCCCCDDDDACCCC......",
+  "...DGGLGGGGCCCCCCCCCCCDDDDDDDAACCCDD....",
+  "...GGGGGGCCCCCCCCCCCDDDDDDDDDDAACCCC....",
+  "..DGGGGGCCCCCCCCDDDDDDDDDDDDDDAACCCCD...",
+  "..GGGGGCCCCCCCDDDDDDDMMDDMDDDDDAACCCDD..",
+  ".DGMMCCCCCCCDDDDDDDDMMMDMMDDDDDDAACCDD..",
+  ".DMMMCCCCCDDDDDDMMMMMMMDMMDDDDEEEECCCC..",
+  ".MMMCCCCCDDDMMMMMMMMMMDMMMDMDDAAAEACCCD.",
+  ".MMCCCCDDDDDMMMMMMMMMMDMMMMMAAAAAAAACCC.",
+  ".MMCCCDDDMMDMDMMMDDDMDDMMMMMAAAAAAAACCC.",
+  ".MCCCCDDDMMDYYYYYYYYYYYMMDMMAAAAAAAACCC.",
+  ".DCCCAAAADEYYYYYYYYYYYYMMDMMAAAAAAAAACCD",
+  "..DCCAAAAAECYYYYYYYYYYYYDMMMAAAAAADAACCD",
+  "..DCCCAAAAEAAYYYYYYYYYYYMMMMEAAADDDAACCD",
+  "...DDCCCAAEAAYYYYYYYYYYYMMMMEAAADDDAACCD",
+  "....CDDAAAEAAYYYYYYYYYYYMMMMEAADDDDAACCD",
+  "...DDCCADDEAAYYYYYYYYYYYDDMMAADDDDDAACCD",
+  ".DCCCAADNNEAAAYYYYYYYYYYNNDDADDDDDDACCC.",
+  ".DCCAAADNNNNAAAYYYYYYYDNNNNAADDDDDAACCC.",
+  ".CCCAAADNNNNNNEEEEEEDDDNNNNAADDDDDAACCD.",
+  "DMCCEEEEDNNNNNNNNNNNNNNNNNDAAADDDDACCGD.",
+  "DMMCCCEEEDDDNNNNNNNNNNNDDDAAAAAADAACCGD.",
+  "DMMCCCCEEDDDEDEEDNDDDEDEEDAAAAAAAACCGG..",
+  "DMMGGCCCCCEEEAAEDNDADEEEDAAAAAAAACCGGD..",
+  ".MMMGGCCCCCCEAAEDNDAAEEEEAAAEAACCCGGG...",
+  ".DMMGGGGLCCCCCEEDDDAAEEDAAAAEECCCGGGD...",
+  "..MMMGGGLLCCCCCCEEEAAEEEEAACCCCCGGMD....",
+  "..DMMMGGGLLCCCCCCCCCCCCCCCCCCCCGGMM.....",
+  "...DMMMGGGLCCCCCCCCCCCCCCCCCCCMGMM......",
+  "....DMMMMMMMMCCCCCCCCCCCCCCCCMMMD.......",
+  ".....DMMMMMMMMMMCCCCCCCCCCCMMMMD........",
+  ".......DDMMMMMMMMMMMMCCMMMMMDD..........",
+  "..........D.MMMMMMMMMMMDDD.............."
+ ]
+}

@@ -1,0 +1,93 @@
+{
+ "code": "P0357",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Пустой стул с тенью короны",
+ "theme": "Уютная мистика",
+ "family": "Свет и домашний декор",
+ "direction": "Уютная мистика",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "От пустого стула падает королевская тень; обычный деревянный стул; крупная фиолетовая корона на полу; луч света сбоку",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 30,
+ "N": 898,
+ "colours": 7,
+ "volumes": {
+  "C": {
+   "cells": 309,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 174,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 141,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "E": {
+   "cells": 111,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "V": {
+   "cells": 88,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "P": {
+   "cells": 55,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "S": {
+   "cells": 20,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".CCCCCCCCCCCCCCCCCCCCCCCCCCCC.",
+  "SCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+  "SSCCEEEEEEEEEEEECCCCCCCCCCCCCC",
+  "SSCEAAAAAAAAAAAAECCCCCCCCCCCCC",
+  "CSCEAAAAAAAAAAAAECCCCCCCCCCCCC",
+  "CSSEAAAPPPPPPAAAECCCCCCCCCCCCC",
+  "CSSEAAPPPPPPPAAAECCCCCCCCCCCCC",
+  "CCSEAAPPPPPPPAAAECCCCCCCCCCCCC",
+  "CCCEAAPPPPPPPAAAECCCCCCCCCCCCC",
+  "SCCEAAPPPPPPPAAAECCCCCCCCCCCCC",
+  "SSCEAAPPPPPPPAAAECCCCCCCCCCCCC",
+  "CSSEAAPPPPPPPAAAECCCCCCCCCCCCC",
+  "CSSEAAPPPPPPPAAAECCCCCCCCCCCCC",
+  "CCSSAAAAAAAAAAAAECCCCCCCCCCCCC",
+  "CCCEAAAAAAAAAAAAECCCCCCCCCCCCC",
+  "CCCEAEEAAAAAAAEECCCCCCCCCCCCCC",
+  "CCCEEEEEEEEEEEEECCCCCCCCCCCCCC",
+  "CCEEAEEEAAAAAAEEAAECCCCCCCCCCC",
+  "CCEAAEEAAAAAAAEEAAECCCCCCCCCCC",
+  "YYEAAAAAAAAAAAAAAAEVVVYYYYYYYY",
+  "YYEEEEAAAAAAAAAEEEEVVVYYYYYVYY",
+  "YYYEEEYYYYYYYYVVEEVVVVYYYVVVYY",
+  "YYYEEYYYYYYYYYVVEEVVVVYVVVVYYY",
+  "YYYEEYYYYYYYYYYVEEEVVVVVVVVYYY",
+  "YYYEEYYYYYYYYYYVVEEVVVVVVVVYYY",
+  "YYYEEYYYYYYYYYYVVEEVVVVVVVVVVV",
+  "YYEEYYYYYYYYYYYVVEEVVVVVVVVVVY",
+  "YYEEYYYYYYYYYYYYVVEEVVVVVVVVVY",
+  "YYEEYYYYYYYYYYYYYYEEYVVVVVVVYY",
+  "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+ ]
+}

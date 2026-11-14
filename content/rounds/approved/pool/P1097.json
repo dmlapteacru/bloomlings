@@ -1,0 +1,88 @@
+{
+ "code": "P1097",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Фиолетовая цветная капуста",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Овощи и урожай",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One purple cauliflower head made of five broad rounded violet florets nested inside three big green leaves, cream short stalk underneath. Clear compact vegetable silhouette, no basket.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 31,
+ "h": 30,
+ "N": 676,
+ "colours": 6,
+ "volumes": {
+  "V": {
+   "cells": 303,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "G": {
+   "cells": 134,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 107,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "L": {
+   "cells": 67,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "C": {
+   "cells": 61,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 4,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............VVV..............",
+  "...........VVVVVVVV............",
+  ".........VVVVVVVVVVVV..........",
+  "........VVVVVVVVVVVVVV.........",
+  "......MMVVVVVVVVVVVVVVV........",
+  ".....GMMVVVVVVVVVVVVVVVV.GG....",
+  "...GGGVVVVVVVVVVVVVVVVVVVVGG...",
+  "...GGVVVVVVVVVVVVVVVVVVVVVGGC..",
+  "..MMVVVVVVVVVVVVVVVVVVVVVVVGC..",
+  "..MMVVVVVVVVVVVVVVVVVVVVVVVGC..",
+  ".LLLVVVVVVVVVVVVVVVVVVVVVVVVMM.",
+  ".GGLLDVVVVVVVVVVVVVVVVVVVVVVMM.",
+  ".GGGLLVVVVVVVVVVVVVVVVVVVVVLGG.",
+  ".GGGLLVVVVVVVVVVVVVVVVVVVVLLGG.",
+  "GGGGGLLLLVVVVVVVVVVVVVVVVLLGGGM",
+  "GGGGGGLLLLVVVVVVVVVVVVLLLLGGGGM",
+  "MGGGGGGLLLVVVVVVVVVVDLLLLGGGGGM",
+  "MGGGGGGLLLLDVVVVVVVVLLLGGGGGGMM",
+  "MGGGGGGGGLLDVVVVVVLLLLGGGGGGGMM",
+  "MMGGGGGGGGLLVVVVVVLLGGGGGGGGMM.",
+  ".MMGGLGGGGLLVVCCVMLGGGGGGGGGMM.",
+  ".MMMGLLGGGGLLCCCMMLGGGGGGGGMM..",
+  "..MMMMLLMGGLLCCCCMGGGMMLLMMMM..",
+  "...MMMMLMMMMMCCCCMGGMMMLMMMM...",
+  "....MMMMMMMMMCCCCMGMMMMMMMM....",
+  "......MMMMMMCCCCCCMMMMMMM......",
+  "........MMCCCCCCCCMMMMM........",
+  "..........CCCCCCCCCMM..........",
+  "..........CCCCCCCCCC...........",
+  "...........CCCCCCCC............"
+ ]
+}

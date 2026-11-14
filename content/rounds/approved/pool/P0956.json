@@ -1,0 +1,113 @@
+{
+ "code": "P0956",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Мягкий молоток из мармелада",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Профессии и увлечения",
+ "direction": "Предметные гибриды",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой розовый мармеладный молоток с толстой синей ручкой мягко обнимает золотой гвоздь, головка слегка проминается в месте контакта, широкая кремовая деревянная подставка",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 41,
+ "h": 41,
+ "N": 1146,
+ "colours": 9,
+ "volumes": {
+  "P": {
+   "cells": 427,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "C": {
+   "cells": 235,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 169,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 94,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "Y": {
+   "cells": 78,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 61,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "O": {
+   "cells": 55,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 26,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "D": {
+   "cells": 1,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..................CCPPPRRR...............",
+  ".................CCCCPPPPPPP.............",
+  "................PPPCCPPPPPPPP............",
+  "...............PPPPCCPPPPPPPPPP..........",
+  "..............PPPPPPPPPPPPPPPPPP.........",
+  ".............PPPPPPPPPPPPPPPPPPPRR.......",
+  ".............PPPEEEPPPPPPPPPPPPPPR.......",
+  ".........YYYYPPPPPEPPPPPPPPPPPPPPPP......",
+  "......YYYYYYYYPPPPPPPPPPPPPPPPPPPPP......",
+  "....YYYYYYYYYYOPPPPPPPPEEEPPPPPPPPPR.....",
+  "...YYYYYYYYYYOOPPPPPPEPPPEPPPPPPPPPR.....",
+  "..YYYYYYYYYOOOOPPPPEEEPPPPPPPPPPPPPR.....",
+  "..YYYYYYYYOOOORPPPPPPPPPPPPPPPPPPPPR.....",
+  "...YYYYYYOOOERRPPPPPPPPPPPPPPPPPPPR......",
+  "....YYAAAOOOERRRPPPPPPPPPPPPPPPPPPR......",
+  "......OOOOOOERRRPPCCPPPPPPPPPPPPPPR......",
+  "......OOYOOORRRRRCCCPPPPPPPPPPPPPP.......",
+  "....PPOOYYOPPPPPPCCPPPRPPPPPPPPPPP.......",
+  "....PPPPYYOPCCPPPPPPPPRPPPPPPPPPP........",
+  "...PPCCPPRRPPCPPPPPPPPRPPPPPPPPPNN.......",
+  "...PPCCPPPRPPPPPPPPPPRRPPPPPPPPPNNN......",
+  "...PPPPPPPRPPPPPPPPPRRRPPPPPPPNNNNNN.....",
+  "...PPPPPPPRPPPPPPPRRRPRRPPPPPNNNNNNNN....",
+  "...PPPPPPOOOOPPPPP.RRPPPRPPPNNNNNNNNNNN..",
+  "....PPPPPOOOORRR.....RRRRRR.NNNNNNNNNNNN.",
+  ".....RRRRYYOOOO..............NNNNNNNNNNNN",
+  "........YYYYOOAAAAA...........NNNNNNNNNNN",
+  "......CCYYYYOOCCCCCAAAAAAA.....NNNNNNNNNN",
+  "...AAACCCYYYOOAAAAAAAAAAACCCAAAAANNNNNNND",
+  ".CCCCCCCCYYYOOAAAAAAACCCCCCCCCCCCENNNNNN.",
+  "ACCCCCCCCCCAAAAAAACCCCCCCCCCCCCAAENNNNNN.",
+  "ACCCCCCCCCCCCCCCCCCCCCCCCCCAAAAAAE.......",
+  "AACCCCCCCCCCCCCCCCCCCCCCCAAAAAAAAE.......",
+  "ACCCCCCCCCCCCCCCCCCCCCAAAAAAAAAAAE.......",
+  "ACCCCCCCCCCCCCCCCCCCCCAAAAAAAAAAAE.......",
+  "AOOOCCCCCCCCCCCCCCAAAAAAAAAAAAAAAE.......",
+  "ACCCCCCCCCCCCCCCCCCCCCAAAAAAAAAAAE.......",
+  ".AAACCCCCCCCCCCAAAACCCAAAAAAAAAEEE.......",
+  "....AAAAAAAACCCCCCCCCCAAAAAAAAA..........",
+  "............AAAAACCCCCAAAAA..............",
+  "..................AAAAAA................."
+ ]
+}

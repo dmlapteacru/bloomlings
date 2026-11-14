@@ -1,0 +1,88 @@
+{
+ "code": "P0255",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Фриго Камело",
+ "theme": "Мемные и абсурдные герои",
+ "family": "AI-brainrot и абсурдные гибриды",
+ "direction": "Предметные гибриды",
+ "subject": "верблюд с туловищем-холодильником в пустыне",
+ "source": "интернет-мем/тренд",
+ "reference": "Italian brainrot — Frigo Camelo",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 30,
+ "N": 900,
+ "colours": 6,
+ "volumes": {
+  "S": {
+   "cells": 424,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 161,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 108,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 98,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 81,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 28,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSAASSSSSSSSSSSSSSSSSSSSSS",
+  "SSAAAAAASSSSSSSSSSSSSSSSSSSSSS",
+  "SAAAADDASSSSSSSSSSSSSSSSSSSSSS",
+  "SAAAADDASSSSSSSSSSSSSSSSSSSSSS",
+  "SAAAAAAASSSSSSSSSSSSSSSSSSSSSS",
+  "SSSAAAAASSSSAAAAASAAAAASSSSSSS",
+  "SSSSSAAASSSSAAAAAAAAAAASSSSSSS",
+  "SSSSSAAASSSSAAAAAAAAAAASSSSSSS",
+  "SSSSSAAAADDDDDDDDDDDDDDDDDSSSS",
+  "SSSSSSAAADCCCCCCCCCCCCCCCDSSSS",
+  "SSSSSSAAADCCCCCCCCCCCCCCCDSSSS",
+  "SSSSSSSAADCCCCCCCCCCCCCCCDSSSS",
+  "SSSSSSSSADCCCCCCCCCCCCCCCDSSSS",
+  "SSSSSSSSSDDDDDDDDDDDDDDDDDASSS",
+  "SSSSSSSSSDCCCCCCCCCCCCCCCDASSS",
+  "SSSSSSSSSDCDCCCCCCCCCCCCCDASSS",
+  "SSSSSSSSSDCDCCCCCCCCCCCCCDEESS",
+  "SSSSSSSSSDCDCCCCCCCCCCCCCDEESS",
+  "SSSSSSSSSDCDCCCCCCCCCCCCCDEESS",
+  "SSSSSSSSSDCCCCCCCCCCCCCCCDSSSS",
+  "SSSSSSSSSDCCCCCCCCCCCCCCCDSSSS",
+  "SSSSSSSSSDDDDDDDDDDDDDDDDDSSSS",
+  "SSSSSSSSSSSAASAASSSAASAASSSSSS",
+  "SSSSSSSSSSSAASAASSSAASAASSSSSS",
+  "SSSSSSSSSSSAASAASSSAASAASSSSSS",
+  "YYYYYYYYYYYEEEEEEYYEEEEEEYYYYY",
+  "YYYYYYYYYYYEEEEEYYYEEEEEYYYYYY",
+  "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYY",
+  "YYYYYYYYYYYYYYYYYYYYYYYYYYYYYY"
+ ]
+}

@@ -1,0 +1,113 @@
+{
+ "code": "P0975",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Табурет на мягких лапах",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Мебель и уютные уголки",
+ "direction": "Ожившие вещи",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой низкий синий табурет с розовым сиденьем стоит на четырёх округлых кремовых лапах, два дружелюбных глаза на передней перекладине, простой цельный силуэт",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 40,
+ "h": 41,
+ "N": 1035,
+ "colours": 9,
+ "volumes": {
+  "N": {
+   "cells": 260,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 256,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 216,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "R": {
+   "cells": 145,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "B": {
+   "cells": 56,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "E": {
+   "cells": 42,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "D": {
+   "cells": 38,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "A": {
+   "cells": 14,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "K": {
+   "cells": 8,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............RRRRRRRRRRRRRR.............",
+  ".........RRRPPPPPPPPPPPPPPPRRRR.........",
+  "......PPPPPPPPPPPPPPPPPPPPPPPPPPPP......",
+  ".....PPPPPPPPPPPPPPPPPPPPPPPPPPPPPP.....",
+  "...PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPR....",
+  "...PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPRR...",
+  "..RPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPRRR...",
+  "..RRPPPPPPPPPPPPPPPPPPPPPPPPPPPRRRRRR...",
+  "..RRRRPPPPPPPPKKKKKPPPPPKKKRRRRRRRRRR...",
+  "..RRRRRPRPPPPPPPRRRRRRRRRRRRRRRRRRRRR...",
+  "..NNRRRRRRRRRRRRRRRRRRRRRRRRRRRRRRNN....",
+  "..NBBBBRRRRRRRRRRRRRRRRRRRRRRRRRNNNN....",
+  "..NNBBBBBNNNRRRRRRRRRRRRRNNNNNNNNNNN....",
+  "...NBBBBBBBBBBBBBBBBBNBBBNNNNNNNNNN.....",
+  "....NNNBBBBNNNNNNNNNNNNNNNNNNNNNNNN.....",
+  ".....NNNNNNNNNNNCCNNNNNNNCCCCNNNNNN.....",
+  "....NNNNNNNNNNCCCDCCNNNNCDDCCCNNNNN.....",
+  "....NNNNNNNNNNCCDDDCBBBBDDDDCCNNNNN.....",
+  "....NNNNNNBNNNCCDDDDBBBBDDDDCCNNNNN.....",
+  "....NNNNNNBNNNCCDDDDDBBDCDDDCCNNNNN.....",
+  "....NNNNNBBNNNCCDDDDDDDDNCCCCNNNNNNN....",
+  "..CCCCCCNBBNNNNNCCNNNNNNNNNNNNNNNNNN....",
+  "..CCCCCCNBNNNNNNNNNNNNNNNNNNNNNNNNNN....",
+  ".CCCCCCCNBNNNNNNNNNNNNNNNNNNNNDNNNNCC...",
+  "ECCCCCCNNBNNNN..........EAAAADCCCCCCCC..",
+  "ECCCCCCNBBNNNN..........EAAAACCCCCCCCCC.",
+  "ECCCCCCCBBNNNN..........EACAACCCCCCCCCCE",
+  ".CCCCCCCCNNNCCC..........AAAECCCCCCCCCCE",
+  "..EEECCCCCCCCCC...........EEECCCCCCCCCCE",
+  "...CECCCCCCCCCCE............ECCCCCCCCCCE",
+  "...ECCCCCCCCCCCE............ECCCCCCCCCC.",
+  "...ECCCCCCCCCCCE.............CCCCCCCCC..",
+  "...ECCCCCCCCCCCE..............CCCEEEE...",
+  "...ECCCCCCCCCCCE...............CC.......",
+  "...ECCCCCCCCCCC.........................",
+  "....CCCCCCECCC..........................",
+  "......EEEEEEE...........................",
+  "........................................",
+  "........................................",
+  "........................................",
+  "...........D............................"
+ ]
+}

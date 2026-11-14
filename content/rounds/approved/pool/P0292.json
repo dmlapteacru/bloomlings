@@ -1,0 +1,104 @@
+{
+ "code": "P0292",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Молочный пакет льёт Млечный Путь",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Космос",
+ "direction": "Визуальные каламбуры",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Из пакета молока льётся галактика; складчатый верх пакета; широкий фиолетовый поток; звёзды внутри потока",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 35,
+ "h": 41,
+ "N": 895,
+ "colours": 7,
+ "volumes": {
+  "V": {
+   "cells": 217,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "C": {
+   "cells": 186,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 170,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "P": {
+   "cells": 134,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "S": {
+   "cells": 88,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "B": {
+   "cells": 86,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "Y": {
+   "cells": 14,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "NNNNNNNNNNNNNNNN...................",
+  "NSSSSSSSSSSSSSSN...................",
+  "NCSSSSSSSSSSSSSSS..................",
+  "NCSSSSSSSSSSSSSSSS.................",
+  "NCCSSSSSSSSSSSSSSSN................",
+  "NCCCSSSSSSSSSSSSSSNN...............",
+  "NCCCCSSSSSSSSSSSSSSN...............",
+  "NCCCCCCCCCCCCCCBBBBN...............",
+  "NCCCCCCCCCCCCCCBBBBN...............",
+  "NCCCCCCCCCCCCCCBBBBN...............",
+  "NCCBBBBBBBBCCCCBBBBN...............",
+  "NCCBBBCCBBBBCCCBBBBN...............",
+  "NCCBBCCCCBBBCCCBBBBN...............",
+  "NCCBBCCCCBBBCCCBBBBN...............",
+  "NCCBBCCCCBBBCCCBBBBN...............",
+  "NCCBBBBCBBBBCCCBBBBN...............",
+  "NCCBBBBBBBBCCCCBBBBN...............",
+  "NCCCCCCCCCCCCCCNNNNNNN.............",
+  "NCCCCCCCCCCCCCCNVVVVVNNN...........",
+  "NCCCCCCCCCCCCCCNVVVVVVVNN..........",
+  "NCCCCCCCCCCCCCCNVPPPPVVVNN.........",
+  "NCCCCCCCCCCCCCCNVPPPPPPVVN.........",
+  "NNNNNNNNNNNNNNNNVVPPPPPVVN.........",
+  "...............NNVVPPPPPVN.........",
+  "................NNVVPYPVVN.........",
+  "................NVVVYYYVVN.........",
+  ".............NNNVVVPYYYVVN.........",
+  ".........NNNNNVVVVPPPPVVNN.........",
+  "......NNNNVVVVVVPPPPVVVVVN.........",
+  "....NNNVVVVPPPPPPPVVVVVVVNN........",
+  "...NNVVPPPPPPPPPVVVVVVVVVVVNNNNN...",
+  "...NVVPPPPCPPPVVVVVVVVVVVVVVVVVVV..",
+  "..NVVPPPPCCCCVVVVVVVVVVVVVVVVVVVVN.",
+  "..NVVPPPPCCCVVVVVVVVVVVVVVVVVVVVVNN",
+  "..NNVPPPPCCCVVVVVVVVVVVVVVVYYVVVVVN",
+  "...NVVPPPPPPPPVVVVVVVVVVVVVYYYVVVVN",
+  "...NNVVPPPPPPPPPPPPPPPPPPPPYYPVVVVN",
+  ".....VVPPPPPPPPPPPPPPPPPPPPPPPPVVNN",
+  ".......NNNNNPPPPPPPPPPPPPPPVVVVVNN.",
+  ".........NNNNVVVVVVVVVVVVVVVNNNN...",
+  ".............NNNNNNNNNNNNNNN......."
+ ]
+}

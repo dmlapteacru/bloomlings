@@ -1,0 +1,116 @@
+{
+ "code": "P0987",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Веер из листа монстеры",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Деревья, листья и плоды",
+ "direction": "Предметные гибриды",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой зелёный лист монстеры раскрыт как веер на золотой короткой ручке, в каждом широком сегменте по крупному розовому пятну, синий край подчёркивает цельную форму",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 43,
+ "h": 44,
+ "N": 1190,
+ "colours": 9,
+ "volumes": {
+  "M": {
+   "cells": 368,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 342,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "P": {
+   "cells": 159,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "N": {
+   "cells": 118,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 77,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 65,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 31,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 27,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "S": {
+   "cells": 3,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............NNGGGGGGGGN...GG.............",
+  ".............NNGGGGGGGGGNNNNGGNNN..........",
+  ".......NNNG.NNGGGGGGGGGGNNNGGGGGGGG........",
+  "......NNGGG.NGGGPGGGGGGG.NGGGGGGGGGG.......",
+  "....GGGGGGG.NGGPPPPGGGG..GGGGGGGGGGGG......",
+  "....GGGGGGG.NGGPPPPGMMG.GGGGGGGGGGGGG......",
+  "...NGGGGGGMNNGGPPPPGMMM.DGGGGGGGGGGGGG.....",
+  "..NNGGGGGMM.DGGPPPPMMM.GGGGPPGGGGGGGGGN....",
+  "..NGGGGGMMM..MMPPPPMMD.DGPPPPGGPPPGGGGN....",
+  "..NGGGPPMMMMMMGPPPPMMD.DGPPPPPPPPPPMGGN....",
+  "..NGGGPPPMMD.DGGGGMMD..DGPPPPPPPPPPMGGN....",
+  "..NNGGPPPPMMM.DGGGGMD..DGPPPPPPPPPMMGNN....",
+  ".NNNGGGPPPMGM.DMGGMMMDDMMPPPPPPPPMMMNN.....",
+  ".NGNGGGPPPGGD..MMGGMMMMMMGGPPPPPMMMNNNGG...",
+  "NNGGGGGGPPGMMDDMMGGMMMMMMGGPPPPMMMM.NGGGN..",
+  "NNGGGGGGGGGGMMDMMGMMMMMMGGMMMMMMM...GGGGNN.",
+  "NNGGGGGDGMMMMMMMMGMMMMMGGMMMMMDD..GGGGGGGN.",
+  "NNGGGGMMMMMMMMMMMGMMMMMMMMMMD....DMGGGGGGN.",
+  ".NGGGGMMMMMMMMMMMGMMMMMMMMMD...DDMMMGGGGGN.",
+  ".NGGGGMMMMMMMMMMMGMMMMGMMMD..DDGMMMPPPGGGGN",
+  ".NNGGPPPPMMMMMMMMGMMMGGMMMMDDMMGMMPPPPPGGGN",
+  "..NGGPPPPPMMMMMMMGMMMGMMMMMMMMMGGPPPPPPGGGN",
+  "...MMMPPPMMMMMMMMMMMMMMMMMMMMMMGGGPPPPPMMGN",
+  "....NMMMMMMMYYYYYYMMMMMMMMMGGGGMMPPPPPMMMGN",
+  "....NNMMMMYYYYEEYYYYMMMMGGGMMMMMMPPPPPMMMN.",
+  "......NNNNYYDYEEEEYYYMMMMMMMMMMMMMMMMMMMNN.",
+  "..........DDYYEYEEEEYYMMMMMMMDDDDDMMMMMNN..",
+  "...........DYYEYEEEEEYMMMMMMMDD....NNNNN...",
+  "............YYYYYEEEEYYMMMMMMMMDDDSSS......",
+  "............EYYYOEEEDDYYMMMMPPMMMMGGGG.....",
+  "...........DEEYYOOEEDDYYMMMPPPPPMGGGGGN....",
+  "...........DYYOOOOOOODYMMMMPPPPPPGGGGGN....",
+  "..........DYYYDDDDDDDDYMMMMMPPPPPGGGGGN....",
+  ".........YYYYOD.......DDMMMMMMPPPMGGGN.....",
+  ".......DDYYYOOD..........NNMMMMMMMGGNN.....",
+  ".......YYYYOOD............NNMMMMMMMNN......",
+  "......DOYYOOD..............NNNNMMNNN.......",
+  "......DOOOOO.................NNNNN.........",
+  ".......OOOOD...............................",
+  "........DDD................................",
+  "...........................................",
+  "...........................................",
+  "...........................................",
+  ".............EE............................"
+ ]
+}

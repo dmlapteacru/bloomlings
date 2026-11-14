@@ -1,0 +1,76 @@
+{
+ "code": "P0270",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Океан в перевёрнутом зонте",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Времена года и погода",
+ "direction": "Предметные гибриды",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "В раскрытом зонте плещется океан; перевёрнутый купол; широкие волны внутри; загнутый стержень",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 24,
+ "N": 362,
+ "colours": 5,
+ "volumes": {
+  "B": {
+   "cells": 130,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "N": {
+   "cells": 79,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "P": {
+   "cells": 73,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "C": {
+   "cells": 46,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "Y": {
+   "cells": 34,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........C....................",
+  ".........CC...................",
+  "N....BBBCCC..................N",
+  "NN.BBBBBBBBB..............BBNN",
+  "NPBBBBBBBBBBBB....CCCCCCBBBPPN",
+  "NPPBBBBBBBBBBBBBCCCCCCCCCCBPPN",
+  ".NPBCCCBBBBBBBCCCBBBBBBBCCPPP.",
+  ".NPPBCCCCCCCCCCCBBBBBBBBBBPPN.",
+  ".NPPBBBBCCCCCBBBBBBBBBBBBBPPN.",
+  "..PPPBBBBBBBBBBBBBBBBBBBBPPPN.",
+  "..NPPPPBBBBBBBBBBBBBBBBPPPPN..",
+  "..NNNNPPPPPBBBBBBBBPPPPPNNNN..",
+  "..NNNNNNNPPPPPYYPPPPPNNNNNNN..",
+  "....NNNNNNNPPPYYPPPNNNNNNNN...",
+  ".....PPPPPNNNNYYNNNNPPPPP.....",
+  "........PPNNNNNNNNNNPP........",
+  "...........NNNYYNNN...........",
+  "..............YY..............",
+  "..............YY..............",
+  "..............YY..............",
+  "..............YY..............",
+  "..............YYY..YY.........",
+  "..............YYYYYYY.........",
+  "...............YYYYYY........."
+ ]
+}

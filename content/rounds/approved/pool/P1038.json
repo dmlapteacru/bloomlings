@@ -1,0 +1,94 @@
+{
+ "code": "P1038",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Джинкс",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "League of Legends / Arcane · Riot Games: Jinx from League of Legends and Arcane: adult pale woman with VERY LONG vivid blue twin braids, magenta eyes, playful crooked grin, dark purple strapped top; the large pink-and-gray shark-shaped muzzle of Fishbones rocket launcher rests beside one shoulder, NOT firing. Big face, two thick visible braids, one recognizable shark weapon, no violence.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 31,
+ "h": 31,
+ "N": 852,
+ "colours": 7,
+ "volumes": {
+  "D": {
+   "cells": 232,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "N": {
+   "cells": 193,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "K": {
+   "cells": 124,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "B": {
+   "cells": 112,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "C": {
+   "cells": 82,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "V": {
+   "cells": 66,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "P": {
+   "cells": 43,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "....BBBBN...BB........PPP......",
+  "...BBBBNNNBBBBBNN....PPPD...DDD",
+  "..BBBBBBBNBBBBBBNN..VPPDD.DBKKD",
+  "..BBBBBBNNNNNBBBBNN.VVPDDDBBKPD",
+  ".BBBBBBNNNNCCCCBBBB.VVVDDDPPPPV",
+  "NNNBBBNNNCCCCCCCBBNNNVDDKKPPPPV",
+  "NNBBBBNKKCCCCKKKKBBNNDDKKKPPPPV",
+  "N.BBBBNKKCCCCDDDKNNNDDKKKPPPPVV",
+  ".NBBBNNKCCCCKKDDCNNNDDDDPPKKKKV",
+  ".NBBBNNKKKKKKKKCCCKKDDDPPPKKDDD",
+  ".NNBBNBDDKKCKKCCCCKKDDDPDDDDDDD",
+  ".NNNNBBDCKKCCCKKCKKKDDVVDDDDDDD",
+  ".NNNBBNNKKKKKKKKCCNNDDVVVVVNDD.",
+  ".N.NNBNNKKCKKPPCCNNNDDDVVVVNDD.",
+  ".N..NBNNKKKKPPCCCNNNNDDVVVVNKDD",
+  "....NBBNNNKKKKCCCNNNNDDDVVVVKK.",
+  "....NNBNNNNNKKKKKDNNNNDDDVVVVV.",
+  "...NNNNKKKNNDDKKKDDNNNDDDDDVVV.",
+  "...NNNCCCCKDDDDDDDDDNNBDDDDDD..",
+  "..BNNNCCCCKKDDDDDDDDDBBDDDDD...",
+  ".BBBNNCCCCKKDDKKKDDDDNNNDVDD...",
+  "NNNNNKCCCKKKDDKKDDDDDNNNBVVDD..",
+  "NNNNNKKCKKKKDDDKDDDDDDDBBVVVVV.",
+  "NNNNNDDCKKKKDDDDDDKCDDDBBDVVV..",
+  "NNN.DDDDKKKKNVVDDDKCNDDBBBDD...",
+  "NNN.DDDDDKKNNVVVDDKKNNDBBBBDD..",
+  "NN.DDDDDDKKNNDDVVNNNNNNPNNNDD..",
+  "NN.CCCCDDKNNDDDDDNNNNNNPNBBBDD.",
+  "N..VCCCC.NNDDDDDDNNNNNNPNBBBDDD",
+  "..VVCCCC.NDDDDDDDDDDNNDPPNNNDDV",
+  "..VVCCC..DDDDDDDDDDDDDDPPNBBBVV"
+ ]
+}

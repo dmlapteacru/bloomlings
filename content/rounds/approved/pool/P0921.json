@@ -1,0 +1,108 @@
+{
+ "code": "P0921",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Зефирный сейф",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Десерты и сладости",
+ "direction": "Кулинарная фантастика",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Большой розово-кремовый зефирный куб стал сейфом с толстой синей круглой дверцей и золотой ручкой, внутри лежит одна крупная красная клубника, мягкие округлые края",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 39,
+ "h": 37,
+ "N": 1274,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 342,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 295,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "K": {
+   "cells": 233,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "P": {
+   "cells": 193,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "R": {
+   "cells": 115,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 40,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 27,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "G": {
+   "cells": 16,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "O": {
+   "cells": 13,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...............PPPPPP..................",
+  "...........PPPKKKCCCCCCCKKKKKPPP.......",
+  ".........KKKKKKKKKCCCCCCCCKKKKKKKKK....",
+  ".......KKKKKKKKKKKKKKCCCCCCCCCCKKKKK...",
+  "......CCCCKKKKKKKKKKKKKCCCCCCCCCKKPPP..",
+  ".....KCCCCCCCCKKKKKKKKKKKKCCCCCCCPPPP..",
+  "...KKKCCCCCCCCCCKKKKKKKKKKKCCCCCCCPPPP.",
+  "...KKKCCCCCCCCCCCKKKKKKKKKKKCCCCCCPPPP.",
+  "..KKKKKCCCCCCCCCCCKKKKKKKKKKCCCCCCPPPP.",
+  "..KKKKKKCCCCCCNNNDDDDNNKKKKKCCCCCCPPPP.",
+  "..KKKKKKKCCCNNNNNNNNNNNNNKKKCCCCCPPPPP.",
+  ".PKKKKKKKKCNNNNNNNNNNNNNNNKKCCCCCPPPPP.",
+  ".PKKKKNNNNNNNNNNNNNNNNNNNNKKCCCCPPPPPC.",
+  ".PKKKNNNNDDNNNNNNNNNNNNNNNNCCCCCPPPPCC.",
+  ".PKKKNNNNNDNNNNNNNNDNNNNNNNCCCCKPPPPCCP",
+  ".PKKNNNNNNNNNNNNNDDDDDDDDNYYCCKKPPPPCCP",
+  ".PKKNNNNNNNNNNNRRRGGGGDDDNYYKKKKKPPPCCP",
+  ".PKNNNNNNNNNNDRRRRGGGGGGDNYYPKKKKPPCCCP",
+  ".PKNNNNNNNNNNRRRRRRRGGGGDNYYPKKKKPPCCCP",
+  ".PCNNYYYNNNNNRRRCRRRGGDDDNNNPKKKKPCCCCP",
+  ".PCNNYYYYNNNNRRRRRRRRRRDDNNNKKKKPPCCCCP",
+  ".YYOCYOYYNNNNRRRRRRRRRRRRNNNKKKKKCCCCPP",
+  "YYYOYYOYYNNNNRRRRRRRRRRRRNNNKKKKCCCCPPP",
+  "YYYOOOOYNNNNNRRRRRRRRRRRRNYYKKKCCCCCPPP",
+  ".CCNNOOYNNNNNRRRRRRRRRRRRNYYCCCCCCCCPPP",
+  ".PCNNOOONNNNNRRRRRRRRRRRNNYYCCCCCCCPPPP",
+  ".PKNNNNNNNNNNRRRRRRRRRRRNNYYCCCCCCPPPPP",
+  ".PKKNNNNNNNNNRRRRRRRRRRNNNNCCCCCCCPPPPP",
+  ".PKKNNNNNNNNNRRRRRCCCCCNNNNCCCCCCPPPPP.",
+  ".PKKNNNNNNNNNNNNNCCCCNNNNNCCCCCCPPPPPP.",
+  "..KKKNNNNNNNNNNNNNNNNNNNNCCCCCCPPPPPP..",
+  "..KKKNNNNNNNNNNNNNNNNNNCCCCCCKKPPPPPCC.",
+  "..CPPPNNNNKKKKKCCCCCCCCCCCCCKKKPPPPCCC.",
+  "..CCPPPPPPKKKKCCCCCCCCCCCCPKKKPPPPCCCC.",
+  "..CCCPPPPPPKKCCCCCCCCCCCCPPPPPPPCCCCC..",
+  "....CCCCPPPPPPCCCCCCCCPPPPPPPPCCCC.....",
+  ".......CCCCCCCCCCCCCCCCPPPPCCCC........"
+ ]
+}

@@ -1,0 +1,106 @@
+{
+ "code": "P0342",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Снежный парад музыкальных саней",
+ "theme": "Праздники и карнавал",
+ "family": "Ярмарки и праздники",
+ "direction": "Уютный сюрреализм",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Праздничные сани везут музыкальные колокола; два загнутых полоза; яркий кузов; большие золотые колокольчики",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 35,
+ "h": 35,
+ "N": 1218,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 510,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "R": {
+   "cells": 198,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 174,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 97,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "Y": {
+   "cells": 84,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 72,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "V": {
+   "cells": 31,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "P": {
+   "cells": 30,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "G": {
+   "cells": 22,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS..",
+  ".SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS.",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSVVVVVSSSSSSSS",
+  "SSSSSSSSSSSSSSSSVVVVVVVVVVSSSSSSSSS",
+  "SSSSSSSSSSSVVVVVVVVVVSSSSSSSSSSSSSS",
+  "SSSSSSSSSSVVVVVVSSSSSSSEEEESSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSYYYYYSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSYYYYYYYSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSYYYYYYYSSSSSSS",
+  "SSSSSSSSSSSEEYYEESSSEYYYYYYYYESSSSS",
+  "SSSSSSSSSSEEYYYYESSSEYYYYYYYYESSSSS",
+  "SSSSSSSSSSEYYYYYYSSSEYYYYYYYYESSSSS",
+  "SSSSSSSSSEYYYYYYYSSSEEEEAAEEEESSSSS",
+  "SSSSSEEEEEYYYYYYYYESSSSSAASSSSSSSSS",
+  "SSSSERRRREYYYYYYYYESSSSSSSSSSSSSSSS",
+  "SSSSERRREEYYYAAYYYESSSSSSSSSSSEEESS",
+  "SSSSERRGGEEEAAAEEEESSSSSSSSSSSERRSS",
+  "SSSERRRGGGGGGAASSSSSSSSSSSSSSRRRRRR",
+  "SSSERRRGGGGGGGSSSSSSSSSSSSSSSRRRRRR",
+  "SSSERRRGGGGGGGSSSSPPPPPPPSSSERRRRES",
+  "SSSERRRRRRRRRRRRRPPPPPPPPEEEERRRRES",
+  "SSERRRRRRRRRRRRRRPPPPPPPPRRRRRRRRES",
+  "SSERRRRRRRRRRRRRRRPPPPPPPRRRRRRRRSS",
+  "SSERRRRRRRRRRRRRRRRRRRRRRRRRRRRRRAS",
+  "SSSEERRRRRRRRRRRRRRRRRRRRRRRRRREAAS",
+  "SSSSEERRRRRRRRRRRRRRRRRRRRRRRRREAAS",
+  "SSSSSEEAARRRRRRRRRRRRRRRRAARRREEAAS",
+  "CCCCCCCAAEEEEEEEEEEEEEEEEAAEEEEAACC",
+  "CCCCCCCAAACCCCCCCCCCCCCCCAAAAAAAACC",
+  "CCCAAAAAAAAAAAAAAAAAAAAAAAAAAAAACCC",
+  "CCCCCCCAACCCCCCCCCCCCCCCCAACCCCCCCC",
+  "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+  "CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC",
+  ".CCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCC"
+ ]
+}

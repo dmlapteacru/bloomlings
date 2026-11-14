@@ -1,0 +1,112 @@
+{
+ "code": "P0330",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Барабан с танцующими нотами",
+ "theme": "Музыка",
+ "family": "Музыка",
+ "direction": "Предметные гибриды",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "На барабане подпрыгивают ноты; широкий цилиндр; контрастные обручи; две крупные музыкальные ноты над мембраной",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 37,
+ "h": 39,
+ "N": 903,
+ "colours": 9,
+ "volumes": {
+  "C": {
+   "cells": 203,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 175,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "Y": {
+   "cells": 128,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 106,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "E": {
+   "cells": 104,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "V": {
+   "cells": 61,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "N": {
+   "cells": 60,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "A": {
+   "cells": 52,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "B": {
+   "cells": 14,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".............................VVVV....",
+  "...........................VVVVVV....",
+  "..........................VVV..VV....",
+  ".............NNN..........VV...VV....",
+  "..........NNNNNN..........VV...VV....",
+  ".........NNN..NN..........VV.VVVV....",
+  ".........NN...NN..........VVVVVVV....",
+  ".........NN...NN..........VVVVVVV....",
+  ".........NN...NN........VVVV.VV......",
+  ".........NNNNNNN.......VVVVV.........",
+  ".........NNNNNNN.......VVVVV.........",
+  ".........NNNNNN.........VV...........",
+  "......NNNNN..........................",
+  "......NNNNN..........................",
+  "......NNNN..............BB...........",
+  "...............CCCCCCC..BB...........",
+  ".......BBCCCCCCCCCCCCCCBBCCC.........",
+  "......BBCCCCCCCCCCCCCCCBBCCCCCC......",
+  "....CCBBCYYYYYYYYYYYYYYYYYYYCCCCC....",
+  "..CCCCYYYYYYYYYYYYYYYYYYYYYYYYYCCCC..",
+  "..CCCCYYYYYYYYYYYYYYYYYYYYYYYYYCCCC..",
+  ".CCCCCYYYYYYYYYYYYYYYYYYYYYYYYYCCCCC.",
+  ".CCCCCCCYYYYYYYYYYYYYYYYYYYYYCCCCCCC.",
+  "ERCCCCCCCCCCYYYYYYYYYYYYYCCCCCCCCCCRE",
+  "ERRCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCCRRE",
+  "ERRRRCCCCCCCCCCCCCCCCCCCCCCCCCCCCRRRE",
+  "ERRRARRCCCCCCCCACCCCCCCCCAACCCRRRRRRE",
+  "ERRRAARRRRCCCCAAACCCCCCCAAAARRRRRRRRE",
+  "ERRRAAARRRRRRAAAAARRRRRRAAAAARRRRRRRE",
+  "ERRRRAAARRRRAAAAAAARRRRAAARAARRRRRRRE",
+  "ERRRRRAAARRAAAEEEEEEEEEAARRAAARRRRRRE",
+  "ERRRRREEEEEEEEEEEPPPEEEEEEEEEEEERRRRE",
+  "EEEEEEPPPPPPPPPPPPPPPPPPPPPPPPPEEEERE",
+  "EEEPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPEE",
+  "EEPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPE",
+  ".EPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPEE",
+  "..PPPPPPPPPPPPPPPPPPPPPPPPPPPPPPPEEE.",
+  "....EEEEEEPPPPPPPPPPPPPPPPPEEEEEE....",
+  "..........EEEEEEEEEEEEEEEEE.........."
+ ]
+}

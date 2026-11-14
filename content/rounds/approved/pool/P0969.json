@@ -1,0 +1,107 @@
+{
+ "code": "P0969",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Оригами-жук из осеннего листа",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Рисование и ремёсла",
+ "direction": "Предметные гибриды",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой золотисто-красный кленовый лист сложен в округлого игрушечного жука, зелёные прожилки образуют края сгибов, шесть коротких синих лапок и два крупных кремовых глаза",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 37,
+ "h": 39,
+ "N": 982,
+ "colours": 8,
+ "volumes": {
+  "R": {
+   "cells": 457,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "O": {
+   "cells": 242,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "N": {
+   "cells": 127,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 45,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 38,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "E": {
+   "cells": 27,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "M": {
+   "cells": 26,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 20,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "............RR.......................",
+  "............RRR......................",
+  "............RRRR.....................",
+  "...........RRRRREEE..................",
+  "...........RRRRRRRR...EE.............",
+  "..........CRRRRRRROO.EEE........R....",
+  "..........RRRRRGRROOOOOE......RRRE...",
+  "........RRRRRRRGROOOOOOOE....RRRRE...",
+  "........OOOORRRGGOOOOOOOE..OOOORRE...",
+  ".RR.....OOOOOOOOOOOOOOOOE.OOOOORRE...",
+  "RRROOOO.OOOOOOOOOOOOOOOOORROOORRRE...",
+  "RRROOOOOOOROOOOOOOOMOOOOORRROORRRE...",
+  ".RRROOOOORRRRORROMMMOOOOORRRORRRRRR..",
+  ".RRRRROOOORRRRRRRMMOOOOORRRRRRRRRRR..",
+  ".RRRRRROOOORRRRRRRROOOORRRRRRRRRRRRR.",
+  "..RRRRRRRRRRRRRRRRROOORRRRRGRRRRRRRR.",
+  ".RRRRRRRRRRRRRRRRRROOORRRRGGROOOOOOR.",
+  ".RRRRRRRRROOORRRRRRRRRRRRROOOOOOOOOR.",
+  ".RRRRRRROOOOOOOORRRRRRRRRROOOOOOORE..",
+  "..RRROOOOOOOOOOOMMMMMMRRRROOODDRRRE..",
+  "...RRROOOOOOOORRRRRMMMRRRRGGGGRRRRE..",
+  "...COOOOOOOORRRRRRRRRMMRRRRRRRRRRR...",
+  "..OOOOOOOORRRRRRRGGGMMMDDRRRRRRRRR...",
+  ".ROOOOOORRMMMRRGGGRRRRRRMMRRRREEEN...",
+  "RRRRRRRRRRRRGGGOOORRRRRRRMRRRCCCCNNN.",
+  ".RRRRRRRRRRROOOOORRRCCRRRRRRRCDCCNNN.",
+  "..RRRRROOOOOOOOOORRCCCCCCRRRRDDDCDNNN",
+  "...ERRRROOOOOOOOORRCCCDDCRRRRDDDDNNNN",
+  "...EENNNRROOOORORRRCCDDDDCRRRDDDDNNNN",
+  "....NNNNRRRORRRRRRDCCDDDDCRRRCDDCNN..",
+  "...NNNNNRRRRRRRRRRDCCDDDDCRRRRCCNNNN.",
+  "..NNNNNNNRRNNNRRRRCCCCDDCRRRRRRRNNNN.",
+  "..NNNN...NNNNNRRRNNCCCCCRRRRRRRRNNNN.",
+  "..NNNN...NNNNNNNNNNNNRRRRRRRRR...NNN.",
+  "..NNN....NNNNN..NNNNNDRRRRRR.....NNN.",
+  ".........NNNN...NNNNN................",
+  ".........NNNN....NNNN................",
+  ".........NNN.....NNNN................",
+  "..................NNN................"
+ ]
+}

@@ -1,0 +1,70 @@
+{
+ "code": "P0063",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Вишенки",
+ "theme": "batch-0061",
+ "family": "Фрукты и ягоды",
+ "subject": "пара вишенок на сросшихся черешках с листиком и бликом",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 22,
+ "h": 25,
+ "N": 271,
+ "colours": 4,
+ "volumes": {
+  "R": {
+   "cells": 192,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "M": {
+   "cells": 52,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 15,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 12,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "...............GGGGGG.",
+  "..............GGGMMM..",
+  "...........MMGGMMMG...",
+  "...........MMMMGGG....",
+  "..........MMMM........",
+  "..........MMMM........",
+  ".........MMMMM........",
+  ".........MM..MM.......",
+  "........MMM..MM.......",
+  "........MM...MM.......",
+  ".......MMM....MM......",
+  ".......MM.....MM......",
+  ".....RRM......MM......",
+  "...RRRRRRR.....MM.....",
+  "..RRRRRRRRR..RRRRRR...",
+  ".RRCCRRRRRR.RRRRRRRRR.",
+  ".RRCCRRRRRRRRRCRRRRRR.",
+  "RRRCCRRRRRRRRCCCRRRRRR",
+  "RRRRRRRRRRRRRCCRRRRRRR",
+  ".RRRRRRRRRRRRRRRRRRRRR",
+  ".RRRRRRRRRRRRRRRRRRRRR",
+  ".RRRRRRRRRRRRRRRRRRRRR",
+  "..RRRRRRRR..RRRRRRRRR.",
+  "....RRRR....RRRRRRRR..",
+  "..............RRRRR..."
+ ]
+}

@@ -1,0 +1,71 @@
+{
+ "code": "P1143",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Чёрный барашек с белой чёлкой",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Домашние животные",
+ "direction": "Театр эмоций",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One large friendly dark-faced lamb portrait with cream fluffy wool cap and broad rounded ears, huge cream eyes and dark pupils, red triangular neckerchief. Head fills most of square, no field.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 27,
+ "h": 25,
+ "N": 445,
+ "colours": 4,
+ "volumes": {
+  "D": {
+   "cells": 210,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 176,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 51,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "P": {
+   "cells": 8,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "...........C.CCCC..........",
+  ".........CCCCCCCCCC........",
+  "........CCCCCCCCCCCC.......",
+  ".......CCCCCCCCCCCCCC......",
+  ".....CCCCCCCCCCCCCCCCC.....",
+  ".....CCCCCCCCCCCCCCCCC.....",
+  "....CCCCCCCCCCCCCCCCCCC....",
+  "...DDCCCCCCCCCCCCCCCCCDD...",
+  "..DDDDCDDDCCCCCDDCDDDDDDD..",
+  ".DDDRRDDDDDDCCDDDDDDDDRDDD.",
+  "DDDRRRDDDDDDDDDDDDDDDRRRRD.",
+  "DDPPDDDDCCCDDDDDDDDCDDDPPDD",
+  "DDPPDDDDCDDDDDDDDDDDDDDPPDD",
+  "DDDDDDDDCDDDDDDDDDDDDDDDDDD",
+  ".DDDCCDDCDDDDDDDDDDCDDCDDD.",
+  "...CCCDDDDDDDDDDDDDDDDCC...",
+  "...CCCCDDDDDDDDDDDDDDCCC...",
+  "...CCCCDDDDDDDDDDDDDDCCC...",
+  "....CCCCDDDDDDDDDDDDCCC....",
+  "....CCCRRRDDDDDDDDRRCCC....",
+  ".....CCRRRRRRRRRRRRCCC.....",
+  ".......CRRRRRRRRRRCC.......",
+  ".......CCCRRRRRRRRCC.......",
+  "............RRRRR..........",
+  "..............R............"
+ ]
+}

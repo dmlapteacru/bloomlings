@@ -1,0 +1,103 @@
+{
+ "code": "P0432",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "По — большая миска лапши",
+ "theme": "Новые версии знакомых героев",
+ "family": "Спорт и активные игры",
+ "direction": "Театр эмоций",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "По ест лапшу; круглые уши и чёрные глазные пятна; белый живот и широкие лапы; большая миска с лапшой",
+ "source": "сторонняя вселенная",
+ "reference": {
+  "work": "Kung Fu Panda",
+  "url": "https://en.wikipedia.org/wiki/Po_(Kung_Fu_Panda)",
+  "basis": "Visual reference for an identifiable third-party character; no claim of release permission."
+ },
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 35,
+ "h": 37,
+ "N": 1228,
+ "colours": 7,
+ "volumes": {
+  "D": {
+   "cells": 275,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 258,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 231,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "Y": {
+   "cells": 165,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "B": {
+   "cells": 121,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "E": {
+   "cells": 90,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 88,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..YY............................Y..",
+  "..YYRRRDDDDRRRRRRRRRRRRRDDDDRRRYY..",
+  ".RYYRRDDDDDDRRDDDDDDDRRDDDDDDRRYYR.",
+  "RRYYRRDDDDDDDDCCCCCCCCDDDDDDDRRYYRR",
+  "RRYYRRDDDDDDCCCCCCCCCCCCDDDDDDRYYRR",
+  "RRYYRRDDDDCCCCCCCCCCCCCCCDDDDRRYYRR",
+  "RRYYRRDDDCCCCCCCCCCCCCCCCCDDDRRYYRR",
+  "RRYYRRRDCCCCCCCCCCCCCCCCCCCDRRRYYRR",
+  "RRYYRRRDCCCDDDCCCCCCCDDDDCCCRRRYYRR",
+  "RRYYRRDCCCDDDDDCCCCCDDDDDDCCRRRYYRR",
+  "RRYYRRDCCDDCCDDCCCCCDDCCDDCCERRYYRR",
+  "RRYYRRDCCDDCDDDDCCCCDDDCCDDCERRYYRR",
+  "RRYYRRCCDDDCDDDCCCCCDDDCCDDEERRRERR",
+  "RRYYRRCCCDDCDDDCCCCCDDDCDDDEERREERR",
+  "RRYYRRDCCDDDDDDCCCCCDDDDDDEEEEEEYRR",
+  "RRYYRRDCCCDDDDCCDDDCCCDDDEECEEEYYRR",
+  "RRYYRRDCCCCCCCCDDDDDCCCCCEECEEEYYRR",
+  "RRYYRRRCCCCCCCCCDDDCCCCCEECCEERYYRR",
+  "RRYYRRRCCCCCCCDDCCCDDCCCEECEERRYYRR",
+  "RRYYRRRRDCCCCCCDDDDDCCCEEEEEERRYYRR",
+  "RRYYRRRDDDCCCCCCDDDCCCCEEEEERRRYYRR",
+  "RRYYRRRDDDDCCCCCCCCCCCEEEEEEERRYYRR",
+  "RRYYRDDDDCCCCCCCYYYYYYEEEEDDDDRYYRR",
+  "RRYYDDDDDCCYYYCCCYYYYYEEEEDDDDDYYRR",
+  "RRYDDDDDDDYYYYYYCCCYYYYCCDDDDDDDYRR",
+  "RRYDDDDDDDYYYYYYYCCCCCCCCDDDDDDDYRR",
+  "RRYDDDDDDDYYYYYYYYYCCCCCCDDDDDDDYRR",
+  "RRYDDDDDDDBBYYYYYYYYYYYBBDDDDDDDYRR",
+  "RRYYDDDDDBBBBBBBBBBBBBBBBBDDDDDYYRR",
+  "RRYYRDDDBBBBBBBBBBBBBBBBBBBBDDRYYRR",
+  "RRYYRREEBBBBBBBBBBBBBBBBBBBBRRRYYRR",
+  "AAYYAAAEBBBBBBBBBBBBBBBBBBBAAAAYYAA",
+  "AAAAAAAABBBBBBBBBBBBBBBBBBAAAAAAAAA",
+  "AAAAAAAAAEEBBBBBBBBBBBBBBAAAAAAAAAA",
+  "AAAAAAAAAAEEEBBBBBBBBBEEEAAAAAAAAAA",
+  ".AAAAAAAAAAEEEEEEEEEEEEEAAAAAAAAAAA",
+  "..............EEEEEEE.............."
+ ]
+}

@@ -1,0 +1,81 @@
+{
+ "code": "P0284",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Кубик из желе",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Игрушки и настольные игры",
+ "direction": "Кулинарная фантастика",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Геометрический кубик сделан из дрожащего желе; три цветные грани; крупная клеточная раскраска; капли у основания",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 21,
+ "h": 24,
+ "N": 382,
+ "colours": 6,
+ "volumes": {
+  "Y": {
+   "cells": 115,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "B": {
+   "cells": 96,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "G": {
+   "cells": 85,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 64,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 15,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 7,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..........Y..........",
+  "........YYYYY........",
+  "......YYYYYYYYD......",
+  "....YYYYYYYYYYDDD....",
+  "..YYYYYYYYYYYYYYYYY..",
+  "DDYYYYYYDDDDYYYYYYYYY",
+  "DYYYYYYYYDDDYYYYYYYYB",
+  "GGGYYYYYYYYYYYYYYYBBB",
+  "GGGCYDDYYYYYYYYYYBBBB",
+  "GGCCGDYYYYYYYYYDBBBBB",
+  "GGCCGDGGYYYYYBBDBBBBB",
+  "DGCCGDGGGYYYBBBDBBBBB",
+  "DDDGGDGGGGGBBBBDBBBBB",
+  "GGGDDDGGGGGBBBBDBBBBB",
+  "GGGGDDGGGGGBBBBDDBBBB",
+  "GGGGGDDDGGGBBBDDBBBBB",
+  "GGGGGDGGDDGBBBBDBBBBB",
+  "GGGGGDGGGDDDBBBDBBBBB",
+  ".GGGGDGGGGGBBBBDBBBB.",
+  "..DDDDGGGRRRBBBDDDD..",
+  "....DDGGGRRRBBBDD....",
+  "......GGGRRRBBB......",
+  "........RRRRR........",
+  "..........R.........."
+ ]
+}

@@ -1,0 +1,101 @@
+{
+ "code": "P0028",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Динозаврик из яйца",
+ "theme": "batch-0011",
+ "family": "Доисторический мир",
+ "subject": "динозаврик вылупляется из яйца",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 40,
+ "N": 750,
+ "colours": 7,
+ "volumes": {
+  "C": {
+   "cells": 291,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 248,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "O": {
+   "cells": 76,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "L": {
+   "cells": 45,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "Y": {
+   "cells": 44,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "M": {
+   "cells": 34,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "D": {
+   "cells": 12,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "....................................",
+  "....................................",
+  "...........CCCCCCCC.................",
+  ".........COOOCCOOOCC................",
+  "........CCOOOCCCOCCC................",
+  "........CCCCCCCCCGCCC...............",
+  ".........CCGCCGCCGCCCGG.............",
+  ".........CGGCGGGGGGGGGGG............",
+  "........MGGGGGGGGGGGGGGG............",
+  ".....MMMGGGGGGGGGGGGGCDGGGG.........",
+  "......MMGGGGGGGGGGGGGDDGGGGGG.......",
+  "........GGGGGGGGGGGGGDDGGGGGGG......",
+  "........GGGGGGGGGGGGGGGGGGGGDG......",
+  "........MGGGGGGGGGGGGGGGGGGGGG......",
+  "......MMMGGGGGGGGGGGGGGGGGGGGG......",
+  "....MMMMMMGGGGGGGGGGGGGGGGGGGG......",
+  ".......MMMM.GGGGGGGGGDGGGGDGG.......",
+  "..........MMGGGGGGGLLLDDDD..........",
+  "............GGGGGGLLLLLL............",
+  "..........MMGGGGGLLLLLLL............",
+  "........MMMMGGGGGLLLLLLL............",
+  ".......MMMMMGGGGGLLLLLLL.YY.........",
+  ".......GGGGMGGGGGLLLLLLLGGGG........",
+  "......GGGGGYGGCCGLLLCCLLGGGG........",
+  "......CGGGCYGCCCCLLCCCCLGGGCCY......",
+  "......CCCCCCCCCCCCCCCCCCCCCCCY......",
+  ".....CCCCCCCCCCCCCCCCCCCCCCCCCY.....",
+  ".....CCCCOOCCCCCCCCCCCCCOOOOCCY.....",
+  ".....CCCOOOOCCCCCCCCCCCCOOOOCCY.....",
+  ".....CCCOOOOCCCCCCCCCCCCOOOOCCY.....",
+  ".....CCCCOOCCCCCCCCCCCCCCCCCCYY.....",
+  ".....CCCCCCCCCCCCOOOCCCCCCCCCYY.....",
+  ".....CCCCCCCCCCCOOOOOCCCCCCCYYY.....",
+  "......CCCCCCCCCCOOOOOCCCCCCCYY......",
+  "......CCCCCCCCCCOOOOOCCCCCCYYY......",
+  ".......CCCCCOOCCCOOOCCCOOOYYY.......",
+  "........CCCOOOOCCCCCCCCOOOYY........",
+  ".........CCOOOOCCCCCCCYOOOY.........",
+  "............OOCCCCYYYYYYY...........",
+  "..............YYYYYYYY.............."
+ ]
+}

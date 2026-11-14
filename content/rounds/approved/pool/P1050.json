@@ -1,0 +1,97 @@
+{
+ "code": "P1050",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Хорнет",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Волшебные существа",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Hollow Knight · Team Cherry: Hornet from Hollow Knight: huge smooth WHITE mask-head with two long swept-up pointed horns and two black oval eye holes, flowing RED cloak over a tiny dark body, one thick SILVER needle held diagonally close to her cloak with a short curled thread. Compact chibi silhouette, mask and horns dominate, no mouth or extra facial features.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 39,
+ "h": 39,
+ "N": 979,
+ "colours": 6,
+ "volumes": {
+  "D": {
+   "cells": 324,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 310,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 272,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "P": {
+   "cells": 31,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "K": {
+   "cells": 21,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "E": {
+   "cells": 21,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..................DCCD..........DCDD...",
+  ".................DCCCD.........DDCDD...",
+  "................DCCCD..........DCCDD...",
+  "...............DCCCCD.........DDCCDD...",
+  "..............DCCCCDD........DDCCCDD...",
+  ".............DDCCCCD........DDCCCCDD...",
+  ".............DCCCCCD.......DDCCCCCD....",
+  "............DCCCCCDD......DDCCCCCCD....",
+  "............DCCCCCDD.....DDCCCCCCCD....",
+  "...........DCCCCCCDD....DDCCCCCCCCD....",
+  "...........DCCCCCCDD..DDCCCCCCCCCD.....",
+  "...........DCCCCCCDDDDCCCCCCCCCCCD.....",
+  "..........DCCCCCCCCDCCCCCCCCCCCCCD.....",
+  "..........DCCCCCCCCCCCCCCCCCCCCCD......",
+  "..........DCCCCCCCCCCCCCCCCCCCCCD......",
+  "..........DCCCCCCCCCCCCCCCCCCCCDD......",
+  "....PPP...DCDCCCCCCCCCCCCCCCCCCD.......",
+  "..PP...P..DDDDCCCCCCCCCCCCCCCCD........",
+  ".P.....P..DDDDDCCCCCCCDDDCCCCDD......DD",
+  ".P.....P..DDDDDCCCCCDDDDDCCCCD.....DDD.",
+  "......PP..DDDDDCCCCDDDDDDCCCD....DDCDD.",
+  ".....RRRD..DDDDCCCCDDDDDCCCD....DDDDD..",
+  ".P...RRRRDDDCDDCCCDDDDDCCCDD..DDCDDD...",
+  ".P...RRRRRRDDCDCCCDDDDCCDD..DDDCDDD....",
+  ".PP..RRRRRRRRDCCCCCDCCDDDD.DDCKKDD.....",
+  "..P..RRRRRRREEDDCCCCDDDRRDDCCKKD..PP...",
+  "...RRRRRRRRREEDEEEERRRRRDDCCKKD.....P..",
+  "...RRDRRRRRRRRDEERRRRRRDCCCKKD.......P.",
+  ".RRRRREEERRRRRRRRRRRRDDCCKKKD...DD...PP",
+  "RRRRRRRRRRRRRRRRRRRRDCCCKKKDD..DRR....P",
+  "RRRRRRRRRRRRRRRRRRRDDDCKKKDRRRRRRRD...P",
+  "RRRRRRRRRRRRRDDRRRDDDDDDKDRRRRRRRRD...P",
+  "RRRRRRRRRRRRRDRRRRDDDDDDDRRRRDRRRD....P",
+  ".RRRRRRRRRRRRRRRRDDDDDDDRRRRRRRDD....PP",
+  ".DRRRRRRRRRRRRRRDDDDDDDDRRRRRRRRD...PP.",
+  "DRRRRRRRRRDDDRDDCKDDDDDDDRRRRRRRRDDD...",
+  ".DDDRRRRDDDDDDCDDKDDDEDDDDRRRRRRRRD....",
+  "..DDDRRREEDDDDCDDKDDDEEDDDRRRRRRRRRD...",
+  "...DDRRRE..DDDCCDDDDDEEDDDDRRRRRRRRRD.."
+ ]
+}

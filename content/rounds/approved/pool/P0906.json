@@ -1,0 +1,108 @@
+{
+ "code": "P0906",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Торт из тюков сена",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Походы и отдых на природе",
+ "direction": "Визуальные каламбуры",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Два крупных золотых тюка сена сложены как праздничный торт, зелёные полосы вместо крема и один большой красный садовый цветок наверху, без свечей",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 42,
+ "h": 42,
+ "N": 1303,
+ "colours": 8,
+ "volumes": {
+  "Y": {
+   "cells": 480,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "M": {
+   "cells": 272,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "O": {
+   "cells": 214,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "R": {
+   "cells": 152,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "G": {
+   "cells": 116,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "C": {
+   "cells": 53,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "A": {
+   "cells": 9,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "D": {
+   "cells": 7,
+   "name": "Земля",
+   "hex": "#334B48"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "......................R...................",
+  ".................CC.RRRR..................",
+  "................RRRRRRRRR.R..CC...........",
+  "..............RRRRRRRRRRRRRRRMM...........",
+  "...........GGRRRRRRRRRRRRRRRRMM...........",
+  "...........GGRRRRRRROOORRRRRRMMMMM........",
+  ".........MMMMRRRRRROOYORRRRRRMMGGGGG......",
+  ".......GGGGGMMRRRRRYYYYRRRRRRRMGGGGD......",
+  ".......GGGGGMRRRRRRROOORRRRRRRMGGG........",
+  "........CGMMMRRRRRRRRRRRRRRRRRMMM.........",
+  ".......OOOMMGRRRRRRRRRRRRRRRRMGGMYY.......",
+  "......YYYOMGGMRRRRRRRRRRRRRRMMGGGYYY......",
+  ".....CYYYYYMMMMMMMRRRRRDRRRMMMMMMYYYA.....",
+  ".....AOYYYYYYYMGGMMMMYYYMMMMMMYYYYYYA.....",
+  ".....AOYYYYYYYYGGGGYYYYYYGGGGGYYYYYYA.....",
+  ".....AOYYYYYYYYGGYYYYYYYYGGGGGYYYYOYA.....",
+  ".....OOOYYYYYYYYYYYYYYYYYMGMMMYYYYOYA.....",
+  ".....OOOYOYYYYYYYYYYYYYYYMGMMMYYYYOYY.....",
+  ".....OOOOOYYYYYYYYYYYYYYYMGMMMYYOYOOO.....",
+  ".....OOOYYOYYYYYYYYYYYYYYYMMMMYYOYOOO.....",
+  "......OOOYOYYYYYYYYYYYYYYYMMMMYYOYOO......",
+  ".....DMOOOOOOYYYYYYYYYYYYOMMMMYOOOOMD.....",
+  "...CCDMMMMOOOOYYYOYYYYOOOOMMMMOOOMMMD.C...",
+  "...COMMMMMMMMMMMOOOYYYOOOMMMMMMGGGMMMMC...",
+  "..CCOOMMMMMMMMMGGGGGGGGGMMGGGGMMGMMMMMYYY.",
+  "..CYYOYMMMMMMMMMMMGGGGGMMMMGGGMMGMMMMYYY..",
+  "..YYYYYYYYMMMMMMMMMGGGMMMMMMMMMMMYYYYYYYY.",
+  ".OOYYYYYYYMMMMMMMMMMGGMMMYMMMMMMYYYYYYYOO.",
+  ".OOYYYYYYGGGGGMYYYYYYYYYYYYMGGGGYYYYYYOOO.",
+  "..OOYOYYYGGGGGYYYYYYYYYYYYYYGGGGYYYYYYOO..",
+  ".OOOYOYYYMMMGGYYYYYYYYYYYYYYGGMGGYYYYOOOO.",
+  ".OOOYOYYYMMMGYYYYYYYYYYYYYYYYMMMMYYYYOOOO.",
+  ".COOYOYYYMMMGYYYYYYYYYYYYYYYYGMMMYYOYOOOO.",
+  ".COOYOYYYMMMMYYYYYYYYYYYYYYYYGMMMYYOOOOO..",
+  ".OOOYOYYOMMMMYYYYYYYYYYYYYOYYGMMMYYYYYOO..",
+  "..OOOYYYOMMMMYYYYYYYYYYYYYOYYMMMMMYYOOOO..",
+  "..OOOOYYOMMMMOYYYYYYYYYYYYOYOMMMMMYOOOOCC.",
+  ".CCOOOOOOMMMMOOYYYYYYYOYYYYYOMMMMMOOOOOCCC",
+  "YYYCCOOOOMMMMOOOOYOYYYOOYYOOOMMMMOOOOOYCC.",
+  "....CYYYMMMMMMOOOOOYYYOOOOOOOMMMMCCCCYYY..",
+  "....YYY..CCCCCCCCOOOAOOOOOOOCDYYYCC....C..",
+  "..................CCCCCCCCC....YYY........"
+ ]
+}

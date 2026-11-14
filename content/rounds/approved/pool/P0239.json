@@ -1,0 +1,102 @@
+{
+ "code": "P0239",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Курица на роликах",
+ "theme": "Смешные и абсурдные герои",
+ "family": "Птицы",
+ "direction": "Обмен ролями",
+ "subject": "рыжая курица несётся на роликовых коньках",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 30,
+ "N": 900,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 415,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "O": {
+   "cells": 144,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "G": {
+   "cells": 134,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "A": {
+   "cells": 77,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "N": {
+   "cells": 42,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "R": {
+   "cells": 32,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 20,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 19,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 17,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSRRRRRSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSRRRRRRRSSSSS",
+  "SSSSSSSSSSSSSSSSSSRRRRRRRSSSSS",
+  "SSSSSSSASSSSSSSSSORRRRRRRSSSSS",
+  "SSSSAAAAASSSSSSSSOOOCCCOOSSSSS",
+  "SSSAAAAAASSSSSSSSOOOCDDOOYSSSS",
+  "SSSSAAAAASSSSSSSOOOOCDDOOYYYSS",
+  "SSSSAAAAAASOOOOOOOOOOOOOOYSSSS",
+  "SCCCAAAAAOOOOOOOOOOOOOOOOSSSSS",
+  "SSSSSAAAOOOAAAAOOOOOOOOORRSSSS",
+  "SSSSSAAOOAAAAAAAAOOOOOOORRSSSS",
+  "SSSSSAOOAAAAAAAAAAOOOOOORRSSSS",
+  "CCCCSSOOAAAAAAAAAOOOOOOOSSSSSS",
+  "SSSSSSOOOAAAAAAAOOOOOOSSSSSSSS",
+  "SSSSSSOOOAAAAAOOOOOOOOSSSSSSSS",
+  "SSSSSSOOOOOOOOOOOOOOOSSSSSSSSS",
+  "SCCCCCSOOOOOOOOOOOOOSSSSSSSSSS",
+  "SSSSSSSSOOOYYOOOYYOSSSSSSSSSSS",
+  "SSSSSSSSSOYYYOOOYYSSSSSSSSSSSS",
+  "SSSSSSSSSSYYSSSSYYYSSSSSSSSSSS",
+  "SSSSSSNNNNNNNSSNNNNNNNSSSSSSSS",
+  "SSSSSSNNNNNNNSSNNNNNNNSSSSSSSS",
+  "SSSSSSNNNNNNNSSNNNNNNNSSSSSSSS",
+  "GGGGGGGDDGDDGGGGDDGDDGGGGGGGGG",
+  "GGGGGGGDDGDDGGGGDDGDDGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG"
+ ]
+}

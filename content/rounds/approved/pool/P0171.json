@@ -1,0 +1,91 @@
+{
+ "code": "P0171",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Мордекай",
+ "theme": "Герои мультсериалов",
+ "family": "Птицы",
+ "subject": "Мордекай, голубая сойка с белым животом, клювом и хохолком",
+ "source": "сторонняя вселенная",
+ "reference": "Обычный мультик — Mordecai",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 28,
+ "h": 34,
+ "N": 952,
+ "colours": 6,
+ "volumes": {
+  "S": {
+   "cells": 463,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "B": {
+   "cells": 152,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "D": {
+   "cells": 133,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "M": {
+   "cells": 116,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "C": {
+   "cells": 74,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 14,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSSSDDSSSSDSSSSSSSSSSSSSS",
+  "SSSSSSSDDSSSDDDSSSSSSSSSSSSS",
+  "SSSSSSSSDBBDDBDDSSSSSSSSSSSS",
+  "SSSSSSSSDBBBBBBDDDSSSSSSSSSS",
+  "SSSSSSSSDBBBBBBBBDDSSSSSSSSS",
+  "SSSSSSSSDBBCBBBBCBBSSSSSSSSS",
+  "SSSSSSSSDBCCCBBCCCBSSSSSSSSS",
+  "SSSSSSSDBBCCCCCCCCBBDSSSSSSS",
+  "SSSSSSSDBBCCDDCDDCBBDSSSSSSS",
+  "SSSSSSSDBBCCDDBDDCBBDSSSSSSS",
+  "SSSSSSSDBBBCBBBBBBBBDSSSSSSS",
+  "SSSSSSSSDBBDDDDDDBBDSSSSSSSS",
+  "SSSSSSSSDBBBDDDDBBBDSSSSSSSS",
+  "SSSSSSSSDDBBBDDBBBDDSSSSSSSS",
+  "SSSSSSSSDBBBBBBBBBBDSSSSSSSS",
+  "SSSSSSSSDBBBBCCBBBBDSSSSSSSS",
+  "SSSSSSSDBBBBCCCCBBBBDSSSSSSS",
+  "SSSSSSSDBBBCCCCCCBBBDSSSSSSS",
+  "SSSSSSSDBBBCCCCCCBBBDSSSSSSS",
+  "SSSSSSSBBBBCCCCCCBBBBSSSSSSS",
+  "SSSSSSSBBBBCCCCCCBBBBSSSSSSS",
+  "SSSSSSNNNBBCCCCCCBBNNNDSSSSS",
+  "SSSSSDNNNBBCCCCCCBBNNNDSSSSS",
+  "SSSSSDDNDBBBCCCCBBBDNDDSSSSS",
+  "SSSSSSSDDBBBCCCCBBBDDSSSSSSS",
+  "SSSSSSSSSBBBBBBBBBSSSSSSSSSS",
+  "SSSSSSSSSSDDDDDDDDSSSSSSSSSS",
+  "SSSSSSSSSSDDDDDDDDSSSSSSSSSS",
+  "SSSSSSSSDDDDDDDDDDDDSSSSSSSS",
+  "MMMMMMMMDDDDDDDDDDDDMMMMMMMM",
+  "MMMMMMMMDDDDDDDDDDDDMMMMMMMM",
+  "MMMMMMMMMMMMMMMMMMMMMMMMMMMM",
+  "MMMMMMMMMMMMMMMMMMMMMMMMMMMM",
+  "MMMMMMMMMMMMMMMMMMMMMMMMMMMM"
+ ]
+}

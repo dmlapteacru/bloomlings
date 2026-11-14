@@ -1,0 +1,106 @@
+{
+ "code": "P0992",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Корзина для одного гигантского пера",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Багаж и навигация",
+ "direction": "Перевёрнутый масштаб",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Одна низкая широкая розовая плетёная корзинка хранит одно огромное синее перо с золотой осью, перо согнуто дугой и занимает почти весь силуэт, без мелкого декора",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 42,
+ "h": 39,
+ "N": 1194,
+ "colours": 8,
+ "volumes": {
+  "N": {
+   "cells": 439,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "P": {
+   "cells": 283,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "R": {
+   "cells": 238,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "B": {
+   "cells": 124,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "D": {
+   "cells": 36,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 35,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 22,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "K": {
+   "cells": 17,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".......................NNNNNBBBBNNNNNNNNN.",
+  ".....................NNBBNNBBBBNNNNNNNNNN.",
+  "...................NNNBBBNBBBBBNNNNNNNNNN.",
+  "..................BBNNBBBBBBBBBNNNNNNNNNNN",
+  ".................BBBNBBBNBBBBBBNNNNNNNNNNN",
+  "................BBBBNBBBNBBBBBNNNNNNNNNNNN",
+  "...............BBBBBNBBBNBBBBNNNNNNN.NNNNN",
+  "...............BBBBBBBBBNBBBNNNNNNNN...NN.",
+  "...............BBBBBBBBBNBBYNNNNNNNN......",
+  ".............NNBBBBNBBBBNNYYNNNNNNNN......",
+  "............NNNBBBBNBBBBNNYNNNNNNNNN......",
+  "...........NNNNBBBBNNBBNNYYNNNNNNNNN......",
+  "........PPPPNNNBBBNNNNBNYYNNNNNNNNNN......",
+  ".....PPPPPPNNNNNBNNNNNNNYYNNNNNNNNNN......",
+  "....PPPPPRRNNNNNNNNNNNNYYNNNNNNNNNNRRR....",
+  "..PPPPRRRRNNNNNNNNNBNNNYYNNNNNNNNNNNRRPP..",
+  ".PPPPRRRRNNNNNNNNNNBNNYYNNNNNNNNNNNRRPPP..",
+  ".PPPRRRRRNBNNNNNNNNBNNYYNNNNNNNNNNNRREPPP.",
+  "EPPPRRRRNNBBNNNNNNNNNYYNNNNNNNNNNNRRREPRR.",
+  "EPPPRRRRNNBBNNNNNNNNYYNNNNNNNNNNNNRRREPPR.",
+  "EPPPRRRENNNBNNNNNNNNYYNNNNNNNNNNNERRPPPPR.",
+  ".PPPPEEENNNNNNNNNNNYYNNNNNNNNNNNNEERPPPPP.",
+  ".PPPPPEENNNNNNNNNNYYNNNNNNNNNNNNNEEPPPRRD.",
+  ".DPPPPPPPNNNNNNNYYYNNNNNNNNNNNNNEEPPPPRR..",
+  "..PPPPPPPPPNNNNYYYYNNNNNNNNNNPPPPPPRPRRD..",
+  "..DRPPRPPPPPKKPPPKKKKKNNKKKPPPPPPPPRRRRD..",
+  "..DRRRRPPPPPPKPPPKKKPPPPKKKPPPPPPPRRRRRD..",
+  "..DRPPRRPRRPPPPPRPPPPPPPPPPPPPPPRRRRRRR...",
+  "...RPPPPPRRRRPPPRPPPPRRPPPPPRRRRRRRRRRD...",
+  "...DRRRPPPPRPRRRRRRRRRRRRRRRRRPPPRRRRRD...",
+  "...DRPPRPPPPPPPPRPPPPPPRPPPPPPPPPRRRRD....",
+  "....DRPRPPRRRPPPPRPPPPPRPPPPRRPPRRRRRD....",
+  "....DRRRPPPRPPPPRRRRPRRRRRRRRPPPPRRRR.....",
+  ".....DRRRPPPPPPPPRPPPPRRPPPPPPPRRRRRD.....",
+  "......RRRRPRRPPPPRPPPPPRPPPPRRRRRRRD......",
+  ".......DRPPPRRRPRRRPRRRRRRRRRRRRRDD.......",
+  ".........DPPRRPPRRPPPPRRRRRRRRRDD.........",
+  "...........DDDDRRRRRPPRRRRRDDDD...........",
+  "..................DEEEDD.................."
+ ]
+}

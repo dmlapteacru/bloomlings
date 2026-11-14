@@ -1,0 +1,95 @@
+{
+ "code": "P1072",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Латник",
+ "theme": "50 героев из игр и мультфильмов — 2026-11-01",
+ "family": "Герои приключений",
+ "direction": "Театр эмоций",
+ "device": "Крупный узнаваемый персонаж и один характерный атрибут",
+ "subject": "Slay the Spire · Mega Crit: The Ironclad: fantasy adventurer with a large clean cream mask with two narrow dark eye slots, brown spiky hair, red scarf, dark teal chest armor and broad red cloak collar, gold shoulder buckle. Calm heroic upper-torso portrait. No weapon.",
+ "source": "сторонняя вселенная",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 33,
+ "h": 33,
+ "N": 1089,
+ "colours": 7,
+ "volumes": {
+  "E": {
+   "cells": 310,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "O": {
+   "cells": 232,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "R": {
+   "cells": 231,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 168,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 95,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "A": {
+   "cells": 34,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "C": {
+   "cells": 19,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "RRRROOOOOOEEEEEEEEEEEEEEEERRRRRRR",
+  "RRRRROOOOOEEEEEEEEEEEEEEEERRRRRRR",
+  "OOORRRROOOEEEEEEEEEEEEEEEERRRRRRR",
+  "OOOORRREEEEEEEEEYYEEEEEEEERERRRRR",
+  "OOOOOROOEEEEEEEYYYYYEEEEEEEERRRRO",
+  "OOOOOOOOOEEEEEOYYYCYYYEEEEEERRROO",
+  "OOOOOOOEEEEEEEOOYYCCYYYEEEEEEROOO",
+  "OOOOOOEEEEEEEDOOOYYCYYYYYEDOOROOO",
+  "OOOOOOEDDEDEEEOOOYYCYYYYYYOOOOOOO",
+  "OOOOOOOEDEEEEEOOYYYCCYYYYYOOOOOOO",
+  "OOOOOOOEEEEEEEDOYYYCCYYYYYOOOOOOO",
+  "OOOOOOEEEEEDEEEOOYYYCYYYYOOOOOOOO",
+  "OOOOOEEDEEEEEEEOOYDDCYYYYOOOOOOOO",
+  "OOOEEEEEEDEEEEEEOYYDDYYYOOOOOOOOO",
+  "OOEEERRRDEEEEEEAOOYCDDYYDOOOOOOOO",
+  "OOEEEERRRREEEEEAAOYCYYYYAOOOOOOOO",
+  "EEEEEEERRRRREEDAAOYCYYYAAOOOOOOOO",
+  "EEEEERRRRRRRRRDDAOOCYYYAEEEOOOOOO",
+  "EERREEEERRRRRRRDDOOYYYYEEEEEEOOOO",
+  "RRRRRRRRRRRREERRROOYYYYDEEEERROOO",
+  "RRRRRRRRRREEEEEERRRYYYDDEEEEREOOO",
+  "RRRRRRRRRRREOOEEERRYYYDDEERREEOOO",
+  "RRRRRRRRRECCOAEEEERRRRRRRRREEOOOO",
+  "RRRREEEEEEOCCAAAEEEERRRRRREEEDEOO",
+  "RREEEEDEEEOOAAAAERREERRRREEEDDEEO",
+  "EEEDDDDDDDOAAAAAEERRRRRREEEEDDRRE",
+  "EEDDDDDDDDDAAAADEEEERRRREEEERRREE",
+  "EODDDDDDDDDDAADDDDDEERRRRRRRRREEE",
+  "OODDDDDDDADDDDDDDDDRRRRRRRRRREEEE",
+  "DDDDDDDDDADDDDDDDDDDRRRRRRRREEEER",
+  "DDDDDDDDAADDDDDDDDDDDDRRRRRREEERR",
+  "DDDDDDDDADDDDDDDDDDDDDDERRRRRRRRR",
+  "DDDDDDDDDDDDDDDDDDDDDDDEEDDRRRRRR"
+ ]
+}

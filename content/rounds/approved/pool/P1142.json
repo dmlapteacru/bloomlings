@@ -1,0 +1,94 @@
+{
+ "code": "P1142",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Сандалия с ромашковой пряжкой",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Одежда и аксессуары",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One big orange summer sandal angled diagonally, cream sole, broad red straps and a single LARGE white-and-gold daisy-shaped buckle. Clean recognizable shoe shape, no foot or beach scenery.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 31,
+ "N": 662,
+ "colours": 7,
+ "volumes": {
+  "C": {
+   "cells": 200,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 192,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "O": {
+   "cells": 180,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "E": {
+   "cells": 64,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "D": {
+   "cells": 17,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "A": {
+   "cells": 5,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 4,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".........................EEEEE....",
+  "......................OOOOOOOOO...",
+  ".....................RRRRRRRRROO..",
+  "................EEEEERRRRRRRRRROE.",
+  "...............RROOOERRRRRRRRRROE.",
+  "...............RROORRRRRR....RRRE.",
+  "..............RROORRRRRR.....RRRE.",
+  ".............RRRORRRRRRRCC..RRRRE.",
+  ".............RRRORRRRCCCCCEERRRRE.",
+  ".............RRRRRRRCCCCCCEERRRRE.",
+  "..............RRRROECCCCYCCCERREE.",
+  ".........EEE..ERROOECCACYCCCERROO.",
+  ".......OOOOOOEEOOOOECCAYYCCCEEOOOE",
+  "......OOOOOOOOOOOOOECCAAACCRREOOCE",
+  ".....ROOOOOORRROOOOOCCCCCCCRREOOCE",
+  "....ERRRROORRRRROOOOCCCCCCCRRRCCCE",
+  "....ERRERRRRRRRRROOOOOEEEERRRRCCCE",
+  "....EREEORRRRRRRROOOOOOOERRRCCCCCD",
+  "...EEOOOOORRRRRRRROOOOOOERCCCCCCC.",
+  "..OOOOOOOOORRRRRRROOOOOOCCCCCCCCC.",
+  ".DOOOOOOOOOORRRRRRROOOOCCCCCCCCC..",
+  "CCOOOOOOOOOOORRRRRROOOCCCCCCCC....",
+  "DCOOOOOOOOOOORRRRRROOCCCCCCC......",
+  "DCCCOOOOOOOOOORRRRROCCCCCCC.......",
+  "DCCCCOOOOOOOOORRRRCCCCCC..........",
+  ".CCCCCCCOOOOOORRCCCCCCCC..........",
+  ".DCCCCCCCCCCCCCCCCCCCCD...........",
+  "..DCCCCCCCCCCCCCCCCCCD............",
+  "....DCCCCCCCCCCCCCCD..............",
+  ".....DDDCCCCCCCCDD................",
+  ".........EEEEED..................."
+ ]
+}

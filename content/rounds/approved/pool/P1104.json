@@ -1,0 +1,83 @@
+{
+ "code": "P1104",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Разрезанный инжир с листом",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Фрукты и ягоды",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One purple fig cut in half, broad cream inner border and a large red teardrop center with only five LARGE gold seed clusters, one thick green leaf behind. No plate or tiny dotted texture.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "4–9",
+  "61+"
+ ],
+ "w": 26,
+ "h": 26,
+ "N": 511,
+ "colours": 6,
+ "volumes": {
+  "V": {
+   "cells": 164,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "R": {
+   "cells": 133,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "C": {
+   "cells": 93,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "G": {
+   "cells": 73,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 25,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "M": {
+   "cells": 23,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "........VV..........MMM...",
+  "........VCC......GGGGGGM..",
+  "........VCCV...GGGGGGGGM..",
+  ".......VVCCVV.GGGGGGGGGM..",
+  "......VVVCCCVVGGGGGGGGGM..",
+  ".....VVVCCCCCCVVGGGGGGGGG.",
+  "....VVVVCCRRRCCVVGGGGGGGGM",
+  "...VVVVCCRRRRRRCCCGGGGGGGM",
+  "..VVVVVCCRRRRRRRCCGGGGGGGM",
+  "..VVVVCCRRRRYYRRRCCGGGGGGM",
+  ".VVVVVCCRRRRYYRRRRCCGGGGMM",
+  "VVVVVVCRRRRRRRRRRRRCCMMMM.",
+  "VVVVVVCRRRYYRRRYYRRRCMMMM.",
+  "VVVVVVCRRRYYYRRYYRRRCCMM..",
+  "VVVVVVCRRRRRRRRRRRRRRCC...",
+  "VVVVVVCCRRRRYRRRYRRRRCC...",
+  "VVVVVVCCRRRYYYRRYYYRRCCV..",
+  "VVVVVVCCRRRYYRRRRYYRRCCV..",
+  ".VVVVVVCCRRRRRRRRRRRRCCV..",
+  ".VVVVVVCCCRRRRRRRRRRRCVV..",
+  ".VVVVVVVCCCRRRRRRRRRCCV...",
+  "..VVVVVVVCCCCCCCCCCCCVV...",
+  "...VVVVVVVVCCCCCCCCCVV....",
+  "....VVVVVVVVVVVVVVVVV.....",
+  "......VVVVVVVVVVVVV.......",
+  ".........VVVVV............"
+ ]
+}

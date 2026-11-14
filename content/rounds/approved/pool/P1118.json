@@ -1,0 +1,85 @@
+{
+ "code": "P1118",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Крабик-отшельник в полосатой раковине",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Морские и пресноводные обитатели",
+ "direction": "Театр эмоций",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One cute orange hermit crab under an enormous cream and purple spiral shell, two giant dark eyes and two broad red claws poking below the FRONT shell opening. Body visibly emerges from shell, no sea.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 23,
+ "h": 24,
+ "N": 430,
+ "colours": 7,
+ "volumes": {
+  "C": {
+   "cells": 158,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 106,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "V": {
+   "cells": 82,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "O": {
+   "cells": 36,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "D": {
+   "cells": 34,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "K": {
+   "cells": 11,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "A": {
+   "cells": 3,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..................CC...",
+  "...........CC..VVVCCC..",
+  "........VVCCCCVVCCCCCV.",
+  "......VVVVVVCCCCCCCCCV.",
+  ".....VVCCVVVVVCCCCCCVV.",
+  "....CCCCCCCCVVVCCCCCCV.",
+  "...CCCCCCCCCCVVVCCCCCV.",
+  "..CCCVVVVCCCCCVVVCCCCCV",
+  "..CCCCVVVVCCCCCVVCCCVCV",
+  ".CCCCCCCCCCCCCCVVVCCVVV",
+  ".CCDDDDDDDCCCCCVVVCCVVV",
+  "CCDDCCCDDDDDCCCCVVCCKVV",
+  "CCDDCDDCCCCCCCCCVVCKKV.",
+  ".CVDCDDDOCDDCADCCVVKKK.",
+  ".VVDCDDCOCDDCAADCVVCKKK",
+  ".VOOOCCOOODDCRRDCCVVCKK",
+  ".ROOOROOOOOCRRRRRRRVCC.",
+  ".RRRRROOOOOORRRRRRRVVV.",
+  "RRRRRRROOOOOORRRRORRV..",
+  "RRRRRRRROORORRRRRORRR..",
+  "RRRRRRRR..RRRRRRRORRR..",
+  ".RRRRRRR..RRRRRRRORRR..",
+  "...RRRRR..RRRRR.RO..R..",
+  ".....RRR...RRR........."
+ ]
+}

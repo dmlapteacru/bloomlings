@@ -1,0 +1,104 @@
+{
+ "code": "P0327",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Журавлик из ночного неба",
+ "theme": "Уютная мистика",
+ "family": "Свет и домашний декор",
+ "direction": "Уютная мистика",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Оригами-журавль сложен из ночи; длинная шея и клюв; два больших бумажных крыла; луна и звезда на сгибах",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 42,
+ "h": 41,
+ "N": 763,
+ "colours": 7,
+ "volumes": {
+  "V": {
+   "cells": 307,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "N": {
+   "cells": 178,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "S": {
+   "cells": 122,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "P": {
+   "cells": 47,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "B": {
+   "cells": 42,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "Y": {
+   "cells": 35,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 32,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "....................................N.....",
+  "..............N....................NNNN...",
+  ".............NNN..................NNYYNN..",
+  ".............NNN..................NVYYYNN.",
+  ".............NBNN................VVVYYYYNN",
+  ".............NBNNN..............NVVVVVVNN.",
+  ".............NBBVN.............NNVVVVNN...",
+  ".............NBBVVV............NVVVVNNN...",
+  ".............NBBVVV...........NVVVVVNNN...",
+  ".............NBBVVVN..........NVVVVVNN....",
+  ".............NBBVVVNN.........NVVVVVNN....",
+  ".............NBBBVVVN........NVVVVVVNN....",
+  ".............NBBBVVVVV.......NVVVVVVNN....",
+  ".............NBBBVVVVV.......NVVVVVVNN....",
+  ".............NBBBVVVVVN....PPNVVVVVVNN....",
+  "............VVVBBBVVVVNN..PPCNVVVVVVN.....",
+  "..........VVVVVVBBVVVVVNPPPPCCVVVVVVN.....",
+  "..........VVVVVVVBVVVVVPPPPCCCCVVVVVN.....",
+  "........YYVVVVVVVBBVVPPPPPPCCCVVVVVVN.....",
+  "........YYVVVVVVVBBVPPPPPPPCNCVVVVVVN.....",
+  ".......YYYVVVVVVVVCPPPSSPPPNNVVVVVVVN.....",
+  "......YYYYYVVVVVVVCCPSSSPPPNVVVVVVVVN.....",
+  "....NNBBYYYYVVVVVVVCCSSSPPPNVVVVVVVVN.....",
+  "...NNBBBYYYYYYVVVVVCCSSSPPPNVVVVVVVVN.....",
+  "..NNBBBVVYYYYVVVVVSSCCSSPPPNVVVVVVVVN.....",
+  ".NNVVVVVVVVVVVVVVSSSSCCSVPPNVVVVVVVNN.....",
+  "NNVVVVVVVVVVVVVVSSSSSCCSVVPNNNNNNNNN......",
+  ".NNNNNNVVVVVVVVSSSSSSSCCVVVVVVVVNNNN......",
+  "......NNNNNNVVSSSSSSSSSCCVVVVVVNN.........",
+  "...........NNSSSSSSSSSSCCVVVVVV...........",
+  "............NSSSSSSSSSSSCVVNN.............",
+  "...........NNSSSSSSSSSSSNNNN..............",
+  "...........NSSSSSSSSSSSNNN................",
+  "...........NSSSSSSSSSSNN..................",
+  "..........NNSSSSSSSSSS....................",
+  "..........NSSSSSSSNN......................",
+  "..........NSSSSSNNN.......................",
+  "..........NSSSNNN.........................",
+  ".........NSSNNN...........................",
+  ".........NNNN.............................",
+  ".........NN..............................."
+ ]
+}

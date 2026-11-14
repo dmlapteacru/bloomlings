@@ -1,0 +1,102 @@
+{
+ "code": "P0084",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Ёжик-повар",
+ "theme": "batch-0061",
+ "family": "Профессии и увлечения",
+ "direction": "Обмен ролями",
+ "subject": "ёжик в поварском колпаке мешает суп в кастрюле половником",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 42,
+ "h": 40,
+ "N": 944,
+ "colours": 7,
+ "volumes": {
+  "E": {
+   "cells": 351,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 288,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 142,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "D": {
+   "cells": 71,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "S": {
+   "cells": 44,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "O": {
+   "cells": 41,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "K": {
+   "cells": 7,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "...............CCCC.......................",
+  "..............CCCCCC......................",
+  "............CCCCCCCCCC....................",
+  "..........CCCCCCCCCCCCCC..................",
+  "..........CCCCCCCCCCCCCC..................",
+  ".........CCCCCCCCCCCCCCCC.................",
+  "..........CCCCCCCCCCCCCC..................",
+  ".....EE...CCCCCCCCCCCCCC..................",
+  "......EE...CCCCCCCCCCCC...................",
+  "......EEE.SSSSSSSSSSSSSS..................",
+  "......EEEESSSSSSSSSSSSSS..................",
+  "......EEEEEEEEEEEKKKCCCC..................",
+  "......EEEEEEEEEEEKKCCCCCC.................",
+  ".EEEEEEEEEEEEEEECCCCCCCCCC................",
+  "..EEEEEEEEEEEEEECCCCCCDCCC................",
+  "..EEEEEEEEEEEEECCCCCCCDCCCC...............",
+  "...EEEEEEEEEEEECCCCCCCCCCCCCCC............",
+  "....EEEEEEEEEEECCCCCCCCCCCCCCC....SS......",
+  "....EEEEEEEEEEEECCCCCCCKKCCCDD....SS......",
+  "...EEEEEEEEEEEEECCCCCCCCCCCCDD......S.....",
+  ".EEEEEEEEEEEEEEEECCCCCCCCCC........SSS....",
+  "EEEEEEEEEEEEEEEEOOOOOOOOEE.........SS.....",
+  ".EEEEEEEEEEEEEEEEOOOOOOEEEE.......SS......",
+  "...EEEEEEEEEEEEEECCOOOEEEEE.......SS......",
+  "....EEEEEEEEEEEECCCCEEEEEEDD......SS......",
+  "....EEEEEEEEEEEECCCEEEEE...DDD............",
+  "...EEEEEEEEEEEECCCEEEECCC.OOOOOOOOOOOO....",
+  "...EEEEEEEEEEEECCCEEECCDDDOOOOOOOOOOOODDD.",
+  "..EEEEEEEEEEEEECCCCCCCCDDDDDDDDDDDDDDDDDD.",
+  ".EEE..EEEEEEEEECCCCCCCCCRRRRRRRRRRRRRRRR..",
+  ".......EEEEEEEECCCCCCCDDDRRRRRRRRRRRRRRDDD",
+  ".......EEEEEEEECCCCCCCDDDRRRRRRRRRRRRRRDDD",
+  "......EEEEEEEEECCCCCCCCCRRRRRRRRRRRRRRRR..",
+  "......EEE....EE.CCCCCCCCRRRRRRRRRRRRRRRR..",
+  "......EE........CCCCCCCCRRRRRRRRRRRRRRRR..",
+  "......E..........CCCCCC.RRRRRRRRRRRRRRRR..",
+  ".............EEEE...EEEERRRRRRRRRRRRRRRR..",
+  "............EEEEEE.EEEEERRRRRRRRRRRRRRRR..",
+  "............EEEEEE.EEEEEERDDDDDDDDDDDDR...",
+  "..........................DDDDDDDDDDDD...."
+ ]
+}

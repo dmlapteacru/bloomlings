@@ -1,0 +1,100 @@
+{
+ "code": "P0237",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Арбуз в шлеме мотоциклиста",
+ "theme": "Смешные и абсурдные герои",
+ "family": "Фрукты и ягоды",
+ "direction": "Визуальные каламбуры",
+ "subject": "полосатый арбуз в красном шлеме едет на маленьком мотороллере",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 32,
+ "h": 28,
+ "N": 896,
+ "colours": 9,
+ "volumes": {
+  "S": {
+   "cells": 394,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "N": {
+   "cells": 112,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "C": {
+   "cells": 87,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "E": {
+   "cells": 76,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "D": {
+   "cells": 74,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "R": {
+   "cells": 66,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "M": {
+   "cells": 40,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "G": {
+   "cells": 38,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "Y": {
+   "cells": 9,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSSSSSSSSSSSSSSSSSSSSSSSS",
+  "SSSSSSSSSRRRRRRRRSSSSSSSSSSSSSSS",
+  "SSSSSSSRRRRRRRRRRRRSSSSSSSSSSSSS",
+  "SSSSSSRRRRRRRRRRRRRRSSSSSSSSSSSS",
+  "SSSSSRRRRRRRRRRRRRRRRSSSSSSSSSSS",
+  "CCCCSRRRRRRRRRRRRRRRRDDDDDDSSSSS",
+  "SSSSSCCCCCCCCCCCCCCCCDDDDDDSSSSS",
+  "SSSSSCCCCCCCCCCCCCCCCDNNNSSSSSSS",
+  "SSSSSGMMCCCCGGMMCCMMGSNNNSSSSSSS",
+  "SCCCCGMMCCCCGGMCCCCMGSNNNSYYYSSS",
+  "SSSSSGMMCCDDGGMCCDDMGSNNNNYYYSSS",
+  "SSSSSGMMCCDDGGMCCDDMGSNNNNYYYSSS",
+  "SSSSSGMMCCCCGGMCCCCMGSNNNNSSSSSS",
+  "CCCCSSMMGGMMGGMMGGMMSSNNNNSSSSSS",
+  "SSSSSSMMGGMMGGMMGGMMSNNNNNSSSSSS",
+  "SSSSSSSMGGDCCCCCDGMSSNNNNNSSSSSS",
+  "SSSSSSNNGGDDDDDDDGNNNNNNNNSSSSSS",
+  "SSSSSNNNNNNNNNNNNNNNNNNNNNNSSSSS",
+  "SSSSSNNNNNNNNNNNNNNNNNNNNNNSSSSS",
+  "SSSSSNNDDDDNNNNNNNNNNNDDDDNSSSSS",
+  "SSSSSSDDDDDDNNNNNNNNNDDDDDDSSSSS",
+  "SSSSSSDDCCDDSSSSSSSSSDDCCDDSSSSS",
+  "EEEEEEDDCCDDEEEEEEEEEDDCCDDEEEEE",
+  "EEEEEEEDDDDEEEEEEEEEEEDDDDEEEEEE",
+  "EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE"
+ ]
+}

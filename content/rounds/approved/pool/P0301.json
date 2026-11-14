@@ -1,0 +1,112 @@
+{
+ "code": "P0301",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Горы из сложенных полотенец",
+ "theme": "50 новых невозможных предметов и миров — 2026-11-01",
+ "family": "Мебель и уютные уголки",
+ "direction": "Уютный сюрреализм",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Полотенца образуют горную цепь; три сложенных слоя с видимыми торцами; снежные треугольные вершины; маленькая табуретка",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 39,
+ "N": 897,
+ "colours": 9,
+ "volumes": {
+  "B": {
+   "cells": 174,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "V": {
+   "cells": 160,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "P": {
+   "cells": 130,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "K": {
+   "cells": 128,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  },
+  "C": {
+   "cells": 91,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "N": {
+   "cells": 72,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "S": {
+   "cells": 71,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "E": {
+   "cells": 47,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "A": {
+   "cells": 24,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".......................NN...........",
+  ".......................NN...........",
+  "...........NN.........CCCN..........",
+  "...........NN.........CCCNN.........",
+  "..........NCCC.......NCCCCN.........",
+  ".........NNCCC......NNCCCCNC........",
+  ".........NCCCCC.....NCCCCCCC........",
+  "........NNCCCCC....CCCCCCCCCC.......",
+  "........NCCCCCCC...CCCCCCCCCC.......",
+  ".......CCCCSSCCC..CCCCCBBCCCCN......",
+  ".......CCCSSSSCSN.CCCBBBBBCCCNN.....",
+  "......SSSSSSSSSSNNBBBBBBBBBBBBN.....",
+  "......SSSSSSSSSSSNBBBBBBBBBBBBNN....",
+  ".....NSSSSSSSSSSSBBBBBBBBBBBBBBN....",
+  "....NNSSSSSSSSSSBBBBBBBBBBBBBBBBB...",
+  "....NSSSSSSSSSSSBBBBBBBBBBBBBBBBB...",
+  "...NSSSSSSSSSSSBBBBBBBBBBBBBBBBBBN..",
+  "...NNNNNNNNNNNNNNNNNNNNNNNNNNNNNNN..",
+  ".......BBKKKKKKKKKKKKKKKKKKBBB......",
+  ".......BBKKKKKKKKKKKKKKKKKKBBB......",
+  ".......BBBBBBBBBBBBBBBBBBBBBBB......",
+  ".......BBBBBBBBBBBBBBBBBBBBBBB......",
+  ".....PPPBBBBBBBBBBBBBBBBBBBBBPP.....",
+  "....PPPPPPPPPPPPPPPPPPPPPPPPPPPP....",
+  "....PPPKKKKKKKKKKKKKKKKKKKKPPPPP....",
+  "....PPKKKKKKKKKKKKKKKKKKKKKPPPPP....",
+  "....PPPPPPPPPPPPPPPPPPPPPPPPPPPP....",
+  "..VVPPPPPPPPPPPPPPPPPPPPPPPPPPPPEEE.",
+  ".VVVVPPPPPPPPPPPPPPPPPPPPPPPPPPVVVEE",
+  "EVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVE",
+  "EVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVE",
+  "EVVVVKKKKKKKKKKKKKKKKKKKKKKKKKVVVVVE",
+  "EVVVKKKKKKKKKKKKKKKKKKKKKKKKKKVVVVVE",
+  "EVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVE",
+  "EEVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVVEE",
+  ".EEEAAAEEEEEEEEEEEEEEEEEEEEEEAAAEEE.",
+  "....AAA......................AAA....",
+  "....AAA......................AAA....",
+  "....AAA......................AAA...."
+ ]
+}

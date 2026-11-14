@@ -1,0 +1,75 @@
+{
+ "code": "P1153",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Тапир с пятнистым платком",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Саванна и джунгли",
+ "direction": "Театр эмоций",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One large baby tapir portrait, rounded dark-blue face, short thick downturned snout, cream cheeks and big eyes, bright orange neck bandana with THREE broad cream spots. No full body or scenery.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 23,
+ "h": 24,
+ "N": 440,
+ "colours": 5,
+ "volumes": {
+  "N": {
+   "cells": 231,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "D": {
+   "cells": 79,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 59,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "O": {
+   "cells": 56,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "K": {
+   "cells": 15,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..DD......NDD..........",
+  ".NNNND..NNNNNNND..NNNN.",
+  "NNNNNNDNNNNNNNNNNNNNNDD",
+  "NKKNNDNNNNNNNNNNNDNNNKD",
+  "NKKKDNNNNNNNNNNNNNNNKKK",
+  ".KKNNNDNNNNNNNNNNDNDKK.",
+  ".DDNNNNNNNNNNNNNNNNNKK.",
+  "..NNNCCCNNNNNNNNNCCND..",
+  "..NNCCDDNNNNNNNNCDDCD..",
+  "..NNCDDDNNNNNNNNDDDCD..",
+  ".NNCCDDDNNNNNNNNDDDCC..",
+  ".NCCCCDDNNNNNNNNDDCCCD.",
+  ".NCCCCCNNNNNNNNNNCCCCC.",
+  ".NCCCCCNNNNNNNNNNDCCC..",
+  "..CCCCNNNDDDNNDNNDCCD..",
+  "..ODNNNNNDDDDNNNNDCD...",
+  ".OOOODNNNNDNNDNNDDD....",
+  ".OOOOOCDDNNNNDDOOOD....",
+  ".OODOOCCOOOOOOCCODND...",
+  "...NNOOOOOCOOOCCONND...",
+  "..NNNNOOOCCOOOOODNNN...",
+  "..NNNNDOOCCOOOODNNNND..",
+  "..NNNNNDOOOOOODDNNNND..",
+  "..........OOO.........."
+ ]
+}

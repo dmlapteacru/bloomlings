@@ -1,0 +1,79 @@
+{
+ "code": "P0405",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Компас показывает на мороженое",
+ "theme": "Путешествия и походы",
+ "family": "Походы и отдых на природе",
+ "direction": "Миры через портал",
+ "device": "Контраст миров по сторонам проёма",
+ "subject": "Компас указывает на рожок вместо севера; круглый золотой ободок; контрастная стрелка; маленький рожок наверху",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 21,
+ "h": 27,
+ "N": 386,
+ "colours": 5,
+ "volumes": {
+  "Y": {
+   "cells": 182,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "C": {
+   "cells": 122,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "P": {
+   "cells": 38,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "O": {
+   "cells": 28,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "B": {
+   "cells": 16,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "........PPPP.........",
+  "......PPPPPPPP.......",
+  "......PPPPPPPP.......",
+  "......PPPPPPPP.......",
+  "......PPPPPPPP.......",
+  ".......OOPPOO........",
+  ".......OOOOOO........",
+  ".....YYYOOOYYYY......",
+  "....YYYYOOOYYYYY.....",
+  "...YYYYYYYYYYYYYYY...",
+  "..YYYYYCCCCCCYYYYY...",
+  ".YYYYYCCCBBCCCCYYYY..",
+  ".YYYYCCCCBBCCCCCYYYY.",
+  "YYYYCCCCCBBCCCCCYYYY.",
+  "YYYCCCCCBBBBCCCCCYYY.",
+  "YYYCCCCCBBBBCCCCCYYY.",
+  "YYYCCCCCBYYBCCCCCYYYY",
+  "YYYCCCCCOYYOCCCCCYYYY",
+  "YYYCCCCCOOOOCCCCCYYY.",
+  "YYYYCCCCCOOCCCCCYYYY.",
+  "YYYYCCCCCOOCCCCCYYYY.",
+  ".YYYYCCCCOOCCCCYYYY..",
+  ".YYYYYCCCCCCCCYYYYY..",
+  "..YYYYYYCCCCYYYYYY...",
+  "...YYYYYYYYYYYYYY....",
+  "....YYYYYYYYYYYY.....",
+  "......YYYYYYYY......."
+ ]
+}

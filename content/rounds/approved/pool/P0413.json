@@ -1,0 +1,90 @@
+{
+ "code": "P0413",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Аммонит с часовым механизмом",
+ "theme": "Доисторические находки",
+ "family": "Доисторический мир",
+ "direction": "Фольклорная фантазия",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "Ископаемая раковина хранит часы; крупная каменная спираль; золотые зубчатые колёса; стрелки в центре",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 34,
+ "h": 32,
+ "N": 882,
+ "colours": 6,
+ "volumes": {
+  "A": {
+   "cells": 476,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "Y": {
+   "cells": 207,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 77,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "S": {
+   "cells": 69,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 40,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "R": {
+   "cells": 13,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..............EEEEEEEEEEE.........",
+  "..........EEEAAAAAAAAAAAAAA.......",
+  "........AAAAAAAAAAAAAAAAAAAEE.....",
+  "......EEAAAAAAAAAYYYAAAAAAAAEE....",
+  ".....EEAAAAAYYYYYYYYYYYYAAAAAEE...",
+  "....AAAAAAYYYYYYYYYYYYYYYYAAAAE...",
+  "...AAAAAAYYYYAAAAAAAAAAYYYYAAAAA..",
+  "..AAAAAAYYYAAAAAAAAAAAAAAYYYAAAA..",
+  "..AAAAAYYYAAAAAAAAAAAAAAAAYYYAAAA.",
+  ".EAAAAYYYAAAAAAAAAAAAAAAAAAYYYAAA.",
+  ".EAAAAYYAAAAAAAAAAAAAAAAAAAAYYAAA.",
+  ".EAAAYYAAAAAAAAAAAAAAAAAAAAAYYAAAE",
+  "EAAAAYYAAAAAAAYYYYYYAAAAAAAAYYAAAE",
+  "EAAAAYYAAAAAAYYYYYYYSAAAAAAAAYYAAE",
+  "EAAAAYYAAAAAYYYAAASRSASAAAAAAYYAAE",
+  "EAAAYYYAAAAAYYAASSSRSSSSAAAAAYYAAE",
+  "EAAAYYAAAAAAYYAASSSRSSSSAAAAAYYAAE",
+  "EAAAYYAAAAAAYYASSSSRSSSSAAAAYYYAAE",
+  ".AAAYYAAAAAAYYSSSSSRRSSSSAAAYYAAAE",
+  ".EAAYYAAAAAAYYSSSSSRRRRSSAAAYYAAAE",
+  ".EAAYYYCCCCAYYSSSSSSSRRRAAAYYYAAAE",
+  ".EAAAYCCCCCCYYYSSSSSSSSSAAAYYAAAA.",
+  "..EAACCCCCCCYYYYSSSSSSSSAYYYAAAAA.",
+  "..EAACCCCCCCCAYYYYSSSYYYYYYAAAAA..",
+  "..EAAACCCCCCAAAYYYYYYYYYYYYYAAAA..",
+  "...AAACCCCCCAAAAAAAAYYYYYYYYAAA...",
+  "....AAACCCYYYYAAYYYYYYYYYYAEE.....",
+  "....AAAAAYYYYYYYYYYYYYYAAAAEE.....",
+  ".....EEAAAAAAAYYAAAAAAAAAAEE......",
+  "......EEAAAAAAAAAAAAAAAEEE........",
+  "........EEEAAAAAAAAEEEE...........",
+  "...........EEEEEEE................"
+ ]
+}

@@ -1,0 +1,98 @@
+{
+ "code": "P0262",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Му Дэнг",
+ "theme": "Мемные и абсурдные герои",
+ "family": "Мемные животные и бытовые ситуации",
+ "direction": "Театр эмоций",
+ "subject": "мокрый детёныш карликового бегемота с широко открытой пастью",
+ "source": "интернет-мем/тренд",
+ "reference": "Moo Deng — Moo Deng",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 30,
+ "h": 30,
+ "N": 900,
+ "colours": 8,
+ "volumes": {
+  "G": {
+   "cells": 300,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "D": {
+   "cells": 254,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "B": {
+   "cells": 139,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "P": {
+   "cells": 126,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "R": {
+   "cells": 32,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "S": {
+   "cells": 21,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  },
+  "C": {
+   "cells": 16,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "K": {
+   "cells": 12,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGGGGGGGGGGGGGGGGGGGGGGGG",
+  "GGGGGGGDDDDGGGGGGGGDDDDGGGGGGG",
+  "GGGGGGGDDDDDDDDDDDDDDDDGGGGGGG",
+  "GGGGGGGDDDCCDDDDDDCCDDDGGGGGGG",
+  "GGGGGGGGDDCCDDDDDDCCDDGGGGGGGG",
+  "GGGGGGGGDDDDDSSSSDDDDDGGGGGGGG",
+  "GGGGGGGGDDDDDDDDDDDDDDGGGGGGGG",
+  "GGGGGDDDDDDDDDDDDDDDDDDDDGGGGG",
+  "GGGGDDDDKKKDDDDDDDDKKKDDDDGGGG",
+  "GGGGDDDDKKKDDDDDDDDKKKDDDDGGGG",
+  "GGGGDDDDDDDDDDDDDDDDDDDDDDGGGG",
+  "GGGDDDDDDDDDDDDDDDDDDDDDDDDGGG",
+  "GGGDDPCCPPPPPPPPPPPPPPCCPDDGGG",
+  "GGGDDPCCPPPPPPPPPPPPPPCCPDDGGG",
+  "GGGDSPPPPPPPPPPPPPPPPPPPPSDGGG",
+  "GGGDSPPPPPPPPPPPPPPPPPPPPSDGGG",
+  "GGGDSDPPPPPPRRRRRRPPPPPPDSDGGG",
+  "GGGDDDPPPPRRRRRRRRRRPPPPDDDGGG",
+  "GGGDDDPPPPRRRRRRRRRRPPPPDDDGGG",
+  "GGGDDDPPPPPPRRRRRRPPPPPPDDDGGG",
+  "GGGDDDDDPPPPPPPPPPPPPPDDDDDGGG",
+  "GGGGDDDDDDDDDDDDDDDDDDDDDDGGGG",
+  "GGGGGDDDDDDDDDDDDDDDDDDDDGGGGG",
+  "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  "BBSSSSSBBBBBBBBBBBBBBBBBBBBBBB",
+  "BBBBBBBBBBBBBBBBBBBBBBSSSSSSBB",
+  "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBB"
+ ]
+}

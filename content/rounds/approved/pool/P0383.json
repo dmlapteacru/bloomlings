@@ -1,0 +1,106 @@
+{
+ "code": "P0383",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Раскопки заводного динозавра",
+ "theme": "Доисторические находки",
+ "family": "Доисторический мир",
+ "direction": "Фольклорная фантазия",
+ "device": "Две узнаваемые формы в одном сюжете",
+ "subject": "В слоях раскопа найден механизм динозавра; рамка квадратного раскопа; костяные рёбра и череп; шестерёнка в животе",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 36,
+ "h": 35,
+ "N": 1221,
+ "colours": 9,
+ "volumes": {
+  "A": {
+   "cells": 381,
+   "name": "Янтарь",
+   "hex": "#A45F28"
+  },
+  "O": {
+   "cells": 239,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "Y": {
+   "cells": 183,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "E": {
+   "cells": 141,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "C": {
+   "cells": 136,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "V": {
+   "cells": 87,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "G": {
+   "cells": 22,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "N": {
+   "cells": 17,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "S": {
+   "cells": 15,
+   "name": "Небо",
+   "hex": "#A8E2F5"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".......G............................",
+  ".EEEEGGGGGGGEEEEEEEEEEEEEEEEEEEEEEE.",
+  "EAAAAGGGGGGGAAAAAAAAAAAAAAAAAAAAAAAE",
+  "EAAAAGGGGGGGAAAAAAAAAAAAAAAAAAAAAAAE",
+  "EAASSSNNAAAAAAAAAAAAAAAAAAAAAAAAAAAE",
+  "EASSSNNAAAAAAAAAAAAAAAAAAAAAAAAAAAAE",
+  "ESSSNNYYYYYYYYYYYYYYYYYYYYYYYYYYAAAE",
+  "ESSNNYYYYYYYYYYYYYYYYYYEEEEEEEEEAAAE",
+  "ENNNYYYYYYYYYYYYYYYYYYYECCCCCCCCAAAE",
+  "EAAAYYYYYYYYYYYYYYYYYYYECCCCNNCCAAAE",
+  "EAAAYYYYYYYYYYYYYYYYYYYECCCCNNNCCAAE",
+  "EAAAYYYYYYYYYYYYYYYYYYYECCCCCNCCCAAE",
+  "EAAAYYYYYYYYYYYYYYYYYYYYCCCCCCCCAAAE",
+  "EAAAYYYYYYYYYCCCCCCCYYYYCCCCCCCCAAAE",
+  "EAAAYYYYYYYCCCCVVCCCCCYCCEEECCOOAAAE",
+  "EAAAYYYYYYCCCVCVVVCVCCCCCCOOOOOOAAAE",
+  "EAAAYYYYYCCCVVVVVVVVVCCCCOOOOOOOAAAE",
+  "EAAAYYYYCCCCVVVVVVVVCCCCOOOOOOOOAAAE",
+  "EAAAYYYCCCCVVVVVVVVVVOOOOOOOOOOOAAAE",
+  "EAAAYYYCCCVVVVVSSVVVVVOOOOOOOOOOAAAE",
+  "EAAAYOCCCCVVVVVSSVVVVVOOOOOOOOOOAAAE",
+  "EAAAOOCCCCCOVVVVVVVVVOOOOOOOOOOOAAAE",
+  "EAAAOOOOOCCOVVVVVVVVVCOOOOOOOOOOAAAE",
+  "EAAAOOOOOCCOVVVVVVVVVCOOOOOOOOOOAAAE",
+  "EAAAOOOOCCCOOOOVVVOVCCCOOOOOOOOOAAAE",
+  "EAAAOOOCCCOOOOOVVOOOOCCCOOOOOOOOAAAE",
+  "EAAAOOCCCOOOOOOOOOOOOOCCCCOOOOOOAAAE",
+  "EAAAOOCCOOOOOOOOOOOOOOOOCCCOOOOOAAAE",
+  "EAAAOOOOOOOOOOOOOOOOOOOOOOOOOOOOAAAE",
+  "EAAAOOOOOOOOOOOOOOOOOOOOOOOOOOOOAAAE",
+  "EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE",
+  "EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE",
+  "EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE",
+  "EAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAE",
+  ".EEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE."
+ ]
+}

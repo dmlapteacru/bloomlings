@@ -1,0 +1,88 @@
+{
+ "code": "P0104",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Огурчик Рик",
+ "theme": "batch-0061",
+ "family": "Овощи и урожай",
+ "subject": "огурец с лицом Рика: моно-бровь и широкая ухмылка",
+ "source": "сторонняя вселенная",
+ "reference": "Рик и Морти — Pickle Rick",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 40,
+ "h": 36,
+ "N": 692,
+ "colours": 5,
+ "volumes": {
+  "G": {
+   "cells": 352,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "M": {
+   "cells": 100,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "L": {
+   "cells": 88,
+   "name": "Лайм",
+   "hex": "#CDEB5E"
+  },
+  "D": {
+   "cells": 82,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 70,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "........................................",
+  "...........................LLLLLLLL.....",
+  "..........................LLLLLGGGLL....",
+  ".........................LLLGGGGGGGGG...",
+  ".......................LLLLMGGGGGGMGGM..",
+  "......................LLLLGGGGGGGGGGGGM.",
+  "..................DDDLLLLGGDDDGGGGGGGGM.",
+  ".................DDDDDDGGDDDDDDGGGGMGGM.",
+  "...................LDDDDDDDDGGGGGGGGGGM.",
+  ".................LCCCCGGGCCCCGGGGGGGGGM.",
+  "................LCCCCCCGCCCCCCGGGGGGMMM.",
+  "...............LLCCCDDCGCDDCCCGGGGGGGMM.",
+  "..............LLLCCCDDCGCDDCCCGGGGGGMMM.",
+  "............LLLLMCCCCCCMCCCCCCMGGGGMMM..",
+  "...........LLLLGGGCCCCGGGCCCCGGGGGMMM...",
+  "..........LLLLGGGGGGGGGGGGGGGGGGGMMM....",
+  ".........LLLGGGGGMGGGGGGMGGGGGGMMMM.....",
+  "........LLLGGGGDGGGGGGGGGGGGGGDMMM......",
+  "......LLLLGGGGGDDDDDDDDDDDDDDDDM........",
+  ".....LLLLGGMGGGGDCCDCCDCCDCCDDM.........",
+  "....LLLGGGGGGGGGGDDDDDDDDDDDDM..........",
+  "...LLLGGGGGGGGGGGGDCCDCCDCCDM...........",
+  "..LLLMGGGGGGMGGGGGGDDDDDDDDM............",
+  ".LLLGGGGGGGGGGGGGGGGGGGMMM..............",
+  ".LLGGGGGGGGGGGGGGGGGGGMMM...............",
+  ".LLGGGMGGGGGGMGGGGGGMMMM................",
+  ".LLGGGGGGGGGGGGGGGGMMMM.................",
+  ".LGGGGGGGGGGGGGGGGMMM...................",
+  ".LGGGGGMGGGGGGMGGMMM....................",
+  ".LGGGGGGGGGGGGGGMMM.....................",
+  ".LLGGGGGGGGGGGMMMM......................",
+  "..LGGGGGMGGGGMMMM.......................",
+  "...GGGGGGGGGMMM.........................",
+  "....MMGGGMMMMM..........................",
+  ".....MMMMMMMM...........................",
+  "........................................"
+ ]
+}

@@ -1,0 +1,108 @@
+{
+ "code": "P0882",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Фламинго на одной пружине",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Птицы",
+ "direction": "Заводная сказка",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Крупный розовый фламинго с изогнутой шеей и большим тёмным клювом стоит на одной толстой золотой пружине вместо ноги, маленькая круглая зелёная площадка",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 35,
+ "h": 37,
+ "N": 1294,
+ "colours": 9,
+ "volumes": {
+  "G": {
+   "cells": 398,
+   "name": "Лист",
+   "hex": "#6DBE45"
+  },
+  "P": {
+   "cells": 250,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "M": {
+   "cells": 231,
+   "name": "Мох",
+   "hex": "#2F7D45"
+  },
+  "B": {
+   "cells": 227,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "E": {
+   "cells": 49,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  },
+  "N": {
+   "cells": 46,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "Y": {
+   "cells": 40,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 31,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "C": {
+   "cells": 22,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "GGGGGGGBBBBBBBBBBBBPPPPPPPBBBBBGGBB",
+  "GGGGGGGBBBBBBBBBBBPPPPPPPPBBBBGGGBB",
+  "GGGGGGGGBGBBMMBBBBPPPPPPPPPBBBGGGGG",
+  "MGGBGGGGGGMMMBBGBEPPPPDDPPCDBBBGGGG",
+  "MMBBBGGMMMMMBBGGGEPPPPDDPCCCDBBBGGG",
+  "MMMBBGGMMMMBGGGGGEPPPPPDPCCCDDBBBGG",
+  "GGEEBGMMMGBBGGMGGGPPPPPPPCCDDDGGBBG",
+  "GGEEBGMMGGGGMMMMGGPPPPPGGCCDDDGGEBG",
+  "GGEEGGMGGGGPPPPPGGGPPPPGGGDDDDGEEBG",
+  "GGEEGMMGGPPPCCPPPPGGPPPPGGGDDDGEEEG",
+  "GMEEGMMMPPPPCCCPPPGGGPPPPGGDDGGEEEG",
+  "GMGGGPPPPPPPPPPPPPPPMMPPPPGDGGGEEEG",
+  "GMGGPPPPPPPPPPPPCPPPMMPPPPMGGGMGEGG",
+  "MMGPPPPPPPPPPPPPCCPPMMPPPPMMGGMGEGG",
+  "MMMPPPPPPPPPPPPPCPPPPPPPPPMMMMMGEMM",
+  "MGGGPPPPPPPPPPPPPPPPPPPPPPMMMMMGEMM",
+  "GGGGPPPPPPPPPPPPPPPPPPPPPMMMMGGGDMM",
+  "GGGMMPPPPPPPPPPPPPPPPPPPMMMGGGGGGMM",
+  "GGGMMMMMPPPPPPPPPPPPPPPMMMGGGGGGGMM",
+  "GGGGMMMMMMPPPPPPPPPPMMMMMGGGGGGGGGM",
+  "GGGGMMMMMMMMMEEEEEEMMMMMMGGGGGMMGGG",
+  "MGGGGMMMMMMMMYYYEEEMMMMMGGGGGMMMGGG",
+  "MGGMGGDMNNNNNYYYEEENNNNMGGGGMMMGGMM",
+  "MGGMGGBNNNNNNDYYYYNNNNNGGGGMMMMGGMM",
+  "MGGMMBBBGGBBBCCEEEBBBNNGGGBMMMMGMMG",
+  "GDGGGGGGGGGBBYYYYYBBBBBBGDBBMMGGMGG",
+  "GGGGGBBMMMBBBYYYYYBBBBBBBBNNMMGGMGG",
+  "GGGGGBBBBBBBBEEYYDBBBBBBBBBNNNBBBBG",
+  "MMMBBBBBBBGGGEEYYYGGGGBBBBBBNNGGGGG",
+  "NBBBBBBGGGGGGEYYYYGGGGGGGBBNNBGGGGG",
+  "NNBBBGGGGGGGGYYYYYYMMGGGGGBBBBBGGGG",
+  "MBBBMGGGGGGGGGYYYYYMMGGGGGGBBBNNNNN",
+  "MMBBMGGGGGGGGGGMMMMGGGGGGGGMBBBNNNN",
+  "MMBBMMMGGGGGGGGGGGGGGGGGGGMMNBBBGGG",
+  "MBBBBBMMGGGGGGGGGGGGGGGMMMMNNBBBGGG",
+  "BBBBBBBBBMMMMMMMMMMMMMMMMBBBBBBBMMM",
+  "BBBBBBBBBBBBBBMMMMMMM.BBBBBBBBBBBBB"
+ ]
+}

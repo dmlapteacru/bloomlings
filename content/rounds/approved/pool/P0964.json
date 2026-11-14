@@ -1,0 +1,93 @@
+{
+ "code": "P0964",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Клубок с лестницей из нитки",
+ "theme": "100 новых картинок основной кампании — 2026-11-01",
+ "family": "Рисование и ремёсла",
+ "direction": "Невесомый мир",
+ "device": "Один крупный смысловой центр; компактная диорама",
+ "subject": "Один большой розовый клубок выпускает широкую вязаную синюю лесенку, которая заворачивается обратно на вершину клубка, две золотые спицы образуют короткие опоры",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "10–24",
+  "25–60",
+  "61+"
+ ],
+ "w": 38,
+ "h": 35,
+ "N": 964,
+ "colours": 6,
+ "volumes": {
+  "P": {
+   "cells": 525,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "N": {
+   "cells": 235,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "B": {
+   "cells": 139,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "Y": {
+   "cells": 38,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "R": {
+   "cells": 15,
+   "name": "Ягода",
+   "hex": "#D8394B"
+  },
+  "E": {
+   "cells": 12,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  ".......YYYY...BBBBBNNNNNN....YYYYY....",
+  ".......YYYY..NNNNBBB.NNNNBB..YYYY.....",
+  ".......EEEYY.NNPPBBBBPPNNBBB.YYY......",
+  ".........EYYPPPPPPNBBPPNNNBBYYY.......",
+  ".........EYYPPPPPPNBBBBBBBNNNYY.......",
+  ".........PYYPPPPPPNNBNBNNNNNNPPP......",
+  "........PPYYYPPPPPPNNNNNNPNNNPPPP.....",
+  ".......PPPPYYPPPPPPNBBNPPPPNNPPPP.....",
+  "......PPPPPPPPPPPPPNBBNNNBBBBBNPPP....",
+  ".....PPPPPPPPPPPPPPPNBBBBBBBBBNPPP....",
+  ".....PPPPPPPPPPPPPPPNBBNNNNNNNNPPPP...",
+  "....PPPPPPPPPPPPPPPPNNBNNNNNNNBBPPP...",
+  "....PPPPPPPPPPPPPPPPNNBNPPPPNNBBPPPP..",
+  "...PPPPPPPPPPPPPPPPPPNBNPBBBBBBBPPPP..",
+  "...PPPPPPPPPPPPPPPPPPNBBBBBBBBNBNPPP..",
+  "...PPPPPPPPPPPPPPPPPPNBBNNNNNNNNNPPP..",
+  "...PPPPPPPPPPPPPPPPPPNNNNNNNNNNBNRRPP.",
+  "...PPPPPPPPPPPPPPPPPPNBBNPPPPNNBBRRRP.",
+  "...PPPPPPPPPPPPPPPPPPPNBBPPPPNNBBRRPP.",
+  "...PPPPPPPPPPPPPPPPPPPNBNNNNBBBBBNPPP.",
+  "...PPPPPPPPPPPPPPPPPPPNBBBBBBNNNBNPP..",
+  "...PPPPPPPPPPPPPPPPPPPNNBNNNNNNNNNPP..",
+  "....PPPPPPPPPPPPPPPPPPNNNNNNPPNNBBPP..",
+  "....PPPPPPPPPPPPPPPPPPPBBNPPPRNNBBPP..",
+  "....PPPPPPPPPPPPPPPPPPPNBBRRRRNNNNN...",
+  ".....PPPPPPPPPPPPPPPPPPNBBNNNBBNNNN...",
+  ".....PPPPPPPPPPPPPPPPPPNNBBBBBBBBNNN..",
+  "......PPPPPPPPPPPPPPPPPNNBBNNNNNNNBN..",
+  "P......PPPPPPPPPPPPRRRPNNNNNNNNPNNBBBB",
+  "P.......PPPPPPPPPPPPPPPNNBBNNPPPPNNNBB",
+  "P........PPPPPPPPPPPPPPNNNBBNNNNNBBNNB",
+  "...........EEEEPPPPPEEE.NNNBBNNNBBBNNN",
+  ".........................NNNNNNNNNNNNN",
+  "..........................NNNNNNNNNN..",
+  "............................NNN......."
+ ]
+}

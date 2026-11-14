@@ -1,0 +1,86 @@
+{
+ "code": "P1139",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Розовая поясная сумка",
+ "theme": "100 простых читаемых картинок — 2026-11-02",
+ "family": "Одежда и аксессуары",
+ "direction": "Геометрическая фантазия",
+ "device": "Один крупный узнаваемый силуэт; широкие цветовые области",
+ "subject": "One broad pink waist bag with a large blue front zipper panel, gold chunky zipper pull and thick purple strap looping tightly above. Large rounded silhouette, no text or fabric texture.",
+ "source": "оригинальный",
+ "locked": null,
+ "stages": [
+  "61+"
+ ],
+ "w": 28,
+ "h": 25,
+ "N": 487,
+ "colours": 7,
+ "volumes": {
+  "P": {
+   "cells": 167,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "B": {
+   "cells": 119,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "V": {
+   "cells": 87,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "Y": {
+   "cells": 33,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "D": {
+   "cells": 28,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "N": {
+   "cells": 28,
+   "name": "Глубина",
+   "hex": "#2C5AA8"
+  },
+  "E": {
+   "cells": 25,
+   "name": "Кора",
+   "hex": "#6A3A1E"
+  }
+ },
+ "approvedAt": "2026-11-01",
+ "rows": [
+  "..................DDVV......",
+  "..............DDDDDDVVVVV...",
+  "..........VVVVDDDDDDVVVVVV..",
+  "......VVVVVVVVDDDDDDVVVVVVV.",
+  "....VVVVVVVVVVDDDDDD...VVVV.",
+  "...VVVVVVVVVV..D.........VVE",
+  "..VVVVVVV..............PPVPE",
+  ".VVVVV..........EEEPPPPPPPPE",
+  "VVVV......EEEPPPPPPPPPPPPPPE",
+  "VVVVEEEEPPPPPPPPPPPPPPPPPPPE",
+  "VVVPPPPPPPPPPPPPPPPPPBBBPPP.",
+  "VVVPPPPPPPPPPNNNBBBBBBBBYPPP",
+  ".VVPPPPPPPBBBBBBBBNNNYYYYPPP",
+  ".DPPPPPPNYYYNNNNYYYYYYYYBBPP",
+  "..PPPPPPNYYYYYYYYNNNBBBBBBPP",
+  "...PPPPPNEYYYNNNNBBBBBBBBBPP",
+  "....PPPPNEYYBBBBBBBBBBBBBBP.",
+  "....PPPPNEYYBBBBBBBBBBBBBBB.",
+  ".....PPPNEYYBBBBBBBBBBBBBBB.",
+  ".....PPPNBBBBBBBBBBBBBBBPBB.",
+  "......PPPBBBBBBBBBBBBBPPPP..",
+  ".......PPPBBBBBBBBBPPPPPP...",
+  "........PPPNNNNPPPPPPPPP....",
+  ".........PPPPPPPPPPPP.......",
+  "..........EEEEEE............"
+ ]
+}

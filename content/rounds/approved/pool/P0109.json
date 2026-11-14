@@ -1,0 +1,95 @@
+{
+ "code": "P0109",
+ "state": "free",
+ "usedBy": null,
+ "version": 1,
+ "title": "Немо",
+ "theme": "batch-0061",
+ "family": "Морские и пресноводные обитатели",
+ "subject": "оранжево-белая рыба-клоун с чёрной окантовкой и маленьким счастливым плавником у актинии",
+ "source": "сторонняя вселенная",
+ "reference": "В поисках Немо — Nemo",
+ "locked": null,
+ "stages": [
+  "25–60",
+  "61+"
+ ],
+ "w": 36,
+ "h": 29,
+ "N": 1044,
+ "colours": 8,
+ "volumes": {
+  "B": {
+   "cells": 482,
+   "name": "Вода",
+   "hex": "#36B7DA"
+  },
+  "O": {
+   "cells": 144,
+   "name": "Тыква",
+   "hex": "#EF8A32"
+  },
+  "C": {
+   "cells": 131,
+   "name": "Жемчуг",
+   "hex": "#F5E6BD"
+  },
+  "D": {
+   "cells": 127,
+   "name": "Земля",
+   "hex": "#334B48"
+  },
+  "Y": {
+   "cells": 66,
+   "name": "Солнце",
+   "hex": "#F6CB3E"
+  },
+  "P": {
+   "cells": 35,
+   "name": "Лепесток",
+   "hex": "#EB799C"
+  },
+  "V": {
+   "cells": 33,
+   "name": "Слива",
+   "hex": "#7851A5"
+  },
+  "K": {
+   "cells": 26,
+   "name": "Румянец",
+   "hex": "#F9C6D6"
+  }
+ },
+ "approvedAt": "2026-10-26",
+ "rows": [
+  "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  "BBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBBB",
+  "BBBBBBBBBBBBDDDCCCCDBBBBBBBBBBBBBBBB",
+  "BBBBBBBBBBBDOODCCCCDBBBBBBBBBBBBBBBB",
+  "BBBBBBBBBBCDOOODCCCCDBBBBBBBBBBBBBBB",
+  "BBBBBBBBBBCDOOODCCCCDBBBBBBBBBBBDBBB",
+  "BBBBBBBDCCCDOOODCCCCDOOBBBBBBBBDDDBB",
+  "BBBBBBODCCCDOOODCCCCDOOOBBBBBBDOODBB",
+  "BBBBBOOODCCCDOOODCCCCDOOOBBBBDOOODDB",
+  "BBBBOCCODCCCDOOODCCCCDOOODBBDOOOODBB",
+  "BBBOCDDCDCCCDOOODCCCCDOOODCDOOOODBBB",
+  "BBBOCDDCDCCCDOOODCCCCDOOODCDOOODDBBB",
+  "BBBOOCCODCCCDOOODCCCCDOOODCDOOODBBBB",
+  "BBBOOOOODCCCDOOODCCCCDOOODCDOOODDBBB",
+  "BBBOOOOODCCCDDDDDCCCCDOOODCDOOOODBBB",
+  "BBBBOOOODCCCDDOODCCCCDOOODBBDOOOODBB",
+  "BBBBBOOODCCCDDDDDCCCCDOOOBBBBDOOODDB",
+  "BBBBBBODCCCDOOODCCCCDOOOBBBBBBDOODBB",
+  "BBBBBBBDCCCDOOODCCCCDOOBBBBBBBBDDDBB",
+  "BBBBBBBBBBCDOOODCCCCBBBBBBBBBBBBDBBB",
+  "BBBBBBBBBBBBDDDDCCBBBBBBBBBBBBBBBBBB",
+  "BBBBBBBBBBBBBDDCCKKBBBBBBBBKKBBBBBBB",
+  "BBBBBBBBBBBBBDDBBKKBBKKKBBKKKKBBBBBB",
+  "BBBBBBBBBBBBBBBBBPPBBKKKKBPKKKBBKKBB",
+  "BBBBBBBBBBBBBBBBBBPPBPKKPBPPPPBBKKBB",
+  "BBBBBBBBBBBBBBBBBBPPVPPPPVPPPPVPPBBB",
+  "YYYYYYYYYYYYYYYYYYPPVPPPPVPPPPVPPVYY",
+  "YYYYYYYYYYYYYYYYYYVVVVVVVVVVVVVVVVYY",
+  "YYYYYYYYYYYYYYYYYYYYYVVVVVVVVVVYYYYY"
+ ]
+}
